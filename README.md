@@ -24,12 +24,12 @@ termination of this license and may result in criminal and/or civil prosecution.
 The source code and libraries provided in this repository (including references to external libraries) is provided open and without charge for the following uses:
 
 * For **Personal evaluation**. Personal evaluation means evaluating the code, its libraries and underlying technologies, including learning about underlying technologies.
-Redistribution of artefacts or source code requries attribution to the original source code repository, as well as a license agreement including provisions equivalent
-to this license agreement.
+Redistribution of artefacts or source code requries attribution to the [original source code repository](https://github.com/Trust-Anchor-Group/XamarinApp), as well as a 
+license agreement including provisions equivalent to this license agreement.
 
 * For **Academic use**. This includes research projects, student projects or classroom projects. Redistribution of artefacts or source code requries attribution to the 
-original source code repository, as well as a license agreement including provisions equivalent to this license agreement. Attribution and reference in published articles 
-is encouraged. If access to other technologies based on IEEE P1451.99 is desired, please [contact Trust Anchor Group AB](#contact).
+[original source code repository](https://github.com/Trust-Anchor-Group/XamarinApp), as well as a license agreement including provisions equivalent to this license agreement. 
+Attribution and reference in published articles is encouraged. If access to other technologies based on IEEE P1451.99 is desired, please [contact Trust Anchor Group AB](#contact).
 
 * For **Security analysis**. If you perform any security analysis on the code, to see what security aspects the code might have, all we request of you, is that you 
 maintain the information in a confidential manner, inform us of any findings privately, with sufficient anticipation, before publishing your findings, in accordance 
@@ -38,7 +38,8 @@ any vulnerabilities you have found. Such contributions are much appreciated and 
 such as issues here on GitHub, counts as publishing, and not private.)
 
 * For **Commercial use**. Use of the white-label TAG Xamarin App for commercial use is permitted. Replication and re-publication of source code is permitted with
-attribution to the original source code repository (this repository), as well as a license agreement including provisions equivalent to this license agreement.
+attribution to the [original source code repository](https://github.com/Trust-Anchor-Group/XamarinApp), as well as a license agreement including provisions equivalent 
+to this license agreement.
 
 **Note**: All rights to the source code are reserved and exclusively owned by Trust Anchor Group AB. Any contributions made to the TAG Xamarin App repository 
 become the intellectual property of Trust Anchor Group AB.
