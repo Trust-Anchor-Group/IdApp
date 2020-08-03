@@ -33,7 +33,8 @@ please [contact Trust Anchor Group AB](#contact).
 * For **Security analysis**. If you perform any security analysis on the code, to see what security aspects the code might have, all we request of you, is that you 
 maintain the information in a confidential manner, inform us of any findings privately, with sufficient anticipation, before publishing your findings, in accordance 
 with *ethical hacking* guidelines. By informing us at least forty-five (45) days before publication of the findings, you provide us with sufficient time to address 
-any vulnerabilities you have found. Such contributions are much appreciated and will be acknowledged.
+any vulnerabilities you have found. Such contributions are much appreciated and will be acknowledged. (Note that informing us about vulnerabilities in public fora,
+such as issues here on GitHub, counts as publishing, and not private.)
 
 * For **Commercial use**. Use of the white-label TAG Xamarin App for commercial use is permitted. Replication and re-publication of source code is permitted with
 attribution to the original source code repository (this repository).
