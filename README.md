@@ -56,3 +56,6 @@ The TAG Xamarin App is © Trust Anchor Group AB 2019-2020. All rights reserved.
 ## Project overview
 
 ## Contact
+
+You can choose to contact us via our [online feedback form](https://tagroot.io/Feedback.md), via [company e-mail](info@trustanchorgroup.com), or the
+[author directly](https://www.linkedin.com/in/peterwaher/).
