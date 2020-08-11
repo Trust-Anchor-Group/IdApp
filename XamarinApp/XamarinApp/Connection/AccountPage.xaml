@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinApp"
+             x:Class="XamarinApp.Connection.AccountPage">
+    <ScrollView x:Name="ScrollView">
+        <StackLayout Margin="10">
+            <Label Text="Choose Account" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
+            <Label x:Name="Introduction" Text="To connect to {Binding Domain}, you need an account. Do you want to create one, or use an existing account?" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <Button x:Name="CreateNewButton" Text="Create New" Clicked="CreateNewButton_Clicked" IsEnabled="True"/>
+            <Button x:Name="UseExistingButton" Text="Use Existing" Clicked="UseExistingButton_Clicked" IsEnabled="True"/>
+            <Label x:Name="AccountNameLabel" Text="Account:" IsVisible="False"/>
+            <Entry x:Name="AccountName" Text="{Binding Account}" IsVisible="False" Completed="AccountName_Completed"/>
+            <TableView x:Name="SwitchTable" Intent="Form" IsVisible="False">
+                <TableRoot>
+                    <TableSection>
+                        <SwitchCell x:Name="RandomPassword" Text="Random password" On="true" OnChanged="RandomPassword_OnChanged" />
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Label x:Name="PasswordLabel" Text="Password:" IsVisible="False"/>
+            <Entry x:Name="Password" IsVisible="False" IsPassword="True" Completed="Password_Completed"/>
+            <Label x:Name="RetypePasswordLabel" Text="Retype Password:" IsVisible="False"/>
+            <Entry x:Name="RetypePassword" IsVisible="False" IsPassword="True" Completed="RetypePassword_Completed"/>
+            <ActivityIndicator x:Name="Connecting" IsVisible="False" IsRunning="False"/>
+            <Button x:Name="CreateButton" Text="Create" Clicked="CreateButton_Clicked" IsVisible="False"/>
+            <Button x:Name="ConnectButton" Text="Connect" Clicked="ConnectButton_Clicked" IsVisible="False"/>
+            <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked" IsEnabled="True"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

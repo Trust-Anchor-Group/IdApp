@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinApp.MainMenu.Contracts.ViewContractPage">
+    <ScrollView x:Name="ScrollView">
+        <StackLayout Margin="10">
+            <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">
+                <TableView.Root>
+                    <TableSection x:Name="GeneralInformation">
+                        <ViewCell>
+                            <Label Text="General Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Label Text="Following is some general information about the contract." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="QrCodeSection">
+                        <ViewCell>
+                            <Image x:Name="QrCode" IsVisible="False" WidthRequest="350" HeightRequest="350"/>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="Roles">
+                        <ViewCell>
+                            <Label Text="Roles" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Label Text="Below you can see the different roles defined for the contract. If more than one part is assumed for a role, this number will be shown in the description of the role." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="Parts">
+                        <ViewCell>
+                            <Label Text="Parts" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Label Text="The (expected) parts defined for the contract is listed below." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="Parameters">
+                        <ViewCell>
+                            <Label Text="Parameters" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Label Text="Contract parameters are shown below, together with their corresponding values." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="HumanReadableSection">
+                        <ViewCell>
+                            <Label Text="Human Readable Text" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout x:Name="HumanReadableText" Orientation="Vertical" Spacing="0"/>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="MachineReadableSection">
+                        <ViewCell>
+                            <Label Text="Machine Readable Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Label Text="An overview of the machine-readable data embedded in the contract is shown below." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="ClientSignatures">
+                        <ViewCell>
+                            <Label Text="Client Signatures" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Label Text="Cryptographic signatures made by different parts are listed below." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="ServerSignature">
+                        <ViewCell>
+                            <Label Text="Server Signature" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Label Text="The integrity of the contract is protected by the server signature shown below." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="ButtonSection">
+                        <ViewCell>
+                            <Button Text="Back" Clicked="BackButton_Clicked"/>
+                        </ViewCell>
+                    </TableSection>
+                </TableView.Root>
+            </TableView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

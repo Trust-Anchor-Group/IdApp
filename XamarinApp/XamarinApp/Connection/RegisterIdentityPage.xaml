@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinApp"
+             x:Class="XamarinApp.Connection.RegisterIdentityPage">
+    <ScrollView x:Name="ScrollView">
+        <StackLayout x:Name="RegistrationLayout" Margin="10">
+            <Label Text="Personal/Legal Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
+            <Label x:Name="Introduction" Text="To be able to get a wallet, perform transactions and sign smart contracts, you need an attested personal or legal identity assigned to your account." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <Label Text="First Name:" />
+            <Entry x:Name="FirstNameEntry" Text="{Binding FirstName}" Completed="FirstName_Completed"/>
+            <Label Text="Middle Name(s):" />
+            <Entry x:Name="MiddleNamesEntry" Text="{Binding MiddleNames}" Completed="MiddleNames_Completed"/>
+            <Label Text="Last Name(s):" />
+            <Entry x:Name="LastNamesEntry" Text="{Binding LastNames}" Completed="LastNames_Completed"/>
+            <Label Text="Personal Number:" />
+            <Entry x:Name="PNrEntry" Text="{Binding PNr}" Completed="PNr_Completed"/>
+            <Label Text="Address:" />
+            <Entry x:Name="AddressEntry" Text="{Binding Address}" Completed="Address_Completed"/>
+            <Label Text="Address (row 2):" />
+            <Entry x:Name="Address2Entry" Text="{Binding Address2}" Completed="Address2_Completed"/>
+            <Label Text="ZIP or Postal Code:" />
+            <Entry x:Name="PostalCodeEntry" Text="{Binding PostalCode}" Completed="PostalCode_Completed"/>
+            <Label Text="Area:" />
+            <Entry x:Name="AreaEntry" Text="{Binding Area}" Completed="Area_Completed"/>
+            <Label Text="City:" />
+            <Entry x:Name="CityEntry" Text="{Binding City}" Completed="City_Completed"/>
+            <Label Text="Region or State:" />
+            <Entry x:Name="RegionEntry" Text="{Binding Region}" Completed="Region_Completed"/>
+            <Label Text="Country:" />
+            <Entry x:Name="CountryEntry" Text="{Binding Country}" Completed="Country_Completed"/>
+            <Label Text="Device ID:" />
+            <Entry x:Name="DeviceIDEntry" Text="{Binding DeviceID}" IsReadOnly="True"/>
+            <Button x:Name="AddPhoto" Text="Add Photo" Clicked="AddPhotoButton_Clicked" IsEnabled="{Binding CanTakePhoto}"/>
+            <ActivityIndicator x:Name="Connecting" IsVisible="False" IsRunning="False"/>
+            <Button x:Name="RegisterButton" Text="Register" Clicked="RegisterButton_Clicked"/>
+            <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

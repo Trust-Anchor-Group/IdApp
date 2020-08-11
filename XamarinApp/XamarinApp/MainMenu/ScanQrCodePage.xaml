@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinApp"
+             x:Class="XamarinApp.MainMenu.ScanQrCodePage"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+    <ScrollView x:Name="ScrollView">
+        <StackLayout Margin="10">
+            <Grid x:Name="ScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="True">
+                <zxing:ZXingScannerView x:Name="Scanner"
+                                        OnScanResult="Scanner_OnScanResult"
+                                        IsScanning="True"
+                                        WidthRequest="300"
+                                        HeightRequest="500"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"/>
+                <zxing:ZXingDefaultOverlay TopText="Align the QR-Code within the frame"/>
+            </Grid>
+            <StackLayout x:Name="ManualGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="False">
+                <Label Text="Link:" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="Link" HorizontalOptions="Fill"/>
+                <Button x:Name="ManualButton" Text="Open" HorizontalOptions="FillAndExpand" Clicked="ManualButton_Clicked"/>
+            </StackLayout>
+            <Button x:Name="ModeButton" Text="Enter Manually" Clicked="ModeButton_Clicked"/>
+            <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
