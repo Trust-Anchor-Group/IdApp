@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using Xamarin.Forms;
-using Waher.Content;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Waher.Runtime.Temporary;
 
 namespace XamarinApp.Connection
 {
