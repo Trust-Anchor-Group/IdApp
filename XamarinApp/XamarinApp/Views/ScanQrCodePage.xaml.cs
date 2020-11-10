@@ -5,7 +5,7 @@ using Xamarin.Forms;
 using XamarinApp.Services;
 using ZXing;
 
-namespace XamarinApp.MainMenu
+namespace XamarinApp.Views
 {
 	[DesignTimeVisible(true)]
 	public partial class ScanQrCodePage : ContentPage, IBackButton

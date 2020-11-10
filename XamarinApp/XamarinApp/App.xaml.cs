@@ -6,8 +6,8 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms.Internals;
-using XamarinApp.Connection;
-using XamarinApp.MainMenu;
+using XamarinApp.Views.Registration;
+using XamarinApp.Views;
 using XamarinApp.Services;
 using XamarinApp.Views.Contracts;
 using Log = Waher.Events.Log;
@@ -113,7 +113,7 @@ namespace XamarinApp
 							{
 								TagService.Configuration.Step++;
 								TagService.UpdateConfiguration();
-								Page = new Connection.IdentityPage();
+								Page = new Views.Registration.IdentityPage();
 								break;
 							}
 						}
@@ -123,7 +123,7 @@ namespace XamarinApp
 					break;
 
 				case 3:
-					Page = new Connection.IdentityPage();
+					Page = new Views.Registration.IdentityPage();
 					break;
 
 				case 4:
@@ -202,7 +202,7 @@ namespace XamarinApp
 			try
 			{
 				LegalIdentity Identity = await TagService.Contracts.GetLegalIdentityAsync(LegalId);
-				App.ShowPage(new MainMenu.IdentityPage(instance.MainPage, Identity), true);
+				App.ShowPage(new Views.IdentityPage(instance.MainPage, Identity), true);
 			}
 			catch (Exception)
 			{

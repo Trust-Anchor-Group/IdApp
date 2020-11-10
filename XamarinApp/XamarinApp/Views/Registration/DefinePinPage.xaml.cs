@@ -3,7 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using XamarinApp.Services;
 
-namespace XamarinApp.Connection
+namespace XamarinApp.Views.Registration
 {
     [DesignTimeVisible(true)]
     public partial class DefinePinPage : ContentPage, IBackButton

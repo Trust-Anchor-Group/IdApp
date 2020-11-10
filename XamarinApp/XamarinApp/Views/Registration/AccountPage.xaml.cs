@@ -9,7 +9,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;
 
-namespace XamarinApp.Connection
+namespace XamarinApp.Views.Registration
 {
 	[DesignTimeVisible(true)]
 	public partial class AccountPage : ContentPage, IBackButton

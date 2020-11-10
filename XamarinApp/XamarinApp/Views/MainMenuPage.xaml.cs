@@ -5,7 +5,7 @@ using XamarinApp.Views.Contracts;
 using Waher.Networking.XMPP;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu
+namespace XamarinApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainMenuPage : ContentPage, IConnectionStateChanged, IBackButton

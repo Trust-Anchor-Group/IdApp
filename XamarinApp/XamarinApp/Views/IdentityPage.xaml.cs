@@ -8,7 +8,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu
+namespace XamarinApp.Views
 {
     [DesignTimeVisible(true)]
     public partial class IdentityPage : ContentPage, INotifyPropertyChanged, ILegalIdentityChanged, IBackButton

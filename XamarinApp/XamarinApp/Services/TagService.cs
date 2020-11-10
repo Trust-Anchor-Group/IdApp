@@ -588,7 +588,7 @@ namespace XamarinApp.Services
 			if (!e.Response || e.RequestedIdentity is null)
 				Device.BeginInvokeOnMainThread(() => App.Instance.MainPage.DisplayAlert("Message", "Petition to view legal identity was denied.", "OK"));
 			else
-				App.ShowPage(new MainMenu.IdentityPage(App.Instance.MainPage, e.RequestedIdentity), false);
+				App.ShowPage(new Views.IdentityPage(App.Instance.MainPage, e.RequestedIdentity), false);
 
 			return Task.CompletedTask;
 		}

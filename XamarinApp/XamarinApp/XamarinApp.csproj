@@ -60,19 +60,19 @@
     <EmbeddedResource Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Connection\AccountPage.xaml">
+    <EmbeddedResource Update="Views\Registration\AccountPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Connection\DefinePinPage.xaml">
+    <EmbeddedResource Update="Views\Registration\DefinePinPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Connection\IdentityPage.xaml">
+    <EmbeddedResource Update="Views\Registration\IdentityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Connection\OperatorPage.xaml">
+    <EmbeddedResource Update="Views\Registration\OperatorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Connection\RegisterIdentityPage.xaml">
+    <EmbeddedResource Update="Views\Registration\RegisterIdentityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="InitPage.xaml">
@@ -108,20 +108,19 @@
     <EmbeddedResource Update="Views\Contracts\ViewContractPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\IdentityPage.xaml">
+    <EmbeddedResource Update="Views\IdentityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\MainMenuPage.xaml">
+    <EmbeddedResource Update="Views\MainMenuPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\ScanQrCodePage.xaml">
+    <EmbeddedResource Update="Views\ScanQrCodePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\Registration\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

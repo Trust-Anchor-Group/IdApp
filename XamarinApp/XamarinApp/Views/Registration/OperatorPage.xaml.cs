@@ -8,7 +8,7 @@ using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using XamarinApp.Services;
 
-namespace XamarinApp.Connection
+namespace XamarinApp.Views.Registration
 {
     [DesignTimeVisible(true)]
     public partial class OperatorPage : ContentPage
