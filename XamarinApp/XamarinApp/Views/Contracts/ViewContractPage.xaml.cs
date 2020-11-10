@@ -43,7 +43,7 @@ namespace XamarinApp.Views.Contracts
 
 			// QR Code
 
-			byte[] Png = QR.GenerateCodePng("iotsc:" + Contract.ContractId, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
+			byte[] Png = QR.GenerateCodePng(Constants.Schemes.IotSc + ":" + Contract.ContractId, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
 			this.QrCode.Source = ImageSource.FromStream(() => new MemoryStream(Png));
 			this.QrCode.IsVisible = true;
 
@@ -290,7 +290,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -303,7 +303,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -330,7 +330,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -343,7 +343,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -424,13 +424,13 @@ namespace XamarinApp.Views.Contracts
 			{
 				Contract Contract = await this.tagService.Contracts.ObsoleteContractAsync(this.contract.ContractId);
 
-				await this.DisplayAlert("Message", "Contract has been obsoleted.", "OK");
+				await this.DisplayAlert("Message", "Contract has been obsoleted.", AppResources.OkButtonText);
 
 				App.ShowPage(new ViewContractPage(this.owner, Contract, false), true);
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -440,19 +440,19 @@ namespace XamarinApp.Views.Contracts
 			{
 				Contract Contract = await this.tagService.Contracts.DeleteContractAsync(this.contract.ContractId);
 
-				await this.DisplayAlert("Message", "Contract has been deleted.", "OK");
+				await this.DisplayAlert("Message", "Contract has been deleted.", AppResources.OkButtonText);
 
 				App.ShowPage(new ViewContractPage(this.owner, Contract, false), true);
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
 		public bool BackClicked()
 		{
-			this.BackButton_Clicked(this, new EventArgs());
+			this.BackButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
 

@@ -94,15 +94,14 @@ namespace XamarinApp.Views.Registration
 			{
                 if (this.tagService.Configuration.Step > 0)
                 {
-                    this.tagService.Configuration.Step--;
-                    this.tagService.UpdateConfiguration();
+                    this.tagService.DecrementConfigurationStep();
                 }
 
 				await App.ShowPage();
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -138,14 +137,13 @@ namespace XamarinApp.Views.Registration
 		{
 			try
 			{
-                this.tagService.Configuration.Step++;
-                this.tagService.UpdateConfiguration();
+                this.tagService.IncrementConfigurationStep();
 
                 await App.ShowPage();
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -174,7 +172,7 @@ namespace XamarinApp.Views.Registration
 
 		public bool BackClicked()
 		{
-			this.BackButton_Clicked(this, new EventArgs());
+			this.BackButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
 	}

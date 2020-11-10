@@ -1,7 +1,6 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XamarinApp.Views.Contracts;
 using Waher.Networking.XMPP;
 using XamarinApp.Services;
 
@@ -114,7 +113,7 @@ namespace XamarinApp.Views
 
         public bool BackClicked()
         {
-            this.Close_Clicked(this, new EventArgs());
+            this.Close_Clicked(this, EventArgs.Empty);
             return true;
         }
     }

@@ -6,9 +6,11 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms.Internals;
+using Xamarin.Forms.Xaml;
 using XamarinApp.Views.Registration;
 using XamarinApp.Views;
 using XamarinApp.Services;
+using XamarinApp.ViewModels;
 using XamarinApp.Views.Contracts;
 using Log = Waher.Events.Log;
 
@@ -28,8 +30,10 @@ namespace XamarinApp
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
+			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
             IContainer container = builder.Build();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
+
             TagService = DependencyService.Resolve<ITagService>();
         }
 
@@ -41,14 +45,12 @@ namespace XamarinApp
 
 				if (instance.TagService.Configuration.Step > 2 && !instance.TagService.LegalIdentityIsValid)
 				{
-                    instance.TagService.Configuration.Step = 2;
-                    instance.TagService.UpdateConfiguration();
+					instance.TagService.DecrementConfigurationStep();
 				}
 
 				if (instance.TagService.Configuration.Step > 4 && !instance.TagService.PinIsValid)
 				{
-                    instance.TagService.Configuration.Step = 4;
-                    instance.TagService.UpdateConfiguration();
+                    instance.TagService.DecrementConfigurationStep();
 				}
 			}
 
@@ -106,8 +108,7 @@ namespace XamarinApp
 
 							if (Changed)
 							{
-                                instance.TagService.Configuration.Step++;
-                                instance.TagService.UpdateConfiguration();
+								instance.TagService.IncrementConfigurationStep();
 								Page = new Views.Registration.IdentityPage();
 								break;
 							}
@@ -161,14 +162,23 @@ namespace XamarinApp
 		internal static App Instance => instance;
 		internal static Page CurrentPage => instance.MainPage;
 
-		protected override void OnSleep()
-		{
-			TagService.Xmpp?.SetPresence(Availability.Away);
+        protected override async void OnStart()
+        {
+            await TagService.Load();
+        }
+
+        protected override async void OnSleep()
+        {
+            if (MainPage.BindingContext is BaseViewModel vm)
+            {
+                await vm.Unbind();
+            }
+            await TagService.Unload();
 		}
 
-		protected override void OnResume()
-		{
-			TagService.Xmpp?.SetPresence(Availability.Online);
+		protected override async void OnResume()
+        {
+            await TagService.Load();
 		}
 
 		internal async Task Stop()
@@ -179,6 +189,7 @@ namespace XamarinApp
 
 				await Types.StopAllModules();
 
+                await TagService.Unload();
 				TagService.Dispose();
 
 				Log.Terminate();
@@ -203,7 +214,7 @@ namespace XamarinApp
 			{
 				await instance.TagService.Contracts.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
 				await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
-					"If the owner accepts the petition, the identity information will be displayed on the screen.", "OK");
+					"If the owner accepts the petition, the identity information will be displayed on the screen.", AppResources.OkButtonText);
 			}
 		}
 
@@ -222,7 +233,7 @@ namespace XamarinApp
 			{
 				await instance.TagService.Contracts.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
 				await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
-					"If any of the parts accepts the petition, the contract information will be displayed on the screen.", "OK");
+					"If any of the parts accepts the petition, the contract information will be displayed on the screen.", AppResources.OkButtonText);
 			}
 		}
 

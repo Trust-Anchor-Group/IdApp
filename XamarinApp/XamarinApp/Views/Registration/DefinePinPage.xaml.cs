@@ -23,15 +23,14 @@ namespace XamarinApp.Views.Registration
             {
                 if (this.tagService.Configuration.Step > 0)
                 {
-                    this.tagService.Configuration.Step--;
-                    this.tagService.UpdateConfiguration();
+                    this.tagService.DecrementConfigurationStep();
                 }
 
                 await App.ShowPage();
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert("Error", ex.Message, "OK");
+                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
             }
         }
 
@@ -51,17 +50,17 @@ namespace XamarinApp.Views.Registration
             {
                 if (this.Pin.Text.Length < 8)
                 {
-                    await this.DisplayAlert("Error", "PIN number too short. At least 8 numbers (or characters) are required.", "OK");
+                    await this.DisplayAlert(AppResources.ErrorTitleText, "PIN number too short. At least 8 numbers (or characters) are required.", AppResources.OkButtonText);
                     Device.BeginInvokeOnMainThread(() => this.Pin.Focus());
                 }
                 else if (this.Pin.Text.Trim() != this.Pin.Text)
                 {
-                    await this.DisplayAlert("Error", "PIN number must not unclude leading or trailing white-space.", "OK");
+                    await this.DisplayAlert(AppResources.ErrorTitleText, "PIN number must not unclude leading or trailing white-space.", AppResources.OkButtonText);
                     Device.BeginInvokeOnMainThread(() => this.Pin.Focus());
                 }
                 else if (this.Pin.Text != this.RetypePin.Text)
                 {
-                    await this.DisplayAlert("Error", "PIN numbers (or passwords) do not match.", "OK");
+                    await this.DisplayAlert(AppResources.ErrorTitleText, "PIN numbers (or passwords) do not match.", AppResources.OkButtonText);
                     Device.BeginInvokeOnMainThread(() => this.Pin.Focus());
                 }
                 else
@@ -72,14 +71,14 @@ namespace XamarinApp.Views.Registration
                     if (this.tagService.Configuration.Step == 4)
                         this.tagService.Configuration.Step++;
 
-                    this.tagService.UpdateConfiguration();
+                    this.tagService.SetPin(this.Pin.Text, true);
 
                     await App.ShowPage();
                 }
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert("Error", ex.Message, "OK");
+                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
             }
         }
 
@@ -87,19 +86,17 @@ namespace XamarinApp.Views.Registration
         {
             try
             {
-                this.tagService.Configuration.Pin = string.Empty;
-                this.tagService.Configuration.UsePin = false;
-
+               
                 if (this.tagService.Configuration.Step == 4)
                     this.tagService.Configuration.Step++;
 
-                this.tagService.UpdateConfiguration();
+                this.tagService.ResetPin();
 
                 await App.ShowPage();
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert("Error", ex.Message, "OK");
+                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
             }
         }
 
@@ -119,7 +116,7 @@ namespace XamarinApp.Views.Registration
 
         public bool BackClicked()
         {
-            this.BackButton_Clicked(this, new EventArgs());
+            this.BackButton_Clicked(this, EventArgs.Empty);
             return true;
         }
 

@@ -224,7 +224,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -244,7 +244,7 @@ namespace XamarinApp.Views.Contracts
 			catch (Exception ex)
 			{
 				this.template = null;
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -332,6 +332,8 @@ namespace XamarinApp.Views.Contracts
 		private void AddPartButton_Clicked(object sender, EventArgs e)
 		{
 			if (sender is Button Button)
+				// TODO: create page, set binding context, and call await Navigation.PushModalAsync();
+			    // When done, 'read' the BindingContext for properties.
 				App.ShowPage(new AddPartPage(this, (Id) => this.AddRole(Button.StyleId, Id)), false);
 		}
 
@@ -449,13 +451,13 @@ namespace XamarinApp.Views.Contracts
 							{
 								if (Nr < Min)
 								{
-									await this.DisplayAlert("Error", "The contract requires at least " + Min.ToString() + " part(s) of role " + Role + ". Add more parts to the contract and try again.", "OK");
+									await this.DisplayAlert(AppResources.ErrorTitleText, "The contract requires at least " + Min.ToString() + " part(s) of role " + Role + ". Add more parts to the contract and try again.", AppResources.OkButtonText);
 									return;
 								}
 
 								if (Nr > Min)
 								{
-									await this.DisplayAlert("Error", "The contract requires at most " + Max.ToString() + " part(s) of role " + Role + ". Remove some of the parts from the contract and try again.", "OK");
+									await this.DisplayAlert(AppResources.ErrorTitleText, "The contract requires at most " + Max.ToString() + " part(s) of role " + Role + ". Remove some of the parts from the contract and try again.", AppResources.OkButtonText);
 									return;
 								}
 
@@ -483,7 +485,7 @@ namespace XamarinApp.Views.Contracts
 						if (Entry.BackgroundColor == Color.Salmon)
 						{
 							Entry.Focus();
-							await this.DisplayAlert("Error", "Your contract contains errors. Fix these errors and try again.", "OK");
+							await this.DisplayAlert(AppResources.ErrorTitleText, "Your contract contains errors. Fix these errors and try again.", AppResources.OkButtonText);
 							return;
 						}
 					}
@@ -511,20 +513,20 @@ namespace XamarinApp.Views.Contracts
 
 					default:
 						this.VisibilityPicker.Focus();
-						await this.DisplayAlert("Error", "Select contract visibility first, and then try again.", "OK");
+						await this.DisplayAlert(AppResources.ErrorTitleText, "Select contract visibility first, and then try again.", AppResources.OkButtonText);
 						return;
 				}
 
 				if (string.IsNullOrEmpty(this.role))
 				{
 					this.RolePicker.Focus();
-					await this.DisplayAlert("Error", "Select contract role first, and then try again.", "OK");
+					await this.DisplayAlert(AppResources.ErrorTitleText, "Select contract role first, and then try again.", AppResources.OkButtonText);
 					return;
 				}
 
 				if (this.tagService.Configuration.UsePin && this.tagService.Configuration.ComputePinHash(this.PIN.Text) != this.tagService.Configuration.PinHash)
 				{
-					await this.DisplayAlert("Error", "Invalid PIN.", "OK");
+					await this.DisplayAlert(AppResources.ErrorTitleText, "Invalid PIN.", AppResources.OkButtonText);
 					return;
 				}
 
@@ -536,7 +538,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 			finally
 			{
@@ -552,7 +554,7 @@ namespace XamarinApp.Views.Contracts
 
 		public bool BackClicked()
 		{
-			this.BackButton_Clicked(this, new EventArgs());
+			this.BackButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
 

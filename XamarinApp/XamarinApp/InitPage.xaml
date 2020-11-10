@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamarinApp.InitPage">
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+                 x:Class="XamarinApp.InitPage">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -17,4 +18,4 @@
             <ActivityIndicator x:Name="ProgressBar" Color="Orange" HorizontalOptions="Center" IsRunning="False" Margin="0,100,0,0"/>
         </Grid>
     </ContentPage.Content>
-</ContentPage>
+</views:ContentBasePage>

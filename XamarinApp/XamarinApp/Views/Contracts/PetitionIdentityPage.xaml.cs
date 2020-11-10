@@ -136,7 +136,7 @@ namespace XamarinApp.Views.Contracts
 
 		public bool BackClicked()
 		{
-			this.IgnoreButton_Clicked(this, new EventArgs());
+			this.IgnoreButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
 

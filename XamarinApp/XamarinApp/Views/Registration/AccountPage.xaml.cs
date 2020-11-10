@@ -12,7 +12,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Registration
 {
 	[DesignTimeVisible(true)]
-	public partial class AccountPage : ContentPage, IBackButton
+	public partial class AccountPage : IBackButton
     {
         private readonly ITagService tagService;
 
@@ -32,8 +32,7 @@ namespace XamarinApp.Views.Registration
 				{
                     if (this.tagService.Configuration.Step > 0)
                     {
-                        this.tagService.Configuration.Step--;
-                        this.tagService.UpdateConfiguration();
+                        this.tagService.DecrementConfigurationStep();
                     }
 
 					await App.ShowPage();
@@ -55,7 +54,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -206,14 +205,10 @@ namespace XamarinApp.Views.Registration
 
 					if (Success)
 					{
-                        this.tagService.Configuration.Account = this.AccountName.Text;
-                        this.tagService.Configuration.PasswordHash = Client.PasswordHash;
-                        this.tagService.Configuration.PasswordHashMethod = Client.PasswordHashMethod;
-
                         if (this.tagService.Configuration.Step == 1)
                             this.tagService.Configuration.Step++;
 
-                        this.tagService.UpdateConfiguration();
+                        this.tagService.SetAccount(this.AccountName.Text, Client.PasswordHash, Client.PasswordHashMethod);
 
                         if (!this.tagService.LegalIdentityIsValid)
 						{
@@ -271,21 +266,21 @@ namespace XamarinApp.Views.Registration
 					else
 					{
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert("Error", "Cannot connect to " + this.tagService.Configuration.Domain, "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.OkButtonText);
                         else if (!StreamOpened)
-                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " is not a valid operator.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.OkButtonText);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.OkButtonText);
                         else if (!Authentication)
-                            await this.DisplayAlert("Error", "Unable to authentication with " + this.tagService.Configuration.Domain + ".", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.OkButtonText);
                         else
-                            await this.DisplayAlert("Error", "Invalid user name or password.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Invalid user name or password.", AppResources.OkButtonText);
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", "Unable to connect to " + this.tagService.Configuration.Domain + ":\r\n\r\n" + ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, $"Unable to connect to {this.tagService.Configuration.Domain}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.OkButtonText);
 			}
 			finally
 			{
@@ -313,7 +308,7 @@ namespace XamarinApp.Views.Registration
                 Password = this.tagService.CreateRandomPassword();
 			else if ((Password = this.Password.Text) != this.RetypePassword.Text)
 			{
-				await this.DisplayAlert("Error", "Passwords do not match.", "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, "Passwords do not match.", AppResources.OkButtonText);
 				return;
 			}
 
@@ -404,40 +399,36 @@ namespace XamarinApp.Views.Registration
 
 					if (Success)
 					{
-                        this.tagService.Configuration.Account = this.AccountName.Text;
-                        this.tagService.Configuration.PasswordHash = Client.PasswordHash;
-                        this.tagService.Configuration.PasswordHashMethod = Client.PasswordHashMethod;
-
                         if (this.tagService.Configuration.Step == 1)
                             this.tagService.Configuration.Step++;
 
-                        this.tagService.UpdateConfiguration();
+						this.tagService.SetAccount(this.AccountName.Text, Client.PasswordHash, Client.PasswordHashMethod);
 
 						if (this.RandomPassword.On)
-							await this.DisplayAlert("Password", "The password for the connection is " + Password, "OK");
+							await this.DisplayAlert("Password", "The password for the connection is " + Password, AppResources.OkButtonText);
 
 						await App.ShowPage();
 					}
 					else
 					{
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert("Error", "Cannot connect to " + this.tagService.Configuration.Domain, "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.OkButtonText);
                         else if (!StreamOpened)
-                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " is not a valid operator.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.OkButtonText);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.OkButtonText);
                         else if (!Authentication)
-                            await this.DisplayAlert("Error", "Unable to authentication with " + this.tagService.Configuration.Domain + ".", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.OkButtonText);
                         else if (!Registering)
-                            await this.DisplayAlert("Error", "The operator " + this.tagService.Configuration.Domain + " does not support registration of new accounts.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "The operator " + this.tagService.Configuration.Domain + " does not support registration of new accounts.", AppResources.OkButtonText);
                         else
-                            await this.DisplayAlert("Error", "Account name already taken. Choose another.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Account name already taken. Choose another.", AppResources.OkButtonText);
 					}
 				}
 			}
 			catch (Exception)
 			{
-				await this.DisplayAlert("Error", "Unable to connect to " + this.tagService.Configuration.Domain, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to connect to " + this.tagService.Configuration.Domain, AppResources.OkButtonText);
 			}
 			finally
 			{
@@ -454,7 +445,7 @@ namespace XamarinApp.Views.Registration
 
 		public bool BackClicked()
 		{
-			this.BackButton_Clicked(this, new EventArgs());
+			this.BackButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
 

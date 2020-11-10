@@ -37,7 +37,7 @@ namespace XamarinApp.Views
             this.personal = Personal || this.tagService.Configuration.LegalIdentity.Id == Identity.Id;
             this.BindingContext = this;
 
-            byte[] Png = QR.GenerateCodePng("iotid:" + Identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
+            byte[] Png = QR.GenerateCodePng(Constants.Schemes.IotId + ":" + Identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
             this.QrCode.Source = ImageSource.FromStream(() => new MemoryStream(Png));
             this.QrCode.IsVisible = true;
 
@@ -175,15 +175,13 @@ namespace XamarinApp.Views
                 LegalIdentity Identity = await this.tagService.Contracts.ObsoleteLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
-                this.tagService.Configuration.Step = 2;
-
-                this.tagService.UpdateConfiguration();
+                this.tagService.DecrementConfigurationStep(2);
 
                 await App.ShowPage();
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert("Error", ex.Message, "OK");
+                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
             }
         }
 
@@ -200,21 +198,19 @@ namespace XamarinApp.Views
                 LegalIdentity Identity = await this.tagService.Contracts.CompromisedLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
-                this.tagService.Configuration.Step = 2;
-
-                this.tagService.UpdateConfiguration();
+                this.tagService.DecrementConfigurationStep(2);
 
                 await App.ShowPage();
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert("Error", ex.Message, "OK");
+                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
             }
         }
 
         public bool BackClicked()
         {
-            this.BackButton_Clicked(this, new EventArgs());
+            this.BackButton_Clicked(this, EventArgs.Empty);
             return true;
         }
 

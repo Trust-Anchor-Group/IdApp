@@ -11,7 +11,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Registration
 {
     [DesignTimeVisible(true)]
-    public partial class OperatorPage : ContentPage
+    public partial class OperatorPage
     {
         private readonly ITagService tagService;
         private string domainName = string.Empty;
@@ -213,32 +213,29 @@ namespace XamarinApp.Views.Registration
 
                     if (Success)
                     {
-                        this.tagService.Configuration.Domain = this.domainName;
-                        this.tagService.Configuration.LegalJid = string.Empty;
-
                         if (this.tagService.Configuration.Step == 0)
                             this.tagService.Configuration.Step++;
 
-                        this.tagService.UpdateConfiguration();
+                        this.tagService.SetDomain(this.domainName, string.Empty);
 
                         await App.ShowPage();
                     }
                     else
                     {
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert("Error", "Cannot connect to " + this.domainName, "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Cannot connect to " + this.domainName, AppResources.OkButtonText);
                         else if (!StreamOpened)
-                            await this.DisplayAlert("Error", this.domainName + " is not a valid operator.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, this.domainName + " is not a valid operator.", AppResources.OkButtonText);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert("Error", this.domainName + " does not follow the ubiquitous encryption policy.", "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, this.domainName + " does not follow the ubiquitous encryption policy.", AppResources.OkButtonText);
                         else
-                            await this.DisplayAlert("Error", "Unable to connect to " + this.domainName, "OK");
+                            await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to connect to " + this.domainName, AppResources.OkButtonText);
                     }
                 }
             }
             catch (Exception)
             {
-                await this.DisplayAlert("Error", "Unable to connect to " + this.domainName, "OK");
+                await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to connect to " + this.domainName, AppResources.OkButtonText);
             }
             finally
             {

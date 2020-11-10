@@ -33,7 +33,7 @@ namespace XamarinApp.Views
 			this.ScanGrid.IsVisible = !Manual;
 			this.ManualGrid.IsVisible = Manual;
 
-			this.ModeButton.Text = Manual ? "Scan Code" : "Enter Manually";
+			this.ModeButton.Text = Manual ? AppResources.QrScanCodeText : AppResources.QrEnterManuallyText;
 
 			if (Manual)
 				this.Link.Focus();
@@ -46,7 +46,7 @@ namespace XamarinApp.Views
 				this.Link.Text = result.Text;
 				this.ScanGrid.IsVisible = false;
 				this.ManualGrid.IsVisible = true;
-				this.ModeButton.Text = "Scan Code";
+				this.ModeButton.Text = AppResources.QrScanCodeText;
 				this.ManualButton.Focus();
 			});
 		}
@@ -60,37 +60,37 @@ namespace XamarinApp.Views
 
 				switch (Uri.Scheme.ToLower())
 				{
-					case "iotid":
+					case Constants.Schemes.IotId:
 						string LegalId = Code.Substring(6);
 						App.ShowPage(this.owner, true);
 						await App.OpenLegalIdentity(LegalId, "Scanned QR Code.");
 						break;
 
-					case "iotsc":
+					case Constants.Schemes.IotSc:
 						string ContractId = Code.Substring(6);
 						App.ShowPage(this.owner, true);
 						await App.OpenContract(ContractId, "Scanned QR Code.");
 						break;
 
-					case "iotdisco":
+					case Constants.Schemes.IotDisco:
 						// TODO
 						break;
 
 					default:
 						if (!await Launcher.TryOpenAsync(Uri))
-							await this.DisplayAlert("Error", "Code not understood:\r\n\r\n" + Code, "OK");
+							await this.DisplayAlert(AppResources.ErrorTitleText,  $"Code not understood:{Environment.NewLine}{Environment.NewLine}{Code}", AppResources.OkButtonText);
 						break;
 				}
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
 		public bool BackClicked()
 		{
-			this.BackButton_Clicked(this, new EventArgs());
+			this.BackButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
 

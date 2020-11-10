@@ -1,12 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinApp"
              x:Class="XamarinApp.Views.Contracts.AddPartPage"
-             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="10">
-            <Grid x:Name="ScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="True">
+            <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
                 <zxing:ZXingScannerView x:Name="Scanner"
                                         OnScanResult="Scanner_OnScanResult"
                                         IsScanning="True"
@@ -14,15 +15,15 @@
                                         HeightRequest="500"
                                         VerticalOptions="CenterAndExpand"
                                         HorizontalOptions="CenterAndExpand"/>
-                <zxing:ZXingDefaultOverlay TopText="Align the QR-Code within the frame"/>
+                <zxing:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlayText}"/>
             </Grid>
-            <StackLayout x:Name="ManualGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="False">
-                <Label Text="Legal Identity:" HorizontalOptions="FillAndExpand"/>
-                <Entry x:Name="Link" HorizontalOptions="Fill"/>
-                <Button x:Name="ManualButton" Text="Add" HorizontalOptions="FillAndExpand" Clicked="ManualButton_Clicked"/>
+            <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
+                <Label Text="{x:Static local:AppResources.QrScanLegalIdentityText}" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="LinkEntry" Text="{Binding Path=LinkText, Mode=OneWay}" HorizontalOptions="Fill"/>
+                <Button x:Name="ManualAddButton" Text="{x:Static local:AppResources.QrScanAddButtonText}" HorizontalOptions="FillAndExpand" Command="{Binding Path=ManualAddCommand}"/>
             </StackLayout>
-            <Button x:Name="ModeButton" Text="Enter Manually" Clicked="ModeButton_Clicked"/>
+            <Button x:Name="ModeButton" Text="{Binding Path=ModeText}" Command="{Binding Path=SwitchModeCommand}"/>
             <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
         </StackLayout>
     </ScrollView>
-</ContentPage>
+</views:ContentBasePage>

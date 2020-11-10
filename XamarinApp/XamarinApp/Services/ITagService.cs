@@ -10,8 +10,9 @@ namespace XamarinApp.Services
 {
     public interface ITagService : IDisposable
     {
-        Task Init();
-
+        Task Load();
+        Task Unload();
+        event EventHandler<LoadedEventArgs> Loaded;
         bool IsOnline { get; }
 
         XmppClient Xmpp { get; }
@@ -21,11 +22,10 @@ namespace XamarinApp.Services
         event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
 
         Task AddLegalIdentity(List<Property> properties, params LegalIdentityAttachment[] attachments);
-
         Task<LegalIdentity[]> GetLegalIdentitiesAsync();
-
         bool HasLegalIdentityAttachments { get; }
         Attachment[] GetLegalIdentityAttachments();
+        bool LegalIdentityIsValid { get; }
 
         Task<KeyValuePair<string, TemporaryFile>> GetAttachmentAsync(string url);
         Task<KeyValuePair<string, TemporaryFile>> GetAttachmentAsync(string url, TimeSpan timeout);
@@ -33,8 +33,6 @@ namespace XamarinApp.Services
         XmppConfiguration Configuration { get; }
 
         bool FileUploadIsSupported { get; }
-
-        bool LegalIdentityIsValid { get; }
 
         bool PinIsValid { get; }
 
@@ -47,7 +45,13 @@ namespace XamarinApp.Services
         string CreateRandomPassword();
 
         Task<(string hostName, int port)> GetXmppHostnameAndPort(string domainName);
+        
+        void DecrementConfigurationStep(int? stepToRevertTo = null);
+        void IncrementConfigurationStep();
 
-        void UpdateConfiguration();
+        void SetPin(string pin, bool usePin);
+        void ResetPin();
+        void SetAccount(string accountNameText, string clientPasswordHash, string clientPasswordHashMethod);
+        void SetDomain(string domainName, string legalJid);
     }
 }

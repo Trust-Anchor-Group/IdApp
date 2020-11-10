@@ -12,7 +12,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Registration
 {
 	[DesignTimeVisible(true)]
-	public partial class RegisterIdentityPage : ContentPage, IBackButton
+	public partial class RegisterIdentityPage : IBackButton
     {
         private readonly ITagService tagService;
 		private readonly Dictionary<string, (string, string, byte[])> photos = new Dictionary<string, (string, string, byte[])>();
@@ -30,15 +30,14 @@ namespace XamarinApp.Views.Registration
 			{
                 if (this.tagService.Configuration.Step > 0)
                 {
-                    this.tagService.Configuration.Step--;
-                    this.tagService.UpdateConfiguration();
+					this.tagService.DecrementConfigurationStep();
                 }
 
 				await App.ShowPage();
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", ex.Message, "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
 			}
 		}
 
@@ -121,27 +120,27 @@ namespace XamarinApp.Views.Registration
 		{
 			if (!this.tagService.IsOnline)
 			{
-				await DisplayAlert("Error", "Not connected to the operator.", "OK");
+				await DisplayAlert(AppResources.ErrorTitleText, "Not connected to the operator.", AppResources.OkButtonText);
 				return;
 			}
 
 			if (string.IsNullOrEmpty(this.FirstNameEntry.Text.Trim()))
 			{
-				await DisplayAlert("Error", "You need to provide a first name.", "OK");
+				await DisplayAlert(AppResources.ErrorTitleText, "You need to provide a first name.", AppResources.OkButtonText);
 				this.FirstNameEntry.Focus();
 				return;
 			}
 
 			if (string.IsNullOrEmpty(this.LastNamesEntry.Text.Trim()))
 			{
-				await DisplayAlert("Error", "You need to provide at least one last name.", "OK");
+				await DisplayAlert(AppResources.ErrorTitleText, "You need to provide at least one last name.", AppResources.OkButtonText);
 				this.LastNamesEntry.Focus();
 				return;
 			}
 
 			if (string.IsNullOrEmpty(this.PNrEntry.Text.Trim()))
 			{
-				await DisplayAlert("Error", "You need to provide a personal or social security number.", "OK");
+				await DisplayAlert(AppResources.ErrorTitleText, "You need to provide a personal or social security number.", AppResources.OkButtonText);
 				this.PNrEntry.Focus();
 				return;
 			}
@@ -154,7 +153,7 @@ namespace XamarinApp.Views.Registration
 
 				if (string.IsNullOrEmpty(this.tagService.Configuration.LegalJid))
 				{
-					await DisplayAlert("Error", "Operator does not support legal identities and smart contracts.", "OK");
+					await DisplayAlert(AppResources.ErrorTitleText, "Operator does not support legal identities and smart contracts.", AppResources.OkButtonText);
 					return;
 				}
 
@@ -203,7 +202,7 @@ namespace XamarinApp.Views.Registration
                 }
                 catch (Exception ex)
                 {
-                    await this.DisplayAlert("Error", "Unable to upload photo: " + ex.Message, "OK");
+                    await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to upload photo: " + ex.Message, AppResources.OkButtonText);
                 }
 
                 await App.ShowPage();
@@ -212,8 +211,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-                await this.DisplayAlert("Error", "Unable to register information with " + this.tagService.Configuration.Domain +
-                                                 ":\r\n\r\n" + ex.Message, "OK");
+                await this.DisplayAlert(AppResources.ErrorTitleText, $"Unable to register information with {this.tagService.Configuration.Domain}:{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.OkButtonText);
 			}
 			finally
 			{
@@ -248,7 +246,7 @@ namespace XamarinApp.Views.Registration
 
 		public bool BackClicked()
 		{
-			this.BackButton_Clicked(this, new EventArgs());
+			this.BackButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
 
@@ -288,7 +286,7 @@ namespace XamarinApp.Views.Registration
 			if ((long)Bin.Length > this.tagService.Configuration.HttpFileUploadMaxSize.GetValueOrDefault())
 			{
 				ms.Dispose();
-				await this.DisplayAlert("Error", "Photo too large.", "OK");
+				await this.DisplayAlert(AppResources.ErrorTitleText, "Photo too large.", AppResources.OkButtonText);
 				return;
 			}
 
