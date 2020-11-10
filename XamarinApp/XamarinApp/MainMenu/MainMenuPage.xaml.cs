@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XamarinApp.MainMenu.Contracts;
+using XamarinApp.Views.Contracts;
 using Waher.Networking.XMPP;
 using XamarinApp.Services;
 
@@ -31,7 +31,7 @@ namespace XamarinApp.MainMenu
 
         private void Contracts_Clicked(object sender, EventArgs e)
         {
-            App.ShowPage(new ContractsMenuPage(App.CurrentPage), false);
+            App.ShowPage(new XamarinApp.Views.Contracts.ContractsMenuPage(App.CurrentPage), false);
         }
 
         private void Hide_Clicked(object sender, EventArgs e)

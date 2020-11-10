@@ -3,7 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu.Contracts
+namespace XamarinApp.Views.Contracts
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContractsMenuPage : ContentPage, IBackButton

@@ -8,34 +8,31 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu.Contracts
+namespace XamarinApp.Views.Contracts
 {
 	[DesignTimeVisible(true)]
-	public partial class PetitionContractPage : ContentPage, IBackButton
+	public partial class PetitionIdentityPage : ContentPage, IBackButton
     {
         private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly LegalIdentity requestorIdentity;
-		private readonly Contract requestedContract;
 		private readonly string requestorBareJid;
+		private readonly string requestedIdentityId;
 		private readonly string petitionId;
 		private readonly string purpose;
 
-		public PetitionContractPage(Page Owner, LegalIdentity RequestorIdentity, string RequestorBareJid,
-			Contract RequestedContract, string PetitionId, string Purpose)
+		public PetitionIdentityPage(Page Owner, LegalIdentity RequestorIdentity, string RequestorBareJid,
+			string RequestedIdentityId, string PetitionId, string Purpose)
 		{
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.requestorIdentity = RequestorIdentity;
 			this.requestorBareJid = RequestorBareJid;
-			this.requestedContract = RequestedContract;
+			this.requestedIdentityId = RequestedIdentityId;
 			this.petitionId = PetitionId;
 			this.purpose = Purpose;
 			this.BindingContext = this;
-
-			ViewContractPage Info = new ViewContractPage(Owner, RequestedContract, true);
-			Info.MoveInfo(this.TableView);
 
 			this.LoadPhotos();
 		}
@@ -56,7 +53,7 @@ namespace XamarinApp.MainMenu.Contracts
                     {
                         KeyValuePair<string, TemporaryFile> P = await tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
-						using (TemporaryFile File = P.Value)
+                        using (TemporaryFile File = P.Value)
                         {
                             MemoryStream ms = new MemoryStream();
 
@@ -92,15 +89,15 @@ namespace XamarinApp.MainMenu.Contracts
             }
         }
 
-		private void AcceptButton_Clicked(object sender, EventArgs e)
+        private void AcceptButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.Contracts.PetitionContractResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorBareJid, true);
+			this.tagService.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorBareJid, true);
 			App.ShowPage(this.owner, true);
 		}
 
 		private void DeclineButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.Contracts.PetitionContractResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorBareJid, false);
+			this.tagService.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorBareJid, false);
 			App.ShowPage(this.owner, true);
 		}
 

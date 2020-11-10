@@ -4,7 +4,7 @@ using Xamarin.Forms;
 using XamarinApp.Services;
 using ZXing;
 
-namespace XamarinApp.MainMenu.Contracts
+namespace XamarinApp.Views.Contracts
 {
 	/// <summary>
 	/// Delegate for string-valued callback methods.

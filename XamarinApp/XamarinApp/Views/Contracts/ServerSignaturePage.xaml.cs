@@ -4,7 +4,7 @@ using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu.Contracts
+namespace XamarinApp.Views.Contracts
 {
 	[DesignTimeVisible(true)]
 	public partial class ServerSignaturePage : ContentPage, IBackButton

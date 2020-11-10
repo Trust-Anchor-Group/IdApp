@@ -8,8 +8,8 @@ using Waher.Runtime.Inventory;
 using Xamarin.Forms.Internals;
 using XamarinApp.Connection;
 using XamarinApp.MainMenu;
-using XamarinApp.MainMenu.Contracts;
 using XamarinApp.Services;
+using XamarinApp.Views.Contracts;
 using Log = Waher.Events.Log;
 
 namespace XamarinApp

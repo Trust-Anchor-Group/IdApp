@@ -25,7 +25,7 @@ using Waher.Runtime.Language;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Temporary;
 using Waher.Security;
-using XamarinApp.MainMenu.Contracts;
+using XamarinApp.Views.Contracts;
 
 namespace XamarinApp.Services
 {

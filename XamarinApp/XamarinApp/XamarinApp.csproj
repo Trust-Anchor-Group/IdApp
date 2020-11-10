@@ -78,34 +78,34 @@
     <EmbeddedResource Update="InitPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\AddPartPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\AddPartPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\ClientSignaturePage.xaml">
+    <EmbeddedResource Update="Views\Contracts\ClientSignaturePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\ContractsMenuPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\ContractsMenuPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\MyContractsPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\MyContractsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\NewContractPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\NewContractPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\NotaryMenuPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\NotaryMenuPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\PetitionContractPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\PetitionContractPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\PetitionIdentityPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\PetitionIdentityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\ServerSignaturePage.xaml">
+    <EmbeddedResource Update="Views\Contracts\ServerSignaturePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="MainMenu\Contracts\ViewContractPage.xaml">
+    <EmbeddedResource Update="Views\Contracts\ViewContractPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="MainMenu\IdentityPage.xaml">
@@ -121,7 +121,7 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\" />
+    <Folder Include="Views\Registration\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinApp"
-             x:Class="XamarinApp.MainMenu.Contracts.ClientSignaturePage">
+             x:Class="XamarinApp.Views.Contracts.ClientSignaturePage">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="10">
             <Label Text="Identity Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />

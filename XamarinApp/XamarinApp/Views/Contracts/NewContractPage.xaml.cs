@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu.Contracts
+namespace XamarinApp.Views.Contracts
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewContractPage : ContentPage, IBackButton

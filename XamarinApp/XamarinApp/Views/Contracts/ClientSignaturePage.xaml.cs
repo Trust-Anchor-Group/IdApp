@@ -4,7 +4,7 @@ using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu.Contracts
+namespace XamarinApp.Views.Contracts
 {
 	// Learn more about making custom code visible in the Xamarin.Forms previewer
 	// by visiting https://aka.ms/xamarinforms-previewer

@@ -8,7 +8,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using XamarinApp.Services;
 
-namespace XamarinApp.MainMenu.Contracts
+namespace XamarinApp.Views.Contracts
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewContractPage : ContentPage, IBackButton
