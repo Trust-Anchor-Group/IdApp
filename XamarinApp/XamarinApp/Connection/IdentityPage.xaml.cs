@@ -2,94 +2,101 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
-using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Persistence;
 using Waher.Runtime.Temporary;
+using XamarinApp.Services;
 
 namespace XamarinApp.Connection
 {
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
-	public partial class IdentityPage : ContentPage, INotifyPropertyChanged, ILegalIdentityChanged
+	public partial class IdentityPage : ContentPage, INotifyPropertyChanged
 	{
-		private readonly XmppConfiguration xmppConfiguration;
+        private readonly ITagService tagService;
 
-		public IdentityPage(XmppConfiguration XmppConfiguration)
+		public IdentityPage()
 		{
-			this.xmppConfiguration = XmppConfiguration;
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.BindingContext = this;
-			InitializeComponent();
+        }
 
-			this.LoadPhotos();
-		}
+		protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await LoadPhotos();
+            tagService.LegalIdentityChanged += TagService_LegalIdentityChanged;
+        }
 
-		private async void LoadPhotos()
-		{
-			if (!(this.xmppConfiguration.LegalIdentity.Attachments is null))
-			{
-				int i = this.TableView.Root.IndexOf(this.ButtonSection);
-				TableSection PhotoSection = new TableSection();
-				this.TableView.Root.Insert(i++, PhotoSection);
+        protected override void OnDisappearing()
+        {
+            tagService.LegalIdentityChanged -= TagService_LegalIdentityChanged;
+            base.OnDisappearing();
+        }
 
-				foreach (Attachment Attachment in this.xmppConfiguration.LegalIdentity.Attachments)
-				{
-					if (Attachment.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
-					{
-						ViewCell ViewCell;
+        private async Task LoadPhotos()
+        {
+            if (tagService.HasLegalIdentityAttachments)
+            {
+                int i = this.TableView.Root.IndexOf(this.ButtonSection);
+                TableSection PhotoSection = new TableSection();
+                this.TableView.Root.Insert(i++, PhotoSection);
 
-						try
-						{
-							KeyValuePair<string, TemporaryFile> P = await App.Contracts.GetAttachmentAsync(Attachment.Url, 10000);
+                foreach (Attachment Attachment in tagService.GetLegalIdentityAttachments().Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
+                {
+                    ViewCell ViewCell;
 
-							using (TemporaryFile File = P.Value)
-							{
-								MemoryStream ms = new MemoryStream();
+                    try
+                    {
+                        KeyValuePair<string, TemporaryFile> P = await tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
-								File.Position = 0;
-								await File.CopyToAsync(ms);
-								ms.Position = 0;
+						using (TemporaryFile File = P.Value)
+                        {
+                            MemoryStream ms = new MemoryStream();
 
-								ViewCell = new ViewCell()
-								{
-									View = new Image()
-									{
-										Source = ImageSource.FromStream(() => ms)
-									}
-								};
-							}
-						}
-						catch (Exception ex)
-						{
-							ViewCell = new ViewCell()
-							{
-								View = new Label()
-								{
-									Text = ex.Message
-								}
-							};
-						}
+                            File.Position = 0;
+                            await File.CopyToAsync(ms);
+                            ms.Position = 0;
 
-						await Device.InvokeOnMainThreadAsync(() =>
-						{
-							PhotoSection.Add(ViewCell);
-						});
-					}
-				}
-			}
-		}
+                            ViewCell = new ViewCell()
+                            {
+                                View = new Image()
+                                {
+                                    Source = ImageSource.FromStream(() => ms)
+                                }
+                            };
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewCell = new ViewCell()
+                        {
+                            View = new Label()
+                            {
+                                Text = ex.Message
+                            }
+                        };
+                    }
 
-		private async void BackButton_Clicked(object sender, EventArgs e)
+                    await Device.InvokeOnMainThreadAsync(() =>
+                    {
+                        PhotoSection.Add(ViewCell);
+                    });
+                }
+            }
+        }
+
+        private async void BackButton_Clicked(object sender, EventArgs e)
 		{
 			try
 			{
-				if (this.xmppConfiguration.Step > 0)
-				{
-					this.xmppConfiguration.Step--;
-					await Database.Update(this.xmppConfiguration);
-				}
+                if (this.tagService.Configuration.Step > 0)
+                {
+                    this.tagService.Configuration.Step--;
+                    this.tagService.UpdateConfiguration();
+                }
 
 				await App.ShowPage();
 			}
@@ -99,25 +106,25 @@ namespace XamarinApp.Connection
 			}
 		}
 
-		public DateTime Created => this.xmppConfiguration.LegalIdentity.Created;
-		public DateTime? Updated => CheckMin(this.xmppConfiguration.LegalIdentity.Updated);
-		public string LegalId => this.xmppConfiguration.LegalIdentity.Id;
-		public string BareJid => App.Xmpp?.BareJID ?? string.Empty;
-		public string State => this.xmppConfiguration.LegalIdentity.State.ToString();
-		public DateTime? From => CheckMin(this.xmppConfiguration.LegalIdentity.From);
-		public DateTime? To => CheckMin(this.xmppConfiguration.LegalIdentity.To);
-		public string FirstName => this.xmppConfiguration.LegalIdentity["FIRST"];
-		public string MiddleNames => this.xmppConfiguration.LegalIdentity["MIDDLE"];
-		public string LastNames => this.xmppConfiguration.LegalIdentity["LAST"];
-		public string PNr => this.xmppConfiguration.LegalIdentity["PNR"];
-		public string Address => this.xmppConfiguration.LegalIdentity["ADDR"];
-		public string Address2 => this.xmppConfiguration.LegalIdentity["ADDR2"];
-		public string PostalCode => this.xmppConfiguration.LegalIdentity["ZIP"];
-		public string Area => this.xmppConfiguration.LegalIdentity["AREA"];
-		public string City => this.xmppConfiguration.LegalIdentity["CITY"];
-		public string Region => this.xmppConfiguration.LegalIdentity["REGION"];
-		public string Country => this.xmppConfiguration.LegalIdentity["COUNTRY"];
-		public bool IsApproved => this.xmppConfiguration.LegalIdentity.State == IdentityState.Approved;
+        public DateTime Created => this.tagService.Configuration.LegalIdentity.Created;
+        public DateTime? Updated => CheckMin(this.tagService.Configuration.LegalIdentity.Updated);
+        public string LegalId => this.tagService.Configuration.LegalIdentity.Id;
+        public string BareJid => this.tagService.Xmpp?.BareJID ?? string.Empty;
+        public string State => this.tagService.Configuration.LegalIdentity.State.ToString();
+        public DateTime? From => CheckMin(this.tagService.Configuration.LegalIdentity.From);
+        public DateTime? To => CheckMin(this.tagService.Configuration.LegalIdentity.To);
+        public string FirstName => this.tagService.Configuration.LegalIdentity["FIRST"];
+        public string MiddleNames => this.tagService.Configuration.LegalIdentity["MIDDLE"];
+        public string LastNames => this.tagService.Configuration.LegalIdentity["LAST"];
+        public string PNr => this.tagService.Configuration.LegalIdentity["PNR"];
+        public string Address => this.tagService.Configuration.LegalIdentity["ADDR"];
+        public string Address2 => this.tagService.Configuration.LegalIdentity["ADDR2"];
+        public string PostalCode => this.tagService.Configuration.LegalIdentity["ZIP"];
+        public string Area => this.tagService.Configuration.LegalIdentity["AREA"];
+        public string City => this.tagService.Configuration.LegalIdentity["CITY"];
+        public string Region => this.tagService.Configuration.LegalIdentity["REGION"];
+        public string Country => this.tagService.Configuration.LegalIdentity["COUNTRY"];
+        public bool IsApproved => this.tagService.Configuration.LegalIdentity.State == IdentityState.Approved;
 
 		private static DateTime? CheckMin(DateTime? TP)
 		{
@@ -131,10 +138,10 @@ namespace XamarinApp.Connection
 		{
 			try
 			{
-				this.xmppConfiguration.Step++;
-				await Database.Update(this.xmppConfiguration);
+                this.tagService.Configuration.Step++;
+                this.tagService.UpdateConfiguration();
 
-				await App.ShowPage();
+                await App.ShowPage();
 			}
 			catch (Exception ex)
 			{
@@ -142,7 +149,7 @@ namespace XamarinApp.Connection
 			}
 		}
 
-		public void LegalIdentityChanged(LegalIdentity Identity)
+        private void TagService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
 		{
 			this.OnPropertyChanged("Created");
 			this.OnPropertyChanged("Updated");

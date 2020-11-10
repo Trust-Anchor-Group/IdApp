@@ -3,10 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinApp.InitPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Initializing app..."
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Image Source="tag_bg.jpg" Aspect="AspectFill"/>
+            <StackLayout Opacity="0" x:Name="LabelLayout" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,0,0,100">
+                <Label Text="NEW" TextColor="White" FontSize="16" VerticalTextAlignment="Center" />
+                <Label Text="WAYS" TextColor="White" FontSize="24" VerticalTextAlignment="Center" />
+                <Label Text="OF" TextColor="White"  FontSize="16" VerticalTextAlignment="Center"/>
+                <Label Text="WORLDMAKING" TextColor="White"  FontSize="24"  VerticalTextAlignment="Center"/>
+            </StackLayout>
+            <ActivityIndicator x:Name="ProgressBar" Color="Orange" HorizontalOptions="Center" IsRunning="False" Margin="0,100,0,0"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

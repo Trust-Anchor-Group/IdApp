@@ -8985,10 +8985,13 @@ namespace XamarinApp.Droid
 			public const int notify_panel_notification_icon_bg = 2131165309;
 			
 			// aapt resource value: 0x7F07007E
-			public const int tooltip_frame_dark = 2131165310;
+			public const int tag_bg = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int tooltip_frame_light = 2131165311;
+			public const int tooltip_frame_dark = 2131165311;
+			
+			// aapt resource value: 0x7F070080
+			public const int tooltip_frame_light = 2131165312;
 			
 			static Drawable()
 			{
@@ -10217,56 +10220,59 @@ namespace XamarinApp.Droid
 			// aapt resource value: 0x7F0D001A
 			public const int abc_toolbar_collapse_description = 2131558426;
 			
-			// aapt resource value: 0x7F0D001B
-			public const int appbar_scrolling_view_behavior = 2131558427;
-			
 			// aapt resource value: 0x7F0D001C
-			public const int bottom_sheet_behavior = 2131558428;
+			public const int appbar_scrolling_view_behavior = 2131558428;
+			
+			// aapt resource value: 0x7F0D001B
+			public const int app_name = 2131558427;
 			
 			// aapt resource value: 0x7F0D001D
-			public const int character_counter_content_description = 2131558429;
+			public const int bottom_sheet_behavior = 2131558429;
 			
 			// aapt resource value: 0x7F0D001E
-			public const int character_counter_pattern = 2131558430;
+			public const int character_counter_content_description = 2131558430;
 			
 			// aapt resource value: 0x7F0D001F
-			public const int fab_transformation_scrim_behavior = 2131558431;
+			public const int character_counter_pattern = 2131558431;
 			
 			// aapt resource value: 0x7F0D0020
-			public const int fab_transformation_sheet_behavior = 2131558432;
+			public const int fab_transformation_scrim_behavior = 2131558432;
 			
 			// aapt resource value: 0x7F0D0021
-			public const int hide_bottom_view_on_scroll_behavior = 2131558433;
+			public const int fab_transformation_sheet_behavior = 2131558433;
 			
 			// aapt resource value: 0x7F0D0022
-			public const int library_name = 2131558434;
+			public const int hide_bottom_view_on_scroll_behavior = 2131558434;
 			
 			// aapt resource value: 0x7F0D0023
-			public const int mtrl_chip_close_icon_content_description = 2131558435;
+			public const int library_name = 2131558435;
 			
 			// aapt resource value: 0x7F0D0024
-			public const int overflow_tab_title = 2131558436;
+			public const int mtrl_chip_close_icon_content_description = 2131558436;
 			
 			// aapt resource value: 0x7F0D0025
-			public const int password_toggle_content_description = 2131558437;
+			public const int overflow_tab_title = 2131558437;
 			
 			// aapt resource value: 0x7F0D0026
-			public const int path_password_eye = 2131558438;
+			public const int password_toggle_content_description = 2131558438;
 			
 			// aapt resource value: 0x7F0D0027
-			public const int path_password_eye_mask_strike_through = 2131558439;
+			public const int path_password_eye = 2131558439;
 			
 			// aapt resource value: 0x7F0D0028
-			public const int path_password_eye_mask_visible = 2131558440;
+			public const int path_password_eye_mask_strike_through = 2131558440;
 			
 			// aapt resource value: 0x7F0D0029
-			public const int path_password_strike_through = 2131558441;
+			public const int path_password_eye_mask_visible = 2131558441;
 			
 			// aapt resource value: 0x7F0D002A
-			public const int search_menu_title = 2131558442;
+			public const int path_password_strike_through = 2131558442;
 			
 			// aapt resource value: 0x7F0D002B
-			public const int status_bar_notification_info_overflow = 2131558443;
+			public const int search_menu_title = 2131558443;
+			
+			// aapt resource value: 0x7F0D002C
+			public const int status_bar_notification_info_overflow = 2131558444;
 			
 			static String()
 			{

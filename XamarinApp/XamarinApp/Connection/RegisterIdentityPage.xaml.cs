@@ -2,40 +2,37 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Xamarin.Forms;
-using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Networking.XMPP.HttpFileUpload;
-using Waher.Persistence;
+using XamarinApp.Services;
 
 namespace XamarinApp.Connection
 {
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
 	public partial class RegisterIdentityPage : ContentPage, IBackButton
-	{
-		private readonly XmppConfiguration xmppConfiguration;
+    {
+        private readonly ITagService tagService;
 		private readonly Dictionary<string, (string, string, byte[])> photos = new Dictionary<string, (string, string, byte[])>();
 
-		public RegisterIdentityPage(XmppConfiguration XmppConfiguration)
+		public RegisterIdentityPage()
 		{
-			this.xmppConfiguration = XmppConfiguration;
-			this.BindingContext = this;
 			InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
+			this.BindingContext = this;
 		}
 
 		private async void BackButton_Clicked(object sender, EventArgs e)
 		{
 			try
 			{
-				if (this.xmppConfiguration.Step > 0)
-				{
-					this.xmppConfiguration.Step--;
-					await Database.Update(this.xmppConfiguration);
-				}
+                if (this.tagService.Configuration.Step > 0)
+                {
+                    this.tagService.Configuration.Step--;
+                    this.tagService.UpdateConfiguration();
+                }
 
 				await App.ShowPage();
 			}
@@ -122,7 +119,7 @@ namespace XamarinApp.Connection
 
 		private async void RegisterButton_Clicked(object sender, EventArgs e)
 		{
-			if (!App.Online)
+			if (!this.tagService.IsOnline)
 			{
 				await DisplayAlert("Error", "Not connected to the operator.", "OK");
 				return;
@@ -153,9 +150,9 @@ namespace XamarinApp.Connection
 
 			try
 			{
-				await App.CheckServices();
+				await this.tagService.CheckServices();
 
-				if (string.IsNullOrEmpty(this.xmppConfiguration.LegalJid))
+				if (string.IsNullOrEmpty(this.tagService.Configuration.LegalJid))
 				{
 					await DisplayAlert("Error", "Operator does not support legal identities and smart contracts.", "OK");
 					return;
@@ -199,37 +196,24 @@ namespace XamarinApp.Connection
 
 				if (!string.IsNullOrEmpty(s = this.DeviceID?.Trim()))
 					Properties.Add(new Property("DEVICE_ID", s));
-				
-				LegalIdentity Identity = await App.Contracts.ApplyAsync(Properties.ToArray());
 
-				foreach ((string, string, byte[]) P in this.photos.Values)
-				{
-					HttpFileUploadEventArgs e2 = await App.FileUpload.RequestUploadSlotAsync(Path.GetFileName(P.Item1), P.Item2, P.Item3.Length);
-					if (!e2.Ok)
-					{
-						await this.DisplayAlert("Error", "Unable to upload photo: " + e2.ErrorText, "OK");
-						return;
-					}
+                try
+                {
+                    await this.tagService.AddLegalIdentity(Properties, this.photos.Values.Select(x => new LegalIdentityAttachment(x.Item1, x.Item2, x.Item3)).ToArray());
+                }
+                catch (Exception ex)
+                {
+                    await this.DisplayAlert("Error", "Unable to upload photo: " + ex.Message, "OK");
+                }
 
-					await e2.PUT(P.Item3, P.Item2, 30000);
-
-					byte[] Signature = await App.Contracts.SignAsync(P.Item3);
-
-					Identity = await App.Contracts.AddLegalIdAttachmentAsync(Identity.Id, e2.GetUrl, Signature);
-				}
-
-				this.xmppConfiguration.LegalIdentity = Identity;
-				if (this.xmppConfiguration.Step == 2)
-					this.xmppConfiguration.Step++;
-
-				await Database.Update(this.xmppConfiguration);
+                await App.ShowPage();
 
 				await App.ShowPage();
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", "Unable to register information with " + this.xmppConfiguration.Domain +
-					":\r\n\r\n" + ex.Message, "OK");
+                await this.DisplayAlert("Error", "Unable to register information with " + this.tagService.Configuration.Domain +
+                                                 ":\r\n\r\n" + ex.Message, "OK");
 			}
 			finally
 			{
@@ -240,17 +224,17 @@ namespace XamarinApp.Connection
 			}
 		}
 
-		public string FirstName => this.xmppConfiguration.LegalIdentity?["FIRST"] ?? string.Empty;
-		public string MiddleNames => this.xmppConfiguration.LegalIdentity?["MIDDLE"] ?? string.Empty;
-		public string LastNames => this.xmppConfiguration.LegalIdentity?["LAST"] ?? string.Empty;
-		public string PNr => this.xmppConfiguration.LegalIdentity?["PNR"] ?? string.Empty;
-		public string Address => this.xmppConfiguration.LegalIdentity?["ADDR"] ?? string.Empty;
-		public string Address2 => this.xmppConfiguration.LegalIdentity?["ADDR2"] ?? string.Empty;
-		public string PostalCode => this.xmppConfiguration.LegalIdentity?["ZIP"] ?? string.Empty;
-		public string Area => this.xmppConfiguration.LegalIdentity?["AREA"] ?? string.Empty;
-		public string City => this.xmppConfiguration.LegalIdentity?["CITY"] ?? string.Empty;
-		public string Region => this.xmppConfiguration.LegalIdentity?["REGION"] ?? string.Empty;
-		public string Country => this.xmppConfiguration.LegalIdentity?["COUNTRY"] ?? string.Empty;
+        public string FirstName => this.tagService.Configuration.LegalIdentity?["FIRST"] ?? string.Empty;
+        public string MiddleNames => this.tagService.Configuration.LegalIdentity?["MIDDLE"] ?? string.Empty;
+        public string LastNames => this.tagService.Configuration.LegalIdentity?["LAST"] ?? string.Empty;
+        public string PNr => this.tagService.Configuration.LegalIdentity?["PNR"] ?? string.Empty;
+        public string Address => this.tagService.Configuration.LegalIdentity?["ADDR"] ?? string.Empty;
+        public string Address2 => this.tagService.Configuration.LegalIdentity?["ADDR2"] ?? string.Empty;
+        public string PostalCode => this.tagService.Configuration.LegalIdentity?["ZIP"] ?? string.Empty;
+        public string Area => this.tagService.Configuration.LegalIdentity?["AREA"] ?? string.Empty;
+        public string City => this.tagService.Configuration.LegalIdentity?["CITY"] ?? string.Empty;
+        public string Region => this.tagService.Configuration.LegalIdentity?["REGION"] ?? string.Empty;
+        public string Country => this.tagService.Configuration.LegalIdentity?["COUNTRY"] ?? string.Empty;
 
 		public string DeviceID
 		{
@@ -268,14 +252,11 @@ namespace XamarinApp.Connection
 			return true;
 		}
 
-		public bool CanTakePhoto =>
-			CrossMedia.IsSupported &&
-			CrossMedia.Current.IsCameraAvailable &&
-			CrossMedia.Current.IsTakePhotoSupported &&
-			!string.IsNullOrEmpty(this.xmppConfiguration.HttpFileUploadJid) &&
-			this.xmppConfiguration.HttpFileUploadMaxSize.HasValue &&
-			!(App.FileUpload is null) &&
-			App.FileUpload.HasSupport;
+        public bool CanTakePhoto =>
+            CrossMedia.IsSupported &&
+            CrossMedia.Current.IsCameraAvailable &&
+            CrossMedia.Current.IsTakePhotoSupported &&
+            this.tagService.FileUploadIsSupported;
 
 		private async void AddPhotoButton_Clicked(object sender, EventArgs e)
 		{
@@ -304,7 +285,7 @@ namespace XamarinApp.Connection
 			byte[] Bin = ms.ToArray();
 			string PhotoId = Guid.NewGuid().ToString();
 
-			if (Bin.Length > xmppConfiguration.HttpFileUploadMaxSize.Value)
+			if ((long)Bin.Length > this.tagService.Configuration.HttpFileUploadMaxSize.GetValueOrDefault())
 			{
 				ms.Dispose();
 				await this.DisplayAlert("Error", "Photo too large.", "OK");

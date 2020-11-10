@@ -7,25 +7,22 @@ using Waher.IoTGateway.Setup;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Persistence;
-using Waher.Security;
+using XamarinApp.Services;
 
 namespace XamarinApp.Connection
 {
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
 	public partial class AccountPage : ContentPage, IBackButton
-	{
-		private readonly XmppConfiguration xmppConfiguration;
+    {
+        private readonly ITagService tagService;
 
-		public AccountPage(XmppConfiguration XmppConfiguration)
+		public AccountPage()
 		{
-			this.xmppConfiguration = XmppConfiguration;
-			InitializeComponent();
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.BindingContext = this;
-			this.Introduction.Text = this.Introduction.Text.Replace("{Binding Domain}", XmppConfiguration.Domain);
-		}
+			this.Introduction.Text = this.Introduction.Text.Replace("{Binding Domain}", this.tagService.Configuration.Domain);
+        }
 
 		private async void BackButton_Clicked(object sender, EventArgs e)
 		{
@@ -33,11 +30,11 @@ namespace XamarinApp.Connection
 			{
 				if (this.CreateNewButton.IsVisible)
 				{
-					if (this.xmppConfiguration.Step > 0)
-					{
-						this.xmppConfiguration.Step--;
-						await Database.Update(this.xmppConfiguration);
-					}
+                    if (this.tagService.Configuration.Step > 0)
+                    {
+                        this.tagService.Configuration.Step--;
+                        this.tagService.UpdateConfiguration();
+                    }
 
 					await App.ShowPage();
 				}
@@ -64,12 +61,12 @@ namespace XamarinApp.Connection
 
 		public string Domain
 		{
-			get => this.xmppConfiguration.Domain;
+			get => this.tagService.Configuration.Domain;
 		}
 
 		public string Account
 		{
-			get => this.xmppConfiguration.Account;
+			get => this.tagService.Configuration.Account;
 		}
 
 		private void CreateNewButton_Clicked(object sender, EventArgs e)
@@ -144,7 +141,7 @@ namespace XamarinApp.Connection
 
 			try
 			{
-				(string HostName, int PortNumber) = await OperatorPage.GetXmppClientService(this.xmppConfiguration.Domain);
+				(string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort(this.tagService.Configuration.Domain);
 
 				using (XmppClient Client = new XmppClient(HostName, PortNumber,
 					this.AccountName.Text, this.Password.Text, string.Empty, typeof(App).Assembly, Sniffer))
@@ -196,7 +193,7 @@ namespace XamarinApp.Connection
 						return Task.CompletedTask;
 					};
 
-					Client.Connect(this.xmppConfiguration.Domain);
+					Client.Connect(this.tagService.Configuration.Domain);
 
 					using (Timer Timer = new Timer((P) =>
 					{
@@ -209,29 +206,26 @@ namespace XamarinApp.Connection
 
 					if (Success)
 					{
-						this.xmppConfiguration.Account = this.AccountName.Text;
-						this.xmppConfiguration.PasswordHash = Client.PasswordHash;
-						this.xmppConfiguration.PasswordHashMethod = Client.PasswordHashMethod;
+                        this.tagService.Configuration.Account = this.AccountName.Text;
+                        this.tagService.Configuration.PasswordHash = Client.PasswordHash;
+                        this.tagService.Configuration.PasswordHashMethod = Client.PasswordHashMethod;
 
-						if (this.xmppConfiguration.Step == 1)
-							this.xmppConfiguration.Step++;
+                        if (this.tagService.Configuration.Step == 1)
+                            this.tagService.Configuration.Step++;
 
-						await Database.Update(this.xmppConfiguration);
+                        this.tagService.UpdateConfiguration();
 
-						if (this.xmppConfiguration.LegalIdentity is null ||
-							this.xmppConfiguration.LegalIdentity.State == IdentityState.Compromised ||
-							this.xmppConfiguration.LegalIdentity.State == IdentityState.Obsoleted ||
-							this.xmppConfiguration.LegalIdentity.State == IdentityState.Rejected)
+                        if (!this.tagService.LegalIdentityIsValid)
 						{
 							DateTime Now = DateTime.Now;
 							LegalIdentity Created = null;
 							LegalIdentity Approved = null;
 							bool Changed = false;
 
-							if (!string.IsNullOrEmpty(this.xmppConfiguration.LegalJid) ||
-								await App.FindServices(Client))
+                            if (!string.IsNullOrEmpty(this.tagService.Configuration.LegalJid) ||
+                                await this.tagService.FindServices(Client))
 							{
-								using (ContractsClient Contracts = await ContractsClient.Create(Client, this.xmppConfiguration.LegalJid))
+								using (ContractsClient Contracts = await ContractsClient.Create(Client, this.tagService.Configuration.LegalJid))
 								{
 									foreach (LegalIdentity Identity in await Contracts.GetLegalIdentitiesAsync())
 									{
@@ -254,21 +248,21 @@ namespace XamarinApp.Connection
 
 									if (!(Approved is null))
 									{
-										this.xmppConfiguration.LegalIdentity = Approved;
+                                        this.tagService.Configuration.LegalIdentity = Approved;
 										Changed = true;
 									}
 									else if (!(Created is null))
 									{
-										this.xmppConfiguration.LegalIdentity = Created;
+                                        this.tagService.Configuration.LegalIdentity = Created;
 										Changed = true;
 									}
 
 									if (Changed)
 									{
-										if (this.xmppConfiguration.Step == 2)
-											this.xmppConfiguration.Step++;
+                                        if (this.tagService.Configuration.Step == 2)
+                                            this.tagService.Configuration.Step++;
 
-										await Database.Update(this.xmppConfiguration);
+                                        this.tagService.UpdateConfiguration();
 									}
 								}
 							}
@@ -276,22 +270,22 @@ namespace XamarinApp.Connection
 					}
 					else
 					{
-						if (!StreamNegotiation || Timeout)
-							await this.DisplayAlert("Error", "Cannot connect to " + this.xmppConfiguration.Domain, "OK");
-						else if (!StreamOpened)
-							await this.DisplayAlert("Error", this.xmppConfiguration.Domain + " is not a valid operator.", "OK");
-						else if (!StartingEncryption)
-							await this.DisplayAlert("Error", this.xmppConfiguration.Domain + " does not follow the ubiquitous encryption policy.", "OK");
-						else if (!Authentication)
-							await this.DisplayAlert("Error", "Unable to authentication with " + this.xmppConfiguration.Domain + ".", "OK");
-						else
-							await this.DisplayAlert("Error", "Invalid user name or password.", "OK");
+                        if (!StreamNegotiation || Timeout)
+                            await this.DisplayAlert("Error", "Cannot connect to " + this.tagService.Configuration.Domain, "OK");
+                        else if (!StreamOpened)
+                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " is not a valid operator.", "OK");
+                        else if (!StartingEncryption)
+                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", "OK");
+                        else if (!Authentication)
+                            await this.DisplayAlert("Error", "Unable to authentication with " + this.tagService.Configuration.Domain + ".", "OK");
+                        else
+                            await this.DisplayAlert("Error", "Invalid user name or password.", "OK");
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert("Error", "Unable to connect to " + this.xmppConfiguration.Domain + ":\r\n\r\n" + ex.Message, "OK");
+				await this.DisplayAlert("Error", "Unable to connect to " + this.tagService.Configuration.Domain + ":\r\n\r\n" + ex.Message, "OK");
 			}
 			finally
 			{
@@ -315,8 +309,8 @@ namespace XamarinApp.Connection
 		{
 			string Password;
 
-			if (this.RandomPassword.On)
-				Password = Hashes.BinaryToString(App.GetBytes(16));
+            if (this.RandomPassword.On)
+                Password = this.tagService.CreateRandomPassword();
 			else if ((Password = this.Password.Text) != this.RetypePassword.Text)
 			{
 				await this.DisplayAlert("Error", "Passwords do not match.", "OK");
@@ -333,7 +327,7 @@ namespace XamarinApp.Connection
 
 			try
 			{
-				(string HostName, int PortNumber) = await OperatorPage.GetXmppClientService(this.xmppConfiguration.Domain);
+                (string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort(this.tagService.Configuration.Domain);
 
 				using (XmppClient Client = new XmppClient(HostName, PortNumber,
 					this.AccountName.Text, Password, string.Empty, typeof(App).Assembly, Sniffer))
@@ -346,7 +340,7 @@ namespace XamarinApp.Connection
 					bool Registering = false;
 					bool Timeout = false;
 
-					if (XmppConfiguration.TryGetKeys(this.xmppConfiguration.Domain, out string Key, out string Secret))
+					if (XmppConfiguration.TryGetKeys(this.tagService.Configuration.Domain, out string Key, out string Secret))
 						Client.AllowRegistration(Key, Secret);
 					else
 						Client.AllowRegistration();
@@ -395,7 +389,7 @@ namespace XamarinApp.Connection
 						return Task.CompletedTask;
 					};
 
-					Client.Connect(this.xmppConfiguration.Domain);
+					Client.Connect(this.tagService.Configuration.Domain);
 
 					bool Success;
 
@@ -410,14 +404,14 @@ namespace XamarinApp.Connection
 
 					if (Success)
 					{
-						this.xmppConfiguration.Account = this.AccountName.Text;
-						this.xmppConfiguration.PasswordHash = Client.PasswordHash;
-						this.xmppConfiguration.PasswordHashMethod = Client.PasswordHashMethod;
+                        this.tagService.Configuration.Account = this.AccountName.Text;
+                        this.tagService.Configuration.PasswordHash = Client.PasswordHash;
+                        this.tagService.Configuration.PasswordHashMethod = Client.PasswordHashMethod;
 
-						if (this.xmppConfiguration.Step == 1)
-							this.xmppConfiguration.Step++;
+                        if (this.tagService.Configuration.Step == 1)
+                            this.tagService.Configuration.Step++;
 
-						await Database.Update(this.xmppConfiguration);
+                        this.tagService.UpdateConfiguration();
 
 						if (this.RandomPassword.On)
 							await this.DisplayAlert("Password", "The password for the connection is " + Password, "OK");
@@ -426,24 +420,24 @@ namespace XamarinApp.Connection
 					}
 					else
 					{
-						if (!StreamNegotiation || Timeout)
-							await this.DisplayAlert("Error", "Cannot connect to " + this.xmppConfiguration.Domain, "OK");
-						else if (!StreamOpened)
-							await this.DisplayAlert("Error", this.xmppConfiguration.Domain + " is not a valid operator.", "OK");
-						else if (!StartingEncryption)
-							await this.DisplayAlert("Error", this.xmppConfiguration.Domain + " does not follow the ubiquitous encryption policy.", "OK");
-						else if (!Authentication)
-							await this.DisplayAlert("Error", "Unable to authentication with " + this.xmppConfiguration.Domain + ".", "OK");
-						else if (!Registering)
-							await this.DisplayAlert("Error", "The operator " + this.xmppConfiguration.Domain + " does not support registration of new accounts.", "OK");
-						else
-							await this.DisplayAlert("Error", "Account name already taken. Choose another.", "OK");
+                        if (!StreamNegotiation || Timeout)
+                            await this.DisplayAlert("Error", "Cannot connect to " + this.tagService.Configuration.Domain, "OK");
+                        else if (!StreamOpened)
+                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " is not a valid operator.", "OK");
+                        else if (!StartingEncryption)
+                            await this.DisplayAlert("Error", this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", "OK");
+                        else if (!Authentication)
+                            await this.DisplayAlert("Error", "Unable to authentication with " + this.tagService.Configuration.Domain + ".", "OK");
+                        else if (!Registering)
+                            await this.DisplayAlert("Error", "The operator " + this.tagService.Configuration.Domain + " does not support registration of new accounts.", "OK");
+                        else
+                            await this.DisplayAlert("Error", "Account name already taken. Choose another.", "OK");
 					}
 				}
 			}
 			catch (Exception)
 			{
-				await this.DisplayAlert("Error", "Unable to connect to " + this.xmppConfiguration.Domain, "OK");
+				await this.DisplayAlert("Error", "Unable to connect to " + this.tagService.Configuration.Domain, "OK");
 			}
 			finally
 			{

@@ -3,21 +3,25 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.MainMenu.Contracts;
 using Waher.Networking.XMPP;
+using XamarinApp.Services;
 
 namespace XamarinApp.MainMenu
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainMenuPage : ContentPage, IConnectionStateChanged, IBackButton
     {
+        private readonly ITagService tagService;
+
         public MainMenuPage()
         {
             InitializeComponent();
-            this.ConnectionStateChanged(App.Xmpp.State);
+            this.tagService = DependencyService.Resolve<ITagService>();
+            this.ConnectionStateChanged(this.tagService.Xmpp.State);
         }
 
         private void Identity_Clicked(object sender, EventArgs e)
         {
-            App.ShowPage(new IdentityPage(App.Configuration, App.CurrentPage), false);
+            App.ShowPage(new IdentityPage(App.CurrentPage), false);
         }
 
         private void ScanQR_Clicked(object sender, EventArgs e)
@@ -55,7 +59,7 @@ namespace XamarinApp.MainMenu
                     break;
 
                 case XmppState.Connected:
-                    this.ConnectionState.Text = "Connected to " + (string.IsNullOrEmpty(App.Xmpp.Domain) ? App.Xmpp.Host : App.Xmpp.Domain);
+                    this.ConnectionState.Text = "Connected to " + (string.IsNullOrEmpty(this.tagService.Xmpp.Domain) ? this.tagService.Xmpp.Host : this.tagService.Xmpp.Domain);
                     Connected = true;
                     break;
 

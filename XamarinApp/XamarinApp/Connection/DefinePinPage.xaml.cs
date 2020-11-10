@@ -1,22 +1,19 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
-using Waher.IoTGateway.Setup;
-using Waher.Persistence;
+using XamarinApp.Services;
 
 namespace XamarinApp.Connection
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(true)]
     public partial class DefinePinPage : ContentPage, IBackButton
     {
-        private readonly XmppConfiguration xmppConfiguration;
+        private readonly ITagService tagService;
 
-        public DefinePinPage(XmppConfiguration XmppConfiguration)
+        public DefinePinPage()
         {
-            this.xmppConfiguration = XmppConfiguration;
             InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
             this.BindingContext = this;
         }
 
@@ -24,10 +21,10 @@ namespace XamarinApp.Connection
         {
             try
             {
-                if (this.xmppConfiguration.Step > 0)
+                if (this.tagService.Configuration.Step > 0)
                 {
-                    this.xmppConfiguration.Step--;
-                    await Database.Update(this.xmppConfiguration);
+                    this.tagService.Configuration.Step--;
+                    this.tagService.UpdateConfiguration();
                 }
 
                 await App.ShowPage();
@@ -69,13 +66,13 @@ namespace XamarinApp.Connection
                 }
                 else
                 {
-                    this.xmppConfiguration.Pin = this.Pin.Text;
-                    this.xmppConfiguration.UsePin = true;
+                    this.tagService.Configuration.Pin = this.Pin.Text;
+                    this.tagService.Configuration.UsePin = true;
 
-                    if (this.xmppConfiguration.Step == 4)
-                        this.xmppConfiguration.Step++;
+                    if (this.tagService.Configuration.Step == 4)
+                        this.tagService.Configuration.Step++;
 
-                    await Database.Update(this.xmppConfiguration);
+                    this.tagService.UpdateConfiguration();
 
                     await App.ShowPage();
                 }
@@ -90,13 +87,13 @@ namespace XamarinApp.Connection
         {
             try
             {
-                this.xmppConfiguration.Pin = string.Empty;
-                this.xmppConfiguration.UsePin = false;
+                this.tagService.Configuration.Pin = string.Empty;
+                this.tagService.Configuration.UsePin = false;
 
-                if (this.xmppConfiguration.Step == 4)
-                    this.xmppConfiguration.Step++;
+                if (this.tagService.Configuration.Step == 4)
+                    this.tagService.Configuration.Step++;
 
-                await Database.Update(this.xmppConfiguration);
+                this.tagService.UpdateConfiguration();
 
                 await App.ShowPage();
             }

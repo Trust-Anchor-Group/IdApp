@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
+using XamarinApp.Services;
 
 namespace XamarinApp.MainMenu.Contracts
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewContractPage : ContentPage, IBackButton
-	{
-		private readonly XmppConfiguration xmppConfiguration;
+    {
+        private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly Contract contract;
 
-		public ViewContractPage(XmppConfiguration XmppConfiguration, Page Owner, Contract Contract, bool ReadOnly)
+		public ViewContractPage(Page Owner, Contract Contract, bool ReadOnly)
 		{
-			this.xmppConfiguration = XmppConfiguration;
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.contract = Contract;
 			this.BindingContext = this;
-			InitializeComponent();
 
 			// General Information
 
@@ -59,7 +60,7 @@ namespace XamarinApp.MainMenu.Contracts
 			{
 				foreach (ClientSignature Signature in Contract.ClientSignatures)
 				{
-					if (Signature.LegalId == this.xmppConfiguration.LegalIdentity.Id)
+					if (Signature.LegalId == this.tagService.Configuration.LegalIdentity.Id)
 						HasSigned = true;
 
 					if (!NrSignatures.TryGetValue(Signature.Role, out int Count))
@@ -86,7 +87,7 @@ namespace XamarinApp.MainMenu.Contracts
 				{
 					AddTag(this.Parts, Part.Role, Part.LegalId, false, Part.LegalId, OpenLegalId);
 
-					if (!ReadOnly && AcceptsSignatures && !HasSigned && Part.LegalId == this.xmppConfiguration.LegalIdentity.Id)
+					if (!ReadOnly && AcceptsSignatures && !HasSigned && Part.LegalId == this.tagService.Configuration.LegalIdentity.Id)
 					{
 						Button Button;
 
@@ -219,75 +220,72 @@ namespace XamarinApp.MainMenu.Contracts
 				Button.Clicked += DeleteButton_Clicked;
 			}
 
-			this.LoadPhotos();
-		}
+            this.LoadPhotos();
+        }
 
-		private async void LoadPhotos()
-		{
-			if (!(this.contract.Attachments is null))
-			{
-				int i = this.TableView.Root.IndexOf(this.ButtonSection);
-				TableSection PhotoSection = new TableSection();
-				this.TableView.Root.Insert(i++, PhotoSection);
+        private async void LoadPhotos()
+        {
+            if (!(this.contract.Attachments is null))
+            {
+                int i = this.TableView.Root.IndexOf(this.ButtonSection);
+                TableSection PhotoSection = new TableSection();
+                this.TableView.Root.Insert(i++, PhotoSection);
 
-				foreach (Attachment Attachment in this.contract.Attachments)
-				{
-					if (Attachment.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
-					{
-						ViewCell ViewCell;
+                foreach (Attachment Attachment in this.contract.Attachments.Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
+                {
+                    ViewCell ViewCell;
 
-						try
-						{
-							KeyValuePair<string, TemporaryFile> P = await App.Contracts.GetAttachmentAsync(Attachment.Url, 10000);
+                    try
+                    {
+                        KeyValuePair<string, TemporaryFile> P = await this.tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
-							using (TemporaryFile File = P.Value)
-							{
-								MemoryStream ms = new MemoryStream();
+                        using (TemporaryFile File = P.Value)
+                        {
+                            MemoryStream ms = new MemoryStream();
 
-								File.Position = 0;
-								await File.CopyToAsync(ms);
-								ms.Position = 0;
+                            File.Position = 0;
+                            await File.CopyToAsync(ms);
+                            ms.Position = 0;
 
-								ViewCell = new ViewCell()
-								{
-									View = new Image()
-									{
-										Source = ImageSource.FromStream(() => ms)
-									}
-								};
-							}
-						}
-						catch (Exception ex)
-						{
-							ViewCell = new ViewCell()
-							{
-								View = new Label()
-								{
-									Text = ex.Message
-								}
-							};
-						}
+                            ViewCell = new ViewCell()
+                            {
+                                View = new Image()
+                                {
+                                    Source = ImageSource.FromStream(() => ms)
+                                }
+                            };
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewCell = new ViewCell()
+                        {
+                            View = new Label()
+                            {
+                                Text = ex.Message
+                            }
+                        };
+                    }
 
-						await Device.InvokeOnMainThreadAsync(() =>
-						{
-							PhotoSection.Add(ViewCell);
-						});
-					}
-				}
-			}
-		}
+                    await Device.InvokeOnMainThreadAsync(() =>
+                    {
+                        PhotoSection.Add(ViewCell);
+                    });
+                }
+            }
+        }
 
-		private async void SignButton_Clicked(object sender, EventArgs e)
+        private async void SignButton_Clicked(object sender, EventArgs e)
 		{
 			try
 			{
 				if (sender is Button Button && !string.IsNullOrEmpty(Button.StyleId))
 				{
-					Contract Contract = await App.Contracts.SignContractAsync(this.contract, Button.StyleId, false);
+					Contract Contract = await this.tagService.Contracts.SignContractAsync(this.contract, Button.StyleId, false);
 
 					await this.DisplayAlert("Message", "Contract successfully signed.", "OK");
 
-					App.ShowPage(new ViewContractPage(this.xmppConfiguration, this.owner, Contract, false), true);
+					App.ShowPage(new ViewContractPage(this.owner, Contract, false), true);
 				}
 			}
 			catch (Exception ex)
@@ -322,7 +320,7 @@ namespace XamarinApp.MainMenu.Contracts
 						if (Sign == Convert.ToBase64String(Signature.DigitalSignature))
 						{
 							string LegalId = Signature.LegalId;
-							LegalIdentity Identity = await App.Contracts.GetLegalIdentityAsync(LegalId);
+							LegalIdentity Identity = await this.tagService.Contracts.GetLegalIdentityAsync(LegalId);
 
 							App.ShowPage(new ClientSignaturePage(this, Signature, Identity), false);
 							return;
@@ -424,11 +422,11 @@ namespace XamarinApp.MainMenu.Contracts
 		{
 			try
 			{
-				Contract Contract = await App.Contracts.ObsoleteContractAsync(this.contract.ContractId);
+				Contract Contract = await this.tagService.Contracts.ObsoleteContractAsync(this.contract.ContractId);
 
 				await this.DisplayAlert("Message", "Contract has been obsoleted.", "OK");
 
-				App.ShowPage(new ViewContractPage(this.xmppConfiguration, this.owner, Contract, false), true);
+				App.ShowPage(new ViewContractPage(this.owner, Contract, false), true);
 			}
 			catch (Exception ex)
 			{
@@ -440,11 +438,11 @@ namespace XamarinApp.MainMenu.Contracts
 		{
 			try
 			{
-				Contract Contract = await App.Contracts.DeleteContractAsync(this.contract.ContractId);
+				Contract Contract = await this.tagService.Contracts.DeleteContractAsync(this.contract.ContractId);
 
 				await this.DisplayAlert("Message", "Contract has been deleted.", "OK");
 
-				App.ShowPage(new ViewContractPage(this.xmppConfiguration, this.owner, Contract, false), true);
+				App.ShowPage(new ViewContractPage(this.owner, Contract, false), true);
 			}
 			catch (Exception ex)
 			{

@@ -4,29 +4,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Waher.IoTGateway.Setup;
-using Waher.Networking.DNS;
-using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
-using Waher.Persistence;
+using XamarinApp.Services;
 
 namespace XamarinApp.Connection
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(true)]
     public partial class OperatorPage : ContentPage
     {
-        private readonly XmppConfiguration xmppConfiguration;
-
+        private readonly ITagService tagService;
         private string domainName = string.Empty;
         private string hostName = string.Empty;
         private int portNumber = 0;
 
-        public OperatorPage(XmppConfiguration XmppConfiguration)
+        public OperatorPage()
         {
-            this.xmppConfiguration = XmppConfiguration;
             InitializeComponent();
+
+            this.tagService = DependencyService.Resolve<ITagService>();
 
             int Selected = -1;
             int i = 0;
@@ -35,7 +31,7 @@ namespace XamarinApp.Connection
             {
                 this.Operators.Items.Add(Domain);
 
-                if (Domain == XmppConfiguration.Domain)
+                if (Domain == this.tagService.Configuration.Domain)
                     Selected = i;
 
                 i++;
@@ -43,9 +39,9 @@ namespace XamarinApp.Connection
 
             this.Operators.Items.Add("<Other>");
 
-            if (!string.IsNullOrEmpty(XmppConfiguration.Domain))
+            if (!string.IsNullOrEmpty(this.tagService.Configuration.Domain))
             {
-                this.domainName = XmppConfiguration.Domain;
+                this.domainName = this.tagService.Configuration.Domain;
 
                 if (Selected >= 0)
                     this.Operators.SelectedIndex = Selected;
@@ -54,7 +50,7 @@ namespace XamarinApp.Connection
                     this.ConnectButton.IsEnabled = true;
                     this.Operators.IsVisible = false;
                     this.Domain.IsVisible = true;
-                    this.Domain.Text = XmppConfiguration.Domain;
+                    this.Domain.Text = this.tagService.Configuration.Domain;
                     this.Domain.Keyboard = Keyboard.Create(KeyboardFlags.None);
                     this.Domain.Focus();
                 }
@@ -107,7 +103,7 @@ namespace XamarinApp.Connection
                 }
             }
 
-            (string Host, int Port) = await GetXmppClientService(Name);
+            (string Host, int Port) = await this.tagService.GetXmppHostnameAndPort(Name);
 
             if (string.IsNullOrEmpty(Host))
                 return false;
@@ -118,22 +114,6 @@ namespace XamarinApp.Connection
                 this.portNumber = Port;
                 return true;
             }
-        }
-
-        public static async Task<(string, int)> GetXmppClientService(string DomainName)
-        {
-            try
-            {
-                SRV SRV = await DnsResolver.LookupServiceEndpoint(DomainName, "xmpp-client", "tcp");
-                if (!(SRV is null) && !string.IsNullOrEmpty(SRV.TargetHost) && SRV.Port > 0)
-                    return (SRV.TargetHost, SRV.Port);
-            }
-            catch (Exception)
-            {
-                // No service endpoint registered
-            }
-
-            return (DomainName, 5222);
         }
 
         private async void Domain_TextChanged(object sender, TextChangedEventArgs e)
@@ -169,7 +149,7 @@ namespace XamarinApp.Connection
         { 
             try
             {
-                (this.hostName, this.portNumber) = await GetXmppClientService(this.domainName);
+                (this.hostName, this.portNumber) = await this.tagService.GetXmppHostnameAndPort(this.domainName);
 
                 InMemorySniffer Sniffer = new InMemorySniffer();
 
@@ -233,13 +213,13 @@ namespace XamarinApp.Connection
 
                     if (Success)
                     {
-                        this.xmppConfiguration.Domain = this.domainName;
-                        this.xmppConfiguration.LegalJid = string.Empty;
+                        this.tagService.Configuration.Domain = this.domainName;
+                        this.tagService.Configuration.LegalJid = string.Empty;
 
-                        if (this.xmppConfiguration.Step == 0)
-                            this.xmppConfiguration.Step++;
+                        if (this.tagService.Configuration.Step == 0)
+                            this.tagService.Configuration.Step++;
 
-                        await Database.Update(this.xmppConfiguration);
+                        this.tagService.UpdateConfiguration();
 
                         await App.ShowPage();
                     }

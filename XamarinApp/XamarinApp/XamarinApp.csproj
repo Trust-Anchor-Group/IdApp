@@ -16,6 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="Waher.Content" Version="1.0.29" />
     <PackageReference Include="Waher.Content.Emoji" Version="1.0.4" />
@@ -116,6 +117,11 @@
     <EmbeddedResource Update="MainMenu\ScanQrCodePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

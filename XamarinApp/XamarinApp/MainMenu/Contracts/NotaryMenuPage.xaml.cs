@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinApp.Services;
 
 namespace XamarinApp.MainMenu.Contracts
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NotaryMenuPage : ContentPage, IBackButton
     {
+        private readonly ITagService tagService;
         private readonly Page owner;
 
         private static readonly SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory =
@@ -24,9 +26,10 @@ namespace XamarinApp.MainMenu.Contracts
 
         public NotaryMenuPage(Page Owner)
         {
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
             this.owner = Owner;
             this.BindingContext = this;
-            InitializeComponent();
         }
 
         private void BackButton_Clicked(object sender, EventArgs e)
@@ -36,7 +39,7 @@ namespace XamarinApp.MainMenu.Contracts
 
 		private void NewContract_Clicked(object sender, EventArgs e)
 		{
-            App.ShowPage(new NewContractPage(App.Configuration, App.CurrentPage, ContractTypesPerCategory), false);
+            App.ShowPage(new NewContractPage(App.CurrentPage, ContractTypesPerCategory), false);
         }
 
         public bool BackClicked()

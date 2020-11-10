@@ -2,23 +2,24 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
+using XamarinApp.Services;
 
 namespace XamarinApp.MainMenu.Contracts
 {
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
 	public partial class ServerSignaturePage : ContentPage, IBackButton
-	{
+    {
+        private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly Contract contract;
 
 		public ServerSignaturePage(Page Owner, Contract Contract)
 		{
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.contract = Contract;
 			this.BindingContext = this;
-			InitializeComponent();
 		}
 
 		private void BackButton_Clicked(object sender, EventArgs e)

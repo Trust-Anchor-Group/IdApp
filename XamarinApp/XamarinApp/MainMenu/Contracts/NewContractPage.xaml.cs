@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP.Contracts;
+using XamarinApp.Services;
 
 namespace XamarinApp.MainMenu.Contracts
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewContractPage : ContentPage, IBackButton
-	{
+    {
+        private readonly ITagService tagService;
 		private readonly SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
-		private readonly XmppConfiguration xmppConfiguration;
 		private readonly Page owner;
 		private readonly List<string> contractTypes = new List<string>();
 		private Contract template = null;
@@ -21,19 +21,18 @@ namespace XamarinApp.MainMenu.Contracts
 		private string role = string.Empty;
 		private string visibility = string.Empty;
 
-		public NewContractPage(XmppConfiguration XmppConfiguration, Page Owner,
+		public NewContractPage(Page Owner,
 			SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory)
 		{
-			this.xmppConfiguration = XmppConfiguration;
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.contractTypesPerCategory = ContractTypesPerCategory;
 			this.BindingContext = this;
-			InitializeComponent();
 		}
 
-		public NewContractPage(XmppConfiguration XmppConfiguration, Page Owner, Contract Template)
+		public NewContractPage(Page Owner, Contract Template)
 		{
-			this.xmppConfiguration = XmppConfiguration;
 			this.owner = Owner;
 			this.contractTypesPerCategory = null;
 			this.template = Template;
@@ -115,9 +114,9 @@ namespace XamarinApp.MainMenu.Contracts
 			{
 				if (this.role != value)
 				{
-					this.RemoveRole(this.role, xmppConfiguration.LegalIdentity.Id);
+					this.RemoveRole(this.role, this.tagService.Configuration.LegalIdentity.Id);
 					this.role = value;
-					this.AddRole(this.role, xmppConfiguration.LegalIdentity.Id);
+					this.AddRole(this.role, this.tagService.Configuration.LegalIdentity.Id);
 				}
 			}
 		}
@@ -239,7 +238,7 @@ namespace XamarinApp.MainMenu.Contracts
 		{
 			try
 			{
-				this.template = await App.Contracts.GetContractAsync(this.templateId);
+				this.template = await this.tagService.Contracts.GetContractAsync(this.templateId);
 				Device.BeginInvokeOnMainThread(this.PopulateTemplateForm);
 			}
 			catch (Exception ex)
@@ -317,7 +316,7 @@ namespace XamarinApp.MainMenu.Contracts
 				Entry.TextChanged += Entry_TextChanged;
 			}
 
-			if (this.xmppConfiguration.UsePin)
+			if (this.tagService.Configuration.UsePin)
 			{
 				this.PinLabel.IsVisible = true;
 				this.PIN.IsVisible = true;
@@ -523,17 +522,17 @@ namespace XamarinApp.MainMenu.Contracts
 					return;
 				}
 
-				if (this.xmppConfiguration.UsePin && this.xmppConfiguration.ComputePinHash(this.PIN.Text) != this.xmppConfiguration.PinHash)
+				if (this.tagService.Configuration.UsePin && this.tagService.Configuration.ComputePinHash(this.PIN.Text) != this.tagService.Configuration.PinHash)
 				{
 					await this.DisplayAlert("Error", "Invalid PIN.", "OK");
 					return;
 				}
 
-				Created = await App.Contracts.CreateContractAsync(this.templateId, Parts.ToArray(), this.template.Parameters, 
+				Created = await this.tagService.Contracts.CreateContractAsync(this.templateId, Parts.ToArray(), this.template.Parameters, 
 					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration, this.template.ArchiveRequired, 
 					this.template.ArchiveOptional, null, null, false);
 
-				Created = await App.Contracts.SignContractAsync(Created, this.role, false);
+				Created = await this.tagService.Contracts.SignContractAsync(Created, this.role, false);
 			}
 			catch (Exception ex)
 			{
@@ -542,7 +541,7 @@ namespace XamarinApp.MainMenu.Contracts
 			finally
 			{
 				if (!(Created is null))
-					App.ShowPage(new ViewContractPage(this.xmppConfiguration, this.owner, Created, false), true);
+					App.ShowPage(new ViewContractPage(this.owner, Created, false), true);
 			}
 		}
 

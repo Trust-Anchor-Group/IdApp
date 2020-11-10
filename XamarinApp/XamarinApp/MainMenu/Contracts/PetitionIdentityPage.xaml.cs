@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
+using XamarinApp.Services;
 
 namespace XamarinApp.MainMenu.Contracts
 {
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
 	public partial class PetitionIdentityPage : ContentPage, IBackButton
-	{
+    {
+        private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly LegalIdentity requestorIdentity;
 		private readonly string requestorBareJid;
@@ -23,6 +24,8 @@ namespace XamarinApp.MainMenu.Contracts
 		public PetitionIdentityPage(Page Owner, LegalIdentity RequestorIdentity, string RequestorBareJid,
 			string RequestedIdentityId, string PetitionId, string Purpose)
 		{
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.requestorIdentity = RequestorIdentity;
 			this.requestorBareJid = RequestorBareJid;
@@ -30,7 +33,6 @@ namespace XamarinApp.MainMenu.Contracts
 			this.petitionId = PetitionId;
 			this.purpose = Purpose;
 			this.BindingContext = this;
-			InitializeComponent();
 
 			this.LoadPhotos();
 		}
@@ -43,62 +45,59 @@ namespace XamarinApp.MainMenu.Contracts
 				TableSection PhotoSection = new TableSection();
 				this.TableView.Root.Insert(i++, PhotoSection);
 
-				foreach (Attachment Attachment in this.requestorIdentity.Attachments)
-				{
-					if (Attachment.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
-					{
-						ViewCell ViewCell;
+                foreach (Attachment Attachment in this.requestorIdentity.Attachments.Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
+                {
+                    ViewCell ViewCell;
 
-						try
-						{
-							KeyValuePair<string, TemporaryFile> P = await App.Contracts.GetAttachmentAsync(Attachment.Url, 10000);
+                    try
+                    {
+                        KeyValuePair<string, TemporaryFile> P = await tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
-							using (TemporaryFile File = P.Value)
-							{
-								MemoryStream ms = new MemoryStream();
+                        using (TemporaryFile File = P.Value)
+                        {
+                            MemoryStream ms = new MemoryStream();
 
-								File.Position = 0;
-								await File.CopyToAsync(ms);
-								ms.Position = 0;
+                            File.Position = 0;
+                            await File.CopyToAsync(ms);
+                            ms.Position = 0;
 
-								ViewCell = new ViewCell()
-								{
-									View = new Image()
-									{
-										Source = ImageSource.FromStream(() => ms)
-									}
-								};
-							}
-						}
-						catch (Exception ex)
-						{
-							ViewCell = new ViewCell()
-							{
-								View = new Label()
-								{
-									Text = ex.Message
-								}
-							};
-						}
+                            ViewCell = new ViewCell()
+                            {
+                                View = new Image()
+                                {
+                                    Source = ImageSource.FromStream(() => ms)
+                                }
+                            };
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewCell = new ViewCell()
+                        {
+                            View = new Label()
+                            {
+                                Text = ex.Message
+                            }
+                        };
+                    }
 
-						await Device.InvokeOnMainThreadAsync(() =>
-						{
-							PhotoSection.Add(ViewCell);
-						});
-					}
-				}
-			}
-		}
+                    await Device.InvokeOnMainThreadAsync(() =>
+                    {
+                        PhotoSection.Add(ViewCell);
+                    });
+                }
+            }
+        }
 
-		private void AcceptButton_Clicked(object sender, EventArgs e)
+        private void AcceptButton_Clicked(object sender, EventArgs e)
 		{
-			App.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorBareJid, true);
+			this.tagService.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorBareJid, true);
 			App.ShowPage(this.owner, true);
 		}
 
 		private void DeclineButton_Clicked(object sender, EventArgs e)
 		{
-			App.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorBareJid, false);
+			this.tagService.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorBareJid, false);
 			App.ShowPage(this.owner, true);
 		}
 

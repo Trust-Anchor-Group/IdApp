@@ -2,22 +2,23 @@
 using System.ComponentModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XamarinApp.Services;
 using ZXing;
 
 namespace XamarinApp.MainMenu
 {
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
 	public partial class ScanQrCodePage : ContentPage, IBackButton
-	{
+    {
+        private readonly ITagService tagService;
 		private readonly Page owner;
 
 		public ScanQrCodePage(Page Owner)
 		{
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.BindingContext = this;
-			InitializeComponent();
 		}
 
 		private void BackButton_Clicked(object sender, EventArgs e)

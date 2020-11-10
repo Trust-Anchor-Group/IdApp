@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Xamarin.Forms;
+using XamarinApp.Services;
 using ZXing;
 
 namespace XamarinApp.MainMenu.Contracts
@@ -11,20 +12,20 @@ namespace XamarinApp.MainMenu.Contracts
 	/// <param name="Value">Value</param>
 	public delegate void StringEventHandler(string Value);
 
-	// Learn more about making custom code visible in the Xamarin.Forms previewer
-	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
 	public partial class AddPartPage : ContentPage, IBackButton
-	{
+    {
+        private readonly ITagService tagService;
 		private readonly StringEventHandler callback;
 		private readonly Page owner;
 
 		public AddPartPage(Page Owner, StringEventHandler Callback)
 		{
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.callback = Callback;
 			this.BindingContext = this;
-			InitializeComponent();
 		}
 
 		private void BackButton_Clicked(object sender, EventArgs e)

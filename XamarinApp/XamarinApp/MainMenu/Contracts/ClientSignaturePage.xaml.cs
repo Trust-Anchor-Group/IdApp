@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
+using XamarinApp.Services;
 
 namespace XamarinApp.MainMenu.Contracts
 {
@@ -9,18 +10,20 @@ namespace XamarinApp.MainMenu.Contracts
 	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
 	public partial class ClientSignaturePage : ContentPage, IBackButton
-	{
+    {
+        private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly ClientSignature clientSignature;
 		private readonly LegalIdentity identity;
 
 		public ClientSignaturePage(Page Owner, ClientSignature Signature, LegalIdentity Identity)
 		{
+            InitializeComponent();
+            this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.clientSignature = Signature;
 			this.identity = Identity;
 			this.BindingContext = this;
-			InitializeComponent();
 		}
 
 		private void BackButton_Clicked(object sender, EventArgs e)
