@@ -18,12 +18,7 @@ namespace XamarinApp
 	{
 		private static App instance = null;
 
-		public static ITagService TagService { get; }
-
-		static App()
-		{
-			TagService = new TagService();
-		}
+		public ITagService TagService { get; }
 
 		public App()
 		{
@@ -35,31 +30,31 @@ namespace XamarinApp
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
             IContainer container = builder.Build();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
-
-		}
+            TagService = DependencyService.Resolve<ITagService>();
+        }
 
 		public static async Task ShowPage()
 		{
-			if (TagService.Configuration.Step >= 2)
+			if (instance.TagService.Configuration.Step >= 2)
 			{
-				await TagService.UpdateXmpp();
+				await instance.TagService.UpdateXmpp();
 
-				if (TagService.Configuration.Step > 2 && !TagService.LegalIdentityIsValid)
+				if (instance.TagService.Configuration.Step > 2 && !instance.TagService.LegalIdentityIsValid)
 				{
-					TagService.Configuration.Step = 2;
-					TagService.UpdateConfiguration();
+                    instance.TagService.Configuration.Step = 2;
+                    instance.TagService.UpdateConfiguration();
 				}
 
-				if (TagService.Configuration.Step > 4 && !TagService.PinIsValid)
+				if (instance.TagService.Configuration.Step > 4 && !instance.TagService.PinIsValid)
 				{
-					TagService.Configuration.Step = 4;
-					TagService.UpdateConfiguration();
+                    instance.TagService.Configuration.Step = 4;
+                    instance.TagService.UpdateConfiguration();
 				}
 			}
 
 			Page Page;
 
-			switch (TagService.Configuration.Step)
+			switch (instance.TagService.Configuration.Step)
 			{
 				case 0:
 					Page = new OperatorPage();
@@ -70,16 +65,16 @@ namespace XamarinApp
 					break;
 
 				case 2:
-					if (!TagService.LegalIdentityIsValid)
+					if (!instance.TagService.LegalIdentityIsValid)
 					{
 						DateTime Now = DateTime.Now;
 						LegalIdentity Created = null;
 						LegalIdentity Approved = null;
 						bool Changed = false;
 
-						if (await TagService.CheckServices())
+						if (await instance.TagService.CheckServices())
 						{
-							foreach (LegalIdentity Identity in await TagService.GetLegalIdentitiesAsync())
+							foreach (LegalIdentity Identity in await instance.TagService.GetLegalIdentitiesAsync())
 							{
 								if (Identity.HasClientSignature &&
 									Identity.HasClientPublicKey &&
@@ -100,19 +95,19 @@ namespace XamarinApp
 
 							if (!(Approved is null))
 							{
-								TagService.Configuration.LegalIdentity = Approved;
+                                instance.TagService.Configuration.LegalIdentity = Approved;
 								Changed = true;
 							}
 							else if (!(Created is null))
 							{
-								TagService.Configuration.LegalIdentity = Created;
+                                instance.TagService.Configuration.LegalIdentity = Created;
 								Changed = true;
 							}
 
 							if (Changed)
 							{
-								TagService.Configuration.Step++;
-								TagService.UpdateConfiguration();
+                                instance.TagService.Configuration.Step++;
+                                instance.TagService.UpdateConfiguration();
 								Page = new Views.Registration.IdentityPage();
 								break;
 							}
@@ -201,12 +196,12 @@ namespace XamarinApp
 		{
 			try
 			{
-				LegalIdentity Identity = await TagService.Contracts.GetLegalIdentityAsync(LegalId);
+				LegalIdentity Identity = await instance.TagService.Contracts.GetLegalIdentityAsync(LegalId);
 				App.ShowPage(new Views.IdentityPage(instance.MainPage, Identity), true);
 			}
 			catch (Exception)
 			{
-				await TagService.Contracts.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
+				await instance.TagService.Contracts.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
 				await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
 					"If the owner accepts the petition, the identity information will be displayed on the screen.", "OK");
 			}
@@ -216,7 +211,7 @@ namespace XamarinApp
 		{
 			try
 			{
-				Contract Contract = await TagService.Contracts.GetContractAsync(ContractId);
+				Contract Contract = await instance.TagService.Contracts.GetContractAsync(ContractId);
 
 				if (Contract.CanActAsTemplate && Contract.State == ContractState.Approved)
 					App.ShowPage(new NewContractPage(instance.MainPage, Contract), true);
@@ -225,7 +220,7 @@ namespace XamarinApp
 			}
 			catch (Exception)
 			{
-				await TagService.Contracts.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
+				await instance.TagService.Contracts.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
 				await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
 					"If any of the parts accepts the petition, the contract information will be displayed on the screen.", "OK");
 			}

@@ -19,7 +19,7 @@ namespace XamarinApp.Views
         private LegalIdentity identity;
 
         public IdentityPage(Page Owner)
-            : this(Owner, App.TagService.Configuration.LegalIdentity, true)
+            : this(Owner, App.Instance.TagService.Configuration.LegalIdentity, true)
         {
         }
 

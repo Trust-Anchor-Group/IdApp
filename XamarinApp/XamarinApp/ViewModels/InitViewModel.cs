@@ -6,16 +6,16 @@ namespace XamarinApp.ViewModels
 {
     public class InitViewModel : BindableObject
     {
-        private readonly ITagService _tagService;
+        private readonly ITagService tagService;
 
         public InitViewModel()
         {
-            _tagService = App.TagService;
+            this.tagService = DependencyService.Resolve<ITagService>();
         }
 
         public Task Init()
         {
-            return _tagService.Init();
+            return this.tagService.Init();
         }
     }
 }
