@@ -5,14 +5,24 @@ namespace XamarinApp.ViewModels
 {
     public class BaseViewModel : BindableObject
     {
-        public Task Bind()
+        public bool IsBound { get; private set; }
+
+        public async Task Bind()
         {
-            return DoBind();
+            if (!IsBound)
+            {
+                await DoBind();
+                IsBound = true;
+            }
         }
 
-        public Task Unbind()
+        public async Task Unbind()
         {
-            return DoUnbind();
+            if (IsBound)
+            {
+                await DoUnbind();
+                IsBound = false;
+            }
         }
 
         protected virtual Task DoBind()
@@ -21,6 +31,16 @@ namespace XamarinApp.ViewModels
         }
 
         protected virtual Task DoUnbind()
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task RestoreState()
+        {
+            return Task.CompletedTask;
+        }
+
+        public virtual Task SaveState()
         {
             return Task.CompletedTask;
         }

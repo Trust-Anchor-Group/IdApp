@@ -11,17 +11,5 @@ namespace XamarinApp.Views.Registration
             InitializeComponent();
             ViewModel = new RegistrationViewModel();
         }
-
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            await this.GetViewModel<RegistrationViewModel>().RestoreState();
-        }
-
-        protected override async void OnDisappearing()
-        {
-            await this.GetViewModel<RegistrationViewModel>().SaveState();
-            base.OnDisappearing();
-        }
     }
 }

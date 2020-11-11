@@ -7,7 +7,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainMenuPage : ContentPage, IConnectionStateChanged, IBackButton
+    public partial class MainMenuPage : IConnectionStateChanged
     {
         private readonly ITagService tagService;
 
@@ -31,16 +31,6 @@ namespace XamarinApp.Views
         private void Contracts_Clicked(object sender, EventArgs e)
         {
             App.ShowPage(new XamarinApp.Views.Contracts.ContractsMenuPage(App.CurrentPage), false);
-        }
-
-        private void Hide_Clicked(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.GetCurrentProcess().CloseMainWindow();
-        }
-
-        private void Close_Clicked(object sender, EventArgs e)
-        {
-            App.Instance?.Stop();
         }
 
 		public void ConnectionStateChanged(XmppState NewState)
@@ -109,12 +99,6 @@ namespace XamarinApp.Views
             this.ScanQRButton.IsEnabled = Connected;
             this.DevicesButton.IsEnabled = false;
             this.ContractsButton.IsEnabled = Connected;
-        }
-
-        public bool BackClicked()
-        {
-            this.Close_Clicked(this, EventArgs.Empty);
-            return true;
         }
     }
 }

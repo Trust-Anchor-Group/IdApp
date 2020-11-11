@@ -64,7 +64,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="CloseApp.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

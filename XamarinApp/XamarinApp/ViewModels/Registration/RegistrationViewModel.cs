@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.Script.Functions.Scalar;
 using Xamarin.Forms;
 using XamarinApp.Services;
-using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -52,12 +50,12 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(CurrentStepProperty, value); }
         }
 
-        public async Task RestoreState()
+        public override async Task RestoreState()
         {
             CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, DefaultStep);
         }
 
-        public async Task SaveState()
+        public override async Task SaveState()
         {
             await this.settingsService.SaveState(CurrentStepKey, CurrentStep);
         }

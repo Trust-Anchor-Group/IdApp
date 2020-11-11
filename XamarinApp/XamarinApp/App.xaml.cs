@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Waher.Events;
@@ -32,6 +31,7 @@ namespace XamarinApp
 		private static App instance = null;
 
         private readonly IMessageService messageService;
+        private FilesProvider filesProvider;
 
 		public ITagService TagService { get; }
 
@@ -66,8 +66,12 @@ namespace XamarinApp
             }
         }
 
+        private static bool initHasRun = false;
 		private async Task Init()
         {
+            if (initHasRun)
+                return;
+
             Log.Register(new InternalSink());
 
             try
@@ -96,17 +100,18 @@ namespace XamarinApp
                 string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string DataFolder = Path.Combine(AppDataFolder, "Data");
 
+                filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.TagService.GetCustomKey);
 
-                FilesProvider Provider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.TagService.GetCustomKey);
+                await filesProvider.RepairIfInproperShutdown(string.Empty);
 
-                await Provider.RepairIfInproperShutdown(string.Empty);
-
-                Database.Register(Provider);
+                Database.Register(filesProvider);
             }
             catch (Exception e)
             {
                 await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
             }
+
+            initHasRun = true;
         }
 
 		public static async Task ShowPage()
@@ -240,41 +245,25 @@ namespace XamarinApp
             await TagService.Load();
         }
 
-        protected override async void OnSleep()
+        protected override async void OnResume()
+        {
+            await TagService.Load();
+        }
+
+		protected override async void OnSleep()
         {
             if (MainPage.BindingContext is BaseViewModel vm)
             {
+                await vm.SaveState();
                 await vm.Unbind();
             }
             await TagService.Unload();
-		}
-
-		protected override async void OnResume()
-        {
-            await TagService.Load();
-		}
-
-		internal async Task Stop()
-		{
-			try
-			{
-				instance = null;
-
-				await Types.StopAllModules();
-
-                await TagService.Unload();
-				TagService.Dispose();
-
-				Log.Terminate();
-			}
-			finally
-			{
-				await Waher.Persistence.LifeCycle.DatabaseModule.Flush();
-
-				ICloseApplication CloseApp = DependencyService.Get<ICloseApplication>();
-				CloseApp?.CloseApplication();
-			}
-		}
+   //         await Types.StopAllModules();
+            await Waher.Persistence.LifeCycle.DatabaseModule.Flush();
+			//filesProvider.Dispose();
+   //         filesProvider = null;
+   //         Log.Terminate();
+        }
 
 		public static async Task OpenLegalIdentity(string LegalId, string Purpose)
 		{

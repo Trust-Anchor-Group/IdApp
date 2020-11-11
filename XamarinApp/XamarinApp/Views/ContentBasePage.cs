@@ -22,10 +22,15 @@ namespace XamarinApp.Views
         {
             base.OnAppearing();
             await this.BindViewModel(ViewModel);
+            await ViewModel.RestoreState();
         }
 
         protected override async void OnDisappearing()
         {
+            if (ViewModel.IsBound)
+            {
+                await ViewModel.SaveState();
+            }
             await this.UnbindViewModel(ViewModel);
             (ViewModel as IDisposable)?.Dispose();
             base.OnDisappearing();
