@@ -12,6 +12,11 @@ namespace XamarinApp.Views
             set => BindingContext = value;
         }
 
+        protected T GetViewModel<T>() where T : BaseViewModel
+        {
+            return (T)ViewModel;
+        }
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();

@@ -230,7 +230,7 @@ namespace XamarinApp.Services
             return Result;
         }
 
-        private void UpdateConfiguration()
+        public void UpdateConfiguration()
         {
             Database.Update(this.Configuration);
         }

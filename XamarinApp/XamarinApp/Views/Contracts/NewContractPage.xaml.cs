@@ -334,7 +334,7 @@ namespace XamarinApp.Views.Contracts
 			if (sender is Button Button)
 				// TODO: create page, set binding context, and call await Navigation.PushModalAsync();
 			    // When done, 'read' the BindingContext for properties.
-				App.ShowPage(new AddPartPage(this, (Id) => this.AddRole(Button.StyleId, Id)), false);
+				App.ShowPage(new AddPartPage(this, (Id) => this.AddRole(Button.StyleId, Id), true), false);
 		}
 
 		private void PopulateHumanReadableText()

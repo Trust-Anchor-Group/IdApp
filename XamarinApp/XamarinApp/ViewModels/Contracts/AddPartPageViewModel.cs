@@ -12,14 +12,17 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly IMessageService messageService;
         private readonly INavigationService navigationService;
         private readonly StringEventHandler callback;
+        private readonly bool isModal;
+        public event EventHandler ModeChanged;
 
-        public AddPartPageViewModel(StringEventHandler Callback)
+        public AddPartPageViewModel(StringEventHandler Callback, bool isModal)
         {
             SwitchModeCommand = new Command(SwitchMode);
             ManualAddCommand = new Command(async () => await PerformManualAdd());
             this.messageService = DependencyService.Resolve<IMessageService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.callback = Callback;
+            this.isModal = isModal;
             SetModeText();
         }
 
@@ -92,18 +95,26 @@ namespace XamarinApp.ViewModels.Contracts
                 }
 
                 this.callback?.Invoke(Code);
-                App.ShowPage(this.owner, true);
+                if (this.isModal)
+                    await this.navigationService.GoBackFromModal();
+                else
+                    await this.navigationService.GoBack();
             }
             catch (Exception ex)
             {
                 await this.messageService.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
             }
+        }
 
+        protected virtual void OnModeChanged(EventArgs e)
+        {
+            ModeChanged?.Invoke(this, e);
         }
 
         private void SwitchMode()
         {
             ScanIsAutomatic = !ScanIsAutomatic;
+            OnModeChanged(EventArgs.Empty);
         }
 
         private async Task PerformManualAdd()
@@ -125,7 +136,10 @@ namespace XamarinApp.ViewModels.Contracts
                 }
 
                 this.callback?.Invoke(Code);
-                App.ShowPage(this.owner, true);
+                if (this.isModal)
+                    await this.navigationService.GoBackFromModal();
+                else
+                    await this.navigationService.GoBack();
             }
             catch (Exception ex)
             {

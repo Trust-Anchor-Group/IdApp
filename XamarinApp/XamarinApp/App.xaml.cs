@@ -31,6 +31,7 @@ namespace XamarinApp
             ContainerBuilder builder = new ContainerBuilder();
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
 			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
+			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
             IContainer container = builder.Build();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 

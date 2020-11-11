@@ -48,6 +48,7 @@ namespace XamarinApp.Services
         
         void DecrementConfigurationStep(int? stepToRevertTo = null);
         void IncrementConfigurationStep();
+        void UpdateConfiguration();
 
         void SetPin(string pin, bool usePin);
         void ResetPin();

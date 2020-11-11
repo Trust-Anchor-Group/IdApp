@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="Waher.Content" Version="1.0.29" />
     <PackageReference Include="Waher.Content.Emoji" Version="1.0.4" />
@@ -76,6 +77,9 @@
     <EmbeddedResource Update="Views\Registration\OperatorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Registration\OperatorView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\RegisterIdentityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainMenuPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\Registration\RegistrationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\ScanQrCodePage.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+             x:Class="XamarinApp.Views.Registration.RegistrationPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <CarouselView 
+            x:Name="CarouselView"
+            IsSwipeEnabled="False"
+            HorizontalOptions="CenterAndExpand"
+            VerticalOptions="CenterAndExpand"
+            IndicatorView="IndicatorView">
+                <!--<CarouselView.ItemsSource>
+
+                </CarouselView.ItemsSource>-->
+            </CarouselView>
+            <IndicatorView x:Name="IndicatorView" HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</views:ContentBasePage>

@@ -18,20 +18,45 @@ namespace XamarinApp.Views.Contracts
     {
         private readonly ITagService tagService;
 		private readonly StringEventHandler callback;
-		private readonly Page owner;
+        private readonly bool isModal;
+        private readonly INavigationService navigationService;
 
-		public AddPartPage(Page Owner, StringEventHandler Callback)
+		public AddPartPage(Page Owner, StringEventHandler Callback, bool isModal)
 		{
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
-			this.owner = Owner;
 			this.callback = Callback;
-			this.ViewModel = new AddPartPageViewModel(Callback);
-		}
+            this.isModal = isModal;
+			this.ViewModel = new AddPartPageViewModel(Callback, isModal);
+            this.navigationService = DependencyService.Resolve<INavigationService>();
+        }
 
-		private void BackButton_Clicked(object sender, EventArgs e)
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            GetViewModel<AddPartPageViewModel>().ModeChanged += ViewModel_ModeChanged;
+        }
+
+        protected override void OnDisappearing()
+        {
+            GetViewModel<AddPartPageViewModel>().ModeChanged -= ViewModel_ModeChanged;
+            base.OnDisappearing();
+        }
+
+        private void ViewModel_ModeChanged(object sender, EventArgs e)
+        {
+            if (GetViewModel<AddPartPageViewModel>().ScanIsManual)
+            {
+                this.LinkEntry.Focus();
+            }
+        }
+
+        private void BackButton_Clicked(object sender, EventArgs e)
 		{
-			App.ShowPage(this.owner, true);
+            if (this.isModal)
+                this.navigationService.GoBackFromModal();
+            else
+                this.navigationService.GoBack();
 		}
 
 		public async void Scanner_OnScanResult(Result result)
@@ -43,9 +68,12 @@ namespace XamarinApp.Views.Contracts
 				if (s.StartsWith(Constants.Schemes.IotId + ":"))
 				{
 					this.callback?.Invoke(s.Substring(6));
-					App.ShowPage(this.owner, true);
+                    if (this.isModal)
+                        await this.navigationService.GoBackFromModal();
+                    else
+                        await this.navigationService.GoBack();
 				}
-			}
+            }
 			catch (Exception ex)
 			{
 				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
