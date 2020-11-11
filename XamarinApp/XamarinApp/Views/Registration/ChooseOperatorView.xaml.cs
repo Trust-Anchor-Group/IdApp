@@ -1,12 +1,11 @@
-﻿using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace XamarinApp.Views.Registration
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class OperatorView : ContentView
+    public partial class ChooseOperatorView
     {
-        public OperatorView()
+        public ChooseOperatorView()
         {
             InitializeComponent();
         }

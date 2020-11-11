@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.ViewModels;
 
@@ -26,6 +27,7 @@ namespace XamarinApp.Views
         protected override async void OnDisappearing()
         {
             await this.UnbindViewModel(ViewModel);
+            (ViewModel as IDisposable)?.Dispose();
             base.OnDisappearing();
         }
     }

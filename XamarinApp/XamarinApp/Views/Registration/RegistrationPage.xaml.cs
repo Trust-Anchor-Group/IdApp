@@ -9,6 +9,7 @@ namespace XamarinApp.Views.Registration
         public RegistrationPage()
         {
             InitializeComponent();
+            ViewModel = new RegistrationViewModel();
         }
 
         protected override async void OnAppearing()

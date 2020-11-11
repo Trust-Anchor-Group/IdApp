@@ -44,7 +44,7 @@ namespace XamarinApp.Services
             return matchingStates.Select(x => (x.Key, JsonConvert.DeserializeObject<T>(x.Value)));
         }
 
-        public async Task<T> RestoreState<T>(string key)
+        public async Task<T> RestoreState<T>(string key, T defaultValue = default(T))
         {
             if (string.IsNullOrWhiteSpace(key))
                 return default;
@@ -55,7 +55,7 @@ namespace XamarinApp.Services
                 return JsonConvert.DeserializeObject<T>(existingState.Value);
             }
 
-            return default;
+            return defaultValue;
         }
 
         public async Task RemoveState<T>(string key)

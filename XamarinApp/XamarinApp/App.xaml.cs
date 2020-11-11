@@ -1,12 +1,23 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
+using Waher.Events;
+using Waher.Networking.DNS;
 using Xamarin.Forms;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.P2P;
+using Waher.Networking.XMPP.Provisioning;
+using Waher.Persistence;
+using Waher.Persistence.Files;
+using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Language;
+using Waher.Runtime.Settings;
 using Xamarin.Forms.Internals;
-using Xamarin.Forms.Xaml;
 using XamarinApp.Views.Registration;
 using XamarinApp.Views;
 using XamarinApp.Services;
@@ -20,13 +31,13 @@ namespace XamarinApp
 	{
 		private static App instance = null;
 
+        private readonly IMessageService messageService;
+
 		public ITagService TagService { get; }
 
 		public App()
 		{
 			InitializeComponent();
-			MainPage = new InitPage();
-			instance = this;
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
@@ -35,7 +46,67 @@ namespace XamarinApp
             IContainer container = builder.Build();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
-            TagService = DependencyService.Resolve<ITagService>();
+			TagService = DependencyService.Resolve<ITagService>();
+            this.messageService = DependencyService.Resolve<IMessageService>();
+
+            MainPage = new InitPage();
+            instance = this;
+        }
+
+		private class InternalSink : EventSink
+        {
+            public InternalSink()
+                : base("InternalEventSink")
+            {
+            }
+
+            public override Task Queue(Event _)
+            {
+                return Task.CompletedTask;
+            }
+        }
+
+		private async Task Init()
+        {
+            Log.Register(new InternalSink());
+
+            try
+            {
+                Types.Initialize(
+                    typeof(App).Assembly,
+                    typeof(Database).Assembly,
+                    typeof(FilesProvider).Assembly,
+                    typeof(ObjectSerializer).Assembly,
+                    typeof(XmppClient).Assembly,
+                    typeof(ContractsClient).Assembly,
+                    typeof(RuntimeSettings).Assembly,
+                    typeof(Language).Assembly,
+                    typeof(DnsResolver).Assembly,
+                    typeof(XmppServerlessMessaging).Assembly,
+                    typeof(ProvisioningClient).Assembly);
+            }
+            catch (Exception e)
+            {
+                await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+                return;
+            }
+
+            try
+            {
+                string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string DataFolder = Path.Combine(AppDataFolder, "Data");
+
+
+                FilesProvider Provider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.TagService.GetCustomKey);
+
+                await Provider.RepairIfInproperShutdown(string.Empty);
+
+                Database.Register(Provider);
+            }
+            catch (Exception e)
+            {
+                await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+            }
         }
 
 		public static async Task ShowPage()
@@ -165,6 +236,7 @@ namespace XamarinApp
 
         protected override async void OnStart()
         {
+            await Init();
             await TagService.Load();
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
 
 namespace XamarinApp.iOS
 {
@@ -25,6 +26,7 @@ namespace XamarinApp.iOS
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 
+            Forms.SetFlags("CarouselView_Experimental");
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
 
             return base.FinishedLaunching(app, options);

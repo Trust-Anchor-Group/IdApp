@@ -68,6 +68,9 @@
     <EmbeddedResource Update="Views\Registration\AccountPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\Registration\ChooseAccountView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\DefinePinPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -77,7 +80,7 @@
     <EmbeddedResource Update="Views\Registration\OperatorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\OperatorView.xaml">
+    <EmbeddedResource Update="Views\Registration\ChooseOperatorView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\RegisterIdentityPage.xaml">
@@ -139,6 +142,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Registration\ChooseAccountView.xaml.cs">
+      <DependentUpon>ChooseAccountView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Registration\ChooseOperatorView.xaml.cs">
+      <DependentUpon>ChooseOperatorView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

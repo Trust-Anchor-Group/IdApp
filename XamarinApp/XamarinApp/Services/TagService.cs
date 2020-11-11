@@ -7,22 +7,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Waher.Events;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
-using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.ServiceDiscovery;
 using Waher.Persistence;
-using Waher.Persistence.Files;
-using Waher.Persistence.Serialization;
-using Waher.Runtime.Inventory;
-using Waher.Runtime.Language;
-using Waher.Runtime.Settings;
 using Waher.Runtime.Temporary;
 using Waher.Security;
 using XamarinApp.Views.Contracts;
@@ -45,9 +38,9 @@ namespace XamarinApp.Services
         private bool isLoading = false;
         private readonly IMessageService messageService;
 
-		public TagService(IMessageService MessageService)
+		public TagService(IMessageService messageService)
         {
-            messageService = MessageService;
+            this.messageService = messageService;
         }
 
         public void Dispose()
@@ -79,48 +72,6 @@ namespace XamarinApp.Services
             if (!isLoaded && !isLoading)
             {
                 isLoading = true;
-
-                Log.Register(new InternalSink());
-
-                try
-                {
-                    Types.Initialize(
-                        typeof(App).Assembly,
-                        typeof(Database).Assembly,
-                        typeof(FilesProvider).Assembly,
-                        typeof(ObjectSerializer).Assembly,
-                        typeof(XmppClient).Assembly,
-                        typeof(ContractsClient).Assembly,
-                        typeof(RuntimeSettings).Assembly,
-                        typeof(Language).Assembly,
-                        typeof(DnsResolver).Assembly,
-                        typeof(XmppServerlessMessaging).Assembly,
-                        typeof(ProvisioningClient).Assembly);
-                }
-                catch (Exception e)
-                {
-                    isLoading = false;
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
-                    return;
-                }
-
-				try
-                {
-                    string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    string DataFolder = Path.Combine(AppDataFolder, "Data");
-
-                    FilesProvider Provider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.GetCustomKey);
-
-					await Provider.RepairIfInproperShutdown(string.Empty);
-
-                    Database.Register(Provider);
-                }
-                catch (Exception e)
-                {
-                    isLoading = false;
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
-                    return;
-                }
 
                 try
                 {
@@ -156,14 +107,16 @@ namespace XamarinApp.Services
             return Task.CompletedTask;
         }
 
-		private void GetCustomKey(string FileName, out byte[] Key, out byte[] IV)
+		public void GetCustomKey(string FileName, out byte[] Key, out byte[] IV)
         {
             string s;
             int i;
 
             try
             {
-                s = SecureStorage.GetAsync(FileName).GetAwaiter().GetResult();
+                Task<string> t = SecureStorage.GetAsync(FileName);
+                t.ConfigureAwait(false).GetAwaiter().GetResult();
+                s = t.Result;
             }
             catch (TypeInitializationException)
             {
@@ -682,18 +635,5 @@ namespace XamarinApp.Services
 			if (!(Xmpp is null) && (Xmpp.State == XmppState.Error || Xmpp.State == XmppState.Offline))
 				Xmpp.Reconnect();
 		}
-
-		private class InternalSink : EventSink
-        {
-            public InternalSink()
-                : base("InternalEventSink")
-            {
-            }
-
-            public override Task Queue(Event Event)
-            {
-                return Task.CompletedTask;
-            }
-        }
     }
 }

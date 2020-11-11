@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
+using XamarinApp.Views.Registration;
 
 namespace XamarinApp
 {
@@ -30,7 +31,7 @@ namespace XamarinApp
 
             await LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
 
-            ProgressBar.IsRunning = true;
+            IsBusy = true;
             this.tagService.Loaded += TagService_Loaded;
         }
 
@@ -46,9 +47,9 @@ namespace XamarinApp
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    ProgressBar.IsRunning = false;
+                    IsBusy = false;
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    await App.ShowPage();
+                    App.ShowPage(new RegistrationPage(), false);
                 });
             }
         }

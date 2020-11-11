@@ -2,20 +2,50 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+             xmlns:registration="clr-namespace:XamarinApp.ViewModels.Registration;assembly=XamarinApp"
+             xmlns:registrationViews="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Registration.RegistrationPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <CarouselView 
-            x:Name="CarouselView"
-            IsSwipeEnabled="False"
-            HorizontalOptions="CenterAndExpand"
-            VerticalOptions="CenterAndExpand"
-            IndicatorView="IndicatorView">
-                <!--<CarouselView.ItemsSource>
-
-                </CarouselView.ItemsSource>-->
-            </CarouselView>
-            <IndicatorView x:Name="IndicatorView" HorizontalOptions="Center"/>
+        <StackLayout Orientation="Vertical" Margin="0, 0, 0, 10">
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="ChooseOperatorTemplate">
+                        <registrationViews:ChooseOperatorView/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="ChooseAccountTemplate">
+                        <registrationViews:ChooseAccountView/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="Step3Template">
+                        <Label Text="Template 3"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="Step4Template">
+                        <Label Text="Template 4"/>
+                    </DataTemplate>
+                    <DataTemplate x:Key="Step5Template">
+                        <Label Text="Template 5"/>
+                    </DataTemplate>
+                    <registration:RegistrationStepDataTemplateSelector 
+                        x:Key="StepTemplateSelector"
+                        Step1Template="{StaticResource ChooseOperatorTemplate}"
+                        Step2Template="{StaticResource ChooseAccountTemplate}"
+                        Step3Template="{StaticResource Step3Template}"
+                        Step4Template="{StaticResource Step4Template}"
+                        Step5Template="{StaticResource Step5Template}"
+                        />
+                </ResourceDictionary>
+            </StackLayout.Resources>
+            <CarouselView x:Name="CarouselView"
+                          IsSwipeEnabled="False"
+                          HorizontalOptions="CenterAndExpand"
+                          VerticalOptions="CenterAndExpand"
+                          Position="{Binding Path=CurrentStep, Mode=TwoWay}"
+                          IndicatorView="IndicatorView"
+                          ItemsSource="{Binding Path=RegistrationSteps}"
+                          ItemTemplate="{StaticResource StepTemplateSelector}"/>
+            <IndicatorView x:Name="IndicatorView"
+                           HorizontalOptions="Center"
+                           IndicatorColor="DarkGray"
+                           SelectedIndicatorColor="DarkOrange"/>
         </StackLayout>
     </ContentPage.Content>
 </views:ContentBasePage>

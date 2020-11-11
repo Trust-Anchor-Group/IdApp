@@ -42,6 +42,7 @@ namespace XamarinApp.Services
 
         Task<bool> FindServices(XmppClient client);
 
+        void GetCustomKey(string fileName, out byte[] key, out byte[] iv);
         string CreateRandomPassword();
 
         Task<(string hostName, int port)> GetXmppHostnameAndPort(string domainName);
