@@ -138,4 +138,43 @@
   <data name="QrScanOverlayText" xml:space="preserve">
     <value>Align the QR-Code within the frame</value>
   </data>
+  <data name="XmppState_Authenticating" xml:space="preserve">
+    <value>Authenticating network identity</value>
+  </data>
+  <data name="XmppState_Binding" xml:space="preserve">
+    <value>Binding connection</value>
+  </data>
+  <data name="XmppState_Connected" xml:space="preserve">
+    <value>Connected to {0}</value>
+  </data>
+  <data name="XmppState_Connecting" xml:space="preserve">
+    <value>Establishing connection</value>
+  </data>
+  <data name="XmppState_Error" xml:space="preserve">
+    <value>Connection error</value>
+  </data>
+  <data name="XmppState_FetchingRoster" xml:space="preserve">
+    <value>Fetching roster</value>
+  </data>
+  <data name="XmppState_Offline" xml:space="preserve">
+    <value>Disconnected</value>
+  </data>
+  <data name="XmppState_Registering" xml:space="preserve">
+    <value>Registering with broker</value>
+  </data>
+  <data name="XmppState_RequestingSession" xml:space="preserve">
+    <value>Requesting session</value>
+  </data>
+  <data name="XmppState_SettingPresence" xml:space="preserve">
+    <value>Setting presence</value>
+  </data>
+  <data name="XmppState_StartingEncryption" xml:space="preserve">
+    <value>Encrypting connection</value>
+  </data>
+  <data name="XmppState_StreamNegotiation" xml:space="preserve">
+    <value>Negotiating stream</value>
+  </data>
+  <data name="XmppState_StreamOpened" xml:space="preserve">
+    <value>Stream established</value>
+  </data>
 </root>

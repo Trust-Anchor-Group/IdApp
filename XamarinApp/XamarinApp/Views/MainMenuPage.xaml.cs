@@ -44,64 +44,69 @@ namespace XamarinApp.Views
             App.ShowPage(new Contracts.ContractsMenuPage(App.CurrentPage), false);
         }
 
-		private void ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private void ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() => HandleConnectionStateChanged(e.State));
+        }
+
+        private void HandleConnectionStateChanged(XmppState state)
 		{
             bool Connected = false;
 
-            switch (e.State)
+            switch (state)
             {
                 case XmppState.Authenticating:
-                    this.ConnectionState.Text = "Authenticating network identity";
+                    this.ConnectionState.Text = AppResources.XmppState_Authenticating;
                     break;
 
                 case XmppState.Binding:
-                    this.ConnectionState.Text = "Binding connection";
+                    this.ConnectionState.Text = AppResources.XmppState_Binding;
                     break;
 
                 case XmppState.Connected:
-                    this.ConnectionState.Text = "Connected to " + (string.IsNullOrEmpty(this.tagService.Domain) ? this.tagService.Host : this.tagService.Domain);
+                    this.ConnectionState.Text = string.Format(AppResources.XmppState_Connected, (string.IsNullOrEmpty(this.tagService.Domain) ? this.tagService.Host : this.tagService.Domain));
                     Connected = true;
                     break;
 
                 case XmppState.Connecting:
-                    this.ConnectionState.Text = "Establishing connection";
+                    this.ConnectionState.Text = AppResources.XmppState_Connecting;
                     break;
 
                 case XmppState.Error:
-                    this.ConnectionState.Text = "Connection error";
+                    this.ConnectionState.Text = AppResources.XmppState_Error;
                     break;
 
                 case XmppState.FetchingRoster:
-                    this.ConnectionState.Text = "Fetching roster";
+                    this.ConnectionState.Text = AppResources.XmppState_FetchingRoster;
                     break;
 
                 case XmppState.Registering:
-                    this.ConnectionState.Text = "Registering with broker";
+                    this.ConnectionState.Text = AppResources.XmppState_Registering;
                     break;
 
                 case XmppState.RequestingSession:
-                    this.ConnectionState.Text = "Requesting session";
+                    this.ConnectionState.Text = AppResources.XmppState_RequestingSession;
                     break;
 
                 case XmppState.SettingPresence:
-                    this.ConnectionState.Text = "Setting presence";
+                    this.ConnectionState.Text = AppResources.XmppState_SettingPresence;
                     break;
 
                 case XmppState.StartingEncryption:
-                    this.ConnectionState.Text = "Encrypting connection";
+                    this.ConnectionState.Text = AppResources.XmppState_StartingEncryption;
                     break;
 
                 case XmppState.StreamNegotiation:
-                    this.ConnectionState.Text = "Negotiating stream";
+                    this.ConnectionState.Text = AppResources.XmppState_StreamNegotiation;
                     break;
 
                 case XmppState.StreamOpened:
-                    this.ConnectionState.Text = "Stream established";
+                    this.ConnectionState.Text = AppResources.XmppState_StreamOpened;
                     break;
 
                 default:
                 case XmppState.Offline:
-                    this.ConnectionState.Text = "Disconnected";
+                    this.ConnectionState.Text = AppResources.XmppState_Offline;
                     break;
             }
 

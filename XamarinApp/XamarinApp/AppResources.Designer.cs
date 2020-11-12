@@ -122,5 +122,122 @@ namespace XamarinApp {
                 return ResourceManager.GetString("QrScanOverlayText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authenticating network identity.
+        /// </summary>
+        internal static string XmppState_Authenticating {
+            get {
+                return ResourceManager.GetString("XmppState_Authenticating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binding connection.
+        /// </summary>
+        internal static string XmppState_Binding {
+            get {
+                return ResourceManager.GetString("XmppState_Binding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected to {0}.
+        /// </summary>
+        internal static string XmppState_Connected {
+            get {
+                return ResourceManager.GetString("XmppState_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Establishing connection.
+        /// </summary>
+        internal static string XmppState_Connecting {
+            get {
+                return ResourceManager.GetString("XmppState_Connecting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection error.
+        /// </summary>
+        internal static string XmppState_Error {
+            get {
+                return ResourceManager.GetString("XmppState_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetching roster.
+        /// </summary>
+        internal static string XmppState_FetchingRoster {
+            get {
+                return ResourceManager.GetString("XmppState_FetchingRoster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnected.
+        /// </summary>
+        internal static string XmppState_Offline {
+            get {
+                return ResourceManager.GetString("XmppState_Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registering with broker.
+        /// </summary>
+        internal static string XmppState_Registering {
+            get {
+                return ResourceManager.GetString("XmppState_Registering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requesting session.
+        /// </summary>
+        internal static string XmppState_RequestingSession {
+            get {
+                return ResourceManager.GetString("XmppState_RequestingSession", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting presence.
+        /// </summary>
+        internal static string XmppState_SettingPresence {
+            get {
+                return ResourceManager.GetString("XmppState_SettingPresence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encrypting connection.
+        /// </summary>
+        internal static string XmppState_StartingEncryption {
+            get {
+                return ResourceManager.GetString("XmppState_StartingEncryption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Negotiating stream.
+        /// </summary>
+        internal static string XmppState_StreamNegotiation {
+            get {
+                return ResourceManager.GetString("XmppState_StreamNegotiation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stream established.
+        /// </summary>
+        internal static string XmppState_StreamOpened {
+            get {
+                return ResourceManager.GetString("XmppState_StreamOpened", resourceCulture);
+            }
+        }
     }
 }
