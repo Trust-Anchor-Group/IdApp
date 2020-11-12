@@ -44,7 +44,7 @@ namespace XamarinApp.Services
 
         Task<bool> CheckServices();
 
-        Task<bool> FindServices(XmppClient client);
+        Task<bool> FindServices(XmppClient client = null);
 
         Task<(string hostName, int port)> GetXmppHostnameAndPort(string domainName = null);
         

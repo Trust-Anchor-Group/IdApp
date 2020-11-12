@@ -45,12 +45,23 @@ namespace XamarinApp.Services
             reconnectTimer?.Dispose();
             reconnectTimer = null;
 
-            contracts?.Dispose();
-            contracts = null;
+			if (contracts != null)
+            {
+				contracts.IdentityUpdated -= Contracts_IdentityUpdated;
+                contracts.PetitionForIdentityReceived -= Contracts_PetitionForIdentityReceived;
+                contracts.PetitionedIdentityResponseReceived -= Contracts_PetitionedIdentityResponseReceived;
+                contracts.PetitionForContractReceived -= Contracts_PetitionForContractReceived;
+                contracts.PetitionedContractResponseReceived -= Contracts_PetitionedContractResponseReceived;
+                contracts.Dispose();
+            }
+			contracts = null;
 
             fileUpload?.Dispose();
             fileUpload = null;
-    	}
+
+            xmpp?.Dispose();
+            xmpp = null;
+        }
 
 		public async Task Load()
         {
@@ -195,7 +206,6 @@ namespace XamarinApp.Services
 				passwordHash != this.Configuration.PasswordHash ||
 				passwordHashMethod != this.Configuration.PasswordHashMethod)
 			{
-				// TODO - remove this?
 				Dispose();
 
 				domainName = this.Configuration.Domain;
@@ -232,7 +242,7 @@ namespace XamarinApp.Services
 								string.IsNullOrEmpty(this.Configuration.ProvisioningJid) ||
 								string.IsNullOrEmpty(this.Configuration.HttpFileUploadJid))
 							{
-								await FindServices(xmpp);
+								await FindServices();
 							}
 							break;
 
@@ -283,7 +293,7 @@ namespace XamarinApp.Services
                     Task _ = Task.Delay(10000).ContinueWith((T) => Done.TrySetResult(false));
 
                     if (await Done.Task)
-                        return await FindServices(xmpp);
+                        return await FindServices();
                     else
                         return false;
                 }
@@ -296,8 +306,9 @@ namespace XamarinApp.Services
 				return true;
 		}
 
-		public async Task<bool> FindServices(XmppClient Client)
-		{
+		public async Task<bool> FindServices(XmppClient Client = null)
+        {
+            Client = Client ?? xmpp;
 			ServiceItemsDiscoveryEventArgs e2 = await Client.ServiceItemsDiscoveryAsync(null, string.Empty, string.Empty);
 			bool Changed = false;
 
@@ -491,7 +502,7 @@ namespace XamarinApp.Services
 			}
 		}
 
-		internal void AddFileUploadService(string JID, long? MaxFileSize)
+		private void AddFileUploadService(string JID, long? MaxFileSize)
 		{
 			if (!string.IsNullOrEmpty(JID) && MaxFileSize.HasValue && !(xmpp is null))
 				fileUpload = new HttpFileUploadClient(xmpp, JID, MaxFileSize);
