@@ -8,7 +8,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Contracts
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class NewContractPage : ContentPage, IBackButton
+	public partial class NewContractPage : IBackButton
     {
         private readonly ITagService tagService;
 		private readonly SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;

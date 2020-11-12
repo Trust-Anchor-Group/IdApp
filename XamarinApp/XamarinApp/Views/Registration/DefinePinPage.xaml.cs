@@ -6,7 +6,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Registration
 {
     [DesignTimeVisible(true)]
-    public partial class DefinePinPage : ContentPage, IBackButton
+    public partial class DefinePinPage : IBackButton
     {
         private readonly ITagService tagService;
 

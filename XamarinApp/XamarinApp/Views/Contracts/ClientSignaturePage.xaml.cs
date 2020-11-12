@@ -9,7 +9,7 @@ namespace XamarinApp.Views.Contracts
 	// Learn more about making custom code visible in the Xamarin.Forms previewer
 	// by visiting https://aka.ms/xamarinforms-previewer
 	[DesignTimeVisible(true)]
-	public partial class ClientSignaturePage : ContentPage, IBackButton
+	public partial class ClientSignaturePage : IBackButton
     {
         private readonly ITagService tagService;
 		private readonly Page owner;

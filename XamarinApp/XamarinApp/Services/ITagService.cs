@@ -13,6 +13,7 @@ namespace XamarinApp.Services
         Task Load();
         Task Unload();
         event EventHandler<LoadedEventArgs> Loaded;
+        event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
         bool IsOnline { get; }
 
         XmppState State { get; }

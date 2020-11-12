@@ -7,7 +7,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainMenuPage : IConnectionStateChanged
+    public partial class MainMenuPage
     {
         private readonly ITagService tagService;
 
@@ -15,7 +15,18 @@ namespace XamarinApp.Views
         {
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
-            this.ConnectionStateChanged(this.tagService.State);
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.tagService.ConnectionStateChanged += ConnectionStateChanged;
+        }
+
+        protected override void OnDisappearing()
+        {
+            this.tagService.ConnectionStateChanged -= ConnectionStateChanged;
+            base.OnDisappearing();
         }
 
         private void Identity_Clicked(object sender, EventArgs e)
@@ -30,14 +41,14 @@ namespace XamarinApp.Views
 
         private void Contracts_Clicked(object sender, EventArgs e)
         {
-            App.ShowPage(new XamarinApp.Views.Contracts.ContractsMenuPage(App.CurrentPage), false);
+            App.ShowPage(new Contracts.ContractsMenuPage(App.CurrentPage), false);
         }
 
-		public void ConnectionStateChanged(XmppState NewState)
+		private void ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
             bool Connected = false;
 
-            switch (NewState)
+            switch (e.State)
             {
                 case XmppState.Authenticating:
                     this.ConnectionState.Text = "Authenticating network identity";

@@ -7,7 +7,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Contracts
 {
 	[DesignTimeVisible(true)]
-	public partial class ServerSignaturePage : ContentPage, IBackButton
+	public partial class ServerSignaturePage : IBackButton
     {
         private readonly ITagService tagService;
 		private readonly Page owner;

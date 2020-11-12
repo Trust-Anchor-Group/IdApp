@@ -12,7 +12,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Registration
 {
 	[DesignTimeVisible(true)]
-	public partial class IdentityPage : ContentPage, INotifyPropertyChanged
+	public partial class IdentityPage : INotifyPropertyChanged
 	{
         private readonly ITagService tagService;
 

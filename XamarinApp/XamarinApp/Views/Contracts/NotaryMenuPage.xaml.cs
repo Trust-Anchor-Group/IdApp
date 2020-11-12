@@ -7,7 +7,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Contracts
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NotaryMenuPage : ContentPage, IBackButton
+    public partial class NotaryMenuPage : IBackButton
     {
         private readonly ITagService tagService;
         private readonly Page owner;

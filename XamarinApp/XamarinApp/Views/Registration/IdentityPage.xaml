@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:XamarinApp"
-             x:Class="XamarinApp.Views.Registration.IdentityPage">
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:local="clr-namespace:XamarinApp"
+                 xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+                 x:Class="XamarinApp.Views.Registration.IdentityPage">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="10">
             <Label Text="Attesting Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
@@ -119,4 +120,4 @@
             </TableView>
         </StackLayout>
     </ScrollView>
-</ContentPage>
+</views:ContentBasePage>

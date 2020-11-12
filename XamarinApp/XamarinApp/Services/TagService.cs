@@ -217,7 +217,7 @@ namespace XamarinApp.Services
 					AllowScramSHA256 = true
 				};
 
-				xmpp.OnStateChanged += (sender2, NewState) =>
+				xmpp.OnStateChanged += async (sender2, NewState) =>
 				{
 					switch (NewState)
 					{
@@ -225,17 +225,14 @@ namespace XamarinApp.Services
 							xmppSettingsOk = true;
 
 							reconnectTimer?.Dispose();
-							reconnectTimer = null;
-
-							reconnectTimer = new Timer(Timer_Tick, null, 60000, 60000);
-
+							reconnectTimer = new Timer(Timer_Tick, null, TimerInterval, TimerInterval);
 
 							if (string.IsNullOrEmpty(this.Configuration.LegalJid) ||
 								string.IsNullOrEmpty(this.Configuration.RegistryJid) ||
 								string.IsNullOrEmpty(this.Configuration.ProvisioningJid) ||
 								string.IsNullOrEmpty(this.Configuration.HttpFileUploadJid))
 							{
-								Task _ = FindServices(xmpp);
+								await FindServices(xmpp);
 							}
 							break;
 
@@ -248,14 +245,13 @@ namespace XamarinApp.Services
 							break;
 					}
 
-					if (App.Instance.MainPage is IConnectionStateChanged ConnectionStateChanged)
-						Device.BeginInvokeOnMainThread(() => ConnectionStateChanged.ConnectionStateChanged(NewState));
-
-					return Task.CompletedTask;
+                    OnConnectionStateChanged(new ConnectionStateChangedEventArgs(NewState));
 				};
 
 				xmpp.Connect(domainName);
-				reconnectTimer = new Timer(Timer_Tick, null, TimerInterval, TimerInterval);
+
+                reconnectTimer?.Dispose();
+                reconnectTimer = new Timer(Timer_Tick, null, TimerInterval, TimerInterval);
 
 				await AddLegalService(this.Configuration.LegalJid);
 				AddFileUploadService(this.Configuration.HttpFileUploadJid, this.Configuration.HttpFileUploadMaxSize);
@@ -410,6 +406,26 @@ namespace XamarinApp.Services
         private void OnLoaded(LoadedEventArgs e)
         {
             loaded?.Invoke(this, e);
+        }
+
+        private event EventHandler<ConnectionStateChangedEventArgs> connectionState;
+
+        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged
+		{
+            add
+            {
+                connectionState += value;
+				value(this, new ConnectionStateChangedEventArgs(State));
+            }
+            remove
+            {
+                connectionState -= value;
+			}
+		}
+
+        private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
+        {
+            connectionState?.Invoke(this, e);
         }
 
 		public XmppConfiguration Configuration { get; private set; }

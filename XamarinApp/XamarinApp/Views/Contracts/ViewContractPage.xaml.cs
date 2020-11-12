@@ -11,7 +11,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Contracts
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ViewContractPage : ContentPage, IBackButton
+	public partial class ViewContractPage : IBackButton
     {
         private readonly ITagService tagService;
 		private readonly Page owner;

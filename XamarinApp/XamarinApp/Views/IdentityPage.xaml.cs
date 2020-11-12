@@ -11,7 +11,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views
 {
     [DesignTimeVisible(true)]
-    public partial class IdentityPage : ContentPage, INotifyPropertyChanged, ILegalIdentityChanged, IBackButton
+    public partial class IdentityPage : INotifyPropertyChanged, ILegalIdentityChanged, IBackButton
     {
         private readonly ITagService tagService;
         private readonly Page owner;

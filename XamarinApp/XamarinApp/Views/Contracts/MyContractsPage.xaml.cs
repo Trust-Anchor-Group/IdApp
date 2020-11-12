@@ -9,7 +9,7 @@ using XamarinApp.Services;
 namespace XamarinApp.Views.Contracts
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MyContractsPage : ContentPage, IBackButton
+    public partial class MyContractsPage : IBackButton
     {
         private readonly ITagService tagService;
         private readonly Dictionary<string, Contract> contracts = new Dictionary<string, Contract>();

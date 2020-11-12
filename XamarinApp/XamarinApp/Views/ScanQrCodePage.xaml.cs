@@ -8,7 +8,7 @@ using ZXing;
 namespace XamarinApp.Views
 {
 	[DesignTimeVisible(true)]
-	public partial class ScanQrCodePage : ContentPage, IBackButton
+	public partial class ScanQrCodePage : IBackButton
     {
         private readonly ITagService tagService;
 		private readonly Page owner;

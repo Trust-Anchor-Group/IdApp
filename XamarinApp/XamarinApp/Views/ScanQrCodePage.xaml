@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinApp"
              x:Class="XamarinApp.Views.ScanQrCodePage"
-             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="10">
             <Grid x:Name="ScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="True">
@@ -25,4 +26,4 @@
             <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
         </StackLayout>
     </ScrollView>
-</ContentPage>
+</views:ContentBasePage>
