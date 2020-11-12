@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;
+using XamarinApp.ViewModels.Contracts;
 
 namespace XamarinApp.Views.Contracts
 {
@@ -19,6 +20,7 @@ namespace XamarinApp.Views.Contracts
 		private string contractType = string.Empty;
 		private string templateId = string.Empty;
 		private string role = string.Empty;
+		private string currentRole = string.Empty;
 		private string visibility = string.Empty;
 
 		public NewContractPage(Page Owner,
@@ -323,21 +325,33 @@ namespace XamarinApp.Views.Contracts
 			}
 
 			this.ProposeButton.IsEnabled = true;
-
-			// Contract.ArchiveOptional;
-			// Contract.ArchiveRequired;
-			// Contract.Duration;
 		}
 
-		private void AddPartButton_Clicked(object sender, EventArgs e)
+		private async void AddPartButton_Clicked(object sender, EventArgs e)
 		{
 			if (sender is Button Button)
-				// TODO: create page, set binding context, and call await Navigation.PushModalAsync();
-			    // When done, 'read' the BindingContext for properties.
-				App.ShowPage(new AddPartPage(this, (Id) => this.AddRole(Button.StyleId, Id), true), false);
-		}
+            {
+                this.currentRole = Button.StyleId;
+                AddPartViewModel viewModel = new AddPartViewModel();
+                AddPartPage page = new AddPartPage(viewModel, this, true);
+                page.Disappearing += PageOnDisappearing;
+                await Navigation.PushModalAsync(page);
+            }
+        }
 
-		private void PopulateHumanReadableText()
+        private void PageOnDisappearing(object sender, EventArgs e)
+        {
+            AddPartPage page = (AddPartPage)sender;
+            AddPartViewModel viewModel = (AddPartViewModel)page.BindingContext;
+            page.Disappearing -= PageOnDisappearing;
+
+			// TODO: read code property
+			string code = null;
+
+			this.AddRole(this.currentRole, code);
+        }
+
+        private void PopulateHumanReadableText()
 		{
 			this.HumanReadableText.Children.Clear();
 

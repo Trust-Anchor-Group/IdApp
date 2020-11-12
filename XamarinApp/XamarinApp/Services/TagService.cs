@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Waher.Content;
+using Waher.Events;
 using Xamarin.Forms;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.DNS;
@@ -11,9 +13,16 @@ using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.ServiceDiscovery;
 using Waher.Persistence;
+using Waher.Persistence.Files;
+using Waher.Persistence.LifeCycle;
+using Waher.Persistence.Serialization;
+using Waher.Runtime.Inventory;
+using Waher.Runtime.Language;
+using Waher.Runtime.Settings;
 using Waher.Runtime.Temporary;
 using XamarinApp.Views.Contracts;
 
@@ -34,10 +43,14 @@ namespace XamarinApp.Services
         private bool xmppSettingsOk = false;
         private bool isLoaded = false;
         private bool isLoading = false;
+        private readonly IAuthService authService;
         private readonly IMessageService messageService;
+        private FilesProvider filesProvider;
+        private InternalSink internalSink;
 
-		public TagService(IMessageService messageService)
+		public TagService(IAuthService authService, IMessageService messageService)
         {
+            this.authService = authService;
             this.messageService = messageService;
         }
 
@@ -72,8 +85,49 @@ namespace XamarinApp.Services
             {
                 isLoading = true;
 
+                this.internalSink = new InternalSink();
+                Log.Register(this.internalSink);
+
                 try
                 {
+                    Types.Initialize(
+                        typeof(App).Assembly,
+                        typeof(Database).Assembly,
+                        typeof(FilesProvider).Assembly,
+                        typeof(ObjectSerializer).Assembly,
+                        typeof(XmppClient).Assembly,
+                        typeof(ContractsClient).Assembly,
+                        typeof(RuntimeSettings).Assembly,
+                        typeof(Language).Assembly,
+                        typeof(DnsResolver).Assembly,
+                        typeof(XmppServerlessMessaging).Assembly,
+                        typeof(ProvisioningClient).Assembly);
+                    await Types.StartAllModules((int)TimeSpan.FromMilliseconds(1000).TotalMilliseconds);
+                }
+                catch (Exception e)
+                {
+                    await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+                    return;
+                }
+
+                try
+                {
+                    string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string DataFolder = Path.Combine(AppDataFolder, "Data");
+                    if (filesProvider == null)
+                    {
+                        filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.authService.GetCustomKey);
+                    }
+                    await filesProvider.RepairIfInproperShutdown(string.Empty);
+                    Database.Register(filesProvider, false);
+                }
+                catch (Exception e)
+                {
+                    await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+                }
+
+				try
+				{
                     Configuration = await Database.FindFirstDeleteRest<XmppConfiguration>();
                     if (Configuration is null)
                     {
@@ -112,7 +166,17 @@ namespace XamarinApp.Services
                 xmpp = null;
             }
 
-            isLoaded = false;
+            await DatabaseModule.Flush();
+            await Types.StopAllModules();
+            this.filesProvider.Dispose();
+            this.filesProvider = null;
+            Log.Unregister(this.internalSink);
+            Log.Terminate();
+            this.internalSink.Dispose();
+            this.internalSink = null;
+
+
+			isLoaded = false;
 			OnLoaded(new LoadedEventArgs(false));
         }
 
@@ -702,5 +766,18 @@ namespace XamarinApp.Services
 			if (!(xmpp is null) && (xmpp.State == XmppState.Error || xmpp.State == XmppState.Offline))
 				xmpp.Reconnect();
 		}
+
+        private class InternalSink : EventSink
+        {
+            public InternalSink()
+                : base("InternalEventSink")
+            {
+            }
+
+            public override Task Queue(Event _)
+            {
+                return Task.CompletedTask;
+            }
+        }
     }
 }

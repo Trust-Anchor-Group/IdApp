@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+                 xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
+                 xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+                 x:Class="XamarinApp.Views.AddPartView">
+  <ContentView.Content>
+      <StackLayout Margin="10">
+          <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
+              <forms:ZXingScannerView x:Name="Scanner"
+                                      OnScanResult="Scanner_OnScanResult"
+                                      IsScanning="True"
+                                      WidthRequest="300"
+                                      HeightRequest="500"
+                                      VerticalOptions="CenterAndExpand"
+                                      HorizontalOptions="CenterAndExpand"/>
+              <forms:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlayText}"/>
+          </Grid>
+          <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
+              <Label Text="{x:Static local:AppResources.QrScanLegalIdentityText}" HorizontalOptions="FillAndExpand"/>
+              <Entry x:Name="LinkEntry" Text="{Binding Path=LinkText, Mode=OneWay}" HorizontalOptions="Fill"/>
+              <Button x:Name="ManualAddButton" Text="{x:Static local:AppResources.QrScanAddButtonText}" HorizontalOptions="FillAndExpand" Command="{Binding Path=ManualAddCommand}"/>
+          </StackLayout>
+          <Button x:Name="ModeButton" Text="{Binding Path=ModeText}" Command="{Binding Path=SwitchModeCommand}"/>
+      </StackLayout>
+  </ContentView.Content>
+</views:ContentBaseView>
