@@ -55,20 +55,9 @@ namespace XamarinApp
             instance = this;
         }
 
-		private class InternalSink : EventSink
-        {
-            public InternalSink()
-                : base("InternalEventSink")
-            {
-            }
-
-            public override Task Queue(Event _)
-            {
-                return Task.CompletedTask;
-            }
-        }
-
         public ITagService TagService { get; }
+
+		#region Page Navigation  - will be moved
 
 		public static async Task ShowPage()
 		{
@@ -192,10 +181,26 @@ namespace XamarinApp
 			}
 		}
 
-		internal static App Instance => instance;
-		internal static Page CurrentPage => instance.MainPage;
+        internal static Page CurrentPage => instance.MainPage;
 
-        private async Task Setup()
+#endregion
+
+		internal static App Instance => instance;
+
+        private class InternalSink : EventSink
+        {
+            public InternalSink()
+                : base("InternalEventSink")
+            {
+            }
+
+            public override Task Queue(Event _)
+            {
+                return Task.CompletedTask;
+            }
+        }
+
+		private async Task Setup()
         {
             this.internalSink = new InternalSink();
             Log.Register(this.internalSink);
@@ -305,15 +310,5 @@ namespace XamarinApp
 					"If any of the parts accepts the petition, the contract information will be displayed on the screen.", AppResources.OkButtonText);
 			}
 		}
-
-		public static bool Back()
-		{
-			if (instance.MainPage is IBackButton Page)
-				return Page.BackClicked();
-			else
-				return false;
-		}
-
-
 	}
 }
