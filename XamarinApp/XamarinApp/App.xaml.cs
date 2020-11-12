@@ -219,6 +219,7 @@ namespace XamarinApp
                     typeof(DnsResolver).Assembly,
                     typeof(XmppServerlessMessaging).Assembly,
                     typeof(ProvisioningClient).Assembly);
+                await Types.StartAllModules((int)TimeSpan.FromMilliseconds(1000).TotalMilliseconds);
             }
             catch (Exception e)
             {
@@ -230,9 +231,12 @@ namespace XamarinApp
             {
                 string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 string DataFolder = Path.Combine(AppDataFolder, "Data");
-                filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.authService.GetCustomKey);
+				if (filesProvider == null)
+                {
+                    filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.authService.GetCustomKey);
+                }
                 await filesProvider.RepairIfInproperShutdown(string.Empty);
-                Database.Register(filesProvider);
+                Database.Register(filesProvider, false);
             }
             catch (Exception e)
             {
