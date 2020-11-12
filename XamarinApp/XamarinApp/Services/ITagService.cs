@@ -15,7 +15,10 @@ namespace XamarinApp.Services
         event EventHandler<LoadedEventArgs> Loaded;
         bool IsOnline { get; }
 
-        XmppClient Xmpp { get; }
+        XmppState State { get; }
+        string Domain { get; }
+        string Host { get; }
+        string BareJID { get; }
 
         ContractsClient Contracts { get; }
 
@@ -42,10 +45,7 @@ namespace XamarinApp.Services
 
         Task<bool> FindServices(XmppClient client);
 
-        void GetCustomKey(string fileName, out byte[] key, out byte[] iv);
-        string CreateRandomPassword();
-
-        Task<(string hostName, int port)> GetXmppHostnameAndPort(string domainName);
+        Task<(string hostName, int port)> GetXmppHostnameAndPort(string domainName = null);
         
         void DecrementConfigurationStep(int? stepToRevertTo = null);
         void IncrementConfigurationStep();

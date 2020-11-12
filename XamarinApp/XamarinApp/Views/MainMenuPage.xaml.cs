@@ -15,7 +15,7 @@ namespace XamarinApp.Views
         {
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
-            this.ConnectionStateChanged(this.tagService.Xmpp.State);
+            this.ConnectionStateChanged(this.tagService.State);
         }
 
         private void Identity_Clicked(object sender, EventArgs e)
@@ -48,7 +48,7 @@ namespace XamarinApp.Views
                     break;
 
                 case XmppState.Connected:
-                    this.ConnectionState.Text = "Connected to " + (string.IsNullOrEmpty(this.tagService.Xmpp.Domain) ? this.tagService.Xmpp.Host : this.tagService.Xmpp.Domain);
+                    this.ConnectionState.Text = "Connected to " + (string.IsNullOrEmpty(this.tagService.Domain) ? this.tagService.Host : this.tagService.Domain);
                     Connected = true;
                     break;
 

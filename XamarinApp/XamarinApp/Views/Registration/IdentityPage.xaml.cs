@@ -108,7 +108,7 @@ namespace XamarinApp.Views.Registration
         public DateTime Created => this.tagService.Configuration.LegalIdentity.Created;
         public DateTime? Updated => CheckMin(this.tagService.Configuration.LegalIdentity.Updated);
         public string LegalId => this.tagService.Configuration.LegalIdentity.Id;
-        public string BareJid => this.tagService.Xmpp?.BareJID ?? string.Empty;
+        public string BareJid => this.tagService?.BareJID ?? string.Empty;
         public string State => this.tagService.Configuration.LegalIdentity.State.ToString();
         public DateTime? From => CheckMin(this.tagService.Configuration.LegalIdentity.From);
         public DateTime? To => CheckMin(this.tagService.Configuration.LegalIdentity.To);

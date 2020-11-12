@@ -27,8 +27,7 @@ namespace XamarinApp.Services
             if (string.IsNullOrWhiteSpace(key))
                 return;
 
-            await Task.CompletedTask;
-            // TODO: remove setting here. Wait for Peter to add to Nuget.
+            await RuntimeSettings.DeleteAsync(key);
         }
     }
 

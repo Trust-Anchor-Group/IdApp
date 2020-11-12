@@ -15,11 +15,13 @@ namespace XamarinApp.Views.Registration
 	public partial class AccountPage : IBackButton
     {
         private readonly ITagService tagService;
+        private readonly IAuthService authService;
 
 		public AccountPage()
 		{
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
+            this.authService = DependencyService.Resolve<IAuthService>();
 			this.BindingContext = this;
 			this.Introduction.Text = this.Introduction.Text.Replace("{Binding Domain}", this.tagService.Configuration.Domain);
         }
@@ -140,7 +142,7 @@ namespace XamarinApp.Views.Registration
 
 			try
 			{
-				(string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort(this.tagService.Configuration.Domain);
+				(string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort();
 
 				using (XmppClient Client = new XmppClient(HostName, PortNumber,
 					this.AccountName.Text, this.Password.Text, string.Empty, typeof(App).Assembly, Sniffer))
@@ -305,7 +307,7 @@ namespace XamarinApp.Views.Registration
 			string Password;
 
             if (this.RandomPassword.On)
-                Password = this.tagService.CreateRandomPassword();
+                Password = this.authService.CreateRandomPassword();
 			else if ((Password = this.Password.Text) != this.RetypePassword.Text)
 			{
 				await this.DisplayAlert(AppResources.ErrorTitleText, "Passwords do not match.", AppResources.OkButtonText);

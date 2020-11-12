@@ -12,6 +12,7 @@ using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Files;
+using Waher.Persistence.LifeCycle;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Language;
@@ -31,9 +32,9 @@ namespace XamarinApp
 		private static App instance = null;
 
         private readonly IMessageService messageService;
+        private readonly IAuthService authService;
         private FilesProvider filesProvider;
-
-		public ITagService TagService { get; }
+        private InternalSink internalSink;
 
 		public App()
 		{
@@ -43,12 +44,13 @@ namespace XamarinApp
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
 			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
+			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
             IContainer container = builder.Build();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			TagService = DependencyService.Resolve<ITagService>();
             this.messageService = DependencyService.Resolve<IMessageService>();
-
+            this.authService = DependencyService.Resolve<IAuthService>();
             MainPage = new InitPage();
             instance = this;
         }
@@ -66,53 +68,7 @@ namespace XamarinApp
             }
         }
 
-        private static bool initHasRun = false;
-		private async Task Init()
-        {
-            if (initHasRun)
-                return;
-
-            Log.Register(new InternalSink());
-
-            try
-            {
-                Types.Initialize(
-                    typeof(App).Assembly,
-                    typeof(Database).Assembly,
-                    typeof(FilesProvider).Assembly,
-                    typeof(ObjectSerializer).Assembly,
-                    typeof(XmppClient).Assembly,
-                    typeof(ContractsClient).Assembly,
-                    typeof(RuntimeSettings).Assembly,
-                    typeof(Language).Assembly,
-                    typeof(DnsResolver).Assembly,
-                    typeof(XmppServerlessMessaging).Assembly,
-                    typeof(ProvisioningClient).Assembly);
-            }
-            catch (Exception e)
-            {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
-                return;
-            }
-
-            try
-            {
-                string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string DataFolder = Path.Combine(AppDataFolder, "Data");
-
-                filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.TagService.GetCustomKey);
-
-                await filesProvider.RepairIfInproperShutdown(string.Empty);
-
-                Database.Register(filesProvider);
-            }
-            catch (Exception e)
-            {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
-            }
-
-            initHasRun = true;
-        }
+        public ITagService TagService { get; }
 
 		public static async Task ShowPage()
 		{
@@ -239,15 +195,70 @@ namespace XamarinApp
 		internal static App Instance => instance;
 		internal static Page CurrentPage => instance.MainPage;
 
-        protected override async void OnStart()
+        private async Task Setup()
         {
-            await Init();
+            this.internalSink = new InternalSink();
+            Log.Register(this.internalSink);
+
+            try
+            {
+                Types.Initialize(
+                    typeof(App).Assembly,
+                    typeof(Database).Assembly,
+                    typeof(FilesProvider).Assembly,
+                    typeof(ObjectSerializer).Assembly,
+                    typeof(XmppClient).Assembly,
+                    typeof(ContractsClient).Assembly,
+                    typeof(RuntimeSettings).Assembly,
+                    typeof(Language).Assembly,
+                    typeof(DnsResolver).Assembly,
+                    typeof(XmppServerlessMessaging).Assembly,
+                    typeof(ProvisioningClient).Assembly);
+            }
+            catch (Exception e)
+            {
+                await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+                return;
+            }
+
+            try
+            {
+                string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string DataFolder = Path.Combine(AppDataFolder, "Data");
+                filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.authService.GetCustomKey);
+                await filesProvider.RepairIfInproperShutdown(string.Empty);
+                Database.Register(filesProvider);
+            }
+            catch (Exception e)
+            {
+                await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+            }
+
             await TagService.Load();
+        }
+
+		private async Task Teardown()
+        {
+            await TagService.Unload();
+
+			await DatabaseModule.Flush();
+            await Types.StopAllModules();
+            this.filesProvider.Dispose();
+            this.filesProvider = null;
+            Log.Unregister(this.internalSink);
+            Log.Terminate();
+            this.internalSink.Dispose();
+            this.internalSink = null;
+        }
+
+		protected override async void OnStart()
+        {
+            await Setup();
         }
 
         protected override async void OnResume()
         {
-            await TagService.Load();
+            await Setup();
         }
 
 		protected override async void OnSleep()
@@ -257,12 +268,8 @@ namespace XamarinApp
                 await vm.SaveState();
                 await vm.Unbind();
             }
-            await TagService.Unload();
-   //         await Types.StopAllModules();
-            await Waher.Persistence.LifeCycle.DatabaseModule.Flush();
-			//filesProvider.Dispose();
-   //         filesProvider = null;
-   //         Log.Terminate();
+
+            await Teardown();
         }
 
 		public static async Task OpenLegalIdentity(string LegalId, string Purpose)

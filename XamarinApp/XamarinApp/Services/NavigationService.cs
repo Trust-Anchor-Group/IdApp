@@ -14,5 +14,5 @@ namespace XamarinApp.Services
         {
             return App.Instance.MainPage.Navigation.PopModalAsync(true);
         }
-    }
+	}
 }

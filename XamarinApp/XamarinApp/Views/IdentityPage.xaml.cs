@@ -114,7 +114,7 @@ namespace XamarinApp.Views
         public DateTime Created => this.identity.Created;
         public DateTime? Updated => CheckMin(this.identity.Updated);
         public string LegalId => this.identity.Id;
-        public string BareJid => this.personal ? this.tagService.Xmpp?.BareJID ?? string.Empty : string.Empty;
+        public string BareJid => this.personal ? this.tagService.BareJID ?? string.Empty : string.Empty;
         public string State => this.identity.State.ToString();
         public DateTime? From => CheckMin(this.identity.From);
         public DateTime? To => CheckMin(this.identity.To);

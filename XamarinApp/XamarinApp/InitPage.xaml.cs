@@ -32,6 +32,7 @@ namespace XamarinApp
             await LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
 
             IsBusy = true;
+
             this.tagService.Loaded += TagService_Loaded;
         }
 

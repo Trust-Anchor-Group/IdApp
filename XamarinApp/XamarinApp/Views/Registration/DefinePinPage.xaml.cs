@@ -65,9 +65,6 @@ namespace XamarinApp.Views.Registration
                 }
                 else
                 {
-                    this.tagService.Configuration.Pin = this.Pin.Text;
-                    this.tagService.Configuration.UsePin = true;
-
                     if (this.tagService.Configuration.Step == 4)
                         this.tagService.Configuration.Step++;
 

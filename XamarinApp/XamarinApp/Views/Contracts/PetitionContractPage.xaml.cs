@@ -17,18 +17,18 @@ namespace XamarinApp.Views.Contracts
 		private readonly Page owner;
 		private readonly LegalIdentity requestorIdentity;
 		private readonly Contract requestedContract;
-		private readonly string requestorBareJid;
+		private readonly string requestorFullJid;
 		private readonly string petitionId;
 		private readonly string purpose;
 
-		public PetitionContractPage(Page Owner, LegalIdentity RequestorIdentity, string RequestorBareJid,
+		public PetitionContractPage(Page Owner, LegalIdentity RequestorIdentity, string requestorFullJid,
 			Contract RequestedContract, string PetitionId, string Purpose)
 		{
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.requestorIdentity = RequestorIdentity;
-			this.requestorBareJid = RequestorBareJid;
+			this.requestorFullJid = requestorFullJid;
 			this.requestedContract = RequestedContract;
 			this.petitionId = PetitionId;
 			this.purpose = Purpose;
@@ -94,13 +94,13 @@ namespace XamarinApp.Views.Contracts
 
 		private void AcceptButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.Contracts.PetitionContractResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorBareJid, true);
+			this.tagService.Contracts.PetitionContractResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, true);
 			App.ShowPage(this.owner, true);
 		}
 
 		private void DeclineButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.Contracts.PetitionContractResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorBareJid, false);
+			this.tagService.Contracts.PetitionContractResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, false);
 			App.ShowPage(this.owner, true);
 		}
 
