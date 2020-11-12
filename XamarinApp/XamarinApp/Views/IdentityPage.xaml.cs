@@ -6,6 +6,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 
 namespace XamarinApp.Views
@@ -62,13 +63,13 @@ namespace XamarinApp.Views
                 TableSection PhotoSection = new TableSection();
                 this.TableView.Root.Insert(i++, PhotoSection);
 
-                foreach (Attachment Attachment in this.identity.Attachments.Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
+                foreach (Attachment Attachment in this.identity.Attachments.GetImageAttachments())
                 {
                     ViewCell ViewCell;
 
                     try
                     {
-                        KeyValuePair<string, TemporaryFile> P = await this.tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
+                        KeyValuePair<string, TemporaryFile> P = await this.tagService.GetContractAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
                         using (TemporaryFile File = P.Value)
                         {
@@ -172,7 +173,7 @@ namespace XamarinApp.Views
                 if (!await this.DisplayAlert("Confirm", "Are you sure you want to revoke your legal identity from the application?", "Yes", "Cancel"))
                     return;
 
-                LegalIdentity Identity = await this.tagService.Contracts.ObsoleteLegalIdentityAsync(this.identity.Id);
+                LegalIdentity Identity = await this.tagService.ObsoleteLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
                 this.tagService.DecrementConfigurationStep(2);
@@ -195,7 +196,7 @@ namespace XamarinApp.Views
                 if (!await this.DisplayAlert("Confirm", "Are you sure you want to report your legal identity as compromized, stolen or hacked?", "Yes", "Cancel"))
                     return;
 
-                LegalIdentity Identity = await this.tagService.Contracts.CompromisedLegalIdentityAsync(this.identity.Id);
+                LegalIdentity Identity = await this.tagService.CompromisedLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
                 this.tagService.DecrementConfigurationStep(2);

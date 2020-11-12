@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 
 namespace XamarinApp.Views.Contracts
@@ -231,13 +231,13 @@ namespace XamarinApp.Views.Contracts
                 TableSection PhotoSection = new TableSection();
                 this.TableView.Root.Insert(i++, PhotoSection);
 
-                foreach (Attachment Attachment in this.contract.Attachments.Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
+                foreach (Attachment Attachment in this.contract.Attachments.GetImageAttachments())
                 {
                     ViewCell ViewCell;
 
                     try
                     {
-                        KeyValuePair<string, TemporaryFile> P = await this.tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
+                        KeyValuePair<string, TemporaryFile> P = await this.tagService.GetContractAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
                         using (TemporaryFile File = P.Value)
                         {
@@ -281,7 +281,7 @@ namespace XamarinApp.Views.Contracts
 			{
 				if (sender is Button Button && !string.IsNullOrEmpty(Button.StyleId))
 				{
-					Contract Contract = await this.tagService.Contracts.SignContractAsync(this.contract, Button.StyleId, false);
+					Contract Contract = await this.tagService.SignContractAsync(this.contract, Button.StyleId, false);
 
 					await this.DisplayAlert("Message", "Contract successfully signed.", "OK");
 
@@ -320,7 +320,7 @@ namespace XamarinApp.Views.Contracts
 						if (Sign == Convert.ToBase64String(Signature.DigitalSignature))
 						{
 							string LegalId = Signature.LegalId;
-							LegalIdentity Identity = await this.tagService.Contracts.GetLegalIdentityAsync(LegalId);
+							LegalIdentity Identity = await this.tagService.GetLegalIdentityAsync(LegalId);
 
 							App.ShowPage(new ClientSignaturePage(this, Signature, Identity), false);
 							return;
@@ -422,7 +422,7 @@ namespace XamarinApp.Views.Contracts
 		{
 			try
 			{
-				Contract Contract = await this.tagService.Contracts.ObsoleteContractAsync(this.contract.ContractId);
+				Contract Contract = await this.tagService.ObsoleteContractAsync(this.contract.ContractId);
 
 				await this.DisplayAlert("Message", "Contract has been obsoleted.", AppResources.OkButtonText);
 
@@ -438,7 +438,7 @@ namespace XamarinApp.Views.Contracts
 		{
 			try
 			{
-				Contract Contract = await this.tagService.Contracts.DeleteContractAsync(this.contract.ContractId);
+				Contract Contract = await this.tagService.DeleteContractAsync(this.contract.ContractId);
 
 				await this.DisplayAlert("Message", "Contract has been deleted.", AppResources.OkButtonText);
 

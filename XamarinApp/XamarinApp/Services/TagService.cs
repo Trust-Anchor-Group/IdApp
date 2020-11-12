@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Waher.Content;
 using Xamarin.Forms;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.DNS;
@@ -63,6 +64,8 @@ namespace XamarinApp.Services
             xmpp = null;
         }
 
+		#region Lifecycle
+
 		public async Task Load()
         {
             if (!isLoaded && !isLoading)
@@ -113,7 +116,255 @@ namespace XamarinApp.Services
 			OnLoaded(new LoadedEventArgs(false));
         }
 
-        public async Task<(string hostName, int port)> GetXmppHostnameAndPort(string DomainName = null)
+        private event EventHandler<LoadedEventArgs> loaded;
+
+        public event EventHandler<LoadedEventArgs> Loaded
+        {
+            add
+            {
+                loaded += value;
+                value(this, new LoadedEventArgs(isLoaded));
+            }
+            remove
+            {
+                loaded -= value;
+            }
+        }
+
+        private void OnLoaded(LoadedEventArgs e)
+        {
+            loaded?.Invoke(this, e);
+        }
+
+        private event EventHandler<ConnectionStateChangedEventArgs> connectionState;
+
+        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged
+        {
+            add
+            {
+                connectionState += value;
+                value(this, new ConnectionStateChangedEventArgs(State));
+            }
+            remove
+            {
+                connectionState -= value;
+            }
+        }
+
+        private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
+        {
+            connectionState?.Invoke(this, e);
+        }
+
+		#endregion
+
+		#region State
+
+		public bool IsOnline
+        {
+            get
+            {
+                return !(xmpp is null) && xmpp.State == XmppState.Connected;
+            }
+        }
+
+        public XmppState State => xmpp?.State ?? XmppState.Offline;
+        public string Domain => xmpp?.Domain ?? string.Empty;
+        public string Host => xmpp?.Host ?? string.Empty;
+        public string BareJID => xmpp?.BareJID ?? string.Empty;
+        public XmppConfiguration Configuration { get; private set; }
+
+		#endregion
+
+		#region Legal Identity
+
+		public event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
+
+		private void OnLegalIdentityChanged(LegalIdentityChangedEventArgs e)
+		{
+			LegalIdentityChanged?.Invoke(this, e);
+		}
+
+		public async Task AddLegalIdentity(List<Property> properties, params LegalIdentityAttachment[] attachments)
+		{
+			LegalIdentity Identity = await contracts.ApplyAsync(properties.ToArray());
+
+			foreach (var P in attachments)
+			{
+				HttpFileUploadEventArgs e2 = await fileUpload.RequestUploadSlotAsync(Path.GetFileName(P.Filename), P.ContentType, P.ContentLength);
+				if (!e2.Ok)
+				{
+					throw new Exception(e2.ErrorText);
+				}
+
+				await e2.PUT(P.Data, P.ContentType, 30000);
+
+				byte[] Signature = await contracts.SignAsync(P.Data);
+
+				Identity = await contracts.AddLegalIdAttachmentAsync(Identity.Id, e2.GetUrl, Signature);
+			}
+
+			Configuration.LegalIdentity = Identity;
+			if (Configuration.Step == 2)
+				Configuration.Step++;
+
+			UpdateConfiguration();
+		}
+
+		public Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId)
+		{
+			return contracts.GetLegalIdentityAsync(legalIdentityId);
+		}
+
+		public Task PetitionIdentityAsync(string legalId, string petitionId, string purpose)
+		{
+			return contracts.PetitionIdentityAsync(legalId, petitionId, purpose);
+		}
+
+		public Task PetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response)
+		{
+			return contracts.PetitionIdentityResponseAsync(legalId, petitionId, requestorFullJid, response);
+		}
+
+		public Task PetitionContractResponseAsync(string contractId, string petitionId, string requestorFullJid, bool response)
+		{
+			return contracts.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
+		}
+
+		public Task<LegalIdentity[]> GetLegalIdentitiesAsync()
+		{
+			return contracts.GetLegalIdentitiesAsync();
+		}
+
+		public bool HasLegalIdentityAttachments => this.Configuration.LegalIdentity.Attachments != null;
+
+		public Attachment[] GetLegalIdentityAttachments()
+		{
+			return this.Configuration.LegalIdentity.Attachments;
+		}
+
+		public Task<LegalIdentity> ObsoleteLegalIdentityAsync(string legalIdentityId)
+		{
+			return contracts.ObsoleteLegalIdentityAsync(legalIdentityId);
+		}
+
+		public Task<LegalIdentity> CompromisedLegalIdentityAsync(string legalIdentityId)
+		{
+			return contracts.CompromisedLegalIdentityAsync(legalIdentityId);
+		}
+
+        public bool LegalIdentityIsValid => this.Configuration.LegalIdentity is null ||
+                                            this.Configuration.LegalIdentity.State == IdentityState.Compromised ||
+                                            this.Configuration.LegalIdentity.State == IdentityState.Obsoleted ||
+                                            this.Configuration.LegalIdentity.State == IdentityState.Rejected;
+
+		#endregion
+
+		#region Contracts
+
+		public Task PetitionContractAsync(string contractId, string petitionId, string purpose)
+		{
+			return contracts.PetitionContractAsync(contractId, petitionId, purpose);
+		}
+
+		public Task<Contract> GetContractAsync(string contractId)
+		{
+			return contracts.GetContractAsync(contractId);
+		}
+
+		public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url)
+		{
+			return contracts.GetAttachmentAsync(url);
+		}
+
+		public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url, TimeSpan timeout)
+		{
+			return contracts.GetAttachmentAsync(url, (int)timeout.TotalMilliseconds);
+		}
+
+		public Task<Contract> CreateContractAsync(
+			string templateId,
+			Part[] parts,
+			Parameter[] parameters,
+			ContractVisibility visibility,
+			ContractParts partsMode,
+			Duration duration,
+			Duration archiveRequired,
+			Duration archiveOptional,
+			DateTime? signAfter,
+			DateTime? signBefore,
+			bool canActAsTemplate)
+		{
+			return contracts.CreateContractAsync(templateId, parts, parameters, visibility, partsMode, duration, archiveRequired, archiveOptional, signAfter, signBefore, canActAsTemplate);
+		}
+
+		public Task<Contract> DeleteContractAsync(string contractId)
+		{
+			return contracts.DeleteContractAsync(contractId);
+		}
+
+		public Task<string[]> GetCreatedContractsAsync()
+		{
+			return contracts.GetCreatedContractsAsync();
+		}
+
+		public Task<string[]> GetSignedContractsAsync()
+		{
+			return contracts.GetSignedContractsAsync();
+		}
+
+		public Task<Contract> SignContractAsync(Contract contract, string role, bool transferable)
+		{
+			return contracts.SignContractAsync(contract, role, transferable);
+		}
+
+		public Task<Contract> ObsoleteContractAsync(string contractId)
+		{
+			return contracts.ObsoleteContractAsync(contractId);
+		}
+
+		#endregion
+
+		#region Configuration
+
+		public void SetPin(string pin, bool usePin)
+        {
+            Configuration.Pin = pin;
+            Configuration.UsePin = usePin;
+            UpdateConfiguration();
+        }
+
+        public void ResetPin()
+        {
+            Configuration.Pin = string.Empty;
+            Configuration.UsePin = false;
+            UpdateConfiguration();
+        }
+
+        public void SetAccount(string accountNameText, string clientPasswordHash, string clientPasswordHashMethod)
+        {
+            Configuration.Account = accountNameText;
+            Configuration.PasswordHash = clientPasswordHash;
+            Configuration.PasswordHashMethod = clientPasswordHashMethod;
+            UpdateConfiguration();
+        }
+
+        public void SetDomain(string domainName, string legalJid)
+        {
+            Configuration.Domain = domainName;
+            Configuration.LegalJid = legalJid;
+            UpdateConfiguration();
+        }
+
+        public bool FileUploadIsSupported =>
+            !string.IsNullOrEmpty(this.Configuration.HttpFileUploadJid) &&
+            this.Configuration.HttpFileUploadMaxSize.HasValue &&
+            !(fileUpload is null) &&
+            fileUpload.HasSupport;
+
+		#endregion
+
+		public async Task<(string hostName, int port)> GetXmppHostnameAndPort(string DomainName = null)
         {
             DomainName = DomainName ?? Configuration.Domain;
 
@@ -130,11 +381,6 @@ namespace XamarinApp.Services
 
             return (DomainName, 5222);
         }
-
-        public XmppState State => xmpp?.State ?? XmppState.Offline;
-        public string Domain => xmpp?.Domain ?? string.Empty;
-        public string Host => xmpp?.Host ?? string.Empty;
-		public string BareJID => xmpp?.BareJID ?? string.Empty;
 
 		public void UpdateConfiguration()
         {
@@ -155,46 +401,6 @@ namespace XamarinApp.Services
             Configuration.Step++;
             UpdateConfiguration();
         }
-
-		public void SetPin(string pin, bool usePin)
-        {
-            Configuration.Pin = pin;
-            Configuration.UsePin = usePin;
-			UpdateConfiguration();
-        }
-
-		public void ResetPin()
-        {
-			Configuration.Pin = string.Empty;
-            Configuration.UsePin = false;
-            UpdateConfiguration();
-		}
-
-		public void SetAccount(string accountNameText, string clientPasswordHash, string clientPasswordHashMethod)
-        {
-			Configuration.Account = accountNameText;
-            Configuration.PasswordHash = clientPasswordHash;
-            Configuration.PasswordHashMethod = clientPasswordHashMethod;
-            UpdateConfiguration();
-		}
-
-		public void SetDomain(string domainName, string legalJid)
-        {
-			Configuration.Domain = domainName;
-            Configuration.LegalJid = legalJid;
-            UpdateConfiguration();
-		}
-
-		public bool FileUploadIsSupported =>
-            !string.IsNullOrEmpty(this.Configuration.HttpFileUploadJid) &&
-            this.Configuration.HttpFileUploadMaxSize.HasValue &&
-            !(fileUpload is null) &&
-            fileUpload.HasSupport;
-
-		public bool LegalIdentityIsValid => this.Configuration.LegalIdentity is null ||
-                                            this.Configuration.LegalIdentity.State == IdentityState.Compromised ||
-                                            this.Configuration.LegalIdentity.State == IdentityState.Obsoleted ||
-                                            this.Configuration.LegalIdentity.State == IdentityState.Rejected;
 
         public bool PinIsValid => !this.Configuration.UsePin || !string.IsNullOrEmpty(this.Configuration.PinHash);
 
@@ -302,8 +508,7 @@ namespace XamarinApp.Services
 					xmpp.OnStateChanged -= h;
 				}
 			}
-			else
-				return true;
+    		return true;
 		}
 
 		public async Task<bool> FindServices(XmppClient Client = null)
@@ -382,114 +587,7 @@ namespace XamarinApp.Services
 			return Result;
 		}
 
-        public bool IsOnline
-        {
-            get
-            {
-                return !(xmpp is null) && xmpp.State == XmppState.Connected;
-            }
-        }
-
-		public ContractsClient Contracts { get; }
-
-		public event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
-
-        private void OnLegalIdentityChanged(LegalIdentityChangedEventArgs e)
-        {
-            LegalIdentityChanged?.Invoke(this, e);
-        }
-
-        private event EventHandler<LoadedEventArgs> loaded;
-
-        public event EventHandler<LoadedEventArgs> Loaded
-        {
-            add
-            {
-                loaded += value;
-				value(this, new LoadedEventArgs(isLoaded));
-            }
-            remove
-            {
-                loaded -= value;
-			}
-		}
-
-        private void OnLoaded(LoadedEventArgs e)
-        {
-            loaded?.Invoke(this, e);
-        }
-
-        private event EventHandler<ConnectionStateChangedEventArgs> connectionState;
-
-        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged
-		{
-            add
-            {
-                connectionState += value;
-				value(this, new ConnectionStateChangedEventArgs(State));
-            }
-            remove
-            {
-                connectionState -= value;
-			}
-		}
-
-        private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
-        {
-            connectionState?.Invoke(this, e);
-        }
-
-		public XmppConfiguration Configuration { get; private set; }
-
-		public async Task AddLegalIdentity(List<Property> properties, params LegalIdentityAttachment[] attachments)
-        {
-			LegalIdentity Identity = await contracts.ApplyAsync(properties.ToArray());
-
-            foreach (var P in attachments)
-            {
-                HttpFileUploadEventArgs e2 = await fileUpload.RequestUploadSlotAsync(Path.GetFileName(P.Filename), P.ContentType, P.ContentLength);
-                if (!e2.Ok)
-                {
-					throw new Exception(e2.ErrorText);
-                }
-
-                await e2.PUT(P.Data, P.ContentType, 30000);
-
-                byte[] Signature = await contracts.SignAsync(P.Data);
-
-                Identity = await contracts.AddLegalIdAttachmentAsync(Identity.Id, e2.GetUrl, Signature);
-            }
-
-            Configuration.LegalIdentity = Identity;
-            if (Configuration.Step == 2)
-                Configuration.Step++;
-
-            UpdateConfiguration();
-		}
-
-        public Task<LegalIdentity[]> GetLegalIdentitiesAsync()
-        {
-            return contracts.GetLegalIdentitiesAsync();
-        }
-
-        public bool HasLegalIdentityAttachments => this.Configuration.LegalIdentity.Attachments != null;
-
-        public Attachment[] GetLegalIdentityAttachments()
-        {
-            return this.Configuration.LegalIdentity.Attachments;
-        }
-
-        public Task<KeyValuePair<string, TemporaryFile>> GetAttachmentAsync(string url)
-        {
-            return contracts.GetAttachmentAsync(url);
-        }
-
-        public Task<KeyValuePair<string, TemporaryFile>> GetAttachmentAsync(string url, TimeSpan timeout)
-        {
-            return contracts.GetAttachmentAsync(url, (int)timeout.TotalMilliseconds);
-        }
-
-		internal async Task AddLegalService(string JID)
+		private async Task AddLegalService(string JID)
 		{
 			if (!string.IsNullOrEmpty(JID) && !(xmpp is null))
 			{

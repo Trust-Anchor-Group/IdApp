@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 
 namespace XamarinApp.Views.Registration
@@ -44,13 +44,13 @@ namespace XamarinApp.Views.Registration
                 TableSection PhotoSection = new TableSection();
                 this.TableView.Root.Insert(i++, PhotoSection);
 
-                foreach (Attachment Attachment in tagService.GetLegalIdentityAttachments().Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
+                foreach (Attachment Attachment in tagService.GetLegalIdentityAttachments().GetImageAttachments())
                 {
                     ViewCell ViewCell;
 
                     try
                     {
-                        KeyValuePair<string, TemporaryFile> P = await tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
+                        KeyValuePair<string, TemporaryFile> P = await tagService.GetContractAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
 						using (TemporaryFile File = P.Value)
                         {

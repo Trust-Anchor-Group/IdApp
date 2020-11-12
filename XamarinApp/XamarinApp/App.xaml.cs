@@ -285,13 +285,13 @@ namespace XamarinApp
 		{
 			try
 			{
-				LegalIdentity Identity = await instance.TagService.Contracts.GetLegalIdentityAsync(LegalId);
+				LegalIdentity Identity = await instance.TagService.GetLegalIdentityAsync(LegalId);
 				App.ShowPage(new Views.IdentityPage(instance.MainPage, Identity), true);
 			}
 			catch (Exception)
 			{
-				await instance.TagService.Contracts.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
-				await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
+				await instance.TagService.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
+				await instance.messageService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
 					"If the owner accepts the petition, the identity information will be displayed on the screen.", AppResources.OkButtonText);
 			}
 		}
@@ -300,7 +300,7 @@ namespace XamarinApp
 		{
 			try
 			{
-				Contract Contract = await instance.TagService.Contracts.GetContractAsync(ContractId);
+				Contract Contract = await instance.TagService.GetContractAsync(ContractId);
 
 				if (Contract.CanActAsTemplate && Contract.State == ContractState.Approved)
 					App.ShowPage(new NewContractPage(instance.MainPage, Contract), true);
@@ -309,7 +309,7 @@ namespace XamarinApp
 			}
 			catch (Exception)
 			{
-				await instance.TagService.Contracts.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
+				await instance.TagService.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
 				await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
 					"If any of the parts accepts the petition, the contract information will be displayed on the screen.", AppResources.OkButtonText);
 			}

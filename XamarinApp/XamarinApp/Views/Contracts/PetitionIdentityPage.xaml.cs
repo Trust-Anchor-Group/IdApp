@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 
 namespace XamarinApp.Views.Contracts
@@ -45,13 +45,13 @@ namespace XamarinApp.Views.Contracts
 				TableSection PhotoSection = new TableSection();
 				this.TableView.Root.Insert(i++, PhotoSection);
 
-                foreach (Attachment Attachment in this.requestorIdentity.Attachments.Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase)))
+                foreach (Attachment Attachment in this.requestorIdentity.Attachments.GetImageAttachments())
                 {
                     ViewCell ViewCell;
 
                     try
                     {
-                        KeyValuePair<string, TemporaryFile> P = await tagService.GetAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
+                        KeyValuePair<string, TemporaryFile> P = await tagService.GetContractAttachmentAsync(Attachment.Url, TimeSpan.FromSeconds(10));
 
                         using (TemporaryFile File = P.Value)
                         {
@@ -91,13 +91,13 @@ namespace XamarinApp.Views.Contracts
 
         private void AcceptButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true);
+			this.tagService.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true);
 			App.ShowPage(this.owner, true);
 		}
 
 		private void DeclineButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.Contracts.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false);
+			this.tagService.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false);
 			App.ShowPage(this.owner, true);
 		}
 

@@ -43,9 +43,9 @@ namespace XamarinApp.Views.Contracts
                 string[] ContractIds;
 
                 if (this.createdContracts)
-                    ContractIds = await this.tagService.Contracts.GetCreatedContractsAsync();
+                    ContractIds = await this.tagService.GetCreatedContractsAsync();
                 else
-                    ContractIds = await this.tagService.Contracts.GetSignedContractsAsync();
+                    ContractIds = await this.tagService.GetSignedContractsAsync();
 
                 TapGestureRecognizer TapGestureRecognizer = new TapGestureRecognizer();
                 TapGestureRecognizer.Tapped += (sender, e) =>
@@ -74,7 +74,7 @@ namespace XamarinApp.Views.Contracts
                 {
                     foreach (string ContractId in ContractIds)
                     {
-                        Contract Contract = await this.tagService.Contracts.GetContractAsync(ContractId);
+                        Contract Contract = await this.tagService.GetContractAsync(ContractId);
                         this.contracts[ContractId] = Contract;
 
                         await Device.InvokeOnMainThreadAsync(() =>

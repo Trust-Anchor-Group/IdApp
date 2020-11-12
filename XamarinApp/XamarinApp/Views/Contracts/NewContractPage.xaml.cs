@@ -238,7 +238,7 @@ namespace XamarinApp.Views.Contracts
 		{
 			try
 			{
-				this.template = await this.tagService.Contracts.GetContractAsync(this.templateId);
+				this.template = await this.tagService.GetContractAsync(this.templateId);
 				Device.BeginInvokeOnMainThread(this.PopulateTemplateForm);
 			}
 			catch (Exception ex)
@@ -530,11 +530,11 @@ namespace XamarinApp.Views.Contracts
 					return;
 				}
 
-				Created = await this.tagService.Contracts.CreateContractAsync(this.templateId, Parts.ToArray(), this.template.Parameters, 
+				Created = await this.tagService.CreateContractAsync(this.templateId, Parts.ToArray(), this.template.Parameters, 
 					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration, this.template.ArchiveRequired, 
 					this.template.ArchiveOptional, null, null, false);
 
-				Created = await this.tagService.Contracts.SignContractAsync(Created, this.role, false);
+				Created = await this.tagService.SignContractAsync(Created, this.role, false);
 			}
 			catch (Exception ex)
 			{
