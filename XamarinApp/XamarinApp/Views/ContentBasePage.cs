@@ -7,6 +7,11 @@ namespace XamarinApp.Views
 {
     public class ContentBasePage : ContentPage
     {
+        public ContentBasePage()
+        {
+            NavigationPage.SetHasNavigationBar(this, false);
+        }
+
         protected BaseViewModel ViewModel
         {
             get => BindingContext as BaseViewModel;

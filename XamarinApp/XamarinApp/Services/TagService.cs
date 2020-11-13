@@ -106,7 +106,7 @@ namespace XamarinApp.Services
                 }
                 catch (Exception e)
                 {
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, e.ToString(), AppResources.Ok);
                     return;
                 }
 
@@ -123,7 +123,7 @@ namespace XamarinApp.Services
                 }
                 catch (Exception e)
                 {
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, e.ToString(), AppResources.Ok);
                 }
 
 				try
@@ -139,7 +139,7 @@ namespace XamarinApp.Services
                 catch (Exception e)
                 {
                     isLoading = false;
-					await this.messageService.DisplayAlert(AppResources.ErrorTitleText, e.ToString(), AppResources.OkButtonText);
+					await this.messageService.DisplayAlert(AppResources.ErrorTitle, e.ToString(), AppResources.Ok);
                     return;
                 }
 
@@ -673,7 +673,7 @@ namespace XamarinApp.Services
 		private Task Contracts_PetitionedContractResponseReceived(object Sender, ContractPetitionResponseEventArgs e)
 		{
 			if (!e.Response || e.RequestedContract is null)
-				Device.BeginInvokeOnMainThread(() => this.messageService.DisplayAlert("Message", "Petition to view contract was denied.", AppResources.OkButtonText));
+				Device.BeginInvokeOnMainThread(() => this.messageService.DisplayAlert("Message", "Petition to view contract was denied.", AppResources.Ok));
 			else
 				App.ShowPage(new ViewContractPage(App.Instance.MainPage, e.RequestedContract, false), false);
 
@@ -706,7 +706,7 @@ namespace XamarinApp.Services
 		private Task Contracts_PetitionedIdentityResponseReceived(object Sender, LegalIdentityPetitionResponseEventArgs e)
 		{
 			if (!e.Response || e.RequestedIdentity is null)
-				Device.BeginInvokeOnMainThread(() => this.messageService.DisplayAlert("Message", "Petition to view legal identity was denied.", AppResources.OkButtonText));
+				Device.BeginInvokeOnMainThread(() => this.messageService.DisplayAlert("Message", "Petition to view legal identity was denied.", AppResources.Ok));
 			else
 				App.ShowPage(new Views.IdentityPage(App.Instance.MainPage, e.RequestedIdentity), false);
 

@@ -37,7 +37,7 @@ namespace XamarinApp.Views.Registration
                 i++;
             }
 
-            this.Operators.Items.Add("<Other>");
+            this.Operators.Items.Add(AppResources.OperatorDomainOther);
 
             if (!string.IsNullOrEmpty(this.tagService.Configuration.Domain))
             {
@@ -223,19 +223,19 @@ namespace XamarinApp.Views.Registration
                     else
                     {
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Cannot connect to " + this.domainName, AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Cannot connect to " + this.domainName, AppResources.Ok);
                         else if (!StreamOpened)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, this.domainName + " is not a valid operator.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.domainName + " is not a valid operator.", AppResources.Ok);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, this.domainName + " does not follow the ubiquitous encryption policy.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.domainName + " does not follow the ubiquitous encryption policy.", AppResources.Ok);
                         else
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to connect to " + this.domainName, AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Unable to connect to " + this.domainName, AppResources.Ok);
                     }
                 }
             }
             catch (Exception)
             {
-                await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to connect to " + this.domainName, AppResources.OkButtonText);
+                await this.DisplayAlert(AppResources.ErrorTitle, "Unable to connect to " + this.domainName, AppResources.Ok);
             }
             finally
             {

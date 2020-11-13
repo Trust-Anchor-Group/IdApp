@@ -3,6 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinApp.App">
     <Application.Resources>
-
+        <Color x:Key="AccentColor">#BADA55</Color>
+        <Color x:Key="BackgroundColor">#333333</Color>
+        <Thickness x:Key="DefaultMargin">12</Thickness>
+        <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+        </Style>
     </Application.Resources>
 </Application>

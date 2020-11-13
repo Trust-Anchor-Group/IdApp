@@ -7,5 +7,7 @@ namespace XamarinApp.Services
     {
         Task<Page> GoBack();
         Task<Page> GoBackFromModal();
+        Task GoTo(Page page);
+        Task Set(Page page);
     }
 }

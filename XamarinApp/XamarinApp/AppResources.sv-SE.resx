@@ -118,90 +118,90 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CantConnectTo" xml:space="preserve">
-    <value>Can't connect to {0}</value>
+    <value>Kan inte ansluta till {0}</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Connect</value>
+    <value>Anslut</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
-    <value>{0} does not follow the ubiquitous encryption policy</value>
+    <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
   </data>
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
-    <value>{0} is not a valid operator</value>
+    <value>{0} är inte en giltig operatör</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Error</value>
+    <value>Fel</value>
   </data>
-  <data name="Ok" xml:space="preserve">
+  <data name="OkButton" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
-    <value>&lt;Other&gt;</value>
+    <value>&lt;Annan&gt;</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
-    <value>Enter manually</value>
+    <value>Ange manuellt</value>
   </data>
   <data name="QrScanAddButton" xml:space="preserve">
-    <value>Add</value>
+    <value>Lägg till</value>
   </data>
   <data name="QrScanCode" xml:space="preserve">
-    <value>Scan code</value>
+    <value>Scanna kod</value>
   </data>
   <data name="QrScanLegalIdentity" xml:space="preserve">
     <value>Legal Identity:</value>
   </data>
   <data name="QrScanOverlay" xml:space="preserve">
-    <value>Align the QR-Code within the frame</value>
+    <value>Passa in QR-koden i ramen</value>
   </data>
   <data name="SelectOperator" xml:space="preserve">
-    <value>Select Operator</value>
+    <value>Välj operatör</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Unable to connect to {0}</value>
+    <value>Ej möjligt att ansluta till {0}</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
-    <value>Welcome to TAG Xamarin App!</value>
+    <value>Välkommen till TAGs Xamarin-app!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>To connect to the TAG network, you need to select an operator. Please select one from the list below.</value>
+    <value>Välj en operatör för att ansluta till TAG-nätverket. Välj en från listan nedan.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
-    <value>Authenticating network identity</value>
+    <value>Autentiserar nätverksidentitet</value>
   </data>
   <data name="XmppState_Binding" xml:space="preserve">
-    <value>Binding connection</value>
+    <value>Ansluter</value>
   </data>
   <data name="XmppState_Connected" xml:space="preserve">
-    <value>Connected to {0}</value>
+    <value>Ansluten till {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
-    <value>Establishing connection</value>
+    <value>Etablerar anslutning</value>
   </data>
   <data name="XmppState_Error" xml:space="preserve">
-    <value>Connection error</value>
+    <value>Anslutningsfel</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Fetching roster</value>
+    <value>Hämtar användare</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
-    <value>Disconnected</value>
+    <value>Frånkopplad</value>
   </data>
   <data name="XmppState_Registering" xml:space="preserve">
-    <value>Registering with broker</value>
+    <value>Registrerar hos mäklare</value>
   </data>
   <data name="XmppState_RequestingSession" xml:space="preserve">
-    <value>Requesting session</value>
+    <value>Begär session</value>
   </data>
   <data name="XmppState_SettingPresence" xml:space="preserve">
-    <value>Setting presence</value>
+    <value>Sätter närvaro</value>
   </data>
   <data name="XmppState_StartingEncryption" xml:space="preserve">
-    <value>Encrypting connection</value>
+    <value>Krypterar anslutning</value>
   </data>
   <data name="XmppState_StreamNegotiation" xml:space="preserve">
-    <value>Negotiating stream</value>
+    <value>Förhandlar ström</value>
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
-    <value>Stream established</value>
+    <value>Ström etablerad</value>
   </data>
 </root>

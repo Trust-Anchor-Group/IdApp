@@ -37,7 +37,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -120,27 +120,27 @@ namespace XamarinApp.Views.Registration
 		{
 			if (!this.tagService.IsOnline)
 			{
-				await DisplayAlert(AppResources.ErrorTitleText, "Not connected to the operator.", AppResources.OkButtonText);
+				await DisplayAlert(AppResources.ErrorTitle, "Not connected to the operator.", AppResources.Ok);
 				return;
 			}
 
 			if (string.IsNullOrEmpty(this.FirstNameEntry.Text.Trim()))
 			{
-				await DisplayAlert(AppResources.ErrorTitleText, "You need to provide a first name.", AppResources.OkButtonText);
+				await DisplayAlert(AppResources.ErrorTitle, "You need to provide a first name.", AppResources.Ok);
 				this.FirstNameEntry.Focus();
 				return;
 			}
 
 			if (string.IsNullOrEmpty(this.LastNamesEntry.Text.Trim()))
 			{
-				await DisplayAlert(AppResources.ErrorTitleText, "You need to provide at least one last name.", AppResources.OkButtonText);
+				await DisplayAlert(AppResources.ErrorTitle, "You need to provide at least one last name.", AppResources.Ok);
 				this.LastNamesEntry.Focus();
 				return;
 			}
 
 			if (string.IsNullOrEmpty(this.PNrEntry.Text.Trim()))
 			{
-				await DisplayAlert(AppResources.ErrorTitleText, "You need to provide a personal or social security number.", AppResources.OkButtonText);
+				await DisplayAlert(AppResources.ErrorTitle, "You need to provide a personal or social security number.", AppResources.Ok);
 				this.PNrEntry.Focus();
 				return;
 			}
@@ -153,7 +153,7 @@ namespace XamarinApp.Views.Registration
 
 				if (string.IsNullOrEmpty(this.tagService.Configuration.LegalJid))
 				{
-					await DisplayAlert(AppResources.ErrorTitleText, "Operator does not support legal identities and smart contracts.", AppResources.OkButtonText);
+					await DisplayAlert(AppResources.ErrorTitle, "Operator does not support legal identities and smart contracts.", AppResources.Ok);
 					return;
 				}
 
@@ -202,7 +202,7 @@ namespace XamarinApp.Views.Registration
                 }
                 catch (Exception ex)
                 {
-                    await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to upload photo: " + ex.Message, AppResources.OkButtonText);
+                    await this.DisplayAlert(AppResources.ErrorTitle, "Unable to upload photo: " + ex.Message, AppResources.Ok);
                 }
 
                 await App.ShowPage();
@@ -211,7 +211,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-                await this.DisplayAlert(AppResources.ErrorTitleText, $"Unable to register information with {this.tagService.Configuration.Domain}:{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.OkButtonText);
+                await this.DisplayAlert(AppResources.ErrorTitle, $"Unable to register information with {this.tagService.Configuration.Domain}:{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.Ok);
 			}
 			finally
 			{
@@ -286,7 +286,7 @@ namespace XamarinApp.Views.Registration
 			if ((long)Bin.Length > this.tagService.Configuration.HttpFileUploadMaxSize.GetValueOrDefault())
 			{
 				ms.Dispose();
-				await this.DisplayAlert(AppResources.ErrorTitleText, "Photo too large.", AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, "Photo too large.", AppResources.Ok);
 				return;
 			}
 

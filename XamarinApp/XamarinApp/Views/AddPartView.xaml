@@ -15,12 +15,12 @@
                                       HeightRequest="500"
                                       VerticalOptions="CenterAndExpand"
                                       HorizontalOptions="CenterAndExpand"/>
-              <forms:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlayText}"/>
+              <forms:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlay}"/>
           </Grid>
           <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
-              <Label Text="{x:Static local:AppResources.QrScanLegalIdentityText}" HorizontalOptions="FillAndExpand"/>
+              <Label Text="{x:Static local:AppResources.QrScanLegalIdentity}" HorizontalOptions="FillAndExpand"/>
               <Entry x:Name="LinkEntry" Text="{Binding Path=LinkText, Mode=OneWay}" HorizontalOptions="Fill"/>
-              <Button x:Name="ManualAddButton" Text="{x:Static local:AppResources.QrScanAddButtonText}" HorizontalOptions="FillAndExpand" Command="{Binding Path=ManualAddCommand}"/>
+              <Button x:Name="ManualAddButton" Text="{x:Static local:AppResources.QrScanAddButton}" HorizontalOptions="FillAndExpand" Command="{Binding Path=ManualAddCommand}"/>
           </StackLayout>
           <Button x:Name="ModeButton" Text="{Binding Path=ModeText}" Command="{Binding Path=SwitchModeCommand}"/>
       </StackLayout>

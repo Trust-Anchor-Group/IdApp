@@ -27,12 +27,13 @@ namespace XamarinApp
 			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
+			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             IContainer container = builder.Build();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			TagService = DependencyService.Resolve<ITagService>();
             this.messageService = DependencyService.Resolve<IMessageService>();
-            MainPage = new InitPage();
+            MainPage = new NavigationPage(new InitPage());
             instance = this;
         }
 
@@ -200,7 +201,7 @@ namespace XamarinApp
 			{
 				await instance.TagService.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
 				await instance.messageService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
-					"If the owner accepts the petition, the identity information will be displayed on the screen.", AppResources.OkButtonText);
+					"If the owner accepts the petition, the identity information will be displayed on the screen.", AppResources.Ok);
 			}
 		}
 
@@ -219,7 +220,7 @@ namespace XamarinApp
 			{
 				await instance.TagService.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
 				await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
-					"If any of the parts accepts the petition, the contract information will be displayed on the screen.", AppResources.OkButtonText);
+					"If any of the parts accepts the petition, the contract information will be displayed on the screen.", AppResources.Ok);
 			}
 		}
 	}

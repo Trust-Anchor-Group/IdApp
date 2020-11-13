@@ -61,65 +61,146 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t connect to {0}.
+        /// </summary>
+        internal static string CantConnectTo {
+            get {
+                return ResourceManager.GetString("CantConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        internal static string Connect {
+            get {
+                return ResourceManager.GetString("Connect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
+        /// </summary>
+        internal static string DomainDoesNotFollowEncryptionPolicy {
+            get {
+                return ResourceManager.GetString("DomainDoesNotFollowEncryptionPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is not a valid operator.
+        /// </summary>
+        internal static string DomainIsNotAValidOperator {
+            get {
+                return ResourceManager.GetString("DomainIsNotAValidOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string ErrorTitleText {
+        internal static string ErrorTitle {
             get {
-                return ResourceManager.GetString("ErrorTitleText", resourceCulture);
+                return ResourceManager.GetString("ErrorTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string OkButtonText {
+        internal static string Ok {
             get {
-                return ResourceManager.GetString("OkButtonText", resourceCulture);
+                return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;Other&gt;.
+        /// </summary>
+        internal static string OperatorDomainOther {
+            get {
+                return ResourceManager.GetString("OperatorDomainOther", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Enter manually.
         /// </summary>
-        internal static string QrEnterManuallyText {
+        internal static string QrEnterManually {
             get {
-                return ResourceManager.GetString("QrEnterManuallyText", resourceCulture);
+                return ResourceManager.GetString("QrEnterManually", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Add.
         /// </summary>
-        internal static string QrScanAddButtonText {
+        internal static string QrScanAddButton {
             get {
-                return ResourceManager.GetString("QrScanAddButtonText", resourceCulture);
+                return ResourceManager.GetString("QrScanAddButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Scan code.
         /// </summary>
-        internal static string QrScanCodeText {
+        internal static string QrScanCode {
             get {
-                return ResourceManager.GetString("QrScanCodeText", resourceCulture);
+                return ResourceManager.GetString("QrScanCode", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Legal Identity:.
         /// </summary>
-        internal static string QrScanLegalIdentityText {
+        internal static string QrScanLegalIdentity {
             get {
-                return ResourceManager.GetString("QrScanLegalIdentityText", resourceCulture);
+                return ResourceManager.GetString("QrScanLegalIdentity", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Align the QR-Code within the frame.
         /// </summary>
-        internal static string QrScanOverlayText {
+        internal static string QrScanOverlay {
             get {
-                return ResourceManager.GetString("QrScanOverlayText", resourceCulture);
+                return ResourceManager.GetString("QrScanOverlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Operator.
+        /// </summary>
+        internal static string SelectOperator {
+            get {
+                return ResourceManager.GetString("SelectOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to connect to {0}.
+        /// </summary>
+        internal static string UnableToConnectTo {
+            get {
+                return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to TAG Xamarin App!.
+        /// </summary>
+        internal static string WelcomeToTagHeading {
+            get {
+                return ResourceManager.GetString("WelcomeToTagHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To connect to the TAG network, you need to select an operator. Please select one from the list below..
+        /// </summary>
+        internal static string WelcomeToTagSubheading {
+            get {
+                return ResourceManager.GetString("WelcomeToTagSubheading", resourceCulture);
             }
         }
         

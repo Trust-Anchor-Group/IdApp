@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:XamarinApp.ViewModels.Registration;assembly=XamarinApp"
-             x:Class="XamarinApp.Views.Registration.ChooseAccountView">
+<registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms" 
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:vm="clr-namespace:XamarinApp.ViewModels.Registration;assembly=XamarinApp"
+                      xmlns:registration="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
+                      x:Class="XamarinApp.Views.Registration.ChooseAccountView">
   <ContentView.Content>
       <StackLayout>
           <Label Text="Choose Account" />
@@ -10,4 +11,4 @@
           <Button Text="Next" Command="{Binding Source={RelativeSource AncestorType={x:Type vm:RegistrationViewModel}}, Path=GoToNextCommand}"/>
       </StackLayout>
   </ContentView.Content>
-</ContentView>
+</registration:RegistrationStepView>

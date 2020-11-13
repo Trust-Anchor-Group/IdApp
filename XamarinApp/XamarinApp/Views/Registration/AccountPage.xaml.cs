@@ -56,7 +56,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -268,21 +268,21 @@ namespace XamarinApp.Views.Registration
 					else
 					{
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.Ok);
                         else if (!StreamOpened)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.Ok);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.Ok);
                         else if (!Authentication)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.Ok);
                         else
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Invalid user name or password.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Invalid user name or password.", AppResources.Ok);
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, $"Unable to connect to {this.tagService.Configuration.Domain}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, $"Unable to connect to {this.tagService.Configuration.Domain}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.Ok);
 			}
 			finally
 			{
@@ -310,7 +310,7 @@ namespace XamarinApp.Views.Registration
                 Password = this.authService.CreateRandomPassword();
 			else if ((Password = this.Password.Text) != this.RetypePassword.Text)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, "Passwords do not match.", AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, "Passwords do not match.", AppResources.Ok);
 				return;
 			}
 
@@ -407,30 +407,30 @@ namespace XamarinApp.Views.Registration
 						this.tagService.SetAccount(this.AccountName.Text, Client.PasswordHash, Client.PasswordHashMethod);
 
 						if (this.RandomPassword.On)
-							await this.DisplayAlert("Password", "The password for the connection is " + Password, AppResources.OkButtonText);
+							await this.DisplayAlert("Password", "The password for the connection is " + Password, AppResources.Ok);
 
 						await App.ShowPage();
 					}
 					else
 					{
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.Ok);
                         else if (!StreamOpened)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.Ok);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.Ok);
                         else if (!Authentication)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.Ok);
                         else if (!Registering)
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "The operator " + this.tagService.Configuration.Domain + " does not support registration of new accounts.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "The operator " + this.tagService.Configuration.Domain + " does not support registration of new accounts.", AppResources.Ok);
                         else
-                            await this.DisplayAlert(AppResources.ErrorTitleText, "Account name already taken. Choose another.", AppResources.OkButtonText);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Account name already taken. Choose another.", AppResources.Ok);
 					}
 				}
 			}
 			catch (Exception)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, "Unable to connect to " + this.tagService.Configuration.Domain, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, "Unable to connect to " + this.tagService.Configuration.Domain, AppResources.Ok);
 			}
 			finally
 			{

@@ -56,7 +56,7 @@ namespace XamarinApp.ViewModels
 
         private void SetModeText()
         {
-            ModeText = ScanIsAutomatic ? AppResources.QrScanCodeText : AppResources.QrEnterManuallyText;
+            ModeText = ScanIsAutomatic ? AppResources.QrScanCode : AppResources.QrEnterManually;
         }
 
         public bool ScanIsAutomatic
@@ -106,7 +106,7 @@ namespace XamarinApp.ViewModels
                 {
                     if (code.Substring(0, i).ToLower() != Constants.Schemes.IotId)
                     {
-                        await this.messageService.DisplayAlert(AppResources.ErrorTitleText, "Not a legal identity.", AppResources.OkButtonText);
+                        await this.messageService.DisplayAlert(AppResources.ErrorTitle, "Not a legal identity.", AppResources.Ok);
                         return;
                     }
 
@@ -118,7 +118,7 @@ namespace XamarinApp.ViewModels
             }
             catch (Exception ex)
             {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+                await this.messageService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
         }
 

@@ -33,7 +33,7 @@ namespace XamarinApp.Views
 			this.ScanGrid.IsVisible = !Manual;
 			this.ManualGrid.IsVisible = Manual;
 
-			this.ModeButton.Text = Manual ? AppResources.QrScanCodeText : AppResources.QrEnterManuallyText;
+			this.ModeButton.Text = Manual ? AppResources.QrScanCode : AppResources.QrEnterManually;
 
 			if (Manual)
 				this.Link.Focus();
@@ -46,7 +46,7 @@ namespace XamarinApp.Views
 				this.Link.Text = result.Text;
 				this.ScanGrid.IsVisible = false;
 				this.ManualGrid.IsVisible = true;
-				this.ModeButton.Text = AppResources.QrScanCodeText;
+				this.ModeButton.Text = AppResources.QrScanCode;
 				this.ManualButton.Focus();
 			});
 		}
@@ -78,13 +78,13 @@ namespace XamarinApp.Views
 
 					default:
 						if (!await Launcher.TryOpenAsync(Uri))
-							await this.DisplayAlert(AppResources.ErrorTitleText,  $"Code not understood:{Environment.NewLine}{Environment.NewLine}{Code}", AppResources.OkButtonText);
+							await this.DisplayAlert(AppResources.ErrorTitle,  $"Code not understood:{Environment.NewLine}{Environment.NewLine}{Code}", AppResources.Ok);
 						break;
 				}
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 

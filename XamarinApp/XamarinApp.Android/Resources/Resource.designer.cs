@@ -8988,10 +8988,13 @@ namespace XamarinApp.Droid
 			public const int tag_bg = 2131165310;
 			
 			// aapt resource value: 0x7F07007F
-			public const int tooltip_frame_dark = 2131165311;
+			public const int tag_bg2 = 2131165311;
 			
 			// aapt resource value: 0x7F070080
-			public const int tooltip_frame_light = 2131165312;
+			public const int tooltip_frame_dark = 2131165312;
+			
+			// aapt resource value: 0x7F070081
+			public const int tooltip_frame_light = 2131165313;
 			
 			static Drawable()
 			{

@@ -12,6 +12,7 @@ namespace XamarinApp
     public partial class InitPage
     {
         private readonly ITagService tagService;
+        private readonly INavigationService navigationService;
 
         public InitPage()
             : this(new InitViewModel())
@@ -22,6 +23,7 @@ namespace XamarinApp
         {
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
+            this.navigationService = DependencyService.Resolve<INavigationService>();
             ViewModel = new InitViewModel();
         }
 
@@ -50,7 +52,7 @@ namespace XamarinApp
                 {
                     IsBusy = false;
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    App.ShowPage(new RegistrationPage(), false);
+                    await this.navigationService.Set(new RegistrationPage());
                 });
             }
         }

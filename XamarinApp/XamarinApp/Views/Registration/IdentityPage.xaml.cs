@@ -101,7 +101,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -143,7 +143,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 

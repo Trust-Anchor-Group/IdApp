@@ -290,7 +290,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -303,7 +303,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -330,7 +330,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -343,7 +343,7 @@ namespace XamarinApp.Views.Contracts
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -424,13 +424,13 @@ namespace XamarinApp.Views.Contracts
 			{
 				Contract Contract = await this.tagService.ObsoleteContractAsync(this.contract.ContractId);
 
-				await this.DisplayAlert("Message", "Contract has been obsoleted.", AppResources.OkButtonText);
+				await this.DisplayAlert("Message", "Contract has been obsoleted.", AppResources.Ok);
 
 				App.ShowPage(new ViewContractPage(this.owner, Contract, false), true);
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 
@@ -440,13 +440,13 @@ namespace XamarinApp.Views.Contracts
 			{
 				Contract Contract = await this.tagService.DeleteContractAsync(this.contract.ContractId);
 
-				await this.DisplayAlert("Message", "Contract has been deleted.", AppResources.OkButtonText);
+				await this.DisplayAlert("Message", "Contract has been deleted.", AppResources.Ok);
 
 				App.ShowPage(new ViewContractPage(this.owner, Contract, false), true);
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+				await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 		}
 

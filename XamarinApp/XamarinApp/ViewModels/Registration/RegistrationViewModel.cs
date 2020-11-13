@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
@@ -14,26 +16,74 @@ namespace XamarinApp.ViewModels.Registration
         private const int DefaultStep = MinStep;
 
         private readonly ISettingsService settingsService;
+        private readonly ITagService tagService;
+        private readonly IMessageService messageService;
 
         public RegistrationViewModel()
-            : this(null)
+            : this(null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(ISettingsService settingsService)
+        protected internal RegistrationViewModel(ISettingsService settingsService, ITagService tagService, IMessageService messageService)
         {
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
+            this.tagService = tagService ?? DependencyService.Resolve<ITagService>();
+            this.messageService = messageService ?? DependencyService.Resolve<IMessageService>();
             GoToNextCommand = new Command(() => CurrentStep++, () => CurrentStep < MaxStep);
             GoToPrevCommand = new Command(() => CurrentStep--, () => CurrentStep > MinStep);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
             int currStep = MinStep;
-            RegistrationSteps.Add(new ChooseOperatorViewModel(currStep++));
-            RegistrationSteps.Add(new ChooseAccountViewModel(currStep++));
-            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++));
-            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++));
-            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++));
+            RegistrationSteps.Add(new ChooseOperatorViewModel(currStep++, this.tagService, this.messageService));
+            RegistrationSteps.Add(new ChooseAccountViewModel(currStep++, this.tagService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
+
+            RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
+
             this.CurrentStep = DefaultStep;
+        }
+
+        private void RegistrationStep_Completed(object sender, EventArgs e)
+        {
+            RegistrationStepViewModel viewModel = (RegistrationStepViewModel)sender;
+            switch (viewModel.Step)
+            {
+                case 2:
+                    this.tagService.IncrementConfigurationStep();
+                    InvokeGoToNext();
+                    break;
+
+                case 3:
+                    this.tagService.IncrementConfigurationStep();
+                    InvokeGoToNext();
+                    break;
+
+                case 4:
+                    this.tagService.IncrementConfigurationStep();
+                    InvokeGoToNext();
+                    break;
+
+                case 5:
+                    this.tagService.IncrementConfigurationStep();
+                    InvokeGoToNext();
+                    break;
+
+                default: // 0
+                    this.tagService.SetDomain(((ChooseOperatorViewModel)viewModel).GetOperator(), string.Empty);
+                    this.tagService.IncrementConfigurationStep();
+                    InvokeGoToNext();
+                    break;
+            }
+        }
+
+        private void InvokeGoToNext()
+        {
+            if (GoToNextCommand.CanExecute(null))
+            {
+                GoToNextCommand.Execute(null);
+            }
         }
 
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; private set; }
@@ -58,34 +108,6 @@ namespace XamarinApp.ViewModels.Registration
         public override async Task SaveState()
         {
             await this.settingsService.SaveState(CurrentStepKey, CurrentStep);
-        }
-    }
-
-    public class RegistrationStepDataTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate Step1Template { get; set; }
-        public DataTemplate Step2Template { get; set; }
-        public DataTemplate Step3Template { get; set; }
-        public DataTemplate Step4Template { get; set; }
-        public DataTemplate Step5Template { get; set; }
-
-        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
-        {
-            RegistrationStepViewModel viewModel = (RegistrationStepViewModel)item;
-
-            switch (viewModel.Step)
-            {
-                case 1:
-                    return Step2Template;
-                case 2:
-                    return Step3Template;
-                case 3:
-                    return Step4Template;
-                case 4:
-                    return Step5Template;
-                default:
-                    return Step1Template;
-            }
         }
     }
 }

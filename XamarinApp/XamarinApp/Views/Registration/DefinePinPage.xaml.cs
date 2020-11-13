@@ -30,7 +30,7 @@ namespace XamarinApp.Views.Registration
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+                await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
         }
 
@@ -50,17 +50,17 @@ namespace XamarinApp.Views.Registration
             {
                 if (this.Pin.Text.Length < 8)
                 {
-                    await this.DisplayAlert(AppResources.ErrorTitleText, "PIN number too short. At least 8 numbers (or characters) are required.", AppResources.OkButtonText);
+                    await this.DisplayAlert(AppResources.ErrorTitle, "PIN number too short. At least 8 numbers (or characters) are required.", AppResources.Ok);
                     Device.BeginInvokeOnMainThread(() => this.Pin.Focus());
                 }
                 else if (this.Pin.Text.Trim() != this.Pin.Text)
                 {
-                    await this.DisplayAlert(AppResources.ErrorTitleText, "PIN number must not unclude leading or trailing white-space.", AppResources.OkButtonText);
+                    await this.DisplayAlert(AppResources.ErrorTitle, "PIN number must not unclude leading or trailing white-space.", AppResources.Ok);
                     Device.BeginInvokeOnMainThread(() => this.Pin.Focus());
                 }
                 else if (this.Pin.Text != this.RetypePin.Text)
                 {
-                    await this.DisplayAlert(AppResources.ErrorTitleText, "PIN numbers (or passwords) do not match.", AppResources.OkButtonText);
+                    await this.DisplayAlert(AppResources.ErrorTitle, "PIN numbers (or passwords) do not match.", AppResources.Ok);
                     Device.BeginInvokeOnMainThread(() => this.Pin.Focus());
                 }
                 else
@@ -75,7 +75,7 @@ namespace XamarinApp.Views.Registration
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+                await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
         }
 
@@ -93,7 +93,7 @@ namespace XamarinApp.Views.Registration
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert(AppResources.ErrorTitleText, ex.Message, AppResources.OkButtonText);
+                await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
         }
 

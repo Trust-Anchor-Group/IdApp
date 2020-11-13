@@ -6,7 +6,7 @@
              xmlns:registrationViews="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Registration.RegistrationPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Margin="0, 0, 0, 10">
+        <StackLayout Orientation="Vertical">
             <StackLayout.Resources>
                 <ResourceDictionary>
                     <DataTemplate x:Key="ChooseOperatorTemplate">
@@ -39,13 +39,12 @@
                           HorizontalOptions="CenterAndExpand"
                           VerticalOptions="CenterAndExpand"
                           Position="{Binding Path=CurrentStep, Mode=TwoWay}"
-                          IndicatorView="IndicatorView"
                           ItemsSource="{Binding Path=RegistrationSteps}"
                           ItemTemplate="{StaticResource StepTemplateSelector}"/>
-            <IndicatorView x:Name="IndicatorView"
+            <!--<IndicatorView x:Name="IndicatorView"
                            HorizontalOptions="Center"
                            IndicatorColor="DarkGray"
-                           SelectedIndicatorColor="DarkOrange"/>
+                           SelectedIndicatorColor="{StaticResource AccentColor}"/>-->
         </StackLayout>
     </ContentPage.Content>
 </views:ContentBasePage>
