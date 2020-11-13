@@ -7,6 +7,7 @@ using Waher.IoTGateway.Setup;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
@@ -36,7 +37,7 @@ namespace XamarinApp.ViewModels.Registration
                 ChooseOperatorViewModel viewModel = (ChooseOperatorViewModel)b;
                 string selectedOperator = (string)newValue;
                 viewModel.ChooseOperatorFromList = !string.IsNullOrWhiteSpace(selectedOperator) && selectedOperator != AppResources.OperatorDomainOther;
-                ((Command)viewModel.ConnectCommand).ChangeCanExecute();
+                viewModel.ConnectCommand.ChangeCanExecute();
             });
 
         public string SelectedOperator
@@ -49,7 +50,7 @@ namespace XamarinApp.ViewModels.Registration
             BindableProperty.Create("ManualOperator", typeof(string), typeof(ChooseOperatorViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 ChooseOperatorViewModel viewModel = (ChooseOperatorViewModel)b;
-                ((Command)viewModel.ConnectCommand).ChangeCanExecute();
+                viewModel.ConnectCommand.ChangeCanExecute();
             });
 
         public string ManualOperator
@@ -78,7 +79,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             IsBusy = true;
 
-            ((Command)ConnectCommand).ChangeCanExecute();
+            ConnectCommand.ChangeCanExecute();
 
             TaskCompletionSource<bool> result = new TaskCompletionSource<bool>();
             bool streamNegotiation = false;

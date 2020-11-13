@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
@@ -52,37 +53,29 @@ namespace XamarinApp.ViewModels.Registration
             {
                 case 2:
                     this.tagService.IncrementConfigurationStep();
-                    InvokeGoToNext();
+                    GoToNextCommand.Execute();
                     break;
 
                 case 3:
                     this.tagService.IncrementConfigurationStep();
-                    InvokeGoToNext();
+                    GoToNextCommand.Execute();
                     break;
 
                 case 4:
                     this.tagService.IncrementConfigurationStep();
-                    InvokeGoToNext();
+                    GoToNextCommand.Execute();
                     break;
 
                 case 5:
                     this.tagService.IncrementConfigurationStep();
-                    InvokeGoToNext();
+                    GoToNextCommand.Execute();
                     break;
 
                 default: // 0
                     this.tagService.SetDomain(((ChooseOperatorViewModel)viewModel).GetOperator(), string.Empty);
                     this.tagService.IncrementConfigurationStep();
-                    InvokeGoToNext();
+                    GoToNextCommand.Execute();
                     break;
-            }
-        }
-
-        private void InvokeGoToNext()
-        {
-            if (GoToNextCommand.CanExecute(null))
-            {
-                GoToNextCommand.Execute(null);
             }
         }
 
