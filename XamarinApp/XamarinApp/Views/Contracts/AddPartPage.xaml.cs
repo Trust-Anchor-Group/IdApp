@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using Xamarin.Forms;
-using XamarinApp.Services;
 using XamarinApp.ViewModels.Contracts;
 
 namespace XamarinApp.Views.Contracts
@@ -24,9 +23,7 @@ namespace XamarinApp.Views.Contracts
 
         protected override bool OnBackButtonPressed()
         {
-            if (this.isModal)
-                return true;
-            return base.OnBackButtonPressed();
+            return this.isModal || base.OnBackButtonPressed();
         }
     }
 }

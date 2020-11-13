@@ -26,7 +26,7 @@ namespace XamarinApp.Views
         }
 
         public static readonly BindableProperty CodeScannedCommandProperty =
-            BindableProperty.Create("CodeScannedCommand", typeof(ICommand), typeof(AddPartView), default(ICommand));
+            BindableProperty.Create("CodeScannedCommand", typeof(ICommand), typeof(AddPartView), default(ICommand), BindingMode.OneWayToSource);
 
         public ICommand CodeScannedCommand
         {
@@ -36,7 +36,10 @@ namespace XamarinApp.Views
 
         private void ViewModel_ModeChanged(object sender, EventArgs e)
         {
-            this.LinkEntry.Focus();
+            if (GetViewModel<AddPartViewModel>().ScanIsManual)
+            {
+                this.LinkEntry.Focus();
+            }
         }
 
         private void ViewModel_CodeScanned(object sender, EventArgs e)

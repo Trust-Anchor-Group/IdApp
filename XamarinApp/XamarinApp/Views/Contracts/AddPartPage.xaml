@@ -4,5 +4,5 @@
              xmlns:local="clr-namespace:XamarinApp"
              x:Class="XamarinApp.Views.Contracts.AddPartPage"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp">
-    <views:AddPartView x:Name="AddPartView"/>
+    <views:AddPartView x:Name="AddPartView" CodeScannedCommand="{Binding Path=CodeScannedCommand}" />
 </views:ContentBasePage>

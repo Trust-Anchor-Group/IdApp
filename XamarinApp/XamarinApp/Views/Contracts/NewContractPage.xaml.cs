@@ -345,10 +345,7 @@ namespace XamarinApp.Views.Contracts
             AddPartViewModel viewModel = (AddPartViewModel)page.BindingContext;
             page.Disappearing -= PageOnDisappearing;
 
-			// TODO: read code property
-			string code = null;
-
-			this.AddRole(this.currentRole, code);
+			this.AddRole(this.currentRole, viewModel.Code);
         }
 
         private void PopulateHumanReadableText()
