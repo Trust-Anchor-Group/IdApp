@@ -254,7 +254,7 @@ namespace XamarinApp.Views.Registration
 									if (Changed)
 									{
                                         if (this.tagService.Configuration.Step == 2)
-                                            this.tagService.Configuration.Step++;
+											this.tagService.IncrementConfigurationStep();
 
                                         this.tagService.UpdateConfiguration();
 									}
@@ -265,15 +265,15 @@ namespace XamarinApp.Views.Registration
 					else
 					{
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert(AppResources.ErrorTitle, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.CantConnectTo, this.tagService.Configuration.Domain), AppResources.Ok);
                         else if (!StreamOpened)
-                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainIsNotAValidOperator, this.tagService.Configuration.Domain), AppResources.Ok);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, this.tagService.Configuration.Domain), AppResources.Ok);
                         else if (!Authentication)
-                            await this.DisplayAlert(AppResources.ErrorTitle, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.tagService.Configuration.Domain), AppResources.Ok);
                         else
-                            await this.DisplayAlert(AppResources.ErrorTitle, "Invalid user name or password.", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidUsernameOrPassword,  "Invalid user name or password.", AppResources.Ok);
 					}
 				}
 			}

@@ -19,24 +19,26 @@ namespace XamarinApp.ViewModels.Registration
         private readonly ISettingsService settingsService;
         private readonly ITagService tagService;
         private readonly IMessageService messageService;
+        private readonly IAuthService authService;
 
         public RegistrationViewModel()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(ISettingsService settingsService, ITagService tagService, IMessageService messageService)
+        protected internal RegistrationViewModel(ISettingsService settingsService, ITagService tagService, IAuthService authService, IMessageService messageService)
         {
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             this.tagService = tagService ?? DependencyService.Resolve<ITagService>();
             this.messageService = messageService ?? DependencyService.Resolve<IMessageService>();
+            this.authService = authService ?? DependencyService.Resolve<IAuthService>();
             GoToNextCommand = new Command(() => CurrentStep++, () => CurrentStep < MaxStep);
             GoToPrevCommand = new Command(() => CurrentStep--, () => CurrentStep > MinStep);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
             int currStep = MinStep;
             RegistrationSteps.Add(new ChooseOperatorViewModel(currStep++, this.tagService, this.messageService));
-            RegistrationSteps.Add(new ChooseAccountViewModel(currStep++, this.tagService));
+            RegistrationSteps.Add(new ChooseAccountViewModel(currStep++, this.tagService, this.authService, this.messageService));
             RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
             RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
             RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));

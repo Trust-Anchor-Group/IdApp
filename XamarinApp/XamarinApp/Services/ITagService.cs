@@ -28,6 +28,7 @@ namespace XamarinApp.Services
         bool IsOnline { get; }
         XmppState State { get; }
         string Domain { get; }
+        string Account { get; }
         string Host { get; }
         string BareJID { get; }
         XmppConfiguration Configuration { get; }

@@ -61,6 +61,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        internal static string Account {
+            get {
+                return ResourceManager.GetString("Account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account name is invalid.
+        /// </summary>
+        internal static string AccountNameIsInvalid {
+            get {
+                return ResourceManager.GetString("AccountNameIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t connect to {0}.
         /// </summary>
         internal static string CantConnectTo {
@@ -70,11 +88,38 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose account.
+        /// </summary>
+        internal static string ChooseAccount {
+            get {
+                return ResourceManager.GetString("ChooseAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect.
         /// </summary>
         internal static string Connect {
             get {
                 return ResourceManager.GetString("Connect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create.
+        /// </summary>
+        internal static string Create {
+            get {
+                return ResourceManager.GetString("Create", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new.
+        /// </summary>
+        internal static string CreateNew {
+            get {
+                return ResourceManager.GetString("CreateNew", resourceCulture);
             }
         }
         
@@ -97,11 +142,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Domain name is invalid.
+        /// </summary>
+        internal static string DomainNameIsInvalid {
+            get {
+                return ResourceManager.GetString("DomainNameIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         internal static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid username or password.
+        /// </summary>
+        internal static string InvalidUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
             }
         }
         
@@ -120,6 +183,24 @@ namespace XamarinApp {
         internal static string OperatorDomainOther {
             get {
                 return ResourceManager.GetString("OperatorDomainOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords do not match.
+        /// </summary>
+        internal static string PasswordsDoNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
             }
         }
         
@@ -169,6 +250,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retype password.
+        /// </summary>
+        internal static string RetypePassword {
+            get {
+                return ResourceManager.GetString("RetypePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Operator.
         /// </summary>
         internal static string SelectOperator {
@@ -178,11 +268,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To connect to {0}, you need an account. Do you want to create one, or use an existing account?.
+        /// </summary>
+        internal static string ToConnectToDomainYouNeedAnAccount {
+            get {
+                return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to connect to {0}.
         /// </summary>
         internal static string UnableToConnectTo {
             get {
                 return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use existing.
+        /// </summary>
+        internal static string UseExisting {
+            get {
+                return ResourceManager.GetString("UseExisting", resourceCulture);
             }
         }
         

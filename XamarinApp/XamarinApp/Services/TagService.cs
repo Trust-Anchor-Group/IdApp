@@ -242,7 +242,8 @@ namespace XamarinApp.Services
         }
 
         public XmppState State => xmpp?.State ?? XmppState.Offline;
-        public string Domain => xmpp?.Domain ?? string.Empty;
+        public string Domain => Configuration.Domain ?? string.Empty;
+        public string Account => Configuration.Account ?? string.Empty;
         public string Host => xmpp?.Host ?? string.Empty;
         public string BareJID => xmpp?.BareJID ?? string.Empty;
         public XmppConfiguration Configuration { get; private set; }
