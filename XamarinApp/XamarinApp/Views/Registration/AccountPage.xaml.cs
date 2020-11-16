@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Waher.IoTGateway.Setup;
-using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;
@@ -137,15 +136,13 @@ namespace XamarinApp.Views.Registration
 			this.Connecting.IsVisible = true;
 			this.Connecting.IsRunning = true;
 
-			InMemorySniffer Sniffer = new InMemorySniffer();
 			bool Success = false;
 
 			try
 			{
 				(string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort();
 
-				using (XmppClient Client = new XmppClient(HostName, PortNumber,
-					this.AccountName.Text, this.Password.Text, string.Empty, typeof(App).Assembly, Sniffer))
+				using (XmppClient Client = this.tagService.CreateClient(HostName, PortNumber, this.AccountName.Text, this.Password.Text, string.Empty, string.Empty, typeof(App).Assembly))
 				{
 					TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
 					bool StreamNegotiation = false;
@@ -320,14 +317,11 @@ namespace XamarinApp.Views.Registration
 			this.Connecting.IsVisible = true;
 			this.Connecting.IsRunning = true;
 
-			InMemorySniffer Sniffer = new InMemorySniffer();
-
 			try
 			{
                 (string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort(this.tagService.Configuration.Domain);
 
-				using (XmppClient Client = new XmppClient(HostName, PortNumber,
-					this.AccountName.Text, Password, string.Empty, typeof(App).Assembly, Sniffer))
+				using (XmppClient Client = this.tagService.CreateClient(HostName, PortNumber, this.AccountName.Text, Password, string.Empty, string.Empty, typeof(App).Assembly))
 				{
 					TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
 					bool StreamNegotiation = false;

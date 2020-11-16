@@ -49,7 +49,10 @@ namespace XamarinApp.Views
 
         private void Scanner_OnScanResult(Result result)
         {
-            GetViewModel<AddPartViewModel>().AutomaticAddCommand.Execute(result.Text);
+            if (!string.IsNullOrWhiteSpace(result.Text))
+            {
+                GetViewModel<AddPartViewModel>().AutomaticAddCommand.Execute(result.Text);
+            }
         }
     }
 }

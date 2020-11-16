@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Xamarin.Forms;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
+using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
@@ -24,6 +26,7 @@ using Waher.Runtime.Inventory;
 using Waher.Runtime.Language;
 using Waher.Runtime.Settings;
 using Waher.Runtime.Temporary;
+using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
 
 namespace XamarinApp.Services
@@ -47,11 +50,13 @@ namespace XamarinApp.Services
         private readonly IMessageService messageService;
         private FilesProvider filesProvider;
         private InternalSink internalSink;
+        private readonly ISniffer sniffer;
 
 		public TagService(IAuthService authService, IMessageService messageService)
         {
             this.authService = authService;
             this.messageService = messageService;
+			this.sniffer = new InMemorySniffer(250);
         }
 
         public void Dispose()
@@ -66,6 +71,10 @@ namespace XamarinApp.Services
                 contracts.PetitionedIdentityResponseReceived -= Contracts_PetitionedIdentityResponseReceived;
                 contracts.PetitionForContractReceived -= Contracts_PetitionForContractReceived;
                 contracts.PetitionedContractResponseReceived -= Contracts_PetitionedContractResponseReceived;
+                contracts.PetitionForSignatureReceived -= Contracts_PetitionForSignatureReceived;
+                contracts.PetitionedSignatureResponseReceived -= Contracts_PetitionedSignatureResponseReceived;
+                contracts.PetitionForPeerReviewIDReceived -= Contracts_PetitionForPeerReviewIDReceived;
+                contracts.PetitionedPeerReviewIDResponseReceived -= Contracts_PetitionedPeerReviewIDResponseReceived;
                 contracts.Dispose();
             }
 			contracts = null;
@@ -240,6 +249,11 @@ namespace XamarinApp.Services
 
 		#endregion
 
+		public XmppClient CreateClient(string hostName, int portNumber, string accountName, string passwordHash, string passwordHashMethod, string languageCode, Assembly appAssembly)
+        {
+			return new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod, languageCode, appAssembly, sniffer);
+		}
+
 		#region Legal Identity
 
 		public event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
@@ -294,6 +308,21 @@ namespace XamarinApp.Services
 		{
 			return contracts.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
 		}
+
+		public Task PetitionSignatureResponseAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
+        {
+            return contracts.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
+        }
+
+		public Task PetitionPeerReviewIDAsync(string legalId, LegalIdentity identity, string petitionId, string purpose)
+        {
+            return contracts.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
+        }
+
+		public Task<byte[]> SignAsync(byte[] data)
+        {
+            return contracts.SignAsync(data);
+        }
 
 		public Task<LegalIdentity[]> GetLegalIdentitiesAsync()
 		{
@@ -485,19 +514,16 @@ namespace XamarinApp.Services
 
 				(string HostName, int PortNumber) = await GetXmppHostnameAndPort(domainName);
 
-				xmpp = new XmppClient(HostName, PortNumber, accountName, passwordHash, passwordHashMethod, "en",
-					typeof(App).Assembly)
-				{
-					TrustServer = false,
-					AllowCramMD5 = false,
-					AllowDigestMD5 = false,
-					AllowPlain = false,
-					AllowEncryption = true,
-					AllowScramSHA1 = true,
-					AllowScramSHA256 = true
-				};
+                xmpp = CreateClient(HostName, PortNumber, accountName, passwordHash, passwordHashMethod, "en", typeof(App).Assembly);
+                xmpp.TrustServer = false;
+                xmpp.AllowCramMD5 = false;
+                xmpp.AllowDigestMD5 = false;
+                xmpp.AllowPlain = false;
+                xmpp.AllowEncryption = true;
+                xmpp.AllowScramSHA1 = true;
+                xmpp.AllowScramSHA256 = true;
 
-				xmpp.OnStateChanged += async (sender2, NewState) =>
+                xmpp.OnStateChanged += async (sender2, NewState) =>
 				{
 					switch (NewState)
 					{
@@ -661,7 +687,11 @@ namespace XamarinApp.Services
 				contracts.PetitionedIdentityResponseReceived += Contracts_PetitionedIdentityResponseReceived;
 				contracts.PetitionForContractReceived += Contracts_PetitionForContractReceived;
 				contracts.PetitionedContractResponseReceived += Contracts_PetitionedContractResponseReceived;
-			}
+                contracts.PetitionForSignatureReceived += Contracts_PetitionForSignatureReceived;
+                contracts.PetitionedSignatureResponseReceived += Contracts_PetitionedSignatureResponseReceived;
+                contracts.PetitionForPeerReviewIDReceived += Contracts_PetitionForPeerReviewIDReceived;
+                contracts.PetitionedPeerReviewIDResponseReceived += Contracts_PetitionedPeerReviewIDResponseReceived;
+            }
 		}
 
 		private void AddFileUploadService(string JID, long? MaxFileSize)
@@ -739,6 +769,58 @@ namespace XamarinApp.Services
 			{
 				await contracts.PetitionIdentityResponseAsync(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
 			}
+		}
+
+		private async Task Contracts_PetitionedPeerReviewIDResponseReceived(object Sender, SignaturePetitionResponseEventArgs e)
+		{
+			try
+			{
+				if (!e.Response)
+				{
+                    Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayAlert("Peer Review rejected",
+						"A peer you requested to review your application, has rejected to approve it.", AppResources.Ok));
+				}
+				else
+				{
+					StringBuilder xml = new StringBuilder();
+					Configuration.LegalIdentity.Serialize(xml, true, true, true, true, true, true, true);
+					byte[] Data = Encoding.UTF8.GetBytes(xml.ToString());
+
+					bool? Result = contracts.ValidateSignature(e.RequestedIdentity, Data, e.Signature);
+					if (!Result.HasValue || !Result.Value)
+					{
+                        Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayAlert("Peer Review rejected",
+							"A peer review you requested has been rejected, due to a signature error.", AppResources.Ok));
+					}
+					else
+					{
+						await contracts.AddPeerReviewIDAttachment(Configuration.LegalIdentity, e.RequestedIdentity, e.Signature);
+                        Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayPromptAsync("Peer Review accepted",
+							"A peer review you requested has been accepted.", AppResources.Ok));
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.messageService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+			}
+		}
+
+		private Task Contracts_PetitionForPeerReviewIDReceived(object sender, SignaturePetitionEventArgs e)
+		{
+            App.ShowPage(new IdentityPage(App.CurrentPage, e.RequestorIdentity, e), false);
+            return Task.CompletedTask;
+		}
+
+		private Task Contracts_PetitionedSignatureResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+		{
+			return Task.CompletedTask;
+		}
+
+		private Task Contracts_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
+		{
+			// Reject all signature requests by default:
+			return contracts.PetitionSignatureResponseAsync(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
 		}
 
 		private Task Contracts_IdentityUpdated(object Sender, LegalIdentityEventArgs e)

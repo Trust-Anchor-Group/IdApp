@@ -101,6 +101,7 @@ namespace XamarinApp.Views.Registration
 			bool NotWorking = !Working;
 
 			this.RegisterButton.IsEnabled = NotWorking;
+            this.AddPhoto.IsEnabled = NotWorking;
 			this.FirstNameEntry.IsEnabled = NotWorking;
 			this.MiddleNamesEntry.IsEnabled = NotWorking;
 			this.LastNamesEntry.IsEnabled = NotWorking;
@@ -196,7 +197,9 @@ namespace XamarinApp.Views.Registration
 				if (!string.IsNullOrEmpty(s = this.DeviceID?.Trim()))
 					Properties.Add(new Property("DEVICE_ID", s));
 
-                try
+                Properties.Add(new Property("JID", this.tagService.BareJID));
+
+				try
                 {
                     await this.tagService.AddLegalIdentity(Properties, this.photos.Values.Select(x => new LegalIdentityAttachment(x.Item1, x.Item2, x.Item3)).ToArray());
                 }

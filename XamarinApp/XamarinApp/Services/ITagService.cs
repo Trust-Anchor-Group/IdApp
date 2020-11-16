@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using Waher.Content;
 using Waher.IoTGateway.Setup;
@@ -19,6 +20,8 @@ namespace XamarinApp.Services
         event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         #endregion
+
+        XmppClient CreateClient(string hostName, int portNumber, string accountName, string passwordHash, string passwordHashMethod, string languageCode, Assembly appAssembly);
 
         #region State
 
@@ -40,6 +43,9 @@ namespace XamarinApp.Services
         Task PetitionIdentityAsync(string legalId, string petitionId, string purpose);
         Task PetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response);
         Task PetitionContractResponseAsync(string contractId, string petitionId, string requestorFullJid, bool response);
+        Task PetitionSignatureResponseAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
+        Task PetitionPeerReviewIDAsync(string legalId, LegalIdentity identity, string petitionId, string purpose);
+        Task<byte[]> SignAsync(byte[] data);
         bool HasLegalIdentityAttachments { get; }
         Attachment[] GetLegalIdentityAttachments();
         bool LegalIdentityIsValid { get; }

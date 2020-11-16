@@ -1,110 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:XamarinApp"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
              x:Class="XamarinApp.Views.IdentityPage">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="10">
-            <Label Text="Identity Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
-            <Label x:Name="Introduction" Text="Following is personal information registered with the legal identity. Signatures and payments are signed using this information." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <Label Text="Identity Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" IsVisible="{Binding NotForReview}" />
+            <Label Text="Following is personal information registered with the legal identity. Signatures and payments are signed using this information." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" IsVisible="{Binding NotForReview}" />
+            <Label Text="Peer Review" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" IsVisible="{Binding ForReview}" />
+            <Label Text="You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" IsVisible="{Binding ForReview}" />
             <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">
                 <TableView.Root>
                     <TableSection x:Name="IdentitySection">
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Created:"/>
-                                <Label Text="{Binding Created}" FontAttributes="Bold"/>
+                                <Label Text="Created:" VerticalOptions="Center"/>
+                                <Label Text="{Binding Created}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Updated:"/>
-                                <Label Text="{Binding Updated}" FontAttributes="Bold"/>
+                                <Label Text="Updated:" VerticalOptions="Center"/>
+                                <Label Text="{Binding Updated}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="State:"/>
-                                <Label Text="{Binding State}" FontAttributes="Bold"/>
+                                <Label Text="State:" VerticalOptions="Center"/>
+                                <Label Text="{Binding State}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="First Name:"/>
-                                <Label Text="{Binding FirstName}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="FirstNameCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="First Name:" VerticalOptions="Center"/>
+                                <Label Text="{Binding FirstName}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Middle Name(s):" />
-                                <Label Text="{Binding MiddleNames}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="MiddleNameCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Middle Name(s):" VerticalOptions="Center" />
+                                <Label Text="{Binding MiddleNames}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Last Name(s):" />
-                                <Label Text="{Binding LastNames}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="LastNameCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Last Name(s):" VerticalOptions="Center" />
+                                <Label Text="{Binding LastNames}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Personal Number:" />
-                                <Label Text="{Binding PNr}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="PersonalNumberCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Personal Number:" VerticalOptions="Center" />
+                                <Label Text="{Binding PNr}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Address:" />
-                                <Label Text="{Binding Address}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="AddressCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Address:" VerticalOptions="Center" />
+                                <Label Text="{Binding Address}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Address (row 2):" />
-                                <Label Text="{Binding Address2}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="Address2Check" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Address (row 2):" VerticalOptions="Center" />
+                                <Label Text="{Binding Address2}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="ZIP or Postal Code:" />
-                                <Label Text="{Binding PostalCode}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="PostalCodeCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="ZIP or Postal Code:" VerticalOptions="Center" />
+                                <Label Text="{Binding PostalCode}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Area:" />
-                                <Label Text="{Binding Area}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="AreaCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Area:" VerticalOptions="Center" />
+                                <Label Text="{Binding Area}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="City:" />
-                                <Label Text="{Binding City}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="CityCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="City:" VerticalOptions="Center" />
+                                <Label Text="{Binding City}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Region or State:" />
-                                <Label Text="{Binding Region}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="RegionCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Region or State:" VerticalOptions="Center" />
+                                <Label Text="{Binding Region}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Country:" />
-                                <Label Text="{Binding Country}" FontAttributes="Bold"/>
+                                <CheckBox x:Name="CountryCheck" IsVisible="{Binding ForReview}"/>
+                                <Label Text="Country:" VerticalOptions="Center" />
+                                <Label Text="{Binding Country}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="ID:" />
-                                <Label Text="{Binding LegalId}" FontAttributes="Bold"/>
+                                <Label Text="ID:" VerticalOptions="Center" />
+                                <Label Text="{Binding LegalId}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell x:Name="NetworkView">
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="Network:" />
-                                <Label Text="{Binding BareJid}" FontAttributes="Bold"/>
+                                <Label Text="Network:" VerticalOptions="Center" />
+                                <Label Text="{Binding BareJid}" FontAttributes="Bold" VerticalOptions="Center"/>
                             </StackLayout>
                         </ViewCell>
                     </TableSection>
@@ -114,11 +126,35 @@
                         </ViewCell>
                     </TableSection>
                     <TableSection x:Name="ButtonSection">
-                        <ViewCell x:Name="CompromizedButtonView">
-                            <Button x:Name="CompromizedButton" Text="Report Compromized" Clicked="CompromizedButton_Clicked" IsVisible="False"/>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" IsVisible="{Binding ForReview}">
+                                <CheckBox x:Name="CarefulReviewCheck"/>
+                                <Label Text="I have carefully reviewed all information above, and find it to be a correct representation of the person requesting the review:" VerticalOptions="Center" />
+                            </StackLayout>
                         </ViewCell>
-                        <ViewCell x:Name="RevokeButtonView">
-                            <Button x:Name="RevokeButton" Text="Revoke" Clicked="RevokeButton_Clicked" IsVisible="False"/>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" IsVisible="{Binding ForReview}">
+                                <CheckBox x:Name="ApprovePiiCheck"/>
+                                <Label Text="I approve of my personal information to be associated with the legal identity I am reviewing, for the purposes of transparency." VerticalOptions="Center" />
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" IsVisible="{Binding ForReviewAndPin}">
+                                <Label x:Name="PinLabel" Text="PIN:"/>
+                                <Entry x:Name="PIN" IsPassword="True"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="ApproveReviewButton" Text="Approve Information" Clicked="ApproveReviewButton_Clicked" IsVisible="{Binding ForReview}"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="RejectReviewButton" Text="Reject Information" Clicked="RejectReviewButton_Clicked" IsVisible="{Binding ForReview}"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="CompromizedButton" Text="Report Compromized" Clicked="CompromizedButton_Clicked" IsVisible="{Binding IsPersonal}"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="RevokeButton" Text="Revoke" Clicked="RevokeButton_Clicked" IsVisible="{Binding IsPersonal}"/>
                         </ViewCell>
                         <ViewCell>
                             <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>

@@ -175,5 +175,35 @@ namespace XamarinApp.Views.Registration
 			this.BackButton_Clicked(this, EventArgs.Empty);
 			return true;
 		}
-	}
+
+        private async void InviteReviewerButton_Clicked(object sender, EventArgs e)
+        {
+            ScanQrCodePage Dialog = new ScanQrCodePage(this, true);
+            Dialog.CodeScanned += async (sender2, e2) =>
+            {
+                try
+                {
+                    if (!string.IsNullOrEmpty(Dialog.Result))
+                    {
+                        string Code = Dialog.Result;
+
+                        if (!Code.StartsWith(Constants.Schemes.IotId + ":", StringComparison.InvariantCultureIgnoreCase))
+                            throw new Exception("Not a Legal Identity.");
+
+                        await this.tagService.PetitionPeerReviewIDAsync(Code.Substring(6), this.tagService.Configuration.LegalIdentity,
+                            Guid.NewGuid().ToString(), "Could you please review my identity information?");
+
+                        Device.BeginInvokeOnMainThread(() =>
+                            this.DisplayAlert("Petition sent", "A petition has been sent to your peer.", AppResources.Ok));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Device.BeginInvokeOnMainThread(() => this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok));
+                }
+            };
+
+            await this.Navigation.PushModalAsync(Dialog);
+        }
+    }
 }

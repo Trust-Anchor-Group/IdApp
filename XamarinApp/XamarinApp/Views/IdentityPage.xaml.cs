@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
@@ -12,48 +11,55 @@ using XamarinApp.Services;
 namespace XamarinApp.Views
 {
     [DesignTimeVisible(true)]
-    public partial class IdentityPage : INotifyPropertyChanged, ILegalIdentityChanged, IBackButton
+    public partial class IdentityPage : ILegalIdentityChanged, IBackButton
     {
         private readonly ITagService tagService;
+        private readonly SignaturePetitionEventArgs review;
         private readonly Page owner;
         private readonly bool personal;
         private LegalIdentity identity;
 
         public IdentityPage(Page Owner)
-            : this(Owner, App.Instance.TagService.Configuration.LegalIdentity, true)
+            : this(Owner, App.Instance.TagService.Configuration.LegalIdentity, true, null)
         {
         }
 
         public IdentityPage(Page Owner, LegalIdentity Identity)
-            : this(Owner, Identity, false)
+            : this(Owner, Identity, App.Instance.TagService.Configuration.LegalIdentity.Id == Identity.Id, null)
         {
         }
 
-        private IdentityPage(Page Owner, LegalIdentity Identity, bool Personal)
+        public IdentityPage(Page Owner, LegalIdentity Identity, SignaturePetitionEventArgs Review)
+            : this(Owner, Identity, App.Instance.TagService.Configuration.LegalIdentity.Id == Identity.Id, Review)
         {
-            InitializeComponent();
+        }
+
+        private IdentityPage(Page Owner, LegalIdentity Identity, bool Personal, SignaturePetitionEventArgs Review)
+        {
             this.tagService = DependencyService.Resolve<ITagService>();
             this.owner = Owner;
             this.identity = Identity;
-            this.personal = Personal || this.tagService.Configuration.LegalIdentity.Id == Identity.Id;
-            this.BindingContext = this;
+            this.personal = Personal;
+            this.review = Review;
 
-            byte[] Png = QR.GenerateCodePng(Constants.Schemes.IotId + ":" + Identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
+            this.BindingContext = this;
+            InitializeComponent();
+
+            byte[] Png = QR.GenerateCodePng("iotid:" + Identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
             this.QrCode.Source = ImageSource.FromStream(() => new MemoryStream(Png));
             this.QrCode.IsVisible = true;
 
-            this.CompromizedButton.IsVisible = Personal;
-            this.RevokeButton.IsVisible = Personal;
-
             if (!Personal)
-            {
                 this.IdentitySection.Remove(this.NetworkView);
-                this.ButtonSection.Remove(this.CompromizedButtonView);
-                this.ButtonSection.Remove(this.RevokeButtonView);
-            }
 
             this.LoadPhotos();
         }
+
+        public bool ForReview => !(this.review is null);
+        public bool NotForReview => (this.review is null);
+        public bool IsPersonal => this.personal;
+        public bool NotPersonal => !this.personal;
+        public bool ForReviewAndPin => !(this.review is null) && this.tagService.Configuration.UsePin;
 
         private async void LoadPhotos()
         {
@@ -176,13 +182,15 @@ namespace XamarinApp.Views
                 LegalIdentity Identity = await this.tagService.ObsoleteLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
-                this.tagService.DecrementConfigurationStep(2);
+                this.tagService.Configuration.Step = 2;
+               
+                this.tagService.UpdateConfiguration();
 
-                await App.ShowPage();
+                this.BackClicked();
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -199,20 +207,93 @@ namespace XamarinApp.Views
                 LegalIdentity Identity = await this.tagService.CompromisedLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
-                this.tagService.DecrementConfigurationStep(2);
+                this.tagService.Configuration.Step = 2;
+                this.tagService.UpdateConfiguration();
 
-                await App.ShowPage();
+                this.BackClicked();
             }
             catch (Exception ex)
             {
-                await this.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
         public bool BackClicked()
         {
-            this.BackButton_Clicked(this, EventArgs.Empty);
+            this.BackButton_Clicked(this, new EventArgs());
             return true;
+        }
+
+        private async void ApproveReviewButton_Clicked(object sender, EventArgs e)
+        {
+            if (this.review is null)
+                return;
+
+            try
+            {
+                if ((!string.IsNullOrEmpty(this.FirstName) && !this.FirstNameCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.MiddleNames) && !this.MiddleNameCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.LastNames) && !this.LastNameCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.PNr) && !this.PersonalNumberCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.Address) && !this.AddressCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.Address2) && !this.Address2Check.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.PostalCode) && !this.PostalCodeCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.Area) && !this.AreaCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.City) && !this.CityCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.Region) && !this.RegionCheck.IsChecked) ||
+                    (!string.IsNullOrEmpty(this.Country) && !this.CountryCheck.IsChecked))
+                {
+                    await this.DisplayAlert("Incomplete", "Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information.", "OK");
+                    return;
+                }
+
+                if (!this.CarefulReviewCheck.IsChecked)
+                {
+                    await this.DisplayAlert("Incomplete", "You need to check the box you have carefully reviewed all corresponding information above.", "OK");
+                    return;
+                }
+
+                if (!this.ApprovePiiCheck.IsChecked)
+                {
+                    await this.DisplayAlert("Incomplete", "You need to approve to associate your personal information with the identity you review. When third parties review the information in the identity, they will have access to the identity of the reviewers, for transparency.", "OK");
+                    return;
+                }
+
+                if (this.tagService.Configuration.UsePin && this.tagService.Configuration.ComputePinHash(this.PIN.Text) != this.tagService.Configuration.PinHash)
+                {
+                    await this.DisplayAlert("Error", "Invalid PIN.", "OK");
+                    return;
+                }
+
+                byte[] Signature = await this.tagService.SignAsync(this.review.ContentToSign);
+
+                await this.tagService.PetitionSignatureResponseAsync(this.review.SignatoryIdentityId, this.review.ContentToSign,
+                    Signature, this.review.PetitionId, this.review.RequestorFullJid, true);
+
+                this.BackClicked();
+            }
+            catch (Exception ex)
+            {
+                await this.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private async void RejectReviewButton_Clicked(object sender, EventArgs e)
+        {
+            if (this.review is null)
+                return;
+
+            try
+            {
+                await this.tagService.PetitionSignatureResponseAsync(this.review.SignatoryIdentityId,
+                    this.review.ContentToSign, new byte[0], this.review.PetitionId, this.review.RequestorFullJid, false);
+
+                this.BackClicked();
+            }
+            catch (Exception ex)
+            {
+                await this.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
     }

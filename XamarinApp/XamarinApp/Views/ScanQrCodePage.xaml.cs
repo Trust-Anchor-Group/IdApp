@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Waher.Events;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinApp.Services;
@@ -12,19 +13,25 @@ namespace XamarinApp.Views
     {
         private readonly ITagService tagService;
 		private readonly Page owner;
+        private readonly bool modal;
+        private string result = string.Empty;
 
-		public ScanQrCodePage(Page Owner)
+		public ScanQrCodePage(Page Owner, bool modal)
 		{
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.BindingContext = this;
-		}
+            this.modal = modal;
+        }
 
 		private void BackButton_Clicked(object sender, EventArgs e)
 		{
-			App.ShowPage(this.owner, true);
-		}
+            if (this.modal)
+                this.Navigation.PopModalAsync();
+            else
+                App.ShowPage(this.owner, true);
+        }
 
 		private void ModeButton_Clicked(object sender, EventArgs e)
 		{
@@ -39,19 +46,43 @@ namespace XamarinApp.Views
 				this.Link.Focus();
 		}
 
+        public string Result => this.Link.Text;
+        public event EventHandler CodeScanned = null;
+
 		public void Scanner_OnScanResult(Result result)
 		{
-			Device.BeginInvokeOnMainThread(() =>
-			{
-				this.Link.Text = result.Text;
-				this.ScanGrid.IsVisible = false;
-				this.ManualGrid.IsVisible = true;
-				this.ModeButton.Text = AppResources.QrScanCode;
-				this.ManualButton.Focus();
-			});
-		}
+            this.result = result.Text;
 
-		private async void ManualButton_Clicked(object sender, EventArgs e)
+            if (!(string.IsNullOrEmpty(result?.Text)))
+            {
+                if (this.modal)
+                {
+                    try
+                    {
+                        CodeScanned?.Invoke(this, new EventArgs());
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Critical(ex);
+                    }
+
+                    this.BackClicked();
+                }
+                else
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        this.Link.Text = result.Text;
+                        this.ScanGrid.IsVisible = false;
+                        this.ManualGrid.IsVisible = true;
+                        this.ModeButton.Text = "Scan Code";
+                        this.OpenButton.Focus();
+                    });
+                }
+            }
+        }
+
+		private async void OpenButton_Clicked(object sender, EventArgs e)
 		{
 			try
 			{

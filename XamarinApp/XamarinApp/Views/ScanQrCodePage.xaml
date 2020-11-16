@@ -20,7 +20,7 @@
             <StackLayout x:Name="ManualGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="False">
                 <Label Text="Link:" HorizontalOptions="FillAndExpand"/>
                 <Entry x:Name="Link" HorizontalOptions="Fill"/>
-                <Button x:Name="ManualButton" Text="Open" HorizontalOptions="FillAndExpand" Clicked="ManualButton_Clicked"/>
+                <Button x:Name="OpenButton" Text="Open" HorizontalOptions="FillAndExpand" Clicked="OpenButton_Clicked"/>
             </StackLayout>
             <Button x:Name="ModeButton" Text="Enter Manually" Clicked="ModeButton_Clicked"/>
             <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>

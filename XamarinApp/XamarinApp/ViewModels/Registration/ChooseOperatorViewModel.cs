@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.IoTGateway.Setup;
-using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
@@ -122,8 +121,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 (this.hostName, this.portNumber) = await this.TagService.GetXmppHostnameAndPort(domainName);
 
-                InMemorySniffer sniffer = new InMemorySniffer();
-                using (XmppClient client = new XmppClient(this.hostName, this.portNumber, string.Empty, string.Empty, string.Empty, typeof(App).Assembly, sniffer))
+                using (XmppClient client = this.TagService.CreateClient(this.hostName, this.portNumber, string.Empty, string.Empty, string.Empty, string.Empty, typeof(App).Assembly))
                 {
                     client.TrustServer = false;
                     client.AllowCramMD5 = false;

@@ -13,5 +13,10 @@ namespace XamarinApp.Services
         {
             return App.Instance.MainPage.DisplayAlert(title, message, cancel);
         }
+
+        public Task<string> DisplayPromptAsync(string title, string message, string accept = "OK", string cancel = "Cancel")
+        {
+            return App.Instance.MainPage.DisplayPromptAsync(title, message, accept, cancel);
+        }
     }
 }
