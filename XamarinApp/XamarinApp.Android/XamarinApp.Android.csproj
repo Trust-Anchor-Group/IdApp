@@ -38,7 +38,7 @@
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\Henrik\AppData\Local\Xamarin\Mono for Android\Keystore\TagDemo Cert\TagDemo Cert.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>..\..\Keystore\TagDemo Cert\TagDemo Cert.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Password</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>TagDemo Cert</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Password</AndroidSigningKeyPass>
