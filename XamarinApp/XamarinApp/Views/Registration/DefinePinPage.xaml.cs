@@ -8,11 +8,13 @@ namespace XamarinApp.Views.Registration
     [DesignTimeVisible(true)]
     public partial class DefinePinPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
 
         public DefinePinPage()
         {
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
             this.BindingContext = this;
         }
@@ -21,9 +23,9 @@ namespace XamarinApp.Views.Registration
         {
             try
             {
-                if (this.tagService.Configuration.Step > 0)
+                if (this.tagSettings.Step > 0)
                 {
-                    this.tagService.DecrementConfigurationStep();
+                    this.tagSettings.DecrementConfigurationStep();
                 }
 
                 await App.ShowPage();
@@ -65,10 +67,10 @@ namespace XamarinApp.Views.Registration
                 }
                 else
                 {
-                    if (this.tagService.Configuration.Step == 4)
-                        this.tagService.Configuration.Step++;
+                    if (this.tagSettings.Step == 4)
+                        this.tagSettings.IncrementConfigurationStep();
 
-                    this.tagService.SetPin(this.Pin.Text, true);
+                    this.tagSettings.SetPin(this.Pin.Text, true);
 
                     await App.ShowPage();
                 }
@@ -84,10 +86,10 @@ namespace XamarinApp.Views.Registration
             try
             {
                
-                if (this.tagService.Configuration.Step == 4)
-                    this.tagService.Configuration.Step++;
+                if (this.tagSettings.Step == 4)
+                    this.tagSettings.IncrementConfigurationStep();
 
-                this.tagService.ResetPin();
+                this.tagSettings.ResetPin();
 
                 await App.ShowPage();
             }

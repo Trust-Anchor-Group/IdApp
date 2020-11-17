@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Xamarin.Forms;
@@ -15,12 +16,16 @@ namespace XamarinApp
 	public partial class App
 	{
 		private static App instance = null;
-
+        private static readonly TimeSpan AutoSaveInterval = TimeSpan.FromSeconds(1);
+        private Timer autoSaveTimer;
+        private readonly IStorageService storageService;
         private readonly IMessageService messageService;
+        private readonly TagServiceSettings tagSettings;
 
 		public App()
 		{
 			InitializeComponent();
+			this.tagSettings = new TagServiceSettings();
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
@@ -28,10 +33,12 @@ namespace XamarinApp
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+            builder.RegisterInstance(this.tagSettings).SingleInstance();
             IContainer container = builder.Build();
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			TagService = DependencyService.Resolve<ITagService>();
+            this.storageService = DependencyService.Resolve<IStorageService>();
             this.messageService = DependencyService.Resolve<IMessageService>();
             MainPage = new NavigationPage(new InitPage());
             instance = this;
@@ -43,24 +50,22 @@ namespace XamarinApp
 
 		public static async Task ShowPage()
 		{
-			if (instance.TagService.Configuration.Step >= 2)
+			if (instance.tagSettings.Step >= 2)
 			{
-				await instance.TagService.UpdateXmpp();
-
-				if (instance.TagService.Configuration.Step > 2 && !instance.TagService.LegalIdentityIsValid)
+				if (instance.tagSettings.Step > 2 && !instance.tagSettings.LegalIdentityIsValid)
 				{
-					instance.TagService.DecrementConfigurationStep();
+					instance.tagSettings.DecrementConfigurationStep();
 				}
 
-				if (instance.TagService.Configuration.Step > 4 && !instance.TagService.PinIsValid)
+				if (instance.tagSettings.Step > 4 && !instance.tagSettings.PinIsValid)
 				{
-                    instance.TagService.DecrementConfigurationStep();
+                    instance.tagSettings.DecrementConfigurationStep();
 				}
 			}
 
 			Page Page;
 
-			switch (instance.TagService.Configuration.Step)
+			switch (instance.tagSettings.Step)
 			{
 				case 0:
 					Page = new OperatorPage();
@@ -71,7 +76,7 @@ namespace XamarinApp
 					break;
 
 				case 2:
-					if (!instance.TagService.LegalIdentityIsValid)
+					if (!instance.tagSettings.LegalIdentityIsValid)
 					{
 						DateTime Now = DateTime.Now;
 						LegalIdentity Created = null;
@@ -101,18 +106,18 @@ namespace XamarinApp
 
 							if (!(Approved is null))
 							{
-                                instance.TagService.Configuration.LegalIdentity = Approved;
+                                instance.tagSettings.LegalIdentity = Approved;
 								Changed = true;
 							}
 							else if (!(Created is null))
 							{
-                                instance.TagService.Configuration.LegalIdentity = Created;
+                                instance.tagSettings.LegalIdentity = Created;
 								Changed = true;
 							}
 
 							if (Changed)
 							{
-								instance.TagService.IncrementConfigurationStep();
+								instance.tagSettings.IncrementConfigurationStep();
 								Page = new Views.Registration.IdentityPage();
 								break;
 							}
@@ -171,16 +176,36 @@ namespace XamarinApp
 
 		protected override async void OnStart()
         {
-            await this.TagService.Load();
+            await Start();
         }
 
 		protected override async void OnResume()
         {
+            await Start();
+        }
+
+		private async Task Start()
+        {
+			TagServiceSettings settings = await this.storageService.FindFirstDeleteRest<TagServiceSettings>();
+            if (settings != null)
+            {
+                this.tagSettings.CloneFrom(settings);
+            }
+            else
+            {
+                await this.storageService.Insert(this.tagSettings);
+            }
+
+            this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, AutoSaveInterval, AutoSaveInterval);
+            await this.storageService.Load();
             await this.TagService.Load();
         }
 
 		protected override async void OnSleep()
         {
+            this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            this.autoSaveTimer.Dispose();
+			await AutoSave();
             if (MainPage.BindingContext is BaseViewModel vm)
             {
                 await vm.SaveState();
@@ -188,6 +213,16 @@ namespace XamarinApp
             }
 
             await TagService.Unload();
+            await this.storageService.Unload();
+        }
+
+		private async Task AutoSave()
+        {
+            if (this.tagSettings.IsDirty)
+            {
+                this.tagSettings.IsDirty = false;
+                await this.storageService.Update(this.tagSettings);
+            }
         }
 
 		public static async Task OpenLegalIdentity(string LegalId, string Purpose)

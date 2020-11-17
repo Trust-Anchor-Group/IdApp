@@ -14,11 +14,13 @@ namespace XamarinApp.Views.Registration
 	[DesignTimeVisible(true)]
 	public partial class IdentityPage : INotifyPropertyChanged
 	{
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
 
 		public IdentityPage()
 		{
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.BindingContext = this;
         }
@@ -38,13 +40,13 @@ namespace XamarinApp.Views.Registration
 
         private async Task LoadPhotos()
         {
-            if (tagService.HasLegalIdentityAttachments)
+            if (tagSettings.HasLegalIdentityAttachments)
             {
                 int i = this.TableView.Root.IndexOf(this.ButtonSection);
                 TableSection PhotoSection = new TableSection();
                 this.TableView.Root.Insert(i++, PhotoSection);
 
-                foreach (Attachment Attachment in tagService.GetLegalIdentityAttachments().GetImageAttachments())
+                foreach (Attachment Attachment in tagSettings.GetLegalIdentityAttachments().GetImageAttachments())
                 {
                     ViewCell ViewCell;
 
@@ -92,9 +94,9 @@ namespace XamarinApp.Views.Registration
 		{
 			try
 			{
-                if (this.tagService.Configuration.Step > 0)
+                if (this.tagSettings.Step > 0)
                 {
-                    this.tagService.DecrementConfigurationStep();
+                    this.tagSettings.DecrementConfigurationStep();
                 }
 
 				await App.ShowPage();
@@ -105,25 +107,25 @@ namespace XamarinApp.Views.Registration
 			}
 		}
 
-        public DateTime Created => this.tagService.Configuration.LegalIdentity.Created;
-        public DateTime? Updated => CheckMin(this.tagService.Configuration.LegalIdentity.Updated);
-        public string LegalId => this.tagService.Configuration.LegalIdentity.Id;
+        public DateTime Created => this.tagSettings.LegalIdentity.Created;
+        public DateTime? Updated => CheckMin(this.tagSettings.LegalIdentity.Updated);
+        public string LegalId => this.tagSettings.LegalIdentity.Id;
         public string BareJid => this.tagService?.BareJID ?? string.Empty;
-        public string State => this.tagService.Configuration.LegalIdentity.State.ToString();
-        public DateTime? From => CheckMin(this.tagService.Configuration.LegalIdentity.From);
-        public DateTime? To => CheckMin(this.tagService.Configuration.LegalIdentity.To);
-        public string FirstName => this.tagService.Configuration.LegalIdentity["FIRST"];
-        public string MiddleNames => this.tagService.Configuration.LegalIdentity["MIDDLE"];
-        public string LastNames => this.tagService.Configuration.LegalIdentity["LAST"];
-        public string PNr => this.tagService.Configuration.LegalIdentity["PNR"];
-        public string Address => this.tagService.Configuration.LegalIdentity["ADDR"];
-        public string Address2 => this.tagService.Configuration.LegalIdentity["ADDR2"];
-        public string PostalCode => this.tagService.Configuration.LegalIdentity["ZIP"];
-        public string Area => this.tagService.Configuration.LegalIdentity["AREA"];
-        public string City => this.tagService.Configuration.LegalIdentity["CITY"];
-        public string Region => this.tagService.Configuration.LegalIdentity["REGION"];
-        public string Country => this.tagService.Configuration.LegalIdentity["COUNTRY"];
-        public bool IsApproved => this.tagService.Configuration.LegalIdentity.State == IdentityState.Approved;
+        public string State => this.tagSettings.LegalIdentity.State.ToString();
+        public DateTime? From => CheckMin(this.tagSettings.LegalIdentity.From);
+        public DateTime? To => CheckMin(this.tagSettings.LegalIdentity.To);
+        public string FirstName => this.tagSettings.LegalIdentity["FIRST"];
+        public string MiddleNames => this.tagSettings.LegalIdentity["MIDDLE"];
+        public string LastNames => this.tagSettings.LegalIdentity["LAST"];
+        public string PNr => this.tagSettings.LegalIdentity["PNR"];
+        public string Address => this.tagSettings.LegalIdentity["ADDR"];
+        public string Address2 => this.tagSettings.LegalIdentity["ADDR2"];
+        public string PostalCode => this.tagSettings.LegalIdentity["ZIP"];
+        public string Area => this.tagSettings.LegalIdentity["AREA"];
+        public string City => this.tagSettings.LegalIdentity["CITY"];
+        public string Region => this.tagSettings.LegalIdentity["REGION"];
+        public string Country => this.tagSettings.LegalIdentity["COUNTRY"];
+        public bool IsApproved => this.tagSettings.LegalIdentity.State == IdentityState.Approved;
 
 		private static DateTime? CheckMin(DateTime? TP)
 		{
@@ -137,7 +139,7 @@ namespace XamarinApp.Views.Registration
 		{
 			try
 			{
-                this.tagService.IncrementConfigurationStep();
+                this.tagSettings.IncrementConfigurationStep();
 
                 await App.ShowPage();
 			}
@@ -190,7 +192,7 @@ namespace XamarinApp.Views.Registration
                         if (!Code.StartsWith(Constants.Schemes.IotId + ":", StringComparison.InvariantCultureIgnoreCase))
                             throw new Exception("Not a Legal Identity.");
 
-                        await this.tagService.PetitionPeerReviewIDAsync(Code.Substring(6), this.tagService.Configuration.LegalIdentity,
+                        await this.tagService.PetitionPeerReviewIDAsync(Code.Substring(6), this.tagSettings.LegalIdentity,
                             Guid.NewGuid().ToString(), "Could you please review my identity information?");
 
                         Device.BeginInvokeOnMainThread(() =>

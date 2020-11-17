@@ -9,6 +9,7 @@ namespace XamarinApp.Views.Contracts
 	[DesignTimeVisible(true)]
 	public partial class ServerSignaturePage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly Contract contract;
@@ -16,6 +17,7 @@ namespace XamarinApp.Views.Contracts
 		public ServerSignaturePage(Page Owner, Contract Contract)
 		{
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.contract = Contract;

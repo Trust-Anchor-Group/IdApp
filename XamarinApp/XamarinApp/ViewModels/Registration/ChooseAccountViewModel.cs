@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
@@ -15,8 +13,8 @@ namespace XamarinApp.ViewModels.Registration
         private readonly IMessageService messageService;
         private readonly IAuthService authService;
 
-        public ChooseAccountViewModel(int step, ITagService tagService, IAuthService authService, IMessageService messageService)
-            : base(step, tagService)
+        public ChooseAccountViewModel(int step, TagServiceSettings tagSettings, ITagService tagService, IAuthService authService, IMessageService messageService)
+            : base(step, tagSettings, tagService)
         {
             this.messageService = messageService;
             this.authService = authService;
@@ -57,7 +55,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public bool CreateRandomPassword
         {
-            get { return (bool) GetValue(CreateRandomPasswordProperty); }
+            get { return (bool)GetValue(CreateRandomPasswordProperty); }
             set { SetValue(CreateRandomPasswordProperty, value); }
         }
 
@@ -75,7 +73,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string AccountName
         {
-            get { return (string) GetValue(AccountNameProperty); }
+            get { return (string)GetValue(AccountNameProperty); }
             set { SetValue(AccountNameProperty, value); }
         }
 
@@ -115,6 +113,7 @@ namespace XamarinApp.ViewModels.Registration
         private void PerformAction()
         {
             IsBusy = true;
+            // Do a begin invoke here to break the call chain, this allows for the UI to update its state correctly before performing the operation.
             Device.BeginInvokeOnMainThread(async () =>
             {
                 try
@@ -183,116 +182,38 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task CreateAccount()
         {
-            string password = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
-
             try
             {
-                (string HostName, int PortNumber) = await TagService.GetXmppHostnameAndPort(TagService.Configuration.Domain);
+                string password = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
 
-                using (XmppClient Client = TagService.CreateClient(HostName, PortNumber, this.AccountName, password, string.Empty, string.Empty, typeof(App).Assembly))
+                (string hostName, int portNumber) = await TagSettings.GetXmppHostnameAndPort();
+
+                Task OnConnected(XmppClient client)
                 {
-                    TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
-                    bool StreamNegotiation = false;
-                    bool StreamOpened = false;
-                    bool StartingEncryption = false;
-                    bool Authentication = false;
-                    bool Registering = false;
-                    bool Timeout = false;
+                    if (TagSettings.Step == 1)
+                        TagSettings.IncrementConfigurationStep();
 
-                    if (XmppConfiguration.TryGetKeys(TagService.Configuration.Domain, out string Key, out string Secret))
-                        Client.AllowRegistration(Key, Secret);
-                    else
-                        Client.AllowRegistration();
+                    TagSettings.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+                    return Task.CompletedTask;
+                }
 
-                    Client.TrustServer = false;
-                    Client.AllowCramMD5 = false;
-                    Client.AllowDigestMD5 = false;
-                    Client.AllowPlain = false;
-                    Client.AllowEncryption = true;
-                    Client.AllowScramSHA1 = true;
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagSettings.Domain, hostName, portNumber, this.AccountName, password, string.Empty, string.Empty, typeof(App).Assembly, OnConnected);
 
-                    Client.OnStateChanged += (sender2, NewState) =>
-                    {
-                        switch (NewState)
-                        {
-                            case XmppState.StreamNegotiation:
-                                StreamNegotiation = true;
-                                break;
+                if (succeeded)
+                {
+                    if (this.CreateRandomPassword)
+                        await this.messageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, Password), AppResources.Ok);
 
-                            case XmppState.StreamOpened:
-                                StreamOpened = true;
-                                break;
-
-                            case XmppState.StartingEncryption:
-                                StartingEncryption = true;
-                                break;
-
-                            case XmppState.Authenticating:
-                                Authentication = true;
-                                break;
-
-                            case XmppState.Registering:
-                                Registering = true;
-                                break;
-
-                            case XmppState.Connected:
-                                Result.TrySetResult(true);
-                                break;
-
-                            case XmppState.Offline:
-                            case XmppState.Error:
-                                Result.TrySetResult(false);
-                                break;
-                        }
-
-                        return Task.CompletedTask;
-                    };
-
-                    Client.Connect(TagService.Configuration.Domain);
-
-                    bool Success;
-
-                    using (Timer Timer = new Timer((P) =>
-                    {
-                        Timeout = true;
-                        Result.TrySetResult(false);
-                    }, null, 10000, 0))
-                    {
-                        Success = await Result.Task;
-                    }
-
-                    if (Success)
-                    {
-                        if (TagService.Configuration.Step == 1)
-                            TagService.IncrementConfigurationStep();
-
-                        TagService.SetAccount(this.AccountName, Client.PasswordHash, Client.PasswordHashMethod);
-
-                        if (this.CreateRandomPassword)
-                            await this.messageService.DisplayAlert("Password", "The password for the connection is " + Password, AppResources.Ok);
-
-                        await App.ShowPage();
-                    }
-                    else
-                    {
-                        if (!StreamNegotiation || Timeout)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, "Cannot connect to " + TagService.Configuration.Domain, AppResources.Ok);
-                        else if (!StreamOpened)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, TagService.Configuration.Domain + " is not a valid operator.", AppResources.Ok);
-                        else if (!StartingEncryption)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, TagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.Ok);
-                        else if (!Authentication)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, "Unable to authentication with " + TagService.Configuration.Domain + ".", AppResources.Ok);
-                        else if (!Registering)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, "The operator " + TagService.Configuration.Domain + " does not support registration of new accounts.", AppResources.Ok);
-                        else
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, "Account name already taken. Choose another.", AppResources.Ok);
-                    }
+                    await App.ShowPage();
+                }
+                else
+                {
+                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                 }
             }
             catch (Exception)
             {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitle, "Unable to connect to " + TagService.Configuration.Domain, AppResources.Ok);
+                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
             }
         }
 
@@ -301,150 +222,75 @@ namespace XamarinApp.ViewModels.Registration
             try
             {
                 string password = Password;
-                bool Success = false;
 
-                (string HostName, int PortNumber) = await TagService.GetXmppHostnameAndPort();
+                (string hostName, int portNumber) = await TagSettings.GetXmppHostnameAndPort();
 
-                using (XmppClient Client = TagService.CreateClient(HostName, PortNumber, this.AccountName, password, string.Empty, string.Empty, typeof(App).Assembly))
+                async Task OnConnected(XmppClient client)
                 {
-                    TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
-                    bool StreamNegotiation = false;
-                    bool StreamOpened = false;
-                    bool StartingEncryption = false;
-                    bool Authentication = false;
-                    bool Timeout = false;
+                    if (TagSettings.Step == 1)
+                        TagSettings.IncrementConfigurationStep();
 
-                    Client.TrustServer = false;
-                    Client.AllowCramMD5 = false;
-                    Client.AllowDigestMD5 = false;
-                    Client.AllowPlain = false;
-                    Client.AllowEncryption = true;
-                    Client.AllowScramSHA1 = true;
+                    TagSettings.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
 
-                    Client.OnStateChanged += (sender2, NewState) =>
+                    if (!TagSettings.LegalIdentityIsValid)
                     {
-                        switch (NewState)
+                        DateTime Now = DateTime.Now;
+                        LegalIdentity Created = null;
+                        LegalIdentity Approved = null;
+                        bool Changed = false;
+
+                        if (!string.IsNullOrEmpty(TagSettings.LegalJid) || await TagService.DiscoverServices(client))
                         {
-                            case XmppState.StreamNegotiation:
-                                StreamNegotiation = true;
-                                break;
-
-                            case XmppState.StreamOpened:
-                                StreamOpened = true;
-                                break;
-
-                            case XmppState.StartingEncryption:
-                                StartingEncryption = true;
-                                break;
-
-                            case XmppState.Authenticating:
-                                Authentication = true;
-                                break;
-
-                            case XmppState.Connected:
-                                Result.TrySetResult(true);
-                                break;
-
-                            case XmppState.Offline:
-                            case XmppState.Error:
-                                Result.TrySetResult(false);
-                                break;
-                        }
-
-                        return Task.CompletedTask;
-                    };
-
-                    Client.Connect(TagService.Configuration.Domain);
-
-                    using (Timer _ = new Timer((P) =>
-                    {
-                        Timeout = true;
-                        Result.TrySetResult(false);
-                    }, null, 10000, 0))
-                    {
-                        Success = await Result.Task;
-                    }
-
-                    if (Success)
-                    {
-                        if (TagService.Configuration.Step == 1)
-                            TagService.Configuration.Step++;
-
-                        TagService.SetAccount(this.AccountName, Client.PasswordHash, Client.PasswordHashMethod);
-
-                        if (!TagService.LegalIdentityIsValid)
-                        {
-                            DateTime Now = DateTime.Now;
-                            LegalIdentity Created = null;
-                            LegalIdentity Approved = null;
-                            bool Changed = false;
-
-                            if (!string.IsNullOrEmpty(TagService.Configuration.LegalJid) ||
-                                await TagService.FindServices(Client))
+                            foreach (LegalIdentity Identity in await TagService.GetLegalIdentitiesAsync())
                             {
-                                using (ContractsClient Contracts = await ContractsClient.Create(Client, TagService.Configuration.LegalJid))
+                                if (Identity.HasClientSignature &&
+                                    Identity.HasClientPublicKey &&
+                                    Identity.From <= Now &&
+                                    Identity.To >= Now &&
+                                    (Identity.State == IdentityState.Approved || Identity.State == IdentityState.Created) &&
+                                    Identity.ValidateClientSignature())
                                 {
-                                    foreach (LegalIdentity Identity in await Contracts.GetLegalIdentitiesAsync())
+                                    if (Identity.State == IdentityState.Approved)
                                     {
-                                        if (Identity.HasClientSignature &&
-                                            Identity.HasClientPublicKey &&
-                                            Identity.From <= Now &&
-                                            Identity.To >= Now &&
-                                            (Identity.State == IdentityState.Approved || Identity.State == IdentityState.Created) &&
-                                            Identity.ValidateClientSignature())
-                                        {
-                                            if (Identity.State == IdentityState.Approved)
-                                            {
-                                                Approved = Identity;
-                                                break;
-                                            }
-                                            else if (Created is null)
-                                                Created = Identity;
-                                        }
+                                        Approved = Identity;
+                                        break;
                                     }
-
-                                    if (!(Approved is null))
-                                    {
-                                        TagService.Configuration.LegalIdentity = Approved;
-                                        Changed = true;
-                                    }
-                                    else if (!(Created is null))
-                                    {
-                                        TagService.Configuration.LegalIdentity = Created;
-                                        Changed = true;
-                                    }
-
-                                    if (Changed)
-                                    {
-                                        if (TagService.Configuration.Step == 2)
-                                            TagService.IncrementConfigurationStep();
-
-                                        TagService.UpdateConfiguration();
-                                    }
+                                    else if (Created is null)
+                                        Created = Identity;
                                 }
+                            }
+
+                            if (!(Approved is null))
+                            {
+                                TagSettings.LegalIdentity = Approved;
+                                Changed = true;
+                            }
+                            else if (!(Created is null))
+                            {
+                                TagSettings.LegalIdentity = Created;
+                                Changed = true;
+                            }
+
+                            if (Changed)
+                            {
+                                if (TagSettings.Step == 2)
+                                    TagSettings.IncrementConfigurationStep();
                             }
                         }
                     }
-                    else
-                    {
-                        if (!StreamNegotiation || Timeout)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.CantConnectTo, TagService.Configuration.Domain), AppResources.Ok);
-                        else if (!StreamOpened)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainIsNotAValidOperator, TagService.Configuration.Domain), AppResources.Ok);
-                        else if (!StartingEncryption)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, TagService.Configuration.Domain), AppResources.Ok);
-                        else if (!Authentication)
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, TagService.Configuration.Domain), AppResources.Ok);
-                        else
-                            await this.messageService.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidUsernameOrPassword, "Invalid user name or password.", AppResources.Ok);
-                    }
+                }
+
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagSettings.Domain, hostName, portNumber, this.AccountName, password, string.Empty, string.Empty, typeof(App).Assembly, OnConnected);
+
+                if (!succeeded)
+                {
+                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitle, $"Unable to connect to {TagService.Configuration.Domain}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.Ok);
+                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
             }
-
         }
     }
 }

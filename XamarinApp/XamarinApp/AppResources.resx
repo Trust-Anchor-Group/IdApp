@@ -120,6 +120,9 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="AccountNameAlreadyTaken" xml:space="preserve">
+    <value>Account name {0} is already taken. Choose another.</value>
+  </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Account name is invalid</value>
   </data>
@@ -156,6 +159,9 @@
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
+    <value>The operator {0} does not support registration of new accounts</value>
+  </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>
   </data>
@@ -186,8 +192,14 @@
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
   </data>
+  <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
+    <value>The password for the connection is {0}</value>
+  </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>To connect to {0}, you need an account. Do you want to create one, or use an existing account?</value>
+  </data>
+  <data name="UnableToAuthenticateWith" xml:space="preserve">
+    <value>Unable to authenticate with {0}</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>

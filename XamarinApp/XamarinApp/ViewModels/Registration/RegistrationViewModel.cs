@@ -16,19 +16,21 @@ namespace XamarinApp.ViewModels.Registration
         private const int MaxStep = 4;
         private const int DefaultStep = MinStep;
 
+        private readonly TagServiceSettings tagSettings;
         private readonly ISettingsService settingsService;
         private readonly ITagService tagService;
         private readonly IMessageService messageService;
         private readonly IAuthService authService;
 
-        public RegistrationViewModel()
-            : this(null, null, null, null)
+        public RegistrationViewModel(TagServiceSettings tagSettings)
+            : this(tagSettings, null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(ISettingsService settingsService, ITagService tagService, IAuthService authService, IMessageService messageService)
+        protected internal RegistrationViewModel(TagServiceSettings tagSettings, ISettingsService settingsService, ITagService tagService, IAuthService authService, IMessageService messageService)
         {
+            this.tagSettings = tagSettings;
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             this.tagService = tagService ?? DependencyService.Resolve<ITagService>();
             this.messageService = messageService ?? DependencyService.Resolve<IMessageService>();
@@ -37,11 +39,11 @@ namespace XamarinApp.ViewModels.Registration
             GoToPrevCommand = new Command(() => CurrentStep--, () => CurrentStep > MinStep);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
             int currStep = MinStep;
-            RegistrationSteps.Add(new ChooseOperatorViewModel(currStep++, this.tagService, this.messageService));
-            RegistrationSteps.Add(new ChooseAccountViewModel(currStep++, this.tagService, this.authService, this.messageService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagService));
+            RegistrationSteps.Add(new ChooseOperatorViewModel(currStep++, this.tagSettings, this.tagService, this.messageService));
+            RegistrationSteps.Add(new ChooseAccountViewModel(currStep++, this.tagSettings, this.tagService, this.authService, this.messageService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagSettings, this.tagService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagSettings, this.tagService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(currStep++, this.tagSettings, this.tagService));
 
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 
@@ -54,28 +56,28 @@ namespace XamarinApp.ViewModels.Registration
             switch (viewModel.Step)
             {
                 case 2:
-                    this.tagService.IncrementConfigurationStep();
+                    this.tagSettings.IncrementConfigurationStep();
                     GoToNextCommand.Execute();
                     break;
 
                 case 3:
-                    this.tagService.IncrementConfigurationStep();
+                    this.tagSettings.IncrementConfigurationStep();
                     GoToNextCommand.Execute();
                     break;
 
                 case 4:
-                    this.tagService.IncrementConfigurationStep();
+                    this.tagSettings.IncrementConfigurationStep();
                     GoToNextCommand.Execute();
                     break;
 
                 case 5:
-                    this.tagService.IncrementConfigurationStep();
+                    this.tagSettings.IncrementConfigurationStep();
                     GoToNextCommand.Execute();
                     break;
 
                 default: // 0
-                    this.tagService.SetDomain(((ChooseOperatorViewModel)viewModel).GetOperator(), string.Empty);
-                    this.tagService.IncrementConfigurationStep();
+                    this.tagSettings.SetDomain(((ChooseOperatorViewModel)viewModel).GetOperator(), string.Empty);
+                    this.tagSettings.IncrementConfigurationStep();
                     GoToNextCommand.Execute();
                     break;
             }

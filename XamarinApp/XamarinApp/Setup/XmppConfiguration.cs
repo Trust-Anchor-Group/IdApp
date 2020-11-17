@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;

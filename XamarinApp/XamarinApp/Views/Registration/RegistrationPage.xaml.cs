@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+using XamarinApp.Services;
 using XamarinApp.ViewModels.Registration;
 
 namespace XamarinApp.Views.Registration
@@ -9,7 +11,7 @@ namespace XamarinApp.Views.Registration
         public RegistrationPage()
         {
             InitializeComponent();
-            ViewModel = new RegistrationViewModel();
+            ViewModel = new RegistrationViewModel(DependencyService.Resolve<TagServiceSettings>());
         }
     }
 }

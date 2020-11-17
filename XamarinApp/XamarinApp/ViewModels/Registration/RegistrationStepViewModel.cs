@@ -7,14 +7,16 @@ namespace XamarinApp.ViewModels.Registration
     {
         public event EventHandler StepCompleted;
 
-        public RegistrationStepViewModel(int step, ITagService tagService)
+        public RegistrationStepViewModel(int step, TagServiceSettings tagSettings, ITagService tagService)
         {
             Step = step;
+            TagSettings = tagSettings;
             TagService = tagService;
         }
 
         public int Step { get; }
 
+        protected TagServiceSettings TagSettings { get; }
         protected ITagService TagService { get; }
 
         protected virtual void OnStepCompleted(EventArgs e)

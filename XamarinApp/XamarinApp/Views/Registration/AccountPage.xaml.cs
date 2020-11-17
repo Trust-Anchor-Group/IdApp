@@ -13,16 +13,18 @@ namespace XamarinApp.Views.Registration
 	[DesignTimeVisible(true)]
 	public partial class AccountPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
         private readonly IAuthService authService;
 
 		public AccountPage()
 		{
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
             this.authService = DependencyService.Resolve<IAuthService>();
 			this.BindingContext = this;
-			this.Introduction.Text = this.Introduction.Text.Replace("{Binding Domain}", this.tagService.Configuration.Domain);
+			this.Introduction.Text = this.Introduction.Text.Replace("{Binding Domain}", this.tagSettings.Domain);
         }
 
 		private async void BackButton_Clicked(object sender, EventArgs e)
@@ -31,9 +33,9 @@ namespace XamarinApp.Views.Registration
 			{
 				if (this.CreateNewButton.IsVisible)
 				{
-                    if (this.tagService.Configuration.Step > 0)
+                    if (this.tagSettings.Step > 0)
                     {
-                        this.tagService.DecrementConfigurationStep();
+                        this.tagSettings.DecrementConfigurationStep();
                     }
 
 					await App.ShowPage();
@@ -61,12 +63,12 @@ namespace XamarinApp.Views.Registration
 
 		public string Domain
 		{
-			get => this.tagService.Configuration.Domain;
+			get => this.tagSettings.Domain;
 		}
 
 		public string Account
 		{
-			get => this.tagService.Configuration.Account;
+			get => this.tagSettings.Account;
 		}
 
 		private void CreateNewButton_Clicked(object sender, EventArgs e)
@@ -140,7 +142,7 @@ namespace XamarinApp.Views.Registration
 
 			try
 			{
-				(string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort();
+				(string HostName, int PortNumber) = await this.tagSettings.GetXmppHostnameAndPort();
 
 				using (XmppClient Client = this.tagService.CreateClient(HostName, PortNumber, this.AccountName.Text, this.Password.Text, string.Empty, string.Empty, typeof(App).Assembly))
 				{
@@ -191,7 +193,7 @@ namespace XamarinApp.Views.Registration
 						return Task.CompletedTask;
 					};
 
-					Client.Connect(this.tagService.Configuration.Domain);
+					Client.Connect(this.tagSettings.Domain);
 
 					using (Timer Timer = new Timer((P) =>
 					{
@@ -204,22 +206,22 @@ namespace XamarinApp.Views.Registration
 
 					if (Success)
 					{
-                        if (this.tagService.Configuration.Step == 1)
-                            this.tagService.Configuration.Step++;
+                        if (this.tagSettings.Step == 1)
+                            this.tagSettings.IncrementConfigurationStep();
 
-                        this.tagService.SetAccount(this.AccountName.Text, Client.PasswordHash, Client.PasswordHashMethod);
+                        this.tagSettings.SetAccount(this.AccountName.Text, Client.PasswordHash, Client.PasswordHashMethod);
 
-                        if (!this.tagService.LegalIdentityIsValid)
+                        if (!this.tagSettings.LegalIdentityIsValid)
 						{
 							DateTime Now = DateTime.Now;
 							LegalIdentity Created = null;
 							LegalIdentity Approved = null;
 							bool Changed = false;
 
-                            if (!string.IsNullOrEmpty(this.tagService.Configuration.LegalJid) ||
-                                await this.tagService.FindServices(Client))
+                            if (!string.IsNullOrEmpty(this.tagSettings.LegalJid) ||
+                                await this.tagService.DiscoverServices(Client))
 							{
-								using (ContractsClient Contracts = await ContractsClient.Create(Client, this.tagService.Configuration.LegalJid))
+								using (ContractsClient Contracts = await ContractsClient.Create(Client, this.tagSettings.LegalJid))
 								{
 									foreach (LegalIdentity Identity in await Contracts.GetLegalIdentitiesAsync())
 									{
@@ -242,21 +244,19 @@ namespace XamarinApp.Views.Registration
 
 									if (!(Approved is null))
 									{
-                                        this.tagService.Configuration.LegalIdentity = Approved;
+                                        this.tagSettings.LegalIdentity = Approved;
 										Changed = true;
 									}
 									else if (!(Created is null))
 									{
-                                        this.tagService.Configuration.LegalIdentity = Created;
+                                        this.tagSettings.LegalIdentity = Created;
 										Changed = true;
 									}
 
 									if (Changed)
 									{
-                                        if (this.tagService.Configuration.Step == 2)
-											this.tagService.IncrementConfigurationStep();
-
-                                        this.tagService.UpdateConfiguration();
+                                        if (this.tagSettings.Step == 2)
+											this.tagSettings.IncrementConfigurationStep();
 									}
 								}
 							}
@@ -265,13 +265,13 @@ namespace XamarinApp.Views.Registration
 					else
 					{
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.CantConnectTo, this.tagService.Configuration.Domain), AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.CantConnectTo, this.tagSettings.Domain), AppResources.Ok);
                         else if (!StreamOpened)
-                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainIsNotAValidOperator, this.tagService.Configuration.Domain), AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainIsNotAValidOperator, this.tagSettings.Domain), AppResources.Ok);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, this.tagService.Configuration.Domain), AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, this.tagSettings.Domain), AppResources.Ok);
                         else if (!Authentication)
-                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.tagService.Configuration.Domain), AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.tagSettings.Domain), AppResources.Ok);
                         else
                             await this.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidUsernameOrPassword,  "Invalid user name or password.", AppResources.Ok);
 					}
@@ -279,7 +279,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception ex)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitle, $"Unable to connect to {this.tagService.Configuration.Domain}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.Ok);
+				await this.DisplayAlert(AppResources.ErrorTitle, $"Unable to connect to {this.tagSettings.Domain}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.Ok);
 			}
 			finally
 			{
@@ -319,7 +319,7 @@ namespace XamarinApp.Views.Registration
 
 			try
 			{
-                (string HostName, int PortNumber) = await this.tagService.GetXmppHostnameAndPort(this.tagService.Configuration.Domain);
+                (string HostName, int PortNumber) = await this.tagSettings.GetXmppHostnameAndPort(this.tagSettings.Domain);
 
 				using (XmppClient Client = this.tagService.CreateClient(HostName, PortNumber, this.AccountName.Text, Password, string.Empty, string.Empty, typeof(App).Assembly))
 				{
@@ -331,7 +331,7 @@ namespace XamarinApp.Views.Registration
 					bool Registering = false;
 					bool Timeout = false;
 
-					if (XmppConfiguration.TryGetKeys(this.tagService.Configuration.Domain, out string Key, out string Secret))
+					if (XmppConfiguration.TryGetKeys(this.tagSettings.Domain, out string Key, out string Secret))
 						Client.AllowRegistration(Key, Secret);
 					else
 						Client.AllowRegistration();
@@ -380,7 +380,7 @@ namespace XamarinApp.Views.Registration
 						return Task.CompletedTask;
 					};
 
-					Client.Connect(this.tagService.Configuration.Domain);
+					Client.Connect(this.tagSettings.Domain);
 
 					bool Success;
 
@@ -395,10 +395,10 @@ namespace XamarinApp.Views.Registration
 
 					if (Success)
 					{
-                        if (this.tagService.Configuration.Step == 1)
-                            this.tagService.Configuration.Step++;
+                        if (this.tagSettings.Step == 1)
+                            this.tagSettings.IncrementConfigurationStep();
 
-						this.tagService.SetAccount(this.AccountName.Text, Client.PasswordHash, Client.PasswordHashMethod);
+						this.tagSettings.SetAccount(this.AccountName.Text, Client.PasswordHash, Client.PasswordHashMethod);
 
 						if (this.RandomPassword.On)
 							await this.DisplayAlert("Password", "The password for the connection is " + Password, AppResources.Ok);
@@ -408,15 +408,15 @@ namespace XamarinApp.Views.Registration
 					else
 					{
                         if (!StreamNegotiation || Timeout)
-                            await this.DisplayAlert(AppResources.ErrorTitle, "Cannot connect to " + this.tagService.Configuration.Domain, AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Cannot connect to " + this.tagSettings.Domain, AppResources.Ok);
                         else if (!StreamOpened)
-                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " is not a valid operator.", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagSettings.Domain + " is not a valid operator.", AppResources.Ok);
                         else if (!StartingEncryption)
-                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagService.Configuration.Domain + " does not follow the ubiquitous encryption policy.", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, this.tagSettings.Domain + " does not follow the ubiquitous encryption policy.", AppResources.Ok);
                         else if (!Authentication)
-                            await this.DisplayAlert(AppResources.ErrorTitle, "Unable to authentication with " + this.tagService.Configuration.Domain + ".", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "Unable to authentication with " + this.tagSettings.Domain + ".", AppResources.Ok);
                         else if (!Registering)
-                            await this.DisplayAlert(AppResources.ErrorTitle, "The operator " + this.tagService.Configuration.Domain + " does not support registration of new accounts.", AppResources.Ok);
+                            await this.DisplayAlert(AppResources.ErrorTitle, "The operator " + this.tagSettings.Domain + " does not support registration of new accounts.", AppResources.Ok);
                         else
                             await this.DisplayAlert(AppResources.ErrorTitle, "Account name already taken. Choose another.", AppResources.Ok);
 					}
@@ -424,7 +424,7 @@ namespace XamarinApp.Views.Registration
 			}
 			catch (Exception)
 			{
-				await this.DisplayAlert(AppResources.ErrorTitle, "Unable to connect to " + this.tagService.Configuration.Domain, AppResources.Ok);
+				await this.DisplayAlert(AppResources.ErrorTitle, "Unable to connect to " + this.tagSettings.Domain, AppResources.Ok);
 			}
 			finally
 			{

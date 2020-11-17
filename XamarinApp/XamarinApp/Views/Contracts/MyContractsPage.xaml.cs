@@ -11,6 +11,7 @@ namespace XamarinApp.Views.Contracts
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MyContractsPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
         private readonly Dictionary<string, Contract> contracts = new Dictionary<string, Contract>();
         private readonly Page owner;
@@ -19,6 +20,7 @@ namespace XamarinApp.Views.Contracts
         public MyContractsPage(Page Owner, bool CreatedContracts)
         {
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
             this.owner = Owner;
             this.createdContracts = CreatedContracts;

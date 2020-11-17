@@ -13,6 +13,7 @@ namespace XamarinApp.Views
     [DesignTimeVisible(true)]
     public partial class IdentityPage : ILegalIdentityChanged, IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
         private readonly SignaturePetitionEventArgs review;
         private readonly Page owner;
@@ -20,26 +21,22 @@ namespace XamarinApp.Views
         private LegalIdentity identity;
 
         public IdentityPage(Page Owner)
-            : this(Owner, App.Instance.TagService.Configuration.LegalIdentity, true, null)
+            : this(Owner, null, null)
         {
         }
 
         public IdentityPage(Page Owner, LegalIdentity Identity)
-            : this(Owner, Identity, App.Instance.TagService.Configuration.LegalIdentity.Id == Identity.Id, null)
+            : this(Owner, Identity, null)
         {
         }
 
         public IdentityPage(Page Owner, LegalIdentity Identity, SignaturePetitionEventArgs Review)
-            : this(Owner, Identity, App.Instance.TagService.Configuration.LegalIdentity.Id == Identity.Id, Review)
         {
-        }
-
-        private IdentityPage(Page Owner, LegalIdentity Identity, bool Personal, SignaturePetitionEventArgs Review)
-        {
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
             this.owner = Owner;
             this.identity = Identity;
-            this.personal = Personal;
+            this.personal = Identity != null && Identity.Id == this.tagSettings.LegalIdentity?.Id;
             this.review = Review;
 
             this.BindingContext = this;
@@ -49,7 +46,7 @@ namespace XamarinApp.Views
             this.QrCode.Source = ImageSource.FromStream(() => new MemoryStream(Png));
             this.QrCode.IsVisible = true;
 
-            if (!Personal)
+            if (!this.personal)
                 this.IdentitySection.Remove(this.NetworkView);
 
             this.LoadPhotos();
@@ -59,7 +56,7 @@ namespace XamarinApp.Views
         public bool NotForReview => (this.review is null);
         public bool IsPersonal => this.personal;
         public bool NotPersonal => !this.personal;
-        public bool ForReviewAndPin => !(this.review is null) && this.tagService.Configuration.UsePin;
+        public bool ForReviewAndPin => !(this.review is null) && this.tagSettings.UsePin;
 
         private async void LoadPhotos()
         {
@@ -182,10 +179,8 @@ namespace XamarinApp.Views
                 LegalIdentity Identity = await this.tagService.ObsoleteLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
-                this.tagService.Configuration.Step = 2;
+                this.tagSettings.DecrementConfigurationStep(2);
                
-                this.tagService.UpdateConfiguration();
-
                 this.BackClicked();
             }
             catch (Exception ex)
@@ -207,8 +202,7 @@ namespace XamarinApp.Views
                 LegalIdentity Identity = await this.tagService.CompromisedLegalIdentityAsync(this.identity.Id);
 
                 this.identity = Identity;
-                this.tagService.Configuration.Step = 2;
-                this.tagService.UpdateConfiguration();
+                this.tagSettings.DecrementConfigurationStep(2);
 
                 this.BackClicked();
             }
@@ -259,7 +253,7 @@ namespace XamarinApp.Views
                     return;
                 }
 
-                if (this.tagService.Configuration.UsePin && this.tagService.Configuration.ComputePinHash(this.PIN.Text) != this.tagService.Configuration.PinHash)
+                if (this.tagSettings.UsePin && this.tagSettings.ComputePinHash(this.PIN.Text) != this.tagSettings.PinHash)
                 {
                     await this.DisplayAlert("Error", "Invalid PIN.", "OK");
                     return;
@@ -267,7 +261,7 @@ namespace XamarinApp.Views
 
                 byte[] Signature = await this.tagService.SignAsync(this.review.ContentToSign);
 
-                await this.tagService.PetitionSignatureResponseAsync(this.review.SignatoryIdentityId, this.review.ContentToSign,
+                await this.tagService.RespondToPetitionSignatureAsync(this.review.SignatoryIdentityId, this.review.ContentToSign,
                     Signature, this.review.PetitionId, this.review.RequestorFullJid, true);
 
                 this.BackClicked();
@@ -285,7 +279,7 @@ namespace XamarinApp.Views
 
             try
             {
-                await this.tagService.PetitionSignatureResponseAsync(this.review.SignatoryIdentityId,
+                await this.tagService.RespondToPetitionSignatureAsync(this.review.SignatoryIdentityId,
                     this.review.ContentToSign, new byte[0], this.review.PetitionId, this.review.RequestorFullJid, false);
 
                 this.BackClicked();

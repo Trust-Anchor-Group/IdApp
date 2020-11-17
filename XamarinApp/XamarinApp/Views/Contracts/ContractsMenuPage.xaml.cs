@@ -8,12 +8,14 @@ namespace XamarinApp.Views.Contracts
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ContractsMenuPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
         private readonly Page owner;
 
         public ContractsMenuPage(Page Owner)
         {
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
             this.owner = Owner;
             this.BindingContext = this;

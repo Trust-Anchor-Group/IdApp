@@ -13,6 +13,7 @@ namespace XamarinApp.Views.Contracts
 	[DesignTimeVisible(true)]
 	public partial class PetitionIdentityPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly LegalIdentity requestorIdentity;
@@ -25,6 +26,7 @@ namespace XamarinApp.Views.Contracts
 			string RequestedIdentityId, string PetitionId, string Purpose)
 		{
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.requestorIdentity = RequestorIdentity;
@@ -91,13 +93,13 @@ namespace XamarinApp.Views.Contracts
 
         private void AcceptButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true);
+			this.tagService.RespondToPetitionIdentityAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true);
 			App.ShowPage(this.owner, true);
 		}
 
 		private void DeclineButton_Clicked(object sender, EventArgs e)
 		{
-			this.tagService.PetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false);
+			this.tagService.RespondToPetitionIdentityAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false);
 			App.ShowPage(this.owner, true);
 		}
 

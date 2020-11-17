@@ -11,6 +11,7 @@ namespace XamarinApp.Views.Contracts
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewContractPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
 		private readonly SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
 		private readonly Page owner;
@@ -27,6 +28,7 @@ namespace XamarinApp.Views.Contracts
 			SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory)
 		{
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.contractTypesPerCategory = ContractTypesPerCategory;
@@ -116,9 +118,9 @@ namespace XamarinApp.Views.Contracts
 			{
 				if (this.role != value)
 				{
-					this.RemoveRole(this.role, this.tagService.Configuration.LegalIdentity.Id);
+					this.RemoveRole(this.role, this.tagSettings.LegalIdentity.Id);
 					this.role = value;
-					this.AddRole(this.role, this.tagService.Configuration.LegalIdentity.Id);
+					this.AddRole(this.role, this.tagSettings.LegalIdentity.Id);
 				}
 			}
 		}
@@ -318,7 +320,7 @@ namespace XamarinApp.Views.Contracts
 				Entry.TextChanged += Entry_TextChanged;
 			}
 
-			if (this.tagService.Configuration.UsePin)
+			if (this.tagSettings.UsePin)
 			{
 				this.PinLabel.IsVisible = true;
 				this.PIN.IsVisible = true;
@@ -535,7 +537,7 @@ namespace XamarinApp.Views.Contracts
 					return;
 				}
 
-				if (this.tagService.Configuration.UsePin && this.tagService.Configuration.ComputePinHash(this.PIN.Text) != this.tagService.Configuration.PinHash)
+				if (this.tagSettings.UsePin && this.tagSettings.ComputePinHash(this.PIN.Text) != this.tagSettings.PinHash)
 				{
 					await this.DisplayAlert(AppResources.ErrorTitle, "Invalid PIN.", AppResources.Ok);
 					return;

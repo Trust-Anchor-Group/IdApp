@@ -120,6 +120,9 @@
   <data name="Account" xml:space="preserve">
     <value>Konto</value>
   </data>
+  <data name="AccountNameAlreadyTaken" xml:space="preserve">
+    <value>Kontonamnet {0} är redan taget. Prova med ett annat.</value>
+  </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Kontonamnet är ogiltigt</value>
   </data>
@@ -156,6 +159,9 @@
   <data name="OkButton" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
+    <value>Operatören {0} stödjer inte registrering av nya konton</value>
+  </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Annan&gt;</value>
   </data>
@@ -186,8 +192,14 @@
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
   </data>
+  <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
+    <value>Lösenordet för anslutningen är {0}</value>
+  </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>För att ansluta till {0} behövs ett konto. Vill du skapa ett, eller välja ett existerande?</value>
+  </data>
+  <data name="UnableToAuthenticateWith" xml:space="preserve">
+    <value>Kan inte autentisera med {0}</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>

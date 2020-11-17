@@ -9,6 +9,7 @@ namespace XamarinApp.Views.Contracts
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NotaryMenuPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
         private readonly Page owner;
 
@@ -27,6 +28,7 @@ namespace XamarinApp.Views.Contracts
         public NotaryMenuPage(Page Owner)
         {
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
             this.owner = Owner;
             this.BindingContext = this;

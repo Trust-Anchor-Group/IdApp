@@ -70,6 +70,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account name {0} is already taken. Choose another..
+        /// </summary>
+        internal static string AccountNameAlreadyTaken {
+            get {
+                return ResourceManager.GetString("AccountNameAlreadyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account name is invalid.
         /// </summary>
         internal static string AccountNameIsInvalid {
@@ -178,6 +187,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The operator {0} does not support registration of new accounts.
+        /// </summary>
+        internal static string OperatorDoesNotSupportRegisteringNewAccounts {
+            get {
+                return ResourceManager.GetString("OperatorDoesNotSupportRegisteringNewAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;Other&gt;.
         /// </summary>
         internal static string OperatorDomainOther {
@@ -268,11 +286,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password for the connection is {0}.
+        /// </summary>
+        internal static string ThePasswordForTheConnectionIs {
+            get {
+                return ResourceManager.GetString("ThePasswordForTheConnectionIs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To connect to {0}, you need an account. Do you want to create one, or use an existing account?.
         /// </summary>
         internal static string ToConnectToDomainYouNeedAnAccount {
             get {
                 return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to authenticate with {0}.
+        /// </summary>
+        internal static string UnableToAuthenticateWith {
+            get {
+                return ResourceManager.GetString("UnableToAuthenticateWith", resourceCulture);
             }
         }
         

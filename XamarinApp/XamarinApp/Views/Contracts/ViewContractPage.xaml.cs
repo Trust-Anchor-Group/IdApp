@@ -13,6 +13,7 @@ namespace XamarinApp.Views.Contracts
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewContractPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
 		private readonly Page owner;
 		private readonly Contract contract;
@@ -20,6 +21,7 @@ namespace XamarinApp.Views.Contracts
 		public ViewContractPage(Page Owner, Contract Contract, bool ReadOnly)
 		{
             InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.owner = Owner;
 			this.contract = Contract;
@@ -60,7 +62,7 @@ namespace XamarinApp.Views.Contracts
 			{
 				foreach (ClientSignature Signature in Contract.ClientSignatures)
 				{
-					if (Signature.LegalId == this.tagService.Configuration.LegalIdentity.Id)
+					if (Signature.LegalId == this.tagSettings.LegalIdentity.Id)
 						HasSigned = true;
 
 					if (!NrSignatures.TryGetValue(Signature.Role, out int Count))
@@ -87,7 +89,7 @@ namespace XamarinApp.Views.Contracts
 				{
 					AddTag(this.Parts, Part.Role, Part.LegalId, false, Part.LegalId, OpenLegalId);
 
-					if (!ReadOnly && AcceptsSignatures && !HasSigned && Part.LegalId == this.tagService.Configuration.LegalIdentity.Id)
+					if (!ReadOnly && AcceptsSignatures && !HasSigned && Part.LegalId == this.tagSettings.LegalIdentity.Id)
 					{
 						Button Button;
 

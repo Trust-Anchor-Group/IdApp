@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.IoTGateway.Setup;
-using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
@@ -13,13 +11,12 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ChooseOperatorViewModel : RegistrationStepViewModel
     {
-        private static readonly TimeSpan ConnectTimeoutInterval = TimeSpan.FromSeconds(10);
         private readonly IMessageService messageService;
         private string hostName = string.Empty;
         private int portNumber = 0;
 
-        public ChooseOperatorViewModel(int step, ITagService tagService, IMessageService messageService)
-            : base(step, tagService)
+        public ChooseOperatorViewModel(int step, TagServiceSettings tagSettings, ITagService tagService, IMessageService messageService)
+            : base(step, tagSettings, tagService)
         {
             this.messageService = messageService;
             this.Operators = new ObservableCollection<string>();
@@ -80,102 +77,26 @@ namespace XamarinApp.ViewModels.Registration
 
             ConnectCommand.ChangeCanExecute();
 
-            TaskCompletionSource<bool> result = new TaskCompletionSource<bool>();
-            bool streamNegotiation = false;
-            bool streamOpened = false;
-            bool startingEncryption = false;
-            bool timeout = false;
-
-            Task OnStateChanged(object _, XmppState newState)
-            {
-                switch (newState)
-                {
-                    case XmppState.StreamNegotiation:
-                        streamNegotiation = true;
-                        break;
-
-                    case XmppState.StreamOpened:
-                        streamOpened = true;
-                        break;
-
-                    case XmppState.StartingEncryption:
-                        startingEncryption = true;
-                        break;
-
-                    case XmppState.Authenticating:
-                        result.TrySetResult(true);
-                        break;
-
-                    case XmppState.Offline:
-                    case XmppState.Error:
-                        result.TrySetResult(false);
-                        break;
-                }
-
-                return Task.CompletedTask;
-            }
-
-            string domainName = GetOperator();
-
             try
             {
-                (this.hostName, this.portNumber) = await this.TagService.GetXmppHostnameAndPort(domainName);
+                string domainName = GetOperator();
+                (this.hostName, this.portNumber) = await this.TagSettings.GetXmppHostnameAndPort(domainName);
 
-                using (XmppClient client = this.TagService.CreateClient(this.hostName, this.portNumber, string.Empty, string.Empty, string.Empty, string.Empty, typeof(App).Assembly))
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(domainName, hostName, portNumber, string.Empty, string.Empty, string.Empty, string.Empty, typeof(App).Assembly, null);
+
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    client.TrustServer = false;
-                    client.AllowCramMD5 = false;
-                    client.AllowDigestMD5 = false;
-                    client.AllowPlain = false;
-                    client.AllowEncryption = true;
-                    client.AllowScramSHA1 = true;
+                    IsBusy = false;
 
-                    client.OnStateChanged += OnStateChanged;
-
-                    client.Connect(domainName);
-
-                    bool success;
-
-                    void TimerCallback(object _)
+                    if (succeeded)
                     {
-                        timeout = true;
-                        result.TrySetResult(false);
+                        OnStepCompleted(EventArgs.Empty);
                     }
-
-                    using (Timer _ = new Timer(TimerCallback, null, (int)ConnectTimeoutInterval.TotalMilliseconds, Timeout.Infinite))
+                    else
                     {
-                        success = await result.Task;
+                        await this.messageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                     }
-
-                    client.OnStateChanged -= OnStateChanged;
-
-                    await Task.Delay(TimeSpan.FromSeconds(10));
-
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        IsBusy = false;
-
-                        if (success)
-                        {
-                            OnStepCompleted(EventArgs.Empty);
-                        }
-                        else
-                        {
-                            if (!streamNegotiation || timeout)
-                                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.CantConnectTo, domainName), AppResources.Ok);
-                            else if (!streamOpened)
-                                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainIsNotAValidOperator, domainName), AppResources.Ok);
-                            else if (!startingEncryption)
-                                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, domainName), AppResources.Ok);
-                            else
-                                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, domainName), AppResources.Ok);
-                        }
-                    });
-                }
-            }
-            catch (Exception)
-            {
-                Dispatcher.BeginInvokeOnMainThread(async () => await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, domainName), AppResources.Ok));
+                });
             }
             finally
             {
@@ -239,7 +160,7 @@ namespace XamarinApp.ViewModels.Registration
                 }
             }
 
-            (string host, int port) = await TagService.GetXmppHostnameAndPort(name);
+            (string host, int port) = await TagSettings.GetXmppHostnameAndPort(name);
 
             if (string.IsNullOrEmpty(host))
                 return false;
@@ -258,7 +179,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 this.Operators.Add(domain);
 
-                if (domain == this.TagService.Configuration.Domain)
+                if (domain == this.TagSettings.Domain)
                 {
                     selectedIndex = i;
                 }
@@ -271,7 +192,7 @@ namespace XamarinApp.ViewModels.Registration
                 this.SelectedOperator = this.Operators[selectedIndex];
             }
 
-            if (!string.IsNullOrEmpty(this.TagService.Configuration.Domain))
+            if (!string.IsNullOrEmpty(this.TagSettings.Domain))
             {
                 if (selectedIndex >= 0)
                 {
@@ -279,7 +200,7 @@ namespace XamarinApp.ViewModels.Registration
                 }
                 else
                 {
-                    this.ManualOperator = this.TagService.Configuration.Domain;
+                    this.ManualOperator = this.TagSettings.Domain;
                 }
             }
             else

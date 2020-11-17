@@ -13,6 +13,7 @@ namespace XamarinApp.Views.Registration
     [DesignTimeVisible(true)]
     public partial class OperatorPage
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
         private string domainName = string.Empty;
         private string hostName = string.Empty;
@@ -22,6 +23,7 @@ namespace XamarinApp.Views.Registration
         {
             InitializeComponent();
 
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
 
             int Selected = -1;
@@ -31,7 +33,7 @@ namespace XamarinApp.Views.Registration
             {
                 this.Operators.Items.Add(Domain);
 
-                if (Domain == this.tagService.Configuration.Domain)
+                if (Domain == this.tagSettings.Domain)
                     Selected = i;
 
                 i++;
@@ -39,9 +41,9 @@ namespace XamarinApp.Views.Registration
 
             this.Operators.Items.Add(AppResources.OperatorDomainOther);
 
-            if (!string.IsNullOrEmpty(this.tagService.Configuration.Domain))
+            if (!string.IsNullOrEmpty(this.tagSettings.Domain))
             {
-                this.domainName = this.tagService.Configuration.Domain;
+                this.domainName = this.tagSettings.Domain;
 
                 if (Selected >= 0)
                     this.Operators.SelectedIndex = Selected;
@@ -50,7 +52,7 @@ namespace XamarinApp.Views.Registration
                     this.ConnectButton.IsEnabled = true;
                     this.Operators.IsVisible = false;
                     this.Domain.IsVisible = true;
-                    this.Domain.Text = this.tagService.Configuration.Domain;
+                    this.Domain.Text = this.tagSettings.Domain;
                     this.Domain.Keyboard = Keyboard.Create(KeyboardFlags.None);
                     this.Domain.Focus();
                 }
@@ -103,7 +105,7 @@ namespace XamarinApp.Views.Registration
                 }
             }
 
-            (string Host, int Port) = await this.tagService.GetXmppHostnameAndPort(Name);
+            (string Host, int Port) = await this.tagSettings.GetXmppHostnameAndPort(Name);
 
             if (string.IsNullOrEmpty(Host))
                 return false;
@@ -149,7 +151,7 @@ namespace XamarinApp.Views.Registration
         { 
             try
             {
-                (this.hostName, this.portNumber) = await this.tagService.GetXmppHostnameAndPort(this.domainName);
+                (this.hostName, this.portNumber) = await this.tagSettings.GetXmppHostnameAndPort(this.domainName);
 
                 InMemorySniffer Sniffer = new InMemorySniffer();
 
@@ -213,10 +215,10 @@ namespace XamarinApp.Views.Registration
 
                     if (Success)
                     {
-                        if (this.tagService.Configuration.Step == 0)
-                            this.tagService.Configuration.Step++;
+                        if (this.tagSettings.Step == 0)
+                            this.tagSettings.IncrementConfigurationStep();
 
-                        this.tagService.SetDomain(this.domainName, string.Empty);
+                        this.tagSettings.SetDomain(this.domainName, string.Empty);
 
                         await App.ShowPage();
                     }

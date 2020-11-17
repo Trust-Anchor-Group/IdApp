@@ -14,12 +14,14 @@ namespace XamarinApp.Views.Registration
 	[DesignTimeVisible(true)]
 	public partial class RegisterIdentityPage : IBackButton
     {
+        private readonly TagServiceSettings tagSettings;
         private readonly ITagService tagService;
 		private readonly Dictionary<string, (string, string, byte[])> photos = new Dictionary<string, (string, string, byte[])>();
 
 		public RegisterIdentityPage()
 		{
 			InitializeComponent();
+            this.tagSettings = DependencyService.Resolve<TagServiceSettings>();
             this.tagService = DependencyService.Resolve<ITagService>();
 			this.BindingContext = this;
 		}
@@ -28,9 +30,9 @@ namespace XamarinApp.Views.Registration
 		{
 			try
 			{
-                if (this.tagService.Configuration.Step > 0)
+                if (this.tagSettings.Step > 0)
                 {
-					this.tagService.DecrementConfigurationStep();
+					this.tagSettings.DecrementConfigurationStep();
                 }
 
 				await App.ShowPage();
@@ -152,7 +154,7 @@ namespace XamarinApp.Views.Registration
 			{
 				await this.tagService.CheckServices();
 
-				if (string.IsNullOrEmpty(this.tagService.Configuration.LegalJid))
+				if (string.IsNullOrEmpty(this.tagSettings.LegalJid))
 				{
 					await DisplayAlert(AppResources.ErrorTitle, "Operator does not support legal identities and smart contracts.", AppResources.Ok);
 					return;
@@ -208,13 +210,11 @@ namespace XamarinApp.Views.Registration
                     await this.DisplayAlert(AppResources.ErrorTitle, "Unable to upload photo: " + ex.Message, AppResources.Ok);
                 }
 
-                await App.ShowPage();
-
 				await App.ShowPage();
 			}
 			catch (Exception ex)
 			{
-                await this.DisplayAlert(AppResources.ErrorTitle, $"Unable to register information with {this.tagService.Configuration.Domain}:{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.Ok);
+                await this.DisplayAlert(AppResources.ErrorTitle, $"Unable to register information with {this.tagSettings.Domain}:{Environment.NewLine}{Environment.NewLine}{ex.Message}", AppResources.Ok);
 			}
 			finally
 			{
@@ -225,17 +225,17 @@ namespace XamarinApp.Views.Registration
 			}
 		}
 
-        public string FirstName => this.tagService.Configuration.LegalIdentity?["FIRST"] ?? string.Empty;
-        public string MiddleNames => this.tagService.Configuration.LegalIdentity?["MIDDLE"] ?? string.Empty;
-        public string LastNames => this.tagService.Configuration.LegalIdentity?["LAST"] ?? string.Empty;
-        public string PNr => this.tagService.Configuration.LegalIdentity?["PNR"] ?? string.Empty;
-        public string Address => this.tagService.Configuration.LegalIdentity?["ADDR"] ?? string.Empty;
-        public string Address2 => this.tagService.Configuration.LegalIdentity?["ADDR2"] ?? string.Empty;
-        public string PostalCode => this.tagService.Configuration.LegalIdentity?["ZIP"] ?? string.Empty;
-        public string Area => this.tagService.Configuration.LegalIdentity?["AREA"] ?? string.Empty;
-        public string City => this.tagService.Configuration.LegalIdentity?["CITY"] ?? string.Empty;
-        public string Region => this.tagService.Configuration.LegalIdentity?["REGION"] ?? string.Empty;
-        public string Country => this.tagService.Configuration.LegalIdentity?["COUNTRY"] ?? string.Empty;
+        public string FirstName => this.tagSettings.LegalIdentity?["FIRST"] ?? string.Empty;
+        public string MiddleNames => this.tagSettings.LegalIdentity?["MIDDLE"] ?? string.Empty;
+        public string LastNames => this.tagSettings.LegalIdentity?["LAST"] ?? string.Empty;
+        public string PNr => this.tagSettings.LegalIdentity?["PNR"] ?? string.Empty;
+        public string Address => this.tagSettings.LegalIdentity?["ADDR"] ?? string.Empty;
+        public string Address2 => this.tagSettings.LegalIdentity?["ADDR2"] ?? string.Empty;
+        public string PostalCode => this.tagSettings.LegalIdentity?["ZIP"] ?? string.Empty;
+        public string Area => this.tagSettings.LegalIdentity?["AREA"] ?? string.Empty;
+        public string City => this.tagSettings.LegalIdentity?["CITY"] ?? string.Empty;
+        public string Region => this.tagSettings.LegalIdentity?["REGION"] ?? string.Empty;
+        public string Country => this.tagSettings.LegalIdentity?["COUNTRY"] ?? string.Empty;
 
 		public string DeviceID
 		{
@@ -286,7 +286,7 @@ namespace XamarinApp.Views.Registration
 			byte[] Bin = ms.ToArray();
 			string PhotoId = Guid.NewGuid().ToString();
 
-			if ((long)Bin.Length > this.tagService.Configuration.HttpFileUploadMaxSize.GetValueOrDefault())
+			if ((long)Bin.Length > this.tagSettings.HttpFileUploadMaxSize.GetValueOrDefault())
 			{
 				ms.Dispose();
 				await this.DisplayAlert(AppResources.ErrorTitle, "Photo too large.", AppResources.Ok);
