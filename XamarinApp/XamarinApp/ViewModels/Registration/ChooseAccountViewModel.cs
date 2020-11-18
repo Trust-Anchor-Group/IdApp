@@ -19,9 +19,9 @@ namespace XamarinApp.ViewModels.Registration
         {
             this.messageService = messageService;
             this.authService = authService;
-            IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagService.Domain);
-            DomainName = TagService.Domain;
-            AccountName = TagService.Account;
+            IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
+            DomainName = TagProfile.Domain;
+            AccountName = TagProfile.Account;
             CreateNew = true;
             CreateRandomPassword = true;
             PerformActionCommand = new Command(_ => PerformAction(), _ => CanPerformAction());

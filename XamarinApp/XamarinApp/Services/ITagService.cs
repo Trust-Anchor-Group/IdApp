@@ -24,16 +24,14 @@ namespace XamarinApp.Services
         Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, string hostName, int portNumber, string accountName, string passwordHash, string passwordHashMethod, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
         Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, string hostName, int portNumber, string accountName, string passwordHash, string passwordHashMethod, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
 
-        XmppClient CreateClient(string hostName, int portNumber, string accountName, string passwordHash, string passwordHashMethod, string languageCode, Assembly appAssembly);
-
         #region State
 
         bool IsOnline { get; }
         XmppState State { get; }
-        string Domain { get; }
-        string Account { get; }
-        string Host { get; }
-        string BareJID { get; }
+        //string Domain { get; }
+        //string Account { get; }
+        //string Host { get; }
+        string BareJId { get; }
 
         #endregion
 
@@ -86,7 +84,6 @@ namespace XamarinApp.Services
 
         #endregion
 
-        Task<bool> CheckServices();
         Task<bool> DiscoverServices(XmppClient client = null);
     }
 }
