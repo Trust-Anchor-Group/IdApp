@@ -99,6 +99,11 @@ namespace XamarinApp.Services
             this.LegalIdentity = configuration.LegalIdentity;
         }
 
+        public bool IsComplete()
+        {
+            return Step == RegistrationStep.Pin && PinIsValid;
+        }
+
         #region Properties
 
         public string Domain

@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
+using XamarinApp.Views;
 using XamarinApp.Views.Registration;
 
 namespace XamarinApp
@@ -12,6 +13,7 @@ namespace XamarinApp
     public partial class InitPage
     {
         private readonly ITagService tagService;
+        private readonly TagProfile tagProfile;
         private readonly INavigationService navigationService;
 
         public InitPage()
@@ -23,6 +25,7 @@ namespace XamarinApp
         {
             InitializeComponent();
             this.tagService = DependencyService.Resolve<ITagService>();
+            this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             ViewModel = new InitViewModel();
         }
@@ -52,7 +55,14 @@ namespace XamarinApp
                 {
                     IsBusy = false;
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    await this.navigationService.Set(new RegistrationPage());
+                    if (this.tagProfile.IsComplete())
+                    {
+                        await this.navigationService.Set(new MainPage());
+                    }
+                    else
+                    {
+                        await this.navigationService.Set(new RegistrationPage());
+                    }
                 });
             }
         }
