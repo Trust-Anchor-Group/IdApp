@@ -11,11 +11,10 @@ namespace XamarinApp
 {
 	public partial class App
 	{
-		private static App instance = null;
         private static readonly TimeSpan AutoSaveInterval = TimeSpan.FromSeconds(1);
         private Timer autoSaveTimer;
+        private readonly ITagService tagService;
         private readonly IStorageService storageService;
-        private readonly IMessageService messageService;
         private readonly TagProfile tagProfile;
 
 		public App()
@@ -27,20 +26,24 @@ namespace XamarinApp
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
 			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
+			builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
             builder.RegisterInstance(this.tagProfile).SingleInstance();
             IContainer container = builder.Build();
+			// Set AutoFac to be the dependency resolver
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
-			TagService = DependencyService.Resolve<ITagService>();
+			// Resolve what's needed for the App class
+			this.tagService = DependencyService.Resolve<ITagService>();
             this.storageService = DependencyService.Resolve<IStorageService>();
-            this.messageService = DependencyService.Resolve<IMessageService>();
-            MainPage = new NavigationPage(new InitPage());
-            instance = this;
+
+            Instance = this;
+			// Start page
+            this.MainPage = new NavigationPage(new InitPage());
         }
 
-        public ITagService TagService { get; }
+        internal static App Instance { get; private set; }
 
 		#region Page Navigation  - will be moved
 
@@ -48,9 +51,9 @@ namespace XamarinApp
 		{
 			void SetPage(Page p, bool disposeCurrent)
 			{
-				Page Prev = instance.MainPage;
+				Page Prev = Instance.MainPage;
 
-				instance.MainPage = Page;
+				Instance.MainPage = Page;
 
 				if (disposeCurrent && Prev is IDisposable Disposable)
 					Disposable.Dispose();
@@ -68,24 +71,28 @@ namespace XamarinApp
 			}
 		}
 
-        internal static Page CurrentPage => instance.MainPage;
+        #endregion
 
-#endregion
-
-		internal static App Instance => instance;
-
-		protected override async void OnStart()
+        protected override async void OnStart()
         {
-            await Start();
+            await PerformStartup();
         }
 
 		protected override async void OnResume()
         {
-            await Start();
+            await PerformStartup();
         }
 
-		private async Task Start()
+        protected override async void OnSleep()
         {
+            await PerformShutdown();
+        }
+
+		private async Task PerformStartup()
+        {
+            await this.storageService.Load();
+            await this.tagService.Load();
+
 			TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration != null)
             {
@@ -97,22 +104,20 @@ namespace XamarinApp
             }
 
             this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, AutoSaveInterval, AutoSaveInterval);
-            await this.storageService.Load();
-            await this.TagService.Load();
         }
 
-		protected override async void OnSleep()
+		private async Task PerformShutdown()
         {
-            this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
+			this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
             this.autoSaveTimer.Dispose();
-			await AutoSave();
+            await AutoSave();
             if (MainPage.BindingContext is BaseViewModel vm)
             {
                 await vm.SaveState();
                 await vm.Unbind();
             }
 
-            await TagService.Unload();
+            await this.tagService.Unload();
             await this.storageService.Unload();
         }
 

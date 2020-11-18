@@ -86,7 +86,6 @@ namespace XamarinApp.Services
 
         #endregion
 
-        //Task UpdateXmpp();
         Task<bool> CheckServices();
         Task<bool> DiscoverServices(XmppClient client = null);
     }

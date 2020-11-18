@@ -200,7 +200,7 @@ namespace XamarinApp.ViewModels.Registration
                     return Task.CompletedTask;
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {
@@ -271,7 +271,7 @@ namespace XamarinApp.ViewModels.Registration
                     }
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (!succeeded)
                 {

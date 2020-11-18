@@ -846,7 +846,7 @@ namespace XamarinApp.Services
 					else
 					{
 						await contracts.AddPeerReviewIDAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
-                        Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayPromptAsync(AppResources.PeerReviewAccepted,
+                        Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayAlert(AppResources.PeerReviewAccepted,
 							"A peer review you requested has been accepted.", AppResources.Ok));
 					}
 				}
