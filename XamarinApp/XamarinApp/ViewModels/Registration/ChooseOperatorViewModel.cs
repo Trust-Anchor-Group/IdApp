@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -31,7 +32,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 ChooseOperatorViewModel viewModel = (ChooseOperatorViewModel)b;
                 string selectedOperator = (string)newValue;
-                viewModel.ChooseOperatorFromList = !string.IsNullOrWhiteSpace(selectedOperator) && selectedOperator != AppResources.OperatorDomainOther;
+                viewModel.ChooseOperatorFromList = (viewModel.Operators.Count > 0) && (selectedOperator != AppResources.OperatorDomainOther);
                 viewModel.ConnectCommand.ChangeCanExecute();
             });
 
@@ -86,6 +87,8 @@ namespace XamarinApp.ViewModels.Registration
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     IsBusy = false;
+
+                    ConnectCommand.ChangeCanExecute();
 
                     if (succeeded)
                     {

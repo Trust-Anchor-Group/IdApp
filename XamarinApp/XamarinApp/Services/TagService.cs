@@ -359,6 +359,10 @@ namespace XamarinApp.Services
 
                     case XmppState.Authenticating:
                         authenticating = true;
+                        if (operation == ConnectOperation.Connect)
+                        {
+                            tcs.TrySetResult(true);
+                        }
                         break;
 
                     case XmppState.Registering:
@@ -399,7 +403,7 @@ namespace XamarinApp.Services
 
                     client.OnStateChanged += OnStateChanged;
 
-                    client.Connect(domainName);
+                    client.Connect(domain);
 
                     void TimerCallback(object _)
                     {
@@ -429,11 +433,11 @@ namespace XamarinApp.Services
             if (!succeeded)
             {
                 if (!streamNegotiation || timeout)
-                    errorMessage = string.Format(AppResources.CantConnectTo, domainName);
+                    errorMessage = string.Format(AppResources.CantConnectTo, domain);
                 else if (!streamOpened)
-                    errorMessage = string.Format(AppResources.DomainIsNotAValidOperator, domainName);
+                    errorMessage = string.Format(AppResources.DomainIsNotAValidOperator, domain);
                 else if (!startingEncryption)
-                    errorMessage = string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, domainName);
+                    errorMessage = string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, domain);
                 else if (!authenticating)
                     errorMessage = string.Format(AppResources.UnableToAuthenticateWith, domain);
                 else if (!registering)
@@ -443,7 +447,7 @@ namespace XamarinApp.Services
                 else if (operation == ConnectOperation.ConnectAndConnectToAccount)
                     errorMessage = string.Format(AppResources.InvalidUsernameOrPassword, accountName);
                 else
-                    errorMessage = string.Format(AppResources.UnableToConnectTo, domainName);
+                    errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
             }
 
             return (succeeded, errorMessage);

@@ -33,8 +33,8 @@ namespace XamarinApp.ViewModels.Registration
             this.tagService = tagService ?? DependencyService.Resolve<ITagService>();
             this.messageService = messageService ?? DependencyService.Resolve<IMessageService>();
             this.authService = authService ?? DependencyService.Resolve<IAuthService>();
-            GoToNextCommand = new Command(() => CurrentStep++, () => CurrentStep < RegistrationStep.Pin);
-            GoToPrevCommand = new Command(() => CurrentStep--, () => CurrentStep > RegistrationStep.Operator);
+            GoToNextCommand = new Command(() => CurrentStep++, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
+            GoToPrevCommand = new Command(() => CurrentStep--, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
             RegistrationSteps.Add(new ChooseOperatorViewModel(RegistrationStep.Operator, this.tagProfile, this.tagService, this.messageService));
             RegistrationSteps.Add(new ChooseAccountViewModel(RegistrationStep.Account, this.tagProfile, this.tagService, this.authService, this.messageService));
@@ -44,7 +44,7 @@ namespace XamarinApp.ViewModels.Registration
 
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 
-            this.CurrentStep = DefaultStep;
+            this.CurrentStep = (int)DefaultStep;
         }
 
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; private set; }
@@ -53,11 +53,11 @@ namespace XamarinApp.ViewModels.Registration
         public ICommand GoToNextCommand { get; }
 
         public static readonly BindableProperty CurrentStepProperty =
-            BindableProperty.Create("CurrentStep", typeof(RegistrationStep), typeof(RegistrationViewModel), default(RegistrationStep));
+            BindableProperty.Create("CurrentStep", typeof(int), typeof(RegistrationViewModel), default(int));
 
-        public RegistrationStep CurrentStep
+        public int CurrentStep
         {
-            get { return (RegistrationStep)GetValue(CurrentStepProperty); }
+            get { return (int)GetValue(CurrentStepProperty); }
             set { SetValue(CurrentStepProperty, value); }
         }
 
@@ -107,7 +107,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public override async Task RestoreState()
         {
-            CurrentStep = await this.settingsService.RestoreState<RegistrationStep>(CurrentStepKey, DefaultStep);
+            CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, (int)DefaultStep);
         }
 
         public override async Task SaveState()

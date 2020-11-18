@@ -90,8 +90,8 @@ namespace XamarinApp
 
 		private async Task PerformStartup()
         {
-            await this.storageService.Load();
             await this.tagService.Load();
+            await this.storageService.Load();
 
 			TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration != null)
@@ -117,8 +117,8 @@ namespace XamarinApp
                 await vm.Unbind();
             }
 
-            await this.tagService.Unload();
             await this.storageService.Unload();
+            await this.tagService.Unload();
         }
 
 		private async Task AutoSave()

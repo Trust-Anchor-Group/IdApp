@@ -464,11 +464,11 @@ namespace XamarinApp.Services
 
     public enum RegistrationStep : int
     {
-        Operator = 1,
-        Account = 2,
-        RegisterIdentity = 3,
-        Identity = 4,
-        Pin = 5
+        Operator = 0,
+        Account = 1,
+        RegisterIdentity = 2,
+        Identity = 3,
+        Pin = 4
     }
 
     [CollectionName("Configuration")]

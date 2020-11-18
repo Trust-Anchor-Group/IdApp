@@ -38,7 +38,7 @@
     <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>..\..\Keystore\TagDemo Cert\TagDemo Cert.keystore</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>C:\Users\Henrik\Documents\TAG\CapsorXamarinApp\TagDemo Cert\TagDemo Cert.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Password</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>TagDemo Cert</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Password</AndroidSigningKeyPass>

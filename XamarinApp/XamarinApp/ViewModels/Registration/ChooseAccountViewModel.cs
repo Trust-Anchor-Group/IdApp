@@ -22,10 +22,15 @@ namespace XamarinApp.ViewModels.Registration
             IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
             DomainName = TagProfile.Domain;
             AccountName = TagProfile.Account;
+            ActionButtonText = AppResources.CreateNew;
             CreateNew = true;
             CreateRandomPassword = true;
             PerformActionCommand = new Command(_ => PerformAction(), _ => CanPerformAction());
-            SwitchModeCommand = new Command<bool>(b => CreateNew = b);
+            SwitchModeCommand = new Command(_ =>
+            {
+                CreateNew = !CreateNew;
+                PerformActionCommand.ChangeCanExecute();
+            });
             AccountNameCommand = new Command(() => { });
         }
 
@@ -52,7 +57,11 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CreateRandomPasswordProperty =
-            BindableProperty.Create("CreateRandomPassword", typeof(bool), typeof(ChooseAccountViewModel), default(bool));
+            BindableProperty.Create("CreateRandomPassword", typeof(bool), typeof(ChooseAccountViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
+            {
+                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
+                viewModel.PerformActionCommand.ChangeCanExecute();
+            });
 
         public bool CreateRandomPassword
         {
@@ -149,7 +158,12 @@ namespace XamarinApp.ViewModels.Registration
         {
             if (CreateNew)
             {
-                if (!CreateRandomPassword && Password != RetypedPassword)
+                if (CreateRandomPassword)
+                {
+                    return true;
+                }
+
+                if ((Password != RetypedPassword) || string.IsNullOrWhiteSpace(Password))
                 {
                     if (alertUser)
                     {
@@ -157,6 +171,8 @@ namespace XamarinApp.ViewModels.Registration
                     }
                     return false;
                 }
+
+                return true;
             }
 
             if (string.IsNullOrWhiteSpace(DomainName))

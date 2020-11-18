@@ -1,5 +1,6 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinApp.Services;
 using XamarinApp.ViewModels.Registration;
 
 namespace XamarinApp.Views.Registration

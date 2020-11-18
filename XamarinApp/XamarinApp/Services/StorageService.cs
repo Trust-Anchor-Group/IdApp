@@ -55,7 +55,7 @@ namespace XamarinApp.Services
 
         public Task Update(object obj)
         {
-            return Database.Insert(obj);
+            return Database.Update(obj);
         }
 
         public Task<T> FindFirstDeleteRest<T>() where T : class
