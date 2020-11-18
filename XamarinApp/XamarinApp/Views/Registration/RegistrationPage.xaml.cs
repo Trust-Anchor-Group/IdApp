@@ -11,7 +11,7 @@ namespace XamarinApp.Views.Registration
         public RegistrationPage()
         {
             InitializeComponent();
-            ViewModel = new RegistrationViewModel(DependencyService.Resolve<TagServiceSettings>());
+            ViewModel = new RegistrationViewModel(DependencyService.Resolve<TagProfile>());
         }
     }
 }

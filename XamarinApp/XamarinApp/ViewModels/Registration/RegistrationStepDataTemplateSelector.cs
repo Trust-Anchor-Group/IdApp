@@ -1,4 +1,5 @@
 ﻿using Xamarin.Forms;
+using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -16,13 +17,13 @@ namespace XamarinApp.ViewModels.Registration
 
             switch (viewModel.Step)
             {
-                case 1:
+                case RegistrationStep.Account:
                     return Step2Template;
-                case 2:
+                case RegistrationStep.RegisterIdentity:
                     return Step3Template;
-                case 3:
+                case RegistrationStep.Identity:
                     return Step4Template;
-                case 4:
+                case RegistrationStep.Pin:
                     return Step5Template;
                 default:
                     return Step1Template;

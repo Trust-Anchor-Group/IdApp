@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.IoTGateway.Setup;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
@@ -13,10 +12,10 @@ namespace XamarinApp.ViewModels.Registration
     {
         private readonly IMessageService messageService;
         private string hostName = string.Empty;
-        private int portNumber = 0;
+        private int portNumber;
 
-        public ChooseOperatorViewModel(int step, TagServiceSettings tagSettings, ITagService tagService, IMessageService messageService)
-            : base(step, tagSettings, tagService)
+        public ChooseOperatorViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService)
+            : base(step, tagProfile, tagService)
         {
             this.messageService = messageService;
             this.Operators = new ObservableCollection<string>();
@@ -80,9 +79,9 @@ namespace XamarinApp.ViewModels.Registration
             try
             {
                 string domainName = GetOperator();
-                (this.hostName, this.portNumber) = await this.TagSettings.GetXmppHostnameAndPort(domainName);
+                (this.hostName, this.portNumber) = await this.TagProfile.GetXmppHostnameAndPort(domainName);
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(domainName, hostName, portNumber, string.Empty, string.Empty, string.Empty, string.Empty, typeof(App).Assembly, null);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(domainName, hostName, portNumber, string.Empty, string.Empty, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -160,7 +159,7 @@ namespace XamarinApp.ViewModels.Registration
                 }
             }
 
-            (string host, int port) = await TagSettings.GetXmppHostnameAndPort(name);
+            (string host, int port) = await TagProfile.GetXmppHostnameAndPort(name);
 
             if (string.IsNullOrEmpty(host))
                 return false;
@@ -175,11 +174,11 @@ namespace XamarinApp.ViewModels.Registration
         {
             int selectedIndex = -1;
             int i = 0;
-            foreach (string domain in XmppConfiguration.Domains)
+            foreach (string domain in this.TagProfile.Domains)
             {
                 this.Operators.Add(domain);
 
-                if (domain == this.TagSettings.Domain)
+                if (domain == this.TagProfile.Domain)
                 {
                     selectedIndex = i;
                 }
@@ -192,7 +191,7 @@ namespace XamarinApp.ViewModels.Registration
                 this.SelectedOperator = this.Operators[selectedIndex];
             }
 
-            if (!string.IsNullOrEmpty(this.TagSettings.Domain))
+            if (!string.IsNullOrEmpty(this.TagProfile.Domain))
             {
                 if (selectedIndex >= 0)
                 {
@@ -200,7 +199,7 @@ namespace XamarinApp.ViewModels.Registration
                 }
                 else
                 {
-                    this.ManualOperator = this.TagSettings.Domain;
+                    this.ManualOperator = this.TagProfile.Domain;
                 }
             }
             else

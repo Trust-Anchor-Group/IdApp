@@ -31,17 +31,17 @@ namespace XamarinApp.Views
 
         private void Identity_Clicked(object sender, EventArgs e)
         {
-            App.ShowPage(new IdentityPage(App.CurrentPage), false);
+            //App.ShowPage(new IdentityPage(App.CurrentPage), false);
         }
 
         private void ScanQR_Clicked(object sender, EventArgs e)
         {
-            App.ShowPage(new ScanQrCodePage(App.CurrentPage, false), false);
+            //App.ShowPage(new ScanQrCodePage(App.CurrentPage, false), false);
         }
 
         private void Contracts_Clicked(object sender, EventArgs e)
         {
-            App.ShowPage(new Contracts.ContractsMenuPage(App.CurrentPage), false);
+            //App.ShowPage(new Contracts.ContractsMenuPage(App.CurrentPage), false);
         }
 
         private void ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)

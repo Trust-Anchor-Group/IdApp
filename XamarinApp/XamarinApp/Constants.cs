@@ -2,6 +2,11 @@
 {
     public static class Constants
     {
+        public static class LanguageCodes
+        {
+            public const string Default = "en-US";
+        }
+
         public static class Schemes
         {
             public const string IotId = "iotid";

@@ -44,9 +44,9 @@ namespace XamarinApp.Services
         Task<LegalIdentity[]> GetLegalIdentitiesAsync();
         Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId);
         Task PetitionIdentityAsync(string legalId, string petitionId, string purpose);
-        Task RespondToPetitionIdentityAsync(string legalId, string petitionId, string requestorFullJid, bool response);
-        Task RespondToPetitionContractAsync(string contractId, string petitionId, string requestorFullJid, bool response);
-        Task RespondToPetitionSignatureAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionContractResponseAsync(string contractId, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionSignatureResponseAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
         Task PetitionPeerReviewIDAsync(string legalId, LegalIdentity identity, string petitionId, string purpose);
         Task<byte[]> SignAsync(byte[] data);
         Task<LegalIdentity> ObsoleteLegalIdentityAsync(string legalIdentityId);

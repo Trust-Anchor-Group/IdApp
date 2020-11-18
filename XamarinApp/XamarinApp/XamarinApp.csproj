@@ -68,61 +68,13 @@
     <EmbeddedResource Update="Views\AddPartView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\AccountPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\ChooseAccountView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\DefinePinPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\IdentityPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\OperatorPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\ChooseOperatorView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\RegisterIdentityPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="InitPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\AddPartPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\ClientSignaturePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\ContractsMenuPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\MyContractsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\NewContractPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\NotaryMenuPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\PetitionContractPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\PetitionIdentityPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\ServerSignaturePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Contracts\ViewContractPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\IdentityPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\MainMenuPage.xaml">
@@ -131,13 +83,11 @@
     <EmbeddedResource Update="Views\Registration\RegistrationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ScanQrCodePage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Views\Contracts\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -155,7 +105,7 @@
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if not exist &quot;$(SolutionDir)\..\Registration.cs.bak&quot; copy &quot;$(ProjectDir)Setup\Registration.cs&quot; &quot;$(SolutionDir)\..\Registration.cs.bak&quot;&#xD;&#xA;if exist &quot;$(SolutionDir)\..\Registration.cs&quot; copy &quot;$(SolutionDir)\..\Registration.cs&quot; &quot;$(ProjectDir)&quot;Services&#xD;&#xA;" />
+    <Exec Command="if not exist &quot;$(SolutionDir)\..\Registration.cs.bak&quot; copy &quot;$(ProjectDir)Services\Registration.cs&quot; &quot;$(SolutionDir)\..\Registration.cs.bak&quot;&#xD;&#xA;if exist &quot;$(SolutionDir)\..\Registration.cs&quot; copy &quot;$(SolutionDir)\..\Registration.cs&quot; &quot;$(ProjectDir)&quot;Services&#xD;&#xA;" />
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

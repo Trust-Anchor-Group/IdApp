@@ -156,6 +156,9 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -170,6 +173,12 @@
   </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Passwords do not match</value>
+  </data>
+  <data name="PeerReviewAccepted" xml:space="preserve">
+    <value>Peer review accepted</value>
+  </data>
+  <data name="PeerReviewRejected" xml:space="preserve">
+    <value>Peer review rejected</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>

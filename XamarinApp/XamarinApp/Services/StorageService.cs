@@ -33,7 +33,7 @@ namespace XamarinApp.Services
                 Database.Register(filesProvider, false);
                 EndLoad(true);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 EndLoad(false);
             }

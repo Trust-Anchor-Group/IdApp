@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
@@ -13,8 +14,8 @@ namespace XamarinApp.ViewModels.Registration
         private readonly IMessageService messageService;
         private readonly IAuthService authService;
 
-        public ChooseAccountViewModel(int step, TagServiceSettings tagSettings, ITagService tagService, IAuthService authService, IMessageService messageService)
-            : base(step, tagSettings, tagService)
+        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IAuthService authService, IMessageService messageService)
+            : base(step, tagProfile, tagService)
         {
             this.messageService = messageService;
             this.authService = authService;
@@ -104,6 +105,10 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(ActionButtonTextProperty, value); }
         }
 
+        public string PasswordHash { get; set; }
+
+        public string PasswordHashMethod { get; set; }
+
         public ICommand AccountNameCommand { get; }
 
         public ICommand SwitchModeCommand { get; }
@@ -186,25 +191,21 @@ namespace XamarinApp.ViewModels.Registration
             {
                 string password = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
 
-                (string hostName, int portNumber) = await TagSettings.GetXmppHostnameAndPort();
+                (string hostName, int portNumber) = await TagProfile.GetXmppHostnameAndPort();
 
                 Task OnConnected(XmppClient client)
                 {
-                    if (TagSettings.Step == 1)
-                        TagSettings.IncrementConfigurationStep();
-
-                    TagSettings.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+                    this.PasswordHash = client.PasswordHash;
+                    this.PasswordHashMethod = client.PasswordHashMethod;
                     return Task.CompletedTask;
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagSettings.Domain, hostName, portNumber, this.AccountName, password, string.Empty, string.Empty, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {
                     if (this.CreateRandomPassword)
                         await this.messageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, Password), AppResources.Ok);
-
-                    await App.ShowPage();
                 }
                 else
                 {
@@ -223,64 +224,54 @@ namespace XamarinApp.ViewModels.Registration
             {
                 string password = Password;
 
-                (string hostName, int portNumber) = await TagSettings.GetXmppHostnameAndPort();
+                (string hostName, int portNumber) = await TagProfile.GetXmppHostnameAndPort();
 
                 async Task OnConnected(XmppClient client)
                 {
-                    if (TagSettings.Step == 1)
-                        TagSettings.IncrementConfigurationStep();
+                    this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
 
-                    TagSettings.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
-
-                    if (!TagSettings.LegalIdentityIsValid)
+                    if (!this.TagProfile.LegalIdentity.IsValid())
                     {
-                        DateTime Now = DateTime.Now;
-                        LegalIdentity Created = null;
-                        LegalIdentity Approved = null;
-                        bool Changed = false;
+                        DateTime now = DateTime.Now;
+                        LegalIdentity createdIdentity = null;
+                        LegalIdentity approvedIdentity = null;
 
-                        if (!string.IsNullOrEmpty(TagSettings.LegalJid) || await TagService.DiscoverServices(client))
+                        if (!string.IsNullOrEmpty(this.TagProfile.LegalJid) || await this.TagService.DiscoverServices(client))
                         {
-                            foreach (LegalIdentity Identity in await TagService.GetLegalIdentitiesAsync())
+                            foreach (LegalIdentity identity in await this.TagService.GetLegalIdentitiesAsync())
                             {
-                                if (Identity.HasClientSignature &&
-                                    Identity.HasClientPublicKey &&
-                                    Identity.From <= Now &&
-                                    Identity.To >= Now &&
-                                    (Identity.State == IdentityState.Approved || Identity.State == IdentityState.Created) &&
-                                    Identity.ValidateClientSignature())
+                                if (identity.HasClientSignature &&
+                                    identity.HasClientPublicKey &&
+                                    identity.From <= now &&
+                                    identity.To >= now &&
+                                    (identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
+                                    identity.ValidateClientSignature())
                                 {
-                                    if (Identity.State == IdentityState.Approved)
+                                    if (identity.State == IdentityState.Approved)
                                     {
-                                        Approved = Identity;
+                                        approvedIdentity = identity;
                                         break;
                                     }
-                                    else if (Created is null)
-                                        Created = Identity;
+                                    if (createdIdentity is null)
+                                    {
+                                        createdIdentity = identity;
+                                    }
                                 }
                             }
 
-                            if (!(Approved is null))
+                            if (!(approvedIdentity is null))
                             {
-                                TagSettings.LegalIdentity = Approved;
-                                Changed = true;
+                                this.TagProfile.SetLegalIdentity(approvedIdentity);
                             }
-                            else if (!(Created is null))
+                            else if (!(createdIdentity is null))
                             {
-                                TagSettings.LegalIdentity = Created;
-                                Changed = true;
-                            }
-
-                            if (Changed)
-                            {
-                                if (TagSettings.Step == 2)
-                                    TagSettings.IncrementConfigurationStep();
+                                this.TagProfile.SetLegalIdentity(createdIdentity);
                             }
                         }
                     }
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagSettings.Domain, hostName, portNumber, this.AccountName, password, string.Empty, string.Empty, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (!succeeded)
                 {

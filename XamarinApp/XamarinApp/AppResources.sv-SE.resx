@@ -156,6 +156,9 @@
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
   </data>
+  <data name="Message" xml:space="preserve">
+    <value>Meddelande</value>
+  </data>
   <data name="OkButton" xml:space="preserve">
     <value>OK</value>
   </data>
@@ -170,6 +173,12 @@
   </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Lösenorden matchar inte</value>
+  </data>
+  <data name="PeerReviewAccepted" xml:space="preserve">
+    <value>Referentgranskning accepterad</value>
+  </data>
+  <data name="PeerReviewRejected" xml:space="preserve">
+    <value>Referentgranskning avvisad</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>

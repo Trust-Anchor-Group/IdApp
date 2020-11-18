@@ -178,6 +178,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        internal static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Ok {
@@ -219,6 +228,24 @@ namespace XamarinApp {
         internal static string PasswordsDoNotMatch {
             get {
                 return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peer review accepted.
+        /// </summary>
+        internal static string PeerReviewAccepted {
+            get {
+                return ResourceManager.GetString("PeerReviewAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Peer review rejected.
+        /// </summary>
+        internal static string PeerReviewRejected {
+            get {
+                return ResourceManager.GetString("PeerReviewRejected", resourceCulture);
             }
         }
         
