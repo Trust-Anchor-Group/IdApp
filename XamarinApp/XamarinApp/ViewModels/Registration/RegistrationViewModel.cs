@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Extensions;
@@ -20,15 +21,15 @@ namespace XamarinApp.ViewModels.Registration
         private readonly IMessageService messageService;
         private readonly IAuthService authService;
 
-        public RegistrationViewModel(TagProfile tagProfile)
-            : this(tagProfile, null, null, null, null)
+        public RegistrationViewModel()
+            : this(null, null, null, null, null)
         {
         }
 
         // For unit tests
         protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, ITagService tagService, IAuthService authService, IMessageService messageService)
         {
-            this.tagProfile = tagProfile;
+            this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             this.tagService = tagService ?? DependencyService.Resolve<ITagService>();
             this.messageService = messageService ?? DependencyService.Resolve<IMessageService>();
@@ -37,10 +38,10 @@ namespace XamarinApp.ViewModels.Registration
             GoToPrevCommand = new Command(() => CurrentStep--, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
             RegistrationSteps.Add(new ChooseOperatorViewModel(RegistrationStep.Operator, this.tagProfile, this.tagService, this.messageService));
-            RegistrationSteps.Add(new ChooseAccountViewModel(RegistrationStep.Account, this.tagProfile, this.tagService, this.authService, this.messageService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(RegistrationStep.RegisterIdentity, this.tagProfile, this.tagService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(RegistrationStep.Identity, this.tagProfile, this.tagService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(RegistrationStep.Pin, this.tagProfile, this.tagService));
+            RegistrationSteps.Add(new ChooseAccountViewModel(RegistrationStep.Account, this.tagProfile, this.tagService, this.messageService, this.authService));
+            RegistrationSteps.Add(new RegisterIdentityViewModel(RegistrationStep.RegisterIdentity, this.tagProfile, this.tagService, this.messageService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(RegistrationStep.Identity, this.tagProfile, this.tagService, this.messageService));
+            RegistrationSteps.Add(new RegistrationStepViewModel(RegistrationStep.Pin, this.tagProfile, this.tagService, this.messageService));
 
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 
@@ -76,7 +77,8 @@ namespace XamarinApp.ViewModels.Registration
 
                 case RegistrationStep.RegisterIdentity:
                     {
-                        //RegisterIdentityViewModel vm = (RegisterIdentityViewModel)sender;
+                        RegisterIdentityViewModel vm = (RegisterIdentityViewModel)sender;
+                        this.tagProfile.SetLegalIdentity(vm.LegalIdentity);
                         GoToNextCommand.Execute();
                     }
                     break;
@@ -105,10 +107,10 @@ namespace XamarinApp.ViewModels.Registration
             }
         }
 
-        public override async Task RestoreState()
-        {
-            CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, (int)DefaultStep);
-        }
+        //public override async Task RestoreState()
+        //{
+        //    CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, (int)DefaultStep);
+        //}
 
         public override async Task SaveState()
         {

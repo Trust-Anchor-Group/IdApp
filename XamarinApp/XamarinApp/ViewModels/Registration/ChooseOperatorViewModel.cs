@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -11,14 +10,12 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ChooseOperatorViewModel : RegistrationStepViewModel
     {
-        private readonly IMessageService messageService;
         private string hostName = string.Empty;
         private int portNumber;
 
         public ChooseOperatorViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService)
-            : base(step, tagProfile, tagService)
+            : base(step, tagProfile, tagService, messageService)
         {
-            this.messageService = messageService;
             this.Operators = new ObservableCollection<string>();
             this.ConnectCommand = new Command(async () => await Connect(), ConnectCanExecute);
             this.ManualOperatorCommand = new Command<string>(async text => await ManualOperatorTextEdited(text));
@@ -86,9 +83,7 @@ namespace XamarinApp.ViewModels.Registration
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    IsBusy = false;
-
-                    ConnectCommand.ChangeCanExecute();
+                    SetIsDone(ConnectCommand);
 
                     if (succeeded)
                     {
@@ -96,16 +91,13 @@ namespace XamarinApp.ViewModels.Registration
                     }
                     else
                     {
-                        await this.messageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+                        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                     }
                 });
             }
             finally
             {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    IsBusy = false;
-                });
+                BeginInvokeSetIsDone(ConnectCommand);
             }
 
         }

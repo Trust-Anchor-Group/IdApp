@@ -1,15 +1,13 @@
 ﻿using Xamarin.Forms.Xaml;
-using XamarinApp.ViewModels.Registration;
 
 namespace XamarinApp.Views.Registration
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class RegistrationPage
+    public partial class RegisterIdentityView
     {
-        public RegistrationPage()
+        public RegisterIdentityView()
         {
             InitializeComponent();
-            ViewModel = new RegistrationViewModel();
         }
     }
 }

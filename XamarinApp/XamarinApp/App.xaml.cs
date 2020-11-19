@@ -2,17 +2,32 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
+using Waher.Events;
+using Waher.Networking.DNS;
+using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.P2P;
+using Waher.Networking.XMPP.Provisioning;
+using Waher.Persistence;
+using Waher.Persistence.Files;
+using Waher.Persistence.LifeCycle;
+using Waher.Persistence.Serialization;
+using Waher.Runtime.Inventory;
+using Waher.Runtime.Language;
+using Waher.Runtime.Settings;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
+using Log = Waher.Events.Log;
 
 namespace XamarinApp
 {
-	public partial class App
+	public partial class App : IDisposable
 	{
         private static readonly TimeSpan AutoSaveInterval = TimeSpan.FromSeconds(1);
         private Timer autoSaveTimer;
+        private InternalSink internalSink;
         private readonly ITagService tagService;
         private readonly IStorageService storageService;
         private readonly TagProfile tagProfile;
@@ -38,9 +53,34 @@ namespace XamarinApp
 			this.tagService = DependencyService.Resolve<ITagService>();
             this.storageService = DependencyService.Resolve<IStorageService>();
 
+            this.internalSink = new InternalSink();
+            Log.Register(this.internalSink);
+
+            Types.Initialize(
+                typeof(App).Assembly,
+                typeof(Database).Assembly,
+                typeof(FilesProvider).Assembly,
+                typeof(ObjectSerializer).Assembly,
+                typeof(XmppClient).Assembly,
+                typeof(ContractsClient).Assembly,
+                typeof(RuntimeSettings).Assembly,
+                typeof(DnsResolver).Assembly,
+                typeof(XmppServerlessMessaging).Assembly,
+                typeof(ProvisioningClient).Assembly);
+
             Instance = this;
 			// Start page
             this.MainPage = new NavigationPage(new InitPage());
+        }
+
+        public void Dispose()
+        {
+            DatabaseModule.Flush().GetAwaiter().GetResult();
+            Types.StopAllModules().GetAwaiter().GetResult();
+            Log.Unregister(this.internalSink);
+            Log.Terminate();
+            this.internalSink.Dispose();
+            this.internalSink = null;
         }
 
         internal static App Instance { get; private set; }
@@ -90,10 +130,10 @@ namespace XamarinApp
 
 		private async Task PerformStartup()
         {
-            await this.tagService.Load();
             await this.storageService.Load();
+            await this.tagService.Load();
 
-			TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
+            TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration != null)
             {
                 this.tagProfile.FromConfiguration(configuration);
@@ -117,16 +157,29 @@ namespace XamarinApp
                 await vm.Unbind();
             }
 
-            await this.storageService.Unload();
             await this.tagService.Unload();
+            await this.storageService.Unload();
         }
 
-		private async Task AutoSave()
+        private async Task AutoSave()
         {
             if (this.tagProfile.IsDirty)
             {
                 this.tagProfile.ResetIsDirty();
                 await this.storageService.Update(this.tagProfile.ToConfiguration());
+            }
+        }
+
+        private class InternalSink : EventSink
+        {
+            public InternalSink()
+                : base("InternalEventSink")
+            {
+            }
+
+            public override Task Queue(Event _)
+            {
+                return Task.CompletedTask;
             }
         }
 

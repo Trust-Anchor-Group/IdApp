@@ -6,23 +6,13 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Waher.Content;
-using Waher.Events;
 using Xamarin.Forms;
-using Waher.Networking.DNS;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
-using Waher.Networking.XMPP.P2P;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.ServiceDiscovery;
-using Waher.Persistence;
-using Waher.Persistence.Files;
-using Waher.Persistence.LifeCycle;
-using Waher.Persistence.Serialization;
-using Waher.Runtime.Inventory;
-using Waher.Runtime.Language;
-using Waher.Runtime.Settings;
 using Waher.Runtime.Temporary;
 
 namespace XamarinApp.Services
@@ -31,6 +21,7 @@ namespace XamarinApp.Services
     {
         private static readonly TimeSpan FileUploadTimeout = TimeSpan.FromSeconds(30);
         private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(10);
+        private static readonly TimeSpan PresenceTimeout = TimeSpan.FromSeconds(1);
         private static readonly TimeSpan ReconnectInterval = TimeSpan.FromMinutes(1);
 
         private readonly TagProfile tagProfile;
@@ -44,7 +35,6 @@ namespace XamarinApp.Services
         private string passwordHashMethod = null;
         private bool xmppSettingsOk = false;
         private readonly IMessageService messageService;
-        private InternalSink internalSink;
         private readonly ISniffer sniffer;
 
         public TagService(TagProfile tagSettings, IMessageService messageService)
@@ -65,6 +55,8 @@ namespace XamarinApp.Services
             this.DestroyContractsClient();
             this.DestroyXmppClient();
         }
+
+        #region Create/Destroy
 
         private async Task CreateContractsClient()
         {
@@ -158,15 +150,27 @@ namespace XamarinApp.Services
             this.xmppClient = null;
         }
 
+        #endregion
+
+        private bool ShouldCreateClients()
+        {
+            return this.tagProfile.Step >= RegistrationStep.Account && this.xmppClient == null;
+        }
+
+        private bool ShouldDestroyClients()
+        {
+            return this.tagProfile.Step < RegistrationStep.Account && this.xmppClient != null;
+        }
+
         private async void TagProfile_StepChanged(object sender, EventArgs e)
         {
-            if (this.tagProfile.Step >= RegistrationStep.Account && this.xmppClient == null)
+            if (ShouldCreateClients())
             {
                 await this.CreateXmppClient();
                 await this.CreateContractsClient();
                 this.CreateFileUploadClient();
             }
-            else if (this.tagProfile.Step < RegistrationStep.Account && this.xmppClient != null)
+            else if (ShouldDestroyClients())
             {
                 this.DestroyFileUploadClient();
                 this.DestroyContractsClient();
@@ -213,32 +217,12 @@ namespace XamarinApp.Services
             {
                 this.BeginLoad();
 
-                this.internalSink = new InternalSink();
-                Log.Register(this.internalSink);
-
-                try
+                if (ShouldCreateClients())
                 {
-                    Types.Initialize(
-                        typeof(App).Assembly,
-                        typeof(Database).Assembly,
-                        typeof(FilesProvider).Assembly,
-                        typeof(ObjectSerializer).Assembly,
-                        typeof(XmppClient).Assembly,
-                        typeof(ContractsClient).Assembly,
-                        typeof(RuntimeSettings).Assembly,
-                        typeof(Language).Assembly,
-                        typeof(DnsResolver).Assembly,
-                        typeof(XmppServerlessMessaging).Assembly,
-                        typeof(ProvisioningClient).Assembly);
-                    await Types.StartAllModules((int)TimeSpan.FromMilliseconds(1000).TotalMilliseconds);
+                    await this.CreateXmppClient();
+                    await this.CreateContractsClient();
+                    this.CreateFileUploadClient();
                 }
-                catch (Exception e)
-                {
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, e.ToString(), AppResources.Ok);
-                    this.EndLoad(false);
-                    return;
-                }
-
                 this.xmppClient?.SetPresence(Availability.Online);
 
                 this.EndLoad(true);
@@ -249,12 +233,11 @@ namespace XamarinApp.Services
         {
             this.BeginUnload();
 
-            if (!(this.xmppClient is null))
+            if (this.xmppClient != null)
             {
                 TaskCompletionSource<bool> offlineSent = new TaskCompletionSource<bool>();
-
                 this.xmppClient.SetPresence(Availability.Offline, (sender, e) => offlineSent.TrySetResult(true));
-                Task _ = Task.Delay(1000).ContinueWith(__ => offlineSent.TrySetResult(false));
+                Task _ = Task.Delay(PresenceTimeout).ContinueWith(__ => offlineSent.TrySetResult(false));
 
                 await offlineSent.Task;
             }
@@ -262,13 +245,6 @@ namespace XamarinApp.Services
             this.DestroyFileUploadClient();
             this.DestroyContractsClient();
             this.DestroyXmppClient();
-
-            await DatabaseModule.Flush();
-            await Types.StopAllModules();
-            Log.Unregister(this.internalSink);
-            Log.Terminate();
-            this.internalSink.Dispose();
-            this.internalSink = null;
 
             this.EndUnload();
         }
@@ -331,7 +307,7 @@ namespace XamarinApp.Services
 
         private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, string hostName, int portNumber, string accountName, string passwordHash, string passwordHashMethod, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
         {
-            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+            TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
             bool succeeded = false;
             string errorMessage = null;
             bool streamNegotiation = false;
@@ -361,7 +337,7 @@ namespace XamarinApp.Services
                         authenticating = true;
                         if (operation == ConnectOperation.Connect)
                         {
-                            tcs.TrySetResult(true);
+                            connected.TrySetResult(true);
                         }
                         break;
 
@@ -370,12 +346,12 @@ namespace XamarinApp.Services
                         break;
 
                     case XmppState.Connected:
-                        tcs.TrySetResult(true);
+                        connected.TrySetResult(true);
                         break;
 
                     case XmppState.Offline:
                     case XmppState.Error:
-                        tcs.TrySetResult(false);
+                        connected.TrySetResult(false);
                         break;
                 }
 
@@ -388,8 +364,8 @@ namespace XamarinApp.Services
                 {
                     if (operation == ConnectOperation.ConnectAndCreateAccount)
                     {
-                        if (this.tagProfile.TryGetKeys(domain, out string Key, out string Secret))
-                            client.AllowRegistration(Key, Secret);
+                        if (this.tagProfile.TryGetKeys(domain, out string key, out string secret))
+                            client.AllowRegistration(key, secret);
                         else
                             client.AllowRegistration();
                     }
@@ -408,12 +384,12 @@ namespace XamarinApp.Services
                     void TimerCallback(object _)
                     {
                         timeout = true;
-                        tcs.TrySetResult(false);
+                        connected.TrySetResult(false);
                     }
 
                     using (Timer _ = new Timer(TimerCallback, null, (int)ConnectTimeout.TotalMilliseconds, Timeout.Infinite))
                     {
-                        succeeded = await tcs.Task;
+                        succeeded = await connected.Task;
                     }
 
                     if (succeeded && connectedFunc != null)
@@ -424,7 +400,7 @@ namespace XamarinApp.Services
                     client.OnStateChanged -= OnStateChanged;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 succeeded = false;
                 errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
@@ -467,12 +443,12 @@ namespace XamarinApp.Services
             LegalIdentityChanged?.Invoke(this, e);
         }
 
-        public async Task AddLegalIdentity(List<Property> properties, params LegalIdentityAttachment[] attachments)
+        public async Task<LegalIdentity> AddLegalIdentityAsync(List<Property> properties, params LegalIdentityAttachment[] attachments)
         {
             AssertContractsIsAvailable();
             AssertFileUploadIsAvailable();
 
-            LegalIdentity Identity = await contractsClient.ApplyAsync(properties.ToArray());
+            LegalIdentity identity = await contractsClient.ApplyAsync(properties.ToArray());
 
             foreach (var a in attachments)
             {
@@ -484,12 +460,12 @@ namespace XamarinApp.Services
 
                 await e2.PUT(a.Data, a.ContentType, (int)FileUploadTimeout.TotalMilliseconds);
 
-                byte[] Signature = await contractsClient.SignAsync(a.Data);
+                byte[] signature = await contractsClient.SignAsync(a.Data);
 
-                Identity = await contractsClient.AddLegalIdAttachmentAsync(Identity.Id, e2.GetUrl, Signature);
+                identity = await contractsClient.AddLegalIdAttachmentAsync(identity.Id, e2.GetUrl, signature);
             }
 
-            this.tagProfile.SetLegalIdentity(Identity);
+            return identity;
         }
 
         public Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId)
@@ -883,19 +859,6 @@ namespace XamarinApp.Services
         {
             if (!(xmppClient is null) && (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline))
                 xmppClient.Reconnect();
-        }
-
-        private class InternalSink : EventSink
-        {
-            public InternalSink()
-                : base("InternalEventSink")
-            {
-            }
-
-            public override Task Queue(Event _)
-            {
-                return Task.CompletedTask;
-            }
         }
     }
 }

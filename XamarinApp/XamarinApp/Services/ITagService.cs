@@ -38,7 +38,7 @@ namespace XamarinApp.Services
         #region Legal Identity
 
         event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
-        Task AddLegalIdentity(List<Property> properties, params LegalIdentityAttachment[] attachments);
+        Task<LegalIdentity> AddLegalIdentityAsync(List<Property> properties, params LegalIdentityAttachment[] attachments);
         Task<LegalIdentity[]> GetLegalIdentitiesAsync();
         Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId);
         Task PetitionIdentityAsync(string legalId, string petitionId, string purpose);

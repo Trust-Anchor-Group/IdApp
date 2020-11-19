@@ -88,6 +88,33 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address.
+        /// </summary>
+        internal static string Address {
+            get {
+                return ResourceManager.GetString("Address", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Address (row 2).
+        /// </summary>
+        internal static string Address2 {
+            get {
+                return ResourceManager.GetString("Address2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area.
+        /// </summary>
+        internal static string Area {
+            get {
+                return ResourceManager.GetString("Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t connect to {0}.
         /// </summary>
         internal static string CantConnectTo {
@@ -106,11 +133,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City.
+        /// </summary>
+        internal static string City {
+            get {
+                return ResourceManager.GetString("City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect.
         /// </summary>
         internal static string Connect {
             get {
                 return ResourceManager.GetString("Connect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        internal static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
             }
         }
         
@@ -169,11 +214,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        internal static string FirstName {
+            get {
+                return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {
             get {
                 return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name(s).
+        /// </summary>
+        internal static string LastNames {
+            get {
+                return ResourceManager.GetString("LastNames", resourceCulture);
             }
         }
         
@@ -187,11 +250,38 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Middle name(s).
+        /// </summary>
+        internal static string MiddleNames {
+            get {
+                return ResourceManager.GetString("MiddleNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not connected to the operator.
+        /// </summary>
+        internal static string NotConnectedToTheOperator {
+            get {
+                return ResourceManager.GetString("NotConnectedToTheOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operator does not support legal identities and smart contracts.
+        /// </summary>
+        internal static string OperatorDoesNotSupportLegalIdentitiesAndSmartContracts {
+            get {
+                return ResourceManager.GetString("OperatorDoesNotSupportLegalIdentitiesAndSmartContracts", resourceCulture);
             }
         }
         
@@ -250,6 +340,33 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal number.
+        /// </summary>
+        internal static string PersonalNumber {
+            get {
+                return ResourceManager.GetString("PersonalNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Photo is too large.
+        /// </summary>
+        internal static string PhotoIsTooLarge {
+            get {
+                return ResourceManager.GetString("PhotoIsTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip or Postal Code.
+        /// </summary>
+        internal static string PostalCode {
+            get {
+                return ResourceManager.GetString("PostalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter manually.
         /// </summary>
         internal static string QrEnterManually {
@@ -295,6 +412,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Region or State.
+        /// </summary>
+        internal static string Region {
+            get {
+                return ResourceManager.GetString("Region", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        internal static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retype password.
         /// </summary>
         internal static string RetypePassword {
@@ -309,6 +444,15 @@ namespace XamarinApp {
         internal static string SelectOperator {
             get {
                 return ResourceManager.GetString("SelectOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take photo.
+        /// </summary>
+        internal static string TakePhoto {
+            get {
+                return ResourceManager.GetString("TakePhoto", resourceCulture);
             }
         }
         
@@ -489,6 +633,33 @@ namespace XamarinApp {
         internal static string XmppState_StreamOpened {
             get {
                 return ResourceManager.GetString("XmppState_StreamOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide a first name.
+        /// </summary>
+        internal static string YouNeedToProvideAFirstName {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide at least one last name.
+        /// </summary>
+        internal static string YouNeedToProvideALastName {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideALastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide a personal or social security number.
+        /// </summary>
+        internal static string YouNeedToProvideAPersonalNumber {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAPersonalNumber", resourceCulture);
             }
         }
     }

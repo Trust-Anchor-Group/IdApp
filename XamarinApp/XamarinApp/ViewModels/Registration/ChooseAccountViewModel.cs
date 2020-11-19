@@ -11,13 +11,11 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ChooseAccountViewModel : RegistrationStepViewModel
     {
-        private readonly IMessageService messageService;
         private readonly IAuthService authService;
 
-        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IAuthService authService, IMessageService messageService)
-            : base(step, tagProfile, tagService)
+        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService, IAuthService authService)
+            : base(step, tagProfile, tagService, messageService)
         {
-            this.messageService = messageService;
             this.authService = authService;
             IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
             DomainName = TagProfile.Domain;
@@ -25,7 +23,7 @@ namespace XamarinApp.ViewModels.Registration
             ActionButtonText = AppResources.CreateNew;
             CreateNew = true;
             CreateRandomPassword = true;
-            PerformActionCommand = new Command(_ => PerformAction(), _ => CanPerformAction());
+            PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
             SwitchModeCommand = new Command(_ =>
             {
                 CreateNew = !CreateNew;
@@ -124,28 +122,40 @@ namespace XamarinApp.ViewModels.Registration
 
         public ICommand PerformActionCommand { get; }
 
-        private void PerformAction()
+        private async Task PerformAction()
         {
             IsBusy = true;
-            // Do a begin invoke here to break the call chain, this allows for the UI to update its state correctly before performing the operation.
-            Device.BeginInvokeOnMainThread(async () =>
+
+            try
             {
-                try
+                bool succeeded;
+                if (CreateNew)
                 {
-                    if (CreateNew)
-                    {
-                        await CreateAccount();
-                    }
-                    else
-                    {
-                        await ConnectToAccount();
-                    }
+                    succeeded = await CreateAccount();
                 }
-                finally
+                else
                 {
-                    IsBusy = false;
+                    succeeded = await ConnectToAccount();
                 }
-            });
+
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    SetIsDone(PerformActionCommand);
+
+                    if (succeeded)
+                    {
+                        OnStepCompleted(EventArgs.Empty);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                await this.MessageService.DisplayAlert(ex);
+            }
+            finally
+            {
+                BeginInvokeSetIsDone(PerformActionCommand);
+            }
         }
 
         private bool ValidateInput()
@@ -167,7 +177,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     if (alertUser)
                     {
-                        await this.messageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordsDoNotMatch, AppResources.Ok);
+                        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordsDoNotMatch, AppResources.Ok);
                     }
                     return false;
                 }
@@ -179,7 +189,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, AppResources.DomainNameIsInvalid, AppResources.Ok);
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.DomainNameIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -188,7 +198,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -201,7 +211,7 @@ namespace XamarinApp.ViewModels.Registration
             return !IsBusy && ValidateInput();
         }
 
-        private async Task CreateAccount()
+        private async Task<bool> CreateAccount()
         {
             try
             {
@@ -221,20 +231,23 @@ namespace XamarinApp.ViewModels.Registration
                 if (succeeded)
                 {
                     if (this.CreateRandomPassword)
-                        await this.messageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, Password), AppResources.Ok);
+                        await this.MessageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, Password), AppResources.Ok);
+                    return true;
                 }
                 else
                 {
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                 }
             }
             catch (Exception)
             {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
+                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
             }
+
+            return false;
         }
 
-        private async Task ConnectToAccount()
+        private async Task<bool> ConnectToAccount()
         {
             try
             {
@@ -291,13 +304,17 @@ namespace XamarinApp.ViewModels.Registration
 
                 if (!succeeded)
                 {
-                    await this.messageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                 }
+
+                return succeeded;
             }
             catch (Exception)
             {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
+                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
             }
+
+            return false;
         }
     }
 }

@@ -15,8 +15,8 @@
                     <DataTemplate x:Key="ChooseAccountTemplate">
                         <registrationViews:ChooseAccountView/>
                     </DataTemplate>
-                    <DataTemplate x:Key="Step3Template">
-                        <Label Text="Template 3"/>
+                    <DataTemplate x:Key="RegisterIdentityTemplate">
+                        <registrationViews:RegisterIdentityView/>
                     </DataTemplate>
                     <DataTemplate x:Key="Step4Template">
                         <Label Text="Template 4"/>
@@ -28,7 +28,7 @@
                         x:Key="StepTemplateSelector"
                         Step1Template="{StaticResource ChooseOperatorTemplate}"
                         Step2Template="{StaticResource ChooseAccountTemplate}"
-                        Step3Template="{StaticResource Step3Template}"
+                        Step3Template="{StaticResource RegisterIdentityTemplate}"
                         Step4Template="{StaticResource Step4Template}"
                         Step5Template="{StaticResource Step5Template}"
                         />

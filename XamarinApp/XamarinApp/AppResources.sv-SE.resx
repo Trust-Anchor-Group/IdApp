@@ -126,14 +126,29 @@
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Kontonamnet är ogiltigt</value>
   </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adress</value>
+  </data>
+  <data name="Address2" xml:space="preserve">
+    <value>Adress (rad 2)</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>Område</value>
+  </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Kan inte ansluta till {0}</value>
   </data>
   <data name="ChooseAccount" xml:space="preserve">
     <value>Välj konto</value>
   </data>
+  <data name="City" xml:space="preserve">
+    <value>Stad</value>
+  </data>
   <data name="Connect" xml:space="preserve">
     <value>Anslut</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Land</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Skapa</value>
@@ -153,14 +168,29 @@
   <data name="ErrorTitle" xml:space="preserve">
     <value>Fel</value>
   </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Förnamn</value>
+  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
+  </data>
+  <data name="LastNames" xml:space="preserve">
+    <value>Efternamn</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>
   </data>
+  <data name="MiddleNames" xml:space="preserve">
+    <value>Mellannamn</value>
+  </data>
+  <data name="NotConnectedToTheOperator" xml:space="preserve">
+    <value>Inte ansluten till operatören</value>
+  </data>
   <data name="OkButton" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
+    <value>Operatören stödjer inte juridiska identiteter och smarta kontrakt</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>Operatören {0} stödjer inte registrering av nya konton</value>
@@ -180,6 +210,15 @@
   <data name="PeerReviewRejected" xml:space="preserve">
     <value>Referentgranskning avvisad</value>
   </data>
+  <data name="PersonalNumber" xml:space="preserve">
+    <value>Personnummer</value>
+  </data>
+  <data name="PhotoIsTooLarge" xml:space="preserve">
+    <value>Bilden är för stor</value>
+  </data>
+  <data name="PostalCode" xml:space="preserve">
+    <value>Postkod</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>
   </data>
@@ -195,11 +234,20 @@
   <data name="QrScanOverlay" xml:space="preserve">
     <value>Passa in QR-koden i ramen</value>
   </data>
+  <data name="Region" xml:space="preserve">
+    <value>Region eller stat</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registrera</value>
+  </data>
   <data name="RetypePassword" xml:space="preserve">
     <value>Ange lösenord igen</value>
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
+  </data>
+  <data name="TakePhoto" xml:space="preserve">
+    <value>Ta foto</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>Lösenordet för anslutningen är {0}</value>
@@ -260,5 +308,14 @@
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Ström etablerad</value>
+  </data>
+  <data name="YouNeedToProvideAFirstName" xml:space="preserve">
+    <value>Du behöver ange ett förnamn</value>
+  </data>
+  <data name="YouNeedToProvideALastName" xml:space="preserve">
+    <value>Du behöver ange åtminstone ett efternamn</value>
+  </data>
+  <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
+    <value>Du behöver ange personnummer eller SSN</value>
   </data>
 </root>

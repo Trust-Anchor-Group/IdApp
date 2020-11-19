@@ -23,5 +23,12 @@
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
+        <Style x:Key="Heading" TargetType="Label"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+
     </Application.Resources>
 </Application>

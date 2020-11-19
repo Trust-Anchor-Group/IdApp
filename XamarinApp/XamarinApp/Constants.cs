@@ -13,5 +13,10 @@
             public const string IotDisco = "iotdisco";
             public const string IotSc = "iotsc";
         }
+
+        public static class MimeTypes
+        {
+            public const string Jpeg = "image/jpeg";
+        }
     }
 }

@@ -34,6 +34,14 @@ namespace XamarinApp.Services
                 await Device.InvokeOnMainThreadAsync(DisplayMessages);
         }
 
+        public async Task DisplayAlert(string title, string message)
+        {
+            messageQueue.Add(new MessageRec(title, message, null, null));
+
+            if (!isDisplayingMessages)
+                await Device.InvokeOnMainThreadAsync(DisplayMessages);
+        }
+
         public async Task DisplayAlert(Exception exception)
         {
             exception = Log.UnnestException(exception);
@@ -59,13 +67,17 @@ namespace XamarinApp.Services
                 do
                 {
                     MessageRec rec = await messageQueue.Wait();
-                    if (string.IsNullOrWhiteSpace(rec.Accept))
+                    if (string.IsNullOrWhiteSpace(rec.Accept) && !string.IsNullOrWhiteSpace(rec.Cancel))
                     {
                         await App.Instance.MainPage.DisplayAlert(rec.Title, rec.Message, rec.Cancel);
                     }
-                    else if(string.IsNullOrWhiteSpace(rec.Cancel))
+                    else if(!string.IsNullOrWhiteSpace(rec.Accept) && string.IsNullOrWhiteSpace(rec.Cancel))
                     {
                         await App.Instance.MainPage.DisplayAlert(rec.Title, rec.Message, rec.Accept);
+                    }
+                    else if (string.IsNullOrWhiteSpace(rec.Accept) && string.IsNullOrWhiteSpace(rec.Cancel))
+                    {
+                        await App.Instance.MainPage.DisplayAlert(rec.Title, rec.Message, AppResources.Ok);
                     }
                     else
                     {
