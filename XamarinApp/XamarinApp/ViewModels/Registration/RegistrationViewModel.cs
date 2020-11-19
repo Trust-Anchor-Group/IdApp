@@ -40,8 +40,8 @@ namespace XamarinApp.ViewModels.Registration
             RegistrationSteps.Add(new ChooseOperatorViewModel(RegistrationStep.Operator, this.tagProfile, this.tagService, this.messageService));
             RegistrationSteps.Add(new ChooseAccountViewModel(RegistrationStep.Account, this.tagProfile, this.tagService, this.messageService, this.authService));
             RegistrationSteps.Add(new RegisterIdentityViewModel(RegistrationStep.RegisterIdentity, this.tagProfile, this.tagService, this.messageService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(RegistrationStep.Identity, this.tagProfile, this.tagService, this.messageService));
-            RegistrationSteps.Add(new RegistrationStepViewModel(RegistrationStep.Pin, this.tagProfile, this.tagService, this.messageService));
+            RegistrationSteps.Add(new ValidateIdentityViewModel(RegistrationStep.Identity, this.tagProfile, this.tagService, this.messageService));
+            RegistrationSteps.Add(new DefinePinViewModel(RegistrationStep.Pin, this.tagProfile, this.tagService, this.messageService));
 
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 
