@@ -11,12 +11,10 @@ namespace XamarinApp.Extensions
         {
             StringBuilder sb = new StringBuilder();
 
-            using (StringWriter Writer = new StringWriter(sb))
+            using (StringWriter writer = new StringWriter(sb))
+            using (TextWriterSniffer output = new TextWriterSniffer(writer, BinaryPresentationMethod.ByteCount))
             {
-                using (TextWriterSniffer Output = new TextWriterSniffer(Writer, BinaryPresentationMethod.ByteCount))
-                {
-                    sniffer?.Replay(Output);
-                }
+                sniffer?.Replay(output);
             }
 
             return sb.ToString();
