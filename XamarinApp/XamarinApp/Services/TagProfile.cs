@@ -385,7 +385,7 @@ namespace XamarinApp.Services
         public void SetLegalIdentity(LegalIdentity legalIdentity)
         {
             this.legalIdentity = legalIdentity;
-            if (this.legalIdentity.IsValid() && Step == RegistrationStep.RegisterIdentity)
+            if (this.legalIdentity.IsCreatedOrApproved() && Step == RegistrationStep.RegisterIdentity)
             {
                 IncrementConfigurationStep();
             }

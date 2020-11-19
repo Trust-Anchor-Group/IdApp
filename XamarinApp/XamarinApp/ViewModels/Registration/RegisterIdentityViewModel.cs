@@ -30,6 +30,12 @@ namespace XamarinApp.ViewModels.Registration
             this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
             this.TakePhotoCommand = new Command(async _ => await TakePhoto());
             photos = new Dictionary<string, LegalIdentityAttachment>();
+
+            // TODO: set this property "OnAppearing" (how to do that for views?) -  Move property to parent vm?
+            CanTakePhoto = CrossMedia.IsSupported &&
+                CrossMedia.Current.IsCameraAvailable &&
+                CrossMedia.Current.IsTakePhotoSupported &&
+                this.TagService.FileUploadIsSupported;
         }
 
         public ICommand RegisterCommand { get; }
@@ -153,6 +159,15 @@ namespace XamarinApp.ViewModels.Registration
         {
             get { return (string)GetValue(DeviceIdProperty); }
             set { SetValue(DeviceIdProperty, value); }
+        }
+
+        public static readonly BindableProperty CanTakePhotoProperty =
+            BindableProperty.Create("CanTakePhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+
+        public bool CanTakePhoto
+        {
+            get { return (bool)GetValue(CanTakePhotoProperty); }
+            set { SetValue(CanTakePhotoProperty, value); }
         }
 
         public LegalIdentity LegalIdentity { get; private set; }

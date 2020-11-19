@@ -15,7 +15,6 @@
                 <Label Text="OF" TextColor="White"  FontSize="16" VerticalTextAlignment="Center"/>
                 <Label Text="WORLDMAKING" TextColor="White"  FontSize="24"  VerticalTextAlignment="Center"/>
             </StackLayout>
-            <ActivityIndicator x:Name="ProgressBar" Color="{StaticResource AccentColor}" HorizontalOptions="Center" IsRunning="{Binding Path=IsBusy}" Margin="0,100,0,0"/>
         </Grid>
     </ContentPage.Content>
 </views:ContentBasePage>

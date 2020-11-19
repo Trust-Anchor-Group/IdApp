@@ -79,7 +79,7 @@ namespace XamarinApp.ViewModels.Registration
                 string domainName = GetOperator();
                 (this.hostName, this.portNumber) = await this.TagProfile.GetXmppHostnameAndPort(domainName);
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(domainName, hostName, portNumber, string.Empty, string.Empty, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {

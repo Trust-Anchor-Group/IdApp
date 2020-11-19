@@ -27,7 +27,7 @@ namespace XamarinApp
             this.tagService = DependencyService.Resolve<ITagService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            ViewModel = new InitViewModel();
+            ViewModel = viewModel ?? new InitViewModel();
         }
 
         protected override async void OnAppearing()
@@ -35,8 +35,6 @@ namespace XamarinApp
             base.OnAppearing();
 
             await LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
-
-            IsBusy = true;
 
             this.tagService.Loaded += TagService_Loaded;
         }
@@ -53,7 +51,6 @@ namespace XamarinApp
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    IsBusy = false;
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
                     if (this.tagProfile.IsComplete())
                     {

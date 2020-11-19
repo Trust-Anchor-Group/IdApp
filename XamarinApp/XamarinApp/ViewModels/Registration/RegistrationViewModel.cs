@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Extensions;
@@ -85,14 +84,16 @@ namespace XamarinApp.ViewModels.Registration
 
                 case RegistrationStep.Identity:
                     {
-                        //IdentityViewModel vm = (IdentityViewModel)sender;
+                        ValidateIdentityViewModel vm = (ValidateIdentityViewModel)sender;
+                        // TODO: set something on profile
                         GoToNextCommand.Execute();
                     }
                     break;
 
                 case RegistrationStep.Pin:
                     {
-                        //ChoosePinViewModel vm = (ChoosePinViewModel)sender;
+                        DefinePinViewModel vm = (DefinePinViewModel)sender;
+                        this.tagProfile.SetPin(vm.Pin, vm.UsePin);
                         GoToNextCommand.Execute();
                     }
                     break;

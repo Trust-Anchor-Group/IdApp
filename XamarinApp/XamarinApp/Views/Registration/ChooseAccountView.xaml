@@ -33,8 +33,8 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- TAB 1 -->
-                <Label Text="{x:Static resources:AppResources.CreateNew}" Grid.Column="0" TextColor="{Binding Tab1Visible}" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource BooleanToBoldFontConverter}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                <BoxView Grid.Column="0" IsVisible="{Binding Path=CreateNewCommand}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
+                <Label Text="{x:Static resources:AppResources.CreateNew}" Grid.Column="0" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource BooleanToBoldFontConverter}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <BoxView Grid.Column="0" IsVisible="{Binding Path=CreateNew}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
                 <ContentView BackgroundColor="Transparent" Grid.Column="0" VerticalOptions="Fill">
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
@@ -42,8 +42,8 @@
                 </ContentView>
 
                 <!-- TAB 2 -->
-                <Label Text="{x:Static resources:AppResources.UseExisting}" Grid.Column="1" TextColor="{Binding Tab2Visible}" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource InvertedBooleanToBoldFontConverter}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNewCommand, Converter={StaticResource BooleanConverter}}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
+                <Label Text="{x:Static resources:AppResources.UseExisting}" Grid.Column="1" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource InvertedBooleanToBoldFontConverter}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNew, Converter={StaticResource BooleanConverter}}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
                 <ContentView BackgroundColor="Transparent" Grid.Column="1" VerticalOptions="Fill">
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
@@ -53,6 +53,12 @@
 
             <!-- TAB 1 Contents -->
             <StackLayout Grid.Row="3" x:Name="CreateNewTab" IsVisible="{Binding Path=CreateNew}" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
+                <Label Text="{x:Static resources:AppResources.Account}"/>
+                <Entry Text="{Binding Path=AccountName}">
+                    <Entry.Behaviors>
+                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PasswordEntry" BindingContext="{Binding BindingContext, Source={x:Reference CreateNewTab}}"/>
+                    </Entry.Behaviors>
+                </Entry>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Random password" VerticalOptions="CenterAndExpand"/>
                     <Switch IsToggled="{Binding Path=CreateRandomPassword}" HorizontalOptions="EndAndExpand" />
@@ -70,7 +76,7 @@
             <!-- TAB 2 Contents -->
             <StackLayout Grid.Row="3" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={StaticResource BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="StartAndExpand">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
-                <Entry Text="{Binding Path=AccountName}" ReturnCommand="{Binding Path=AcccountNameCommand}" />
+                <Entry Text="{Binding Path=AccountName}" />
             </StackLayout>
 
             <StackLayout Grid.Row="4" Orientation="Vertical" VerticalOptions="End">

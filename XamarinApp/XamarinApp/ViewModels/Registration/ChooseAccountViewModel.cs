@@ -29,7 +29,6 @@ namespace XamarinApp.ViewModels.Registration
                 CreateNew = !CreateNew;
                 PerformActionCommand.ChangeCanExecute();
             });
-            AccountNameCommand = new Command(() => { });
         }
 
         public static readonly BindableProperty IntroTextProperty =
@@ -115,8 +114,6 @@ namespace XamarinApp.ViewModels.Registration
         public string PasswordHash { get; set; }
 
         public string PasswordHashMethod { get; set; }
-
-        public ICommand AccountNameCommand { get; }
 
         public ICommand SwitchModeCommand { get; }
 
@@ -226,7 +223,7 @@ namespace XamarinApp.ViewModels.Registration
                     return Task.CompletedTask;
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {
@@ -259,7 +256,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
 
-                    if (!this.TagProfile.LegalIdentity.IsValid())
+                    if (!this.TagProfile.LegalIdentity.NeedsUpdating())
                     {
                         DateTime now = DateTime.Now;
                         LegalIdentity createdIdentity = null;
@@ -300,7 +297,7 @@ namespace XamarinApp.ViewModels.Registration
                     }
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, string.Empty, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (!succeeded)
                 {
