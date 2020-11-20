@@ -432,11 +432,6 @@ namespace XamarinApp.Services
             return (succeeded, errorMessage);
         }
 
-        //public XmppClient CreateClient(string hostName, int portNumber, string accountName, string passwordHash, string passwordHashMethod, string languageCode, Assembly appAssembly)
-        //{
-        //    return new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod, languageCode, appAssembly, sniffer);
-        //}
-
         #region Legal Identity
 
         public event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;

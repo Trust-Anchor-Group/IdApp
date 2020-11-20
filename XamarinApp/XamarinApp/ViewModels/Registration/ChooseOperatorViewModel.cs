@@ -70,9 +70,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task Connect()
         {
-            IsBusy = true;
-
-            ConnectCommand.ChangeCanExecute();
+            SetIsBusy(ConnectCommand);
 
             try
             {

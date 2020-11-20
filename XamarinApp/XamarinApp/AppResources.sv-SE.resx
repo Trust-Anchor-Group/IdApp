@@ -210,11 +210,17 @@
   <data name="PeerReviewRejected" xml:space="preserve">
     <value>Referentgranskning avvisad</value>
   </data>
+  <data name="PersonalLegalInfoText" xml:space="preserve">
+    <value>För att skaffa en plåbok, genomföra transaktioer och signera smarta kontrakt behöver du en verifierad personlig eller juridisk identitet kopplad till ditt konto.</value>
+  </data>
   <data name="PersonalNumber" xml:space="preserve">
     <value>Personnummer</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Bilden är för stor</value>
+  </data>
+  <data name="PickPhoto" xml:space="preserve">
+    <value>Välj foto</value>
   </data>
   <data name="PostalCode" xml:space="preserve">
     <value>Postkod</value>

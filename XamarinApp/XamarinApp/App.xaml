@@ -3,6 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinApp.App">
     <Application.Resources>
+        <OnPlatform x:TypeArguments="x:String" 
+                    x:Key="FontAwesome">
+            <On Platform="Android" 
+                Value="FontAwesome5Free-Regular-400.otf#Regular" />
+            <On Platform="iOS" 
+                Value="FontAwesome5Free-Regular-400" />
+        </OnPlatform>
         <Color x:Key="AccentColor">#BADA55</Color>
         <Color x:Key="BackgroundColor">#333333</Color>
         <Thickness x:Key="DefaultMargin">12</Thickness>
@@ -23,11 +30,23 @@
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="5" />
         </Style>
+        <Style TargetType="Button"
+               x:Key="IconButton"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
         <Style x:Key="Heading" TargetType="Label"
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Large" />
             <Setter Property="TextColor" Value="Black" />
+            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
+            <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
 
     </Application.Resources>

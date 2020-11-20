@@ -28,19 +28,15 @@ namespace XamarinApp.ViewModels.Registration
                 this.Countries.Add(country);
             this.SelectedCountry = null;
             this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
-            this.TakePhotoCommand = new Command(async _ => await TakePhoto());
+            this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => CanTakePhoto);
+            this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => CanPickPhoto);
             photos = new Dictionary<string, LegalIdentityAttachment>();
-
-            // TODO: set this property "OnAppearing" (how to do that for views?) -  Move property to parent vm?
-            CanTakePhoto = CrossMedia.IsSupported &&
-                CrossMedia.Current.IsCameraAvailable &&
-                CrossMedia.Current.IsTakePhotoSupported &&
-                this.TagService.FileUploadIsSupported;
         }
 
         public ICommand RegisterCommand { get; }
 
         public ICommand TakePhotoCommand { get; }
+        public ICommand PickPhotoCommand { get; }
 
         public ObservableCollection<string> Countries { get; }
 
@@ -166,7 +162,31 @@ namespace XamarinApp.ViewModels.Registration
 
         public bool CanTakePhoto
         {
-            get { return (bool)GetValue(CanTakePhotoProperty); }
+            get
+            {
+                return !IsBusy && 
+                       CrossMedia.IsSupported &&
+                       CrossMedia.Current.IsCameraAvailable &&
+                       CrossMedia.Current.IsTakePhotoSupported &&
+                       this.TagService.FileUploadIsSupported;
+                //return (bool)GetValue(CanTakePhotoProperty);
+            }
+            set { SetValue(CanTakePhotoProperty, value); }
+        }
+
+        public static readonly BindableProperty CanPickPhotoProperty =
+            BindableProperty.Create("CanPickPhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+
+        public bool CanPickPhoto
+        {
+            get
+            {
+                return !IsBusy && 
+                       CrossMedia.IsSupported &&
+                       CrossMedia.Current.IsPickPhotoSupported &&
+                       this.TagService.FileUploadIsSupported;
+                //return (bool)GetValue(CanPickPhotoProperty);
+            }
             set { SetValue(CanTakePhotoProperty, value); }
         }
 
@@ -174,7 +194,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task TakePhoto()
         {
-            MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
+            MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
                 MaxWidthHeight = 1024,
                 CompressionQuality = 100,
@@ -190,6 +210,28 @@ namespace XamarinApp.ViewModels.Registration
             if (photo is null)
                 return;
 
+            await AddPhoto(photo);
+        }
+
+        private async Task PickPhoto()
+        {
+            MediaFile photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+            {
+                MaxWidthHeight = 1024,
+                CompressionQuality = 100,
+                ModalPresentationStyle = MediaPickerModalPresentationStyle.FullScreen,
+                RotateImage = true,
+                SaveMetaData = true,
+            });
+
+            if (photo is null)
+                return;
+
+            await AddPhoto(photo);
+        }
+
+        private async Task AddPhoto(MediaFile photo)
+        {
             byte[] bytes;
             using (MemoryStream ms = new MemoryStream())
             {
@@ -225,15 +267,14 @@ namespace XamarinApp.ViewModels.Registration
                 return;
             }
 
-            IsBusy = true;
-            RegisterCommand.ChangeCanExecute();
+            SetIsBusy(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
 
             try
             {
                 this.LegalIdentity = await this.TagService.AddLegalIdentityAsync(GetProperties(), this.photos.Values.ToArray());
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    SetIsDone(RegisterCommand);
+                    SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
                     OnStepCompleted(EventArgs.Empty);
                 });
             }
@@ -243,7 +284,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             finally
             {
-                BeginInvokeSetIsDone(RegisterCommand);
+                BeginInvokeSetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
             }
         }
 

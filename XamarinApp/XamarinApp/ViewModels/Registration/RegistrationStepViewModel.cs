@@ -43,5 +43,14 @@ namespace XamarinApp.ViewModels.Registration
                 command.ChangeCanExecute();
             }
         }
+
+        protected void SetIsBusy(params ICommand[] commands)
+        {
+            IsBusy = true;
+            foreach (ICommand command in commands)
+            {
+                command.ChangeCanExecute();
+            }
+        }
     }
 }

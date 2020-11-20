@@ -17,7 +17,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Margin="20" Text="{x:Static resources:AppResources.WelcomeToTagHeading}" HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
+                <Label Grid.Row="0" Margin="20" Text="{x:Static resources:AppResources.WelcomeToTagHeading}" VerticalOptions="Start" Style="{StaticResource Heading}" />
                 <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagSubheading}" VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
 
                 <StackLayout Grid.Row="2" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">

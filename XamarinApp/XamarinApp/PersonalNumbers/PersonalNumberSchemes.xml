@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<Entries>
+  <Entry country="BR" displayString="NNN.NNN.NNN-NN">
+    <Pattern variable="CPF"><![CDATA[CPF like "\\d{3}[.]?\\d{3}[.]?\\d{3}-?\\d{2}"]]></Pattern>
+  </Entry>
+  <Entry country="CL" displayString="NN.NNN.NNN-N">
+    <Pattern variable="RUN"><![CDATA[RUN like "\\d{2}[.]?\\d{3}[.]?\\d{3}-?[\\dK]"]]></Pattern>
+  </Entry>
+  <Entry country="SE" displayString="YYMMDD-NNNN">
+    <Pattern variable="PNR"><![CDATA[PNR like "(?'D1'\\d)(?'D2'\\d)(?'D3'\\d)(?'D4'\\d)(?'D5'\\d)(?'D6'\\d)-?(?'D7'\\d)(?'D8'\\d)(?'D9'\\d)(?'D10'\\d)"]]></Pattern>
+    <Check><![CDATA[v:=[D1,D2,D3,D4,D5,D6,D7,D8,D9,D10].*[2,1,2,1,2,1,2,1,2,1];sum(v > 9 ? v-9 : v) MOD 10 = 0]]></Check>
+  </Entry>
+  <Entry country="US" displayString="NNNNNNNNN">
+    <Pattern variable="SSN"><![CDATA[SSN like "\\d{9}"]]></Pattern>
+  </Entry>
+</Entries>

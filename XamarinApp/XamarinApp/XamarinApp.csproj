@@ -16,6 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PersonalNumbers\PersonalNumberSchemes.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="PersonalNumbers\PersonalNumberSchemes.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />

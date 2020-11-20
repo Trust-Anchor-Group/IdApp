@@ -5,66 +5,89 @@
              xmlns:behaviors="clr-namespace:XamarinApp.Behaviors;assembly=XamarinApp"
              xmlns:resources="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Registration.RegisterIdentityView">
-  <ContentView.Content>
-        <ScrollView Margin="{StaticResource DefaultMargin}">
-            <StackLayout x:Name="RegistrationLayout" Margin="{StaticResource DefaultMargin}">
-                <Label Text="Personal/Legal Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource Heading}" />
-                <Label Text="To be able to get a wallet, perform transactions and sign smart contracts, you need an attested personal or legal identity assigned to your account." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-                <Entry x:Name="FirstNameEntry" Margin="{StaticResource DefaultTopOnlyMargin}" Placeholder="{x:Static resources:AppResources.FirstName}" Text="{Binding Path=FirstName}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="MiddleNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="MiddleNamesEntry" Placeholder="{x:Static resources:AppResources.MiddleNames}" Text="{Binding Path=MiddleNames}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="LastNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="LastNamesEntry" Placeholder="{x:Static resources:AppResources.LastNames}" Text="{Binding Path=LastNames}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PersonalNumberEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="PersonalNumberEntry" Placeholder="{x:Static resources:AppResources.PersonalNumber}" Text="{Binding Path=PersonalNumber}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="AddressEntry" Placeholder="{x:Static resources:AppResources.Address}" Text="{Binding Path=Address}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="Address2Entry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="Address2Entry" Placeholder="{x:Static resources:AppResources.Address2}" Text="{Binding Path=Address2}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PostalCodeEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="PostalCodeEntry" Placeholder="{x:Static resources:AppResources.PostalCode}" Text="{Binding Path=PostalCode}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="AreaEntry" Placeholder="{x:Static resources:AppResources.Area}" Text="{Binding Path=Area}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="CityEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="CityEntry" Placeholder="{x:Static resources:AppResources.City}" Text="{Binding Path=City}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegionEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Entry x:Name="RegionEntry" Placeholder="{x:Static resources:AppResources.Region}" Text="{Binding Path=Region}" IsEnabled="{Binding Path=IsBusy}">
-                    <Entry.Behaviors>
-                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="CountryPicker" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
-                    </Entry.Behaviors>
-                </Entry>
-                <Label Text="{x:Static resources:AppResources.Country}" />
-                <Picker x:Name="CountryPicker" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}"/>
-                <Button x:Name="AddPhotoButton" Text="{x:Static resources:AppResources.TakePhoto}" Command="{Binding Path=TakePhotoCommand}" IsVisible="{Binding Path=CanTakePhoto}" IsEnabled="{Binding Path=IsBusy}"/>
-                <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}"/>
-                <Button x:Name="RegisterButton" Text="{x:Static resources:AppResources.Register}" Command="{Binding Path=RegisterCommand}"/>
+    <ContentView.Content>
+        <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
+            <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
+                <Label Text="Personal/Legal Information" VerticalOptions="Start" Style="{StaticResource Heading}" />
+                <Grid RowSpacing="2" ColumnSpacing="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="32"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="32"/>
+                        <ColumnDefinition Width="32"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Margin="{StaticResource DefaultRightOnlyMargin}" Text="{x:Static resources:AppResources.PersonalLegalInfoText}" />
+                    <Image BackgroundColor="Red" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Aspect="AspectFill" Width="64" Height="64" Margin="0"/>
+                    <Button x:Name="RemovePhotoButton" Width="64" Style="{StaticResource IconButton}" Grid.Row="0" Grid.Column="2" Text="{x:Static resources:Icons.TrashAlt}" FontFamily="{StaticResource FontAwesome}" HorizontalOptions="End" VerticalOptions="Start" Command="{Binding Path=RemovePhotoCommand}" IsVisible="{Binding Path=HasPhoto}" />
+                    <Button x:Name="AddPhotoButton" Style="{StaticResource IconButton}" Grid.Row="2" Grid.Column="1" Text="{x:Static resources:Icons.Portrait}" FontFamily="{StaticResource FontAwesome}" Command="{Binding Path=TakePhotoCommand}" />
+                    <Button x:Name="PickPhotoButton" Style="{StaticResource IconButton}" Grid.Row="2" Grid.Column="2" Text="{x:Static resources:Icons.Images}" FontFamily="{StaticResource FontAwesome}" Command="{Binding Path=PickPhotoCommand}" />
+                </Grid>
+                <StackLayout Orientation="Vertical">
+                    <Entry x:Name="FirstNameEntry" Placeholder="{x:Static resources:AppResources.FirstName}" Text="{Binding Path=FirstName}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="MiddleNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="MiddleNamesEntry" Placeholder="{x:Static resources:AppResources.MiddleNames}" Text="{Binding Path=MiddleNames}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="LastNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="LastNamesEntry" Placeholder="{x:Static resources:AppResources.LastNames}" Text="{Binding Path=LastNames}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PersonalNumberEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="PersonalNumberEntry" Placeholder="{x:Static resources:AppResources.PersonalNumber}" Text="{Binding Path=PersonalNumber}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="AddressEntry" Placeholder="{x:Static resources:AppResources.Address}" Text="{Binding Path=Address}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="Address2Entry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="Address2Entry" Placeholder="{x:Static resources:AppResources.Address2}" Text="{Binding Path=Address2}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PostalCodeEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="PostalCodeEntry" Placeholder="{x:Static resources:AppResources.PostalCode}" Text="{Binding Path=PostalCode}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="AreaEntry" Placeholder="{x:Static resources:AppResources.Area}" Text="{Binding Path=Area}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="CityEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="CityEntry" Placeholder="{x:Static resources:AppResources.City}" Text="{Binding Path=City}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegionEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry x:Name="RegionEntry" Placeholder="{x:Static resources:AppResources.Region}" Text="{Binding Path=Region}" IsEnabled="{Binding Path=IsBusy}">
+                        <Entry.Behaviors>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="CountryPicker" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Label Text="{x:Static resources:AppResources.Country}" />
+                    <Picker x:Name="CountryPicker" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}"/>
+                </StackLayout>
+                <Grid VerticalOptions="EndAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ActivityIndicator Grid.Row="0" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}"/>
+                    <Button x:Name="RegisterButton" Grid.Row="1" Text="{x:Static resources:AppResources.Register}" Command="{Binding Path=RegisterCommand}"/>
+                </Grid>
             </StackLayout>
         </ScrollView>
     </ContentView.Content>

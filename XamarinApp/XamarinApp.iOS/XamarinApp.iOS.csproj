@@ -159,5 +159,6 @@
   <ItemGroup>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
+    <BundleResource Include="Resources\FontAwesome5Free-Regular-400.otf" />
   </ItemGroup>
 </Project>

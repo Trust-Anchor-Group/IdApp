@@ -340,6 +340,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To be able to get a wallet, perform transactions and sign smart contracts, you need an attested personal or legal identity assigned to your account..
+        /// </summary>
+        internal static string PersonalLegalInfoText {
+            get {
+                return ResourceManager.GetString("PersonalLegalInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal number.
         /// </summary>
         internal static string PersonalNumber {
@@ -354,6 +363,15 @@ namespace XamarinApp {
         internal static string PhotoIsTooLarge {
             get {
                 return ResourceManager.GetString("PhotoIsTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick photo.
+        /// </summary>
+        internal static string PickPhoto {
+            get {
+                return ResourceManager.GetString("PickPhoto", resourceCulture);
             }
         }
         

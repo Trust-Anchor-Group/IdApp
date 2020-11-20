@@ -210,11 +210,17 @@
   <data name="PeerReviewRejected" xml:space="preserve">
     <value>Peer review rejected</value>
   </data>
+  <data name="PersonalLegalInfoText" xml:space="preserve">
+    <value>To be able to get a wallet, perform transactions and sign smart contracts, you need an attested personal or legal identity assigned to your account.</value>
+  </data>
   <data name="PersonalNumber" xml:space="preserve">
     <value>Personal number</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Photo is too large</value>
+  </data>
+  <data name="PickPhoto" xml:space="preserve">
+    <value>Pick photo</value>
   </data>
   <data name="PostalCode" xml:space="preserve">
     <value>Zip or Postal Code</value>
