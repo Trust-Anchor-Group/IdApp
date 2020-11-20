@@ -4,11 +4,18 @@
              x:Class="XamarinApp.App">
     <Application.Resources>
         <OnPlatform x:TypeArguments="x:String" 
-                    x:Key="FontAwesome">
+                    x:Key="FontAwesomeRegular">
             <On Platform="Android" 
                 Value="FontAwesome5Free-Regular-400.otf#Regular" />
             <On Platform="iOS" 
                 Value="FontAwesome5Free-Regular-400" />
+        </OnPlatform>
+        <OnPlatform x:TypeArguments="x:String" 
+                    x:Key="FontAwesomeSolid">
+            <On Platform="Android" 
+                Value="FontAwesome5Free-Solid-900.otf#Regular" />
+            <On Platform="iOS" 
+                Value="FontAwesome5Free-Solid-900" />
         </OnPlatform>
         <Color x:Key="AccentColor">#BADA55</Color>
         <Color x:Key="BackgroundColor">#333333</Color>

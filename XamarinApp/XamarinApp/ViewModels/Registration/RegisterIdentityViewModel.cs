@@ -30,13 +30,36 @@ namespace XamarinApp.ViewModels.Registration
             this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
             this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => CanTakePhoto);
             this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => CanPickPhoto);
+            this.RemovePhotoCommand = new Command(_ => Image = null);
             photos = new Dictionary<string, LegalIdentityAttachment>();
         }
 
         public ICommand RegisterCommand { get; }
-
         public ICommand TakePhotoCommand { get; }
         public ICommand PickPhotoCommand { get; }
+        public ICommand RemovePhotoCommand { get; }
+
+        public static readonly BindableProperty HasPhotoProperty =
+            BindableProperty.Create("HasPhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+
+        public bool HasPhoto
+        {
+            get { return (bool) GetValue(HasPhotoProperty); }
+            set { SetValue(HasPhotoProperty, value); }
+        }
+
+        public static readonly BindableProperty ImageProperty =
+            BindableProperty.Create("Image", typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+            {
+                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
+                viewModel.HasPhoto = newValue != null;
+            });
+
+        public ImageSource Image
+        {
+            get { return (ImageSource)GetValue(ImageProperty); }
+            set { SetValue(ImageProperty, value); }
+        }
 
         public ObservableCollection<string> Countries { get; }
 
@@ -203,8 +226,8 @@ namespace XamarinApp.ViewModels.Registration
                 RotateImage = true,
                 SaveMetaData = true,
                 Directory = "Photos",
-                Name = "Photo.jpg",
-                DefaultCamera = CameraDevice.Rear
+                Name = $"Photo_{DateTime.UtcNow.Ticks}.jpg",
+                DefaultCamera = CameraDevice.Front
             });
 
             if (photo is null)
@@ -232,25 +255,25 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task AddPhoto(MediaFile photo)
         {
-            byte[] bytes;
-            using (MemoryStream ms = new MemoryStream())
+            MemoryStream ms = new MemoryStream();
+            using (Stream f = photo.GetStream())
             {
-                using (Stream f = photo.GetStream())
-                {
-                    f.CopyTo(ms);
-                }
-                ms.Reset();
-                bytes = ms.ToArray();
+                f.CopyTo(ms);
             }
+            ms.Reset();
+            byte[] bytes = ms.ToArray();
 
             if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
+                ms.Dispose();
                 await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
                 return;
             }
 
             string photoId = Guid.NewGuid().ToString();
             this.photos[photoId] = new LegalIdentityAttachment(photo.Path, Constants.MimeTypes.Jpeg, bytes);
+            ms.Reset();
+            Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
         }
 
         private async Task Register()
