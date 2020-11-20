@@ -165,6 +165,16 @@ namespace XamarinApp.ViewModels.Registration
         {
             if (CreateNew)
             {
+                if (string.IsNullOrWhiteSpace(AccountName))
+                {
+                    if (alertUser)
+                    {
+                        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
+                    }
+
+                    return false;
+                }
+
                 if (CreateRandomPassword)
                 {
                     return true;
@@ -212,7 +222,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             try
             {
-                string password = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
+                string passwordToUse = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
 
                 (string hostName, int portNumber) = await TagProfile.GetXmppHostnameAndPort();
 
@@ -223,12 +233,12 @@ namespace XamarinApp.ViewModels.Registration
                     return Task.CompletedTask;
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {
                     if (this.CreateRandomPassword)
-                        await this.MessageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, Password), AppResources.Ok);
+                        await this.MessageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
                     return true;
                 }
                 else

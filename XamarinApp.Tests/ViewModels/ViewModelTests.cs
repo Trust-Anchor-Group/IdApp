@@ -13,7 +13,7 @@ namespace XamarinApp.Tests.ViewModels
 
         protected abstract T AViewModel();
 
-        protected T Given<T>(Func<T> func)
+        protected T Given(Func<T> func)
         {
             return func();
         }

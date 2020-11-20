@@ -28,8 +28,8 @@ namespace XamarinApp.ViewModels.Registration
                 this.Countries.Add(country);
             this.SelectedCountry = null;
             this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
-            this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => CanTakePhoto);
-            this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => CanPickPhoto);
+            this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
+            this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
             this.RemovePhotoCommand = new Command(_ => Image = null);
             photos = new Dictionary<string, LegalIdentityAttachment>();
         }
@@ -64,7 +64,11 @@ namespace XamarinApp.ViewModels.Registration
         public ObservableCollection<string> Countries { get; }
 
         public static readonly BindableProperty SelectedCountryProperty =
-            BindableProperty.Create("SelectedCountry", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("SelectedCountry", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
+                viewModel.RegisterCommand.ChangeCanExecute();
+            });
 
         public string SelectedCountry
         {
@@ -73,7 +77,11 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty FirstNameProperty =
-            BindableProperty.Create("FirstName", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("FirstName", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
+                viewModel.RegisterCommand.ChangeCanExecute();
+            });
 
         public string FirstName
         {
@@ -82,7 +90,11 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty MiddleNamesProperty =
-            BindableProperty.Create("MiddleNames", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("MiddleNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
+                viewModel.RegisterCommand.ChangeCanExecute();
+            });
 
         public string MiddleNames
         {
@@ -100,7 +112,11 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty PersonalNumberProperty =
-            BindableProperty.Create("PersonalNumber", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("PersonalNumber", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
+                viewModel.RegisterCommand.ChangeCanExecute();
+            });
 
         public string PersonalNumber
         {
@@ -180,43 +196,19 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(DeviceIdProperty, value); }
         }
 
-        public static readonly BindableProperty CanTakePhotoProperty =
-            BindableProperty.Create("CanTakePhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
-
-        public bool CanTakePhoto
-        {
-            get
-            {
-                return !IsBusy && 
-                       CrossMedia.IsSupported &&
-                       CrossMedia.Current.IsCameraAvailable &&
-                       CrossMedia.Current.IsTakePhotoSupported &&
-                       this.TagService.FileUploadIsSupported;
-                //return (bool)GetValue(CanTakePhotoProperty);
-            }
-            set { SetValue(CanTakePhotoProperty, value); }
-        }
-
-        public static readonly BindableProperty CanPickPhotoProperty =
-            BindableProperty.Create("CanPickPhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
-
-        public bool CanPickPhoto
-        {
-            get
-            {
-                return !IsBusy && 
-                       CrossMedia.IsSupported &&
-                       CrossMedia.Current.IsPickPhotoSupported &&
-                       this.TagService.FileUploadIsSupported;
-                //return (bool)GetValue(CanPickPhotoProperty);
-            }
-            set { SetValue(CanTakePhotoProperty, value); }
-        }
-
         public LegalIdentity LegalIdentity { get; private set; }
 
         private async Task TakePhoto()
         {
+            if (!(CrossMedia.IsSupported &&
+                CrossMedia.Current.IsCameraAvailable &&
+                CrossMedia.Current.IsTakePhotoSupported &&
+                this.TagService.FileUploadIsSupported))
+            {
+                await this.MessageService.DisplayAlert(AppResources.TakePhoto, "message");
+                return;
+            }
+
             MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
             {
                 MaxWidthHeight = 1024,
@@ -238,6 +230,14 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task PickPhoto()
         {
+            if (!(CrossMedia.IsSupported &&
+                  CrossMedia.Current.IsPickPhotoSupported &&
+                  this.TagService.FileUploadIsSupported))
+            {
+                await this.MessageService.DisplayAlert(AppResources.PickPhoto, "message");
+                return;
+            }
+
             MediaFile photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
             {
                 MaxWidthHeight = 1024,

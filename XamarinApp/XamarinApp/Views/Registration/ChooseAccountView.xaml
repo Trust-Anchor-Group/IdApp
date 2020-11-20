@@ -17,9 +17,8 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.Resources>
-                <converters:BooleanConverter x:Key="BooleanConverter"/>
-                <converters:BooleanToBoldFontConverter x:Key="BooleanToBoldFontConverter"/>
-                <converters:BooleanToBoldFontConverter x:Key="InvertedBooleanToBoldFontConverter" Invert="True"/>
+                <converters:BooleanToBoldFontConverter x:Key="BooleanToBoldFont"/>
+                <converters:BooleanToBoldFontConverter x:Key="InvertedBooleanToBoldFont" Invert="True"/>
             </Grid.Resources>
 
             <Label Grid.Row="0" Text="{x:Static resources:AppResources.ChooseAccount}" VerticalOptions="Center" Style="{StaticResource Heading}" />
@@ -33,7 +32,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- TAB 1 -->
-                <Label Text="{x:Static resources:AppResources.CreateNew}" Grid.Column="0" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource BooleanToBoldFontConverter}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Label Text="{x:Static resources:AppResources.CreateNew}" Grid.Column="0" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource BooleanToBoldFont}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                 <BoxView Grid.Column="0" IsVisible="{Binding Path=CreateNew}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
                 <ContentView BackgroundColor="Transparent" Grid.Column="0" VerticalOptions="Fill">
                     <ContentView.GestureRecognizers>
@@ -42,8 +41,8 @@
                 </ContentView>
 
                 <!-- TAB 2 -->
-                <Label Text="{x:Static resources:AppResources.UseExisting}" Grid.Column="1" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource InvertedBooleanToBoldFontConverter}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNew, Converter={StaticResource BooleanConverter}}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
+                <Label Text="{x:Static resources:AppResources.UseExisting}" Grid.Column="1" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource InvertedBooleanToBoldFont}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
                 <ContentView BackgroundColor="Transparent" Grid.Column="1" VerticalOptions="Fill">
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
@@ -63,18 +62,18 @@
                     <Label Text="Random password" VerticalOptions="CenterAndExpand"/>
                     <Switch IsToggled="{Binding Path=CreateRandomPassword}" HorizontalOptions="EndAndExpand" />
                 </StackLayout>
-                <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={StaticResource BooleanConverter}}" />
-                <Entry x:Name="PasswordEntry" IsVisible="{Binding Path=CreateRandomPassword, Converter={StaticResource BooleanConverter}}" IsPassword="True" Text="{Binding Path=Password}">
+                <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" />
+                <Entry x:Name="PasswordEntry" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" IsPassword="True" Text="{Binding Path=Password}">
                     <Entry.Behaviors>
                         <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RetypePassword" BindingContext="{Binding BindingContext, Source={x:Reference CreateNewTab}}"/>
                     </Entry.Behaviors>
                 </Entry>
-                <Label Text="{x:Static resources:AppResources.RetypePassword}" IsVisible="{Binding Path=CreateRandomPassword, Converter={StaticResource BooleanConverter}}"/>
-                <Entry x:Name="RetypePassword" IsVisible="{Binding Path=CreateRandomPassword, Converter={StaticResource BooleanConverter}}" IsPassword="True" Text="{Binding Path=RetypedPassword}" />
+                <Label Text="{x:Static resources:AppResources.RetypePassword}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}"/>
+                <Entry x:Name="RetypePassword" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" IsPassword="True" Text="{Binding Path=RetypedPassword}" />
             </StackLayout>
 
             <!-- TAB 2 Contents -->
-            <StackLayout Grid.Row="3" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={StaticResource BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="StartAndExpand">
+            <StackLayout Grid.Row="3" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="StartAndExpand">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
                 <Entry Text="{Binding Path=AccountName}" />
             </StackLayout>
