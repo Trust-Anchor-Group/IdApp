@@ -201,6 +201,9 @@
   <data name="Password" xml:space="preserve">
     <value>Lösenord</value>
   </data>
+  <data name="PasswordIsInvalid" xml:space="preserve">
+    <value>Lösenordet är ogiltigt</value>
+  </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Lösenorden matchar inte</value>
   </data>

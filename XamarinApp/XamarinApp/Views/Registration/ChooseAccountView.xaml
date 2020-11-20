@@ -76,6 +76,8 @@
             <StackLayout Grid.Row="3" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="StartAndExpand">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
                 <Entry Text="{Binding Path=AccountName}" />
+                <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" />
+                <Entry IsPassword="True" Text="{Binding Path=Password}"/>
             </StackLayout>
 
             <StackLayout Grid.Row="4" Orientation="Vertical" VerticalOptions="End">

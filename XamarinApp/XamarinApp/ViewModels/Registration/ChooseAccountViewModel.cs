@@ -192,6 +192,8 @@ namespace XamarinApp.ViewModels.Registration
                 return true;
             }
 
+            // Use Existing
+
             if (string.IsNullOrWhiteSpace(DomainName))
             {
                 if (alertUser)
@@ -206,6 +208,15 @@ namespace XamarinApp.ViewModels.Registration
                 if (alertUser)
                 {
                     await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
+                }
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(Password))
+            {
+                if (alertUser)
+                {
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -238,7 +249,11 @@ namespace XamarinApp.ViewModels.Registration
                 if (succeeded)
                 {
                     if (this.CreateRandomPassword)
+                    {
                         await this.MessageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
+                        System.Diagnostics.Debug.WriteLine("Username: " + this.AccountName);
+                        System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
+                    }
                     return true;
                 }
                 else

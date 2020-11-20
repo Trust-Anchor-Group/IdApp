@@ -313,6 +313,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password is invalid.
+        /// </summary>
+        internal static string PasswordIsInvalid {
+            get {
+                return ResourceManager.GetString("PasswordIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Passwords do not match.
         /// </summary>
         internal static string PasswordsDoNotMatch {
