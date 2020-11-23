@@ -25,7 +25,7 @@
             <Label Grid.Row="1" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" />
 
             <!-- Tabs -->
-            <Grid Grid.Row="2" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand">
+            <Grid Grid.Row="2" Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>

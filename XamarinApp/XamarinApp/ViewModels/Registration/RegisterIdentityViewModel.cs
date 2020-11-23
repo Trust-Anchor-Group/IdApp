@@ -17,10 +17,12 @@ namespace XamarinApp.ViewModels.Registration
     public class RegisterIdentityViewModel : RegistrationStepViewModel
     {
         private readonly Dictionary<string, LegalIdentityAttachment> photos;
+        private readonly IContractsService contractsService;
 
-        public RegisterIdentityViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService)
+        public RegisterIdentityViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService, IContractsService contractsService)
          : base(step, tagProfile, tagService, messageService)
         {
+            this.contractsService = contractsService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
             this.DeviceId = deviceInfo?.GetDeviceID();
             this.Countries = new ObservableCollection<string>();
@@ -203,7 +205,7 @@ namespace XamarinApp.ViewModels.Registration
             if (!(CrossMedia.IsSupported &&
                 CrossMedia.Current.IsCameraAvailable &&
                 CrossMedia.Current.IsTakePhotoSupported &&
-                this.TagService.FileUploadIsSupported))
+                this.contractsService.FileUploadIsSupported))
             {
                 await this.MessageService.DisplayAlert(AppResources.TakePhoto, "message");
                 return;
@@ -232,7 +234,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             if (!(CrossMedia.IsSupported &&
                   CrossMedia.Current.IsPickPhotoSupported &&
-                  this.TagService.FileUploadIsSupported))
+                  this.contractsService.FileUploadIsSupported))
             {
                 await this.MessageService.DisplayAlert(AppResources.PickPhoto, "message");
                 return;
@@ -294,7 +296,7 @@ namespace XamarinApp.ViewModels.Registration
 
             try
             {
-                this.LegalIdentity = await this.TagService.AddLegalIdentityAsync(GetProperties(), this.photos.Values.ToArray());
+                this.LegalIdentity = await this.contractsService.AddLegalIdentityAsync(GetProperties(), this.photos.Values.ToArray());
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);

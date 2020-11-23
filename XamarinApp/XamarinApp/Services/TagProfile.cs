@@ -31,7 +31,7 @@ namespace XamarinApp.Services
         private string pinHash = string.Empty;
         private long? httpFileUploadMaxSize = null;
         private bool usePin = false;
-        private RegistrationStep step = 0;
+        private RegistrationStep step = RegistrationStep.Operator;
 
         protected virtual void OnStepChanged(EventArgs e)
         {
@@ -359,10 +359,9 @@ namespace XamarinApp.Services
         }
 
         // Step 1
-        public void SetDomain(string domainName, string legalJid)
+        public void SetDomain(string domainName)
         {
             this.Domain = domainName;
-            this.LegalJid = legalJid;
             if (!string.IsNullOrWhiteSpace(Domain) && Step == RegistrationStep.Operator)
             {
                 IncrementConfigurationStep();

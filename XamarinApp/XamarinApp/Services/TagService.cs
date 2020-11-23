@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Waher.Content;
-using Xamarin.Forms;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.ServiceDiscovery;
-using Waher.Runtime.Temporary;
 using XamarinApp.Extensions;
 
 namespace XamarinApp.Services
 {
     internal sealed class TagService : LoadableService, ITagService
     {
-        private static readonly TimeSpan FileUploadTimeout = TimeSpan.FromSeconds(30);
         private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(10);
         private static readonly TimeSpan PresenceTimeout = TimeSpan.FromSeconds(1);
         private static readonly TimeSpan ReconnectInterval = TimeSpan.FromMinutes(1);
@@ -28,20 +21,16 @@ namespace XamarinApp.Services
         private readonly TagProfile tagProfile;
         private Timer reconnectTimer = null;
         private XmppClient xmppClient = null;
-        private ContractsClient contractsClient = null;
-        private HttpFileUploadClient fileUploadClient = null;
         private string domainName = null;
         private string accountName = null;
         private string passwordHash = null;
         private string passwordHashMethod = null;
         private bool xmppSettingsOk = false;
-        private readonly IMessageService messageService;
         private readonly ISniffer sniffer;
 
-        public TagService(TagProfile tagSettings, IMessageService messageService)
+        public TagService(TagProfile tagProfile)
         {
-            this.tagProfile = tagSettings;
-            this.messageService = messageService;
+            this.tagProfile = tagProfile;
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
         }
@@ -52,60 +41,10 @@ namespace XamarinApp.Services
 
             this.tagProfile.StepChanged -= TagProfile_StepChanged;
 
-            this.DestroyFileUploadClient();
-            this.DestroyContractsClient();
             this.DestroyXmppClient();
         }
 
         #region Create/Destroy
-
-        private async Task CreateContractsClient()
-        {
-            if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid) && !(xmppClient is null))
-            {
-                this.contractsClient = await ContractsClient.Create(xmppClient, this.tagProfile.LegalJid);
-                this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
-                this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
-                this.contractsClient.PetitionedIdentityResponseReceived += ContractsClient_PetitionedIdentityResponseReceived;
-                this.contractsClient.PetitionForContractReceived += ContractsClient_PetitionForContractReceived;
-                this.contractsClient.PetitionedContractResponseReceived += ContractsClient_PetitionedContractResponseReceived;
-                this.contractsClient.PetitionForSignatureReceived += ContractsClient_PetitionForSignatureReceived;
-                this.contractsClient.PetitionedSignatureResponseReceived += ContractsClient_PetitionedSignatureResponseReceived;
-                this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIDReceived;
-                this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIDResponseReceived;
-            }
-        }
-
-        private void DestroyContractsClient()
-        {
-            if (this.contractsClient != null)
-            {
-                this.contractsClient.IdentityUpdated -= ContractsClient_IdentityUpdated;
-                this.contractsClient.PetitionForIdentityReceived -= ContractsClient_PetitionForIdentityReceived;
-                this.contractsClient.PetitionedIdentityResponseReceived -= ContractsClient_PetitionedIdentityResponseReceived;
-                this.contractsClient.PetitionForContractReceived -= ContractsClient_PetitionForContractReceived;
-                this.contractsClient.PetitionedContractResponseReceived -= ContractsClient_PetitionedContractResponseReceived;
-                this.contractsClient.PetitionForSignatureReceived -= ContractsClient_PetitionForSignatureReceived;
-                this.contractsClient.PetitionedSignatureResponseReceived -= ContractsClient_PetitionedSignatureResponseReceived;
-                this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIDReceived;
-                this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIDResponseReceived;
-                this.contractsClient.Dispose();
-            }
-        }
-
-        private void CreateFileUploadClient()
-        {
-            if (!string.IsNullOrEmpty(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue && !(this.xmppClient is null))
-            {
-                this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize.Value);
-            }
-        }
-
-        private void DestroyFileUploadClient()
-        {
-            fileUploadClient?.Dispose();
-            fileUploadClient = null;
-        }
 
         private async Task CreateXmppClient()
         {
@@ -153,28 +92,24 @@ namespace XamarinApp.Services
 
         #endregion
 
-        private bool ShouldCreateClients()
+        private bool ShouldCreateClient()
         {
             return this.tagProfile.Step >= RegistrationStep.Account && this.xmppClient == null;
         }
 
-        private bool ShouldDestroyClients()
+        private bool ShouldDestroyClient()
         {
             return this.tagProfile.Step < RegistrationStep.Account && this.xmppClient != null;
         }
 
         private async void TagProfile_StepChanged(object sender, EventArgs e)
         {
-            if (ShouldCreateClients())
+            if (ShouldCreateClient())
             {
                 await this.CreateXmppClient();
-                await this.CreateContractsClient();
-                this.CreateFileUploadClient();
             }
-            else if (ShouldDestroyClients())
+            else if (ShouldDestroyClient())
             {
-                this.DestroyFileUploadClient();
-                this.DestroyContractsClient();
                 this.DestroyXmppClient();
             }
         }
@@ -218,11 +153,9 @@ namespace XamarinApp.Services
             {
                 this.BeginLoad();
 
-                if (ShouldCreateClients())
+                if (ShouldCreateClient())
                 {
                     await this.CreateXmppClient();
-                    await this.CreateContractsClient();
-                    this.CreateFileUploadClient();
                 }
                 this.xmppClient?.SetPresence(Availability.Online);
 
@@ -243,8 +176,6 @@ namespace XamarinApp.Services
                 await offlineSent.Task;
             }
 
-            this.DestroyFileUploadClient();
-            this.DestroyContractsClient();
             this.DestroyXmppClient();
 
             this.EndUnload();
@@ -277,9 +208,7 @@ namespace XamarinApp.Services
         public bool IsOnline => !(xmppClient is null) && xmppClient.State == XmppState.Connected;
 
         public XmppState State => xmppClient?.State ?? XmppState.Offline;
-        //public string Domain => xmpp?.Domain ?? string.Empty;
-        //public string Account => tagProfile.Account ?? string.Empty;
-        //public string Host => xmpp?.Host ?? string.Empty;
+
         public string BareJId => xmppClient?.BareJID ?? string.Empty;
 
         #endregion
@@ -434,198 +363,42 @@ namespace XamarinApp.Services
 
         #region Legal Identity
 
-        public event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
 
-        private void OnLegalIdentityChanged(LegalIdentityChangedEventArgs e)
-        {
-            LegalIdentityChanged?.Invoke(this, e);
-        }
-
-        public async Task<LegalIdentity> AddLegalIdentityAsync(List<Property> properties, params LegalIdentityAttachment[] attachments)
-        {
-            AssertContractsIsAvailable();
-            AssertFileUploadIsAvailable();
-
-            LegalIdentity identity = await contractsClient.ApplyAsync(properties.ToArray());
-
-            foreach (var a in attachments)
-            {
-                HttpFileUploadEventArgs e2 = await fileUploadClient.RequestUploadSlotAsync(Path.GetFileName(a.Filename), a.ContentType, a.ContentLength);
-                if (!e2.Ok)
-                {
-                    throw new Exception(e2.ErrorText);
-                }
-
-                await e2.PUT(a.Data, a.ContentType, (int)FileUploadTimeout.TotalMilliseconds);
-
-                byte[] signature = await contractsClient.SignAsync(a.Data);
-
-                identity = await contractsClient.AddLegalIdAttachmentAsync(identity.Id, e2.GetUrl, signature);
-            }
-
-            return identity;
-        }
-
-        public Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.GetLegalIdentityAsync(legalIdentityId);
-        }
-
-        public Task PetitionIdentityAsync(string legalId, string petitionId, string purpose)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionIdentityAsync(legalId, petitionId, purpose);
-        }
-
-        public Task SendPetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionIdentityResponseAsync(legalId, petitionId, requestorFullJid, response);
-        }
-
-        public Task SendPetitionContractResponseAsync(string contractId, string petitionId, string requestorFullJid, bool response)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
-        }
-
-        public Task SendPetitionSignatureResponseAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
-        }
-
-        public Task PetitionPeerReviewIDAsync(string legalId, LegalIdentity identity, string petitionId, string purpose)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
-        }
-
-        public Task<byte[]> SignAsync(byte[] data)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.SignAsync(data);
-        }
-
-        public Task<LegalIdentity[]> GetLegalIdentitiesAsync()
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.GetLegalIdentitiesAsync();
-        }
-
-        public Task<LegalIdentity> ObsoleteLegalIdentityAsync(string legalIdentityId)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.ObsoleteLegalIdentityAsync(legalIdentityId);
-        }
-
-        public Task<LegalIdentity> CompromisedLegalIdentityAsync(string legalIdentityId)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.CompromisedLegalIdentityAsync(legalIdentityId);
-        }
 
         #endregion
 
-        #region Contracts
-
-        public Task PetitionContractAsync(string contractId, string petitionId, string purpose)
+        public Task<ContractsClient> CreateContractsClientAsync()
         {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionContractAsync(contractId, petitionId, purpose);
-        }
-
-        public Task<Contract> GetContractAsync(string contractId)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.GetContractAsync(contractId);
-        }
-
-        public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url);
-        }
-
-        public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url, TimeSpan timeout)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url, (int)timeout.TotalMilliseconds);
-        }
-
-        public Task<Contract> CreateContractAsync(
-            string templateId,
-            Part[] parts,
-            Parameter[] parameters,
-            ContractVisibility visibility,
-            ContractParts partsMode,
-            Duration duration,
-            Duration archiveRequired,
-            Duration archiveOptional,
-            DateTime? signAfter,
-            DateTime? signBefore,
-            bool canActAsTemplate)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.CreateContractAsync(templateId, parts, parameters, visibility, partsMode, duration, archiveRequired, archiveOptional, signAfter, signBefore, canActAsTemplate);
-        }
-
-        public Task<Contract> DeleteContractAsync(string contractId)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.DeleteContractAsync(contractId);
-        }
-
-        public Task<string[]> GetCreatedContractsAsync()
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.GetCreatedContractsAsync();
-        }
-
-        public Task<string[]> GetSignedContractsAsync()
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.GetSignedContractsAsync();
-        }
-
-        public Task<Contract> SignContractAsync(Contract contract, string role, bool transferable)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.SignContractAsync(contract, role, transferable);
-        }
-
-        public Task<Contract> ObsoleteContractAsync(string contractId)
-        {
-            AssertContractsIsAvailable();
-            return contractsClient.ObsoleteContractAsync(contractId);
-        }
-
-        #endregion
-
-        private void AssertContractsIsAvailable()
-        {
-            if (contractsClient == null || string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+            if (this.xmppClient == null)
             {
-                throw new XmppFeatureNotSupportedException("Contracts is not supported");
+                throw new InvalidOperationException("XmppClient is not connected");
             }
-        }
-
-        private void AssertFileUploadIsAvailable()
-        {
-            if (fileUploadClient == null || !this.tagProfile.FileUploadIsSupported)
+            if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
-                throw new XmppFeatureNotSupportedException("FileUpload is not supported");
+                throw new InvalidOperationException("LegalJid is not defined");
             }
+
+            return ContractsClient.Create(this.xmppClient, this.tagProfile.LegalJid);
         }
 
-        #region Configuration
 
-        public bool FileUploadIsSupported =>
-            tagProfile.FileUploadIsSupported &&
-            !(fileUploadClient is null) && fileUploadClient.HasSupport;
+        public Task<HttpFileUploadClient> CreateFileUploadClientAsync()
+        {
+            if (this.xmppClient == null)
+            {
+                throw new InvalidOperationException("XmppClient is not connected");
+            }
+            if (string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid))
+            {
+                throw new InvalidOperationException("HttpFileUploadJid is not defined");
+            }
+            if (this.tagProfile.HttpFileUploadMaxSize.HasValue)
+            {
+                throw new InvalidOperationException("HttpFileUploadMaxSize is missing");
+            }
 
-        #endregion
+            return Task.FromResult(new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize));
+        }
 
         public async Task<bool> CheckServices()
         {
@@ -710,147 +483,6 @@ namespace XamarinApp.Services
                 return false;
 
             return true;
-        }
-
-        private Task ContractsClient_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
-        {
-            // TODO: where to listen to/fire event and switch page?
-
-            //if (!e.Response || e.RequestedContract is null)
-            //	Device.BeginInvokeOnMainThread(() => this.messageService.DisplayAlert("Message", "Petition to view contract was denied.", AppResources.Ok));
-            //else
-            //	App.ShowPage(new ViewContractPage(App.Instance.MainPage, e.RequestedContract, false), false);
-
-            return Task.CompletedTask;
-        }
-
-        private async Task ContractsClient_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
-        {
-            try
-            {
-                Contract Contract = await contractsClient.GetContractAsync(e.RequestedContractId);
-
-                if (Contract.State == ContractState.Deleted ||
-                    Contract.State == ContractState.Rejected)
-                {
-                    await contractsClient.PetitionContractResponseAsync(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
-                }
-                else
-                {
-                    // TODO: where to listen to/fire event and switch page?
-                    //App.ShowPage(new PetitionContractPage(App.Instance.MainPage, e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose), false);
-                }
-            }
-            catch (Exception)
-            {
-                await contractsClient.PetitionContractResponseAsync(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
-            }
-        }
-
-        private Task ContractsClient_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
-        {
-            // TODO: where to listen to/fire event and switch page?
-
-            //         if (!e.Response || e.RequestedIdentity is null)
-            //	Device.BeginInvokeOnMainThread(() => this.messageService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok));
-            //else
-            //	App.ShowPage(new Views.IdentityPage(App.Instance.MainPage, e.RequestedIdentity), false);
-
-            return Task.CompletedTask;
-        }
-
-        private async Task ContractsClient_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
-        {
-            try
-            {
-                LegalIdentity identity;
-
-                if (e.RequestedIdentityId == this.tagProfile.LegalIdentity.Id)
-                    identity = this.tagProfile.LegalIdentity;
-                else
-                    identity = await contractsClient.GetLegalIdentityAsync(e.RequestedIdentityId);
-
-                if (identity.State == IdentityState.Compromised ||
-                    identity.State == IdentityState.Rejected)
-                {
-                    await contractsClient.PetitionIdentityResponseAsync(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
-                }
-                else
-                {
-                    // TODO: where to listen to/fire event and switch page?
-                    //App.ShowPage(new PetitionIdentityPage(App.Instance.MainPage, e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose), false);
-                }
-            }
-            catch (Exception)
-            {
-                await contractsClient.PetitionIdentityResponseAsync(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
-            }
-        }
-
-        private async Task ContractsClient_PetitionedPeerReviewIDResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
-        {
-            try
-            {
-                if (!e.Response)
-                {
-                    Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayAlert(AppResources.PeerReviewRejected,
-                        "A peer you requested to review your application, has rejected to approve it.", AppResources.Ok));
-                }
-                else
-                {
-                    StringBuilder xml = new StringBuilder();
-                    tagProfile.LegalIdentity.Serialize(xml, true, true, true, true, true, true, true);
-                    byte[] Data = Encoding.UTF8.GetBytes(xml.ToString());
-
-                    bool? Result = contractsClient.ValidateSignature(e.RequestedIdentity, Data, e.Signature);
-                    if (!Result.HasValue || !Result.Value)
-                    {
-                        Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayAlert(AppResources.PeerReviewRejected,
-                            "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok));
-                    }
-                    else
-                    {
-                        await contractsClient.AddPeerReviewIDAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
-                        Device.BeginInvokeOnMainThread(async () => await this.messageService.DisplayAlert(AppResources.PeerReviewAccepted,
-                            "A peer review you requested has been accepted.", AppResources.Ok));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
-            }
-        }
-
-        private Task ContractsClient_PetitionForPeerReviewIDReceived(object sender, SignaturePetitionEventArgs e)
-        {
-            // TODO: where to listen to event and switch page?
-            //App.ShowPage(new IdentityPage(App.CurrentPage, e.RequestorIdentity, e), false);
-            return Task.CompletedTask;
-        }
-
-        private Task ContractsClient_PetitionedSignatureResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
-        {
-            return Task.CompletedTask;
-        }
-
-        private Task ContractsClient_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
-        {
-            // Reject all signature requests by default
-            return contractsClient.PetitionSignatureResponseAsync(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
-        }
-
-        private Task ContractsClient_IdentityUpdated(object sender, LegalIdentityEventArgs e)
-        {
-            if (this.tagProfile.LegalIdentity is null ||
-                this.tagProfile.LegalIdentity.Id == e.Identity.Id ||
-                this.tagProfile.LegalIdentity.Created < e.Identity.Created)
-            {
-                this.tagProfile.SetLegalIdentity(e.Identity);
-                OnLegalIdentityChanged(new LegalIdentityChangedEventArgs(e.Identity));
-            }
-
-            return Task.CompletedTask;
         }
 
         private void ReconnectTimer_Tick(object _)

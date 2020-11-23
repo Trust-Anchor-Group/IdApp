@@ -11,12 +11,14 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ChooseAccountViewModel : RegistrationStepViewModel
     {
+        private readonly IContractsService contractsService;
         private readonly IAuthService authService;
 
-        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService, IAuthService authService)
+        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService, IAuthService authService, IContractsService contractsService)
             : base(step, tagProfile, tagService, messageService)
         {
             this.authService = authService;
+            this.contractsService = contractsService;
             IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
             DomainName = TagProfile.Domain;
             AccountName = TagProfile.Account;
@@ -289,7 +291,7 @@ namespace XamarinApp.ViewModels.Registration
 
                         if (!string.IsNullOrEmpty(this.TagProfile.LegalJid) || await this.TagService.DiscoverServices(client))
                         {
-                            foreach (LegalIdentity identity in await this.TagService.GetLegalIdentitiesAsync())
+                            foreach (LegalIdentity identity in await this.contractsService.GetLegalIdentitiesAsync())
                             {
                                 if (identity.HasClientSignature &&
                                     identity.HasClientPublicKey &&

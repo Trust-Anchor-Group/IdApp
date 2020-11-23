@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Waher.Content;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Temporary;
+
+namespace XamarinApp.Services
+{
+    public interface IContractsService : IDisposable
+    {
+        Task PetitionContractAsync(string contractId, string petitionId, string purpose);
+        Task<Contract> GetContractAsync(string contractId);
+        Task<string[]> GetCreatedContractsAsync();
+        Task<string[]> GetSignedContractsAsync();
+        Task<Contract> SignContractAsync(Contract contract, string role, bool transferable);
+        Task<Contract> ObsoleteContractAsync(string contractId);
+        Task<Contract> CreateContractAsync(
+            string templateId,
+            Part[] parts,
+            Parameter[] parameters,
+            ContractVisibility visibility,
+            ContractParts partsMode,
+            Duration duration,
+            Duration archiveRequired,
+            Duration archiveOptional,
+            DateTime? signAfter,
+            DateTime? signBefore,
+            bool canActAsTemplate);
+        Task<Contract> DeleteContractAsync(string contractId);
+        Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url);
+        Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url, TimeSpan timeout);
+
+        event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
+        Task<LegalIdentity> AddLegalIdentityAsync(List<Property> properties, params LegalIdentityAttachment[] attachments);
+        Task<LegalIdentity[]> GetLegalIdentitiesAsync();
+        Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId);
+        Task PetitionIdentityAsync(string legalId, string petitionId, string purpose);
+        Task SendPetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionContractResponseAsync(string contractId, string petitionId, string requestorFullJid, bool response);
+        Task SendPetitionSignatureResponseAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
+        Task PetitionPeerReviewIdAsync(string legalId, LegalIdentity identity, string petitionId, string purpose);
+        Task<byte[]> SignAsync(byte[] data);
+        Task<LegalIdentity> ObsoleteLegalIdentityAsync(string legalIdentityId);
+        Task<LegalIdentity> CompromisedLegalIdentityAsync(string legalIdentityId);
+
+        bool FileUploadIsSupported { get; }
+    }
+}

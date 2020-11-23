@@ -11,10 +11,11 @@ namespace XamarinApp.Tests.ViewModels
         private readonly Mock<ITagService> tagService = new Mock<ITagService>();
         private readonly Mock<IMessageService> messageService = new Mock<IMessageService>();
         private readonly Mock<IAuthService> authService = new Mock<IAuthService>();
+        private readonly Mock<IContractsService> contractsService = new Mock<IContractsService>();
 
         protected override ChooseAccountViewModel AViewModel()
         {
-            return new ChooseAccountViewModel(RegistrationStep.Account, new TagProfile(), tagService.Object, messageService.Object, authService.Object);
+            return new ChooseAccountViewModel(RegistrationStep.Account, new TagProfile(), tagService.Object, messageService.Object, authService.Object, this.contractsService.Object);
         }
 
         [Test]

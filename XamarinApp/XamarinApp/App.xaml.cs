@@ -13,7 +13,6 @@ using Waher.Persistence.Files;
 using Waher.Persistence.LifeCycle;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
-using Waher.Runtime.Language;
 using Waher.Runtime.Settings;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -38,13 +37,14 @@ namespace XamarinApp
 			this.tagProfile = new TagProfile();
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
+            builder.RegisterInstance(this.tagProfile).SingleInstance();
 			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
+			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
 			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
 			builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
-            builder.RegisterInstance(this.tagProfile).SingleInstance();
             IContainer container = builder.Build();
 			// Set AutoFac to be the dependency resolver
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
@@ -87,13 +87,13 @@ namespace XamarinApp
 
 		#region Page Navigation  - will be moved
 
-		public static void ShowPage(Page Page, bool DisposeCurrent)
+		public static void ShowPage(Page page, bool DisposeCurrent)
 		{
 			void SetPage(Page p, bool disposeCurrent)
 			{
 				Page Prev = Instance.MainPage;
 
-				Instance.MainPage = Page;
+				Instance.MainPage = page;
 
 				if (disposeCurrent && Prev is IDisposable Disposable)
 					Disposable.Dispose();
@@ -102,12 +102,12 @@ namespace XamarinApp
 			{
 				Device.BeginInvokeOnMainThread(() =>
 				{
-					SetPage(Page, DisposeCurrent);
+					SetPage(page, DisposeCurrent);
 				});
 			}
 			else
 			{
-				SetPage(Page, DisposeCurrent);
+				SetPage(page, DisposeCurrent);
 			}
 		}
 
