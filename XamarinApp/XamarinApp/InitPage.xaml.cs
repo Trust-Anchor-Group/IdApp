@@ -12,7 +12,7 @@ namespace XamarinApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class InitPage
     {
-        private readonly ITagService tagService;
+        private readonly INeuronService neuronService;
         private readonly TagProfile tagProfile;
         private readonly INavigationService navigationService;
 
@@ -24,7 +24,7 @@ namespace XamarinApp
         protected internal InitPage(InitViewModel viewModel)
         {
             InitializeComponent();
-            this.tagService = DependencyService.Resolve<ITagService>();
+            this.neuronService = DependencyService.Resolve<INeuronService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             ViewModel = viewModel ?? new InitViewModel();
@@ -36,16 +36,16 @@ namespace XamarinApp
 
             await LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
 
-            this.tagService.Loaded += TagService_Loaded;
+            this.neuronService.Loaded += NeuronService_Loaded;
         }
 
         protected override void OnDisappearing()
         {
-            this.tagService.Loaded -= TagService_Loaded;
+            this.neuronService.Loaded -= NeuronService_Loaded;
             base.OnDisappearing();
         }
 
-        private void TagService_Loaded(object sender, LoadedEventArgs e)
+        private void NeuronService_Loaded(object sender, LoadedEventArgs e)
         {
             if (e.IsLoaded)
             {

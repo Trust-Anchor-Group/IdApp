@@ -14,8 +14,8 @@ namespace XamarinApp.ViewModels.Registration
         private readonly IContractsService contractsService;
         private readonly IAuthService authService;
 
-        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService, IAuthService authService, IContractsService contractsService)
-            : base(step, tagProfile, tagService, messageService)
+        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, INeuronService neuronService, IMessageService messageService, IAuthService authService, IContractsService contractsService)
+            : base(step, tagProfile, neuronService, messageService)
         {
             this.authService = authService;
             this.contractsService = contractsService;
@@ -246,7 +246,7 @@ namespace XamarinApp.ViewModels.Registration
                     return Task.CompletedTask;
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {
@@ -289,7 +289,7 @@ namespace XamarinApp.ViewModels.Registration
                         LegalIdentity createdIdentity = null;
                         LegalIdentity approvedIdentity = null;
 
-                        if (!string.IsNullOrEmpty(this.TagProfile.LegalJid) || await this.TagService.DiscoverServices(client))
+                        if (!string.IsNullOrEmpty(this.TagProfile.LegalJid) || await this.NeuronService.DiscoverServices(client))
                         {
                             foreach (LegalIdentity identity in await this.contractsService.GetLegalIdentitiesAsync())
                             {
@@ -324,7 +324,7 @@ namespace XamarinApp.ViewModels.Registration
                     }
                 }
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (!succeeded)
                 {

@@ -7,7 +7,7 @@ using Waher.Networking.XMPP.HttpFileUpload;
 
 namespace XamarinApp.Services
 {
-    public interface ITagService : IDisposable
+    public interface INeuronService : IDisposable
     {
         Task Load();
         Task Unload();

@@ -12,7 +12,7 @@ using XamarinApp.Extensions;
 
 namespace XamarinApp.Services
 {
-    internal sealed class TagService : LoadableService, ITagService
+    internal sealed class NeuronService : LoadableService, INeuronService
     {
         private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(10);
         private static readonly TimeSpan PresenceTimeout = TimeSpan.FromSeconds(1);
@@ -28,7 +28,7 @@ namespace XamarinApp.Services
         private bool xmppSettingsOk = false;
         private readonly ISniffer sniffer;
 
-        public TagService(TagProfile tagProfile)
+        public NeuronService(TagProfile tagProfile)
         {
             this.tagProfile = tagProfile;
             this.sniffer = new InMemorySniffer(250);

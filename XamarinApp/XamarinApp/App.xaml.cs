@@ -27,7 +27,7 @@ namespace XamarinApp
         private static readonly TimeSpan AutoSaveInterval = TimeSpan.FromSeconds(1);
         private Timer autoSaveTimer;
         private InternalSink internalSink;
-        private readonly ITagService tagService;
+        private readonly INeuronService neuronService;
         private readonly IStorageService storageService;
         private readonly TagProfile tagProfile;
 
@@ -38,7 +38,7 @@ namespace XamarinApp
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
             builder.RegisterInstance(this.tagProfile).SingleInstance();
-			builder.RegisterType<TagService>().As<ITagService>().SingleInstance();
+			builder.RegisterType<NeuronService>().As<INeuronService>().SingleInstance();
 			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
 			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
@@ -50,7 +50,7 @@ namespace XamarinApp
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			// Resolve what's needed for the App class
-			this.tagService = DependencyService.Resolve<ITagService>();
+			this.neuronService = DependencyService.Resolve<INeuronService>();
             this.storageService = DependencyService.Resolve<IStorageService>();
 
             this.internalSink = new InternalSink();
@@ -131,7 +131,7 @@ namespace XamarinApp
 		private async Task PerformStartup()
         {
             await this.storageService.Load();
-            await this.tagService.Load();
+            await this.neuronService.Load();
 
             TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration != null)
@@ -157,7 +157,7 @@ namespace XamarinApp
                 await vm.Unbind();
             }
 
-            await this.tagService.Unload();
+            await this.neuronService.Unload();
             await this.storageService.Unload();
         }
 

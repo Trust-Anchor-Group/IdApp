@@ -16,29 +16,29 @@ namespace XamarinApp.Services
         private static readonly TimeSpan FileUploadTimeout = TimeSpan.FromSeconds(30);
 
         private readonly TagProfile tagProfile;
-        private readonly ITagService tagService;
+        private readonly INeuronService neuronService;
         private readonly IMessageService messageService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        public ContractsService(TagProfile tagProfile, ITagService tagService, IMessageService messageService)
+        public ContractsService(TagProfile tagProfile, INeuronService neuronService, IMessageService messageService)
         {
             this.tagProfile = tagProfile;
-            this.tagService = tagService;
+            this.neuronService = neuronService;
             this.messageService = messageService;
-            this.tagService.ConnectionStateChanged += TagService_ConnectionStateChanged;
+            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 
         public void Dispose()
         {
-            this.tagService.ConnectionStateChanged -= TagService_ConnectionStateChanged;
+            this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
         }
 
         private async Task CreateContractsClient()
         {
             if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
-                this.contractsClient = await this.tagService.CreateContractsClientAsync();
+                this.contractsClient = await this.neuronService.CreateContractsClientAsync();
                 this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
                 this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
                 this.contractsClient.PetitionedIdentityResponseReceived += ContractsClient_PetitionedIdentityResponseReceived;
@@ -72,7 +72,7 @@ namespace XamarinApp.Services
         {
             if (!string.IsNullOrEmpty(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
             {
-                this.fileUploadClient = await this.tagService.CreateFileUploadClientAsync();
+                this.fileUploadClient = await this.neuronService.CreateFileUploadClientAsync();
             }
         }
 
@@ -82,9 +82,9 @@ namespace XamarinApp.Services
             fileUploadClient = null;
         }
 
-        private async void TagService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private async void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            if (this.tagService.State == XmppState.Connected)
+            if (this.neuronService.State == XmppState.Connected)
             {
                 if (this.contractsClient == null)
                 {

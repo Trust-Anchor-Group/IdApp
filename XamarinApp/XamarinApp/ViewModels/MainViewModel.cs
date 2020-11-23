@@ -6,12 +6,12 @@ namespace XamarinApp.ViewModels
     public class MainViewModel : BaseViewModel
     {
         private readonly TagProfile tagProfile;
-        private readonly ITagService tagService;
+        private readonly INeuronService neuronService;
 
         public MainViewModel()
         {
             this.tagProfile = DependencyService.Resolve<TagProfile>();
-            this.tagService = DependencyService.Resolve<ITagService>();
+            this.neuronService = DependencyService.Resolve<INeuronService>();
         }
     }
 }

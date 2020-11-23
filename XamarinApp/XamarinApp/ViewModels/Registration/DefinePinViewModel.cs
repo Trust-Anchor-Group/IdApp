@@ -5,8 +5,8 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class DefinePinViewModel : RegistrationStepViewModel
     {
-        public DefinePinViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService)
-            : base(step, tagProfile, tagService, messageService)
+        public DefinePinViewModel(RegistrationStep step, TagProfile tagProfile, INeuronService neuronService, IMessageService messageService)
+            : base(step, tagProfile, neuronService, messageService)
         {
         }
 

@@ -13,8 +13,8 @@ namespace XamarinApp.ViewModels.Registration
         private string hostName = string.Empty;
         private int portNumber;
 
-        public ChooseOperatorViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService)
-            : base(step, tagProfile, tagService, messageService)
+        public ChooseOperatorViewModel(RegistrationStep step, TagProfile tagProfile, INeuronService neuronService, IMessageService messageService)
+            : base(step, tagProfile, neuronService, messageService)
         {
             this.Operators = new ObservableCollection<string>();
             this.ConnectCommand = new Command(async () => await Connect(), ConnectCanExecute);
@@ -77,7 +77,7 @@ namespace XamarinApp.ViewModels.Registration
                 string domainName = GetOperator();
                 (this.hostName, this.portNumber) = await this.TagProfile.GetXmppHostnameAndPort(domainName);
 
-                (bool succeeded, string errorMessage) = await this.TagService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {

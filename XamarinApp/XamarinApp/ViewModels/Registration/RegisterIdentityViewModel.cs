@@ -19,8 +19,8 @@ namespace XamarinApp.ViewModels.Registration
         private readonly Dictionary<string, LegalIdentityAttachment> photos;
         private readonly IContractsService contractsService;
 
-        public RegisterIdentityViewModel(RegistrationStep step, TagProfile tagProfile, ITagService tagService, IMessageService messageService, IContractsService contractsService)
-         : base(step, tagProfile, tagService, messageService)
+        public RegisterIdentityViewModel(RegistrationStep step, TagProfile tagProfile, INeuronService neuronService, IMessageService messageService, IContractsService contractsService)
+         : base(step, tagProfile, neuronService, messageService)
         {
             this.contractsService = contractsService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
@@ -280,7 +280,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task Register()
         {
-            if (!this.TagService.IsOnline)
+            if (!this.NeuronService.IsOnline)
             {
                 await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
                 return;
@@ -360,7 +360,7 @@ namespace XamarinApp.ViewModels.Registration
             if (!string.IsNullOrWhiteSpace(s = this.DeviceId?.Trim()))
                 properties.Add(new Property("DEVICE_ID", s));
 
-            properties.Add(new Property("JID", this.TagService.BareJId));
+            properties.Add(new Property("JID", this.NeuronService.BareJId));
 
             return properties;
         }
