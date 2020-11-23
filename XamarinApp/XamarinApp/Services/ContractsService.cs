@@ -46,8 +46,8 @@ namespace XamarinApp.Services
                 this.contractsClient.PetitionedContractResponseReceived += ContractsClient_PetitionedContractResponseReceived;
                 this.contractsClient.PetitionForSignatureReceived += ContractsClient_PetitionForSignatureReceived;
                 this.contractsClient.PetitionedSignatureResponseReceived += ContractsClient_PetitionedSignatureResponseReceived;
-                this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIDReceived;
-                this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIDResponseReceived;
+                this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
+                this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
             }
         }
 
@@ -62,8 +62,8 @@ namespace XamarinApp.Services
                 this.contractsClient.PetitionedContractResponseReceived -= ContractsClient_PetitionedContractResponseReceived;
                 this.contractsClient.PetitionForSignatureReceived -= ContractsClient_PetitionForSignatureReceived;
                 this.contractsClient.PetitionedSignatureResponseReceived -= ContractsClient_PetitionedSignatureResponseReceived;
-                this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIDReceived;
-                this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIDResponseReceived;
+                this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
+                this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
                 this.contractsClient.Dispose();
             }
         }
@@ -359,7 +359,7 @@ namespace XamarinApp.Services
             }
         }
 
-        private async Task ContractsClient_PetitionedPeerReviewIDResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+        private async Task ContractsClient_PetitionedPeerReviewIdResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
         {
             try
             {
@@ -391,7 +391,7 @@ namespace XamarinApp.Services
             }
         }
 
-        private Task ContractsClient_PetitionForPeerReviewIDReceived(object sender, SignaturePetitionEventArgs e)
+        private Task ContractsClient_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
             // TODO: where to listen to event and switch page?
             //App.ShowPage(new IdentityPage(App.CurrentPage, e.RequestorIdentity, e), false);

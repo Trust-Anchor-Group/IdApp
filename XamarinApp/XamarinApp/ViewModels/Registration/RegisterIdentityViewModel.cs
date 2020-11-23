@@ -10,6 +10,7 @@ using Plugin.Media.Abstractions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
+using XamarinApp.PersonalNumbers;
 using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
@@ -280,15 +281,32 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task Register()
         {
-            if (!this.NeuronService.IsOnline)
+            if (!(await this.ValidateInput(true)))
             {
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.TagProfile.LegalJid))
+            string countryCode = ISO_3166_1.ToCode(this.SelectedCountry);
+            bool? personalNumberIsValid = PersonalNumberSchemes.IsValid(countryCode, this.PersonalNumber, out string personalNumberFormat);
+
+            if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
+            {
+                if (string.IsNullOrEmpty(personalNumberFormat))
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
+                else
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {
                 await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);
+                return;
+            }
+
+            if (!this.NeuronService.IsOnline)
+            {
+                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
                 return;
             }
 
@@ -390,6 +408,15 @@ namespace XamarinApp.ViewModels.Registration
                 if (alertUser)
                 {
                     await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAPersonalNumber);
+                }
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(this.SelectedCountry))
+            {
+                if (alertUser)
+                {
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideACountry);
                 }
                 return false;
             }

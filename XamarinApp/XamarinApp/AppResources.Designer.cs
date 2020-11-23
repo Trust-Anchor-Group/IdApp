@@ -367,6 +367,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The personal number does not match national personal number regulations.
+        /// </summary>
+        internal static string PersonalNumberDoesNotMatchCountry {
+            get {
+                return ResourceManager.GetString("PersonalNumberDoesNotMatchCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The personal number does not match national personal number regulations. Expected format: .
+        /// </summary>
+        internal static string PersonalNumberDoesNotMatchCountry_ExpectedFormat {
+            get {
+                return ResourceManager.GetString("PersonalNumberDoesNotMatchCountry_ExpectedFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Photo is too large.
         /// </summary>
         internal static string PhotoIsTooLarge {
@@ -678,6 +696,15 @@ namespace XamarinApp {
         internal static string XmppState_StreamOpened {
             get {
                 return ResourceManager.GetString("XmppState_StreamOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to select a country.
+        /// </summary>
+        internal static string YouNeedToProvideACountry {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideACountry", resourceCulture);
             }
         }
         

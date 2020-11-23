@@ -219,6 +219,12 @@
   <data name="PersonalNumber" xml:space="preserve">
     <value>Personal number</value>
   </data>
+  <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
+    <value>The personal number does not match national personal number regulations</value>
+  </data>
+  <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
+    <value>The personal number does not match national personal number regulations. Expected format: </value>
+  </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Photo is too large</value>
   </data>
@@ -323,6 +329,9 @@
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Stream established</value>
+  </data>
+  <data name="YouNeedToProvideACountry" xml:space="preserve">
+    <value>You need to select a country</value>
   </data>
   <data name="YouNeedToProvideAFirstName" xml:space="preserve">
     <value>You need to provide a first name</value>

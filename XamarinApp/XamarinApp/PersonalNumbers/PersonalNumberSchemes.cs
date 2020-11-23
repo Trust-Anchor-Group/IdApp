@@ -37,7 +37,7 @@ namespace XamarinApp.PersonalNumbers
                     {
                         string country = XML.Attribute(e, "country");
                         string variable = null;
-                        string displayString = null;
+                        string displayString = XML.Attribute(e, "displayString");
                         Expression pattern = null;
                         Expression check = null;
 
@@ -52,7 +52,6 @@ namespace XamarinApp.PersonalNumbers
                                         case "Pattern":
                                             pattern = new Expression(e2.InnerText);
                                             variable = XML.Attribute(e2, "variable");
-                                            displayString = XML.Attribute(e2, "displayString");
                                             break;
 
                                         case "Check":

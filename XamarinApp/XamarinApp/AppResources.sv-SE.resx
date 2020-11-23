@@ -219,6 +219,12 @@
   <data name="PersonalNumber" xml:space="preserve">
     <value>Personnummer</value>
   </data>
+  <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
+    <value>Personnumret matchar inte valt lands överrensstämmelser.</value>
+  </data>
+  <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
+    <value>Personnumret matchar inte valt lands överrensstämmelser. Förväntat format: </value>
+  </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Bilden är för stor</value>
   </data>
@@ -323,6 +329,9 @@
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Ström etablerad</value>
+  </data>
+  <data name="YouNeedToProvideACountry" xml:space="preserve">
+    <value>Vänligen ange ett land</value>
   </data>
   <data name="YouNeedToProvideAFirstName" xml:space="preserve">
     <value>Du behöver ange ett förnamn</value>
