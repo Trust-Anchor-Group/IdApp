@@ -26,7 +26,6 @@ namespace XamarinApp.ViewModels.Registration
                 CreateNew = !CreateNew;
                 PerformActionCommand.ChangeCanExecute();
             });
-            DomainName = TagProfile.Domain;
             AccountName = TagProfile.Account;
             ActionButtonText = AppResources.CreateNew;
             CreateNew = true;
@@ -47,6 +46,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
                 viewModel.ActionButtonText = (bool)newValue ? AppResources.CreateNew : AppResources.UseExisting;
+                viewModel.UpdatePasswordState();
             });
 
         public bool CreateNew
@@ -60,21 +60,13 @@ namespace XamarinApp.ViewModels.Registration
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
                 viewModel.PerformActionCommand.ChangeCanExecute();
+                viewModel.UpdatePasswordState();
             });
 
         public bool CreateRandomPassword
         {
             get { return (bool)GetValue(CreateRandomPasswordProperty); }
             set { SetValue(CreateRandomPasswordProperty, value); }
-        }
-
-        public static readonly BindableProperty DomainNameProperty =
-            BindableProperty.Create("DomainName", typeof(string), typeof(ChooseAccountViewModel), default(string));
-
-        public string DomainName
-        {
-            get { return (string)GetValue(DomainNameProperty); }
-            set { SetValue(DomainNameProperty, value); }
         }
 
         public static readonly BindableProperty AccountNameProperty =
@@ -94,7 +86,7 @@ namespace XamarinApp.ViewModels.Registration
             BindableProperty.Create("Password", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.ComparePasswords();
+                viewModel.UpdatePasswordState();
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
@@ -108,7 +100,7 @@ namespace XamarinApp.ViewModels.Registration
             BindableProperty.Create("RetypedPassword", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.ComparePasswords();
+                viewModel.UpdatePasswordState();
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
@@ -118,9 +110,9 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(RetypedPasswordProperty, value); }
         }
 
-        private void ComparePasswords()
+        private void UpdatePasswordState()
         {
-            PasswordsDoNotMatch = (Password != RetypedPassword);
+            PasswordsDoNotMatch = (Password != RetypedPassword) && CreateNew && !CreateRandomPassword;
         }
 
         public static readonly BindableProperty PasswordsDoNotMatchProperty =
@@ -224,7 +216,7 @@ namespace XamarinApp.ViewModels.Registration
 
             // Use Existing
 
-            if (string.IsNullOrWhiteSpace(DomainName))
+            if (string.IsNullOrWhiteSpace(this.TagProfile.Domain))
             {
                 if (alertUser)
                 {
@@ -291,7 +283,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             catch (Exception)
             {
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
+                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
             }
 
             return false;
@@ -361,7 +353,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             catch (Exception)
             {
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, DomainName), AppResources.Ok);
+                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
             }
 
             return false;
