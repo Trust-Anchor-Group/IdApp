@@ -20,6 +20,16 @@ namespace XamarinApp.Services
             return App.Instance.MainPage.Navigation.PushAsync(page);
         }
 
+        public Task ShowModal(Page page)
+        {
+            return App.Instance.MainPage.Navigation.PushModalAsync(page);
+        }
+
+        public Task HideModal()
+        {
+            return App.Instance.MainPage.Navigation.PopModalAsync();
+        }
+
         public async Task Set(Page page)
         {
             // Neat trick to replace current page but still get a page animation.

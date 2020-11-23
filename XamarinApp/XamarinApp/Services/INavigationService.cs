@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
+using XamarinApp.Views;
 
 namespace XamarinApp.Services
 {
@@ -9,5 +10,7 @@ namespace XamarinApp.Services
         Task<Page> GoBackFromModal();
         Task GoTo(Page page);
         Task Set(Page page);
+        Task ShowModal(Page page);
+        Task HideModal();
     }
 }

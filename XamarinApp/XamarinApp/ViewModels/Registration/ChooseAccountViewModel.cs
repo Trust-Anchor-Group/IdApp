@@ -14,8 +14,13 @@ namespace XamarinApp.ViewModels.Registration
         private readonly IContractsService contractsService;
         private readonly IAuthService authService;
 
-        public ChooseAccountViewModel(RegistrationStep step, TagProfile tagProfile, INeuronService neuronService, IMessageService messageService, IAuthService authService, IContractsService contractsService)
-            : base(step, tagProfile, neuronService, messageService)
+        public ChooseAccountViewModel(
+            TagProfile tagProfile, 
+            INeuronService neuronService, 
+            IMessageService messageService, 
+            IAuthService authService, 
+            IContractsService contractsService)
+            : base(RegistrationStep.Account, tagProfile, neuronService, messageService)
         {
             this.authService = authService;
             this.contractsService = contractsService;

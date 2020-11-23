@@ -20,8 +20,12 @@ namespace XamarinApp.ViewModels.Registration
         private readonly Dictionary<string, LegalIdentityAttachment> photos;
         private readonly IContractsService contractsService;
 
-        public RegisterIdentityViewModel(RegistrationStep step, TagProfile tagProfile, INeuronService neuronService, IMessageService messageService, IContractsService contractsService)
-         : base(step, tagProfile, neuronService, messageService)
+        public RegisterIdentityViewModel(
+            TagProfile tagProfile, 
+            INeuronService neuronService, 
+            IMessageService messageService, 
+            IContractsService contractsService)
+         : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, messageService)
         {
             this.contractsService = contractsService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
@@ -145,13 +149,13 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(Address2Property, value); }
         }
 
-        public static readonly BindableProperty PostalCodeProperty =
-            BindableProperty.Create("PostalCode", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+        public static readonly BindableProperty ZipCodeProperty =
+            BindableProperty.Create("ZipCode", typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
-        public string PostalCode
+        public string ZipCode
         {
-            get { return (string)GetValue(PostalCodeProperty); }
-            set { SetValue(PostalCodeProperty, value); }
+            get { return (string)GetValue(ZipCodeProperty); }
+            set { SetValue(ZipCodeProperty, value); }
         }
 
         public static readonly BindableProperty AreaProperty =
@@ -360,7 +364,7 @@ namespace XamarinApp.ViewModels.Registration
             if (!string.IsNullOrWhiteSpace(s = this.Address2?.Trim()))
                 properties.Add(new Property(Constants.XmppProperties.Address2, s));
 
-            if (!string.IsNullOrWhiteSpace(s = this.PostalCode?.Trim()))
+            if (!string.IsNullOrWhiteSpace(s = this.ZipCode?.Trim()))
                 properties.Add(new Property(Constants.XmppProperties.ZipCode, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.Area?.Trim()))

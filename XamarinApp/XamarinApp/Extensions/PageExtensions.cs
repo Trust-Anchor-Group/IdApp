@@ -6,7 +6,7 @@ namespace XamarinApp.Extensions
 {
     public static class PageExtensions
     {
-        public static async Task BindViewModel(this Page page, BaseViewModel vm)
+        public static async Task BindViewModel(this Element element, BaseViewModel vm)
         {
             if (vm != null)
             {
@@ -14,7 +14,7 @@ namespace XamarinApp.Extensions
             }
         }
 
-        public static async Task UnbindViewModel(this Page page, BaseViewModel vm)
+        public static async Task UnbindViewModel(this Element element, BaseViewModel vm)
         {
             if (vm != null)
             {

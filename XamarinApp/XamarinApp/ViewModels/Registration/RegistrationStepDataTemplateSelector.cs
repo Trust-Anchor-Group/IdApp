@@ -21,7 +21,7 @@ namespace XamarinApp.ViewModels.Registration
                     return Step2Template;
                 case RegistrationStep.RegisterIdentity:
                     return Step3Template;
-                case RegistrationStep.Identity:
+                case RegistrationStep.ValidateIdentity:
                     return Step4Template;
                 case RegistrationStep.Pin:
                     return Step5Template;

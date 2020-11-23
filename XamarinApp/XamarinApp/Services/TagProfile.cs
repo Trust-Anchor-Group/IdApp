@@ -326,11 +326,11 @@ namespace XamarinApp.Services
                     case RegistrationStep.RegisterIdentity:
                         Step = RegistrationStep.Account;
                         break;
-                    case RegistrationStep.Identity:
+                    case RegistrationStep.ValidateIdentity:
                         Step = RegistrationStep.RegisterIdentity;
                         break;
                     case RegistrationStep.Pin:
-                        Step = RegistrationStep.Identity;
+                        Step = RegistrationStep.ValidateIdentity;
                         break;
                 }
             }
@@ -347,9 +347,9 @@ namespace XamarinApp.Services
                     Step = RegistrationStep.RegisterIdentity;
                     break;
                 case RegistrationStep.RegisterIdentity:
-                    Step = RegistrationStep.Identity;
+                    Step = RegistrationStep.ValidateIdentity;
                     break;
-                case RegistrationStep.Identity:
+                case RegistrationStep.ValidateIdentity:
                     Step = RegistrationStep.Pin;
                     break;
                 case RegistrationStep.Pin:
@@ -466,7 +466,7 @@ namespace XamarinApp.Services
         Operator = 0,
         Account = 1,
         RegisterIdentity = 2,
-        Identity = 3,
+        ValidateIdentity = 3,
         Pin = 4
     }
 

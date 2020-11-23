@@ -57,10 +57,10 @@
                     </Entry>
                     <Entry x:Name="Address2Entry" Placeholder="{x:Static resources:AppResources.Address2}" Text="{Binding Path=Address2}" IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}">
                         <Entry.Behaviors>
-                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PostalCodeEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="ZipCodeEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>
                     </Entry>
-                    <Entry x:Name="PostalCodeEntry" Placeholder="{x:Static resources:AppResources.PostalCode}" Text="{Binding Path=PostalCode}" IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}">
+                    <Entry x:Name="ZipCodeEntry" Placeholder="{x:Static resources:AppResources.ZipCode}" Text="{Binding Path=ZipCode}" IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}">
                         <Entry.Behaviors>
                             <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>

@@ -18,20 +18,18 @@
                     <DataTemplate x:Key="RegisterIdentityTemplate">
                         <registrationViews:RegisterIdentityView/>
                     </DataTemplate>
-                    <DataTemplate x:Key="Step4Template">
-                        <Label Text="Template 4"/>
+                    <DataTemplate x:Key="ValidateIdentityTemplate">
+                        <registrationViews:ValidateIdentityView/>
                     </DataTemplate>
-                    <DataTemplate x:Key="Step5Template">
-                        <Label Text="Template 5"/>
+                    <DataTemplate x:Key="DefinePinTemplate">
+                        <registrationViews:DefinePinView/>
                     </DataTemplate>
-                    <registration:RegistrationStepDataTemplateSelector 
-                        x:Key="StepTemplateSelector"
+                    <registration:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
                         Step1Template="{StaticResource ChooseOperatorTemplate}"
                         Step2Template="{StaticResource ChooseAccountTemplate}"
                         Step3Template="{StaticResource RegisterIdentityTemplate}"
-                        Step4Template="{StaticResource Step4Template}"
-                        Step5Template="{StaticResource Step5Template}"
-                        />
+                        Step4Template="{StaticResource ValidateIdentityTemplate}"
+                        Step5Template="{StaticResource DefinePinTemplate}" />
                 </ResourceDictionary>
             </StackLayout.Resources>
             <CarouselView x:Name="CarouselView"

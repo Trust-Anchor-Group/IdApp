@@ -132,6 +132,9 @@
   <data name="Address2" xml:space="preserve">
     <value>Adress (rad 2)</value>
   </data>
+  <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
+    <value>En begäran har skickats till din vän</value>
+  </data>
   <data name="Area" xml:space="preserve">
     <value>Område</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Connect" xml:space="preserve">
     <value>Anslut</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Fortsätt</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Land</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
+  </data>
+  <data name="InvitePeerToReview" xml:space="preserve">
+    <value>Bjud in vän att granska</value>
   </data>
   <data name="LastNames" xml:space="preserve">
     <value>Efternamn</value>
@@ -225,14 +234,14 @@
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
     <value>Personnumret matchar inte valt lands överrensstämmelser. Förväntat format: </value>
   </data>
+  <data name="PetitionSent" xml:space="preserve">
+    <value>Begäran skickad</value>
+  </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Bilden är för stor</value>
   </data>
   <data name="PickPhoto" xml:space="preserve">
     <value>Välj foto</value>
-  </data>
-  <data name="PostalCode" xml:space="preserve">
-    <value>Postkod</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>
@@ -244,7 +253,7 @@
     <value>Scanna kod</value>
   </data>
   <data name="QrScanLegalIdentity" xml:space="preserve">
-    <value>Legal Identity:</value>
+    <value>Juridisk identitet:</value>
   </data>
   <data name="QrScanOverlay" xml:space="preserve">
     <value>Passa in QR-koden i ramen</value>
@@ -272,6 +281,9 @@
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>Lösenordet för anslutningen är {0}</value>
+  </data>
+  <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
+    <value>Den angivna koden är inte en giltig identitet</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>För att ansluta till {0} behövs ett konto. Vill du skapa ett, eller välja ett existerande?</value>
@@ -341,5 +353,8 @@
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>Du behöver ange personnummer eller SSN</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Postkod</value>
   </data>
 </root>

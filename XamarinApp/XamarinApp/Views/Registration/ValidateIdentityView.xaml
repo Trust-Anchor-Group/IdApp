@@ -2,10 +2,129 @@
 <views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+             xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Registration.ValidateIdentityView">
   <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
+        <StackLayout Margin="{StaticResource DefaultMargin}">
+            <StackLayout.Resources>
+                <Style TargetType="Label" x:Key="ValueLabel">
+                    <Setter Property="FontAttributes" Value="Bold"/>
+                </Style>
+            </StackLayout.Resources>
+            <Label Text="Validating Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource Heading}" />
+            <Label Text="Your identity information has to be validated before it can be approved. This can be done manually by your operator. It can also be done by peers." HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+            <Label Text="To invite a peer to review your application, you need to scan the ID code of the peer you wish to invite. They will be able to see and review your application. When sufficient peers have reviewed your information, and certified it is correct, the operator will automatically approve your application. The information about who reviewed your identity will be encoded into the reviewed identity itself." HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+            <Label Text="You can see the current status of the application below." HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+            <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">
+                <TableView.Root>
+                    <TableSection>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Created:"/>
+                                <Label Text="{Binding Path=Created}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Updated:"/>
+                                <Label Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="State:"/>
+                                <Label Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="First Name:"/>
+                                <Label Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Middle Name(s):" />
+                                <Label Text="{Binding Path=MiddleNames}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Last Name(s):" />
+                                <Label Text="{Binding Path=LastNames}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Personal Number:" />
+                                <Label Text="{Binding Path=PersonalNumber}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Address:" />
+                                <Label Text="{Binding Path=Address}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Address (row 2):" />
+                                <Label Text="{Binding Path=Address2}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="ZIP or Postal Code:" />
+                                <Label Text="{Binding Path=ZipCode}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Area:" />
+                                <Label Text="{Binding Path=Area}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="City:" />
+                                <Label Text="{Binding Path=City}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Region or State:" />
+                                <Label Text="{Binding Path=Region}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Country:" />
+                                <Label Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="ID:" />
+                                <Label Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Network:" />
+                                <Label Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="ButtonSection">
+                        <ViewCell x:Name="InviteReviewerCell">
+                            <Button x:Name="InviteReviewerButton" Text="{x:Static local:AppResources.InvitePeerToReview}" Command="{Binding Path=InviteReviewerCommand}" IsVisible="{Binding Path=IsCreated}"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="ContinueButton" Text="{x:Static local:AppResources.Continue}" Command="{Binding Path=ContinueCommand}"/>
+                        </ViewCell>
+                    </TableSection>
+                </TableView.Root>
+            </TableView>
+        </StackLayout>
+    </ContentView.Content>
 </views:ContentBaseView>

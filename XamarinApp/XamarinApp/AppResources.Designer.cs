@@ -106,6 +106,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A petition has been sent to your peer.
+        /// </summary>
+        internal static string APetitionHasBeenSentToYourPeer {
+            get {
+                return ResourceManager.GetString("APetitionHasBeenSentToYourPeer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Area.
         /// </summary>
         internal static string Area {
@@ -147,6 +156,15 @@ namespace XamarinApp {
         internal static string Connect {
             get {
                 return ResourceManager.GetString("Connect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        internal static string Continue {
+            get {
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
@@ -228,6 +246,15 @@ namespace XamarinApp {
         internal static string InvalidUsernameOrPassword {
             get {
                 return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite peer to review.
+        /// </summary>
+        internal static string InvitePeerToReview {
+            get {
+                return ResourceManager.GetString("InvitePeerToReview", resourceCulture);
             }
         }
         
@@ -385,6 +412,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Petition sent.
+        /// </summary>
+        internal static string PetitionSent {
+            get {
+                return ResourceManager.GetString("PetitionSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Photo is too large.
         /// </summary>
         internal static string PhotoIsTooLarge {
@@ -399,15 +435,6 @@ namespace XamarinApp {
         internal static string PickPhoto {
             get {
                 return ResourceManager.GetString("PickPhoto", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Zip or Postal Code.
-        /// </summary>
-        internal static string PostalCode {
-            get {
-                return ResourceManager.GetString("PostalCode", resourceCulture);
             }
         }
         
@@ -525,6 +552,15 @@ namespace XamarinApp {
         internal static string ThePasswordForTheConnectionIs {
             get {
                 return ResourceManager.GetString("ThePasswordForTheConnectionIs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified code is not a legal identity.
+        /// </summary>
+        internal static string TheSpecifiedCodeIsNotALegalIdentity {
+            get {
+                return ResourceManager.GetString("TheSpecifiedCodeIsNotALegalIdentity", resourceCulture);
             }
         }
         
@@ -732,6 +768,15 @@ namespace XamarinApp {
         internal static string YouNeedToProvideAPersonalNumber {
             get {
                 return ResourceManager.GetString("YouNeedToProvideAPersonalNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zip or Postal Code.
+        /// </summary>
+        internal static string ZipCode {
+            get {
+                return ResourceManager.GetString("ZipCode", resourceCulture);
             }
         }
     }

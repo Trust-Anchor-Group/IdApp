@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.ViewModels;
 
@@ -28,6 +27,10 @@ namespace XamarinApp.Views
             base.OnAppearing();
             await this.BindViewModel(ViewModel);
             await ViewModel.RestoreState();
+            foreach(ContentBaseView view in this.GetChildren<ContentBaseView>())
+            {
+                await view.OnPageAppearing();
+            }
         }
 
         protected override async void OnDisappearing()
@@ -36,8 +39,11 @@ namespace XamarinApp.Views
             {
                 await ViewModel.SaveState();
             }
+            foreach (ContentBaseView view in this.GetChildren<ContentBaseView>())
+            {
+                await view.OnPageDisappearing();
+            }
             await this.UnbindViewModel(ViewModel);
-            (ViewModel as IDisposable)?.Dispose();
             base.OnDisappearing();
         }
     }

@@ -16,7 +16,7 @@ namespace XamarinApp.Services
     {
         private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(10);
         private static readonly TimeSpan PresenceTimeout = TimeSpan.FromSeconds(1);
-        private static readonly TimeSpan ReconnectInterval = TimeSpan.FromMinutes(1);
+        private static readonly TimeSpan ReconnectInterval = TimeSpan.FromSeconds(10);
 
         private readonly TagProfile tagProfile;
         private Timer reconnectTimer = null;

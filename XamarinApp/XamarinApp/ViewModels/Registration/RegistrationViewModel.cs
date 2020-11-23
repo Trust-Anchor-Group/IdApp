@@ -20,14 +20,15 @@ namespace XamarinApp.ViewModels.Registration
         private readonly IMessageService messageService;
         private readonly IAuthService authService;
         private readonly IContractsService contractsService;
+        private readonly INavigationService navigationService;
         
         public RegistrationViewModel()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IMessageService messageService, IContractsService contractsService)
+        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IMessageService messageService, IContractsService contractsService, INavigationService navigationService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
@@ -35,14 +36,15 @@ namespace XamarinApp.ViewModels.Registration
             this.messageService = messageService ?? DependencyService.Resolve<IMessageService>();
             this.authService = authService ?? DependencyService.Resolve<IAuthService>();
             this.contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             GoToNextCommand = new Command(() => CurrentStep++, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
             GoToPrevCommand = new Command(() => CurrentStep--, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
-            RegistrationSteps.Add(new ChooseOperatorViewModel(RegistrationStep.Operator, this.tagProfile, this.neuronService, this.messageService));
-            RegistrationSteps.Add(new ChooseAccountViewModel(RegistrationStep.Account, this.tagProfile, this.neuronService, this.messageService, this.authService, this.contractsService));
-            RegistrationSteps.Add(new RegisterIdentityViewModel(RegistrationStep.RegisterIdentity, this.tagProfile, this.neuronService, this.messageService, this.contractsService));
-            RegistrationSteps.Add(new ValidateIdentityViewModel(RegistrationStep.Identity, this.tagProfile, this.neuronService, this.messageService));
-            RegistrationSteps.Add(new DefinePinViewModel(RegistrationStep.Pin, this.tagProfile, this.neuronService, this.messageService));
+            RegistrationSteps.Add(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.messageService));
+            RegistrationSteps.Add(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.messageService, this.authService, this.contractsService));
+            RegistrationSteps.Add(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService));
+            RegistrationSteps.Add(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService, this.navigationService));
+            RegistrationSteps.Add(new DefinePinViewModel(this.tagProfile, this.neuronService, this.messageService));
 
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 
@@ -84,7 +86,7 @@ namespace XamarinApp.ViewModels.Registration
                     }
                     break;
 
-                case RegistrationStep.Identity:
+                case RegistrationStep.ValidateIdentity:
                     {
                         ValidateIdentityViewModel vm = (ValidateIdentityViewModel)sender;
                         // TODO: set something on profile

@@ -13,8 +13,11 @@ namespace XamarinApp.ViewModels.Registration
         private string hostName = string.Empty;
         private int portNumber;
 
-        public ChooseOperatorViewModel(RegistrationStep step, TagProfile tagProfile, INeuronService neuronService, IMessageService messageService)
-            : base(step, tagProfile, neuronService, messageService)
+        public ChooseOperatorViewModel(
+            TagProfile tagProfile, 
+            INeuronService neuronService, 
+            IMessageService messageService)
+            : base(RegistrationStep.Operator, tagProfile, neuronService, messageService)
         {
             this.Operators = new ObservableCollection<string>();
             this.ConnectCommand = new Command(async () => await Connect(), ConnectCanExecute);

@@ -132,6 +132,9 @@
   <data name="Address2" xml:space="preserve">
     <value>Address (row 2)</value>
   </data>
+  <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
+    <value>A petition has been sent to your peer</value>
+  </data>
   <data name="Area" xml:space="preserve">
     <value>Area</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="Connect" xml:space="preserve">
     <value>Connect</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
@@ -173,6 +179,9 @@
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>
+  </data>
+  <data name="InvitePeerToReview" xml:space="preserve">
+    <value>Invite peer to review</value>
   </data>
   <data name="LastNames" xml:space="preserve">
     <value>Last name(s)</value>
@@ -225,14 +234,14 @@
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
     <value>The personal number does not match national personal number regulations. Expected format: </value>
   </data>
+  <data name="PetitionSent" xml:space="preserve">
+    <value>Petition sent</value>
+  </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Photo is too large</value>
   </data>
   <data name="PickPhoto" xml:space="preserve">
     <value>Pick photo</value>
-  </data>
-  <data name="PostalCode" xml:space="preserve">
-    <value>Zip or Postal Code</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>
@@ -272,6 +281,9 @@
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>The password for the connection is {0}</value>
+  </data>
+  <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
+    <value>The specified code is not a legal identity</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>To connect to {0}, you need an account. Do you want to create one, or use an existing account?</value>
@@ -341,5 +353,8 @@
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>You need to provide a personal or social security number</value>
+  </data>
+  <data name="ZipCode" xml:space="preserve">
+    <value>Zip or Postal Code</value>
   </data>
 </root>

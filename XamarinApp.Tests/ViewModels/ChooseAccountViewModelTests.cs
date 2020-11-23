@@ -15,7 +15,7 @@ namespace XamarinApp.Tests.ViewModels
 
         protected override ChooseAccountViewModel AViewModel()
         {
-            return new ChooseAccountViewModel(RegistrationStep.Account, new TagProfile(), tagService.Object, messageService.Object, authService.Object, this.contractsService.Object);
+            return new ChooseAccountViewModel(new TagProfile(), tagService.Object, messageService.Object, authService.Object, this.contractsService.Object);
         }
 
         [Test]
