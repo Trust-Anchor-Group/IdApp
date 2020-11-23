@@ -134,14 +134,12 @@ namespace XamarinApp
             await this.neuronService.Load();
 
             TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
-            if (configuration != null)
+            if (configuration == null)
             {
-                this.tagProfile.FromConfiguration(configuration);
+                configuration = new TagConfiguration();
+                await this.storageService.Insert(configuration);
             }
-            else
-            {
-                await this.storageService.Insert(new TagConfiguration());
-            }
+            this.tagProfile.FromConfiguration(configuration);
 
             this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, AutoSaveInterval, AutoSaveInterval);
         }

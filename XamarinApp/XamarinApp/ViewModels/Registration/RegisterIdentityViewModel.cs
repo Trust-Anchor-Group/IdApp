@@ -207,7 +207,7 @@ namespace XamarinApp.ViewModels.Registration
                 CrossMedia.Current.IsTakePhotoSupported &&
                 this.contractsService.FileUploadIsSupported))
             {
-                await this.MessageService.DisplayAlert(AppResources.TakePhoto, "message");
+                await this.MessageService.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
                 return;
             }
 
@@ -236,7 +236,7 @@ namespace XamarinApp.ViewModels.Registration
                   CrossMedia.Current.IsPickPhotoSupported &&
                   this.contractsService.FileUploadIsSupported))
             {
-                await this.MessageService.DisplayAlert(AppResources.PickPhoto, "message");
+                await this.MessageService.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
                 return;
             }
 

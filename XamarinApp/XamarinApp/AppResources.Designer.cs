@@ -466,6 +466,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecting a photo is not supported on this device.
+        /// </summary>
+        internal static string SelectingAPhotoIsNotSupported {
+            get {
+                return ResourceManager.GetString("SelectingAPhotoIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select Operator.
         /// </summary>
         internal static string SelectOperator {
@@ -480,6 +489,15 @@ namespace XamarinApp {
         internal static string TakePhoto {
             get {
                 return ResourceManager.GetString("TakePhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taking a photo is not supported on this device.
+        /// </summary>
+        internal static string TakingAPhotoIsNotSupported {
+            get {
+                return ResourceManager.GetString("TakingAPhotoIsNotSupported", resourceCulture);
             }
         }
         

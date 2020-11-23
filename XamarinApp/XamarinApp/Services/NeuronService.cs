@@ -94,12 +94,12 @@ namespace XamarinApp.Services
 
         private bool ShouldCreateClient()
         {
-            return this.tagProfile.Step >= RegistrationStep.Account && this.xmppClient == null;
+            return this.tagProfile.Step > RegistrationStep.Account && this.xmppClient == null;
         }
 
         private bool ShouldDestroyClient()
         {
-            return this.tagProfile.Step < RegistrationStep.Account && this.xmppClient != null;
+            return this.tagProfile.Step <= RegistrationStep.Account && this.xmppClient != null;
         }
 
         private async void TagProfile_StepChanged(object sender, EventArgs e)
@@ -392,7 +392,7 @@ namespace XamarinApp.Services
             {
                 throw new InvalidOperationException("HttpFileUploadJid is not defined");
             }
-            if (this.tagProfile.HttpFileUploadMaxSize.HasValue)
+            if (!this.tagProfile.HttpFileUploadMaxSize.HasValue)
             {
                 throw new InvalidOperationException("HttpFileUploadMaxSize is missing");
             }

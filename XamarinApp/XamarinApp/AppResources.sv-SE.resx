@@ -252,11 +252,17 @@
   <data name="RetypePassword" xml:space="preserve">
     <value>Ange lösenord igen</value>
   </data>
+  <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
+    <value>Att välja en bild stöds inte på den här enheten</value>
+  </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Ta foto</value>
+  </data>
+  <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
+    <value>Att ta en bild stöds inte på den här enheten</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>Lösenordet för anslutningen är {0}</value>

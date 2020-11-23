@@ -252,11 +252,17 @@
   <data name="RetypePassword" xml:space="preserve">
     <value>Retype password</value>
   </data>
+  <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
+    <value>Selecting a photo is not supported on this device</value>
+  </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>
+  </data>
+  <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
+    <value>Taking a photo is not supported on this device</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>The password for the connection is {0}</value>

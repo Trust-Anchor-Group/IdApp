@@ -20,17 +20,17 @@ namespace XamarinApp.ViewModels.Registration
             this.authService = authService;
             this.contractsService = contractsService;
             IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
-            DomainName = TagProfile.Domain;
-            AccountName = TagProfile.Account;
-            ActionButtonText = AppResources.CreateNew;
-            CreateNew = true;
-            CreateRandomPassword = true;
             PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
             SwitchModeCommand = new Command(_ =>
             {
                 CreateNew = !CreateNew;
                 PerformActionCommand.ChangeCanExecute();
             });
+            DomainName = TagProfile.Domain;
+            AccountName = TagProfile.Account;
+            ActionButtonText = AppResources.CreateNew;
+            CreateNew = true;
+            CreateRandomPassword = true;
         }
 
         public static readonly BindableProperty IntroTextProperty =
@@ -78,7 +78,11 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty AccountNameProperty =
-            BindableProperty.Create("AccountName", typeof(string), typeof(ChooseAccountViewModel), default(string));
+            BindableProperty.Create("AccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
+                viewModel.PerformActionCommand.ChangeCanExecute();
+            });
 
         public string AccountName
         {
@@ -87,7 +91,12 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty PasswordProperty =
-            BindableProperty.Create("Password", typeof(string), typeof(ChooseAccountViewModel), default(string));
+            BindableProperty.Create("Password", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
+                viewModel.ComparePasswords();
+                viewModel.PerformActionCommand.ChangeCanExecute();
+            });
 
         public string Password
         {
@@ -96,12 +105,31 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty RetypedPasswordProperty =
-            BindableProperty.Create("RetypedPassword", typeof(string), typeof(ChooseAccountViewModel), default(string));
+            BindableProperty.Create("RetypedPassword", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
+                viewModel.ComparePasswords();
+                viewModel.PerformActionCommand.ChangeCanExecute();
+            });
 
         public string RetypedPassword
         {
             get { return (string)GetValue(RetypedPasswordProperty); }
             set { SetValue(RetypedPasswordProperty, value); }
+        }
+
+        private void ComparePasswords()
+        {
+            PasswordsDoNotMatch = (Password != RetypedPassword);
+        }
+
+        public static readonly BindableProperty PasswordsDoNotMatchProperty =
+            BindableProperty.Create("PasswordsDoNotMatch", typeof(bool), typeof(ChooseAccountViewModel), default(bool));
+
+        public bool PasswordsDoNotMatch
+        {
+            get { return (bool)GetValue(PasswordsDoNotMatchProperty); }
+            set { SetValue(PasswordsDoNotMatchProperty, value); }
         }
 
         public static readonly BindableProperty ActionButtonTextProperty =
@@ -182,7 +210,7 @@ namespace XamarinApp.ViewModels.Registration
                     return true;
                 }
 
-                if ((Password != RetypedPassword) || string.IsNullOrWhiteSpace(Password))
+                if (Password != RetypedPassword)
                 {
                     if (alertUser)
                     {
@@ -258,10 +286,8 @@ namespace XamarinApp.ViewModels.Registration
                     }
                     return true;
                 }
-                else
-                {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
-                }
+
+                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
             }
             catch (Exception)
             {
