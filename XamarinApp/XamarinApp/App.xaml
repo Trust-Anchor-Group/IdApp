@@ -18,6 +18,7 @@
                 Value="FontAwesome5Free-Solid-900" />
         </OnPlatform>
         <Color x:Key="AccentColor">#BADA55</Color>
+        <Color x:Key="AlertColor">Red</Color>
         <Color x:Key="BackgroundColor">#333333</Color>
         <Thickness x:Key="DefaultMargin">12</Thickness>
         <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>

@@ -70,7 +70,7 @@
                 </Entry>
                 <Label Text="{x:Static resources:AppResources.RetypePassword}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}"/>
                 <Entry x:Name="RetypePassword" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" IsPassword="True" Text="{Binding Path=RetypedPassword}" />
-                <Label Text="{x:Static resources:AppResources.PasswordsDoNotMatch}" IsVisible="{Binding Path=PasswordsDoNotMatch}" TextColor="Red" />
+                <Label Text="{x:Static resources:AppResources.PasswordsDoNotMatch}" IsVisible="{Binding Path=PasswordsDoNotMatch}" TextColor="{StaticResource AlertColor}" />
             </StackLayout>
 
             <!-- TAB 2 Contents -->

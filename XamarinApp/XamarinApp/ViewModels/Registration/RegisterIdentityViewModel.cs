@@ -343,42 +343,42 @@ namespace XamarinApp.ViewModels.Registration
             string s;
 
             if (!string.IsNullOrWhiteSpace(s = this.FirstName?.Trim()))
-                properties.Add(new Property("FIRST", s));
+                properties.Add(new Property(Constants.XmppProperties.FirstName, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.MiddleNames?.Trim()))
-                properties.Add(new Property("MIDDLE", s));
+                properties.Add(new Property(Constants.XmppProperties.MiddleName, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.LastNames?.Trim()))
-                properties.Add(new Property("LAST", s));
+                properties.Add(new Property(Constants.XmppProperties.LastName, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.PersonalNumber?.Trim()))
-                properties.Add(new Property("PNR", s));
+                properties.Add(new Property(Constants.XmppProperties.PersonalNumber, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.Address?.Trim()))
-                properties.Add(new Property("ADDR", s));
+                properties.Add(new Property(Constants.XmppProperties.Address, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.Address2?.Trim()))
-                properties.Add(new Property("ADDR2", s));
+                properties.Add(new Property(Constants.XmppProperties.Address2, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.PostalCode?.Trim()))
-                properties.Add(new Property("ZIP", s));
+                properties.Add(new Property(Constants.XmppProperties.ZipCode, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.Area?.Trim()))
-                properties.Add(new Property("AREA", s));
+                properties.Add(new Property(Constants.XmppProperties.Area, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.City?.Trim()))
-                properties.Add(new Property("CITY", s));
+                properties.Add(new Property(Constants.XmppProperties.City, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.Region?.Trim()))
-                properties.Add(new Property("REGION", s));
+                properties.Add(new Property(Constants.XmppProperties.Region, s));
 
             if (!string.IsNullOrWhiteSpace(s = this.SelectedCountry?.Trim()))
-                properties.Add(new Property("COUNTRY", ISO_3166_1.ToCode(s)));
+                properties.Add(new Property(Constants.XmppProperties.Country, ISO_3166_1.ToCode(s)));
 
             if (!string.IsNullOrWhiteSpace(s = this.DeviceId?.Trim()))
-                properties.Add(new Property("DEVICE_ID", s));
+                properties.Add(new Property(Constants.XmppProperties.DeviceId, s));
 
-            properties.Add(new Property("JID", this.NeuronService.BareJId));
+            properties.Add(new Property(Constants.XmppProperties.JId, this.NeuronService.BareJId));
 
             return properties;
         }

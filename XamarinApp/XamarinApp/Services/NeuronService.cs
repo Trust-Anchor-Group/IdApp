@@ -90,8 +90,6 @@ namespace XamarinApp.Services
             this.xmppClient = null;
         }
 
-        #endregion
-
         private bool ShouldCreateClient()
         {
             return this.tagProfile.Step > RegistrationStep.Account && this.xmppClient == null;
@@ -101,6 +99,8 @@ namespace XamarinApp.Services
         {
             return this.tagProfile.Step <= RegistrationStep.Account && this.xmppClient != null;
         }
+
+        #endregion
 
         private async void TagProfile_StepChanged(object sender, EventArgs e)
         {
@@ -361,12 +361,6 @@ namespace XamarinApp.Services
             return (succeeded, errorMessage);
         }
 
-        #region Legal Identity
-
-
-
-        #endregion
-
         public Task<ContractsClient> CreateContractsClientAsync()
         {
             if (this.xmppClient == null)
@@ -398,45 +392,6 @@ namespace XamarinApp.Services
             }
 
             return Task.FromResult(new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize));
-        }
-
-        public async Task<bool> CheckServices()
-        {
-            if (xmppClient == null)
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(this.tagProfile.LegalJid) ||
-                string.IsNullOrEmpty(this.tagProfile.HttpFileUploadJid) ||
-                !this.tagProfile.HttpFileUploadMaxSize.HasValue)
-            {
-                TaskCompletionSource<bool> stateChanged = new TaskCompletionSource<bool>();
-                Task OnStateChanged(object sender, XmppState newState)
-                {
-                    if (newState == XmppState.Connected || newState == XmppState.Error)
-                        stateChanged.TrySetResult(true);
-
-                    return Task.CompletedTask;
-                }
-
-                xmppClient.OnStateChanged += OnStateChanged;
-
-                if (xmppClient.State == XmppState.Connected || xmppClient.State == XmppState.Error)
-                    stateChanged.TrySetResult(true);
-
-                Task _ = Task.Delay(ConnectTimeout).ContinueWith((T) => stateChanged.TrySetResult(false));
-
-                bool succeeded = await stateChanged.Task;
-
-                xmppClient.OnStateChanged -= OnStateChanged;
-
-                if (succeeded)
-                    return await DiscoverServices();
-
-                return false;
-            }
-
-            return true;
         }
 
         public async Task<bool> DiscoverServices(XmppClient client = null)
