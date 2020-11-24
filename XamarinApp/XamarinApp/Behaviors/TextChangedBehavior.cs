@@ -28,7 +28,10 @@ namespace XamarinApp.Behaviors
 
         void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextChangedCommand?.Execute(e.NewTextValue);
+            if (TextChangedCommand != null && TextChangedCommand.CanExecute(null))
+            {
+                TextChangedCommand.Execute(e.NewTextValue);
+            }
         }
     }
 }
