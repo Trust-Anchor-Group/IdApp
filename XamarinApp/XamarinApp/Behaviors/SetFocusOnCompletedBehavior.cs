@@ -20,7 +20,7 @@ namespace XamarinApp.Behaviors
             base.OnDetachingFrom(entry);
         }
 
-        void Entry_Completed(object sender, EventArgs args)
+        void Entry_Completed(object sender, EventArgs e)
         {
             View view = SetFocusTo;
             if (view != null && view.IsVisible)

@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
+using XamarinApp.Views;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -89,7 +90,7 @@ namespace XamarinApp.ViewModels.Registration
                 case RegistrationStep.ValidateIdentity:
                     {
                         ValidateIdentityViewModel vm = (ValidateIdentityViewModel)sender;
-                        // TODO: set something on profile
+                        this.tagProfile.SetLegalJId(vm.LegalId);
                         GoToNextCommand.Execute();
                     }
                     break;
@@ -98,7 +99,7 @@ namespace XamarinApp.ViewModels.Registration
                     {
                         DefinePinViewModel vm = (DefinePinViewModel)sender;
                         this.tagProfile.SetPin(vm.Pin, vm.UsePin);
-                        GoToNextCommand.Execute();
+                        this.navigationService.Set(new MainPage());
                     }
                     break;
 
@@ -111,6 +112,8 @@ namespace XamarinApp.ViewModels.Registration
                     break;
             }
         }
+
+        // TODO: uncomment when done testing
 
         //public override async Task RestoreState()
         //{

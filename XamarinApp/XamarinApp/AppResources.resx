@@ -162,6 +162,9 @@
   <data name="CreateNew" xml:space="preserve">
     <value>Create new</value>
   </data>
+  <data name="DefinePin" xml:space="preserve">
+    <value>Define PIN</value>
+  </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} does not follow the ubiquitous encryption policy</value>
   </data>
@@ -243,6 +246,12 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Pick photo</value>
   </data>
+  <data name="PinOrPassword" xml:space="preserve">
+    <value>PIN or password</value>
+  </data>
+  <data name="PinsDoNotMatch" xml:space="preserve">
+    <value>PINs do not match</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>
   </data>
@@ -267,11 +276,17 @@
   <data name="RetypePassword" xml:space="preserve">
     <value>Retype password</value>
   </data>
+  <data name="RetypePinOrPassword" xml:space="preserve">
+    <value>Retype PIN or password</value>
+  </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Selecting a photo is not supported on this device</value>
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Skip</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>
@@ -341,6 +356,9 @@
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Stream established</value>
+  </data>
+  <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
+    <value>You can protect your wallet and sensitive information by adding an additional PIN number or password.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
     <value>You need to select a country</value>

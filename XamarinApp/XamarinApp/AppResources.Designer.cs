@@ -196,6 +196,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Define PIN.
+        /// </summary>
+        internal static string DefinePin {
+            get {
+                return ResourceManager.GetString("DefinePin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
         /// </summary>
         internal static string DomainDoesNotFollowEncryptionPolicy {
@@ -439,6 +448,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PIN or password.
+        /// </summary>
+        internal static string PinOrPassword {
+            get {
+                return ResourceManager.GetString("PinOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PINs do not match.
+        /// </summary>
+        internal static string PinsDoNotMatch {
+            get {
+                return ResourceManager.GetString("PinsDoNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter manually.
         /// </summary>
         internal static string QrEnterManually {
@@ -511,6 +538,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retype PIN or password.
+        /// </summary>
+        internal static string RetypePinOrPassword {
+            get {
+                return ResourceManager.GetString("RetypePinOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecting a photo is not supported on this device.
         /// </summary>
         internal static string SelectingAPhotoIsNotSupported {
@@ -525,6 +561,15 @@ namespace XamarinApp {
         internal static string SelectOperator {
             get {
                 return ResourceManager.GetString("SelectOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip.
+        /// </summary>
+        internal static string Skip {
+            get {
+                return ResourceManager.GetString("Skip", resourceCulture);
             }
         }
         
@@ -732,6 +777,15 @@ namespace XamarinApp {
         internal static string XmppState_StreamOpened {
             get {
                 return ResourceManager.GetString("XmppState_StreamOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can protect your wallet and sensitive information by adding an additional PIN number or password..
+        /// </summary>
+        internal static string YouCanProtectYourWalletPinInfo {
+            get {
+                return ResourceManager.GetString("YouCanProtectYourWalletPinInfo", resourceCulture);
             }
         }
         

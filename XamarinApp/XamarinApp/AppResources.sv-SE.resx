@@ -162,6 +162,9 @@
   <data name="CreateNew" xml:space="preserve">
     <value>Skapa ny</value>
   </data>
+  <data name="DefinePin" xml:space="preserve">
+    <value>Ange PIN</value>
+  </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
   </data>
@@ -243,6 +246,12 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Välj foto</value>
   </data>
+  <data name="PinOrPassword" xml:space="preserve">
+    <value>PIN eller lösenord</value>
+  </data>
+  <data name="PinsDoNotMatch" xml:space="preserve">
+    <value>PIN matchar inte</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>
   </data>
@@ -267,11 +276,17 @@
   <data name="RetypePassword" xml:space="preserve">
     <value>Ange lösenord igen</value>
   </data>
+  <data name="RetypePinOrPassword" xml:space="preserve">
+    <value>Ange PIN eller lösenord igen</value>
+  </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att välja en bild stöds inte på den här enheten</value>
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
+  </data>
+  <data name="Skip" xml:space="preserve">
+    <value>Hoppa över</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Ta foto</value>
@@ -341,6 +356,9 @@
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Ström etablerad</value>
+  </data>
+  <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
+    <value>Du kan skydda din plånbok och känslig information genom att lägga till en PIN-kod eller ett lösenord.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
     <value>Vänligen ange ett land</value>

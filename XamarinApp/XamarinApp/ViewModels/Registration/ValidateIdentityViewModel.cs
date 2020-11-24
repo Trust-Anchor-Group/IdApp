@@ -74,6 +74,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
+            this.TagProfile.SetLegalIdentity(e.Identity);
             AssignProperties();
         }
 
@@ -268,20 +269,38 @@ namespace XamarinApp.ViewModels.Registration
 
         private ICommand CodeScannedCommand { get; set; }
 
+        TaskCompletionSource<bool> qrCodeScanned;
+
+        private Task ScanQrCode()
+        {
+            qrCodeScanned = new TaskCompletionSource<bool>();
+            return qrCodeScanned.Task;
+        }
+
+        private void AddPartViewModel_QrCodeScanned(object sender, EventArgs e)
+        {
+            if (qrCodeScanned != null)
+            {
+                qrCodeScanned.TrySetResult(true);
+                qrCodeScanned = null;
+            }   
+        }
+
         private async Task InviteReviewer()
         {
+            // 1. Create a default page
             ContentBasePage page = new ContentBasePage();
             AddPartViewModel viewModel = new AddPartViewModel();
             AddPartView view = new AddPartView(viewModel);
-            TaskCompletionSource<bool> codeScanned = new TaskCompletionSource<bool>();
-            CodeScannedCommand = new Command(_ => codeScanned.TrySetResult(true));
-            Binding b = new Binding(nameof(CodeScannedCommand), source: this);
-            view.SetBinding(AddPartView.CodeScannedCommandProperty, b);
+            // 2. Set it's content to the 'Scan QR Code View'
             page.Content = view;
+            viewModel.CodeScanned += AddPartViewModel_QrCodeScanned;
+            // 3. Show it as a modal page
             await this.navigationService.ShowModal(page);
-            await codeScanned.Task;
+            // 4. Wait for the scan to complete
+            await ScanQrCode();
             await this.navigationService.HideModal();
-            view.RemoveBinding(AddPartView.CodeScannedCommandProperty);
+            viewModel.CodeScanned -= AddPartViewModel_QrCodeScanned;
 
             if (!string.IsNullOrWhiteSpace(viewModel.Code))
             {

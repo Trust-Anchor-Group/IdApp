@@ -371,10 +371,10 @@ namespace XamarinApp.Services
                 {
                     StringBuilder xml = new StringBuilder();
                     tagProfile.LegalIdentity.Serialize(xml, true, true, true, true, true, true, true);
-                    byte[] Data = Encoding.UTF8.GetBytes(xml.ToString());
+                    byte[] data = Encoding.UTF8.GetBytes(xml.ToString());
 
-                    bool? Result = contractsClient.ValidateSignature(e.RequestedIdentity, Data, e.Signature);
-                    if (!Result.HasValue || !Result.Value)
+                    bool? result = contractsClient.ValidateSignature(e.RequestedIdentity, data, e.Signature);
+                    if (!result.HasValue || !result.Value)
                     {
                         await this.messageService.DisplayAlert(AppResources.PeerReviewRejected, "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok);
                     }
@@ -415,7 +415,6 @@ namespace XamarinApp.Services
                 this.tagProfile.LegalIdentity.Id == e.Identity.Id ||
                 this.tagProfile.LegalIdentity.Created < e.Identity.Created)
             {
-                this.tagProfile.SetLegalIdentity(e.Identity);
                 OnLegalIdentityChanged(new LegalIdentityChangedEventArgs(e.Identity));
             }
 
