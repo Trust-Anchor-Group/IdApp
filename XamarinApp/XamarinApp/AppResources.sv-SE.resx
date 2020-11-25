@@ -249,11 +249,17 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Välj foto</value>
   </data>
+  <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
+    <value>PIN-koden får inte inledas eller avslutas med blanksteg.</value>
+  </data>
   <data name="PinOrPassword" xml:space="preserve">
     <value>PIN eller lösenord</value>
   </data>
   <data name="PinsDoNotMatch" xml:space="preserve">
     <value>PIN matchar inte</value>
+  </data>
+  <data name="PinTooShort" xml:space="preserve">
+    <value>Angiven PIN är för kort. Åtminstone 8 siffor (eller tecken) krävs.</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>

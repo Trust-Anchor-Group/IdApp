@@ -368,6 +368,12 @@ namespace XamarinApp.Services
             }
         }
 
+        public void ClearDomain()
+        {
+            this.Domain = string.Empty;
+            DecrementConfigurationStep(RegistrationStep.Operator);
+        }
+
         // Step 2
         public void SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod)
         {
@@ -380,6 +386,14 @@ namespace XamarinApp.Services
             }
         }
 
+        public void ClearAccount()
+        {
+            this.Account = string.Empty;
+            this.PasswordHash = string.Empty;
+            this.PasswordHashMethod = string.Empty;
+            DecrementConfigurationStep(RegistrationStep.Operator); // prev
+        }
+
         // Step 3
         public void SetLegalIdentity(LegalIdentity legalIdentity)
         {
@@ -390,21 +404,36 @@ namespace XamarinApp.Services
             }
         }
 
+        public void ClearLegalIdentity()
+        {
+            this.legalIdentity = null;
+            DecrementConfigurationStep(RegistrationStep.Account); // prev
+        }
+
+        // Step 4
+        public void SetLegalJId(string legalJId)
+        {
+            this.LegalJid = legalJId;
+        }
+
+        public void ClearLegalJId()
+        {
+            this.LegalJid = string.Empty;
+            DecrementConfigurationStep(RegistrationStep.RegisterIdentity); // prev
+        }
+
+        // Step 5
         public void SetPin(string pin, bool usePin)
         {
             this.Pin = pin;
             this.UsePin = usePin;
         }
 
-        public void ResetPin()
+        public void ClearPin()
         {
             this.Pin = string.Empty;
             this.UsePin = false;
-        }
-
-        public void SetLegalJId(string legalJId)
-        {
-            this.LegalJid = legalJId;
+            DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
         }
 
         public void SetProvisioningJId(string provisioningJId)

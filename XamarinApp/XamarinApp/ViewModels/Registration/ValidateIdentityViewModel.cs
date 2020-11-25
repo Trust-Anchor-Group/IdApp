@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
@@ -49,27 +50,44 @@ namespace XamarinApp.ViewModels.Registration
 
         private void AssignProperties()
         {
-            Created = this.TagProfile.LegalIdentity.Created;
-            Updated = this.TagProfile.LegalIdentity.Updated.GetDateOrNullIfMinValue();
-            LegalId = this.TagProfile.LegalIdentity.Id;
+            Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
+            Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
+            LegalId = this.TagProfile.LegalIdentity?.Id;
             BareJId = this.NeuronService?.BareJId ?? string.Empty;
-            State = this.TagProfile.LegalIdentity.State;
-            From = this.TagProfile.LegalIdentity.From.GetDateOrNullIfMinValue();
-            To = this.TagProfile.LegalIdentity.To.GetDateOrNullIfMinValue();
-            FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
-            MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];
-            LastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
-            PersonalNumber = this.TagProfile.LegalIdentity[Constants.XmppProperties.PersonalNumber];
-            Address = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address];
-            Address2 = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address2];
-            ZipCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.ZipCode];
-            Area = this.TagProfile.LegalIdentity[Constants.XmppProperties.Area];
-            City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
-            Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
-            CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
+            State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
+            From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
+            To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
+            if (this.TagProfile.LegalIdentity != null)
+            {
+                FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
+                MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];
+                LastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
+                PersonalNumber = this.TagProfile.LegalIdentity[Constants.XmppProperties.PersonalNumber];
+                Address = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address];
+                Address2 = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address2];
+                ZipCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.ZipCode];
+                Area = this.TagProfile.LegalIdentity[Constants.XmppProperties.Area];
+                City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
+                Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
+                CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
+            }
+            else
+            {
+                FirstName = string.Empty;
+                MiddleNames = string.Empty;
+                LastNames = string.Empty;
+                PersonalNumber = string.Empty;
+                Address = string.Empty;
+                Address2 = string.Empty;
+                ZipCode = string.Empty;
+                Area = string.Empty;
+                City = string.Empty;
+                Region = string.Empty;
+                CountryCode = string.Empty;
+            }
             Country = ISO_3166_1.ToName(this.CountryCode);
-            IsApproved = this.TagProfile.LegalIdentity.State == IdentityState.Approved;
-            IsCreated = this.TagProfile.LegalIdentity.State == IdentityState.Created;
+            IsApproved = this.TagProfile.LegalIdentity?.State == IdentityState.Approved;
+            IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
 
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();

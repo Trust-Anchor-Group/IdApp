@@ -249,11 +249,17 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Pick photo</value>
   </data>
+  <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
+    <value>PIN number must not include leading or trailing whitespace.</value>
+  </data>
   <data name="PinOrPassword" xml:space="preserve">
     <value>PIN or password</value>
   </data>
   <data name="PinsDoNotMatch" xml:space="preserve">
     <value>PINs do not match</value>
+  </data>
+  <data name="PinTooShort" xml:space="preserve">
+    <value>PIN number too short. At least 8 numbers (or characters) are required.</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>

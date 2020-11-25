@@ -38,8 +38,8 @@ namespace XamarinApp.ViewModels.Registration
             this.authService = authService ?? DependencyService.Resolve<IAuthService>();
             this.contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            GoToNextCommand = new Command(() => CurrentStep++, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
-            GoToPrevCommand = new Command(() => CurrentStep--, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
+            GoToNextCommand = new Command(GoToNext, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
+            GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
             RegistrationSteps.Add(this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.messageService)));
             RegistrationSteps.Add(this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.messageService, this.authService, this.contractsService)));
@@ -146,12 +146,57 @@ namespace XamarinApp.ViewModels.Registration
             }
         }
 
+        private void GoToNext()
+        {
+            CurrentStep++;
+        }
+
+        private void GoToPrev()
+        {
+            RegistrationStep currStep = (RegistrationStep)CurrentStep;
+
+            switch (currStep)
+            {
+                case RegistrationStep.Account:
+                    {
+                        this.tagProfile.ClearAccount();
+                    }
+                    break;
+
+                case RegistrationStep.RegisterIdentity:
+                    {
+                        this.tagProfile.ClearLegalIdentity();
+                    }
+                    break;
+
+                case RegistrationStep.ValidateIdentity:
+                    {
+                        this.tagProfile.ClearLegalJId();
+                    }
+                    break;
+
+                case RegistrationStep.Pin:
+                    {
+                        this.tagProfile.ClearPin();
+                    }
+                    break;
+
+                default: // RegistrationStep.Operator
+                    {
+                        this.tagProfile.ClearDomain();
+                    }
+                    break;
+            }
+
+            CurrentStep--;
+        }
+
         // TODO: uncomment when done testing
 
-        //public override async Task RestoreState()
-        //{
-        //    CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, (int)DefaultStep);
-        //}
+        public override async Task RestoreState()
+        {
+            CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, (int)DefaultStep);
+        }
 
         public override async Task SaveState()
         {

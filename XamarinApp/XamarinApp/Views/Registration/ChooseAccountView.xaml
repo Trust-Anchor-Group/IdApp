@@ -80,7 +80,7 @@
             </StackLayout>
 
             <StackLayout Grid.Row="3" Orientation="Vertical" VerticalOptions="End">
-                <ActivityIndicator IsVisible="{Binding Path=IsConnecting}" IsRunning="{Binding Path=IsConnecting}" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
+                <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
                 <Button Text="{Binding Path=ActionButtonText}" Command="{Binding Path=PerformActionCommand}" Margin="{StaticResource DefaultMargin}" />
             </StackLayout>
 

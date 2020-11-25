@@ -44,8 +44,8 @@ namespace XamarinApp.ViewModels.Registration
             BindableProperty.Create("RetypedPin", typeof(string), typeof(DefinePinViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 DefinePinViewModel viewModel = (DefinePinViewModel)b;
-                viewModel.ContinueCommand.ChangeCanExecute();
                 viewModel.UpdatePinState();
+                viewModel.ContinueCommand.ChangeCanExecute();
             });
 
         public string RetypedPin
@@ -87,15 +87,21 @@ namespace XamarinApp.ViewModels.Registration
         {
             UsePin = true;
 
-            // TODO: validation here.
+            if (this.Pin.Length < 8)
+            {
+                this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinTooShort);
+            }
+            else if (this.Pin.Trim() != this.Pin)
+            {
+                this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
+            }
 
             OnStepCompleted(EventArgs.Empty);
         }
 
         private bool CanContinue()
         {
-            // TODO: validation here
-            return false;
+            return !PinsDoNotMatch;
         }
     }
 }

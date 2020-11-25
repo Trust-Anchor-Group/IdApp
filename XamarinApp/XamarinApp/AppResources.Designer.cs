@@ -457,6 +457,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PIN number must not include leading or trailing whitespace..
+        /// </summary>
+        internal static string PinMustNotIncludeWhitespace {
+            get {
+                return ResourceManager.GetString("PinMustNotIncludeWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PIN or password.
         /// </summary>
         internal static string PinOrPassword {
@@ -471,6 +480,15 @@ namespace XamarinApp {
         internal static string PinsDoNotMatch {
             get {
                 return ResourceManager.GetString("PinsDoNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PIN number too short. At least 8 numbers (or characters) are required..
+        /// </summary>
+        internal static string PinTooShort {
+            get {
+                return ResourceManager.GetString("PinTooShort", resourceCulture);
             }
         }
         

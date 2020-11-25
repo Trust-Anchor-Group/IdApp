@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -14,6 +15,8 @@ using Waher.Persistence.LifeCycle;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
+using Waher.Script;
+using Waher.Script.Graphs;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
@@ -56,6 +59,7 @@ namespace XamarinApp
             this.internalSink = new InternalSink();
             Log.Register(this.internalSink);
 
+            Stopwatch sw = Stopwatch.StartNew();
             Types.Initialize(
                 typeof(App).Assembly,
                 typeof(Database).Assembly,
@@ -63,12 +67,21 @@ namespace XamarinApp
                 typeof(ObjectSerializer).Assembly,
                 typeof(XmppClient).Assembly,
                 typeof(ContractsClient).Assembly,
+                typeof(Expression).Assembly,
+                typeof(Graph).Assembly,
+                typeof(Waher.Things.ThingReference).Assembly,
                 typeof(RuntimeSettings).Assembly,
+                typeof(Waher.Runtime.Language.Language).Assembly,
                 typeof(DnsResolver).Assembly,
+                typeof(Waher.Networking.XMPP.Sensor.SensorClient).Assembly,
+                typeof(Waher.Networking.XMPP.Control.ControlClient).Assembly,
+                typeof(Waher.Networking.XMPP.Concentrator.ConcentratorClient).Assembly,
                 typeof(XmppServerlessMessaging).Assembly,
-                typeof(ProvisioningClient).Assembly);
-
-            Instance = this;
+                typeof(ProvisioningClient).Assembly,
+                typeof(Waher.Security.EllipticCurves.EllipticCurve).Assembly);
+            sw.Stop();
+            System.Diagnostics.Debug.WriteLine($"Types.Initialize took {sw.ElapsedMilliseconds} ms");
+			Instance = this;
 			// Start page
             this.MainPage = new NavigationPage(new InitPage());
         }
