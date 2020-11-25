@@ -4,10 +4,13 @@
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
              x:Class="XamarinApp.Views.MainPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="{StaticResource DefaultMargin}">
+            <Label x:Name="ConnectionState" Text="" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
+            <Button x:Name="IdentityButton" Text="Identity" Clicked="Identity_Clicked"/>
+            <Button x:Name="WalletButton" Text="Wallet" IsEnabled="False"/>
+            <Button x:Name="ScanQRButton" Text="Scan QR Code" Clicked="ScanQR_Clicked"/>
+            <Button x:Name="DevicesButton" Text="Devices" IsEnabled="False"/>
+            <Button x:Name="ContractsButton" Text="Contracts" Clicked="Contracts_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </views:ContentBasePage>
