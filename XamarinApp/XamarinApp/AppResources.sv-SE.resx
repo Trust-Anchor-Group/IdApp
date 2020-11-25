@@ -315,6 +315,15 @@
   <data name="UseExisting" xml:space="preserve">
     <value>Använd existerande</value>
   </data>
+  <data name="ValidateIdentityInfo1Text" xml:space="preserve">
+    <value>Din identitet behöver valideras innan den kan godkännas. Det kan göras av operatören eller av en vän eller kollega.</value>
+  </data>
+  <data name="ValidateIdentityInfo2Text" xml:space="preserve">
+    <value>För att bjuda in en vän eller kollega för att granska din ansökan behöver du scanna kollegans ID-kod. De kan se och granska din ansökan. När tillräckligt många har granskat din ansökan och verifierat dess äkthet kommer operatören automatiskt godkänna din ansökan. Information om vem som granskade din ansökan är inbakad i den granskade identiteten själv.</value>
+  </data>
+  <data name="ValidateIdentityInfo3Text" xml:space="preserve">
+    <value>Du kan se status på din ansökan nedan.</value>
+  </data>
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validerar information</value>
   </data>

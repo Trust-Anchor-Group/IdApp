@@ -1,10 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace XamarinApp.ViewModels
 {
     public class BaseViewModel : BindableObject
     {
+        private readonly List<BaseViewModel> childViewModels;
+
+        public BaseViewModel()
+        {
+            this.childViewModels = new List<BaseViewModel>();
+        }
+
         public bool IsBound { get; private set; }
 
         public async Task Bind()
@@ -12,6 +20,10 @@ namespace XamarinApp.ViewModels
             if (!IsBound)
             {
                 await DoBind();
+                foreach (BaseViewModel childViewModel in childViewModels)
+                {
+                    await childViewModel.DoBind();
+                }
                 IsBound = true;
             }
         }
@@ -20,9 +32,19 @@ namespace XamarinApp.ViewModels
         {
             if (IsBound)
             {
+                foreach (BaseViewModel childViewModel in childViewModels)
+                {
+                    await childViewModel.DoUnbind();
+                }
                 await DoUnbind();
                 IsBound = false;
             }
+        }
+
+        protected T AddChildViewModel<T>(T childViewModel) where T : BaseViewModel
+        {
+            this.childViewModels.Add(childViewModel);
+            return childViewModel;
         }
 
         protected virtual Task DoBind()

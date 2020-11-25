@@ -27,9 +27,22 @@ namespace XamarinApp.ViewModels.Registration
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State != IdentityState.Created);
             this.ContinueCommand = new Command(_ => OnStepCompleted(EventArgs.Empty), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
-            this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
-            this.TagProfile.Changed += TagProfile_Changed;
         }
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            this.TagProfile.Changed += TagProfile_Changed;
+            this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
+        }
+
+        protected override async Task DoUnbind()
+        {
+            this.TagProfile.Changed -= TagProfile_Changed;
+            this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
+            await base.DoUnbind();
+        }
+
 
         public ICommand InviteReviewerCommand { get; }
         public ICommand ContinueCommand { get; }

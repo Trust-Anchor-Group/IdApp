@@ -11,9 +11,9 @@
                     <Setter Property="FontAttributes" Value="Bold"/>
                 </Style>
             </StackLayout.Resources>
-            <Label Text="Your identity information has to be validated before it can be approved. This can be done manually by your operator. It can also be done by peers." HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
-            <Label Text="To invite a peer to review your application, you need to scan the ID code of the peer you wish to invite. They will be able to see and review your application. When sufficient peers have reviewed your information, and certified it is correct, the operator will automatically approve your application. The information about who reviewed your identity will be encoded into the reviewed identity itself." HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
-            <Label Text="You can see the current status of the application below." HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+            <Label Text="{x:Static local:AppResources.ValidateIdentityInfo1Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+            <Label Text="{x:Static local:AppResources.ValidateIdentityInfo2Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+            <Label Text="{x:Static local:AppResources.ValidateIdentityInfo3Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
             <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">
                 <TableView.Root>
                     <TableSection>

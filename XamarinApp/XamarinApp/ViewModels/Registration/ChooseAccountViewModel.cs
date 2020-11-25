@@ -34,7 +34,18 @@ namespace XamarinApp.ViewModels.Registration
             this.CreateNew = true;
             this.CreateRandomPassword = true;
             this.Title = AppResources.ChooseAccount;
+        }
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
             this.TagProfile.Changed += TagProfile_Changed;
+        }
+
+        protected override async Task DoUnbind()
+        {
+            this.TagProfile.Changed -= TagProfile_Changed;
+            await base.DoUnbind();
         }
 
         private void TagProfile_Changed(object sender, EventArgs e)

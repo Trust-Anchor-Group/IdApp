@@ -41,11 +41,11 @@ namespace XamarinApp.ViewModels.Registration
             GoToNextCommand = new Command(() => CurrentStep++, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
             GoToPrevCommand = new Command(() => CurrentStep--, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
-            RegistrationSteps.Add(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.messageService));
-            RegistrationSteps.Add(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.messageService, this.authService, this.contractsService));
-            RegistrationSteps.Add(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService));
-            RegistrationSteps.Add(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService, this.navigationService));
-            RegistrationSteps.Add(new DefinePinViewModel(this.tagProfile, this.neuronService, this.messageService));
+            RegistrationSteps.Add(this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.messageService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.messageService, this.authService, this.contractsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService, this.navigationService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.messageService)));
 
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 

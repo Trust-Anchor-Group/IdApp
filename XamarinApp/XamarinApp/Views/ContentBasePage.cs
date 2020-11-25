@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.ViewModels;
 
@@ -29,11 +27,6 @@ namespace XamarinApp.Views
             base.OnAppearing();
             await this.BindViewModel(ViewModel);
             await ViewModel.RestoreState();
-            IList<ContentBaseView> children = this.GetChildren<ContentBaseView>();
-            foreach (ContentBaseView view in children)
-            {
-                await view.OnPageAppearing();
-            }
         }
 
         protected override async void OnDisappearing()
@@ -41,11 +34,6 @@ namespace XamarinApp.Views
             if (ViewModel.IsBound)
             {
                 await ViewModel.SaveState();
-            }
-            IList<ContentBaseView> children = this.GetChildren<ContentBaseView>();
-            foreach (ContentBaseView view in children)
-            {
-                await view.OnPageDisappearing();
             }
             await this.UnbindViewModel(ViewModel);
             base.OnDisappearing();

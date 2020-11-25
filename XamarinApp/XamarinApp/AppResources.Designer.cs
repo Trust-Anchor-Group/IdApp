@@ -655,6 +655,33 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your identity information has to be validated before it can be approved. This can be done manually by your operator. It can also be done by peers..
+        /// </summary>
+        internal static string ValidateIdentityInfo1Text {
+            get {
+                return ResourceManager.GetString("ValidateIdentityInfo1Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To invite a peer to review your application, you need to scan the ID code of the peer you wish to invite. They will be able to see and review your application. When sufficient peers have reviewed your information, and certified it is correct, the operator will automatically approve your application. The information about who reviewed your identity will be encoded into the reviewed identity itself..
+        /// </summary>
+        internal static string ValidateIdentityInfo2Text {
+            get {
+                return ResourceManager.GetString("ValidateIdentityInfo2Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can see the current status of the application below..
+        /// </summary>
+        internal static string ValidateIdentityInfo3Text {
+            get {
+                return ResourceManager.GetString("ValidateIdentityInfo3Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validating information.
         /// </summary>
         internal static string ValidatingInformation {
