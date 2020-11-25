@@ -430,6 +430,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal Number ({0}).
+        /// </summary>
+        internal static string PersonalNumberPlaceholder {
+            get {
+                return ResourceManager.GetString("PersonalNumberPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Petition sent.
         /// </summary>
         internal static string PetitionSent {

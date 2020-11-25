@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Xamarin.Forms;
-using XamarinApp.Extensions;
+﻿using Xamarin.Forms;
 using XamarinApp.ViewModels;
 
 namespace XamarinApp.Views
@@ -16,16 +14,6 @@ namespace XamarinApp.Views
         protected T GetViewModel<T>() where T : BaseViewModel
         {
             return (T)ViewModel;
-        }
-
-        protected internal async Task OnPageAppearing()
-        {
-            await this.BindViewModel(ViewModel);
-        }
-
-        protected internal async Task OnPageDisappearing()
-        {
-            await this.UnbindViewModel(ViewModel);
         }
     }
 }

@@ -191,12 +191,12 @@ namespace XamarinApp.ViewModels.Registration
             CurrentStep--;
         }
 
-        public override async Task RestoreState()
+        protected override async Task DoRestoreState()
         {
             CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, (int)DefaultStep);
         }
 
-        public override async Task SaveState()
+        protected override async Task DoSaveState()
         {
             await this.settingsService.SaveState(CurrentStepKey, CurrentStep);
         }

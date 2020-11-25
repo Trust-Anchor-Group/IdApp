@@ -274,20 +274,64 @@ namespace XamarinApp.Services
             }
         }
 
+        #region Events
+
+        public event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
+
+        private void OnLegalIdentityChanged(LegalIdentityChangedEventArgs e)
+        {
+            LegalIdentityChanged?.Invoke(this, e);
+        }
+
+        public event EventHandler<LegalIdentityPetitionEventArgs> PetitionForIdentityReceived;
+
+        private void OnPetitionForIdentityReceived(LegalIdentityPetitionEventArgs e)
+        {
+            PetitionForIdentityReceived?.Invoke(this, e);
+        }
+
+        public event EventHandler<LegalIdentityPetitionResponseEventArgs> PetitionedIdentityResponseReceived;
+
+        private void OnPetitionedIdentityResponseReceived(LegalIdentityPetitionResponseEventArgs e)
+        {
+            PetitionedIdentityResponseReceived?.Invoke(this, e);
+        }
+
+        public event EventHandler<ContractPetitionEventArgs> PetitionForContractReceived;
+
+        private void OnPetitionForContractReceived(ContractPetitionEventArgs e)
+        {
+            PetitionForContractReceived?.Invoke(this, e);
+        }
+
+        public event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
+
+        private void OnPetitionedContractResponseReceived(ContractPetitionResponseEventArgs e)
+        {
+            PetitionedContractResponseReceived?.Invoke(this, e);
+        }
+
+        public event EventHandler<SignaturePetitionEventArgs> PetitionForPeerReviewIdReceived;
+
+        private void OnPetitionForPeerReviewIdReceived(SignaturePetitionEventArgs e)
+        {
+            PetitionForPeerReviewIdReceived?.Invoke(this, e);
+        }
+
+        public event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
+
+        private void OnPetitionedPeerReviewIdResponseReceived(SignaturePetitionResponseEventArgs e)
+        {
+            PetitionedPeerReviewIdResponseReceived?.Invoke(this, e);
+        }
+
+        #endregion
+
+        #region Event Handlers
+
         private Task ContractsClient_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
         {
-            // TODO: where to listen to/fire event and switch page?
-
-            if (!e.Response || e.RequestedContract is null)
-            {
-                this.messageService.DisplayAlert(AppResources.Message, "Petition to view contract was denied.", AppResources.Ok);
-            }
-            else
-            {
-                // TODO: where to listen to/fire event and switch page?
-                //App.ShowPage(new ViewContractPage(App.Instance.MainPage, e.RequestedContract, false), false);
-            }
-
+            this.OnPetitionedContractResponseReceived(e);
             return Task.CompletedTask;
         }
 
@@ -304,8 +348,7 @@ namespace XamarinApp.Services
                 }
                 else
                 {
-                    // TODO: where to listen to/fire event and switch page?
-                    //App.ShowPage(new PetitionContractPage(App.Instance.MainPage, e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose), false);
+                    this.OnPetitionForContractReceived(e);
                 }
             }
             catch (Exception)
@@ -316,18 +359,7 @@ namespace XamarinApp.Services
 
         private Task ContractsClient_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
         {
-            // TODO: where to listen to/fire event and switch page?
-
-            if (!e.Response || e.RequestedIdentity is null)
-            {
-                this.messageService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok);
-            }
-            else
-            {
-                // TODO: where to listen to/fire event and switch page?
-                //App.ShowPage(new Views.IdentityPage(App.Instance.MainPage, e.RequestedIdentity), false);
-            }
-
+            this.OnPetitionedIdentityResponseReceived(e);
             return Task.CompletedTask;
         }
 
@@ -349,8 +381,7 @@ namespace XamarinApp.Services
                 }
                 else
                 {
-                    // TODO: where to listen to/fire event and switch page?
-                    //App.ShowPage(new PetitionIdentityPage(App.Instance.MainPage, e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose), false);
+                    this.OnPetitionForIdentityReceived(e);
                 }
             }
             catch (Exception)
@@ -393,8 +424,7 @@ namespace XamarinApp.Services
 
         private Task ContractsClient_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
-            // TODO: where to listen to event and switch page?
-            //App.ShowPage(new IdentityPage(App.CurrentPage, e.RequestorIdentity, e), false);
+            this.OnPetitionForPeerReviewIdReceived(e);
             return Task.CompletedTask;
         }
 
@@ -421,12 +451,7 @@ namespace XamarinApp.Services
             return Task.CompletedTask;
         }
 
-        public event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
-
-        private void OnLegalIdentityChanged(LegalIdentityChangedEventArgs e)
-        {
-            LegalIdentityChanged?.Invoke(this, e);
-        }
+        #endregion
 
         public bool FileUploadIsSupported =>
             tagProfile.FileUploadIsSupported &&

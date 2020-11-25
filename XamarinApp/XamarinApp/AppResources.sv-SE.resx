@@ -240,6 +240,9 @@
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
     <value>Personnumret matchar inte valt lands överrensstämmelser. Förväntat format: </value>
   </data>
+  <data name="PersonalNumberPlaceholder" xml:space="preserve">
+    <value>Personnummer ({0})</value>
+  </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Begäran skickad</value>
   </data>

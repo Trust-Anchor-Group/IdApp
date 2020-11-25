@@ -11,7 +11,7 @@
             <Label Text="{x:Static local:AppResources.PinOrPassword}"/>
             <Entry x:Name="PinEntry" IsPassword="True">
                 <Entry.Behaviors>
-                    <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RetypedPinEntry" BindingContext="{Binding BindingContext, Source={x:Reference PinContent}}"/>
+                    <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RetypePinEntry" BindingContext="{Binding BindingContext, Source={x:Reference PinContent}}"/>
                     <behaviors:TextChangedBehavior TextChangedCommand="{Binding Path=PinChangedCommand}"/>
                 </Entry.Behaviors>
             </Entry>

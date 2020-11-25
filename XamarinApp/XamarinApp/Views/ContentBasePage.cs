@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using XamarinApp.Extensions;
 using XamarinApp.ViewModels;
 
 namespace XamarinApp.Views
@@ -25,17 +24,26 @@ namespace XamarinApp.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await this.BindViewModel(ViewModel);
-            await ViewModel.RestoreState();
+            if (ViewModel != null)
+            {
+                if (!ViewModel.IsBound)
+                {
+                    await ViewModel.Bind();
+                }
+                await ViewModel.RestoreState();
+            }
         }
 
         protected override async void OnDisappearing()
         {
-            if (ViewModel.IsBound)
+            if (ViewModel != null)
             {
-                await ViewModel.SaveState();
+                if (ViewModel.IsBound)
+                {
+                    await ViewModel.SaveState();
+                }
+                await ViewModel.Unbind();
             }
-            await this.UnbindViewModel(ViewModel);
             base.OnDisappearing();
         }
     }

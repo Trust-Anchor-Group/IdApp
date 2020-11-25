@@ -280,8 +280,14 @@ namespace XamarinApp.Services
                         break;
 
                     case XmppState.Offline:
-                    case XmppState.Error:
                         connected.TrySetResult(false);
+                        break;
+
+                    case XmppState.Error:
+                        if (operation == ConnectOperation.ConnectAndCreateAccount)
+                            connected.TrySetResult(true);
+                        else
+                            connected.TrySetResult(false);
                         break;
                 }
 

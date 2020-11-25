@@ -136,5 +136,20 @@ namespace XamarinApp.PersonalNumbers
             }
             return null;
         }
+
+        public static string DisplayStringForCountry(string countryCode)
+        {
+            LazyLoad();
+
+            if (!string.IsNullOrWhiteSpace(countryCode))
+            {
+                if (SchemesByCode.TryGetValue(countryCode, out LinkedList<PersonalNumberScheme> schemes))
+                {
+                    return schemes.First?.Value?.DisplayString;
+                }
+            }
+
+            return null;
+        }
     }
 }

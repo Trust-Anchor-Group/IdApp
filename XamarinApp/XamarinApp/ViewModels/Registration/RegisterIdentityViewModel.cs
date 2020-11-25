@@ -40,6 +40,7 @@ namespace XamarinApp.ViewModels.Registration
             this.RemovePhotoCommand = new Command(_ => Image = null);
             this.photos = new Dictionary<string, LegalIdentityAttachment>();
             this.Title = AppResources.PersonalLegalInformation;
+            this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
         }
 
         public ICommand RegisterCommand { get; }
@@ -76,6 +77,23 @@ namespace XamarinApp.ViewModels.Registration
             {
                 RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
                 viewModel.RegisterCommand.ChangeCanExecute();
+                string code;
+                if (!string.IsNullOrWhiteSpace(viewModel.SelectedCountry) && ISO_3166_1.TryGetCode(viewModel.SelectedCountry, out code))
+                {
+                    string format = PersonalNumberSchemes.DisplayStringForCountry(code);
+                    if (!string.IsNullOrWhiteSpace(format))
+                    {
+                        viewModel.PersonalNumberPlaceholder = string.Format(AppResources.PersonalNumberPlaceholder, format);
+                    }
+                    else
+                    {
+                        viewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+                    }
+                }
+                else
+                {
+                    viewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+                }
             });
 
         public string SelectedCountry
@@ -130,6 +148,15 @@ namespace XamarinApp.ViewModels.Registration
         {
             get { return (string)GetValue(PersonalNumberProperty); }
             set { SetValue(PersonalNumberProperty, value); }
+        }
+
+        public static readonly BindableProperty PersonalNumberPlaceholderProperty =
+            BindableProperty.Create("PersonalNumberPlaceholder", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+        public string PersonalNumberPlaceholder
+        {
+            get { return (string) GetValue(PersonalNumberPlaceholderProperty); }
+            set { SetValue(PersonalNumberPlaceholderProperty, value); }
         }
 
         public static readonly BindableProperty AddressProperty =
@@ -294,14 +321,14 @@ namespace XamarinApp.ViewModels.Registration
             string countryCode = ISO_3166_1.ToCode(this.SelectedCountry);
             bool? personalNumberIsValid = PersonalNumberSchemes.IsValid(countryCode, this.PersonalNumber, out string personalNumberFormat);
 
-            //if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
-            //{
-            //    if (string.IsNullOrEmpty(personalNumberFormat))
-            //        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
-            //    else
-            //        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
-            //    return;
-            //}
+            if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
+            {
+                if (string.IsNullOrEmpty(personalNumberFormat))
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
+                else
+                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
+                return;
+            }
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {
@@ -427,6 +454,18 @@ namespace XamarinApp.ViewModels.Registration
             }
 
             return true;
+        }
+
+        protected override async Task DoSaveState()
+        {
+            await base.DoSaveState();
+            // TODO: save properties
+        }
+
+        protected override async Task DoRestoreState()
+        {
+            // TODO: restore properties
+            await base.DoRestoreState();
         }
     }
 }

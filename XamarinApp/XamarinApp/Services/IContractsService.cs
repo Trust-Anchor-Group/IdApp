@@ -31,7 +31,6 @@ namespace XamarinApp.Services
         Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url);
         Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url, TimeSpan timeout);
 
-        event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
         Task<LegalIdentity> AddLegalIdentityAsync(List<Property> properties, params LegalIdentityAttachment[] attachments);
         Task<LegalIdentity[]> GetLegalIdentitiesAsync();
         Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId);
@@ -45,5 +44,13 @@ namespace XamarinApp.Services
         Task<LegalIdentity> CompromisedLegalIdentityAsync(string legalIdentityId);
 
         bool FileUploadIsSupported { get; }
+
+        event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
+        event EventHandler<LegalIdentityPetitionEventArgs> PetitionForIdentityReceived;
+        event EventHandler<LegalIdentityPetitionResponseEventArgs> PetitionedIdentityResponseReceived;
+        event EventHandler<ContractPetitionEventArgs> PetitionForContractReceived;
+        event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
+        event EventHandler<SignaturePetitionEventArgs> PetitionForPeerReviewIdReceived;
+        event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
     }
 }

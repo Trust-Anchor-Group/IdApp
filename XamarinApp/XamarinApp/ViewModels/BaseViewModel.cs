@@ -57,12 +57,30 @@ namespace XamarinApp.ViewModels
             return Task.CompletedTask;
         }
 
-        public virtual Task RestoreState()
+        public async Task RestoreState()
+        {
+            foreach (BaseViewModel childViewModel in childViewModels)
+            {
+                await childViewModel.DoRestoreState();
+            }
+            await DoRestoreState();
+        }
+
+        public async Task SaveState()
+        {
+            foreach (BaseViewModel childViewModel in childViewModels)
+            {
+                await childViewModel.DoSaveState();
+            }
+            await DoSaveState();
+        }
+
+        protected virtual Task DoRestoreState()
         {
             return Task.CompletedTask;
         }
 
-        public virtual Task SaveState()
+        protected virtual Task DoSaveState()
         {
             return Task.CompletedTask;
         }
