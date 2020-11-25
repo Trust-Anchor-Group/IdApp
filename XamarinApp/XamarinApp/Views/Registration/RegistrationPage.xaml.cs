@@ -11,5 +11,16 @@ namespace XamarinApp.Views.Registration
             InitializeComponent();
             ViewModel = new RegistrationViewModel();
         }
+
+        protected override bool OnBackButtonPressed()
+        {
+            RegistrationViewModel viewModel = GetViewModel<RegistrationViewModel>();
+            if (viewModel.CanGoBack)
+            {
+                viewModel.GoToPrevCommand.Execute(null);
+                return true;
+            }
+            return base.OnBackButtonPressed();
+        }
     }
 }

@@ -24,17 +24,23 @@ namespace XamarinApp.ViewModels.Registration
         {
             this.authService = authService;
             this.contractsService = contractsService;
-            IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
-            PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
-            SwitchModeCommand = new Command(_ =>
+            this.PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
+            this.SwitchModeCommand = new Command(_ =>
             {
                 CreateNew = !CreateNew;
                 PerformActionCommand.ChangeCanExecute();
             });
-            AccountName = TagProfile.Account;
-            ActionButtonText = AppResources.CreateNew;
-            CreateNew = true;
-            CreateRandomPassword = true;
+            this.ActionButtonText = AppResources.CreateNew;
+            this.CreateNew = true;
+            this.CreateRandomPassword = true;
+            this.Title = AppResources.ChooseAccount;
+            this.TagProfile.Changed += TagProfile_Changed;
+        }
+
+        private void TagProfile_Changed(object sender, EventArgs e)
+        {
+            IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
+            AccountName = this.TagProfile.Account;
         }
 
         public static readonly BindableProperty IntroTextProperty =
@@ -141,6 +147,8 @@ namespace XamarinApp.ViewModels.Registration
         public string PasswordHash { get; set; }
 
         public string PasswordHashMethod { get; set; }
+
+        public LegalIdentity LegalIdentity { get; set; }
 
         public ICommand SwitchModeCommand { get; }
 
@@ -335,13 +343,13 @@ namespace XamarinApp.ViewModels.Registration
                                 }
                             }
 
-                            if (!(approvedIdentity is null))
+                            if (approvedIdentity != null)
                             {
-                                this.TagProfile.SetLegalIdentity(approvedIdentity);
+                                this.LegalIdentity = approvedIdentity;
                             }
-                            else if (!(createdIdentity is null))
+                            else if (createdIdentity != null)
                             {
-                                this.TagProfile.SetLegalIdentity(createdIdentity);
+                                this.LegalIdentity = createdIdentity;
                             }
                         }
                     }

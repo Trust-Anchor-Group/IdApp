@@ -14,10 +14,11 @@ namespace XamarinApp.ViewModels.Registration
             IMessageService messageService)
             : base(RegistrationStep.Pin, tagProfile, neuronService, messageService)
         {
-            PinChangedCommand = new Command<string>(s => Pin = s);
-            RetypedPinChangedCommand = new Command<string>(s => RetypedPin = s);
-            ContinueCommand = new Command(_ => Continue(), _ => CanContinue());
-            SkipCommand = new Command(_ => Skip());
+            this.PinChangedCommand = new Command<string>(s => Pin = s);
+            this.RetypedPinChangedCommand = new Command<string>(s => RetypedPin = s);
+            this.ContinueCommand = new Command(_ => Continue(), _ => CanContinue());
+            this.SkipCommand = new Command(_ => Skip());
+            this.Title = AppResources.DefinePin;
         }
 
         public ICommand PinChangedCommand { get; }

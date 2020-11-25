@@ -9,7 +9,6 @@
     <ContentView.Content>
         <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
             <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-                <Label Text="Personal/Legal Information" VerticalOptions="Start" Style="{StaticResource Heading}" />
                 <Grid RowSpacing="2" ColumnSpacing="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="32"/>
@@ -83,7 +82,7 @@
                     <Label Text="{x:Static resources:AppResources.Country}" />
                     <Picker x:Name="CountryPicker" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}" IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}"/>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}"/>
-                    <Button x:Name="RegisterButton" Text="{x:Static resources:AppResources.Register}" Command="{Binding Path=RegisterCommand}"/>
+                    <Button x:Name="RegisterButton" Text="{x:Static resources:AppResources.Register}" Command="{Binding Path=RegisterCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

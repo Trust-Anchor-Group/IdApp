@@ -50,6 +50,7 @@ namespace XamarinApp.ViewModels.Registration
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 
             this.CurrentStep = (int)DefaultStep;
+            UpdateStepTitle();
         }
 
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; private set; }
@@ -57,13 +58,41 @@ namespace XamarinApp.ViewModels.Registration
         public ICommand GoToPrevCommand { get; }
         public ICommand GoToNextCommand { get; }
 
+        public static readonly BindableProperty CanGoBackProperty =
+            BindableProperty.Create("CanGoBack", typeof(bool), typeof(RegistrationViewModel), default(bool));
+
+        public bool CanGoBack
+        {
+            get { return (bool) GetValue(CanGoBackProperty); }
+            set { SetValue(CanGoBackProperty, value); }
+        }
+
         public static readonly BindableProperty CurrentStepProperty =
-            BindableProperty.Create("CurrentStep", typeof(int), typeof(RegistrationViewModel), default(int));
+            BindableProperty.Create("CurrentStep", typeof(int), typeof(RegistrationViewModel), default(int), propertyChanged: (b, oldValue, newValue) =>
+            {
+                RegistrationViewModel viewModel = (RegistrationViewModel)b;
+                viewModel.UpdateStepTitle();
+                viewModel.CanGoBack = viewModel.GoToPrevCommand.CanExecute(null);
+            });
 
         public int CurrentStep
         {
             get { return (int)GetValue(CurrentStepProperty); }
             set { SetValue(CurrentStepProperty, value); }
+        }
+
+        public static readonly BindableProperty CurrentStepTitleProperty =
+            BindableProperty.Create("CurrentStepTitle", typeof(string), typeof(RegistrationViewModel), default(string));
+
+        public string CurrentStepTitle
+        {
+            get { return (string) GetValue(CurrentStepTitleProperty); }
+            set { SetValue(CurrentStepTitleProperty, value); }
+        }
+
+        private void UpdateStepTitle()
+        {
+            this.CurrentStepTitle = this.RegistrationSteps[this.CurrentStep].Title;
         }
 
         private void RegistrationStep_Completed(object sender, EventArgs e)
@@ -75,6 +104,10 @@ namespace XamarinApp.ViewModels.Registration
                     {
                         ChooseAccountViewModel vm = (ChooseAccountViewModel)sender;
                         this.tagProfile.SetAccount(vm.AccountName, vm.PasswordHash, vm.PasswordHashMethod);
+                        if (vm.LegalIdentity != null)
+                        {
+                            this.tagProfile.SetLegalIdentity(vm.LegalIdentity);
+                        }
                         GoToNextCommand.Execute();
                     }
                     break;

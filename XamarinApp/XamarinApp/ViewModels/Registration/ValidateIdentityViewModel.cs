@@ -26,23 +26,13 @@ namespace XamarinApp.ViewModels.Registration
             this.navigationService = navigationService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State != IdentityState.Created);
             this.ContinueCommand = new Command(_ => OnStepCompleted(EventArgs.Empty), _ => IsApproved);
+            this.Title = AppResources.ValidatingInformation;
+            this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
+            this.TagProfile.Changed += TagProfile_Changed;
         }
 
         public ICommand InviteReviewerCommand { get; }
         public ICommand ContinueCommand { get; }
-
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
-            AssignProperties();
-            this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
-        }
-
-        protected override Task DoUnbind()
-        {
-            this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
-            return base.DoUnbind();
-        }
 
         private void AssignProperties()
         {
@@ -70,6 +60,11 @@ namespace XamarinApp.ViewModels.Registration
 
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
+        }
+
+        private void TagProfile_Changed(object sender, EventArgs e)
+        {
+            AssignProperties();
         }
 
         private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)

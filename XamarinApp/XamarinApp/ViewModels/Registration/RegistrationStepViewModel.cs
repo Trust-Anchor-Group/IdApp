@@ -22,6 +22,15 @@ namespace XamarinApp.ViewModels.Registration
             this.MessageService = messageService;
         }
 
+        public static readonly BindableProperty TitleProperty =
+            BindableProperty.Create("Title", typeof(string), typeof(RegistrationStepViewModel), default(string));
+
+        public string Title
+        {
+            get { return (string) GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+
         public RegistrationStep Step { get; }
 
         protected TagProfile TagProfile { get; }

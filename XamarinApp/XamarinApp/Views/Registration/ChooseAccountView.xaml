@@ -12,7 +12,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
@@ -21,11 +20,10 @@
                 <converters:BooleanToBoldFontConverter x:Key="InvertedBooleanToBoldFont" Invert="True"/>
             </Grid.Resources>
 
-            <Label Grid.Row="0" Text="{x:Static resources:AppResources.ChooseAccount}" VerticalOptions="Center" Style="{StaticResource Heading}" />
-            <Label Grid.Row="1" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" />
 
             <!-- Tabs -->
-            <Grid Grid.Row="2" Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
+            <Grid Grid.Row="1" Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
@@ -51,7 +49,7 @@
             </Grid>
 
             <!-- TAB 1 Contents -->
-            <StackLayout Grid.Row="3" x:Name="CreateNewTab" IsVisible="{Binding Path=CreateNew}" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
+            <StackLayout Grid.Row="2" x:Name="CreateNewTab" IsVisible="{Binding Path=CreateNew}" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
                 <Entry Text="{Binding Path=AccountName}">
                     <Entry.Behaviors>
@@ -74,14 +72,14 @@
             </StackLayout>
 
             <!-- TAB 2 Contents -->
-            <StackLayout Grid.Row="3" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="StartAndExpand">
+            <StackLayout Grid.Row="2" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
                 <Entry Text="{Binding Path=AccountName}" />
-                <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" />
+                <Label Text="{x:Static resources:AppResources.Password}" />
                 <Entry IsPassword="True" Text="{Binding Path=Password}"/>
             </StackLayout>
 
-            <StackLayout Grid.Row="4" Orientation="Vertical" VerticalOptions="End">
+            <StackLayout Grid.Row="3" Orientation="Vertical" VerticalOptions="End">
                 <ActivityIndicator IsVisible="{Binding Path=IsConnecting}" IsRunning="{Binding Path=IsConnecting}" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
                 <Button Text="{Binding Path=ActionButtonText}" Command="{Binding Path=PerformActionCommand}" Margin="{StaticResource DefaultMargin}" />
             </StackLayout>

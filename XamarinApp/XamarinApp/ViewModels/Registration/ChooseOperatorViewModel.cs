@@ -22,7 +22,8 @@ namespace XamarinApp.ViewModels.Registration
             this.Operators = new ObservableCollection<string>();
             this.ConnectCommand = new Command(async () => await Connect(), ConnectCanExecute);
             this.ManualOperatorCommand = new Command<string>(async text => await ManualOperatorTextEdited(text));
-            PopulateOperators();
+            this.PopulateOperators();
+            this.Title = AppResources.SelectOperator;
         }
 
         public ObservableCollection<string> Operators { get; }

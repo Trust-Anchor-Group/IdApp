@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.ViewModels;
 
@@ -27,7 +29,8 @@ namespace XamarinApp.Views
             base.OnAppearing();
             await this.BindViewModel(ViewModel);
             await ViewModel.RestoreState();
-            foreach(ContentBaseView view in this.GetChildren<ContentBaseView>())
+            IList<ContentBaseView> children = this.GetChildren<ContentBaseView>();
+            foreach (ContentBaseView view in children)
             {
                 await view.OnPageAppearing();
             }
@@ -39,7 +42,8 @@ namespace XamarinApp.Views
             {
                 await ViewModel.SaveState();
             }
-            foreach (ContentBaseView view in this.GetChildren<ContentBaseView>())
+            IList<ContentBaseView> children = this.GetChildren<ContentBaseView>();
+            foreach (ContentBaseView view in children)
             {
                 await view.OnPageDisappearing();
             }

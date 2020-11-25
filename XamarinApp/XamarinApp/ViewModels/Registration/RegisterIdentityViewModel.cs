@@ -38,7 +38,8 @@ namespace XamarinApp.ViewModels.Registration
             this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
             this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
             this.RemovePhotoCommand = new Command(_ => Image = null);
-            photos = new Dictionary<string, LegalIdentityAttachment>();
+            this.photos = new Dictionary<string, LegalIdentityAttachment>();
+            this.Title = AppResources.PersonalLegalInformation;
         }
 
         public ICommand RegisterCommand { get; }
@@ -293,14 +294,14 @@ namespace XamarinApp.ViewModels.Registration
             string countryCode = ISO_3166_1.ToCode(this.SelectedCountry);
             bool? personalNumberIsValid = PersonalNumberSchemes.IsValid(countryCode, this.PersonalNumber, out string personalNumberFormat);
 
-            if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
-            {
-                if (string.IsNullOrEmpty(personalNumberFormat))
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
-                else
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
-                return;
-            }
+            //if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
+            //{
+            //    if (string.IsNullOrEmpty(personalNumberFormat))
+            //        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
+            //    else
+            //        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
+            //    return;
+            //}
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {

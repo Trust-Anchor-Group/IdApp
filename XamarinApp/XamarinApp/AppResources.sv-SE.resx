@@ -225,6 +225,9 @@
   <data name="PeerReviewRejected" xml:space="preserve">
     <value>Referentgranskning avvisad</value>
   </data>
+  <data name="PersonalLegalInformation" xml:space="preserve">
+    <value>Personlig/juridisk information</value>
+  </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
     <value>För att skaffa en plåbok, genomföra transaktioer och signera smarta kontrakt behöver du en verifierad personlig eller juridisk identitet kopplad till ditt konto.</value>
   </data>
@@ -311,6 +314,9 @@
   </data>
   <data name="UseExisting" xml:space="preserve">
     <value>Använd existerande</value>
+  </data>
+  <data name="ValidatingInformation" xml:space="preserve">
+    <value>Validerar information</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Välkommen till TAGs Xamarin-app!</value>

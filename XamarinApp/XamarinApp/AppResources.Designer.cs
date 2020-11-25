@@ -385,6 +385,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal/legal information.
+        /// </summary>
+        internal static string PersonalLegalInformation {
+            get {
+                return ResourceManager.GetString("PersonalLegalInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To be able to get a wallet, perform transactions and sign smart contracts, you need an attested personal or legal identity assigned to your account..
         /// </summary>
         internal static string PersonalLegalInfoText {
@@ -642,6 +651,15 @@ namespace XamarinApp {
         internal static string UseExisting {
             get {
                 return ResourceManager.GetString("UseExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validating information.
+        /// </summary>
+        internal static string ValidatingInformation {
+            get {
+                return ResourceManager.GetString("ValidatingInformation", resourceCulture);
             }
         }
         

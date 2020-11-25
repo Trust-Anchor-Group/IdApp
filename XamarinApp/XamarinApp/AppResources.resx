@@ -225,6 +225,9 @@
   <data name="PeerReviewRejected" xml:space="preserve">
     <value>Peer review rejected</value>
   </data>
+  <data name="PersonalLegalInformation" xml:space="preserve">
+    <value>Personal/legal information</value>
+  </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
     <value>To be able to get a wallet, perform transactions and sign smart contracts, you need an attested personal or legal identity assigned to your account.</value>
   </data>
@@ -311,6 +314,9 @@
   </data>
   <data name="UseExisting" xml:space="preserve">
     <value>Use existing</value>
+  </data>
+  <data name="ValidatingInformation" xml:space="preserve">
+    <value>Validating information</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Welcome to TAG Xamarin App!</value>
