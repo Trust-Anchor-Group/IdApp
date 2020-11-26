@@ -17,14 +17,13 @@ namespace XamarinApp.ViewModels.Registration
         public ValidateIdentityViewModel(
             TagProfile tagProfile, 
             INeuronService neuronService,
-            IMessageService messageService,
             IContractsService contractsService,
             INavigationService navigationService)
-            : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, messageService)
+            : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService)
         {
             this.contractsService = contractsService;
             this.navigationService = navigationService;
-            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State != IdentityState.Created);
+            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
             this.ContinueCommand = new Command(_ => OnStepCompleted(EventArgs.Empty), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
         }
@@ -321,22 +320,22 @@ namespace XamarinApp.ViewModels.Registration
             page.Content = view;
             viewModel.CodeScanned += AddPartViewModel_QrCodeScanned;
             // 3. Show it as a modal page
-            await this.navigationService.ShowModal(page);
+            await this.navigationService.PushModalAsync(page);
             // 4. Wait for the scan to complete
             await ScanQrCode();
-            await this.navigationService.HideModal();
+            await this.navigationService.PopModalAsync();
             viewModel.CodeScanned -= AddPartViewModel_QrCodeScanned;
 
             if (!string.IsNullOrWhiteSpace(viewModel.Code))
             {
                 if (!viewModel.Code.StartsWith(Constants.Schemes.IotId + ":", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
                 }
 
                 await this.contractsService.PetitionPeerReviewIdAsync(viewModel.Code.Substring(6), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), "Could you please review my identity information?");
 
-                await this.MessageService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
+                await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }
         }
     }

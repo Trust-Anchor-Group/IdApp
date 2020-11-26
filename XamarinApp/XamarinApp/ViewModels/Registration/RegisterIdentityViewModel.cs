@@ -23,9 +23,9 @@ namespace XamarinApp.ViewModels.Registration
         public RegisterIdentityViewModel(
             TagProfile tagProfile, 
             INeuronService neuronService, 
-            IMessageService messageService, 
+            INavigationService navigationService, 
             IContractsService contractsService)
-         : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, messageService)
+         : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, navigationService)
         {
             this.contractsService = contractsService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
@@ -240,7 +240,7 @@ namespace XamarinApp.ViewModels.Registration
                 CrossMedia.Current.IsTakePhotoSupported &&
                 this.contractsService.FileUploadIsSupported))
             {
-                await this.MessageService.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+                await this.NavigationService.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
                 return;
             }
 
@@ -269,7 +269,7 @@ namespace XamarinApp.ViewModels.Registration
                   CrossMedia.Current.IsPickPhotoSupported &&
                   this.contractsService.FileUploadIsSupported))
             {
-                await this.MessageService.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
+                await this.NavigationService.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
                 return;
             }
 
@@ -301,7 +301,7 @@ namespace XamarinApp.ViewModels.Registration
             if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
                 ms.Dispose();
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
                 return;
             }
 
@@ -324,21 +324,21 @@ namespace XamarinApp.ViewModels.Registration
             if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
             {
                 if (string.IsNullOrEmpty(personalNumberFormat))
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
                 else
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);
                 return;
             }
 
             if (!this.NeuronService.IsOnline)
             {
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
                 return;
             }
 
@@ -355,7 +355,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                await this.MessageService.DisplayAlert(ex);
+                await this.NavigationService.DisplayAlert(ex);
             }
             finally
             {
@@ -421,7 +421,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAFirstName);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAFirstName);
                 }
                 return false;
             }
@@ -430,7 +430,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideALastName);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideALastName);
                 }
                 return false;
             }
@@ -439,7 +439,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAPersonalNumber);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAPersonalNumber);
                 }
                 return false;
             }
@@ -448,7 +448,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideACountry);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideACountry);
                 }
                 return false;
             }

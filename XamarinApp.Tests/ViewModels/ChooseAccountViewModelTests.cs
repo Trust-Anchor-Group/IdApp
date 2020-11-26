@@ -9,13 +9,13 @@ namespace XamarinApp.Tests.ViewModels
     public class ChooseAccountViewModelTests : ViewModelTests<ChooseAccountViewModel>
     {
         private readonly Mock<INeuronService> tagService = new Mock<INeuronService>();
-        private readonly Mock<IMessageService> messageService = new Mock<IMessageService>();
+        private readonly Mock<INavigationService> navigationService = new Mock<INavigationService>();
         private readonly Mock<IAuthService> authService = new Mock<IAuthService>();
         private readonly Mock<IContractsService> contractsService = new Mock<IContractsService>();
 
         protected override ChooseAccountViewModel AViewModel()
         {
-            return new ChooseAccountViewModel(new TagProfile(), tagService.Object, messageService.Object, authService.Object, this.contractsService.Object);
+            return new ChooseAccountViewModel(new TagProfile(), tagService.Object, navigationService.Object, authService.Object, this.contractsService.Object);
         }
 
         [Test]

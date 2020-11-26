@@ -17,10 +17,10 @@ namespace XamarinApp.ViewModels.Registration
         public ChooseAccountViewModel(
             TagProfile tagProfile, 
             INeuronService neuronService, 
-            IMessageService messageService, 
+            INavigationService navigationService, 
             IAuthService authService, 
             IContractsService contractsService)
-            : base(RegistrationStep.Account, tagProfile, neuronService, messageService)
+            : base(RegistrationStep.Account, tagProfile, neuronService, navigationService)
         {
             this.authService = authService;
             this.contractsService = contractsService;
@@ -193,7 +193,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             catch (Exception ex)
             {
-                await this.MessageService.DisplayAlert(ex);
+                await this.NavigationService.DisplayAlert(ex);
             }
             finally
             {
@@ -215,7 +215,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     if (alertUser)
                     {
-                        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
+                        await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
                     }
 
                     return false;
@@ -230,7 +230,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     if (alertUser)
                     {
-                        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordsDoNotMatch, AppResources.Ok);
+                        await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordsDoNotMatch, AppResources.Ok);
                     }
                     return false;
                 }
@@ -244,7 +244,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.DomainNameIsInvalid, AppResources.Ok);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.DomainNameIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -253,7 +253,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -262,7 +262,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordIsInvalid, AppResources.Ok);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -296,18 +296,18 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     if (this.CreateRandomPassword)
                     {
-                        await this.MessageService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
+                        await this.NavigationService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
                         System.Diagnostics.Debug.WriteLine("Username: " + this.AccountName);
                         System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
                     }
                     return true;
                 }
 
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
             }
             catch (Exception)
             {
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
             }
 
             return false;
@@ -370,14 +370,14 @@ namespace XamarinApp.ViewModels.Registration
 
                 if (!succeeded)
                 {
-                    await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                 }
 
                 return succeeded;
             }
             catch (Exception)
             {
-                await this.MessageService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
             }
 
             return false;

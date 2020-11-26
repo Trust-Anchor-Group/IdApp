@@ -16,8 +16,8 @@ namespace XamarinApp.ViewModels.Registration
         public ChooseOperatorViewModel(
             TagProfile tagProfile, 
             INeuronService neuronService, 
-            IMessageService messageService)
-            : base(RegistrationStep.Operator, tagProfile, neuronService, messageService)
+            INavigationService navigationService)
+            : base(RegistrationStep.Operator, tagProfile, neuronService, navigationService)
         {
             this.Operators = new ObservableCollection<string>();
             this.ConnectCommand = new Command(async () => await Connect(), ConnectCanExecute);
@@ -93,7 +93,7 @@ namespace XamarinApp.ViewModels.Registration
                     }
                     else
                     {
-                        await this.MessageService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+                        await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                     }
                 });
             }

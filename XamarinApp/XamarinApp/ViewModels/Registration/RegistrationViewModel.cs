@@ -18,34 +18,32 @@ namespace XamarinApp.ViewModels.Registration
         private readonly TagProfile tagProfile;
         private readonly ISettingsService settingsService;
         private readonly INeuronService neuronService;
-        private readonly IMessageService messageService;
         private readonly IAuthService authService;
         private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
         
         public RegistrationViewModel()
-            : this(null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IMessageService messageService, IContractsService contractsService, INavigationService navigationService)
+        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IContractsService contractsService, INavigationService navigationService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.messageService = messageService ?? DependencyService.Resolve<IMessageService>();
             this.authService = authService ?? DependencyService.Resolve<IAuthService>();
             this.contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             GoToNextCommand = new Command(GoToNext, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
-            RegistrationSteps.Add(this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.messageService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.messageService, this.authService, this.contractsService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.messageService, this.contractsService, this.navigationService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.messageService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.authService, this.contractsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.contractsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.contractsService, this.navigationService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.navigationService)));
 
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
 
@@ -132,7 +130,7 @@ namespace XamarinApp.ViewModels.Registration
                     {
                         DefinePinViewModel vm = (DefinePinViewModel)sender;
                         this.tagProfile.SetPin(vm.Pin, vm.UsePin);
-                        this.navigationService.Set(new MainPage());
+                        this.navigationService.ReplaceAsync(new MainPage());
                     }
                     break;
 

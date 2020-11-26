@@ -11,8 +11,8 @@ namespace XamarinApp.ViewModels.Registration
         public DefinePinViewModel(
             TagProfile tagProfile,
             INeuronService neuronService,
-            IMessageService messageService)
-            : base(RegistrationStep.Pin, tagProfile, neuronService, messageService)
+            INavigationService navigationService)
+            : base(RegistrationStep.Pin, tagProfile, neuronService, navigationService)
         {
             this.PinChangedCommand = new Command<string>(s => Pin = s);
             this.RetypedPinChangedCommand = new Command<string>(s => RetypedPin = s);
@@ -89,11 +89,11 @@ namespace XamarinApp.ViewModels.Registration
 
             if (this.Pin.Length < 8)
             {
-                this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinTooShort);
+                this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinTooShort);
             }
             else if (this.Pin.Trim() != this.Pin)
             {
-                this.MessageService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
+                this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
             }
 
             OnStepCompleted(EventArgs.Empty);

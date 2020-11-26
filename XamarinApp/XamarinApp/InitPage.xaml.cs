@@ -54,11 +54,11 @@ namespace XamarinApp
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
                     if (this.tagProfile.IsComplete())
                     {
-                        await this.navigationService.Set(new MainPage());
+                        await this.navigationService.ReplaceAsync(new MainPage());
                     }
                     else
                     {
-                        await this.navigationService.Set(new RegistrationPage());
+                        await this.navigationService.ReplaceAsync(new RegistrationPage());
                     }
                 });
             }

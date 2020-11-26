@@ -132,6 +132,9 @@
   <data name="Address2" xml:space="preserve">
     <value>Adress (rad 2)</value>
   </data>
+  <data name="AnErrorHasOccurred" xml:space="preserve">
+    <value>Ett fel har inträffat</value>
+  </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>En begäran har skickats till din vän</value>
   </data>

@@ -9,13 +9,13 @@ namespace XamarinApp.ViewModels
 {
     public class AddPartViewModel : BaseViewModel
     {
-        private readonly IMessageService messageService;
+        private readonly INavigationService navigationService;
         public event EventHandler CodeScanned;
         public event EventHandler ModeChanged;
 
         public AddPartViewModel()
         {
-            this.messageService = DependencyService.Resolve<IMessageService>();
+            this.navigationService = DependencyService.Resolve<INavigationService>();
             SwitchModeCommand = new Command(SwitchMode);
             ManualAddCommand = new Command(async () => await PerformManualAdd());
             AutomaticAddCommand = new Command<string>(PerformAutomaticAdd);
@@ -106,7 +106,7 @@ namespace XamarinApp.ViewModels
                 {
                     if (code.Substring(0, i).ToLower() != Constants.Schemes.IotId)
                     {
-                        await this.messageService.DisplayAlert(AppResources.ErrorTitle, "Not a legal identity.", AppResources.Ok);
+                        await this.navigationService.DisplayAlert(AppResources.ErrorTitle, "Not a legal identity.", AppResources.Ok);
                         return;
                     }
 
@@ -118,7 +118,7 @@ namespace XamarinApp.ViewModels
             }
             catch (Exception ex)
             {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
         }
 

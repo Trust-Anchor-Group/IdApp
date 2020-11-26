@@ -132,6 +132,9 @@
   <data name="Address2" xml:space="preserve">
     <value>Address (row 2)</value>
   </data>
+  <data name="AnErrorHasOccurred" xml:space="preserve">
+    <value>An error has occurred</value>
+  </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>A petition has been sent to your peer</value>
   </data>

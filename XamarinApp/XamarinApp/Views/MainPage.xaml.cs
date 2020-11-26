@@ -35,17 +35,17 @@ namespace XamarinApp.Views
 
         private void Identity_Clicked(object sender, EventArgs e)
         {
- //           this.navigationService.GoTo(new IdentityPage(App.Configuration, App.CurrentPage));
+ //           this.navigationService.PushAsync(new IdentityPage(App.Configuration, App.CurrentPage));
         }
 
         private void ScanQR_Clicked(object sender, EventArgs e)
         {
- //           this.navigationService.GoTo(new ScanQrCodePage(App.CurrentPage, false), false);
+ //           this.navigationService.PushAsync(new ScanQrCodePage(App.CurrentPage, false), false);
         }
 
         private void Contracts_Clicked(object sender, EventArgs e)
         {
-//            this.navigationService.GoTo(new ContractsMenuPage(App.CurrentPage), false);
+//            this.navigationService.PushAsync(new ContractsMenuPage(App.CurrentPage), false);
         }
 
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)

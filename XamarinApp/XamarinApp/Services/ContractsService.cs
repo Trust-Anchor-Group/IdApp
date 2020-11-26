@@ -17,15 +17,15 @@ namespace XamarinApp.Services
 
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
-        private readonly IMessageService messageService;
+        private readonly INavigationService navigationService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        public ContractsService(TagProfile tagProfile, INeuronService neuronService, IMessageService messageService)
+        public ContractsService(TagProfile tagProfile, INeuronService neuronService, INavigationService navigationService)
         {
             this.tagProfile = tagProfile;
             this.neuronService = neuronService;
-            this.messageService = messageService;
+            this.navigationService = navigationService;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 
@@ -396,7 +396,7 @@ namespace XamarinApp.Services
             {
                 if (!e.Response)
                 {
-                    await this.messageService.DisplayAlert(AppResources.PeerReviewRejected, "A peer you requested to review your application, has rejected to approve it.", AppResources.Ok);
+                    await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer you requested to review your application, has rejected to approve it.", AppResources.Ok);
                 }
                 else
                 {
@@ -407,18 +407,18 @@ namespace XamarinApp.Services
                     bool? result = contractsClient.ValidateSignature(e.RequestedIdentity, data, e.Signature);
                     if (!result.HasValue || !result.Value)
                     {
-                        await this.messageService.DisplayAlert(AppResources.PeerReviewRejected, "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok);
+                        await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok);
                     }
                     else
                     {
                         await contractsClient.AddPeerReviewIDAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
-                        await this.messageService.DisplayAlert(AppResources.PeerReviewAccepted, "A peer review you requested has been accepted.", AppResources.Ok);
+                        await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, "A peer review you requested has been accepted.", AppResources.Ok);
                     }
                 }
             }
             catch (Exception ex)
             {
-                await this.messageService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
         }
 

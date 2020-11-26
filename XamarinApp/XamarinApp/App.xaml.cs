@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -34,7 +33,6 @@ namespace XamarinApp
         private readonly IContractsService contractsService;
         private readonly IStorageService storageService;
         private readonly INavigationService navigationService;
-        private readonly IMessageService messageService;
         private readonly TagProfile tagProfile;
 
 		public App()
@@ -46,7 +44,6 @@ namespace XamarinApp
             builder.RegisterInstance(this.tagProfile).SingleInstance();
 			builder.RegisterType<NeuronService>().As<INeuronService>().SingleInstance();
 			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
-			builder.RegisterType<MessageService>().As<IMessageService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
 			builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
@@ -60,11 +57,9 @@ namespace XamarinApp
 			this.contractsService = DependencyService.Resolve<IContractsService>();
             this.storageService = DependencyService.Resolve<IStorageService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.messageService = DependencyService.Resolve<IMessageService>();
             this.internalSink = new InternalSink();
             Log.Register(this.internalSink);
 
-            Stopwatch sw = Stopwatch.StartNew();
             Types.Initialize(
                 typeof(App).Assembly,
                 typeof(Database).Assembly,
@@ -84,9 +79,7 @@ namespace XamarinApp
                 typeof(XmppServerlessMessaging).Assembly,
                 typeof(ProvisioningClient).Assembly,
                 typeof(Waher.Security.EllipticCurves.EllipticCurve).Assembly);
-            sw.Stop();
-            System.Diagnostics.Debug.WriteLine($"Types.Initialize took {sw.ElapsedMilliseconds} ms");
-			Instance = this;
+
 			// Start page
             this.MainPage = new NavigationPage(new InitPage());
         }
@@ -100,8 +93,6 @@ namespace XamarinApp
             this.internalSink.Dispose();
             this.internalSink = null;
         }
-
-        internal static App Instance { get; private set; }
 
         protected override async void OnStart()
         {
@@ -187,19 +178,19 @@ namespace XamarinApp
 
         private void ContractsService_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
-            if (this.tagProfile.IsComplete())
+            if (this.tagProfile.IsCompleteOrWaitingForValidation())
             {
                 // TODO: fix navigation
-                //await this.navigationService.GoTo(new IdentityPage(App.CurrentPage, e.RequestorIdentity, e))
+                //await this.navigationService.PushAsync(new IdentityPage(Application.Current.MainPage, e.RequestorIdentity, e))
             }
         }
 
         private void ContractsService_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
         {
-            if (this.tagProfile.IsComplete())
+            if (this.tagProfile.IsCompleteOrWaitingForValidation())
             {
                 // TODO: fix navigation
-                //await this.navigationService.GoTo(new PetitionIdentityPage(App.Instance.MainPage, e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose), false);
+                //await this.navigationService.PushAsync(new PetitionIdentityPage(Application.Current.MainPage, e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose), false);
             }
         }
 
@@ -207,31 +198,31 @@ namespace XamarinApp
         {
             if (!e.Response || e.RequestedContract is null)
             {
-                this.messageService.DisplayAlert(AppResources.Message, "Petition to view contract was denied.", AppResources.Ok);
+                this.navigationService.DisplayAlert(AppResources.Message, "Petition to view contract was denied.", AppResources.Ok);
             }
             else
             {
                 // TODO: fix navigation
-                //await this.navigationService.GoTo(new ViewContractPage(App.Instance.MainPage, e.RequestedContract, false), false);
+                //await this.navigationService.PushAsync(new ViewContractPage(Application.Current.MainPage, e.RequestedContract, false), false);
             }
         }
 
         private void ContractsService_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
         {
             // TODO: fix navigation
-            //await this.navigationService.GoTo(new PetitionContractPage(App.Instance.MainPage, e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose), false);
+            //await this.navigationService.PushAsync(new PetitionContractPage(Application.Current.MainPage, e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose), false);
         }
 
         private void ContractsService_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
         {
             if (!e.Response || e.RequestedIdentity is null)
             {
-                this.messageService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok);
+                this.navigationService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok);
             }
             else
             {
                 // TODO: fix navigation
-                //await this.navigationService.GoTo(new Views.IdentityPage(App.Instance.MainPage, e.RequestedIdentity), false);
+                //await this.navigationService.PushAsync(new Views.IdentityPage(Application.Current.MainPage, e.RequestedIdentity), false);
             }
         }
 

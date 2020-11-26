@@ -106,6 +106,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occurred.
+        /// </summary>
+        internal static string AnErrorHasOccurred {
+            get {
+                return ResourceManager.GetString("AnErrorHasOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A petition has been sent to your peer.
         /// </summary>
         internal static string APetitionHasBeenSentToYourPeer {

@@ -43,8 +43,8 @@
     <AndroidSigningKeyAlias>TagDemo Cert</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Password</AndroidSigningKeyPass>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <EmbedAssembliesIntoApk>false</EmbedAssembliesIntoApk>
-    <AndroidUseSharedRuntime>true</AndroidUseSharedRuntime>
+    <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
