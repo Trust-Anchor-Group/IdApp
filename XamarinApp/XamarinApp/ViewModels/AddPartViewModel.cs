@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 using XamarinApp.Services;
 using XamarinApp.Views;
 
@@ -17,7 +18,7 @@ namespace XamarinApp.ViewModels
         {
             this.navigationService = DependencyService.Resolve<INavigationService>();
             SwitchModeCommand = new Command(SwitchMode);
-            ManualAddCommand = new Command(async () => await PerformManualAdd());
+            ManualAddCommand = new Command(async () => await PerformManualAdd(), CanPerformManualAdd);
             AutomaticAddCommand = new Command<string>(PerformAutomaticAdd);
             SetModeText();
         }
@@ -29,7 +30,11 @@ namespace XamarinApp.ViewModels
         public ICommand AutomaticAddCommand { get; }
 
         public static readonly BindableProperty LinkTextProperty =
-            BindableProperty.Create("LinkText", typeof(string), typeof(AddPartViewModel), default(string));
+            BindableProperty.Create("LinkText", typeof(string), typeof(AddPartViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                AddPartViewModel viewModel = (AddPartViewModel)b;
+                viewModel.ManualAddCommand.ChangeCanExecute();
+            });
 
         public string LinkText
         {
@@ -56,7 +61,7 @@ namespace XamarinApp.ViewModels
 
         private void SetModeText()
         {
-            ModeText = ScanIsAutomatic ? AppResources.QrScanCode : AppResources.QrEnterManually;
+            ModeText = ScanIsAutomatic ? AppResources.QrEnterManually : AppResources.QrScanCode;
         }
 
         public bool ScanIsAutomatic
@@ -91,8 +96,14 @@ namespace XamarinApp.ViewModels
 
         private void PerformAutomaticAdd(string code)
         {
+            LinkText = code;
             Code = code;
             OnCodeScanned(new CodeScannedEventArgs(code));
+        }
+
+        private bool CanPerformManualAdd()
+        {
+            return !string.IsNullOrWhiteSpace(this.LinkText);
         }
 
         private async Task PerformManualAdd()
@@ -104,13 +115,15 @@ namespace XamarinApp.ViewModels
 
                 if (i > 0)
                 {
-                    if (code.Substring(0, i).ToLower() != Constants.Schemes.IotId)
+                    if (code.Substring(0, i).ToLower() != Constants.IoTSchemes.IotId)
                     {
-                        await this.navigationService.DisplayAlert(AppResources.ErrorTitle, "Not a legal identity.", AppResources.Ok);
+                        await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
                         return;
                     }
-
-                    code = code.Substring(i + 1);
+                }
+                else
+                {
+                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
                 }
 
                 Code = code;

@@ -101,6 +101,9 @@
     <EmbeddedResource Update="Views\Registration\ValidateIdentityView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Views\ModalPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -119,6 +122,9 @@
     </Compile>
     <Compile Update="Views\Registration\ChooseOperatorView.xaml.cs">
       <DependentUpon>ChooseOperatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ModalPage.xaml.cs">
+      <DependentUpon>ModalPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

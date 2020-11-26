@@ -293,14 +293,6 @@ namespace XamarinApp.ViewModels.Registration
 
         private ICommand CodeScannedCommand { get; set; }
 
-        TaskCompletionSource<bool> qrCodeScanned;
-
-        private Task ScanQrCode()
-        {
-            qrCodeScanned = new TaskCompletionSource<bool>();
-            return qrCodeScanned.Task;
-        }
-
         private void AddPartViewModel_QrCodeScanned(object sender, EventArgs e)
         {
             if (qrCodeScanned != null)
@@ -310,14 +302,22 @@ namespace XamarinApp.ViewModels.Registration
             }   
         }
 
+        TaskCompletionSource<bool> qrCodeScanned;
+
+        private Task ScanQrCode()
+        {
+            qrCodeScanned = new TaskCompletionSource<bool>();
+            return qrCodeScanned.Task;
+        }
+
         private async Task InviteReviewer()
         {
             // 1. Create a default page
-            ContentBasePage page = new ContentBasePage();
+            ModalPage page = new ModalPage();
             AddPartViewModel viewModel = new AddPartViewModel();
             AddPartView view = new AddPartView(viewModel);
             // 2. Set it's content to the 'Scan QR Code View'
-            page.Content = view;
+            page.ModalContent = view;
             viewModel.CodeScanned += AddPartViewModel_QrCodeScanned;
             // 3. Show it as a modal page
             await this.navigationService.PushModalAsync(page);
@@ -326,14 +326,17 @@ namespace XamarinApp.ViewModels.Registration
             await this.navigationService.PopModalAsync();
             viewModel.CodeScanned -= AddPartViewModel_QrCodeScanned;
 
+            const string idScheme = Constants.IoTSchemes.IotId + ":";
+
             if (!string.IsNullOrWhiteSpace(viewModel.Code))
             {
-                if (!viewModel.Code.StartsWith(Constants.Schemes.IotId + ":", StringComparison.InvariantCultureIgnoreCase))
+                if (!viewModel.Code.StartsWith(idScheme, StringComparison.InvariantCultureIgnoreCase))
                 {
                     await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+                    return;
                 }
 
-                await this.contractsService.PetitionPeerReviewIdAsync(viewModel.Code.Substring(6), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), "Could you please review my identity information?");
+                await this.contractsService.PetitionPeerReviewIdAsync(viewModel.Code.Substring(idScheme.Length), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
 
                 await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }

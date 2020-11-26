@@ -7,7 +7,7 @@
             public const string Default = "en-US";
         }
 
-        public static class Schemes
+        public static class IoTSchemes
         {
             public const string IotId = "iotid";
             public const string IotDisco = "iotdisco";

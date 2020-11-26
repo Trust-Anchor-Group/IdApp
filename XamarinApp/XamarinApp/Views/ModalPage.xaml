@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+                 xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
+                 xmlns:resources="clr-namespace:XamarinApp;assembly=XamarinApp"
+                 x:Class="XamarinApp.Views.ModalPage"
+                 x:Name="TheModalPage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <!-- HEADING -->
+            <Grid BackgroundColor="{StaticResource HeadingBackground}" Padding="{StaticResource DefaultMargin}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="36"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Column="0"
+                    FontSize="24" 
+                    TextColor="{StaticResource HeadingForeground}"
+                    Text="{x:Static resources:Icons.ArrowACircleLeft}" 
+                    FontFamily="{StaticResource FontAwesomeSolid}"
+                    VerticalOptions="Center"
+                    Margin="0,-12,0,-6">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Path=GoBackCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Grid.Column="1"
+                       Text="{x:Static local:AppResources.QrScanCode}" 
+                       HorizontalOptions="StartAndExpand" 
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="24" 
+                       Margin="0,-12,0,0"
+                       TextColor="{StaticResource HeadingForeground}" />
+            </Grid>
+            <!-- CONTENT -->
+            <ContentView Content="{Binding Path=ModalContent, Source={x:Reference TheModalPage}}" VerticalOptions="FillAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</views:ContentBasePage>

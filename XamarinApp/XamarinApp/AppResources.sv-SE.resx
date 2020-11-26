@@ -156,6 +156,9 @@
   <data name="Continue" xml:space="preserve">
     <value>Fortsätt</value>
   </data>
+  <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
+    <value>Kan du vänligen granska min identitets-information?</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Land</value>
   </data>

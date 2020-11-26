@@ -319,7 +319,9 @@ namespace XamarinApp.ViewModels.Registration
             }
 
             string countryCode = ISO_3166_1.ToCode(this.SelectedCountry);
-            bool? personalNumberIsValid = PersonalNumberSchemes.IsValid(countryCode, this.PersonalNumber, out string personalNumberFormat);
+            string pnr = PersonalNumber.Trim();
+            string pnrBeforeValidation = pnr;
+            bool? personalNumberIsValid = PersonalNumberSchemes.IsValid(countryCode, ref pnr, out string personalNumberFormat);
 
             if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
             {
@@ -328,6 +330,10 @@ namespace XamarinApp.ViewModels.Registration
                 else
                     await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
                 return;
+            }
+            if (pnr != pnrBeforeValidation)
+            {
+                this.PersonalNumber = pnr;
             }
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))

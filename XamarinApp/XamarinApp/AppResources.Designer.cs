@@ -178,6 +178,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could you please review my identity information?.
+        /// </summary>
+        internal static string CouldYouPleaseReviewMyIdentityInformation {
+            get {
+                return ResourceManager.GetString("CouldYouPleaseReviewMyIdentityInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         internal static string Country {

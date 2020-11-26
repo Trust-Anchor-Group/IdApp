@@ -14,6 +14,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Label Grid.Row="0" Margin="20" Text="{x:Static resources:AppResources.WelcomeToTagHeading}" HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
@@ -25,6 +26,7 @@
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
                 </StackLayout>
                 <Button Grid.Row="3" x:Name="ConnectButton" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.Connect}" Command="{Binding Path=ConnectCommand}"/>
+                <Button Grid.Row="4" x:Name="InviteButton" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.InvitePeerToReview}" Command="{Binding Path=InviteReviewerCommand}"/>
             </Grid>
         </Grid>
     </ContentView.Content>
