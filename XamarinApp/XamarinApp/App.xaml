@@ -25,6 +25,7 @@
         <Thickness x:Key="DefaultMargin">12</Thickness>
         <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>
         <Thickness x:Key="DefaultTopOnlyMargin">0,12,0,0</Thickness>
+        <Thickness x:Key="DefaultTopAndBottomOnlyMargin">0,12,0,12</Thickness>
         <Thickness x:Key="DefaultRightOnlyMargin">0,0,12,0</Thickness>
         <Thickness x:Key="DefaultBottomOnlyMargin">0,0,0,12</Thickness>
         <Thickness x:Key="DefaultLeftRightMargin">12,0,12,0</Thickness>

@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Temporary;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
@@ -11,11 +15,12 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
+        private static readonly TimeSpan GetPhotoTimeout = TimeSpan.FromSeconds(10);
         private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
 
         public ValidateIdentityViewModel(
-            TagProfile tagProfile, 
+            TagProfile tagProfile,
             INeuronService neuronService,
             IContractsService contractsService,
             INavigationService navigationService)
@@ -26,11 +31,13 @@ namespace XamarinApp.ViewModels.Registration
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
             this.ContinueCommand = new Command(_ => OnStepCompleted(EventArgs.Empty), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
+            this.Photos = new ObservableCollection<ImageSource>();
         }
 
         protected override async Task DoBind()
         {
             await base.DoBind();
+            await AssignProperties();
             this.TagProfile.Changed += TagProfile_Changed;
             this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
         }
@@ -42,11 +49,12 @@ namespace XamarinApp.ViewModels.Registration
             await base.DoUnbind();
         }
 
+        public ObservableCollection<ImageSource> Photos { get; }
 
         public ICommand InviteReviewerCommand { get; }
         public ICommand ContinueCommand { get; }
 
-        private void AssignProperties()
+        private async Task AssignProperties()
         {
             Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
             Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
@@ -89,17 +97,48 @@ namespace XamarinApp.ViewModels.Registration
 
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
+
+            await LoadPhotos();
         }
 
-        private void TagProfile_Changed(object sender, EventArgs e)
+        private async Task LoadPhotos()
         {
-            AssignProperties();
+            this.Photos.Clear();
+
+            if (!(this.TagProfile.LegalIdentity.Attachments is null))
+            {
+
+                foreach (Attachment attachment in this.TagProfile.LegalIdentity.Attachments.GetImageAttachments())
+                {
+                    try
+                    {
+                        KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, GetPhotoTimeout);
+
+                        using (TemporaryFile file = pair.Value)
+                        {
+                            file.Reset();
+                            MemoryStream ms = new MemoryStream();
+                            await file.CopyToAsync(ms);
+                            ms.Reset();
+                            this.Photos.Add(ImageSource.FromStream(() => ms));
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+            }
         }
 
-        private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+        private async void TagProfile_Changed(object sender, EventArgs e)
+        {
+            await AssignProperties();
+        }
+
+        private async void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
             this.TagProfile.SetLegalIdentity(e.Identity);
-            AssignProperties();
+            await AssignProperties();
         }
 
         public static readonly BindableProperty CreatedProperty =
@@ -125,7 +164,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string LegalId
         {
-            get { return (string) GetValue(LegalIdProperty); }
+            get { return (string)GetValue(LegalIdProperty); }
             set { SetValue(LegalIdProperty, value); }
         }
 
@@ -134,7 +173,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string BareJId
         {
-            get { return (string) GetValue(BareJIdProperty); }
+            get { return (string)GetValue(BareJIdProperty); }
             set { SetValue(BareJIdProperty, value); }
         }
 
@@ -143,7 +182,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public IdentityState State
         {
-            get { return (IdentityState) GetValue(StateProperty); }
+            get { return (IdentityState)GetValue(StateProperty); }
             set { SetValue(StateProperty, value); }
         }
 
@@ -152,7 +191,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public DateTime? From
         {
-            get { return (DateTime?) GetValue(FromProperty); }
+            get { return (DateTime?)GetValue(FromProperty); }
             set { SetValue(FromProperty, value); }
         }
 
@@ -161,7 +200,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public DateTime? To
         {
-            get { return (DateTime?) GetValue(ToProperty); }
+            get { return (DateTime?)GetValue(ToProperty); }
             set { SetValue(ToProperty, value); }
         }
 
@@ -170,7 +209,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string FirstName
         {
-            get { return (string) GetValue(FirstNameProperty); }
+            get { return (string)GetValue(FirstNameProperty); }
             set { SetValue(FirstNameProperty, value); }
         }
 
@@ -179,7 +218,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string MiddleNames
         {
-            get { return (string) GetValue(MiddleNamesProperty); }
+            get { return (string)GetValue(MiddleNamesProperty); }
             set { SetValue(MiddleNamesProperty, value); }
         }
 
@@ -188,7 +227,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string LastNames
         {
-            get { return (string) GetValue(LastNamesProperty); }
+            get { return (string)GetValue(LastNamesProperty); }
             set { SetValue(LastNamesProperty, value); }
         }
 
@@ -197,7 +236,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string PersonalNumber
         {
-            get { return (string) GetValue(PersonalNumberProperty); }
+            get { return (string)GetValue(PersonalNumberProperty); }
             set { SetValue(PersonalNumberProperty, value); }
         }
 
@@ -206,7 +245,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string Address
         {
-            get { return (string) GetValue(AddressProperty); }
+            get { return (string)GetValue(AddressProperty); }
             set { SetValue(AddressProperty, value); }
         }
 
@@ -215,7 +254,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string Address2
         {
-            get { return (string) GetValue(Address2Property); }
+            get { return (string)GetValue(Address2Property); }
             set { SetValue(Address2Property, value); }
         }
 
@@ -224,7 +263,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string ZipCode
         {
-            get { return (string) GetValue(ZipCodeProperty); }
+            get { return (string)GetValue(ZipCodeProperty); }
             set { SetValue(ZipCodeProperty, value); }
         }
 
@@ -233,7 +272,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string Area
         {
-            get { return (string) GetValue(AreaProperty); }
+            get { return (string)GetValue(AreaProperty); }
             set { SetValue(AreaProperty, value); }
         }
 
@@ -242,7 +281,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string City
         {
-            get { return (string) GetValue(CityProperty); }
+            get { return (string)GetValue(CityProperty); }
             set { SetValue(CityProperty, value); }
         }
 
@@ -251,7 +290,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string Region
         {
-            get { return (string) GetValue(RegionProperty); }
+            get { return (string)GetValue(RegionProperty); }
             set { SetValue(RegionProperty, value); }
         }
 
@@ -260,7 +299,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string Country
         {
-            get { return (string) GetValue(CountryProperty); }
+            get { return (string)GetValue(CountryProperty); }
             set { SetValue(CountryProperty, value); }
         }
 
@@ -269,7 +308,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public string CountryCode
         {
-            get { return (string) GetValue(CountryCodeProperty); }
+            get { return (string)GetValue(CountryCodeProperty); }
             set { SetValue(CountryCodeProperty, value); }
         }
 
@@ -278,7 +317,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public bool IsApproved
         {
-            get { return (bool) GetValue(IsApprovedProperty); }
+            get { return (bool)GetValue(IsApprovedProperty); }
             set { SetValue(IsApprovedProperty, value); }
         }
 
@@ -287,7 +326,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public bool IsCreated
         {
-            get { return (bool) GetValue(IsCreatedProperty); }
+            get { return (bool)GetValue(IsCreatedProperty); }
             set { SetValue(IsCreatedProperty, value); }
         }
 
@@ -299,7 +338,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 qrCodeScanned.TrySetResult(true);
                 qrCodeScanned = null;
-            }   
+            }
         }
 
         TaskCompletionSource<bool> qrCodeScanned;

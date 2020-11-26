@@ -318,12 +318,12 @@ namespace XamarinApp.Services
             PetitionForPeerReviewIdReceived?.Invoke(this, e);
         }
 
-        public event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
+        //public event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
 
-        private void OnPetitionedPeerReviewIdResponseReceived(SignaturePetitionResponseEventArgs e)
-        {
-            PetitionedPeerReviewIdResponseReceived?.Invoke(this, e);
-        }
+        //private void OnPetitionedPeerReviewIdResponseReceived(SignaturePetitionResponseEventArgs e)
+        //{
+        //    PetitionedPeerReviewIdResponseReceived?.Invoke(this, e);
+        //}
 
         #endregion
 

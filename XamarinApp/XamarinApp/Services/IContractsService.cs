@@ -51,6 +51,5 @@ namespace XamarinApp.Services
         event EventHandler<ContractPetitionEventArgs> PetitionForContractReceived;
         event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
         event EventHandler<SignaturePetitionEventArgs> PetitionForPeerReviewIdReceived;
-        event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
     }
 }
