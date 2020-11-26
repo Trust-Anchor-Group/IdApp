@@ -24,7 +24,6 @@ namespace XamarinApp.ViewModels.Registration
             this.ManualOperatorCommand = new Command<string>(async text => await ManualOperatorTextEdited(text));
             this.PopulateOperators();
             this.Title = AppResources.SelectOperator;
-            this.InviteReviewerCommand = new Command(async () => await InviteReviewer());
         }
 
         public ObservableCollection<string> Operators { get; }
