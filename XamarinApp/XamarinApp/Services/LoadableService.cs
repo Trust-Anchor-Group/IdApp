@@ -9,9 +9,15 @@ namespace XamarinApp.Services
         public bool IsLoading { get; protected set; }
         public bool IsLoaded { get; protected set; }
 
-        protected void BeginLoad()
+        protected bool BeginLoad()
         {
-            IsLoading = true;
+            if (!this.IsLoaded && !this.IsLoading)
+            {
+                IsLoading = true;
+                return true;
+            }
+
+            return false;
         }
 
         protected void EndLoad(bool isLoaded)
@@ -21,9 +27,15 @@ namespace XamarinApp.Services
             OnLoaded(new LoadedEventArgs(IsLoaded));
         }
 
-        protected void BeginUnload()
+        protected bool BeginUnload()
         {
-            IsUnloading = true;
+            if (this.IsLoaded && !this.IsUnloading)
+            {
+                IsUnloading = true;
+                return true;
+            }
+
+            return false;
         }
 
         protected void EndUnload()

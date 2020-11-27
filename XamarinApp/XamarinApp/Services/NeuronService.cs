@@ -145,36 +145,47 @@ namespace XamarinApp.Services
 
         public override async Task Load()
         {
-            if (!this.IsLoaded && !this.IsLoading)
+            if (this.BeginLoad())
             {
-                this.BeginLoad();
-
-                if (ShouldCreateClient())
+                try
                 {
-                    await this.CreateXmppClient();
+                    if (ShouldCreateClient())
+                    {
+                        await this.CreateXmppClient();
+                    }
+                    this.xmppClient?.SetPresence(Availability.Online);
+                    this.EndLoad(true);
                 }
-                this.xmppClient?.SetPresence(Availability.Online);
-
-                this.EndLoad(true);
+                catch (Exception)
+                {
+                    this.EndLoad(false);
+                }
             }
         }
 
         public override async Task Unload()
         {
-            this.BeginUnload();
-
-            if (this.xmppClient != null)
+            if (this.BeginUnload())
             {
-                TaskCompletionSource<bool> offlineSent = new TaskCompletionSource<bool>();
-                this.xmppClient.SetPresence(Availability.Offline, (sender, e) => offlineSent.TrySetResult(true));
-                Task _ = Task.Delay(Constants.Timeouts.XmppPresence).ContinueWith(__ => offlineSent.TrySetResult(false));
+                try
+                {
+                    if (this.xmppClient != null)
+                    {
+                        TaskCompletionSource<bool> offlineSent = new TaskCompletionSource<bool>();
+                        this.xmppClient.SetPresence(Availability.Offline, (sender, e) => offlineSent.TrySetResult(true));
+                        Task _ = Task.Delay(Constants.Timeouts.XmppPresence).ContinueWith(__ => offlineSent.TrySetResult(false));
 
-                await offlineSent.Task;
+                        await offlineSent.Task;
+                    }
+
+                    this.DestroyXmppClient();
+                }
+                catch (Exception)
+                {
+                }
+
+                this.EndUnload();
             }
-
-            this.DestroyXmppClient();
-
-            this.EndUnload();
         }
 
         private event EventHandler<ConnectionStateChangedEventArgs> connectionState;

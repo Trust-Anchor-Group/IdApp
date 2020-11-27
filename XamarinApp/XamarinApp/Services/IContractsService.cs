@@ -28,7 +28,6 @@ namespace XamarinApp.Services
             DateTime? signBefore,
             bool canActAsTemplate);
         Task<Contract> DeleteContractAsync(string contractId);
-        Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url);
         Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url, TimeSpan timeout);
 
         Task<LegalIdentity> AddLegalIdentityAsync(List<Property> properties, params LegalIdentityAttachment[] attachments);
@@ -38,8 +37,10 @@ namespace XamarinApp.Services
         Task SendPetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response);
         Task SendPetitionContractResponseAsync(string contractId, string petitionId, string requestorFullJid, bool response);
         Task SendPetitionSignatureResponseAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
+        Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature);
         Task PetitionPeerReviewIdAsync(string legalId, LegalIdentity identity, string petitionId, string purpose);
         Task<byte[]> SignAsync(byte[] data);
+        bool? ValidateSignature(LegalIdentity legalIdentity, byte[] data, byte[] signature);
         Task<LegalIdentity> ObsoleteLegalIdentityAsync(string legalIdentityId);
         Task<LegalIdentity> CompromisedLegalIdentityAsync(string legalIdentityId);
 
@@ -51,5 +52,7 @@ namespace XamarinApp.Services
         event EventHandler<ContractPetitionEventArgs> PetitionForContractReceived;
         event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
         event EventHandler<SignaturePetitionEventArgs> PetitionForPeerReviewIdReceived;
+        event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
+        event EventHandler<SignaturePetitionEventArgs> PetitionForSignatureReceived;
     }
 }

@@ -14,12 +14,14 @@ namespace XamarinApp.ViewModels.Registration
             RegistrationStep step, 
             TagProfile tagProfile, 
             INeuronService neuronService, 
-            INavigationService navigationService)
+            INavigationService navigationService,
+            ISettingsService settingsService)
         {
             this.Step = step;
             this.TagProfile = tagProfile;
             this.NeuronService = neuronService;
             this.NavigationService = navigationService;
+            this.SettingsService = settingsService;
         }
 
         public static readonly BindableProperty TitleProperty =
@@ -36,6 +38,7 @@ namespace XamarinApp.ViewModels.Registration
         protected TagProfile TagProfile { get; }
         protected INeuronService NeuronService { get; }
         protected INavigationService NavigationService { get; }
+        protected ISettingsService SettingsService { get; }
 
         protected virtual void OnStepCompleted(EventArgs e)
         {

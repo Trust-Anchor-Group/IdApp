@@ -24,8 +24,9 @@ namespace XamarinApp.ViewModels.Registration
             TagProfile tagProfile, 
             INeuronService neuronService, 
             INavigationService navigationService, 
+            ISettingsService settingsService,
             IContractsService contractsService)
-         : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, navigationService)
+         : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, navigationService, settingsService)
         {
             this.contractsService = contractsService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
@@ -465,6 +466,7 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
+            
             // TODO: save properties
         }
 

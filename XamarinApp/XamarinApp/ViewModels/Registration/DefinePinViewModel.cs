@@ -11,8 +11,9 @@ namespace XamarinApp.ViewModels.Registration
         public DefinePinViewModel(
             TagProfile tagProfile,
             INeuronService neuronService,
-            INavigationService navigationService)
-            : base(RegistrationStep.Pin, tagProfile, neuronService, navigationService)
+            INavigationService navigationService,
+            ISettingsService settingsService)
+            : base(RegistrationStep.Pin, tagProfile, neuronService, navigationService, settingsService)
         {
             this.PinChangedCommand = new Command<string>(s => Pin = s);
             this.RetypedPinChangedCommand = new Command<string>(s => RetypedPin = s);

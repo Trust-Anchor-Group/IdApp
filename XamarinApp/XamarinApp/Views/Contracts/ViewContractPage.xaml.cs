@@ -18,6 +18,7 @@ namespace XamarinApp.Views.Contracts
 		private readonly Contract contract;
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
+        private readonly IIdentityOrchestratorService identityOrchestratorService;
 
 		public ViewContractPage(Contract contract, bool readOnly)
 		{
@@ -26,6 +27,7 @@ namespace XamarinApp.Views.Contracts
 			this.BindingContext = this;
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
+            this.identityOrchestratorService = DependencyService.Resolve<IIdentityOrchestratorService>();
 			InitializeComponent();
 
 			// General Information
@@ -302,7 +304,7 @@ namespace XamarinApp.Views.Contracts
 			try
 			{
 				if (sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
-					await ((App)Application.Current).OpenLegalIdentity(layout.StyleId, "Reviewing contract where you are part.");
+					await this.identityOrchestratorService.OpenLegalIdentity(layout.StyleId, "Reviewing contract where you are part.");
 			}
 			catch (Exception ex)
 			{

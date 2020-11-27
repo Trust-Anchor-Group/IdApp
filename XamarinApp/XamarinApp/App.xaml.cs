@@ -20,8 +20,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
-using XamarinApp.Views;
-using XamarinApp.Views.Contracts;
 using Log = Waher.Events.Log;
 
 namespace XamarinApp
@@ -31,9 +29,8 @@ namespace XamarinApp
         private Timer autoSaveTimer;
         private InternalSink internalSink;
         private readonly INeuronService neuronService;
-        private readonly IContractsService contractsService;
         private readonly IStorageService storageService;
-        private readonly INavigationService navigationService;
+        private readonly IIdentityOrchestratorService identityOrchestratorService;
         private readonly TagProfile tagProfile;
 
 		public App()
@@ -49,15 +46,15 @@ namespace XamarinApp
 			builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+			builder.RegisterType<IdentityOrchestratorService>().As<IIdentityOrchestratorService>().SingleInstance();
             IContainer container = builder.Build();
 			// Set AutoFac to be the dependency resolver
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			// Resolve what's needed for the App class
 			this.neuronService = DependencyService.Resolve<INeuronService>();
-			this.contractsService = DependencyService.Resolve<IContractsService>();
             this.storageService = DependencyService.Resolve<IStorageService>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.identityOrchestratorService = DependencyService.Resolve<IIdentityOrchestratorService>();
             this.internalSink = new InternalSink();
             Log.Register(this.internalSink);
 
@@ -114,6 +111,7 @@ namespace XamarinApp
         {
             await this.storageService.Load();
             await this.neuronService.Load();
+            await this.identityOrchestratorService.Load();
 
             TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration == null)
@@ -124,22 +122,10 @@ namespace XamarinApp
             this.tagProfile.FromConfiguration(configuration);
 
             this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
-
-            this.contractsService.PetitionForPeerReviewIdReceived += ContractsService_PetitionForPeerReviewIdReceived;
-            this.contractsService.PetitionForIdentityReceived += ContractsService_PetitionForIdentityReceived;
-            this.contractsService.PetitionedContractResponseReceived += ContractsService_PetitionedContractResponseReceived;
-            this.contractsService.PetitionForContractReceived += ContractsService_PetitionForContractReceived;
-            this.contractsService.PetitionedIdentityResponseReceived += ContractsService_PetitionedIdentityResponseReceived;
         }
 
         private async Task PerformShutdown()
         {
-            this.contractsService.PetitionForPeerReviewIdReceived -= ContractsService_PetitionForPeerReviewIdReceived;
-            this.contractsService.PetitionForIdentityReceived -= ContractsService_PetitionForIdentityReceived;
-            this.contractsService.PetitionedContractResponseReceived -= ContractsService_PetitionedContractResponseReceived;
-            this.contractsService.PetitionForContractReceived -= ContractsService_PetitionForContractReceived;
-            this.contractsService.PetitionedIdentityResponseReceived -= ContractsService_PetitionedIdentityResponseReceived;
-
             this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
             this.autoSaveTimer.Dispose();
             await AutoSave();
@@ -149,6 +135,7 @@ namespace XamarinApp
                 await vm.Unbind();
             }
 
+            await this.identityOrchestratorService.Unload();
             await this.neuronService.Unload();
             await this.storageService.Unload();
         }
@@ -172,102 +159,6 @@ namespace XamarinApp
             public override Task Queue(Event _)
             {
                 return Task.CompletedTask;
-            }
-        }
-
-        #region Event Handlers
-
-        private async void ContractsService_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
-        {
-            if (this.tagProfile.IsCompleteOrWaitingForValidation())
-            {
-                await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestorIdentity, e));
-            }
-        }
-
-        private async void ContractsService_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
-        {
-            if (this.tagProfile.IsCompleteOrWaitingForValidation())
-            {
-                // TODO: fix navigation
-                await this.navigationService.PushAsync(new PetitionIdentityPage(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
-            }
-        }
-
-        private async void ContractsService_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
-        {
-            if (!e.Response || e.RequestedContract is null)
-            {
-                await this.navigationService.DisplayAlert(AppResources.Message, "Petition to view contract was denied.", AppResources.Ok);
-            }
-            else
-            {
-                await this.navigationService.PushAsync(new ViewContractPage(e.RequestedContract, false));
-            }
-        }
-
-        private async void ContractsService_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
-        {
-            Contract Contract = await this.contractsService.GetContractAsync(e.RequestedContractId);
-
-            if (Contract.State == ContractState.Deleted ||
-                Contract.State == ContractState.Rejected)
-            {
-                await this.contractsService.SendPetitionContractResponseAsync(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
-            }
-            else
-            {
-                await this.navigationService.PushAsync(new PetitionContractPage(e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose));
-            }
-        }
-
-        private async void ContractsService_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
-        {
-            if (!e.Response || e.RequestedIdentity is null)
-            {
-                await this.navigationService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok);
-            }
-            else
-            {
-                await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestedIdentity));
-            }
-        }
-
-        #endregion
-
-        public async Task OpenLegalIdentity(string LegalId, string Purpose)
-        {
-            try
-            {
-                LegalIdentity Identity = await this.contractsService.GetLegalIdentityAsync(LegalId);
-                await this.navigationService.PushAsync(new ViewIdentityPage(Identity));
-            }
-            catch (Exception)
-            {
-                await this.contractsService.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
-
-                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
-                                                    "If the owner accepts the petition, the identity information will be displayed on the screen.");
-            }
-        }
-
-        public async Task OpenContract(string ContractId, string Purpose)
-        {
-            try
-            {
-                Contract Contract = await this.contractsService.GetContractAsync(ContractId);
-
-                if (Contract.CanActAsTemplate && Contract.State == ContractState.Approved)
-                    await this.navigationService.PushAsync(new NewContractPage(Contract));
-                else
-                    await this.navigationService.PushAsync(new ViewContractPage(Contract, false));
-            }
-            catch (Exception)
-            {
-                await this.contractsService.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
-
-                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
-                                                    "If any of the parts accepts the petition, the contract information will be displayed on the screen.");
             }
         }
     }

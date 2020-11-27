@@ -39,16 +39,26 @@ namespace XamarinApp.ViewModels.Registration
             GoToNextCommand = new Command(GoToNext, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>();
-            RegistrationSteps.Add(this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.authService, this.contractsService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.contractsService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.contractsService, this.navigationService)));
-            RegistrationSteps.Add(this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.navigationService)));
-
-            RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
+            RegistrationSteps.Add(this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.authService, this.contractsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService)));
+            RegistrationSteps.Add(this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService)));
 
             this.CurrentStep = (int)DefaultStep;
             UpdateStepTitle();
+        }
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
+        }
+
+        protected override Task DoUnbind()
+        {
+            RegistrationSteps.ForEach(x => x.StepCompleted -= RegistrationStep_Completed);
+            return base.DoUnbind();
         }
 
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; private set; }

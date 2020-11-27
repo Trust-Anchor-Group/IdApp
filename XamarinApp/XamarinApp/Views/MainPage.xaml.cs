@@ -6,6 +6,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
+using XamarinApp.Views.Contracts;
 
 namespace XamarinApp.Views
 {
@@ -101,10 +102,9 @@ namespace XamarinApp.Views
             }
         }
 
-        private void Contracts_Clicked(object sender, EventArgs e)
+        private async void Contracts_Clicked(object sender, EventArgs e)
         {
-            // TODO: fix navigation
-//            await this.navigationService.PushAsync(new ContractsMenuPage(App.CurrentPage), false);
+            await this.navigationService.PushAsync(new ContractsMenuPage());
         }
 
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
@@ -197,13 +197,11 @@ namespace XamarinApp.Views
 
                 if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
                 {
-                    // TODO: fix navigation
-                    //this.navigationService.PushAsync(new NewContractPage(instance.MainPage, contract), true);
+                    await this.navigationService.PushAsync(new NewContractPage(contract));
                 }
                 else
                 {
-                    // TODO: fix navigation
-                    //this.navigationService.PushAsync(new ViewContractPage(instance.MainPage, contract, false), true);
+                    await this.navigationService.PushAsync(new ViewContractPage(contract, false));
                 }
             }
             catch (Exception)

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Waher.Content;
 using Waher.Networking.XMPP;
@@ -226,6 +225,12 @@ namespace XamarinApp.Services
             return contractsClient.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
         }
 
+        public Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature)
+        {
+            AssertContractsIsAvailable();
+            return contractsClient.AddPeerReviewIDAttachment(identity, reviewerLegalIdentity, peerSignature);
+        }
+
         public Task PetitionPeerReviewIdAsync(string legalId, LegalIdentity identity, string petitionId, string purpose)
         {
             AssertContractsIsAvailable();
@@ -242,6 +247,12 @@ namespace XamarinApp.Services
         {
             AssertContractsIsAvailable();
             return contractsClient.GetLegalIdentitiesAsync();
+        }
+
+        public bool? ValidateSignature(LegalIdentity legalIdentity, byte[] data, byte[] signature)
+        {
+            AssertContractsIsAvailable();
+            return contractsClient.ValidateSignature(legalIdentity, data, signature);
         }
 
         public Task<LegalIdentity> ObsoleteLegalIdentityAsync(string legalIdentityId)
@@ -288,6 +299,13 @@ namespace XamarinApp.Services
             PetitionForIdentityReceived?.Invoke(this, e);
         }
 
+        public event EventHandler<SignaturePetitionEventArgs> PetitionForSignatureReceived;
+
+        private void OnPetitionForSignatureReceived(SignaturePetitionEventArgs e)
+        {
+            PetitionForSignatureReceived?.Invoke(this, e);
+        }
+
         public event EventHandler<LegalIdentityPetitionResponseEventArgs> PetitionedIdentityResponseReceived;
 
         private void OnPetitionedIdentityResponseReceived(LegalIdentityPetitionResponseEventArgs e)
@@ -316,12 +334,19 @@ namespace XamarinApp.Services
             PetitionForPeerReviewIdReceived?.Invoke(this, e);
         }
 
-        //public event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
+        public event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
 
-        //private void OnPetitionedPeerReviewIdResponseReceived(SignaturePetitionResponseEventArgs e)
-        //{
-        //    PetitionedPeerReviewIdResponseReceived?.Invoke(this, e);
-        //}
+        private void OnPetitionedPeerReviewIdResponseReceived(SignaturePetitionResponseEventArgs e)
+        {
+            PetitionedPeerReviewIdResponseReceived?.Invoke(this, e);
+        }
+
+        public event EventHandler<SignaturePetitionResponseEventArgs> SignaturePetitionResponseReceived;
+
+        private void OnPetitionedSignatureResponseReceived(SignaturePetitionResponseEventArgs e)
+        {
+            SignaturePetitionResponseReceived?.Invoke(this, e);
+        }
 
         #endregion
 
@@ -333,26 +358,10 @@ namespace XamarinApp.Services
             return Task.CompletedTask;
         }
 
-        private async Task ContractsClient_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
+        private Task ContractsClient_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
         {
-            try
-            {
-                Contract contract = await contractsClient.GetContractAsync(e.RequestedContractId);
-
-                if (contract.State == ContractState.Deleted ||
-                    contract.State == ContractState.Rejected)
-                {
-                    await contractsClient.PetitionContractResponseAsync(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
-                }
-                else
-                {
-                    this.OnPetitionForContractReceived(e);
-                }
-            }
-            catch (Exception)
-            {
-                await contractsClient.PetitionContractResponseAsync(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
-            }
+            this.OnPetitionForContractReceived(e);
+            return Task.CompletedTask;
         }
 
         private Task ContractsClient_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
@@ -361,63 +370,16 @@ namespace XamarinApp.Services
             return Task.CompletedTask;
         }
 
-        private async Task ContractsClient_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
+        private Task ContractsClient_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
         {
-            try
-            {
-                LegalIdentity identity;
-
-                if (e.RequestedIdentityId == this.tagProfile.LegalIdentity.Id)
-                    identity = this.tagProfile.LegalIdentity;
-                else
-                    identity = await contractsClient.GetLegalIdentityAsync(e.RequestedIdentityId);
-
-                if (identity.State == IdentityState.Compromised ||
-                    identity.State == IdentityState.Rejected)
-                {
-                    await contractsClient.PetitionIdentityResponseAsync(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
-                }
-                else
-                {
-                    this.OnPetitionForIdentityReceived(e);
-                }
-            }
-            catch (Exception)
-            {
-                await contractsClient.PetitionIdentityResponseAsync(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
-            }
+            this.OnPetitionForIdentityReceived(e);
+            return Task.CompletedTask;
         }
 
-        private async Task ContractsClient_PetitionedPeerReviewIdResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+        private Task ContractsClient_PetitionedPeerReviewIdResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
         {
-            try
-            {
-                if (!e.Response)
-                {
-                    await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer you requested to review your application, has rejected to approve it.", AppResources.Ok);
-                }
-                else
-                {
-                    StringBuilder xml = new StringBuilder();
-                    tagProfile.LegalIdentity.Serialize(xml, true, true, true, true, true, true, true);
-                    byte[] data = Encoding.UTF8.GetBytes(xml.ToString());
-
-                    bool? result = contractsClient.ValidateSignature(e.RequestedIdentity, data, e.Signature);
-                    if (!result.HasValue || !result.Value)
-                    {
-                        await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok);
-                    }
-                    else
-                    {
-                        await contractsClient.AddPeerReviewIDAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
-                        await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, "A peer review you requested has been accepted.", AppResources.Ok);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
-            }
+            this.OnPetitionedPeerReviewIdResponseReceived(e);
+            return Task.CompletedTask;
         }
 
         private Task ContractsClient_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
@@ -428,13 +390,14 @@ namespace XamarinApp.Services
 
         private Task ContractsClient_PetitionedSignatureResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
         {
+            this.OnPetitionedSignatureResponseReceived(e);
             return Task.CompletedTask;
         }
 
         private Task ContractsClient_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
         {
-            // Reject all signature requests by default
-            return contractsClient.PetitionSignatureResponseAsync(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
+            this.OnPetitionForSignatureReceived(e);
+            return Task.CompletedTask;
         }
 
         private Task ContractsClient_IdentityUpdated(object sender, LegalIdentityEventArgs e)

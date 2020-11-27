@@ -16,8 +16,9 @@ namespace XamarinApp.ViewModels.Registration
         public ChooseOperatorViewModel(
             TagProfile tagProfile, 
             INeuronService neuronService, 
-            INavigationService navigationService)
-            : base(RegistrationStep.Operator, tagProfile, neuronService, navigationService)
+            INavigationService navigationService,
+            ISettingsService settingsService)
+            : base(RegistrationStep.Operator, tagProfile, neuronService, navigationService, settingsService)
         {
             this.Operators = new ObservableCollection<string>();
             this.ConnectCommand = new Command(async () => await Connect(), ConnectCanExecute);

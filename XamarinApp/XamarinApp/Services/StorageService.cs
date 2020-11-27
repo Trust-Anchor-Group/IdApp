@@ -20,32 +20,42 @@ namespace XamarinApp.Services
 
         public override async Task Load()
         {
-            BeginLoad();
-            try
+            if (this.BeginLoad())
             {
-                string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string DataFolder = Path.Combine(AppDataFolder, "Data");
-                if (filesProvider == null)
+                try
                 {
-                    filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.authService.GetCustomKey);
+                    string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string DataFolder = Path.Combine(AppDataFolder, "Data");
+                    if (filesProvider == null)
+                    {
+                        filesProvider = await FilesProvider.CreateAsync(DataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, this.authService.GetCustomKey);
+                    }
+                    await filesProvider.RepairIfInproperShutdown(string.Empty);
+                    Database.Register(filesProvider, false);
+                    this.EndLoad(true);
                 }
-                await filesProvider.RepairIfInproperShutdown(string.Empty);
-                Database.Register(filesProvider, false);
-                EndLoad(true);
-            }
-            catch (Exception)
-            {
-                EndLoad(false);
+                catch (Exception)
+                {
+                    this.EndLoad(false);
+                }
             }
         }
 
         public override async Task Unload()
         {
-            BeginUnload();
-            await DatabaseModule.Flush();
-            this.filesProvider.Dispose();
-            this.filesProvider = null;
-            EndUnload();
+            if (this.BeginUnload())
+            {
+                try
+                {
+                    await DatabaseModule.Flush();
+                    this.filesProvider.Dispose();
+                    this.filesProvider = null;
+                }
+                catch (Exception)
+                {
+                }
+                EndUnload();
+            }
         }
 
         public Task Insert(object obj)

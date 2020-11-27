@@ -17,10 +17,11 @@ namespace XamarinApp.ViewModels.Registration
         public ChooseAccountViewModel(
             TagProfile tagProfile, 
             INeuronService neuronService, 
-            INavigationService navigationService, 
+            INavigationService navigationService,
+            ISettingsService settingsService,
             IAuthService authService, 
             IContractsService contractsService)
-            : base(RegistrationStep.Account, tagProfile, neuronService, navigationService)
+            : base(RegistrationStep.Account, tagProfile, neuronService, navigationService, settingsService)
         {
             this.authService = authService;
             this.contractsService = contractsService;

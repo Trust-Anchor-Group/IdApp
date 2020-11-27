@@ -22,6 +22,7 @@ namespace XamarinApp.Views.Contracts
 		private string visibility = string.Empty;
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
+        private readonly IIdentityOrchestratorService identityOrchestratorService;
 
 		public NewContractPage(SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory)
 		{
@@ -30,6 +31,7 @@ namespace XamarinApp.Views.Contracts
 			this.BindingContext = this;
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
+            this.identityOrchestratorService = DependencyService.Resolve<IIdentityOrchestratorService>();
 			InitializeComponent();
 		}
 
@@ -223,7 +225,7 @@ namespace XamarinApp.Views.Contracts
 			try
 			{
 				if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
-					await ((App)Application.Current).OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
+					await this.identityOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
 			}
 			catch (Exception ex)
 			{

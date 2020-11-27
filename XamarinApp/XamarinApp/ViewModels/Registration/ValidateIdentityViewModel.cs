@@ -21,9 +21,10 @@ namespace XamarinApp.ViewModels.Registration
         public ValidateIdentityViewModel(
             TagProfile tagProfile,
             INeuronService neuronService,
-            IContractsService contractsService,
-            INavigationService navigationService)
-            : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService)
+            INavigationService navigationService,
+            ISettingsService settingsService,
+            IContractsService contractsService)
+            : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService)
         {
             this.contractsService = contractsService;
             this.navigationService = navigationService;
