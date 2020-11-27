@@ -5,6 +5,9 @@ using XamarinApp.Views;
 
 namespace XamarinApp.Services
 {
+    /// <summary>
+    /// Handles all page navigation in the app, as well as display alerts.
+    /// </summary>
     public interface INavigationService
     {
         Task PushAsync(Page page);

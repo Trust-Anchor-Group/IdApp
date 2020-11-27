@@ -37,7 +37,7 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoBind()
         {
             await base.DoBind();
-            await AssignProperties();
+            AssignProperties();
             this.TagProfile.Changed += TagProfile_Changed;
             this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
         }
@@ -54,7 +54,7 @@ namespace XamarinApp.ViewModels.Registration
         public ICommand InviteReviewerCommand { get; }
         public ICommand ContinueCommand { get; }
 
-        private async Task AssignProperties()
+        private void AssignProperties()
         {
             Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
             Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
@@ -98,7 +98,7 @@ namespace XamarinApp.ViewModels.Registration
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
-            await LoadPhotos();
+            LoadPhotos();
         }
 
         private async Task LoadPhotos()
@@ -130,15 +130,15 @@ namespace XamarinApp.ViewModels.Registration
             }
         }
 
-        private async void TagProfile_Changed(object sender, EventArgs e)
+        private void TagProfile_Changed(object sender, EventArgs e)
         {
-            await AssignProperties();
+            AssignProperties();
         }
 
-        private async void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+        private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
             this.TagProfile.SetLegalIdentity(e.Identity);
-            await AssignProperties();
+            AssignProperties();
         }
 
         public static readonly BindableProperty CreatedProperty =

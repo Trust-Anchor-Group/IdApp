@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -22,6 +20,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
+using XamarinApp.Views;
 using Log = Waher.Events.Log;
 
 namespace XamarinApp
@@ -178,12 +177,11 @@ namespace XamarinApp
 
         #region Event Handlers
 
-        private void ContractsService_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
+        private async void ContractsService_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
             if (this.tagProfile.IsCompleteOrWaitingForValidation())
             {
-                // TODO: fix navigation
-                //await this.navigationService.PushAsync(new IdentityPage(Application.Current.MainPage, e.RequestorIdentity, e))
+                await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestorIdentity, e));
             }
         }
 
@@ -196,11 +194,11 @@ namespace XamarinApp
             }
         }
 
-        private void ContractsService_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
+        private async void ContractsService_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
         {
             if (!e.Response || e.RequestedContract is null)
             {
-                this.navigationService.DisplayAlert(AppResources.Message, "Petition to view contract was denied.", AppResources.Ok);
+                await this.navigationService.DisplayAlert(AppResources.Message, "Petition to view contract was denied.", AppResources.Ok);
             }
             else
             {
@@ -215,16 +213,15 @@ namespace XamarinApp
             //await this.navigationService.PushAsync(new PetitionContractPage(Application.Current.MainPage, e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose), false);
         }
 
-        private void ContractsService_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
+        private async void ContractsService_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
         {
             if (!e.Response || e.RequestedIdentity is null)
             {
-                this.navigationService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok);
+                await this.navigationService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok);
             }
             else
             {
-                // TODO: fix navigation
-                //await this.navigationService.PushAsync(new Views.IdentityPage(Application.Current.MainPage, e.RequestedIdentity), false);
+                await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestedIdentity));
             }
         }
 
