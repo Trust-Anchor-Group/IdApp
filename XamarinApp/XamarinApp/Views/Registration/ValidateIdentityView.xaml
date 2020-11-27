@@ -115,7 +115,7 @@
                                 </StackLayout>
                             </ViewCell>
                         </TableSection>
-                        <TableSection>
+                        <!--<TableSection>
                             <ViewCell>
                                 <CollectionView ItemsSource="{Binding Path=Photos}" Margin="{StaticResource DefaultTopOnlyMargin}">
                                     <CollectionView.ItemsLayout>
@@ -132,7 +132,7 @@
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
                             </ViewCell>
-                        </TableSection>
+                        </TableSection>-->
                         <TableSection>
                             <ViewCell>
                                 <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
