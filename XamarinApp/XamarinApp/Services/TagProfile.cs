@@ -65,7 +65,6 @@ namespace XamarinApp.Services
         {
             TagConfiguration clone = new TagConfiguration();
             clone.ObjectId = this.objectId;
-            clone.Step = this.Step;
             clone.Domain = this.Domain;
             clone.Account = this.Account;
             clone.PasswordHash = this.PasswordHash;
@@ -78,13 +77,13 @@ namespace XamarinApp.Services
             clone.PinHash = this.PinHash;
             clone.UsePin = this.UsePin;
             clone.LegalIdentity = this.LegalIdentity;
+            clone.Step = this.Step;
             return clone;
         }
 
         public void FromConfiguration(TagConfiguration configuration)
         {
             this.objectId = configuration.ObjectId;
-            this.Step = configuration.Step;
             this.Domain = configuration.Domain;
             this.Account = configuration.Account;
             this.PasswordHash = configuration.PasswordHash;
@@ -97,6 +96,8 @@ namespace XamarinApp.Services
             this.PinHash = configuration.PinHash;
             this.UsePin = configuration.UsePin;
             this.LegalIdentity = configuration.LegalIdentity;
+            // Do this last, as listeners will read the other properties when the event is fired.
+            this.Step = configuration.Step;
         }
 
         public bool IsCompleteOrWaitingForValidation()
@@ -106,7 +107,7 @@ namespace XamarinApp.Services
 
         public bool IsComplete()
         {
-            return Step == RegistrationStep.Pin && PinIsValid;
+            return Step == RegistrationStep.Complete;
         }
 
         #region Properties
@@ -358,7 +359,7 @@ namespace XamarinApp.Services
                     Step = RegistrationStep.Pin;
                     break;
                 case RegistrationStep.Pin:
-                    // Do nothing
+                    Step = RegistrationStep.Complete;
                     break;
             }
         }
@@ -432,6 +433,7 @@ namespace XamarinApp.Services
         {
             this.Pin = pin;
             this.UsePin = usePin;
+            IncrementConfigurationStep();
         }
 
         public void ClearPin()
@@ -501,7 +503,8 @@ namespace XamarinApp.Services
         Account = 1,
         RegisterIdentity = 2,
         ValidateIdentity = 3,
-        Pin = 4
+        Pin = 4,
+        Complete = 5
     }
 
     [CollectionName("Configuration")]

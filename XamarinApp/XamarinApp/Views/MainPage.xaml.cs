@@ -109,9 +109,14 @@ namespace XamarinApp.Views
 
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
+            Device.BeginInvokeOnMainThread(() => HandleConnectionStateChanged(e.State));
+        }
+
+        public void HandleConnectionStateChanged(XmppState state)
+        {
             bool connected = false;
 
-            switch (e.State)
+            switch (state)
             {
                 case XmppState.Authenticating:
                     this.ConnectionState.Text = AppResources.XmppState_Authenticating;

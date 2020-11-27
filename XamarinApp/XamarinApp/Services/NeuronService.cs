@@ -15,13 +15,13 @@ namespace XamarinApp.Services
     internal sealed class NeuronService : LoadableService, INeuronService
     {
         private readonly TagProfile tagProfile;
-        private Timer reconnectTimer = null;
-        private XmppClient xmppClient = null;
-        private string domainName = null;
-        private string accountName = null;
-        private string passwordHash = null;
-        private string passwordHashMethod = null;
-        private bool xmppSettingsOk = false;
+        private Timer reconnectTimer;
+        private XmppClient xmppClient;
+        private string domainName;
+        private string accountName;
+        private string passwordHash;
+        private string passwordHashMethod;
+        private bool xmppSettingsOk;
         private readonly ISniffer sniffer;
 
         public NeuronService(TagProfile tagProfile)

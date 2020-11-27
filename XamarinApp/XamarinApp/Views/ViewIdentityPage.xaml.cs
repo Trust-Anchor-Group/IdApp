@@ -38,13 +38,13 @@ namespace XamarinApp.Views
             this.navigationService = DependencyService.Resolve<INavigationService>();
 			this.tagProfile = DependencyService.Resolve<TagProfile>();
 			this.identity = identity ?? this.tagProfile.LegalIdentity;
-			this.personal = this.tagProfile.LegalIdentity.Id == identity.Id;
+			this.personal = this.tagProfile.LegalIdentity.Id == identity?.Id;
 			this.review = review;
 			this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
 			this.BindingContext = this;
 			InitializeComponent();
 
-			byte[] Png = QR.GenerateCodePng("iotid:" + identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
+			byte[] Png = QR.GenerateCodePng("iotid:" + this.identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
 			this.QrCode.Source = ImageSource.FromStream(() => new MemoryStream(Png));
 			this.QrCode.IsVisible = true;
 
