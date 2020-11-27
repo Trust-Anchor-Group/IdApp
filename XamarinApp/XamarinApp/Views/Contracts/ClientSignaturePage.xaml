@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinApp"
+             x:Class="XamarinApp.Views.Contracts.ClientSignaturePage">
+    <ScrollView x:Name="ScrollView">
+        <StackLayout Margin="10">
+            <Label Text="Identity Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
+            <Label Text="Following is personal information registered for the party who signed the contract." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <TableView Intent="Data" HasUnevenRows="True">
+                <TableView.Root>
+                    <TableSection>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Created:"/>
+                                <Label Text="{Binding Created}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Updated:"/>
+                                <Label Text="{Binding Updated}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="State:"/>
+                                <Label Text="{Binding State}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="First Name:"/>
+                                <Label Text="{Binding FirstName}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Middle Name(s):" />
+                                <Label Text="{Binding MiddleNames}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Last Name(s):" />
+                                <Label Text="{Binding LastNames}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Personal Number:" />
+                                <Label Text="{Binding PNr}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Address:" />
+                                <Label Text="{Binding Address}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Address (row 2):" />
+                                <Label Text="{Binding Address2}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="ZIP or Postal Code:" />
+                                <Label Text="{Binding PostalCode}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Area:" />
+                                <Label Text="{Binding Area}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="City:" />
+                                <Label Text="{Binding City}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Region or State:" />
+                                <Label Text="{Binding Region}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Country:" />
+                                <Label Text="{Binding Country}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="ID:" />
+                                <Label Text="{Binding LegalId}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Signature Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
+                                <Label Text="Following is information related to a client signature." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Role:" />
+                                <Label Text="{Binding Role}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Timestamp:" />
+                                <Label Text="{Binding Timestamp}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Transferable:" />
+                                <Label Text="{Binding Transferable}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Network:" />
+                                <Label Text="{Binding BareJid}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Signature:" />
+                                <Label Text="{Binding Signature}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection>
+                        <ViewCell>
+                            <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
+                        </ViewCell>
+                    </TableSection>
+                </TableView.Root>
+            </TableView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
