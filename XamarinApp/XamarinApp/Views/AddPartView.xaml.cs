@@ -54,5 +54,7 @@ namespace XamarinApp.Views
                 GetViewModel<AddPartViewModel>().AutomaticAddCommand.Execute(result.Text);
             }
         }
+
+        public string ScannedCode => GetViewModel<AddPartViewModel>().Code;
     }
 }
