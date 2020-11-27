@@ -13,8 +13,6 @@ namespace XamarinApp.Services
 {
     internal sealed class ContractsService : IContractsService
     {
-        private static readonly TimeSpan FileUploadTimeout = TimeSpan.FromSeconds(30);
-
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
@@ -188,7 +186,7 @@ namespace XamarinApp.Services
                     throw new Exception(e2.ErrorText);
                 }
 
-                await e2.PUT(a.Data, a.ContentType, (int)FileUploadTimeout.TotalMilliseconds);
+                await e2.PUT(a.Data, a.ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
 
                 byte[] signature = await contractsClient.SignAsync(a.Data);
 

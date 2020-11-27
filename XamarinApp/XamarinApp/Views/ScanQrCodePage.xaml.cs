@@ -22,7 +22,9 @@ namespace XamarinApp.Views
 
         private void OpenButton_Click(object sender, EventArgs e)
         {
+#pragma warning disable 4014
             ClosePage();
+#pragma warning restore 4014
             Open?.Invoke(this, new OpenEventArgs(ScanView.ScannedCode));
         }
 
@@ -46,7 +48,9 @@ namespace XamarinApp.Views
 
         protected override bool OnBackButtonPressed()
         {
+#pragma warning disable 4014
             ClosePage();
+#pragma warning restore 4014
             return true;
         }
     }

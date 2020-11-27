@@ -15,7 +15,6 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
-        private static readonly TimeSpan GetPhotoTimeout = TimeSpan.FromSeconds(10);
         private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
 
@@ -98,7 +97,9 @@ namespace XamarinApp.ViewModels.Registration
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
+#pragma warning disable 4014
             LoadPhotos();
+#pragma warning restore 4014
         }
 
         private async Task LoadPhotos()
@@ -112,7 +113,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     try
                     {
-                        KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, GetPhotoTimeout);
+                        KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
 
                         using (TemporaryFile file = pair.Value)
                         {

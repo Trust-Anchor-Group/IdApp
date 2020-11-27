@@ -21,13 +21,13 @@ using Xamarin.Forms.Internals;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
 using XamarinApp.Views;
+using XamarinApp.Views.Contracts;
 using Log = Waher.Events.Log;
 
 namespace XamarinApp
 {
 	public partial class App : IDisposable
 	{
-        private static readonly TimeSpan AutoSaveInterval = TimeSpan.FromSeconds(1);
         private Timer autoSaveTimer;
         private InternalSink internalSink;
         private readonly INeuronService neuronService;
@@ -123,7 +123,7 @@ namespace XamarinApp
             }
             this.tagProfile.FromConfiguration(configuration);
 
-            this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, AutoSaveInterval, AutoSaveInterval);
+            this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
 
             this.contractsService.PetitionForPeerReviewIdReceived += ContractsService_PetitionForPeerReviewIdReceived;
             this.contractsService.PetitionForIdentityReceived += ContractsService_PetitionForIdentityReceived;
@@ -185,12 +185,12 @@ namespace XamarinApp
             }
         }
 
-        private void ContractsService_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
+        private async void ContractsService_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
         {
             if (this.tagProfile.IsCompleteOrWaitingForValidation())
             {
                 // TODO: fix navigation
-                //await this.navigationService.PushAsync(new PetitionIdentityPage(Application.Current.MainPage, e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose), false);
+                await this.navigationService.PushAsync(new PetitionIdentityPage(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
             }
         }
 
@@ -202,15 +202,23 @@ namespace XamarinApp
             }
             else
             {
-                // TODO: fix navigation
-                //await this.navigationService.PushAsync(new ViewContractPage(Application.Current.MainPage, e.RequestedContract, false), false);
+                await this.navigationService.PushAsync(new ViewContractPage(e.RequestedContract, false));
             }
         }
 
-        private void ContractsService_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
+        private async void ContractsService_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
         {
-            // TODO: fix navigation
-            //await this.navigationService.PushAsync(new PetitionContractPage(Application.Current.MainPage, e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose), false);
+            Contract Contract = await this.contractsService.GetContractAsync(e.RequestedContractId);
+
+            if (Contract.State == ContractState.Deleted ||
+                Contract.State == ContractState.Rejected)
+            {
+                await this.contractsService.SendPetitionContractResponseAsync(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
+            }
+            else
+            {
+                await this.navigationService.PushAsync(new PetitionContractPage(e.RequestorIdentity, e.RequestorFullJid, Contract, e.PetitionId, e.Purpose));
+            }
         }
 
         private async void ContractsService_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
@@ -227,38 +235,40 @@ namespace XamarinApp
 
         #endregion
 
-        //public static async Task OpenLegalIdentity(string LegalId, string Purpose)
-        //{
-        //	try
-        //	{
-        //		LegalIdentity Identity = await instance.TagService.GetLegalIdentityAsync(LegalId);
-        //		App.ShowPage(new Views.IdentityPage(instance.MainPage, Identity), true);
-        //	}
-        //	catch (Exception)
-        //	{
-        //		await instance.TagService.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
-        //		await instance.messageService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
-        //			"If the owner accepts the petition, the identity information will be displayed on the screen.", AppResources.Ok);
-        //	}
-        //}
+        public async Task OpenLegalIdentity(string LegalId, string Purpose)
+        {
+            try
+            {
+                LegalIdentity Identity = await this.contractsService.GetLegalIdentityAsync(LegalId);
+                await this.navigationService.PushAsync(new ViewIdentityPage(Identity));
+            }
+            catch (Exception)
+            {
+                await this.contractsService.PetitionIdentityAsync(LegalId, Guid.NewGuid().ToString(), Purpose);
 
-        //public static async Task OpenContract(string ContractId, string Purpose)
-        //{
-        //	try
-        //	{
-        //		Contract Contract = await instance.TagService.GetContractAsync(ContractId);
+                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
+                                                    "If the owner accepts the petition, the identity information will be displayed on the screen.");
+            }
+        }
 
-        //		if (Contract.CanActAsTemplate && Contract.State == ContractState.Approved)
-        //			App.ShowPage(new NewContractPage(instance.MainPage, Contract), true);
-        //		else
-        //			App.ShowPage(new ViewContractPage(instance.MainPage, Contract, false), true);
-        //	}
-        //	catch (Exception)
-        //	{
-        //		await instance.TagService.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
-        //		await instance.MainPage.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
-        //			"If any of the parts accepts the petition, the contract information will be displayed on the screen.", AppResources.Ok);
-        //	}
-        //}
+        public async Task OpenContract(string ContractId, string Purpose)
+        {
+            try
+            {
+                Contract Contract = await this.contractsService.GetContractAsync(ContractId);
+
+                if (Contract.CanActAsTemplate && Contract.State == ContractState.Approved)
+                    await this.navigationService.PushAsync(new NewContractPage(Contract));
+                else
+                    await this.navigationService.PushAsync(new ViewContractPage(Contract, false));
+            }
+            catch (Exception)
+            {
+                await this.contractsService.PetitionContractAsync(ContractId, Guid.NewGuid().ToString(), Purpose);
+
+                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
+                                                    "If any of the parts accepts the petition, the contract information will be displayed on the screen.");
+            }
+        }
     }
 }

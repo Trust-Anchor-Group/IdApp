@@ -13,7 +13,6 @@ namespace XamarinApp.Views
 	[DesignTimeVisible(true)]
 	public partial class ViewIdentityPage : INotifyPropertyChanged
     {
-        private static readonly TimeSpan DownloadContractTimeout = TimeSpan.FromSeconds(10);
 		private readonly SignaturePetitionEventArgs review;
 		private readonly TagProfile tagProfile;
 		private readonly INeuronService neuronService;
@@ -99,7 +98,7 @@ namespace XamarinApp.Views
 
 						try
 						{
-							KeyValuePair<string, TemporaryFile> P = await this.contractsService.GetContractAttachmentAsync(Attachment.Url, DownloadContractTimeout);
+							KeyValuePair<string, TemporaryFile> P = await this.contractsService.GetContractAttachmentAsync(Attachment.Url, Constants.Timeouts.DownloadFile);
 
 							using (TemporaryFile File = P.Value)
 							{

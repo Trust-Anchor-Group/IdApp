@@ -9,24 +9,17 @@ namespace XamarinApp.Views.Contracts
 	[DesignTimeVisible(true)]
 	public partial class ClientSignaturePage
 	{
-		private readonly Page owner;
 		private readonly ClientSignature clientSignature;
 		private readonly LegalIdentity identity;
         private readonly INavigationService navigationService;
 
-		public ClientSignaturePage(Page Owner, ClientSignature Signature, LegalIdentity Identity)
+		public ClientSignaturePage(ClientSignature signature, LegalIdentity identity)
 		{
-			this.owner = Owner;
-			this.clientSignature = Signature;
-			this.identity = Identity;
+			this.clientSignature = signature;
+			this.identity = identity;
 			this.BindingContext = this;
             this.navigationService = DependencyService.Resolve<INavigationService>();
 			InitializeComponent();
-		}
-
-		private async void BackButton_Clicked(object sender, EventArgs e)
-        {
-            await this.navigationService.PopAsync();
 		}
 
 		public DateTime Created => this.identity.Created;
@@ -55,15 +48,20 @@ namespace XamarinApp.Views.Contracts
 		public string BareJid => this.clientSignature.BareJid;
 		public string Signature => Convert.ToBase64String(this.clientSignature.DigitalSignature);
 
-		private static DateTime? CheckMin(DateTime? TP)
+		private static DateTime? CheckMin(DateTime? tp)
 		{
-			if (!TP.HasValue || TP.Value == DateTime.MinValue)
+			if (!tp.HasValue || tp.Value == DateTime.MinValue)
 				return null;
 			else
-				return TP;
+				return tp;
 		}
 
-        protected override bool OnBackButtonPressed()
+        private async void BackButton_Clicked(object sender, EventArgs e)
+        {
+            await this.navigationService.PopAsync();
+        }
+
+		protected override bool OnBackButtonPressed()
         {
 			this.BackButton_Clicked(this.BackButton, EventArgs.Empty);
             return true;

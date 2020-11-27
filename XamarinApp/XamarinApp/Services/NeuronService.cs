@@ -14,10 +14,6 @@ namespace XamarinApp.Services
 {
     internal sealed class NeuronService : LoadableService, INeuronService
     {
-        private static readonly TimeSpan ConnectTimeout = TimeSpan.FromSeconds(10);
-        private static readonly TimeSpan PresenceTimeout = TimeSpan.FromSeconds(1);
-        private static readonly TimeSpan ReconnectInterval = TimeSpan.FromSeconds(10);
-
         private readonly TagProfile tagProfile;
         private Timer reconnectTimer = null;
         private XmppClient xmppClient = null;
@@ -75,7 +71,7 @@ namespace XamarinApp.Services
                 this.xmppClient.Connect(domainName);
 
                 this.reconnectTimer?.Dispose();
-                this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, ReconnectInterval, ReconnectInterval);
+                this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
             }
         }
 
@@ -122,7 +118,7 @@ namespace XamarinApp.Services
                     this.xmppSettingsOk = true;
 
                     this.reconnectTimer?.Dispose();
-                    this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, ReconnectInterval, ReconnectInterval);
+                    this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
 
                     if (string.IsNullOrEmpty(this.tagProfile.LegalJid) ||
                         string.IsNullOrEmpty(this.tagProfile.RegistryJid) ||
@@ -171,7 +167,7 @@ namespace XamarinApp.Services
             {
                 TaskCompletionSource<bool> offlineSent = new TaskCompletionSource<bool>();
                 this.xmppClient.SetPresence(Availability.Offline, (sender, e) => offlineSent.TrySetResult(true));
-                Task _ = Task.Delay(PresenceTimeout).ContinueWith(__ => offlineSent.TrySetResult(false));
+                Task _ = Task.Delay(Constants.Timeouts.XmppPresence).ContinueWith(__ => offlineSent.TrySetResult(false));
 
                 await offlineSent.Task;
             }
@@ -323,7 +319,7 @@ namespace XamarinApp.Services
                         connected.TrySetResult(false);
                     }
 
-                    using (Timer _ = new Timer(TimerCallback, null, (int)ConnectTimeout.TotalMilliseconds, Timeout.Infinite))
+                    using (Timer _ = new Timer(TimerCallback, null, (int)Constants.Timeouts.XmppConnect.TotalMilliseconds, Timeout.Infinite))
                     {
                         succeeded = await connected.Task;
                     }

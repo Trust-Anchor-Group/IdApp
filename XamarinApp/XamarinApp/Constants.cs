@@ -1,4 +1,6 @@
-﻿namespace XamarinApp
+﻿using System;
+
+namespace XamarinApp
 {
     public static class Constants
     {
@@ -34,6 +36,20 @@
             public const string Country = "COUNTRY";
             public const string DeviceId = "DEVICE_ID";
             public const string JId = "JID";
+        }
+
+        public static class Intervals
+        {
+            public static readonly TimeSpan AutoSave = TimeSpan.FromSeconds(1);
+            public static readonly TimeSpan Reconnect = TimeSpan.FromSeconds(10);
+        }
+
+        public static class Timeouts
+        {
+            public static readonly TimeSpan XmppConnect = TimeSpan.FromSeconds(10);
+            public static readonly TimeSpan XmppPresence = TimeSpan.FromSeconds(1);
+            public static readonly TimeSpan UploadFile = TimeSpan.FromSeconds(30);
+            public static readonly TimeSpan DownloadFile = TimeSpan.FromSeconds(10);
         }
     }
 }
