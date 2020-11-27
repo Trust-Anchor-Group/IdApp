@@ -383,5 +383,17 @@ namespace XamarinApp.ViewModels.Registration
 
             return false;
         }
+
+        protected override async Task DoSaveState()
+        {
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(AccountName)), this.AccountName);
+            await base.DoSaveState();
+        }
+
+        protected override async Task DoRestoreState()
+        {
+            this.AccountName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(AccountName)));
+            await base.DoRestoreState();
+        }
     }
 }

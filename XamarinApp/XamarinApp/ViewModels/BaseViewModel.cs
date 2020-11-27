@@ -85,6 +85,11 @@ namespace XamarinApp.ViewModels
             return Task.CompletedTask;
         }
 
+        protected string GetSettingsKey(string propertyName)
+        {
+            return $"{this.GetType().FullName}.{propertyName}";
+        }
+
         public static readonly BindableProperty IsBusyProperty =
             BindableProperty.Create("IsBusy", typeof(bool), typeof(BaseViewModel), default(bool));
 

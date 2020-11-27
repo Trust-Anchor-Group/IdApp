@@ -466,13 +466,28 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
-            
-            // TODO: save properties
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(FirstName)), this.FirstName);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(MiddleNames)), this.MiddleNames);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(LastNames)), this.LastNames);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(PersonalNumber)), this.PersonalNumber);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Address)), this.Address);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Address2)), this.Address2);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Area)), this.Area);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(City)), this.City);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Region)), this.Region);
         }
 
         protected override async Task DoRestoreState()
         {
-            // TODO: restore properties
+            this.FirstName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(FirstName)));
+            this.MiddleNames  = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(MiddleNames)));
+            this.LastNames = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(LastNames)));
+            this.PersonalNumber = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(PersonalNumber)));
+            this.Address = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Address)));
+            this.Address2 = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Address2)));
+            this.Area = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Area)));
+            this.City = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(City)));
+            this.Region = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Region)));
             await base.DoRestoreState();
         }
     }
