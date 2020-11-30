@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
@@ -14,17 +13,9 @@ namespace XamarinApp.Views
 
         public ScanQrCodePage()
         {
-            InitializeComponent();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.CodeScannedCommand = new Command(CodeScanned);
             this.BindingContext = this;
-        }
-
-        public ICommand CodeScannedCommand { get; }
-
-        private void CodeScanned(object code)
-        {
-            Open?.Invoke(this, new OpenEventArgs(code as string));
+            InitializeComponent();
         }
 
         private void OpenButton_Click(object sender, EventArgs e)

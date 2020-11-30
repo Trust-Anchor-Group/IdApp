@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Windows.Input;
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels;
 using ZXing;

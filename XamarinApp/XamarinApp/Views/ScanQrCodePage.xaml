@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
-             x:Class="XamarinApp.Views.ScanQrCodePage" x:Name="TheScanQrCodePage">
+             x:Class="XamarinApp.Views.ScanQrCodePage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <views:AddPartView x:Name="ScanView" VerticalOptions="StartAndExpand" CodeScanned="ScanView_CodeScanned"/>
             <Button x:Name="OpenButton" Clicked="OpenButton_Click" Text="Open" Margin="{StaticResource DefaultMargin}"/>
         </StackLayout>
     </ContentPage.Content>
-</views:ContentBasePage>
+</ContentPage>

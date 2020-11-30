@@ -69,6 +69,7 @@ namespace XamarinApp.Services
                     AllowScramSHA256 = true
                 };
 
+                this.xmppClient.RequestRosterOnStartup = false;
                 this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 
                 this.xmppClient.Connect(domainName);

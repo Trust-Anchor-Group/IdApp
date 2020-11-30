@@ -78,8 +78,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
                 viewModel.RegisterCommand.ChangeCanExecute();
-                string code;
-                if (!string.IsNullOrWhiteSpace(viewModel.SelectedCountry) && ISO_3166_1.TryGetCode(viewModel.SelectedCountry, out code))
+                if (!string.IsNullOrWhiteSpace(viewModel.SelectedCountry) && ISO_3166_1.TryGetCode(viewModel.SelectedCountry, out string code))
                 {
                     string format = PersonalNumberSchemes.DisplayStringForCountry(code);
                     if (!string.IsNullOrWhiteSpace(format))
