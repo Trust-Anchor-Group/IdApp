@@ -46,11 +46,11 @@ namespace XamarinApp.Views
 
         private async void ScanQR_Clicked(object sender, EventArgs e)
         {
-            ScanQrCodePage page = new ScanQrCodePage(true);
+            ScanQrCodePage page = new ScanQrCodePage();
             page.Open += ScanQrPage_Open;
-            await this.navigationService.PushModalAsync(page);
+            await this.navigationService.PushAsync(page);
             string code = await this.OpenQrCode();
-            await this.navigationService.PopModalAsync();
+            await this.navigationService.PopAsync();
             page.Open -= ScanQrPage_Open;
 
             try

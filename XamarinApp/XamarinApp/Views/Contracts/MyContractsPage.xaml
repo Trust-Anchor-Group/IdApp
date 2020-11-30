@@ -8,6 +8,8 @@
             <Label Text="Below is a list of contracts. Click on a contract for more information about it." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <TableView x:Name="Contracts" Intent="Data" HasUnevenRows="True">
                 <TableView.Root>
+                    <TableSection>
+                    </TableSection>
                 </TableView.Root>
             </TableView>
         </StackLayout>

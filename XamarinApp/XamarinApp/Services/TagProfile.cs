@@ -63,21 +63,23 @@ namespace XamarinApp.Services
 
         public TagConfiguration ToConfiguration()
         {
-            TagConfiguration clone = new TagConfiguration();
-            clone.ObjectId = this.objectId;
-            clone.Domain = this.Domain;
-            clone.Account = this.Account;
-            clone.PasswordHash = this.PasswordHash;
-            clone.PasswordHashMethod = this.PasswordHashMethod;
-            clone.LegalJid = this.LegalJid;
-            clone.RegistryJid = this.RegistryJid;
-            clone.ProvisioningJid = this.ProvisioningJid;
-            clone.HttpFileUploadJid = this.HttpFileUploadJid;
-            clone.HttpFileUploadMaxSize = this.HttpFileUploadMaxSize;
-            clone.PinHash = this.PinHash;
-            clone.UsePin = this.UsePin;
-            clone.LegalIdentity = this.LegalIdentity;
-            clone.Step = this.Step;
+            TagConfiguration clone = new TagConfiguration
+            {
+                ObjectId = this.objectId,
+                Domain = this.Domain,
+                Account = this.Account,
+                PasswordHash = this.PasswordHash,
+                PasswordHashMethod = this.PasswordHashMethod,
+                LegalJid = this.LegalJid,
+                RegistryJid = this.RegistryJid,
+                ProvisioningJid = this.ProvisioningJid,
+                HttpFileUploadJid = this.HttpFileUploadJid,
+                HttpFileUploadMaxSize = this.HttpFileUploadMaxSize,
+                PinHash = this.PinHash,
+                UsePin = this.UsePin,
+                LegalIdentity = this.LegalIdentity,
+                Step = this.Step
+            };
             return clone;
         }
 

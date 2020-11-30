@@ -8,13 +8,13 @@
   <ContentView.Content>
       <StackLayout Margin="10">
           <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
-              <forms:ZXingScannerView x:Name="Scanner"
-                                      OnScanResult="Scanner_OnScanResult"
-                                      IsScanning="True"
-                                      WidthRequest="300"
-                                      HeightRequest="500"
-                                      VerticalOptions="CenterAndExpand"
-                                      HorizontalOptions="CenterAndExpand"/>
+              <forms:ZXingScannerView 
+                  x:Name="Scanner"
+                  OnScanResult="Scanner_OnScanResult"
+                  IsScanning="True"
+                  HeightRequest="400"
+                  VerticalOptions="CenterAndExpand"
+                  HorizontalOptions="CenterAndExpand"/>
               <forms:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlay}"/>
           </Grid>
           <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">

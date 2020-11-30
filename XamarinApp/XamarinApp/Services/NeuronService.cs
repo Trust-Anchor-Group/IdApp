@@ -57,14 +57,17 @@ namespace XamarinApp.Services
 
                 (string hostName, int portNumber) = await this.tagProfile.GetXmppHostnameAndPort(domainName);
 
-                this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, typeof(App).Assembly, this.sniffer);
-                this.xmppClient.TrustServer = false;
-                this.xmppClient.AllowCramMD5 = false;
-                this.xmppClient.AllowDigestMD5 = false;
-                this.xmppClient.AllowPlain = false;
-                this.xmppClient.AllowEncryption = true;
-                this.xmppClient.AllowScramSHA1 = true;
-                this.xmppClient.AllowScramSHA256 = true;
+                this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod,
+                    Constants.LanguageCodes.Default, typeof(App).Assembly, this.sniffer)
+                {
+                    TrustServer = false,
+                    AllowCramMD5 = false,
+                    AllowDigestMD5 = false,
+                    AllowPlain = false,
+                    AllowEncryption = true,
+                    AllowScramSHA1 = true,
+                    AllowScramSHA256 = true
+                };
 
                 this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 

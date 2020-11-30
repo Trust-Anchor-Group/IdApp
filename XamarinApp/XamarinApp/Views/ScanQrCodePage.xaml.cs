@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
@@ -10,48 +10,37 @@ namespace XamarinApp.Views
     public partial class ScanQrCodePage
     {
         public event EventHandler<OpenEventArgs> Open;
-        private readonly bool isModal;
         private readonly INavigationService navigationService;
 
-        public ScanQrCodePage(bool isModal)
+        public ScanQrCodePage()
         {
             InitializeComponent();
-            this.isModal = isModal;
             this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.CodeScannedCommand = new Command(CodeScanned);
+            this.BindingContext = this;
+        }
+
+        public ICommand CodeScannedCommand { get; }
+
+        private void CodeScanned(object code)
+        {
+            Open?.Invoke(this, new OpenEventArgs(code as string));
         }
 
         private void OpenButton_Click(object sender, EventArgs e)
         {
-#pragma warning disable 4014
-            ClosePage();
-#pragma warning restore 4014
             Open?.Invoke(this, new OpenEventArgs(ScanView.ScannedCode));
-        }
-
-        private async void BackButton_Click(object sender, EventArgs e)
-        {
-            await ClosePage();
-        }
-
-
-        private async Task ClosePage()
-        {
-            if (isModal)
-            {
-                await this.navigationService.PopModalAsync();
-            }
-            else
-            {
-                await this.navigationService.PopAsync();
-            }
         }
 
         protected override bool OnBackButtonPressed()
         {
-#pragma warning disable 4014
-            ClosePage();
-#pragma warning restore 4014
+            this.navigationService.PopAsync();
             return true;
+        }
+
+        private void ScanView_CodeScanned(object sender, CodeScannedEventArgs e)
+        {
+            Open?.Invoke(this, new OpenEventArgs(ScanView.ScannedCode));
         }
     }
 

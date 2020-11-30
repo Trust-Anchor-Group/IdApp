@@ -14,15 +14,13 @@ namespace XamarinApp.Services
     {
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
-        private readonly INavigationService navigationService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        public ContractsService(TagProfile tagProfile, INeuronService neuronService, INavigationService navigationService)
+        public ContractsService(TagProfile tagProfile, INeuronService neuronService)
         {
             this.tagProfile = tagProfile;
             this.neuronService = neuronService;
-            this.navigationService = navigationService;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 

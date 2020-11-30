@@ -123,7 +123,7 @@ namespace XamarinApp.Views.Contracts
 
 			TableSection section = this.Contracts.Root[0];
 
-			section.Insert(section.Count - 1, viewCell);
+			section.Insert(Math.Max(0, section.Count - 1), viewCell);
 
 			return layout;
 		}

@@ -1,18 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
-             x:Class="XamarinApp.Views.ScanQrCodePage">
+             x:Class="XamarinApp.Views.ScanQrCodePage" x:Name="TheScanQrCodePage">
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <views:AddPartView x:Name="ScanView" Grid.Row="0"/>
-            <Button x:Name="OpenButton" Grid.Row="1" Clicked="OpenButton_Click" Text="Open"/>
-            <Button x:Name="BackButton" Grid.Row="1" Clicked="BackButton_Click" Text="Open"/>
-        </Grid>
+        <StackLayout Orientation="Vertical">
+            <views:AddPartView x:Name="ScanView" VerticalOptions="StartAndExpand" CodeScanned="ScanView_CodeScanned"/>
+            <Button x:Name="OpenButton" Clicked="OpenButton_Click" Text="Open" Margin="{StaticResource DefaultMargin}"/>
+        </StackLayout>
     </ContentPage.Content>
-</ContentPage>
+</views:ContentBasePage>

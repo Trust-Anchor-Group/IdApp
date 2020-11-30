@@ -10,6 +10,8 @@ namespace XamarinApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AddPartView
     {
+        public event EventHandler<CodeScannedEventArgs> CodeScanned;
+        
         public AddPartView()
             : this(null)
         {
@@ -25,13 +27,9 @@ namespace XamarinApp.Views
             vm.CodeScanned += ViewModel_CodeScanned;
         }
 
-        public static readonly BindableProperty CodeScannedCommandProperty =
-            BindableProperty.Create("CodeScannedCommand", typeof(ICommand), typeof(AddPartView), default(ICommand), BindingMode.OneWayToSource);
-
-        public ICommand CodeScannedCommand
+        protected virtual void OnCodeScanned(CodeScannedEventArgs e)
         {
-            get { return (ICommand) GetValue(CodeScannedCommandProperty); }
-            set { SetValue(CodeScannedCommandProperty, value); }
+            this.CodeScanned?.Invoke(this, e);
         }
 
         private void ViewModel_ModeChanged(object sender, EventArgs e)
@@ -44,7 +42,7 @@ namespace XamarinApp.Views
 
         private void ViewModel_CodeScanned(object sender, EventArgs e)
         {
-            CodeScannedCommand?.Execute(GetViewModel<AddPartViewModel>().Code);
+            OnCodeScanned(new CodeScannedEventArgs(GetViewModel<AddPartViewModel>().Code));
         }
 
         private void Scanner_OnScanResult(Result result)
