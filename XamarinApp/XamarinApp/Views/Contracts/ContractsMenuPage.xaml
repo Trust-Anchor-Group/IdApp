@@ -7,7 +7,6 @@
             <Button Text="My Created Contracts" Clicked="CreatedContractsButton_Clicked"/>
             <Button Text="Signed Contracts" Clicked="SignedContractsButton_Clicked"/>
             <Button Text="Notary" Clicked="NotaryButton_Clicked"/>
-            <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

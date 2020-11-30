@@ -26,7 +26,11 @@ namespace XamarinApp.PersonalNumbers
 					doc.Load(ms);
 				}
 
-				foreach (XmlNode n in doc.DocumentElement.ChildNodes)
+                XmlNodeList childNodes = doc.DocumentElement?.ChildNodes;
+                if (childNodes == null)
+                    return;
+
+				foreach (XmlNode n in childNodes)
 				{
 					if (n is XmlElement e && e.LocalName == "Entry")
 					{
@@ -61,9 +65,8 @@ namespace XamarinApp.PersonalNumbers
 								}
 							}
 						}
-						catch (Exception ex)
+						catch (Exception)
 						{
-							Log.Critical(ex);
 							continue;
 						}
 
@@ -80,9 +83,8 @@ namespace XamarinApp.PersonalNumbers
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Log.Critical(ex);
 			}
 		}
 

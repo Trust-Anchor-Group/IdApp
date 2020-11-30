@@ -128,14 +128,9 @@ namespace XamarinApp.Views.Contracts
 			return layout;
 		}
 
-        private async void BackButton_Clicked(object sender, EventArgs e)
-        {
-            await this.navigationService.PopAsync();
-        }
-
         protected override bool OnBackButtonPressed()
         {
-            this.BackButton_Clicked(this.BackButton, EventArgs.Empty);
+            this.navigationService.PopAsync();
             return true;
         }
 	}

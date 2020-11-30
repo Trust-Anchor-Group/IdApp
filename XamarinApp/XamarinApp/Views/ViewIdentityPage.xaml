@@ -155,9 +155,6 @@
                         <ViewCell x:Name="RevokeCell">
                             <Button x:Name="RevokeButton" Text="Revoke" Clicked="RevokeButton_Clicked" IsVisible="{Binding IsPersonal}"/>
                         </ViewCell>
-                        <ViewCell>
-                            <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
-                        </ViewCell>
                     </TableSection>
                 </TableView.Root>
             </TableView>

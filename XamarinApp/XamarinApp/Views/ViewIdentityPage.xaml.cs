@@ -304,9 +304,10 @@ namespace XamarinApp.Views
 			}
 		}
 
-        private async void BackButton_Clicked(object sender, EventArgs e)
+        protected override bool OnBackButtonPressed()
         {
-            await this.navigationService.PopAsync();
+            this.navigationService.PopAsync();
+            return true;
         }
     }
 }

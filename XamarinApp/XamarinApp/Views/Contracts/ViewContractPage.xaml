@@ -76,9 +76,6 @@
                         </ViewCell>
                     </TableSection>
                     <TableSection x:Name="ButtonSection">
-                        <ViewCell>
-                            <Button Text="Back" x:Name="BackButton" Clicked="BackButton_Clicked"/>
-                        </ViewCell>
                     </TableSection>
                 </TableView.Root>
             </TableView>

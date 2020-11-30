@@ -5,7 +5,6 @@
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="10">
             <Button Text="New Contract" Clicked="NewContract_Clicked"/>
-            <Button Text="Back" x:Name="BackButton" Clicked="BackButton_Clicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

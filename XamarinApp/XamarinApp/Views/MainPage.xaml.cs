@@ -59,17 +59,17 @@ namespace XamarinApp.Views
 
                 switch (Uri.Scheme.ToLower())
                 {
-                    case "iotid":
+                    case Constants.IoTSchemes.IotId:
                         string LegalId = code.Substring(6);
                         await this.OpenLegalIdentity(LegalId, "Scanned QR Code.");
                         break;
 
-                    case "iotsc":
+                    case Constants.IoTSchemes.IotSc:
                         string ContractId = code.Substring(6);
                         await this.OpenContract(ContractId, "Scanned QR Code.");
                         break;
 
-                    case "iotdisco":
+                    case Constants.IoTSchemes.IotDisco:
                         // TODO
                         break;
 

@@ -139,11 +139,6 @@
                             </StackLayout>
                         </ViewCell>
                     </TableSection>
-                    <TableSection>
-                        <ViewCell>
-                            <Button x:Name="BackButton" Text="Back" Clicked="BackButton_Clicked"/>
-                        </ViewCell>
-                    </TableSection>
                 </TableView.Root>
             </TableView>
         </StackLayout>

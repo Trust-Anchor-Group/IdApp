@@ -26,7 +26,6 @@
             <Label x:Name="PinLabel" Text="PIN:" IsVisible="False"/>
             <Entry x:Name="PIN" IsVisible="False" IsPassword="True"/>
             <Button x:Name="ProposeButton" Text="Propose" Clicked="ProposeButton_Clicked" IsEnabled="False"/>
-            <Button Text="Back" x:Name="BackButton" Clicked="BackButton_Clicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>

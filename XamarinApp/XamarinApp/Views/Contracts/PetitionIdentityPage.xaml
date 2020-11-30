@@ -127,9 +127,6 @@
                         <ViewCell>
                             <Button x:Name="IgnoreButton" Text="Ignore" Clicked="IgnoreButton_Clicked"/>
                         </ViewCell>
-                        <ViewCell>
-                            <Button x:Name="BackButton" Text="Back" Clicked="IgnoreButton_Clicked"/>
-                        </ViewCell>
                     </TableSection>
                 </TableView.Root>
             </TableView>
