@@ -115,24 +115,20 @@
                                 </StackLayout>
                             </ViewCell>
                         </TableSection>
-                        <!--<TableSection>
-                            <ViewCell>
-                                <CollectionView ItemsSource="{Binding Path=Photos}" Margin="{StaticResource DefaultTopOnlyMargin}">
-                                    <CollectionView.ItemsLayout>
-                                        <LinearItemsLayout>
-                                            <x:Arguments>
-                                                <ItemsLayoutOrientation>Horizontal</ItemsLayoutOrientation>
-                                            </x:Arguments>
-                                        </LinearItemsLayout>
-                                    </CollectionView.ItemsLayout>
-                                    <CollectionView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Source="{Binding}" HeightRequest="64" Aspect="AspectFill" />
-                                        </DataTemplate>
-                                    </CollectionView.ItemTemplate>
-                                </CollectionView>
+                        <TableSection>
+                            <ViewCell Height="80">
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="Photos:" />
+                                    <CollectionView ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopOnlyMargin}">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" />
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                </StackLayout>
                             </ViewCell>
-                        </TableSection>-->
+                        </TableSection>
                         <TableSection>
                             <ViewCell>
                                 <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
