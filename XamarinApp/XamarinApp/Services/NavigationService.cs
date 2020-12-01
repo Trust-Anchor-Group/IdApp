@@ -104,7 +104,9 @@ namespace XamarinApp.Services
 
         public Task DisplayAlert(Exception exception)
         {
-            return this.DisplayAlert(AppResources.ErrorTitle, null, exception);
+            IAppInformation appInfo = DependencyService.Get<IAppInformation>();
+            string title = $"{AppResources.ErrorTitle} (v{appInfo.GetVersion()})";
+            return this.DisplayAlert(title, null, exception);
         }
 
         private async Task DisplayMessages()

@@ -7,6 +7,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Runtime.Temporary;
+using XamarinApp.Models;
 
 namespace XamarinApp.Services
 {
@@ -168,12 +169,12 @@ namespace XamarinApp.Services
             return contractsClient.ObsoleteContractAsync(contractId);
         }
 
-        public async Task<LegalIdentity> AddLegalIdentityAsync(List<Property> properties, params LegalIdentityAttachment[] attachments)
+        public async Task<LegalIdentity> AddLegalIdentityAsync(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments)
         {
             AssertContractsIsAvailable();
             AssertFileUploadIsAvailable();
 
-            LegalIdentity identity = await contractsClient.ApplyAsync(properties.ToArray());
+            LegalIdentity identity = await contractsClient.ApplyAsync(model.ToProperties(this.neuronService));
 
             foreach (var a in attachments)
             {

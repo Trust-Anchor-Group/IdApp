@@ -10,6 +10,7 @@ using Plugin.Media.Abstractions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
+using XamarinApp.Models;
 using XamarinApp.PersonalNumbers;
 using XamarinApp.Services;
 
@@ -352,7 +353,7 @@ namespace XamarinApp.ViewModels.Registration
 
             try
             {
-                this.LegalIdentity = await this.contractsService.AddLegalIdentityAsync(GetProperties(), this.photos.Values.ToArray());
+                this.LegalIdentity = await this.contractsService.AddLegalIdentityAsync(CreateRegisterModel(), this.photos.Values.ToArray());
                 Device.BeginInvokeOnMainThread(() =>
                 {
                     SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
@@ -375,50 +376,47 @@ namespace XamarinApp.ViewModels.Registration
             return ValidateInput(false).GetAwaiter().GetResult();
         }
 
-        private List<Property> GetProperties()
+        private RegisterIdentityModel CreateRegisterModel()
         {
-            List<Property> properties = new List<Property>();
             string s;
-
+            RegisterIdentityModel model = new RegisterIdentityModel();
             if (!string.IsNullOrWhiteSpace(s = this.FirstName?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.FirstName, s));
+                model.FirstName = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.MiddleNames?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.MiddleName, s));
+                model.MiddleNames = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.LastNames?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.LastName, s));
+                model.LastNames = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.PersonalNumber?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.PersonalNumber, s));
+                model.PersonalNumber = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.Address?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.Address, s));
+                model.Address = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.Address2?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.Address2, s));
+                model.Address2 = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.ZipCode?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.ZipCode, s));
+                model.ZipCode = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.Area?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.Area, s));
+                model.Area = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.City?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.City, s));
+                model.City = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.Region?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.Region, s));
+                model.Region = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.SelectedCountry?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.Country, ISO_3166_1.ToCode(s)));
+                model.Country = s;
 
             if (!string.IsNullOrWhiteSpace(s = this.DeviceId?.Trim()))
-                properties.Add(new Property(Constants.XmppProperties.DeviceId, s));
+                model.DeviceId = s;
 
-            properties.Add(new Property(Constants.XmppProperties.JId, this.NeuronService.BareJId));
-
-            return properties;
+            return model;
         }
 
         private async Task<bool> ValidateInput(bool alertUser)

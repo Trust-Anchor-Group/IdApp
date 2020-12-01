@@ -134,13 +134,16 @@ namespace XamarinApp.ViewModels.Registration
 
         private void TagProfile_Changed(object sender, EventArgs e)
         {
-            AssignProperties();
+            Device.BeginInvokeOnMainThread(AssignProperties);
         }
 
         private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
-            this.TagProfile.SetLegalIdentity(e.Identity);
-            AssignProperties();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.TagProfile.SetLegalIdentity(e.Identity);
+                AssignProperties();
+            });
         }
 
         public static readonly BindableProperty CreatedProperty =
@@ -332,52 +335,22 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(IsCreatedProperty, value); }
         }
 
-        private ICommand CodeScannedCommand { get; set; }
-
-        private void AddPartViewModel_QrCodeScanned(object sender, EventArgs e)
-        {
-            if (qrCodeScanned != null)
-            {
-                qrCodeScanned.TrySetResult(true);
-                qrCodeScanned = null;
-            }
-        }
-
-        TaskCompletionSource<bool> qrCodeScanned;
-
-        private Task ScanQrCode()
-        {
-            qrCodeScanned = new TaskCompletionSource<bool>();
-            return qrCodeScanned.Task;
-        }
-
         private async Task InviteReviewer()
         {
-            // 1. Create a default page
-            ModalPage page = new ModalPage();
-            AddPartViewModel viewModel = new AddPartViewModel();
-            AddPartView view = new AddPartView(viewModel);
-            // 2. Set it's content to the 'Scan QR Code View'
-            page.ModalContent = view;
-            viewModel.CodeScanned += AddPartViewModel_QrCodeScanned;
-            // 3. Show it as a modal page
-            await this.navigationService.PushModalAsync(page);
-            // 4. Wait for the scan to complete
-            await ScanQrCode();
-            await this.navigationService.PopModalAsync();
-            viewModel.CodeScanned -= AddPartViewModel_QrCodeScanned;
+            ScanQrCodePage page = new ScanQrCodePage();
+            string code = await page.ScanQrCode();
 
             const string idScheme = Constants.IoTSchemes.IotId + ":";
 
-            if (!string.IsNullOrWhiteSpace(viewModel.Code))
+            if (!string.IsNullOrWhiteSpace(code))
             {
-                if (!viewModel.Code.StartsWith(idScheme, StringComparison.InvariantCultureIgnoreCase))
+                if (!code.StartsWith(idScheme, StringComparison.InvariantCultureIgnoreCase))
                 {
                     await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
                     return;
                 }
 
-                await this.contractsService.PetitionPeerReviewIdAsync(viewModel.Code.Substring(idScheme.Length), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
+                await this.contractsService.PetitionPeerReviewIdAsync(code.Substring(idScheme.Length), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
 
                 await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }

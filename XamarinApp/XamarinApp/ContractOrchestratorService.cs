@@ -2,19 +2,23 @@
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.Forms;
 using XamarinApp.Services;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
 
 namespace XamarinApp
 {
-    internal sealed class IdentityOrchestratorService : LoadableService, IIdentityOrchestratorService
+    internal sealed class ContractOrchestratorService : LoadableService, IContractOrchestratorService
     {
         private readonly TagProfile tagProfile;
         private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
 
-        public IdentityOrchestratorService(TagProfile tagProfile, IContractsService contractsService, INavigationService navigationService)
+        public ContractOrchestratorService(
+            TagProfile tagProfile, 
+            IContractsService contractsService, 
+            INavigationService navigationService)
         {
             this.tagProfile = tagProfile;
             this.contractsService = contractsService;
@@ -56,12 +60,16 @@ namespace XamarinApp
 
         #region Event Handlers
 
-        private async void ContractsService_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
+        private void ContractsService_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
-            if (this.tagProfile.IsCompleteOrWaitingForValidation())
-            {
-                await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestorIdentity, e));
-            }
+            Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (this.tagProfile.IsCompleteOrWaitingForValidation())
+                    {
+                        await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestorIdentity, e));
+                    }
+                }
+            );
         }
 
         private async void ContractsService_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
@@ -80,10 +88,13 @@ namespace XamarinApp
             }
             else
             {
-                if (this.tagProfile.IsCompleteOrWaitingForValidation())
+                Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.PushAsync(new PetitionIdentityPage(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
-                }
+                    if (this.tagProfile.IsCompleteOrWaitingForValidation())
+                    {
+                        await this.navigationService.PushAsync(new PetitionIdentityPage(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
+                    }
+                });
             }
         }
 
@@ -93,16 +104,20 @@ namespace XamarinApp
             await this.contractsService.SendPetitionSignatureResponseAsync(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
         }
 
-        private async void ContractsService_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
+        private void ContractsService_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
         {
-            if (!e.Response || e.RequestedContract is null)
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                await this.navigationService.DisplayAlert(AppResources.Message, "Petition to view contract was denied.", AppResources.Ok);
-            }
-            else
-            {
-                await this.navigationService.PushAsync(new ViewContractPage(e.RequestedContract, false));
-            }
+                if (!e.Response || e.RequestedContract is null)
+                {
+                    await this.navigationService.DisplayAlert(AppResources.Message,
+                        "Petition to view contract was denied.", AppResources.Ok);
+                }
+                else
+                {
+                    await this.navigationService.PushAsync(new ViewContractPage(e.RequestedContract, false));
+                }
+            });
         }
 
         private async void ContractsService_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
@@ -116,7 +131,10 @@ namespace XamarinApp
             }
             else
             {
-                await this.navigationService.PushAsync(new PetitionContractPage(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await this.navigationService.PushAsync(new PetitionContractPage(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
+                });
             }
         }
 
@@ -128,7 +146,10 @@ namespace XamarinApp
             }
             else
             {
-                await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestedIdentity));
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestedIdentity));
+                });
             }
         }
 
@@ -147,15 +168,18 @@ namespace XamarinApp
                     byte[] data = Encoding.UTF8.GetBytes(xml.ToString());
 
                     bool? result = this.contractsService.ValidateSignature(e.RequestedIdentity, data, e.Signature);
-                    if (!result.HasValue || !result.Value)
+                    Device.BeginInvokeOnMainThread(async () =>
                     {
-                        await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok);
-                    }
-                    else
-                    {
-                        await this.contractsService.AddPeerReviewIdAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
-                        await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, "A peer review you requested has been accepted.", AppResources.Ok);
-                    }
+                        if (!result.HasValue || !result.Value)
+                        {
+                            await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok);
+                        }
+                        else
+                        {
+                            await this.contractsService.AddPeerReviewIdAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
+                            await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, "A peer review you requested has been accepted.", AppResources.Ok);
+                        }
+                    });
                 }
             }
             catch (Exception ex)
@@ -172,7 +196,10 @@ namespace XamarinApp
             try
             {
                 LegalIdentity identity = await this.contractsService.GetLegalIdentityAsync(legalId);
-                await this.navigationService.PushAsync(new ViewIdentityPage(identity));
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await this.navigationService.PushAsync(new ViewIdentityPage(identity));
+                });
             }
             catch (Exception)
             {
@@ -189,10 +216,13 @@ namespace XamarinApp
             {
                 Contract contract = await this.contractsService.GetContractAsync(contractId);
 
-                if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
-                    await this.navigationService.PushAsync(new NewContractPage(contract));
-                else
-                    await this.navigationService.PushAsync(new ViewContractPage(contract, false));
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
+                        await this.navigationService.PushAsync(new NewContractPage(contract));
+                    else
+                        await this.navigationService.PushAsync(new ViewContractPage(contract, false));
+                });
             }
             catch (Exception)
             {

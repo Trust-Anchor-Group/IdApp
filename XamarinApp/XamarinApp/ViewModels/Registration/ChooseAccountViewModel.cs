@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
@@ -51,8 +52,11 @@ namespace XamarinApp.ViewModels.Registration
 
         private void TagProfile_Changed(object sender, EventArgs e)
         {
-            IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
-            AccountName = this.TagProfile.Account;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
+                AccountName = this.TagProfile.Account;
+            });
         }
 
         public static readonly BindableProperty IntroTextProperty =
@@ -295,12 +299,15 @@ namespace XamarinApp.ViewModels.Registration
 
                 if (succeeded)
                 {
+#if DEBUG
                     if (this.CreateRandomPassword)
                     {
+                        await Clipboard.SetTextAsync("Password: " + passwordToUse);
                         await this.NavigationService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
                         System.Diagnostics.Debug.WriteLine("Username: " + this.AccountName);
                         System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
                     }
+#endif
                     return true;
                 }
 

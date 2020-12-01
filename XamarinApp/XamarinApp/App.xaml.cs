@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
+using Waher.Content.Html.Elements;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.P2P;
@@ -25,11 +26,15 @@ namespace XamarinApp
         private Timer autoSaveTimer;
         private readonly INeuronService neuronService;
         private readonly IStorageService storageService;
-        private readonly IIdentityOrchestratorService identityOrchestratorService;
+        private readonly INavigationService navigationService;
+        private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
 
 		public App()
 		{
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
 			InitializeComponent();
 			this.tagProfile = new TagProfile();
 			// Registrations
@@ -41,7 +46,7 @@ namespace XamarinApp
 			builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
-			builder.RegisterType<IdentityOrchestratorService>().As<IIdentityOrchestratorService>().SingleInstance();
+			builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
             IContainer container = builder.Build();
 			// Set AutoFac to be the dependency resolver
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
@@ -49,7 +54,8 @@ namespace XamarinApp
 			// Resolve what's needed for the App class
 			this.neuronService = DependencyService.Resolve<INeuronService>();
             this.storageService = DependencyService.Resolve<IStorageService>();
-            this.identityOrchestratorService = DependencyService.Resolve<IIdentityOrchestratorService>();
+            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
 
             Types.Initialize(
                 typeof(App).Assembly,
@@ -71,6 +77,38 @@ namespace XamarinApp
                 BarTextColor = (Color) Application.Current.Resources["HeadingForeground"]
             };
             this.MainPage = navigationPage;
+        }
+
+        private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            Exception ex = e.Exception;
+            if (e.Exception?.InnerException != null)
+            {
+                ex = e.Exception.InnerException;
+            }
+            e.SetObserved();
+
+            if (Device.IsInvokeRequired)
+            {
+                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Task Exception", ex?.ToString(), AppResources.Ok));
+            }
+            else
+            {
+                await MainPage.DisplayAlert("Unhandled Task Exception", ex?.ToString(), AppResources.Ok);
+            }
+        }
+
+        private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            Exception ex = e.ExceptionObject as Exception;
+            if (Device.IsInvokeRequired)
+            {
+                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok));
+            }
+            else
+            {
+                await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok);
+            }
         }
 
         public void Dispose()
@@ -98,7 +136,7 @@ namespace XamarinApp
         {
             await this.storageService.Load();
             await this.neuronService.Load();
-            await this.identityOrchestratorService.Load();
+            await this.contractOrchestratorService.Load();
 
             TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration == null)
@@ -122,7 +160,7 @@ namespace XamarinApp
                 await vm.Unbind();
             }
 
-            await this.identityOrchestratorService.Unload();
+            await this.contractOrchestratorService.Unload();
             await this.neuronService.Unload();
             await this.storageService.Unload();
         }

@@ -126,6 +126,9 @@
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Account name is invalid</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>
@@ -207,6 +210,9 @@
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
     <value>Operator does not support legal identities and smart contracts</value>
   </data>
@@ -273,9 +279,6 @@
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>
   </data>
-  <data name="QrScanAddButton" xml:space="preserve">
-    <value>Add</value>
-  </data>
   <data name="QrScanCode" xml:space="preserve">
     <value>Scan code</value>
   </data>
@@ -313,7 +316,7 @@
     <value>Taking a photo is not supported on this device</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>The password for the connection is {0}</value>
+    <value>The password for the connection is {0}. This has been copied to the clipboard.</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>The specified code is not a legal identity</value>

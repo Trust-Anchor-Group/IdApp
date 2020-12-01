@@ -74,9 +74,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\AddPartView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -101,16 +98,12 @@
     <EmbeddedResource Update="Views\Registration\ValidateIdentityView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ModalPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Views\ScanQrCodePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Views\Contracts\" />
   </ItemGroup>
 
@@ -125,9 +118,6 @@
     </Compile>
     <Compile Update="Views\Registration\ChooseOperatorView.xaml.cs">
       <DependentUpon>ChooseOperatorView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Views\ModalPage.xaml.cs">
-      <DependentUpon>ModalPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 

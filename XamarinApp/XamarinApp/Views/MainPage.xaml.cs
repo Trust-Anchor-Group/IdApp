@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,7 +12,7 @@ namespace XamarinApp.Views
     public partial class MainPage
     {
         private readonly INeuronService neuronService;
-        private readonly IContractsService contractsService;
+        private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
         private readonly INavigationService navigationService;
 
@@ -23,7 +21,7 @@ namespace XamarinApp.Views
             InitializeComponent();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.contractsService = DependencyService.Resolve<IContractsService>();
+            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
         }
 
@@ -47,26 +45,25 @@ namespace XamarinApp.Views
         private async void ScanQR_Clicked(object sender, EventArgs e)
         {
             ScanQrCodePage page = new ScanQrCodePage();
-            page.Open += ScanQrPage_Open;
-            await this.navigationService.PushAsync(page);
-            string code = await this.OpenQrCode();
-            await this.navigationService.PopAsync();
-            page.Open -= ScanQrPage_Open;
+            string code = await page.ScanQrCode();
+
+            if (string.IsNullOrWhiteSpace(code))
+                return;
 
             try
             {
-                Uri Uri = new Uri(code);
+                Uri uri = new Uri(code);
 
-                switch (Uri.Scheme.ToLower())
+                switch (uri.Scheme.ToLower())
                 {
                     case Constants.IoTSchemes.IotId:
-                        string LegalId = code.Substring(6);
-                        await this.OpenLegalIdentity(LegalId, "Scanned QR Code.");
+                        string legalId = code.Substring(6);
+                        await this.contractOrchestratorService.OpenLegalIdentity(legalId, "Scanned QR Code.");
                         break;
 
                     case Constants.IoTSchemes.IotSc:
-                        string ContractId = code.Substring(6);
-                        await this.OpenContract(ContractId, "Scanned QR Code.");
+                        string contractId = code.Substring(6);
+                        await this.contractOrchestratorService.OpenContract(contractId, "Scanned QR Code.");
                         break;
 
                     case Constants.IoTSchemes.IotDisco:
@@ -74,7 +71,7 @@ namespace XamarinApp.Views
                         break;
 
                     default:
-                        if (!await Launcher.TryOpenAsync(Uri))
+                        if (!await Launcher.TryOpenAsync(uri))
                             await this.navigationService.DisplayAlert("Error", "Code not understood:\r\n\r\n" + code);
                         break;
                 }
@@ -82,23 +79,6 @@ namespace XamarinApp.Views
             catch (Exception ex)
             {
                 await this.navigationService.DisplayAlert(ex);
-            }
-        }
-
-        TaskCompletionSource<string> openQrCode;
-
-        private Task<string> OpenQrCode()
-        {
-            openQrCode = new TaskCompletionSource<string>();
-            return openQrCode.Task;
-        }
-
-        private void ScanQrPage_Open(object sender, OpenEventArgs e)
-        {
-            if (openQrCode != null)
-            {
-                openQrCode.TrySetResult(e.Code);
-                openQrCode = null;
             }
         }
 
@@ -178,44 +158,5 @@ namespace XamarinApp.Views
             this.DevicesButton.IsEnabled = false;
             this.ContractsButton.IsEnabled = connected;
         }
-
-        private async Task OpenLegalIdentity(string legalId, string purpose)
-        {
-            try
-            {
-                LegalIdentity identity = await this.contractsService.GetLegalIdentityAsync(legalId);
-                await this.navigationService.PushAsync(new ViewIdentityPage(identity));
-            }
-            catch (Exception)
-            {
-                await this.contractsService.PetitionIdentityAsync(legalId, Guid.NewGuid().ToString(), purpose);
-                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
-                    "If the owner accepts the petition, the identity information will be displayed on the screen.", AppResources.Ok);
-            }
-        }
-
-        protected async Task OpenContract(string contractId, string purpose)
-        {
-            try
-            {
-                Contract contract = await this.contractsService.GetContractAsync(contractId);
-
-                if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
-                {
-                    await this.navigationService.PushAsync(new NewContractPage(contract));
-                }
-                else
-                {
-                    await this.navigationService.PushAsync(new ViewContractPage(contract, false));
-                }
-            }
-            catch (Exception)
-            {
-                await this.contractsService.PetitionContractAsync(contractId, Guid.NewGuid().ToString(), purpose);
-                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
-                    "If any of the parts accepts the petition, the contract information will be displayed on the screen.", AppResources.Ok);
-            }
-        }
-
     }
 }

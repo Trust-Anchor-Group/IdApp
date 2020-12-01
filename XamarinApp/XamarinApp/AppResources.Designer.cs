@@ -88,6 +88,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        internal static string Add {
+            get {
+                return ResourceManager.GetString("Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         internal static string Address {
@@ -331,6 +340,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Operator does not support legal identities and smart contracts.
         /// </summary>
         internal static string OperatorDoesNotSupportLegalIdentitiesAndSmartContracts {
@@ -529,15 +547,6 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        internal static string QrScanAddButton {
-            get {
-                return ResourceManager.GetString("QrScanAddButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Scan code.
         /// </summary>
         internal static string QrScanCode {
@@ -646,7 +655,7 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password for the connection is {0}.
+        ///   Looks up a localized string similar to The password for the connection is {0}. This has been copied to the clipboard..
         /// </summary>
         internal static string ThePasswordForTheConnectionIs {
             get {

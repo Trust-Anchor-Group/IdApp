@@ -126,6 +126,9 @@
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Kontonamnet är ogiltigt</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lägg till</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Adress</value>
   </data>
@@ -207,6 +210,9 @@
   <data name="OkButton" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="Open" xml:space="preserve">
+    <value>Öppna</value>
+  </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
     <value>Operatören stödjer inte juridiska identiteter och smarta kontrakt</value>
   </data>
@@ -273,9 +279,6 @@
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>
   </data>
-  <data name="QrScanAddButton" xml:space="preserve">
-    <value>Lägg till</value>
-  </data>
   <data name="QrScanCode" xml:space="preserve">
     <value>Scanna kod</value>
   </data>
@@ -313,7 +316,7 @@
     <value>Att ta en bild stöds inte på den här enheten</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>Lösenordet för anslutningen är {0}</value>
+    <value>Lösenordet för anslutningen är {0}. Värdet har kopierats till urklipp.</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>Den angivna koden är inte en giltig identitet</value>

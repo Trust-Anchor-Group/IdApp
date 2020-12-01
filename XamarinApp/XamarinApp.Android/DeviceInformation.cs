@@ -1,7 +1,5 @@
-﻿using System;
-using Android.App;
+﻿using Android.App;
 using Android.Provider;
-using Android.Telephony;
 
 [assembly:Xamarin.Forms.Dependency(typeof(XamarinApp.Droid.DeviceInformation))]
 namespace XamarinApp.Droid

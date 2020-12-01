@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Waher.Networking.XMPP.Contracts;
@@ -22,7 +21,7 @@ namespace XamarinApp.Views.Contracts
 		private string visibility = string.Empty;
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
-        private readonly IIdentityOrchestratorService identityOrchestratorService;
+        private readonly IContractOrchestratorService contractOrchestratorService;
 
 		public NewContractPage(SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory)
 		{
@@ -31,7 +30,7 @@ namespace XamarinApp.Views.Contracts
 			this.BindingContext = this;
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
-            this.identityOrchestratorService = DependencyService.Resolve<IIdentityOrchestratorService>();
+            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
 			InitializeComponent();
 		}
 
@@ -225,7 +224,7 @@ namespace XamarinApp.Views.Contracts
 			try
 			{
 				if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
-					await this.identityOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
+					await this.contractOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
 			}
 			catch (Exception ex)
 			{
@@ -339,34 +338,14 @@ namespace XamarinApp.Views.Contracts
 			if (sender is Button button)
             {
                 ScanQrCodePage page = new ScanQrCodePage();
-                page.Open += ScanQrPage_Open;
-                await this.navigationService.PushAsync(page);
-                string code = await this.OpenQrCode();
-                await this.navigationService.PopAsync();
-                page.Open -= ScanQrPage_Open;
+                page.OpenCommandText = AppResources.Add;
+                string code = await page.ScanQrCode();
 
                 string id = !string.IsNullOrWhiteSpace(code) && code.StartsWith(Constants.IoTSchemes.IotId + ":") ? code.Substring(6) : string.Empty;
 
                 this.AddRole(button.StyleId, id);
             }
 		}
-
-        TaskCompletionSource<string> openQrCode;
-
-        private Task<string> OpenQrCode()
-        {
-            openQrCode = new TaskCompletionSource<string>();
-            return openQrCode.Task;
-        }
-
-        private void ScanQrPage_Open(object sender, OpenEventArgs e)
-        {
-            if (openQrCode != null)
-            {
-                openQrCode.TrySetResult(e.Code);
-                openQrCode = null;
-            }
-        }
 
 		private void PopulateHumanReadableText()
 		{

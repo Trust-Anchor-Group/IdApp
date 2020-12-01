@@ -166,27 +166,30 @@ namespace XamarinApp.Views
 		}
 
         private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
-		{
-			this.OnPropertyChanged("Created");
-			this.OnPropertyChanged("Updated");
-			this.OnPropertyChanged("LegalId");
-			this.OnPropertyChanged("BareJid");
-			this.OnPropertyChanged("State");
-			this.OnPropertyChanged("From");
-			this.OnPropertyChanged("To");
-			this.OnPropertyChanged("FirstName");
-			this.OnPropertyChanged("MiddleNames");
-			this.OnPropertyChanged("LastNames");
-			this.OnPropertyChanged("PNr");
-			this.OnPropertyChanged("Address");
-			this.OnPropertyChanged("Address2");
-			this.OnPropertyChanged("PostalCode");
-			this.OnPropertyChanged("Area");
-			this.OnPropertyChanged("City");
-			this.OnPropertyChanged("Region");
-			this.OnPropertyChanged("Country");
-			this.OnPropertyChanged("IsApproved");
-		}
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.OnPropertyChanged("Created");
+                this.OnPropertyChanged("Updated");
+                this.OnPropertyChanged("LegalId");
+                this.OnPropertyChanged("BareJid");
+                this.OnPropertyChanged("State");
+                this.OnPropertyChanged("From");
+                this.OnPropertyChanged("To");
+                this.OnPropertyChanged("FirstName");
+                this.OnPropertyChanged("MiddleNames");
+                this.OnPropertyChanged("LastNames");
+                this.OnPropertyChanged("PNr");
+                this.OnPropertyChanged("Address");
+                this.OnPropertyChanged("Address2");
+                this.OnPropertyChanged("PostalCode");
+                this.OnPropertyChanged("Area");
+                this.OnPropertyChanged("City");
+                this.OnPropertyChanged("Region");
+                this.OnPropertyChanged("Country");
+                this.OnPropertyChanged("IsApproved");
+            });
+        }
 
 		private async void RevokeButton_Clicked(object sender, EventArgs e)
 		{
