@@ -29,6 +29,7 @@ namespace XamarinApp.Services
             this.tagProfile = tagProfile;
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
+            this.tagProfile.Changed += TagProfile_Changed;
         }
 
         public void Dispose()
@@ -36,6 +37,7 @@ namespace XamarinApp.Services
             this.reconnectTimer?.Change(Timeout.Infinite, Timeout.Infinite);
 
             this.tagProfile.StepChanged -= TagProfile_StepChanged;
+            this.tagProfile.Changed -= TagProfile_Changed;
 
             this.DestroyXmppClient();
         }
@@ -44,6 +46,10 @@ namespace XamarinApp.Services
 
         private async Task CreateXmppClient()
         {
+            if (this.xmppClient != null)
+            {
+                DestroyXmppClient();
+            }
             if (this.xmppClient is null ||
                 this.domainName != this.tagProfile.Domain ||
                 this.accountName != this.tagProfile.Account ||
@@ -92,7 +98,12 @@ namespace XamarinApp.Services
 
         private bool ShouldCreateClient()
         {
-            return this.tagProfile.Step > RegistrationStep.Account && this.xmppClient == null;
+            return this.tagProfile.Step > RegistrationStep.Account &&
+                   (this.xmppClient == null ||
+                    this.domainName != this.tagProfile.Domain ||
+                    this.accountName != this.tagProfile.Account ||
+                    this.passwordHash != this.tagProfile.PasswordHash ||
+                    this.passwordHashMethod != this.tagProfile.PasswordHashMethod);
         }
 
         private bool ShouldDestroyClient()
@@ -114,6 +125,14 @@ namespace XamarinApp.Services
             }
         }
 
+        private async void TagProfile_Changed(object sender, EventArgs e)
+        {
+            if (ShouldCreateClient())
+            {
+                await this.CreateXmppClient();
+            }
+        }
+
         private async Task XmppClient_StateChanged(object sender, XmppState newState)
         {
             switch (newState)
@@ -124,10 +143,7 @@ namespace XamarinApp.Services
                     this.reconnectTimer?.Dispose();
                     this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
 
-                    if (string.IsNullOrEmpty(this.tagProfile.LegalJid) ||
-                        string.IsNullOrEmpty(this.tagProfile.RegistryJid) ||
-                        string.IsNullOrEmpty(this.tagProfile.ProvisioningJid) ||
-                        string.IsNullOrEmpty(this.tagProfile.HttpFileUploadJid))
+                    if (this.tagProfile.NeedsUpdating())
                     {
                         await this.DiscoverServices();
                     }
@@ -295,9 +311,9 @@ namespace XamarinApp.Services
                         break;
 
                     case XmppState.Error:
-                        if (operation == ConnectOperation.ConnectAndCreateAccount)
-                            connected.TrySetResult(true);
-                        else
+                        //if (operation == ConnectOperation.ConnectAndCreateAccount)
+                        //    connected.TrySetResult(true);
+                        //else
                             connected.TrySetResult(false);
                         break;
                 }
@@ -444,7 +460,7 @@ namespace XamarinApp.Services
                 if (e3.HasFeature(HttpFileUploadClient.Namespace))
                 {
                     long? maxSize = HttpFileUploadClient.FindMaxFileSize(client, e3);
-                    this.tagProfile.SetHttpParameters(Item.JID, maxSize);
+                    this.tagProfile.SetFileUploadParameters(Item.JID, maxSize);
                 }
             }
 

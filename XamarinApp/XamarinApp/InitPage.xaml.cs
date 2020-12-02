@@ -19,6 +19,7 @@ namespace XamarinApp
         public InitPage()
             : this(new InitViewModel())
         {
+            NavigationPage.SetHasNavigationBar(this, false);
         }
 
         protected internal InitPage(InitViewModel viewModel)

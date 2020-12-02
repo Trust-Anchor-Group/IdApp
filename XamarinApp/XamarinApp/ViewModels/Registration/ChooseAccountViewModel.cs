@@ -172,8 +172,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task PerformAction()
         {
-            IsBusy = true;
-
+            SetIsBusy(PerformActionCommand);
             try
             {
                 bool succeeded;
@@ -292,6 +291,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     this.PasswordHash = client.PasswordHash;
                     this.PasswordHashMethod = client.PasswordHashMethod;
+                    this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
                     return Task.CompletedTask;
                 }
 
@@ -393,13 +393,13 @@ namespace XamarinApp.ViewModels.Registration
 
         protected override async Task DoSaveState()
         {
-            await this.SettingsService.SaveState(GetSettingsKey(nameof(AccountName)), this.AccountName);
             await base.DoSaveState();
+            this.SettingsService.SaveState(GetSettingsKey(nameof(AccountName)), this.AccountName);
         }
 
         protected override async Task DoRestoreState()
         {
-            this.AccountName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(AccountName)));
+            this.AccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(AccountName)));
             await base.DoRestoreState();
         }
     }

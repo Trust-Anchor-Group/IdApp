@@ -1,33 +1,93 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
-using Waher.Runtime.Settings;
+using SQLite;
 
 namespace XamarinApp.Services
 {
     internal sealed class SettingsService : ISettingsService
     {
-        public async Task SaveState(string key, object state)
+        private const SQLiteOpenFlags Flags =
+            // open the database in read/write mode
+            SQLiteOpenFlags.ReadWrite |
+            // create the database if it doesn't exist
+            SQLiteOpenFlags.Create |
+            // enable multi-threaded database access
+            SQLiteOpenFlags.SharedCache;
+
+        private static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TagId.db3");
+
+        public SettingsService()
         {
-            await RuntimeSettings.SetAsync(key, JsonConvert.SerializeObject(state));
+            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            {
+                connection.CreateTable<Setting>();
+            }
         }
 
-        public async Task<T> RestoreState<T>(string key, T defaultValue = default(T))
+        public void SaveState(string key, object state)
         {
-            string value = await RuntimeSettings.GetAsync(key, null);
-            if (!string.IsNullOrWhiteSpace(value))
+            using (var connection = new SQLiteConnection(DatabasePath, Flags))
             {
-                return JsonConvert.DeserializeObject<T>(value);
+                var existingState = connection.Find<Setting>(key);
+                if (existingState != null)
+                {
+                    existingState.Value = JsonConvert.SerializeObject(state);
+                    connection.Update(existingState);
+                }
+                else
+                {
+                    var newState = new Setting();
+                    newState.Key = key;
+                    newState.Value = JsonConvert.SerializeObject(state);
+                    connection.Insert(newState);
+                }
+            }
+        }
+
+        public IEnumerable<(string key, T value)> RestoreStateWhere<T>(Func<string, bool> predicate)
+        {
+            List<Setting> existingStates;
+            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            {
+                existingStates = connection.Table<Setting>().ToList();
+            }
+            foreach (var state in existingStates)
+            {
+                if (predicate(state.Key))
+                {
+                    yield return (state.Key, JsonConvert.DeserializeObject<T>(state.Value));
+                }
+            }
+        }
+
+        public T RestoreState<T>(string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+                return default;
+
+            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            {
+                var existingState = connection.Find<Setting>(key);
+                if (existingState != null)
+                {
+                    return JsonConvert.DeserializeObject<T>(existingState.Value);
+                }
             }
 
-            return defaultValue;
+            return default;
         }
 
-        public async Task RemoveState<T>(string key)
+        public void RemoveState<T>(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
                 return;
 
-            await RuntimeSettings.DeleteAsync(key);
+            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            {
+                connection.Delete<Setting>(key);
+            }
         }
     }
 }

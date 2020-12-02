@@ -27,6 +27,7 @@
     <PackageReference Include="Autofac" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
     <PackageReference Include="Waher.Content" Version="1.0.29" />
     <PackageReference Include="Waher.Content.Emoji" Version="1.0.4" />
     <PackageReference Include="Waher.Content.Html" Version="1.0.12" />

@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
 
 namespace XamarinApp.Services
 {
     public interface ISettingsService
     {
-        Task SaveState(string key, object state);
-        Task<T> RestoreState<T>(string key, T defaultValue = default(T));
-        Task RemoveState<T>(string key);
+        void SaveState(string key, object state);
+        T RestoreState<T>(string key);
+        IEnumerable<(string key, T value)> RestoreStateWhere<T>(Func<string, bool> predicate);
+        void RemoveState<T>(string key);
     }
 }

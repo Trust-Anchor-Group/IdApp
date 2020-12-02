@@ -12,7 +12,6 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private static readonly string CurrentStepKey = $"{typeof(RegistrationViewModel).FullName}.CurrentStep";
         private const RegistrationStep DefaultStep = RegistrationStep.Operator;
 
         private readonly TagProfile tagProfile;
@@ -55,6 +54,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             await base.DoBind();
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
+            this.CurrentStep = (int)this.tagProfile.Step;
         }
 
         protected override Task DoUnbind()
@@ -199,16 +199,6 @@ namespace XamarinApp.ViewModels.Registration
             }
 
             CurrentStep--;
-        }
-
-        protected override async Task DoRestoreState()
-        {
-            CurrentStep = await this.settingsService.RestoreState<int>(CurrentStepKey, (int)DefaultStep);
-        }
-
-        protected override async Task DoSaveState()
-        {
-            await this.settingsService.SaveState(CurrentStepKey, CurrentStep);
         }
     }
 }

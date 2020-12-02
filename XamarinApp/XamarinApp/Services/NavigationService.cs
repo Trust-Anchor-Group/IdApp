@@ -104,9 +104,7 @@ namespace XamarinApp.Services
 
         public Task DisplayAlert(Exception exception)
         {
-            IAppInformation appInfo = DependencyService.Get<IAppInformation>();
-            string title = $"{AppResources.ErrorTitle} (v{appInfo.GetVersion()})";
-            return this.DisplayAlert(title, null, exception);
+            return this.DisplayAlert(AppResources.ErrorTitle, null, exception);
         }
 
         private async Task DisplayMessages()
@@ -146,7 +144,9 @@ namespace XamarinApp.Services
         {
             public MessageRecord(string title, string message, string accept, string cancel)
             {
-                Title = title;
+                IAppInformation appInfo = DependencyService.Get<IAppInformation>();
+                string titleWithVersion = $"{title} (v{appInfo.GetVersion()})";
+                Title = titleWithVersion;
                 Message = message;
                 Accept = accept;
                 Cancel = cancel;

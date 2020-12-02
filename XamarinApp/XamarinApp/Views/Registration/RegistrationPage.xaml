@@ -26,11 +26,11 @@
                         <registrationViews:DefinePinView/>
                     </DataTemplate>
                     <registration:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
-                        Step1Template="{StaticResource ChooseOperatorTemplate}"
-                        Step2Template="{StaticResource ChooseAccountTemplate}"
-                        Step3Template="{StaticResource RegisterIdentityTemplate}"
-                        Step4Template="{StaticResource ValidateIdentityTemplate}"
-                        Step5Template="{StaticResource DefinePinTemplate}" />
+                        ChooseOperator="{StaticResource ChooseOperatorTemplate}"
+                        ChooseAccount="{StaticResource ChooseAccountTemplate}"
+                        RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
+                        ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
+                        DefinePin="{StaticResource DefinePinTemplate}" />
                 </ResourceDictionary>
             </StackLayout.Resources>
             <StackLayout Orientation="Vertical">

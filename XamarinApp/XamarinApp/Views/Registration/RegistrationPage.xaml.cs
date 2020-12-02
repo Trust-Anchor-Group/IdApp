@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using System;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels.Registration;
 
 namespace XamarinApp.Views.Registration
@@ -8,6 +10,7 @@ namespace XamarinApp.Views.Registration
     {
         public RegistrationPage()
         {
+            NavigationPage.SetHasNavigationBar(this, false);
             InitializeComponent();
             ViewModel = new RegistrationViewModel();
         }

@@ -107,7 +107,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             this.Photos.Clear();
 
-            if (!(this.TagProfile.LegalIdentity.Attachments is null))
+            if (this.TagProfile?.LegalIdentity?.Attachments != null)
             {
 
                 foreach (Attachment attachment in this.TagProfile.LegalIdentity.Attachments.GetImageAttachments())

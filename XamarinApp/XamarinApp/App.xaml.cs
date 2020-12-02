@@ -1,18 +1,17 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using Waher.Content.Html.Elements;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.P2P;
-using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Files;
 using Waher.Persistence.LifeCycle;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
-using Waher.Runtime.Settings;
 using Waher.Script;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -22,15 +21,16 @@ using XamarinApp.ViewModels;
 namespace XamarinApp
 {
 	public partial class App : IDisposable
-	{
+    {
+        private const string TagConfigurationSettingKey = "TagConfiguration";
         private Timer autoSaveTimer;
         private readonly INeuronService neuronService;
-        private readonly IStorageService storageService;
-        private readonly INavigationService navigationService;
+        private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
+        private FilesProvider filesProvider;
 
-		public App()
+        public App()
 		{
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
@@ -43,7 +43,7 @@ namespace XamarinApp
 			builder.RegisterType<NeuronService>().As<INeuronService>().SingleInstance();
 			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
-			builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
+			//builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
 			builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
@@ -53,8 +53,7 @@ namespace XamarinApp
 
 			// Resolve what's needed for the App class
 			this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.storageService = DependencyService.Resolve<IStorageService>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
 
             Types.Initialize(
@@ -65,10 +64,10 @@ namespace XamarinApp
                 typeof(XmppClient).Assembly,
                 typeof(ContractsClient).Assembly,
                 typeof(Expression).Assembly,
-                typeof(Waher.Things.ThingReference).Assembly,
-                typeof(RuntimeSettings).Assembly,
-                typeof(XmppServerlessMessaging).Assembly,
-                typeof(ProvisioningClient).Assembly);
+                //typeof(Waher.Things.ThingReference).Assembly,
+                //typeof(RuntimeSettings).Assembly,
+                typeof(XmppServerlessMessaging).Assembly);
+            //typeof(ProvisioningClient).Assembly);
 
             // Start page
             NavigationPage navigationPage = new NavigationPage(new InitPage())
@@ -113,7 +112,7 @@ namespace XamarinApp
 
         public void Dispose()
         {
-            DatabaseModule.Flush().GetAwaiter().GetResult();
+            //DatabaseModule.Flush().GetAwaiter().GetResult();
             Types.StopAllModules().GetAwaiter().GetResult();
         }
 
@@ -134,26 +133,39 @@ namespace XamarinApp
 
 		private async Task PerformStartup()
         {
-            await this.storageService.Load();
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string dataFolder = Path.Combine(appDataFolder, "Data");
+            if (filesProvider == null)
+            {
+                IAuthService authService = DependencyService.Resolve<IAuthService>();
+                filesProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, authService.GetCustomKey);
+            }
+            await filesProvider.RepairIfInproperShutdown(string.Empty);
+            Database.Register(filesProvider, false);
+
             await this.neuronService.Load();
             await this.contractOrchestratorService.Load();
 
-            TagConfiguration configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
+            TagConfiguration configuration = this.settingsService.RestoreState<TagConfiguration>(TagConfigurationSettingKey);
             if (configuration == null)
             {
                 configuration = new TagConfiguration();
-                await this.storageService.Insert(configuration);
+                this.settingsService.SaveState(TagConfigurationSettingKey, configuration);
             }
             this.tagProfile.FromConfiguration(configuration);
 
-            this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
+            this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
         }
 
         private async Task PerformShutdown()
         {
+            await DatabaseModule.Flush();
+            this.filesProvider.Dispose();
+            this.filesProvider = null;
+
             this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
             this.autoSaveTimer.Dispose();
-            await AutoSave();
+            AutoSave();
             if (MainPage.BindingContext is BaseViewModel vm)
             {
                 await vm.SaveState();
@@ -162,15 +174,14 @@ namespace XamarinApp
 
             await this.contractOrchestratorService.Unload();
             await this.neuronService.Unload();
-            await this.storageService.Unload();
         }
 
-        private async Task AutoSave()
+        private void AutoSave()
         {
             if (this.tagProfile.IsDirty)
             {
                 this.tagProfile.ResetIsDirty();
-                await this.storageService.Update(this.tagProfile.ToConfiguration());
+                this.settingsService.SaveState(TagConfigurationSettingKey, this.tagProfile.ToConfiguration());
             }
         }
     }

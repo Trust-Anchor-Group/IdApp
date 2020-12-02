@@ -49,9 +49,9 @@ namespace XamarinApp.Services
 
             try
             {
-                SRV SRV = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
-                if (!(SRV is null) && !string.IsNullOrEmpty(SRV.TargetHost) && SRV.Port > 0)
-                    return (SRV.TargetHost, SRV.Port);
+                SRV endpoint = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
+                if (!(endpoint is null) && !string.IsNullOrEmpty(endpoint.TargetHost) && endpoint.Port > 0)
+                    return (endpoint.TargetHost, endpoint.Port);
             }
             catch (Exception)
             {
@@ -100,6 +100,14 @@ namespace XamarinApp.Services
             this.LegalIdentity = configuration.LegalIdentity;
             // Do this last, as listeners will read the other properties when the event is fired.
             this.Step = configuration.Step;
+        }
+
+        public bool NeedsUpdating()
+        {
+            return string.IsNullOrEmpty(this.LegalJid) ||
+                   string.IsNullOrEmpty(this.RegistryJid) ||
+                   string.IsNullOrEmpty(this.ProvisioningJid) ||
+                   string.IsNullOrEmpty(this.HttpFileUploadJid);
         }
 
         public bool IsCompleteOrWaitingForValidation()
@@ -455,7 +463,7 @@ namespace XamarinApp.Services
             this.RegistryJid = registryJId;
         }
 
-        public void SetHttpParameters(string httpFileUploadJId, long? maxSize)
+        public void SetFileUploadParameters(string httpFileUploadJId, long? maxSize)
         {
             this.HttpFileUploadJid = httpFileUploadJId;
             this.HttpFileUploadMaxSize = maxSize;

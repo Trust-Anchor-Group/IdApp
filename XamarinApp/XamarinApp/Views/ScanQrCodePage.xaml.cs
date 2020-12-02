@@ -25,17 +25,6 @@ namespace XamarinApp.Views
             InitializeComponent();
         }
 
-        protected BaseViewModel ViewModel
-        {
-            get => BindingContext as BaseViewModel;
-            set => BindingContext = value;
-        }
-
-        protected T GetViewModel<T>() where T : BaseViewModel
-        {
-            return (T)ViewModel;
-        }
-
         public string OpenCommandText
         {
             get => GetViewModel<ScanQrCodeViewModel>().OpenCommandText;

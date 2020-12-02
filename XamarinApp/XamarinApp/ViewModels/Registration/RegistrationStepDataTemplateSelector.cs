@@ -5,11 +5,11 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class RegistrationStepDataTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate Step1Template { get; set; }
-        public DataTemplate Step2Template { get; set; }
-        public DataTemplate Step3Template { get; set; }
-        public DataTemplate Step4Template { get; set; }
-        public DataTemplate Step5Template { get; set; }
+        public DataTemplate ChooseOperator { get; set; }
+        public DataTemplate ChooseAccount { get; set; }
+        public DataTemplate RegisterIdentity { get; set; }
+        public DataTemplate ValidateIdentity { get; set; }
+        public DataTemplate DefinePin { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -18,15 +18,15 @@ namespace XamarinApp.ViewModels.Registration
             switch (viewModel.Step)
             {
                 case RegistrationStep.Account:
-                    return Step2Template;
+                    return ChooseAccount;
                 case RegistrationStep.RegisterIdentity:
-                    return Step3Template;
+                    return RegisterIdentity;
                 case RegistrationStep.ValidateIdentity:
-                    return Step4Template;
+                    return ValidateIdentity;
                 case RegistrationStep.Pin:
-                    return Step5Template;
+                    return DefinePin;
                 default:
-                    return Step1Template;
+                    return ChooseOperator;
             }
         }
     }
