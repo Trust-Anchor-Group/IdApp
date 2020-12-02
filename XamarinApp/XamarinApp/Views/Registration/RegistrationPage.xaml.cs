@@ -15,6 +15,15 @@ namespace XamarinApp.Views.Registration
             ViewModel = new RegistrationViewModel();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                this.CarouselView.ScrollTo(GetViewModel<RegistrationViewModel>().CurrentStep, position: ScrollToPosition.Center);
+            });
+        }
+
         protected override bool OnBackButtonPressed()
         {
             RegistrationViewModel viewModel = GetViewModel<RegistrationViewModel>();
