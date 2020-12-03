@@ -1,9 +1,10 @@
 ﻿using System;
-using Waher.Networking.XMPP;
+using System.Collections.Generic;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
+using XamarinApp.ViewModels;
 using XamarinApp.Views.Contracts;
 
 namespace XamarinApp.Views
@@ -11,38 +12,37 @@ namespace XamarinApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage
     {
-        private readonly INeuronService neuronService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
         private readonly INavigationService navigationService;
 
+        private static readonly SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory =
+            new SortedDictionary<string, SortedDictionary<string, string>>()
+            {/*
+                {
+                    "Put Title of Contract Category here",
+                    new SortedDictionary<string, string>()
+                    {
+                        { "Put Title of Contract Template here", "Put contract identity of template here." }
+                    }
+                }*/
+            };
+
         public MainPage()
         {
             InitializeComponent();
+            ViewModel = new MainViewModel();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
-            this.neuronService = DependencyService.Resolve<INeuronService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
-        }
-
-        protected override void OnDisappearing()
-        {
-            this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
-            base.OnDisappearing();
-        }
-
-        private async void Identity_Clicked(object sender, EventArgs e)
+        private async void ViewIdentityButton_Clicked(object sender, EventArgs e)
         {
             await this.navigationService.PushAsync(new ViewIdentityPage());
         }
 
-        private async void ScanQR_Clicked(object sender, EventArgs e)
+        private async void ScanQrCodeButton_Clicked(object sender, EventArgs e)
         {
             ScanQrCodePage page = new ScanQrCodePage();
             string code = await page.ScanQrCode();
@@ -72,7 +72,7 @@ namespace XamarinApp.Views
 
                     default:
                         if (!await Launcher.TryOpenAsync(uri))
-                            await this.navigationService.DisplayAlert("Error", "Code not understood:\r\n\r\n" + code);
+                            await this.navigationService.DisplayAlert(AppResources.ErrorTitle, $"Code not understood:{Environment.NewLine}{Environment.NewLine}" + code);
                         break;
                 }
             }
@@ -82,81 +82,19 @@ namespace XamarinApp.Views
             }
         }
 
-        private async void Contracts_Clicked(object sender, EventArgs e)
+        private async void CreatedContractsButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new ContractsMenuPage());
+            await this.navigationService.PushAsync(new MyContractsPage(true));
         }
 
-        public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private async void SignedContractsButton_Clicked(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() => HandleConnectionStateChanged(e.State));
+            await this.navigationService.PushAsync(new MyContractsPage(false));
         }
 
-        public void HandleConnectionStateChanged(XmppState state)
+        private async void NewContractButton_Clicked(object sender, EventArgs e)
         {
-            bool connected = false;
-
-            switch (state)
-            {
-                case XmppState.Authenticating:
-                    this.ConnectionState.Text = AppResources.XmppState_Authenticating;
-                    break;
-
-                case XmppState.Binding:
-                    this.ConnectionState.Text = AppResources.XmppState_Binding;
-                    break;
-
-                case XmppState.Connected:
-                    this.ConnectionState.Text = string.Format(AppResources.XmppState_Connected, this.tagProfile.Domain);
-                    connected = true;
-                    break;
-
-                case XmppState.Connecting:
-                    this.ConnectionState.Text = AppResources.XmppState_Connecting;
-                    break;
-
-                case XmppState.Error:
-                    this.ConnectionState.Text = AppResources.XmppState_Error;
-                    break;
-
-                case XmppState.FetchingRoster:
-                    this.ConnectionState.Text = AppResources.XmppState_FetchingRoster;
-                    break;
-
-                case XmppState.Registering:
-                    this.ConnectionState.Text = AppResources.XmppState_Registering;
-                    break;
-
-                case XmppState.RequestingSession:
-                    this.ConnectionState.Text = AppResources.XmppState_RequestingSession;
-                    break;
-
-                case XmppState.SettingPresence:
-                    this.ConnectionState.Text = AppResources.XmppState_SettingPresence;
-                    break;
-
-                case XmppState.StartingEncryption:
-                    this.ConnectionState.Text = AppResources.XmppState_StartingEncryption;
-                    break;
-
-                case XmppState.StreamNegotiation:
-                    this.ConnectionState.Text = AppResources.XmppState_StreamNegotiation;
-                    break;
-
-                case XmppState.StreamOpened:
-                    this.ConnectionState.Text = AppResources.XmppState_StreamOpened;
-                    break;
-
-                default:
-                    this.ConnectionState.Text = AppResources.XmppState_Offline;
-                    break;
-            }
-
-            this.IdentityButton.IsEnabled = connected;
-            this.WalletButton.IsEnabled = false;
-            this.ScanQRButton.IsEnabled = connected;
-            this.DevicesButton.IsEnabled = false;
-            this.ContractsButton.IsEnabled = connected;
+            await this.navigationService.PushAsync(new NewContractPage(ContractTypesPerCategory));
         }
     }
 }

@@ -5,12 +5,21 @@
              x:Class="XamarinApp.Views.MainPage">
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource DefaultMargin}">
-            <Label x:Name="ConnectionState" Text="" HorizontalOptions="Center" LineBreakMode="WordWrap"/>
-            <Button x:Name="IdentityButton" Text="Identity" Clicked="Identity_Clicked"/>
-            <Button x:Name="WalletButton" Text="Wallet" IsEnabled="False"/>
-            <Button x:Name="ScanQRButton" Text="Scan QR Code" Clicked="ScanQR_Clicked"/>
-            <Button x:Name="DevicesButton" Text="Devices" IsEnabled="False"/>
-            <Button x:Name="ContractsButton" Text="Contracts" Clicked="Contracts_Clicked"/>
+            <Label Text="Connection" FontSize="Large" />
+            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
+            <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            <Label Text="General" FontSize="Large"/>
+            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
+            <Button Text="Identity" Clicked="ViewIdentityButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="Wallet" IsEnabled="False"/>
+            <Button Text="Scan QR Code" Clicked="ScanQrCodeButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="Devices" IsEnabled="False"/>
+            <Label Text="Contracts" FontSize="Large"/>
+            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
+            <Button Text="My Created Contracts" Clicked="CreatedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="Signed Contracts" Clicked="SignedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Label Text="Notary" FontSize="Large"/>
+            <Button Text="New Contract" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
         </StackLayout>
     </ContentPage.Content>
 </views:ContentBasePage>
