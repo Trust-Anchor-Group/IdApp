@@ -14,6 +14,7 @@ namespace XamarinApp.Services
 {
     internal sealed class NeuronService : LoadableService, INeuronService
     {
+        private readonly INetworkService networkService;
         private readonly TagProfile tagProfile;
         private Timer reconnectTimer;
         private XmppClient xmppClient;
@@ -24,8 +25,9 @@ namespace XamarinApp.Services
         private bool xmppSettingsOk;
         private readonly ISniffer sniffer;
 
-        public NeuronService(TagProfile tagProfile)
+        public NeuronService(TagProfile tagProfile, INetworkService networkService)
         {
+            this.networkService = networkService;
             this.tagProfile = tagProfile;
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
@@ -61,7 +63,7 @@ namespace XamarinApp.Services
                 this.passwordHash = this.tagProfile.PasswordHash;
                 this.passwordHashMethod = this.tagProfile.PasswordHashMethod;
 
-                (string hostName, int portNumber) = await this.tagProfile.GetXmppHostnameAndPort(domainName);
+                (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(domainName);
 
                 this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod,
                     Constants.LanguageCodes.Default, typeof(App).Assembly, this.sniffer)

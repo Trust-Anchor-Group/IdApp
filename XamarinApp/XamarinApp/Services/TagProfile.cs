@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Waher.Networking.DNS;
-using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
 using Waher.Security;
@@ -14,10 +11,8 @@ namespace XamarinApp.Services
 {
     public partial class TagProfile
     {
-        private const int DefaultPortNumber = 5222;
         public event EventHandler StepChanged;
         public event EventHandler Changed;
-
         private LegalIdentity legalIdentity = null;
         private string objectId = null;
         private string domain = string.Empty;
@@ -41,24 +36,6 @@ namespace XamarinApp.Services
         protected virtual void OnChanged(EventArgs e)
         {
             Changed?.Invoke(this, EventArgs.Empty);
-        }
-
-        public async Task<(string hostName, int port)> GetXmppHostnameAndPort(string domainName = null)
-        {
-            domainName = domainName ?? Domain;
-
-            try
-            {
-                SRV endpoint = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
-                if (!(endpoint is null) && !string.IsNullOrEmpty(endpoint.TargetHost) && endpoint.Port > 0)
-                    return (endpoint.TargetHost, endpoint.Port);
-            }
-            catch (Exception)
-            {
-                // No service endpoint registered
-            }
-
-            return (domainName, DefaultPortNumber);
         }
 
         public TagConfiguration ToConfiguration()

@@ -14,6 +14,7 @@ namespace XamarinApp.ViewModels.Registration
     {
         private readonly IContractsService contractsService;
         private readonly IAuthService authService;
+        private readonly INetworkService networkService;
 
         public ChooseAccountViewModel(
             TagProfile tagProfile, 
@@ -21,11 +22,13 @@ namespace XamarinApp.ViewModels.Registration
             INavigationService navigationService,
             ISettingsService settingsService,
             IAuthService authService, 
-            IContractsService contractsService)
+            IContractsService contractsService,
+            INetworkService networkService)
             : base(RegistrationStep.Account, tagProfile, neuronService, navigationService, settingsService)
         {
             this.authService = authService;
             this.contractsService = contractsService;
+            this.networkService = networkService;
             this.PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
             this.SwitchModeCommand = new Command(_ =>
             {
@@ -285,7 +288,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 string passwordToUse = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
 
-                (string hostName, int portNumber) = await TagProfile.GetXmppHostnameAndPort();
+                (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(this.TagProfile.Domain);
 
                 Task OnConnected(XmppClient client)
                 {
@@ -327,7 +330,7 @@ namespace XamarinApp.ViewModels.Registration
             {
                 string password = Password;
 
-                (string hostName, int portNumber) = await TagProfile.GetXmppHostnameAndPort();
+                (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(this.TagProfile.Domain);
 
                 async Task OnConnected(XmppClient client)
                 {

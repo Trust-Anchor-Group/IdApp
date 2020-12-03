@@ -10,16 +10,19 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ChooseOperatorViewModel : RegistrationStepViewModel
     {
-        private string hostName = string.Empty;
+        private readonly INetworkService networkService;
+        private string hostName;
         private int portNumber;
 
         public ChooseOperatorViewModel(
             TagProfile tagProfile, 
             INeuronService neuronService, 
             INavigationService navigationService,
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            INetworkService networkService)
             : base(RegistrationStep.Operator, tagProfile, neuronService, navigationService, settingsService)
         {
+            this.networkService = networkService;
             this.Operators = new ObservableCollection<string>();
             this.ConnectCommand = new Command(async () => await Connect(), ConnectCanExecute);
             this.ManualOperatorCommand = new Command<string>(async text => await ManualOperatorTextEdited(text));
@@ -80,7 +83,7 @@ namespace XamarinApp.ViewModels.Registration
             try
             {
                 string domainName = GetOperator();
-                (this.hostName, this.portNumber) = await this.TagProfile.GetXmppHostnameAndPort(domainName);
+                (this.hostName, this.portNumber) = await this.networkService.GetXmppHostnameAndPort(domainName);
 
                 (bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
@@ -157,7 +160,7 @@ namespace XamarinApp.ViewModels.Registration
                 }
             }
 
-            (string host, int port) = await TagProfile.GetXmppHostnameAndPort(name);
+            (string host, int port) = await this.networkService.GetXmppHostnameAndPort(name);
 
             if (string.IsNullOrEmpty(host))
                 return false;

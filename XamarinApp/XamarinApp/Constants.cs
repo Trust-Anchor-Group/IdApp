@@ -46,6 +46,7 @@ namespace XamarinApp
 
         public static class Timeouts
         {
+            public static readonly TimeSpan Database = TimeSpan.FromSeconds(10);
             public static readonly TimeSpan XmppConnect = TimeSpan.FromSeconds(10);
             public static readonly TimeSpan XmppPresence = TimeSpan.FromSeconds(1);
             public static readonly TimeSpan UploadFile = TimeSpan.FromSeconds(30);

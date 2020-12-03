@@ -1,18 +1,7 @@
 ﻿using System;
-using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Networking.XMPP.P2P;
-using Waher.Persistence;
-using Waher.Persistence.Files;
-using Waher.Persistence.LifeCycle;
-using Waher.Persistence.Serialization;
-using Waher.Runtime.Inventory;
-using Waher.Script;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
@@ -24,11 +13,11 @@ namespace XamarinApp
     {
         private const string TagConfigurationSettingKey = "TagConfiguration";
         private Timer autoSaveTimer;
+        private readonly ITagIdSdk sdk;
         private readonly INeuronService neuronService;
         private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
-        private FilesProvider filesProvider;
 
         public App()
 		{
@@ -36,16 +25,18 @@ namespace XamarinApp
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
 			InitializeComponent();
-			this.tagProfile = new TagProfile();
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
+            this.sdk = TagIdSdk.Instance;
+            builder.RegisterInstance(this.sdk).SingleInstance();
+            this.tagProfile = new TagProfile();
             builder.RegisterInstance(this.tagProfile).SingleInstance();
 			builder.RegisterType<NeuronService>().As<INeuronService>().SingleInstance();
 			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
-			//builder.RegisterType<StorageService>().As<IStorageService>().SingleInstance();
 			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+			builder.RegisterType<NetworkService>().As<INetworkService>().SingleInstance();
 			builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
             IContainer container = builder.Build();
 			// Set AutoFac to be the dependency resolver
@@ -55,19 +46,6 @@ namespace XamarinApp
 			this.neuronService = DependencyService.Resolve<INeuronService>();
             this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-
-            Types.Initialize(
-                typeof(App).Assembly,
-                typeof(Database).Assembly,
-                typeof(FilesProvider).Assembly,
-                typeof(ObjectSerializer).Assembly,
-                typeof(XmppClient).Assembly,
-                typeof(ContractsClient).Assembly,
-                typeof(Expression).Assembly,
-                //typeof(Waher.Things.ThingReference).Assembly,
-                //typeof(RuntimeSettings).Assembly,
-                typeof(XmppServerlessMessaging).Assembly);
-            //typeof(ProvisioningClient).Assembly);
 
             // Start page
             NavigationPage navigationPage = new NavigationPage(new InitPage())
@@ -112,8 +90,7 @@ namespace XamarinApp
 
         public void Dispose()
         {
-            //DatabaseModule.Flush().GetAwaiter().GetResult();
-            Types.StopAllModules().GetAwaiter().GetResult();
+            this.sdk.Dispose();
         }
 
         protected override async void OnStart()
@@ -133,16 +110,7 @@ namespace XamarinApp
 
 		private async Task PerformStartup()
         {
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string dataFolder = Path.Combine(appDataFolder, "Data");
-            if (filesProvider == null)
-            {
-                IAuthService authService = DependencyService.Resolve<IAuthService>();
-                filesProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 10000, authService.GetCustomKey);
-            }
-            await filesProvider.RepairIfInproperShutdown(string.Empty);
-            Database.Register(filesProvider, false);
-
+            await this.sdk.Startup(DependencyService.Resolve<IAuthService>());
             await this.neuronService.Load();
             await this.contractOrchestratorService.Load();
 
@@ -159,10 +127,7 @@ namespace XamarinApp
 
         private async Task PerformShutdown()
         {
-            await DatabaseModule.Flush();
-            this.filesProvider.Dispose();
-            this.filesProvider = null;
-
+            await this.sdk.Shutdown();
             this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
             this.autoSaveTimer.Dispose();
             AutoSave();

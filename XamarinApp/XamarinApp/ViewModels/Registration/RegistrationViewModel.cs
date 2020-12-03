@@ -20,6 +20,7 @@ namespace XamarinApp.ViewModels.Registration
         private readonly IAuthService authService;
         private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
+        private readonly INetworkService networkService;
         
         public RegistrationViewModel()
             : this(null, null, null, null, null, null)
@@ -35,12 +36,13 @@ namespace XamarinApp.ViewModels.Registration
             this.authService = authService ?? DependencyService.Resolve<IAuthService>();
             this.contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
+            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             GoToNextCommand = new Command(GoToNext, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
-                this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService)),
-                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.authService, this.contractsService)),
+                this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.networkService)),
+                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.authService, this.contractsService, this.networkService)),
                 this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService)),
                 this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService)),
                 this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService))
