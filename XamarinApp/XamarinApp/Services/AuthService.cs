@@ -17,49 +17,49 @@ namespace XamarinApp.Services
             rnd = RandomNumberGenerator.Create();
         }
 
-        public async Task<KeyValuePair<byte[], byte[]>> GetCustomKey(string FileName)
+        public async Task<KeyValuePair<byte[], byte[]>> GetCustomKey(string fileName)
         {
-            byte[] Key;
-            byte[] IV;
+            byte[] key;
+            byte[] iv;
             string s;
             int i;
 
             try
             {
-                s = await SecureStorage.GetAsync(FileName);
+                s = await SecureStorage.GetAsync(fileName);
             }
             catch (TypeInitializationException)
             {
                 // No secure storage available.
 
-                Key = Hashes.ComputeSHA256Hash(Encoding.UTF8.GetBytes(FileName + ".Key"));
-                IV = Hashes.ComputeSHA256Hash(Encoding.UTF8.GetBytes(FileName + ".IV"));
-                Array.Resize<byte>(ref IV, 16);
+                key = Hashes.ComputeSHA256Hash(Encoding.UTF8.GetBytes(fileName + ".Key"));
+                iv = Hashes.ComputeSHA256Hash(Encoding.UTF8.GetBytes(fileName + ".IV"));
+                Array.Resize<byte>(ref iv, 16);
 
-                return new KeyValuePair<byte[], byte[]>(Key, IV);
+                return new KeyValuePair<byte[], byte[]>(key, iv);
             }
 
             if (!string.IsNullOrEmpty(s) && (i = s.IndexOf(',')) > 0)
             {
-                Key = Hashes.StringToBinary(s.Substring(0, i));
-                IV = Hashes.StringToBinary(s.Substring(i + 1));
+                key = Hashes.StringToBinary(s.Substring(0, i));
+                iv = Hashes.StringToBinary(s.Substring(i + 1));
             }
             else
             {
-                Key = new byte[32];
-                IV = new byte[16];
+                key = new byte[32];
+                iv = new byte[16];
 
                 lock (rnd)
                 {
-                    rnd.GetBytes(Key);
-                    rnd.GetBytes(IV);
+                    rnd.GetBytes(key);
+                    rnd.GetBytes(iv);
                 }
 
-                s = Hashes.BinaryToString(Key) + "," + Hashes.BinaryToString(IV);
-                await SecureStorage.SetAsync(FileName, s);
+                s = Hashes.BinaryToString(key) + "," + Hashes.BinaryToString(iv);
+                await SecureStorage.SetAsync(fileName, s);
             }
 
-            return new KeyValuePair<byte[], byte[]>(Key, IV);
+            return new KeyValuePair<byte[], byte[]>(key, iv);
         }
 
         public string CreateRandomPassword()
@@ -67,16 +67,16 @@ namespace XamarinApp.Services
             return Hashes.BinaryToString(GetBytes(16));
         }
 
-        private byte[] GetBytes(int NrBytes)
+        private byte[] GetBytes(int nrBytes)
         {
-            byte[] Result = new byte[NrBytes];
+            byte[] result = new byte[nrBytes];
 
             lock (rnd)
             {
-                rnd.GetBytes(Result);
+                rnd.GetBytes(result);
             }
 
-            return Result;
+            return result;
         }
     }
 }

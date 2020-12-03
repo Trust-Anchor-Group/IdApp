@@ -23,7 +23,10 @@ namespace XamarinApp
 
         private TagIdSdk()
         {
-            
+            this.TagProfile = new TagProfile();
+            this.AuthService = new AuthService();
+            this.NetworkService = new NetworkService();
+            this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService);
         }
 
         public void Dispose()
@@ -41,7 +44,12 @@ namespace XamarinApp
             protected internal set => instance = value;
         }
 
-        public async Task Startup(IAuthService authService)
+        public TagProfile TagProfile { get; private set; }
+        public IAuthService AuthService { get; private set; }
+        public INeuronService NeuronService { get; private set; }
+        public INetworkService NetworkService { get; private set; }
+
+        public async Task Startup()
         {
             Types.Initialize(
                 typeof(App).Assembly,
@@ -57,14 +65,16 @@ namespace XamarinApp
             string dataFolder = Path.Combine(appDataFolder, "Data");
             if (filesProvider == null)
             {
-                filesProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, authService.GetCustomKey);
+                filesProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
             }
             await filesProvider.RepairIfInproperShutdown(string.Empty);
             Database.Register(filesProvider, false);
+            await this.NeuronService.Load();
         }
 
         public async Task Shutdown()
         {
+            await this.NeuronService.Unload();
             await DatabaseModule.Flush();
             filesProvider.Dispose();
             filesProvider = null;

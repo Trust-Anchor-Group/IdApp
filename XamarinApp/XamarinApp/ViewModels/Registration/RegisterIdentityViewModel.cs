@@ -473,6 +473,7 @@ namespace XamarinApp.ViewModels.Registration
             this.SettingsService.SaveState(GetSettingsKey(nameof(Address2)), this.Address2);
             this.SettingsService.SaveState(GetSettingsKey(nameof(Area)), this.Area);
             this.SettingsService.SaveState(GetSettingsKey(nameof(City)), this.City);
+            this.SettingsService.SaveState(GetSettingsKey(nameof(ZipCode)), this.ZipCode);
             this.SettingsService.SaveState(GetSettingsKey(nameof(Region)), this.Region);
         }
 
@@ -486,6 +487,7 @@ namespace XamarinApp.ViewModels.Registration
             this.Address2 = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Address2)));
             this.Area = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Area)));
             this.City = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(City)));
+            this.ZipCode = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ZipCode)));
             this.Region = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Region)));
             await base.DoRestoreState();
         }

@@ -6,7 +6,11 @@ namespace XamarinApp
 {
     public interface ITagIdSdk : IDisposable
     {
-        Task Startup(IAuthService authService);
+        Task Startup();
         Task Shutdown();
+        TagProfile TagProfile { get; }
+        IAuthService AuthService { get; }
+        INeuronService NeuronService { get; }
+        INetworkService NetworkService { get; }
     }
 }

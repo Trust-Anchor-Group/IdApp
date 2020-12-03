@@ -14,10 +14,8 @@ namespace XamarinApp
         private const string TagConfigurationSettingKey = "TagConfiguration";
         private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
-        private readonly INeuronService neuronService;
         private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly TagProfile tagProfile;
 
         public App()
 		{
@@ -28,22 +26,20 @@ namespace XamarinApp
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
             this.sdk = TagIdSdk.Instance;
-            builder.RegisterInstance(this.sdk).SingleInstance();
-            this.tagProfile = new TagProfile();
-            builder.RegisterInstance(this.tagProfile).SingleInstance();
-			builder.RegisterType<NeuronService>().As<INeuronService>().SingleInstance();
+            builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
+			builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
+			builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
+			builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
+
 			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
-			builder.RegisterType<AuthService>().As<IAuthService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
-			builder.RegisterType<NetworkService>().As<INetworkService>().SingleInstance();
 			builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
             IContainer container = builder.Build();
 			// Set AutoFac to be the dependency resolver
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			// Resolve what's needed for the App class
-			this.neuronService = DependencyService.Resolve<INeuronService>();
             this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
 
@@ -110,8 +106,8 @@ namespace XamarinApp
 
 		private async Task PerformStartup()
         {
-            await this.sdk.Startup(DependencyService.Resolve<IAuthService>());
-            await this.neuronService.Load();
+            await this.sdk.Startup();
+            
             await this.contractOrchestratorService.Load();
 
             TagConfiguration configuration = this.settingsService.RestoreState<TagConfiguration>(TagConfigurationSettingKey);
@@ -120,14 +116,13 @@ namespace XamarinApp
                 configuration = new TagConfiguration();
                 this.settingsService.SaveState(TagConfigurationSettingKey, configuration);
             }
-            this.tagProfile.FromConfiguration(configuration);
+            this.sdk.TagProfile.FromConfiguration(configuration);
 
             this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
         }
 
         private async Task PerformShutdown()
         {
-            await this.sdk.Shutdown();
             this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
             this.autoSaveTimer.Dispose();
             AutoSave();
@@ -138,15 +133,15 @@ namespace XamarinApp
             }
 
             await this.contractOrchestratorService.Unload();
-            await this.neuronService.Unload();
+            await this.sdk.Shutdown();
         }
 
         private void AutoSave()
         {
-            if (this.tagProfile.IsDirty)
+            if (this.sdk.TagProfile.IsDirty)
             {
-                this.tagProfile.ResetIsDirty();
-                this.settingsService.SaveState(TagConfigurationSettingKey, this.tagProfile.ToConfiguration());
+                this.sdk.TagProfile.ResetIsDirty();
+                this.settingsService.SaveState(TagConfigurationSettingKey, this.sdk.TagProfile.ToConfiguration());
             }
         }
     }
