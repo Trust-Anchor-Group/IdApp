@@ -61,6 +61,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept.
+        /// </summary>
+        internal static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>
         internal static string Account {
@@ -214,11 +223,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        internal static string Created {
+            get {
+                return ResourceManager.GetString("Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new.
         /// </summary>
         internal static string CreateNew {
             get {
                 return ResourceManager.GetString("CreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Decline.
+        /// </summary>
+        internal static string Decline {
+            get {
+                return ResourceManager.GetString("Decline", resourceCulture);
             }
         }
         
@@ -277,6 +304,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ignore.
+        /// </summary>
+        internal static string Ignore {
+            get {
+                return ResourceManager.GetString("Ignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {
@@ -300,6 +336,15 @@ namespace XamarinApp {
         internal static string LastNames {
             get {
                 return ResourceManager.GetString("LastNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legal Id.
+        /// </summary>
+        internal static string LegalId {
+            get {
+                return ResourceManager.GetString("LegalId", resourceCulture);
             }
         }
         
@@ -372,6 +417,15 @@ namespace XamarinApp {
         internal static string OperatorDomainOther {
             get {
                 return ResourceManager.GetString("OperatorDomainOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
             }
         }
         
@@ -475,6 +529,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Petition.
+        /// </summary>
+        internal static string Petition {
+            get {
+                return ResourceManager.GetString("Petition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A petition for the personal data of your legal identity has been received. Review the information below and choose how you wish to respond..
+        /// </summary>
+        internal static string PetitionIdentityInformationText {
+            get {
+                return ResourceManager.GetString("PetitionIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Petition sent.
         /// </summary>
         internal static string PetitionSent {
@@ -547,6 +619,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purpose.
+        /// </summary>
+        internal static string Purpose {
+            get {
+                return ResourceManager.GetString("Purpose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter manually.
         /// </summary>
         internal static string QrEnterManually {
@@ -597,6 +678,24 @@ namespace XamarinApp {
         internal static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request.
+        /// </summary>
+        internal static string Request {
+            get {
+                return ResourceManager.GetString("Request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requesting entity.
+        /// </summary>
+        internal static string RequestingEntity {
+            get {
+                return ResourceManager.GetString("RequestingEntity", resourceCulture);
             }
         }
         
@@ -673,6 +772,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to State.
+        /// </summary>
+        internal static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take photo.
         /// </summary>
         internal static string TakePhoto {
@@ -741,6 +849,15 @@ namespace XamarinApp {
         internal static string UnableToConnectTo {
             get {
                 return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated.
+        /// </summary>
+        internal static string Updated {
+            get {
+                return ResourceManager.GetString("Updated", resourceCulture);
             }
         }
         

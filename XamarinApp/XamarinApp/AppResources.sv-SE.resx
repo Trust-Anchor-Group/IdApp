@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Acceptera</value>
+  </data>
   <data name="Account" xml:space="preserve">
     <value>Konto</value>
   </data>
@@ -168,8 +171,14 @@
   <data name="Create" xml:space="preserve">
     <value>Skapa</value>
   </data>
+  <data name="Created" xml:space="preserve">
+    <value>Skapad</value>
+  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Skapa ny</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Neka</value>
   </data>
   <data name="DefinePin" xml:space="preserve">
     <value>Ange PIN</value>
@@ -189,6 +198,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Ignorera</value>
+  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
   </data>
@@ -197,6 +209,9 @@
   </data>
   <data name="LastNames" xml:space="preserve">
     <value>Efternamn</value>
+  </data>
+  <data name="LegalId" xml:space="preserve">
+    <value>Juridiskt Id</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>
@@ -221,6 +236,9 @@
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Annan&gt;</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Alternativ</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Lösenord</value>
@@ -255,6 +273,12 @@
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
     <value>Personnummer ({0})</value>
   </data>
+  <data name="Petition" xml:space="preserve">
+    <value>Ansökan</value>
+  </data>
+  <data name="PetitionIdentityInformationText" xml:space="preserve">
+    <value>En ansökan för personlig data tillhörande din juridiska identitet har mottagits. Vänligen granska informationen nedan och välj hur du vill svara.</value>
+  </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Begäran skickad</value>
   </data>
@@ -279,6 +303,9 @@
   <data name="Provider" xml:space="preserve">
     <value>Leverantör</value>
   </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Syfte</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>
   </data>
@@ -296,6 +323,12 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Registrera</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>Begäran</value>
+  </data>
+  <data name="RequestingEntity" xml:space="preserve">
+    <value>Begärande entitet</value>
   </data>
   <data name="RetypePassword" xml:space="preserve">
     <value>Ange lösenord igen</value>
@@ -321,6 +354,9 @@
   <data name="Skip" xml:space="preserve">
     <value>Hoppa över</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>Tillstånd</value>
+  </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Ta foto</value>
   </data>
@@ -344,6 +380,9 @@
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Uppdaterad</value>
   </data>
   <data name="UseExisting" xml:space="preserve">
     <value>Använd existerande</value>

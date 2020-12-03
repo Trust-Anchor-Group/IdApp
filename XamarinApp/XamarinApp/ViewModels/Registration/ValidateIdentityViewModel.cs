@@ -16,7 +16,7 @@ namespace XamarinApp.ViewModels.Registration
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
         private readonly IContractsService contractsService;
-        private readonly INavigationService navigationService;
+        private bool cancelLoadPhotos;
 
         public ValidateIdentityViewModel(
             TagProfile tagProfile,
@@ -27,7 +27,6 @@ namespace XamarinApp.ViewModels.Registration
             : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService)
         {
             this.contractsService = contractsService;
-            this.navigationService = navigationService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
             this.ContinueCommand = new Command(_ => OnStepCompleted(EventArgs.Empty), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
@@ -37,6 +36,7 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoBind()
         {
             await base.DoBind();
+            this.cancelLoadPhotos = false;
             AssignProperties();
             this.TagProfile.Changed += TagProfile_Changed;
             this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
@@ -44,6 +44,7 @@ namespace XamarinApp.ViewModels.Registration
 
         protected override async Task DoUnbind()
         {
+            this.cancelLoadPhotos = true;
             this.TagProfile.Changed -= TagProfile_Changed;
             this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
             await base.DoUnbind();
@@ -109,9 +110,13 @@ namespace XamarinApp.ViewModels.Registration
 
             if (this.TagProfile?.LegalIdentity?.Attachments != null)
             {
-
                 foreach (Attachment attachment in this.TagProfile.LegalIdentity.Attachments.GetImageAttachments())
                 {
+                    if (this.cancelLoadPhotos)
+                    {
+                        this.cancelLoadPhotos = false;
+                        return;
+                    }
                     try
                     {
                         KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);

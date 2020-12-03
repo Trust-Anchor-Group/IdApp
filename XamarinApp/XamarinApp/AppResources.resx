@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
@@ -168,8 +171,14 @@
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Create new</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>Decline</value>
   </data>
   <data name="DefinePin" xml:space="preserve">
     <value>Define PIN</value>
@@ -189,6 +198,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
+  <data name="Ignore" xml:space="preserve">
+    <value>Ignore</value>
+  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>
   </data>
@@ -197,6 +209,9 @@
   </data>
   <data name="LastNames" xml:space="preserve">
     <value>Last name(s)</value>
+  </data>
+  <data name="LegalId" xml:space="preserve">
+    <value>Legal Id</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
@@ -221,6 +236,9 @@
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -255,6 +273,12 @@
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
     <value>Personal Number ({0})</value>
   </data>
+  <data name="Petition" xml:space="preserve">
+    <value>Petition</value>
+  </data>
+  <data name="PetitionIdentityInformationText" xml:space="preserve">
+    <value>A petition for the personal data of your legal identity has been received. Review the information below and choose how you wish to respond.</value>
+  </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Petition sent</value>
   </data>
@@ -279,6 +303,9 @@
   <data name="Provider" xml:space="preserve">
     <value>Provider</value>
   </data>
+  <data name="Purpose" xml:space="preserve">
+    <value>Purpose</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>
   </data>
@@ -296,6 +323,12 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Request" xml:space="preserve">
+    <value>Request</value>
+  </data>
+  <data name="RequestingEntity" xml:space="preserve">
+    <value>Requesting entity</value>
   </data>
   <data name="RetypePassword" xml:space="preserve">
     <value>Retype password</value>
@@ -321,6 +354,9 @@
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>
   </data>
@@ -344,6 +380,9 @@
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Updated</value>
   </data>
   <data name="UseExisting" xml:space="preserve">
     <value>Use existing</value>

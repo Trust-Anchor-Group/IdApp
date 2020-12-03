@@ -98,10 +98,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Contracts\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Update="AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
