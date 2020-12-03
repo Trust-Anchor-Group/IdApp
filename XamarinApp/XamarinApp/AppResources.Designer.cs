@@ -538,6 +538,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Provider.
+        /// </summary>
+        internal static string Provider {
+            get {
+                return ResourceManager.GetString("Provider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter manually.
         /// </summary>
         internal static string QrEnterManually {
@@ -628,6 +637,33 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Signature.
+        /// </summary>
+        internal static string Signature {
+            get {
+                return ResourceManager.GetString("Signature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signature information.
+        /// </summary>
+        internal static string SignatureInformation {
+            get {
+                return ResourceManager.GetString("SignatureInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following is information related to a server signature..
+        /// </summary>
+        internal static string SignatureInformationInfoText {
+            get {
+                return ResourceManager.GetString("SignatureInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skip.
         /// </summary>
         internal static string Skip {
@@ -669,6 +705,15 @@ namespace XamarinApp {
         internal static string TheSpecifiedCodeIsNotALegalIdentity {
             get {
                 return ResourceManager.GetString("TheSpecifiedCodeIsNotALegalIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time stamp.
+        /// </summary>
+        internal static string Timestamp {
+            get {
+                return ResourceManager.GetString("Timestamp", resourceCulture);
             }
         }
         

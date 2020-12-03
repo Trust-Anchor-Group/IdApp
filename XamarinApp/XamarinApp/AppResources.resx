@@ -276,6 +276,9 @@
   <data name="PinTooShort" xml:space="preserve">
     <value>PIN number too short. At least 8 numbers (or characters) are required.</value>
   </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Provider</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>
   </data>
@@ -306,6 +309,15 @@
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
   </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+  <data name="SignatureInformation" xml:space="preserve">
+    <value>Signature information</value>
+  </data>
+  <data name="SignatureInformationInfoText" xml:space="preserve">
+    <value>The following is information related to a server signature.</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
   </data>
@@ -320,6 +332,9 @@
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>The specified code is not a legal identity</value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Time stamp</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>To connect to {0}, you need an account. Do you want to create one, or use an existing account?</value>

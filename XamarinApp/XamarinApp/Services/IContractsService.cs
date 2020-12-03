@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
@@ -9,6 +8,9 @@ using XamarinApp.Models;
 
 namespace XamarinApp.Services
 {
+    /// <summary>
+    /// Adds support for legal identities, smart contracts and signatures to a Neuron Service.
+    /// </summary>
     public interface IContractsService : IDisposable
     {
         Task PetitionContractAsync(string contractId, string petitionId, string purpose);

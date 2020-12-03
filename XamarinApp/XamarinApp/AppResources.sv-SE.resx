@@ -276,6 +276,9 @@
   <data name="PinTooShort" xml:space="preserve">
     <value>Angiven PIN är för kort. Åtminstone 8 siffor (eller tecken) krävs.</value>
   </data>
+  <data name="Provider" xml:space="preserve">
+    <value>Leverantör</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>
   </data>
@@ -306,6 +309,15 @@
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
   </data>
+  <data name="Signature" xml:space="preserve">
+    <value>Signatur</value>
+  </data>
+  <data name="SignatureInformation" xml:space="preserve">
+    <value>Signatur-information</value>
+  </data>
+  <data name="SignatureInformationInfoText" xml:space="preserve">
+    <value>Nedan följer information kopplat till server-signaturen.</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>Hoppa över</value>
   </data>
@@ -320,6 +332,9 @@
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>Den angivna koden är inte en giltig identitet</value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Tidsstämpel</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>För att ansluta till {0} behövs ett konto. Vill du skapa ett, eller välja ett existerande?</value>

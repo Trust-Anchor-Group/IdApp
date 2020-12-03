@@ -48,7 +48,7 @@ namespace XamarinApp.Views.Contracts
 
 			// QR Code
 
-			byte[] png = QR.GenerateCodePng("iotsc:" + contract.ContractId, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
+			byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.IotSc + ":" + contract.ContractId, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
 			this.QrCode.Source = ImageSource.FromStream(() => new MemoryStream(png));
 			this.QrCode.IsVisible = true;
 
@@ -344,7 +344,7 @@ namespace XamarinApp.Views.Contracts
 			try
 			{
 				if (sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
-                    await this.navigationService.PushAsync(new ServerSignaturePage(this, this.contract));
+                    await this.navigationService.PushAsync(new ServerSignaturePage(this.contract));
 			}
 			catch (Exception ex)
 			{

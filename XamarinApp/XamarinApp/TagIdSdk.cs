@@ -38,10 +38,14 @@ namespace XamarinApp
             }
         }
 
-        public static ITagIdSdk Instance
+        public static ITagIdSdk Create()
         {
-            get => instance ?? (instance = new TagIdSdk());
-            protected internal set => instance = value;
+            if (instance == null)
+            {
+                instance = new TagIdSdk();
+            }
+
+            return instance;
         }
 
         public TagProfile TagProfile { get; private set; }
