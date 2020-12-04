@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -64,6 +65,7 @@ namespace XamarinApp
             {
                 ex = e.Exception.InnerException;
             }
+            this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("TaskScheduler", "UnobservedTaskException"));
             e.SetObserved();
 
             if (Device.IsInvokeRequired)
@@ -79,6 +81,10 @@ namespace XamarinApp
         private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
+            if (ex != null)
+            {
+                this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("CurrentDomain", "UnhandledException"));
+            }
             if (Device.IsInvokeRequired)
             {
                 Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok));
