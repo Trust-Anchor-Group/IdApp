@@ -10,10 +10,12 @@ namespace XamarinApp.Services
 {
     internal sealed class AuthService : IAuthService
     {
+        private readonly ILogService logService;
         private readonly RandomNumberGenerator rnd;
 
-        public AuthService()
+        public AuthService(ILogService logService)
         {
+            this.logService = logService;
             rnd = RandomNumberGenerator.Create();
         }
 
@@ -28,8 +30,9 @@ namespace XamarinApp.Services
             {
                 s = await SecureStorage.GetAsync(fileName);
             }
-            catch (TypeInitializationException)
+            catch (TypeInitializationException ex)
             {
+                this.logService.LogException(ex);
                 // No secure storage available.
 
                 key = Hashes.ComputeSHA256Hash(Encoding.UTF8.GetBytes(fileName + ".Key"));

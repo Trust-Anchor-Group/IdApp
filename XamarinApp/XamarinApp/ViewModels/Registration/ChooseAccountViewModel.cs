@@ -23,8 +23,9 @@ namespace XamarinApp.ViewModels.Registration
             ISettingsService settingsService,
             IAuthService authService, 
             IContractsService contractsService,
-            INetworkService networkService)
-            : base(RegistrationStep.Account, tagProfile, neuronService, navigationService, settingsService)
+            INetworkService networkService,
+            ILogService logService)
+            : base(RegistrationStep.Account, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.authService = authService;
             this.contractsService = contractsService;
@@ -55,7 +56,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private void TagProfile_Changed(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
                 AccountName = this.TagProfile.Account;
@@ -188,7 +189,7 @@ namespace XamarinApp.ViewModels.Registration
                     succeeded = await ConnectToAccount();
                 }
 
-                Device.BeginInvokeOnMainThread(() =>
+                Dispatcher.BeginInvokeOnMainThread(() =>
                 {
                     SetIsDone(PerformActionCommand);
 
@@ -200,6 +201,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             catch (Exception ex)
             {
+                this.LogService.LogException(ex);
                 await this.NavigationService.DisplayAlert(ex);
             }
             finally
@@ -316,8 +318,9 @@ namespace XamarinApp.ViewModels.Registration
 
                 await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                this.LogService.LogException(ex);
                 await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
             }
 
@@ -386,8 +389,9 @@ namespace XamarinApp.ViewModels.Registration
 
                 return succeeded;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                this.LogService.LogException(ex);
                 await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
             }
 

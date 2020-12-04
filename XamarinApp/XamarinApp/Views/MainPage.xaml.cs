@@ -12,8 +12,8 @@ namespace XamarinApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage
     {
+        private readonly ILogService logService;
         private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly TagProfile tagProfile;
         private readonly INavigationService navigationService;
 
         private static readonly SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory =
@@ -32,7 +32,7 @@ namespace XamarinApp.Views
         {
             InitializeComponent();
             ViewModel = new MainViewModel();
-            this.tagProfile = DependencyService.Resolve<TagProfile>();
+            this.logService = DependencyService.Resolve<ILogService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
         }
@@ -78,6 +78,7 @@ namespace XamarinApp.Views
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.navigationService.DisplayAlert(ex);
             }
         }

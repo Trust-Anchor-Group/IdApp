@@ -16,15 +16,16 @@ namespace XamarinApp.ViewModels.Registration
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
         private readonly IContractsService contractsService;
-        private bool cancelLoadPhotos;
+        private DateTime loadPhotosTimestamp;
 
         public ValidateIdentityViewModel(
             TagProfile tagProfile,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
-            IContractsService contractsService)
-            : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService)
+            IContractsService contractsService,
+            ILogService logService)
+            : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.contractsService = contractsService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
@@ -36,7 +37,6 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoBind()
         {
             await base.DoBind();
-            this.cancelLoadPhotos = false;
             AssignProperties();
             this.TagProfile.Changed += TagProfile_Changed;
             this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
@@ -44,7 +44,8 @@ namespace XamarinApp.ViewModels.Registration
 
         protected override async Task DoUnbind()
         {
-            this.cancelLoadPhotos = true;
+            this.loadPhotosTimestamp = DateTime.UtcNow;
+            this.Photos.Clear();
             this.TagProfile.Changed -= TagProfile_Changed;
             this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
             await base.DoUnbind();
@@ -99,12 +100,11 @@ namespace XamarinApp.ViewModels.Registration
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
-#pragma warning disable 4014
-            LoadPhotos();
-#pragma warning restore 4014
+            this.loadPhotosTimestamp = DateTime.UtcNow;
+            _ = LoadPhotos(this.loadPhotosTimestamp);
         }
 
-        private async Task LoadPhotos()
+        private async Task LoadPhotos(DateTime now)
         {
             this.Photos.Clear();
 
@@ -112,14 +112,15 @@ namespace XamarinApp.ViewModels.Registration
             {
                 foreach (Attachment attachment in this.TagProfile.LegalIdentity.Attachments.GetImageAttachments())
                 {
-                    if (this.cancelLoadPhotos)
-                    {
-                        this.cancelLoadPhotos = false;
+                    if (this.loadPhotosTimestamp > now)
                         return;
-                    }
+
                     try
                     {
                         KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
+
+                        if (this.loadPhotosTimestamp > now)
+                            return;
 
                         using (TemporaryFile file = pair.Value)
                         {
@@ -127,11 +128,13 @@ namespace XamarinApp.ViewModels.Registration
                             MemoryStream ms = new MemoryStream();
                             await file.CopyToAsync(ms);
                             ms.Reset();
-                            this.Photos.Add(ImageSource.FromStream(() => ms));
+                            ImageSource imageSource = ImageSource.FromStream(() => ms);
+                            Dispatcher.BeginInvokeOnMainThread(() => this.Photos.Add(imageSource));
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        this.LogService.LogException(ex);
                     }
                 }
             }
@@ -139,12 +142,12 @@ namespace XamarinApp.ViewModels.Registration
 
         private void TagProfile_Changed(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(AssignProperties);
+            Dispatcher.BeginInvokeOnMainThread(AssignProperties);
         }
 
         private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.TagProfile.SetLegalIdentity(e.Identity);
                 AssignProperties();

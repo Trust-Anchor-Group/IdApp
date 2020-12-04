@@ -12,5 +12,6 @@ namespace XamarinApp
         IAuthService AuthService { get; }
         INeuronService NeuronService { get; }
         INetworkService NetworkService { get; }
+        ILogService LogService { get; }
     }
 }

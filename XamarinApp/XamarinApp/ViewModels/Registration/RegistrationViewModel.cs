@@ -16,6 +16,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private readonly TagProfile tagProfile;
         private readonly ISettingsService settingsService;
+        private readonly ILogService logService;
         private readonly INeuronService neuronService;
         private readonly IAuthService authService;
         private readonly IContractsService contractsService;
@@ -23,12 +24,12 @@ namespace XamarinApp.ViewModels.Registration
         private readonly INetworkService networkService;
         
         public RegistrationViewModel()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IContractsService contractsService, INavigationService navigationService)
+        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IContractsService contractsService, INavigationService navigationService, ILogService logService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
@@ -37,15 +38,16 @@ namespace XamarinApp.ViewModels.Registration
             this.contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
+            this.logService = logService ?? DependencyService.Resolve<ILogService>();
             GoToNextCommand = new Command(GoToNext, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
-                this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.networkService)),
-                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.authService, this.contractsService, this.networkService)),
-                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService)),
-                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService)),
-                this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService))
+                this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.networkService, this.logService)),
+                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.authService, this.contractsService, this.networkService, this.logService)),
+                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService, this.logService)),
+                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService, this.logService)),
+                this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.logService))
             };
 
             this.CurrentStep = (int)DefaultStep;

@@ -15,13 +15,15 @@ namespace XamarinApp.ViewModels.Registration
             TagProfile tagProfile, 
             INeuronService neuronService, 
             INavigationService navigationService,
-            ISettingsService settingsService)
+            ISettingsService settingsService,
+            ILogService logService)
         {
             this.Step = step;
             this.TagProfile = tagProfile;
             this.NeuronService = neuronService;
             this.NavigationService = navigationService;
             this.SettingsService = settingsService;
+            this.LogService = logService;
         }
 
         public static readonly BindableProperty TitleProperty =
@@ -39,6 +41,7 @@ namespace XamarinApp.ViewModels.Registration
         protected INeuronService NeuronService { get; }
         protected INavigationService NavigationService { get; }
         protected ISettingsService SettingsService { get; }
+        protected ILogService LogService { get; }
 
         protected virtual void OnStepCompleted(EventArgs e)
         {
@@ -48,7 +51,7 @@ namespace XamarinApp.ViewModels.Registration
 
         protected void BeginInvokeSetIsDone(params ICommand[] commands)
         {
-            Device.BeginInvokeOnMainThread(() => SetIsDone(commands));
+            Dispatcher.BeginInvokeOnMainThread(() => SetIsDone(commands));
         }
 
         protected void SetIsDone(params ICommand[] commands)

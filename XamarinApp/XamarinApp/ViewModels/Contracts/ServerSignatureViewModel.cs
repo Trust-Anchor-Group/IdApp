@@ -2,23 +2,18 @@
 using System.Globalization;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Contracts
 {
     public class ServerSignatureViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
-        private readonly Contract contract;
-
         public ServerSignatureViewModel(Contract contract)
         {
-            this.navigationService = DependencyService.Resolve<INavigationService>();
             if (contract != null)
             {
                 this.Provider = contract.Provider;
-                this.Timestamp = this.contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
-                this.Signature = Convert.ToBase64String(this.contract.ServerSignature.DigitalSignature);
+                this.Timestamp = contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
+                this.Signature = Convert.ToBase64String(contract.ServerSignature.DigitalSignature);
             }
         }
 

@@ -18,7 +18,7 @@ namespace XamarinApp.Views.Registration
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            Device.BeginInvokeOnMainThread(() =>
+            Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.CarouselView.ScrollTo(GetViewModel<RegistrationViewModel>().CurrentStep, position: ScrollToPosition.Center);
             });

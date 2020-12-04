@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,8 +20,9 @@ namespace XamarinApp.ViewModels.Registration
             INeuronService neuronService, 
             INavigationService navigationService,
             ISettingsService settingsService,
-            INetworkService networkService)
-            : base(RegistrationStep.Operator, tagProfile, neuronService, navigationService, settingsService)
+            INetworkService networkService,
+            ILogService logService)
+            : base(RegistrationStep.Operator, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
             this.Operators = new ObservableCollection<string>();
@@ -87,7 +89,7 @@ namespace XamarinApp.ViewModels.Registration
 
                 (bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
-                Device.BeginInvokeOnMainThread(async () =>
+                Dispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     SetIsDone(ConnectCommand);
 
@@ -97,9 +99,14 @@ namespace XamarinApp.ViewModels.Registration
                     }
                     else
                     {
+                        this.LogService.LogException(new InvalidOperationException(), new KeyValuePair<string, string>("Connect", "Failed to connect"));
                         await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                     }
                 });
+            }
+            catch(Exception ex)
+            {
+                this.LogService.LogException(ex);
             }
             finally
             {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Waher.Script;
 
 namespace XamarinApp.PersonalNumbers

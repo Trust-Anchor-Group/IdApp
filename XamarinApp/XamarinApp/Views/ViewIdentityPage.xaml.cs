@@ -44,7 +44,7 @@ namespace XamarinApp.Views
 			this.BindingContext = this;
 			InitializeComponent();
 
-			byte[] Png = QR.GenerateCodePng("iotid:" + this.identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
+			byte[] Png = QR.GenerateCodePng(Constants.IoTSchemes.IotId + ":" + this.identity.Id, (int)this.QrCode.WidthRequest, (int)this.QrCode.HeightRequest);
 			this.QrCode.Source = ImageSource.FromStream(() => new MemoryStream(Png));
 			this.QrCode.IsVisible = true;
 
@@ -167,7 +167,7 @@ namespace XamarinApp.Views
 
         private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.OnPropertyChanged("Created");
                 this.OnPropertyChanged("Updated");

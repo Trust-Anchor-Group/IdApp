@@ -2,10 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
+using Device = Xamarin.Forms.Device;
 
 namespace XamarinApp
 {
@@ -30,6 +34,7 @@ namespace XamarinApp
 			builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
 			builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
 			builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
+			builder.RegisterInstance(this.sdk.LogService).SingleInstance();
 
 			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
@@ -91,7 +96,10 @@ namespace XamarinApp
 
         protected override async void OnStart()
         {
-            await PerformStartup();
+            AppCenter.Start("android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;" +
+                            "uwp={Your UWP App secret here};" +
+                            "ios={Your iOS App secret here}",
+                typeof(Analytics), typeof(Crashes)); await PerformStartup();
         }
 
 		protected override async void OnResume()

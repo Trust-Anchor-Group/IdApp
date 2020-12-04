@@ -12,8 +12,9 @@ namespace XamarinApp.ViewModels.Registration
             TagProfile tagProfile,
             INeuronService neuronService,
             INavigationService navigationService,
-            ISettingsService settingsService)
-            : base(RegistrationStep.Pin, tagProfile, neuronService, navigationService, settingsService)
+            ISettingsService settingsService,
+            ILogService logService)
+            : base(RegistrationStep.Pin, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.PinChangedCommand = new Command<string>(s => Pin = s);
             this.RetypedPinChangedCommand = new Command<string>(s => RetypedPin = s);

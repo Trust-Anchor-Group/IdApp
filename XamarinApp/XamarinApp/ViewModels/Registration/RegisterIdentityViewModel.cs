@@ -26,8 +26,9 @@ namespace XamarinApp.ViewModels.Registration
             INeuronService neuronService, 
             INavigationService navigationService, 
             ISettingsService settingsService,
-            IContractsService contractsService)
-         : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, navigationService, settingsService)
+            IContractsService contractsService,
+            ILogService logService)
+         : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.contractsService = contractsService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
@@ -45,10 +46,27 @@ namespace XamarinApp.ViewModels.Registration
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
         }
 
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            this.FirstName = "John";
+            this.LastNames = "Doe";
+            this.PersonalNumber = "19701231-3537";
+            this.Address = "Storgatan 1";
+            this.ZipCode = "11223";
+            this.City = "Stockholm";
+        }
+
         public ICommand RegisterCommand { get; }
         public ICommand TakePhotoCommand { get; }
         public ICommand PickPhotoCommand { get; }
         public ICommand RemovePhotoCommand { get; }
+
+        private static void OnPropertyChanged(BindableObject b, object oldValue, object newValue)
+        {
+            RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
+            viewModel.RegisterCommand.ChangeCanExecute();
+        }
 
         public static readonly BindableProperty HasPhotoProperty =
             BindableProperty.Create("HasPhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
@@ -104,11 +122,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty FirstNameProperty =
-            BindableProperty.Create("FirstName", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-                viewModel.RegisterCommand.ChangeCanExecute();
-            });
+            BindableProperty.Create("FirstName", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
         public string FirstName
         {
@@ -117,11 +131,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty MiddleNamesProperty =
-            BindableProperty.Create("MiddleNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-                viewModel.RegisterCommand.ChangeCanExecute();
-            });
+            BindableProperty.Create("MiddleNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
         public string MiddleNames
         {
@@ -130,7 +140,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty LastNamesProperty =
-            BindableProperty.Create("LastNames", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("LastNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
         public string LastNames
         {
@@ -139,11 +149,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty PersonalNumberProperty =
-            BindableProperty.Create("PersonalNumber", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-                viewModel.RegisterCommand.ChangeCanExecute();
-            });
+            BindableProperty.Create("PersonalNumber", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
         public string PersonalNumber
         {
@@ -161,7 +167,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty AddressProperty =
-            BindableProperty.Create("Address", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("Address", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
         public string Address
         {
@@ -179,7 +185,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty ZipCodeProperty =
-            BindableProperty.Create("ZipCode", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("ZipCode", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
         public string ZipCode
         {
@@ -197,7 +203,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CityProperty =
-            BindableProperty.Create("City", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+            BindableProperty.Create("City", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
         public string City
         {
@@ -212,15 +218,6 @@ namespace XamarinApp.ViewModels.Registration
         {
             get { return (string)GetValue(RegionProperty); }
             set { SetValue(RegionProperty, value); }
-        }
-
-        public static readonly BindableProperty CountryProperty =
-            BindableProperty.Create("Country", typeof(string), typeof(RegisterIdentityViewModel), default(string));
-
-        public string Country
-        {
-            get { return (string)GetValue(CountryProperty); }
-            set { SetValue(CountryProperty, value); }
         }
 
         public static readonly BindableProperty DeviceIdProperty =
@@ -356,7 +353,7 @@ namespace XamarinApp.ViewModels.Registration
             try
             {
                 this.LegalIdentity = await this.contractsService.AddLegalIdentityAsync(CreateRegisterModel(), this.photos.Values.ToArray());
-                Device.BeginInvokeOnMainThread(() =>
+                Dispatcher.BeginInvokeOnMainThread(() =>
                 {
                     SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
                     OnStepCompleted(EventArgs.Empty);
@@ -364,6 +361,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             catch (Exception ex)
             {
+                this.LogService.LogException(ex);
                 await this.NavigationService.DisplayAlert(ex);
             }
             finally

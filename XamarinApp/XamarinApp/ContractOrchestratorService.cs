@@ -14,15 +14,18 @@ namespace XamarinApp
         private readonly TagProfile tagProfile;
         private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
+        private readonly ILogService logService;
 
         public ContractOrchestratorService(
             TagProfile tagProfile, 
             IContractsService contractsService, 
-            INavigationService navigationService)
+            INavigationService navigationService,
+            ILogService logService)
         {
             this.tagProfile = tagProfile;
             this.contractsService = contractsService;
             this.navigationService = navigationService;
+            this.logService = logService;
         }
 
         public override Task Load()
@@ -184,6 +187,7 @@ namespace XamarinApp
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
 

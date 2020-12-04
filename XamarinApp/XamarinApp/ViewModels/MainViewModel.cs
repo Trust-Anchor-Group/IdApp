@@ -49,7 +49,7 @@ namespace XamarinApp.ViewModels
 
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() => HandleConnectionStateChanged(e.State));
+            Dispatcher.BeginInvokeOnMainThread(() => HandleConnectionStateChanged(e.State));
         }
 
         public void HandleConnectionStateChanged(XmppState state)

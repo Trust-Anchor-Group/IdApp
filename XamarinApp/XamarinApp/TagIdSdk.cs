@@ -24,9 +24,10 @@ namespace XamarinApp
         private TagIdSdk()
         {
             this.TagProfile = new TagProfile();
-            this.AuthService = new AuthService();
+            this.LogService = new LogService();
+            this.AuthService = new AuthService(this.LogService);
             this.NetworkService = new NetworkService();
-            this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService);
+            this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService, this.LogService);
         }
 
         public void Dispose()
@@ -52,7 +53,8 @@ namespace XamarinApp
         public IAuthService AuthService { get; private set; }
         public INeuronService NeuronService { get; private set; }
         public INetworkService NetworkService { get; private set; }
-
+        public ILogService LogService { get; private set; }
+        
         public async Task Startup()
         {
             Types.Initialize(

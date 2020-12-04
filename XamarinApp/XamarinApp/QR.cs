@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using SkiaSharp;
 using ZXing;
 using ZXing.QrCode;
@@ -9,33 +8,33 @@ namespace XamarinApp
 {
 	public static class QR
 	{
-		public static byte[] GenerateCodePng(string Text, int Width, int Height)
+		public static byte[] GenerateCodePng(string text, int width, int height)
 		{
-			BarcodeWriterPixelData Writer = new BarcodeWriterPixelData()
+			BarcodeWriterPixelData writer = new BarcodeWriterPixelData()
 			{
 				Format = BarcodeFormat.QR_CODE,
 				Options = new QrCodeEncodingOptions()
 				{
-					Width = Width,
-					Height = Height
+					Width = width,
+					Height = height
 				}
 			};
 
-			PixelData QrCode = Writer.Write(Text);
-			Width = QrCode.Width;
-			Height = QrCode.Height;
+			PixelData qrCode = writer.Write(text);
+			width = qrCode.Width;
+			height = qrCode.Height;
 
-			int Size = Width * Height << 2;
+			int size = width * height << 2;
 
-			using (SKData Data = SKData.Create(Size))
+			using (SKData data = SKData.Create(size))
 			{
-				Marshal.Copy(QrCode.Pixels, 0, Data.Data, Size);
+				Marshal.Copy(qrCode.Pixels, 0, data.Data, size);
 
-				using (SKImage Result = SKImage.FromPixels(new SKImageInfo(Width, Height, SKColorType.Bgra8888), Data, Width << 2))
+				using (SKImage result = SKImage.FromPixels(new SKImageInfo(width, height, SKColorType.Bgra8888), data, width << 2))
 				{
-					using (SKData Encoded = Result.Encode(SKEncodedImageFormat.Png, 100))
+					using (SKData encoded = result.Encode(SKEncodedImageFormat.Png, 100))
 					{
-						return Encoded.ToArray();
+						return encoded.ToArray();
 					}
 				}
 			}

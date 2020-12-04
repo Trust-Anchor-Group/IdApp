@@ -11,14 +11,12 @@ namespace XamarinApp.Views.Contracts
 	public partial class MyContractsPage
 	{
 		private readonly Dictionary<string, Contract> contracts = new Dictionary<string, Contract>();
-		private readonly TagProfile tagProfile;
 		private readonly bool createdContracts;
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
 
 		public MyContractsPage(bool createdContracts)
 		{
-			this.tagProfile = DependencyService.Resolve<TagProfile>();
 			this.createdContracts = createdContracts;
 			this.BindingContext = this;
             this.navigationService = DependencyService.Resolve<INavigationService>();

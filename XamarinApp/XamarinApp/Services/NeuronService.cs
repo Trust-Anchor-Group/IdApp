@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace XamarinApp.Services
     internal sealed class NeuronService : LoadableService, INeuronService
     {
         private readonly INetworkService networkService;
+        private readonly ILogService logService;
         private readonly TagProfile tagProfile;
         private Timer reconnectTimer;
         private XmppClient xmppClient;
@@ -23,11 +25,12 @@ namespace XamarinApp.Services
         private string passwordHash;
         private string passwordHashMethod;
         private bool xmppSettingsOk;
-        private readonly ISniffer sniffer;
+        private readonly InMemorySniffer sniffer;
 
-        public NeuronService(TagProfile tagProfile, INetworkService networkService)
+        public NeuronService(TagProfile tagProfile, INetworkService networkService, ILogService logService)
         {
             this.networkService = networkService;
+            this.logService = logService;
             this.tagProfile = tagProfile;
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
@@ -178,8 +181,9 @@ namespace XamarinApp.Services
                     this.xmppClient?.SetPresence(Availability.Online);
                     this.EndLoad(true);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    this.logService.LogException(ex, new KeyValuePair<string, string>("Method", $"{typeof(NeuronService)}.{nameof(Load)}()"));
                     this.EndLoad(false);
                 }
             }
@@ -202,8 +206,9 @@ namespace XamarinApp.Services
 
                     this.DestroyXmppClient();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    this.logService.LogException(ex, new KeyValuePair<string, string>("Method", $"{typeof(NeuronService)}.{nameof(Unload)}()"));
                 }
 
                 this.EndUnload();
@@ -365,15 +370,16 @@ namespace XamarinApp.Services
                     client.OnStateChanged -= OnStateChanged;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                this.logService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), $"{operation}"));
                 succeeded = false;
                 errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
             }
 
             if (!succeeded)
             {
-                System.Diagnostics.Debug.WriteLine("Sniffer: ", ((InMemorySniffer)this.sniffer).SnifferToText());
+                System.Diagnostics.Debug.WriteLine("Sniffer: ", this.sniffer.SnifferToText());
 
                 if (!streamNegotiation || timeout)
                     errorMessage = string.Format(AppResources.CantConnectTo, domain);
@@ -435,9 +441,20 @@ namespace XamarinApp.Services
             if (client == null)
                 return false;
 
-            ServiceItemsDiscoveryEventArgs e2 = await client.ServiceItemsDiscoveryAsync(null, string.Empty, string.Empty);
+            ServiceItemsDiscoveryEventArgs response;
 
-            foreach (Item Item in e2.Items)
+            try
+            {
+                response = await client.ServiceItemsDiscoveryAsync(null, string.Empty, string.Empty);
+            }
+            catch (Exception ex)
+            {
+                string commsDump = this.sniffer.SnifferToText();
+                this.logService.LogException(ex, new KeyValuePair<string, string>("Sniffer", commsDump));
+                return false;
+            }
+
+            foreach (Item Item in response.Items)
             {
                 ServiceDiscoveryEventArgs e3 = await client.ServiceDiscoveryAsync(null, Item.JID, Item.Node);
 

@@ -243,7 +243,7 @@ namespace XamarinApp.Views.Contracts
 			try
 			{
 				this.template = await this.contractsService.GetContractAsync(this.templateId);
-				Device.BeginInvokeOnMainThread(this.PopulateTemplateForm);
+                Dispatcher.BeginInvokeOnMainThread(this.PopulateTemplateForm);
 			}
 			catch (Exception ex)
 			{
@@ -337,8 +337,7 @@ namespace XamarinApp.Views.Contracts
 		{
 			if (sender is Button button)
             {
-                ScanQrCodePage page = new ScanQrCodePage();
-                page.OpenCommandText = AppResources.Add;
+                ScanQrCodePage page = new ScanQrCodePage { OpenCommandText = AppResources.Add };
                 string code = await page.ScanQrCode();
 
                 string id = !string.IsNullOrWhiteSpace(code) && code.StartsWith(Constants.IoTSchemes.IotId + ":") ? code.Substring(6) : string.Empty;

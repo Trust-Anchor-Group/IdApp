@@ -50,7 +50,7 @@ namespace XamarinApp
         {
             if (e.IsLoaded)
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                Dispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
                     if (this.tagProfile.IsComplete())

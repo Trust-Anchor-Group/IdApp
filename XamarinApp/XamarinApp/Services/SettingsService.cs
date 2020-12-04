@@ -38,9 +38,7 @@ namespace XamarinApp.Services
                 }
                 else
                 {
-                    var newState = new Setting();
-                    newState.Key = key;
-                    newState.Value = JsonConvert.SerializeObject(state);
+                    var newState = new Setting { Key = key, Value = JsonConvert.SerializeObject(state) };
                     connection.Insert(newState);
                 }
             }

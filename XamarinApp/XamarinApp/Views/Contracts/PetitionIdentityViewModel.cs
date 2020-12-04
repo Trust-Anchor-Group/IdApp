@@ -17,11 +17,12 @@ namespace XamarinApp.Views.Contracts
     {
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
+        private readonly ILogService logService;
         private readonly LegalIdentity requestorIdentity;
         private readonly string requestorFullJid;
         private readonly string requestedIdentityId;
         private readonly string petitionId;
-        private bool cancelLoadPhotos;
+        private DateTime loadPhotosTimestamp;
 
         public PetitionIdentityViewModel(
             LegalIdentity requestorIdentity,
@@ -32,6 +33,7 @@ namespace XamarinApp.Views.Contracts
         {
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
+            this.logService = DependencyService.Resolve<ILogService>();
             this.requestorIdentity = requestorIdentity;
             this.requestorFullJid = requestorFullJid;
             this.requestedIdentityId = requestedIdentityId;
@@ -46,13 +48,13 @@ namespace XamarinApp.Views.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
-            this.cancelLoadPhotos = false;
-            await LoadPhotos();
+            this.loadPhotosTimestamp = DateTime.UtcNow;
+            _ = LoadPhotos(this.loadPhotosTimestamp);
         }
 
         protected override async Task DoUnbind()
         {
-            this.cancelLoadPhotos = true;
+            this.loadPhotosTimestamp = DateTime.UtcNow;
             this.Photos.Clear();
             await base.DoUnbind();
         }
@@ -63,15 +65,14 @@ namespace XamarinApp.Views.Contracts
 
         public ObservableCollection<ImageSource> Photos { get; }
 
-        private async Task LoadPhotos()
+        private async Task LoadPhotos(DateTime now)
         {
             if (this.requestorIdentity?.Attachments != null)
             {
                 foreach (Attachment attachment in this.requestorIdentity.Attachments.GetImageAttachments())
                 {
-                    if (this.cancelLoadPhotos)
+                    if (this.loadPhotosTimestamp > now)
                     {
-                        this.cancelLoadPhotos = false;
                         return;
                     }
 
@@ -79,17 +80,24 @@ namespace XamarinApp.Views.Contracts
                     {
                         KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
 
+                        if (this.loadPhotosTimestamp > now)
+                        {
+                            return;
+                        }
+
                         using (TemporaryFile file = pair.Value)
                         {
                             file.Reset();
                             MemoryStream ms = new MemoryStream();
                             await file.CopyToAsync(ms);
                             ms.Reset();
-                            this.Photos.Add(ImageSource.FromStream(() => ms));
+                            ImageSource imageSource = ImageSource.FromStream(() => ms);
+                            Dispatcher.BeginInvokeOnMainThread(() => this.Photos.Add(imageSource));
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
+                        this.logService.LogException(ex);
                     }
                 }
             }
