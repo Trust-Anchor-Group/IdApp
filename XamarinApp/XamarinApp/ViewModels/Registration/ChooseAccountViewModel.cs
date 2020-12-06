@@ -347,7 +347,7 @@ namespace XamarinApp.ViewModels.Registration
 
                         if (!string.IsNullOrEmpty(this.TagProfile.LegalJid) || await this.NeuronService.DiscoverServices(client))
                         {
-                            foreach (LegalIdentity identity in await this.contractsService.GetLegalIdentitiesAsync())
+                            foreach (LegalIdentity identity in await this.contractsService.GetLegalIdentitiesAsync(client))
                             {
                                 if (identity.HasClientSignature &&
                                     identity.HasClientPublicKey &&

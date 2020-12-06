@@ -334,7 +334,10 @@ namespace XamarinApp.ViewModels.Registration
                 this.PersonalNumber = pnr;
             }
 
-            await this.NeuronService.DiscoverServices();
+            if (this.TagProfile.NeedsUpdating()) // Can happen when creating a new account
+            {
+                await this.NeuronService.DiscoverServices();
+            }
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {

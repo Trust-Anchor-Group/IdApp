@@ -61,6 +61,7 @@ namespace XamarinApp.Services
                 this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
                 this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
                 this.contractsClient.Dispose();
+                this.contractsClient = null;
             }
         }
 
@@ -80,7 +81,7 @@ namespace XamarinApp.Services
 
         private async void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            if (this.neuronService.State == XmppState.Connected)
+            if (e.State == XmppState.Connected)
             {
                 if (this.contractsClient == null)
                 {
@@ -242,10 +243,21 @@ namespace XamarinApp.Services
             return contractsClient.SignAsync(data);
         }
 
-        public Task<LegalIdentity[]> GetLegalIdentitiesAsync()
+        public async Task<LegalIdentity[]> GetLegalIdentitiesAsync(XmppClient client = null)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.GetLegalIdentitiesAsync();
+            if(client == null)
+            {
+                AssertContractsIsAvailable();
+                return await contractsClient.GetLegalIdentitiesAsync();
+            }
+            else
+            {
+                AssertContractsIsAvailableLight();
+                using (ContractsClient cc = await ContractsClient.Create(client, this.tagProfile.LegalJid))
+                {
+                    return await cc.GetLegalIdentitiesAsync();
+                }
+            }
         }
 
         public bool? ValidateSignature(LegalIdentity legalIdentity, byte[] data, byte[] signature)
@@ -269,6 +281,14 @@ namespace XamarinApp.Services
         private void AssertContractsIsAvailable()
         {
             if (contractsClient == null || string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+            {
+                throw new XmppFeatureNotSupportedException("Contracts is not supported");
+            }
+        }
+
+        private void AssertContractsIsAvailableLight()
+        {
+            if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
                 throw new XmppFeatureNotSupportedException("Contracts is not supported");
             }

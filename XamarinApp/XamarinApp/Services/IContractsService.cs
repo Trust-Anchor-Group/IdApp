@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Content;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using XamarinApp.Models;
@@ -35,7 +36,7 @@ namespace XamarinApp.Services
         Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url, TimeSpan timeout);
 
         Task<LegalIdentity> AddLegalIdentityAsync(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments);
-        Task<LegalIdentity[]> GetLegalIdentitiesAsync();
+        Task<LegalIdentity[]> GetLegalIdentitiesAsync(XmppClient client = null);
         Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId);
         Task PetitionIdentityAsync(string legalId, string petitionId, string purpose);
         Task SendPetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response);

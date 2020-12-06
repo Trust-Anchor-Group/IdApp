@@ -97,6 +97,7 @@ namespace XamarinApp.Services
             {
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
                 this.xmppClient.Dispose();
+                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
             }
             this.xmppClient = null;
         }
@@ -200,7 +201,6 @@ namespace XamarinApp.Services
                         TaskCompletionSource<bool> offlineSent = new TaskCompletionSource<bool>();
                         this.xmppClient.SetPresence(Availability.Offline, (sender, e) => offlineSent.TrySetResult(true));
                         Task _ = Task.Delay(Constants.Timeouts.XmppPresence).ContinueWith(__ => offlineSent.TrySetResult(false));
-
                         await offlineSent.Task;
                     }
 
@@ -456,29 +456,29 @@ namespace XamarinApp.Services
 
             foreach (Item Item in response.Items)
             {
-                ServiceDiscoveryEventArgs e3 = await client.ServiceDiscoveryAsync(null, Item.JID, Item.Node);
+                ServiceDiscoveryEventArgs itemResponse = await client.ServiceDiscoveryAsync(null, Item.JID, Item.Node);
 
-                if (e3.HasFeature(ContractsClient.NamespaceLegalIdentities) &&
-                    e3.HasFeature(ContractsClient.NamespaceLegalIdentities))
+                if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities) &&
+                    itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
                 {
                     this.tagProfile.SetLegalJId(Item.JID);
                 }
 
-                if (e3.HasFeature(ThingRegistryClient.NamespaceDiscovery))
+                if (itemResponse.HasFeature(ThingRegistryClient.NamespaceDiscovery))
                 {
                     this.tagProfile.SetRegistryJId(Item.JID);
                 }
 
-                if (e3.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
-                    e3.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
-                    e3.HasFeature(ProvisioningClient.NamespaceProvisioningToken))
+                if (itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
+                    itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
+                    itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningToken))
                 {
                     this.tagProfile.SetProvisioningJId(Item.JID);
                 }
 
-                if (e3.HasFeature(HttpFileUploadClient.Namespace))
+                if (itemResponse.HasFeature(HttpFileUploadClient.Namespace))
                 {
-                    long? maxSize = HttpFileUploadClient.FindMaxFileSize(client, e3);
+                    long? maxSize = HttpFileUploadClient.FindMaxFileSize(client, itemResponse);
                     this.tagProfile.SetFileUploadParameters(Item.JID, maxSize);
                 }
             }

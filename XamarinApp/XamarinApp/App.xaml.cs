@@ -102,10 +102,11 @@ namespace XamarinApp
 
         protected override async void OnStart()
         {
-            AppCenter.Start("android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;" +
-                            "uwp={Your UWP App secret here};" +
-                            "ios={Your iOS App secret here}",
-                typeof(Analytics), typeof(Crashes)); await PerformStartup();
+            AppCenter.Start(
+                "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios={Your iOS App secret here}",
+                typeof(Analytics),
+                typeof(Crashes)); 
+            await PerformStartup();
         }
 
 		protected override async void OnResume()

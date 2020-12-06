@@ -129,7 +129,7 @@ namespace XamarinApp.ViewModels.Registration
                 case RegistrationStep.RegisterIdentity:
                     {
                         RegisterIdentityViewModel vm = (RegisterIdentityViewModel)sender;
-                        this.tagProfile.SetLegalIdentity(vm.LegalIdentity);
+                        this.tagProfile.SetLegalIdentity(vm.LegalIdentity); // created
                         GoToNextCommand.Execute();
                     }
                     break;
@@ -137,7 +137,7 @@ namespace XamarinApp.ViewModels.Registration
                 case RegistrationStep.ValidateIdentity:
                     {
                         ValidateIdentityViewModel vm = (ValidateIdentityViewModel)sender;
-                        this.tagProfile.SetLegalJId(vm.LegalId);
+                        this.tagProfile.SetLegalIdentity(vm.LegalIdentity); // validated
                         GoToNextCommand.Execute();
                     }
                     break;

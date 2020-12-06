@@ -61,6 +61,7 @@ namespace XamarinApp.ViewModels.Registration
             Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
             Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.TagProfile.LegalIdentity?.Id;
+            LegalIdentity = this.TagProfile.LegalIdentity;
             BareJId = this.NeuronService?.BareJId ?? string.Empty;
             State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
             From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
@@ -180,6 +181,8 @@ namespace XamarinApp.ViewModels.Registration
             get { return (string)GetValue(LegalIdProperty); }
             set { SetValue(LegalIdProperty, value); }
         }
+
+        public LegalIdentity LegalIdentity { get; private set; }
 
         public static readonly BindableProperty BareJIdProperty =
             BindableProperty.Create("BareJId", typeof(string), typeof(ValidateIdentityViewModel), default(string));

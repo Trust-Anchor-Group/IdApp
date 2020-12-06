@@ -403,7 +403,6 @@ namespace XamarinApp.Services
             DecrementConfigurationStep(RegistrationStep.Account); // prev
         }
 
-        // Step 4
         public void SetLegalJId(string legalJId)
         {
             this.LegalJid = legalJId;
