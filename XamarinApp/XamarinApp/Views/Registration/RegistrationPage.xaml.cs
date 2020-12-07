@@ -18,6 +18,23 @@ namespace XamarinApp.Views.Registration
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            GetViewModel<RegistrationViewModel>().StepChanged += RegistrationViewModel_StepChanged;
+            UpdateUiStep();
+        }
+
+        protected override void OnDisappearing()
+        {
+            GetViewModel<RegistrationViewModel>().StepChanged -= RegistrationViewModel_StepChanged;
+            base.OnDisappearing();
+        }
+
+        private void RegistrationViewModel_StepChanged(object sender, EventArgs e)
+        {
+            UpdateUiStep();
+        }
+
+        private void UpdateUiStep()
+        {
             Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.CarouselView.ScrollTo(GetViewModel<RegistrationViewModel>().CurrentStep, position: ScrollToPosition.Center);

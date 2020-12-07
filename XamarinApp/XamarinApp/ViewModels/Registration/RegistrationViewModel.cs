@@ -13,7 +13,7 @@ namespace XamarinApp.ViewModels.Registration
     public class RegistrationViewModel : BaseViewModel
     {
         private const RegistrationStep DefaultStep = RegistrationStep.Operator;
-
+        public event EventHandler<EventArgs> StepChanged; 
         private readonly TagProfile tagProfile;
         private readonly ISettingsService settingsService;
         private readonly ILogService logService;
@@ -67,7 +67,7 @@ namespace XamarinApp.ViewModels.Registration
             return base.DoUnbind();
         }
 
-        public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; private set; }
+        public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; }
 
         public ICommand GoToPrevCommand { get; }
         public ICommand GoToNextCommand { get; }
@@ -87,6 +87,7 @@ namespace XamarinApp.ViewModels.Registration
                 RegistrationViewModel viewModel = (RegistrationViewModel)b;
                 viewModel.UpdateStepTitle();
                 viewModel.CanGoBack = viewModel.GoToPrevCommand.CanExecute(null);
+                Device.BeginInvokeOnMainThread(() => viewModel.StepChanged?.Invoke(viewModel, EventArgs.Empty));
             });
 
         public int CurrentStep
