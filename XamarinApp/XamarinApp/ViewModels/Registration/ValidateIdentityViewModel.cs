@@ -150,6 +150,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             Dispatcher.BeginInvokeOnMainThread(() =>
             {
+                this.LegalIdentity = e.Identity;
                 this.TagProfile.SetLegalIdentity(e.Identity);
                 AssignProperties();
             });

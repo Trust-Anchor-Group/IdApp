@@ -51,7 +51,7 @@
             <!-- TAB 1 Contents -->
             <StackLayout Grid.Row="2" x:Name="CreateNewTab" IsVisible="{Binding Path=CreateNew}" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
-                <Entry Text="{Binding Path=AccountName}">
+                <Entry Text="{Binding Path=CreateNewAccountName}">
                     <Entry.Behaviors>
                         <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PasswordEntry" BindingContext="{Binding BindingContext, Source={x:Reference CreateNewTab}}"/>
                     </Entry.Behaviors>
@@ -74,7 +74,7 @@
             <!-- TAB 2 Contents -->
             <StackLayout Grid.Row="2" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
-                <Entry Text="{Binding Path=AccountName}" />
+                <Entry Text="{Binding Path=ConnectToExistingAccountName}" />
                 <Label Text="{x:Static resources:AppResources.Password}" />
                 <Entry IsPassword="True" Text="{Binding Path=Password}"/>
             </StackLayout>

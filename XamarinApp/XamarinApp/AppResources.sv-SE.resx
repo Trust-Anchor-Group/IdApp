@@ -222,6 +222,9 @@
   <data name="LegalId" xml:space="preserve">
     <value>Juridiskt Id</value>
   </data>
+  <data name="MainPageTitle" xml:space="preserve">
+    <value>TAG</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>
   </data>

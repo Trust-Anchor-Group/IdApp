@@ -91,11 +91,12 @@ namespace XamarinApp.ViewModels.Registration
 
                 Dispatcher.BeginInvokeOnMainThread(async () =>
                 {
-                    SetIsDone(ConnectCommand);
+                    this.SetIsDone(ConnectCommand);
 
                     if (succeeded)
                     {
-                        OnStepCompleted(EventArgs.Empty);
+                        this.TagProfile.SetDomain(this.GetOperator());
+                        this.OnStepCompleted(EventArgs.Empty);
                     }
                     else
                     {
@@ -110,7 +111,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             finally
             {
-                BeginInvokeSetIsDone(ConnectCommand);
+                this.BeginInvokeSetIsDone(ConnectCommand);
             }
 
         }

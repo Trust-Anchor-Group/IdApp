@@ -376,6 +376,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TAG.
+        /// </summary>
+        internal static string MainPageTitle {
+            get {
+                return ResourceManager.GetString("MainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         internal static string Message {

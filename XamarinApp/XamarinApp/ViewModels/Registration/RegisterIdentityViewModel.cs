@@ -345,6 +345,7 @@ namespace XamarinApp.ViewModels.Registration
             try
             {
                 this.LegalIdentity = await this.contractsService.AddLegalIdentityAsync(CreateRegisterModel(), this.photos.Values.ToArray());
+                this.TagProfile.SetLegalIdentity(this.LegalIdentity);
                 Dispatcher.BeginInvokeOnMainThread(() =>
                 {
                     SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);

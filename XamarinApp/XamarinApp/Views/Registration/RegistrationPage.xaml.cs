@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinApp.Services;
 using XamarinApp.ViewModels.Registration;
 
 namespace XamarinApp.Views.Registration
@@ -38,7 +39,10 @@ namespace XamarinApp.Views.Registration
             Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 int step = GetViewModel<RegistrationViewModel>().CurrentStep;
-                this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center);
+                if (step >= (int)RegistrationStep.Operator && step <= (int)RegistrationStep.Pin)
+                {
+                    this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center);
+                }
             });
         }
 

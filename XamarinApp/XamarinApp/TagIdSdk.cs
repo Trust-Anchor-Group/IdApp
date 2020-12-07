@@ -85,8 +85,11 @@ namespace XamarinApp
         {
             await this.NeuronService.Unload();
             await Types.StopAllModules();
-            filesProvider.Dispose();
-            filesProvider = null;
+            if (this.filesProvider != null)
+            {
+                this.filesProvider.Dispose();
+                this.filesProvider = null;
+            }
         }
 
         public void AutoSave()

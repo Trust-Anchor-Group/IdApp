@@ -98,6 +98,8 @@ namespace XamarinApp.ViewModels.Registration
                 this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
             }
 
+            this.TagProfile.SetPin(this.Pin, this.UsePin);
+
             OnStepCompleted(EventArgs.Empty);
         }
 

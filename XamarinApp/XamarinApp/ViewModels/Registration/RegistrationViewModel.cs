@@ -59,12 +59,25 @@ namespace XamarinApp.ViewModels.Registration
             await base.DoBind();
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
             this.CurrentStep = (int)this.tagProfile.Step;
+            this.tagProfile.StepChanged += TagProfile_StepChanged;
         }
 
         protected override Task DoUnbind()
         {
+            this.tagProfile.StepChanged -= TagProfile_StepChanged;
             RegistrationSteps.ForEach(x => x.StepCompleted -= RegistrationStep_Completed);
             return base.DoUnbind();
+        }
+
+        private void TagProfile_StepChanged(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                if ((int)this.tagProfile.Step != this.CurrentStep)
+                {
+                    this.CurrentStep = (int)this.tagProfile.Step;
+                }
+            });
         }
 
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; }
@@ -117,49 +130,35 @@ namespace XamarinApp.ViewModels.Registration
             {
                 case RegistrationStep.Account:
                     {
-                        ChooseAccountViewModel vm = (ChooseAccountViewModel)sender;
-                        this.tagProfile.SetAccount(vm.AccountName, vm.PasswordHash, vm.PasswordHashMethod);
-                        if (vm.LegalIdentity != null)
-                        {
-                            this.tagProfile.SetLegalIdentity(vm.LegalIdentity);
-                        }
+                        //ChooseAccountViewModel vm = (ChooseAccountViewModel)sender;
                         GoToNextCommand.Execute();
-                        if (vm.Mode == AccountMode.Connect && vm.LegalIdentity != null)
-                        {
-                            // Skip Register identity, go directly to Validate identity
-                            Dispatcher.BeginInvokeOnMainThread(() => GoToNextCommand.Execute());
-                        }
                     }
                     break;
 
                 case RegistrationStep.RegisterIdentity:
                     {
-                        RegisterIdentityViewModel vm = (RegisterIdentityViewModel)sender;
-                        this.tagProfile.SetLegalIdentity(vm.LegalIdentity); // created
+                        //RegisterIdentityViewModel vm = (RegisterIdentityViewModel)sender;
                         GoToNextCommand.Execute();
                     }
                     break;
 
                 case RegistrationStep.ValidateIdentity:
                     {
-                        ValidateIdentityViewModel vm = (ValidateIdentityViewModel)sender;
-                        this.tagProfile.SetLegalIdentity(vm.LegalIdentity); // validated
+                        //ValidateIdentityViewModel vm = (ValidateIdentityViewModel)sender;
                         GoToNextCommand.Execute();
                     }
                     break;
 
                 case RegistrationStep.Pin:
                     {
-                        DefinePinViewModel vm = (DefinePinViewModel)sender;
-                        this.tagProfile.SetPin(vm.Pin, vm.UsePin);
+                        //DefinePinViewModel vm = (DefinePinViewModel)sender;
                         this.navigationService.ReplaceAsync(new MainPage());
                     }
                     break;
 
                 default: // RegistrationStep.Operator
                     {
-                        ChooseOperatorViewModel vm = (ChooseOperatorViewModel)sender;
-                        this.tagProfile.SetDomain(vm.GetOperator());
+                        //ChooseOperatorViewModel vm = (ChooseOperatorViewModel)sender;
                         GoToNextCommand.Execute();
                     }
                     break;

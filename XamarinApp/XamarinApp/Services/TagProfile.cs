@@ -135,7 +135,7 @@ namespace XamarinApp.Services
             get => this.passwordHash;
             private set
             {
-                if (!string.Equals(this.account, value))
+                if (!string.Equals(this.passwordHash, value))
                 {
                     this.passwordHash = value;
                     FlagAsDirty();
@@ -396,9 +396,13 @@ namespace XamarinApp.Services
         public void SetLegalIdentity(LegalIdentity legalIdentity)
         {
             this.legalIdentity = legalIdentity;
-            if (this.legalIdentity.IsCreatedOrApproved() && Step == RegistrationStep.RegisterIdentity)
+            if (this.legalIdentity.IsCreatedOrApproved())
             {
                 IncrementConfigurationStep();
+                if (this.legalIdentity.State == IdentityState.Approved)
+                {
+                    IncrementConfigurationStep();
+                }
             }
         }
 

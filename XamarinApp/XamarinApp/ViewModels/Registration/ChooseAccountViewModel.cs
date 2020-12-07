@@ -17,11 +17,11 @@ namespace XamarinApp.ViewModels.Registration
         private readonly INetworkService networkService;
 
         public ChooseAccountViewModel(
-            TagProfile tagProfile, 
-            INeuronService neuronService, 
+            TagProfile tagProfile,
+            INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
-            IAuthService authService, 
+            IAuthService authService,
             IContractsService contractsService,
             INetworkService networkService,
             ILogService logService)
@@ -61,7 +61,6 @@ namespace XamarinApp.ViewModels.Registration
             Dispatcher.BeginInvokeOnMainThread(() =>
             {
                 IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
-                AccountName = this.TagProfile.Account;
             });
         }
 
@@ -104,17 +103,30 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(CreateRandomPasswordProperty, value); }
         }
 
-        public static readonly BindableProperty AccountNameProperty =
-            BindableProperty.Create("AccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+        public static readonly BindableProperty CreateNewAccountNameProperty =
+            BindableProperty.Create("CreateNewAccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
-        public string AccountName
+        public string CreateNewAccountName
         {
-            get { return (string)GetValue(AccountNameProperty); }
-            set { SetValue(AccountNameProperty, value); }
+            get { return (string)GetValue(CreateNewAccountNameProperty); }
+            set { SetValue(CreateNewAccountNameProperty, value); }
+        }
+
+        public static readonly BindableProperty ConnectToExistingAccountNameProperty =
+            BindableProperty.Create("ConnectToExistingAccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
+                viewModel.PerformActionCommand.ChangeCanExecute();
+            });
+
+        public string ConnectToExistingAccountName
+        {
+            get { return (string)GetValue(ConnectToExistingAccountNameProperty); }
+            set { SetValue(ConnectToExistingAccountNameProperty, value); }
         }
 
         public static readonly BindableProperty PasswordProperty =
@@ -224,7 +236,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             if (CreateNew)
             {
-                if (string.IsNullOrWhiteSpace(AccountName))
+                if (string.IsNullOrWhiteSpace(CreateNewAccountName))
                 {
                     if (alertUser)
                     {
@@ -262,7 +274,7 @@ namespace XamarinApp.ViewModels.Registration
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(AccountName))
+            if (string.IsNullOrWhiteSpace(ConnectToExistingAccountName))
             {
                 if (alertUser)
                 {
@@ -300,11 +312,11 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     this.PasswordHash = client.PasswordHash;
                     this.PasswordHashMethod = client.PasswordHashMethod;
-                    this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+                    this.TagProfile.SetAccount(this.CreateNewAccountName, client.PasswordHash, client.PasswordHashMethod);
                     return Task.CompletedTask;
                 }
 
-                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.CreateNewAccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {
@@ -313,7 +325,7 @@ namespace XamarinApp.ViewModels.Registration
                     {
                         await Clipboard.SetTextAsync("Password: " + passwordToUse);
                         await this.NavigationService.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
-                        System.Diagnostics.Debug.WriteLine("Username: " + this.AccountName);
+                        System.Diagnostics.Debug.WriteLine("Username: " + this.CreateNewAccountName);
                         System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
                     }
 #endif
@@ -341,7 +353,8 @@ namespace XamarinApp.ViewModels.Registration
 
                 async Task OnConnected(XmppClient client)
                 {
-                    this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+                    this.PasswordHash = client.PasswordHash;
+                    this.PasswordHashMethod = client.PasswordHashMethod;
 
                     if (this.TagProfile.LegalIdentityNeedsUpdating())
                     {
@@ -380,11 +393,21 @@ namespace XamarinApp.ViewModels.Registration
                             {
                                 this.LegalIdentity = createdIdentity;
                             }
+
+                            this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
+                            if (this.LegalIdentity != null)
+                            {
+                                this.TagProfile.SetLegalIdentity(this.LegalIdentity);
+                            }
                         }
+                    }
+                    else
+                    {
+                        this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
                     }
                 }
 
-                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.AccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.ConnectToExistingAccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (!succeeded)
                 {
@@ -405,12 +428,14 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
-            this.SettingsService.SaveState(GetSettingsKey(nameof(AccountName)), this.AccountName);
+            this.SettingsService.SaveState(GetSettingsKey(nameof(CreateNewAccountName)), this.CreateNewAccountName);
+            this.SettingsService.SaveState(GetSettingsKey(nameof(ConnectToExistingAccountName)), this.ConnectToExistingAccountName);
         }
 
         protected override async Task DoRestoreState()
         {
-            this.AccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(AccountName)));
+            this.CreateNewAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(CreateNewAccountName)));
+            this.ConnectToExistingAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ConnectToExistingAccountName)));
             await base.DoRestoreState();
         }
     }

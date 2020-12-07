@@ -108,9 +108,9 @@ namespace XamarinApp.Services
             this.reconnectTimer?.Dispose();
             if (this.xmppClient != null)
             {
+                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
                 this.xmppClient.Dispose();
-                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
             }
             this.xmppClient = null;
         }
@@ -504,9 +504,8 @@ namespace XamarinApp.Services
 
         private void ReconnectTimer_Tick(object _)
         {
-            // TODO: enable after testing is done
-            //if (!(xmppClient is null) && (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline))
-            //    xmppClient.Reconnect();
+            if (!(xmppClient is null) && (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline))
+                xmppClient.Reconnect();
         }
     }
 }
