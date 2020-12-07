@@ -87,6 +87,11 @@ namespace XamarinApp.Services
                    string.IsNullOrEmpty(this.HttpFileUploadJid);
         }
 
+        public bool LegalIdentityNeedsUpdating()
+        {
+            return this.legalIdentity.NeedsUpdating();
+        }
+
         public bool IsCompleteOrWaitingForValidation()
         {
             return Step >= RegistrationStep.ValidateIdentity;

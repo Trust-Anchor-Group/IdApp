@@ -343,7 +343,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
 
-                    if (!this.TagProfile.LegalIdentity.NeedsUpdating())
+                    if (this.TagProfile.LegalIdentityNeedsUpdating())
                     {
                         DateTime now = DateTime.Now;
                         LegalIdentity createdIdentity = null;

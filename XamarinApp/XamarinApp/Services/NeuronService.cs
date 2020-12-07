@@ -26,6 +26,7 @@ namespace XamarinApp.Services
         private string passwordHashMethod;
         private bool xmppSettingsOk;
         private readonly InMemorySniffer sniffer;
+        private bool isCreatingClient;
 
         public NeuronService(TagProfile tagProfile, INetworkService networkService, ILogService logService)
         {
@@ -51,42 +52,54 @@ namespace XamarinApp.Services
 
         private async Task CreateXmppClient()
         {
-            if (this.xmppClient != null)
-            {
-                DestroyXmppClient();
-            }
-            if (this.xmppClient is null ||
-                this.domainName != this.tagProfile.Domain ||
-                this.accountName != this.tagProfile.Account ||
-                this.passwordHash != this.tagProfile.PasswordHash ||
-                this.passwordHashMethod != this.tagProfile.PasswordHashMethod)
-            {
-                this.domainName = this.tagProfile.Domain;
-                this.accountName = this.tagProfile.Account;
-                this.passwordHash = this.tagProfile.PasswordHash;
-                this.passwordHashMethod = this.tagProfile.PasswordHashMethod;
+            if (isCreatingClient)
+                return;
 
-                (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(domainName);
+            try
+            {
+                isCreatingClient = true;
 
-                this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod,
-                    Constants.LanguageCodes.Default, typeof(App).Assembly, this.sniffer)
+                if (this.xmppClient != null)
                 {
-                    TrustServer = false,
-                    AllowCramMD5 = false,
-                    AllowDigestMD5 = false,
-                    AllowPlain = false,
-                    AllowEncryption = true,
-                    AllowScramSHA1 = true,
-                    AllowScramSHA256 = true
-                };
+                    DestroyXmppClient();
+                }
+                if (this.xmppClient is null ||
+                    this.domainName != this.tagProfile.Domain ||
+                    this.accountName != this.tagProfile.Account ||
+                    this.passwordHash != this.tagProfile.PasswordHash ||
+                    this.passwordHashMethod != this.tagProfile.PasswordHashMethod)
+                {
+                    this.domainName = this.tagProfile.Domain;
+                    this.accountName = this.tagProfile.Account;
+                    this.passwordHash = this.tagProfile.PasswordHash;
+                    this.passwordHashMethod = this.tagProfile.PasswordHashMethod;
 
-                this.xmppClient.RequestRosterOnStartup = false;
-                this.xmppClient.OnStateChanged += XmppClient_StateChanged;
+                    (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(domainName);
 
-                this.xmppClient.Connect(domainName);
+                    this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod,
+                        Constants.LanguageCodes.Default, typeof(App).Assembly, this.sniffer)
+                    {
+                        TrustServer = false,
+                        AllowCramMD5 = false,
+                        AllowDigestMD5 = false,
+                        AllowPlain = false,
+                        AllowEncryption = true,
+                        AllowScramSHA1 = true,
+                        AllowScramSHA256 = true
+                    };
 
-                this.reconnectTimer?.Dispose();
-                this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
+                    this.xmppClient.RequestRosterOnStartup = false;
+                    this.xmppClient.OnStateChanged += XmppClient_StateChanged;
+
+                    this.xmppClient.Connect(domainName);
+
+                    this.reconnectTimer?.Dispose();
+                    this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
+                }
+            }
+            finally
+            {
+                isCreatingClient = false;
             }
         }
 
@@ -133,7 +146,7 @@ namespace XamarinApp.Services
 
         private async void TagProfile_Changed(object sender, EventArgs e)
         {
-            if (ShouldCreateClient())
+            if (ShouldCreateClient() && this.tagProfile.IsComplete())
             {
                 await this.CreateXmppClient();
             }

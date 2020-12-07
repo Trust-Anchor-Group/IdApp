@@ -46,17 +46,6 @@ namespace XamarinApp.ViewModels.Registration
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
         }
 
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
-            this.FirstName = "John";
-            this.LastNames = "Doe";
-            this.PersonalNumber = "19701231-3537";
-            this.Address = "Storgatan 1";
-            this.ZipCode = "11223";
-            this.City = "Stockholm";
-        }
-
         public ICommand RegisterCommand { get; }
         public ICommand TakePhotoCommand { get; }
         public ICommand PickPhotoCommand { get; }
