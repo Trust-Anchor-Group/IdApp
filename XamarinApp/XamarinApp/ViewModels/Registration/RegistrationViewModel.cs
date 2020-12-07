@@ -123,6 +123,11 @@ namespace XamarinApp.ViewModels.Registration
                             this.tagProfile.SetLegalIdentity(vm.LegalIdentity);
                         }
                         GoToNextCommand.Execute();
+                        if (vm.Mode == AccountMode.Connect && vm.LegalIdentity != null)
+                        {
+                            // Skip Register identity, go directly to Validate identity
+                            Dispatcher.BeginInvokeOnMainThread(() => GoToNextCommand.Execute());
+                        }
                     }
                     break;
 

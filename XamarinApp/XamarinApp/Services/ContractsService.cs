@@ -252,7 +252,7 @@ namespace XamarinApp.Services
             }
             else
             {
-                AssertContractsIsAvailableLight();
+                AssertContractsIsAvailable(false);
                 using (ContractsClient cc = await ContractsClient.Create(client, this.tagProfile.LegalJid))
                 {
                     return await cc.GetLegalIdentitiesAsync();
@@ -278,17 +278,10 @@ namespace XamarinApp.Services
             return contractsClient.CompromisedLegalIdentityAsync(legalIdentityId);
         }
 
-        private void AssertContractsIsAvailable()
+        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
+        private void AssertContractsIsAvailable(bool checkClient = true)
         {
-            if (contractsClient == null || string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
-            {
-                throw new XmppFeatureNotSupportedException("Contracts is not supported");
-            }
-        }
-
-        private void AssertContractsIsAvailableLight()
-        {
-            if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+            if ((checkClient && contractsClient == null) || string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
                 throw new XmppFeatureNotSupportedException("Contracts is not supported");
             }

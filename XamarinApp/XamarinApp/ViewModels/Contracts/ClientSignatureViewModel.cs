@@ -1,123 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Globalization;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Temporary;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
-using XamarinApp.Services;
-using XamarinApp.ViewModels;
 
-namespace XamarinApp.Views.Contracts
+namespace XamarinApp.ViewModels.Contracts
 {
-    public class PetitionIdentityViewModel : BaseViewModel
+    public class ClientSignatureViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
-        private readonly IContractsService contractsService;
-        private readonly ILogService logService;
-        private readonly LegalIdentity requestorIdentity;
-        private readonly string requestorFullJid;
-        private readonly string requestedIdentityId;
-        private readonly string petitionId;
-        private DateTime loadPhotosTimestamp;
+        private readonly ClientSignature clientSignature;
+        private readonly LegalIdentity identity;
 
-        public PetitionIdentityViewModel(
-            LegalIdentity requestorIdentity,
-            string requestorFullJid,
-            string requestedIdentityId,
-            string petitionId,
-            string purpose)
+        public ClientSignatureViewModel(
+            ClientSignature clientSignature,
+            LegalIdentity identity)
         {
-            this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.contractsService = DependencyService.Resolve<IContractsService>();
-            this.logService = DependencyService.Resolve<ILogService>();
-            this.requestorIdentity = requestorIdentity;
-            this.requestorFullJid = requestorFullJid;
-            this.requestedIdentityId = requestedIdentityId;
-            this.petitionId = petitionId;
-            this.AcceptCommand = new Command(async _ => await Accept());
-            this.DeclineCommand = new Command(async _ => await Decline());
-            this.IgnoreCommand = new Command(async _ => await Ignore());
-            this.Photos = new ObservableCollection<ImageSource>();
-            AssignProperties(requestorIdentity, purpose);
-        }
-
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
-            this.loadPhotosTimestamp = DateTime.UtcNow;
-            _ = LoadPhotos(this.loadPhotosTimestamp);
-        }
-
-        protected override async Task DoUnbind()
-        {
-            this.loadPhotosTimestamp = DateTime.UtcNow;
-            this.Photos.Clear();
-            await base.DoUnbind();
-        }
-
-        public ICommand AcceptCommand { get; }
-        public ICommand DeclineCommand { get; }
-        public ICommand IgnoreCommand { get; }
-
-        public ObservableCollection<ImageSource> Photos { get; }
-
-        private async Task LoadPhotos(DateTime now)
-        {
-            if (this.requestorIdentity?.Attachments != null)
-            {
-                foreach (Attachment attachment in this.requestorIdentity.Attachments.GetImageAttachments())
-                {
-                    if (this.loadPhotosTimestamp > now)
-                    {
-                        return;
-                    }
-
-                    try
-                    {
-                        KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
-
-                        if (this.loadPhotosTimestamp > now)
-                        {
-                            return;
-                        }
-
-                        using (TemporaryFile file = pair.Value)
-                        {
-                            file.Reset();
-                            MemoryStream ms = new MemoryStream();
-                            await file.CopyToAsync(ms);
-                            ms.Reset();
-                            ImageSource imageSource = ImageSource.FromStream(() => ms);
-                            Dispatcher.BeginInvokeOnMainThread(() => this.Photos.Add(imageSource));
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        this.logService.LogException(ex);
-                    }
-                }
-            }
-        }
-
-        private async Task Accept()
-        {
-            await this.contractsService.SendPetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true);
-            await this.navigationService.PopAsync();
-        }
-
-        private async Task Decline()
-        {
-            await this.contractsService.SendPetitionIdentityResponseAsync(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false);
-            await this.navigationService.PopAsync();
-        }
-
-        private async Task Ignore()
-        {
-            await this.navigationService.PopAsync();
+            AssignProperties(identity, clientSignature);
         }
 
         public static readonly BindableProperty CreatedProperty =
@@ -291,38 +189,77 @@ namespace XamarinApp.Views.Contracts
             set { SetValue(IsApprovedProperty, value); }
         }
 
-        public static readonly BindableProperty PurposeProperty =
-            BindableProperty.Create("Purpose", typeof(string), typeof(PetitionIdentityViewModel), default(string));
+        public static readonly BindableProperty RoleProperty =
+            BindableProperty.Create("Role", typeof(string), typeof(ClientSignatureViewModel), default(string));
 
-        public string Purpose
+        public string Role
         {
-            get { return (string) GetValue(PurposeProperty); }
-            set { SetValue(PurposeProperty, value); }
+            get { return (string) GetValue(RoleProperty); }
+            set { SetValue(RoleProperty, value); }
         }
 
-        private void AssignProperties(LegalIdentity requestorIdentity, string purpose)
+        public static readonly BindableProperty TimestampProperty =
+            BindableProperty.Create("Timestamp", typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+        public string Timestamp
         {
-            this.Created = requestorIdentity.Created;
-            this.Updated = requestorIdentity.Updated.GetDateOrNullIfMinValue();
-            this.LegalId = requestorIdentity.Id;
-            this.State = requestorIdentity.State.ToString();
-            this.From = requestorIdentity.From.GetDateOrNullIfMinValue();
-            this.To = requestorIdentity.To.GetDateOrNullIfMinValue();
-            this.FirstName = requestorIdentity[Constants.XmppProperties.FirstName];
-            this.MiddleNames = requestorIdentity[Constants.XmppProperties.MiddleName];
-            this.LastNames = requestorIdentity[Constants.XmppProperties.LastName];
-            this.PersonalNumber = requestorIdentity[Constants.XmppProperties.PersonalNumber];
-            this.Address = requestorIdentity[Constants.XmppProperties.Address];
-            this.Address2 = requestorIdentity[Constants.XmppProperties.Address2];
-            this.ZipCode = requestorIdentity[Constants.XmppProperties.ZipCode];
-            this.Area = requestorIdentity[Constants.XmppProperties.Area];
-            this.City = requestorIdentity[Constants.XmppProperties.City];
-            this.Region = requestorIdentity[Constants.XmppProperties.Region];
-            this.CountryCode = requestorIdentity[Constants.XmppProperties.Country];
+            get { return (string) GetValue(TimestampProperty); }
+            set { SetValue(TimestampProperty, value); }
+        }
+
+        public static readonly BindableProperty IsTransferableProperty =
+            BindableProperty.Create("IsTransferable", typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+        public string IsTransferable
+        {
+            get { return (string) GetValue(IsTransferableProperty); }
+            set { SetValue(IsTransferableProperty, value); }
+        }
+
+        public static readonly BindableProperty BareJIdProperty =
+            BindableProperty.Create("BareJId", typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+        public string BareJId
+        {
+            get { return (string) GetValue(BareJIdProperty); }
+            set { SetValue(BareJIdProperty, value); }
+        }
+
+        public static readonly BindableProperty SignatureProperty =
+            BindableProperty.Create("Signature", typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+        public string Signature
+        {
+            get { return (string) GetValue(SignatureProperty); }
+            set { SetValue(SignatureProperty, value); }
+        }
+
+        private void AssignProperties(LegalIdentity identity, ClientSignature signature)
+        {
+            this.Created = identity.Created;
+            this.Updated = identity.Updated.GetDateOrNullIfMinValue();
+            this.LegalId = identity.Id;
+            this.State = identity.State.ToString();
+            this.From = identity.From.GetDateOrNullIfMinValue();
+            this.To = identity.To.GetDateOrNullIfMinValue();
+            this.FirstName = identity[Constants.XmppProperties.FirstName];
+            this.MiddleNames = identity[Constants.XmppProperties.MiddleName];
+            this.LastNames = identity[Constants.XmppProperties.LastName];
+            this.PersonalNumber = identity[Constants.XmppProperties.PersonalNumber];
+            this.Address = identity[Constants.XmppProperties.Address];
+            this.Address2 = identity[Constants.XmppProperties.Address2];
+            this.ZipCode = identity[Constants.XmppProperties.ZipCode];
+            this.Area = identity[Constants.XmppProperties.Area];
+            this.City = identity[Constants.XmppProperties.City];
+            this.Region = identity[Constants.XmppProperties.Region];
+            this.CountryCode = identity[Constants.XmppProperties.Country];
             this.Country = ISO_3166_1.ToName(this.CountryCode);
-            this.IsApproved = requestorIdentity.State == IdentityState.Approved;
-            this.Purpose = purpose;
+            this.IsApproved = identity.State == IdentityState.Approved;
+            this.Role = signature.Role;
+            this.Timestamp = clientSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
+            this.IsTransferable = clientSignature.Transferable ? AppResources.Yes : AppResources.No;
+            this.BareJId = clientSignature.BareJid;
+            this.Signature = Convert.ToBase64String(clientSignature.DigitalSignature);
         }
-
     }
 }

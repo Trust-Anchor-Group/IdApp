@@ -178,6 +178,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following is information related to a client signature..
+        /// </summary>
+        internal static string ClientSignatureInformationInfoText {
+            get {
+                return ResourceManager.GetString("ClientSignatureInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect.
         /// </summary>
         internal static string Connect {
@@ -304,6 +313,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Identity information.
+        /// </summary>
+        internal static string IdentityInformation {
+            get {
+                return ResourceManager.GetString("IdentityInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following is personal information registered for the party who signed the contract..
+        /// </summary>
+        internal static string IdentityInformationInfoText {
+            get {
+                return ResourceManager.GetString("IdentityInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignore.
         /// </summary>
         internal static string Ignore {
@@ -363,6 +390,24 @@ namespace XamarinApp {
         internal static string MiddleNames {
             get {
                 return ResourceManager.GetString("MiddleNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Network.
+        /// </summary>
+        internal static string Network {
+            get {
+                return ResourceManager.GetString("Network", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
@@ -718,6 +763,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Role.
+        /// </summary>
+        internal static string Role {
+            get {
+                return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecting a photo is not supported on this device.
         /// </summary>
         internal static string SelectingAPhotoIsNotSupported {
@@ -736,6 +790,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following is information related to a server signature..
+        /// </summary>
+        internal static string ServerSignatureInformationInfoText {
+            get {
+                return ResourceManager.GetString("ServerSignatureInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Signature.
         /// </summary>
         internal static string Signature {
@@ -750,15 +813,6 @@ namespace XamarinApp {
         internal static string SignatureInformation {
             get {
                 return ResourceManager.GetString("SignatureInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The following is information related to a server signature..
-        /// </summary>
-        internal static string SignatureInformationInfoText {
-            get {
-                return ResourceManager.GetString("SignatureInformationInfoText", resourceCulture);
             }
         }
         
@@ -831,6 +885,15 @@ namespace XamarinApp {
         internal static string ToConnectToDomainYouNeedAnAccount {
             get {
                 return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferable.
+        /// </summary>
+        internal static string Transferable {
+            get {
+                return ResourceManager.GetString("Transferable", resourceCulture);
             }
         }
         
@@ -1038,6 +1101,15 @@ namespace XamarinApp {
         internal static string XmppState_StreamOpened {
             get {
                 return ResourceManager.GetString("XmppState_StreamOpened", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
         

@@ -156,6 +156,9 @@
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
+  <data name="ClientSignatureInformationInfoText" xml:space="preserve">
+    <value>The following is information related to a client signature.</value>
+  </data>
   <data name="Connect" xml:space="preserve">
     <value>Connect</value>
   </data>
@@ -198,6 +201,12 @@
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
+  <data name="IdentityInformation" xml:space="preserve">
+    <value>Identity information</value>
+  </data>
+  <data name="IdentityInformationInfoText" xml:space="preserve">
+    <value>The following is personal information registered for the party who signed the contract.</value>
+  </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignore</value>
   </data>
@@ -218,6 +227,12 @@
   </data>
   <data name="MiddleNames" xml:space="preserve">
     <value>Middle name(s)</value>
+  </data>
+  <data name="Network" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Not connected to the operator</value>
@@ -336,20 +351,23 @@
   <data name="RetypePinOrPassword" xml:space="preserve">
     <value>Retype PIN or password</value>
   </data>
+  <data name="Role" xml:space="preserve">
+    <value>Role</value>
+  </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Selecting a photo is not supported on this device</value>
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
   </data>
+  <data name="ServerSignatureInformationInfoText" xml:space="preserve">
+    <value>The following is information related to a server signature.</value>
+  </data>
   <data name="Signature" xml:space="preserve">
     <value>Signature</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
     <value>Signature information</value>
-  </data>
-  <data name="SignatureInformationInfoText" xml:space="preserve">
-    <value>The following is information related to a server signature.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
@@ -374,6 +392,9 @@
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>To connect to {0}, you need an account. Do you want to create one, or use an existing account?</value>
+  </data>
+  <data name="Transferable" xml:space="preserve">
+    <value>Transferable</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Unable to authenticate with {0}</value>
@@ -443,6 +464,9 @@
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Stream established</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>You can protect your wallet and sensitive information by adding an additional PIN number or password.</value>

@@ -7,7 +7,7 @@
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="{StaticResource DefaultMargin}">
             <Label Text="{x:Static local:AppResources.SignatureInformation}" Style="{StaticResource Heading}" />
-            <Label Text="{x:Static local:AppResources.SignatureInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <Label Text="{x:Static local:AppResources.ServerSignatureInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <TableView Intent="Data" HasUnevenRows="True">
                 <TableView.Root>
                     <TableSection>

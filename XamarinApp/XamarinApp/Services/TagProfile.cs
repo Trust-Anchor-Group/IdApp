@@ -387,7 +387,7 @@ namespace XamarinApp.Services
             DecrementConfigurationStep(RegistrationStep.Operator); // prev
         }
 
-        // Step 3
+        // Step 3, 4
         public void SetLegalIdentity(LegalIdentity legalIdentity)
         {
             this.legalIdentity = legalIdentity;

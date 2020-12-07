@@ -14,8 +14,8 @@ namespace XamarinApp.Views.Contracts
 		public ServerSignaturePage(Contract contract)
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
+            ViewModel = new ServerSignatureViewModel(contract);
 			InitializeComponent();
-			ViewModel = new ServerSignatureViewModel(contract);
 		}
 
         protected override bool OnBackButtonPressed()

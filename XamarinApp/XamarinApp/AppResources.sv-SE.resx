@@ -156,6 +156,9 @@
   <data name="City" xml:space="preserve">
     <value>Stad</value>
   </data>
+  <data name="ClientSignatureInformationInfoText" xml:space="preserve">
+    <value>Följande är information kopplat till en klient-signatur.</value>
+  </data>
   <data name="Connect" xml:space="preserve">
     <value>Anslut</value>
   </data>
@@ -198,6 +201,12 @@
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>
+  <data name="IdentityInformation" xml:space="preserve">
+    <value>Identitetsinformation</value>
+  </data>
+  <data name="IdentityInformationInfoText" xml:space="preserve">
+    <value>Nedan följer personlig information rörande den person som signerat kontraktet.</value>
+  </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignorera</value>
   </data>
@@ -218,6 +227,12 @@
   </data>
   <data name="MiddleNames" xml:space="preserve">
     <value>Mellannamn</value>
+  </data>
+  <data name="Network" xml:space="preserve">
+    <value>Nätverk</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nej</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Inte ansluten till operatören</value>
@@ -336,20 +351,23 @@
   <data name="RetypePinOrPassword" xml:space="preserve">
     <value>Ange PIN eller lösenord igen</value>
   </data>
+  <data name="Role" xml:space="preserve">
+    <value>Roll</value>
+  </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att välja en bild stöds inte på den här enheten</value>
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
   </data>
+  <data name="ServerSignatureInformationInfoText" xml:space="preserve">
+    <value>Nedan följer information kopplat till server-signaturen.</value>
+  </data>
   <data name="Signature" xml:space="preserve">
     <value>Signatur</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
     <value>Signatur-information</value>
-  </data>
-  <data name="SignatureInformationInfoText" xml:space="preserve">
-    <value>Nedan följer information kopplat till server-signaturen.</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hoppa över</value>
@@ -374,6 +392,9 @@
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>För att ansluta till {0} behövs ett konto. Vill du skapa ett, eller välja ett existerande?</value>
+  </data>
+  <data name="Transferable" xml:space="preserve">
+    <value>Överlåtelsebar</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
@@ -443,6 +464,9 @@
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
     <value>Ström etablerad</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>Du kan skydda din plånbok och känslig information genom att lägga till en PIN-kod eller ett lösenord.</value>

@@ -34,10 +34,12 @@ namespace XamarinApp.ViewModels.Registration
             this.SwitchModeCommand = new Command(_ =>
             {
                 CreateNew = !CreateNew;
+                Mode = CreateNew ? AccountMode.Create : AccountMode.Connect;
                 PerformActionCommand.ChangeCanExecute();
             });
             this.ActionButtonText = AppResources.CreateNew;
             this.CreateNew = true;
+            this.Mode = AccountMode.Create;
             this.CreateRandomPassword = true;
             this.Title = AppResources.ChooseAccount;
         }
@@ -62,6 +64,8 @@ namespace XamarinApp.ViewModels.Registration
                 AccountName = this.TagProfile.Account;
             });
         }
+
+        public AccountMode Mode { get; private set; }
 
         public static readonly BindableProperty IntroTextProperty =
             BindableProperty.Create("IntroText", typeof(string), typeof(ChooseAccountViewModel), default(string));
@@ -409,5 +413,11 @@ namespace XamarinApp.ViewModels.Registration
             this.AccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(AccountName)));
             await base.DoRestoreState();
         }
+    }
+
+    public enum AccountMode
+    {
+        Create,
+        Connect
     }
 }
