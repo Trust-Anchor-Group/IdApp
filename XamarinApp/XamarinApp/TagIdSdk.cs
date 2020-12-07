@@ -7,7 +7,6 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.P2P;
 using Waher.Persistence;
 using Waher.Persistence.Files;
-using Waher.Persistence.LifeCycle;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Script;
@@ -17,6 +16,8 @@ namespace XamarinApp
 {
     public class TagIdSdk : ITagIdSdk
     {
+        private const string TagConfigurationSettingKey = "TagConfiguration";
+
         private static ITagIdSdk instance;
 
         private FilesProvider filesProvider;
@@ -27,33 +28,26 @@ namespace XamarinApp
             this.LogService = new LogService();
             this.AuthService = new AuthService(this.LogService);
             this.NetworkService = new NetworkService();
+            this.SettingsService = new SettingsService();
             this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService, this.LogService);
         }
 
         public void Dispose()
         {
-            if (instance != null)
-            {
-                Types.StopAllModules().GetAwaiter().GetResult();
-                instance = null;
-            }
+            instance = null;
         }
 
         public static ITagIdSdk Create()
         {
-            if (instance == null)
-            {
-                instance = new TagIdSdk();
-            }
-
-            return instance;
+            return instance ?? (instance = new TagIdSdk());
         }
 
-        public TagProfile TagProfile { get; private set; }
-        public IAuthService AuthService { get; private set; }
-        public INeuronService NeuronService { get; private set; }
-        public INetworkService NetworkService { get; private set; }
-        public ILogService LogService { get; private set; }
+        public TagProfile TagProfile { get; }
+        public IAuthService AuthService { get; }
+        public INeuronService NeuronService { get; }
+        public INetworkService NetworkService { get; }
+        public ISettingsService SettingsService { get; }
+        public ILogService LogService { get; }
         
         public async Task Startup()
         {
@@ -75,15 +69,33 @@ namespace XamarinApp
             }
             await filesProvider.RepairIfInproperShutdown(string.Empty);
             Database.Register(filesProvider, false);
+
+            TagConfiguration configuration = this.SettingsService.RestoreState<TagConfiguration>(TagConfigurationSettingKey);
+            if (configuration == null)
+            {
+                configuration = new TagConfiguration();
+                this.SettingsService.SaveState(TagConfigurationSettingKey, configuration);
+            }
+            this.TagProfile.FromConfiguration(configuration);
+
             await this.NeuronService.Load();
         }
 
         public async Task Shutdown()
         {
             await this.NeuronService.Unload();
-            await DatabaseModule.Flush();
+            await Types.StopAllModules();
             filesProvider.Dispose();
             filesProvider = null;
+        }
+
+        public void AutoSave()
+        {
+            if (this.TagProfile.IsDirty)
+            {
+                this.TagProfile.ResetIsDirty();
+                this.SettingsService.SaveState(TagConfigurationSettingKey, this.TagProfile.ToConfiguration());
+            }
         }
     }
 }

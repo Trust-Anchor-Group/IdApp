@@ -507,8 +507,9 @@ namespace XamarinApp.Services
 
         private void ReconnectTimer_Tick(object _)
         {
-            if (!(xmppClient is null) && (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline))
-                xmppClient.Reconnect();
+            // TODO: enable after testing is done
+            //if (!(xmppClient is null) && (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline))
+            //    xmppClient.Reconnect();
         }
     }
 }

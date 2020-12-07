@@ -16,10 +16,8 @@ namespace XamarinApp
 {
 	public partial class App : IDisposable
     {
-        private const string TagConfigurationSettingKey = "TagConfiguration";
         private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
-        private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
 
         public App()
@@ -36,6 +34,7 @@ namespace XamarinApp
 			builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
 			builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
 			builder.RegisterInstance(this.sdk.LogService).SingleInstance();
+			builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
 
 			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
 			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
@@ -46,7 +45,6 @@ namespace XamarinApp
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			// Resolve what's needed for the App class
-            this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
 
             // Start page
@@ -125,14 +123,6 @@ namespace XamarinApp
             
             await this.contractOrchestratorService.Load();
 
-            TagConfiguration configuration = this.settingsService.RestoreState<TagConfiguration>(TagConfigurationSettingKey);
-            if (configuration == null)
-            {
-                configuration = new TagConfiguration();
-                this.settingsService.SaveState(TagConfigurationSettingKey, configuration);
-            }
-            this.sdk.TagProfile.FromConfiguration(configuration);
-
             this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
         }
 
@@ -153,11 +143,7 @@ namespace XamarinApp
 
         private void AutoSave()
         {
-            if (this.sdk.TagProfile.IsDirty)
-            {
-                this.sdk.TagProfile.ResetIsDirty();
-                this.settingsService.SaveState(TagConfigurationSettingKey, this.sdk.TagProfile.ToConfiguration());
-            }
+            this.sdk.AutoSave();
         }
     }
 }

@@ -8,12 +8,12 @@ namespace XamarinApp.Extensions
     {
         public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout)
         {
-            using (CancellationTokenSource timeoutCancellationTokenSource = new CancellationTokenSource())
+            using (CancellationTokenSource tcs = new CancellationTokenSource())
             {
-                Task completedTask = await Task.WhenAny(task, Task.Delay(timeout, timeoutCancellationTokenSource.Token));
+                Task completedTask = await Task.WhenAny(task, Task.Delay(timeout, tcs.Token));
                 if (completedTask == task)
                 {
-                    timeoutCancellationTokenSource.Cancel();
+                    tcs.Cancel();
                     return await task;  // Very important in order to propagate exceptions
                 }
                 throw new TimeoutException();
