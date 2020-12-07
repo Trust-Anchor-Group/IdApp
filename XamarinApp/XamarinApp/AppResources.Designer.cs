@@ -583,6 +583,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A petition for the personal data in one of your contracts has been received. Review the information below and choose how you wish to respond..
+        /// </summary>
+        internal static string PetitionContractInformationText {
+            get {
+                return ResourceManager.GetString("PetitionContractInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A petition for the personal data of your legal identity has been received. Review the information below and choose how you wish to respond..
         /// </summary>
         internal static string PetitionIdentityInformationText {

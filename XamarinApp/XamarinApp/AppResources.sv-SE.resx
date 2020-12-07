@@ -291,6 +291,9 @@
   <data name="Petition" xml:space="preserve">
     <value>Ansökan</value>
   </data>
+  <data name="PetitionContractInformationText" xml:space="preserve">
+    <value>En ansökan för personlig data tillhörande ett av dina kontrakt har mottagits. Vänligen granska informationen edan och välj hur du vill svara.</value>
+  </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
     <value>En ansökan för personlig data tillhörande din juridiska identitet har mottagits. Vänligen granska informationen nedan och välj hur du vill svara.</value>
   </data>
