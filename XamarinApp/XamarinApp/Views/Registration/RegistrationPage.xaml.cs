@@ -37,7 +37,8 @@ namespace XamarinApp.Views.Registration
         {
             Dispatcher.BeginInvokeOnMainThread(() =>
             {
-                this.CarouselView.ScrollTo(GetViewModel<RegistrationViewModel>().CurrentStep, position: ScrollToPosition.Center);
+                int step = GetViewModel<RegistrationViewModel>().CurrentStep;
+                this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center);
             });
         }
 

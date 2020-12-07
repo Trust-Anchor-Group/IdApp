@@ -186,13 +186,11 @@ namespace XamarinApp.ViewModels.Registration
                 case RegistrationStep.RegisterIdentity:
                     {
                         this.tagProfile.ClearLegalIdentity();
+                        this.tagProfile.ClearLegalJId();
                     }
                     break;
 
                 case RegistrationStep.ValidateIdentity:
-                    {
-                        this.tagProfile.ClearLegalJId();
-                    }
                     break;
 
                 case RegistrationStep.Pin:
