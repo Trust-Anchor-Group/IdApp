@@ -18,6 +18,7 @@ namespace XamarinApp.Views.Contracts
 		public MyContractsPage(bool createdContracts)
 		{
 			this.createdContracts = createdContracts;
+            this.Title = createdContracts ? AppResources.MyContracts : AppResources.SignedContracts;
 			this.BindingContext = this;
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();

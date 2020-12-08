@@ -29,7 +29,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             this.contractsService = contractsService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
-            this.ContinueCommand = new Command(_ => OnStepCompleted(EventArgs.Empty), _ => IsApproved);
+            this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
         }
@@ -366,6 +366,12 @@ namespace XamarinApp.ViewModels.Registration
 
                 await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }
+        }
+
+        private void Continue()
+        {
+            this.TagProfile.SetIsValidated();
+            this.OnStepCompleted(EventArgs.Empty);
         }
     }
 }

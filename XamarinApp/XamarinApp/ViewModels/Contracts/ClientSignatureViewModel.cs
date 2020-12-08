@@ -8,14 +8,11 @@ namespace XamarinApp.ViewModels.Contracts
 {
     public class ClientSignatureViewModel : BaseViewModel
     {
-        private readonly ClientSignature clientSignature;
-        private readonly LegalIdentity identity;
-
         public ClientSignatureViewModel(
             ClientSignature clientSignature,
             LegalIdentity identity)
         {
-            AssignProperties(identity, clientSignature);
+            AssignProperties(clientSignature, identity);
         }
 
         public static readonly BindableProperty CreatedProperty =
@@ -234,7 +231,7 @@ namespace XamarinApp.ViewModels.Contracts
             set { SetValue(SignatureProperty, value); }
         }
 
-        private void AssignProperties(LegalIdentity identity, ClientSignature signature)
+        private void AssignProperties(ClientSignature signature, LegalIdentity identity)
         {
             this.Created = identity.Created;
             this.Updated = identity.Updated.GetDateOrNullIfMinValue();
@@ -256,10 +253,10 @@ namespace XamarinApp.ViewModels.Contracts
             this.Country = ISO_3166_1.ToName(this.CountryCode);
             this.IsApproved = identity.State == IdentityState.Approved;
             this.Role = signature.Role;
-            this.Timestamp = clientSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
-            this.IsTransferable = clientSignature.Transferable ? AppResources.Yes : AppResources.No;
-            this.BareJId = clientSignature.BareJid;
-            this.Signature = Convert.ToBase64String(clientSignature.DigitalSignature);
+            this.Timestamp = signature.Timestamp.ToString(CultureInfo.CurrentUICulture);
+            this.IsTransferable = signature.Transferable ? AppResources.Yes : AppResources.No;
+            this.BareJId = signature.BareJid;
+            this.Signature = Convert.ToBase64String(signature.DigitalSignature);
         }
     }
 }

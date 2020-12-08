@@ -28,7 +28,7 @@ namespace XamarinApp.Tests.ViewModels
         public void When_CreateNewAccount_AndAccountNameIsEmpty_ThenButtonIsDisabled(string accountName)
         {
             Given(AViewModel)
-                .And(vm => vm.AccountName = accountName)
+                .And(vm => vm.CreateNewAccountName = accountName)
                 .And(vm => vm.CreateNew = true)
                 .ThenAssert(vm => vm.PerformActionCommand.IsDisabled());
         }
@@ -40,7 +40,7 @@ namespace XamarinApp.Tests.ViewModels
         public void When_ConnectToExistingAccount_AndAccountNameIsEmpty_ThenButtonIsDisabled(string accountName)
         {
             Given(AViewModel)
-                .And(vm => vm.AccountName = accountName)
+                .And(vm => vm.ConnectToExistingAccountName = accountName)
                 .And(vm => vm.CreateNew = false)
                 .ThenAssert(vm => vm.PerformActionCommand.IsDisabled());
         }

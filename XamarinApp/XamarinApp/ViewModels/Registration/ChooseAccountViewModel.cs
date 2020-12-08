@@ -394,10 +394,13 @@ namespace XamarinApp.ViewModels.Registration
                                 this.LegalIdentity = createdIdentity;
                             }
 
-                            this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
                             if (this.LegalIdentity != null)
                             {
-                                this.TagProfile.SetLegalIdentity(this.LegalIdentity);
+                                this.TagProfile.SetAccountAndLegalIdentity(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+                            }
+                            else
+                            {
+                                this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
                             }
                         }
                     }

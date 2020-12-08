@@ -13,19 +13,19 @@ namespace XamarinApp.Services
     {
         public event EventHandler StepChanged;
         public event EventHandler Changed;
-        private LegalIdentity legalIdentity = null;
-        private string objectId = null;
-        private string domain = string.Empty;
-        private string account = string.Empty;
-        private string passwordHash = string.Empty;
-        private string passwordHashMethod = string.Empty;
-        private string legalJid = string.Empty;
-        private string registryJid = string.Empty;
-        private string provisioningJid = string.Empty;
-        private string httpFileUploadJid = string.Empty;
-        private string pinHash = string.Empty;
-        private long? httpFileUploadMaxSize = null;
-        private bool usePin = false;
+        private LegalIdentity legalIdentity;
+        private string objectId;
+        private string domain;
+        private string account;
+        private string passwordHash;
+        private string passwordHashMethod;
+        private string legalJid;
+        private string registryJid;
+        private string provisioningJid;
+        private string httpFileUploadJid;
+        private string pinHash;
+        private long? httpFileUploadMaxSize;
+        private bool usePin;
         private RegistrationStep step = RegistrationStep.Operator;
 
         protected virtual void OnStepChanged(EventArgs e)
@@ -94,12 +94,12 @@ namespace XamarinApp.Services
 
         public bool IsCompleteOrWaitingForValidation()
         {
-            return Step >= RegistrationStep.ValidateIdentity;
+            return this.Step >= RegistrationStep.ValidateIdentity;
         }
 
         public bool IsComplete()
         {
-            return Step == RegistrationStep.Complete;
+            return this.Step == RegistrationStep.Complete;
         }
 
         #region Properties
@@ -112,7 +112,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.domain, value))
                 {
                     this.domain = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -125,7 +125,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.account, value))
                 {
                     this.account = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -138,7 +138,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.passwordHash, value))
                 {
                     this.passwordHash = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -151,7 +151,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.passwordHashMethod, value))
                 {
                     this.passwordHashMethod = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -164,7 +164,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.legalJid, value))
                 {
                     this.legalJid = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -177,7 +177,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.registryJid, value))
                 {
                     this.registryJid = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -190,7 +190,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.provisioningJid, value))
                 {
                     this.provisioningJid = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -203,7 +203,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.httpFileUploadJid, value))
                 {
                     this.httpFileUploadJid = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -216,7 +216,7 @@ namespace XamarinApp.Services
                 if (this.httpFileUploadMaxSize != value)
                 {
                     this.httpFileUploadMaxSize = value;
-                    FlagAsDirty();
+                    this.FlagAsDirty();
                 }
             }
         }
@@ -229,8 +229,8 @@ namespace XamarinApp.Services
                 if (this.step != value)
                 {
                     this.step = value;
-                    IsDirty = true;
-                    OnStepChanged(EventArgs.Empty);
+                    this.IsDirty = true;
+                    this.OnStepChanged(EventArgs.Empty);
                 }
             }
         }
@@ -254,7 +254,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.pinHash, value))
                 {
                     this.pinHash = value;
-                    IsDirty = true;
+                    this.IsDirty = true;
                 }
             }
         }
@@ -267,7 +267,7 @@ namespace XamarinApp.Services
                 if (this.usePin != value)
                 {
                     this.usePin = value;
-                    IsDirty = true;
+                    this.IsDirty = true;
                 }
             }
         }
@@ -280,25 +280,25 @@ namespace XamarinApp.Services
                 if (!Equals(this.legalIdentity, value))
                 {
                     this.legalIdentity = value;
-                    IsDirty = true;
+                    this.IsDirty = true;
                 }
             }
         }
 
-        public string[] Domains => clp.Keys.ToArray();
+        public string[] Domains => this.clp.Keys.ToArray();
 
         [DefaultValue(false)]
         public bool IsDirty { get; private set; }
 
         private void FlagAsDirty()
         {
-            IsDirty = true;
-            OnChanged(EventArgs.Empty);
+            this.IsDirty = true;
+            this.OnChanged(EventArgs.Empty);
         }
 
         public void ResetIsDirty()
         {
-            IsDirty = false;
+            this.IsDirty = false;
         }
 
         #endregion
@@ -309,50 +309,57 @@ namespace XamarinApp.Services
         {
             if (stepToRevertTo.HasValue)
             {
-                Step = stepToRevertTo.Value;
+                this.Step = stepToRevertTo.Value;
             }
             else
             {
-                switch (Step)
+                switch (this.Step)
                 {
                     case RegistrationStep.Operator:
                         // Do nothing
                         break;
                     case RegistrationStep.Account:
-                        Step = RegistrationStep.Operator;
+                        this.Step = RegistrationStep.Operator;
                         break;
                     case RegistrationStep.RegisterIdentity:
-                        Step = RegistrationStep.Account;
+                        this.Step = RegistrationStep.Account;
                         break;
                     case RegistrationStep.ValidateIdentity:
-                        Step = RegistrationStep.RegisterIdentity;
+                        this.Step = RegistrationStep.RegisterIdentity;
                         break;
                     case RegistrationStep.Pin:
-                        Step = RegistrationStep.ValidateIdentity;
+                        this.Step = RegistrationStep.ValidateIdentity;
                         break;
                 }
             }
         }
 
-        private void IncrementConfigurationStep()
+        private void IncrementConfigurationStep(RegistrationStep? stepToGoTo = null)
         {
-            switch (Step)
+            if (stepToGoTo.HasValue)
             {
-                case RegistrationStep.Operator:
-                    Step = RegistrationStep.Account;
-                    break;
-                case RegistrationStep.Account:
-                    Step = RegistrationStep.RegisterIdentity;
-                    break;
-                case RegistrationStep.RegisterIdentity:
-                    Step = RegistrationStep.ValidateIdentity;
-                    break;
-                case RegistrationStep.ValidateIdentity:
-                    Step = RegistrationStep.Pin;
-                    break;
-                case RegistrationStep.Pin:
-                    Step = RegistrationStep.Complete;
-                    break;
+                this.Step = stepToGoTo.Value;
+            }
+            else
+            {
+                switch (this.Step)
+                {
+                    case RegistrationStep.Operator:
+                        this.Step = RegistrationStep.Account;
+                        break;
+                    case RegistrationStep.Account:
+                        this.Step = RegistrationStep.RegisterIdentity;
+                        break;
+                    case RegistrationStep.RegisterIdentity:
+                        this.Step = RegistrationStep.ValidateIdentity;
+                        break;
+                    case RegistrationStep.ValidateIdentity:
+                        this.Step = RegistrationStep.Pin;
+                        break;
+                    case RegistrationStep.Pin:
+                        this.Step = RegistrationStep.Complete;
+                        break;
+                }
             }
         }
 
@@ -362,14 +369,14 @@ namespace XamarinApp.Services
             this.Domain = domainName;
             if (!string.IsNullOrWhiteSpace(Domain) && Step == RegistrationStep.Operator)
             {
-                IncrementConfigurationStep();
+                this.IncrementConfigurationStep();
             }
         }
 
         public void ClearDomain()
         {
             this.Domain = string.Empty;
-            DecrementConfigurationStep(RegistrationStep.Operator);
+            this.DecrementConfigurationStep(RegistrationStep.Operator);
         }
 
         // Step 2
@@ -380,7 +387,27 @@ namespace XamarinApp.Services
             this.PasswordHashMethod = clientPasswordHashMethod;
             if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account)
             {
-                IncrementConfigurationStep();
+                this.IncrementConfigurationStep();
+            }
+        }
+
+        // Step 2, 3
+        public void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity legalIdentity)
+        {
+            this.Account = accountName;
+            this.PasswordHash = clientPasswordHash;
+            this.PasswordHashMethod = clientPasswordHashMethod;
+            this.LegalIdentity = legalIdentity;
+            if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account)
+            {
+                if (legalIdentity.IsCreatedOrApproved())
+                {
+                    this.IncrementConfigurationStep(RegistrationStep.ValidateIdentity);
+                }
+                else
+                {
+                    this.IncrementConfigurationStep();
+                }
             }
         }
 
@@ -389,38 +416,38 @@ namespace XamarinApp.Services
             this.Account = string.Empty;
             this.PasswordHash = string.Empty;
             this.PasswordHashMethod = string.Empty;
-            DecrementConfigurationStep(RegistrationStep.Operator); // prev
+            this.DecrementConfigurationStep(RegistrationStep.Operator); // prev
         }
 
-        // Step 3, 4
+        // Step 3
         public void SetLegalIdentity(LegalIdentity legalIdentity)
         {
-            this.legalIdentity = legalIdentity;
-            if (this.legalIdentity.IsCreatedOrApproved())
+            this.LegalIdentity = legalIdentity;
+            if (this.Step == RegistrationStep.RegisterIdentity)
             {
-                IncrementConfigurationStep();
-                if (this.legalIdentity.State == IdentityState.Approved)
-                {
-                    IncrementConfigurationStep();
-                }
+                this.IncrementConfigurationStep();
             }
         }
 
         public void ClearLegalIdentity()
         {
-            this.legalIdentity = null;
-            DecrementConfigurationStep(RegistrationStep.Account); // prev
+            this.LegalIdentity = null;
+            this.LegalJid = null;
+            this.DecrementConfigurationStep(RegistrationStep.Account); // prev
         }
 
-        public void SetLegalJId(string legalJId)
+        // Step 4
+        public void SetIsValidated()
         {
-            this.LegalJid = legalJId;
+            if (this.Step == RegistrationStep.ValidateIdentity)
+            {
+                this.IncrementConfigurationStep();
+            }
         }
 
-        public void ClearLegalJId()
+        public void ClearIsValidated()
         {
-            this.LegalJid = string.Empty;
-            DecrementConfigurationStep(RegistrationStep.RegisterIdentity); // prev
+            this.DecrementConfigurationStep(RegistrationStep.Account); // Bypass Register (step 3), go directly to Account (Step2)
         }
 
         // Step 5
@@ -436,6 +463,11 @@ namespace XamarinApp.Services
             this.Pin = string.Empty;
             this.UsePin = false;
             DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
+        }
+
+        public void SetLegalJId(string legalJId)
+        {
+            this.LegalJid = legalJId;
         }
 
         public void SetProvisioningJId(string provisioningJId)

@@ -156,6 +156,9 @@
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
+  <data name="ClientSignature" xml:space="preserve">
+    <value>Client Signature</value>
+  </data>
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
     <value>The following is information related to a client signature.</value>
   </data>
@@ -201,6 +204,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
+  <data name="Identity" xml:space="preserve">
+    <value>Identity</value>
+  </data>
   <data name="IdentityInformation" xml:space="preserve">
     <value>Identity information</value>
   </data>
@@ -231,8 +237,14 @@
   <data name="MiddleNames" xml:space="preserve">
     <value>Middle name(s)</value>
   </data>
+  <data name="MyContracts" xml:space="preserve">
+    <value>My Contracts</value>
+  </data>
   <data name="Network" xml:space="preserve">
     <value>Network</value>
+  </data>
+  <data name="NewContract" xml:space="preserve">
+    <value>New Contract</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
@@ -294,8 +306,14 @@
   <data name="Petition" xml:space="preserve">
     <value>Petition</value>
   </data>
+  <data name="PetitionContract" xml:space="preserve">
+    <value>Petition Contract</value>
+  </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
     <value>A petition for the personal data in one of your contracts has been received. Review the information below and choose how you wish to respond.</value>
+  </data>
+  <data name="PetitionIdentity" xml:space="preserve">
+    <value>Petition Identity</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
     <value>A petition for the personal data of your legal identity has been received. Review the information below and choose how you wish to respond.</value>
@@ -366,6 +384,9 @@
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
   </data>
+  <data name="ServerSignature" xml:space="preserve">
+    <value>Server Signature</value>
+  </data>
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
     <value>The following is information related to a server signature.</value>
   </data>
@@ -374,6 +395,9 @@
   </data>
   <data name="SignatureInformation" xml:space="preserve">
     <value>Signature information</value>
+  </data>
+  <data name="SignedContracts" xml:space="preserve">
+    <value>Signed Contracts</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
@@ -425,6 +449,9 @@
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validating information</value>
+  </data>
+  <data name="ViewContract" xml:space="preserve">
+    <value>View Contract</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Welcome to TAG Xamarin App!</value>

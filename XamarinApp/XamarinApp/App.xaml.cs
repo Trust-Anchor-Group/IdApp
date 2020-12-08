@@ -31,13 +31,13 @@ namespace XamarinApp
             this.sdk = TagIdSdk.Create();
             builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
 			builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
+			builder.RegisterInstance(this.sdk.ContractsService).SingleInstance();
 			builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
 			builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
 			builder.RegisterInstance(this.sdk.LogService).SingleInstance();
+			builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
 			builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
 
-			builder.RegisterType<ContractsService>().As<IContractsService>().SingleInstance();
-			builder.RegisterType<SettingsService>().As<ISettingsService>().SingleInstance();
 			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
 			builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
             IContainer container = builder.Build();

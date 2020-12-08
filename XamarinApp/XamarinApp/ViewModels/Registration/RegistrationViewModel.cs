@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using XamarinApp.Extensions;
 using XamarinApp.Services;
 using XamarinApp.Views;
 
@@ -12,45 +11,35 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private const RegistrationStep DefaultStep = RegistrationStep.Operator;
-        public event EventHandler<EventArgs> StepChanged; 
         private readonly TagProfile tagProfile;
-        private readonly ISettingsService settingsService;
-        private readonly ILogService logService;
-        private readonly INeuronService neuronService;
-        private readonly IAuthService authService;
-        private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
-        private readonly INetworkService networkService;
         
         public RegistrationViewModel()
-            : this(null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IContractsService contractsService, INavigationService navigationService, ILogService logService)
+        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IContractsService contractsService, INavigationService navigationService, INetworkService networkService, ILogService logService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
-            this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
-            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.authService = authService ?? DependencyService.Resolve<IAuthService>();
-            this.contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
+            settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
+            neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
+            authService = authService ?? DependencyService.Resolve<IAuthService>();
+            contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-            this.logService = logService ?? DependencyService.Resolve<ILogService>();
-            GoToNextCommand = new Command(GoToNext, () => (RegistrationStep)CurrentStep < RegistrationStep.Pin);
+            networkService = networkService ?? DependencyService.Resolve<INetworkService>();
+            logService = logService ?? DependencyService.Resolve<ILogService>();
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
-                this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.networkService, this.logService)),
-                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.authService, this.contractsService, this.networkService, this.logService)),
-                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService, this.logService)),
-                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.contractsService, this.logService)),
-                this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, this.neuronService, this.navigationService, this.settingsService, this.logService))
+                this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, networkService, logService)),
+                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, authService, contractsService, networkService, logService)),
+                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, contractsService, logService)),
+                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, contractsService, logService)),
+                this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, logService))
             };
-
-            this.CurrentStep = (int)DefaultStep;
+            SyncTagProfileStep();
             UpdateStepTitle();
         }
 
@@ -58,32 +47,18 @@ namespace XamarinApp.ViewModels.Registration
         {
             await base.DoBind();
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
-            this.CurrentStep = (int)this.tagProfile.Step;
-            this.tagProfile.StepChanged += TagProfile_StepChanged;
+            SyncTagProfileStep();
         }
 
         protected override Task DoUnbind()
         {
-            this.tagProfile.StepChanged -= TagProfile_StepChanged;
             RegistrationSteps.ForEach(x => x.StepCompleted -= RegistrationStep_Completed);
             return base.DoUnbind();
-        }
-
-        private void TagProfile_StepChanged(object sender, EventArgs e)
-        {
-            Dispatcher.BeginInvokeOnMainThread(() =>
-            {
-                if ((int)this.tagProfile.Step != this.CurrentStep)
-                {
-                    this.CurrentStep = (int)this.tagProfile.Step;
-                }
-            });
         }
 
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; }
 
         public ICommand GoToPrevCommand { get; }
-        public ICommand GoToNextCommand { get; }
 
         public static readonly BindableProperty CanGoBackProperty =
             BindableProperty.Create("CanGoBack", typeof(bool), typeof(RegistrationViewModel), default(bool));
@@ -100,7 +75,6 @@ namespace XamarinApp.ViewModels.Registration
                 RegistrationViewModel viewModel = (RegistrationViewModel)b;
                 viewModel.UpdateStepTitle();
                 viewModel.CanGoBack = viewModel.GoToPrevCommand.CanExecute(null);
-                Device.BeginInvokeOnMainThread(() => viewModel.StepChanged?.Invoke(viewModel, EventArgs.Empty));
             });
 
         public int CurrentStep
@@ -129,45 +103,25 @@ namespace XamarinApp.ViewModels.Registration
             switch (step)
             {
                 case RegistrationStep.Account:
-                    {
-                        //ChooseAccountViewModel vm = (ChooseAccountViewModel)sender;
-                        GoToNextCommand.Execute();
-                    }
+                    SyncTagProfileStep();
                     break;
 
                 case RegistrationStep.RegisterIdentity:
-                    {
-                        //RegisterIdentityViewModel vm = (RegisterIdentityViewModel)sender;
-                        GoToNextCommand.Execute();
-                    }
+                    SyncTagProfileStep();
                     break;
 
                 case RegistrationStep.ValidateIdentity:
-                    {
-                        //ValidateIdentityViewModel vm = (ValidateIdentityViewModel)sender;
-                        GoToNextCommand.Execute();
-                    }
+                    SyncTagProfileStep();
                     break;
 
                 case RegistrationStep.Pin:
-                    {
-                        //DefinePinViewModel vm = (DefinePinViewModel)sender;
-                        this.navigationService.ReplaceAsync(new MainPage());
-                    }
+                    this.navigationService.ReplaceAsync(new MainPage());
                     break;
 
                 default: // RegistrationStep.Operator
-                    {
-                        //ChooseOperatorViewModel vm = (ChooseOperatorViewModel)sender;
-                        GoToNextCommand.Execute();
-                    }
+                    SyncTagProfileStep();
                     break;
             }
-        }
-
-        private void GoToNext()
-        {
-            CurrentStep++;
         }
 
         private void GoToPrev()
@@ -177,35 +131,32 @@ namespace XamarinApp.ViewModels.Registration
             switch (currStep)
             {
                 case RegistrationStep.Account:
-                    {
-                        this.tagProfile.ClearAccount();
-                    }
+                    this.tagProfile.ClearAccount();
                     break;
 
                 case RegistrationStep.RegisterIdentity:
-                    {
-                        this.tagProfile.ClearLegalIdentity();
-                        this.tagProfile.ClearLegalJId();
-                    }
+                    this.tagProfile.ClearLegalIdentity();
                     break;
 
                 case RegistrationStep.ValidateIdentity:
+                    this.tagProfile.ClearIsValidated();
                     break;
 
                 case RegistrationStep.Pin:
-                    {
-                        this.tagProfile.ClearPin();
-                    }
+                    this.tagProfile.ClearPin();
                     break;
 
                 default: // RegistrationStep.Operator
-                    {
-                        this.tagProfile.ClearDomain();
-                    }
+                    this.tagProfile.ClearDomain();
                     break;
             }
 
-            CurrentStep--;
+            SyncTagProfileStep();
+        }
+
+        private void SyncTagProfileStep()
+        {
+            this.CurrentStep = (int)this.tagProfile.Step;
         }
     }
 }

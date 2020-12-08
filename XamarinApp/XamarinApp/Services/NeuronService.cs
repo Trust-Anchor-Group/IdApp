@@ -108,8 +108,8 @@ namespace XamarinApp.Services
             this.reconnectTimer?.Dispose();
             if (this.xmppClient != null)
             {
-                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
+                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
                 this.xmppClient.Dispose();
             }
             this.xmppClient = null;

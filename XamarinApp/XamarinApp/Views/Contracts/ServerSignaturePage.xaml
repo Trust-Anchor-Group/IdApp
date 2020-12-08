@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
-             x:Class="XamarinApp.Views.Contracts.ServerSignaturePage">
+             x:Class="XamarinApp.Views.Contracts.ServerSignaturePage"
+             Title="{x:Static local:AppResources.ServerSignature}">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="{StaticResource DefaultMargin}">
             <Label Text="{x:Static local:AppResources.SignatureInformation}" Style="{StaticResource Heading}" />

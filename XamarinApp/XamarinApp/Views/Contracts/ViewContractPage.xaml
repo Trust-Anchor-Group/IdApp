@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamarinApp.Views.Contracts.ViewContractPage">
+             xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
+             x:Class="XamarinApp.Views.Contracts.ViewContractPage"
+             Title="{x:Static local:AppResources.ViewContract}">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="10">
             <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">

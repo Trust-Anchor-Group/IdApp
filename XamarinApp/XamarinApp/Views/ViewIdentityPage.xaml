@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="XamarinApp.Views.ViewIdentityPage">
+             xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
+             x:Class="XamarinApp.Views.ViewIdentityPage"
+             Title="{x:Static local:AppResources.Identity}">
     <ScrollView x:Name="ScrollView">
-        <StackLayout Margin="10">
+        <StackLayout Margin="{StaticResource DefaultMargin}">
             <Label Text="Identity Information" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" IsVisible="{Binding NotForReview}" />
             <Label Text="Following is personal information registered with the legal identity. Signatures and payments are signed using this information." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" IsVisible="{Binding NotForReview}" />
             <Label Text="Peer Review" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" IsVisible="{Binding ForReview}" />

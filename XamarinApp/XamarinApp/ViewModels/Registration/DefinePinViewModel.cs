@@ -82,6 +82,7 @@ namespace XamarinApp.ViewModels.Registration
         private void Skip()
         {
             UsePin = false;
+            this.TagProfile.SetPin(this.Pin, this.UsePin);
             OnStepCompleted(EventArgs.Empty);
         }
 

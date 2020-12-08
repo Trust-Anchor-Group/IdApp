@@ -16,8 +16,6 @@ namespace XamarinApp
 {
     public class TagIdSdk : ITagIdSdk
     {
-        private const string TagConfigurationSettingKey = "TagConfiguration";
-
         private static ITagIdSdk instance;
 
         private FilesProvider filesProvider;
@@ -29,7 +27,9 @@ namespace XamarinApp
             this.AuthService = new AuthService(this.LogService);
             this.NetworkService = new NetworkService();
             this.SettingsService = new SettingsService();
+            this.StorageService = new StorageService();
             this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService, this.LogService);
+            this.ContractsService = new ContractsService(this.TagProfile, this.NeuronService);
         }
 
         public void Dispose()
@@ -45,10 +45,12 @@ namespace XamarinApp
         public TagProfile TagProfile { get; }
         public IAuthService AuthService { get; }
         public INeuronService NeuronService { get; }
+        public IContractsService ContractsService { get; }
         public INetworkService NetworkService { get; }
+        public IStorageService StorageService { get; }
         public ISettingsService SettingsService { get; }
         public ILogService LogService { get; }
-        
+
         public async Task Startup()
         {
             Types.Initialize(
@@ -70,11 +72,11 @@ namespace XamarinApp
             await filesProvider.RepairIfInproperShutdown(string.Empty);
             Database.Register(filesProvider, false);
 
-            TagConfiguration configuration = this.SettingsService.RestoreState<TagConfiguration>(TagConfigurationSettingKey);
+            TagConfiguration configuration = await this.StorageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration == null)
             {
                 configuration = new TagConfiguration();
-                this.SettingsService.SaveState(TagConfigurationSettingKey, configuration);
+                await this.StorageService.Insert(configuration);
             }
             this.TagProfile.FromConfiguration(configuration);
 
@@ -97,7 +99,7 @@ namespace XamarinApp
             if (this.TagProfile.IsDirty)
             {
                 this.TagProfile.ResetIsDirty();
-                this.SettingsService.SaveState(TagConfigurationSettingKey, this.TagProfile.ToConfiguration());
+                this.StorageService.Update(this.TagProfile.ToConfiguration());
             }
         }
     }

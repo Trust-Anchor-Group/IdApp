@@ -156,6 +156,9 @@
   <data name="City" xml:space="preserve">
     <value>Stad</value>
   </data>
+  <data name="ClientSignature" xml:space="preserve">
+    <value>Klientsignatur</value>
+  </data>
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
     <value>Följande är information kopplat till en klient-signatur.</value>
   </data>
@@ -201,6 +204,9 @@
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>
+  <data name="Identity" xml:space="preserve">
+    <value>Identitet</value>
+  </data>
   <data name="IdentityInformation" xml:space="preserve">
     <value>Identitetsinformation</value>
   </data>
@@ -231,8 +237,14 @@
   <data name="MiddleNames" xml:space="preserve">
     <value>Mellannamn</value>
   </data>
+  <data name="MyContracts" xml:space="preserve">
+    <value>Mina kontrakt</value>
+  </data>
   <data name="Network" xml:space="preserve">
     <value>Nätverk</value>
+  </data>
+  <data name="NewContract" xml:space="preserve">
+    <value>Nytt kontrakt</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>Nej</value>
@@ -294,8 +306,14 @@
   <data name="Petition" xml:space="preserve">
     <value>Ansökan</value>
   </data>
+  <data name="PetitionContract" xml:space="preserve">
+    <value>Granska kontrakt</value>
+  </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
     <value>En ansökan för personlig data tillhörande ett av dina kontrakt har mottagits. Vänligen granska informationen edan och välj hur du vill svara.</value>
+  </data>
+  <data name="PetitionIdentity" xml:space="preserve">
+    <value>Granska identitet</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
     <value>En ansökan för personlig data tillhörande din juridiska identitet har mottagits. Vänligen granska informationen nedan och välj hur du vill svara.</value>
@@ -366,6 +384,9 @@
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
   </data>
+  <data name="ServerSignature" xml:space="preserve">
+    <value>Serversignatur</value>
+  </data>
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
     <value>Nedan följer information kopplat till server-signaturen.</value>
   </data>
@@ -374,6 +395,9 @@
   </data>
   <data name="SignatureInformation" xml:space="preserve">
     <value>Signatur-information</value>
+  </data>
+  <data name="SignedContracts" xml:space="preserve">
+    <value>Signerade kontrakt</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hoppa över</value>
@@ -425,6 +449,9 @@
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validerar information</value>
+  </data>
+  <data name="ViewContract" xml:space="preserve">
+    <value>Visa kontrakt</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Välkommen till TAGs Xamarin-app!</value>
