@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,14 +64,28 @@ namespace XamarinApp
                 typeof(Expression).Assembly,
                 typeof(XmppServerlessMessaging).Assembly);
 
+            Stopwatch sw = Stopwatch.StartNew();
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string dataFolder = Path.Combine(appDataFolder, "Data");
             if (filesProvider == null)
             {
+                System.Diagnostics.Debug.WriteLine("SW1 START");
+                Stopwatch sw1 = Stopwatch.StartNew();
                 filesProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
+                sw1.Stop();
+                System.Diagnostics.Debug.WriteLine($"SW1 TOOK {sw1.ElapsedMilliseconds} ms");
             }
+            Stopwatch sw2 = Stopwatch.StartNew();
             await filesProvider.RepairIfInproperShutdown(string.Empty);
+            sw2.Stop();
+            System.Diagnostics.Debug.WriteLine($"SW2 TOOK {sw2.ElapsedMilliseconds} ms");
+            sw2.Restart();
             Database.Register(filesProvider, false);
+            sw2.Stop();
+            System.Diagnostics.Debug.WriteLine($"SW3 TOOK {sw2.ElapsedMilliseconds} ms");
+
+            sw.Stop();
+            System.Diagnostics.Debug.WriteLine($"SWTOTAL TOOK {sw.ElapsedMilliseconds} ms");
 
             TagConfiguration configuration = await this.StorageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration == null)

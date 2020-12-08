@@ -1,17 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+             xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Contracts.MyContractsPage">
     <ScrollView x:Name="ScrollView">
-        <StackLayout Margin="10">
-            <Label Text="My Contracts" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
-            <Label Text="Below is a list of contracts. Click on a contract for more information about it." HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-            <TableView x:Name="Contracts" Intent="Data" HasUnevenRows="True">
-                <TableView.Root>
-                    <TableSection>
-                    </TableSection>
-                </TableView.Root>
-            </TableView>
+        <StackLayout Margin="{StaticResource DefaultMargin}">
+            <Label Text="{x:Static local:AppResources.MyContracts}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+            <Label Text="{x:Static local:AppResources.MyContractsInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <ListView x:Name="Contracts" HasUnevenRows="True" ItemsSource="{Binding Path=Contracts}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Created}" MinimumWidthRequest="100"/>
+                                <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Name}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
         </StackLayout>
     </ScrollView>
-</ContentPage>
+</views:ContentBasePage>

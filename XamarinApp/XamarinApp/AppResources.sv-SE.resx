@@ -240,6 +240,9 @@
   <data name="MyContracts" xml:space="preserve">
     <value>Mina kontrakt</value>
   </data>
+  <data name="MyContractsInfoText" xml:space="preserve">
+    <value>Nedan visas en lista på kontrakt. Klicka på ett kontrakt för att få mer information om det.</value>
+  </data>
   <data name="Network" xml:space="preserve">
     <value>Nätverk</value>
   </data>
@@ -248,6 +251,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>Nej</value>
+  </data>
+  <data name="NoContractsFound" xml:space="preserve">
+    <value>Hittade inga kontrakt.</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Inte ansluten till operatören</value>

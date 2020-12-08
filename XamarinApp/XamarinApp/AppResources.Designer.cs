@@ -430,6 +430,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Below is a list of contracts. Click on a contract for more information about it..
+        /// </summary>
+        internal static string MyContractsInfoText {
+            get {
+                return ResourceManager.GetString("MyContractsInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Network.
         /// </summary>
         internal static string Network {
@@ -453,6 +462,15 @@ namespace XamarinApp {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No contracts found..
+        /// </summary>
+        internal static string NoContractsFound {
+            get {
+                return ResourceManager.GetString("NoContractsFound", resourceCulture);
             }
         }
         

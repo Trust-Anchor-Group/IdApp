@@ -240,6 +240,9 @@
   <data name="MyContracts" xml:space="preserve">
     <value>My Contracts</value>
   </data>
+  <data name="MyContractsInfoText" xml:space="preserve">
+    <value>Below is a list of contracts. Click on a contract for more information about it.</value>
+  </data>
   <data name="Network" xml:space="preserve">
     <value>Network</value>
   </data>
@@ -248,6 +251,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="NoContractsFound" xml:space="preserve">
+    <value>No contracts found.</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Not connected to the operator</value>
