@@ -14,7 +14,7 @@ using XamarinApp.Extensions;
 
 namespace XamarinApp.Services
 {
-    internal sealed class NeuronService : LoadableService, INeuronService
+    internal sealed class NeuronService : LoadableService, IInternalNeuronService
     {
         private readonly INetworkService networkService;
         private readonly IInternalLogService logService;
@@ -207,13 +207,23 @@ namespace XamarinApp.Services
             }
         }
 
-        public override async Task Unload()
+        public override Task Unload()
+        {
+            return Unload(false);
+        }
+
+        public Task UnloadFast()
+        {
+            return Unload(true);
+        }
+
+        private async Task Unload(bool fast)
         {
             if (this.BeginUnload())
             {
                 try
                 {
-                    if (this.xmppClient != null)
+                    if (this.xmppClient != null && !fast)
                     {
                         TaskCompletionSource<bool> offlineSent = new TaskCompletionSource<bool>();
                         this.xmppClient.SetPresence(Availability.Offline, (sender, e) => offlineSent.TrySetResult(true));

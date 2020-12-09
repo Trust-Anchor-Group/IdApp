@@ -8,6 +8,7 @@ namespace XamarinApp
     {
         Task Startup();
         Task Shutdown();
+        Task ShutdownInPanic();
         void AutoSave();
         TagProfile TagProfile { get; }
         IAuthService AuthService { get; }

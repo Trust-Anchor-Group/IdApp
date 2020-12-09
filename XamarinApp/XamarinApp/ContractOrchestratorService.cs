@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
@@ -205,8 +206,12 @@ namespace XamarinApp
                     await this.navigationService.PushAsync(new ViewIdentityPage(identity));
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                this.logService.LogException(ex, 
+                    new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
+                    new KeyValuePair<string, string>("Method", nameof(OpenLegalIdentity)));
+
                 await this.contractsService.PetitionIdentityAsync(legalId, Guid.NewGuid().ToString(), purpose);
 
                 await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +

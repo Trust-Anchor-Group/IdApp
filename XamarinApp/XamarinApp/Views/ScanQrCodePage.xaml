@@ -4,7 +4,8 @@
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
-             x:Class="XamarinApp.Views.ScanQrCodePage">
+             x:Class="XamarinApp.Views.ScanQrCodePage"
+             Title="{x:Static local:AppResources.ScanQRCode}">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
             <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">

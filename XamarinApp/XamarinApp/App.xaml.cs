@@ -83,6 +83,9 @@ namespace XamarinApp
             {
                 this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("CurrentDomain", "UnhandledException"));
             }
+
+            await this.sdk.ShutdownInPanic();
+
             if (Device.IsInvokeRequired)
             {
                 Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok));

@@ -30,7 +30,7 @@ namespace XamarinApp
             this.NetworkService = new NetworkService();
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
-            this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService, this.logService);
+            this.neuronService = new NeuronService(this.TagProfile, this.NetworkService, this.logService);
             this.ContractsService = new ContractsService(this.TagProfile, this.NeuronService, this.LogService);
         }
 
@@ -46,7 +46,8 @@ namespace XamarinApp
 
         public TagProfile TagProfile { get; }
         public IAuthService AuthService { get; }
-        public INeuronService NeuronService { get; }
+        private readonly IInternalNeuronService neuronService;
+        public INeuronService NeuronService => neuronService;
         public IContractsService ContractsService { get; }
         public INetworkService NetworkService { get; }
         public IStorageService StorageService { get; }
@@ -86,9 +87,22 @@ namespace XamarinApp
             await this.NeuronService.Load();
         }
 
-        public async Task Shutdown()
+        public Task Shutdown()
         {
-            await this.NeuronService.Unload();
+            return Shutdown(false);
+        }
+
+        public Task ShutdownInPanic()
+        {
+            return Shutdown(true);
+        }
+
+        private async Task Shutdown(bool panic)
+        {
+            if (panic)
+                await this.neuronService.UnloadFast();
+            else
+                await this.neuronService.Unload();
             await Types.StopAllModules();
             if (this.filesProvider != null)
             {
