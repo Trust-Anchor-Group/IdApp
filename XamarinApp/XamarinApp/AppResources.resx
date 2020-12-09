@@ -186,8 +186,26 @@
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="ContractCategory" xml:space="preserve">
+    <value>Contract Category</value>
+  </data>
   <data name="Contracts" xml:space="preserve">
     <value>Contracts</value>
+  </data>
+  <data name="ContractType" xml:space="preserve">
+    <value>Contract Type</value>
+  </data>
+  <data name="ContractVisibilityItem1" xml:space="preserve">
+    <value>Creator and parts</value>
+  </data>
+  <data name="ContractVisibilityItem2" xml:space="preserve">
+    <value>Domain and parts</value>
+  </data>
+  <data name="ContractVisibilityItem3" xml:space="preserve">
+    <value>Public, not searchable</value>
+  </data>
+  <data name="ContractVisibilityItem4" xml:space="preserve">
+    <value>Public and searchable</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
     <value>Could you please review my identity information?</value>
@@ -384,6 +402,9 @@
   <data name="PinTooShort" xml:space="preserve">
     <value>PIN number too short. At least {0} numbers (or characters) are required.</value>
   </data>
+  <data name="Propose" xml:space="preserve">
+    <value>Propose</value>
+  </data>
   <data name="Provider" xml:space="preserve">
     <value>Provider</value>
   </data>
@@ -431,6 +452,21 @@
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
+  </data>
+  <data name="SelectTheCategoryOfContractToCreate" xml:space="preserve">
+    <value>Select the category of contract to create.</value>
+  </data>
+  <data name="SelectTheTypeOfContractToCreate" xml:space="preserve">
+    <value>Select the type of contract to create.</value>
+  </data>
+  <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
+    <value>Select who should have access to this contract.</value>
+  </data>
+  <data name="SelectYourRole" xml:space="preserve">
+    <value>Select your role in this contract.</value>
+  </data>
+  <data name="SelectYourRoleInThisContract" xml:space="preserve">
+    <value>Select your role in this contract.</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
     <value>Server Signature</value>
@@ -501,6 +537,9 @@
   <data name="ViewContract" xml:space="preserve">
     <value>View Contract</value>
   </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Visibility</value>
+  </data>
   <data name="Wallet" xml:space="preserve">
     <value>Wallet</value>
   </data>
@@ -566,6 +605,9 @@
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>You need to provide a personal or social security number</value>
+  </data>
+  <data name="YourRole" xml:space="preserve">
+    <value>Your Role</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Zip or Postal Code</value>

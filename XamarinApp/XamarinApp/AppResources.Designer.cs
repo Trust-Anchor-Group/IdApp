@@ -268,11 +268,65 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract Category.
+        /// </summary>
+        internal static string ContractCategory {
+            get {
+                return ResourceManager.GetString("ContractCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contracts.
         /// </summary>
         internal static string Contracts {
             get {
                 return ResourceManager.GetString("Contracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract Type.
+        /// </summary>
+        internal static string ContractType {
+            get {
+                return ResourceManager.GetString("ContractType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator and parts.
+        /// </summary>
+        internal static string ContractVisibilityItem1 {
+            get {
+                return ResourceManager.GetString("ContractVisibilityItem1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Domain and parts.
+        /// </summary>
+        internal static string ContractVisibilityItem2 {
+            get {
+                return ResourceManager.GetString("ContractVisibilityItem2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public, not searchable.
+        /// </summary>
+        internal static string ContractVisibilityItem3 {
+            get {
+                return ResourceManager.GetString("ContractVisibilityItem3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Public and searchable.
+        /// </summary>
+        internal static string ContractVisibilityItem4 {
+            get {
+                return ResourceManager.GetString("ContractVisibilityItem4", resourceCulture);
             }
         }
         
@@ -862,6 +916,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Propose.
+        /// </summary>
+        internal static string Propose {
+            get {
+                return ResourceManager.GetString("Propose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Provider.
         /// </summary>
         internal static string Provider {
@@ -1002,6 +1065,51 @@ namespace XamarinApp {
         internal static string SelectOperator {
             get {
                 return ResourceManager.GetString("SelectOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the category of contract to create..
+        /// </summary>
+        internal static string SelectTheCategoryOfContractToCreate {
+            get {
+                return ResourceManager.GetString("SelectTheCategoryOfContractToCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the type of contract to create..
+        /// </summary>
+        internal static string SelectTheTypeOfContractToCreate {
+            get {
+                return ResourceManager.GetString("SelectTheTypeOfContractToCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select who should have access to this contract..
+        /// </summary>
+        internal static string SelectWhoShouldHaveAccessToThisContract {
+            get {
+                return ResourceManager.GetString("SelectWhoShouldHaveAccessToThisContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select your role in this contract..
+        /// </summary>
+        internal static string SelectYourRole {
+            get {
+                return ResourceManager.GetString("SelectYourRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select your role in this contract..
+        /// </summary>
+        internal static string SelectYourRoleInThisContract {
+            get {
+                return ResourceManager.GetString("SelectYourRoleInThisContract", resourceCulture);
             }
         }
         
@@ -1213,6 +1321,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Visibility.
+        /// </summary>
+        internal static string Visibility {
+            get {
+                return ResourceManager.GetString("Visibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wallet.
         /// </summary>
         internal static string Wallet {
@@ -1407,6 +1524,15 @@ namespace XamarinApp {
         internal static string YouNeedToProvideAPersonalNumber {
             get {
                 return ResourceManager.GetString("YouNeedToProvideAPersonalNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Role.
+        /// </summary>
+        internal static string YourRole {
+            get {
+                return ResourceManager.GetString("YourRole", resourceCulture);
             }
         }
         

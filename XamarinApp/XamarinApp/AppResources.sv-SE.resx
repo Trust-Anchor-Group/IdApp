@@ -186,8 +186,26 @@
   <data name="Continue" xml:space="preserve">
     <value>Fortsätt</value>
   </data>
+  <data name="ContractCategory" xml:space="preserve">
+    <value>Kontraktskategori</value>
+  </data>
   <data name="Contracts" xml:space="preserve">
     <value>Kontrakt</value>
+  </data>
+  <data name="ContractType" xml:space="preserve">
+    <value>Kontraktstyp</value>
+  </data>
+  <data name="ContractVisibilityItem1" xml:space="preserve">
+    <value>Skapare och delar</value>
+  </data>
+  <data name="ContractVisibilityItem2" xml:space="preserve">
+    <value>Domän och delar</value>
+  </data>
+  <data name="ContractVisibilityItem3" xml:space="preserve">
+    <value>Publik, ej sökbar</value>
+  </data>
+  <data name="ContractVisibilityItem4" xml:space="preserve">
+    <value>Publik och sökbar</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
     <value>Kan du vänligen granska min identitets-information?</value>
@@ -384,6 +402,9 @@
   <data name="PinTooShort" xml:space="preserve">
     <value>Angiven PIN är för kort. Åtminstone {0} siffor (eller tecken) krävs.</value>
   </data>
+  <data name="Propose" xml:space="preserve">
+    <value>Föreslå</value>
+  </data>
   <data name="Provider" xml:space="preserve">
     <value>Leverantör</value>
   </data>
@@ -431,6 +452,21 @@
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Välj operatör</value>
+  </data>
+  <data name="SelectTheCategoryOfContractToCreate" xml:space="preserve">
+    <value>Välj kategori för kontraktet.</value>
+  </data>
+  <data name="SelectTheTypeOfContractToCreate" xml:space="preserve">
+    <value>Välj typ av kontrakt att skapa.</value>
+  </data>
+  <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
+    <value>Välj vem som ska ha tillgång till det här kontraktet.</value>
+  </data>
+  <data name="SelectYourRole" xml:space="preserve">
+    <value>Välj din roll i kontraktet</value>
+  </data>
+  <data name="SelectYourRoleInThisContract" xml:space="preserve">
+    <value>Välj din roll för kontraktet.</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
     <value>Serversignatur</value>
@@ -501,6 +537,9 @@
   <data name="ViewContract" xml:space="preserve">
     <value>Visa kontrakt</value>
   </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Synlighet</value>
+  </data>
   <data name="Wallet" xml:space="preserve">
     <value>Plånbok</value>
   </data>
@@ -566,6 +605,9 @@
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>Du behöver ange personnummer eller SSN</value>
+  </data>
+  <data name="YourRole" xml:space="preserve">
+    <value>Din roll</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
     <value>Postkod</value>

@@ -43,11 +43,6 @@ namespace XamarinApp.Views.Contracts
             this.navigationService = DependencyService.Resolve<INavigationService>();
 			InitializeComponent();
 
-			this.ContractCategoryLabel.IsVisible = false;
-			this.ContractCategoryPicker.IsVisible = false;
-			this.ContractTypeLabel.IsVisible = false;
-			this.ContractTypePicker.IsVisible = false;
-
 			this.PopulateTemplateForm();
 		}
 

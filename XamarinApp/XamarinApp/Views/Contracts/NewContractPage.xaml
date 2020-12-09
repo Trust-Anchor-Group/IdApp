@@ -3,32 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+             xmlns:converters="clr-namespace:XamarinApp.Views.Converters;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Contracts.NewContractPage"
              Title="{x:Static local:AppResources.NewContract}">
-    <ScrollView x:Name="ScrollView">
+    <ScrollView>
         <StackLayout Margin="{StaticResource DefaultMargin}">
-            <Label x:Name="ContractCategoryLabel" Text="Contract Category:" FontAttributes="Bold" HorizontalOptions="Start" />
-            <Picker x:Name="ContractCategoryPicker" Title="Select the category of contract to create." ItemsSource="{Binding ContractCategories}" SelectedItem="{Binding ContractCategory, Mode=TwoWay}" />
-            <Label x:Name="ContractTypeLabel" Text="Contract Type:" FontAttributes="Bold" HorizontalOptions="Start" />
-            <Picker x:Name="ContractTypePicker" Title="Select the type of contract to create." SelectedItem="{Binding ContractType, Mode=TwoWay}" IsEnabled="False" />
-            <Label Text="Visibility:" FontAttributes="Bold" HorizontalOptions="Start" />
-            <Picker x:Name="VisibilityPicker" Title="Select who should have access to this contract." SelectedItem="{Binding Visibility, Mode=TwoWay}" IsEnabled="False">
-                <Picker.Items>
-                    <x:String>Creator and parts</x:String>
-                    <x:String>Domain and parts</x:String>
-                    <x:String>Public, not searchable</x:String>
-                    <x:String>Public and searchable</x:String>
-                </Picker.Items>
-            </Picker>
-            <Label Text="Your Role:" FontAttributes="Bold" HorizontalOptions="Start" />
-            <Picker x:Name="RolePicker" Title="Select your role in this contract." SelectedItem="{Binding Role, Mode=TwoWay}" IsEnabled="False" />
-            <StackLayout x:Name="Roles" Orientation="Vertical">
+
+            <Label Text="{x:Static local:AppResources.ContractCategory}" FontAttributes="Bold" HorizontalOptions="Start" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
+            <Picker Title="{x:Static local:AppResources.SelectTheCategoryOfContractToCreate}" ItemsSource="{Binding Path=ContractCategories}" SelectedItem="{Binding Path=SelectedContractCategory, Mode=TwoWay}" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
+            <Label Text="{x:Static local:AppResources.ContractType}" FontAttributes="Bold" HorizontalOptions="Start" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
+            <Picker Title="{x:Static local:AppResources.SelectTheTypeOfContractToCreate}" ItemsSource="{Binding Path=ContractTypes}" SelectedItem="{Binding Path=SelectedContractType, Mode=TwoWay}" IsEnabled="False" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
+
+            <Label Text="{x:Static local:AppResources.Visibility}" FontAttributes="Bold" HorizontalOptions="Start" />
+            <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" ItemsSource="{Binding Path=VisibilityItems}" SelectedItem="{Binding Path=SelectedVisibilityItem, Mode=TwoWay}" IsEnabled="False"/>
+            <Label Text="{x:Static local:AppResources.YourRole}" FontAttributes="Bold" HorizontalOptions="Start" />
+            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="False"/>
+
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <!-- TODO add template here -->
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
             </StackLayout>
-            <StackLayout x:Name="Parameters" Orientation="Vertical"/>
-            <StackLayout x:Name="HumanReadableText" Orientation="Vertical" Spacing="0"/>
-            <Label x:Name="PinLabel" Text="PIN:" IsVisible="False"/>
-            <Entry x:Name="PIN" IsVisible="False" IsPassword="True"/>
-            <Button x:Name="ProposeButton" Text="Propose" Clicked="ProposeButton_Clicked" IsEnabled="False"/>
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <!-- TODO add template here -->
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <!-- TODO add template here -->
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="False"/>
+            <Entry Text="{Binding Path=Pin}" IsVisible="False" IsPassword="True"/>
+            <Button Text="{x:Static local:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" />
         </StackLayout>
     </ScrollView>
 </views:ContentBasePage>
