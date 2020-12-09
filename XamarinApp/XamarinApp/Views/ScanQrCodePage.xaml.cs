@@ -64,13 +64,13 @@ namespace XamarinApp.Views
             }
         }
 
-        private async void Scanner_OnScanResult(Result result)
+        private void Scanner_OnScanResult(Result result)
         {
             if (!string.IsNullOrWhiteSpace(result.Text))
             {
                 string code = result.Text;
                 GetViewModel<ScanQrCodeViewModel>().Code = code;
-                await TrySetResultAndClosePage(code);
+                TrySetResultAndClosePage(code);
             }
         }
 
@@ -101,22 +101,22 @@ namespace XamarinApp.Views
                 return;
             }
 
-            await TrySetResultAndClosePage(code);
+            TrySetResultAndClosePage(code);
         }
 
-        private async Task TrySetResultAndClosePage(string code)
+        private void TrySetResultAndClosePage(string code)
         {
             if (!string.IsNullOrWhiteSpace(code) && qrCodeScanned != null)
             {
                 qrCodeScanned.TrySetResult(code);
                 qrCodeScanned = null;
             }
-            await this.navigationService.PopAsync();
+            Dispatcher.BeginInvokeOnMainThread(async () => await this.navigationService.PopAsync());
         }
 
         protected override bool OnBackButtonPressed()
         {
-            _ = TrySetResultAndClosePage(string.Empty);
+            TrySetResultAndClosePage(string.Empty);
             return true;
         }
     }

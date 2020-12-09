@@ -52,13 +52,12 @@ namespace XamarinApp.Services
                 }
             }
             Crashes.TrackError(e, parameters);
-            Log.Error("Exception", string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+            Log.Error(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
         }
 
         public void LogException(Exception e)
         {
-            var parameters = GetParameters();
-            LogException(e, parameters.ToArray());
+            LogException(e, null);
         }
 
         public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
