@@ -133,6 +133,51 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A peer review you requested has been accepted..
+        /// </summary>
+        internal static string APeerReviewYouhaveRequestedHasBeenAccepted {
+            get {
+                return ResourceManager.GetString("APeerReviewYouhaveRequestedHasBeenAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A peer review you requested has been rejected, due to a signature error..
+        /// </summary>
+        internal static string APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError {
+            get {
+                return ResourceManager.GetString("APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A peer you requested to review your application, has rejected to approve it..
+        /// </summary>
+        internal static string APeerYouRequestedToReviewHasRejected {
+            get {
+                return ResourceManager.GetString("APeerYouRequestedToReviewHasRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A petition has been sent to the parts of the contract. If any of the parts accepts the petition, the contract information will be displayed on the screen..
+        /// </summary>
+        internal static string APetitionHasBeenSentToTheContract {
+            get {
+                return ResourceManager.GetString("APetitionHasBeenSentToTheContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A petition has been sent to the owner of the identity. If the owner accepts the petition, the identity information will be displayed on the screen..
+        /// </summary>
+        internal static string APetitionHasBeenSentToTheOwner {
+            get {
+                return ResourceManager.GetString("APetitionHasBeenSentToTheOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A petition has been sent to your peer.
         /// </summary>
         internal static string APetitionHasBeenSentToYourPeer {
@@ -741,6 +786,24 @@ namespace XamarinApp {
         internal static string PetitionSent {
             get {
                 return ResourceManager.GetString("PetitionSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Petition to view contract was denied..
+        /// </summary>
+        internal static string PetitionToViewContractWasDenied {
+            get {
+                return ResourceManager.GetString("PetitionToViewContractWasDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Petition to view legal identity was denied..
+        /// </summary>
+        internal static string PetitionToViewLegalIdentityWasDenied {
+            get {
+                return ResourceManager.GetString("PetitionToViewLegalIdentityWasDenied", resourceCulture);
             }
         }
         

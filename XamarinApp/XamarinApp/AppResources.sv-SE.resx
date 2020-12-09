@@ -141,6 +141,21 @@
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
+  <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
+    <value>En granskning du begärde har accepterats.</value>
+  </data>
+  <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
+    <value>En granskning du begärde har nekats pga signatur-fel.</value>
+  </data>
+  <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
+    <value>En jämbördig vars granskning du begärde har nekat granskningen.</value>
+  </data>
+  <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
+    <value>En begäran har skickats till en del av kontraktet. Om någon av delarna acceptera granskning kommer information om kontraktet att visas på skärmen.</value>
+  </data>
+  <data name="APetitionHasBeenSentToTheOwner" xml:space="preserve">
+    <value>En begäran har skickats till ägaren av identiteten. Om ägaren accepterar begäran kommer informationen kring identiteten att visas på skärmen.</value>
+  </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>En begäran har skickats till din vän</value>
   </data>
@@ -344,6 +359,12 @@
   </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Begäran skickad</value>
+  </data>
+  <data name="PetitionToViewContractWasDenied" xml:space="preserve">
+    <value>Begäran att få se kontraktet avslogs.</value>
+  </data>
+  <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
+    <value>Begäran att få se den juridiska identiteten avslogs.</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Bilden är för stor</value>

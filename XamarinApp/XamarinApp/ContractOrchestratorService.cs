@@ -114,8 +114,7 @@ namespace XamarinApp
             {
                 if (!e.Response || e.RequestedContract is null)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.Message,
-                        "Petition to view contract was denied.", AppResources.Ok);
+                    await this.navigationService.DisplayAlert(AppResources.Message, AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
                 }
                 else
                 {
@@ -146,7 +145,7 @@ namespace XamarinApp
         {
             if (!e.Response || e.RequestedIdentity is null)
             {
-                await this.navigationService.DisplayAlert(AppResources.Message, "Petition to view legal identity was denied.", AppResources.Ok);
+                await this.navigationService.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
             }
             else
             {
@@ -163,7 +162,7 @@ namespace XamarinApp
             {
                 if (!e.Response)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer you requested to review your application, has rejected to approve it.", AppResources.Ok);
+                    await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
                 }
                 else
                 {
@@ -176,12 +175,12 @@ namespace XamarinApp
                     {
                         if (!result.HasValue || !result.Value)
                         {
-                            await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, "A peer review you requested has been rejected, due to a signature error.", AppResources.Ok);
+                            await this.navigationService.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
                         }
                         else
                         {
                             await this.contractsService.AddPeerReviewIdAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
-                            await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, "A peer review you requested has been accepted.", AppResources.Ok);
+                            await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
                         }
                     });
                 }
@@ -214,8 +213,7 @@ namespace XamarinApp
 
                 await this.contractsService.PetitionIdentityAsync(legalId, Guid.NewGuid().ToString(), purpose);
 
-                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the owner of the identity. " +
-                                                                           "If the owner accepts the petition, the identity information will be displayed on the screen.");
+                await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
             }
         }
 
@@ -237,8 +235,7 @@ namespace XamarinApp
             {
                 await this.contractsService.PetitionContractAsync(contractId, Guid.NewGuid().ToString(), purpose);
 
-                await this.navigationService.DisplayAlert("Petition Sent", "A petition has been sent to the parts of the contract. " +
-                                                                           "If any of the parts accepts the petition, the contract information will be displayed on the screen.");
+                await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
             }
         }
     }
