@@ -5,14 +5,15 @@ namespace XamarinApp.Behaviors
 {
     public class TextChangedBehavior : Behavior<Entry>
     {
-        public static readonly BindableProperty TextChangedCommandProperty =
-            BindableProperty.Create("TextChangedCommand", typeof(ICommand), typeof(TextChangedBehavior), default(ICommand), BindingMode.OneWayToSource);
+        public ICommand TextChangedCommand { get; set; }
+        //public static readonly BindableProperty TextChangedCommandProperty =
+        //    BindableProperty.Create("TextChangedCommand", typeof(ICommand), typeof(TextChangedBehavior), default(ICommand), BindingMode.OneWayToSource);
 
-        public ICommand TextChangedCommand
-        {
-            get { return (ICommand)GetValue(TextChangedCommandProperty); }
-            set { SetValue(TextChangedCommandProperty, value); }
-        }
+        //public ICommand TextChangedCommand
+        //{
+        //    get { return (ICommand)GetValue(TextChangedCommandProperty); }
+        //    set { SetValue(TextChangedCommandProperty, value); }
+        //}
 
         protected override void OnAttachedTo(Entry entry)
         {

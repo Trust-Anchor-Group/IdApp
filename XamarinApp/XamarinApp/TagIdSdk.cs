@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Waher.Events;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.P2P;
@@ -11,6 +11,7 @@ using Waher.Persistence.Files;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Script;
+using Xamarin.Forms;
 using XamarinApp.Services;
 
 namespace XamarinApp
@@ -24,13 +25,13 @@ namespace XamarinApp
         private TagIdSdk()
         {
             this.TagProfile = new TagProfile();
-            this.LogService = new LogService();
+            this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
             this.AuthService = new AuthService(this.LogService);
             this.NetworkService = new NetworkService();
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
-            this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService, this.LogService);
-            this.ContractsService = new ContractsService(this.TagProfile, this.NeuronService);
+            this.NeuronService = new NeuronService(this.TagProfile, this.NetworkService, this.logService);
+            this.ContractsService = new ContractsService(this.TagProfile, this.NeuronService, this.LogService);
         }
 
         public void Dispose()
@@ -50,7 +51,8 @@ namespace XamarinApp
         public INetworkService NetworkService { get; }
         public IStorageService StorageService { get; }
         public ISettingsService SettingsService { get; }
-        public ILogService LogService { get; }
+        private readonly IInternalLogService logService;
+        public ILogService LogService => logService;
 
         public async Task Startup()
         {
@@ -64,28 +66,14 @@ namespace XamarinApp
                 typeof(Expression).Assembly,
                 typeof(XmppServerlessMessaging).Assembly);
 
-            Stopwatch sw = Stopwatch.StartNew();
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string dataFolder = Path.Combine(appDataFolder, "Data");
             if (filesProvider == null)
             {
-                System.Diagnostics.Debug.WriteLine("SW1 START");
-                Stopwatch sw1 = Stopwatch.StartNew();
                 filesProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
-                sw1.Stop();
-                System.Diagnostics.Debug.WriteLine($"SW1 TOOK {sw1.ElapsedMilliseconds} ms");
             }
-            Stopwatch sw2 = Stopwatch.StartNew();
             await filesProvider.RepairIfInproperShutdown(string.Empty);
-            sw2.Stop();
-            System.Diagnostics.Debug.WriteLine($"SW2 TOOK {sw2.ElapsedMilliseconds} ms");
-            sw2.Restart();
             Database.Register(filesProvider, false);
-            sw2.Stop();
-            System.Diagnostics.Debug.WriteLine($"SW3 TOOK {sw2.ElapsedMilliseconds} ms");
-
-            sw.Stop();
-            System.Diagnostics.Debug.WriteLine($"SWTOTAL TOOK {sw.ElapsedMilliseconds} ms");
 
             TagConfiguration configuration = await this.StorageService.FindFirstDeleteRest<TagConfiguration>();
             if (configuration == null)
@@ -107,6 +95,7 @@ namespace XamarinApp
                 this.filesProvider.Dispose();
                 this.filesProvider = null;
             }
+            Log.Terminate();
         }
 
         public void AutoSave()

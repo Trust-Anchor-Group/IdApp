@@ -323,11 +323,6 @@ namespace XamarinApp.ViewModels.Registration
                 this.PersonalNumber = pnr;
             }
 
-            if (this.TagProfile.NeedsUpdating()) // Can happen when creating a new account
-            {
-                await this.NeuronService.DiscoverServices();
-            }
-
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {
                 await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);

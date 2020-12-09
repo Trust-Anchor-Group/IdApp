@@ -13,5 +13,10 @@ namespace XamarinApp.Tests.Extensions
         {
             return !IsDisabled(command);
         }
+
+        public static void IsExecuted(this ICommand command)
+        {
+            command.Execute(null);
+        }
     }
 }

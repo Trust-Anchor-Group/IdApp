@@ -7,21 +7,21 @@
              Title="{x:Static local:AppResources.MainPageTitle}">
     <ContentPage.Content>
         <StackLayout Margin="{StaticResource DefaultMargin}">
-            <Label Text="Connection" FontSize="Large" />
+            <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" />
             <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
             <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-            <Label Text="General" FontSize="Large"/>
+            <Label Text="{x:Static local:AppResources.General}" FontSize="Large"/>
             <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-            <Button Text="Identity" Clicked="ViewIdentityButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Button Text="Wallet" IsEnabled="False"/>
-            <Button Text="Scan QR Code" Clicked="ScanQrCodeButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Button Text="Devices" IsEnabled="False"/>
-            <Label Text="Contracts" FontSize="Large"/>
+            <Button Text="{x:Static local:AppResources.Identity}" Clicked="ViewIdentityButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="{x:Static local:AppResources.Wallet}" IsEnabled="False"/>
+            <Button Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="{x:Static local:AppResources.Devices}" IsEnabled="False"/>
+            <Label Text="{x:Static local:AppResources.Contracts}" FontSize="Large"/>
             <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-            <Button Text="My Created Contracts" Clicked="CreatedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Button Text="Signed Contracts" Clicked="SignedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Label Text="Notary" FontSize="Large"/>
-            <Button Text="New Contract" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="{x:Static local:AppResources.MyCreatedContracts}" Clicked="CreatedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Label Text="{x:Static local:AppResources.Notary}" FontSize="Large"/>
+            <Button Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
         </StackLayout>
     </ContentPage.Content>
 </views:ContentBasePage>

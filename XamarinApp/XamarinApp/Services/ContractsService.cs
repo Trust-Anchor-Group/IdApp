@@ -15,13 +15,15 @@ namespace XamarinApp.Services
     {
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
+        private readonly ILogService logService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        public ContractsService(TagProfile tagProfile, INeuronService neuronService)
+        public ContractsService(TagProfile tagProfile, INeuronService neuronService, ILogService logService)
         {
             this.tagProfile = tagProfile;
             this.neuronService = neuronService;
+            this.logService = logService;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 
@@ -85,11 +87,27 @@ namespace XamarinApp.Services
             {
                 if (this.contractsClient == null)
                 {
-                    await this.CreateContractsClient();
+                    try
+                    {
+                        await this.CreateContractsClient();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.logService.LogException(ex);
+                        this.contractsClient = null;
+                    }
                 }
                 if (this.fileUploadClient == null)
                 {
-                    await this.CreateFileUploadClient();
+                    try
+                    {
+                        await this.CreateFileUploadClient();
+                    }
+                    catch (Exception ex)
+                    {
+                        this.logService.LogException(ex);
+                        this.fileUploadClient = null;
+                    }
                 }
             }
             else

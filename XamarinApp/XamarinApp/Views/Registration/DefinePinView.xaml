@@ -9,20 +9,19 @@
         <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="PinContent">
             <Label Text="{x:Static local:AppResources.YouCanProtectYourWalletPinInfo}" HorizontalOptions="Center" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
             <Label Text="{x:Static local:AppResources.PinOrPassword}"/>
-            <Entry x:Name="PinEntry" IsPassword="True">
+            <Entry x:Name="PinEntry" IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}">
                 <Entry.Behaviors>
                     <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RetypePinEntry" BindingContext="{Binding BindingContext, Source={x:Reference PinContent}}"/>
-                    <behaviors:TextChangedBehavior TextChangedCommand="{Binding Path=PinChangedCommand}"/>
                 </Entry.Behaviors>
             </Entry>
             <Label Text="{x:Static local:AppResources.RetypePinOrPassword}"/>
-            <Entry x:Name="RetypePinEntry" IsPassword="True">
+            <Entry x:Name="RetypePinEntry" IsPassword="True" Text="{Binding Path=RetypedPin, Mode=TwoWay}">
                 <Entry.Behaviors>
                     <behaviors:SetFocusOnCompletedBehavior SetFocusTo="OkButton" BindingContext="{Binding BindingContext, Source={x:Reference PinContent}}"/>
-                    <behaviors:TextChangedBehavior TextChangedCommand="{Binding Path=RetypedPinChangedCommand}"/>
                 </Entry.Behaviors>
             </Entry>
             <Label Text="{x:Static local:AppResources.PinsDoNotMatch}" IsVisible="{Binding Path=PinsDoNotMatch}" TextColor="{StaticResource AlertColor}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+            <Label Text="{Binding Path=PinIsTooShortMessage, Mode=OneTime}" IsVisible="{Binding Path=PinIsTooShort}" TextColor="{StaticResource AlertColor}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
             <Button x:Name="OkButton" Text="{x:Static local:AppResources.Ok}" Command="{Binding Path=ContinueCommand}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <Button x:Name="SkipButton" Text="{x:Static local:AppResources.Skip}" Command="{Binding Path=SkipCommand}" />
         </StackLayout>

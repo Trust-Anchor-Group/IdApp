@@ -308,12 +308,15 @@ namespace XamarinApp.ViewModels.Registration
 
                 (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(this.TagProfile.Domain);
 
-                Task OnConnected(XmppClient client)
+                async Task OnConnected(XmppClient client)
                 {
                     this.PasswordHash = client.PasswordHash;
                     this.PasswordHashMethod = client.PasswordHashMethod;
+                    if (this.TagProfile.NeedsUpdating())
+                    {
+                        await this.NeuronService.DiscoverServices(client);
+                    }
                     this.TagProfile.SetAccount(this.CreateNewAccountName, client.PasswordHash, client.PasswordHashMethod);
-                    return Task.CompletedTask;
                 }
 
                 (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.CreateNewAccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
@@ -362,7 +365,17 @@ namespace XamarinApp.ViewModels.Registration
                         LegalIdentity createdIdentity = null;
                         LegalIdentity approvedIdentity = null;
 
-                        if (!string.IsNullOrEmpty(this.TagProfile.LegalJid) || await this.NeuronService.DiscoverServices(client))
+                        bool serviceDiscoverySucceeded;
+                        if (this.TagProfile.NeedsUpdating())
+                        {
+                            serviceDiscoverySucceeded = await this.NeuronService.DiscoverServices(client);
+                        }
+                        else
+                        {
+                            serviceDiscoverySucceeded = true;
+                        }
+
+                        if (serviceDiscoverySucceeded)
                         {
                             foreach (LegalIdentity identity in await this.contractsService.GetLegalIdentitiesAsync(client))
                             {

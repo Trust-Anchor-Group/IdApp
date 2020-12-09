@@ -165,8 +165,14 @@
   <data name="Connect" xml:space="preserve">
     <value>Anslut</value>
   </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Anslutning</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Fortsätt</value>
+  </data>
+  <data name="Contracts" xml:space="preserve">
+    <value>Kontrakt</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
     <value>Kan du vänligen granska min identitets-information?</value>
@@ -189,6 +195,9 @@
   <data name="DefinePin" xml:space="preserve">
     <value>Ange PIN</value>
   </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Enheter</value>
+  </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
   </data>
@@ -203,6 +212,9 @@
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Allmänt</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identitet</value>
@@ -243,6 +255,9 @@
   <data name="MyContractsInfoText" xml:space="preserve">
     <value>Nedan visas en lista på kontrakt. Klicka på ett kontrakt för att få mer information om det.</value>
   </data>
+  <data name="MyCreatedContracts" xml:space="preserve">
+    <value>Mina skapade kontrakt</value>
+  </data>
   <data name="Network" xml:space="preserve">
     <value>Nätverk</value>
   </data>
@@ -254,6 +269,9 @@
   </data>
   <data name="NoContractsFound" xml:space="preserve">
     <value>Hittade inga kontrakt.</value>
+  </data>
+  <data name="Notary" xml:space="preserve">
+    <value>Notarie</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Inte ansluten till operatören</value>
@@ -343,7 +361,7 @@
     <value>PIN matchar inte</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>Angiven PIN är för kort. Åtminstone 8 siffor (eller tecken) krävs.</value>
+    <value>Angiven PIN är för kort. Åtminstone {0} siffor (eller tecken) krävs.</value>
   </data>
   <data name="Provider" xml:space="preserve">
     <value>Leverantör</value>
@@ -383,6 +401,9 @@
   </data>
   <data name="Role" xml:space="preserve">
     <value>Roll</value>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>Scanna QR-kod</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att välja en bild stöds inte på den här enheten</value>
@@ -458,6 +479,9 @@
   </data>
   <data name="ViewContract" xml:space="preserve">
     <value>Visa kontrakt</value>
+  </data>
+  <data name="Wallet" xml:space="preserve">
+    <value>Plånbok</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Välkommen till TAGs Xamarin-app!</value>

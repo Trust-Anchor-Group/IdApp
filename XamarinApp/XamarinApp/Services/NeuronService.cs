@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -16,7 +17,7 @@ namespace XamarinApp.Services
     internal sealed class NeuronService : LoadableService, INeuronService
     {
         private readonly INetworkService networkService;
-        private readonly ILogService logService;
+        private readonly IInternalLogService logService;
         private readonly TagProfile tagProfile;
         private Timer reconnectTimer;
         private XmppClient xmppClient;
@@ -28,7 +29,7 @@ namespace XamarinApp.Services
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
 
-        public NeuronService(TagProfile tagProfile, INetworkService networkService, ILogService logService)
+        public NeuronService(TagProfile tagProfile, INetworkService networkService, IInternalLogService logService)
         {
             this.networkService = networkService;
             this.logService = logService;
@@ -110,6 +111,7 @@ namespace XamarinApp.Services
             {
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
+                this.logService.UnregisterEventSink();
                 this.xmppClient.Dispose();
             }
             this.xmppClient = null;
@@ -166,6 +168,8 @@ namespace XamarinApp.Services
                     {
                         await this.DiscoverServices();
                     }
+                    this.logService.RegisterEventSink(this.xmppClient, this.tagProfile.LogJid);
+
                     break;
 
                 case XmppState.Error:
@@ -228,24 +232,21 @@ namespace XamarinApp.Services
             }
         }
 
-        private event EventHandler<ConnectionStateChangedEventArgs> connectionState;
+        private event EventHandler<ConnectionStateChangedEventArgs> ConnectionState;
 
         public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged
         {
             add
             {
-                connectionState += value;
+                ConnectionState += value;
                 value(this, new ConnectionStateChangedEventArgs(State));
             }
-            remove
-            {
-                connectionState -= value;
-            }
+            remove => ConnectionState -= value;
         }
 
         private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
         {
-            connectionState?.Invoke(this, e);
+            ConnectionState?.Invoke(this, e);
         }
 
         #endregion
@@ -285,7 +286,7 @@ namespace XamarinApp.Services
         private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
         {
             TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
-            bool succeeded = false;
+            bool succeeded;
             string errorMessage = null;
             bool streamNegotiation = false;
             bool streamOpened = false;
@@ -464,32 +465,36 @@ namespace XamarinApp.Services
                 return false;
             }
 
-            foreach (Item Item in response.Items)
+            foreach (Item item in response.Items)
             {
-                ServiceDiscoveryEventArgs itemResponse = await client.ServiceDiscoveryAsync(null, Item.JID, Item.Node);
+                ServiceDiscoveryEventArgs itemResponse = await client.ServiceDiscoveryAsync(null, item.JID, item.Node);
 
-                if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities) &&
-                    itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
+                if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
                 {
-                    this.tagProfile.SetLegalJId(Item.JID);
+                    this.tagProfile.SetLegalJId(item.JID);
                 }
 
                 if (itemResponse.HasFeature(ThingRegistryClient.NamespaceDiscovery))
                 {
-                    this.tagProfile.SetRegistryJId(Item.JID);
+                    this.tagProfile.SetRegistryJId(item.JID);
                 }
 
                 if (itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
                     itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
                     itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningToken))
                 {
-                    this.tagProfile.SetProvisioningJId(Item.JID);
+                    this.tagProfile.SetProvisioningJId(item.JID);
                 }
 
                 if (itemResponse.HasFeature(HttpFileUploadClient.Namespace))
                 {
                     long? maxSize = HttpFileUploadClient.FindMaxFileSize(client, itemResponse);
-                    this.tagProfile.SetFileUploadParameters(Item.JID, maxSize);
+                    this.tagProfile.SetFileUploadParameters(item.JID, maxSize);
+                }
+
+                if (itemResponse.HasFeature(XmppEventSink.NamespaceEventLogging))
+                {
+                    this.tagProfile.SetLogJId(item.JID);
                 }
             }
 

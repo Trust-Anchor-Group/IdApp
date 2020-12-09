@@ -4,6 +4,11 @@ namespace XamarinApp
 {
     public static class Constants
     {
+        public static class Authentication
+        {
+            public const int MinPinLength = 8;
+        }
+
         public static class LanguageCodes
         {
             public const string Default = "en-US";

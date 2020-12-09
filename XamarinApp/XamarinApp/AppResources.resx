@@ -165,8 +165,14 @@
   <data name="Connect" xml:space="preserve">
     <value>Connect</value>
   </data>
+  <data name="Connection" xml:space="preserve">
+    <value>Connection</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
+  </data>
+  <data name="Contracts" xml:space="preserve">
+    <value>Contracts</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
     <value>Could you please review my identity information?</value>
@@ -189,6 +195,9 @@
   <data name="DefinePin" xml:space="preserve">
     <value>Define PIN</value>
   </data>
+  <data name="Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} does not follow the ubiquitous encryption policy</value>
   </data>
@@ -203,6 +212,9 @@
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identity</value>
@@ -243,6 +255,9 @@
   <data name="MyContractsInfoText" xml:space="preserve">
     <value>Below is a list of contracts. Click on a contract for more information about it.</value>
   </data>
+  <data name="MyCreatedContracts" xml:space="preserve">
+    <value>My Created Contracts</value>
+  </data>
   <data name="Network" xml:space="preserve">
     <value>Network</value>
   </data>
@@ -254,6 +269,9 @@
   </data>
   <data name="NoContractsFound" xml:space="preserve">
     <value>No contracts found.</value>
+  </data>
+  <data name="Notary" xml:space="preserve">
+    <value>Notary</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Not connected to the operator</value>
@@ -343,7 +361,7 @@
     <value>PINs do not match</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>PIN number too short. At least 8 numbers (or characters) are required.</value>
+    <value>PIN number too short. At least {0} numbers (or characters) are required.</value>
   </data>
   <data name="Provider" xml:space="preserve">
     <value>Provider</value>
@@ -383,6 +401,9 @@
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
+  </data>
+  <data name="ScanQRCode" xml:space="preserve">
+    <value>Scan QR Code</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Selecting a photo is not supported on this device</value>
@@ -458,6 +479,9 @@
   </data>
   <data name="ViewContract" xml:space="preserve">
     <value>View Contract</value>
+  </data>
+  <data name="Wallet" xml:space="preserve">
+    <value>Wallet</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Welcome to TAG Xamarin App!</value>

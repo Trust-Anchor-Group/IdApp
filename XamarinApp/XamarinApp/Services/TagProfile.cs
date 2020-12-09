@@ -23,6 +23,7 @@ namespace XamarinApp.Services
         private string registryJid;
         private string provisioningJid;
         private string httpFileUploadJid;
+        private string logJid;
         private string pinHash;
         private long? httpFileUploadMaxSize;
         private bool usePin;
@@ -52,6 +53,7 @@ namespace XamarinApp.Services
                 ProvisioningJid = this.ProvisioningJid,
                 HttpFileUploadJid = this.HttpFileUploadJid,
                 HttpFileUploadMaxSize = this.HttpFileUploadMaxSize,
+                LogJid = this.LogJid,
                 PinHash = this.PinHash,
                 UsePin = this.UsePin,
                 LegalIdentity = this.LegalIdentity,
@@ -72,6 +74,7 @@ namespace XamarinApp.Services
             this.ProvisioningJid = configuration.ProvisioningJid;
             this.HttpFileUploadJid = configuration.HttpFileUploadJid;
             this.HttpFileUploadMaxSize = configuration.HttpFileUploadMaxSize;
+            this.LogJid = configuration.LogJid;
             this.PinHash = configuration.PinHash;
             this.UsePin = configuration.UsePin;
             this.LegalIdentity = configuration.LegalIdentity;
@@ -84,7 +87,8 @@ namespace XamarinApp.Services
             return string.IsNullOrEmpty(this.LegalJid) ||
                    string.IsNullOrEmpty(this.RegistryJid) ||
                    string.IsNullOrEmpty(this.ProvisioningJid) ||
-                   string.IsNullOrEmpty(this.HttpFileUploadJid);
+                   string.IsNullOrEmpty(this.HttpFileUploadJid) ||
+                   string.IsNullOrEmpty(this.LogJid);
         }
 
         public bool LegalIdentityNeedsUpdating()
@@ -216,6 +220,19 @@ namespace XamarinApp.Services
                 if (this.httpFileUploadMaxSize != value)
                 {
                     this.httpFileUploadMaxSize = value;
+                    this.FlagAsDirty();
+                }
+            }
+        }
+
+        public string LogJid
+        {
+            get => this.logJid;
+            private set
+            {
+                if (!string.Equals(this.logJid, value))
+                {
+                    this.logJid = value;
                     this.FlagAsDirty();
                 }
             }
@@ -486,6 +503,11 @@ namespace XamarinApp.Services
             this.HttpFileUploadMaxSize = maxSize;
         }
 
+        public void SetLogJId(string logJId)
+        {
+            this.LogJid = logJId;
+        }
+
         #endregion
 
         public string ComputePinHash(string pin)
@@ -566,6 +588,9 @@ namespace XamarinApp.Services
 
         [DefaultValueNull]
         public long? HttpFileUploadMaxSize { get; set; }
+
+        [DefaultValueStringEmpty]
+        public string LogJid { get; set; }
 
         [DefaultValueStringEmpty]
         public string PinHash { get; set; }

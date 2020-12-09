@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +21,6 @@ namespace XamarinApp.Services
 
         public async Task<KeyValuePair<byte[], byte[]>> GetCustomKey(string fileName)
         {
-            Stopwatch sw = Stopwatch.StartNew();
             byte[] key;
             byte[] iv;
             string s;
@@ -64,8 +62,6 @@ namespace XamarinApp.Services
                 await SecureStorage.SetAsync(fileName, s);
             }
 
-            sw.Stop();
-            System.Diagnostics.Debug.WriteLine($"GETCUSTOMKEY FOR '{fileName}' TOOK {sw.ElapsedMilliseconds} ms");
             return new KeyValuePair<byte[], byte[]>(key, iv);
         }
 

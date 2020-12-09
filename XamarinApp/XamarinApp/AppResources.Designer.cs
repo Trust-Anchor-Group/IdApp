@@ -205,11 +205,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connection.
+        /// </summary>
+        internal static string Connection {
+            get {
+                return ResourceManager.GetString("Connection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         internal static string Continue {
             get {
                 return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contracts.
+        /// </summary>
+        internal static string Contracts {
+            get {
+                return ResourceManager.GetString("Contracts", resourceCulture);
             }
         }
         
@@ -277,6 +295,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Devices.
+        /// </summary>
+        internal static string Devices {
+            get {
+                return ResourceManager.GetString("Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
         /// </summary>
         internal static string DomainDoesNotFollowEncryptionPolicy {
@@ -318,6 +345,15 @@ namespace XamarinApp {
         internal static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        internal static string General {
+            get {
+                return ResourceManager.GetString("General", resourceCulture);
             }
         }
         
@@ -439,6 +475,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Created Contracts.
+        /// </summary>
+        internal static string MyCreatedContracts {
+            get {
+                return ResourceManager.GetString("MyCreatedContracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Network.
         /// </summary>
         internal static string Network {
@@ -471,6 +516,15 @@ namespace XamarinApp {
         internal static string NoContractsFound {
             get {
                 return ResourceManager.GetString("NoContractsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notary.
+        /// </summary>
+        internal static string Notary {
+            get {
+                return ResourceManager.GetString("Notary", resourceCulture);
             }
         }
         
@@ -736,7 +790,7 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PIN number too short. At least 8 numbers (or characters) are required..
+        ///   Looks up a localized string similar to PIN number too short. At least {0} numbers (or characters) are required..
         /// </summary>
         internal static string PinTooShort {
             get {
@@ -858,6 +912,15 @@ namespace XamarinApp {
         internal static string Role {
             get {
                 return ResourceManager.GetString("Role", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan QR Code.
+        /// </summary>
+        internal static string ScanQRCode {
+            get {
+                return ResourceManager.GetString("ScanQRCode", resourceCulture);
             }
         }
         
@@ -1083,6 +1146,15 @@ namespace XamarinApp {
         internal static string ViewContract {
             get {
                 return ResourceManager.GetString("ViewContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wallet.
+        /// </summary>
+        internal static string Wallet {
+            get {
+                return ResourceManager.GetString("Wallet", resourceCulture);
             }
         }
         

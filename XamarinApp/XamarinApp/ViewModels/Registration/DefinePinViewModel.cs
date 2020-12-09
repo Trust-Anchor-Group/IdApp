@@ -16,24 +16,21 @@ namespace XamarinApp.ViewModels.Registration
             ILogService logService)
             : base(RegistrationStep.Pin, tagProfile, neuronService, navigationService, settingsService, logService)
         {
-            this.PinChangedCommand = new Command<string>(s => Pin = s);
-            this.RetypedPinChangedCommand = new Command<string>(s => RetypedPin = s);
             this.ContinueCommand = new Command(_ => Continue(), _ => CanContinue());
             this.SkipCommand = new Command(_ => Skip());
             this.Title = AppResources.DefinePin;
+            this.PinIsTooShortMessage = string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength);
         }
 
-        public ICommand PinChangedCommand { get; }
-        public ICommand RetypedPinChangedCommand { get; }
         public ICommand ContinueCommand { get; }
         public ICommand SkipCommand { get; }
 
         public static readonly BindableProperty PinProperty =
-            BindableProperty.Create("Pin", typeof(string), typeof(DefinePinViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create("Pin", typeof(string), typeof(DefinePinViewModel), string.Empty, propertyChanged: (b, oldValue, newValue) =>
         {
             DefinePinViewModel viewModel = (DefinePinViewModel)b;
-            viewModel.ContinueCommand.ChangeCanExecute();
             viewModel.UpdatePinState();
+            viewModel.ContinueCommand.ChangeCanExecute();
         });
 
         public string Pin
@@ -58,7 +55,8 @@ namespace XamarinApp.ViewModels.Registration
 
         private void UpdatePinState()
         {
-            PinsDoNotMatch = (Pin != RetypedPin);
+            PinsDoNotMatch = !string.IsNullOrEmpty(Pin) && !string.IsNullOrEmpty(RetypedPin) && (Pin != RetypedPin);
+            PinIsTooShort = string.IsNullOrEmpty(Pin) || Pin.Length < Constants.Authentication.MinPinLength;
         }
 
         public static readonly BindableProperty PinsDoNotMatchProperty =
@@ -68,6 +66,24 @@ namespace XamarinApp.ViewModels.Registration
         {
             get { return (bool)GetValue(PinsDoNotMatchProperty); }
             set { SetValue(PinsDoNotMatchProperty, value); }
+        }
+
+        public static readonly BindableProperty PinIsTooShortProperty =
+            BindableProperty.Create("PinIsTooShort", typeof(bool), typeof(DefinePinViewModel), default(bool));
+
+        public bool PinIsTooShort
+        {
+            get { return (bool) GetValue(PinIsTooShortProperty); }
+            set { SetValue(PinIsTooShortProperty, value); }
+        }
+
+        public static readonly BindableProperty PinIsTooShortMessageProperty =
+            BindableProperty.Create("PinIsTooShortMessage", typeof(string), typeof(DefinePinViewModel), default(string));
+
+        public string PinIsTooShortMessage
+        {
+            get { return (string) GetValue(PinIsTooShortMessageProperty); }
+            set { SetValue(PinIsTooShortMessageProperty, value); }
         }
 
         public static readonly BindableProperty UsePinProperty =
@@ -90,13 +106,17 @@ namespace XamarinApp.ViewModels.Registration
         {
             UsePin = true;
 
-            if (this.Pin.Length < 8)
+            string pinToCheck = this.Pin ?? string.Empty;
+
+            if (pinToCheck.Length < Constants.Authentication.MinPinLength)
             {
-                this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinTooShort);
+                this.NavigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
+                return;
             }
-            else if (this.Pin.Trim() != this.Pin)
+            if (pinToCheck.Trim() != pinToCheck)
             {
                 this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
+                return;
             }
 
             this.TagProfile.SetPin(this.Pin, this.UsePin);
