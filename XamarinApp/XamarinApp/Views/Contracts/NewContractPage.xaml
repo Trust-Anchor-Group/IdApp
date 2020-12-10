@@ -12,26 +12,35 @@
         <StackLayout Margin="{StaticResource DefaultMargin}">
             <StackLayout.Resources>
                 <ResourceDictionary>
+
                     <DataTemplate x:Key="ContractRole1Template">
-                        <Label />
+                        <Label Text="{Binding Path=Name}" LineBreakMode="NoWrap" FontSize="Medium"/>
                     </DataTemplate>
-                    <DataTemplate x:Key="ContractRole2Template">
-                        <Label />
-                    </DataTemplate>
+
                     <contracts:ContractRoleDataTemplateSelector
                         x:Key="ContractRoleTemplateSelector"
-                        Role1="{StaticResource ContractRole1Template}"
-                        Role2="{StaticResource ContractRole2Template}" />
+                        Role1="{StaticResource ContractRole1Template}" />
+
                     <DataTemplate x:Key="ContractParameter1Template">
-                        <Label />
+                        <Entry Text="{Binding Path=Name, Mode=TwoWay}" HorizontalOptions="FillAndExpand" TextColor="{Binding Path=IsValid, Converter={converters:BooleanToColorConverter}}" x:Name="ParameterEntry">
+                            <Entry.Behaviors>
+                                <behaviors:TextChangedBehavior TextChangedCommand="{Binding Path=ParameterChangedCommand}" TextChangedCommandParameter="{Binding .}" BindingContext="{Binding BindingContext, Source={x:Reference ParameterEntry}}" />
+                            </Entry.Behaviors>
+                        </Entry>
                     </DataTemplate>
-                    <DataTemplate x:Key="ContractParameter2Template">
-                        <Label />
-                    </DataTemplate>
+
                     <contracts:ContractParameterDataTemplateSelector
                         x:Key="ContractParameterTemplateSelector"
-                        Parameter1="{StaticResource ContractParameter1Template}"
-                        Parameter2="{StaticResource ContractParameter2Template}" />
+                        Parameter1="{StaticResource ContractParameter1Template}" />
+
+                    <DataTemplate x:Key="ContractHumanReadableText1Template">
+                        <Label />
+                    </DataTemplate>
+
+                    <contracts:ContractHumanReadableTextDataTemplateSelector
+                        x:Key="ContractHumanReadableTextTemplateSelector"
+                        HumanReadableText1="{StaticResource ContractHumanReadableText1Template}" />
+
                 </ResourceDictionary>
             </StackLayout.Resources>
 
@@ -48,36 +57,15 @@
             <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
 
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Label Text="{Binding Path=Name}" LineBreakMode="NoWrap" FontSize="Medium"/>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}" BindableLayout.ItemTemplate="{StaticResource ContractRoleTemplateSelector}"/>
+
             <Button Text="Add Part" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
 
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Entry Text="{Binding Path=Name, Mode=TwoWay}" HorizontalOptions="FillAndExpand" TextColor="{Binding Path=IsValid, Converter={converters:BooleanToColorConverter}}" x:Name="ParameterEntry">
-                            <Entry.Behaviors>
-                                <behaviors:TextChangedBehavior TextChangedCommand="{Binding Path=ParameterChangedCommand}" TextChangedCommandParameter="{Binding .}" BindingContext="{Binding BindingContext, Source={x:Reference ParameterEntry}}" />
-                            </Entry.Behaviors>
-                        </Entry>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}" BindableLayout.ItemTemplate="{StaticResource ContractParameterTemplateSelector}" />
 
             <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <!-- TODO add template here -->
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
+            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" BindableLayout.ItemTemplate="{StaticResource ContractHumanReadableTextTemplateSelector}" />
 
             <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
             <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
