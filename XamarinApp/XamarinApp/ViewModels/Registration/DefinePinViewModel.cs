@@ -55,8 +55,8 @@ namespace XamarinApp.ViewModels.Registration
 
         private void UpdatePinState()
         {
-            PinsDoNotMatch = !string.IsNullOrEmpty(Pin) && !string.IsNullOrEmpty(RetypedPin) && (Pin != RetypedPin);
-            PinIsTooShort = string.IsNullOrEmpty(Pin) || Pin.Length < Constants.Authentication.MinPinLength;
+            PinsDoNotMatch = !string.IsNullOrWhiteSpace(Pin) && !string.IsNullOrWhiteSpace(RetypedPin) && (Pin != RetypedPin);
+            PinIsTooShort = string.IsNullOrWhiteSpace(Pin) || Pin.Length < Constants.Authentication.MinPinLength;
         }
 
         public static readonly BindableProperty PinsDoNotMatchProperty =

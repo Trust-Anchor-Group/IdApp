@@ -70,7 +70,7 @@ namespace XamarinApp.PersonalNumbers
 							continue;
 						}
 
-						if (pattern is null || string.IsNullOrEmpty(variable) || string.IsNullOrEmpty(displayString))
+						if (pattern is null || string.IsNullOrWhiteSpace(variable) || string.IsNullOrWhiteSpace(displayString))
 							continue;
 
 						if (!SchemesByCode.TryGetValue(country, out LinkedList<PersonalNumberScheme> schemes))
@@ -125,7 +125,7 @@ namespace XamarinApp.PersonalNumbers
 			{
 				foreach (PersonalNumberScheme scheme in schemes)
 				{
-					if (string.IsNullOrEmpty(displayString))
+					if (string.IsNullOrWhiteSpace(displayString))
 						displayString = scheme.DisplayString;
 
 					bool? valid = scheme.IsValid(ref personalNumber);

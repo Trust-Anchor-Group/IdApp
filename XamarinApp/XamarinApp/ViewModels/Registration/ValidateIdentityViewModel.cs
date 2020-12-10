@@ -362,7 +362,7 @@ namespace XamarinApp.ViewModels.Registration
                     return;
                 }
 
-                await this.contractsService.PetitionPeerReviewIdAsync(code.Substring(idScheme.Length), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
+                await this.contractsService.PetitionPeerReviewIdAsync(Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
 
                 await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }

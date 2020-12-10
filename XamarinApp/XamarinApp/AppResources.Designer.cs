@@ -277,6 +277,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select contract role first, and then try again..
+        /// </summary>
+        internal static string ContractRoleMustBeSelected {
+            get {
+                return ResourceManager.GetString("ContractRoleMustBeSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contracts.
         /// </summary>
         internal static string Contracts {
@@ -297,36 +306,45 @@ namespace XamarinApp {
         /// <summary>
         ///   Looks up a localized string similar to Creator and parts.
         /// </summary>
-        internal static string ContractVisibilityItem1 {
+        internal static string ContractVisibility_CreatorAndParts {
             get {
-                return ResourceManager.GetString("ContractVisibilityItem1", resourceCulture);
+                return ResourceManager.GetString("ContractVisibility_CreatorAndParts", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Domain and parts.
         /// </summary>
-        internal static string ContractVisibilityItem2 {
+        internal static string ContractVisibility_DomainAndParts {
             get {
-                return ResourceManager.GetString("ContractVisibilityItem2", resourceCulture);
+                return ResourceManager.GetString("ContractVisibility_DomainAndParts", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Public, not searchable.
         /// </summary>
-        internal static string ContractVisibilityItem3 {
+        internal static string ContractVisibility_Public {
             get {
-                return ResourceManager.GetString("ContractVisibilityItem3", resourceCulture);
+                return ResourceManager.GetString("ContractVisibility_Public", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Public and searchable.
         /// </summary>
-        internal static string ContractVisibilityItem4 {
+        internal static string ContractVisibility_PublicSearchable {
             get {
-                return ResourceManager.GetString("ContractVisibilityItem4", resourceCulture);
+                return ResourceManager.GetString("ContractVisibility_PublicSearchable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select contract visibility first, and then try again..
+        /// </summary>
+        internal static string ContractVisibilityMustBeSelected {
+            get {
+                return ResourceManager.GetString("ContractVisibilityMustBeSelected", resourceCulture);
             }
         }
         
@@ -453,6 +471,15 @@ namespace XamarinApp {
         internal static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Human readable text.
+        /// </summary>
+        internal static string HumanReadableText {
+            get {
+                return ResourceManager.GetString("HumanReadableText", resourceCulture);
             }
         }
         
@@ -691,6 +718,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Parameters.
+        /// </summary>
+        internal static string Parameters {
+            get {
+                return ResourceManager.GetString("Parameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string Password {
@@ -880,6 +916,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PIN is invalid.
+        /// </summary>
+        internal static string PinIsInvalid {
+            get {
+                return ResourceManager.GetString("PinIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PIN number must not include leading or trailing whitespace..
         /// </summary>
         internal static string PinMustNotIncludeWhitespace {
@@ -1042,6 +1087,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Roles.
+        /// </summary>
+        internal static string Roles {
+            get {
+                return ResourceManager.GetString("Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scan QR Code.
         /// </summary>
         internal static string ScanQRCode {
@@ -1191,6 +1245,24 @@ namespace XamarinApp {
         internal static string TakingAPhotoIsNotSupported {
             get {
                 return ResourceManager.GetString("TakingAPhotoIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
+        /// </summary>
+        internal static string TheContractRequiresAtLeast_AddMoreParts {
+            get {
+                return ResourceManager.GetString("TheContractRequiresAtLeast_AddMoreParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The contract requires at most {0} part(s) of role {1}. Remove some of the parts from the contract and try again..
+        /// </summary>
+        internal static string TheContractRequiresAtMost_RemoveParts {
+            get {
+                return ResourceManager.GetString("TheContractRequiresAtMost_RemoveParts", resourceCulture);
             }
         }
         
@@ -1524,6 +1596,15 @@ namespace XamarinApp {
         internal static string YouNeedToProvideAPersonalNumber {
             get {
                 return ResourceManager.GetString("YouNeedToProvideAPersonalNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your contract contains errors. Fix these errors and try again..
+        /// </summary>
+        internal static string YourContractContainsErrors {
+            get {
+                return ResourceManager.GetString("YourContractContainsErrors", resourceCulture);
             }
         }
         

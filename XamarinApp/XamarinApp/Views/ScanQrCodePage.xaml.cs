@@ -79,11 +79,11 @@ namespace XamarinApp.Views
             string code = GetViewModel<ScanQrCodeViewModel>().LinkText;
             try
             {
-                int i = code.IndexOf(':');
+                string scheme = Constants.IoTSchemes.GetScheme(code);
 
-                if (i > 0)
+                if (!string.IsNullOrWhiteSpace(scheme))
                 {
-                    if (code.Substring(0, i).ToLower() != Constants.IoTSchemes.IotId)
+                    if (scheme != Constants.IoTSchemes.IotId)
                     {
                         await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
                         return;

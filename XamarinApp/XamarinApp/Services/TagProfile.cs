@@ -84,11 +84,11 @@ namespace XamarinApp.Services
 
         public bool NeedsUpdating()
         {
-            return string.IsNullOrEmpty(this.LegalJid) ||
-                   string.IsNullOrEmpty(this.RegistryJid) ||
-                   string.IsNullOrEmpty(this.ProvisioningJid) ||
-                   string.IsNullOrEmpty(this.HttpFileUploadJid) ||
-                   string.IsNullOrEmpty(this.LogJid);
+            return string.IsNullOrWhiteSpace(this.LegalJid) ||
+                   string.IsNullOrWhiteSpace(this.RegistryJid) ||
+                   string.IsNullOrWhiteSpace(this.ProvisioningJid) ||
+                   string.IsNullOrWhiteSpace(this.HttpFileUploadJid) ||
+                   string.IsNullOrWhiteSpace(this.LogJid);
         }
 
         public bool LegalIdentityNeedsUpdating()
@@ -254,9 +254,7 @@ namespace XamarinApp.Services
 
         public bool PinIsValid => !this.UsePin || !string.IsNullOrEmpty(this.PinHash);
 
-        public bool FileUploadIsSupported =>
-            !string.IsNullOrEmpty(this.HttpFileUploadJid) &&
-            this.HttpFileUploadMaxSize.HasValue;
+        public bool FileUploadIsSupported => !string.IsNullOrWhiteSpace(this.HttpFileUploadJid) && this.HttpFileUploadMaxSize.HasValue;
 
         public string Pin
         {

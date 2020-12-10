@@ -123,7 +123,7 @@ namespace XamarinApp.ViewModels.Registration
                 return false;
             }
 
-            if (!string.IsNullOrEmpty(this.SelectedOperator) && this.Operators.Contains(this.SelectedOperator) && this.SelectedOperator != AppResources.OperatorDomainOther)
+            if (!string.IsNullOrWhiteSpace(this.SelectedOperator) && this.Operators.Contains(this.SelectedOperator) && this.SelectedOperator != AppResources.OperatorDomainOther)
             {
                 return true;
             }
@@ -158,7 +158,7 @@ namespace XamarinApp.ViewModels.Registration
 
             foreach (string part in parts)
             {
-                if (string.IsNullOrEmpty(part))
+                if (string.IsNullOrWhiteSpace(part))
                     return false;
 
                 foreach (char ch in part)
@@ -170,7 +170,7 @@ namespace XamarinApp.ViewModels.Registration
 
             (string host, int port) = await this.networkService.GetXmppHostnameAndPort(name);
 
-            if (string.IsNullOrEmpty(host))
+            if (string.IsNullOrWhiteSpace(host))
                 return false;
 
             this.hostName = host;
@@ -200,7 +200,7 @@ namespace XamarinApp.ViewModels.Registration
                 this.SelectedOperator = this.Operators[selectedIndex];
             }
 
-            if (!string.IsNullOrEmpty(this.TagProfile.Domain))
+            if (!string.IsNullOrWhiteSpace(this.TagProfile.Domain))
             {
                 if (selectedIndex >= 0)
                 {

@@ -508,10 +508,10 @@ namespace XamarinApp.Services
                 }
             }
 
-            if (string.IsNullOrEmpty(this.tagProfile.LegalJid))
+            if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
                 return  false;
 
-            if (string.IsNullOrEmpty(this.tagProfile.HttpFileUploadJid) || !this.tagProfile.HttpFileUploadMaxSize.HasValue)
+            if (string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) || !this.tagProfile.HttpFileUploadMaxSize.HasValue)
                 return false;
 
             return true;

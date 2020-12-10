@@ -42,7 +42,7 @@ namespace XamarinApp.Services
                 return new KeyValuePair<byte[], byte[]>(key, iv);
             }
 
-            if (!string.IsNullOrEmpty(s) && (i = s.IndexOf(',')) > 0)
+            if (!string.IsNullOrWhiteSpace(s) && (i = s.IndexOf(',')) > 0)
             {
                 key = Hashes.StringToBinary(s.Substring(0, i));
                 iv = Hashes.StringToBinary(s.Substring(i + 1));

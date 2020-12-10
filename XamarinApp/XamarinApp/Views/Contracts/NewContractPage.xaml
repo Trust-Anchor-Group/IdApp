@@ -4,46 +4,60 @@
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
              xmlns:converters="clr-namespace:XamarinApp.Views.Converters;assembly=XamarinApp"
+             xmlns:behaviors="clr-namespace:XamarinApp.Behaviors;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Contracts.NewContractPage"
              Title="{x:Static local:AppResources.NewContract}">
     <ScrollView>
         <StackLayout Margin="{StaticResource DefaultMargin}">
 
-            <Label Text="{x:Static local:AppResources.ContractCategory}" FontAttributes="Bold" HorizontalOptions="Start" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
-            <Picker Title="{x:Static local:AppResources.SelectTheCategoryOfContractToCreate}" ItemsSource="{Binding Path=ContractCategories}" SelectedItem="{Binding Path=SelectedContractCategory, Mode=TwoWay}" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
-            <Label Text="{x:Static local:AppResources.ContractType}" FontAttributes="Bold" HorizontalOptions="Start" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
-            <Picker Title="{x:Static local:AppResources.SelectTheTypeOfContractToCreate}" ItemsSource="{Binding Path=ContractTypes}" SelectedItem="{Binding Path=SelectedContractType, Mode=TwoWay}" IsEnabled="False" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}" />
+            <StackLayout Orientation="Vertical" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}">
+                <Label Text="{x:Static local:AppResources.ContractCategory}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
+                <Picker Title="{x:Static local:AppResources.SelectTheCategoryOfContractToCreate}" ItemsSource="{Binding Path=ContractCategories}" SelectedItem="{Binding Path=SelectedContractCategory, Mode=TwoWay}" />
+                <Label Text="{x:Static local:AppResources.ContractType}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
+                <Picker Title="{x:Static local:AppResources.SelectTheTypeOfContractToCreate}" ItemsSource="{Binding Path=ContractTypes}" SelectedItem="{Binding Path=SelectedContractType, Mode=TwoWay}" IsEnabled="{Binding Path=HasContractTypes}" />
+            </StackLayout>
 
-            <Label Text="{x:Static local:AppResources.Visibility}" FontAttributes="Bold" HorizontalOptions="Start" />
-            <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" ItemsSource="{Binding Path=VisibilityItems}" SelectedItem="{Binding Path=SelectedVisibilityItem, Mode=TwoWay}" IsEnabled="False"/>
-            <Label Text="{x:Static local:AppResources.YourRole}" FontAttributes="Bold" HorizontalOptions="Start" />
-            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="False"/>
+            <Label Text="{x:Static local:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
+            <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" ItemsSource="{Binding Path=ContractVisibilityItems}" SelectedItem="{Binding Path=SelectedContractVisibilityItem, Mode=TwoWay}" IsEnabled="{Binding Path=HasTemplate}"/>
+            <Label Text="{x:Static local:AppResources.YourRole}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
+            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
 
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}">
+            <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Path=Name}" LineBreakMode="NoWrap" FontSize="Medium"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <Button Text="Add Part" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
+
+            <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Entry Text="{Binding Path=Name, Mode=TwoWay}" HorizontalOptions="FillAndExpand" TextColor="{Binding Path=IsValid, Converter={converters:BooleanToColorConverter}}" x:Name="ParameterEntry">
+                            <Entry.Behaviors>
+                                <behaviors:TextChangedBehavior TextChangedCommand="{Binding Path=ParameterChangedCommand}" TextChangedCommandParameter="{Binding .}" BindingContext="{Binding BindingContext, Source={x:Reference ParameterEntry}}" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <!-- TODO add template here -->
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <!-- TODO add template here -->
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
-            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <!-- TODO add template here -->
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </StackLayout>
 
-            <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="False"/>
-            <Entry Text="{Binding Path=Pin}" IsVisible="False" IsPassword="True"/>
-            <Button Text="{x:Static local:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" />
+            <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
+            <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
+
+            <Button Text="{x:Static local:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
         </StackLayout>
     </ScrollView>
 </views:ContentBasePage>

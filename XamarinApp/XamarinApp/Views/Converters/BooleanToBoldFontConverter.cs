@@ -22,9 +22,9 @@ namespace XamarinApp.Views.Converters
         {
             if (Invert)
             {
-                return (FontAttributes)value == FontAttributes.Bold ? false : true;
+                return (FontAttributes)value != FontAttributes.Bold;
             }
-            return (FontAttributes)value == FontAttributes.Bold ? true : false;
+            return (FontAttributes)value == FontAttributes.Bold;
         }
 
         public object ProvideValue(IServiceProvider serviceProvider)

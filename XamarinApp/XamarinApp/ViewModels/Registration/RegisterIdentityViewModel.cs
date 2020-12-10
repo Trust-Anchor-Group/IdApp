@@ -312,7 +312,7 @@ namespace XamarinApp.ViewModels.Registration
 
             if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
             {
-                if (string.IsNullOrEmpty(personalNumberFormat))
+                if (string.IsNullOrWhiteSpace(personalNumberFormat))
                     await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
                 else
                     await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
@@ -427,7 +427,7 @@ namespace XamarinApp.ViewModels.Registration
                 return false;
             }
 
-            if (string.IsNullOrEmpty(this.PersonalNumber?.Trim()))
+            if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
             {
                 if (alertUser)
                 {

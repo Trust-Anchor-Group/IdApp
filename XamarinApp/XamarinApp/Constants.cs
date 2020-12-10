@@ -19,6 +19,40 @@ namespace XamarinApp
             public const string IotId = "iotid";
             public const string IotDisco = "iotdisco";
             public const string IotSc = "iotsc";
+
+            public static string GetScheme(string code)
+            {
+                if (!string.IsNullOrWhiteSpace(code))
+                {
+                    int i = code.IndexOf(':');
+                    if (i > 0 && 
+                        (code.StartsWith(IotId, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(IotDisco, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(IotSc, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        return code.Substring(0, i).ToLowerInvariant();
+                    }
+                }
+
+                return null;
+            }
+
+            public static string GetCode(string code)
+            {
+                if (!string.IsNullOrWhiteSpace(code))
+                {
+                    int i = code.IndexOf(':');
+                    if (i > 0 && 
+                        (code.StartsWith(IotId, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(IotDisco, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(IotSc, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        return code.Substring(i + 1).ToLowerInvariant();
+                    }
+                }
+
+                return null;
+            }
         }
 
         public static class MimeTypes

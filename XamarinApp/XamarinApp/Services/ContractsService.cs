@@ -69,7 +69,7 @@ namespace XamarinApp.Services
 
         private async Task CreateFileUploadClient()
         {
-            if (!string.IsNullOrEmpty(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
+            if (!string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
             {
                 this.fileUploadClient = await this.neuronService.CreateFileUploadClientAsync();
             }

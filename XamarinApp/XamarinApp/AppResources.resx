@@ -189,22 +189,28 @@
   <data name="ContractCategory" xml:space="preserve">
     <value>Contract Category</value>
   </data>
+  <data name="ContractRoleMustBeSelected" xml:space="preserve">
+    <value>Select contract role first, and then try again.</value>
+  </data>
   <data name="Contracts" xml:space="preserve">
     <value>Contracts</value>
   </data>
   <data name="ContractType" xml:space="preserve">
     <value>Contract Type</value>
   </data>
-  <data name="ContractVisibilityItem1" xml:space="preserve">
+  <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
+    <value>Select contract visibility first, and then try again.</value>
+  </data>
+  <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
     <value>Creator and parts</value>
   </data>
-  <data name="ContractVisibilityItem2" xml:space="preserve">
+  <data name="ContractVisibility_DomainAndParts" xml:space="preserve">
     <value>Domain and parts</value>
   </data>
-  <data name="ContractVisibilityItem3" xml:space="preserve">
+  <data name="ContractVisibility_Public" xml:space="preserve">
     <value>Public, not searchable</value>
   </data>
-  <data name="ContractVisibilityItem4" xml:space="preserve">
+  <data name="ContractVisibility_PublicSearchable" xml:space="preserve">
     <value>Public and searchable</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
@@ -248,6 +254,9 @@
   </data>
   <data name="General" xml:space="preserve">
     <value>General</value>
+  </data>
+  <data name="HumanReadableText" xml:space="preserve">
+    <value>Human readable text</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identity</value>
@@ -327,6 +336,9 @@
   <data name="Options" xml:space="preserve">
     <value>Options</value>
   </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
@@ -390,6 +402,9 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Pick photo</value>
   </data>
+  <data name="PinIsInvalid" xml:space="preserve">
+    <value>PIN is invalid</value>
+  </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
     <value>PIN number must not include leading or trailing whitespace.</value>
   </data>
@@ -444,6 +459,9 @@
   <data name="Role" xml:space="preserve">
     <value>Role</value>
   </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roles</value>
+  </data>
   <data name="ScanQRCode" xml:space="preserve">
     <value>Scan QR Code</value>
   </data>
@@ -494,6 +512,12 @@
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
     <value>Taking a photo is not supported on this device</value>
+  </data>
+  <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
+    <value>The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again.</value>
+  </data>
+  <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
+    <value>The contract requires at most {0} part(s) of role {1}. Remove some of the parts from the contract and try again.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>The password for the connection is {0}. This has been copied to the clipboard.</value>
@@ -605,6 +629,9 @@
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>You need to provide a personal or social security number</value>
+  </data>
+  <data name="YourContractContainsErrors" xml:space="preserve">
+    <value>Your contract contains errors. Fix these errors and try again.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
     <value>Your Role</value>

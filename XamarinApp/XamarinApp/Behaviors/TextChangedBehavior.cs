@@ -5,15 +5,23 @@ namespace XamarinApp.Behaviors
 {
     public class TextChangedBehavior : Behavior<Entry>
     {
-        public ICommand TextChangedCommand { get; set; }
-        //public static readonly BindableProperty TextChangedCommandProperty =
-        //    BindableProperty.Create("TextChangedCommand", typeof(ICommand), typeof(TextChangedBehavior), default(ICommand), BindingMode.OneWayToSource);
+        public static readonly BindableProperty TextChangedCommandProperty =
+            BindableProperty.Create("TextChangedCommand", typeof(ICommand), typeof(TextChangedBehavior), default(ICommand));
 
-        //public ICommand TextChangedCommand
-        //{
-        //    get { return (ICommand)GetValue(TextChangedCommandProperty); }
-        //    set { SetValue(TextChangedCommandProperty, value); }
-        //}
+        public ICommand TextChangedCommand
+        {
+            get { return (ICommand)GetValue(TextChangedCommandProperty); }
+            set { SetValue(TextChangedCommandProperty, value); }
+        }
+
+        public static readonly BindableProperty TextChangedCommandParameterProperty =
+            BindableProperty.Create("TextChangedCommandParameter", typeof(object), typeof(TextChangedBehavior), default(object));
+
+        public object TextChangedCommandParameter
+        {
+            get { return (object) GetValue(TextChangedCommandParameterProperty); }
+            set { SetValue(TextChangedCommandParameterProperty, value); }
+        }
 
         protected override void OnAttachedTo(Entry entry)
         {
@@ -31,7 +39,8 @@ namespace XamarinApp.Behaviors
         {
             if (TextChangedCommand != null && TextChangedCommand.CanExecute(null))
             {
-                TextChangedCommand.Execute(e.NewTextValue);
+                object parameter = TextChangedCommandParameter ?? e.NewTextValue;
+                TextChangedCommand.Execute(parameter);
             }
         }
     }

@@ -57,17 +57,17 @@ namespace XamarinApp.Views
                 switch (uri.Scheme.ToLower())
                 {
                     case Constants.IoTSchemes.IotId:
-                        string legalId = code.Substring(6);
-                        await this.contractOrchestratorService.OpenLegalIdentity(legalId, "Scanned QR Code.");
+                        string legalId = Constants.IoTSchemes.GetCode(code);
+                        await this.contractOrchestratorService.OpenLegalIdentity(legalId, "Scanned QR Code");
                         break;
 
                     case Constants.IoTSchemes.IotSc:
-                        string contractId = code.Substring(6);
-                        await this.contractOrchestratorService.OpenContract(contractId, "Scanned QR Code.");
+                        string contractId = Constants.IoTSchemes.GetCode(code);
+                        await this.contractOrchestratorService.OpenContract(contractId, "Scanned QR Code");
                         break;
 
                     case Constants.IoTSchemes.IotDisco:
-                        // TODO
+                        // TODO handle discovery scheme here.
                         break;
 
                     default:

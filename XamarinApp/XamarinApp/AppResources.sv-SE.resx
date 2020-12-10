@@ -189,22 +189,28 @@
   <data name="ContractCategory" xml:space="preserve">
     <value>Kontraktskategori</value>
   </data>
+  <data name="ContractRoleMustBeSelected" xml:space="preserve">
+    <value>Välj kontrakt-roll först och försök igen.</value>
+  </data>
   <data name="Contracts" xml:space="preserve">
     <value>Kontrakt</value>
   </data>
   <data name="ContractType" xml:space="preserve">
     <value>Kontraktstyp</value>
   </data>
-  <data name="ContractVisibilityItem1" xml:space="preserve">
+  <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
+    <value>Välj kontrakt-synlighet först och försök igen.</value>
+  </data>
+  <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
     <value>Skapare och delar</value>
   </data>
-  <data name="ContractVisibilityItem2" xml:space="preserve">
+  <data name="ContractVisibility_DomainAndParts" xml:space="preserve">
     <value>Domän och delar</value>
   </data>
-  <data name="ContractVisibilityItem3" xml:space="preserve">
+  <data name="ContractVisibility_Public" xml:space="preserve">
     <value>Publik, ej sökbar</value>
   </data>
-  <data name="ContractVisibilityItem4" xml:space="preserve">
+  <data name="ContractVisibility_PublicSearchable" xml:space="preserve">
     <value>Publik och sökbar</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
@@ -248,6 +254,9 @@
   </data>
   <data name="General" xml:space="preserve">
     <value>Allmänt</value>
+  </data>
+  <data name="HumanReadableText" xml:space="preserve">
+    <value>Klartext</value>
   </data>
   <data name="Identity" xml:space="preserve">
     <value>Identitet</value>
@@ -327,6 +336,9 @@
   <data name="Options" xml:space="preserve">
     <value>Alternativ</value>
   </data>
+  <data name="Parameters" xml:space="preserve">
+    <value>Parametrar</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Lösenord</value>
   </data>
@@ -390,6 +402,9 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Välj foto</value>
   </data>
+  <data name="PinIsInvalid" xml:space="preserve">
+    <value>PIN-koden är ogiltig</value>
+  </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
     <value>PIN-koden får inte inledas eller avslutas med blanksteg.</value>
   </data>
@@ -444,6 +459,9 @@
   <data name="Role" xml:space="preserve">
     <value>Roll</value>
   </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Roller</value>
+  </data>
   <data name="ScanQRCode" xml:space="preserve">
     <value>Scanna QR-kod</value>
   </data>
@@ -494,6 +512,12 @@
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att ta en bild stöds inte på den här enheten</value>
+  </data>
+  <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
+    <value>Kontraktet kräver åtminstone {0} delar för rollen {1}. Lägg till delar till kontraktet och försök igen.</value>
+  </data>
+  <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
+    <value>Kontraktet kräver max {0} delar för rollen {1}. Ta bort delar av kontraktet och försök igen.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>Lösenordet för anslutningen är {0}. Värdet har kopierats till urklipp.</value>
@@ -605,6 +629,9 @@
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>Du behöver ange personnummer eller SSN</value>
+  </data>
+  <data name="YourContractContainsErrors" xml:space="preserve">
+    <value>Kontraktet innehåller fel. Rätta dem och försök igen.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
     <value>Din roll</value>

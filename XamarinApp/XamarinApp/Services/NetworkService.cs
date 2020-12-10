@@ -35,7 +35,7 @@ namespace XamarinApp.Services
             try
             {
                 SRV endpoint = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
-                if (!(endpoint is null) && !string.IsNullOrEmpty(endpoint.TargetHost) && endpoint.Port > 0)
+                if (!(endpoint is null) && !string.IsNullOrWhiteSpace(endpoint.TargetHost) && endpoint.Port > 0)
                     return (endpoint.TargetHost, endpoint.Port);
             }
             catch (Exception)
