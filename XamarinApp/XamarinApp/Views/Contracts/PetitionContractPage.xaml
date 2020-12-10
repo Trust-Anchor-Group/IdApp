@@ -10,6 +10,14 @@
             <Label Text="{x:Static local:AppResources.Petition}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource Heading}" />
             <Label Text="{x:Static local:AppResources.PetitionContractInformationText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">
+                <TableView.Resources>
+                    <Style TargetType="Label" x:Key="ValueLabel">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </Style>
+                    <Style TargetType="Label" x:Key="KeyLabel">
+                        <Setter Property="MinimumWidthRequest" Value="100"/>
+                    </Style>
+                </TableView.Resources>
                 <TableView.Root>
                     <TableSection>
                         <ViewCell>
@@ -28,92 +36,92 @@
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Created}"/>
-                                <Label Text="{Binding Path=Created}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Created}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=Created}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Updated}"/>
-                                <Label Text="{Binding Path=Updated}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Updated}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.State}"/>
-                                <Label Text="{Binding Path=State}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.State}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.FirstName}"/>
-                                <Label Text="{Binding Path=FirstName}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.FirstName}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.MiddleNames}" />
-                                <Label Text="{Binding Path=MiddleNames}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.MiddleNames}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=MiddleNames}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.LastNames}" />
-                                <Label Text="{Binding Path=LastNames}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.LastNames}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=LastNames}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.PersonalNumber}" />
-                                <Label Text="{Binding Path=PersonalNumber}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.PersonalNumber}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=PersonalNumber}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Address}" />
-                                <Label Text="{Binding Path=Address}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Address}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Address}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Address2}" />
-                                <Label Text="{Binding Path=Address2}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Address2}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Address2}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.ZipCode}" />
-                                <Label Text="{Binding Path=ZipCode}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.ZipCode}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=ZipCode}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Area}" />
-                                <Label Text="{Binding Path=Area}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Area}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Area}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.City}" />
-                                <Label Text="{Binding Path=City}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.City}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=City}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Region}" />
-                                <Label Text="{Binding Path=Region}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Region}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Region}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Country}" />
-                                <Label Text="{Binding Path=Country}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Country}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.LegalId}" />
-                                <Label Text="{Binding Path=LegalId}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.LegalId}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                     </TableSection>

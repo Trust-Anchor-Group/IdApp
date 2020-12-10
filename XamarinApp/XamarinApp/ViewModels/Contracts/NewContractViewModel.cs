@@ -347,7 +347,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
         }
 
-        internal static string FilterDefaultValues(string s)
+        private static string FilterDefaultValues(string s)
         {
             foreach (char ch in s)
             {

@@ -10,24 +10,32 @@
             <Label Text="{x:Static local:AppResources.SignatureInformation}" Style="{StaticResource Heading}" />
             <Label Text="{x:Static local:AppResources.ServerSignatureInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <TableView Intent="Data" HasUnevenRows="True">
+                <TableView.Resources>
+                    <Style TargetType="Label" x:Key="ValueLabel">
+                        <Setter Property="FontAttributes" Value="Bold"/>
+                    </Style>
+                    <Style TargetType="Label" x:Key="KeyLabel">
+                        <Setter Property="MinimumWidthRequest" Value="100"/>
+                    </Style>
+                </TableView.Resources>
                 <TableView.Root>
                     <TableSection>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Provider}" />
-                                <Label Text="{Binding Path=Provider}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Provider}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Provider}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Timestamp}" />
-                                <Label Text="{Binding Path=Timestamp}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Timestamp}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Timestamp}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{x:Static local:AppResources.Signature}" />
-                                <Label Text="{Binding Path=Signature}" FontAttributes="Bold"/>
+                                <Label Text="{x:Static local:AppResources.Signature}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Signature}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                     </TableSection>
