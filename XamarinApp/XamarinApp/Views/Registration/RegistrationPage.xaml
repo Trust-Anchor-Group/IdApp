@@ -2,7 +2,6 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
-             xmlns:registration="clr-namespace:XamarinApp.ViewModels.Registration;assembly=XamarinApp"
              xmlns:registrationViews="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
              xmlns:resources="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Registration.RegistrationPage">
@@ -25,7 +24,7 @@
                     <DataTemplate x:Key="DefinePinTemplate">
                         <registrationViews:DefinePinView/>
                     </DataTemplate>
-                    <registration:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
+                    <registrationViews:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
                         ChooseOperator="{StaticResource ChooseOperatorTemplate}"
                         ChooseAccount="{StaticResource ChooseAccountTemplate}"
                         RegisterIdentity="{StaticResource RegisterIdentityTemplate}"

@@ -1,7 +1,8 @@
 ﻿using Xamarin.Forms;
 using XamarinApp.Services;
+using XamarinApp.ViewModels.Registration;
 
-namespace XamarinApp.ViewModels.Registration
+namespace XamarinApp.Views.Registration
 {
     public class RegistrationStepDataTemplateSelector : DataTemplateSelector
     {

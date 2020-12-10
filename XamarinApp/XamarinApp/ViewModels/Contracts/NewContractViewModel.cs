@@ -324,14 +324,14 @@ namespace XamarinApp.ViewModels.Contracts
                 {
                     this.CanAddParts = true;
                 }
-                // TODO: replace this
+                // TODO: replace this with a data template selector
                 //Populate(this.Roles, role.ToXamarinForms(contract.DefaultLanguage, contract));
             }
 
             foreach (Parameter parameter in contractTemplate.Parameters)
             {
                 this.ContractParameters.Add(new ParameterModel(parameter.Name, FilterDefaultValues(parameter.Name)));
-                // TODO: replace this
+                // TODO: replace this with a data template selector
                 //Populate(Parameters, parameter.ToXamarinForms(contract.DefaultLanguage, contract));
             }
         }
@@ -342,7 +342,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             if (this.contractTemplate != null)
             {
-                // TODO: replace this
+                // TODO: replace this with a data template selector
                 //Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
             }
         }

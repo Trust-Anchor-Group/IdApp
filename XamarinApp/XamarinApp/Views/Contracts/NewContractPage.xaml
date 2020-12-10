@@ -5,10 +5,35 @@
              xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
              xmlns:converters="clr-namespace:XamarinApp.Views.Converters;assembly=XamarinApp"
              xmlns:behaviors="clr-namespace:XamarinApp.Behaviors;assembly=XamarinApp"
+             xmlns:contracts="clr-namespace:XamarinApp.Views.Contracts;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Contracts.NewContractPage"
              Title="{x:Static local:AppResources.NewContract}">
     <ScrollView>
         <StackLayout Margin="{StaticResource DefaultMargin}">
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="ContractRole1Template">
+                        <Label />
+                    </DataTemplate>
+                    <DataTemplate x:Key="ContractRole2Template">
+                        <Label />
+                    </DataTemplate>
+                    <contracts:ContractRoleDataTemplateSelector
+                        x:Key="ContractRoleTemplateSelector"
+                        Role1="{StaticResource ContractRole1Template}"
+                        Role2="{StaticResource ContractRole2Template}" />
+                    <DataTemplate x:Key="ContractParameter1Template">
+                        <Label />
+                    </DataTemplate>
+                    <DataTemplate x:Key="ContractParameter2Template">
+                        <Label />
+                    </DataTemplate>
+                    <contracts:ContractParameterDataTemplateSelector
+                        x:Key="ContractParameterTemplateSelector"
+                        Parameter1="{StaticResource ContractParameter1Template}"
+                        Parameter2="{StaticResource ContractParameter2Template}" />
+                </ResourceDictionary>
+            </StackLayout.Resources>
 
             <StackLayout Orientation="Vertical" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}">
                 <Label Text="{x:Static local:AppResources.ContractCategory}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
