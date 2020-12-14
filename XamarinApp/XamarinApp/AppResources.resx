@@ -247,7 +247,7 @@
     <value>Domain name is invalid</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Error</value>
+    <value>An error occurred</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
@@ -450,6 +450,9 @@
   <data name="RequestingEntity" xml:space="preserve">
     <value>Requesting entity</value>
   </data>
+  <data name="RequestTimedOut" xml:space="preserve">
+    <value>The request timed out</value>
+  </data>
   <data name="RetypePassword" xml:space="preserve">
     <value>Retype password</value>
   </data>
@@ -521,6 +524,9 @@
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>The password for the connection is {0}. This has been copied to the clipboard.</value>
+  </data>
+  <data name="ThereIsNoNetwork" xml:space="preserve">
+    <value>There is no network</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>The specified code is not a legal identity</value>

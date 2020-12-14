@@ -17,12 +17,17 @@ namespace XamarinApp.ViewModels.Contracts
         /// Show created contracts or signed contracts?
         /// </summary>
         private readonly bool showCreatedContracts;
+
+        private readonly ILogService logService;
+        private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
         private DateTime loadContractsTimestamp;
 
         public MyContractsViewModel(bool showCreatedContracts)
         {
+            this.logService = DependencyService.Resolve<ILogService>();
+            this.networkService = DependencyService.Resolve<INetworkService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
             this.showCreatedContracts = showCreatedContracts;
@@ -80,9 +85,19 @@ namespace XamarinApp.ViewModels.Contracts
             string[] contractIds;
 
             if (this.showCreatedContracts)
-                contractIds = await this.contractsService.GetCreatedContractsAsync();
+            {
+                (bool succeeded, string[] createdContractIds) = await this.networkService.PerformRequest(this.logService, this.navigationService, this.contractsService.GetCreatedContractsAsync);
+                if (!succeeded)
+                    return;
+                contractIds = createdContractIds;
+            }
             else
-                contractIds = await this.contractsService.GetSignedContractsAsync();
+            {
+                (bool succeeded, string[] signedContractIds) = await this.networkService.PerformRequest(this.logService, this.navigationService, this.contractsService.GetSignedContractsAsync);
+                if (!succeeded)
+                    return;
+                contractIds = signedContractIds;
+            }
 
             if (this.loadContractsTimestamp > now)
             {

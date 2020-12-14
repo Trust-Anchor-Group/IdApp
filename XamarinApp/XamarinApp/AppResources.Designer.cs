@@ -448,7 +448,7 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to An error occurred.
         /// </summary>
         internal static string ErrorTitle {
             get {
@@ -1060,6 +1060,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The request timed out.
+        /// </summary>
+        internal static string RequestTimedOut {
+            get {
+                return ResourceManager.GetString("RequestTimedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retype password.
         /// </summary>
         internal static string RetypePassword {
@@ -1272,6 +1281,15 @@ namespace XamarinApp {
         internal static string ThePasswordForTheConnectionIs {
             get {
                 return ResourceManager.GetString("ThePasswordForTheConnectionIs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no network.
+        /// </summary>
+        internal static string ThereIsNoNetwork {
+            get {
+                return ResourceManager.GetString("ThereIsNoNetwork", resourceCulture);
             }
         }
         

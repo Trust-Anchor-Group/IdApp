@@ -247,7 +247,7 @@
     <value>Domännamnet är ogiltigt</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Fel</value>
+    <value>Ett fel inträffade</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
@@ -450,6 +450,9 @@
   <data name="RequestingEntity" xml:space="preserve">
     <value>Begärande entitet</value>
   </data>
+  <data name="RequestTimedOut" xml:space="preserve">
+    <value>Begäran tog för lång tid</value>
+  </data>
   <data name="RetypePassword" xml:space="preserve">
     <value>Ange lösenord igen</value>
   </data>
@@ -521,6 +524,9 @@
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
     <value>Lösenordet för anslutningen är {0}. Värdet har kopierats till urklipp.</value>
+  </data>
+  <data name="ThereIsNoNetwork" xml:space="preserve">
+    <value>Nätverk saknas</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>Den angivna koden är inte en giltig identitet</value>
