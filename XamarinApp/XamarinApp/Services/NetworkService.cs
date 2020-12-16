@@ -9,11 +9,13 @@ namespace XamarinApp.Services
     internal class NetworkService : INetworkService
     {
         private const int DefaultXmppPortNumber = 5222;
+        private readonly ILogService logService;
 
         public event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged; 
 
-        public NetworkService()
+        public NetworkService(ILogService logService)
         {
+            this.logService = logService;
             if (DeviceInfo.Platform != DevicePlatform.Unknown) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
             {
                 Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
@@ -52,27 +54,82 @@ namespace XamarinApp.Services
             return (domainName, DefaultXmppPortNumber);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TReturn>(ILogService logService, INavigationService navigationService, Func<Task<TReturn>> func, bool rethrowException = false)
+        public async Task<bool> Request(INavigationService navigationService, Func<Task> func, bool rethrowException = false)
         {
-            return PerformRequestInner(logService, navigationService, async () => await func(), rethrowException);
+            (bool succeeded, bool _) = await PerformRequestInner<bool>(navigationService, async () =>
+            {
+                await func();
+                return true;
+            }, rethrowException);
+            return succeeded;
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TReturn>(ILogService logService, INavigationService navigationService, Func<TIn1, Task<TReturn>> func, TIn1 p1, bool rethrowException = false)
+        public async Task<bool> Request<TIn1>(INavigationService navigationService, Func<TIn1, Task> func, TIn1 p1, bool rethrowException = false)
         {
-            return PerformRequestInner(logService, navigationService, async () => await func(p1), rethrowException);
+            (bool succeeded, bool _) = await PerformRequestInner<bool>(navigationService, async () =>
+            {
+                await func(p1);
+                return true;
+            }, rethrowException);
+            return succeeded;
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TReturn>(ILogService logService, INavigationService navigationService, Func<TIn1, TIn2, Task<TReturn>> func, TIn1 p1, TIn2 p2, bool rethrowException = false)
+        public async Task<bool> Request<TIn1, TIn2>(INavigationService navigationService, Func<TIn1, TIn2, Task> func, TIn1 p1, TIn2 p2, bool rethrowException = false)
         {
-            return PerformRequestInner(logService, navigationService, async () => await func(p1, p2), rethrowException);
+            (bool succeeded, bool _) = await PerformRequestInner<bool>(navigationService, async () =>
+            {
+                await func(p1, p2);
+                return true;
+            }, rethrowException);
+            return succeeded;
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TReturn>(ILogService logService, INavigationService navigationService, Func<TIn1, TIn2, TIn3, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, bool rethrowException = false)
+        public async Task<bool> Request<TIn1, TIn2, TIn3>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, bool rethrowException = false)
         {
-            return PerformRequestInner(logService, navigationService, async () => await func(p1, p2, p3), rethrowException);
+            (bool succeeded, bool _) = await PerformRequestInner<bool>(navigationService, async () =>
+            {
+                await func(p1, p2, p3);
+                return true;
+            }, rethrowException);
+            return succeeded;
         }
 
-        private async Task<(bool Succeeded, TReturn ReturnValue)> PerformRequestInner<TReturn>(ILogService logService, INavigationService navigationService, Func<Task<TReturn>> func, bool rethrowException = false)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, bool rethrowException = false)
+        {
+            (bool succeeded, bool _) = await PerformRequestInner<bool>(navigationService, async () =>
+            {
+                await func(p1, p2, p3, p4);
+                return true;
+            }, rethrowException);
+            return succeeded;
+        }
+
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TReturn>(INavigationService navigationService, Func<Task<TReturn>> func, bool rethrowException = false)
+        {
+            return PerformRequestInner(navigationService, async () => await func(), rethrowException);
+        }
+
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TReturn>(INavigationService navigationService, Func<TIn1, Task<TReturn>> func, TIn1 p1, bool rethrowException = false)
+        {
+            return PerformRequestInner(navigationService, async () => await func(p1), rethrowException);
+        }
+
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, Task<TReturn>> func, TIn1 p1, TIn2 p2, bool rethrowException = false)
+        {
+            return PerformRequestInner(navigationService, async () => await func(p1, p2), rethrowException);
+        }
+
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, bool rethrowException = false)
+        {
+            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3), rethrowException);
+        }
+
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, bool rethrowException = false)
+        {
+            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4), rethrowException);
+        }
+
+        private async Task<(bool Succeeded, TReturn ReturnValue)> PerformRequestInner<TReturn>(INavigationService navigationService, Func<Task<TReturn>> func, bool rethrowException = false)
         {
             Exception thrownException;
             try

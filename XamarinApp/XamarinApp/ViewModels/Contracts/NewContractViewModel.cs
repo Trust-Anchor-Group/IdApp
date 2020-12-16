@@ -19,6 +19,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
         private Contract contractTemplate;
         private readonly ILogService logService;
+        private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
@@ -29,6 +30,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             this.contractTypesPerCategory = new SortedDictionary<string, SortedDictionary<string, string>>();
             this.logService = DependencyService.Resolve<ILogService>();
+            this.networkService = DependencyService.Resolve<INetworkService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
@@ -299,7 +301,11 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                this.contractTemplate = await this.contractsService.GetContractAsync(this.contractTemplateId);
+                (bool succeeded, Contract retrievedContract) = await this.networkService.Request(this.navigationService, this.contractsService.GetContractAsync, this.contractTemplateId);
+                if (!succeeded)
+                    return;
+
+                this.contractTemplate = retrievedContract;
                 this.LoadTemplateParts();
                 this.HasTemplate = true;
                 this.HasRoles = this.ContractRoles.Count > 0;

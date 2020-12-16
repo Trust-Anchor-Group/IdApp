@@ -35,7 +35,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.contractsService = DependencyService.Resolve<IContractsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
-            this.photosLoader = new PhotosLoader(this.logService, this.contractsService);
+            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.contractsService);
             this.DisplayPartCommand = new Command<string>(async legalId => await ShowLegalId(legalId));
             this.SignPartAsRoleCommand = new Command<string>(async roleId => await SignContract(roleId));
             this.DisplayClientSignatureCommand = new Command<string>(async sign => await ShowClientSignature(sign));

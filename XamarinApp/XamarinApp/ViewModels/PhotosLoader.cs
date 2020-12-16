@@ -14,12 +14,14 @@ namespace XamarinApp.ViewModels
     public class PhotosLoader
     {
         private readonly ILogService logService;
+        private readonly INetworkService networkService;
         private readonly IContractsService contractsService;
         private DateTime loadPhotosTimestamp;
 
-        public PhotosLoader(ILogService logService, IContractsService contractsService)
+        public PhotosLoader(ILogService logService, INetworkService networkService, IContractsService contractsService)
         {
             this.logService = logService;
+            this.networkService = networkService;
             this.contractsService = contractsService;
         }
 
@@ -47,7 +49,12 @@ namespace XamarinApp.ViewModels
 
                 try
                 {
-                    KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
+                    KeyValuePair<string, TemporaryFile> pair;
+
+                    if (!this.networkService.IsOnline)
+                        continue;
+                    
+                    pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
 
                     if (this.loadPhotosTimestamp > now)
                     {

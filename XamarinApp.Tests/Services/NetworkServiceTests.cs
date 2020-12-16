@@ -14,13 +14,18 @@ namespace XamarinApp.Tests.Services
 
         public NetworkServiceTests()
         {
-            this.networkService = new TestNetworkService();
             this.logService = new Mock<ILogService>();
+            this.networkService = new TestNetworkService(this.logService.Object);
             this.navigationService = new Mock<INavigationService>();
         }
 
         private sealed class TestNetworkService : NetworkService
         {
+            public TestNetworkService(ILogService logService)
+            : base(logService)
+            {
+            }
+
             public bool OnlineFlag { get; set; }
 
             public override bool IsOnline => OnlineFlag;
@@ -43,7 +48,7 @@ namespace XamarinApp.Tests.Services
             Exception typeOfExceptionCaught = null;
             try
             {
-                await this.networkService.Request(this.logService.Object, this.navigationService.Object, TestFuncThatThrows, rethrowException);
+                await this.networkService.Request(this.navigationService.Object, TestFuncThatThrows, rethrowException);
             }
             catch (Exception ex)
             {

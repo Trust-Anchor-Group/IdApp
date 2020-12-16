@@ -14,6 +14,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
         private readonly ILogService logService;
+        private readonly INetworkService networkService;
         private readonly LegalIdentity requestorIdentity;
         private readonly Contract requestedContract;
         private readonly string requestorFullJid;
@@ -30,6 +31,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
             this.logService = DependencyService.Resolve<ILogService>();
+            this.networkService = DependencyService.Resolve<INetworkService>();
             this.requestorIdentity = requestorIdentity;
             this.requestorFullJid = requestorFullJid;
             this.requestedContract = requestedContract;
@@ -38,7 +40,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.contractsService);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.contractsService);
             AssignProperties(requestorIdentity, purpose);
         }
 
@@ -66,20 +68,28 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Accept()
         {
-            await this.contractsService.SendPetitionContractResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, true);
-            await this.navigationService.PopAsync();
+            bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionContractResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, true);
+            if (succeeded)
+            {
+                await this.navigationService.PopAsync();
+            }
         }
 
         private async Task Decline()
         {
-            await this.contractsService.SendPetitionIdentityResponseAsync(this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, false);
-            await this.navigationService.PopAsync();
+            bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionIdentityResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, false);
+            if (succeeded)
+            {
+                await this.navigationService.PopAsync();
+            }
         }
 
         private async Task Ignore()
         {
             await this.navigationService.PopAsync();
         }
+
+        #region Properties
 
         public static readonly BindableProperty CreatedProperty =
             BindableProperty.Create("Created", typeof(DateTime), typeof(PetitionIdentityViewModel), default(DateTime));
@@ -260,6 +270,8 @@ namespace XamarinApp.ViewModels.Contracts
             get { return (string) GetValue(PurposeProperty); }
             set { SetValue(PurposeProperty, value); }
         }
+
+        #endregion
 
         private void AssignProperties(LegalIdentity requestorIdentity, string purpose)
         {

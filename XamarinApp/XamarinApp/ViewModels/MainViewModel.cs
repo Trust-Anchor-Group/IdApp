@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Waher.Networking.XMPP;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinApp.Services;
 
@@ -9,11 +10,13 @@ namespace XamarinApp.ViewModels
     {
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
+        private readonly INetworkService networkService;
 
         public MainViewModel()
         {
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
+            this.networkService = DependencyService.Resolve<INetworkService>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
         }
 
@@ -21,13 +24,18 @@ namespace XamarinApp.ViewModels
         {
             await base.DoBind();
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+            this.IsOnline = this.networkService.IsOnline;
+            this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
         }
 
         protected override Task DoUnbind()
         {
             this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            this.networkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
             return base.DoUnbind();
         }
+
+        #region Properties
 
         public static readonly BindableProperty ConnectionStateTextProperty =
             BindableProperty.Create("ConnectionStateText", typeof(string), typeof(MainViewModel), default(string));
@@ -47,9 +55,25 @@ namespace XamarinApp.ViewModels
             set { SetValue(IsConnectedProperty, value); }
         }
 
+        public static readonly BindableProperty IsOnlineProperty =
+            BindableProperty.Create("IsOnline", typeof(bool), typeof(MainViewModel), default(bool));
+
+        public bool IsOnline
+        {
+            get { return (bool) GetValue(IsOnlineProperty); }
+            set { SetValue(IsOnlineProperty, value); }
+        }
+
+        #endregion
+
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             Dispatcher.BeginInvokeOnMainThread(() => HandleConnectionStateChanged(e.State));
+        }
+
+        private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            Dispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
         }
 
         public void HandleConnectionStateChanged(XmppState state)

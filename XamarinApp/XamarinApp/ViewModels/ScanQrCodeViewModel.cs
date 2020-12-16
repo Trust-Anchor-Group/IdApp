@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Windows.Input;
 using Xamarin.Forms;
-using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels
 {
     public class ScanQrCodeViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
         public event EventHandler ModeChanged;
 
         public ScanQrCodeViewModel()
         {
-            this.navigationService = DependencyService.Resolve<INavigationService>();
             SwitchModeCommand = new Command(SwitchMode);
             OpenCommandText = AppResources.Open;
             SetModeText();
         }
+
+        #region Properties
 
         public ICommand SwitchModeCommand { get; }
 
@@ -68,11 +67,6 @@ namespace XamarinApp.ViewModels
                 viewModel.SetModeText();
             });
 
-        private void SetModeText()
-        {
-            ModeText = ScanIsAutomatic ? AppResources.QrEnterManually : AppResources.QrScanCode;
-        }
-
         public bool ScanIsAutomatic
         {
             get { return (bool)GetValue(ScanIsAutomaticProperty); }
@@ -95,6 +89,13 @@ namespace XamarinApp.ViewModels
         {
             get { return (string)GetValue(ModeTextProperty); }
             set { SetValue(ModeTextProperty, value); }
+        }
+
+        #endregion
+
+        private void SetModeText()
+        {
+            ModeText = ScanIsAutomatic ? AppResources.QrEnterManually : AppResources.QrScanCode;
         }
 
         private void SwitchMode()

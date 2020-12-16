@@ -21,6 +21,7 @@ namespace XamarinApp.ViewModels.Registration
             INavigationService navigationService,
             ISettingsService settingsService,
             IContractsService contractsService,
+            INetworkService networkService,
             ILogService logService)
             : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
         {
@@ -29,7 +30,7 @@ namespace XamarinApp.ViewModels.Registration
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(logService, contractsService);
+            this.photosLoader = new PhotosLoader(logService, networkService, contractsService);
         }
 
         protected override async Task DoBind()

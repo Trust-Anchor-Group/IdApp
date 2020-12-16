@@ -27,7 +27,7 @@ namespace XamarinApp
             this.TagProfile = new TagProfile();
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
             this.AuthService = new AuthService(this.LogService);
-            this.NetworkService = new NetworkService();
+            this.NetworkService = new NetworkService(this.LogService);
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
             this.neuronService = new NeuronService(this.TagProfile, this.NetworkService, this.logService);

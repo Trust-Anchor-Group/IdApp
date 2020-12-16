@@ -15,6 +15,8 @@ namespace XamarinApp.ViewModels.Contracts
             AssignProperties(clientSignature, identity);
         }
 
+        #region Properties
+
         public static readonly BindableProperty CreatedProperty =
             BindableProperty.Create("Created", typeof(DateTime), typeof(PetitionIdentityViewModel), default(DateTime));
 
@@ -230,6 +232,8 @@ namespace XamarinApp.ViewModels.Contracts
             get { return (string) GetValue(SignatureProperty); }
             set { SetValue(SignatureProperty, value); }
         }
+
+        #endregion
 
         private void AssignProperties(ClientSignature signature, LegalIdentity identity)
         {
