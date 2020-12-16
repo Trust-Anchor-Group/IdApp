@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Temporary;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
@@ -21,8 +18,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly Contract requestedContract;
         private readonly string requestorFullJid;
         private readonly string petitionId;
-        private readonly string purpose;
-        private DateTime loadPhotosTimestamp;
+        private readonly PhotosLoader photosLoader;
 
         public PetitionContractViewModel(
             LegalIdentity requestorIdentity,
@@ -38,24 +34,26 @@ namespace XamarinApp.ViewModels.Contracts
             this.requestorFullJid = requestorFullJid;
             this.requestedContract = requestedContract;
             this.petitionId = petitionId;
-            this.purpose = purpose;
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
+            this.photosLoader = new PhotosLoader(this.logService, this.contractsService);
             AssignProperties(requestorIdentity, purpose);
         }
 
         protected override async Task DoBind()
         {
             await base.DoBind();
-            this.loadPhotosTimestamp = DateTime.UtcNow;
-            _ = LoadPhotos(this.loadPhotosTimestamp);
+            if (this.requestorIdentity?.Attachments != null)
+            {
+                _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments, this.Photos);
+            }
         }
 
         protected override async Task DoUnbind()
         {
-            this.loadPhotosTimestamp = DateTime.UtcNow;
+            this.photosLoader.CancelLoadPhotos();
             this.Photos.Clear();
             await base.DoUnbind();
         }
@@ -65,44 +63,6 @@ namespace XamarinApp.ViewModels.Contracts
         public ICommand IgnoreCommand { get; }
 
         public ObservableCollection<ImageSource> Photos { get; }
-
-        private async Task LoadPhotos(DateTime now)
-        {
-            if (this.requestorIdentity?.Attachments != null)
-            {
-                foreach (Attachment attachment in this.requestorIdentity.Attachments.GetImageAttachments())
-                {
-                    if (this.loadPhotosTimestamp > now)
-                    {
-                        return;
-                    }
-
-                    try
-                    {
-                        KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
-
-                        if (this.loadPhotosTimestamp > now)
-                        {
-                            return;
-                        }
-
-                        using (TemporaryFile file = pair.Value)
-                        {
-                            file.Reset();
-                            MemoryStream ms = new MemoryStream();
-                            await file.CopyToAsync(ms);
-                            ms.Reset();
-                            ImageSource imageSource = ImageSource.FromStream(() => ms);
-                            Dispatcher.BeginInvokeOnMainThread(() => this.Photos.Add(imageSource));
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        this.logService.LogException(ex);
-                    }
-                }
-            }
-        }
 
         private async Task Accept()
         {

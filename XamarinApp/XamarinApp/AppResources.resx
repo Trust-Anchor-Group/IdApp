@@ -132,6 +132,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddPart" xml:space="preserve">
+    <value>Add part</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Address</value>
   </data>
@@ -159,8 +162,17 @@
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>A petition has been sent to your peer</value>
   </data>
+  <data name="Archiving_Optional" xml:space="preserve">
+    <value>Archiving (optional)</value>
+  </data>
+  <data name="Archiving_Required" xml:space="preserve">
+    <value>Archiving (required)</value>
+  </data>
   <data name="Area" xml:space="preserve">
     <value>Area</value>
+  </data>
+  <data name="CanActAsTemplate" xml:space="preserve">
+    <value>Can act as template</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Can't connect to {0}</value>
@@ -177,6 +189,12 @@
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
     <value>The following is information related to a client signature.</value>
   </data>
+  <data name="ClientSignatures" xml:space="preserve">
+    <value>Client Signatures</value>
+  </data>
+  <data name="ClientSignaturesInfoText" xml:space="preserve">
+    <value>Cryptographic signatures made by different parts are listed below.</value>
+  </data>
   <data name="Connect" xml:space="preserve">
     <value>Connect</value>
   </data>
@@ -189,11 +207,23 @@
   <data name="ContractCategory" xml:space="preserve">
     <value>Contract Category</value>
   </data>
+  <data name="ContractHasBeenDeleted" xml:space="preserve">
+    <value>Contract has been deleted.</value>
+  </data>
+  <data name="ContractHasBeenObsoleted" xml:space="preserve">
+    <value>Contract has been obsoleted.</value>
+  </data>
+  <data name="ContractId" xml:space="preserve">
+    <value>Contract ID</value>
+  </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
     <value>Select contract role first, and then try again.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
     <value>Contracts</value>
+  </data>
+  <data name="ContractSuccessfullySigned" xml:space="preserve">
+    <value>Contract successfully signed.</value>
   </data>
   <data name="ContractType" xml:space="preserve">
     <value>Contract Type</value>
@@ -234,8 +264,14 @@
   <data name="DefinePin" xml:space="preserve">
     <value>Define PIN</value>
   </data>
+  <data name="DeleteContract" xml:space="preserve">
+    <value>Delete contract</value>
+  </data>
   <data name="Devices" xml:space="preserve">
     <value>Devices</value>
+  </data>
+  <data name="Digest" xml:space="preserve">
+    <value>Digest</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} does not follow the ubiquitous encryption policy</value>
@@ -246,14 +282,29 @@
   <data name="DomainNameIsInvalid" xml:space="preserve">
     <value>Domain name is invalid</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>An error occurred</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
   <data name="General" xml:space="preserve">
     <value>General</value>
+  </data>
+  <data name="GeneralInformation" xml:space="preserve">
+    <value>General Information</value>
+  </data>
+  <data name="GeneralInformationInfoText" xml:space="preserve">
+    <value>Following is some general information about the contract.</value>
+  </data>
+  <data name="HashFunction" xml:space="preserve">
+    <value>Hash Function</value>
   </data>
   <data name="HumanReadableText" xml:space="preserve">
     <value>Human readable text</value>
@@ -282,6 +333,15 @@
   <data name="LegalId" xml:space="preserve">
     <value>Legal Id</value>
   </data>
+  <data name="LocalName" xml:space="preserve">
+    <value>Local name</value>
+  </data>
+  <data name="MachineReadableInfoText" xml:space="preserve">
+    <value>An overview of the machine-readable data embedded in the contract is shown below.</value>
+  </data>
+  <data name="MachineReadableText" xml:space="preserve">
+    <value>Machine readable information</value>
+  </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>TAG</value>
   </data>
@@ -291,6 +351,9 @@
   <data name="MiddleNames" xml:space="preserve">
     <value>Middle name(s)</value>
   </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
   <data name="MyContracts" xml:space="preserve">
     <value>My Contracts</value>
   </data>
@@ -299,6 +362,9 @@
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
     <value>My Created Contracts</value>
+  </data>
+  <data name="Namespace" xml:space="preserve">
+    <value>Namespace</value>
   </data>
   <data name="Network" xml:space="preserve">
     <value>Network</value>
@@ -317,6 +383,9 @@
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Not connected to the operator</value>
+  </data>
+  <data name="ObsoleteContract" xml:space="preserve">
+    <value>Obsolete contract</value>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
@@ -338,6 +407,15 @@
   </data>
   <data name="Parameters" xml:space="preserve">
     <value>Parameters</value>
+  </data>
+  <data name="ParametersInfoText" xml:space="preserve">
+    <value>Contract parameters are shown below, together with their corresponding values.</value>
+  </data>
+  <data name="Parts" xml:space="preserve">
+    <value>Parts</value>
+  </data>
+  <data name="PartsInfoText" xml:space="preserve">
+    <value>The (expected) parts defined for the contract is listed below.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -453,6 +531,9 @@
   <data name="RequestTimedOut" xml:space="preserve">
     <value>The request timed out</value>
   </data>
+  <data name="RequestWasCancelled" xml:space="preserve">
+    <value>The request was cancelled</value>
+  </data>
   <data name="RetypePassword" xml:space="preserve">
     <value>Retype password</value>
   </data>
@@ -464,6 +545,9 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
+  </data>
+  <data name="RolesInfoText" xml:space="preserve">
+    <value>Below you can see the different roles defined for the contract. If more than one part is assumed for a role, this number will be shown in the description of the role.</value>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
     <value>Scan QR Code</value>
@@ -495,11 +579,26 @@
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
     <value>The following is information related to a server signature.</value>
   </data>
+  <data name="ServerSignatures" xml:space="preserve">
+    <value>Server Signatures</value>
+  </data>
+  <data name="ServerSignaturesInfoText" xml:space="preserve">
+    <value>The integrity of the contract is protected by the server signature shown below.</value>
+  </data>
+  <data name="SignAfter" xml:space="preserve">
+    <value>Sign after</value>
+  </data>
+  <data name="SignAsRole" xml:space="preserve">
+    <value>Sign as {0}</value>
+  </data>
   <data name="Signature" xml:space="preserve">
     <value>Signature</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
     <value>Signature information</value>
+  </data>
+  <data name="SignBefore" xml:space="preserve">
+    <value>Sign before</value>
   </data>
   <data name="SignedContracts" xml:space="preserve">
     <value>Signed Contracts</value>
@@ -510,11 +609,17 @@
   <data name="State" xml:space="preserve">
     <value>State</value>
   </data>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Success</value>
+  </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
     <value>Taking a photo is not supported on this device</value>
+  </data>
+  <data name="TemplateId" xml:space="preserve">
+    <value>Template ID</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
     <value>The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again.</value>
@@ -533,6 +638,9 @@
   </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Time stamp</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>To connect to {0}, you need an account. Do you want to create one, or use an existing account?</value>

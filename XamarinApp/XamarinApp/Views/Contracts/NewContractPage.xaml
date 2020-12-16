@@ -59,7 +59,7 @@
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}" BindableLayout.ItemTemplate="{StaticResource ContractRoleTemplateSelector}"/>
 
-            <Button Text="Add Part" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
+            <Button Text="{x:Static local:AppResources.AddPart}" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
 
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}" BindableLayout.ItemTemplate="{StaticResource ContractParameterTemplateSelector}" />

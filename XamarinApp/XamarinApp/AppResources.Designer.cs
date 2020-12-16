@@ -106,6 +106,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add part.
+        /// </summary>
+        internal static string AddPart {
+            get {
+                return ResourceManager.GetString("AddPart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address.
         /// </summary>
         internal static string Address {
@@ -187,11 +196,38 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Archiving (optional).
+        /// </summary>
+        internal static string Archiving_Optional {
+            get {
+                return ResourceManager.GetString("Archiving_Optional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Archiving (required).
+        /// </summary>
+        internal static string Archiving_Required {
+            get {
+                return ResourceManager.GetString("Archiving_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Area.
         /// </summary>
         internal static string Area {
             get {
                 return ResourceManager.GetString("Area", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can act as template.
+        /// </summary>
+        internal static string CanActAsTemplate {
+            get {
+                return ResourceManager.GetString("CanActAsTemplate", resourceCulture);
             }
         }
         
@@ -241,6 +277,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Client Signatures.
+        /// </summary>
+        internal static string ClientSignatures {
+            get {
+                return ResourceManager.GetString("ClientSignatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cryptographic signatures made by different parts are listed below..
+        /// </summary>
+        internal static string ClientSignaturesInfoText {
+            get {
+                return ResourceManager.GetString("ClientSignaturesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect.
         /// </summary>
         internal static string Connect {
@@ -277,6 +331,33 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract has been deleted..
+        /// </summary>
+        internal static string ContractHasBeenDeleted {
+            get {
+                return ResourceManager.GetString("ContractHasBeenDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract has been obsoleted..
+        /// </summary>
+        internal static string ContractHasBeenObsoleted {
+            get {
+                return ResourceManager.GetString("ContractHasBeenObsoleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract ID.
+        /// </summary>
+        internal static string ContractId {
+            get {
+                return ResourceManager.GetString("ContractId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select contract role first, and then try again..
         /// </summary>
         internal static string ContractRoleMustBeSelected {
@@ -291,6 +372,15 @@ namespace XamarinApp {
         internal static string Contracts {
             get {
                 return ResourceManager.GetString("Contracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract successfully signed..
+        /// </summary>
+        internal static string ContractSuccessfullySigned {
+            get {
+                return ResourceManager.GetString("ContractSuccessfullySigned", resourceCulture);
             }
         }
         
@@ -412,11 +502,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete contract.
+        /// </summary>
+        internal static string DeleteContract {
+            get {
+                return ResourceManager.GetString("DeleteContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Devices.
         /// </summary>
         internal static string Devices {
             get {
                 return ResourceManager.GetString("Devices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Digest.
+        /// </summary>
+        internal static string Digest {
+            get {
+                return ResourceManager.GetString("Digest", resourceCulture);
             }
         }
         
@@ -448,6 +556,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        internal static string Duration {
+            get {
+                return ResourceManager.GetString("Duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred.
         /// </summary>
         internal static string ErrorTitle {
@@ -466,11 +583,47 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        internal static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string General {
             get {
                 return ResourceManager.GetString("General", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General Information.
+        /// </summary>
+        internal static string GeneralInformation {
+            get {
+                return ResourceManager.GetString("GeneralInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Following is some general information about the contract..
+        /// </summary>
+        internal static string GeneralInformationInfoText {
+            get {
+                return ResourceManager.GetString("GeneralInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hash Function.
+        /// </summary>
+        internal static string HashFunction {
+            get {
+                return ResourceManager.GetString("HashFunction", resourceCulture);
             }
         }
         
@@ -556,6 +709,33 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Local name.
+        /// </summary>
+        internal static string LocalName {
+            get {
+                return ResourceManager.GetString("LocalName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An overview of the machine-readable data embedded in the contract is shown below..
+        /// </summary>
+        internal static string MachineReadableInfoText {
+            get {
+                return ResourceManager.GetString("MachineReadableInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Machine readable information.
+        /// </summary>
+        internal static string MachineReadableText {
+            get {
+                return ResourceManager.GetString("MachineReadableText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TAG.
         /// </summary>
         internal static string MainPageTitle {
@@ -583,6 +763,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mode.
+        /// </summary>
+        internal static string Mode {
+            get {
+                return ResourceManager.GetString("Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My Contracts.
         /// </summary>
         internal static string MyContracts {
@@ -606,6 +795,15 @@ namespace XamarinApp {
         internal static string MyCreatedContracts {
             get {
                 return ResourceManager.GetString("MyCreatedContracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Namespace.
+        /// </summary>
+        internal static string Namespace {
+            get {
+                return ResourceManager.GetString("Namespace", resourceCulture);
             }
         }
         
@@ -660,6 +858,15 @@ namespace XamarinApp {
         internal static string NotConnectedToTheOperator {
             get {
                 return ResourceManager.GetString("NotConnectedToTheOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obsolete contract.
+        /// </summary>
+        internal static string ObsoleteContract {
+            get {
+                return ResourceManager.GetString("ObsoleteContract", resourceCulture);
             }
         }
         
@@ -723,6 +930,33 @@ namespace XamarinApp {
         internal static string Parameters {
             get {
                 return ResourceManager.GetString("Parameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contract parameters are shown below, together with their corresponding values..
+        /// </summary>
+        internal static string ParametersInfoText {
+            get {
+                return ResourceManager.GetString("ParametersInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parts.
+        /// </summary>
+        internal static string Parts {
+            get {
+                return ResourceManager.GetString("Parts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The (expected) parts defined for the contract is listed below..
+        /// </summary>
+        internal static string PartsInfoText {
+            get {
+                return ResourceManager.GetString("PartsInfoText", resourceCulture);
             }
         }
         
@@ -1069,6 +1303,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The request was cancelled.
+        /// </summary>
+        internal static string RequestWasCancelled {
+            get {
+                return ResourceManager.GetString("RequestWasCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Retype password.
         /// </summary>
         internal static string RetypePassword {
@@ -1101,6 +1344,15 @@ namespace XamarinApp {
         internal static string Roles {
             get {
                 return ResourceManager.GetString("Roles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can see the different roles defined for the contract. If more than one part is assumed for a role, this number will be shown in the description of the role..
+        /// </summary>
+        internal static string RolesInfoText {
+            get {
+                return ResourceManager.GetString("RolesInfoText", resourceCulture);
             }
         }
         
@@ -1195,6 +1447,42 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Server Signatures.
+        /// </summary>
+        internal static string ServerSignatures {
+            get {
+                return ResourceManager.GetString("ServerSignatures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The integrity of the contract is protected by the server signature shown below..
+        /// </summary>
+        internal static string ServerSignaturesInfoText {
+            get {
+                return ResourceManager.GetString("ServerSignaturesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign after.
+        /// </summary>
+        internal static string SignAfter {
+            get {
+                return ResourceManager.GetString("SignAfter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign as {0}.
+        /// </summary>
+        internal static string SignAsRole {
+            get {
+                return ResourceManager.GetString("SignAsRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Signature.
         /// </summary>
         internal static string Signature {
@@ -1209,6 +1497,15 @@ namespace XamarinApp {
         internal static string SignatureInformation {
             get {
                 return ResourceManager.GetString("SignatureInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign before.
+        /// </summary>
+        internal static string SignBefore {
+            get {
+                return ResourceManager.GetString("SignBefore", resourceCulture);
             }
         }
         
@@ -1240,6 +1537,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string SuccessTitle {
+            get {
+                return ResourceManager.GetString("SuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take photo.
         /// </summary>
         internal static string TakePhoto {
@@ -1254,6 +1560,15 @@ namespace XamarinApp {
         internal static string TakingAPhotoIsNotSupported {
             get {
                 return ResourceManager.GetString("TakingAPhotoIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Template ID.
+        /// </summary>
+        internal static string TemplateId {
+            get {
+                return ResourceManager.GetString("TemplateId", resourceCulture);
             }
         }
         
@@ -1308,6 +1623,15 @@ namespace XamarinApp {
         internal static string Timestamp {
             get {
                 return ResourceManager.GetString("Timestamp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        internal static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
             }
         }
         

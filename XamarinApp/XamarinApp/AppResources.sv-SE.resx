@@ -132,6 +132,9 @@
   <data name="Add" xml:space="preserve">
     <value>Lägg till</value>
   </data>
+  <data name="AddPart" xml:space="preserve">
+    <value>Lägg till del</value>
+  </data>
   <data name="Address" xml:space="preserve">
     <value>Adress</value>
   </data>
@@ -159,8 +162,17 @@
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>En begäran har skickats till din vän</value>
   </data>
+  <data name="Archiving_Optional" xml:space="preserve">
+    <value>Arkivering (valfri)</value>
+  </data>
+  <data name="Archiving_Required" xml:space="preserve">
+    <value>Arkivering (krav)</value>
+  </data>
   <data name="Area" xml:space="preserve">
     <value>Område</value>
+  </data>
+  <data name="CanActAsTemplate" xml:space="preserve">
+    <value>Can agera som mall</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Kan inte ansluta till {0}</value>
@@ -177,6 +189,12 @@
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
     <value>Följande är information kopplat till en klient-signatur.</value>
   </data>
+  <data name="ClientSignatures" xml:space="preserve">
+    <value>Klientsignaturer</value>
+  </data>
+  <data name="ClientSignaturesInfoText" xml:space="preserve">
+    <value>Kryptografiska signaturer skapade av olika delar visas nedan.</value>
+  </data>
   <data name="Connect" xml:space="preserve">
     <value>Anslut</value>
   </data>
@@ -189,11 +207,23 @@
   <data name="ContractCategory" xml:space="preserve">
     <value>Kontraktskategori</value>
   </data>
+  <data name="ContractHasBeenDeleted" xml:space="preserve">
+    <value>Kontraktet har tagits bort.</value>
+  </data>
+  <data name="ContractHasBeenObsoleted" xml:space="preserve">
+    <value>Kontraktet har ogiltigförklarats.</value>
+  </data>
+  <data name="ContractId" xml:space="preserve">
+    <value>KontraktId</value>
+  </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
     <value>Välj kontrakt-roll först och försök igen.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
     <value>Kontrakt</value>
+  </data>
+  <data name="ContractSuccessfullySigned" xml:space="preserve">
+    <value>Kontraktet signerades.</value>
   </data>
   <data name="ContractType" xml:space="preserve">
     <value>Kontraktstyp</value>
@@ -234,8 +264,14 @@
   <data name="DefinePin" xml:space="preserve">
     <value>Ange PIN</value>
   </data>
+  <data name="DeleteContract" xml:space="preserve">
+    <value>Ta bort kontrakt</value>
+  </data>
   <data name="Devices" xml:space="preserve">
     <value>Enheter</value>
+  </data>
+  <data name="Digest" xml:space="preserve">
+    <value>Hash-värde</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
@@ -246,14 +282,29 @@
   <data name="DomainNameIsInvalid" xml:space="preserve">
     <value>Domännamnet är ogiltigt</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Varaktighet</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel inträffade</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>
+  <data name="From" xml:space="preserve">
+    <value>Från</value>
+  </data>
   <data name="General" xml:space="preserve">
     <value>Allmänt</value>
+  </data>
+  <data name="GeneralInformation" xml:space="preserve">
+    <value>Allmän information</value>
+  </data>
+  <data name="GeneralInformationInfoText" xml:space="preserve">
+    <value>Nedan visas lite allmän information om kontraktet.</value>
+  </data>
+  <data name="HashFunction" xml:space="preserve">
+    <value>Hash-funktion</value>
   </data>
   <data name="HumanReadableText" xml:space="preserve">
     <value>Klartext</value>
@@ -282,6 +333,15 @@
   <data name="LegalId" xml:space="preserve">
     <value>Juridiskt Id</value>
   </data>
+  <data name="LocalName" xml:space="preserve">
+    <value>Lokalt namn</value>
+  </data>
+  <data name="MachineReadableInfoText" xml:space="preserve">
+    <value>En översikt över den maskinläsbara informationen visas nedan.</value>
+  </data>
+  <data name="MachineReadableText" xml:space="preserve">
+    <value>Maskinläsbar information</value>
+  </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>TAG</value>
   </data>
@@ -291,6 +351,9 @@
   <data name="MiddleNames" xml:space="preserve">
     <value>Mellannamn</value>
   </data>
+  <data name="Mode" xml:space="preserve">
+    <value>Typ</value>
+  </data>
   <data name="MyContracts" xml:space="preserve">
     <value>Mina kontrakt</value>
   </data>
@@ -299,6 +362,9 @@
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
     <value>Mina skapade kontrakt</value>
+  </data>
+  <data name="Namespace" xml:space="preserve">
+    <value>Namnrymd</value>
   </data>
   <data name="Network" xml:space="preserve">
     <value>Nätverk</value>
@@ -317,6 +383,9 @@
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Inte ansluten till operatören</value>
+  </data>
+  <data name="ObsoleteContract" xml:space="preserve">
+    <value>Ogiltigförklara kontrakt</value>
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>OK</value>
@@ -338,6 +407,15 @@
   </data>
   <data name="Parameters" xml:space="preserve">
     <value>Parametrar</value>
+  </data>
+  <data name="ParametersInfoText" xml:space="preserve">
+    <value>Kontraktsparameterar visas nedan tillsammans med deras tillhörande värden.</value>
+  </data>
+  <data name="Parts" xml:space="preserve">
+    <value>Delar</value>
+  </data>
+  <data name="PartsInfoText" xml:space="preserve">
+    <value>De (förväntade) delarna som är definierade för kontraktet visas nedan.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Lösenord</value>
@@ -453,6 +531,9 @@
   <data name="RequestTimedOut" xml:space="preserve">
     <value>Begäran tog för lång tid</value>
   </data>
+  <data name="RequestWasCancelled" xml:space="preserve">
+    <value>Begäran avbröts</value>
+  </data>
   <data name="RetypePassword" xml:space="preserve">
     <value>Ange lösenord igen</value>
   </data>
@@ -464,6 +545,9 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Roller</value>
+  </data>
+  <data name="RolesInfoText" xml:space="preserve">
+    <value>Nedan ser du de olika rollerna som är definierade för kontraktet. Om mer än en del är antagen för rollen visas det numret i rollens beskrivning.</value>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
     <value>Scanna QR-kod</value>
@@ -495,11 +579,26 @@
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
     <value>Nedan följer information kopplat till server-signaturen.</value>
   </data>
+  <data name="ServerSignatures" xml:space="preserve">
+    <value>Serversignaturer</value>
+  </data>
+  <data name="ServerSignaturesInfoText" xml:space="preserve">
+    <value>Kontraktets integritet skyddas av server-signaturerna som visas nedan.</value>
+  </data>
+  <data name="SignAfter" xml:space="preserve">
+    <value>Signera efter</value>
+  </data>
+  <data name="SignAsRole" xml:space="preserve">
+    <value>Signera som {0}</value>
+  </data>
   <data name="Signature" xml:space="preserve">
     <value>Signatur</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
     <value>Signatur-information</value>
+  </data>
+  <data name="SignBefore" xml:space="preserve">
+    <value>Signera före</value>
   </data>
   <data name="SignedContracts" xml:space="preserve">
     <value>Signerade kontrakt</value>
@@ -510,11 +609,17 @@
   <data name="State" xml:space="preserve">
     <value>Tillstånd</value>
   </data>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Operationen lyckades</value>
+  </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Ta foto</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att ta en bild stöds inte på den här enheten</value>
+  </data>
+  <data name="TemplateId" xml:space="preserve">
+    <value>MallId</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
     <value>Kontraktet kräver åtminstone {0} delar för rollen {1}. Lägg till delar till kontraktet och försök igen.</value>
@@ -533,6 +638,9 @@
   </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Tidsstämpel</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>Till</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>För att ansluta till {0} behövs ett konto. Vill du skapa ett, eller välja ett existerande?</value>

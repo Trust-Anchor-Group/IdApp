@@ -360,17 +360,16 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Propose()
         {
-            List<Part> parts = new List<Part>();
-            string role = string.Empty;
-            int state = 0;
-            int nr = 0;
-            int min = 0;
-            int max = 0;
-
             try
             {
+                List<Part> parts = new List<Part>();
                 // TODO:fix this code.
 #if NEEDS_FIXING
+                string role = string.Empty;
+                int state = 0;
+                int nr = 0;
+                int min = 0;
+                int max = 0;
                 foreach (RoleModel view in this.ContractRoles)
                 {
                     switch (state)
@@ -453,12 +452,12 @@ namespace XamarinApp.ViewModels.Contracts
                 }
 
                 Contract createdContract = await this.contractsService.CreateContractAsync(
-                    this.contractTemplateId, 
+                    this.contractTemplateId,
                     parts.ToArray(),
                     this.contractTemplate.Parameters,
-                    this.contractTemplate.Visibility, 
-                    ContractParts.ExplicitlyDefined, 
-                    this.contractTemplate.Duration, 
+                    this.contractTemplate.Visibility,
+                    ContractParts.ExplicitlyDefined,
+                    this.contractTemplate.Duration,
                     this.contractTemplate.ArchiveRequired,
                     this.contractTemplate.ArchiveOptional,
                     null,

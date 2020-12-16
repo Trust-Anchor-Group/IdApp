@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Temporary;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
@@ -16,7 +13,7 @@ namespace XamarinApp.ViewModels.Registration
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
         private readonly IContractsService contractsService;
-        private DateTime loadPhotosTimestamp;
+        private readonly PhotosLoader photosLoader;
 
         public ValidateIdentityViewModel(
             TagProfile tagProfile,
@@ -32,6 +29,7 @@ namespace XamarinApp.ViewModels.Registration
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
+            this.photosLoader = new PhotosLoader(logService, contractsService);
         }
 
         protected override async Task DoBind()
@@ -44,7 +42,7 @@ namespace XamarinApp.ViewModels.Registration
 
         protected override async Task DoUnbind()
         {
-            this.loadPhotosTimestamp = DateTime.UtcNow;
+            this.photosLoader.CancelLoadPhotos();
             this.Photos.Clear();
             this.TagProfile.Changed -= TagProfile_Changed;
             this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
@@ -101,43 +99,11 @@ namespace XamarinApp.ViewModels.Registration
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
-            this.loadPhotosTimestamp = DateTime.UtcNow;
-            _ = LoadPhotos(this.loadPhotosTimestamp);
-        }
-
-        private async Task LoadPhotos(DateTime now)
-        {
+            this.photosLoader.CancelLoadPhotos();
             this.Photos.Clear();
-
             if (this.TagProfile?.LegalIdentity?.Attachments != null)
             {
-                foreach (Attachment attachment in this.TagProfile.LegalIdentity.Attachments.GetImageAttachments())
-                {
-                    if (this.loadPhotosTimestamp > now)
-                        return;
-
-                    try
-                    {
-                        KeyValuePair<string, TemporaryFile> pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
-
-                        if (this.loadPhotosTimestamp > now)
-                            return;
-
-                        using (TemporaryFile file = pair.Value)
-                        {
-                            file.Reset();
-                            MemoryStream ms = new MemoryStream();
-                            await file.CopyToAsync(ms);
-                            ms.Reset();
-                            ImageSource imageSource = ImageSource.FromStream(() => ms);
-                            Dispatcher.BeginInvokeOnMainThread(() => this.Photos.Add(imageSource));
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        this.LogService.LogException(ex);
-                    }
-                }
+                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, this.Photos);
             }
         }
 
