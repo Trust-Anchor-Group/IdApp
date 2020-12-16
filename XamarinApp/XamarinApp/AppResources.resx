@@ -162,6 +162,9 @@
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>A petition has been sent to your peer</value>
   </data>
+  <data name="ApproveInformation" xml:space="preserve">
+    <value>Approve Information</value>
+  </data>
   <data name="Archiving_Optional" xml:space="preserve">
     <value>Archiving (optional)</value>
   </data>
@@ -171,8 +174,17 @@
   <data name="Area" xml:space="preserve">
     <value>Area</value>
   </data>
+  <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
+    <value>Are you sure you want to report your legal identity as compromized, stolen or hacked?</value>
+  </data>
+  <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
+    <value>Are you sure you want to revoke your legal identity from the application?</value>
+  </data>
   <data name="CanActAsTemplate" xml:space="preserve">
     <value>Can act as template</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Can't connect to {0}</value>
@@ -194,6 +206,9 @@
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
     <value>Cryptographic signatures made by different parts are listed below.</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
   </data>
   <data name="Connect" xml:space="preserve">
     <value>Connect</value>
@@ -309,6 +324,12 @@
   <data name="HumanReadableText" xml:space="preserve">
     <value>Human readable text</value>
   </data>
+  <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
+    <value>I approve of my personal information to be associated with the legal identity I am reviewing, for the purposes of transparency.</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
   <data name="Identity" xml:space="preserve">
     <value>Identity</value>
   </data>
@@ -320,6 +341,12 @@
   </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignore</value>
+  </data>
+  <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
+    <value>I have carefully reviewed all information above, and find it to be a correct representation of the person requesting the review:</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Incomplete</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>
@@ -426,6 +453,9 @@
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Passwords do not match</value>
   </data>
+  <data name="PeerReview" xml:space="preserve">
+    <value>Peer Review</value>
+  </data>
   <data name="PeerReviewAccepted" xml:space="preserve">
     <value>Peer review accepted</value>
   </data>
@@ -495,6 +525,9 @@
   <data name="PinTooShort" xml:space="preserve">
     <value>PIN number too short. At least {0} numbers (or characters) are required.</value>
   </data>
+  <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
+    <value>Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information.</value>
+  </data>
   <data name="Propose" xml:space="preserve">
     <value>Propose</value>
   </data>
@@ -522,6 +555,12 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="RejectInformation" xml:space="preserve">
+    <value>Reject Information</value>
+  </data>
+  <data name="ReportAsCompromized" xml:space="preserve">
+    <value>Report as Compromized</value>
+  </data>
   <data name="Request" xml:space="preserve">
     <value>Request</value>
   </data>
@@ -539,6 +578,12 @@
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
     <value>Retype PIN or password</value>
+  </data>
+  <data name="ReviewIdentityInformationText" xml:space="preserve">
+    <value>You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect.</value>
+  </data>
+  <data name="RevokeInformation" xml:space="preserve">
+    <value>Revoke</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Role</value>
@@ -675,6 +720,9 @@
   <data name="ViewContract" xml:space="preserve">
     <value>View Contract</value>
   </data>
+  <data name="ViewIdentityInformationText" xml:space="preserve">
+    <value>Following is personal information registered with the legal identity. Signatures and payments are signed using this information.</value>
+  </data>
   <data name="Visibility" xml:space="preserve">
     <value>Visibility</value>
   </data>
@@ -731,6 +779,12 @@
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>You can protect your wallet and sensitive information by adding an additional PIN number or password.</value>
+  </data>
+  <data name="YouNeedToApproveToAssociate" xml:space="preserve">
+    <value>You need to approve to associate your personal information with the identity you review. When third parties review the information in the identity, they will have access to the identity of the reviewers, for transparency.</value>
+  </data>
+  <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
+    <value>You need to check the box you have carefully reviewed all corresponding information above.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
     <value>You need to select a country</value>

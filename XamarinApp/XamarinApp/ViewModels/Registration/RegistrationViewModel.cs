@@ -36,7 +36,7 @@ namespace XamarinApp.ViewModels.Registration
                 this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, authService, contractsService, networkService, logService)),
                 this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, contractsService, logService)),
-                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, contractsService, networkService, logService)),
+                this.AddChildViewModel(new ViewIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, contractsService, networkService, logService)),
                 this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, logService))
             };
             SyncTagProfileStep();

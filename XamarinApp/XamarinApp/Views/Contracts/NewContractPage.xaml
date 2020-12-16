@@ -57,15 +57,15 @@
             <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
 
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}" BindableLayout.ItemTemplate="{StaticResource ContractRoleTemplateSelector}"/>
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}" BindableLayout.ItemTemplateSelector="{StaticResource ContractRoleTemplateSelector}"/>
 
             <Button Text="{x:Static local:AppResources.AddPart}" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
 
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}" BindableLayout.ItemTemplate="{StaticResource ContractParameterTemplateSelector}" />
+            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}" BindableLayout.ItemTemplateSelector="{StaticResource ContractParameterTemplateSelector}" />
 
             <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" BindableLayout.ItemTemplate="{StaticResource ContractHumanReadableTextTemplateSelector}" />
+            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" BindableLayout.ItemTemplateSelector="{StaticResource ContractHumanReadableTextTemplateSelector}" />
 
             <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
             <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>

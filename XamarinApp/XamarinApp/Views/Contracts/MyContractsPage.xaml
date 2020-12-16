@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Contracts.MyContractsPage">
     <StackLayout Margin="{StaticResource DefaultMargin}">
-        <Label Text="{x:Static local:AppResources.MyContracts}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium"/>
+        <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
         <Label Text="{x:Static local:AppResources.MyContractsInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
         <ListView x:Name="Contracts" HasUnevenRows="True" ItemsSource="{Binding Path=Contracts}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}">
             <ListView.ItemTemplate>

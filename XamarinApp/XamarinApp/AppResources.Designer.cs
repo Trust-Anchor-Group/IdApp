@@ -196,6 +196,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approve Information.
+        /// </summary>
+        internal static string ApproveInformation {
+            get {
+                return ResourceManager.GetString("ApproveInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Archiving (optional).
         /// </summary>
         internal static string Archiving_Optional {
@@ -223,11 +232,38 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to report your legal identity as compromized, stolen or hacked?.
+        /// </summary>
+        internal static string AreYouSureYouWantToReportYourLegalIdentityAsCompromized {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToReportYourLegalIdentityAsCompromized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to revoke your legal identity from the application?.
+        /// </summary>
+        internal static string AreYouSureYouWantToRevokeYourLegalIdentity {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToRevokeYourLegalIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can act as template.
         /// </summary>
         internal static string CanActAsTemplate {
             get {
                 return ResourceManager.GetString("CanActAsTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -291,6 +327,15 @@ namespace XamarinApp {
         internal static string ClientSignaturesInfoText {
             get {
                 return ResourceManager.GetString("ClientSignaturesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
             }
         }
         
@@ -637,6 +682,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I approve of my personal information to be associated with the legal identity I am reviewing, for the purposes of transparency..
+        /// </summary>
+        internal static string IApproveOfMyPersonalInformationToBeAssociated {
+            get {
+                return ResourceManager.GetString("IApproveOfMyPersonalInformationToBeAssociated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID.
+        /// </summary>
+        internal static string ID {
+            get {
+                return ResourceManager.GetString("ID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Identity.
         /// </summary>
         internal static string Identity {
@@ -669,6 +732,24 @@ namespace XamarinApp {
         internal static string Ignore {
             get {
                 return ResourceManager.GetString("Ignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to I have carefully reviewed all information above, and find it to be a correct representation of the person requesting the review:.
+        /// </summary>
+        internal static string IHaveCarefullyReviewedAllInformationAbove {
+            get {
+                return ResourceManager.GetString("IHaveCarefullyReviewedAllInformationAbove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incomplete.
+        /// </summary>
+        internal static string Incomplete {
+            get {
+                return ResourceManager.GetString("Incomplete", resourceCulture);
             }
         }
         
@@ -988,6 +1069,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Peer Review.
+        /// </summary>
+        internal static string PeerReview {
+            get {
+                return ResourceManager.GetString("PeerReview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Peer review accepted.
         /// </summary>
         internal static string PeerReviewAccepted {
@@ -1195,6 +1285,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information..
+        /// </summary>
+        internal static string PleaseReviewAndCheckAllCheckboxes {
+            get {
+                return ResourceManager.GetString("PleaseReviewAndCheckAllCheckboxes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Propose.
         /// </summary>
         internal static string Propose {
@@ -1276,6 +1375,24 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reject Information.
+        /// </summary>
+        internal static string RejectInformation {
+            get {
+                return ResourceManager.GetString("RejectInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report as Compromized.
+        /// </summary>
+        internal static string ReportAsCompromized {
+            get {
+                return ResourceManager.GetString("ReportAsCompromized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Request.
         /// </summary>
         internal static string Request {
@@ -1326,6 +1443,24 @@ namespace XamarinApp {
         internal static string RetypePinOrPassword {
             get {
                 return ResourceManager.GetString("RetypePinOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect..
+        /// </summary>
+        internal static string ReviewIdentityInformationText {
+            get {
+                return ResourceManager.GetString("ReviewIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revoke.
+        /// </summary>
+        internal static string RevokeInformation {
+            get {
+                return ResourceManager.GetString("RevokeInformation", resourceCulture);
             }
         }
         
@@ -1735,6 +1870,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Following is personal information registered with the legal identity. Signatures and payments are signed using this information..
+        /// </summary>
+        internal static string ViewIdentityInformationText {
+            get {
+                return ResourceManager.GetString("ViewIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Visibility.
         /// </summary>
         internal static string Visibility {
@@ -1902,6 +2046,24 @@ namespace XamarinApp {
         internal static string YouCanProtectYourWalletPinInfo {
             get {
                 return ResourceManager.GetString("YouCanProtectYourWalletPinInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to approve to associate your personal information with the identity you review. When third parties review the information in the identity, they will have access to the identity of the reviewers, for transparency..
+        /// </summary>
+        internal static string YouNeedToApproveToAssociate {
+            get {
+                return ResourceManager.GetString("YouNeedToApproveToAssociate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to check the box you have carefully reviewed all corresponding information above..
+        /// </summary>
+        internal static string YouNeedToCheckCarefullyReviewed {
+            get {
+                return ResourceManager.GetString("YouNeedToCheckCarefullyReviewed", resourceCulture);
             }
         }
         

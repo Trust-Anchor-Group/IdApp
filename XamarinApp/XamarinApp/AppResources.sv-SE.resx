@@ -162,6 +162,9 @@
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
     <value>En begäran har skickats till din vän</value>
   </data>
+  <data name="ApproveInformation" xml:space="preserve">
+    <value>Godkänn</value>
+  </data>
   <data name="Archiving_Optional" xml:space="preserve">
     <value>Arkivering (valfri)</value>
   </data>
@@ -171,8 +174,17 @@
   <data name="Area" xml:space="preserve">
     <value>Område</value>
   </data>
+  <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
+    <value>Är du säker på att du vill rapportera din juridiska identitet som komprometterad, stulen eller hackad?</value>
+  </data>
+  <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
+    <value>Är du säker på att du vill återkalla din juridiska identitet från applikationen?</value>
+  </data>
   <data name="CanActAsTemplate" xml:space="preserve">
     <value>Can agera som mall</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Kan inte ansluta till {0}</value>
@@ -194,6 +206,9 @@
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
     <value>Kryptografiska signaturer skapade av olika delar visas nedan.</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Bekräfta</value>
   </data>
   <data name="Connect" xml:space="preserve">
     <value>Anslut</value>
@@ -309,6 +324,12 @@
   <data name="HumanReadableText" xml:space="preserve">
     <value>Klartext</value>
   </data>
+  <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
+    <value>Jag godkänner att min personliga information associeras med den juridiska identiteten jag granskar, för full transparens.</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
   <data name="Identity" xml:space="preserve">
     <value>Identitet</value>
   </data>
@@ -320,6 +341,12 @@
   </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignorera</value>
+  </data>
+  <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
+    <value>Jag har noga granskat informationen ovan och anser den vara en korrekt represenation av personen som begärt en gransking:</value>
+  </data>
+  <data name="Incomplete" xml:space="preserve">
+    <value>Ej komplett</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
@@ -426,6 +453,9 @@
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Lösenorden matchar inte</value>
   </data>
+  <data name="PeerReview" xml:space="preserve">
+    <value>Granskning av jämbördig</value>
+  </data>
   <data name="PeerReviewAccepted" xml:space="preserve">
     <value>Referentgranskning accepterad</value>
   </data>
@@ -495,6 +525,9 @@
   <data name="PinTooShort" xml:space="preserve">
     <value>Angiven PIN är för kort. Åtminstone {0} siffor (eller tecken) krävs.</value>
   </data>
+  <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
+    <value>Vänligen granska alla information ovan och bocka för de tillhörande checkboxarna om informationen stämmer. Detta måste göras innan informationen kan godkännas.</value>
+  </data>
   <data name="Propose" xml:space="preserve">
     <value>Föreslå</value>
   </data>
@@ -522,6 +555,12 @@
   <data name="Register" xml:space="preserve">
     <value>Registrera</value>
   </data>
+  <data name="RejectInformation" xml:space="preserve">
+    <value>Neka</value>
+  </data>
+  <data name="ReportAsCompromized" xml:space="preserve">
+    <value>Rapportera som komprometterad</value>
+  </data>
   <data name="Request" xml:space="preserve">
     <value>Begäran</value>
   </data>
@@ -539,6 +578,12 @@
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
     <value>Ange PIN eller lösenord igen</value>
+  </data>
+  <data name="ReviewIdentityInformationText" xml:space="preserve">
+    <value>Du har blivit ombedd att granska den personliga informationen nedan. Om det stämmer, kryssa för checkboxarna och tryck på Godkänt-knappen. Du kan också välja att trycka på Neka-knappen om något inte stämmer.</value>
+  </data>
+  <data name="RevokeInformation" xml:space="preserve">
+    <value>Återkalla</value>
   </data>
   <data name="Role" xml:space="preserve">
     <value>Roll</value>
@@ -675,6 +720,9 @@
   <data name="ViewContract" xml:space="preserve">
     <value>Visa kontrakt</value>
   </data>
+  <data name="ViewIdentityInformationText" xml:space="preserve">
+    <value>Nedan följer information registrerad till en juridisk identitet. Signaturer och betalningar signeras med den här informationen.</value>
+  </data>
   <data name="Visibility" xml:space="preserve">
     <value>Synlighet</value>
   </data>
@@ -731,6 +779,12 @@
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>Du kan skydda din plånbok och känslig information genom att lägga till en PIN-kod eller ett lösenord.</value>
+  </data>
+  <data name="YouNeedToApproveToAssociate" xml:space="preserve">
+    <value>Du behöver godkänna att din personliga information associeras med identiteten du granskar. När tredje part granskar information kopplat till identiteten får de tillgång till granskarnas identitet, för transparensens skull.</value>
+  </data>
+  <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
+    <value>Du behöver bocka för att du noga granskat all information ovan.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
     <value>Vänligen ange ett land</value>

@@ -33,6 +33,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.showCreatedContracts = showCreatedContracts;
             this.contractsMap = new Dictionary<string, Contract>();
             this.Contracts = new ObservableCollection<ContractModel>();
+            this.Title = showCreatedContracts ? AppResources.MyContracts : AppResources.SignedContracts;
         }
 
         protected override async Task DoBind()
@@ -50,6 +51,15 @@ namespace XamarinApp.ViewModels.Contracts
             this.Contracts.Clear();
             this.contractsMap.Clear();
             await base.DoUnbind();
+        }
+
+        public static readonly BindableProperty TitleProperty =
+            BindableProperty.Create("Title", typeof(string), typeof(MyContractsViewModel), default(string));
+
+        public string Title
+        {
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
         }
 
         public static readonly BindableProperty ShowContractsMissingProperty =

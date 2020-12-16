@@ -10,12 +10,12 @@ using XamarinApp.Views;
 
 namespace XamarinApp.ViewModels.Registration
 {
-    public class ValidateIdentityViewModel : RegistrationStepViewModel
+    public class ViewIdentityViewModel : RegistrationStepViewModel
     {
         private readonly IContractsService contractsService;
         private readonly PhotosLoader photosLoader;
 
-        public ValidateIdentityViewModel(
+        public ViewIdentityViewModel(
             TagProfile tagProfile,
             INeuronService neuronService,
             INavigationService navigationService,
@@ -124,7 +124,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CreatedProperty =
-            BindableProperty.Create("Created", typeof(DateTime), typeof(ValidateIdentityViewModel), default(DateTime));
+            BindableProperty.Create("Created", typeof(DateTime), typeof(ViewIdentityViewModel), default(DateTime));
 
         public DateTime Created
         {
@@ -133,7 +133,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty UpdatedProperty =
-            BindableProperty.Create("Updated", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
+            BindableProperty.Create("Updated", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
 
         public DateTime? Updated
         {
@@ -142,7 +142,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty LegalIdProperty =
-            BindableProperty.Create("LegalId", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("LegalId", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string LegalId
         {
@@ -153,7 +153,7 @@ namespace XamarinApp.ViewModels.Registration
         public LegalIdentity LegalIdentity { get; private set; }
 
         public static readonly BindableProperty BareJIdProperty =
-            BindableProperty.Create("BareJId", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("BareJId", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string BareJId
         {
@@ -162,7 +162,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty StateProperty =
-            BindableProperty.Create("State", typeof(IdentityState), typeof(ValidateIdentityViewModel), default(IdentityState));
+            BindableProperty.Create("State", typeof(IdentityState), typeof(ViewIdentityViewModel), default(IdentityState));
 
         public IdentityState State
         {
@@ -171,7 +171,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty FromProperty =
-            BindableProperty.Create("From", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
+            BindableProperty.Create("From", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
 
         public DateTime? From
         {
@@ -180,7 +180,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty ToProperty =
-            BindableProperty.Create("To", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
+            BindableProperty.Create("To", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
 
         public DateTime? To
         {
@@ -189,7 +189,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty FirstNameProperty =
-            BindableProperty.Create("FirstName", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("FirstName", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string FirstName
         {
@@ -198,7 +198,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty MiddleNamesProperty =
-            BindableProperty.Create("MiddleNames", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("MiddleNames", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string MiddleNames
         {
@@ -207,7 +207,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty LastNamesProperty =
-            BindableProperty.Create("LastNames", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("LastNames", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string LastNames
         {
@@ -216,7 +216,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty PersonalNumberProperty =
-            BindableProperty.Create("PersonalNumber", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("PersonalNumber", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string PersonalNumber
         {
@@ -225,7 +225,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty AddressProperty =
-            BindableProperty.Create("Address", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("Address", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string Address
         {
@@ -234,7 +234,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty Address2Property =
-            BindableProperty.Create("Address2", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("Address2", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string Address2
         {
@@ -243,7 +243,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty ZipCodeProperty =
-            BindableProperty.Create("ZipCode", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("ZipCode", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string ZipCode
         {
@@ -252,7 +252,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty AreaProperty =
-            BindableProperty.Create("Area", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("Area", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string Area
         {
@@ -261,7 +261,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CityProperty =
-            BindableProperty.Create("City", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("City", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string City
         {
@@ -270,7 +270,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty RegionProperty =
-            BindableProperty.Create("Region", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("Region", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string Region
         {
@@ -279,7 +279,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CountryProperty =
-            BindableProperty.Create("Country", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("Country", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string Country
         {
@@ -288,7 +288,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CountryCodeProperty =
-            BindableProperty.Create("CountryCode", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create("CountryCode", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         public string CountryCode
         {
@@ -297,7 +297,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty IsApprovedProperty =
-            BindableProperty.Create("IsApproved", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
+            BindableProperty.Create("IsApproved", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
         public bool IsApproved
         {
@@ -306,7 +306,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty IsCreatedProperty =
-            BindableProperty.Create("IsCreated", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
+            BindableProperty.Create("IsCreated", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
         public bool IsCreated
         {

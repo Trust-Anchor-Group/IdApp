@@ -49,6 +49,11 @@ namespace XamarinApp.Services
             currPage.Navigation.RemovePage(currPage);
         }
 
+        public Task<bool> DisplayPrompt(string title, string message, string accept, string cancel)
+        {
+            return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+        }
+
         public async Task DisplayAlert(string title, string message, string accept, string cancel)
         {
             this.messageQueue.Add(new MessageRecord(title, message, accept, cancel));
