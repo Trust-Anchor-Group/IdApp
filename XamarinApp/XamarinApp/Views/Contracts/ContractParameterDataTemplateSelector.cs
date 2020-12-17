@@ -1,5 +1,5 @@
-﻿using Waher.Networking.XMPP.Contracts;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
+using XamarinApp.Models;
 
 namespace XamarinApp.Views.Contracts
 {
@@ -10,7 +10,7 @@ namespace XamarinApp.Views.Contracts
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
-            Parameter parameter = (Parameter)item;
+            ParameterModel model = (ParameterModel)item;
             return Parameter1;
         }
     }

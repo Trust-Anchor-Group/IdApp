@@ -57,7 +57,7 @@
                         HorizontalOptions="StartAndExpand" 
                         VerticalOptions="CenterAndExpand"
                         FontSize="24" 
-                        Margin="0,-12,0,0"
+                        Margin="0,-8,0,0"
                         TextColor="{StaticResource HeadingForeground}" />
                 </Grid>
             </StackLayout>

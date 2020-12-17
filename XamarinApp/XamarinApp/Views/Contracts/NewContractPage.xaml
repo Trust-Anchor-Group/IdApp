@@ -9,7 +9,7 @@
              x:Class="XamarinApp.Views.Contracts.NewContractPage"
              Title="{x:Static local:AppResources.NewContract}">
     <ScrollView>
-        <StackLayout Margin="{StaticResource DefaultMargin}">
+        <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="NewContractStackLayout">
             <StackLayout.Resources>
                 <ResourceDictionary>
 
@@ -24,7 +24,7 @@
                     <DataTemplate x:Key="ContractParameter1Template">
                         <Entry Text="{Binding Path=Name, Mode=TwoWay}" HorizontalOptions="FillAndExpand" TextColor="{Binding Path=IsValid, Converter={converters:BooleanToColorConverter}}" x:Name="ParameterEntry">
                             <Entry.Behaviors>
-                                <behaviors:TextChangedBehavior TextChangedCommand="{Binding Path=ParameterChangedCommand}" TextChangedCommandParameter="{Binding .}" BindingContext="{Binding BindingContext, Source={x:Reference ParameterEntry}}" />
+                                <behaviors:TextChangedBehavior TextChangedCommand="{Binding BindingContext.ParameterChangedCommand, Source={x:Reference NewContractStackLayout}}" TextChangedCommandParameter="{Binding BindingContext, Source={x:Reference ParameterEntry}}" />
                             </Entry.Behaviors>
                         </Entry>
                     </DataTemplate>
@@ -54,7 +54,7 @@
             <Label Text="{x:Static local:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
             <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" ItemsSource="{Binding Path=ContractVisibilityItems}" SelectedItem="{Binding Path=SelectedContractVisibilityItem, Mode=TwoWay}" IsEnabled="{Binding Path=HasTemplate}"/>
             <Label Text="{x:Static local:AppResources.YourRole}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
-            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=Roles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
+            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=ContractRoles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
 
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}" BindableLayout.ItemTemplateSelector="{StaticResource ContractRoleTemplateSelector}"/>
@@ -70,7 +70,7 @@
             <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
             <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
 
-            <Button Text="{x:Static local:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
+            <Button Text="{x:Static local:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
         </StackLayout>
     </ScrollView>
 </views:ContentBasePage>

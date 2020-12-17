@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Forms;
 
 namespace XamarinApp
 {
@@ -35,6 +36,11 @@ namespace XamarinApp
                 }
 
                 return null;
+            }
+
+            public static string CreateIotScUri(string id)
+            {
+                return $"{IotSc}:{id}";
             }
 
             public static string GetCode(string code)

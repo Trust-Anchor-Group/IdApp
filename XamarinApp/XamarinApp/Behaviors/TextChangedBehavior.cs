@@ -39,8 +39,7 @@ namespace XamarinApp.Behaviors
         {
             if (TextChangedCommand != null && TextChangedCommand.CanExecute(null))
             {
-                object parameter = TextChangedCommandParameter ?? e.NewTextValue;
-                TextChangedCommand.Execute(parameter);
+                TextChangedCommand.Execute(TextChangedCommandParameter);
             }
         }
     }

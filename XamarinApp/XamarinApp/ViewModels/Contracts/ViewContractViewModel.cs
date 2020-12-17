@@ -256,8 +256,18 @@ namespace XamarinApp.ViewModels.Contracts
                 this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, contract.CanActAsTemplate.ToYesNo()));
 
                 // QR
-                byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.IotSc + ":" + contract.ContractId, this.QrCodeWidth, this.QrCodeHeight);
-                this.QrCode = ImageSource.FromStream(() => new MemoryStream(png));
+                if (this.contract != null)
+                {
+                    _ = Task.Run(() =>
+                    {
+                        byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIotScUri(this.contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
+                        this.Dispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                    });
+                }
+                else
+                {
+                    this.QrCode = null;
+                }
 
                 // Parts
                 bool hasSigned = false;

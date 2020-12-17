@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
@@ -113,7 +114,7 @@ namespace XamarinApp.ViewModels.Contracts
             IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
             IsPersonal = this.tagProfile.LegalIdentity?.Id == this.LegalIdentity?.Id;
-            IsForReview = this.review != null;
+            IsForReview = true;// this.review != null;
             IsNotForReview = !IsForReview;
 
             IsForReviewFirstName = !string.IsNullOrWhiteSpace(this.FirstName) && this.IsForReview;
@@ -132,8 +133,11 @@ namespace XamarinApp.ViewModels.Contracts
             // QR
             if (this.LegalIdentity != null)
             {
-                byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.IotSc + ":" + this.LegalIdentity.Id, this.QrCodeWidth, this.QrCodeHeight);
-                this.QrCode = ImageSource.FromStream(() => new MemoryStream(png));
+                _ = Task.Run(() =>
+                {
+                    byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIotScUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+                    this.Dispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                });
             }
             else
             {

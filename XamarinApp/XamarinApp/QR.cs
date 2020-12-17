@@ -13,7 +13,7 @@ namespace XamarinApp
 			BarcodeWriterPixelData writer = new BarcodeWriterPixelData()
 			{
 				Format = BarcodeFormat.QR_CODE,
-				Options = new QrCodeEncodingOptions()
+				Options = new QrCodeEncodingOptions
 				{
 					Width = width,
 					Height = height

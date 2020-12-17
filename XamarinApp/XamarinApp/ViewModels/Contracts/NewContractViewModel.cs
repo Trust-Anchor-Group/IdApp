@@ -22,9 +22,11 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
         private readonly IContractsService contractsService;
+        private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
         private string contractTemplateId;
+        private bool saveState;
 
         private NewContractViewModel()
         {
@@ -33,20 +35,15 @@ namespace XamarinApp.ViewModels.Contracts
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.contractsService = DependencyService.Resolve<IContractsService>();
+            this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
-            this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>
-            {
-                new ContractVisibilityModel(ContractVisibility.CreatorAndParts, AppResources.ContractVisibility_CreatorAndParts),
-                new ContractVisibilityModel(ContractVisibility.DomainAndParts, AppResources.ContractVisibility_DomainAndParts),
-                new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public),
-                new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable),
-            };
+            this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
             this.ContractCategories = new ObservableCollection<string>();
             this.ContractTypes = new ObservableCollection<string>();
             this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
             this.AddPartCommand = new Command(async _ => await this.AddPart());
-            this.ParameterChangedCommand = new Command<ParameterModel>(EditParameter);
+            this.ParameterChangedCommand = new Command(x => EditParameter(x));
             this.ContractRoles = new ObservableCollection<RoleModel>();
             this.ContractParameters = new ObservableCollection<ParameterModel>();
             this.ContractHumanReadableText = new ObservableCollection<string>();
@@ -64,6 +61,11 @@ namespace XamarinApp.ViewModels.Contracts
         {
             this.IsTemplate = false;
             this.contractTypesPerCategory = contractTypesPerCategory;
+        }
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
             if (this.contractTypesPerCategory != null && this.contractTypesPerCategory.Count > 0)
             {
                 foreach (string contractType in this.contractTypesPerCategory.Keys)
@@ -71,11 +73,12 @@ namespace XamarinApp.ViewModels.Contracts
                     this.ContractCategories.Add(contractType);
                 }
             }
-        }
 
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
+            this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.CreatorAndParts, AppResources.ContractVisibility_CreatorAndParts));
+            this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.DomainAndParts, AppResources.ContractVisibility_DomainAndParts));
+            this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
+            this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
+
             this.UsePin = this.tagProfile.UsePin;
         }
 
@@ -88,6 +91,39 @@ namespace XamarinApp.ViewModels.Contracts
             this.ContractHumanReadableText.Clear();
             this.ContractParameters.Clear();
             await base.DoUnbind();
+        }
+
+        protected override async Task DoSaveState()
+        {
+            await base.DoSaveState();
+            this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractCategory)), this.SelectedContractCategory);
+            this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractType)), this.SelectedContractType);
+            if (this.SelectedContractVisibilityItem != null)
+            {
+                this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), (ContractVisibility?)this.SelectedContractVisibilityItem.Visibility);
+            }
+        }
+
+        protected override async Task DoRestoreState()
+        {
+            if (this.saveState)
+            {
+                this.SelectedContractCategory = this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractCategory)));
+                this.SelectedContractType = this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractType)));
+                ContractVisibility? visibility = this.settingsService.RestoreState<ContractVisibility?>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+                if (visibility != null)
+                {
+                    this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == visibility);
+                }
+            }
+            await base.DoRestoreState();
+        }
+
+        private void DeleteState()
+        {
+            this.settingsService.RemoveState<string>(GetSettingsKey(nameof(SelectedContractCategory)));
+            this.settingsService.RemoveState<string>(GetSettingsKey(nameof(SelectedContractType)));
+            this.settingsService.RemoveState<string>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
         }
 
         #region Properties
@@ -490,7 +526,10 @@ namespace XamarinApp.ViewModels.Contracts
         private async Task AddPart()
         {
             ScanQrCodePage page = new ScanQrCodePage { OpenCommandText = AppResources.Add };
+            this.saveState = true;
             string code = await page.ScanQrCode();
+            this.saveState = false;
+            this.DeleteState();
             string id = Constants.IoTSchemes.GetCode(code);
             if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
             {
@@ -518,9 +557,13 @@ namespace XamarinApp.ViewModels.Contracts
             }
         }
 
-
-        private void EditParameter(ParameterModel model)
+        private void EditParameter(object obj)
         {
+            ParameterModel model = obj as ParameterModel;
+
+            if (model == null)
+                return;
+
             Parameter p = this.contractTemplate.Parameters.FirstOrDefault(x => x.Name == model.Id);
             if (p != null)
             {
@@ -545,12 +588,11 @@ namespace XamarinApp.ViewModels.Contracts
             }
         }
 
-        private async void ShowLegalId(object sender, EventArgs e)
+        private async Task ShowLegalId(string legalId)
         {
             try
             {
-                if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
-                    await this.contractOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
+                await this.contractOrchestratorService.OpenLegalIdentity(legalId, "For inclusion as part in a contract.");
             }
             catch (Exception ex)
             {
