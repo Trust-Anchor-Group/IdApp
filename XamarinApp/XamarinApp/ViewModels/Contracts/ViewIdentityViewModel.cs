@@ -114,7 +114,7 @@ namespace XamarinApp.ViewModels.Contracts
             IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
             IsPersonal = this.tagProfile.LegalIdentity?.Id == this.LegalIdentity?.Id;
-            IsForReview = true;// this.review != null;
+            IsForReview = this.review != null;
             IsNotForReview = !IsForReview;
 
             IsForReviewFirstName = !string.IsNullOrWhiteSpace(this.FirstName) && this.IsForReview;
@@ -135,7 +135,7 @@ namespace XamarinApp.ViewModels.Contracts
             {
                 _ = Task.Run(() =>
                 {
-                    byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIotScUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+                    byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
                     this.Dispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
                 });
             }

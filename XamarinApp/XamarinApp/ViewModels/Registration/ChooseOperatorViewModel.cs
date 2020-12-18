@@ -108,6 +108,7 @@ namespace XamarinApp.ViewModels.Registration
             catch(Exception ex)
             {
                 this.LogService.LogException(ex);
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
             finally
             {

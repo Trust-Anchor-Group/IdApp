@@ -40,8 +40,8 @@ namespace XamarinApp.ViewModels.Contracts
             this.SignPartAsRoleCommand = new Command<string>(async roleId => await SignContract(roleId));
             this.DisplayClientSignatureCommand = new Command<string>(async sign => await ShowClientSignature(sign));
             this.DisplayServerSignatureCommand = new Command(async () => await ShowServerSignature());
-            this.ObsoleteCommand = new Command(async _ => await ObsoleteContract());
-            this.ObsoleteCommand = new Command(async _ => await DeleteContract());
+            this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
+            this.DeleteContractCommand = new Command(async _ => await DeleteContract());
             this.GeneralInformation = new ObservableCollection<PartModel>();
             this.ContractParts = new ObservableCollection<PartModel>();
             this.ContractRoles = new ObservableCollection<PartModel>();
@@ -77,9 +77,9 @@ namespace XamarinApp.ViewModels.Contracts
 
         public ICommand DisplayServerSignatureCommand { get; }
 
-        public ICommand ObsoleteCommand { get; }
+        public ICommand ObsoleteContractCommand { get; }
 
-        public ICommand DeleteCommand { get; }
+        public ICommand DeleteContractCommand { get; }
 
         public ObservableCollection<PartModel> GeneralInformation { get; }
 
@@ -260,7 +260,7 @@ namespace XamarinApp.ViewModels.Contracts
                 {
                     _ = Task.Run(() =>
                     {
-                        byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIotScUri(this.contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
+                        byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateScanUri(this.contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
                         this.Dispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
                     });
                 }
@@ -322,8 +322,10 @@ namespace XamarinApp.ViewModels.Contracts
                         string html = role.ToHTML(contract.DefaultLanguage, contract);
                         html = Waher.Content.Html.HtmlDocument.GetBody(html);
 
-                        PartModel model = new PartModel(role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount));
-                        model.IsHtml = true;
+                        PartModel model = new PartModel(role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount))
+                        {
+                            IsHtml = true
+                        };
 
                         if (!this.IsReadOnly && acceptsSignatures && !hasSigned && this.contract.PartsMode == Waher.Networking.XMPP.Contracts.ContractParts.Open &&
                             (!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount))

@@ -20,6 +20,7 @@ namespace XamarinApp.ViewModels.Registration
     {
         private readonly Dictionary<string, LegalIdentityAttachment> photos;
         private readonly IContractsService contractsService;
+        private readonly INetworkService networkService;
 
         public RegisterIdentityViewModel(
             TagProfile tagProfile, 
@@ -27,10 +28,12 @@ namespace XamarinApp.ViewModels.Registration
             INavigationService navigationService, 
             ISettingsService settingsService,
             IContractsService contractsService,
+            INetworkService networkService,
             ILogService logService)
          : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.contractsService = contractsService;
+            this.networkService = networkService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
             this.DeviceId = deviceInfo?.GetDeviceID();
             this.Countries = new ObservableCollection<string>();
@@ -339,13 +342,17 @@ namespace XamarinApp.ViewModels.Registration
 
             try
             {
-                this.LegalIdentity = await this.contractsService.AddLegalIdentityAsync(CreateRegisterModel(), this.photos.Values.ToArray());
-                this.TagProfile.SetLegalIdentity(this.LegalIdentity);
-                Dispatcher.BeginInvokeOnMainThread(() =>
+                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.Request(this.NavigationService, this.contractsService.AddLegalIdentityAsync, CreateRegisterModel(), this.photos.Values.ToArray());
+                if (succeeded)
                 {
-                    SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
-                    OnStepCompleted(EventArgs.Empty);
-                });
+                    this.LegalIdentity = addedIdentity;
+                    this.TagProfile.SetLegalIdentity(this.LegalIdentity);
+                    Dispatcher.BeginInvokeOnMainThread(() =>
+                    {
+                        SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
+                        OnStepCompleted(EventArgs.Empty);
+                    });
+                }
             }
             catch (Exception ex)
             {

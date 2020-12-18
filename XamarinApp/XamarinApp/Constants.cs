@@ -38,9 +38,20 @@ namespace XamarinApp
                 return null;
             }
 
-            public static string CreateIotScUri(string id)
+            public static bool StartsWithIdScheme(string code)
+            {
+                return !string.IsNullOrWhiteSpace(code) &&
+                       code.StartsWith(IotId + ":", StringComparison.InvariantCultureIgnoreCase);
+            }
+
+            public static string CreateScanUri(string id)
             {
                 return $"{IotSc}:{id}";
+            }
+
+            public static string CreateIdUri(string id)
+            {
+                return $"{IotId}:{id}";
             }
 
             public static string GetCode(string code)

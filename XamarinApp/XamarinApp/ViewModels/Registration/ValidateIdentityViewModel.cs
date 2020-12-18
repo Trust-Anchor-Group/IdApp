@@ -13,6 +13,7 @@ namespace XamarinApp.ViewModels.Registration
     public class ViewIdentityViewModel : RegistrationStepViewModel
     {
         private readonly IContractsService contractsService;
+        private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
 
         public ViewIdentityViewModel(
@@ -26,6 +27,7 @@ namespace XamarinApp.ViewModels.Registration
             : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.contractsService = contractsService;
+            this.networkService = networkService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
@@ -38,6 +40,7 @@ namespace XamarinApp.ViewModels.Registration
             await base.DoBind();
             AssignProperties();
             this.TagProfile.Changed += TagProfile_Changed;
+            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
         }
 
@@ -46,6 +49,7 @@ namespace XamarinApp.ViewModels.Registration
             this.photosLoader.CancelLoadPhotos();
             this.Photos.Clear();
             this.TagProfile.Changed -= TagProfile_Changed;
+            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
             this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
             await base.DoUnbind();
         }
@@ -61,7 +65,7 @@ namespace XamarinApp.ViewModels.Registration
             Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.TagProfile.LegalIdentity?.Id;
             LegalIdentity = this.TagProfile.LegalIdentity;
-            BareJId = this.NeuronService?.BareJId ?? string.Empty;
+            AssignBareJId();
             State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
             From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
             To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
@@ -108,7 +112,17 @@ namespace XamarinApp.ViewModels.Registration
             }
         }
 
+        private void AssignBareJId()
+        {
+            BareJId = this.NeuronService?.BareJId ?? string.Empty;
+        }
+
         private void TagProfile_Changed(object sender, EventArgs e)
+        {
+            Dispatcher.BeginInvokeOnMainThread(AssignBareJId);
+        }
+
+        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             Dispatcher.BeginInvokeOnMainThread(AssignProperties);
         }
@@ -319,18 +333,15 @@ namespace XamarinApp.ViewModels.Registration
             ScanQrCodePage page = new ScanQrCodePage();
             string code = await page.ScanQrCode();
 
-            const string idScheme = Constants.IoTSchemes.IotId + ":";
-
-            if (!string.IsNullOrWhiteSpace(code))
+            if (!Constants.IoTSchemes.StartsWithIdScheme(code))
             {
-                if (!code.StartsWith(idScheme, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
-                    return;
-                }
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+                return;
+            }
 
-                await this.contractsService.PetitionPeerReviewIdAsync(Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
-
+            bool succeeded = await this.networkService.Request(this.NavigationService, this.contractsService.PetitionPeerReviewIdAsync, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
+            if (succeeded)
+            {
                 await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }
         }

@@ -1,9 +1,15 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSCameraUsageDescription</key>
-    <string>Please allow access to the camera to scan barcodes</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Please allow access to the camera to scan barcodes</string>
+	<key>com.apple.developer.networking.wifi-info</key>
+	<true/>
+	<key>com.apple.developer.user-fonts</key>
+	<array>
+		<string>system-installation</string>
+		<string>app-usage</string>
+	</array>
 </dict>
 </plist>
-

@@ -340,7 +340,9 @@ namespace XamarinApp.ViewModels.Registration
             catch (Exception ex)
             {
                 this.LogService.LogException(ex);
-                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
+                string userMessage = string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain);
+                string message = $"{userMessage}{Environment.NewLine}({ex.Message})";
+                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
             }
 
             return false;
