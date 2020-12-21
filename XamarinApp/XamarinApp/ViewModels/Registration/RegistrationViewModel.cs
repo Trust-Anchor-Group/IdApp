@@ -156,7 +156,10 @@ namespace XamarinApp.ViewModels.Registration
 
         private void SyncTagProfileStep()
         {
-            this.CurrentStep = (int)this.tagProfile.Step;
+            if (this.tagProfile.Step != RegistrationStep.Complete)
+            {
+                this.CurrentStep = (int)this.tagProfile.Step;
+            }
         }
     }
 }
