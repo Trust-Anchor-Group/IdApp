@@ -22,6 +22,8 @@
             <Button Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
             <Label Text="{x:Static local:AppResources.Notary}" FontSize="Large"/>
             <Button Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Label Text="Debug" FontSize="Large"/>
+            <Button Text="Server Comms}" Clicked="XmppCommunicationButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
         </StackLayout>
     </ContentPage.Content>
 </views:ContentBasePage>

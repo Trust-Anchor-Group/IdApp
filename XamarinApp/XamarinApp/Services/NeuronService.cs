@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Xsl;
 using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
+using Waher.Networking.Sniffers.Model;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
@@ -521,6 +525,41 @@ namespace XamarinApp.Services
         {
             if (!(xmppClient is null) && (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline))
                 xmppClient.Reconnect();
+        }
+
+        public string CommsDumpAsHtml()
+        {
+            string html = string.Empty;
+
+            try
+            {
+                var xslt = new XslCompiledTransform();
+                using (Stream xsltStream = this.GetType().Assembly.GetManifestResourceStream($"{typeof(App).Namespace}.SnifferXmlToHtml.xslt"))
+                using (XmlReader reader = new XmlTextReader(xsltStream))
+                {
+                    xslt.Load(reader);
+                }
+
+                string xml = this.sniffer.SnifferToXml();
+                var doc = new XmlDocument();
+                doc.LoadXml(xml);
+
+                using (var stream = new MemoryStream())
+                {
+                    xslt.Transform(doc, null, stream);
+                    stream.Position = 0;
+                    using (var sr = new StreamReader(stream))
+                    { 
+                        html = sr.ReadToEnd();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
+            return html;
         }
     }
 }

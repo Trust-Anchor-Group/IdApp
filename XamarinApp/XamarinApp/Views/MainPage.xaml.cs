@@ -97,5 +97,10 @@ namespace XamarinApp.Views
         {
             await this.navigationService.PushAsync(new NewContractPage(ContractTypesPerCategory));
         }
+
+        private async void XmppCommunicationButton_Clicked(object sender, EventArgs e)
+        {
+            await this.navigationService.PushAsync(new XmppCommunicationPage());
+        }
     }
 }

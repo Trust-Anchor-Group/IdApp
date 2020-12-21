@@ -26,5 +26,7 @@ namespace XamarinApp.Services
         Task<HttpFileUploadClient> CreateFileUploadClientAsync();
         
         Task<bool> DiscoverServices(XmppClient client = null);
+
+        string CommsDumpAsHtml();
     }
 }
