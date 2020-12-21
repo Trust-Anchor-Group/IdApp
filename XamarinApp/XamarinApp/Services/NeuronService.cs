@@ -9,7 +9,6 @@ using System.Xml;
 using System.Xml.Xsl;
 using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
-using Waher.Networking.Sniffers.Model;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
@@ -201,7 +200,7 @@ namespace XamarinApp.Services
                     {
                         await this.CreateXmppClient();
                     }
-                    this.xmppClient?.SetPresence(Availability.Online);
+                    await this.xmppClient.SetPresenceAsync(Availability.Online);
                     this.EndLoad(true);
                 }
                 catch (Exception ex)
@@ -230,10 +229,7 @@ namespace XamarinApp.Services
                 {
                     if (this.xmppClient != null && !fast)
                     {
-                        TaskCompletionSource<bool> offlineSent = new TaskCompletionSource<bool>();
-                        this.xmppClient.SetPresence(Availability.Offline, (sender, e) => offlineSent.TrySetResult(true));
-                        Task _ = Task.Delay(Constants.Timeouts.XmppPresence).ContinueWith(__ => offlineSent.TrySetResult(false));
-                        await offlineSent.Task;
+                        await this.xmppClient.SetPresenceAsync(Availability.Offline);
                     }
 
                     this.DestroyXmppClient();

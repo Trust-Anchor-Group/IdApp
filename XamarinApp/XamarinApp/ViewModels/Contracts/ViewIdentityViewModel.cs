@@ -8,6 +8,7 @@ using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Services;
+using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels.Contracts
 {
@@ -755,12 +756,12 @@ namespace XamarinApp.ViewModels.Contracts
                 if (!await this.navigationService.DisplayPrompt(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity identity) = await this.networkService.Request(this.navigationService, this.contractsService.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
                 if (succeeded)
                 {
-                    this.LegalIdentity = identity;
-                    this.tagProfile.ClearLegalIdentity();
-                    await this.navigationService.PopAsync();
+                    this.LegalIdentity = revokedIdentity;
+                    this.tagProfile.RevokeLegalIdentity(revokedIdentity);
+                    await this.navigationService.ReplaceAsync(new RegistrationPage());
                 }
             }
             catch (Exception ex)
@@ -780,13 +781,13 @@ namespace XamarinApp.ViewModels.Contracts
                 if (!await this.navigationService.DisplayPrompt(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity identity) = await this.networkService.Request(this.navigationService, this.contractsService.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity compromizedIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
 
                 if (succeeded)
                 {
-                    this.LegalIdentity = identity;
-                    this.tagProfile.ClearLegalIdentity();
-                    await this.navigationService.PopAsync();
+                    this.LegalIdentity = compromizedIdentity;
+                    this.tagProfile.RevokeLegalIdentity(compromizedIdentity);
+                    await this.navigationService.ReplaceAsync(new RegistrationPage());
                 }
             }
             catch (Exception ex)

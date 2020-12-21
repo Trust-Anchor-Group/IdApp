@@ -451,6 +451,18 @@ namespace XamarinApp.Services
             this.DecrementConfigurationStep(RegistrationStep.Account); // prev
         }
 
+        public void RevokeLegalIdentity(LegalIdentity revokedIdentity)
+        {
+            this.LegalIdentity = revokedIdentity;
+            this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+        }
+
+        public void CompromizeLegalIdentity(LegalIdentity compromizedIdentity)
+        {
+            this.LegalIdentity = compromizedIdentity;
+            this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+        }
+
         // Step 4
         public void SetIsValidated()
         {
