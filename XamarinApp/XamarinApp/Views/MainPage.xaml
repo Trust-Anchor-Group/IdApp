@@ -6,6 +6,7 @@
              x:Class="XamarinApp.Views.MainPage"
              Title="{x:Static local:AppResources.MainPageTitle}">
     <ContentPage.Content>
+        <ScrollView>
         <StackLayout Margin="{StaticResource DefaultMargin}">
             <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" />
             <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
@@ -23,7 +24,8 @@
             <Label Text="{x:Static local:AppResources.Notary}" FontSize="Large"/>
             <Button Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
             <Label Text="Debug" FontSize="Large"/>
-            <Button Text="Server Comms}" Clicked="XmppCommunicationButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+            <Button Text="Server Comms" Clicked="XmppCommunicationButton_Clicked" IsEnabled="{Binding Path=IsConnected}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </views:ContentBasePage>

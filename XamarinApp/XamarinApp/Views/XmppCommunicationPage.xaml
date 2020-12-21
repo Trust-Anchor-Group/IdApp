@@ -10,7 +10,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Text="Refresh" Command="{Binding Path=RefreshCommand}" />
+            <Button Grid.Row="0" Text="Refresh" Command="{Binding Path=RefreshCommand}" Margin="{StaticResource DefaultMargin}" />
             <WebView Grid.Row="1" Source="{Binding Path=Html}" />
         </Grid>
     </ContentPage.Content>

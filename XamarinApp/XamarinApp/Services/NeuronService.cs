@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -545,8 +546,9 @@ namespace XamarinApp.Services
                 doc.LoadXml(xml);
 
                 using (var stream = new MemoryStream())
+                using (XmlWriter writer = new XmlTextWriter(stream, Encoding.UTF8))
                 {
-                    xslt.Transform(doc, null, stream);
+                    xslt.Transform(doc, null, writer);
                     stream.Position = 0;
                     using (var sr = new StreamReader(stream))
                     { 
