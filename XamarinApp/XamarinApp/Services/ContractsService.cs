@@ -444,6 +444,8 @@ namespace XamarinApp.Services
 
         #endregion
 
+        public bool IsOnline => this.contractsClient != null;
+
         public bool FileUploadIsSupported =>
             tagProfile.FileUploadIsSupported &&
             !(fileUploadClient is null) && fileUploadClient.HasSupport;

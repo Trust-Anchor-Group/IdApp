@@ -47,7 +47,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             await base.DoBind();
             RegistrationSteps.ForEach(x => x.StepCompleted += RegistrationStep_Completed);
-            Dispatcher.BeginInvokeOnMainThread(SyncTagProfileStep);
+            SyncTagProfileStep();
         }
 
         protected override Task DoUnbind()

@@ -37,7 +37,7 @@ namespace XamarinApp.ViewModels
 
         private async Task LoadPhotos(Attachment[] attachments, ObservableCollection<ImageSource> photos, DateTime now)
         {
-            if (attachments == null || attachments.Length > 0 || photos == null)
+            if (attachments == null || attachments.Length <= 0 || photos == null)
                 return;
 
             foreach (Attachment attachment in attachments.GetImageAttachments())
@@ -51,7 +51,7 @@ namespace XamarinApp.ViewModels
                 {
                     KeyValuePair<string, TemporaryFile> pair;
 
-                    if (!this.networkService.IsOnline)
+                    if (!this.networkService.IsOnline || !this.contractsService.IsOnline)
                         continue;
                     
                     pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);

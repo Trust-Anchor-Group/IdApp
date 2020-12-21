@@ -24,12 +24,14 @@
                     <DataTemplate x:Key="DefinePinTemplate">
                         <registrationViews:DefinePinView/>
                     </DataTemplate>
-                    <registrationViews:RegistrationStepDataTemplateSelector x:Key="StepTemplateSelector"
-                        ChooseOperator="{StaticResource ChooseOperatorTemplate}"
-                        ChooseAccount="{StaticResource ChooseAccountTemplate}"
-                        RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
+                    <registrationViews:RegistrationStepDataTemplateSelector 
+                        x:Key="StepTemplateSelector"
+                        DefinePin="{StaticResource DefinePinTemplate}"
                         ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
-                        DefinePin="{StaticResource DefinePinTemplate}" />
+                        RegisterIdentity="{StaticResource RegisterIdentityTemplate}"
+                        ChooseAccount="{StaticResource ChooseAccountTemplate}"
+                        ChooseOperator="{StaticResource ChooseOperatorTemplate}"
+                        />
                 </ResourceDictionary>
             </StackLayout.Resources>
             <StackLayout Orientation="Vertical">

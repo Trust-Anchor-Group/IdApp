@@ -50,6 +50,7 @@ namespace XamarinApp.Services
         Task<LegalIdentity> CompromisedLegalIdentityAsync(string legalIdentityId);
 
         bool FileUploadIsSupported { get; }
+        bool IsOnline { get; }
 
         event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
         event EventHandler<LegalIdentityPetitionEventArgs> PetitionForIdentityReceived;

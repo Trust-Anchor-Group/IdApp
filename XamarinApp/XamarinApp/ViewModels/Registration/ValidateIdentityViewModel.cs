@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
@@ -104,12 +105,7 @@ namespace XamarinApp.ViewModels.Registration
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
-            this.photosLoader.CancelLoadPhotos();
-            this.Photos.Clear();
-            if (this.TagProfile?.LegalIdentity?.Attachments != null)
-            {
-                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, this.Photos);
-            }
+            this.ReloadPhotos();
         }
 
         private void AssignBareJId()
@@ -124,7 +120,24 @@ namespace XamarinApp.ViewModels.Registration
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(AssignProperties);
+            Dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                AssignBareJId();
+                if (this.NeuronService.State == XmppState.Connected)
+                {
+                    ReloadPhotos();
+                }
+            });
+        }
+
+        private void ReloadPhotos()
+        {
+            this.photosLoader.CancelLoadPhotos();
+            this.Photos.Clear();
+            if (this.TagProfile?.LegalIdentity?.Attachments != null)
+            {
+                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, this.Photos);
+            }
         }
 
         private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)

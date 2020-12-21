@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels.Registration;
 
@@ -12,6 +14,36 @@ namespace XamarinApp.Views.Registration
             NavigationPage.SetHasNavigationBar(this, false);
             ViewModel = new RegistrationViewModel();
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await Task.Delay(TimeSpan.FromMilliseconds(100));
+            UpdateUiStep();
+        }
+
+        /// This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.
+        /// The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
+        /// it still doesn't show the correct view template for that step. Instead it shows the last view template.
+        /// So here we scroll back and forth one step to get it to be in sync with the viewmodel.
+        private void UpdateUiStep()
+        {
+            Dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                int otherStep;
+                int step = GetViewModel<RegistrationViewModel>().CurrentStep;
+                if (step > 0)
+                {
+                    otherStep = step - 1;
+                }
+                else
+                {
+                    otherStep = step + 1;
+                }
+                this.CarouselView.ScrollTo(otherStep, position: ScrollToPosition.Center, animate: false);
+                this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center, animate: false);
+            });
         }
 
         protected override bool OnBackButtonPressed()

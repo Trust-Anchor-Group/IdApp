@@ -99,7 +99,7 @@
                     </StackLayout>
                     <Entry x:Name="RegionEntry" Placeholder="{x:Static resources:AppResources.Region}" Text="{Binding Path=Region}" IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}">
                         <Entry.Behaviors>
-                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="CountryPicker" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
+                            <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>
                     </Entry>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}"/>
