@@ -50,32 +50,30 @@ namespace XamarinApp
 
         private void NeuronService_Loaded(object sender, LoadedEventArgs e)
         {
-            if (e.IsLoaded)
+            Dispatcher.BeginInvokeOnMainThread(async () =>
             {
-                Dispatcher.BeginInvokeOnMainThread(async () =>
+                await Task.Delay(TimeSpan.FromMilliseconds(250));
+                if (this.tagProfile.IsComplete() && this.tagProfile.LegalIdentity.State == IdentityState.Approved)
                 {
-                    await Task.Delay(TimeSpan.FromMilliseconds(250));
-                    if (this.tagProfile.IsComplete() && this.tagProfile.LegalIdentity.State == IdentityState.Approved)
+                    await this.navigationService.ReplaceAsync(new MainPage());
+                    return;
+                }
+                if (this.tagProfile.IsComplete() && this.tagProfile.LegalIdentity.State != IdentityState.Approved)
+                {
+                    IdentityState state = this.tagProfile.LegalIdentity.State;
+                    switch (state)
                     {
-                        await this.navigationService.ReplaceAsync(new MainPage());
+                        case IdentityState.Compromised:
+                            this.tagProfile.CompromizeLegalIdentity(this.tagProfile.LegalIdentity);
+                            break;
+                        case IdentityState.Obsoleted:
+                        case IdentityState.Rejected:
+                            this.tagProfile.RevokeLegalIdentity(this.tagProfile.LegalIdentity);
+                            break;
                     }
-                    else if (this.tagProfile.IsComplete() && this.tagProfile.LegalIdentity.State != IdentityState.Approved)
-                    {
-                        IdentityState state = this.tagProfile.LegalIdentity.State;
-                        switch (state)
-                        {
-                            case IdentityState.Compromised:
-                                this.tagProfile.CompromizeLegalIdentity(this.tagProfile.LegalIdentity);
-                                break;
-                            case IdentityState.Obsoleted:
-                            case IdentityState.Rejected:
-                                this.tagProfile.RevokeLegalIdentity(this.tagProfile.LegalIdentity);
-                                break;
-                        }
-                        await this.navigationService.ReplaceAsync(new RegistrationPage());
-                    }
-                });
-            }
+                }
+                await this.navigationService.ReplaceAsync(new RegistrationPage());
+            });
         }
     }
 }

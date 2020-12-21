@@ -200,8 +200,11 @@ namespace XamarinApp.Services
                     {
                         await this.CreateXmppClient();
                     }
-                    await this.xmppClient.SetPresenceAsync(Availability.Online);
-                    this.EndLoad(true);
+                    if (this.xmppClient != null)
+                    {
+                        await this.xmppClient.SetPresenceAsync(Availability.Online);
+                    }
+                    this.EndLoad(this.xmppClient != null);
                 }
                 catch (Exception ex)
                 {

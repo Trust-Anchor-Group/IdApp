@@ -79,6 +79,14 @@ namespace XamarinApp.ViewModels.Contracts
             Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.LegalIdentity?.Id;
             BareJId = this.neuronService?.BareJId ?? string.Empty;
+            if (this.LegalIdentity != null)
+            {
+                PublicKey = Convert.ToBase64String(this.LegalIdentity.ClientPubKey);
+            }
+            else
+            {
+                PublicKey = string.Empty;
+            }
             State = this.LegalIdentity?.State ?? IdentityState.Rejected;
             From = this.LegalIdentity?.From.GetDateOrNullIfMinValue();
             To = this.LegalIdentity?.To.GetDateOrNullIfMinValue();
@@ -205,6 +213,15 @@ namespace XamarinApp.ViewModels.Contracts
         {
             get { return (string)GetValue(BareJIdProperty); }
             set { SetValue(BareJIdProperty, value); }
+        }
+
+        public static readonly BindableProperty PublicKeyProperty =
+            BindableProperty.Create("PublicKey", typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+        public string PublicKey
+        {
+            get { return (string) GetValue(PublicKeyProperty); }
+            set { SetValue(PublicKeyProperty, value); }
         }
 
         public static readonly BindableProperty StateProperty =

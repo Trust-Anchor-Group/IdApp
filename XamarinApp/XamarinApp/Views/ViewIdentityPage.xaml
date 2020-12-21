@@ -53,77 +53,77 @@
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewFirstName}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewFirstName}" IsChecked="{Binding Path=FirstNameIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.FirstName}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewMiddleNames}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewMiddleNames}" IsChecked="{Binding Path=MiddleNamesIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.MiddleNames}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=MiddleNames}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewLastNames}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewLastNames}" IsChecked="{Binding Path=LastNamesIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.LastNames}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=LastNames}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewPersonalNumber}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewPersonalNumber}" IsChecked="{Binding Path=PersonalNumberIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.PersonalNumber}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=PersonalNumber}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewAddress}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewAddress}" IsChecked="{Binding Path=AddressIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.Address}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=Address}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewAddress2}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewAddress2}" IsChecked="{Binding Path=Address2IsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.Address2}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=Address2}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewZipCode}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewZipCode}" IsChecked="{Binding Path=ZipCodeIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.ZipCode}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=ZipCode}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewArea}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewArea}" IsChecked="{Binding Path=AreaIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.Area}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=Area}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewCity}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewCity}" IsChecked="{Binding Path=CityIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.City}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=City}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewRegion}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewRegion}" IsChecked="{Binding Path=RegionIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.Region}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=Region}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
-                                <CheckBox IsVisible="{Binding Path=IsForReviewCountry}"/>
+                                <CheckBox IsVisible="{Binding Path=IsForReviewCountry}" IsChecked="{Binding Path=CountryCodeIsChecked, Mode=TwoWay}"/>
                                 <Label Text="{x:Static local:AppResources.Country}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
@@ -134,10 +134,16 @@
                                 <Label Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
-                        <ViewCell x:Name="NetworkView">
+                        <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{x:Static local:AppResources.Network}" Style="{StaticResource KeyLabel}" />
                                 <Label Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.PublicKey}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=PublicKey}" Style="{StaticResource ValueLabel}"/>
                             </StackLayout>
                         </ViewCell>
                     </TableSection>

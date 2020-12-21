@@ -1312,6 +1312,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Public key.
+        /// </summary>
+        internal static string PublicKey {
+            get {
+                return ResourceManager.GetString("PublicKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Purpose.
         /// </summary>
         internal static string Purpose {

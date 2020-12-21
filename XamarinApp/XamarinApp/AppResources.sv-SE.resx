@@ -534,6 +534,9 @@
   <data name="Provider" xml:space="preserve">
     <value>Leverantör</value>
   </data>
+  <data name="PublicKey" xml:space="preserve">
+    <value>Publik nyckel</value>
+  </data>
   <data name="Purpose" xml:space="preserve">
     <value>Syfte</value>
   </data>

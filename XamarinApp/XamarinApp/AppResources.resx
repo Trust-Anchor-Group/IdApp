@@ -534,6 +534,9 @@
   <data name="Provider" xml:space="preserve">
     <value>Provider</value>
   </data>
+  <data name="PublicKey" xml:space="preserve">
+    <value>Public key</value>
+  </data>
   <data name="Purpose" xml:space="preserve">
     <value>Purpose</value>
   </data>
