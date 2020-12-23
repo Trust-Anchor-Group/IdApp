@@ -458,6 +458,8 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAPhoto);
                 }
+
+                return false;
             }
 
             return true;
