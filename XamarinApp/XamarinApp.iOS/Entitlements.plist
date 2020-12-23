@@ -6,10 +6,5 @@
 	<string>Please allow access to the camera to scan barcodes</string>
 	<key>com.apple.developer.networking.wifi-info</key>
 	<true/>
-	<key>com.apple.developer.user-fonts</key>
-	<array>
-		<string>system-installation</string>
-		<string>app-usage</string>
-	</array>
 </dict>
 </plist>
