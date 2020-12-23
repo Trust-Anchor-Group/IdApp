@@ -50,30 +50,21 @@ namespace XamarinApp
 
         private void NeuronService_Loaded(object sender, LoadedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(async () =>
+            if (e.IsLoaded)
             {
-                await Task.Delay(TimeSpan.FromMilliseconds(250));
-                if (this.tagProfile.IsComplete() && this.tagProfile.LegalIdentity.State == IdentityState.Approved)
+                Dispatcher.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.ReplaceAsync(new MainPage());
-                    return;
-                }
-                if (this.tagProfile.IsComplete() && this.tagProfile.LegalIdentity.State != IdentityState.Approved)
-                {
-                    IdentityState state = this.tagProfile.LegalIdentity.State;
-                    switch (state)
+                    await Task.Delay(TimeSpan.FromMilliseconds(250));
+                    if (this.tagProfile.IsComplete())
                     {
-                        case IdentityState.Compromised:
-                            this.tagProfile.CompromizeLegalIdentity(this.tagProfile.LegalIdentity);
-                            break;
-                        case IdentityState.Obsoleted:
-                        case IdentityState.Rejected:
-                            this.tagProfile.RevokeLegalIdentity(this.tagProfile.LegalIdentity);
-                            break;
+                        await this.navigationService.ReplaceAsync(new MainPage());
                     }
-                }
-                await this.navigationService.ReplaceAsync(new RegistrationPage());
-            });
+                    else
+                    {
+                        await this.navigationService.ReplaceAsync(new RegistrationPage());
+                    }
+                });
+            }
         }
     }
 }

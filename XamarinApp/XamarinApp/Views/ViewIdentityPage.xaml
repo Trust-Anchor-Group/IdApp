@@ -178,7 +178,7 @@
                             <Button Text="{x:Static local:AppResources.RejectInformation}" Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                         </ViewCell>
                         <ViewCell>
-                            <Button Text="{x:Static local:AppResources.ReportAsCompromized}" Command="{Binding Path=CompromizeCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                            <Button Text="{x:Static local:AppResources.ReportAsCompromized}" Command="{Binding Path=CompromiseCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                         </ViewCell>
                         <ViewCell>
                             <Button Text="{x:Static local:AppResources.RevokeInformation}" Command="{Binding Path=RevokeCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>

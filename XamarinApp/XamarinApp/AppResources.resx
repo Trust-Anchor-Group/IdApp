@@ -175,7 +175,7 @@
     <value>Area</value>
   </data>
   <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
-    <value>Are you sure you want to report your legal identity as compromized, stolen or hacked?</value>
+    <value>Are you sure you want to report your legal identity as compromised, stolen or hacked?</value>
   </data>
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
     <value>Are you sure you want to revoke your legal identity from the application?</value>
@@ -562,7 +562,7 @@
     <value>Reject Information</value>
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
-    <value>Report as Compromized</value>
+    <value>Report as Compromised</value>
   </data>
   <data name="Request" xml:space="preserve">
     <value>Request</value>
@@ -800,6 +800,9 @@
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>You need to provide a personal or social security number</value>
+  </data>
+  <data name="YouNeedToProvideAPhoto" xml:space="preserve">
+    <value>You need to provide a photo</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
     <value>Your contract contains errors. Fix these errors and try again.</value>

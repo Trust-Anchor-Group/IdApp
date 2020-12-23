@@ -232,7 +232,7 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to report your legal identity as compromized, stolen or hacked?.
+        ///   Looks up a localized string similar to Are you sure you want to report your legal identity as compromised, stolen or hacked?.
         /// </summary>
         internal static string AreYouSureYouWantToReportYourLegalIdentityAsCompromized {
             get {
@@ -1393,7 +1393,7 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report as Compromized.
+        ///   Looks up a localized string similar to Report as Compromised.
         /// </summary>
         internal static string ReportAsCompromized {
             get {
@@ -2109,6 +2109,15 @@ namespace XamarinApp {
         internal static string YouNeedToProvideAPersonalNumber {
             get {
                 return ResourceManager.GetString("YouNeedToProvideAPersonalNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to provide a photo.
+        /// </summary>
+        internal static string YouNeedToProvideAPhoto {
+            get {
+                return ResourceManager.GetString("YouNeedToProvideAPhoto", resourceCulture);
             }
         }
         

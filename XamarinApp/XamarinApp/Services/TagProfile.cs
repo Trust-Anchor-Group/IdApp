@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Waher.Networking.XMPP.Contracts;
@@ -12,7 +13,7 @@ namespace XamarinApp.Services
     public partial class TagProfile
     {
         public event EventHandler StepChanged;
-        public event EventHandler Changed;
+        public event PropertyChangedEventHandler Changed;
         private LegalIdentity legalIdentity;
         private string objectId;
         private string domain;
@@ -28,15 +29,16 @@ namespace XamarinApp.Services
         private long? httpFileUploadMaxSize;
         private bool usePin;
         private RegistrationStep step = RegistrationStep.Operator;
+        private bool suppressPropertyChangedEvents;
 
         protected virtual void OnStepChanged(EventArgs e)
         {
             StepChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        protected virtual void OnChanged(EventArgs e)
+        protected virtual void OnChanged(PropertyChangedEventArgs e)
         {
-            Changed?.Invoke(this, EventArgs.Empty);
+            Changed?.Invoke(this, e);
         }
 
         public TagConfiguration ToConfiguration()
@@ -64,22 +66,30 @@ namespace XamarinApp.Services
 
         public void FromConfiguration(TagConfiguration configuration)
         {
-            this.objectId = configuration.ObjectId;
-            this.Domain = configuration.Domain;
-            this.Account = configuration.Account;
-            this.PasswordHash = configuration.PasswordHash;
-            this.PasswordHashMethod = configuration.PasswordHashMethod;
-            this.LegalJid = configuration.LegalJid;
-            this.RegistryJid = configuration.RegistryJid;
-            this.ProvisioningJid = configuration.ProvisioningJid;
-            this.HttpFileUploadJid = configuration.HttpFileUploadJid;
-            this.HttpFileUploadMaxSize = configuration.HttpFileUploadMaxSize;
-            this.LogJid = configuration.LogJid;
-            this.PinHash = configuration.PinHash;
-            this.UsePin = configuration.UsePin;
-            this.LegalIdentity = configuration.LegalIdentity;
-            // Do this last, as listeners will read the other properties when the event is fired.
-            this.Step = configuration.Step;
+            try
+            {
+                this.suppressPropertyChangedEvents = true;
+                this.objectId = configuration.ObjectId;
+                this.Domain = configuration.Domain;
+                this.Account = configuration.Account;
+                this.PasswordHash = configuration.PasswordHash;
+                this.PasswordHashMethod = configuration.PasswordHashMethod;
+                this.LegalJid = configuration.LegalJid;
+                this.RegistryJid = configuration.RegistryJid;
+                this.ProvisioningJid = configuration.ProvisioningJid;
+                this.HttpFileUploadJid = configuration.HttpFileUploadJid;
+                this.HttpFileUploadMaxSize = configuration.HttpFileUploadMaxSize;
+                this.LogJid = configuration.LogJid;
+                this.PinHash = configuration.PinHash;
+                this.UsePin = configuration.UsePin;
+                this.LegalIdentity = configuration.LegalIdentity;
+                // Do this last, as listeners will read the other properties when the event is fired.
+                this.Step = configuration.Step;
+            }
+            finally
+            {
+                this.suppressPropertyChangedEvents = false;
+            }
         }
 
         public bool NeedsUpdating()
@@ -116,7 +126,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.domain, value))
                 {
                     this.domain = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(Domain));
                 }
             }
         }
@@ -129,7 +139,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.account, value))
                 {
                     this.account = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(Account));
                 }
             }
         }
@@ -142,7 +152,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.passwordHash, value))
                 {
                     this.passwordHash = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(PasswordHash));
                 }
             }
         }
@@ -155,7 +165,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.passwordHashMethod, value))
                 {
                     this.passwordHashMethod = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(PasswordHashMethod));
                 }
             }
         }
@@ -168,7 +178,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.legalJid, value))
                 {
                     this.legalJid = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(LegalJid));
                 }
             }
         }
@@ -181,7 +191,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.registryJid, value))
                 {
                     this.registryJid = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(RegistryJid));
                 }
             }
         }
@@ -194,7 +204,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.provisioningJid, value))
                 {
                     this.provisioningJid = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(ProvisioningJid));
                 }
             }
         }
@@ -207,7 +217,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.httpFileUploadJid, value))
                 {
                     this.httpFileUploadJid = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(HttpFileUploadJid));
                 }
             }
         }
@@ -220,7 +230,7 @@ namespace XamarinApp.Services
                 if (this.httpFileUploadMaxSize != value)
                 {
                     this.httpFileUploadMaxSize = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(HttpFileUploadMaxSize));
                 }
             }
         }
@@ -233,7 +243,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.logJid, value))
                 {
                     this.logJid = value;
-                    this.FlagAsDirty();
+                    this.FlagAsDirty(nameof(LogJid));
                 }
             }
         }
@@ -246,7 +256,7 @@ namespace XamarinApp.Services
                 if (this.step != value)
                 {
                     this.step = value;
-                    this.IsDirty = true;
+                    this.FlagAsDirty(nameof(Step));
                     this.OnStepChanged(EventArgs.Empty);
                 }
             }
@@ -269,7 +279,7 @@ namespace XamarinApp.Services
                 if (!string.Equals(this.pinHash, value))
                 {
                     this.pinHash = value;
-                    this.IsDirty = true;
+                    this.FlagAsDirty(nameof(PinHash));
                 }
             }
         }
@@ -282,7 +292,7 @@ namespace XamarinApp.Services
                 if (this.usePin != value)
                 {
                     this.usePin = value;
-                    this.IsDirty = true;
+                    this.FlagAsDirty(nameof(UsePin));
                 }
             }
         }
@@ -295,20 +305,22 @@ namespace XamarinApp.Services
                 if (!Equals(this.legalIdentity, value))
                 {
                     this.legalIdentity = value;
-                    this.IsDirty = true;
+                    this.FlagAsDirty(nameof(LegalIdentity));
                 }
             }
         }
 
         public string[] Domains => this.clp.Keys.ToArray();
 
-        [DefaultValue(false)]
         public bool IsDirty { get; private set; }
 
-        private void FlagAsDirty()
+        private void FlagAsDirty(string propertyName)
         {
             this.IsDirty = true;
-            this.OnChanged(EventArgs.Empty);
+            if (!this.suppressPropertyChangedEvents)
+            {
+                this.OnChanged(new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         public void ResetIsDirty()
@@ -457,9 +469,9 @@ namespace XamarinApp.Services
             this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
         }
 
-        public void CompromizeLegalIdentity(LegalIdentity compromizedIdentity)
+        public void CompromiseLegalIdentity(LegalIdentity compromisedIdentity)
         {
-            this.LegalIdentity = compromizedIdentity;
+            this.LegalIdentity = compromisedIdentity;
             this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
         }
 
@@ -605,13 +617,13 @@ namespace XamarinApp.Services
         [DefaultValueStringEmpty]
         public string PinHash { get; set; }
 
-        [DefaultValue(false)]
+        [Waher.Persistence.Attributes.DefaultValue(false)]
         public bool UsePin { get; set; }
 
         [DefaultValueNull]
         public LegalIdentity LegalIdentity { get; set; }
 
-        [DefaultValue(RegistrationStep.Operator)]
+        [Waher.Persistence.Attributes.DefaultValue(RegistrationStep.Operator)]
         public RegistrationStep Step { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Networking.XMPP;
@@ -113,9 +114,16 @@ namespace XamarinApp.ViewModels.Registration
             BareJId = this.NeuronService?.BareJId ?? string.Empty;
         }
 
-        private void TagProfile_Changed(object sender, EventArgs e)
+        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(AssignBareJId);
+            if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
+            {
+                Dispatcher.BeginInvokeOnMainThread(AssignProperties);
+            }
+            else
+            {
+                Dispatcher.BeginInvokeOnMainThread(AssignBareJId);
+            }
         }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)

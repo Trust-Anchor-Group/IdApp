@@ -16,17 +16,20 @@ namespace XamarinApp
         private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
         private readonly ILogService logService;
+        private readonly INetworkService networkService;
 
         public ContractOrchestratorService(
             TagProfile tagProfile, 
             IContractsService contractsService, 
             INavigationService navigationService,
-            ILogService logService)
+            ILogService logService,
+            INetworkService networkService)
         {
             this.tagProfile = tagProfile;
             this.contractsService = contractsService;
             this.navigationService = navigationService;
             this.logService = logService;
+            this.networkService = networkService;
         }
 
         public override Task Load()
@@ -78,17 +81,29 @@ namespace XamarinApp
 
         private async void ContractsService_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
         {
-            LegalIdentity identity;
+            LegalIdentity identity = null;
 
-            if (e.RequestedIdentityId == this.tagProfile.LegalIdentity.Id)
+            if (e.RequestedIdentityId == this.tagProfile.LegalIdentity?.Id)
+            {
                 identity = this.tagProfile.LegalIdentity;
+            }
             else
-                identity = await this.contractsService.GetLegalIdentityAsync(e.RequestedIdentityId);
+            {
+                (bool succeeded, LegalIdentity li) = await this.networkService.Request(this.navigationService, this.contractsService.GetLegalIdentityAsync, e.RequestedIdentityId);
+                if (succeeded)
+                {
+                    identity = li;
+                }
+                else
+                {
+                    return;
+                }
+            }
 
             if (identity.State == IdentityState.Compromised ||
                 identity.State == IdentityState.Rejected)
             {
-                await this.contractsService.SendPetitionIdentityResponseAsync(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionIdentityResponseAsync, e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
             }
             else
             {
@@ -105,7 +120,7 @@ namespace XamarinApp
         private async void ContractsService_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
         {
             // Reject all signature requests by default
-            await this.contractsService.SendPetitionSignatureResponseAsync(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
+            await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionSignatureResponseAsync, e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
         }
 
         private void ContractsService_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
@@ -125,12 +140,15 @@ namespace XamarinApp
 
         private async void ContractsService_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
         {
-            Contract contract = await this.contractsService.GetContractAsync(e.RequestedContractId);
+            (bool succeeded, Contract contract) = await this.networkService.Request(this.navigationService, this.contractsService.GetContractAsync, e.RequestedContractId);
+
+            if (!succeeded)
+                return;
 
             if (contract.State == ContractState.Deleted ||
                 contract.State == ContractState.Rejected)
             {
-                await this.contractsService.SendPetitionContractResponseAsync(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionContractResponseAsync, e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
             }
             else
             {
@@ -169,8 +187,18 @@ namespace XamarinApp
                     StringBuilder xml = new StringBuilder();
                     tagProfile.LegalIdentity.Serialize(xml, true, true, true, true, true, true, true);
                     byte[] data = Encoding.UTF8.GetBytes(xml.ToString());
+                    bool? result;
 
-                    bool? result = this.contractsService.ValidateSignature(e.RequestedIdentity, data, e.Signature);
+                    try
+                    {
+                        result = this.contractsService.ValidateSignature(e.RequestedIdentity, data, e.Signature);
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                        return;
+                    }
+
                     Device.BeginInvokeOnMainThread(async () =>
                     {
                         if (!result.HasValue || !result.Value)
@@ -179,8 +207,11 @@ namespace XamarinApp
                         }
                         else
                         {
-                            await this.contractsService.AddPeerReviewIdAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
-                            await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
+                            (bool succeeded, LegalIdentity legalIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.AddPeerReviewIdAttachment, tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
+                            if (succeeded)
+                            {
+                                await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
+                            }
                         }
                     });
                 }
@@ -211,9 +242,11 @@ namespace XamarinApp
                     new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
                     new KeyValuePair<string, string>("Method", nameof(OpenLegalIdentity)));
 
-                await this.contractsService.PetitionIdentityAsync(legalId, Guid.NewGuid().ToString(), purpose);
-
-                await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
+                bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.PetitionIdentityAsync, legalId, Guid.NewGuid().ToString(), purpose);
+                if (succeeded)
+                {
+                    await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
+                }
             }
         }
 
@@ -231,11 +264,17 @@ namespace XamarinApp
                         await this.navigationService.PushAsync(new ViewContractPage(contract, false));
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await this.contractsService.PetitionContractAsync(contractId, Guid.NewGuid().ToString(), purpose);
+                this.logService.LogException(ex,
+                    new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
+                    new KeyValuePair<string, string>("Method", nameof(OpenContract)));
 
-                await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
+                bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.PetitionContractAsync, contractId, Guid.NewGuid().ToString(), purpose);
+                if (succeeded)
+                {
+                    await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
+                }
             }
         }
     }

@@ -16,13 +16,15 @@ namespace XamarinApp.Services
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly ILogService logService;
+        private readonly INavigationService navigationService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        public ContractsService(TagProfile tagProfile, INeuronService neuronService, ILogService logService)
+        public ContractsService(TagProfile tagProfile, INeuronService neuronService, INavigationService navigationService, ILogService logService)
         {
             this.tagProfile = tagProfile;
             this.neuronService = neuronService;
+            this.navigationService = navigationService;
             this.logService = logService;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
@@ -299,18 +301,30 @@ namespace XamarinApp.Services
         // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
         private void AssertContractsIsAvailable(bool checkClient = true)
         {
-            if ((checkClient && contractsClient == null) || string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+            if (!ContractsIsAvailable(checkClient))
             {
-                throw new XmppFeatureNotSupportedException("Contracts is not supported");
+                throw new XmppFeatureNotSupportedException("ContractsClient is not initialized");
             }
+        }
+
+        private bool ContractsIsAvailable(bool checkClient = true)
+        {
+            bool clientIsOk = (checkClient && contractsClient != null) || !checkClient;
+
+            return clientIsOk && !string.IsNullOrWhiteSpace(this.tagProfile.LegalJid);
         }
 
         private void AssertFileUploadIsAvailable()
         {
-            if (fileUploadClient == null || !this.tagProfile.FileUploadIsSupported)
+            if (!FileUploadIsAvailable())
             {
-                throw new XmppFeatureNotSupportedException("FileUpload is not supported");
+                throw new XmppFeatureNotSupportedException("FileUploadClient is not initialized");
             }
+        }
+
+        private bool FileUploadIsAvailable()
+        {
+            return fileUploadClient != null && this.tagProfile.FileUploadIsSupported;
         }
 
         #region Events
@@ -382,64 +396,126 @@ namespace XamarinApp.Services
 
         #region Event Handlers
 
-        private Task ContractsClient_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
+        private async Task ContractsClient_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
         {
-            this.OnPetitionedContractResponseReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionedContractResponseReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
+        private async Task ContractsClient_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
         {
-            this.OnPetitionForContractReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionForContractReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
+        private async Task ContractsClient_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
         {
-            this.OnPetitionedIdentityResponseReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionedIdentityResponseReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
+        private async Task ContractsClient_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
         {
-            this.OnPetitionForIdentityReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionForIdentityReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_PetitionedPeerReviewIdResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+        private async Task ContractsClient_PetitionedPeerReviewIdResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
         {
-            this.OnPetitionedPeerReviewIdResponseReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionedPeerReviewIdResponseReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
+        private async Task ContractsClient_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
-            this.OnPetitionForPeerReviewIdReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionForPeerReviewIdReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_PetitionedSignatureResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+        private async Task ContractsClient_PetitionedSignatureResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
         {
-            this.OnPetitionedSignatureResponseReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionedSignatureResponseReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
+        private async Task ContractsClient_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
         {
-            this.OnPetitionForSignatureReceived(e);
-            return Task.CompletedTask;
+            try
+            {
+                this.OnPetitionForSignatureReceived(e);
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+            }
         }
 
-        private Task ContractsClient_IdentityUpdated(object sender, LegalIdentityEventArgs e)
+        private async Task ContractsClient_IdentityUpdated(object sender, LegalIdentityEventArgs e)
         {
             if (this.tagProfile.LegalIdentity is null ||
                 this.tagProfile.LegalIdentity.Id == e.Identity.Id ||
                 this.tagProfile.LegalIdentity.Created < e.Identity.Created)
             {
-                OnLegalIdentityChanged(new LegalIdentityChangedEventArgs(e.Identity));
+                try
+                {
+                    OnLegalIdentityChanged(new LegalIdentityChangedEventArgs(e.Identity));
+                }
+                catch (Exception ex)
+                {
+                    this.logService.LogException(ex);
+                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                }
             }
-
-            return Task.CompletedTask;
         }
 
         #endregion

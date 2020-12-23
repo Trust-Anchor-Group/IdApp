@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Networking.XMPP;
@@ -56,7 +57,7 @@ namespace XamarinApp.ViewModels.Registration
             await base.DoUnbind();
         }
 
-        private void TagProfile_Changed(object sender, EventArgs e)
+        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
             Dispatcher.BeginInvokeOnMainThread(() =>
             {

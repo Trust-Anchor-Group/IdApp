@@ -19,6 +19,7 @@ namespace XamarinApp
         private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
         private readonly IContractOrchestratorService contractOrchestratorService;
+        private readonly INavigationOrchestratorService navigationOrchestratorService;
 
         public App()
 		{
@@ -37,21 +38,22 @@ namespace XamarinApp
 			builder.RegisterInstance(this.sdk.LogService).SingleInstance();
 			builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
 			builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
-
-			builder.RegisterType<NavigationService>().As<INavigationService>().SingleInstance();
+			builder.RegisterInstance(this.sdk.NavigationService).SingleInstance();
 			builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
+			builder.RegisterType<NavigationOrchestratorService>().As<INavigationOrchestratorService>().SingleInstance();
             IContainer container = builder.Build();
 			// Set AutoFac to be the dependency resolver
             DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
 			// Resolve what's needed for the App class
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
+            this.navigationOrchestratorService = DependencyService.Resolve<INavigationOrchestratorService>();
 
             // Start page
             NavigationPage navigationPage = new NavigationPage(new InitPage())
             {
-                BarBackgroundColor = (Color) Application.Current.Resources["HeadingBackground"],
-                BarTextColor = (Color) Application.Current.Resources["HeadingForeground"]
+                BarBackgroundColor = (Color)Current.Resources["HeadingBackground"],
+                BarTextColor = (Color)Current.Resources["HeadingForeground"]
             };
             this.MainPage = navigationPage;
         }
@@ -125,21 +127,27 @@ namespace XamarinApp
             await this.sdk.Startup();
             
             await this.contractOrchestratorService.Load();
+            await this.navigationOrchestratorService.Load();
 
             this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
         }
 
         private async Task PerformShutdown()
         {
-            this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            this.autoSaveTimer.Dispose();
+            if (this.autoSaveTimer != null)
+            {
+                this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                this.autoSaveTimer.Dispose();
+                this.autoSaveTimer = null;
+            }
             AutoSave();
-            if (MainPage.BindingContext is BaseViewModel vm)
+            if (MainPage?.BindingContext is BaseViewModel vm)
             {
                 await vm.SaveState();
                 await vm.Unbind();
             }
 
+            await this.navigationOrchestratorService.Unload();
             await this.contractOrchestratorService.Unload();
             await this.sdk.Shutdown();
         }

@@ -801,6 +801,9 @@
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
     <value>Du behöver ange personnummer eller SSN</value>
   </data>
+  <data name="YouNeedToProvideAPhoto" xml:space="preserve">
+    <value>Du behöver bifoga en bild</value>
+  </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
     <value>Kontraktet innehåller fel. Rätta dem och försök igen.</value>
   </data>

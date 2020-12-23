@@ -18,5 +18,6 @@ namespace XamarinApp
         ILogService LogService { get; }
         IStorageService StorageService { get; }
         ISettingsService SettingsService { get; }
+        INavigationService NavigationService { get; }
     }
 }

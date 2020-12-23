@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -150,7 +151,7 @@ namespace XamarinApp.Services
             }
         }
 
-        private async void TagProfile_Changed(object sender, EventArgs e)
+        private async void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
             if (ShouldCreateClient() && this.tagProfile.IsComplete())
             {
@@ -200,11 +201,11 @@ namespace XamarinApp.Services
                     {
                         await this.CreateXmppClient();
                     }
-                    if (this.xmppClient != null)
+                    if (this.xmppClient != null && this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
                         await this.xmppClient.SetPresenceAsync(Availability.Online);
                     }
-                    this.EndLoad(this.xmppClient != null);
+                    this.EndLoad(true);
                 }
                 catch (Exception ex)
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -44,7 +45,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.ApproveCommand = new Command(async _ => await Approve());
             this.RejectCommand = new Command(async _ => await Reject());
             this.RevokeCommand = new Command(async _ => await Revoke());
-            this.CompromizeCommand = new Command(async _ => await Compromize());
+            this.CompromiseCommand = new Command(async _ => await Compromise());
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.contractsService);
         }
@@ -70,7 +71,7 @@ namespace XamarinApp.ViewModels.Contracts
 
         public ICommand ApproveCommand { get; }
         public ICommand RejectCommand { get; }
-        public ICommand CompromizeCommand { get; }
+        public ICommand CompromiseCommand { get; }
         public ICommand RevokeCommand { get; }
 
         private void AssignProperties()
@@ -161,7 +162,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
         }
 
-        private void TagProfile_Changed(object sender, EventArgs e)
+        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
             Dispatcher.BeginInvokeOnMainThread(AssignProperties);
         }
@@ -788,7 +789,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
         }
 
-        private async Task Compromize()
+        private async Task Compromise()
         {
             if (!this.IsPersonal)
                 return;
@@ -798,12 +799,12 @@ namespace XamarinApp.ViewModels.Contracts
                 if (!await this.navigationService.DisplayPrompt(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity compromizedIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
 
                 if (succeeded)
                 {
-                    this.LegalIdentity = compromizedIdentity;
-                    this.tagProfile.RevokeLegalIdentity(compromizedIdentity);
+                    this.LegalIdentity = compromisedIdentity;
+                    this.tagProfile.RevokeLegalIdentity(compromisedIdentity);
                     await this.navigationService.ReplaceAsync(new RegistrationPage());
                 }
             }
