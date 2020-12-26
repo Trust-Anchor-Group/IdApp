@@ -767,7 +767,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                if (!await this.navigationService.DisplayPrompt(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
+                if (!await this.navigationService.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
                     return;
 
                 (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
@@ -792,7 +792,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                if (!await this.navigationService.DisplayPrompt(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
+                if (!await this.navigationService.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
                     return;
 
                 (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);

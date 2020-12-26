@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Waher.Events;
@@ -19,10 +20,10 @@ namespace XamarinApp
     public class TagIdSdk : ITagIdSdk
     {
         private static ITagIdSdk instance;
-
+        private readonly Assembly appAssembly;
         private FilesProvider filesProvider;
 
-        private TagIdSdk()
+        private TagIdSdk(Application app)
         {
             this.TagProfile = new TagProfile();
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
@@ -30,7 +31,8 @@ namespace XamarinApp
             this.NetworkService = new NetworkService(this.LogService);
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
-            this.neuronService = new NeuronService(this.TagProfile, this.NetworkService, this.NavigationService, this.logService);
+            this.appAssembly = app.GetType().Assembly;
+            this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.NetworkService, this.NavigationService, this.logService);
             this.NavigationService = new NavigationService();
         }
 
@@ -39,9 +41,9 @@ namespace XamarinApp
             instance = null;
         }
 
-        public static ITagIdSdk Create()
+        public static ITagIdSdk Create(Application app)
         {
-            return instance ?? (instance = new TagIdSdk());
+            return instance ?? (instance = new TagIdSdk(app));
         }
 
         public TagProfile TagProfile { get; }
@@ -58,7 +60,7 @@ namespace XamarinApp
         public async Task Startup()
         {
             Types.Initialize(
-                typeof(App).Assembly,
+                this.appAssembly,
                 typeof(Database).Assembly,
                 typeof(FilesProvider).Assembly,
                 typeof(ObjectSerializer).Assembly,
