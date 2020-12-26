@@ -20,7 +20,7 @@ namespace XamarinApp.ViewModels.Contracts
         private Contract contract;
         private readonly ILogService logService;
         private readonly INavigationService navigationService;
-        private readonly IContractsService contractsService;
+        private readonly INeuronService neuronService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
         private readonly PhotosLoader photosLoader;
@@ -32,10 +32,10 @@ namespace XamarinApp.ViewModels.Contracts
 
             this.logService = DependencyService.Resolve<ILogService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.contractsService = DependencyService.Resolve<IContractsService>();
+            this.neuronService = DependencyService.Resolve<INeuronService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
-            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.contractsService);
+            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService);
             this.DisplayPartCommand = new Command<string>(async legalId => await ShowLegalId(legalId));
             this.SignPartAsRoleCommand = new Command<string>(async roleId => await SignContract(roleId));
             this.DisplayClientSignatureCommand = new Command<string>(async sign => await ShowClientSignature(sign));
@@ -440,7 +440,7 @@ namespace XamarinApp.ViewModels.Contracts
             {
                 if (!string.IsNullOrWhiteSpace(roleId))
                 {
-                    Contract signedContract = await this.contractsService.SignContractAsync(this.contract, roleId, false);
+                    Contract signedContract = await this.neuronService.Contracts.SignContractAsync(this.contract, roleId, false);
 
                     await this.navigationService.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
@@ -461,7 +461,7 @@ namespace XamarinApp.ViewModels.Contracts
                 if (signature != null)
                 {
                     string legalId = signature.LegalId;
-                    LegalIdentity identity = await this.contractsService.GetLegalIdentityAsync(legalId);
+                    LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
 
                     await this.navigationService.PushAsync(new ClientSignaturePage(signature, identity));
                 }
@@ -488,7 +488,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                Contract obsoletedContract = await this.contractsService.ObsoleteContractAsync(this.contract.ContractId);
+                Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContractAsync(this.contract.ContractId);
 
                 await this.navigationService.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
@@ -504,7 +504,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                Contract deletedContract = await this.contractsService.DeleteContractAsync(this.contract.ContractId);
+                Contract deletedContract = await this.neuronService.Contracts.DeleteContractAsync(this.contract.ContractId);
 
                 await this.navigationService.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 

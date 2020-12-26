@@ -11,27 +11,38 @@ using XamarinApp.Models;
 
 namespace XamarinApp.Services
 {
-    internal sealed class ContractsService : IContractsService
+    internal sealed class NeuronContracts : INeuronContracts
     {
         private readonly TagProfile tagProfile;
-        private readonly INeuronService neuronService;
+        private readonly IInternalNeuronService neuronService;
         private readonly ILogService logService;
         private readonly INavigationService navigationService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        public ContractsService(TagProfile tagProfile, INeuronService neuronService, INavigationService navigationService, ILogService logService)
+        internal NeuronContracts(TagProfile tagProfile, IInternalNeuronService neuronService, INavigationService navigationService, ILogService logService)
         {
             this.tagProfile = tagProfile;
             this.neuronService = neuronService;
             this.navigationService = navigationService;
             this.logService = logService;
-            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 
         public void Dispose()
         {
-            this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            this.DestroyClients();
+        }
+
+        internal async Task CreateClients()
+        {
+            await CreateContractsClient();
+            await CreateFileUploadClient();
+        }
+
+        internal void DestroyClients()
+        {
+            DestroyContractsClient();
+            DestroyFileUploadClient();
         }
 
         private async Task CreateContractsClient()
@@ -81,42 +92,6 @@ namespace XamarinApp.Services
         {
             fileUploadClient?.Dispose();
             fileUploadClient = null;
-        }
-
-        private async void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
-        {
-            if (e.State == XmppState.Connected)
-            {
-                if (this.contractsClient == null)
-                {
-                    try
-                    {
-                        await this.CreateContractsClient();
-                    }
-                    catch (Exception ex)
-                    {
-                        this.logService.LogException(ex);
-                        this.contractsClient = null;
-                    }
-                }
-                if (this.fileUploadClient == null)
-                {
-                    try
-                    {
-                        await this.CreateFileUploadClient();
-                    }
-                    catch (Exception ex)
-                    {
-                        this.logService.LogException(ex);
-                        this.fileUploadClient = null;
-                    }
-                }
-            }
-            else
-            {
-                this.DestroyFileUploadClient();
-                this.DestroyContractsClient();
-            }
         }
 
         public Task PetitionContractAsync(string contractId, string petitionId, string purpose)

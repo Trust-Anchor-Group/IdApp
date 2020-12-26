@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
@@ -18,19 +17,13 @@ namespace XamarinApp
         private readonly INavigationService navigationService;
 
         public InitPage()
-            : this(new InitViewModel())
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            this.ViewModel = new InitViewModel();
-        }
-
-        protected internal InitPage(InitViewModel viewModel)
-        {
-            InitializeComponent();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            ViewModel = viewModel ?? new InitViewModel();
+            ViewModel = new InitViewModel();
+            InitializeComponent();
         }
 
         protected override async void OnAppearing()
@@ -38,7 +31,7 @@ namespace XamarinApp
             base.OnAppearing();
 
             await LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
-
+            GetViewModel<InitViewModel>().IsBusy = true;
             this.neuronService.Loaded += NeuronService_Loaded;
         }
 
@@ -52,6 +45,8 @@ namespace XamarinApp
         {
             if (e.IsLoaded)
             {
+                GetViewModel<InitViewModel>().IsBusy = false;
+
                 Dispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));

@@ -11,8 +11,8 @@ namespace XamarinApp.ViewModels.Contracts
 {
     public class PetitionContractViewModel : BaseViewModel
     {
+        private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
-        private readonly IContractsService contractsService;
         private readonly ILogService logService;
         private readonly INetworkService networkService;
         private readonly LegalIdentity requestorIdentity;
@@ -28,8 +28,8 @@ namespace XamarinApp.ViewModels.Contracts
             string petitionId, 
             string purpose)
         {
+            this.neuronService = DependencyService.Resolve<INeuronService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.contractsService = DependencyService.Resolve<IContractsService>();
             this.logService = DependencyService.Resolve<ILogService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.requestorIdentity = requestorIdentity;
@@ -40,7 +40,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.contractsService);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService);
             AssignProperties(requestorIdentity, purpose);
         }
 
@@ -68,7 +68,7 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Accept()
         {
-            bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionContractResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, true);
+            bool succeeded = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionContractResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, true);
             if (succeeded)
             {
                 await this.navigationService.PopAsync();
@@ -77,7 +77,7 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Decline()
         {
-            bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionIdentityResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, false);
+            bool succeeded = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionIdentityResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, false);
             if (succeeded)
             {
                 await this.navigationService.PopAsync();

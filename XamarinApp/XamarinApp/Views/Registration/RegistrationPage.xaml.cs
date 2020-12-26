@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
 using XamarinApp.ViewModels.Registration;
@@ -15,12 +17,12 @@ namespace XamarinApp.Views.Registration
             InitializeComponent();
         }
 
-        //protected override async void OnAppearing()
-        //{
-        //    base.OnAppearing();
-        //    await Task.Delay(TimeSpan.FromMilliseconds(100));
-        //    UpdateUiStep();
-        //}
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await Task.Delay(TimeSpan.FromMilliseconds(100));
+            UpdateUiStep();
+        }
 
         /// This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.
         /// The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
@@ -44,8 +46,10 @@ namespace XamarinApp.Views.Registration
                         otherStep = step + 1;
                     }
 
+                    vm.MuteStepSync();
                     this.CarouselView.ScrollTo(otherStep, position: ScrollToPosition.Center, animate: false);
                     this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center, animate: false);
+                    Dispatcher.BeginInvokeOnMainThread(() => vm.UnmuteStepSync());
                 }
             });
         }

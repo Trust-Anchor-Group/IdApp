@@ -26,6 +26,7 @@ namespace XamarinApp.Services
         private readonly TagProfile tagProfile;
         private Timer reconnectTimer;
         private XmppClient xmppClient;
+        private readonly NeuronContracts contracts;
         private string domainName;
         private string accountName;
         private string passwordHash;
@@ -34,11 +35,12 @@ namespace XamarinApp.Services
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
 
-        public NeuronService(TagProfile tagProfile, INetworkService networkService, IInternalLogService logService)
+        public NeuronService(TagProfile tagProfile, INetworkService networkService, INavigationService navigationService, IInternalLogService logService)
         {
             this.networkService = networkService;
             this.logService = logService;
             this.tagProfile = tagProfile;
+            this.contracts = new NeuronContracts(this.tagProfile, this, navigationService, this.logService);
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
             this.tagProfile.Changed += TagProfile_Changed;
@@ -52,6 +54,7 @@ namespace XamarinApp.Services
             this.tagProfile.Changed -= TagProfile_Changed;
 
             this.DestroyXmppClient();
+            this.Contracts.Dispose();
         }
 
         #region Create/Destroy
@@ -99,6 +102,13 @@ namespace XamarinApp.Services
 
                     this.xmppClient.Connect(domainName);
 
+                    if (this.tagProfile.IsCompleteOrWaitingForValidation())
+                    {
+                        await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+                    }
+
+                    await this.contracts.CreateClients();
+
                     this.reconnectTimer?.Dispose();
                     this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
                 }
@@ -112,6 +122,7 @@ namespace XamarinApp.Services
         private void DestroyXmppClient()
         {
             this.reconnectTimer?.Dispose();
+            this.contracts.DestroyClients();
             if (this.xmppClient != null)
             {
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
@@ -141,6 +152,9 @@ namespace XamarinApp.Services
 
         private async void TagProfile_StepChanged(object sender, EventArgs e)
         {
+            if (!this.IsLoaded)
+                return;
+
             if (ShouldCreateClient())
             {
                 await this.CreateXmppClient();
@@ -190,6 +204,18 @@ namespace XamarinApp.Services
         }
 
         #region Lifecycle
+
+        public async Task<bool> WaitForConnectedState(TimeSpan timeout)
+        {
+            if (this.xmppClient == null)
+                return false;
+
+            if (this.xmppClient.State == XmppState.Connected)
+                return true;
+
+            int i = await this.xmppClient.WaitStateAsync((int)timeout.TotalMilliseconds, XmppState.Connected);
+            return i >= 0;
+        }
 
         public override async Task Load()
         {
@@ -275,6 +301,8 @@ namespace XamarinApp.Services
         public string BareJId => xmppClient?.BareJID ?? string.Empty;
 
         #endregion
+
+        public INeuronContracts Contracts => this.contracts;
 
         private enum ConnectOperation
         {
@@ -455,7 +483,7 @@ namespace XamarinApp.Services
             }
             if (!this.tagProfile.HttpFileUploadMaxSize.HasValue)
             {
-                throw new InvalidOperationException("HttpFileUploadMaxSize is missing");
+                throw new InvalidOperationException("HttpFileUploadMaxSize is not defined");
             }
 
             return Task.FromResult(new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize));

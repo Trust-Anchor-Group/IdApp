@@ -2,13 +2,12 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Networking.XMPP.HttpFileUpload;
 
 namespace XamarinApp.Services
 {
     public interface INeuronService : IDisposable
     {
+        Task<bool> WaitForConnectedState(TimeSpan timeout);
         Task Load();
         Task Unload();
         event EventHandler<LoadedEventArgs> Loaded;
@@ -22,9 +21,8 @@ namespace XamarinApp.Services
         XmppState State { get; }
         string BareJId { get; }
 
-        Task<ContractsClient> CreateContractsClientAsync();
-        Task<HttpFileUploadClient> CreateFileUploadClientAsync();
-        
+        INeuronContracts Contracts { get; }
+
         Task<bool> DiscoverServices(XmppClient client = null);
 
         string CommsDumpAsHtml();

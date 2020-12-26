@@ -18,18 +18,16 @@ namespace XamarinApp.ViewModels.Contracts
         /// </summary>
         private readonly bool showCreatedContracts;
 
-        private readonly ILogService logService;
+        private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
-        private readonly IContractsService contractsService;
         private DateTime loadContractsTimestamp;
 
         public MyContractsViewModel(bool showCreatedContracts)
         {
-            this.logService = DependencyService.Resolve<ILogService>();
+            this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.contractsService = DependencyService.Resolve<IContractsService>();
             this.showCreatedContracts = showCreatedContracts;
             this.contractsMap = new Dictionary<string, Contract>();
             this.Contracts = new ObservableCollection<ContractModel>();
@@ -96,14 +94,14 @@ namespace XamarinApp.ViewModels.Contracts
 
             if (this.showCreatedContracts)
             {
-                (bool succeeded, string[] createdContractIds) = await this.networkService.Request(this.navigationService, this.contractsService.GetCreatedContractsAsync);
+                (bool succeeded, string[] createdContractIds) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetCreatedContractsAsync);
                 if (!succeeded)
                     return;
                 contractIds = createdContractIds;
             }
             else
             {
-                (bool succeeded, string[] signedContractIds) = await this.networkService.Request(this.navigationService, this.contractsService.GetSignedContractsAsync);
+                (bool succeeded, string[] signedContractIds) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetSignedContractsAsync);
                 if (!succeeded)
                     return;
                 contractIds = signedContractIds;
@@ -122,7 +120,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             foreach (string contractId in contractIds)
             {
-                Contract contract = await this.contractsService.GetContractAsync(contractId);
+                Contract contract = await this.neuronService.Contracts.GetContractAsync(contractId);
                 if (this.loadContractsTimestamp > now)
                 {
                     return;

@@ -30,9 +30,8 @@ namespace XamarinApp
             this.NetworkService = new NetworkService(this.LogService);
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
-            this.neuronService = new NeuronService(this.TagProfile, this.NetworkService, this.logService);
+            this.neuronService = new NeuronService(this.TagProfile, this.NetworkService, this.NavigationService, this.logService);
             this.NavigationService = new NavigationService();
-            this.ContractsService = new ContractsService(this.TagProfile, this.NeuronService, this.NavigationService, this.LogService);
         }
 
         public void Dispose()
@@ -49,7 +48,6 @@ namespace XamarinApp
         public IAuthService AuthService { get; }
         private readonly IInternalNeuronService neuronService;
         public INeuronService NeuronService => neuronService;
-        public IContractsService ContractsService { get; }
         public INetworkService NetworkService { get; }
         public INavigationService NavigationService { get; }
         public IStorageService StorageService { get; }

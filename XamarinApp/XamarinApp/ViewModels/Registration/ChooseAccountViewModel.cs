@@ -13,7 +13,6 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ChooseAccountViewModel : RegistrationStepViewModel
     {
-        private readonly IContractsService contractsService;
         private readonly IAuthService authService;
         private readonly INetworkService networkService;
 
@@ -23,13 +22,11 @@ namespace XamarinApp.ViewModels.Registration
             INavigationService navigationService,
             ISettingsService settingsService,
             IAuthService authService,
-            IContractsService contractsService,
             INetworkService networkService,
             ILogService logService)
             : base(RegistrationStep.Account, tagProfile, neuronService, navigationService, settingsService, logService)
         {
             this.authService = authService;
-            this.contractsService = contractsService;
             this.networkService = networkService;
             this.PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
             this.SwitchModeCommand = new Command(_ =>
@@ -380,7 +377,7 @@ namespace XamarinApp.ViewModels.Registration
 
                         if (serviceDiscoverySucceeded)
                         {
-                            foreach (LegalIdentity identity in await this.contractsService.GetLegalIdentitiesAsync(client))
+                            foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentitiesAsync(client))
                             {
                                 if (identity.HasClientSignature &&
                                     identity.HasClientPublicKey &&

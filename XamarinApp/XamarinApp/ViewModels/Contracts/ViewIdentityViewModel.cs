@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
@@ -15,12 +14,11 @@ namespace XamarinApp.ViewModels.Contracts
 {
     public class ViewIdentityViewModel : BaseViewModel
     {
-        private SignaturePetitionEventArgs review;
+        private readonly SignaturePetitionEventArgs review;
         private readonly TagProfile tagProfile;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
-        private readonly IContractsService contractsService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
 
@@ -30,7 +28,6 @@ namespace XamarinApp.ViewModels.Contracts
             TagProfile tagProfile,
             INeuronService neuronService,
             INavigationService navigationService,
-            IContractsService contractsService,
             INetworkService networkService,
             ILogService logService)
         {
@@ -40,14 +37,13 @@ namespace XamarinApp.ViewModels.Contracts
             this.logService = logService;
             this.neuronService = neuronService;
             this.navigationService = navigationService;
-            this.contractsService = contractsService;
             this.networkService = networkService;
             this.ApproveCommand = new Command(async _ => await Approve());
             this.RejectCommand = new Command(async _ => await Reject());
             this.RevokeCommand = new Command(async _ => await Revoke());
             this.CompromiseCommand = new Command(async _ => await Compromise());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.contractsService);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService);
         }
 
         protected override async Task DoBind()
@@ -55,7 +51,7 @@ namespace XamarinApp.ViewModels.Contracts
             await base.DoBind();
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
-            this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
+            this.neuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
         }
 
         protected override async Task DoUnbind()
@@ -63,7 +59,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.photosLoader.CancelLoadPhotos();
             this.Photos.Clear();
             this.tagProfile.Changed -= TagProfile_Changed;
-            this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
+            this.neuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
             await base.DoUnbind();
         }
 
@@ -167,7 +163,7 @@ namespace XamarinApp.ViewModels.Contracts
             Dispatcher.BeginInvokeOnMainThread(AssignProperties);
         }
 
-        private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+        private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
             Dispatcher.BeginInvokeOnMainThread(() =>
             {
@@ -723,14 +719,14 @@ namespace XamarinApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool succeeded1, byte[] signature) = await this.networkService.Request(this.navigationService, this.contractsService.SignAsync, this.review.ContentToSign);
+                (bool succeeded1, byte[] signature) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SignAsync, this.review.ContentToSign);
 
                 if (!succeeded1)
                 {
                     return;
                 }
 
-                bool succeeded2 = await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, signature, this.review.PetitionId, this.review.RequestorFullJid, true);
+                bool succeeded2 = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, signature, this.review.PetitionId, this.review.RequestorFullJid, true);
 
                 if (succeeded2)
                 {
@@ -751,7 +747,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                bool succeeded =  await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, new byte[0], this.review.PetitionId, this.review.RequestorFullJid, false);
+                bool succeeded =  await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, new byte[0], this.review.PetitionId, this.review.RequestorFullJid, false);
                 if (succeeded)
                 {
                     await this.navigationService.PopAsync();
@@ -774,7 +770,7 @@ namespace XamarinApp.ViewModels.Contracts
                 if (!await this.navigationService.DisplayPrompt(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
                 if (succeeded)
                 {
                     this.LegalIdentity = revokedIdentity;
@@ -799,7 +795,7 @@ namespace XamarinApp.ViewModels.Contracts
                 if (!await this.navigationService.DisplayPrompt(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
 
                 if (succeeded)
                 {

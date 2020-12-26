@@ -13,20 +13,20 @@ namespace XamarinApp.ViewModels.Registration
     {
         private readonly TagProfile tagProfile;
         private readonly INavigationService navigationService;
-        
+        private bool muteStepSync;
+
         public RegistrationViewModel()
-            : this(null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, IContractsService contractsService, INavigationService navigationService, INetworkService networkService, ILogService logService)
+        protected internal RegistrationViewModel(TagProfile tagProfile, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, INavigationService navigationService, INetworkService networkService, ILogService logService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
             settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
             authService = authService ?? DependencyService.Resolve<IAuthService>();
-            contractsService = contractsService ?? DependencyService.Resolve<IContractsService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             logService = logService ?? DependencyService.Resolve<ILogService>();
@@ -34,9 +34,9 @@ namespace XamarinApp.ViewModels.Registration
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
                 this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, networkService, logService)),
-                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, authService, contractsService, networkService, logService)),
-                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, contractsService, networkService, logService)),
-                this.AddChildViewModel(new ViewIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, contractsService, networkService, logService)),
+                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, authService, networkService, logService)),
+                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService,  networkService, logService)),
+                this.AddChildViewModel(new ViewIdentityViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, neuronService, this.navigationService, settingsService, logService))
             };
             SyncTagProfileStep();
@@ -80,7 +80,13 @@ namespace XamarinApp.ViewModels.Registration
         public int CurrentStep
         {
             get { return (int)GetValue(CurrentStepProperty); }
-            set { SetValue(CurrentStepProperty, value); }
+            set
+            {
+                if (!this.muteStepSync)
+                {
+                    SetValue(CurrentStepProperty, value);
+                }
+            }
         }
 
         public static readonly BindableProperty CurrentStepTitleProperty =
@@ -90,6 +96,16 @@ namespace XamarinApp.ViewModels.Registration
         {
             get { return (string) GetValue(CurrentStepTitleProperty); }
             set { SetValue(CurrentStepTitleProperty, value); }
+        }
+
+        public void MuteStepSync()
+        {
+            this.muteStepSync = true;
+        }
+
+        public void UnmuteStepSync()
+        {
+            this.muteStepSync = false;
         }
 
         private void UpdateStepTitle()

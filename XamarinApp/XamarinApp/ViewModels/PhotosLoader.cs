@@ -15,14 +15,14 @@ namespace XamarinApp.ViewModels
     {
         private readonly ILogService logService;
         private readonly INetworkService networkService;
-        private readonly IContractsService contractsService;
+        private readonly INeuronService neuronService;
         private DateTime loadPhotosTimestamp;
 
-        public PhotosLoader(ILogService logService, INetworkService networkService, IContractsService contractsService)
+        public PhotosLoader(ILogService logService, INetworkService networkService, INeuronService neuronService)
         {
             this.logService = logService;
             this.networkService = networkService;
-            this.contractsService = contractsService;
+            this.neuronService = neuronService;
         }
 
         public Task LoadPhotos(Attachment[] attachments, ObservableCollection<ImageSource> photos)
@@ -51,10 +51,10 @@ namespace XamarinApp.ViewModels
                 {
                     KeyValuePair<string, TemporaryFile> pair;
 
-                    if (!this.networkService.IsOnline || !this.contractsService.IsOnline)
+                    if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                         continue;
                     
-                    pair = await this.contractsService.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
+                    pair = await this.neuronService.Contracts.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
 
                     if (this.loadPhotosTimestamp > now)
                     {

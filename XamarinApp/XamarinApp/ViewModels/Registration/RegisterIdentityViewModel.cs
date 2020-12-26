@@ -19,7 +19,6 @@ namespace XamarinApp.ViewModels.Registration
     public class RegisterIdentityViewModel : RegistrationStepViewModel
     {
         private readonly Dictionary<string, LegalIdentityAttachment> photos;
-        private readonly IContractsService contractsService;
         private readonly INetworkService networkService;
 
         public RegisterIdentityViewModel(
@@ -27,12 +26,10 @@ namespace XamarinApp.ViewModels.Registration
             INeuronService neuronService, 
             INavigationService navigationService, 
             ISettingsService settingsService,
-            IContractsService contractsService,
             INetworkService networkService,
             ILogService logService)
          : base(RegistrationStep.RegisterIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
         {
-            this.contractsService = contractsService;
             this.networkService = networkService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
             this.DeviceId = deviceInfo?.GetDeviceID();
@@ -228,7 +225,7 @@ namespace XamarinApp.ViewModels.Registration
             if (!(CrossMedia.IsSupported &&
                 CrossMedia.Current.IsCameraAvailable &&
                 CrossMedia.Current.IsTakePhotoSupported &&
-                this.contractsService.FileUploadIsSupported))
+                this.NeuronService.Contracts.FileUploadIsSupported))
             {
                 await this.NavigationService.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
                 return;
@@ -257,7 +254,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             if (!(CrossMedia.IsSupported &&
                   CrossMedia.Current.IsPickPhotoSupported &&
-                  this.contractsService.FileUploadIsSupported))
+                  this.NeuronService.Contracts.FileUploadIsSupported))
             {
                 await this.NavigationService.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
                 return;
@@ -342,7 +339,7 @@ namespace XamarinApp.ViewModels.Registration
 
             try
             {
-                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.Request(this.NavigationService, this.contractsService.AddLegalIdentityAsync, CreateRegisterModel(), this.photos.Values.ToArray());
+                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.Request(this.NavigationService, this.NeuronService.Contracts.AddLegalIdentityAsync, CreateRegisterModel(), this.photos.Values.ToArray());
                 if (succeeded)
                 {
                     this.LegalIdentity = addedIdentity;

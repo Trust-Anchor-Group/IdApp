@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.Forms;
 using XamarinApp.Views.Registration;
 
 namespace XamarinApp.Services
@@ -11,15 +11,13 @@ namespace XamarinApp.Services
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
-        private readonly IContractsService contractsService;
         private readonly INavigationService navigationService;
 
-        public NavigationOrchestratorService(TagProfile tagProfile, INeuronService neuronService, INetworkService networkService, IContractsService contractsService, INavigationService navigationService)
+        public NavigationOrchestratorService(TagProfile tagProfile, INeuronService neuronService, INetworkService networkService, INavigationService navigationService)
         {
             this.tagProfile = tagProfile;
             this.neuronService = neuronService;
             this.networkService = networkService;
-            this.contractsService = contractsService;
             this.navigationService = navigationService;
         }
 
@@ -51,37 +49,49 @@ namespace XamarinApp.Services
 
         }
 
-        private async void NeuronService_Loaded(object sender, LoadedEventArgs e)
+        private void NeuronService_Loaded(object sender, LoadedEventArgs e)
         {
-            // TODO: wait for ContractsService to be initialized also. Move this to ContractOrchestratorService?
+            if (this.tagProfile.LegalIdentity != null && this.tagProfile.IsCompleteOrWaitingForValidation())
+            {
+                // Run asynchronously so we're not blocking startup UI.
+                _ = DownloadLegalIdentity(this.tagProfile.LegalIdentity.Id);
+            }
+        }
 
-            //if (this.tagProfile.LegalIdentity != null && this.tagProfile.IsCompleteOrWaitingForValidation())
-            //{
-            //    string legalId = this.tagProfile.LegalIdentity.Id;
-            //    (bool succeeded, LegalIdentity identity) = await this.networkService.Request(this.navigationService, this.contractsService.GetLegalIdentityAsync, legalId, displayAlert: false);
-            //    if (succeeded)
-            //    {
-            //        bool gotoRegistrationPage = false;
-            //        if (identity.State == IdentityState.Compromised)
-            //        {
-            //            this.tagProfile.CompromiseLegalIdentity(identity);
-            //            gotoRegistrationPage = true;
-            //        }
-            //        else if (identity.State == IdentityState.Obsoleted)
-            //        {
-            //            this.tagProfile.RevokeLegalIdentity(identity);
-            //            gotoRegistrationPage = true;
-            //        }
-            //        else
-            //        {
-            //            this.tagProfile.SetLegalIdentity(identity);
-            //        }
-            //        if (gotoRegistrationPage)
-            //        {
-            //            await this.navigationService.ReplaceAsync(new RegistrationPage());
-            //        }
-            //    }
-            //}
+        private async Task DownloadLegalIdentity(string legalId)
+        {
+            bool isConnected = await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+
+            if (!isConnected)
+                return;
+
+            (bool succeeded, LegalIdentity identity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetLegalIdentityAsync, legalId, displayAlert: false);
+            if (succeeded)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool gotoRegistrationPage = false;
+                    if (identity.State == IdentityState.Compromised)
+                    {
+                        this.tagProfile.CompromiseLegalIdentity(identity);
+                        gotoRegistrationPage = true;
+                    }
+                    else if (identity.State == IdentityState.Obsoleted)
+                    {
+                        this.tagProfile.RevokeLegalIdentity(identity);
+                        gotoRegistrationPage = true;
+                    }
+                    else
+                    {
+                        this.tagProfile.SetLegalIdentity(identity);
+                    }
+                    if (gotoRegistrationPage)
+                    {
+                        await this.navigationService.ReplaceAsync(new RegistrationPage());
+                    }
+                });
+            }
+
         }
     }
 }

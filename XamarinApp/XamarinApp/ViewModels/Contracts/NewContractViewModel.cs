@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
@@ -19,9 +20,9 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
         private Contract contractTemplate;
         private readonly ILogService logService;
+        private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
-        private readonly IContractsService contractsService;
         private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
@@ -32,9 +33,9 @@ namespace XamarinApp.ViewModels.Contracts
         {
             this.contractTypesPerCategory = new SortedDictionary<string, SortedDictionary<string, string>>();
             this.logService = DependencyService.Resolve<ILogService>();
+            this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.contractsService = DependencyService.Resolve<IContractsService>();
             this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
@@ -337,7 +338,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                (bool succeeded, Contract retrievedContract) = await this.networkService.Request(this.navigationService, this.contractsService.GetContractAsync, this.contractTemplateId);
+                (bool succeeded, Contract retrievedContract) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetContractAsync, this.contractTemplateId);
                 if (!succeeded)
                     return;
 
@@ -493,7 +494,8 @@ namespace XamarinApp.ViewModels.Contracts
                     return;
                 }
 
-                Contract createdContract = await this.contractsService.CreateContractAsync(
+                (bool createSucceeded, Contract createdContract) = await this.networkService.Request<string, Part[], Parameter[], ContractVisibility, ContractParts,Duration,Duration,Duration, DateTime?, DateTime?, bool, Contract>(
+                    this.navigationService, this.neuronService.Contracts.CreateContractAsync,
                     this.contractTemplateId,
                     parts.ToArray(),
                     this.contractTemplate.Parameters,
@@ -505,9 +507,18 @@ namespace XamarinApp.ViewModels.Contracts
                     null,
                     null,
                     false);
-                createdContract = await this.contractsService.SignContractAsync(createdContract, this.SelectedRole.Name, false);
 
-                if (createdContract != null)
+                Contract signedContract = null;
+                if (createSucceeded)
+                {
+                    (bool signSucceeded, Contract contract) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SignContractAsync, createdContract, this.SelectedRole.Name, false);
+                    if (signSucceeded)
+                    {
+                        signedContract = contract;
+                    }
+                }
+
+                if (signedContract != null)
                 {
                     await this.navigationService.PushAsync(new ViewContractPage(createdContract, false));
                 }

@@ -12,7 +12,7 @@ namespace XamarinApp.Services
     /// <summary>
     /// Adds support for legal identities, smart contracts and signatures to a Neuron Service.
     /// </summary>
-    public interface IContractsService : IDisposable
+    public interface INeuronContracts : IDisposable
     {
         Task PetitionContractAsync(string contractId, string petitionId, string purpose);
         Task<Contract> GetContractAsync(string contractId);

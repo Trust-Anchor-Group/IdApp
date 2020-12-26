@@ -14,7 +14,6 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class ViewIdentityViewModel : RegistrationStepViewModel
     {
-        private readonly IContractsService contractsService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
 
@@ -23,18 +22,16 @@ namespace XamarinApp.ViewModels.Registration
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
-            IContractsService contractsService,
             INetworkService networkService,
             ILogService logService)
             : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
         {
-            this.contractsService = contractsService;
             this.networkService = networkService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(logService, networkService, contractsService);
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService);
         }
 
         protected override async Task DoBind()
@@ -43,7 +40,7 @@ namespace XamarinApp.ViewModels.Registration
             AssignProperties();
             this.TagProfile.Changed += TagProfile_Changed;
             this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
-            this.contractsService.LegalIdentityChanged += ContractsService_LegalIdentityChanged;
+            this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
         }
 
         protected override async Task DoUnbind()
@@ -52,7 +49,7 @@ namespace XamarinApp.ViewModels.Registration
             this.Photos.Clear();
             this.TagProfile.Changed -= TagProfile_Changed;
             this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
-            this.contractsService.LegalIdentityChanged -= ContractsService_LegalIdentityChanged;
+            this.NeuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
             await base.DoUnbind();
         }
 
@@ -148,7 +145,7 @@ namespace XamarinApp.ViewModels.Registration
             }
         }
 
-        private void ContractsService_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+        private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
             Dispatcher.BeginInvokeOnMainThread(() =>
             {
@@ -360,7 +357,7 @@ namespace XamarinApp.ViewModels.Registration
                 return;
             }
 
-            bool succeeded = await this.networkService.Request(this.NavigationService, this.contractsService.PetitionPeerReviewIdAsync, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
+            bool succeeded = await this.networkService.Request(this.NavigationService, this.NeuronService.Contracts.PetitionPeerReviewIdAsync, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
             if (succeeded)
             {
                 await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);

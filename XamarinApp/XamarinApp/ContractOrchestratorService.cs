@@ -13,20 +13,20 @@ namespace XamarinApp
     internal sealed class ContractOrchestratorService : LoadableService, IContractOrchestratorService
     {
         private readonly TagProfile tagProfile;
-        private readonly IContractsService contractsService;
+        private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
         private readonly ILogService logService;
         private readonly INetworkService networkService;
 
         public ContractOrchestratorService(
             TagProfile tagProfile, 
-            IContractsService contractsService, 
+            INeuronService neuronService,
             INavigationService navigationService,
             ILogService logService,
             INetworkService networkService)
         {
             this.tagProfile = tagProfile;
-            this.contractsService = contractsService;
+            this.neuronService = neuronService;
             this.navigationService = navigationService;
             this.logService = logService;
             this.networkService = networkService;
@@ -36,13 +36,13 @@ namespace XamarinApp
         {
             if (this.BeginLoad())
             {
-                this.contractsService.PetitionForPeerReviewIdReceived += ContractsService_PetitionForPeerReviewIdReceived;
-                this.contractsService.PetitionForIdentityReceived += ContractsService_PetitionForIdentityReceived;
-                this.contractsService.PetitionForSignatureReceived += ContractsService_PetitionForSignatureReceived;
-                this.contractsService.PetitionedContractResponseReceived += ContractsService_PetitionedContractResponseReceived;
-                this.contractsService.PetitionForContractReceived += ContractsService_PetitionForContractReceived;
-                this.contractsService.PetitionedIdentityResponseReceived += ContractsService_PetitionedIdentityResponseReceived;
-                this.contractsService.PetitionedPeerReviewIdResponseReceived += ContractsService_PetitionedPeerReviewResponseReceived;
+                this.neuronService.Contracts.PetitionForPeerReviewIdReceived += Contracts_PetitionForPeerReviewIdReceived;
+                this.neuronService.Contracts.PetitionForIdentityReceived += Contracts_PetitionForIdentityReceived;
+                this.neuronService.Contracts.PetitionForSignatureReceived += Contracts_PetitionForSignatureReceived;
+                this.neuronService.Contracts.PetitionedContractResponseReceived += Contracts_PetitionedNeuronContractResponseReceived;
+                this.neuronService.Contracts.PetitionForContractReceived += Contracts_PetitionForNeuronContractReceived;
+                this.neuronService.Contracts.PetitionedIdentityResponseReceived += Contracts_PetitionedIdentityResponseReceived;
+                this.neuronService.Contracts.PetitionedPeerReviewIdResponseReceived += Contracts_PetitionedPeerReviewResponseReceived;
                 this.EndLoad(true);
             }
             return Task.CompletedTask;
@@ -52,13 +52,13 @@ namespace XamarinApp
         {
             if (this.BeginUnload())
             {
-                this.contractsService.PetitionForPeerReviewIdReceived -= ContractsService_PetitionForPeerReviewIdReceived;
-                this.contractsService.PetitionForIdentityReceived -= ContractsService_PetitionForIdentityReceived;
-                this.contractsService.PetitionForSignatureReceived -= ContractsService_PetitionForSignatureReceived;
-                this.contractsService.PetitionedContractResponseReceived -= ContractsService_PetitionedContractResponseReceived;
-                this.contractsService.PetitionForContractReceived -= ContractsService_PetitionForContractReceived;
-                this.contractsService.PetitionedIdentityResponseReceived -= ContractsService_PetitionedIdentityResponseReceived;
-                this.contractsService.PetitionedPeerReviewIdResponseReceived -= ContractsService_PetitionedPeerReviewResponseReceived;
+                this.neuronService.Contracts.PetitionForPeerReviewIdReceived -= Contracts_PetitionForPeerReviewIdReceived;
+                this.neuronService.Contracts.PetitionForIdentityReceived -= Contracts_PetitionForIdentityReceived;
+                this.neuronService.Contracts.PetitionForSignatureReceived -= Contracts_PetitionForSignatureReceived;
+                this.neuronService.Contracts.PetitionedContractResponseReceived -= Contracts_PetitionedNeuronContractResponseReceived;
+                this.neuronService.Contracts.PetitionForContractReceived -= Contracts_PetitionForNeuronContractReceived;
+                this.neuronService.Contracts.PetitionedIdentityResponseReceived -= Contracts_PetitionedIdentityResponseReceived;
+                this.neuronService.Contracts.PetitionedPeerReviewIdResponseReceived -= Contracts_PetitionedPeerReviewResponseReceived;
                 this.EndUnload();
             }
 
@@ -67,7 +67,7 @@ namespace XamarinApp
 
         #region Event Handlers
 
-        private void ContractsService_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
+        private void Contracts_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
             Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -79,7 +79,7 @@ namespace XamarinApp
             );
         }
 
-        private async void ContractsService_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
+        private async void Contracts_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
         {
             LegalIdentity identity = null;
 
@@ -89,7 +89,7 @@ namespace XamarinApp
             }
             else
             {
-                (bool succeeded, LegalIdentity li) = await this.networkService.Request(this.navigationService, this.contractsService.GetLegalIdentityAsync, e.RequestedIdentityId);
+                (bool succeeded, LegalIdentity li) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetLegalIdentityAsync, e.RequestedIdentityId);
                 if (succeeded)
                 {
                     identity = li;
@@ -103,7 +103,7 @@ namespace XamarinApp
             if (identity.State == IdentityState.Compromised ||
                 identity.State == IdentityState.Rejected)
             {
-                await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionIdentityResponseAsync, e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionIdentityResponseAsync, e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
             }
             else
             {
@@ -117,13 +117,13 @@ namespace XamarinApp
             }
         }
 
-        private async void ContractsService_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
+        private async void Contracts_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
         {
             // Reject all signature requests by default
-            await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionSignatureResponseAsync, e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
+            await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionSignatureResponseAsync, e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
         }
 
-        private void ContractsService_PetitionedContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
+        private void Contracts_PetitionedNeuronContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
@@ -138,9 +138,9 @@ namespace XamarinApp
             });
         }
 
-        private async void ContractsService_PetitionForContractReceived(object sender, ContractPetitionEventArgs e)
+        private async void Contracts_PetitionForNeuronContractReceived(object sender, ContractPetitionEventArgs e)
         {
-            (bool succeeded, Contract contract) = await this.networkService.Request(this.navigationService, this.contractsService.GetContractAsync, e.RequestedContractId);
+            (bool succeeded, Contract contract) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetContractAsync, e.RequestedContractId);
 
             if (!succeeded)
                 return;
@@ -148,7 +148,7 @@ namespace XamarinApp
             if (contract.State == ContractState.Deleted ||
                 contract.State == ContractState.Rejected)
             {
-                await this.networkService.Request(this.navigationService, this.contractsService.SendPetitionContractResponseAsync, e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionContractResponseAsync, e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
             }
             else
             {
@@ -159,7 +159,7 @@ namespace XamarinApp
             }
         }
 
-        private async void ContractsService_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
+        private async void Contracts_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
         {
             if (!e.Response || e.RequestedIdentity is null)
             {
@@ -174,7 +174,7 @@ namespace XamarinApp
             }
         }
 
-        private async void ContractsService_PetitionedPeerReviewResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
+        private async void Contracts_PetitionedPeerReviewResponseReceived(object sender, SignaturePetitionResponseEventArgs e)
         {
             try
             {
@@ -191,7 +191,7 @@ namespace XamarinApp
 
                     try
                     {
-                        result = this.contractsService.ValidateSignature(e.RequestedIdentity, data, e.Signature);
+                        result = this.neuronService.Contracts.ValidateSignature(e.RequestedIdentity, data, e.Signature);
                     }
                     catch (Exception ex)
                     {
@@ -207,7 +207,7 @@ namespace XamarinApp
                         }
                         else
                         {
-                            (bool succeeded, LegalIdentity legalIdentity) = await this.networkService.Request(this.navigationService, this.contractsService.AddPeerReviewIdAttachment, tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
+                            (bool succeeded, LegalIdentity legalIdentity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.AddPeerReviewIdAttachment, tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
                             if (succeeded)
                             {
                                 await this.navigationService.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
@@ -230,7 +230,7 @@ namespace XamarinApp
         {
             try
             {
-                LegalIdentity identity = await this.contractsService.GetLegalIdentityAsync(legalId);
+                LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await this.navigationService.PushAsync(new ViewIdentityPage(identity));
@@ -242,7 +242,7 @@ namespace XamarinApp
                     new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
                     new KeyValuePair<string, string>("Method", nameof(OpenLegalIdentity)));
 
-                bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.PetitionIdentityAsync, legalId, Guid.NewGuid().ToString(), purpose);
+                bool succeeded = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.PetitionIdentityAsync, legalId, Guid.NewGuid().ToString(), purpose);
                 if (succeeded)
                 {
                     await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
@@ -254,7 +254,7 @@ namespace XamarinApp
         {
             try
             {
-                Contract contract = await this.contractsService.GetContractAsync(contractId);
+                Contract contract = await this.neuronService.Contracts.GetContractAsync(contractId);
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -270,7 +270,7 @@ namespace XamarinApp
                     new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
                     new KeyValuePair<string, string>("Method", nameof(OpenContract)));
 
-                bool succeeded = await this.networkService.Request(this.navigationService, this.contractsService.PetitionContractAsync, contractId, Guid.NewGuid().ToString(), purpose);
+                bool succeeded = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.PetitionContractAsync, contractId, Guid.NewGuid().ToString(), purpose);
                 if (succeeded)
                 {
                     await this.navigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
