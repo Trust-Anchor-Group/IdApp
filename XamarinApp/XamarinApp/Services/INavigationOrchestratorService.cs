@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Tag.Sdk.Core.Services;
 
 namespace XamarinApp.Services
 {

@@ -4,14 +4,18 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.Extensions;
+using Tag.Sdk.UI.ViewModels;
 using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using XamarinApp.Extensions;
 using XamarinApp.Models;
 using XamarinApp.Services;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
+using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels.Contracts
 {

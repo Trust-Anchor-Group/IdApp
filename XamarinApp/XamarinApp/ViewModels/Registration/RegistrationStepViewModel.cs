@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.Extensions;
+using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
-using XamarinApp.Extensions;
-using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
 {

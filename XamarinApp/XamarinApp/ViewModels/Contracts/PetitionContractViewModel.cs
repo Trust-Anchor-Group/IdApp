@@ -2,10 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Extensions;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using XamarinApp.Extensions;
-using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Contracts
 {

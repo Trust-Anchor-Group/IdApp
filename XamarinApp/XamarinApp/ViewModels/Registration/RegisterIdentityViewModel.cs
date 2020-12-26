@@ -1,18 +1,20 @@
-﻿using System;
+﻿using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Plugin.Media;
-using Plugin.Media.Abstractions;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Extensions;
+using Tag.Sdk.Core.Models;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using XamarinApp.Extensions;
-using XamarinApp.Models;
 using XamarinApp.PersonalNumbers;
-using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Registration
 {

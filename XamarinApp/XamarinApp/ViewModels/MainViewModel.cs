@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using XamarinApp.Services;
+using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels
 {

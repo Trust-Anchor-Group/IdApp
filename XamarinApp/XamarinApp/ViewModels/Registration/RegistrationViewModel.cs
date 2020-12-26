@@ -2,10 +2,12 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using XamarinApp.Services;
 using XamarinApp.Views;
+using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels.Registration
 {

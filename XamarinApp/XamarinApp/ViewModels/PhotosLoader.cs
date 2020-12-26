@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Extensions;
+using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using Xamarin.Forms;
-using XamarinApp.Extensions;
-using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels
 {

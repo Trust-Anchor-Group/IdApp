@@ -41,12 +41,9 @@
     <PackageReference Include="Waher.Runtime.Timing" Version="1.0.3" />
     <PackageReference Include="Waher.Script" Version="1.0.45" />
     <PackageReference Include="Waher.Security" Version="1.0.7" />
-</ItemGroup>
-
-<ItemGroup>
-  <Folder Include="Behaviors\" />
-  <Folder Include="Views\" />
-  <Folder Include="ViewModels\" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
+    <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
 </ItemGroup>
 
 </Project>

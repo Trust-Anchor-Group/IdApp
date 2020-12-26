@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Globalization;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Extensions;
+using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using XamarinApp.Extensions;
 
 namespace XamarinApp.ViewModels.Contracts
 {

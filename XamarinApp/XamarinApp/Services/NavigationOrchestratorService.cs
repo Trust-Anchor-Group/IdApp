@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Threading.Tasks;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Views.Registration;

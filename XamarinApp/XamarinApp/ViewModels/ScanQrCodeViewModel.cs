@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
 
 namespace XamarinApp.ViewModels

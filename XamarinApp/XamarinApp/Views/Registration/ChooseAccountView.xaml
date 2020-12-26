@@ -4,7 +4,7 @@
                       xmlns:registration="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
                       xmlns:resources="clr-namespace:XamarinApp;assembly=XamarinApp"
                       xmlns:converters="clr-namespace:XamarinApp.Views.Converters;assembly=XamarinApp"
-                      xmlns:behaviors="clr-namespace:XamarinApp.Behaviors;assembly=XamarinApp"
+                      xmlns:behaviors="clr-namespace:Tag.Sdk.UI.Behaviors;assembly=Tag.Sdk.UI"
                       x:Class="XamarinApp.Views.Registration.ChooseAccountView">
     <ContentView.Content>
 

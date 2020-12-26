@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Models;
-using XamarinApp.Services;
 using XamarinApp.Views.Contracts;
 
 namespace XamarinApp.ViewModels.Contracts

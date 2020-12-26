@@ -60,9 +60,14 @@
     <PackageReference Include="Waher.Security" Version="1.0.7" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.3.2" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
     <PackageReference Include="ZXing.Net.Mobile" Version="2.4.1" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="2.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tag.Sdk.Core\Tag.Sdk.Core.csproj" />
+    <ProjectReference Include="..\..\Tag.Sdk.UI\Tag.Sdk.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 

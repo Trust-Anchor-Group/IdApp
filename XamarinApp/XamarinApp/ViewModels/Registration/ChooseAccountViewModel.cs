@@ -2,12 +2,14 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using XamarinApp.Extensions;
-using XamarinApp.Services;
+using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels.Registration
 {

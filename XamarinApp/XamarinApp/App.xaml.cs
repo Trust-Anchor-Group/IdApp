@@ -6,10 +6,11 @@ using Autofac;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Tag.Sdk.Core;
+using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
-using XamarinApp.ViewModels;
 using Device = Xamarin.Forms.Device;
 
 namespace XamarinApp
