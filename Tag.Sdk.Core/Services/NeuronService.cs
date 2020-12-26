@@ -21,6 +21,7 @@ namespace Tag.Sdk.Core.Services
 {
     internal sealed class NeuronService : LoadableService, IInternalNeuronService
     {
+        private readonly Assembly appAssembly;
         private readonly INetworkService networkService;
         private readonly IInternalLogService logService;
         private readonly TagProfile tagProfile;
@@ -35,8 +36,9 @@ namespace Tag.Sdk.Core.Services
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
 
-        public NeuronService(TagProfile tagProfile, INetworkService networkService, INavigationService navigationService, IInternalLogService logService)
+        public NeuronService(Assembly appAssembly, TagProfile tagProfile, INetworkService networkService, INavigationService navigationService, IInternalLogService logService)
         {
+            this.appAssembly = appAssembly;
             this.networkService = networkService;
             this.logService = logService;
             this.tagProfile = tagProfile;
@@ -86,7 +88,7 @@ namespace Tag.Sdk.Core.Services
                     (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(domainName);
 
                     this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod,
-                        Constants.LanguageCodes.Default, GetType().Assembly, this.sniffer)
+                        Constants.LanguageCodes.Default, appAssembly, this.sniffer)
                     {
                         TrustServer = false,
                         AllowCramMD5 = false,

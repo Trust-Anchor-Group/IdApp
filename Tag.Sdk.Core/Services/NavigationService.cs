@@ -1,19 +1,19 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Text;
 using System.Threading.Tasks;
-using Waher.Runtime.Queue;
 using Xamarin.Forms;
 
 namespace Tag.Sdk.Core.Services
 {
     internal sealed class NavigationService : INavigationService
     {
-        private readonly AsyncQueue<MessageRecord> messageQueue;
+        private readonly ConcurrentQueue<MessageRecord> messageQueue;
         private bool isDisplayingMessages;
 
         public NavigationService()
         {
-            this.messageQueue = new AsyncQueue<MessageRecord>();
+            this.messageQueue = new ConcurrentQueue<MessageRecord>();
             this.isDisplayingMessages = false;
         }
 
@@ -49,33 +49,40 @@ namespace Tag.Sdk.Core.Services
             currPage.Navigation.RemovePage(currPage);
         }
 
-        public Task<bool> DisplayPrompt(string title, string message, string accept, string cancel)
+        private void StartDisplay()
         {
-            return Application.Current.MainPage.DisplayAlert(title, message, accept, cancel);
+            if (!this.isDisplayingMessages)
+            {
+                this.isDisplayingMessages = true;
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await DisplayAllMessages();
+                });
+            }
         }
 
-        public async Task DisplayAlert(string title, string message, string accept, string cancel)
+        public Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
         {
-            this.messageQueue.Add(new MessageRecord(title, message, accept, cancel));
-
-            if (!this.isDisplayingMessages)
-                await Device.InvokeOnMainThreadAsync(DisplayMessages);
+            MessageRecord record = new MessageRecord(title, message, accept, cancel);
+            this.messageQueue.Enqueue(record);
+            StartDisplay();
+            return record.CompletionSource.Task;
         }
 
-        public async Task DisplayAlert(string title, string message, string accept)
+        public Task DisplayAlert(string title, string message, string accept)
         {
-            this.messageQueue.Add(new MessageRecord(title, message, accept, null));
-
-            if (!this.isDisplayingMessages)
-                await Device.InvokeOnMainThreadAsync(DisplayMessages);
+            MessageRecord record = new MessageRecord(title, message, accept, null);
+            this.messageQueue.Enqueue(record);
+            StartDisplay();
+            return record.CompletionSource.Task;
         }
 
-        public async Task DisplayAlert(string title, string message)
+        public Task DisplayAlert(string title, string message)
         {
-            this.messageQueue.Add(new MessageRecord(title, message, null, null));
-
-            if (!this.isDisplayingMessages)
-                await Device.InvokeOnMainThreadAsync(DisplayMessages);
+            MessageRecord record = new MessageRecord(title, message, null, null);
+            this.messageQueue.Enqueue(record);
+            StartDisplay();
+            return record.CompletionSource.Task;
         }
 
         public async Task DisplayAlert(string title, string message, Exception exception)
@@ -112,32 +119,37 @@ namespace Tag.Sdk.Core.Services
             return this.DisplayAlert(AppResources.ErrorTitle, null, exception);
         }
 
-        private async Task DisplayMessages()
+        private async Task DisplayAllMessages()
         {
-            this.isDisplayingMessages = true;
             try
             {
                 do
                 {
-                    MessageRecord record = await this.messageQueue.Wait();
-                    if (string.IsNullOrWhiteSpace(record.Accept) && !string.IsNullOrWhiteSpace(record.Cancel))
+                    if (this.messageQueue.TryDequeue(out MessageRecord record))
                     {
-                        await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, record.Cancel);
-                    }
-                    else if (!string.IsNullOrWhiteSpace(record.Accept) && string.IsNullOrWhiteSpace(record.Cancel))
-                    {
-                        await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, record.Accept);
-                    }
-                    else if (string.IsNullOrWhiteSpace(record.Accept) && string.IsNullOrWhiteSpace(record.Cancel))
-                    {
-                        await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, AppResources.Ok);
-                    }
-                    else
-                    {
-                        await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, record.Accept, record.Cancel);
+                        if (string.IsNullOrWhiteSpace(record.Accept) && !string.IsNullOrWhiteSpace(record.Cancel))
+                        {
+                            await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, record.Cancel);
+                            record.CompletionSource.TrySetResult(true);
+                        }
+                        else if (!string.IsNullOrWhiteSpace(record.Accept) && string.IsNullOrWhiteSpace(record.Cancel))
+                        {
+                            await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, record.Accept);
+                            record.CompletionSource.TrySetResult(true);
+                        }
+                        else if (string.IsNullOrWhiteSpace(record.Accept) && string.IsNullOrWhiteSpace(record.Cancel))
+                        {
+                            await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, AppResources.Ok);
+                            record.CompletionSource.TrySetResult(true);
+                        }
+                        else
+                        {
+                            bool result = await Application.Current.MainPage.DisplayAlert(record.Title, record.Message, record.Accept, record.Cancel);
+                            record.CompletionSource.TrySetResult(result);
+                        }
                     }
                 }
-                while (this.messageQueue.CountItems > 0);
+                while (this.messageQueue.Count > 0);
             }
             finally
             {
@@ -155,12 +167,15 @@ namespace Tag.Sdk.Core.Services
                 Message = message;
                 Accept = accept;
                 Cancel = cancel;
+                CompletionSource = new TaskCompletionSource<bool>();
             }
 
             public string Title { get; }
             public string Message { get; }
             public string Accept { get; }
             public string Cancel { get; }
+
+            public TaskCompletionSource<bool> CompletionSource { get; }
         }
     }
 }
