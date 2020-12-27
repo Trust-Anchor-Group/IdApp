@@ -8,6 +8,14 @@
     <Copyright>Copyright © Trust Anchor Group 2019-2020. All rights reserved.</Copyright>  
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="SnifferXmlToHtml.xslt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SnifferXmlToHtml.xslt" />
+  </ItemGroup>
+
 <ItemGroup>
     <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.0.0" />
@@ -43,6 +51,21 @@
     <PackageReference Include="Waher.Security" Version="1.0.7" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.0" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1821" />
+</ItemGroup>
+
+<ItemGroup>
+  <Compile Update="AppResources.Designer.cs">
+    <DesignTime>True</DesignTime>
+    <AutoGen>True</AutoGen>
+    <DependentUpon>AppResources.resx</DependentUpon>
+  </Compile>
+</ItemGroup>
+
+<ItemGroup>
+  <EmbeddedResource Update="AppResources.resx">
+    <Generator>ResXFileCodeGenerator</Generator>
+    <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
+  </EmbeddedResource>
 </ItemGroup>
 
 </Project>

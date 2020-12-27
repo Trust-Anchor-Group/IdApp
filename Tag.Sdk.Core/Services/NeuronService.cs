@@ -565,7 +565,7 @@ namespace Tag.Sdk.Core.Services
             try
             {
                 var xslt = new XslCompiledTransform();
-                using (Stream xsltStream = this.GetType().Assembly.GetManifestResourceStream($"{typeof(App).Namespace}.SnifferXmlToHtml.xslt"))
+                using (Stream xsltStream = this.GetType().Assembly.GetManifestResourceStream($"{typeof(NeuronService).Namespace}.SnifferXmlToHtml.xslt"))
                 using (XmlReader reader = new XmlTextReader(xsltStream))
                 {
                     xslt.Load(reader);

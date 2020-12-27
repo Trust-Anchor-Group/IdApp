@@ -17,12 +17,10 @@
 
   <ItemGroup>
     <None Remove="PersonalNumbers\PersonalNumberSchemes.xml" />
-    <None Remove="SnifferXmlToHtml.xslt" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="PersonalNumbers\PersonalNumberSchemes.xml" />
-    <EmbeddedResource Include="SnifferXmlToHtml.xslt" />
   </ItemGroup>
 
   <ItemGroup>
