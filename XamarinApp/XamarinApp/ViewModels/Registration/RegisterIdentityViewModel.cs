@@ -10,11 +10,11 @@ using System.Windows.Input;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.Core.Models;
+using Tag.Sdk.Core.PersonalNumbers;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using XamarinApp.PersonalNumbers;
 
 namespace XamarinApp.ViewModels.Registration
 {

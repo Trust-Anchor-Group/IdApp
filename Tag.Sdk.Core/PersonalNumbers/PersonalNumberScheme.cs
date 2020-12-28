@@ -1,7 +1,7 @@
 ﻿using System;
 using Waher.Script;
 
-namespace XamarinApp.PersonalNumbers
+namespace Tag.Sdk.Core.PersonalNumbers
 {
 	/// <summary>
 	/// Checks personal numbers against a personal number scheme.

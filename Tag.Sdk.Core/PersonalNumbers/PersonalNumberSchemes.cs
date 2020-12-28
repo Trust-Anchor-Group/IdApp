@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using Waher.Content.Xml;
-using Waher.Events;
 using Waher.Script;
 
-namespace XamarinApp.PersonalNumbers
+namespace Tag.Sdk.Core.PersonalNumbers
 {
     /// <summary>
     /// Personal Number Schemes available in different countries.

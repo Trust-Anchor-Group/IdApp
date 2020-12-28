@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP.Contracts;
@@ -27,7 +26,6 @@ namespace XamarinApp.Services
         {
             if (this.BeginLoad())
             {
-                this.tagProfile.Changed += TagProfile_Changed;
                 this.neuronService.Loaded += NeuronService_Loaded;
                 this.EndLoad(true);
             }
@@ -38,17 +36,11 @@ namespace XamarinApp.Services
         {
             if (this.BeginUnload())
             {
-                this.tagProfile.Changed -= TagProfile_Changed;
                 this.neuronService.Loaded -= NeuronService_Loaded;
                 this.EndUnload();
             }
 
             return Task.CompletedTask;
-        }
-
-        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
-        {
-
         }
 
         private void NeuronService_Loaded(object sender, LoadedEventArgs e)

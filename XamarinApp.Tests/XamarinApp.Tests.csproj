@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="Moq" Version="4.15.2" />
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tag.Sdk.Core\Tag.Sdk.Core.csproj" />
+    <ProjectReference Include="..\Tag.Sdk.UI\Tag.Sdk.UI.csproj" />
+    <ProjectReference Include="..\XamarinApp\XamarinApp\XamarinApp.csproj" />
+  </ItemGroup>
+
+</Project>
