@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Tag.Sdk.UI.ViewModels;
 
-namespace XamarinApp.Tests.ViewModels
+namespace Tag.Sdk.UI.Tests.ViewModels
 {
     public abstract class ViewModelTests<T> where T : BaseViewModel
     {

@@ -2,10 +2,9 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 
-namespace XamarinApp.Tests.Services
+namespace Tag.Sdk.Core.Tests.Services
 {
     public class NetworkServiceTests
     {

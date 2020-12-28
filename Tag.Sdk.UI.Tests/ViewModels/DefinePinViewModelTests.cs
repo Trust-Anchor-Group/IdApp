@@ -1,11 +1,11 @@
 ﻿using Moq;
-using XamarinApp.Tests.Extensions;
+using Tag.Sdk.UI.Tests.Extensions;
 using XamarinApp.ViewModels.Registration;
 using NUnit.Framework;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 
-namespace XamarinApp.Tests.ViewModels
+namespace Tag.Sdk.UI.Tests.ViewModels
 {
     public class DefinePinViewModelTests : ViewModelTests<DefinePinViewModel>
     {
@@ -28,7 +28,7 @@ namespace XamarinApp.Tests.ViewModels
             Given(AViewModel)
                 .And(vm => vm.Pin = pin)
                 .And(vm => vm.ContinueCommand.IsExecuted())
-                .ThenAssert(() => navigationService.Verify(x => x.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength)), Times.Once))
+                .ThenAssert(() => navigationService.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, string.Format(XamarinApp.AppResources.PinTooShort, Constants.Authentication.MinPinLength)), Times.Once))
                 .Finally(() => navigationService.Reset());
         }
 
@@ -40,7 +40,7 @@ namespace XamarinApp.Tests.ViewModels
             Given(AViewModel)
                 .And(vm => vm.Pin = pin)
                 .And(vm => vm.ContinueCommand.IsExecuted())
-                .ThenAssert(() => navigationService.Verify(x => x.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace), Times.Once))
+                .ThenAssert(() => navigationService.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, XamarinApp.AppResources.PinMustNotIncludeWhitespace), Times.Once))
                 .ThenAssert(vm => vm.UsePin)
                 .Finally(() => navigationService.Reset());
         }

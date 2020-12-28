@@ -122,6 +122,12 @@
     </Compile>
   </ItemGroup>
 
+<ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+    <_Parameter1>Tag.Sdk.UI.Tests</_Parameter1>
+    </AssemblyAttribute>
+</ItemGroup>
+
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="if not exist &quot;$(SolutionDir)\..\Registration.cs.bak&quot; copy &quot;$(ProjectDir)Services\Registration.cs&quot; &quot;$(SolutionDir)\..\Registration.cs.bak&quot;&#xD;&#xA;if exist &quot;$(SolutionDir)\..\Registration.cs&quot; copy &quot;$(SolutionDir)\..\Registration.cs&quot; &quot;$(ProjectDir)&quot;Services\Registration.cs&#xD;&#xA;" />
   </Target>

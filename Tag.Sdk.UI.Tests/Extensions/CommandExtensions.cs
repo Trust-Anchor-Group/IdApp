@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace XamarinApp.Tests.Extensions
+namespace Tag.Sdk.UI.Tests.Extensions
 {
     public static class CommandExtensions
     {

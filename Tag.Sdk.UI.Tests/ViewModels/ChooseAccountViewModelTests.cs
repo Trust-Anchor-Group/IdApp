@@ -1,10 +1,10 @@
 ﻿using Moq;
 using NUnit.Framework;
 using Tag.Sdk.Core.Services;
-using XamarinApp.Tests.Extensions;
+using Tag.Sdk.UI.Tests.Extensions;
 using XamarinApp.ViewModels.Registration;
 
-namespace XamarinApp.Tests.ViewModels
+namespace Tag.Sdk.UI.Tests.ViewModels
 {
     public class ChooseAccountViewModelTests : ViewModelTests<ChooseAccountViewModel>
     {

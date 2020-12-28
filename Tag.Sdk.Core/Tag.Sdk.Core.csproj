@@ -70,8 +70,14 @@
 
 <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-    <_Parameter1>XamarinApp.Tests</_Parameter1>
+    <_Parameter1>Tag.Sdk.Core.Tests</_Parameter1>
     </AssemblyAttribute>
-  </ItemGroup>
+</ItemGroup>
   
+ <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+    <_Parameter1>Tag.Sdk.UI.Tests</_Parameter1>
+    </AssemblyAttribute>
+</ItemGroup>
+
 </Project>

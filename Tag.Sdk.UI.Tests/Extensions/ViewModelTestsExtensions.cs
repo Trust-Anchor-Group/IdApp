@@ -2,7 +2,7 @@
 using NUnit.Framework;
 using Tag.Sdk.UI.ViewModels;
 
-namespace XamarinApp.Tests.Extensions
+namespace Tag.Sdk.UI.Tests.Extensions
 {
     public static class ViewModelTestsExtensions
     {

@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
-using Tag.Sdk.Core;
 
-namespace XamarinApp.Tests
+namespace Tag.Sdk.Core.Tests
 {
     public class ConstantsTests
     {
