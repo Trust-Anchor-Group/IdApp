@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -45,7 +44,6 @@ namespace Tag.Sdk.Core.Services
             this.contracts = new NeuronContracts(this.tagProfile, this, navigationService, this.logService);
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
-            this.tagProfile.Changed += TagProfile_Changed;
         }
 
         public void Dispose()
@@ -53,7 +51,6 @@ namespace Tag.Sdk.Core.Services
             this.reconnectTimer?.Change(Timeout.Infinite, Timeout.Infinite);
 
             this.tagProfile.StepChanged -= TagProfile_StepChanged;
-            this.tagProfile.Changed -= TagProfile_Changed;
 
             this.DestroyXmppClient();
             this.Contracts.Dispose();
@@ -164,14 +161,6 @@ namespace Tag.Sdk.Core.Services
             else if (ShouldDestroyClient())
             {
                 this.DestroyXmppClient();
-            }
-        }
-
-        private async void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
-        {
-            if (ShouldCreateClient() && this.tagProfile.IsComplete())
-            {
-                await this.CreateXmppClient();
             }
         }
 

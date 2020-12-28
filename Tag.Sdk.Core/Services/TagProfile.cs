@@ -13,7 +13,7 @@ namespace Tag.Sdk.Core.Services
 {
     public class TagProfile
     {
-        private readonly Dictionary<string, KeyValuePair<string, string>> clp;
+        private readonly Dictionary<string, KeyValuePair<string, string>> domains;
         public event EventHandler StepChanged;
         public event PropertyChangedEventHandler Changed;
         private LegalIdentity legalIdentity;
@@ -33,14 +33,14 @@ namespace Tag.Sdk.Core.Services
         private RegistrationStep step = RegistrationStep.Operator;
         private bool suppressPropertyChangedEvents;
 
-        public TagProfile(params DomainModel[] domains)
+        public TagProfile(params DomainModel[] domainModels)
         {
-            clp = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase);
-            if (domains != null && domains.Length > 0)
+            this.domains = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase);
+            if (domainModels != null && domainModels.Length > 0)
             {
-                foreach (DomainModel domainModel in domains)
+                foreach (DomainModel domainModel in domainModels)
                 {
-                    clp[domainModel.Name] = new KeyValuePair<string, string>(domainModel.Key, domainModel.Secret);
+                    this.domains[domainModel.Name] = new KeyValuePair<string, string>(domainModel.Key, domainModel.Secret);
                 }
             }
         }
@@ -106,7 +106,7 @@ namespace Tag.Sdk.Core.Services
             }
         }
 
-        public bool NeedsUpdating()
+        public virtual bool NeedsUpdating()
         {
             return string.IsNullOrWhiteSpace(this.LegalJid) ||
                    string.IsNullOrWhiteSpace(this.RegistryJid) ||
@@ -115,17 +115,17 @@ namespace Tag.Sdk.Core.Services
                    string.IsNullOrWhiteSpace(this.LogJid);
         }
 
-        public bool LegalIdentityNeedsUpdating()
+        public virtual bool LegalIdentityNeedsUpdating()
         {
             return this.legalIdentity.NeedsUpdating();
         }
 
-        public bool IsCompleteOrWaitingForValidation()
+        public virtual bool IsCompleteOrWaitingForValidation()
         {
             return this.Step >= RegistrationStep.ValidateIdentity;
         }
 
-        public bool IsComplete()
+        public virtual bool IsComplete()
         {
             return this.Step == RegistrationStep.Complete;
         }
@@ -324,7 +324,7 @@ namespace Tag.Sdk.Core.Services
             }
         }
 
-        public string[] Domains => this.clp.Keys.ToArray();
+        public string[] Domains => this.domains.Keys.ToArray();
 
         public bool IsDirty { get; private set; }
 
@@ -571,7 +571,7 @@ namespace Tag.Sdk.Core.Services
 
         public bool TryGetKeys(string domainName, out string apiKey, out string secret)
         {
-            if (clp.TryGetValue(domainName, out KeyValuePair<string, string> entry))
+            if (domains.TryGetValue(domainName, out KeyValuePair<string, string> entry))
             {
                 apiKey = entry.Key;
                 secret = entry.Value;

@@ -7,7 +7,7 @@ using XamarinApp.Views.Registration;
 
 namespace XamarinApp.Services
 {
-    internal sealed class NavigationOrchestratorService : LoadableService, INavigationOrchestratorService
+    internal class NavigationOrchestratorService : LoadableService, INavigationOrchestratorService
     {
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
@@ -47,9 +47,14 @@ namespace XamarinApp.Services
         {
             if (this.tagProfile.LegalIdentity != null && this.tagProfile.IsCompleteOrWaitingForValidation())
             {
-                // Run asynchronously so we're not blocking startup UI.
-                _ = DownloadLegalIdentity(this.tagProfile.LegalIdentity.Id);
+                DownloadLegalIdentityInternal(this.tagProfile.LegalIdentity.Id);
             }
+        }
+
+        protected virtual void DownloadLegalIdentityInternal(string legalId)
+        {
+            // Run asynchronously so we're not blocking startup UI.
+            _ = DownloadLegalIdentity(this.tagProfile.LegalIdentity.Id);
         }
 
         private async Task DownloadLegalIdentity(string legalId)
