@@ -2,7 +2,8 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using XamarinApp.Services;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
 
 namespace XamarinApp.Tests.Services
 {
@@ -61,7 +62,7 @@ namespace XamarinApp.Tests.Services
 
             this.logService.Verify(x => x.LogException(It.IsAny<TException>()), Times.Once);
             this.logService.Reset();
-            this.navigationService.Verify(x => x.DisplayAlert(It.Is<string>(title => title.Equals(AppResources.ErrorTitle)), It.Is<string>(msg => msg.Equals(message))), Times.Once);
+            this.navigationService.Verify(x => x.DisplayAlert(It.Is<string>(title => title.Equals(Tag.Sdk.Core.AppResources.ErrorTitle)), It.Is<string>(msg => msg.Equals(message))), Times.Once);
             this.navigationService.Reset();
         }
 

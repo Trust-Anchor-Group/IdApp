@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using Tag.Sdk.Core.Extensions;
+using Tag.Sdk.Core.Models;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
 using Waher.Security;
 
 namespace Tag.Sdk.Core.Services
 {
-    public partial class TagProfile
+    public class TagProfile
     {
+        private readonly Dictionary<string, KeyValuePair<string, string>> clp;
         public event EventHandler StepChanged;
         public event PropertyChangedEventHandler Changed;
         private LegalIdentity legalIdentity;
@@ -29,6 +32,18 @@ namespace Tag.Sdk.Core.Services
         private bool usePin;
         private RegistrationStep step = RegistrationStep.Operator;
         private bool suppressPropertyChangedEvents;
+
+        public TagProfile(params DomainModel[] domains)
+        {
+            clp = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase);
+            if (domains != null && domains.Length > 0)
+            {
+                foreach (DomainModel domainModel in domains)
+                {
+                    clp[domainModel.Name] = new KeyValuePair<string, string>(domainModel.Key, domainModel.Secret);
+                }
+            }
+        }
 
         protected virtual void OnStepChanged(EventArgs e)
         {

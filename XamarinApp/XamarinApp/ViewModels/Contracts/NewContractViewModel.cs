@@ -15,7 +15,6 @@ using XamarinApp.Models;
 using XamarinApp.Services;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
-using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels.Contracts
 {

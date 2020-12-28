@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
-             xmlns:behaviors="clr-namespace:XamarinApp.Behaviors;assembly=XamarinApp"
+             xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
+             xmlns:behaviors="clr-namespace:Tag.Sdk.UI.Behaviors;assembly=Tag.Sdk.UI"
              x:Class="XamarinApp.Views.Registration.DefinePinView">
     <ContentView.Content>
         <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="PinContent">

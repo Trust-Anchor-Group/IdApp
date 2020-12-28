@@ -4,7 +4,6 @@ using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
 using Xamarin.Forms;
-using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels.Registration
 {

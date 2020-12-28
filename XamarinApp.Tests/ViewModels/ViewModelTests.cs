@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using XamarinApp.ViewModels;
+using Tag.Sdk.UI.ViewModels;
 
 namespace XamarinApp.Tests.ViewModels
 {

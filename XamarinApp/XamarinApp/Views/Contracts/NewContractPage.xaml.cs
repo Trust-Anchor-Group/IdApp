@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
+using Tag.Sdk.Core.Services;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Waher.Networking.XMPP.Contracts;
-using XamarinApp.Services;
 using XamarinApp.ViewModels.Contracts;
 
 namespace XamarinApp.Views.Contracts
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewContractPage
 	{
         private readonly INavigationService navigationService;

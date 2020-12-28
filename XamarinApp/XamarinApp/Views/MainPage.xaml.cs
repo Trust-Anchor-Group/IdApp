@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

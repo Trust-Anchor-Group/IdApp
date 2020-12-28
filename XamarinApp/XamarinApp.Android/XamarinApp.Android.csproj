@@ -135,6 +135,14 @@
     <AndroidResource Include="Resources\drawable\tag_bg2.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Tag.Sdk.Core\Tag.Sdk.Core.csproj">
+      <Project>{a03cdd5c-5c92-4a79-8a70-352fad69d4ff}</Project>
+      <Name>Tag.Sdk.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tag.Sdk.UI\Tag.Sdk.UI.csproj">
+      <Project>{ea04673f-952d-46a2-831a-0ac2e0bc5c38}</Project>
+      <Name>Tag.Sdk.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XamarinApp\XamarinApp.csproj">
       <Project>{0B87180D-E3C9-473B-9268-74F859E5E267}</Project>
       <Name>XamarinApp</Name>

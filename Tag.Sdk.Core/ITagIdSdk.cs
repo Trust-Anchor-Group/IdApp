@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Tag.Sdk.Core.Services;
-using Xamarin.Forms;
 
 namespace Tag.Sdk.Core
 {
     public interface ITagIdSdk : IDisposable
     {
-        Task Startup(Application application);
+        Task Startup();
         Task Shutdown();
         Task ShutdownInPanic();
         void AutoSave();

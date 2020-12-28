@@ -30,7 +30,7 @@ namespace XamarinApp
 			InitializeComponent();
 			// Registrations
             ContainerBuilder builder = new ContainerBuilder();
-            this.sdk = TagIdSdk.Create(this);
+            this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
             builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
 			builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
 			builder.RegisterInstance(this.sdk.AuthService).SingleInstance();

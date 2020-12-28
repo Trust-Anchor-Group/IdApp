@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Tag.Sdk.Core.Services;
+using Xamarin.Forms;
 using XamarinApp.Services;
 using XamarinApp.ViewModels.Registration;
 

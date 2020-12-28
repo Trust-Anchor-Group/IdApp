@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
-using Xamarin.Forms;
+using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP.Contracts;
-using XamarinApp.Services;
+using Xamarin.Forms;
 using XamarinApp.ViewModels.Contracts;
 
 namespace XamarinApp.Views.Contracts

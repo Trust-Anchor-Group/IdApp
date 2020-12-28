@@ -11,7 +11,6 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Views;
-using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels.Registration
 {

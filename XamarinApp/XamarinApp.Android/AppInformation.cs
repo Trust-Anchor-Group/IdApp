@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Tag.Sdk.Core;
 
 [assembly: Xamarin.Forms.Dependency(typeof(XamarinApp.Droid.AppInformation))]
 namespace XamarinApp.Droid

@@ -4,7 +4,6 @@ using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using TagProfile = XamarinApp.Services.TagProfile;
 
 namespace XamarinApp.ViewModels
 {

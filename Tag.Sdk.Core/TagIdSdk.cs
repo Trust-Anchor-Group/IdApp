@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Tag.Sdk.Core.Models;
 using Tag.Sdk.Core.Services;
 using Waher.Events;
 using Waher.Networking.XMPP;
@@ -23,9 +24,9 @@ namespace Tag.Sdk.Core
         private readonly Assembly appAssembly;
         private FilesProvider filesProvider;
 
-        private TagIdSdk(Application app)
+        private TagIdSdk(Application app, params DomainModel[] domains)
         {
-            this.TagProfile = new TagProfile();
+            this.TagProfile = new TagProfile(domains);
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
             this.AuthService = new AuthService(this.LogService);
             this.NetworkService = new NetworkService(this.LogService);
@@ -41,9 +42,9 @@ namespace Tag.Sdk.Core
             instance = null;
         }
 
-        public static ITagIdSdk Create(Application app)
+        public static ITagIdSdk Create(Application app, params DomainModel[] domains)
         {
-            return instance ?? (instance = new TagIdSdk(app));
+            return instance ?? (instance = new TagIdSdk(app, domains));
         }
 
         public TagProfile TagProfile { get; }
@@ -57,7 +58,7 @@ namespace Tag.Sdk.Core
         private readonly IInternalLogService logService;
         public ILogService LogService => logService;
 
-        public async Task Startup(Application application)
+        public async Task Startup()
         {
             Types.Initialize(
                 this.appAssembly,

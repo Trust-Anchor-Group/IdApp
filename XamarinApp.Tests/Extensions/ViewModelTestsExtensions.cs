@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using XamarinApp.ViewModels;
+using Tag.Sdk.UI.ViewModels;
 
 namespace XamarinApp.Tests.Extensions
 {

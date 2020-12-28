@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using Tag.Sdk.Core;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(XamarinApp.iOS.AppInformation))]

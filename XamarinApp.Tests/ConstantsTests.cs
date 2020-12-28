@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Tag.Sdk.Core;
 
 namespace XamarinApp.Tests
 {

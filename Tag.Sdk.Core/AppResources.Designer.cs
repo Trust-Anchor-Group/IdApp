@@ -61,6 +61,15 @@ namespace Tag.Sdk.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account name {0} is already taken. Choose another..
+        /// </summary>
+        internal static string AccountNameAlreadyTaken {
+            get {
+                return ResourceManager.GetString("AccountNameAlreadyTaken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string AnErrorHasOccurred {
@@ -79,6 +88,24 @@ namespace Tag.Sdk.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
+        /// </summary>
+        internal static string DomainDoesNotFollowEncryptionPolicy {
+            get {
+                return ResourceManager.GetString("DomainDoesNotFollowEncryptionPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is not a valid operator.
+        /// </summary>
+        internal static string DomainIsNotAValidOperator {
+            get {
+                return ResourceManager.GetString("DomainIsNotAValidOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred.
         /// </summary>
         internal static string ErrorTitle {
@@ -88,11 +115,29 @@ namespace Tag.Sdk.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid username or password.
+        /// </summary>
+        internal static string InvalidUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The operator {0} does not support registration of new accounts.
+        /// </summary>
+        internal static string OperatorDoesNotSupportRegisteringNewAccounts {
+            get {
+                return ResourceManager.GetString("OperatorDoesNotSupportRegisteringNewAccounts", resourceCulture);
             }
         }
         
@@ -120,6 +165,15 @@ namespace Tag.Sdk.Core {
         internal static string ThereIsNoNetwork {
             get {
                 return ResourceManager.GetString("ThereIsNoNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to authenticate with {0}.
+        /// </summary>
+        internal static string UnableToAuthenticateWith {
+            get {
+                return ResourceManager.GetString("UnableToAuthenticateWith", resourceCulture);
             }
         }
         

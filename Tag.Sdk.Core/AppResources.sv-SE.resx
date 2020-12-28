@@ -117,17 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountNameAlreadyTaken" xml:space="preserve">
+    <value>Kontonamnet {0} är redan taget. Prova med ett annat.</value>
+  </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Kan inte ansluta till {0}</value>
   </data>
+  <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
+    <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
+  </data>
+  <data name="DomainIsNotAValidOperator" xml:space="preserve">
+    <value>{0} är inte en giltig operatör</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Ogiltigt användarnamn eller lösenord</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
+    <value>Operatören {0} stödjer inte registrering av nya konton</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>Begäran tog för lång tid</value>
@@ -137,6 +152,9 @@
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>Nätverk saknas</value>
+  </data>
+  <data name="UnableToAuthenticateWith" xml:space="preserve">
+    <value>Kan inte autentisera med {0}</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>

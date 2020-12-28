@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.Services;

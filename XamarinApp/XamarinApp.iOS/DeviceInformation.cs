@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Tag.Sdk.Core;
+using Xamarin.Forms;
 using UIKit;
 
 [assembly: Dependency(typeof(XamarinApp.iOS.DeviceInformation))]

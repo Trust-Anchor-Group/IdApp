@@ -1,8 +1,9 @@
 ﻿using Moq;
-using XamarinApp.Services;
 using XamarinApp.Tests.Extensions;
 using XamarinApp.ViewModels.Registration;
 using NUnit.Framework;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
 
 namespace XamarinApp.Tests.ViewModels
 {

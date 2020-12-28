@@ -117,17 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountNameAlreadyTaken" xml:space="preserve">
+    <value>Account name {0} is already taken. Choose another.</value>
+  </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>An error has occurred</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Can't connect to {0}</value>
   </data>
+  <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
+    <value>{0} does not follow the ubiquitous encryption policy</value>
+  </data>
+  <data name="DomainIsNotAValidOperator" xml:space="preserve">
+    <value>{0} is not a valid operator</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>An error occurred</value>
   </data>
+  <data name="InvalidUsernameOrPassword" xml:space="preserve">
+    <value>Invalid username or password</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
+    <value>The operator {0} does not support registration of new accounts</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>The request timed out</value>
@@ -137,6 +152,9 @@
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>There is no network</value>
+  </data>
+  <data name="UnableToAuthenticateWith" xml:space="preserve">
+    <value>Unable to authenticate with {0}</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>

@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XamarinApp.Services;
 using XamarinApp.ViewModels;
 
 namespace XamarinApp.Views
