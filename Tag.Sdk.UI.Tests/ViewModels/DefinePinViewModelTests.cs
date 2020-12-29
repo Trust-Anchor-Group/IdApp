@@ -13,10 +13,11 @@ namespace Tag.Sdk.UI.Tests.ViewModels
         private readonly Mock<INavigationService> navigationService = new Mock<INavigationService>();
         private readonly Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         private readonly Mock<ILogService> logService = new Mock<ILogService>();
-        
+        private readonly Mock<IDispatcher> dispatcher = new Mock<IDispatcher>();
+
         protected override DefinePinViewModel AViewModel()
         {
-            return new DefinePinViewModel(new TagProfile(), neuronService.Object, navigationService.Object, this.settingsService.Object, this.logService.Object);
+            return new DefinePinViewModel(new TagProfile(), dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.logService.Object);
         }
 
         [Test]
@@ -28,7 +29,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
             Given(AViewModel)
                 .And(vm => vm.Pin = pin)
                 .And(vm => vm.ContinueCommand.IsExecuted())
-                .ThenAssert(() => navigationService.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, string.Format(XamarinApp.AppResources.PinTooShort, Constants.Authentication.MinPinLength)), Times.Once))
+                .ThenAssert(() => dispatcher.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, string.Format(XamarinApp.AppResources.PinTooShort, Constants.Authentication.MinPinLength)), Times.Once))
                 .Finally(() => navigationService.Reset());
         }
 
@@ -40,7 +41,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
             Given(AViewModel)
                 .And(vm => vm.Pin = pin)
                 .And(vm => vm.ContinueCommand.IsExecuted())
-                .ThenAssert(() => navigationService.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, XamarinApp.AppResources.PinMustNotIncludeWhitespace), Times.Once))
+                .ThenAssert(() => dispatcher.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, XamarinApp.AppResources.PinMustNotIncludeWhitespace), Times.Once))
                 .ThenAssert(vm => vm.UsePin)
                 .Finally(() => navigationService.Reset());
         }

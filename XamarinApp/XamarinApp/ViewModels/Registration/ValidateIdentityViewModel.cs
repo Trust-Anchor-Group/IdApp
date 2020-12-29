@@ -11,6 +11,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Views;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -21,12 +22,13 @@ namespace XamarinApp.ViewModels.Registration
 
         public ViewIdentityViewModel(
             TagProfile tagProfile,
+            IDispatcher dispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService)
-            : base(RegistrationStep.ValidateIdentity, tagProfile, neuronService, navigationService, settingsService, logService)
+            : base(RegistrationStep.ValidateIdentity, tagProfile, dispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
@@ -355,14 +357,14 @@ namespace XamarinApp.ViewModels.Registration
 
             if (!Constants.IoTSchemes.StartsWithIdScheme(code))
             {
-                await this.NavigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+                await this.Dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
                 return;
             }
 
-            bool succeeded = await this.networkService.Request(this.NavigationService, this.NeuronService.Contracts.PetitionPeerReviewIdAsync, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
+            bool succeeded = await this.networkService.Request(this.NeuronService.Contracts.PetitionPeerReviewIdAsync, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
             if (succeeded)
             {
-                await this.NavigationService.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
+                await this.Dispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }
         }
 

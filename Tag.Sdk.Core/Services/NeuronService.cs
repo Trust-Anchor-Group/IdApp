@@ -13,6 +13,7 @@ using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Networking.XMPP.MUC;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.ServiceDiscovery;
 
@@ -27,6 +28,7 @@ namespace Tag.Sdk.Core.Services
         private Timer reconnectTimer;
         private XmppClient xmppClient;
         private readonly NeuronContracts contracts;
+        private readonly NeuronChats chats;
         private string domainName;
         private string accountName;
         private string passwordHash;
@@ -35,13 +37,14 @@ namespace Tag.Sdk.Core.Services
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
 
-        public NeuronService(Assembly appAssembly, TagProfile tagProfile, INetworkService networkService, INavigationService navigationService, IInternalLogService logService)
+        public NeuronService(Assembly appAssembly, TagProfile tagProfile, IDispatcher dispatcher, INetworkService networkService, IInternalLogService logService)
         {
             this.appAssembly = appAssembly;
             this.networkService = networkService;
             this.logService = logService;
             this.tagProfile = tagProfile;
-            this.contracts = new NeuronContracts(this.tagProfile, this, navigationService, this.logService);
+            this.contracts = new NeuronContracts(this.tagProfile, dispatcher, this, this.logService);
+            this.chats = new NeuronChats(this.tagProfile, dispatcher, this, this.logService);
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
         }
@@ -294,6 +297,7 @@ namespace Tag.Sdk.Core.Services
         #endregion
 
         public INeuronContracts Contracts => this.contracts;
+        public INeuronChats Chats => this.chats;
 
         private enum ConnectOperation
         {
@@ -480,6 +484,20 @@ namespace Tag.Sdk.Core.Services
             return Task.FromResult(new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize));
         }
 
+        public Task<MultiUserChatClient> CreateMultiUserChatClientAsync()
+        {
+            if (this.xmppClient == null)
+            {
+                throw new InvalidOperationException("XmppClient is not connected");
+            }
+            if (string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
+            {
+                throw new InvalidOperationException("MucJid is not defined");
+            }
+
+            return Task.FromResult(new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid));
+        }
+
         public async Task<bool> DiscoverServices(XmppClient client = null)
         {
             client = client ?? xmppClient;
@@ -530,12 +548,23 @@ namespace Tag.Sdk.Core.Services
                 {
                     this.tagProfile.SetLogJId(item.JID);
                 }
+
+                if (itemResponse.HasFeature(MultiUserChatClient.NamespaceMuc))
+                {
+                    this.tagProfile.SetMucJId(item.JID);
+                }
             }
 
             if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
                 return  false;
 
             if (string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) || !this.tagProfile.HttpFileUploadMaxSize.HasValue)
+                return false;
+
+            if (string.IsNullOrWhiteSpace(this.tagProfile.LogJid))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
                 return false;
 
             return true;

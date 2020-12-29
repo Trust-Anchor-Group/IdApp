@@ -1,5 +1,6 @@
 ﻿using Moq;
 using NUnit.Framework;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Tests.Extensions;
 using XamarinApp.ViewModels.Registration;
@@ -8,6 +9,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
 {
     public class ChooseAccountViewModelTests : ViewModelTests<ChooseAccountViewModel>
     {
+        private readonly Mock<IDispatcher> dispatcher = new Mock<IDispatcher>();
         private readonly Mock<INeuronService> neuronService = new Mock<INeuronService>();
         private readonly Mock<INavigationService> navigationService = new Mock<INavigationService>();
         private readonly Mock<IAuthService> authService = new Mock<IAuthService>();
@@ -23,7 +25,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
 
         protected override ChooseAccountViewModel AViewModel()
         {
-            return new ChooseAccountViewModel(new TagProfile(), neuronService.Object, navigationService.Object, this.settingsService.Object, authService.Object, this.networkService.Object, this.logService.Object);
+            return new ChooseAccountViewModel(new TagProfile(), dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, authService.Object, this.networkService.Object, this.logService.Object);
         }
 
         [Test]

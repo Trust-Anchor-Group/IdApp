@@ -10,11 +10,13 @@ namespace Tag.Sdk.Core.Services
     {
         private const int DefaultXmppPortNumber = 5222;
         private readonly ILogService logService;
+        private readonly IDispatcher dispatcher;
 
         public event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged; 
 
-        public NetworkService(ILogService logService)
+        public NetworkService(ILogService logService, IDispatcher dispatcher)
         {
+            this.dispatcher = dispatcher;
             this.logService = logService;
             if (DeviceInfo.Platform != DevicePlatform.Unknown) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
             {
@@ -54,9 +56,9 @@ namespace Tag.Sdk.Core.Services
             return (domainName, DefaultXmppPortNumber);
         }
 
-        public async Task<bool> Request(INavigationService navigationService, Func<Task> func, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request(Func<Task> func, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func();
                 return true;
@@ -64,9 +66,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1>(INavigationService navigationService, Func<TIn1, Task> func, TIn1 p1, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1>(Func<TIn1, Task> func, TIn1 p1, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1);
                 return true;
@@ -74,9 +76,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2>(INavigationService navigationService, Func<TIn1, TIn2, Task> func, TIn1 p1, TIn2 p2, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2>(Func<TIn1, TIn2, Task> func, TIn1 p1, TIn2 p2, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2);
                 return true;
@@ -84,9 +86,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3>(Func<TIn1, TIn2, TIn3, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3);
                 return true;
@@ -94,9 +96,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4>(Func<TIn1, TIn2, TIn3, TIn4, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4);
                 return true;
@@ -104,9 +106,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4, p5);
                 return true;
@@ -114,9 +116,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4, p5, p6);
                 return true;
@@ -124,9 +126,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4, p5, p6, p7);
                 return true;
@@ -134,9 +136,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4, p5, p6, p7, p8);
                 return true;
@@ -144,9 +146,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4, p5, p6, p7, p8, p9);
                 return true;
@@ -154,9 +156,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
                 return true;
@@ -164,9 +166,9 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, TIn11 p11, bool rethrowException = false, bool displayAlert = true)
+        public async Task<bool> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, Task> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, TIn11 p11, bool rethrowException = false, bool displayAlert = true)
         {
-            (bool succeeded, bool _) = await PerformRequestInner(navigationService, async () =>
+            (bool succeeded, bool _) = await PerformRequestInner(async () =>
             {
                 await func(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11);
                 return true;
@@ -174,67 +176,67 @@ namespace Tag.Sdk.Core.Services
             return succeeded;
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TReturn>(INavigationService navigationService, Func<Task<TReturn>> func, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TReturn>(Func<Task<TReturn>> func, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(), rethrowException);
+            return PerformRequestInner(async () => await func(), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TReturn>(INavigationService navigationService, Func<TIn1, Task<TReturn>> func, TIn1 p1, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TReturn>(Func<TIn1, Task<TReturn>> func, TIn1 p1, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1), rethrowException);
+            return PerformRequestInner(async () => await func(p1), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, Task<TReturn>> func, TIn1 p1, TIn2 p2, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TReturn>(Func<TIn1, TIn2, Task<TReturn>> func, TIn1 p1, TIn2 p2, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TReturn>(Func<TIn1, TIn2, TIn3, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4, p5), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4, p5), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4, p5, p6), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4, p5, p6), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4, p5, p6, p7), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4, p5, p6, p7), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4, p5, p6, p7, p8), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4, p5, p6, p7, p8), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4, p5, p6, p7, p8, p9), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4, p5, p6, p7, p8, p9), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10), rethrowException);
         }
 
-        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TReturn>(INavigationService navigationService, Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, TIn11 p11, bool rethrowException = false, bool displayAlert = true)
+        public Task<(bool Succeeded, TReturn ReturnValue)> Request<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, TReturn>(Func<TIn1, TIn2, TIn3, TIn4, TIn5, TIn6, TIn7, TIn8, TIn9, TIn10, TIn11, Task<TReturn>> func, TIn1 p1, TIn2 p2, TIn3 p3, TIn4 p4, TIn5 p5, TIn6 p6, TIn7 p7, TIn8 p8, TIn9 p9, TIn10 p10, TIn11 p11, bool rethrowException = false, bool displayAlert = true)
         {
-            return PerformRequestInner(navigationService, async () => await func(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11), rethrowException);
+            return PerformRequestInner(async () => await func(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11), rethrowException);
         }
 
-        private async Task<(bool Succeeded, TReturn ReturnValue)> PerformRequestInner<TReturn>(INavigationService navigationService, Func<Task<TReturn>> func, bool rethrowException = false, bool displayAlert = true)
+        private async Task<(bool Succeeded, TReturn ReturnValue)> PerformRequestInner<TReturn>(Func<Task<TReturn>> func, bool rethrowException = false, bool displayAlert = true)
         {
             Exception thrownException;
             try
@@ -245,7 +247,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(thrownException);
                     if (displayAlert)
                     {
-                        await navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.ThereIsNoNetwork);
+                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ThereIsNoNetwork);
                     }
                 }
                 else
@@ -262,7 +264,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(te);
                     if (displayAlert)
                     {
-                        await navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
+                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
                     }
                 }
                 else if (ae.InnerException is TaskCanceledException tce)
@@ -270,7 +272,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(tce);
                     if (displayAlert)
                     {
-                        await navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
+                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
                     }
                 }
                 else if (ae.InnerException != null)
@@ -278,7 +280,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(ae.InnerException);
                     if (displayAlert)
                     {
-                        await navigationService.DisplayAlert(AppResources.ErrorTitle, ae.InnerException.Message);
+                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ae.InnerException.Message);
                     }
                 }
                 else
@@ -286,7 +288,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(ae);
                     if (displayAlert)
                     {
-                        await navigationService.DisplayAlert(AppResources.ErrorTitle, ae.Message);
+                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ae.Message);
                     }
                 }
             }
@@ -296,7 +298,7 @@ namespace Tag.Sdk.Core.Services
                 logService.LogException(te);
                 if (displayAlert)
                 {
-                    await navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
                 }
             }
             catch (TaskCanceledException tce)
@@ -305,7 +307,7 @@ namespace Tag.Sdk.Core.Services
                 logService.LogException(tce);
                 if (displayAlert)
                 {
-                    await navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
                 }
             }
             catch (Exception e)
@@ -314,7 +316,7 @@ namespace Tag.Sdk.Core.Services
                 logService.LogException(e);
                 if (displayAlert)
                 {
-                    await navigationService.DisplayAlert(AppResources.ErrorTitle, e.Message);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, e.Message);
                 }
             }
 

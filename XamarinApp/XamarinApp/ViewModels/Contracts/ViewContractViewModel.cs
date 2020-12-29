@@ -16,12 +16,14 @@ using XamarinApp.Extensions;
 using XamarinApp.Models;
 using XamarinApp.Services;
 using XamarinApp.Views.Contracts;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Contracts
 {
     public class ViewContractViewModel : BaseViewModel
     {
         private Contract contract;
+        private readonly IDispatcher dispatcher;
         private readonly ILogService logService;
         private readonly INavigationService navigationService;
         private readonly INeuronService neuronService;
@@ -34,6 +36,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.contract = contract;
             this.IsReadOnly = isReadOnly;
 
+            this.dispatcher = DependencyService.Resolve<IDispatcher>();
             this.logService = DependencyService.Resolve<ILogService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
@@ -407,7 +410,7 @@ namespace XamarinApp.ViewModels.Contracts
             {
                 this.logService.LogException(ex, new KeyValuePair<string, string>("Method", nameof(LoadContract)), new KeyValuePair<string, string>("ContractId", this.contract.ContractId));
                 ClearContract();
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -434,7 +437,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -446,14 +449,14 @@ namespace XamarinApp.ViewModels.Contracts
                 {
                     Contract signedContract = await this.neuronService.Contracts.SignContractAsync(this.contract, roleId, false);
 
-                    await this.navigationService.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
+                    await this.dispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
                     await this.navigationService.ReplaceAsync(new ViewContractPage(signedContract, false));
                 }
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -472,7 +475,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -484,7 +487,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -494,13 +497,13 @@ namespace XamarinApp.ViewModels.Contracts
             {
                 Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContractAsync(this.contract.ContractId);
 
-                await this.navigationService.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
+                await this.dispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
                 await this.navigationService.PushAsync(new ViewContractPage(obsoletedContract, false));
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -510,13 +513,13 @@ namespace XamarinApp.ViewModels.Contracts
             {
                 Contract deletedContract = await this.neuronService.Contracts.DeleteContractAsync(this.contract.ContractId);
 
-                await this.navigationService.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
+                await this.dispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 
                 await this.navigationService.PushAsync(new ViewContractPage(deletedContract, false));
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
     }

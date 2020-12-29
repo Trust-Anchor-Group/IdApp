@@ -28,13 +28,14 @@ namespace Tag.Sdk.Core
         {
             this.TagProfile = new TagProfile(domains);
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
+            this.Dispatcher = new Dispatcher();
             this.AuthService = new AuthService(this.LogService);
-            this.NetworkService = new NetworkService(this.LogService);
+            this.NetworkService = new NetworkService(this.LogService, this.Dispatcher);
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
             this.appAssembly = app.GetType().Assembly;
-            this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.NetworkService, this.NavigationService, this.logService);
-            this.NavigationService = new NavigationService();
+            this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.Dispatcher, this.NetworkService, this.logService);
+            this.NavigationService = new NavigationService(DependencyService.Resolve<IDispatcher>());
         }
 
         public void Dispose()
@@ -48,6 +49,7 @@ namespace Tag.Sdk.Core
         }
 
         public TagProfile TagProfile { get; }
+        public IDispatcher Dispatcher { get; }
         public IAuthService AuthService { get; }
         private readonly IInternalNeuronService neuronService;
         public INeuronService NeuronService => neuronService;

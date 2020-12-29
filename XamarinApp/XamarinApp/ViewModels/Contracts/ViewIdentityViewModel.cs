@@ -12,6 +12,7 @@ using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Views.Registration;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Contracts
 {
@@ -19,6 +20,7 @@ namespace XamarinApp.ViewModels.Contracts
     {
         private readonly SignaturePetitionEventArgs review;
         private readonly TagProfile tagProfile;
+        private readonly IDispatcher dispatcher;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
@@ -29,6 +31,7 @@ namespace XamarinApp.ViewModels.Contracts
             LegalIdentity identity,
             SignaturePetitionEventArgs review,
             TagProfile tagProfile,
+            IDispatcher dispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             INetworkService networkService,
@@ -37,6 +40,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.LegalIdentity = identity ?? tagProfile.LegalIdentity;
             this.review = review;
             this.tagProfile = tagProfile;
+            this.dispatcher = dispatcher;
             this.logService = logService;
             this.neuronService = neuronService;
             this.navigationService = navigationService;
@@ -700,36 +704,36 @@ namespace XamarinApp.ViewModels.Contracts
                     (!string.IsNullOrEmpty(this.Region) && !this.RegionIsChecked) ||
                     (!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked))
                 {
-                    await this.navigationService.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
+                    await this.dispatcher.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
                     return;
                 }
 
                 if (!this.CarefulReviewIsChecked)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
+                    await this.dispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
                     return;
                 }
 
                 if (!this.ApprovePiiIsChecked)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
+                    await this.dispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
                     return;
                 }
 
                 if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
                     return;
                 }
 
-                (bool succeeded1, byte[] signature) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SignAsync, this.review.ContentToSign);
+                (bool succeeded1, byte[] signature) = await this.networkService.Request(this.neuronService.Contracts.SignAsync, this.review.ContentToSign);
 
                 if (!succeeded1)
                 {
                     return;
                 }
 
-                bool succeeded2 = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, signature, this.review.PetitionId, this.review.RequestorFullJid, true);
+                bool succeeded2 = await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, signature, this.review.PetitionId, this.review.RequestorFullJid, true);
 
                 if (succeeded2)
                 {
@@ -739,7 +743,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -750,7 +754,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                bool succeeded =  await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, new byte[0], this.review.PetitionId, this.review.RequestorFullJid, false);
+                bool succeeded =  await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, new byte[0], this.review.PetitionId, this.review.RequestorFullJid, false);
                 if (succeeded)
                 {
                     await this.navigationService.PopAsync();
@@ -759,7 +763,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -770,10 +774,10 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                if (!await this.navigationService.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
+                if (!await this.dispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.neuronService.Contracts.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
                 if (succeeded)
                 {
                     this.LegalIdentity = revokedIdentity;
@@ -784,7 +788,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -795,10 +799,10 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                if (!await this.navigationService.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
+                if (!await this.dispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.neuronService.Contracts.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
 
                 if (succeeded)
                 {
@@ -810,7 +814,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
     }

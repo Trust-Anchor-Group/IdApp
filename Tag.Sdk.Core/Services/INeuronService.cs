@@ -22,6 +22,7 @@ namespace Tag.Sdk.Core.Services
         string BareJId { get; }
 
         INeuronContracts Contracts { get; }
+        INeuronChats Chats { get; }
 
         Task<bool> DiscoverServices(XmppClient client = null);
 

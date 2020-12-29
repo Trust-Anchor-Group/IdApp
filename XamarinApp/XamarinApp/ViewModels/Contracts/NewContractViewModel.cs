@@ -15,6 +15,7 @@ using XamarinApp.Models;
 using XamarinApp.Services;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Contracts
 {
@@ -26,6 +27,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
+        private readonly IDispatcher dispatcher;
         private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
@@ -38,6 +40,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.logService = DependencyService.Resolve<ILogService>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
+            this.dispatcher = DependencyService.Resolve<IDispatcher>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
@@ -341,7 +344,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                (bool succeeded, Contract retrievedContract) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetContractAsync, this.contractTemplateId);
+                (bool succeeded, Contract retrievedContract) = await this.networkService.Request(this.neuronService.Contracts.GetContractAsync, this.contractTemplateId);
                 if (!succeeded)
                     return;
 
@@ -357,7 +360,7 @@ namespace XamarinApp.ViewModels.Contracts
             {
                 this.logService.LogException(ex, new KeyValuePair<string, string>("Method", "GetContractAsync"), new KeyValuePair<string, string>("ContractId", this.contractTemplateId));
                 ClearTemplate();
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -471,7 +474,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (this.ContractParameters.Any(x => !x.IsValid))
                 {
-                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
                     return;
                 }
 
@@ -479,7 +482,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (this.SelectedContractVisibilityItem == null)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
                     return;
                 }
 
@@ -487,18 +490,18 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (this.SelectedRole == null)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
                     return;
                 }
 
                 if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
                 {
-                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
                     return;
                 }
 
                 (bool createSucceeded, Contract createdContract) = await this.networkService.Request<string, Part[], Parameter[], ContractVisibility, ContractParts,Duration,Duration,Duration, DateTime?, DateTime?, bool, Contract>(
-                    this.navigationService, this.neuronService.Contracts.CreateContractAsync,
+                    this.neuronService.Contracts.CreateContractAsync,
                     this.contractTemplateId,
                     parts.ToArray(),
                     this.contractTemplate.Parameters,
@@ -514,7 +517,7 @@ namespace XamarinApp.ViewModels.Contracts
                 Contract signedContract = null;
                 if (createSucceeded)
                 {
-                    (bool signSucceeded, Contract contract) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SignContractAsync, createdContract, this.SelectedRole.Name, false);
+                    (bool signSucceeded, Contract contract) = await this.networkService.Request(this.neuronService.Contracts.SignContractAsync, createdContract, this.SelectedRole.Name, false);
                     if (signSucceeded)
                     {
                         signedContract = contract;
@@ -528,7 +531,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 
@@ -610,7 +613,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
     }

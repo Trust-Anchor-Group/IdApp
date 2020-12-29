@@ -8,6 +8,7 @@ using Xamarin.Forms.Xaml;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
 using XamarinApp.Views.Contracts;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.Views
 {
@@ -15,6 +16,7 @@ namespace XamarinApp.Views
     public partial class MainPage
     {
         private readonly ILogService logService;
+        private readonly IDispatcher dispatcher;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly INavigationService navigationService;
 
@@ -34,6 +36,7 @@ namespace XamarinApp.Views
         {
             InitializeComponent();
             ViewModel = new MainViewModel();
+            this.dispatcher = DependencyService.Resolve<IDispatcher>();
             this.logService = DependencyService.Resolve<ILogService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
@@ -74,14 +77,14 @@ namespace XamarinApp.Views
 
                     default:
                         if (!await Launcher.TryOpenAsync(uri))
-                            await this.navigationService.DisplayAlert(AppResources.ErrorTitle, $"Code not understood:{Environment.NewLine}{Environment.NewLine}" + code);
+                            await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, $"Code not understood:{Environment.NewLine}{Environment.NewLine}" + code);
                         break;
                 }
             }
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(ex);
+                await this.dispatcher.DisplayAlert(ex);
             }
         }
 

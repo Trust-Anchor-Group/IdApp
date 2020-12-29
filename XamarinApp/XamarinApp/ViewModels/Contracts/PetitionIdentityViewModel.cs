@@ -70,7 +70,7 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Accept()
         {
-            bool succeeded = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionIdentityResponseAsync, this.requestedIdentityId, this.petitionId, this.requestorFullJid, true);
+            bool succeeded = await this.networkService.Request(this.neuronService.Contracts.SendPetitionIdentityResponseAsync, this.requestedIdentityId, this.petitionId, this.requestorFullJid, true);
             if (succeeded)
             {
                 await this.navigationService.PopAsync();
@@ -79,7 +79,7 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Decline()
         {
-            bool succeeded = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.SendPetitionIdentityResponseAsync, this.requestedIdentityId, this.petitionId, this.requestorFullJid, false);
+            bool succeeded = await this.networkService.Request(this.neuronService.Contracts.SendPetitionIdentityResponseAsync, this.requestedIdentityId, this.petitionId, this.requestorFullJid, false);
             if (succeeded)
             {
                 await this.navigationService.PopAsync();

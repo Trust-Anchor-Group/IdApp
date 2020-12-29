@@ -14,17 +14,17 @@ namespace Tag.Sdk.Core.Services
     internal sealed class NeuronContracts : INeuronContracts
     {
         private readonly TagProfile tagProfile;
+        private readonly IDispatcher dispatcher;
         private readonly IInternalNeuronService neuronService;
         private readonly ILogService logService;
-        private readonly INavigationService navigationService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        internal NeuronContracts(TagProfile tagProfile, IInternalNeuronService neuronService, INavigationService navigationService, ILogService logService)
+        internal NeuronContracts(TagProfile tagProfile, IDispatcher dispatcher, IInternalNeuronService neuronService, ILogService logService)
         {
             this.tagProfile = tagProfile;
+            this.dispatcher = dispatcher;
             this.neuronService = neuronService;
-            this.navigationService = navigationService;
             this.logService = logService;
         }
 
@@ -380,7 +380,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -393,7 +393,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -406,7 +406,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -419,7 +419,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -432,7 +432,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -445,7 +445,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -458,7 +458,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -471,7 +471,7 @@ namespace Tag.Sdk.Core.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
             }
         }
 
@@ -488,7 +488,7 @@ namespace Tag.Sdk.Core.Services
                 catch (Exception ex)
                 {
                     this.logService.LogException(ex);
-                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
                 }
             }
         }

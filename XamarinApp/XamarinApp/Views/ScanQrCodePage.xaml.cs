@@ -6,12 +6,14 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels;
 using ZXing;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScanQrCodePage
     {
+        private readonly IDispatcher dispatcher;
         private readonly INavigationService navigationService;
 
         public ScanQrCodePage()
@@ -23,6 +25,7 @@ namespace XamarinApp.Views
         {
             this.ViewModel = viewModel ?? new ScanQrCodeViewModel();
             this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.dispatcher = DependencyService.Resolve<IDispatcher>();
             InitializeComponent();
         }
 
@@ -86,19 +89,19 @@ namespace XamarinApp.Views
                 {
                     if (scheme != Constants.IoTSchemes.IotId)
                     {
-                        await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
+                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
                         return;
                     }
                 }
                 else
                 {
-                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
+                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
                     return;
                 }
             }
             catch (Exception ex)
             {
-                await this.navigationService.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
                 return;
             }
 

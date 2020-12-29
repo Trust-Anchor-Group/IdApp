@@ -27,6 +27,7 @@ namespace Tag.Sdk.Core.Services
         private string provisioningJid;
         private string httpFileUploadJid;
         private string logJid;
+        private string mucJid;
         private string pinHash;
         private long? httpFileUploadMaxSize;
         private bool usePin;
@@ -70,6 +71,7 @@ namespace Tag.Sdk.Core.Services
                 HttpFileUploadJid = this.HttpFileUploadJid,
                 HttpFileUploadMaxSize = this.HttpFileUploadMaxSize,
                 LogJid = this.LogJid,
+                MucJid = this.MucJid,
                 PinHash = this.PinHash,
                 UsePin = this.UsePin,
                 LegalIdentity = this.LegalIdentity,
@@ -94,6 +96,7 @@ namespace Tag.Sdk.Core.Services
                 this.HttpFileUploadJid = configuration.HttpFileUploadJid;
                 this.HttpFileUploadMaxSize = configuration.HttpFileUploadMaxSize;
                 this.LogJid = configuration.LogJid;
+                this.MucJid = configuration.MucJid;
                 this.PinHash = configuration.PinHash;
                 this.UsePin = configuration.UsePin;
                 this.LegalIdentity = configuration.LegalIdentity;
@@ -112,7 +115,8 @@ namespace Tag.Sdk.Core.Services
                    string.IsNullOrWhiteSpace(this.RegistryJid) ||
                    string.IsNullOrWhiteSpace(this.ProvisioningJid) ||
                    string.IsNullOrWhiteSpace(this.HttpFileUploadJid) ||
-                   string.IsNullOrWhiteSpace(this.LogJid);
+                   string.IsNullOrWhiteSpace(this.LogJid) ||
+                   string.IsNullOrWhiteSpace(this.MucJid);
         }
 
         public virtual bool LegalIdentityNeedsUpdating()
@@ -258,6 +262,19 @@ namespace Tag.Sdk.Core.Services
                 {
                     this.logJid = value;
                     this.FlagAsDirty(nameof(LogJid));
+                }
+            }
+        }
+
+        public string MucJid
+        {
+            get => this.mucJid;
+            private set
+            {
+                if (!string.Equals(this.mucJid, value))
+                {
+                    this.mucJid = value;
+                    this.FlagAsDirty(nameof(MucJid));
                 }
             }
         }
@@ -544,6 +561,11 @@ namespace Tag.Sdk.Core.Services
             this.LogJid = logJId;
         }
 
+        public void SetMucJId(string mucJId)
+        {
+            this.MucJid = mucJId;
+        }
+
         #endregion
 
         public string ComputePinHash(string pin)
@@ -627,6 +649,9 @@ namespace Tag.Sdk.Core.Services
 
         [DefaultValueStringEmpty]
         public string LogJid { get; set; }
+
+        [DefaultValueStringEmpty]
+        public string MucJid { get; set; }
 
         [DefaultValueStringEmpty]
         public string PinHash { get; set; }

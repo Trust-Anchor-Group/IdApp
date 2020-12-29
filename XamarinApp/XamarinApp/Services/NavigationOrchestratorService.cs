@@ -64,7 +64,7 @@ namespace XamarinApp.Services
             if (!isConnected)
                 return;
 
-            (bool succeeded, LegalIdentity identity) = await this.networkService.Request(this.navigationService, this.neuronService.Contracts.GetLegalIdentityAsync, legalId, displayAlert: false);
+            (bool succeeded, LegalIdentity identity) = await this.networkService.Request(this.neuronService.Contracts.GetLegalIdentityAsync, legalId, displayAlert: false);
             if (succeeded)
             {
                 Device.BeginInvokeOnMainThread(async () =>

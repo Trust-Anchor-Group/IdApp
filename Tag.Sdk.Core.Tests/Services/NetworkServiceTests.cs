@@ -10,19 +10,21 @@ namespace Tag.Sdk.Core.Tests.Services
     {
         private readonly TestNetworkService networkService;
         private readonly Mock<ILogService> logService;
+        private readonly Mock<IDispatcher> dispatcher;
         private readonly Mock<INavigationService> navigationService;
 
         public NetworkServiceTests()
         {
+            this.dispatcher = new Mock<IDispatcher>();
             this.logService = new Mock<ILogService>();
-            this.networkService = new TestNetworkService(this.logService.Object);
+            this.networkService = new TestNetworkService(this.logService.Object, this.dispatcher.Object);
             this.navigationService = new Mock<INavigationService>();
         }
 
         private sealed class TestNetworkService : NetworkService
         {
-            public TestNetworkService(ILogService logService)
-            : base(logService)
+            public TestNetworkService(ILogService logService, IDispatcher dispatcher)
+            : base(logService, dispatcher)
             {
             }
 
@@ -48,7 +50,7 @@ namespace Tag.Sdk.Core.Tests.Services
             Exception typeOfExceptionCaught = null;
             try
             {
-                await this.networkService.Request(this.navigationService.Object, TestFuncThatThrows, rethrowException);
+                await this.networkService.Request(TestFuncThatThrows, rethrowException);
             }
             catch (Exception ex)
             {
@@ -61,7 +63,7 @@ namespace Tag.Sdk.Core.Tests.Services
 
             this.logService.Verify(x => x.LogException(It.IsAny<TException>()), Times.Once);
             this.logService.Reset();
-            this.navigationService.Verify(x => x.DisplayAlert(It.Is<string>(title => title.Equals(Tag.Sdk.Core.AppResources.ErrorTitle)), It.Is<string>(msg => msg.Equals(message))), Times.Once);
+            this.dispatcher.Verify(x => x.DisplayAlert(It.Is<string>(title => title.Equals(Tag.Sdk.Core.AppResources.ErrorTitle)), It.Is<string>(msg => msg.Equals(message))), Times.Once);
             this.navigationService.Reset();
         }
 

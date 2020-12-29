@@ -4,6 +4,7 @@ using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
 using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -13,13 +14,15 @@ namespace XamarinApp.ViewModels.Registration
 
         public RegistrationStepViewModel(
             RegistrationStep step, 
-            TagProfile tagProfile, 
+            TagProfile tagProfile,
+            IDispatcher dispatcher,
             INeuronService neuronService, 
             INavigationService navigationService,
             ISettingsService settingsService,
             ILogService logService)
         {
             this.Step = step;
+            this.Dispatcher = dispatcher;
             this.TagProfile = tagProfile;
             this.NeuronService = neuronService;
             this.NavigationService = navigationService;
@@ -38,6 +41,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public RegistrationStep Step { get; }
 
+        protected IDispatcher Dispatcher { get; }
         protected TagProfile TagProfile { get; }
         protected INeuronService NeuronService { get; }
         protected INavigationService NavigationService { get; }

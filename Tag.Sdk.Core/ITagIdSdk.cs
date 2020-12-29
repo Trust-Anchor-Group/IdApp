@@ -11,6 +11,7 @@ namespace Tag.Sdk.Core
         Task ShutdownInPanic();
         void AutoSave();
         TagProfile TagProfile { get; }
+        IDispatcher Dispatcher { get; }
         IAuthService AuthService { get; }
         INeuronService NeuronService { get; }
         INetworkService NetworkService { get; }
