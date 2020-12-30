@@ -21,6 +21,7 @@ namespace XamarinApp
         private readonly ITagIdSdk sdk;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly INavigationOrchestratorService navigationOrchestratorService;
+        private readonly bool keepRunningInTheBackground = true;
 
         public App()
 		{
@@ -148,11 +149,12 @@ namespace XamarinApp
                 await vm.Unbind();
             }
 
-            // Keep running while in the background.
-
-            //await this.navigationOrchestratorService.Unload();
-            //await this.contractOrchestratorService.Unload();
-            //await this.sdk.Shutdown();
+            if (!keepRunningInTheBackground)
+            {
+                await this.navigationOrchestratorService.Unload();
+                await this.contractOrchestratorService.Unload();
+            }
+            await this.sdk.Shutdown(keepRunningInTheBackground);
         }
 
         private void AutoSave()

@@ -7,7 +7,7 @@ namespace Tag.Sdk.Core
     public interface ITagIdSdk : IDisposable
     {
         Task Startup(bool isResuming);
-        Task Shutdown();
+        Task Shutdown(bool keepRunningInTheBackground);
         Task ShutdownInPanic();
         void AutoSave();
         TagProfile TagProfile { get; }

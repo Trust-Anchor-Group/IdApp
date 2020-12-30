@@ -15,12 +15,15 @@ namespace Tag.Sdk.Core
         {
             this.messageQueue = new ConcurrentQueue<MessageRecord>();
             this.isDisplayingMessages = false;
+            this.IsRunningInTheBackground = false;
         }
 
         public void BeginInvokeOnMainThread(Action action)
         {
             Device.BeginInvokeOnMainThread(action);
         }
+
+        public bool IsRunningInTheBackground { get; protected internal set; }
 
         private void StartDisplay()
         {

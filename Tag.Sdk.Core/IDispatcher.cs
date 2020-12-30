@@ -6,6 +6,7 @@ namespace Tag.Sdk.Core
     public interface IDispatcher
     {
         void BeginInvokeOnMainThread(Action action);
+        bool IsRunningInTheBackground { get; }
         Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
         Task DisplayAlert(string title, string message, string accept);
         Task DisplayAlert(string title, string message);

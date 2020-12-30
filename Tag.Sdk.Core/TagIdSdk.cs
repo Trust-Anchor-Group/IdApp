@@ -28,7 +28,7 @@ namespace Tag.Sdk.Core
         {
             this.TagProfile = new TagProfile(domains);
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
-            this.Dispatcher = new Dispatcher();
+            this.dispatcher = new Dispatcher();
             this.AuthService = new AuthService(this.LogService);
             this.NetworkService = new NetworkService(this.LogService, this.Dispatcher);
             this.SettingsService = new SettingsService();
@@ -49,10 +49,11 @@ namespace Tag.Sdk.Core
         }
 
         public TagProfile TagProfile { get; }
-        public IDispatcher Dispatcher { get; }
+        private readonly Dispatcher dispatcher;
+        public IDispatcher Dispatcher => this.dispatcher;
         public IAuthService AuthService { get; }
         private readonly IInternalNeuronService neuronService;
-        public INeuronService NeuronService => neuronService;
+        public INeuronService NeuronService => this.neuronService;
         public INetworkService NetworkService { get; }
         public INavigationService NavigationService { get; }
         public IStorageService StorageService { get; }
@@ -62,6 +63,7 @@ namespace Tag.Sdk.Core
 
         public async Task Startup(bool isResuming)
         {
+            this.dispatcher.IsRunningInTheBackground = false;
             if (!isResuming)
             {
                 Types.Initialize(
@@ -98,17 +100,22 @@ namespace Tag.Sdk.Core
             await this.NeuronService.Load(isResuming);
         }
 
-        public Task Shutdown()
+        public Task Shutdown(bool keepRunningInTheBackground)
         {
+            this.dispatcher.IsRunningInTheBackground = true;
+            if (keepRunningInTheBackground)
+            {
+                return Task.CompletedTask;
+            }
             return Shutdown(false);
         }
 
         public Task ShutdownInPanic()
         {
-            return Shutdown(true);
+            return ShutdownInternal(true);
         }
 
-        private async Task Shutdown(bool panic)
+        private async Task ShutdownInternal(bool panic)
         {
             if (panic)
                 await this.neuronService.UnloadFast();
