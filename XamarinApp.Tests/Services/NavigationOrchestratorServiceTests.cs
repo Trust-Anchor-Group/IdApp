@@ -58,7 +58,7 @@ namespace XamarinApp.Tests.Services
         [SetUp]
         public void Setup()
         {
-            this.sut.Load();
+            this.sut.Load(false);
         }
 
         [TearDown]

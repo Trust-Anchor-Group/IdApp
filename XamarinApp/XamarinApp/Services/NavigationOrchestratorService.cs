@@ -22,7 +22,7 @@ namespace XamarinApp.Services
             this.navigationService = navigationService;
         }
 
-        public override Task Load()
+        public override Task Load(bool isResuming)
         {
             if (this.BeginLoad())
             {

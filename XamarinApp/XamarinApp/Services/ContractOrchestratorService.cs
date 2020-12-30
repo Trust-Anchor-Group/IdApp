@@ -36,7 +36,7 @@ namespace XamarinApp.Services
             this.networkService = networkService;
         }
 
-        public override Task Load()
+        public override Task Load(bool isResuming)
         {
             if (this.BeginLoad())
             {

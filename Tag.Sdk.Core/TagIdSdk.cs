@@ -60,17 +60,20 @@ namespace Tag.Sdk.Core
         private readonly IInternalLogService logService;
         public ILogService LogService => logService;
 
-        public async Task Startup()
+        public async Task Startup(bool isResuming)
         {
-            Types.Initialize(
-                this.appAssembly,
-                typeof(Database).Assembly,
-                typeof(FilesProvider).Assembly,
-                typeof(ObjectSerializer).Assembly,
-                typeof(XmppClient).Assembly,
-                typeof(ContractsClient).Assembly,
-                typeof(Expression).Assembly,
-                typeof(XmppServerlessMessaging).Assembly);
+            if (!isResuming)
+            {
+                Types.Initialize(
+                    this.appAssembly,
+                    typeof(Database).Assembly,
+                    typeof(FilesProvider).Assembly,
+                    typeof(ObjectSerializer).Assembly,
+                    typeof(XmppClient).Assembly,
+                    typeof(ContractsClient).Assembly,
+                    typeof(Expression).Assembly,
+                    typeof(XmppServerlessMessaging).Assembly);
+            }
 
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string dataFolder = Path.Combine(appDataFolder, "Data");
@@ -81,15 +84,18 @@ namespace Tag.Sdk.Core
             await filesProvider.RepairIfInproperShutdown(string.Empty);
             Database.Register(filesProvider, false);
 
-            TagConfiguration configuration = await this.StorageService.FindFirstDeleteRest<TagConfiguration>();
-            if (configuration == null)
+            if (!isResuming)
             {
-                configuration = new TagConfiguration();
-                await this.StorageService.Insert(configuration);
+                TagConfiguration configuration = await this.StorageService.FindFirstDeleteRest<TagConfiguration>();
+                if (configuration == null)
+                {
+                    configuration = new TagConfiguration();
+                    await this.StorageService.Insert(configuration);
+                }
+                this.TagProfile.FromConfiguration(configuration);
             }
-            this.TagProfile.FromConfiguration(configuration);
 
-            await this.NeuronService.Load();
+            await this.NeuronService.Load(isResuming);
         }
 
         public Task Shutdown()

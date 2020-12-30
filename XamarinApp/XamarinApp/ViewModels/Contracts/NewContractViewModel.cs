@@ -576,9 +576,7 @@ namespace XamarinApp.ViewModels.Contracts
 
         private void EditParameter(object obj)
         {
-            ParameterModel model = obj as ParameterModel;
-
-            if (model == null)
+            if (!(obj is ParameterModel model))
                 return;
 
             Parameter p = this.contractTemplate.Parameters.FirstOrDefault(x => x.Name == model.Id);

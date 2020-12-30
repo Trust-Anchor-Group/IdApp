@@ -5,11 +5,9 @@ using Waher.Networking.XMPP;
 
 namespace Tag.Sdk.Core.Services
 {
-    public interface INeuronService : IDisposable
+    public interface INeuronService : ILoadableService, IDisposable
     {
         Task<bool> WaitForConnectedState(TimeSpan timeout);
-        Task Load();
-        Task Unload();
         event EventHandler<LoadedEventArgs> Loaded;
         event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 

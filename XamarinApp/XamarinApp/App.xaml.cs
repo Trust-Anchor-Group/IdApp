@@ -110,12 +110,12 @@ namespace XamarinApp
                 "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios={Your iOS App secret here}",
                 typeof(Analytics),
                 typeof(Crashes)); 
-            await PerformStartup();
+            await PerformStartup(false);
         }
 
 		protected override async void OnResume()
         {
-            await PerformStartup();
+            await PerformStartup(true);
         }
 
         protected override async void OnSleep()
@@ -123,12 +123,12 @@ namespace XamarinApp
             await PerformShutdown();
         }
 
-		private async Task PerformStartup()
+		private async Task PerformStartup(bool isResuming)
         {
-            await this.sdk.Startup();
+            await this.sdk.Startup(isResuming);
             
-            await this.contractOrchestratorService.Load();
-            await this.navigationOrchestratorService.Load();
+            await this.contractOrchestratorService.Load(isResuming);
+            await this.navigationOrchestratorService.Load(isResuming);
 
             this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
         }
@@ -148,9 +148,11 @@ namespace XamarinApp
                 await vm.Unbind();
             }
 
-            await this.navigationOrchestratorService.Unload();
-            await this.contractOrchestratorService.Unload();
-            await this.sdk.Shutdown();
+            // Keep running while in the background.
+
+            //await this.navigationOrchestratorService.Unload();
+            //await this.contractOrchestratorService.Unload();
+            //await this.sdk.Shutdown();
         }
 
         private void AutoSave()

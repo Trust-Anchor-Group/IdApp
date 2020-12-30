@@ -45,7 +45,7 @@ namespace Tag.Sdk.Core.Services
             OnLoaded(new LoadedEventArgs(IsLoaded));
         }
 
-        public virtual Task Load()
+        public virtual Task Load(bool isResuming)
         {
             return Task.CompletedTask;
         }

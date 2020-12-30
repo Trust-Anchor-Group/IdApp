@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Newtonsoft.Json;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.Core.Services;
@@ -18,31 +19,36 @@ namespace XamarinApp.ViewModels.Contracts
 {
     public class ViewIdentityViewModel : BaseViewModel
     {
-        private readonly SignaturePetitionEventArgs review;
+        private const string IdToReview = "IdToReview";
+        private SignaturePetitionEventArgs identityToReview;
         private readonly TagProfile tagProfile;
         private readonly IDispatcher dispatcher;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
+        private readonly ISettingsService settingsService;
         private readonly INavigationService navigationService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
+        private bool persistState;
 
         public ViewIdentityViewModel(
             LegalIdentity identity,
-            SignaturePetitionEventArgs review,
+            SignaturePetitionEventArgs identityToReview,
             TagProfile tagProfile,
             IDispatcher dispatcher,
             INeuronService neuronService,
+            ISettingsService settingsService,
             INavigationService navigationService,
             INetworkService networkService,
             ILogService logService)
         {
             this.LegalIdentity = identity ?? tagProfile.LegalIdentity;
-            this.review = review;
+            this.identityToReview = identityToReview;
             this.tagProfile = tagProfile;
             this.dispatcher = dispatcher;
             this.logService = logService;
             this.neuronService = neuronService;
+            this.settingsService = settingsService;
             this.navigationService = navigationService;
             this.networkService = networkService;
             this.ApproveCommand = new Command(async _ => await Approve());
@@ -56,9 +62,15 @@ namespace XamarinApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
+            string idToReviewAsJson = this.settingsService.RestoreState<string>(GetSettingsKey(IdToReview));
+            if (!string.IsNullOrWhiteSpace(idToReviewAsJson))
+            {
+                this.identityToReview = JsonConvert.DeserializeObject<SignaturePetitionEventArgs>(idToReviewAsJson);
+            }
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
             this.neuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
+            this.persistState = true;
         }
 
         protected override async Task DoUnbind()
@@ -67,6 +79,14 @@ namespace XamarinApp.ViewModels.Contracts
             this.Photos.Clear();
             this.tagProfile.Changed -= TagProfile_Changed;
             this.neuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
+            if (this.persistState && this.identityToReview != null)
+            {
+                this.settingsService.SaveState(GetSettingsKey(IdToReview), JsonConvert.SerializeObject(identityToReview));
+            }
+            else
+            {
+                this.settingsService.RemoveState<string>(GetSettingsKey(IdToReview));
+            }
             await base.DoUnbind();
         }
 
@@ -127,7 +147,7 @@ namespace XamarinApp.ViewModels.Contracts
             IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
             IsPersonal = this.tagProfile.LegalIdentity?.Id == this.LegalIdentity?.Id;
-            IsForReview = this.review != null;
+            IsForReview = this.identityToReview != null;
             IsNotForReview = !IsForReview;
 
             IsForReviewFirstName = !string.IsNullOrWhiteSpace(this.FirstName) && this.IsForReview;
@@ -141,7 +161,7 @@ namespace XamarinApp.ViewModels.Contracts
             IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
             IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
             IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
-            IsForReviewAndPin = this.review != null && this.tagProfile.UsePin;
+            IsForReviewAndPin = this.identityToReview != null && this.tagProfile.UsePin;
 
             // QR
             if (this.LegalIdentity != null)
@@ -687,7 +707,7 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Approve()
         {
-            if (this.review is null)
+            if (this.identityToReview is null)
                 return;
 
             try
@@ -726,17 +746,18 @@ namespace XamarinApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool succeeded1, byte[] signature) = await this.networkService.Request(this.neuronService.Contracts.SignAsync, this.review.ContentToSign);
+                (bool succeeded1, byte[] signature) = await this.networkService.Request(this.neuronService.Contracts.SignAsync, this.identityToReview.ContentToSign);
 
                 if (!succeeded1)
                 {
                     return;
                 }
 
-                bool succeeded2 = await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, signature, this.review.PetitionId, this.review.RequestorFullJid, true);
+                bool succeeded2 = await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true);
 
                 if (succeeded2)
                 {
+                    this.persistState = false;
                     await this.navigationService.PopAsync();
                 }
             }
@@ -749,14 +770,15 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task Reject()
         {
-            if (this.review == null)
+            if (this.identityToReview == null)
                 return;
 
             try
             {
-                bool succeeded =  await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.review.SignatoryIdentityId, this.review.ContentToSign, new byte[0], this.review.PetitionId, this.review.RequestorFullJid, false);
+                bool succeeded = await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false);
                 if (succeeded)
                 {
+                    this.persistState = false;
                     await this.navigationService.PopAsync();
                 }
             }

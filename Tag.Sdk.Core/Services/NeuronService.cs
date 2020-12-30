@@ -211,7 +211,7 @@ namespace Tag.Sdk.Core.Services
             return i >= 0;
         }
 
-        public override async Task Load()
+        public override async Task Load(bool isResuming)
         {
             if (this.BeginLoad())
             {
