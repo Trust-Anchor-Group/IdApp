@@ -9,15 +9,17 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Grid.RowSpan="3" Source="tag_bg.jpg" Aspect="AspectFill"/>
-            <StackLayout Grid.Row="1" Opacity="0" x:Name="LabelLayout" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+            <Image Grid.Row="0" Grid.RowSpan="4" Source="tag_bg.jpg" Aspect="AspectFill"/>
+            <StackLayout Grid.Row="1" Opacity="0" x:Name="LabelLayout" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center" Margin="12,-12,12,12">
                 <Label Text="NEW" TextColor="White" FontSize="16" VerticalTextAlignment="Center" />
                 <Label Text="WAYS" TextColor="White" FontSize="24" VerticalTextAlignment="Center" />
                 <Label Text="OF" TextColor="White"  FontSize="16" VerticalTextAlignment="Center"/>
                 <Label Text="WORLDMAKING" TextColor="White"  FontSize="24"  VerticalTextAlignment="Center"/>
             </StackLayout>
-            <ActivityIndicator Grid.Row="2" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
+            <ActivityIndicator Grid.Row="2" IsVisible="true" IsRunning="true" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
+            <Label Grid.Row="3" IsVisible="{Binding Path=ProfileIsComplete}" Text="{Binding Path=ConnectionStateText}" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}" FontSize="Large" TextColor="Black"/>
         </Grid>
     </ContentPage.Content>
 </views:ContentBasePage>
