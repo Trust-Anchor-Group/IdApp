@@ -1,10 +1,17 @@
 ﻿using Xamarin.Forms;
 using Tag.Sdk.UI.ViewModels;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Tag.Sdk.UI.Views
 {
     public class ContentBasePage : ContentPage
     {
+        public ContentBasePage()
+        {
+            On<iOS>().SetUseSafeArea(true);
+        }
+
         protected BaseViewModel ViewModel
         {
             get => BindingContext as BaseViewModel;

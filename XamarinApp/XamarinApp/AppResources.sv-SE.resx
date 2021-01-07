@@ -552,6 +552,9 @@
   <data name="QrScanOverlay" xml:space="preserve">
     <value>Passa in QR-koden i ramen</value>
   </data>
+  <data name="RandomPassword" xml:space="preserve">
+    <value>Slumpmässigt lösenord</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Region eller stat</value>
   </data>

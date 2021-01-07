@@ -552,6 +552,9 @@
   <data name="QrScanOverlay" xml:space="preserve">
     <value>Align the QR-Code within the frame</value>
   </data>
+  <data name="RandomPassword" xml:space="preserve">
+    <value>Random password</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Region or State</value>
   </data>

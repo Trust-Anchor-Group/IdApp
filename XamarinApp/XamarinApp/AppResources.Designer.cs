@@ -1366,6 +1366,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Random password.
+        /// </summary>
+        internal static string RandomPassword {
+            get {
+                return ResourceManager.GetString("RandomPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Region or State.
         /// </summary>
         internal static string Region {

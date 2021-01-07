@@ -57,7 +57,7 @@
                     </Entry.Behaviors>
                 </Entry>
                 <StackLayout Orientation="Horizontal">
-                    <Label Text="Random password" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="x:Static resources:AppResources.RandomPassword}" VerticalOptions="CenterAndExpand"/>
                     <Switch IsToggled="{Binding Path=CreateRandomPassword}" HorizontalOptions="EndAndExpand" />
                 </StackLayout>
                 <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" />

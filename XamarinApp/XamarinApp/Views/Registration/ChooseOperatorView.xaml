@@ -20,7 +20,7 @@
                 <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagSubheading}" VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
 
                 <StackLayout Grid.Row="2" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-                    <Picker x:Name="OperatorPicker" Title="{x:Static resources:AppResources.SelectOperator}" TextColor="Black" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
+                    <Picker x:Name="OperatorPicker" Title="{x:Static resources:AppResources.SelectOperator}" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
                     <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" TextChanged="ManualDomainEntry_TextChanged" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False"/>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
                 </StackLayout>
