@@ -10,12 +10,12 @@ namespace Tag.Sdk.Core.Tests.Services
     {
         private readonly TestNetworkService networkService;
         private readonly Mock<ILogService> logService;
-        private readonly Mock<IDispatcher> dispatcher;
+        private readonly Mock<IUiDispatcher> dispatcher;
         private readonly Mock<INavigationService> navigationService;
 
         public NetworkServiceTests()
         {
-            this.dispatcher = new Mock<IDispatcher>();
+            this.dispatcher = new Mock<IUiDispatcher>();
             this.logService = new Mock<ILogService>();
             this.networkService = new TestNetworkService(this.logService.Object, this.dispatcher.Object);
             this.navigationService = new Mock<INavigationService>();
@@ -23,8 +23,8 @@ namespace Tag.Sdk.Core.Tests.Services
 
         private sealed class TestNetworkService : NetworkService
         {
-            public TestNetworkService(ILogService logService, IDispatcher dispatcher)
-            : base(logService, dispatcher)
+            public TestNetworkService(ILogService logService, IUiDispatcher uiDispatcher)
+            : base(logService, uiDispatcher)
             {
             }
 

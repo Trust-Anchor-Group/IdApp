@@ -6,12 +6,12 @@ using Xamarin.Forms;
 
 namespace Tag.Sdk.Core
 {
-    public sealed class Dispatcher : IDispatcher
+    public class UiDispatcher : IUiDispatcher
     {
         private readonly ConcurrentQueue<MessageRecord> messageQueue;
         private bool isDisplayingMessages;
 
-        public Dispatcher()
+        public UiDispatcher()
         {
             this.messageQueue = new ConcurrentQueue<MessageRecord>();
             this.isDisplayingMessages = false;

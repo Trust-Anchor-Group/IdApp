@@ -28,14 +28,14 @@ namespace Tag.Sdk.Core
         {
             this.TagProfile = new TagProfile(domains);
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
-            this.dispatcher = new Dispatcher();
+            this.uiDispatcher = new UiDispatcher();
             this.AuthService = new AuthService(this.LogService);
-            this.NetworkService = new NetworkService(this.LogService, this.Dispatcher);
+            this.NetworkService = new NetworkService(this.LogService, this.UiDispatcher);
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
             this.appAssembly = app.GetType().Assembly;
-            this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.Dispatcher, this.NetworkService, this.logService);
-            this.NavigationService = new NavigationService(DependencyService.Resolve<IDispatcher>());
+            this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.logService);
+            this.NavigationService = new NavigationService(DependencyService.Resolve<IUiDispatcher>());
         }
 
         public void Dispose()
@@ -49,8 +49,8 @@ namespace Tag.Sdk.Core
         }
 
         public TagProfile TagProfile { get; }
-        private readonly Dispatcher dispatcher;
-        public IDispatcher Dispatcher => this.dispatcher;
+        private readonly UiDispatcher uiDispatcher;
+        public IUiDispatcher UiDispatcher => this.uiDispatcher;
         public IAuthService AuthService { get; }
         private readonly IInternalNeuronService neuronService;
         public INeuronService NeuronService => this.neuronService;
@@ -63,7 +63,7 @@ namespace Tag.Sdk.Core
 
         public async Task Startup(bool isResuming)
         {
-            this.dispatcher.IsRunningInTheBackground = false;
+            this.uiDispatcher.IsRunningInTheBackground = false;
             if (!isResuming)
             {
                 Types.Initialize(
@@ -102,7 +102,7 @@ namespace Tag.Sdk.Core
 
         public Task Shutdown(bool keepRunningInTheBackground)
         {
-            this.dispatcher.IsRunningInTheBackground = true;
+            this.uiDispatcher.IsRunningInTheBackground = true;
             if (keepRunningInTheBackground)
             {
                 return Task.CompletedTask;

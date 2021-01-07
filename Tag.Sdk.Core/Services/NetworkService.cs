@@ -10,13 +10,13 @@ namespace Tag.Sdk.Core.Services
     {
         private const int DefaultXmppPortNumber = 5222;
         private readonly ILogService logService;
-        private readonly IDispatcher dispatcher;
+        private readonly IUiDispatcher uiDispatcher;
 
         public event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged; 
 
-        public NetworkService(ILogService logService, IDispatcher dispatcher)
+        public NetworkService(ILogService logService, IUiDispatcher uiDispatcher)
         {
-            this.dispatcher = dispatcher;
+            this.uiDispatcher = uiDispatcher;
             this.logService = logService;
             if (DeviceInfo.Platform != DevicePlatform.Unknown) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
             {
@@ -247,7 +247,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(thrownException);
                     if (displayAlert)
                     {
-                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ThereIsNoNetwork);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ThereIsNoNetwork);
                     }
                 }
                 else
@@ -264,7 +264,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(te);
                     if (displayAlert)
                     {
-                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
                     }
                 }
                 else if (ae.InnerException is TaskCanceledException tce)
@@ -272,7 +272,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(tce);
                     if (displayAlert)
                     {
-                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
                     }
                 }
                 else if (ae.InnerException != null)
@@ -280,7 +280,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(ae.InnerException);
                     if (displayAlert)
                     {
-                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ae.InnerException.Message);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ae.InnerException.Message);
                     }
                 }
                 else
@@ -288,7 +288,7 @@ namespace Tag.Sdk.Core.Services
                     logService.LogException(ae);
                     if (displayAlert)
                     {
-                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ae.Message);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ae.Message);
                     }
                 }
             }
@@ -298,7 +298,7 @@ namespace Tag.Sdk.Core.Services
                 logService.LogException(te);
                 if (displayAlert)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestTimedOut);
                 }
             }
             catch (TaskCanceledException tce)
@@ -307,7 +307,7 @@ namespace Tag.Sdk.Core.Services
                 logService.LogException(tce);
                 if (displayAlert)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.RequestWasCancelled);
                 }
             }
             catch (Exception e)
@@ -316,7 +316,7 @@ namespace Tag.Sdk.Core.Services
                 logService.LogException(e);
                 if (displayAlert)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, e.Message);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, e.Message);
                 }
             }
 

@@ -37,14 +37,14 @@ namespace Tag.Sdk.Core.Services
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
 
-        public NeuronService(Assembly appAssembly, TagProfile tagProfile, IDispatcher dispatcher, INetworkService networkService, IInternalLogService logService)
+        public NeuronService(Assembly appAssembly, TagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, IInternalLogService logService)
         {
             this.appAssembly = appAssembly;
             this.networkService = networkService;
             this.logService = logService;
             this.tagProfile = tagProfile;
-            this.contracts = new NeuronContracts(this.tagProfile, dispatcher, this, this.logService);
-            this.chats = new NeuronChats(this.tagProfile, dispatcher, this, this.logService);
+            this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService);
+            this.chats = new NeuronChats(this.tagProfile, uiDispatcher, this, this.logService);
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
         }

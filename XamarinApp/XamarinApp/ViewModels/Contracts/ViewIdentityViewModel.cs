@@ -13,7 +13,6 @@ using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Views.Registration;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Contracts
 {
@@ -22,7 +21,7 @@ namespace XamarinApp.ViewModels.Contracts
         private const string IdToReview = "IdToReview";
         private SignaturePetitionEventArgs identityToReview;
         private readonly TagProfile tagProfile;
-        private readonly IDispatcher dispatcher;
+        private readonly IUiDispatcher uiDispatcher;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
         private readonly ISettingsService settingsService;
@@ -35,7 +34,7 @@ namespace XamarinApp.ViewModels.Contracts
             LegalIdentity identity,
             SignaturePetitionEventArgs identityToReview,
             TagProfile tagProfile,
-            IDispatcher dispatcher,
+            IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             ISettingsService settingsService,
             INavigationService navigationService,
@@ -45,7 +44,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.LegalIdentity = identity ?? tagProfile.LegalIdentity;
             this.identityToReview = identityToReview;
             this.tagProfile = tagProfile;
-            this.dispatcher = dispatcher;
+            this.uiDispatcher = uiDispatcher;
             this.logService = logService;
             this.neuronService = neuronService;
             this.settingsService = settingsService;
@@ -169,7 +168,7 @@ namespace XamarinApp.ViewModels.Contracts
                 _ = Task.Run(() =>
                 {
                     byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
-                    this.Dispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                    this.uiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
                 });
             }
             else
@@ -187,12 +186,12 @@ namespace XamarinApp.ViewModels.Contracts
 
         private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(AssignProperties);
+            this.uiDispatcher.BeginInvokeOnMainThread(AssignProperties);
         }
 
         private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(() =>
+            this.uiDispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.LegalIdentity = e.Identity;
                 AssignProperties();
@@ -724,25 +723,25 @@ namespace XamarinApp.ViewModels.Contracts
                     (!string.IsNullOrEmpty(this.Region) && !this.RegionIsChecked) ||
                     (!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked))
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
+                    await this.uiDispatcher.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
                     return;
                 }
 
                 if (!this.CarefulReviewIsChecked)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
+                    await this.uiDispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
                     return;
                 }
 
                 if (!this.ApprovePiiIsChecked)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
+                    await this.uiDispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
                     return;
                 }
 
                 if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
                     return;
                 }
 
@@ -764,7 +763,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.dispatcher.DisplayAlert(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
             }
         }
 
@@ -785,7 +784,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.dispatcher.DisplayAlert(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
             }
         }
 
@@ -796,7 +795,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                if (!await this.dispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
+                if (!await this.uiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
                     return;
 
                 (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.neuronService.Contracts.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
@@ -810,7 +809,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.dispatcher.DisplayAlert(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
             }
         }
 
@@ -821,7 +820,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                if (!await this.dispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
+                if (!await this.uiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
                     return;
 
                 (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.neuronService.Contracts.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
@@ -836,7 +835,7 @@ namespace XamarinApp.ViewModels.Contracts
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.dispatcher.DisplayAlert(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
             }
         }
     }

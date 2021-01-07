@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.ViewModels.Contracts;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.Views
 {
@@ -29,7 +29,7 @@ namespace XamarinApp.Views
                 identity,
                 review,
                 DependencyService.Resolve<TagProfile>(),
-                DependencyService.Resolve<IDispatcher>(),
+                DependencyService.Resolve<IUiDispatcher>(),
                 DependencyService.Resolve<INeuronService>(),
                 DependencyService.Resolve<ISettingsService>(),
                 this.navigationService,

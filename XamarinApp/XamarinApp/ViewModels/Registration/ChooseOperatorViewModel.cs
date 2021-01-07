@@ -7,7 +7,6 @@ using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
 using Xamarin.Forms;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -19,13 +18,13 @@ namespace XamarinApp.ViewModels.Registration
 
         public ChooseOperatorViewModel(
             TagProfile tagProfile,
-            IDispatcher dispatcher,
+            IUiDispatcher uiDispatcher,
             INeuronService neuronService, 
             INavigationService navigationService,
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService)
-            : base(RegistrationStep.Operator, tagProfile, dispatcher, neuronService, navigationService, settingsService, logService)
+            : base(RegistrationStep.Operator, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
             this.Operators = new ObservableCollection<string>();
@@ -92,7 +91,7 @@ namespace XamarinApp.ViewModels.Registration
 
                 (bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
-                Dispatcher.BeginInvokeOnMainThread(async () =>
+                UiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     this.SetIsDone(ConnectCommand);
 
@@ -104,14 +103,14 @@ namespace XamarinApp.ViewModels.Registration
                     else
                     {
                         this.LogService.LogException(new InvalidOperationException(), new KeyValuePair<string, string>("Connect", "Failed to connect"));
-                        await this.Dispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+                        await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
                     }
                 });
             }
             catch(Exception ex)
             {
                 this.LogService.LogException(ex);
-                await this.Dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
             finally
             {

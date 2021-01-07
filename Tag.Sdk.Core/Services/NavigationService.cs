@@ -5,11 +5,11 @@ namespace Tag.Sdk.Core.Services
 {
     internal sealed class NavigationService : INavigationService
     {
-        private readonly IDispatcher dispatcher;
+        private readonly IUiDispatcher uiDispatcher;
 
-        public NavigationService(IDispatcher dispatcher)
+        public NavigationService(IUiDispatcher uiDispatcher)
         {
-            this.dispatcher = dispatcher;
+            this.uiDispatcher = uiDispatcher;
         }
 
         public Task PushAsync(Page page)

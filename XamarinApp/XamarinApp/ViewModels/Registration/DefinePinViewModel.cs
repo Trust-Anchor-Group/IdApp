@@ -4,7 +4,6 @@ using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
 using Xamarin.Forms;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -12,12 +11,12 @@ namespace XamarinApp.ViewModels.Registration
     {
         public DefinePinViewModel(
             TagProfile tagProfile,
-            IDispatcher dispatcher,
+            IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
             ILogService logService)
-            : base(RegistrationStep.Pin, tagProfile, dispatcher, neuronService, navigationService, settingsService, logService)
+            : base(RegistrationStep.Pin, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.ContinueCommand = new Command(_ => Continue(), _ => CanContinue());
             this.SkipCommand = new Command(_ => Skip());
@@ -113,12 +112,12 @@ namespace XamarinApp.ViewModels.Registration
 
             if (pinToCheck.Length < Constants.Authentication.MinPinLength)
             {
-                this.Dispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
+                this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
                 return;
             }
             if (pinToCheck.Trim() != pinToCheck)
             {
-                this.Dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
+                this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
                 return;
             }
 

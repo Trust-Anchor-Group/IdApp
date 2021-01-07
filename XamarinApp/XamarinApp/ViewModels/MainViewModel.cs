@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels
 {
@@ -14,14 +14,14 @@ namespace XamarinApp.ViewModels
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
-        private readonly IDispatcher dispatcher;
+        private readonly IUiDispatcher uiDispatcher;
 
         public MainViewModel()
         {
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
-            this.dispatcher = DependencyService.Resolve<IDispatcher>();
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
         }
 
@@ -73,7 +73,7 @@ namespace XamarinApp.ViewModels
 
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.dispatcher.BeginInvokeOnMainThread(() =>
+            this.uiDispatcher.BeginInvokeOnMainThread(() =>
             {
                 e.State.ToDisplayText(this.tagProfile.Domain);
                 this.IsConnected = e.State == XmppState.Connected;
@@ -82,7 +82,7 @@ namespace XamarinApp.ViewModels
 
         private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            this.dispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
+            this.uiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
         }
     }
 }

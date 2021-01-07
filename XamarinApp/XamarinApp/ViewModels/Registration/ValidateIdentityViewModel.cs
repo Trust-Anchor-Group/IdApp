@@ -11,7 +11,6 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Views;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -22,13 +21,13 @@ namespace XamarinApp.ViewModels.Registration
 
         public ViewIdentityViewModel(
             TagProfile tagProfile,
-            IDispatcher dispatcher,
+            IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService)
-            : base(RegistrationStep.ValidateIdentity, tagProfile, dispatcher, neuronService, navigationService, settingsService, logService)
+            : base(RegistrationStep.ValidateIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
@@ -119,17 +118,17 @@ namespace XamarinApp.ViewModels.Registration
         {
             if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
             {
-                Dispatcher.BeginInvokeOnMainThread(AssignProperties);
+                UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
             }
             else
             {
-                Dispatcher.BeginInvokeOnMainThread(AssignBareJId);
+                UiDispatcher.BeginInvokeOnMainThread(AssignBareJId);
             }
         }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(() =>
+            UiDispatcher.BeginInvokeOnMainThread(() =>
             {
                 AssignBareJId();
                 if (this.NeuronService.State == XmppState.Connected)
@@ -151,7 +150,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(() =>
+            UiDispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.LegalIdentity = e.Identity;
                 this.TagProfile.SetLegalIdentity(e.Identity);
@@ -357,14 +356,14 @@ namespace XamarinApp.ViewModels.Registration
 
             if (!Constants.IoTSchemes.StartsWithIdScheme(code))
             {
-                await this.Dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
                 return;
             }
 
             bool succeeded = await this.networkService.Request(this.NeuronService.Contracts.PetitionPeerReviewIdAsync, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
             if (succeeded)
             {
-                await this.Dispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
+                await this.UiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
             }
         }
 

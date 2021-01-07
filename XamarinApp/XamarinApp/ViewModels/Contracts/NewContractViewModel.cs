@@ -15,7 +15,6 @@ using XamarinApp.Models;
 using XamarinApp.Services;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Contracts
 {
@@ -27,7 +26,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
-        private readonly IDispatcher dispatcher;
+        private readonly IUiDispatcher uiDispatcher;
         private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly TagProfile tagProfile;
@@ -40,7 +39,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.logService = DependencyService.Resolve<ILogService>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
-            this.dispatcher = DependencyService.Resolve<IDispatcher>();
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
@@ -360,7 +359,7 @@ namespace XamarinApp.ViewModels.Contracts
             {
                 this.logService.LogException(ex, new KeyValuePair<string, string>("Method", "GetContractAsync"), new KeyValuePair<string, string>("ContractId", this.contractTemplateId));
                 ClearTemplate();
-                await this.dispatcher.DisplayAlert(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
             }
         }
 
@@ -474,7 +473,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (this.ContractParameters.Any(x => !x.IsValid))
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
                     return;
                 }
 
@@ -482,7 +481,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (this.SelectedContractVisibilityItem == null)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
                     return;
                 }
 
@@ -490,13 +489,13 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (this.SelectedRole == null)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
                     return;
                 }
 
                 if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
                     return;
                 }
 
@@ -531,7 +530,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                await this.dispatcher.DisplayAlert(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
             }
         }
 
@@ -611,7 +610,7 @@ namespace XamarinApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                await this.dispatcher.DisplayAlert(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
             }
         }
     }

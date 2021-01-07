@@ -13,7 +13,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
         private readonly Mock<INavigationService> navigationService = new Mock<INavigationService>();
         private readonly Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         private readonly Mock<ILogService> logService = new Mock<ILogService>();
-        private readonly Mock<IDispatcher> dispatcher = new Mock<IDispatcher>();
+        private readonly Mock<IUiDispatcher> dispatcher = new Mock<IUiDispatcher>();
 
         protected override DefinePinViewModel AViewModel()
         {

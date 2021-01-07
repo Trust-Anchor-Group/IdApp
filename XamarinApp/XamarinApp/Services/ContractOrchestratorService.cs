@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.Services
 {
     internal sealed class ContractOrchestratorService : LoadableService, IContractOrchestratorService
     {
         private readonly TagProfile tagProfile;
-        private readonly IDispatcher dispatcher;
+        private readonly IUiDispatcher uiDispatcher;
         private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
         private readonly ILogService logService;
@@ -22,14 +22,14 @@ namespace XamarinApp.Services
 
         public ContractOrchestratorService(
             TagProfile tagProfile,
-            IDispatcher dispatcher,
+            IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             ILogService logService,
             INetworkService networkService)
         {
             this.tagProfile = tagProfile;
-            this.dispatcher = dispatcher;
+            this.uiDispatcher = uiDispatcher;
             this.neuronService = neuronService;
             this.navigationService = navigationService;
             this.logService = logService;
@@ -133,7 +133,7 @@ namespace XamarinApp.Services
             {
                 if (!e.Response || e.RequestedContract is null)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.Message, AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
+                    await this.uiDispatcher.DisplayAlert(AppResources.Message, AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace XamarinApp.Services
         {
             if (!e.Response || e.RequestedIdentity is null)
             {
-                await this.dispatcher.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
+                await this.uiDispatcher.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
             }
             else
             {
@@ -184,7 +184,7 @@ namespace XamarinApp.Services
             {
                 if (!e.Response)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
+                    await this.uiDispatcher.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
                 }
                 else
                 {
@@ -199,7 +199,7 @@ namespace XamarinApp.Services
                     }
                     catch (Exception ex)
                     {
-                        await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
                         return;
                     }
 
@@ -207,14 +207,14 @@ namespace XamarinApp.Services
                     {
                         if (!result.HasValue || !result.Value)
                         {
-                            await this.dispatcher.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
+                            await this.uiDispatcher.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
                         }
                         else
                         {
                             (bool succeeded, LegalIdentity legalIdentity) = await this.networkService.Request(this.neuronService.Contracts.AddPeerReviewIdAttachment, tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
                             if (succeeded)
                             {
-                                await this.dispatcher.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
+                                await this.uiDispatcher.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
                             }
                         }
                     });
@@ -223,7 +223,7 @@ namespace XamarinApp.Services
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
-                await this.dispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
             }
 
         }
@@ -249,7 +249,7 @@ namespace XamarinApp.Services
                 bool succeeded = await this.networkService.Request(this.neuronService.Contracts.PetitionIdentityAsync, legalId, Guid.NewGuid().ToString(), purpose);
                 if (succeeded)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
+                    await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
                 }
             }
         }
@@ -277,7 +277,7 @@ namespace XamarinApp.Services
                 bool succeeded = await this.networkService.Request(this.neuronService.Contracts.PetitionContractAsync, contractId, Guid.NewGuid().ToString(), purpose);
                 if (succeeded)
                 {
-                    await this.dispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
+                    await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
                 }
             }
         }

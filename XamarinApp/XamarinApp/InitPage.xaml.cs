@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,6 +16,7 @@ namespace XamarinApp
         private readonly INeuronService neuronService;
         private readonly TagProfile tagProfile;
         private readonly INavigationService navigationService;
+        private readonly IUiDispatcher uiDispatcher;
 
         public InitPage()
         {
@@ -22,6 +24,7 @@ namespace XamarinApp
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             ViewModel = new InitViewModel();
             InitializeComponent();
         }
@@ -47,7 +50,7 @@ namespace XamarinApp
             {
                 GetViewModel<InitViewModel>().IsBusy = false;
 
-                Dispatcher.BeginInvokeOnMainThread(async () =>
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
                     if (this.tagProfile.IsComplete())

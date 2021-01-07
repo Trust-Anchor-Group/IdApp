@@ -9,7 +9,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
 {
     public class ChooseAccountViewModelTests : ViewModelTests<ChooseAccountViewModel>
     {
-        private readonly Mock<IDispatcher> dispatcher = new Mock<IDispatcher>();
+        private readonly Mock<IUiDispatcher> dispatcher = new Mock<IUiDispatcher>();
         private readonly Mock<INeuronService> neuronService = new Mock<INeuronService>();
         private readonly Mock<INavigationService> navigationService = new Mock<INavigationService>();
         private readonly Mock<IAuthService> authService = new Mock<IAuthService>();

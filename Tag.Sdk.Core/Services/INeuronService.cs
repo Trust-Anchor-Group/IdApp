@@ -8,7 +8,6 @@ namespace Tag.Sdk.Core.Services
     public interface INeuronService : ILoadableService, IDisposable
     {
         Task<bool> WaitForConnectedState(TimeSpan timeout);
-        event EventHandler<LoadedEventArgs> Loaded;
         event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         Task<(bool succeeded, string errorMessage)> TryConnect(string domain, string hostName, int portNumber, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);

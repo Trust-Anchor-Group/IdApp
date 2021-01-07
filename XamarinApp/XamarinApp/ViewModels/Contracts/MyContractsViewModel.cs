@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
@@ -22,6 +23,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
+        private readonly IUiDispatcher uiDispatcher;
         private DateTime loadContractsTimestamp;
 
         public MyContractsViewModel(bool showCreatedContracts)
@@ -29,6 +31,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.showCreatedContracts = showCreatedContracts;
             this.contractsMap = new Dictionary<string, Contract>();
             this.Contracts = new ObservableCollection<ContractModel>();
@@ -79,7 +82,7 @@ namespace XamarinApp.ViewModels.Contracts
                 ContractModel model = (ContractModel)newValue;
                 if (model != null && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
                 { 
-                    viewModel.Dispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.PushAsync(new ViewContractPage(contract, false)));
+                    viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.PushAsync(new ViewContractPage(contract, false)));
                 }
             });
 
@@ -115,7 +118,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             if (contractIds.Length <= 0)
             {
-                Dispatcher.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
+                this.uiDispatcher.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
                 return;
             }
 

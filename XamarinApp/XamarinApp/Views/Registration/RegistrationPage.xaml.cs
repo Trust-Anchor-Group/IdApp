@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XamarinApp.Services;
 using XamarinApp.ViewModels.Registration;
 
 namespace XamarinApp.Views.Registration
@@ -11,9 +11,12 @@ namespace XamarinApp.Views.Registration
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationPage
     {
+        private readonly IUiDispatcher uiDispatcher;
+
         public RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             ViewModel = new RegistrationViewModel();
             InitializeComponent();
         }
@@ -31,7 +34,7 @@ namespace XamarinApp.Views.Registration
         /// So here we scroll back and forth one step to get it to be in sync with the viewmodel.
         private void UpdateUiStep()
         {
-            Dispatcher.BeginInvokeOnMainThread(() =>
+            this.uiDispatcher.BeginInvokeOnMainThread(() =>
             {
                 RegistrationViewModel vm = GetViewModel<RegistrationViewModel>();
                 int step = vm.CurrentStep;
@@ -50,7 +53,7 @@ namespace XamarinApp.Views.Registration
                     vm.MuteStepSync();
                     this.CarouselView.ScrollTo(otherStep, position: ScrollToPosition.Center, animate: false);
                     this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center, animate: false);
-                    Dispatcher.BeginInvokeOnMainThread(() => vm.UnmuteStepSync());
+                    this.uiDispatcher.BeginInvokeOnMainThread(() => vm.UnmuteStepSync());
                 }
             });
         }

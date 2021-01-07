@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
 using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -15,14 +15,14 @@ namespace XamarinApp.ViewModels.Registration
         public RegistrationStepViewModel(
             RegistrationStep step, 
             TagProfile tagProfile,
-            IDispatcher dispatcher,
+            IUiDispatcher uiDispatcher,
             INeuronService neuronService, 
             INavigationService navigationService,
             ISettingsService settingsService,
             ILogService logService)
         {
             this.Step = step;
-            this.Dispatcher = dispatcher;
+            this.UiDispatcher = uiDispatcher;
             this.TagProfile = tagProfile;
             this.NeuronService = neuronService;
             this.NavigationService = navigationService;
@@ -41,7 +41,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public RegistrationStep Step { get; }
 
-        protected IDispatcher Dispatcher { get; }
+        protected IUiDispatcher UiDispatcher { get; }
         protected TagProfile TagProfile { get; }
         protected INeuronService NeuronService { get; }
         protected INavigationService NavigationService { get; }
@@ -56,7 +56,7 @@ namespace XamarinApp.ViewModels.Registration
 
         protected void BeginInvokeSetIsDone(params ICommand[] commands)
         {
-            Dispatcher.BeginInvokeOnMainThread(() => SetIsDone(commands));
+            UiDispatcher.BeginInvokeOnMainThread(() => SetIsDone(commands));
         }
 
         protected void SetIsDone(params ICommand[] commands)

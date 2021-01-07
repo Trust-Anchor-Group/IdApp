@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Tag.Sdk.Core
 {
-    public interface IDispatcher
+    public interface IUiDispatcher
     {
         void BeginInvokeOnMainThread(Action action);
         bool IsRunningInTheBackground { get; }

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
-using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels
 {
@@ -11,13 +11,13 @@ namespace XamarinApp.ViewModels
     {
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
-        private readonly IDispatcher dispatcher;
+        private readonly IUiDispatcher uiDispatcher;
 
         public InitViewModel()
         {
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.dispatcher = DependencyService.Resolve<IDispatcher>();
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
         }
 
@@ -54,7 +54,7 @@ namespace XamarinApp.ViewModels
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.dispatcher.BeginInvokeOnMainThread(() => e.State.ToDisplayText(this.tagProfile.Domain));
+            this.uiDispatcher.BeginInvokeOnMainThread(() => e.State.ToDisplayText(this.tagProfile.Domain));
         }
     }
 }
