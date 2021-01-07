@@ -4,6 +4,8 @@ using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
+using IDispatcher = Tag.Sdk.Core.IDispatcher;
 
 namespace XamarinApp.ViewModels
 {
@@ -12,12 +14,14 @@ namespace XamarinApp.ViewModels
         private readonly TagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
+        private readonly IDispatcher dispatcher;
 
         public MainViewModel()
         {
             this.tagProfile = DependencyService.Resolve<TagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
+            this.dispatcher = DependencyService.Resolve<IDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
         }
 
@@ -69,75 +73,16 @@ namespace XamarinApp.ViewModels
 
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(() => HandleConnectionStateChanged(e.State));
+            this.dispatcher.BeginInvokeOnMainThread(() =>
+            {
+                e.State.ToDisplayText(this.tagProfile.Domain);
+                this.IsConnected = e.State == XmppState.Connected;
+            });
         }
 
         private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            Dispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
-        }
-
-        public void HandleConnectionStateChanged(XmppState state)
-        {
-            bool connected = false;
-
-            switch (state)
-            {
-                case XmppState.Authenticating:
-                    this.ConnectionStateText = AppResources.XmppState_Authenticating;
-                    break;
-
-                case XmppState.Binding:
-                    this.ConnectionStateText = AppResources.XmppState_Binding;
-                    break;
-
-                case XmppState.Connected:
-                    this.ConnectionStateText = string.Format(AppResources.XmppState_Connected, this.tagProfile.Domain);
-                    connected = true;
-                    break;
-
-                case XmppState.Connecting:
-                    this.ConnectionStateText = AppResources.XmppState_Connecting;
-                    break;
-
-                case XmppState.Error:
-                    this.ConnectionStateText = AppResources.XmppState_Error;
-                    break;
-
-                case XmppState.FetchingRoster:
-                    this.ConnectionStateText = AppResources.XmppState_FetchingRoster;
-                    break;
-
-                case XmppState.Registering:
-                    this.ConnectionStateText = AppResources.XmppState_Registering;
-                    break;
-
-                case XmppState.RequestingSession:
-                    this.ConnectionStateText = AppResources.XmppState_RequestingSession;
-                    break;
-
-                case XmppState.SettingPresence:
-                    this.ConnectionStateText = AppResources.XmppState_SettingPresence;
-                    break;
-
-                case XmppState.StartingEncryption:
-                    this.ConnectionStateText = AppResources.XmppState_StartingEncryption;
-                    break;
-
-                case XmppState.StreamNegotiation:
-                    this.ConnectionStateText = AppResources.XmppState_StreamNegotiation;
-                    break;
-
-                case XmppState.StreamOpened:
-                    this.ConnectionStateText = AppResources.XmppState_StreamOpened;
-                    break;
-
-                default:
-                    this.ConnectionStateText = AppResources.XmppState_Offline;
-                    break;
-            }
-
-            this.IsConnected = connected;
+            this.dispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
         }
     }
 }
