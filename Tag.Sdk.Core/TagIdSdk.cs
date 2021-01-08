@@ -74,7 +74,8 @@ namespace Tag.Sdk.Core
                     typeof(XmppClient).Assembly,
                     typeof(ContractsClient).Assembly,
                     typeof(Expression).Assembly,
-                    typeof(XmppServerlessMessaging).Assembly);
+                    typeof(XmppServerlessMessaging).Assembly,
+                    typeof(TagConfiguration).Assembly);
             }
 
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -110,7 +111,6 @@ namespace Tag.Sdk.Core
             await Types.StopAllModules();
             if (this.databaseProvider != null)
             {
-                await databaseProvider.Stop();
                 this.databaseProvider.Dispose();
                 this.databaseProvider = null;
             }
