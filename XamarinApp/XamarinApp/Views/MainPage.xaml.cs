@@ -89,12 +89,12 @@ namespace XamarinApp.Views
 
         private async void CreatedContractsButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new MyContractsPage(true));
+            await this.navigationService.PushAsync(new MyContractsPage());
         }
 
         private async void SignedContractsButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new MyContractsPage(false));
+            await this.navigationService.PushAsync(new SignedContractsPage());
         }
 
         private async void NewContractButton_Clicked(object sender, EventArgs e)

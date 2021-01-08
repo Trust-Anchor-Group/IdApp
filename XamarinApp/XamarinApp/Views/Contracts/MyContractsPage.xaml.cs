@@ -10,7 +10,12 @@ namespace XamarinApp.Views.Contracts
 	{
         private readonly INavigationService navigationService;
 
-		public MyContractsPage(bool showCreatedContracts)
+        public MyContractsPage()
+        : this(true)
+        {
+        }
+
+        protected MyContractsPage(bool showCreatedContracts)
 		{
             this.Title = showCreatedContracts ? AppResources.MyContracts : AppResources.SignedContracts;
             this.navigationService = DependencyService.Resolve<INavigationService>();

@@ -18,6 +18,7 @@
                 Value="FontAwesome5Free-Solid" />
         </OnPlatform>
         <Color x:Key="HeadingForeground">White</Color>
+        <Color x:Key="Primary">#202E40</Color>
         <Color x:Key="HeadingBackground">#202E40</Color>
         <Color x:Key="AccentColor">#BADA55</Color>
         <Color x:Key="AlertColor">Red</Color>

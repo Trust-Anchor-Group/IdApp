@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<views1:ShellBasePage xmlns="http://xamarin.com/schemas/2014/forms" 
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
+               xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
+               xmlns:registrationViews="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
+               xmlns:contractViews="clr-namespace:XamarinApp.Views.Contracts;assembly=XamarinApp"
+               xmlns:views1="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
+               Title="TestIosAppDeploy"
+               x:Class="XamarinApp.AppShell">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource HeadingBackground}" />
+                <Setter Property="Shell.ForegroundColor" Value="{StaticResource ForegroundColor}" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
+                <!--<Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>-->
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <ShellContent Route="InitPage" Shell.FlyoutBehavior="Disabled" Shell.NavBarIsVisible="false">
+        <local:InitPage />
+    </ShellContent>
+
+    <ShellContent Route="RegistrationPage" Shell.FlyoutBehavior="Flyout" Shell.NavBarIsVisible="True">
+        <registrationViews:RegistrationPage />
+    </ShellContent>
+
+    <ShellContent Route="MainPage" Shell.FlyoutBehavior="Flyout">
+        <views:MainPage />
+    </ShellContent>
+
+    <ShellContent Route="ScanQrCodePage" Shell.FlyoutBehavior="Disabled" Shell.PresentationMode="ModalAnimated">
+        <views:ScanQrCodePage />
+    </ShellContent>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.General}">
+        <ShellContent Title="{x:Static local:AppResources.Identity}" Route="ViewIdentityPage">
+            <views:ViewIdentityPage />
+        </ShellContent>
+        <!--<ShellContent Title="{x:Static local:AppResources.Wallet}" Route="ViewWalletPage" IsEnabled="False">
+            <views:ViewWalletPage />
+        </ShellContent>-->
+        <ShellContent Title="{x:Static local:AppResources.ScanQRCode}" Route="ScanQrCodePage">
+            <views:ScanQrCodePage />
+        </ShellContent>
+        <!--<ShellContent Title="{x:Static local:AppResources.Devices}" Route="ViewDevicesPage" IsEnabled="False">
+            <views:ViewDevicesPage />
+        </ShellContent>-->
+    </FlyoutItem>
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.Contracts}">
+        <ShellContent Title="{x:Static local:AppResources.MyCreatedContracts}" Route="MyContractsPage" IsEnabled="{Binding Path=IsConnected}">
+            <contractViews:MyContractsPage />
+        </ShellContent>
+        <ShellContent Title="{x:Static local:AppResources.SignedContracts}" Route="SignedContractsPage" IsEnabled="{Binding Path=IsConnected}">
+            <contractViews:SignedContractsPage />
+        </ShellContent>
+        <ShellContent Title="{x:Static local:AppResources.NewContract}" Route="NewContractPage" IsEnabled="{Binding Path=IsConnected}">
+            <contractViews:NewContractPage />
+        </ShellContent>
+    </FlyoutItem>
+
+    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked" IsEnabled="False"/>
+
+    <!-- Optional Templates 
+    // These may be provided inline as below or as separate classes.
+
+    // This header appears at the top of the Flyout.
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid>ContentHere</Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    // ItemTemplate is for ShellItems as displayed in a Flyout
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Title, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    // MenuItemTemplate is for MenuItems as displayed in a Flyout
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <ContentView>
+                Bindable Properties: Text, Icon
+            </ContentView>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+    -->
+
+</views1:ShellBasePage>

@@ -13,5 +13,6 @@ namespace Tag.Sdk.Core.Services
         Task PushModalAsync(Page page);
         Task PopModalAsync();
         Task ReplaceAsync(Page page);
+        Task ReplaceAsync(string route);
     }
 }

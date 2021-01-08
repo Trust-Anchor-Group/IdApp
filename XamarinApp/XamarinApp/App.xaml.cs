@@ -52,12 +52,12 @@ namespace XamarinApp
             this.navigationOrchestratorService = DependencyService.Resolve<INavigationOrchestratorService>();
 
             // Start page
-            NavigationPage navigationPage = new NavigationPage(new InitPage())
-            {
-                BarBackgroundColor = (Color)Current.Resources["HeadingBackground"],
-                BarTextColor = (Color)Current.Resources["HeadingForeground"]
-            };
-            this.MainPage = navigationPage;
+            this.MainPage = new AppShell();
+            //this.MainPage = new NavigationPage(new InitPage())
+            //{
+            //    BarBackgroundColor = (Color)Current.Resources["HeadingBackground"],
+            //    BarTextColor = (Color)Current.Resources["HeadingForeground"]
+            //};
         }
 
         private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

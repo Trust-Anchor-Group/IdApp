@@ -32,16 +32,22 @@ namespace Tag.Sdk.Core.Services
             return Application.Current.MainPage.Navigation.PopModalAsync(true);
         }
 
+        public async Task ReplaceAsync(string route)
+        {
+            string uri = $"//{route}";
+            await Shell.Current.GoToAsync(uri);
+        }
+
         public async Task ReplaceAsync(Page page)
         {
-            // Neat trick to replace current page but still get a page animation.
-            Page currPage = Application.Current.MainPage;
-            if (currPage is NavigationPage navPage)
-            {
-                currPage = navPage.CurrentPage;
-            }
-            await Application.Current.MainPage.Navigation.PushAsync(page);
-            currPage.Navigation.RemovePage(currPage);
+            //// Neat trick to replace current page but still get a page animation.
+            //Page currPage = Application.Current.MainPage;
+            //if (currPage is NavigationPage navPage)
+            //{
+            //    currPage = navPage.CurrentPage;
+            //}
+            //await Application.Current.MainPage.Navigation.PushAsync(page);
+            //currPage.Navigation.RemovePage(currPage);
         }
     }
 }
