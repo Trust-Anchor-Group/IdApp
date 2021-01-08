@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace Tag.Sdk.Core.Services
 {
@@ -18,7 +19,7 @@ namespace Tag.Sdk.Core.Services
         {
             this.uiDispatcher = uiDispatcher;
             this.logService = logService;
-            if (DeviceInfo.Platform != DevicePlatform.Unknown) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
+            if (DeviceInfo.Platform != DevicePlatform.Unknown && !DesignMode.IsDesignModeEnabled) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
             {
                 Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
             }

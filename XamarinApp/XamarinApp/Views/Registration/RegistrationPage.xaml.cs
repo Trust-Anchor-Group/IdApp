@@ -24,8 +24,11 @@ namespace XamarinApp.Views.Registration
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            await Task.Delay(TimeSpan.FromMilliseconds(100));
-            UpdateUiStep();
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(100));
+                UpdateUiStep();
+            }
         }
 
         /// This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.

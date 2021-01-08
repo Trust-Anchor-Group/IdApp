@@ -6,25 +6,26 @@
              xmlns:resources="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Registration.RegistrationPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <StackLayout.Resources>
-                <ResourceDictionary>
-                    <DataTemplate x:Key="ChooseOperatorTemplate">
-                        <registrationViews:ChooseOperatorView/>
-                    </DataTemplate>
-                    <DataTemplate x:Key="ChooseAccountTemplate">
-                        <registrationViews:ChooseAccountView/>
-                    </DataTemplate>
-                    <DataTemplate x:Key="RegisterIdentityTemplate">
-                        <registrationViews:RegisterIdentityView/>
-                    </DataTemplate>
-                    <DataTemplate x:Key="ValidateIdentityTemplate">
-                        <registrationViews:ValidateIdentityView/>
-                    </DataTemplate>
-                    <DataTemplate x:Key="DefinePinTemplate">
-                        <registrationViews:DefinePinView/>
-                    </DataTemplate>
-                    <registrationViews:RegistrationStepDataTemplateSelector 
+        <Grid BackgroundColor="{StaticResource HeadingBackground}">
+            <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsets}" BackgroundColor="{StaticResource PageBackgroundColor}">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <DataTemplate x:Key="ChooseOperatorTemplate">
+                            <registrationViews:ChooseOperatorView/>
+                        </DataTemplate>
+                        <DataTemplate x:Key="ChooseAccountTemplate">
+                            <registrationViews:ChooseAccountView/>
+                        </DataTemplate>
+                        <DataTemplate x:Key="RegisterIdentityTemplate">
+                            <registrationViews:RegisterIdentityView/>
+                        </DataTemplate>
+                        <DataTemplate x:Key="ValidateIdentityTemplate">
+                            <registrationViews:ValidateIdentityView/>
+                        </DataTemplate>
+                        <DataTemplate x:Key="DefinePinTemplate">
+                            <registrationViews:DefinePinView/>
+                        </DataTemplate>
+                        <registrationViews:RegistrationStepDataTemplateSelector 
                         x:Key="StepTemplateSelector"
                         DefinePin="{StaticResource DefinePinTemplate}"
                         ValidateIdentity="{StaticResource ValidateIdentityTemplate}"
@@ -32,16 +33,16 @@
                         ChooseAccount="{StaticResource ChooseAccountTemplate}"
                         ChooseOperator="{StaticResource ChooseOperatorTemplate}"
                         />
-                </ResourceDictionary>
-            </StackLayout.Resources>
-            <StackLayout Orientation="Vertical">
-                <!-- HEADING -->
-                <Grid BackgroundColor="{StaticResource HeadingBackground}" Padding="{StaticResource DefaultMargin}" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="36"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <StackLayout Orientation="Vertical">
+                    <!-- HEADING -->
+                    <Grid BackgroundColor="{StaticResource HeadingBackground}" Padding="{StaticResource DefaultMargin}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="36"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label
                         Grid.Column="0"
                         FontSize="24" 
                         TextColor="{StaticResource HeadingForeground}"
@@ -50,21 +51,21 @@
                         VerticalOptions="Center"
                         Margin="0,-12,0,-6"
                         IsVisible="{Binding Path=CanGoBack}">
-                        <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
-                        </Label.GestureRecognizers>
-                    </Label>
-                    <Label Grid.Column="1"
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=GoToPrevCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Label Grid.Column="1"
                         Text="{Binding Path=CurrentStepTitle}" 
                         HorizontalOptions="StartAndExpand" 
                         VerticalOptions="CenterAndExpand"
                         FontSize="24" 
                         Margin="0,-8,0,0"
                         TextColor="{StaticResource HeadingForeground}" />
-                </Grid>
-            </StackLayout>
-            <!-- CONTENT -->
-            <CarouselView x:Name="CarouselView"
+                    </Grid>
+                </StackLayout>
+                <!-- CONTENT -->
+                <CarouselView x:Name="CarouselView"
                           IsSwipeEnabled="False"
                           HorizontalOptions="CenterAndExpand"
                           VerticalOptions="CenterAndExpand"
@@ -73,13 +74,14 @@
                           ItemsSource="{Binding Path=RegistrationSteps}"
                           ItemTemplate="{StaticResource StepTemplateSelector}"
                           IndicatorView="IndicatorView"/>
-            <!-- WIZARD INDICATOR -->
-            <IndicatorView x:Name="IndicatorView"
+                <!-- WIZARD INDICATOR -->
+                <IndicatorView x:Name="IndicatorView"
                            HorizontalOptions="Fill"
                            IndicatorColor="{StaticResource HeadingForeground}"
                            Padding="6"
                            BackgroundColor="{StaticResource HeadingBackground}"
                            SelectedIndicatorColor="{StaticResource AccentColor}"/>
-        </StackLayout>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </views:ContentBasePage>

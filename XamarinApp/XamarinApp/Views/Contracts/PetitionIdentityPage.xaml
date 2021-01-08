@@ -6,7 +6,7 @@
              x:Class="XamarinApp.Views.Contracts.PetitionIdentityPage"
              Title="{x:Static local:AppResources.PetitionIdentity}">
     <ScrollView>
-        <StackLayout Margin="{StaticResource DefaultMargin}">
+        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
             <Label Text="{x:Static local:AppResources.Petition}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource Heading}" />
             <Label Text="{x:Static local:AppResources.PetitionIdentityInformationText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">

@@ -8,21 +8,23 @@
             <On Platform="Android" 
                 Value="FontAwesome5Free-Regular-400.otf#Regular" />
             <On Platform="iOS" 
-                Value="FontAwesome5Free-Regular-400" />
+                Value="FontAwesome5Free-Regular" />
         </OnPlatform>
         <OnPlatform x:TypeArguments="x:String" 
                     x:Key="FontAwesomeSolid">
             <On Platform="Android" 
                 Value="FontAwesome5Free-Solid-900.otf#Regular" />
             <On Platform="iOS" 
-                Value="FontAwesome5Free-Solid-900" />
+                Value="FontAwesome5Free-Solid" />
         </OnPlatform>
         <Color x:Key="HeadingForeground">White</Color>
         <Color x:Key="HeadingBackground">#202E40</Color>
         <Color x:Key="AccentColor">#BADA55</Color>
         <Color x:Key="AlertColor">Red</Color>
-        <Color x:Key="BackgroundColor">#333333</Color>
+        <Color x:Key="PageBackgroundColor">White</Color>
         <Color x:Key="ForegroundColor">Black</Color>
+        <Thickness x:Key="SafeAreaInsets"/>
+        <Thickness x:Key="SafeAreaInsetsDefaultMargin">12</Thickness>
         <Thickness x:Key="DefaultMargin">12</Thickness>
         <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>
         <Thickness x:Key="DefaultTopOnlyMargin">0,12,0,0</Thickness>
@@ -48,7 +50,7 @@
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Small" />
-            <Setter Property="BackgroundColor" Value="{StaticResource BackgroundColor}" />
+            <Setter Property="BackgroundColor" Value="#333333" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="0" />
             <Setter Property="Padding" Value="0" />

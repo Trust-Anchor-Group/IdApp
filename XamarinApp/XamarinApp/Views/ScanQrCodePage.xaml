@@ -7,7 +7,7 @@
              x:Class="XamarinApp.Views.ScanQrCodePage"
              Title="{x:Static local:AppResources.ScanQRCode}">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
+        <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
             <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
                 <forms:ZXingScannerView 
                 x:Name="Scanner"

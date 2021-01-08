@@ -1,15 +1,31 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using Xamarin.Forms;
 using Tag.Sdk.UI.ViewModels;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Tag.Sdk.UI.Views
 {
     public class ContentBasePage : ContentPage
     {
+        private const string DefaultMargin = "DefaultMargin";
+        private const string SafeAreaInsets = "SafeAreaInsets";
+        private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
+
         public ContentBasePage()
         {
-            On<iOS>().SetUseSafeArea(true);
+            PropertyChanged += OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == SafeAreaInsets)
+            {
+                Thickness safeAreaInsets = On<Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
+                Xamarin.Forms.Application.Current.Resources[SafeAreaInsets] = safeAreaInsets;
+                Thickness defaultMargin = (Thickness)Xamarin.Forms.Application.Current.Resources[DefaultMargin];
+                Thickness safeAreaInsetsDefaultMargin = new Thickness(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
+                Xamarin.Forms.Application.Current.Resources[SafeAreaInsetsDefaultMargin] = safeAreaInsetsDefaultMargin;
+            }
         }
 
         protected BaseViewModel ViewModel

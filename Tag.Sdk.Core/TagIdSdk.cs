@@ -107,7 +107,7 @@ namespace Tag.Sdk.Core
             {
                 return Task.CompletedTask;
             }
-            return Shutdown(false);
+            return ShutdownInternal(false);
         }
 
         public Task ShutdownInPanic()

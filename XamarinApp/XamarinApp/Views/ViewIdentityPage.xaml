@@ -6,7 +6,7 @@
              x:Class="XamarinApp.Views.ViewIdentityPage"
              Title="{x:Static local:AppResources.Identity}">
     <ScrollView>
-        <StackLayout Margin="{StaticResource DefaultMargin}">
+        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
             <StackLayout.Resources>
                 <ResourceDictionary>
                     <Style TargetType="Label" x:Key="ValueLabel">

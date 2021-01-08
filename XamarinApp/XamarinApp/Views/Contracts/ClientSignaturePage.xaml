@@ -5,8 +5,8 @@
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Contracts.ClientSignaturePage"
              Title="{x:Static local:AppResources.ClientSignature}">
-    <ScrollView x:Name="ScrollView">
-        <StackLayout Margin="{StaticResource DefaultMargin}">
+    <ScrollView>
+        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
             <Label Text="{x:Static local:AppResources.IdentityInformation}" Style="{StaticResource Heading}" />
             <Label Text="{x:Static local:AppResources.IdentityInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <TableView Intent="Data" HasUnevenRows="True">

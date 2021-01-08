@@ -7,7 +7,7 @@
              Title="{x:Static local:AppResources.MainPageTitle}">
     <ContentPage.Content>
         <ScrollView>
-        <StackLayout Margin="{StaticResource DefaultMargin}">
+            <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
             <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" />
             <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
             <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}"/>

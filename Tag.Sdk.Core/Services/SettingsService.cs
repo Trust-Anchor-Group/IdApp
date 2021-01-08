@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using SQLite;
+using Xamarin.Forms;
 
 namespace Tag.Sdk.Core.Services
 {
@@ -20,9 +21,12 @@ namespace Tag.Sdk.Core.Services
 
         public SettingsService()
         {
-            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            if (!DesignMode.IsDesignModeEnabled)
             {
-                connection.CreateTable<Setting>();
+                using (var connection = new SQLiteConnection(DatabasePath, Flags))
+                {
+                    connection.CreateTable<Setting>();
+                }
             }
         }
 

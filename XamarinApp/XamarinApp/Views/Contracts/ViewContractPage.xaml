@@ -8,7 +8,7 @@
              x:Class="XamarinApp.Views.Contracts.ViewContractPage"
              Title="{x:Static local:AppResources.ViewContract}">
     <ScrollView>
-        <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}" x:Name="ContractStackLayout">
             <StackLayout.Resources>
                 <ResourceDictionary>
                     <DataTemplate x:Key="ContractHumanReadableText1Template">
