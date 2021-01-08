@@ -22,7 +22,7 @@ namespace Tag.Sdk.Core
     {
         private static ITagIdSdk instance;
         private readonly Assembly appAssembly;
-        private FilesProvider filesProvider;
+        private FilesProvider databaseProvider;
 
         private TagIdSdk(Application app, params DomainModel[] domains)
         {
@@ -35,7 +35,7 @@ namespace Tag.Sdk.Core
             this.StorageService = new StorageService();
             this.appAssembly = app.GetType().Assembly;
             this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.logService);
-            this.NavigationService = new NavigationService(DependencyService.Resolve<IUiDispatcher>());
+            this.NavigationService = new NavigationService();
         }
 
         public void Dispose()
@@ -79,12 +79,12 @@ namespace Tag.Sdk.Core
 
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string dataFolder = Path.Combine(appDataFolder, "Data");
-            if (filesProvider == null)
+            if (databaseProvider == null)
             {
-                filesProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
+                databaseProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
             }
-            await filesProvider.RepairIfInproperShutdown(string.Empty);
-            Database.Register(filesProvider, false);
+            await databaseProvider.RepairIfInproperShutdown(string.Empty);
+            Database.Register(databaseProvider, false);
 
             if (!isResuming)
             {
@@ -100,32 +100,32 @@ namespace Tag.Sdk.Core
             await this.NeuronService.Load(isResuming);
         }
 
-        public Task Shutdown(bool keepRunningInTheBackground)
+        public async Task Shutdown(bool keepRunningInTheBackground)
         {
             this.uiDispatcher.IsRunningInTheBackground = true;
-            if (keepRunningInTheBackground)
+            if (!keepRunningInTheBackground)
             {
-                return Task.CompletedTask;
-            }
-            return ShutdownInternal(false);
-        }
-
-        public Task ShutdownInPanic()
-        {
-            return ShutdownInternal(true);
-        }
-
-        private async Task ShutdownInternal(bool panic)
-        {
-            if (panic)
-                await this.neuronService.UnloadFast();
-            else
                 await this.neuronService.Unload();
+            }
             await Types.StopAllModules();
-            if (this.filesProvider != null)
+            if (this.databaseProvider != null)
             {
-                this.filesProvider.Dispose();
-                this.filesProvider = null;
+                await databaseProvider.Stop();
+                this.databaseProvider.Dispose();
+                this.databaseProvider = null;
+            }
+            Log.Terminate();
+        }
+
+        public async Task ShutdownInPanic()
+        {
+            this.uiDispatcher.IsRunningInTheBackground = false;
+            await this.neuronService.UnloadFast();
+            await Types.StopAllModules();
+            if (this.databaseProvider != null)
+            {
+                this.databaseProvider.Dispose();
+                this.databaseProvider = null;
             }
             Log.Terminate();
         }

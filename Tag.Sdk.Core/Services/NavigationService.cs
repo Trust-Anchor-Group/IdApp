@@ -5,13 +5,6 @@ namespace Tag.Sdk.Core.Services
 {
     internal sealed class NavigationService : INavigationService
     {
-        private readonly IUiDispatcher uiDispatcher;
-
-        public NavigationService(IUiDispatcher uiDispatcher)
-        {
-            this.uiDispatcher = uiDispatcher;
-        }
-
         public Task PushAsync(Page page)
         {
             return Application.Current.MainPage.Navigation.PushAsync(page, true);
