@@ -21,7 +21,7 @@ namespace XamarinApp
         private readonly ITagIdSdk sdk;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly INavigationOrchestratorService navigationOrchestratorService;
-        private readonly bool keepRunningInTheBackground = false;
+        private readonly bool keepRunningInTheBackground = true;
 
         public App()
 		{

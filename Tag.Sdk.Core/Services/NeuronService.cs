@@ -129,7 +129,7 @@ namespace Tag.Sdk.Core.Services
             {
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
-                this.logService.UnregisterEventSink();
+                this.logService.UnRegisterEventSink();
                 this.xmppClient.Dispose();
             }
             this.xmppClient = null;

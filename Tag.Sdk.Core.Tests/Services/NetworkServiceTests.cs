@@ -65,6 +65,7 @@ namespace Tag.Sdk.Core.Tests.Services
             this.logService.Reset();
             this.dispatcher.Verify(x => x.DisplayAlert(It.Is<string>(title => title.Equals(Tag.Sdk.Core.AppResources.ErrorTitle)), It.Is<string>(msg => msg.Equals(message))), Times.Once);
             this.navigationService.Reset();
+            this.dispatcher.Reset();
         }
 
         [Test]

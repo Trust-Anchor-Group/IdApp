@@ -35,7 +35,7 @@ namespace Tag.Sdk.Core
             this.StorageService = new StorageService();
             this.appAssembly = app.GetType().Assembly;
             this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.logService);
-            this.NavigationService = new NavigationService(DependencyService.Resolve<IUiDispatcher>());
+            this.NavigationService = new NavigationService();
         }
 
         public void Dispose()
@@ -103,24 +103,24 @@ namespace Tag.Sdk.Core
         public Task Shutdown(bool keepRunningInTheBackground)
         {
             this.uiDispatcher.IsRunningInTheBackground = true;
-            if (keepRunningInTheBackground)
-            {
-                return Task.CompletedTask;
-            }
-            return ShutdownInternal(false);
+            return ShutdownInternal(false, keepRunningInTheBackground);
         }
 
         public Task ShutdownInPanic()
         {
-            return ShutdownInternal(true);
+            return ShutdownInternal(true, false);
         }
 
-        private async Task ShutdownInternal(bool panic)
+        private async Task ShutdownInternal(bool panic, bool keepRunningInTheBackground)
         {
             if (panic)
+            {
                 await this.neuronService.UnloadFast();
-            else
+            }
+            else if (!keepRunningInTheBackground)
+            {
                 await this.neuronService.Unload();
+            }
             await Types.StopAllModules();
             if (this.filesProvider != null)
             {

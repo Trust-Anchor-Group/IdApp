@@ -15,10 +15,12 @@ namespace Tag.Sdk.Core.Services
         private XmppEventSink eventSink;
         private readonly IAppInformation appInformation;
         private string bareJid = string.Empty;
+        private readonly IList<ILogListener> listeners;
 
         public LogService(IAppInformation appInformation)
         {
             this.appInformation = appInformation;
+            this.listeners = new List<ILogListener>();
         }
 
         public void RegisterEventSink(XmppClient client, string logJid)
@@ -31,7 +33,7 @@ namespace Tag.Sdk.Core.Services
             }
         }
 
-        public void UnregisterEventSink()
+        public void UnRegisterEventSink()
         {
             if (eventSink != null)
             {
@@ -53,6 +55,27 @@ namespace Tag.Sdk.Core.Services
             }
             Crashes.TrackError(e, parameters);
             Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+
+            foreach (ILogListener listener in this.listeners)
+            {
+                listener.LogException(e, extraParameters);
+            }
+        }
+
+        public void AddListener(ILogListener listener)
+        {
+            if (listener != null)
+            {
+                this.listeners.Add(listener);
+            }
+        }
+
+        public void RemoveListener(ILogListener listener)
+        {
+            if (listener != null)
+            {
+                this.listeners.Remove(listener);
+            }
         }
 
         public void LogException(Exception e)
@@ -69,6 +92,11 @@ namespace Tag.Sdk.Core.Services
             else
             {
                 Analytics.TrackEvent(name);
+            }
+
+            foreach (ILogListener listener in this.listeners)
+            {
+                listener.LogEvent(name, extraParameters);
             }
         }
 

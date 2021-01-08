@@ -30,7 +30,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
                 .And(vm => vm.Pin = pin)
                 .And(vm => vm.ContinueCommand.IsExecuted())
                 .ThenAssert(() => dispatcher.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, string.Format(XamarinApp.AppResources.PinTooShort, Constants.Authentication.MinPinLength)), Times.Once))
-                .Finally(() => navigationService.Reset());
+                .Finally(() => dispatcher.Reset());
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Tag.Sdk.UI.Tests.ViewModels
                 .And(vm => vm.ContinueCommand.IsExecuted())
                 .ThenAssert(() => dispatcher.Verify(x => x.DisplayAlert(XamarinApp.AppResources.ErrorTitle, XamarinApp.AppResources.PinMustNotIncludeWhitespace), Times.Once))
                 .ThenAssert(vm => vm.UsePin)
-                .Finally(() => navigationService.Reset());
+                .Finally(() => dispatcher.Reset());
         }
 
         [Test]

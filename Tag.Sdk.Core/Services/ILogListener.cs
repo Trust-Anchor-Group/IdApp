@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace Tag.Sdk.Core.Services
 {
-    public interface ILogService
+    public interface ILogListener
     {
-        void AddListener(ILogListener listener);
-        void RemoveListener(ILogListener listener);
         void LogException(Exception e);
         void LogException(Exception e, params KeyValuePair<string, string>[] parameters);
         void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters);
+
     }
 }
