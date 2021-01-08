@@ -107,7 +107,7 @@ namespace Tag.Sdk.Core
             {
                 await this.neuronService.Unload();
             }
-
+            await Types.StopAllModules();
             if (this.databaseProvider != null)
             {
                 await databaseProvider.Stop();
@@ -119,6 +119,7 @@ namespace Tag.Sdk.Core
 
         public async Task ShutdownInPanic()
         {
+            this.uiDispatcher.IsRunningInTheBackground = false;
             await this.neuronService.UnloadFast();
             await Types.StopAllModules();
             if (this.databaseProvider != null)
