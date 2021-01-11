@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Newtonsoft.Json;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.Core.Services;
@@ -18,17 +17,14 @@ namespace XamarinApp.ViewModels.Contracts
 {
     public class ViewIdentityViewModel : BaseViewModel
     {
-        private const string IdToReview = "IdToReview";
-        private SignaturePetitionEventArgs identityToReview;
+        private readonly SignaturePetitionEventArgs identityToReview;
         private readonly TagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
-        private readonly ISettingsService settingsService;
         private readonly INavigationService navigationService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
-        private bool persistState;
 
         public ViewIdentityViewModel(
             LegalIdentity identity,
@@ -36,7 +32,6 @@ namespace XamarinApp.ViewModels.Contracts
             TagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
-            ISettingsService settingsService,
             INavigationService navigationService,
             INetworkService networkService,
             ILogService logService)
@@ -47,7 +42,6 @@ namespace XamarinApp.ViewModels.Contracts
             this.uiDispatcher = uiDispatcher;
             this.logService = logService;
             this.neuronService = neuronService;
-            this.settingsService = settingsService;
             this.navigationService = navigationService;
             this.networkService = networkService;
             this.ApproveCommand = new Command(async _ => await Approve());
@@ -61,23 +55,9 @@ namespace XamarinApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
-            string idToReviewAsJson = this.settingsService.RestoreState<string>(GetSettingsKey(IdToReview));
-            if ( !string.IsNullOrWhiteSpace(idToReviewAsJson))
-            {
-                try
-                {
-                    this.identityToReview = JsonConvert.DeserializeObject<SignaturePetitionEventArgs>(idToReviewAsJson);
-                }
-                catch (Exception ex)
-                {
-                    this.logService.LogException(ex);
-                    this.identityToReview = null;
-                }
-            }
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
             this.neuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
-            this.persistState = true;
         }
 
         protected override async Task DoUnbind()
@@ -85,14 +65,6 @@ namespace XamarinApp.ViewModels.Contracts
             this.photosLoader.CancelLoadPhotos();
             this.tagProfile.Changed -= TagProfile_Changed;
             this.neuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
-            if (this.persistState && this.identityToReview != null)
-            {
-                this.settingsService.SaveState(GetSettingsKey(IdToReview), JsonConvert.SerializeObject(identityToReview));
-            }
-            else
-            {
-                this.settingsService.RemoveState<string>(GetSettingsKey(IdToReview));
-            }
             await base.DoUnbind();
         }
 
@@ -762,7 +734,6 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (succeeded2)
                 {
-                    this.persistState = false;
                     await this.navigationService.PopAsync();
                 }
             }
@@ -783,7 +754,6 @@ namespace XamarinApp.ViewModels.Contracts
                 bool succeeded = await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false);
                 if (succeeded)
                 {
-                    this.persistState = false;
                     await this.navigationService.PopAsync();
                 }
             }

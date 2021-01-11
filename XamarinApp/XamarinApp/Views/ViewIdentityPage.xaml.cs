@@ -31,7 +31,6 @@ namespace XamarinApp.Views
                 DependencyService.Resolve<TagProfile>(),
                 DependencyService.Resolve<IUiDispatcher>(),
                 DependencyService.Resolve<INeuronService>(),
-                DependencyService.Resolve<ISettingsService>(),
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
                 DependencyService.Resolve<ILogService>());

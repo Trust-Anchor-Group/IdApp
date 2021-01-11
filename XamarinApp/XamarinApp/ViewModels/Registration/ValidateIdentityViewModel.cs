@@ -30,7 +30,7 @@ namespace XamarinApp.ViewModels.Registration
             : base(RegistrationStep.ValidateIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
-            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
+            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.NeuronService.IsOnline);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
@@ -134,6 +134,7 @@ namespace XamarinApp.ViewModels.Registration
                 {
                     ReloadPhotos();
                 }
+                InviteReviewerCommand.ChangeCanExecute();
             });
         }
 
