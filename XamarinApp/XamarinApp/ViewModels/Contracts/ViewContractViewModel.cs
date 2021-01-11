@@ -41,7 +41,8 @@ namespace XamarinApp.ViewModels.Contracts
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.tagProfile = DependencyService.Resolve<TagProfile>();
-            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService);
+            this.Photos = new ObservableCollection<ImageSource>();
+            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService, this.Photos);
             this.DisplayPartCommand = new Command<string>(async legalId => await ShowLegalId(legalId));
             this.SignPartAsRoleCommand = new Command<string>(async roleId => await SignContract(roleId));
             this.DisplayClientSignatureCommand = new Command<string>(async sign => await ShowClientSignature(sign));
@@ -56,7 +57,6 @@ namespace XamarinApp.ViewModels.Contracts
             this.ContractMachineReadableText = new ObservableCollection<PartModel>();
             this.ContractClientSignatures = new ObservableCollection<PartModel>();
             this.ContractServerSignatures = new ObservableCollection<PartModel>();
-            this.Photos = new ObservableCollection<ImageSource>();
         }
 
         protected override async Task DoBind()
@@ -239,7 +239,6 @@ namespace XamarinApp.ViewModels.Contracts
             this.HasServerSignatures = false;
             this.HasQrCode = false;
             this.CanDeleteOrObsoleteContract = false;
-            this.Photos.Clear();
         }
 
         private async Task LoadContract()
@@ -402,7 +401,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (this.contract.Attachments != null)
                 {
-                    _ = this.photosLoader.LoadPhotos(this.contract.Attachments, this.Photos);
+                    _ = this.photosLoader.LoadPhotos(this.contract.Attachments);
                 }
             }
             catch (Exception ex)

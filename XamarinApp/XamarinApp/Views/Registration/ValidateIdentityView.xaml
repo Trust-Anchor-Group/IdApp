@@ -119,7 +119,7 @@
                             <ViewCell Height="80">
                                 <StackLayout Orientation="Vertical">
                                     <Label Text="Photos:" />
-                                    <CollectionView ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopOnlyMargin}">
+                                    <CollectionView ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
                                         <CollectionView.ItemTemplate>
                                             <DataTemplate>
                                                 <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" />

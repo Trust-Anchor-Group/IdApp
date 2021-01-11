@@ -147,6 +147,20 @@
                             </StackLayout>
                         </ViewCell>
                     </TableSection>
+                    <TableSection x:Name="PhotoSection">
+                        <ViewCell Height="80">
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="Photos:" />
+                                <CollectionView ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" />
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
                     <TableSection>
                         <ViewCell>
                             <Image x:Name="QrCode" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="CenterAndExpand" Margin="{StaticResource DefaultTopOnlyMargin}" />

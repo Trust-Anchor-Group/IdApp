@@ -28,8 +28,9 @@ namespace XamarinApp.ViewModels
         protected override async Task DoBind()
         {
             await base.DoBind();
-            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.IsOnline = this.networkService.IsOnline;
+            this.SetConnectionStateText(this.neuronService.State);
+            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
         }
 
@@ -73,16 +74,18 @@ namespace XamarinApp.ViewModels
 
         public void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.uiDispatcher.BeginInvokeOnMainThread(() =>
-            {
-                e.State.ToDisplayText(this.tagProfile.Domain);
-                this.IsConnected = e.State == XmppState.Connected;
-            });
+            this.uiDispatcher.BeginInvokeOnMainThread(() => this.SetConnectionStateText(e.State));
         }
 
         private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             this.uiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
+        }
+
+        private void SetConnectionStateText(XmppState state)
+        {
+            this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);
+            this.IsConnected = state == XmppState.Connected;
         }
     }
 }

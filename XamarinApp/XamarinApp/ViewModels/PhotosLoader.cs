@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Extensions;
@@ -17,31 +18,46 @@ namespace XamarinApp.ViewModels
         private readonly ILogService logService;
         private readonly INetworkService networkService;
         private readonly INeuronService neuronService;
+        private readonly ObservableCollection<ImageSource> photos;
+        private readonly List<string> attachmentIds;
         private DateTime loadPhotosTimestamp;
 
-        public PhotosLoader(ILogService logService, INetworkService networkService, INeuronService neuronService)
+        public PhotosLoader(ILogService logService, INetworkService networkService, INeuronService neuronService, ObservableCollection<ImageSource> photos)
         {
             this.logService = logService;
             this.networkService = networkService;
             this.neuronService = neuronService;
+            this.photos = photos;
+            this.attachmentIds = new List<string>();
         }
 
-        public Task LoadPhotos(Attachment[] attachments, ObservableCollection<ImageSource> photos)
+        public Task LoadPhotos(Attachment[] attachments)
         {
-            return LoadPhotos(attachments, photos, DateTime.UtcNow);
+            return LoadPhotos(attachments, DateTime.UtcNow);
         }
 
         public void CancelLoadPhotos()
         {
             this.loadPhotosTimestamp = DateTime.UtcNow;
+            this.photos.Clear();
+            this.attachmentIds.Clear();
         }
 
-        private async Task LoadPhotos(Attachment[] attachments, ObservableCollection<ImageSource> photos, DateTime now)
+        private async Task LoadPhotos(Attachment[] attachments, DateTime now)
         {
-            if (attachments == null || attachments.Length <= 0 || photos == null)
+            if (attachments == null || attachments.Length <= 0)
                 return;
 
-            foreach (Attachment attachment in attachments.GetImageAttachments())
+            List<Attachment> attachmentsList = attachments.GetImageAttachments().ToList();
+            List<string> newAttachmentIds = attachmentsList.Select(x => x.Id).ToList();
+
+            if (this.attachmentIds.HasSameContentAs(newAttachmentIds))
+                return;
+
+            this.attachmentIds.Clear();
+            this.attachmentIds.AddRange(newAttachmentIds);
+
+            foreach (Attachment attachment in attachmentsList)
             {
                 if (this.loadPhotosTimestamp > now)
                 {

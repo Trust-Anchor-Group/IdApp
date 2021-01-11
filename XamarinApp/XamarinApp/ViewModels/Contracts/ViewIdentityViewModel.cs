@@ -55,16 +55,24 @@ namespace XamarinApp.ViewModels.Contracts
             this.RevokeCommand = new Command(async _ => await Revoke());
             this.CompromiseCommand = new Command(async _ => await Compromise());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, this.Photos);
         }
 
         protected override async Task DoBind()
         {
             await base.DoBind();
             string idToReviewAsJson = this.settingsService.RestoreState<string>(GetSettingsKey(IdToReview));
-            if (!string.IsNullOrWhiteSpace(idToReviewAsJson))
+            if ( !string.IsNullOrWhiteSpace(idToReviewAsJson))
             {
-                this.identityToReview = JsonConvert.DeserializeObject<SignaturePetitionEventArgs>(idToReviewAsJson);
+                try
+                {
+                    this.identityToReview = JsonConvert.DeserializeObject<SignaturePetitionEventArgs>(idToReviewAsJson);
+                }
+                catch (Exception ex)
+                {
+                    this.logService.LogException(ex);
+                    this.identityToReview = null;
+                }
             }
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
@@ -75,7 +83,6 @@ namespace XamarinApp.ViewModels.Contracts
         protected override async Task DoUnbind()
         {
             this.photosLoader.CancelLoadPhotos();
-            this.Photos.Clear();
             this.tagProfile.Changed -= TagProfile_Changed;
             this.neuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
             if (this.persistState && this.identityToReview != null)
@@ -177,10 +184,9 @@ namespace XamarinApp.ViewModels.Contracts
             }
 
             this.photosLoader.CancelLoadPhotos();
-            this.Photos.Clear();
             if (this.tagProfile?.LegalIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.tagProfile.LegalIdentity.Attachments, this.Photos);
+                _ = this.photosLoader.LoadPhotos(this.tagProfile.LegalIdentity.Attachments);
             }
         }
 
