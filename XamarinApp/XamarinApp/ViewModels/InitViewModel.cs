@@ -2,6 +2,7 @@
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
+using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 
@@ -43,6 +44,7 @@ namespace XamarinApp.ViewModels
         {
             await base.DoBind();
             this.ProfileIsComplete = this.tagProfile.IsComplete();
+            this.SetConnectionStateText(this.neuronService.State);
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 
@@ -54,7 +56,12 @@ namespace XamarinApp.ViewModels
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.uiDispatcher.BeginInvokeOnMainThread(() => e.State.ToDisplayText(this.tagProfile.Domain));
+            this.uiDispatcher.BeginInvokeOnMainThread(() => SetConnectionStateText(e.State));
+        }
+
+        private void SetConnectionStateText(XmppState state)
+        {
+            this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);
         }
     }
 }

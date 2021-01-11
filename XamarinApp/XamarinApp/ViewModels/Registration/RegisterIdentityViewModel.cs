@@ -299,6 +299,7 @@ namespace XamarinApp.ViewModels.Registration
             this.photos[photoId] = new LegalIdentityAttachment(photo.Path, Constants.MimeTypes.Jpeg, bytes);
             ms.Reset();
             Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
+            RegisterCommand.ChangeCanExecute();
         }
 
         private async Task Register()
