@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -8,6 +11,7 @@ using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Tag.Sdk.Core;
 using Tag.Sdk.UI.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
@@ -17,6 +21,7 @@ namespace XamarinApp
 {
 	public partial class App : IDisposable
     {
+        private const string StartupCrashFileName = "Stacktrace.txt";
         private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
         private readonly IContractOrchestratorService contractOrchestratorService;
@@ -87,13 +92,15 @@ namespace XamarinApp
             }
             catch (Exception e)
             {
-                DisplayErrorPage("StartPage", e.ToString());
+                WriteExceptionToFile("StartPage", e.ToString());
                 return;
             }
         }
 
         private void DisplayErrorPage(string title, string stackTrace)
         {
+            WriteExceptionToFile(title, stackTrace);
+
             if (stacktraceDuringStartup == null)
             {
                 stacktraceDuringStartup = stackTrace;
@@ -119,10 +126,77 @@ namespace XamarinApp
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand
             });
+            Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
+            b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stacktraceDuringStartup);
+            sl.Children.Add(b);
+
             this.MainPage = new ContentPage
             {
                 Content = sl
             };
+        }
+
+        private void WriteExceptionToFile(string title, string stackTrace)
+        {
+            string contents;
+            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+            if (File.Exists(fileName))
+            {
+                contents = File.ReadAllText(fileName);
+            }
+            else
+            {
+                contents = string.Empty;
+            }
+
+            File.WriteAllText(fileName, $"{title}{Environment.NewLine}{stackTrace}{Environment.NewLine}{contents}");
+        }
+
+        private string ReadExceptionFromFile()
+        {
+            string contents;
+            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+            if (File.Exists(fileName))
+            {
+                contents = File.ReadAllText(fileName);
+            }
+            else
+            {
+                contents = string.Empty;
+            }
+
+            return contents;
+        }
+
+        private void DeleteExceptionFile()
+        {
+            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+        }
+
+        private async Task SendErrorReport()
+        {
+            string stackTrace = ReadExceptionFromFile();
+            if (!string.IsNullOrWhiteSpace(stackTrace))
+            {
+                try
+                {
+                    HttpClient client = new HttpClient();
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var content = new StringContent(stackTrace);
+                    content.Headers.ContentType.MediaType = "text/plain";
+                    await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    DeleteExceptionFile();
+                }
+            }
         }
 
         private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
@@ -132,6 +206,12 @@ namespace XamarinApp
             {
                 ex = e.Exception.InnerException;
             }
+
+            if (ex != null)
+            {
+                WriteExceptionToFile(nameof(TaskScheduler_UnobservedTaskException), ex.ToString());
+            }
+
             if (this.sdk?.LogService != null)
             {
                 this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("TaskScheduler", "UnobservedTaskException"));
@@ -153,6 +233,12 @@ namespace XamarinApp
         private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
+
+            if (ex != null)
+            {
+                WriteExceptionToFile(nameof(CurrentDomain_UnhandledException), ex.ToString());
+            }
+
             if (ex != null && this.sdk?.LogService != null)
             {
                 this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("CurrentDomain", "UnhandledException"));
@@ -209,8 +295,10 @@ namespace XamarinApp
 
 		private async Task PerformStartup(bool isResuming)
         {
+            await SendErrorReport();
+
             await this.sdk.Startup(isResuming);
-            
+
             await this.contractOrchestratorService.Load(isResuming);
             await this.navigationOrchestratorService.Load(isResuming);
 
