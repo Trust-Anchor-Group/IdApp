@@ -42,7 +42,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, this.Photos);
             AssignProperties(requestorIdentity, purpose);
         }
 
@@ -51,14 +51,13 @@ namespace XamarinApp.ViewModels.Contracts
             await base.DoBind();
             if (this.requestorIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments, this.Photos);
+                _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments);
             }
         }
 
         protected override async Task DoUnbind()
         {
             this.photosLoader.CancelLoadPhotos();
-            this.Photos.Clear();
             await base.DoUnbind();
         }
 

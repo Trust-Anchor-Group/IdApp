@@ -34,7 +34,7 @@ namespace XamarinApp.ViewModels.Registration
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService);
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, this.Photos);
         }
 
         protected override async Task DoBind()
@@ -49,7 +49,6 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoUnbind()
         {
             this.photosLoader.CancelLoadPhotos();
-            this.Photos.Clear();
             this.TagProfile.Changed -= TagProfile_Changed;
             this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
             this.NeuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
@@ -141,10 +140,9 @@ namespace XamarinApp.ViewModels.Registration
         private void ReloadPhotos()
         {
             this.photosLoader.CancelLoadPhotos();
-            this.Photos.Clear();
             if (this.TagProfile?.LegalIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, this.Photos);
+                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments);
             }
         }
 
