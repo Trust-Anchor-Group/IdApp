@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -10,6 +11,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Tag.Sdk.Core;
+using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.UI.ViewModels;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -32,15 +34,7 @@ namespace XamarinApp
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
-            try
-            {
-                InitializeComponent();
-            }
-            catch (Exception e)
-            {
-                DisplayErrorPage("InitializeComponent", e.ToString());
-                return;
-            }
+            InitializeComponent();
 
             try
             {
@@ -69,12 +63,6 @@ namespace XamarinApp
             catch (Exception e)
             {
                 DisplayErrorPage("ContainerBuilder", e.ToString());
-                return;
-            }
-
-            if (!string.IsNullOrWhiteSpace(stacktraceDuringStartup))
-            {
-                DisplayErrorPage("Unhandled or Task Exception", stacktraceDuringStartup);
                 return;
             }
 
@@ -170,21 +158,11 @@ namespace XamarinApp
 
         #region Error Handling
 
-        private const string StartupCrashFileName = "Stacktrace.txt";
-        private string stacktraceDuringStartup;
+        private const string StartupCrashFileName = "CrashDump.txt";
 
         private void DisplayErrorPage(string title, string stackTrace)
         {
             WriteExceptionToFile(title, stackTrace);
-
-            if (stacktraceDuringStartup == null)
-            {
-                stacktraceDuringStartup = stackTrace;
-            }
-            else
-            {
-                stacktraceDuringStartup = $"{stackTrace}{Environment.NewLine}{stacktraceDuringStartup}";
-            }
 
             ScrollView sv = new ScrollView();
             StackLayout sl = new StackLayout
@@ -199,12 +177,12 @@ namespace XamarinApp
             });
             sl.Children.Add(new Label
             {
-                Text = stacktraceDuringStartup,
+                Text = stackTrace,
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand
             });
             Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
-            b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stacktraceDuringStartup);
+            b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
             sl.Children.Add(b);
             sv.Content = sl;
             this.MainPage = new ContentPage
@@ -279,61 +257,44 @@ namespace XamarinApp
         private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             Exception ex = e.Exception;
-            if (e.Exception?.InnerException != null)
+            if (e.Exception?.InnerException != null) // Unwrap the AggregateException
             {
                 ex = e.Exception.InnerException;
             }
-
-            if (ex != null)
-            {
-                this.WriteExceptionToFile(nameof(TaskScheduler_UnobservedTaskException), ex.ToString());
-            }
-
-            this.sdk?.LogService?.LogException(ex, new KeyValuePair<string, string>("TaskScheduler", "UnobservedTaskException"));
-
             e.SetObserved();
-
-            if (Device.IsInvokeRequired && MainPage != null)
-            {
-                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Task Exception", ex?.ToString(), AppResources.Ok));
-            }
-            else if (MainPage != null)
-            {
-                await MainPage.DisplayAlert("Unhandled Task Exception", ex?.ToString(), AppResources.Ok);
-            }
-
-            stacktraceDuringStartup = ex?.ToString();
+            await Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
         }
 
         private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Exception ex = e.ExceptionObject as Exception;
+            await Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
+        }
 
+        private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
+        {
             if (ex != null)
             {
-                WriteExceptionToFile(nameof(CurrentDomain_UnhandledException), ex.ToString());
+                WriteExceptionToFile(title, ex.ToString());
             }
 
             if (ex != null)
             {
-                sdk?.LogService?.LogException(ex, new KeyValuePair<string, string>("CurrentDomain", "UnhandledException"));
+                sdk?.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
             }
 
-            if (this.sdk != null)
+            if (this.sdk != null && shutdown)
             {
                 await this.sdk.ShutdownInPanic();
             }
 
             if (Device.IsInvokeRequired && MainPage != null)
             {
-                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok));
+                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
             }
             else if (MainPage != null)
             {
-                await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok);
+                await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
             }
-
-            stacktraceDuringStartup = ex?.ToString();
         }
 
         #endregion

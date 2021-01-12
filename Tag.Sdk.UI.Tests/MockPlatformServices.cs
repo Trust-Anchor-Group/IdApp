@@ -91,17 +91,7 @@ namespace Tag.Sdk.UI.Tests
 
         public void StartTimer(TimeSpan interval, Func<bool> callback)
         {
-            Timer timer = null;
-
-            void OnTimeout(object? o) =>
-                BeginInvokeOnMainThread(() =>
-                {
-                    if (callback()) return;
-
-                    timer.Dispose();
-                });
-
-            timer = new Timer(OnTimeout, null, interval, interval);
+            Task.Delay(interval).ContinueWith(_ => callback());
         }
 
         public void QuitApplication()
