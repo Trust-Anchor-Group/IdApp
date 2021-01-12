@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -32,7 +33,7 @@ namespace Tag.Sdk.Core
             this.AuthService = new AuthService(this.LogService);
             this.NetworkService = new NetworkService(this.LogService, this.UiDispatcher);
             this.SettingsService = new SettingsService();
-            this.StorageService = new StorageService();
+            this.StorageService = new StorageService(this.logService);
             this.appAssembly = app.GetType().Assembly;
             this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.logService);
             this.NavigationService = new NavigationService();
@@ -80,12 +81,20 @@ namespace Tag.Sdk.Core
 
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string dataFolder = Path.Combine(appDataFolder, "Data");
-            if (databaseProvider == null)
+            try
             {
-                databaseProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
+                if (databaseProvider == null)
+                {
+                    databaseProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
+                }
+                await databaseProvider.RepairIfInproperShutdown(string.Empty);
+                Database.Register(databaseProvider, false);
             }
-            await databaseProvider.RepairIfInproperShutdown(string.Empty);
-            Database.Register(databaseProvider, false);
+            catch (Exception e)
+            {
+                this.logService.LogException(e, new KeyValuePair<string, string>("Class", nameof(TagIdSdk)), new KeyValuePair<string, string>("Method", nameof(Startup)));
+                throw;
+            }
 
             if (!isResuming)
             {

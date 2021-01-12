@@ -81,7 +81,7 @@ namespace XamarinApp.ViewModels.Contracts
             Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.LegalIdentity?.Id;
             BareJId = this.neuronService?.BareJId ?? string.Empty;
-            if (this.LegalIdentity != null)
+            if (this.LegalIdentity?.ClientPubKey != null)
             {
                 PublicKey = Convert.ToBase64String(this.LegalIdentity.ClientPubKey);
             }

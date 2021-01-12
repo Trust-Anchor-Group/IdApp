@@ -22,5 +22,10 @@ namespace Tag.Sdk.UI.Tests.ViewModels
         {
             return command != null && command.CanExecute(null) == false;
         }
+
+        protected void ActionCommandIsExecuted(ICommand command)
+        {
+            command.Execute(null);
+        }
     }
 }

@@ -21,14 +21,11 @@ namespace XamarinApp
 {
 	public partial class App : IDisposable
     {
-        private const string StartupCrashFileName = "Stacktrace.txt";
         private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly INavigationOrchestratorService navigationOrchestratorService;
         private readonly bool keepRunningInTheBackground = false;
-
-        private string stacktraceDuringStartup;
 
         public App()
 		{
@@ -84,9 +81,11 @@ namespace XamarinApp
             // Start page
             try
             {
-                NavigationPage navigationPage = new NavigationPage(new InitPage());
-                navigationPage.BarBackgroundColor = (Color)Current.Resources["HeadingBackground"];
-                navigationPage.BarTextColor = (Color)Current.Resources["HeadingForeground"];
+                NavigationPage navigationPage = new NavigationPage(new InitPage())
+                {
+                    BarBackgroundColor = (Color) Current.Resources["HeadingBackground"],
+                    BarTextColor = (Color) Current.Resources["HeadingForeground"]
+                };
 
                 this.MainPage = navigationPage;
             }
@@ -96,6 +95,83 @@ namespace XamarinApp
                 return;
             }
         }
+
+        public void Dispose()
+        {
+            this.sdk?.Dispose();
+        }
+
+        protected override async void OnStart()
+        {
+            AppCenter.Start(
+                "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios={Your iOS App secret here}",
+                typeof(Analytics),
+                typeof(Crashes));
+
+            try
+            {
+                await PerformStartup(false);
+            }
+            catch (Exception e)
+            {
+                DisplayErrorPage("PerformStartup", e.ToString());
+            }
+        }
+
+        protected override async void OnResume()
+        {
+            await PerformStartup(true);
+        }
+
+        protected override async void OnSleep()
+        {
+            await PerformShutdown();
+        }
+
+		private async Task PerformStartup(bool isResuming)
+        {
+            await SendErrorReportFromPreviousRun();
+
+            await this.sdk.Startup(isResuming);
+
+            await this.contractOrchestratorService.Load(isResuming);
+            await this.navigationOrchestratorService.Load(isResuming);
+
+            this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
+        }
+
+        private async Task PerformShutdown()
+        {
+            if (this.autoSaveTimer != null)
+            {
+                this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                this.autoSaveTimer.Dispose();
+                this.autoSaveTimer = null;
+            }
+            AutoSave();
+            if (MainPage?.BindingContext is BaseViewModel vm)
+            {
+                await vm.SaveState();
+                await vm.Unbind();
+            }
+
+            if (!keepRunningInTheBackground)
+            {
+                await this.navigationOrchestratorService.Unload();
+                await this.contractOrchestratorService.Unload();
+            }
+            await this.sdk.Shutdown(keepRunningInTheBackground);
+        }
+
+        private void AutoSave()
+        {
+            this.sdk.AutoSave();
+        }
+
+        #region Error Handling
+
+        private const string StartupCrashFileName = "Stacktrace.txt";
+        private string stacktraceDuringStartup;
 
         private void DisplayErrorPage(string title, string stackTrace)
         {
@@ -110,6 +186,7 @@ namespace XamarinApp
                 stacktraceDuringStartup = $"{stackTrace}{Environment.NewLine}{stacktraceDuringStartup}";
             }
 
+            ScrollView sv = new ScrollView();
             StackLayout sl = new StackLayout
             {
                 Orientation = StackOrientation.Vertical,
@@ -129,10 +206,10 @@ namespace XamarinApp
             Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
             b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stacktraceDuringStartup);
             sl.Children.Add(b);
-
+            sv.Content = sl;
             this.MainPage = new ContentPage
             {
-                Content = sl
+                Content = sv
             };
         }
 
@@ -175,7 +252,7 @@ namespace XamarinApp
                 File.Delete(fileName);
         }
 
-        private async Task SendErrorReport()
+        private async Task SendErrorReportFromPreviousRun()
         {
             string stackTrace = ReadExceptionFromFile();
             if (!string.IsNullOrWhiteSpace(stackTrace))
@@ -209,13 +286,11 @@ namespace XamarinApp
 
             if (ex != null)
             {
-                WriteExceptionToFile(nameof(TaskScheduler_UnobservedTaskException), ex.ToString());
+                this.WriteExceptionToFile(nameof(TaskScheduler_UnobservedTaskException), ex.ToString());
             }
 
-            if (this.sdk?.LogService != null)
-            {
-                this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("TaskScheduler", "UnobservedTaskException"));
-            }
+            this.sdk?.LogService?.LogException(ex, new KeyValuePair<string, string>("TaskScheduler", "UnobservedTaskException"));
+
             e.SetObserved();
 
             if (Device.IsInvokeRequired && MainPage != null)
@@ -239,9 +314,9 @@ namespace XamarinApp
                 WriteExceptionToFile(nameof(CurrentDomain_UnhandledException), ex.ToString());
             }
 
-            if (ex != null && this.sdk?.LogService != null)
+            if (ex != null)
             {
-                this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("CurrentDomain", "UnhandledException"));
+                sdk?.LogService?.LogException(ex, new KeyValuePair<string, string>("CurrentDomain", "UnhandledException"));
             }
 
             if (this.sdk != null)
@@ -261,76 +336,6 @@ namespace XamarinApp
             stacktraceDuringStartup = ex?.ToString();
         }
 
-        public void Dispose()
-        {
-            this.sdk?.Dispose();
-        }
-
-        protected override async void OnStart()
-        {
-            AppCenter.Start(
-                "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios={Your iOS App secret here}",
-                typeof(Analytics),
-                typeof(Crashes));
-
-            try
-            {
-                await PerformStartup(false);
-            }
-            catch (Exception e)
-            {
-                DisplayErrorPage("PerformStartup", e.ToString());
-            }
-        }
-
-        protected override async void OnResume()
-        {
-            await PerformStartup(true);
-        }
-
-        protected override async void OnSleep()
-        {
-            await PerformShutdown();
-        }
-
-		private async Task PerformStartup(bool isResuming)
-        {
-            await SendErrorReport();
-
-            await this.sdk.Startup(isResuming);
-
-            await this.contractOrchestratorService.Load(isResuming);
-            await this.navigationOrchestratorService.Load(isResuming);
-
-            this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
-        }
-
-        private async Task PerformShutdown()
-        {
-            if (this.autoSaveTimer != null)
-            {
-                this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
-                this.autoSaveTimer.Dispose();
-                this.autoSaveTimer = null;
-            }
-            AutoSave();
-            if (MainPage?.BindingContext is BaseViewModel vm)
-            {
-                await vm.SaveState();
-                await vm.Unbind();
-            }
-
-            if (!keepRunningInTheBackground)
-            {
-                await this.navigationOrchestratorService.Unload();
-                await this.contractOrchestratorService.Unload();
-            }
-            await this.sdk.Shutdown(keepRunningInTheBackground);
-        }
-
-        private void AutoSave()
-        {
-            this.sdk.AutoSave();
-        }
+        #endregion
     }
 }

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tag.Sdk.Core\Tag.Sdk.Core.csproj" />
+    <ProjectReference Include="..\Tag.Sdk.UI.Tests\Tag.Sdk.UI.Tests.csproj" />
     <ProjectReference Include="..\Tag.Sdk.UI\Tag.Sdk.UI.csproj" />
     <ProjectReference Include="..\XamarinApp\XamarinApp\XamarinApp.csproj" />
   </ItemGroup>
