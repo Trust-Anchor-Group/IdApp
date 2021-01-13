@@ -8,9 +8,12 @@ using Tag.Sdk.Core;
 using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI;
+using Tag.Sdk.UI.Extensions;
 using Tag.Sdk.UI.ViewModels;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels.Contracts
@@ -44,10 +47,10 @@ namespace XamarinApp.ViewModels.Contracts
             this.neuronService = neuronService;
             this.navigationService = navigationService;
             this.networkService = networkService;
-            this.ApproveCommand = new Command(async _ => await Approve());
-            this.RejectCommand = new Command(async _ => await Reject());
-            this.RevokeCommand = new Command(async _ => await Revoke());
-            this.CompromiseCommand = new Command(async _ => await Compromise());
+            this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
+            this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);
+            this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
+            this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, this.Photos);
         }
@@ -57,6 +60,7 @@ namespace XamarinApp.ViewModels.Contracts
             await base.DoBind();
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
+            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.neuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
         }
 
@@ -64,9 +68,12 @@ namespace XamarinApp.ViewModels.Contracts
         {
             this.photosLoader.CancelLoadPhotos();
             this.tagProfile.Changed -= TagProfile_Changed;
+            this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
             this.neuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
             await base.DoUnbind();
         }
+
+        #region Properties
 
         public ObservableCollection<ImageSource> Photos { get; }
 
@@ -74,6 +81,26 @@ namespace XamarinApp.ViewModels.Contracts
         public ICommand RejectCommand { get; }
         public ICommand CompromiseCommand { get; }
         public ICommand RevokeCommand { get; }
+
+        public static readonly BindableProperty IsConnectedProperty =
+            BindableProperty.Create("IsConnected", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+        public bool IsConnected
+        {
+            get { return (bool)GetValue(IsConnectedProperty); }
+            set { SetValue(IsConnectedProperty, value); }
+        }
+
+        public static readonly BindableProperty ConnectionStateTextProperty =
+            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+        public string ConnectionStateText
+        {
+            get { return (string)GetValue(ConnectionStateTextProperty); }
+            set { SetValue(ConnectionStateTextProperty, value); }
+        }
+
+        #endregion
 
         private void AssignProperties()
         {
@@ -155,6 +182,37 @@ namespace XamarinApp.ViewModels.Contracts
                 this.QrCode = null;
             }
 
+            if (this.IsConnected)
+            {
+                this.ReloadPhotos();
+            }
+        }
+
+        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+            {
+                this.SetConnectionStateAndText(e.State);
+                this.ApproveCommand.ChangeCanExecute();
+                this.RejectCommand.ChangeCanExecute();
+                this.RevokeCommand.ChangeCanExecute();
+                this.CompromiseCommand.ChangeCanExecute();
+                if (this.IsConnected)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    this.ReloadPhotos();
+                }
+            });
+        }
+
+        private void SetConnectionStateAndText(XmppState state)
+        {
+            IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(null);
+        }
+
+        private void ReloadPhotos()
+        {
             this.photosLoader.CancelLoadPhotos();
             if (this.tagProfile?.LegalIdentity?.Attachments != null)
             {

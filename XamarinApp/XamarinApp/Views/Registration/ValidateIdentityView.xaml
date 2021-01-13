@@ -137,8 +137,8 @@
                         <TableSection>
                             <ViewCell>
                                 <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
-                                    <Button x:Name="InviteReviewerButton" Text="{x:Static local:AppResources.InvitePeerToReview}" Command="{Binding Path=InviteReviewerCommand}" IsVisible="{Binding Path=IsCreated}"/>
                                     <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:BooleanConverter}}"/>
+                                    <Button x:Name="InviteReviewerButton" Text="{x:Static local:AppResources.InvitePeerToReview}" Command="{Binding Path=InviteReviewerCommand}" IsVisible="{Binding Path=IsCreated}"/>
                                     <Button x:Name="ContinueButton" Text="{x:Static local:AppResources.Continue}" Command="{Binding Path=ContinueCommand}"/>
                                 </StackLayout>
                             </ViewCell>
