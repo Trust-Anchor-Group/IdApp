@@ -27,7 +27,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly INavigationService navigationService;
         private readonly INeuronService neuronService;
         private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly PhotosLoader photosLoader;
 
         public ViewContractViewModel(Contract contract, bool isReadOnly)
@@ -40,7 +40,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-            this.tagProfile = DependencyService.Resolve<TagProfile>();
+            this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService, this.Photos);
             this.DisplayPartCommand = new Command<string>(async legalId => await ShowLegalId(legalId));

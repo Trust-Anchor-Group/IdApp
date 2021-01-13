@@ -1,16 +1,19 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
+using Waher.Networking.XMPP;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 
 namespace XamarinApp.ViewModels.Registration
 {
     public class DefinePinViewModel : RegistrationStepViewModel
     {
         public DefinePinViewModel(
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
@@ -19,10 +22,12 @@ namespace XamarinApp.ViewModels.Registration
             : base(RegistrationStep.Pin, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.ContinueCommand = new Command(_ => Continue(), _ => CanContinue());
-            this.SkipCommand = new Command(_ => Skip());
+            this.SkipCommand = new Command(_ => Skip(), _ => CanSkip());
             this.Title = AppResources.DefinePin;
             this.PinIsTooShortMessage = string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength);
         }
+
+        #region Properties
 
         public ICommand ContinueCommand { get; }
         public ICommand SkipCommand { get; }
@@ -97,11 +102,70 @@ namespace XamarinApp.ViewModels.Registration
             set { SetValue(UsePinProperty, value); }
         }
 
+        public static readonly BindableProperty IsConnectedProperty =
+            BindableProperty.Create("IsConnected", typeof(bool), typeof(DefinePinViewModel), default(bool));
+
+        public bool IsConnected
+        {
+            get { return (bool)GetValue(IsConnectedProperty); }
+            set { SetValue(IsConnectedProperty, value); }
+        }
+
+        public static readonly BindableProperty ConnectionStateTextProperty =
+            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(DefinePinViewModel), default(string));
+
+        public string ConnectionStateText
+        {
+            get { return (string)GetValue(ConnectionStateTextProperty); }
+            set { SetValue(ConnectionStateTextProperty, value); }
+        }
+
+        #endregion
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            AssignProperties(this.NeuronService.State);
+            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+        }
+
+        protected override async Task DoUnbind()
+        {
+            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            await base.DoUnbind();
+        }
+
+        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            UiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                AssignProperties(e.State);
+            });
+        }
+
+        private void AssignProperties(XmppState state)
+        {
+            SetConnectionStateAndText(state);
+            ContinueCommand.ChangeCanExecute();
+            SkipCommand.ChangeCanExecute();
+        }
+
+        private void SetConnectionStateAndText(XmppState state)
+        {
+            IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(null);
+        }
+
         private void Skip()
         {
             UsePin = false;
             this.TagProfile.SetPin(this.Pin, this.UsePin);
             OnStepCompleted(EventArgs.Empty);
+        }
+
+        private bool CanSkip()
+        {
+            return this.NeuronService.IsOnline;
         }
 
         private void Continue()
@@ -128,7 +192,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private bool CanContinue()
         {
-            return !PinsDoNotMatch;
+            return !PinsDoNotMatch && this.NeuronService.IsOnline;
         }
     }
 }

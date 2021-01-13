@@ -13,7 +13,7 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly INavigationService navigationService;
         private bool muteStepSync;
 
@@ -23,9 +23,9 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(TagProfile tagProfile, IUiDispatcher uiDispatcher, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, INavigationService navigationService, INetworkService networkService, ILogService logService)
+        protected internal RegistrationViewModel(ITagProfile tagProfile, IUiDispatcher uiDispatcher, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, INavigationService navigationService, INetworkService networkService, ILogService logService)
         {
-            this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
+            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
@@ -39,7 +39,7 @@ namespace XamarinApp.ViewModels.Registration
                 this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, authService, networkService, logService)),
                 this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService)),
-                this.AddChildViewModel(new ViewIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
+                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, logService))
             };
             SyncTagProfileStep();

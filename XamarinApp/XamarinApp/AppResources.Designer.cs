@@ -1231,6 +1231,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Photos.
+        /// </summary>
+        internal static string Photos {
+            get {
+                return ResourceManager.GetString("Photos", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pick photo.
         /// </summary>
         internal static string PickPhoto {
@@ -1951,11 +1960,20 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Connected to {0}.
+        ///   Looks up a localized string similar to Connected.
         /// </summary>
         internal static string XmppState_Connected {
             get {
                 return ResourceManager.GetString("XmppState_Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected to {0}.
+        /// </summary>
+        internal static string XmppState_ConnectedTo {
+            get {
+                return ResourceManager.GetString("XmppState_ConnectedTo", resourceCulture);
             }
         }
         

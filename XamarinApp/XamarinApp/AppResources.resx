@@ -507,6 +507,9 @@
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Photo is too large</value>
   </data>
+  <data name="Photos" xml:space="preserve">
+    <value>Photos</value>
+  </data>
   <data name="PickPhoto" xml:space="preserve">
     <value>Pick photo</value>
   </data>
@@ -748,6 +751,9 @@
     <value>Binding connection</value>
   </data>
   <data name="XmppState_Connected" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="XmppState_ConnectedTo" xml:space="preserve">
     <value>Connected to {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">

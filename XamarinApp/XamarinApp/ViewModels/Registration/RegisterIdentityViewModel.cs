@@ -13,8 +13,10 @@ using Tag.Sdk.Core.Models;
 using Tag.Sdk.Core.PersonalNumbers;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -24,7 +26,7 @@ namespace XamarinApp.ViewModels.Registration
         private readonly INetworkService networkService;
 
         public RegisterIdentityViewModel(
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService, 
             INavigationService navigationService, 
@@ -49,16 +51,25 @@ namespace XamarinApp.ViewModels.Registration
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
         }
 
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+        }
+
+        protected override async Task DoUnbind()
+        {
+            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            await base.DoUnbind();
+        }
+
+        #region Properties
+
         public ICommand RegisterCommand { get; }
         public ICommand TakePhotoCommand { get; }
         public ICommand PickPhotoCommand { get; }
         public ICommand RemovePhotoCommand { get; }
-
-        private static void OnPropertyChanged(BindableObject b, object oldValue, object newValue)
-        {
-            RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-            viewModel.RegisterCommand.ChangeCanExecute();
-        }
 
         public static readonly BindableProperty HasPhotoProperty =
             BindableProperty.Create("HasPhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
@@ -223,6 +234,47 @@ namespace XamarinApp.ViewModels.Registration
 
         public LegalIdentity LegalIdentity { get; private set; }
 
+        public static readonly BindableProperty IsConnectedProperty =
+            BindableProperty.Create("IsConnected", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+
+        public bool IsConnected
+        {
+            get { return (bool) GetValue(IsConnectedProperty); }
+            set { SetValue(IsConnectedProperty, value); }
+        }
+
+        public static readonly BindableProperty ConnectionStateTextProperty =
+            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+
+        public string ConnectionStateText
+        {
+            get { return (string) GetValue(ConnectionStateTextProperty); }
+            set { SetValue(ConnectionStateTextProperty, value); }
+        }
+
+        #endregion
+
+        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            UiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                SetConnectionStateAndText(e.State);
+                RegisterCommand.ChangeCanExecute();
+            });
+        }
+
+        private static void OnPropertyChanged(BindableObject b, object oldValue, object newValue)
+        {
+            RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
+            viewModel.RegisterCommand.ChangeCanExecute();
+        }
+
+        private void SetConnectionStateAndText(XmppState state)
+        {
+            IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(null);
+        }
+
         private async Task TakePhoto()
         {
             if (!(CrossMedia.IsSupported &&
@@ -369,7 +421,7 @@ namespace XamarinApp.ViewModels.Registration
         private bool CanRegister()
         {
             // Ok to 'wait' on, since we're not actually waiting on anything.
-            return ValidateInput(false).GetAwaiter().GetResult();
+            return ValidateInput(false).GetAwaiter().GetResult() && this.NeuronService.IsOnline;
         }
 
         private RegisterIdentityModel CreateRegisterModel()
@@ -469,6 +521,7 @@ namespace XamarinApp.ViewModels.Registration
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
+            this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedCountry)), this.SelectedCountry);
             this.SettingsService.SaveState(GetSettingsKey(nameof(FirstName)), this.FirstName);
             this.SettingsService.SaveState(GetSettingsKey(nameof(MiddleNames)), this.MiddleNames);
             this.SettingsService.SaveState(GetSettingsKey(nameof(LastNames)), this.LastNames);
@@ -483,6 +536,7 @@ namespace XamarinApp.ViewModels.Registration
 
         protected override async Task DoRestoreState()
         {
+            this.SelectedCountry = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedCountry)));
             this.FirstName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(FirstName)));
             this.MiddleNames  = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(MiddleNames)));
             this.LastNames = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(LastNames)));

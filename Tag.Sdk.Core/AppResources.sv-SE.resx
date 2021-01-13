@@ -123,8 +123,23 @@
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+  </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Kan inte ansluta till {0}</value>
+  </data>
+  <data name="ContinueAnyway" xml:space="preserve">
+    <value>Fortsätt ändå</value>
+  </data>
+  <data name="DatabaseCorruptInfoText" xml:space="preserve">
+    <value>Databasen är korrupt. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
+  </data>
+  <data name="DatabaseIssue" xml:space="preserve">
+    <value>Databas-problem</value>
+  </data>
+  <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
+    <value>Reparation av databasen misslyckades. Alternativen är uttömda, fortsätt på egen risk.</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
@@ -143,6 +158,9 @@
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>Operatören {0} stödjer inte registrering av nya konton</value>
+  </data>
+  <data name="RepairAndContinue" xml:space="preserve">
+    <value>Reparera och fortsätt</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>Begäran tog för lång tid</value>

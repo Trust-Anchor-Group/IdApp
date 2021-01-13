@@ -10,7 +10,7 @@ namespace Tag.Sdk.Core
         Task Shutdown(bool keepRunningInTheBackground);
         Task ShutdownInPanic();
         void AutoSave();
-        TagProfile TagProfile { get; }
+        ITagProfile TagProfile { get; }
         IUiDispatcher UiDispatcher { get; }
         IAuthService AuthService { get; }
         INeuronService NeuronService { get; }

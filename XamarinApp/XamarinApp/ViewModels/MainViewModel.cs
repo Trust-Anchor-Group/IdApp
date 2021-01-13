@@ -11,14 +11,14 @@ namespace XamarinApp.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly IUiDispatcher uiDispatcher;
 
         public MainViewModel()
         {
-            this.tagProfile = DependencyService.Resolve<TagProfile>();
+            this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();

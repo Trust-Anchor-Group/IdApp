@@ -10,17 +10,18 @@ using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 using XamarinApp.Views;
 
 namespace XamarinApp.ViewModels.Registration
 {
-    public class ViewIdentityViewModel : RegistrationStepViewModel
+    public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
 
-        public ViewIdentityViewModel(
-            TagProfile tagProfile,
+        public ValidateIdentityViewModel(
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
@@ -30,7 +31,7 @@ namespace XamarinApp.ViewModels.Registration
             : base(RegistrationStep.ValidateIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
-            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created);
+            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.NeuronService.IsOnline);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
@@ -41,6 +42,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             await base.DoBind();
             AssignProperties();
+
             this.TagProfile.Changed += TagProfile_Changed;
             this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
@@ -105,7 +107,12 @@ namespace XamarinApp.ViewModels.Registration
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
-            this.ReloadPhotos();
+            SetConnectionStateAndText(this.NeuronService.State);
+
+            if (this.IsConnected)
+            {
+                this.ReloadPhotos();
+            }
         }
 
         private void AssignBareJId()
@@ -127,14 +134,23 @@ namespace XamarinApp.ViewModels.Registration
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            UiDispatcher.BeginInvokeOnMainThread(() =>
+            this.UiDispatcher.BeginInvokeOnMainThread(async () =>
             {
-                AssignBareJId();
-                if (this.NeuronService.State == XmppState.Connected)
+                this.AssignBareJId();
+                this.SetConnectionStateAndText(e.State);
+                this.InviteReviewerCommand.ChangeCanExecute();
+                if (this.IsConnected)
                 {
-                    ReloadPhotos();
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    this.ReloadPhotos();
                 }
             });
+        }
+
+        private void SetConnectionStateAndText(XmppState state)
+        {
+            IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(null);
         }
 
         private void ReloadPhotos()
@@ -157,7 +173,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CreatedProperty =
-            BindableProperty.Create("Created", typeof(DateTime), typeof(ViewIdentityViewModel), default(DateTime));
+            BindableProperty.Create("Created", typeof(DateTime), typeof(ValidateIdentityViewModel), default(DateTime));
 
         public DateTime Created
         {
@@ -166,7 +182,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty UpdatedProperty =
-            BindableProperty.Create("Updated", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
+            BindableProperty.Create("Updated", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
 
         public DateTime? Updated
         {
@@ -175,7 +191,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty LegalIdProperty =
-            BindableProperty.Create("LegalId", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("LegalId", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string LegalId
         {
@@ -186,7 +202,7 @@ namespace XamarinApp.ViewModels.Registration
         public LegalIdentity LegalIdentity { get; private set; }
 
         public static readonly BindableProperty BareJIdProperty =
-            BindableProperty.Create("BareJId", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("BareJId", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string BareJId
         {
@@ -195,7 +211,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty StateProperty =
-            BindableProperty.Create("State", typeof(IdentityState), typeof(ViewIdentityViewModel), default(IdentityState));
+            BindableProperty.Create("State", typeof(IdentityState), typeof(ValidateIdentityViewModel), default(IdentityState));
 
         public IdentityState State
         {
@@ -204,7 +220,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty FromProperty =
-            BindableProperty.Create("From", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
+            BindableProperty.Create("From", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
 
         public DateTime? From
         {
@@ -213,7 +229,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty ToProperty =
-            BindableProperty.Create("To", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
+            BindableProperty.Create("To", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
 
         public DateTime? To
         {
@@ -222,7 +238,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty FirstNameProperty =
-            BindableProperty.Create("FirstName", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("FirstName", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string FirstName
         {
@@ -231,7 +247,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty MiddleNamesProperty =
-            BindableProperty.Create("MiddleNames", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("MiddleNames", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string MiddleNames
         {
@@ -240,7 +256,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty LastNamesProperty =
-            BindableProperty.Create("LastNames", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("LastNames", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string LastNames
         {
@@ -249,7 +265,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty PersonalNumberProperty =
-            BindableProperty.Create("PersonalNumber", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("PersonalNumber", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string PersonalNumber
         {
@@ -258,7 +274,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty AddressProperty =
-            BindableProperty.Create("Address", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("Address", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string Address
         {
@@ -267,7 +283,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty Address2Property =
-            BindableProperty.Create("Address2", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("Address2", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string Address2
         {
@@ -276,7 +292,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty ZipCodeProperty =
-            BindableProperty.Create("ZipCode", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("ZipCode", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string ZipCode
         {
@@ -285,7 +301,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty AreaProperty =
-            BindableProperty.Create("Area", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("Area", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string Area
         {
@@ -294,7 +310,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CityProperty =
-            BindableProperty.Create("City", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("City", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string City
         {
@@ -303,7 +319,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty RegionProperty =
-            BindableProperty.Create("Region", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("Region", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string Region
         {
@@ -312,7 +328,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CountryProperty =
-            BindableProperty.Create("Country", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("Country", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string Country
         {
@@ -321,7 +337,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty CountryCodeProperty =
-            BindableProperty.Create("CountryCode", typeof(string), typeof(ViewIdentityViewModel), default(string));
+            BindableProperty.Create("CountryCode", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         public string CountryCode
         {
@@ -330,7 +346,7 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty IsApprovedProperty =
-            BindableProperty.Create("IsApproved", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+            BindableProperty.Create("IsApproved", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
 
         public bool IsApproved
         {
@@ -339,12 +355,30 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         public static readonly BindableProperty IsCreatedProperty =
-            BindableProperty.Create("IsCreated", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+            BindableProperty.Create("IsCreated", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
 
         public bool IsCreated
         {
             get { return (bool)GetValue(IsCreatedProperty); }
             set { SetValue(IsCreatedProperty, value); }
+        }
+
+        public static readonly BindableProperty IsConnectedProperty =
+            BindableProperty.Create("IsConnected", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
+
+        public bool IsConnected
+        {
+            get { return (bool) GetValue(IsConnectedProperty); }
+            set { SetValue(IsConnectedProperty, value); }
+        }
+
+        public static readonly BindableProperty ConnectionStateTextProperty =
+            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+        public string ConnectionStateText
+        {
+            get { return (string) GetValue(ConnectionStateTextProperty); }
+            set { SetValue(ConnectionStateTextProperty, value); }
         }
 
         private async Task InviteReviewer()

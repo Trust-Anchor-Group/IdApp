@@ -24,7 +24,7 @@ namespace Tag.Sdk.Core.Services
         private readonly Assembly appAssembly;
         private readonly INetworkService networkService;
         private readonly IInternalLogService logService;
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private Timer reconnectTimer;
         private XmppClient xmppClient;
         private readonly NeuronContracts contracts;
@@ -37,7 +37,7 @@ namespace Tag.Sdk.Core.Services
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
 
-        public NeuronService(Assembly appAssembly, TagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, IInternalLogService logService)
+        public NeuronService(Assembly appAssembly, ITagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, IInternalLogService logService)
         {
             this.appAssembly = appAssembly;
             this.networkService = networkService;
@@ -306,22 +306,22 @@ namespace Tag.Sdk.Core.Services
             ConnectAndConnectToAccount
         }
 
-        public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, string hostName, int portNumber, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc)
+        public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, string hostName, int portNumber, string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
         {
-            return TryConnectInner(domain, hostName, portNumber, string.Empty, string.Empty, languageCode, appAssembly, connectedFunc, ConnectOperation.Connect);
+            return TryConnectInner(domain, hostName, portNumber, string.Empty, string.Empty, languageCode, applicationAssembly, connectedFunc, ConnectOperation.Connect);
         }
 
-        public Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, string hostName, int portNumber, string userName, string password,  string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc)
+        public Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, string hostName, int portNumber, string userName, string password,  string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
         {
-            return TryConnectInner(domain, hostName, portNumber, userName, password, languageCode, appAssembly, connectedFunc, ConnectOperation.ConnectAndCreateAccount);
+            return TryConnectInner(domain, hostName, portNumber, userName, password, languageCode, applicationAssembly, connectedFunc, ConnectOperation.ConnectAndCreateAccount);
         }
 
-        public Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc)
+        public Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
         {
-            return TryConnectInner(domain, hostName, portNumber, userName, password, languageCode, appAssembly, connectedFunc, ConnectOperation.ConnectAndConnectToAccount);
+            return TryConnectInner(domain, hostName, portNumber, userName, password, languageCode, applicationAssembly, connectedFunc, ConnectOperation.ConnectAndConnectToAccount);
         }
 
-        private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
+        private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
         {
             TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
             bool succeeded;
@@ -332,6 +332,7 @@ namespace Tag.Sdk.Core.Services
             bool authenticating = false;
             bool registering = false;
             bool timeout = false;
+            string stateError = null;
 
             Task OnStateChanged(object _, XmppState newState)
             {
@@ -370,6 +371,7 @@ namespace Tag.Sdk.Core.Services
                         break;
 
                     case XmppState.Error:
+                        stateError = this.sniffer.SnifferLatestToText();
                         connected.TrySetResult(false);
                         break;
                 }
@@ -379,7 +381,7 @@ namespace Tag.Sdk.Core.Services
 
             try
             {
-                using (XmppClient client = new XmppClient(hostName, portNumber, userName, password, languageCode, appAssembly, sniffer))
+                using (XmppClient client = new XmppClient(hostName, portNumber, userName, password, languageCode, applicationAssembly, sniffer))
                 {
                     if (operation == ConnectOperation.ConnectAndCreateAccount)
                     {
@@ -438,7 +440,7 @@ namespace Tag.Sdk.Core.Services
                     errorMessage = string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, domain);
                 else if (!authenticating)
                     errorMessage = string.Format(AppResources.UnableToAuthenticateWith, domain);
-                else if (!registering)
+                else if (!registering && string.IsNullOrWhiteSpace(stateError))
                     errorMessage = string.Format(AppResources.OperatorDoesNotSupportRegisteringNewAccounts, domain);
                 else if (operation == ConnectOperation.ConnectAndCreateAccount)
                     errorMessage = string.Format(AppResources.AccountNameAlreadyTaken, accountName);
@@ -446,6 +448,11 @@ namespace Tag.Sdk.Core.Services
                     errorMessage = string.Format(AppResources.InvalidUsernameOrPassword, accountName);
                 else
                     errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
+
+                if (!string.IsNullOrWhiteSpace(stateError))
+                {
+                    errorMessage = $"{errorMessage}{Environment.NewLine}{Environment.NewLine}{stateError}";
+                }
             }
 
             return (succeeded, errorMessage);
@@ -583,13 +590,14 @@ namespace Tag.Sdk.Core.Services
             try
             {
                 var xslt = new XslCompiledTransform();
-                using (Stream xsltStream = this.GetType().Assembly.GetManifestResourceStream($"{typeof(NeuronService).Namespace}.SnifferXmlToHtml.xslt"))
+                using (Stream xsltStream = this.GetType().Assembly.GetManifestResourceStream($"{typeof(Constants).Namespace}.SnifferXmlToHtml.xslt"))
                 using (XmlReader reader = new XmlTextReader(xsltStream))
                 {
                     xslt.Load(reader);
                 }
 
                 string xml = this.sniffer.SnifferToXml();
+
                 var doc = new XmlDocument();
                 doc.LoadXml(xml);
 

@@ -1,5 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
@@ -7,7 +10,9 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Tag.Sdk.Core;
+using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.UI.ViewModels;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
@@ -28,28 +33,7 @@ namespace XamarinApp
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
-			InitializeComponent();
-			// Registrations
-            ContainerBuilder builder = new ContainerBuilder();
-            this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
-            builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
-            builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
-			builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
-			builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
-			builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
-			builder.RegisterInstance(this.sdk.LogService).SingleInstance();
-			builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
-			builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
-			builder.RegisterInstance(this.sdk.NavigationService).SingleInstance();
-			builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
-			builder.RegisterType<NavigationOrchestratorService>().As<INavigationOrchestratorService>().SingleInstance();
-            IContainer container = builder.Build();
-			// Set AutoFac to be the dependency resolver
-            DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
-
-			// Resolve what's needed for the App class
-            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-            this.navigationOrchestratorService = DependencyService.Resolve<INavigationOrchestratorService>();
+            InitializeComponent();
 
             // Start page
             this.MainPage = new AppShell();
@@ -58,51 +42,58 @@ namespace XamarinApp
             //    BarBackgroundColor = (Color)Current.Resources["HeadingBackground"],
             //    BarTextColor = (Color)Current.Resources["HeadingForeground"]
             //};
-        }
 
-        private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            Exception ex = e.Exception;
-            if (e.Exception?.InnerException != null)
+            try
             {
-                ex = e.Exception.InnerException;
-            }
-            this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("TaskScheduler", "UnobservedTaskException"));
-            e.SetObserved();
+                this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
+                // Registrations
+                ContainerBuilder builder = new ContainerBuilder();
+                builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
+                builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
+                builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
+                builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
+                builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
+                builder.RegisterInstance(this.sdk.LogService).SingleInstance();
+                builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
+                builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
+                builder.RegisterInstance(this.sdk.NavigationService).SingleInstance();
+                builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
+                builder.RegisterType<NavigationOrchestratorService>().As<INavigationOrchestratorService>().SingleInstance();
+                IContainer container = builder.Build();
+                // Set AutoFac to be the dependency resolver
+                DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
-            if (Device.IsInvokeRequired)
-            {
-                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Task Exception", ex?.ToString(), AppResources.Ok));
+                // Resolve what's needed for the App class
+                this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
+                this.navigationOrchestratorService = DependencyService.Resolve<INavigationOrchestratorService>();
             }
-            else
+            catch (Exception e)
             {
-                await MainPage.DisplayAlert("Unhandled Task Exception", ex?.ToString(), AppResources.Ok);
-            }
-        }
-
-        private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            Exception ex = e.ExceptionObject as Exception;
-            if (ex != null)
-            {
-                this.sdk.LogService.LogException(ex, new KeyValuePair<string, string>("CurrentDomain", "UnhandledException"));
+                DisplayErrorPage("ContainerBuilder", e.ToString());
+                return;
             }
 
-            await this.sdk.ShutdownInPanic();
+            // Start page
+            try
+            {
+                NavigationPage navigationPage = new NavigationPage(new InitPage())
+                {
+                    BarBackgroundColor = (Color) Current.Resources["HeadingBackground"],
+                    BarTextColor = (Color) Current.Resources["HeadingForeground"]
+                };
 
-            if (Device.IsInvokeRequired)
-            {
-                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok));
+                this.MainPage = navigationPage;
             }
-            else
+            catch (Exception e)
             {
-                await MainPage.DisplayAlert("Unhandled Exception", ex?.ToString(), AppResources.Ok);
+                WriteExceptionToFile("StartPage", e.ToString());
+                return;
             }
         }
 
         public void Dispose()
         {
-            this.sdk.Dispose();
+            this.sdk?.Dispose();
         }
 
         protected override async void OnStart()
@@ -110,11 +101,19 @@ namespace XamarinApp
             AppCenter.Start(
                 "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios={Your iOS App secret here}",
                 typeof(Analytics),
-                typeof(Crashes)); 
-            await PerformStartup(false);
+                typeof(Crashes));
+
+            try
+            {
+                await PerformStartup(false);
+            }
+            catch (Exception e)
+            {
+                DisplayErrorPage("PerformStartup", e.ToString());
+            }
         }
 
-		protected override async void OnResume()
+        protected override async void OnResume()
         {
             await PerformStartup(true);
         }
@@ -126,8 +125,10 @@ namespace XamarinApp
 
 		private async Task PerformStartup(bool isResuming)
         {
+            await SendErrorReportFromPreviousRun();
+
             await this.sdk.Startup(isResuming);
-            
+
             await this.contractOrchestratorService.Load(isResuming);
             await this.navigationOrchestratorService.Load(isResuming);
 
@@ -161,5 +162,148 @@ namespace XamarinApp
         {
             this.sdk.AutoSave();
         }
+
+        #region Error Handling
+
+        private const string StartupCrashFileName = "CrashDump.txt";
+
+        private void DisplayErrorPage(string title, string stackTrace)
+        {
+            WriteExceptionToFile(title, stackTrace);
+
+            ScrollView sv = new ScrollView();
+            StackLayout sl = new StackLayout
+            {
+                Orientation = StackOrientation.Vertical,
+            };
+            sl.Children.Add(new Label
+            {
+                Text = title,
+                FontSize = 24,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+            });
+            sl.Children.Add(new Label
+            {
+                Text = stackTrace,
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand
+            });
+            Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
+            b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
+            sl.Children.Add(b);
+            sv.Content = sl;
+            this.MainPage = new ContentPage
+            {
+                Content = sv
+            };
+        }
+
+        private void WriteExceptionToFile(string title, string stackTrace)
+        {
+            string contents;
+            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+            if (File.Exists(fileName))
+            {
+                contents = File.ReadAllText(fileName);
+            }
+            else
+            {
+                contents = string.Empty;
+            }
+
+            File.WriteAllText(fileName, $"{title}{Environment.NewLine}{stackTrace}{Environment.NewLine}{contents}");
+        }
+
+        private string ReadExceptionFromFile()
+        {
+            string contents;
+            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+            if (File.Exists(fileName))
+            {
+                contents = File.ReadAllText(fileName);
+            }
+            else
+            {
+                contents = string.Empty;
+            }
+
+            return contents;
+        }
+
+        private void DeleteExceptionFile()
+        {
+            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+        }
+
+        private async Task SendErrorReportFromPreviousRun()
+        {
+            string stackTrace = ReadExceptionFromFile();
+            if (!string.IsNullOrWhiteSpace(stackTrace))
+            {
+                try
+                {
+                    HttpClient client = new HttpClient();
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var content = new StringContent(stackTrace);
+                    content.Headers.ContentType.MediaType = "text/plain";
+                    await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
+                }
+                catch (Exception)
+                {
+                }
+                finally
+                {
+                    DeleteExceptionFile();
+                }
+            }
+        }
+
+        private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            Exception ex = e.Exception;
+            if (e.Exception?.InnerException != null) // Unwrap the AggregateException
+            {
+                ex = e.Exception.InnerException;
+            }
+            e.SetObserved();
+            await Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
+        }
+
+        private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            await Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
+        }
+
+        private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
+        {
+            if (ex != null)
+            {
+                WriteExceptionToFile(title, ex.ToString());
+            }
+
+            if (ex != null)
+            {
+                sdk?.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
+            }
+
+            if (this.sdk != null && shutdown)
+            {
+                await this.sdk.ShutdownInPanic();
+            }
+
+            if (Device.IsInvokeRequired && MainPage != null)
+            {
+                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
+            }
+            else if (MainPage != null)
+            {
+                await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
+            }
+        }
+
+        #endregion
     }
 }

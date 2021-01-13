@@ -29,7 +29,7 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly IUiDispatcher uiDispatcher;
         private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private string contractTemplateId;
         private bool saveState;
 
@@ -43,7 +43,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-            this.tagProfile = DependencyService.Resolve<TagProfile>();
+            this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
             this.ContractCategories = new ObservableCollection<string>();
             this.ContractTypes = new ObservableCollection<string>();

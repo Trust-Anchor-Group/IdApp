@@ -50,11 +50,14 @@ namespace Tag.Sdk.Core.Services
             {
                 foreach (var extraParameter in extraParameters)
                 {
-                    parameters.Add(extraParameter.Key, extraParameter.Value);
+                    parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
                 }
             }
-            Crashes.TrackError(e, parameters);
+
             Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+
+            Dictionary<string, string> crashParameters = parameters.GroupBy(p => p.Key).Select(g => g.First()).ToDictionary(k => k.Key, v => v.Value);
+            Crashes.TrackError(e, crashParameters);
 
             foreach (ILogListener listener in this.listeners)
             {
@@ -100,13 +103,13 @@ namespace Tag.Sdk.Core.Services
             }
         }
 
-        private Dictionary<string, string> GetParameters()
+        private List<KeyValuePair<string, string>> GetParameters()
         {
-            return new Dictionary<string, string>
+            return new List<KeyValuePair<string, string>>
             {
-                {"Platform", Device.RuntimePlatform },
-                {"RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion },
-                {"AppVersion", this.appInformation.GetVersion() }
+                new KeyValuePair<string, string>("Platform", Device.RuntimePlatform),
+                new KeyValuePair<string, string>("RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion),
+                new KeyValuePair<string, string>("AppVersion", this.appInformation.GetVersion())
             };
         }
     }

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
+             xmlns:converters="clr-namespace:XamarinApp.Views.Converters;assembly=XamarinApp"
              x:Class="XamarinApp.Views.ViewIdentityPage"
              Title="{x:Static local:AppResources.Identity}">
     <ScrollView>
@@ -148,17 +149,21 @@
                         </ViewCell>
                     </TableSection>
                     <TableSection x:Name="PhotoSection">
-                        <ViewCell Height="80">
-                            <StackLayout Orientation="Vertical">
-                                <Label Text="Photos:" />
-                                <CollectionView ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
+                        <ViewCell Height="76">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
+                                <CollectionView  Grid.Column="1" ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate>
                                             <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" />
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
-                            </StackLayout>
+                            </Grid>
                         </ViewCell>
                     </TableSection>
                     <TableSection>
@@ -186,7 +191,10 @@
                             </StackLayout>
                         </ViewCell>
                         <ViewCell>
-                            <Button Text="{x:Static local:AppResources.ApproveInformation}" Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                            <StackLayout Orientation="Vertical">
+                                <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:BooleanConverter}}"/>
+                                <Button Text="{x:Static local:AppResources.ApproveInformation}" Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                            </StackLayout>
                         </ViewCell>
                         <ViewCell>
                             <Button Text="{x:Static local:AppResources.RejectInformation}" Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>

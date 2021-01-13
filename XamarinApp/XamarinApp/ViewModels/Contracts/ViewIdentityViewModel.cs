@@ -4,39 +4,37 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Newtonsoft.Json;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI;
+using Tag.Sdk.UI.Extensions;
 using Tag.Sdk.UI.ViewModels;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels.Contracts
 {
     public class ViewIdentityViewModel : BaseViewModel
     {
-        private const string IdToReview = "IdToReview";
-        private SignaturePetitionEventArgs identityToReview;
-        private readonly TagProfile tagProfile;
+        private readonly SignaturePetitionEventArgs identityToReview;
+        private readonly ITagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
-        private readonly ISettingsService settingsService;
         private readonly INavigationService navigationService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
-        private bool persistState;
 
         public ViewIdentityViewModel(
             LegalIdentity identity,
             SignaturePetitionEventArgs identityToReview,
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
-            ISettingsService settingsService,
             INavigationService navigationService,
             INetworkService networkService,
             ILogService logService)
@@ -47,13 +45,12 @@ namespace XamarinApp.ViewModels.Contracts
             this.uiDispatcher = uiDispatcher;
             this.logService = logService;
             this.neuronService = neuronService;
-            this.settingsService = settingsService;
             this.navigationService = navigationService;
             this.networkService = networkService;
-            this.ApproveCommand = new Command(async _ => await Approve());
-            this.RejectCommand = new Command(async _ => await Reject());
-            this.RevokeCommand = new Command(async _ => await Revoke());
-            this.CompromiseCommand = new Command(async _ => await Compromise());
+            this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
+            this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);
+            this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
+            this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, this.Photos);
         }
@@ -61,40 +58,22 @@ namespace XamarinApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
-            string idToReviewAsJson = this.settingsService.RestoreState<string>(GetSettingsKey(IdToReview));
-            if ( !string.IsNullOrWhiteSpace(idToReviewAsJson))
-            {
-                try
-                {
-                    this.identityToReview = JsonConvert.DeserializeObject<SignaturePetitionEventArgs>(idToReviewAsJson);
-                }
-                catch (Exception ex)
-                {
-                    this.logService.LogException(ex);
-                    this.identityToReview = null;
-                }
-            }
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
+            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.neuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
-            this.persistState = true;
         }
 
         protected override async Task DoUnbind()
         {
             this.photosLoader.CancelLoadPhotos();
             this.tagProfile.Changed -= TagProfile_Changed;
+            this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
             this.neuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
-            if (this.persistState && this.identityToReview != null)
-            {
-                this.settingsService.SaveState(GetSettingsKey(IdToReview), JsonConvert.SerializeObject(identityToReview));
-            }
-            else
-            {
-                this.settingsService.RemoveState<string>(GetSettingsKey(IdToReview));
-            }
             await base.DoUnbind();
         }
+
+        #region Properties
 
         public ObservableCollection<ImageSource> Photos { get; }
 
@@ -103,13 +82,33 @@ namespace XamarinApp.ViewModels.Contracts
         public ICommand CompromiseCommand { get; }
         public ICommand RevokeCommand { get; }
 
+        public static readonly BindableProperty IsConnectedProperty =
+            BindableProperty.Create("IsConnected", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+        public bool IsConnected
+        {
+            get { return (bool)GetValue(IsConnectedProperty); }
+            set { SetValue(IsConnectedProperty, value); }
+        }
+
+        public static readonly BindableProperty ConnectionStateTextProperty =
+            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+        public string ConnectionStateText
+        {
+            get { return (string)GetValue(ConnectionStateTextProperty); }
+            set { SetValue(ConnectionStateTextProperty, value); }
+        }
+
+        #endregion
+
         private void AssignProperties()
         {
             Created = this.LegalIdentity?.Created ?? DateTime.MinValue;
             Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.LegalIdentity?.Id;
             BareJId = this.neuronService?.BareJId ?? string.Empty;
-            if (this.LegalIdentity != null)
+            if (this.LegalIdentity?.ClientPubKey != null)
             {
                 PublicKey = Convert.ToBase64String(this.LegalIdentity.ClientPubKey);
             }
@@ -183,6 +182,37 @@ namespace XamarinApp.ViewModels.Contracts
                 this.QrCode = null;
             }
 
+            if (this.IsConnected)
+            {
+                this.ReloadPhotos();
+            }
+        }
+
+        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+            {
+                this.SetConnectionStateAndText(e.State);
+                this.ApproveCommand.ChangeCanExecute();
+                this.RejectCommand.ChangeCanExecute();
+                this.RevokeCommand.ChangeCanExecute();
+                this.CompromiseCommand.ChangeCanExecute();
+                if (this.IsConnected)
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    this.ReloadPhotos();
+                }
+            });
+        }
+
+        private void SetConnectionStateAndText(XmppState state)
+        {
+            IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(null);
+        }
+
+        private void ReloadPhotos()
+        {
             this.photosLoader.CancelLoadPhotos();
             if (this.tagProfile?.LegalIdentity?.Attachments != null)
             {
@@ -762,7 +792,6 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (succeeded2)
                 {
-                    this.persistState = false;
                     await this.navigationService.PopAsync();
                 }
             }
@@ -783,7 +812,6 @@ namespace XamarinApp.ViewModels.Contracts
                 bool succeeded = await this.networkService.Request(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false);
                 if (succeeded)
                 {
-                    this.persistState = false;
                     await this.navigationService.PopAsync();
                 }
             }

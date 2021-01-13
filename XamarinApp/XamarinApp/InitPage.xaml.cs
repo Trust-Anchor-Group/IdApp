@@ -14,7 +14,7 @@ namespace XamarinApp
     public partial class InitPage
     {
         private readonly INeuronService neuronService;
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly INavigationService navigationService;
         private readonly IUiDispatcher uiDispatcher;
 
@@ -22,7 +22,7 @@ namespace XamarinApp
         {
             NavigationPage.SetHasNavigationBar(this, false);
             this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.tagProfile = DependencyService.Resolve<TagProfile>();
+            this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             ViewModel = new InitViewModel();

@@ -10,13 +10,13 @@ namespace XamarinApp.ViewModels
 {
     public class InitViewModel : BaseViewModel
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly IUiDispatcher uiDispatcher;
 
         public InitViewModel()
         {
-            this.tagProfile = DependencyService.Resolve<TagProfile>();
+            this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;

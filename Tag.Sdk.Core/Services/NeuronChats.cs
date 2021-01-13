@@ -5,13 +5,13 @@ namespace Tag.Sdk.Core.Services
 {
     internal sealed class NeuronChats : INeuronChats
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
         private readonly IInternalNeuronService neuronService;
         private readonly ILogService logService;
         private MultiUserChatClient chatClient;
 
-        internal NeuronChats(TagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
+        internal NeuronChats(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
         {
             this.tagProfile = tagProfile;
             this.uiDispatcher = uiDispatcher;

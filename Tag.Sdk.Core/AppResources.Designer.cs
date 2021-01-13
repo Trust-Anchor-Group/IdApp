@@ -79,11 +79,56 @@ namespace Tag.Sdk.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t connect to {0}.
         /// </summary>
         internal static string CantConnectTo {
             get {
                 return ResourceManager.GetString("CantConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue anyway.
+        /// </summary>
+        internal static string ContinueAnyway {
+            get {
+                return ResourceManager.GetString("ContinueAnyway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The database file(s) are corrupt. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
+        /// </summary>
+        internal static string DatabaseCorruptInfoText {
+            get {
+                return ResourceManager.GetString("DatabaseCorruptInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database issue.
+        /// </summary>
+        internal static string DatabaseIssue {
+            get {
+                return ResourceManager.GetString("DatabaseIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database repair failed. We&apos;re out of options now, so continue at your own risk..
+        /// </summary>
+        internal static string DatabaseRepairFailedInfoText {
+            get {
+                return ResourceManager.GetString("DatabaseRepairFailedInfoText", resourceCulture);
             }
         }
         
@@ -138,6 +183,15 @@ namespace Tag.Sdk.Core {
         internal static string OperatorDoesNotSupportRegisteringNewAccounts {
             get {
                 return ResourceManager.GetString("OperatorDoesNotSupportRegisteringNewAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repair and continue.
+        /// </summary>
+        internal static string RepairAndContinue {
+            get {
+                return ResourceManager.GetString("RepairAndContinue", resourceCulture);
             }
         }
         

@@ -13,8 +13,8 @@ namespace XamarinApp.ViewModels.Registration
         public event EventHandler StepCompleted;
 
         public RegistrationStepViewModel(
-            RegistrationStep step, 
-            TagProfile tagProfile,
+            RegistrationStep step,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService, 
             INavigationService navigationService,
@@ -42,7 +42,7 @@ namespace XamarinApp.ViewModels.Registration
         public RegistrationStep Step { get; }
 
         protected IUiDispatcher UiDispatcher { get; }
-        protected TagProfile TagProfile { get; }
+        protected ITagProfile TagProfile { get; }
         protected INeuronService NeuronService { get; }
         protected INavigationService NavigationService { get; }
         protected ISettingsService SettingsService { get; }

@@ -28,10 +28,9 @@ namespace XamarinApp.Views
             this.ViewModel = new ViewIdentityViewModel(
                 identity,
                 review,
-                DependencyService.Resolve<TagProfile>(),
+                DependencyService.Resolve<ITagProfile>(),
                 DependencyService.Resolve<IUiDispatcher>(),
                 DependencyService.Resolve<INeuronService>(),
-                DependencyService.Resolve<ISettingsService>(),
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
                 DependencyService.Resolve<ILogService>());

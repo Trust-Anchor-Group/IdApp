@@ -13,7 +13,7 @@ namespace XamarinApp.Services
 {
     internal sealed class ContractOrchestratorService : LoadableService, IContractOrchestratorService
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
         private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
@@ -21,7 +21,7 @@ namespace XamarinApp.Services
         private readonly INetworkService networkService;
 
         public ContractOrchestratorService(
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,

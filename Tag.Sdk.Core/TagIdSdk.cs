@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Tag.Sdk.Core.Extensions;
 using Tag.Sdk.Core.Models;
 using Tag.Sdk.Core.Services;
 using Waher.Events;
@@ -48,7 +49,7 @@ namespace Tag.Sdk.Core
             return instance ?? (instance = new TagIdSdk(app, domains));
         }
 
-        public TagProfile TagProfile { get; }
+        public ITagProfile TagProfile { get; }
         private readonly UiDispatcher uiDispatcher;
         public IUiDispatcher UiDispatcher => this.uiDispatcher;
         public IAuthService AuthService { get; }
@@ -78,24 +79,11 @@ namespace Tag.Sdk.Core
                     typeof(TagConfiguration).Assembly);
             }
 
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string dataFolder = Path.Combine(appDataFolder, "Data");
-            if (databaseProvider == null)
-            {
-                databaseProvider = await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
-            }
-            await databaseProvider.RepairIfInproperShutdown(string.Empty);
-            Database.Register(databaseProvider, false);
+            await InitializeDatabase();
 
             if (!isResuming)
             {
-                TagConfiguration configuration = await this.StorageService.FindFirstDeleteRest<TagConfiguration>();
-                if (configuration == null)
-                {
-                    configuration = new TagConfiguration();
-                    await this.StorageService.Insert(configuration);
-                }
-                this.TagProfile.FromConfiguration(configuration);
+                await CreateOrRestoreConfiguration();
             }
 
             await this.NeuronService.Load(isResuming);
@@ -109,11 +97,8 @@ namespace Tag.Sdk.Core
                 await this.neuronService.Unload();
             }
             await Types.StopAllModules();
-            if (this.databaseProvider != null)
-            {
-                this.databaseProvider.Dispose();
-                this.databaseProvider = null;
-            }
+            this.databaseProvider.Dispose();
+            this.databaseProvider = null;
             Log.Terminate();
         }
 
@@ -122,11 +107,8 @@ namespace Tag.Sdk.Core
             this.uiDispatcher.IsRunningInTheBackground = false;
             await this.neuronService.UnloadFast();
             await Types.StopAllModules();
-            if (this.databaseProvider != null)
-            {
-                this.databaseProvider.Dispose();
-                this.databaseProvider = null;
-            }
+            this.databaseProvider.Dispose();
+            this.databaseProvider = null;
             Log.Terminate();
         }
 
@@ -135,8 +117,111 @@ namespace Tag.Sdk.Core
             if (this.TagProfile.IsDirty)
             {
                 this.TagProfile.ResetIsDirty();
-                this.StorageService.Update(this.TagProfile.ToConfiguration());
+                try
+                {
+                    this.StorageService.Update(this.TagProfile.ToConfiguration());
+                }
+                catch (Exception updateException)
+                {
+                    this.logService.LogException(updateException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                }
             }
+        }
+
+        private async Task InitializeDatabase()
+        {
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string dataFolder = Path.Combine(appDataFolder, "Data");
+
+            Task<FilesProvider> CreateDatabaseFile()
+            {
+                return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
+            }
+
+            string method = null;
+            try
+            {
+                // 1. Try create database
+                method = nameof(CreateDatabaseFile);
+                this.databaseProvider = await CreateDatabaseFile();
+                method = nameof(FilesProvider.RepairIfInproperShutdown);
+                await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
+            }
+            catch (Exception e1)
+            {
+                // Create failed.
+                this.logService.LogException(e1, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+
+                try
+                {
+                    // 2. Try repair database
+                    method = nameof(FilesProvider.RepairIfInproperShutdown);
+                    await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
+                }
+                catch (Exception e2)
+                {
+                    // Repair failed
+                    this.logService.LogException(e2, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+
+                    if (await this.UiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
+                    {
+                        try
+                        {
+                            // 3. Delete and create a new empty database
+                            method = "Delete database file(s) and create new empty database";
+                            Directory.Delete(dataFolder, true);
+                            this.databaseProvider = await CreateDatabaseFile();
+                            await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
+                        }
+                        catch (Exception e3)
+                        {
+                            // Delete and create new failed. We're out of options.
+                            this.logService.LogException(e3, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+                            await this.UiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
+                        }
+                    }
+                }
+            }
+
+            try
+            {
+                method = $"{nameof(Database)}.{nameof(Database.Register)}";
+                Database.Register(databaseProvider, false);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+            }
+        }
+
+        private async Task CreateOrRestoreConfiguration()
+        {
+            TagConfiguration configuration;
+
+            try
+            {
+                configuration = await this.StorageService.FindFirstDeleteRest<TagConfiguration>();
+            }
+            catch (Exception findException)
+            {
+                this.logService.LogException(findException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                configuration = null;
+            }
+
+            if (configuration == null)
+            {
+                configuration = new TagConfiguration();
+                try
+                {
+                    await this.StorageService.Insert(configuration);
+                }
+                catch (Exception insertException)
+                {
+                    this.logService.LogException(insertException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                }
+            }
+
+            this.TagProfile.FromConfiguration(configuration);
         }
     }
 }

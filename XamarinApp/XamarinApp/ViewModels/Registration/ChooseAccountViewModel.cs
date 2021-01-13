@@ -18,7 +18,7 @@ namespace XamarinApp.ViewModels.Registration
         private readonly INetworkService networkService;
 
         public ChooseAccountViewModel(
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
