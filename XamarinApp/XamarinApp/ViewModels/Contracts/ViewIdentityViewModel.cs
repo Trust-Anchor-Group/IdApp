@@ -18,7 +18,7 @@ namespace XamarinApp.ViewModels.Contracts
     public class ViewIdentityViewModel : BaseViewModel
     {
         private readonly SignaturePetitionEventArgs identityToReview;
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
@@ -29,7 +29,7 @@ namespace XamarinApp.ViewModels.Contracts
         public ViewIdentityViewModel(
             LegalIdentity identity,
             SignaturePetitionEventArgs identityToReview,
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,

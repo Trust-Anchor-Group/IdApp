@@ -33,7 +33,7 @@ namespace XamarinApp.Tests.Services
 
         private class TestNavigationOrchestratorService : NavigationOrchestratorService
         {
-            public TestNavigationOrchestratorService(TagProfile tagProfile, INeuronService neuronService, INetworkService networkService, INavigationService navigationService)
+            public TestNavigationOrchestratorService(ITagProfile tagProfile, INeuronService neuronService, INetworkService networkService, INavigationService navigationService)
             : base(tagProfile, neuronService, networkService, navigationService)
             {
             }

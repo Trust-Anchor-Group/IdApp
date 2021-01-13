@@ -10,7 +10,7 @@ namespace XamarinApp.ViewModels.Registration
     public class DefinePinViewModel : RegistrationStepViewModel
     {
         public DefinePinViewModel(
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,

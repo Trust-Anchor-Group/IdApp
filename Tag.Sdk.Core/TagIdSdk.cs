@@ -49,7 +49,7 @@ namespace Tag.Sdk.Core
             return instance ?? (instance = new TagIdSdk(app, domains));
         }
 
-        public TagProfile TagProfile { get; }
+        public ITagProfile TagProfile { get; }
         private readonly UiDispatcher uiDispatcher;
         public IUiDispatcher UiDispatcher => this.uiDispatcher;
         public IAuthService AuthService { get; }
@@ -97,6 +97,7 @@ namespace Tag.Sdk.Core
                 await this.neuronService.Unload();
             }
             await Types.StopAllModules();
+            this.databaseProvider.Dispose();
             this.databaseProvider = null;
             Log.Terminate();
         }
@@ -106,6 +107,7 @@ namespace Tag.Sdk.Core
             this.uiDispatcher.IsRunningInTheBackground = false;
             await this.neuronService.UnloadFast();
             await Types.StopAllModules();
+            this.databaseProvider.Dispose();
             this.databaseProvider = null;
             Log.Terminate();
         }

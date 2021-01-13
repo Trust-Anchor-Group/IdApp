@@ -9,12 +9,12 @@ namespace XamarinApp.Services
 {
     internal class NavigationOrchestratorService : LoadableService, INavigationOrchestratorService
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
 
-        public NavigationOrchestratorService(TagProfile tagProfile, INeuronService neuronService, INetworkService networkService, INavigationService navigationService)
+        public NavigationOrchestratorService(ITagProfile tagProfile, INeuronService neuronService, INetworkService networkService, INavigationService navigationService)
         {
             this.tagProfile = tagProfile;
             this.neuronService = neuronService;

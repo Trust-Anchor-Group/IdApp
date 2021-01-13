@@ -17,7 +17,7 @@ namespace XamarinApp.ViewModels.Registration
         private int portNumber;
 
         public ChooseOperatorViewModel(
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService, 
             INavigationService navigationService,

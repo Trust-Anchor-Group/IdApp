@@ -104,6 +104,7 @@
                     </Entry>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}"/>
                     <Button x:Name="RegisterButton" Text="{x:Static resources:AppResources.Register}" Command="{Binding Path=RegisterCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                    <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:BooleanConverter}}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

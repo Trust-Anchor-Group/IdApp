@@ -10,6 +10,7 @@ using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Extensions;
 using XamarinApp.Views;
 
 namespace XamarinApp.ViewModels.Registration
@@ -20,7 +21,7 @@ namespace XamarinApp.ViewModels.Registration
         private readonly PhotosLoader photosLoader;
 
         public ViewIdentityViewModel(
-            TagProfile tagProfile,
+            ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
@@ -41,6 +42,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             await base.DoBind();
             AssignProperties();
+
             this.TagProfile.Changed += TagProfile_Changed;
             this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
@@ -105,7 +107,12 @@ namespace XamarinApp.ViewModels.Registration
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
-            this.ReloadPhotos();
+            SetConnectionStateAndText(this.NeuronService.State);
+
+            if (this.IsConnected)
+            {
+                this.ReloadPhotos();
+            }
         }
 
         private void AssignBareJId()
@@ -127,15 +134,23 @@ namespace XamarinApp.ViewModels.Registration
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            UiDispatcher.BeginInvokeOnMainThread(() =>
+            UiDispatcher.BeginInvokeOnMainThread(async () =>
             {
                 AssignBareJId();
-                if (this.NeuronService.State == XmppState.Connected)
+                SetConnectionStateAndText(e.State);
+                InviteReviewerCommand.ChangeCanExecute();
+                if (IsConnected)
                 {
+                    await Task.Delay(TimeSpan.FromSeconds(1));
                     ReloadPhotos();
                 }
-                InviteReviewerCommand.ChangeCanExecute();
             });
+        }
+
+        private void SetConnectionStateAndText(XmppState state)
+        {
+            IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(null);
         }
 
         private void ReloadPhotos()
@@ -346,6 +361,24 @@ namespace XamarinApp.ViewModels.Registration
         {
             get { return (bool)GetValue(IsCreatedProperty); }
             set { SetValue(IsCreatedProperty, value); }
+        }
+
+        public static readonly BindableProperty IsConnectedProperty =
+            BindableProperty.Create("IsConnected", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+        public bool IsConnected
+        {
+            get { return (bool) GetValue(IsConnectedProperty); }
+            set { SetValue(IsConnectedProperty, value); }
+        }
+
+        public static readonly BindableProperty ConnectionStateTextProperty =
+            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+        public string ConnectionStateText
+        {
+            get { return (string) GetValue(ConnectionStateTextProperty); }
+            set { SetValue(ConnectionStateTextProperty, value); }
         }
 
         private async Task InviteReviewer()

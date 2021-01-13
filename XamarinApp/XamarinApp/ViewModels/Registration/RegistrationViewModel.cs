@@ -13,7 +13,7 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly INavigationService navigationService;
         private bool muteStepSync;
 
@@ -23,9 +23,9 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(TagProfile tagProfile, IUiDispatcher uiDispatcher, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, INavigationService navigationService, INetworkService networkService, ILogService logService)
+        protected internal RegistrationViewModel(ITagProfile tagProfile, IUiDispatcher uiDispatcher, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, INavigationService navigationService, INetworkService networkService, ILogService logService)
         {
-            this.tagProfile = tagProfile ?? DependencyService.Resolve<TagProfile>();
+            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();

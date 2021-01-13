@@ -15,7 +15,7 @@ namespace XamarinApp.Tests.ViewModels.Contracts
 {
     public class ViewIdentityViewModelTests : ViewModelTests<ViewIdentityViewModel>
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly Mock<IUiDispatcher> uiDispatcher;
         private readonly Mock<ILogService> logService;
         private readonly Mock<INeuronService> neuronService;

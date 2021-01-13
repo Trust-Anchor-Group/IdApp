@@ -15,7 +15,9 @@ namespace XamarinApp.Extensions
                     return AppResources.XmppState_Binding;
 
                 case XmppState.Connected:
-                    return string.Format(AppResources.XmppState_Connected, domain);
+                    return !string.IsNullOrWhiteSpace(domain)
+                        ? string.Format(AppResources.XmppState_ConnectedTo, domain)
+                        : AppResources.XmppState_Connected;
 
                 case XmppState.Connecting:
                     return AppResources.XmppState_Connecting;

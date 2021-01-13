@@ -11,7 +11,7 @@ using Waher.Security;
 
 namespace Tag.Sdk.Core.Services
 {
-    public class TagProfile
+    public class TagProfile : ITagProfile
     {
         private readonly Dictionary<string, KeyValuePair<string, string>> domains;
         public event EventHandler StepChanged;
