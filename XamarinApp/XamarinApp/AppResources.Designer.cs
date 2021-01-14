@@ -898,6 +898,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Neuron.
+        /// </summary>
+        internal static string Neuron {
+            get {
+                return ResourceManager.GetString("Neuron", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Contract.
         /// </summary>
         internal static string NewContract {
@@ -952,11 +961,29 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Offline.
+        /// </summary>
+        internal static string Offline {
+            get {
+                return ResourceManager.GetString("Offline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online.
+        /// </summary>
+        internal static string Online {
+            get {
+                return ResourceManager.GetString("Online", resourceCulture);
             }
         }
         

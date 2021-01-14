@@ -37,12 +37,14 @@ namespace Tag.Sdk.Core.Services
         {
             await CreateContractsClient();
             await CreateFileUploadClient();
+            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState()));
         }
 
         internal void DestroyClients()
         {
             DestroyContractsClient();
             DestroyFileUploadClient();
+            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState()));
         }
 
         private async Task CreateContractsClient()
@@ -92,6 +94,28 @@ namespace Tag.Sdk.Core.Services
         {
             fileUploadClient?.Dispose();
             fileUploadClient = null;
+        }
+
+        private event EventHandler<ConnectionStateChangedEventArgs> ConnectionState;
+
+        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged
+        {
+            add
+            {
+                ConnectionState += value;
+                value(this, new ConnectionStateChangedEventArgs(GetState()));
+            }
+            remove => ConnectionState -= value;
+        }
+
+        private XmppState GetState()
+        {
+            return this.contractsClient != null ? XmppState.Connected : XmppState.Offline;
+        }
+
+        private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
+        {
+            ConnectionState?.Invoke(this, e);
         }
 
         public Task PetitionContractAsync(string contractId, string petitionId, string purpose)

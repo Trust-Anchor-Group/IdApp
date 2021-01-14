@@ -14,6 +14,7 @@ namespace Tag.Sdk.Core.Services
     /// </summary>
     public interface INeuronContracts : IDisposable
     {
+        event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
         Task PetitionContractAsync(string contractId, string petitionId, string purpose);
         Task<Contract> GetContractAsync(string contractId);
         Task<string[]> GetCreatedContractsAsync();

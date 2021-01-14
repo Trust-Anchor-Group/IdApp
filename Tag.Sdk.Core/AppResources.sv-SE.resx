@@ -133,7 +133,7 @@
     <value>Fortsätt ändå</value>
   </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Databasen är korrupt. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
+    <value>Applikationen ser ut att inte ha stängts korrekt. Databasen kan därför vara skadad. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
     <value>Databas-problem</value>

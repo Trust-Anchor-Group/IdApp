@@ -36,7 +36,7 @@ namespace XamarinApp.ViewModels.Registration
                 CreateNew = !CreateNew;
                 Mode = CreateNew ? AccountMode.Create : AccountMode.Connect;
                 PerformActionCommand.ChangeCanExecute();
-            });
+            }, _ => !IsBusy);
             this.ActionButtonText = AppResources.CreateNew;
             this.CreateNew = true;
             this.Mode = AccountMode.Create;
@@ -63,6 +63,8 @@ namespace XamarinApp.ViewModels.Registration
                 IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
             });
         }
+
+        #region Properties
 
         public AccountMode Mode { get; private set; }
 
@@ -190,9 +192,11 @@ namespace XamarinApp.ViewModels.Registration
 
         public ICommand PerformActionCommand { get; }
 
+        #endregion
+
         private async Task PerformAction()
         {
-            SetIsBusy(PerformActionCommand);
+            SetIsBusy(PerformActionCommand, SwitchModeCommand);
             try
             {
                 bool succeeded;
@@ -207,7 +211,7 @@ namespace XamarinApp.ViewModels.Registration
 
                 UiDispatcher.BeginInvokeOnMainThread(() =>
                 {
-                    SetIsDone(PerformActionCommand);
+                    SetIsDone(PerformActionCommand, SwitchModeCommand);
 
                     if (succeeded)
                     {
@@ -222,7 +226,7 @@ namespace XamarinApp.ViewModels.Registration
             }
             finally
             {
-                BeginInvokeSetIsDone(PerformActionCommand);
+                BeginInvokeSetIsDone(PerformActionCommand, SwitchModeCommand);
             }
         }
 
