@@ -97,6 +97,7 @@ namespace Tag.Sdk.Core
                 await this.neuronService.Unload();
             }
             await Types.StopAllModules();
+            await this.databaseProvider.Flush();
             this.databaseProvider.Dispose();
             this.databaseProvider = null;
             Log.Terminate();
@@ -107,6 +108,7 @@ namespace Tag.Sdk.Core
             this.uiDispatcher.IsRunningInTheBackground = false;
             await this.neuronService.UnloadFast();
             await Types.StopAllModules();
+            await this.databaseProvider.Flush();
             this.databaseProvider.Dispose();
             this.databaseProvider = null;
             Log.Terminate();
@@ -155,6 +157,9 @@ namespace Tag.Sdk.Core
                 try
                 {
                     // 2. Try repair database
+                    if (this.databaseProvider == null)
+                        this.databaseProvider = Database.Provider as FilesProvider;
+
                     method = nameof(FilesProvider.RepairIfInproperShutdown);
                     await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
                 }
