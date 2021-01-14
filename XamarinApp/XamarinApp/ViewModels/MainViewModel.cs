@@ -51,7 +51,7 @@ namespace XamarinApp.ViewModels
             this.UiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
         }
 
-        protected override void SetConnectionStateText(XmppState state)
+        protected override void SetConnectionStateAndText(XmppState state)
         {
             this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);
             this.IsConnected = state == XmppState.Connected;
