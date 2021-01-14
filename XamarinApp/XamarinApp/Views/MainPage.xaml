@@ -8,24 +8,42 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
-            <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" />
-            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-            <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-            <Label Text="{x:Static local:AppResources.General}" FontSize="Large"/>
-            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-            <Button Text="{x:Static local:AppResources.Identity}" Clicked="ViewIdentityButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Button Text="{x:Static local:AppResources.Wallet}" IsEnabled="False"/>
-            <Button Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Button Text="{x:Static local:AppResources.Devices}" IsEnabled="False"/>
-            <Label Text="{x:Static local:AppResources.Contracts}" FontSize="Large"/>
-            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-            <Button Text="{x:Static local:AppResources.MyCreatedContracts}" Clicked="CreatedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Button Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Label Text="{x:Static local:AppResources.Notary}" FontSize="Large"/>
-            <Button Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-            <Label Text="Debug" FontSize="Large"/>
-            <Button Text="Server Comms" Clicked="XmppCommunicationButton_Clicked" IsEnabled="{Binding Path=IsConnected}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-        </StackLayout>
+                <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" />
+                <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
+                <Grid Margin="{StaticResource DefaultBottomOnlyMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="{x:Static local:AppResources.Network}" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Path=NetworkStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                    <Label Grid.Row="1" Grid.Column="0" Text="{x:Static local:AppResources.Neuron}" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=ConnectionStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                    <Label Grid.Row="2" Grid.Column="0" Text="{x:Static local:AppResources.Contracts}" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=ContractsStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                    <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
+                </Grid>
+                <Label Text="{x:Static local:AppResources.General}" FontSize="Large"/>
+                <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
+                <Button Text="{x:Static local:AppResources.Identity}" Clicked="ViewIdentityButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+                <Button Text="{x:Static local:AppResources.Wallet}" IsEnabled="False"/>
+                <Button Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+                <Button Text="{x:Static local:AppResources.Devices}" IsEnabled="False"/>
+                <Label Text="{x:Static local:AppResources.Contracts}" FontSize="Large"/>
+                <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
+                <Button Text="{x:Static local:AppResources.MyCreatedContracts}" Clicked="CreatedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+                <Button Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+                <Label Text="{x:Static local:AppResources.Notary}" FontSize="Large"/>
+                <Button Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+                <Label Text="Debug" FontSize="Large"/>
+                <Button Text="Server Comms" Clicked="XmppCommunicationButton_Clicked" IsEnabled="{Binding Path=IsConnected}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </views:ContentBasePage>

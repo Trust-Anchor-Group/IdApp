@@ -7,6 +7,7 @@ namespace Tag.Sdk.Core.Services
     /// </summary>
     public interface INeuronChats : IDisposable
     {
+        event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
         bool IsOnline { get; }
     }
 }

@@ -17,7 +17,8 @@ namespace Tag.Sdk.Core.Services
         bool IsOnline { get; }
         XmppState State { get; }
         string BareJId { get; }
-
+        string LatestError { get; }
+        string LatestConnectionError { get; }
         INeuronContracts Contracts { get; }
         INeuronChats Chats { get; }
 

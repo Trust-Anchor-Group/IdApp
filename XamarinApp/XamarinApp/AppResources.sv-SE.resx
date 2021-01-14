@@ -396,6 +396,9 @@
   <data name="Network" xml:space="preserve">
     <value>Nätverk</value>
   </data>
+  <data name="Neuron" xml:space="preserve">
+    <value>Neuron</value>
+  </data>
   <data name="NewContract" xml:space="preserve">
     <value>Nytt kontrakt</value>
   </data>
@@ -414,8 +417,14 @@
   <data name="ObsoleteContract" xml:space="preserve">
     <value>Ogiltigförklara kontrakt</value>
   </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Ej ansluten</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Ansluten</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Öppna</value>

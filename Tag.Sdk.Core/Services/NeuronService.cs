@@ -101,6 +101,8 @@ namespace Tag.Sdk.Core.Services
 
                     this.xmppClient.RequestRosterOnStartup = false;
                     this.xmppClient.OnStateChanged += XmppClient_StateChanged;
+                    this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
+                    this.xmppClient.OnError += XmppClient_Error;
 
                     this.xmppClient.Connect(domainName);
 
@@ -127,6 +129,8 @@ namespace Tag.Sdk.Core.Services
             this.contracts.DestroyClients();
             if (this.xmppClient != null)
             {
+                this.xmppClient.OnError -= XmppClient_Error;
+                this.xmppClient.OnConnectionError -= XmppClient_ConnectionError;
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
                 this.logService.UnRegisterEventSink();
@@ -167,11 +171,26 @@ namespace Tag.Sdk.Core.Services
             }
         }
 
+        private Task XmppClient_Error(object sender, Exception e)
+        {
+            this.LatestError = e.Message;
+            return Task.CompletedTask;
+        }
+
+        private Task XmppClient_ConnectionError(object sender, Exception e)
+        {
+            this.LatestConnectionError = e.Message;
+            return Task.CompletedTask;
+        }
+
         private async Task XmppClient_StateChanged(object sender, XmppState newState)
         {
             switch (newState)
             {
                 case XmppState.Connected:
+                    this.LatestError = string.Empty;
+                    this.LatestConnectionError = string.Empty;
+
                     this.xmppSettingsOk = true;
 
                     this.reconnectTimer?.Dispose();
@@ -288,9 +307,13 @@ namespace Tag.Sdk.Core.Services
 
         #region State
 
-        public bool IsOnline => !(xmppClient is null) && xmppClient.State == XmppState.Connected;
+        public bool IsOnline => !(this.xmppClient is null) && this.xmppClient.State == XmppState.Connected;
 
-        public XmppState State => xmppClient?.State ?? XmppState.Offline;
+        public XmppState State => this.xmppClient?.State ?? XmppState.Offline;
+
+        public string LatestError { get; private set; }
+
+        public string LatestConnectionError { get; private set; }
 
         public string BareJId => xmppClient?.BareJID ?? string.Empty;
 
@@ -332,9 +355,16 @@ namespace Tag.Sdk.Core.Services
             bool authenticating = false;
             bool registering = false;
             bool timeout = false;
-            string stateError = null;
+            string connectionError = null;
 
-            Task OnStateChanged(object _, XmppState newState)
+            Task OnConnectionError(object _, Exception e)
+            {
+                connectionError = e.Message;
+                connected.TrySetResult(false);
+                return Task.CompletedTask;
+            }
+
+            async Task OnStateChanged(object _, XmppState newState)
             {
                 switch (newState)
                 {
@@ -371,12 +401,12 @@ namespace Tag.Sdk.Core.Services
                         break;
 
                     case XmppState.Error:
-                        stateError = this.sniffer.SnifferLatestToText();
+                        // When State = Error, wait for the OnConnectionError event to arrive also, as it holds more/direct information.
+                        // Just in case it never would - set state error and result.
+                        await Task.Delay(Constants.Timeouts.XmppConnect);
                         connected.TrySetResult(false);
                         break;
                 }
-
-                return Task.CompletedTask;
             }
 
             try
@@ -398,6 +428,7 @@ namespace Tag.Sdk.Core.Services
                     client.AllowEncryption = true;
                     client.AllowScramSHA1 = true;
 
+                    client.OnConnectionError += OnConnectionError;
                     client.OnStateChanged += OnStateChanged;
 
                     client.Connect(domain);
@@ -419,6 +450,7 @@ namespace Tag.Sdk.Core.Services
                     }
 
                     client.OnStateChanged -= OnStateChanged;
+                    client.OnConnectionError -= OnConnectionError;
                 }
             }
             catch (Exception ex)
@@ -440,19 +472,23 @@ namespace Tag.Sdk.Core.Services
                     errorMessage = string.Format(AppResources.DomainDoesNotFollowEncryptionPolicy, domain);
                 else if (!authenticating)
                     errorMessage = string.Format(AppResources.UnableToAuthenticateWith, domain);
-                else if (!registering && string.IsNullOrWhiteSpace(stateError))
-                    errorMessage = string.Format(AppResources.OperatorDoesNotSupportRegisteringNewAccounts, domain);
+                else if (!registering)
+                {
+                    if (!string.IsNullOrWhiteSpace(connectionError))
+                    {
+                        errorMessage = connectionError;
+                    }
+                    else
+                    {
+                        errorMessage = string.Format(AppResources.OperatorDoesNotSupportRegisteringNewAccounts, domain);
+                    }
+                }
                 else if (operation == ConnectOperation.ConnectAndCreateAccount)
                     errorMessage = string.Format(AppResources.AccountNameAlreadyTaken, accountName);
                 else if (operation == ConnectOperation.ConnectAndConnectToAccount)
                     errorMessage = string.Format(AppResources.InvalidUsernameOrPassword, accountName);
                 else
                     errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
-
-                if (!string.IsNullOrWhiteSpace(stateError))
-                {
-                    errorMessage = $"{errorMessage}{Environment.NewLine}{Environment.NewLine}{stateError}";
-                }
             }
 
             return (succeeded, errorMessage);

@@ -61,6 +61,5 @@ namespace XamarinApp.ViewModels
         {
             this.UiDispatcher.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
         }
-
     }
 }

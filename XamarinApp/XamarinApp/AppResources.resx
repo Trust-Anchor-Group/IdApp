@@ -396,6 +396,9 @@
   <data name="Network" xml:space="preserve">
     <value>Network</value>
   </data>
+  <data name="Neuron" xml:space="preserve">
+    <value>Neuron</value>
+  </data>
   <data name="NewContract" xml:space="preserve">
     <value>New Contract</value>
   </data>
@@ -414,8 +417,14 @@
   <data name="ObsoleteContract" xml:space="preserve">
     <value>Obsolete contract</value>
   </data>
+  <data name="Offline" xml:space="preserve">
+    <value>Offline</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Open</value>

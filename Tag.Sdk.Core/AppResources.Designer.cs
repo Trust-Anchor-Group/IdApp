@@ -106,7 +106,7 @@ namespace Tag.Sdk.Core {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The database file(s) are corrupt. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
+        ///   Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
         /// </summary>
         internal static string DatabaseCorruptInfoText {
             get {
