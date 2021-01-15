@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Sdk.Core;
@@ -31,16 +33,11 @@ namespace XamarinApp.ViewModels.Registration
             this.authService = authService;
             this.networkService = networkService;
             this.PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
-            this.SwitchModeCommand = new Command(_ =>
-            {
-                CreateNew = !CreateNew;
-                Mode = CreateNew ? AccountMode.Create : AccountMode.Connect;
-                PerformActionCommand.ChangeCanExecute();
-            }, _ => !IsBusy);
             this.ActionButtonText = AppResources.CreateNew;
             this.CreateNew = true;
             this.Mode = AccountMode.Create;
             this.CreateRandomPassword = true;
+            this.SwitchModeCommand = new Command(_ => CreateNew = !CreateNew, _ => !IsBusy);
             this.Title = AppResources.ChooseAccount;
         }
 
@@ -81,7 +78,10 @@ namespace XamarinApp.ViewModels.Registration
             BindableProperty.Create("CreateNew", typeof(bool), typeof(ChooseAccountViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.ActionButtonText = (bool)newValue ? AppResources.CreateNew : AppResources.UseExisting;
+                bool createNew = (bool)newValue;
+                viewModel.Mode = createNew ? AccountMode.Create : AccountMode.Connect;
+                viewModel.ActionButtonText = createNew ? AppResources.CreateNew : AppResources.UseExisting;
+                viewModel.PerformActionCommand.ChangeCanExecute();
                 viewModel.UpdatePasswordState();
             });
 
@@ -95,6 +95,11 @@ namespace XamarinApp.ViewModels.Registration
             BindableProperty.Create("CreateRandomPassword", typeof(bool), typeof(ChooseAccountViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
+                // When switching random password to 'off', wipe password field if it has contents.
+                if (!(bool)newValue && !string.IsNullOrWhiteSpace(viewModel.Password))
+                {
+                    viewModel.Password = string.Empty;
+                }
                 viewModel.PerformActionCommand.ChangeCanExecute();
                 viewModel.UpdatePasswordState();
             });
@@ -193,6 +198,19 @@ namespace XamarinApp.ViewModels.Registration
         public ICommand PerformActionCommand { get; }
 
         #endregion
+
+        public override void ClearStepState()
+        {
+            this.ConnectToExistingAccountName = string.Empty;
+            this.CreateNewAccountName = string.Empty;
+            this.Password = string.Empty;
+            this.RetypedPassword = string.Empty;
+            this.CreateRandomPassword = true;
+            this.CreateNew = true;
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(CreateNewAccountName)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(ConnectToExistingAccountName)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(CreateRandomPassword)));
+        }
 
         private async Task PerformAction()
         {
@@ -365,67 +383,60 @@ namespace XamarinApp.ViewModels.Registration
                     this.PasswordHash = client.PasswordHash;
                     this.PasswordHashMethod = client.PasswordHashMethod;
 
-                    if (this.TagProfile.LegalIdentityNeedsUpdating())
+                    DateTime now = DateTime.Now;
+                    LegalIdentity createdIdentity = null;
+                    LegalIdentity approvedIdentity = null;
+
+                    bool serviceDiscoverySucceeded;
+                    if (this.TagProfile.NeedsUpdating())
                     {
-                        DateTime now = DateTime.Now;
-                        LegalIdentity createdIdentity = null;
-                        LegalIdentity approvedIdentity = null;
-
-                        bool serviceDiscoverySucceeded;
-                        if (this.TagProfile.NeedsUpdating())
-                        {
-                            serviceDiscoverySucceeded = await this.NeuronService.DiscoverServices(client);
-                        }
-                        else
-                        {
-                            serviceDiscoverySucceeded = true;
-                        }
-
-                        if (serviceDiscoverySucceeded)
-                        {
-                            foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentitiesAsync(client))
-                            {
-                                if (identity.HasClientSignature &&
-                                    identity.HasClientPublicKey &&
-                                    identity.From <= now &&
-                                    identity.To >= now &&
-                                    (identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
-                                    identity.ValidateClientSignature())
-                                {
-                                    if (identity.State == IdentityState.Approved)
-                                    {
-                                        approvedIdentity = identity;
-                                        break;
-                                    }
-                                    if (createdIdentity is null)
-                                    {
-                                        createdIdentity = identity;
-                                    }
-                                }
-                            }
-
-                            if (approvedIdentity != null)
-                            {
-                                this.LegalIdentity = approvedIdentity;
-                            }
-                            else if (createdIdentity != null)
-                            {
-                                this.LegalIdentity = createdIdentity;
-                            }
-
-                            if (this.LegalIdentity != null)
-                            {
-                                this.TagProfile.SetAccountAndLegalIdentity(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
-                            }
-                            else
-                            {
-                                this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
-                            }
-                        }
+                        serviceDiscoverySucceeded = await this.NeuronService.DiscoverServices(client);
                     }
                     else
                     {
-                        this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
+                        serviceDiscoverySucceeded = true;
+                    }
+
+                    if (serviceDiscoverySucceeded)
+                    {
+                        foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentitiesAsync(client))
+                        {
+                            if (identity.HasClientSignature &&
+                                identity.HasClientPublicKey &&
+                                identity.From <= now &&
+                                identity.To >= now &&
+                                (identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
+                                identity.ValidateClientSignature())
+                            {
+                                if (identity.State == IdentityState.Approved)
+                                {
+                                    approvedIdentity = identity;
+                                    break;
+                                }
+                                if (createdIdentity is null)
+                                {
+                                    createdIdentity = identity;
+                                }
+                            }
+                        }
+
+                        if (approvedIdentity != null)
+                        {
+                            this.LegalIdentity = approvedIdentity;
+                        }
+                        else if (createdIdentity != null)
+                        {
+                            this.LegalIdentity = createdIdentity;
+                        }
+
+                        if (this.LegalIdentity != null)
+                        {
+                            this.TagProfile.SetAccountAndLegalIdentity(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+                        }
+                        else
+                        {
+                            this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
+                        }
                     }
                 }
 
@@ -452,12 +463,14 @@ namespace XamarinApp.ViewModels.Registration
             await base.DoSaveState();
             this.SettingsService.SaveState(GetSettingsKey(nameof(CreateNewAccountName)), this.CreateNewAccountName);
             this.SettingsService.SaveState(GetSettingsKey(nameof(ConnectToExistingAccountName)), this.ConnectToExistingAccountName);
+            this.SettingsService.SaveState(GetSettingsKey(nameof(CreateRandomPassword)), this.CreateRandomPassword);
         }
 
         protected override async Task DoRestoreState()
         {
             this.CreateNewAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(CreateNewAccountName)));
             this.ConnectToExistingAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ConnectToExistingAccountName)));
+            this.CreateRandomPassword = this.SettingsService.RestoreState<bool>(GetSettingsKey(nameof(CreateRandomPassword)), true);
             await base.DoRestoreState();
         }
     }

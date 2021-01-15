@@ -135,6 +135,12 @@ namespace XamarinApp.ViewModels.Registration
             await base.DoUnbind();
         }
 
+        public override void ClearStepState()
+        {
+            this.Pin = string.Empty;
+            this.RetypedPin = string.Empty;
+        }
+
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             UiDispatcher.BeginInvokeOnMainThread(() =>

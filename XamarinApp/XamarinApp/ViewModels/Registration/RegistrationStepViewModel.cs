@@ -76,5 +76,10 @@ namespace XamarinApp.ViewModels.Registration
                 command.ChangeCanExecute();
             }
         }
+
+        public virtual void ClearStepState()
+        {
+            
+        }
     }
 }

@@ -172,6 +172,8 @@ namespace XamarinApp.ViewModels.Registration
             });
         }
 
+        #region Properties
+
         public static readonly BindableProperty CreatedProperty =
             BindableProperty.Create("Created", typeof(DateTime), typeof(ValidateIdentityViewModel), default(DateTime));
 
@@ -380,6 +382,8 @@ namespace XamarinApp.ViewModels.Registration
             get { return (string) GetValue(ConnectionStateTextProperty); }
             set { SetValue(ConnectionStateTextProperty, value); }
         }
+
+        #endregion
 
         private async Task InviteReviewer()
         {

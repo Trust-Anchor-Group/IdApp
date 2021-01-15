@@ -64,10 +64,10 @@ namespace Tag.Sdk.Core.Services
             }
         }
 
-        public T RestoreState<T>(string key)
+        public T RestoreState<T>(string key, T defaultValueIfNotFound = default)
         {
             if (string.IsNullOrWhiteSpace(key))
-                return default;
+                return defaultValueIfNotFound;
 
             using (var connection = new SQLiteConnection(DatabasePath, Flags))
             {
@@ -78,10 +78,10 @@ namespace Tag.Sdk.Core.Services
                 }
             }
 
-            return default;
+            return defaultValueIfNotFound;
         }
 
-        public void RemoveState<T>(string key)
+        public void RemoveState(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
                 return;

@@ -549,5 +549,33 @@ namespace XamarinApp.ViewModels.Registration
             this.Region = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Region)));
             await base.DoRestoreState();
         }
+
+        public override void ClearStepState()
+        {
+            this.photos.Clear();
+            this.Image = null;
+            this.SelectedCountry = null;
+            this.FirstName = string.Empty;
+            this.MiddleNames = string.Empty;
+            this.LastNames = string.Empty;
+            this.PersonalNumber = string.Empty;
+            this.Address = string.Empty;
+            this.Address2 = string.Empty;
+            this.Area = string.Empty;
+            this.City = string.Empty;
+            this.ZipCode = string.Empty;
+            this.Region = string.Empty;
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedCountry)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(FirstName)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(MiddleNames)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(LastNames)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(PersonalNumber)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(Address)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(Address2)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(Area)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(City)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(ZipCode)));
+            this.SettingsService.RemoveState(GetSettingsKey(nameof(Region)));
+        }
     }
 }

@@ -116,7 +116,6 @@ namespace XamarinApp.ViewModels.Registration
             {
                 this.BeginInvokeSetIsDone(ConnectCommand);
             }
-
         }
 
         private bool ConnectCanExecute()

@@ -518,6 +518,7 @@ namespace Tag.Sdk.Core.Services
         public void ClearIsValidated()
         {
             this.DecrementConfigurationStep(RegistrationStep.Account); // Bypass Register (step 3), go directly to Account (Step2)
+            this.ClearLegalIdentity();
         }
 
         // Step 5

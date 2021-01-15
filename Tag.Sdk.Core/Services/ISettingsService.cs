@@ -6,8 +6,8 @@ namespace Tag.Sdk.Core.Services
     public interface ISettingsService
     {
         void SaveState(string key, object state);
-        T RestoreState<T>(string key);
+        T RestoreState<T>(string key, T defaultValueIfNotFound = default);
         IEnumerable<(string key, T value)> RestoreStateWhere<T>(Func<string, bool> predicate);
-        void RemoveState<T>(string key);
+        void RemoveState(string key);
     }
 }
