@@ -127,9 +127,9 @@ namespace XamarinApp.ViewModels.Contracts
 
         private void DeleteState()
         {
-            this.settingsService.RemoveState<string>(GetSettingsKey(nameof(SelectedContractCategory)));
-            this.settingsService.RemoveState<string>(GetSettingsKey(nameof(SelectedContractType)));
-            this.settingsService.RemoveState<string>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractCategory)));
+            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractType)));
+            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
         }
 
         #region Properties

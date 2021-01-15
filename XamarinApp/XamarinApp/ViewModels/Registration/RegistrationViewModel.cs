@@ -150,18 +150,22 @@ namespace XamarinApp.ViewModels.Registration
             switch (currStep)
             {
                 case RegistrationStep.Account:
+                    this.RegistrationSteps[CurrentStep].ClearStepState();
                     this.tagProfile.ClearAccount();
                     break;
 
                 case RegistrationStep.RegisterIdentity:
+                    this.RegistrationSteps[CurrentStep].ClearStepState();
                     this.tagProfile.ClearLegalIdentity();
                     break;
 
                 case RegistrationStep.ValidateIdentity:
+                    this.RegistrationSteps[CurrentStep].ClearStepState();
                     this.tagProfile.ClearIsValidated();
                     break;
 
                 case RegistrationStep.Pin:
+                    this.RegistrationSteps[CurrentStep].ClearStepState();
                     this.tagProfile.ClearPin();
                     break;
 
