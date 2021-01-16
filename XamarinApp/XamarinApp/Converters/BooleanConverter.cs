@@ -3,18 +3,18 @@ using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace XamarinApp.Views.Converters
+namespace XamarinApp.Converters
 {
-    public class BooleanToColorConverter : IValueConverter, IMarkupExtension
+    public class BooleanConverter : IValueConverter, IMarkupExtension
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (bool)value ? Color.Default : (Color)Application.Current.Resources["AlertColor"];
+            return !((bool)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (Color)value == Color.Default;
+            return value;
         }
 
         public object ProvideValue(IServiceProvider serviceProvider)
