@@ -4,7 +4,7 @@
              xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
              xmlns:behaviors="clr-namespace:Tag.Sdk.UI.Behaviors;assembly=Tag.Sdk.UI"
              xmlns:resources="clr-namespace:XamarinApp;assembly=XamarinApp"
-             xmlns:converters="clr-namespace:XamarinApp.Views.Converters;assembly=XamarinApp"
+             xmlns:converters="clr-namespace:XamarinApp.Converters;assembly=XamarinApp"
              x:Class="XamarinApp.Views.Registration.RegisterIdentityView">
     <ContentView.Content>
         <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">

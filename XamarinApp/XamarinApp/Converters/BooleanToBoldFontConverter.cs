@@ -3,7 +3,7 @@ using System.Globalization;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace XamarinApp.Views.Converters
+namespace XamarinApp.Converters
 {
     public class BooleanToBoldFontConverter : IValueConverter, IMarkupExtension
     {
