@@ -26,8 +26,7 @@ namespace Tag.Sdk.Core.Tests.Services
             TestArgs1 ta1 = new TestArgs1();
             sut.PushArgs(ta1);
 
-            TestArgs1 ta2;
-            bool succeeded = sut.TryPopArgs(out ta2);
+            bool succeeded = sut.TryPopArgs(out TestArgs1 ta2);
             Assert.IsTrue(succeeded);
             Assert.AreSame(ta1, ta2);
         }
@@ -38,8 +37,7 @@ namespace Tag.Sdk.Core.Tests.Services
             TestArgs1 ta1 = new TestArgs1();
             sut.PushArgs(ta1);
 
-            TestArgs1 ta2;
-            bool succeeded = sut.TryPopArgs(out ta2);
+            bool succeeded = sut.TryPopArgs(out TestArgs1 ta2);
             Assert.IsTrue(succeeded);
             Assert.AreSame(ta1, ta2);
 
@@ -54,8 +52,7 @@ namespace Tag.Sdk.Core.Tests.Services
             TestArgs1 ta1 = new TestArgs1();
             sut.PushArgs(ta1);
 
-            TestArgs2 ta2;
-            bool succeeded = sut.TryPopArgs(out ta2);
+            bool succeeded = sut.TryPopArgs(out TestArgs2 ta2);
             Assert.IsFalse(succeeded);
             Assert.IsNull(ta2);
         }
@@ -64,8 +61,7 @@ namespace Tag.Sdk.Core.Tests.Services
         public void PushArgs_PushNull_ReturnsNull()
         {
             sut.PushArgs((NavigationArgs)null);
-            TestArgs1 ta1;
-            bool succeeded = sut.TryPopArgs(out ta1);
+            bool succeeded = sut.TryPopArgs(out TestArgs1 ta1);
             Assert.IsFalse(succeeded);
             Assert.IsNull(ta1);
         }
