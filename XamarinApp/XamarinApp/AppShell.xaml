@@ -32,7 +32,7 @@
         <local:InitPage />
     </ShellContent>
 
-    <ShellContent Route="RegistrationPage" Shell.FlyoutBehavior="Flyout" Shell.NavBarIsVisible="True">
+    <ShellContent Route="RegistrationPage" Shell.FlyoutBehavior="Disabled" Shell.NavBarIsVisible="True">
         <registrationViews:RegistrationPage />
     </ShellContent>
 
