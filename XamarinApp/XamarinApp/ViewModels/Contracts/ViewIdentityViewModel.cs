@@ -11,13 +11,14 @@ using Tag.Sdk.UI;
 using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Navigation;
 using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels.Contracts
 {
     public class ViewIdentityViewModel : NeuronViewModel
     {
-        private readonly SignaturePetitionEventArgs identityToReview;
+        private SignaturePetitionEventArgs identityToReview;
         private readonly ITagProfile tagProfile;
         private readonly ILogService logService;
         private readonly INavigationService navigationService;
@@ -25,8 +26,6 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly PhotosLoader photosLoader;
 
         public ViewIdentityViewModel(
-            LegalIdentity identity,
-            SignaturePetitionEventArgs identityToReview,
             ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
             INeuronService neuronService,
@@ -35,8 +34,6 @@ namespace XamarinApp.ViewModels.Contracts
             ILogService logService)
         : base(neuronService, uiDispatcher)
         {
-            this.LegalIdentity = identity ?? tagProfile.LegalIdentity;
-            this.identityToReview = identityToReview;
             this.tagProfile = tagProfile;
             this.logService = logService;
             this.navigationService = navigationService;
@@ -52,6 +49,16 @@ namespace XamarinApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
+            if (this.navigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
+            {
+                this.LegalIdentity = args.Identity ?? tagProfile.LegalIdentity;
+                this.identityToReview = args.IdentityToReview;
+            }
+            else if (this.LegalIdentity == null)
+            {
+                this.LegalIdentity = tagProfile.LegalIdentity;
+                this.identityToReview = null;
+            }
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
             this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;

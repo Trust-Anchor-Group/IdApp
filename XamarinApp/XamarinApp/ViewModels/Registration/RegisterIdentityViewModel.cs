@@ -45,12 +45,11 @@ namespace XamarinApp.ViewModels.Registration
             this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
             this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
             this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
-            this.RemovePhotoCommand = new Command(_ => Image = null);
+            this.RemovePhotoCommand = new Command(_ => RemovePhoto());
             this.photos = new Dictionary<string, LegalIdentityAttachment>();
             this.Title = AppResources.PersonalLegalInformation;
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
         }
-
 
         protected override async Task DoBind()
         {
@@ -354,6 +353,12 @@ namespace XamarinApp.ViewModels.Registration
             RegisterCommand.ChangeCanExecute();
         }
 
+        private void RemovePhoto()
+        {
+            this.photos.Clear();
+            Image = null;
+        }
+
         private async Task Register()
         {
             if (!(await this.ValidateInput(true)))
@@ -552,8 +557,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public override void ClearStepState()
         {
-            this.photos.Clear();
-            this.Image = null;
+            RemovePhoto();
             this.SelectedCountry = null;
             this.FirstName = string.Empty;
             this.MiddleNames = string.Empty;

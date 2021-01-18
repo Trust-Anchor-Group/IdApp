@@ -2,7 +2,6 @@
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
-using Waher.Networking.XMPP.Contracts;
 using XamarinApp.ViewModels.Contracts;
 
 namespace XamarinApp.Views
@@ -13,21 +12,9 @@ namespace XamarinApp.Views
         private readonly INavigationService navigationService;
 
         public ViewIdentityPage()
-            : this(null, null)
-        {
-        }
-
-        public ViewIdentityPage(LegalIdentity identity)
-            : this(identity, null)
-        {
-        }
-
-        public ViewIdentityPage(LegalIdentity identity, SignaturePetitionEventArgs review)
         {
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.ViewModel = new ViewIdentityViewModel(
-                identity,
-                review,
                 DependencyService.Resolve<ITagProfile>(),
                 DependencyService.Resolve<IUiDispatcher>(),
                 DependencyService.Resolve<INeuronService>(),

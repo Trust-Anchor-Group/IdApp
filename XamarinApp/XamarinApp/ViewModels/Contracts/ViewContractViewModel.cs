@@ -14,6 +14,7 @@ using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 using XamarinApp.Models;
+using XamarinApp.Navigation;
 using XamarinApp.Services;
 using XamarinApp.Views.Contracts;
 
@@ -22,6 +23,7 @@ namespace XamarinApp.ViewModels.Contracts
     public class ViewContractViewModel : BaseViewModel
     {
         private Contract contract;
+        private bool isReadOnly;
         private readonly IUiDispatcher uiDispatcher;
         private readonly ILogService logService;
         private readonly INavigationService navigationService;
@@ -30,11 +32,8 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly ITagProfile tagProfile;
         private readonly PhotosLoader photosLoader;
 
-        public ViewContractViewModel(Contract contract, bool isReadOnly)
+        public ViewContractViewModel()
         {
-            this.contract = contract;
-            this.IsReadOnly = isReadOnly;
-
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.logService = DependencyService.Resolve<ILogService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
@@ -62,6 +61,16 @@ namespace XamarinApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
+            if (this.navigationService.TryPopArgs(out ViewContractNavigationArgs args))
+            {
+                this.contract = args.Contract;
+                this.isReadOnly = args.IsReadOnly;
+            }
+            else
+            {
+                this.contract = null;
+                this.isReadOnly = true;
+            }
             await LoadContract();
         }
 
@@ -72,8 +81,6 @@ namespace XamarinApp.ViewModels.Contracts
         }
 
         #region Properties
-
-        public bool IsReadOnly { get; }
 
         public ICommand DisplayPartCommand { get; }
 
@@ -310,7 +317,7 @@ namespace XamarinApp.ViewModels.Contracts
                     foreach (Part part in contract.Parts)
                     {
                         PartModel model = new PartModel(part.Role, part.LegalId, part.LegalId);
-                        if (!this.IsReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.tagProfile.LegalIdentity.Id)
+                        if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.tagProfile.LegalIdentity.Id)
                         {
                             model.SignAsRole = part.Role;
                             model.SignAsRoleText = string.Format(AppResources.SignAsRole, part.Role);
@@ -332,7 +339,7 @@ namespace XamarinApp.ViewModels.Contracts
                             IsHtml = true
                         };
 
-                        if (!this.IsReadOnly && acceptsSignatures && !hasSigned && this.contract.PartsMode == Waher.Networking.XMPP.Contracts.ContractParts.Open &&
+                        if (!this.isReadOnly && acceptsSignatures && !hasSigned && this.contract.PartsMode == Waher.Networking.XMPP.Contracts.ContractParts.Open &&
                             (!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount))
                         {
                             model.SignAsRole = role.Name;
@@ -389,7 +396,7 @@ namespace XamarinApp.ViewModels.Contracts
                     this.ContractServerSignatures.Add(model);
                 }
 
-                this.CanDeleteOrObsoleteContract = !this.IsReadOnly && !contract.IsLegallyBinding(true);
+                this.CanDeleteOrObsoleteContract = !this.isReadOnly && !contract.IsLegallyBinding(true);
 
                 this.HasRoles = this.ContractRoles.Count > 0;
                 this.HasParts = this.ContractParts.Count > 0;
@@ -449,7 +456,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                     await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
-                    await this.navigationService.ReplaceAsync(new ViewContractPage(signedContract, false));
+                    await this.navigationService.ReplaceAsync(new ViewContractPage(), new ViewContractNavigationArgs(signedContract, false));
                 }
             }
             catch (Exception ex)
@@ -468,7 +475,7 @@ namespace XamarinApp.ViewModels.Contracts
                     string legalId = signature.LegalId;
                     LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
 
-                    await this.navigationService.PushAsync(new ClientSignaturePage(signature, identity));
+                    await this.navigationService.PushAsync(new ClientSignaturePage(), new ClientSignatureNavigationArgs(signature, identity));
                 }
             }
             catch (Exception ex)
@@ -481,7 +488,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                await this.navigationService.PushAsync(new ServerSignaturePage(this.contract));
+                await this.navigationService.PushAsync(new ServerSignaturePage(), new ServerSignatureNavigationArgs(this.contract));
             }
             catch (Exception ex)
             {
@@ -497,7 +504,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
-                await this.navigationService.PushAsync(new ViewContractPage(obsoletedContract, false));
+                await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(obsoletedContract, false));
             }
             catch (Exception ex)
             {
@@ -513,7 +520,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 
-                await this.navigationService.PushAsync(new ViewContractPage(deletedContract, false));
+                await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(deletedContract, false));
             }
             catch (Exception ex)
             {

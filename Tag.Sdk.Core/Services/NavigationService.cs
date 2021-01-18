@@ -1,84 +1,44 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Tag.Sdk.Core.Services
 {
     internal sealed class NavigationService : INavigationService
     {
-        private readonly List<object> navigationArgs;
+        private NavigationArgs navigationArgs;
 
-        public NavigationService()
+        public void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs
         {
-            this.navigationArgs = new List<object>();   
+            this.navigationArgs = args;
         }
 
-        public void PushArgs(params object[] args)
+        public bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs
         {
-            if (args != null && args.Length > 0)
+            args = default;
+
+            if (this.navigationArgs != null)
             {
-                this.navigationArgs.AddRange(args);
+                args = this.navigationArgs as TArgs;
             }
+
+            this.ClearArgs();
+            return args != null;
         }
 
-        public void PopArgs<T1>(out T1 t1) where T1 : class
+        private void ClearArgs()
         {
-            t1 = default;
-
-            if (this.navigationArgs.Count > 0)
-            {
-                t1 = this.navigationArgs[0] as T1;
-            }
-
-            this.navigationArgs.Clear();
-        }
-
-        public void PopArgs<T1, T2>(out T1 t1, out T2 t2) 
-            where T1 : class
-            where T2 : class
-        {
-            t1 = default;
-            t2 = default;
-
-            if (this.navigationArgs.Count > 0)
-            {
-                t1 = this.navigationArgs[0] as T1;
-            }
-            if (this.navigationArgs.Count > 1)
-            {
-                t2 = this.navigationArgs[1] as T2;
-            }
-
-            this.navigationArgs.Clear();
-        }
-
-        public void PopArgs<T1, T2, T3>(out T1 t1, out T2 t2, out T3 t3) 
-            where T1 : class
-            where T2 : class
-            where T3 : class
-        {
-            t1 = default;
-            t2 = default;
-            t3 = default;
-
-            if (this.navigationArgs.Count > 0)
-            {
-                t1 = this.navigationArgs[0] as T1;
-            }
-            if (this.navigationArgs.Count > 1)
-            {
-                t2 = this.navigationArgs[1] as T2;
-            }
-            if (this.navigationArgs.Count > 2)
-            {
-                t3 = this.navigationArgs[2] as T3;
-            }
-
-            this.navigationArgs.Clear();
+            this.navigationArgs = null;
         }
 
         public Task PushAsync(Page page)
         {
+            this.ClearArgs();
+            return Application.Current.MainPage.Navigation.PushAsync(page, true);
+        }
+
+        public Task PushAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
+        {
+            this.PushArgs(args);
             return Application.Current.MainPage.Navigation.PushAsync(page, true);
         }
 
@@ -89,6 +49,13 @@ namespace Tag.Sdk.Core.Services
 
         public Task PushModalAsync(Page page)
         {
+            this.ClearArgs();
+            return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
+        }
+
+        public Task PushModalAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
+        {
+            this.PushArgs(args);
             return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
         }
 
@@ -97,22 +64,29 @@ namespace Tag.Sdk.Core.Services
             return Application.Current.MainPage.Navigation.PopModalAsync(true);
         }
 
+        public Task ReplaceAsync(Page page)
+        {
+            return ReplaceAsync(page, (NavigationArgs)null);
+        }
+
+        public async Task ReplaceAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
+        {
+            // Neat trick to replace current page but still get a page animation.
+            Page currPage = Application.Current.MainPage;
+            if (currPage is NavigationPage navPage)
+            {
+                currPage = navPage.CurrentPage;
+            }
+
+            this.PushArgs(args);
+            await Application.Current.MainPage.Navigation.PushAsync(page);
+            currPage.Navigation.RemovePage(currPage);
+        }
+
         public async Task ReplaceAsync(string route)
         {
             string uri = $"//{route}";
             await Shell.Current.GoToAsync(uri);
-        }
-
-        public async Task ReplaceAsync(Page page)
-        {
-            //// Neat trick to replace current page but still get a page animation.
-            //Page currPage = Application.Current.MainPage;
-            //if (currPage is NavigationPage navPage)
-            //{
-            //    currPage = navPage.CurrentPage;
-            //}
-            //await Application.Current.MainPage.Navigation.PushAsync(page);
-            //currPage.Navigation.RemovePage(currPage);
         }
     }
 }

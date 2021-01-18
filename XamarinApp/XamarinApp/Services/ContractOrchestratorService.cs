@@ -6,6 +6,7 @@ using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Navigation;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
 
@@ -77,7 +78,7 @@ namespace XamarinApp.Services
                 {
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
-                        await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestorIdentity, e));
+                        await this.navigationService.PushAsync(new ViewIdentityPage(), new ViewIdentityNavigationArgs(e.RequestorIdentity, e));
                     }
                 }
             );
@@ -115,7 +116,7 @@ namespace XamarinApp.Services
                 {
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
-                        await this.navigationService.PushAsync(new PetitionIdentityPage(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
+                        await this.navigationService.PushAsync(new PetitionIdentityPage(), new PetitionIdentityNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
                     }
                 });
             }
@@ -137,7 +138,7 @@ namespace XamarinApp.Services
                 }
                 else
                 {
-                    await this.navigationService.PushAsync(new ViewContractPage(e.RequestedContract, false));
+                    await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(e.RequestedContract, false));
                 }
             });
         }
@@ -158,7 +159,7 @@ namespace XamarinApp.Services
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.PushAsync(new PetitionContractPage(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
+                    await this.navigationService.PushAsync(new PetitionContractPage(), new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
                 });
             }
         }
@@ -173,7 +174,7 @@ namespace XamarinApp.Services
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.PushAsync(new ViewIdentityPage(e.RequestedIdentity));
+                    await this.navigationService.PushAsync(new ViewIdentityPage(), new ViewIdentityNavigationArgs(e.RequestedIdentity, null));
                 });
             }
         }
@@ -237,7 +238,7 @@ namespace XamarinApp.Services
                 LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.PushAsync(new ViewIdentityPage(identity));
+                    await this.navigationService.PushAsync(new ViewIdentityPage(), new ViewIdentityNavigationArgs(identity, null));
                 });
             }
             catch (Exception ex)
@@ -263,9 +264,9 @@ namespace XamarinApp.Services
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
-                        await this.navigationService.PushAsync(new NewContractPage(contract));
+                        await this.navigationService.PushAsync(new NewContractPage(), new NewContractNavigationArgs(contract));
                     else
-                        await this.navigationService.PushAsync(new ViewContractPage(contract, false));
+                        await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(contract, false));
                 });
             }
             catch (Exception ex)

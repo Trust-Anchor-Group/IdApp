@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
-using Waher.Networking.XMPP.Contracts;
 using XamarinApp.ViewModels.Contracts;
 
 namespace XamarinApp.Views.Contracts
@@ -11,10 +10,10 @@ namespace XamarinApp.Views.Contracts
 	{
         private readonly INavigationService navigationService;
 
-		public ClientSignaturePage(ClientSignature signature, LegalIdentity identity)
+		public ClientSignaturePage()
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            ViewModel = new ClientSignatureViewModel(signature, identity);
+            ViewModel = new ClientSignatureViewModel();
 			InitializeComponent();
 		}
 

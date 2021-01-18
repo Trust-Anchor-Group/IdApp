@@ -44,7 +44,7 @@ namespace XamarinApp.Tests.ViewModels.Contracts
 
         protected override ViewIdentityViewModel AViewModel()
         {
-            return new ViewIdentityViewModel(this.identity, identityToReview, this.tagProfile, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.networkService.Object, this.logService.Object);
+            return new ViewIdentityViewModel(this.tagProfile, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.networkService.Object, this.logService.Object);
         }
 
         [Test]

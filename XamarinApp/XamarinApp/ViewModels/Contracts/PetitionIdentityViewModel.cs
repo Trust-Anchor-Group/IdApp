@@ -8,6 +8,7 @@ using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Navigation;
 
 namespace XamarinApp.ViewModels.Contracts
 {
@@ -17,38 +18,38 @@ namespace XamarinApp.ViewModels.Contracts
         private readonly INeuronService neuronService;
         private readonly ILogService logService;
         private readonly INetworkService networkService;
-        private readonly LegalIdentity requestorIdentity;
-        private readonly string requestorFullJid;
-        private readonly string requestedIdentityId;
-        private readonly string petitionId;
+        private LegalIdentity requestorIdentity;
+        private string requestorFullJid;
+        private string requestedIdentityId;
+        private string petitionId;
+        private string purpose;
         private readonly PhotosLoader photosLoader;
 
-        public PetitionIdentityViewModel(
-            LegalIdentity requestorIdentity,
-            string requestorFullJid,
-            string requestedIdentityId,
-            string petitionId,
-            string purpose)
+        public PetitionIdentityViewModel()
         {
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.logService = DependencyService.Resolve<ILogService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
-            this.requestorIdentity = requestorIdentity;
-            this.requestorFullJid = requestorFullJid;
-            this.requestedIdentityId = requestedIdentityId;
-            this.petitionId = petitionId;
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, this.Photos);
-            AssignProperties(purpose);
         }
 
         protected override async Task DoBind()
         {
             await base.DoBind();
+            if (this.navigationService.TryPopArgs(out PetitionIdentityNavigationArgs args))
+            {
+                this.requestorIdentity = args.RequestorIdentity;
+                this.requestorFullJid = args.RequestorFullJid;
+                this.requestedIdentityId = args.RequestedIdentityId;
+                this.petitionId = args.PetitionId;
+                this.purpose = args.Purpose;
+            }
+            this.AssignProperties();
             if (this.requestorIdentity?.Attachments != null)
             {
                 _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments);
@@ -274,29 +275,53 @@ namespace XamarinApp.ViewModels.Contracts
 
         #endregion
 
-        private void AssignProperties(string purpose)
+        private void AssignProperties()
         {
-            this.Created = this.requestorIdentity.Created;
-            this.Updated = this.requestorIdentity.Updated.GetDateOrNullIfMinValue();
-            this.LegalId = this.requestorIdentity.Id;
-            this.State = this.requestorIdentity.State.ToString();
-            this.From = this.requestorIdentity.From.GetDateOrNullIfMinValue();
-            this.To = this.requestorIdentity.To.GetDateOrNullIfMinValue();
-            this.FirstName = this.requestorIdentity[Constants.XmppProperties.FirstName];
-            this.MiddleNames = this.requestorIdentity[Constants.XmppProperties.MiddleName];
-            this.LastNames = this.requestorIdentity[Constants.XmppProperties.LastName];
-            this.PersonalNumber = this.requestorIdentity[Constants.XmppProperties.PersonalNumber];
-            this.Address = this.requestorIdentity[Constants.XmppProperties.Address];
-            this.Address2 = this.requestorIdentity[Constants.XmppProperties.Address2];
-            this.ZipCode = this.requestorIdentity[Constants.XmppProperties.ZipCode];
-            this.Area = this.requestorIdentity[Constants.XmppProperties.Area];
-            this.City = this.requestorIdentity[Constants.XmppProperties.City];
-            this.Region = this.requestorIdentity[Constants.XmppProperties.Region];
-            this.CountryCode = this.requestorIdentity[Constants.XmppProperties.Country];
-            this.Country = ISO_3166_1.ToName(this.CountryCode);
-            this.IsApproved = this.requestorIdentity.State == IdentityState.Approved;
+            if (this.requestorIdentity != null)
+            {
+                this.Created = this.requestorIdentity.Created;
+                this.Updated = this.requestorIdentity.Updated.GetDateOrNullIfMinValue();
+                this.LegalId = this.requestorIdentity.Id;
+                this.State = this.requestorIdentity.State.ToString();
+                this.From = this.requestorIdentity.From.GetDateOrNullIfMinValue();
+                this.To = this.requestorIdentity.To.GetDateOrNullIfMinValue();
+                this.FirstName = this.requestorIdentity[Constants.XmppProperties.FirstName];
+                this.MiddleNames = this.requestorIdentity[Constants.XmppProperties.MiddleName];
+                this.LastNames = this.requestorIdentity[Constants.XmppProperties.LastName];
+                this.PersonalNumber = this.requestorIdentity[Constants.XmppProperties.PersonalNumber];
+                this.Address = this.requestorIdentity[Constants.XmppProperties.Address];
+                this.Address2 = this.requestorIdentity[Constants.XmppProperties.Address2];
+                this.ZipCode = this.requestorIdentity[Constants.XmppProperties.ZipCode];
+                this.Area = this.requestorIdentity[Constants.XmppProperties.Area];
+                this.City = this.requestorIdentity[Constants.XmppProperties.City];
+                this.Region = this.requestorIdentity[Constants.XmppProperties.Region];
+                this.CountryCode = this.requestorIdentity[Constants.XmppProperties.Country];
+                this.Country = ISO_3166_1.ToName(this.CountryCode);
+                this.IsApproved = this.requestorIdentity.State == IdentityState.Approved;
+            }
+            else
+            {
+                this.Created = DateTime.MinValue;
+                this.Updated = null;
+                this.LegalId = Constants.NotAvailableValue;
+                this.State = Constants.NotAvailableValue;
+                this.From = null;
+                this.To = null;
+                this.FirstName = Constants.NotAvailableValue;
+                this.MiddleNames = Constants.NotAvailableValue;
+                this.LastNames = Constants.NotAvailableValue;
+                this.PersonalNumber = Constants.NotAvailableValue;
+                this.Address = Constants.NotAvailableValue;
+                this.Address2 = Constants.NotAvailableValue;
+                this.ZipCode = Constants.NotAvailableValue;
+                this.Area = Constants.NotAvailableValue;
+                this.City = Constants.NotAvailableValue;
+                this.Region = Constants.NotAvailableValue;
+                this.CountryCode = Constants.NotAvailableValue;
+                this.Country = Constants.NotAvailableValue;
+                this.IsApproved = false;
+            }
             this.Purpose = purpose;
         }
-
     }
 }

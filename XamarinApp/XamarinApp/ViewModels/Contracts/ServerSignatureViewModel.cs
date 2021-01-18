@@ -1,22 +1,36 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using XamarinApp.Navigation;
 
 namespace XamarinApp.ViewModels.Contracts
 {
     public class ServerSignatureViewModel : BaseViewModel
     {
-        public ServerSignatureViewModel(Contract contract)
+        private readonly INavigationService navigationService;
+        private Contract contract;
+
+        public ServerSignatureViewModel()
         {
-            if (contract != null)
-            {
-                this.Provider = contract.Provider;
-                this.Timestamp = contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
-                this.Signature = Convert.ToBase64String(contract.ServerSignature.DigitalSignature);
-            }
+            this.navigationService = DependencyService.Resolve<INavigationService>();
         }
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            if (this.navigationService.TryPopArgs(out ServerSignatureNavigationArgs args))
+            {
+                this.contract = args.Contract;
+            }
+            AssignProperties();
+        }
+
+        #region Properties
 
         public static readonly BindableProperty ProviderProperty =
             BindableProperty.Create("Provider", typeof(string), typeof(ServerSignatureViewModel), default(string));
@@ -43,6 +57,24 @@ namespace XamarinApp.ViewModels.Contracts
         {
             get { return (string)GetValue(SignatureProperty); }
             set { SetValue(SignatureProperty, value); }
+        }
+
+        #endregion
+
+        private void AssignProperties()
+        {
+            if (contract != null)
+            {
+                this.Provider = contract.Provider;
+                this.Timestamp = contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);
+                this.Signature = Convert.ToBase64String(contract.ServerSignature.DigitalSignature);
+            }
+            else
+            {
+                this.Provider = Constants.NotAvailableValue;
+                this.Timestamp = Constants.NotAvailableValue;
+                this.Signature = Constants.NotAvailableValue;
+            }
         }
     }
 }

@@ -157,10 +157,16 @@ namespace Tag.Sdk.Core
                 try
                 {
                     // 2. Try repair database
-                    if (this.databaseProvider == null)
+                    if (this.databaseProvider == null && Database.HasProvider)
+                    {
+                        // This is an attempt that _can_ work.
+                        // During a soft restart, there _may_ be a provider registered already. If so, grab it.
                         this.databaseProvider = Database.Provider as FilesProvider;
+                    }
 
                     method = nameof(FilesProvider.RepairIfInproperShutdown);
+                    // Could throw a NullReferenceException, which is _ok_, as it is caught below.
+                    // Reasoning: If we can't create a provider, and the database doesn't have one assigned either, we're in serious trouble.
                     await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
                 }
                 catch (Exception e2)

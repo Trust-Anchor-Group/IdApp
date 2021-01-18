@@ -17,19 +17,19 @@ namespace XamarinApp.ViewModels
             this.tagProfile = DependencyService.Resolve<ITagProfile>();
         }
 
-        public static readonly BindableProperty ProfileIsCompleteProperty =
-            BindableProperty.Create("ProfileIsComplete", typeof(bool), typeof(InitViewModel), default(bool));
+        public static readonly BindableProperty DisplayConnectionTextProperty =
+            BindableProperty.Create("DisplayConnectionText", typeof(bool), typeof(InitViewModel), default(bool));
 
-        public bool ProfileIsComplete
+        public bool DisplayConnectionText
         {
-            get { return (bool)GetValue(ProfileIsCompleteProperty); }
-            set { SetValue(ProfileIsCompleteProperty, value); }
+            get { return (bool)GetValue(DisplayConnectionTextProperty); }
+            set { SetValue(DisplayConnectionTextProperty, value); }
         }
 
         protected override async Task DoBind()
         {
             await base.DoBind();
-            this.ProfileIsComplete = this.tagProfile.IsComplete();
+            this.DisplayConnectionText = this.tagProfile.Step > RegistrationStep.Account;
         }
 
         protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
