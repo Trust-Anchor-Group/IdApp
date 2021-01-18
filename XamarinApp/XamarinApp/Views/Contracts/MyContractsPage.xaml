@@ -7,6 +7,7 @@
     <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
         <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
         <Label Text="{x:Static local:AppResources.MyContractsInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
         <ListView x:Name="Contracts" HasUnevenRows="True" ItemsSource="{Binding Path=Contracts}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -19,6 +20,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
     </StackLayout>
 </views:ContentBasePage>

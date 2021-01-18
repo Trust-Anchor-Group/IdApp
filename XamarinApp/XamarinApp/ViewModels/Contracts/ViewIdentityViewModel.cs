@@ -54,6 +54,11 @@ namespace XamarinApp.ViewModels.Contracts
                 this.LegalIdentity = args.Identity ?? tagProfile.LegalIdentity;
                 this.identityToReview = args.IdentityToReview;
             }
+            else if (this.LegalIdentity == null)
+            {
+                this.LegalIdentity = tagProfile.LegalIdentity;
+                this.identityToReview = null;
+            }
             AssignProperties();
             this.tagProfile.Changed += TagProfile_Changed;
             this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
