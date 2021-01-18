@@ -12,6 +12,7 @@ using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Models;
+using XamarinApp.Navigation;
 using XamarinApp.Services;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
@@ -20,7 +21,7 @@ namespace XamarinApp.ViewModels.Contracts
 {
     public class NewContractViewModel : BaseViewModel
     {
-        private readonly SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
+        private SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
         private Contract contractTemplate;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
@@ -33,7 +34,7 @@ namespace XamarinApp.ViewModels.Contracts
         private string contractTemplateId;
         private bool saveState;
 
-        private NewContractViewModel()
+        public NewContractViewModel()
         {
             this.contractTypesPerCategory = new SortedDictionary<string, SortedDictionary<string, string>>();
             this.logService = DependencyService.Resolve<ILogService>();
@@ -55,23 +56,16 @@ namespace XamarinApp.ViewModels.Contracts
             this.ContractHumanReadableText = new ObservableCollection<string>();
         }
 
-        public NewContractViewModel(Contract contractTemplate)
-            : this()
-        {
-            this.IsTemplate = true;
-            this.contractTemplate = contractTemplate;
-        }
-
-        public NewContractViewModel(SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory)
-            : this()
-        {
-            this.IsTemplate = false;
-            this.contractTypesPerCategory = contractTypesPerCategory;
-        }
-
         protected override async Task DoBind()
         {
             await base.DoBind();
+            if (this.navigationService.TryPopArgs(out NewContractNavigationArgs args))
+            {
+                this.contractTemplate = args.Contract;
+                this.contractTypesPerCategory = args.ContractTypesPerCategory;
+            }
+            this.IsTemplate = this.contractTypesPerCategory != null;
+
             if (this.contractTypesPerCategory != null && this.contractTypesPerCategory.Count > 0)
             {
                 foreach (string contractType in this.contractTypesPerCategory.Keys)
@@ -525,7 +519,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (signedContract != null)
                 {
-                    await this.navigationService.PushAsync(new ViewContractPage(createdContract, false));
+                    await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(createdContract, false));
                 }
             }
             catch (Exception ex)

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Tag.Sdk.Core.Services;
-using Waher.Networking.XMPP.Contracts;
+﻿using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels.Contracts;
@@ -12,27 +10,10 @@ namespace XamarinApp.Views.Contracts
 	{
         private readonly INavigationService navigationService;
 
-		public NewContractPage(SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory)
-		    : this(null, contractTypesPerCategory)
-		{
-		}
-
-		public NewContractPage(Contract template)
-		    : this(template, null)
-		{
-		}
-
-		private NewContractPage(Contract contractTemplate, SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory)
+		public NewContractPage()
         {
             this.navigationService = DependencyService.Resolve<INavigationService>();
-			if (contractTemplate != null)
-            {
-                this.ViewModel = new NewContractViewModel(contractTemplate);
-            }
-            else
-            {
-                this.ViewModel = new NewContractViewModel(contractTypesPerCategory);
-            }
+            this.ViewModel = new NewContractViewModel();
             InitializeComponent();
         }
 

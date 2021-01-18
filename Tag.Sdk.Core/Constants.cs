@@ -4,6 +4,8 @@ namespace Tag.Sdk.Core
 {
     public static class Constants
     {
+        public const string NotAvailableValue = "-";
+
         public static class Authentication
         {
             public const int MinPinLength = 8;

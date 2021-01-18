@@ -21,12 +21,24 @@ namespace Tag.Sdk.Core.Services
                 args = this.navigationArgs as TArgs;
             }
 
-            this.navigationArgs = null;
+            this.ClearArgs();
             return args != null;
+        }
+
+        private void ClearArgs()
+        {
+            this.navigationArgs = null;
         }
 
         public Task PushAsync(Page page)
         {
+            this.ClearArgs();
+            return Application.Current.MainPage.Navigation.PushAsync(page, true);
+        }
+
+        public Task PushAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
+        {
+            this.PushArgs(args);
             return Application.Current.MainPage.Navigation.PushAsync(page, true);
         }
 
@@ -37,6 +49,13 @@ namespace Tag.Sdk.Core.Services
 
         public Task PushModalAsync(Page page)
         {
+            this.ClearArgs();
+            return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
+        }
+
+        public Task PushModalAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
+        {
+            this.PushArgs(args);
             return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
         }
 
@@ -45,7 +64,12 @@ namespace Tag.Sdk.Core.Services
             return Application.Current.MainPage.Navigation.PopModalAsync(true);
         }
 
-        public async Task ReplaceAsync(Page page)
+        public Task ReplaceAsync(Page page)
+        {
+            return ReplaceAsync(page, (NavigationArgs)null);
+        }
+
+        public async Task ReplaceAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
         {
             // Neat trick to replace current page but still get a page animation.
             Page currPage = Application.Current.MainPage;
@@ -53,6 +77,8 @@ namespace Tag.Sdk.Core.Services
             {
                 currPage = navPage.CurrentPage;
             }
+
+            this.PushArgs(args);
             await Application.Current.MainPage.Navigation.PushAsync(page);
             currPage.Navigation.RemovePage(currPage);
         }

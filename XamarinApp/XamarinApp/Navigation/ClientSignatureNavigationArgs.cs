@@ -1,8 +1,9 @@
-﻿using Waher.Networking.XMPP.Contracts;
+﻿using Tag.Sdk.Core.Services;
+using Waher.Networking.XMPP.Contracts;
 
 namespace XamarinApp.Navigation
 {
-    public class ClientSignatureNavigationArgs
+    public class ClientSignatureNavigationArgs : NavigationArgs
     {
         public ClientSignatureNavigationArgs(ClientSignature signature, LegalIdentity identity)
         {

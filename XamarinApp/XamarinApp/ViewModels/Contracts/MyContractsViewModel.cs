@@ -8,6 +8,7 @@ using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Models;
+using XamarinApp.Navigation;
 using XamarinApp.Views.Contracts;
 
 namespace XamarinApp.ViewModels.Contracts
@@ -82,7 +83,7 @@ namespace XamarinApp.ViewModels.Contracts
                 ContractModel model = (ContractModel)newValue;
                 if (model != null && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
                 { 
-                    viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.PushAsync(new ViewContractPage(contract, false)));
+                    viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(contract, false)));
                 }
             });
 

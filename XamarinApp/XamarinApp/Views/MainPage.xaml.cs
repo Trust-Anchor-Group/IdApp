@@ -5,6 +5,7 @@ using Tag.Sdk.Core.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinApp.Navigation;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
 using XamarinApp.Views.Contracts;
@@ -99,7 +100,7 @@ namespace XamarinApp.Views
 
         private async void NewContractButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new NewContractPage(ContractTypesPerCategory));
+            await this.navigationService.PushAsync(new NewContractPage(), new NewContractNavigationArgs(ContractTypesPerCategory));
         }
 
         private async void XmppCommunicationButton_Clicked(object sender, EventArgs e)
