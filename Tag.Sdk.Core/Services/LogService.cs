@@ -54,10 +54,10 @@ namespace Tag.Sdk.Core.Services
                 }
             }
 
-            Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
-
             Dictionary<string, string> crashParameters = parameters.GroupBy(p => p.Key).Select(g => g.First()).ToDictionary(k => k.Key, v => v.Value);
             Crashes.TrackError(e, crashParameters);
+
+            Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
 
             foreach (ILogListener listener in this.listeners)
             {

@@ -287,14 +287,19 @@ namespace XamarinApp
                 await this.sdk.ShutdownInPanic();
             }
 
-            if (Device.IsInvokeRequired && MainPage != null)
+#if DEBUG
+            if (!shutdown)
             {
-                Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
+                if (Device.IsInvokeRequired && MainPage != null)
+                {
+                    Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
+                }
+                else if (MainPage != null)
+                {
+                    await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
+                }
             }
-            else if (MainPage != null)
-            {
-                await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
-            }
+#endif
         }
 
         #endregion
