@@ -18,7 +18,9 @@ namespace Tag.Sdk.Core.Services
 
         Task ReplaceAsync(Page page);
         Task ReplaceAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs;
-        Task ReplaceAsync(string route);
+
+        Task GoToAsync(string route);
+        Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs;
 
         void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs;
         bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs;

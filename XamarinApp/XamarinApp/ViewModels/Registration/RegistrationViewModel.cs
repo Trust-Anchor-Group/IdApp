@@ -134,7 +134,7 @@ namespace XamarinApp.ViewModels.Registration
                     break;
 
                 case RegistrationStep.Pin:
-                    this.navigationService.ReplaceAsync(new MainPage());
+                    this.navigationService.GoToAsync("//MainPage");
                     break;
 
                 default: // RegistrationStep.Operator

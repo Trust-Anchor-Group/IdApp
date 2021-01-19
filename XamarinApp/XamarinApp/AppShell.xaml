@@ -13,13 +13,13 @@
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource HeadingBackground}" />
                 <Setter Property="Shell.ForegroundColor" Value="{StaticResource ForegroundColor}" />
-                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="{StaticResource ForegroundColor}" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <!--<Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource HeadingBackground}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource ForegroundColor}"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>-->
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource ForegroundColor}"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
@@ -27,10 +27,12 @@
         </ResourceDictionary>
     </Shell.Resources>
 
+	<!-- The 'loading' page, always displayed first on startup -->
     <ShellContent Route="InitPage" Shell.FlyoutBehavior="Disabled" Shell.NavBarIsVisible="false">
         <views:InitPage />
     </ShellContent>
 
+	<!-- The main or root page of the app -->
     <ShellContent Route="MainPage" Shell.FlyoutBehavior="Flyout">
         <views:MainPage />
     </ShellContent>
@@ -42,9 +44,6 @@
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.General}">
         <ShellContent Title="{x:Static local:AppResources.Identity}" Route="ViewIdentityPage">
             <views:ViewIdentityPage />
-        </ShellContent>
-        <ShellContent Title="{x:Static local:AppResources.ScanQRCode}" Route="ScanQrCodePage">
-            <views:ScanQrCodePage />
         </ShellContent>
     </FlyoutItem>
 

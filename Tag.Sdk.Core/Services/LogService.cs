@@ -8,6 +8,7 @@ using Waher.Events.XMPP;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 
+
 namespace Tag.Sdk.Core.Services
 {
     internal sealed class LogService : IInternalLogService
@@ -79,6 +80,13 @@ namespace Tag.Sdk.Core.Services
             {
                 this.listeners.Remove(listener);
             }
+        }
+
+        public void LogWarning(string format, params object[] args)
+        {
+            string message = string.Format(format, args);
+            var parameters = GetParameters();
+            Log.Warning(message, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
         }
 
         public void LogException(Exception e)

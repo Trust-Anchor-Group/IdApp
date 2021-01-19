@@ -5,7 +5,6 @@ using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels;
-using XamarinApp.Views.Registration;
 
 namespace XamarinApp.Views
 {
@@ -54,11 +53,11 @@ namespace XamarinApp.Views
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
                     if (this.tagProfile.IsComplete())
                     {
-                        await this.navigationService.ReplaceAsync("MainPage");
+                        await this.navigationService.GoToAsync("///MainPage");
                     }
                     else
                     {
-                        await this.navigationService.ReplaceAsync("RegistrationPage");
+                        await this.navigationService.GoToAsync("/RegistrationPage");
                     }
                 });
             }

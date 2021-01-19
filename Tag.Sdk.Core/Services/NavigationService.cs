@@ -83,17 +83,15 @@ namespace Tag.Sdk.Core.Services
             currPage.Navigation.RemovePage(currPage);
         }
 
-        public async Task ReplaceAsync(string route)
+        public async Task GoToAsync(string route)
         {
-            string uri = $"///{route}";
-            await Shell.Current.GoToAsync(uri);
+            await Shell.Current.GoToAsync(route);
         }
 
-        public async Task ReplaceAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+        public async Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
         {
             this.PushArgs(args);
-            string uri = $"///{route}";
-            await Shell.Current.GoToAsync(uri);
+            await Shell.Current.GoToAsync(route);
         }
     }
 }
