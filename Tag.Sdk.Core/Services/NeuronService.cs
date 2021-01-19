@@ -118,7 +118,7 @@ namespace Tag.Sdk.Core.Services
                     }
                     else
                     {
-                        this.logService.LogWarning("Connect to Xmpp server '{0}' failed for account '{1}' with the specified timeout of {1} ms", 
+                        this.logService.LogWarning("Connect to Xmpp server '{0}' failed for account '{1}' with the specified timeout of {2} ms", 
                             this.domainName,
                             this.accountName,
                             (int)Constants.Timeouts.XmppConnect.TotalMilliseconds);
