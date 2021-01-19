@@ -35,14 +35,6 @@ namespace XamarinApp
 
             InitializeComponent();
 
-            // Start page
-            this.MainPage = new AppShell();
-            //this.MainPage = new NavigationPage(new InitPage())
-            //{
-            //    BarBackgroundColor = (Color)Current.Resources["HeadingBackground"],
-            //    BarTextColor = (Color)Current.Resources["HeadingForeground"]
-            //};
-
             try
             {
                 this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
@@ -76,13 +68,14 @@ namespace XamarinApp
             // Start page
             try
             {
-                NavigationPage navigationPage = new NavigationPage(new InitPage())
-                {
-                    BarBackgroundColor = (Color) Current.Resources["HeadingBackground"],
-                    BarTextColor = (Color) Current.Resources["HeadingForeground"]
-                };
+                this.MainPage = new AppShell();
+                //NavigationPage navigationPage = new NavigationPage(new InitPage())
+                //{
+                //    BarBackgroundColor = (Color) Current.Resources["HeadingBackground"],
+                //    BarTextColor = (Color) Current.Resources["HeadingForeground"]
+                //};
 
-                this.MainPage = navigationPage;
+                //this.MainPage = navigationPage;
             }
             catch (Exception e)
             {

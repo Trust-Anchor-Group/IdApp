@@ -85,7 +85,14 @@ namespace Tag.Sdk.Core.Services
 
         public async Task ReplaceAsync(string route)
         {
-            string uri = $"//{route}";
+            string uri = $"///{route}";
+            await Shell.Current.GoToAsync(uri);
+        }
+
+        public async Task ReplaceAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+        {
+            this.PushArgs(args);
+            string uri = $"///{route}";
             await Shell.Current.GoToAsync(uri);
         }
     }

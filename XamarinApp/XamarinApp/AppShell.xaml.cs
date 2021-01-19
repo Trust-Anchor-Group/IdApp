@@ -1,7 +1,7 @@
-﻿using System;
-using Tag.Sdk.Core.Services;
+﻿using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using XamarinApp.ViewModels;
+using XamarinApp.Views.Registration;
 
 namespace XamarinApp
 {
@@ -14,11 +14,12 @@ namespace XamarinApp
             this.ViewModel = new AppShellViewModel();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             InitializeComponent();
+            RegisterRoutes();
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private void RegisterRoutes()
         {
-            await this.navigationService.ReplaceAsync("LoginPage");
+            Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
         }
     }
 }

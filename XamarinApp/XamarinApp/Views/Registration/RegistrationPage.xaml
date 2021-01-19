@@ -4,7 +4,9 @@
              xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
              xmlns:registrationViews="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
              xmlns:resources="clr-namespace:XamarinApp;assembly=XamarinApp"
-             x:Class="XamarinApp.Views.Registration.RegistrationPage">
+             x:Class="XamarinApp.Views.Registration.RegistrationPage"
+             Shell.FlyoutBehavior="Disabled" 
+             Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <Grid BackgroundColor="{StaticResource HeadingBackground}">
             <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsets}" BackgroundColor="{StaticResource PageBackgroundColor}">
