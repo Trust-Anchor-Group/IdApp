@@ -3,7 +3,6 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
                xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
-               xmlns:registrationViews="clr-namespace:XamarinApp.Views.Registration;assembly=XamarinApp"
                xmlns:contractViews="clr-namespace:XamarinApp.Views.Contracts;assembly=XamarinApp"
                xmlns:sdkViews="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
                Title="TestIosAppDeploy"
@@ -29,7 +28,7 @@
     </Shell.Resources>
 
     <ShellContent Route="InitPage" Shell.FlyoutBehavior="Disabled" Shell.NavBarIsVisible="false">
-        <local:InitPage />
+        <views:InitPage />
     </ShellContent>
 
     <ShellContent Route="MainPage" Shell.FlyoutBehavior="Flyout">
