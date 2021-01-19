@@ -97,10 +97,10 @@ namespace Tag.Sdk.Core
                 await this.neuronService.Unload();
             }
             await Types.StopAllModules();
+            Log.Terminate();
             await this.databaseProvider.Flush();
             this.databaseProvider.Dispose();
             this.databaseProvider = null;
-            Log.Terminate();
         }
 
         public async Task ShutdownInPanic()
@@ -108,10 +108,10 @@ namespace Tag.Sdk.Core
             this.uiDispatcher.IsRunningInTheBackground = false;
             await this.neuronService.UnloadFast();
             await Types.StopAllModules();
+            Log.Terminate();
             await this.databaseProvider.Flush();
             this.databaseProvider.Dispose();
             this.databaseProvider = null;
-            Log.Terminate();
         }
 
         public void AutoSave()
