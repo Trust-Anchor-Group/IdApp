@@ -16,7 +16,6 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Services;
-using XamarinApp.Views;
 using Device = Xamarin.Forms.Device;
 
 namespace XamarinApp
