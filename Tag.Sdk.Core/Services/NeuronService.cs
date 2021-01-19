@@ -106,12 +106,23 @@ namespace Tag.Sdk.Core.Services
 
                     this.xmppClient.Connect(domainName);
 
+                    bool connectSucceeded = false;
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
-                        await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+                        connectSucceeded = await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
                     }
 
-                    await this.contracts.CreateClients();
+                    if (connectSucceeded)
+                    {
+                        await this.contracts.CreateClients();
+                    }
+                    else
+                    {
+                        this.logService.LogWarning("Connect to Xmpp server '{0}' failed for account '{1}' with the specified timeout of {1} ms", 
+                            this.domainName,
+                            this.accountName,
+                            (int)Constants.Timeouts.XmppConnect.TotalMilliseconds);
+                    }
 
                     this.reconnectTimer?.Dispose();
                     this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
@@ -200,6 +211,12 @@ namespace Tag.Sdk.Core.Services
                     {
                         await this.DiscoverServices();
                     }
+
+                    if (!this.contracts.IsOnline)
+                    {
+                        await this.contracts.CreateClients();
+                    }
+
                     this.logService.RegisterEventSink(this.xmppClient, this.tagProfile.LogJid);
 
                     break;
@@ -240,7 +257,9 @@ namespace Tag.Sdk.Core.Services
                     {
                         await this.CreateXmppClient();
                     }
-                    if (this.xmppClient != null && this.tagProfile.IsCompleteOrWaitingForValidation())
+                    if (this.xmppClient != null && 
+                        this.xmppClient.State == XmppState.Connected && 
+                        this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
                         await this.xmppClient.SetPresenceAsync(Availability.Online);
                     }
