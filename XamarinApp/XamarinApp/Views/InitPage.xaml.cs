@@ -5,10 +5,9 @@ using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels;
-using XamarinApp.Views;
 using XamarinApp.Views.Registration;
 
-namespace XamarinApp
+namespace XamarinApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class InitPage

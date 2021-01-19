@@ -77,7 +77,7 @@
     <EmbeddedResource Update="Views\Registration\ChooseOperatorView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="InitPage.xaml">
+    <EmbeddedResource Update="Views\InitPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Registration\DefinePinView.xaml">
