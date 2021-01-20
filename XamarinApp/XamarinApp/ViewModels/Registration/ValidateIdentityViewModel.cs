@@ -141,7 +141,7 @@ namespace XamarinApp.ViewModels.Registration
                 this.InviteReviewerCommand.ChangeCanExecute();
                 if (this.IsConnected)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(Constants.Timeouts.XmppInit);
                     this.ReloadPhotos();
                 }
             });

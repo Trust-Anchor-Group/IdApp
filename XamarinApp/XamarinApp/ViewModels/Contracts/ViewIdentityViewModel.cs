@@ -183,7 +183,7 @@ namespace XamarinApp.ViewModels.Contracts
                 this.CompromiseCommand.ChangeCanExecute();
                 if (this.IsConnected)
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(1));
+                    await Task.Delay(Constants.Timeouts.XmppInit);
                     this.ReloadPhotos();
                 }
             });
