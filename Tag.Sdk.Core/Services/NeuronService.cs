@@ -36,6 +36,7 @@ namespace Tag.Sdk.Core.Services
         private bool xmppSettingsOk;
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
+        private bool isCreatingContractClient;
 
         public NeuronService(Assembly appAssembly, ITagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, IInternalLogService logService)
         {
@@ -114,7 +115,7 @@ namespace Tag.Sdk.Core.Services
 
                     if (connectSucceeded)
                     {
-                        await this.contracts.CreateClients();
+                        await CreateContractsClientIfNeeded();
                     }
                     else
                     {
@@ -165,6 +166,23 @@ namespace Tag.Sdk.Core.Services
             return this.tagProfile.Step <= RegistrationStep.Account && this.xmppClient != null;
         }
 
+        private async Task CreateContractsClientIfNeeded()
+        {
+            if (!this.contracts.IsOnline && !this.isCreatingContractClient)
+            {
+                this.isCreatingContractClient = true;
+                try
+                {
+                    await this.contracts.CreateClients();
+                }
+                catch (Exception e)
+                {
+                    this.logService.LogException(e);
+                }
+                this.isCreatingContractClient = false;
+            }
+        }
+
         #endregion
 
         private async void TagProfile_StepChanged(object sender, EventArgs e)
@@ -212,10 +230,7 @@ namespace Tag.Sdk.Core.Services
                         await this.DiscoverServices();
                     }
 
-                    if (!this.contracts.IsOnline)
-                    {
-                        await this.contracts.CreateClients();
-                    }
+                    await CreateContractsClientIfNeeded();
 
                     this.logService.RegisterEventSink(this.xmppClient, this.tagProfile.LogJid);
 

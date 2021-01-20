@@ -281,7 +281,7 @@ namespace XamarinApp.ViewModels.Registration
                 return;
             }
 
-            FileResult photo = await MediaPicker.PickPhotoAsync();
+            FileResult photo = await MediaPicker.CapturePhotoAsync();
 
             (bool succeeded, string filePath) = await SavePhotoToDisc(photo);
             if (succeeded)
@@ -350,6 +350,7 @@ namespace XamarinApp.ViewModels.Registration
                 return;
             }
 
+            RemovePhoto();
             string photoId = Guid.NewGuid().ToString();
             this.photos[photoId] = new LegalIdentityAttachment(filePath, Constants.MimeTypes.Jpeg, bytes);
             ms.Reset();
