@@ -42,9 +42,9 @@ namespace Tag.Sdk.Core.Services
             return Application.Current.MainPage.Navigation.PushAsync(page, true);
         }
 
-        public Task<Page> PopAsync()
+        public Task PopAsync()
         {
-            return Application.Current.MainPage.Navigation.PopAsync(true);
+            return Shell.Current.GoToAsync("..");
         }
 
         public Task PushModalAsync(Page page)

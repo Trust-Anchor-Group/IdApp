@@ -673,6 +673,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Human readable text.
         /// </summary>
         internal static string HumanReadableText {

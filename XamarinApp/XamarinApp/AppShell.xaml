@@ -24,22 +24,41 @@
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
             <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
 
+            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="White" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource ForegroundColor}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ForegroundColor}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </Shell.Resources>
 
 	<!-- The 'loading' page, always displayed first on startup -->
-    <ShellContent Route="InitPage" Shell.FlyoutBehavior="Disabled" Shell.NavBarIsVisible="false">
+    <ShellContent Route="InitPage" Title="Init">
         <views:InitPage />
     </ShellContent>
 
 	<!-- The main or root page of the app -->
-    <ShellContent Route="MainPage" Shell.FlyoutBehavior="Flyout">
-        <views:MainPage />
-    </ShellContent>
-
-    <ShellContent Route="ScanQrCodePage" Shell.FlyoutBehavior="Disabled" Shell.PresentationMode="ModalAnimated">
-        <views:ScanQrCodePage />
-    </ShellContent>
+    <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static local:AppResources.Home}">
+        <ShellContent Route="MainPage">
+            <views:MainPage />
+        </ShellContent>
+    </FlyoutItem>
 
     <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.General}">
         <ShellContent Title="{x:Static local:AppResources.Identity}" Route="ViewIdentityPage">
@@ -65,38 +84,5 @@
             <views:XmppCommunicationPage />
         </ShellContent>
     </FlyoutItem>
-
-    <!-- Optional Templates 
-    // These may be provided inline as below or as separate classes.
-
-    // This header appears at the top of the Flyout.
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header
-    <Shell.FlyoutHeaderTemplate>
-        <DataTemplate>
-            <Grid>ContentHere</Grid>
-        </DataTemplate>
-    </Shell.FlyoutHeaderTemplate>
-
-    // ItemTemplate is for ShellItems as displayed in a Flyout
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-flyoutitem-appearance
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Title, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.ItemTemplate>
-
-    // MenuItemTemplate is for MenuItems as displayed in a Flyout
-    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#define-menuitem-appearance
-    <Shell.MenuItemTemplate>
-        <DataTemplate>
-            <ContentView>
-                Bindable Properties: Text, Icon
-            </ContentView>
-        </DataTemplate>
-    </Shell.MenuItemTemplate>
-
-    -->
 
 </sdkViews:ShellBasePage>

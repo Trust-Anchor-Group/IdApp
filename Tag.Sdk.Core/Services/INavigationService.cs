@@ -13,7 +13,7 @@ namespace Tag.Sdk.Core.Services
         Task PushModalAsync(Page page);
         Task PushModalAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs;
 
-        Task<Page> PopAsync();
+        Task PopAsync();
         Task PopModalAsync();
 
         Task ReplaceAsync(Page page);

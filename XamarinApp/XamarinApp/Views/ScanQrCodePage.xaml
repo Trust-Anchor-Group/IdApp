@@ -5,7 +5,9 @@
              xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.ScanQrCodePage"
-             Title="{x:Static local:AppResources.ScanQRCode}">
+             Title="{x:Static local:AppResources.ScanQRCode}"
+             Shell.FlyoutBehavior="Disabled" 
+             Shell.PresentationMode="ModalAnimated">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
             <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">

@@ -321,6 +321,9 @@
   <data name="HashFunction" xml:space="preserve">
     <value>Hash Function</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="HumanReadableText" xml:space="preserve">
     <value>Human readable text</value>
   </data>

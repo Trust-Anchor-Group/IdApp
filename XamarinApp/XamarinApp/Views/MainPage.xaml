@@ -4,7 +4,8 @@
              xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              x:Class="XamarinApp.Views.MainPage"
-             Title="{x:Static local:AppResources.MainPageTitle}">
+             Title="{x:Static local:AppResources.MainPageTitle}"
+             Shell.FlyoutBehavior="Flyout">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">

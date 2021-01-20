@@ -7,7 +7,6 @@ using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using XamarinApp.Views;
 
 namespace XamarinApp.ViewModels.Registration
 {
@@ -134,7 +133,7 @@ namespace XamarinApp.ViewModels.Registration
                     break;
 
                 case RegistrationStep.Pin:
-                    this.navigationService.GoToAsync("//MainPage");
+                    this.navigationService.GoToAsync("///MainPage");
                     break;
 
                 default: // RegistrationStep.Operator
