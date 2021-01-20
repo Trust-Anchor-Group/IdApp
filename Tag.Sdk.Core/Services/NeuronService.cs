@@ -230,7 +230,11 @@ namespace Tag.Sdk.Core.Services
                         await this.DiscoverServices();
                     }
 
-                    await CreateContractsClientIfNeeded();
+                    if (!isCreatingClient)
+                    {
+                        // Only do this during reconnect attempts.
+                        await CreateContractsClientIfNeeded();
+                    }
 
                     this.logService.RegisterEventSink(this.xmppClient, this.tagProfile.LogJid);
 
