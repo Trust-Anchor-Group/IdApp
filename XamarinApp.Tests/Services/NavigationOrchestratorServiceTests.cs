@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using Tag.Sdk.Core.Models;
 using Tag.Sdk.Core.Services;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;
 
@@ -68,12 +70,13 @@ namespace XamarinApp.Tests.Services
         }
 
         [Test]
-        public void DownloadsLegalIdentity_WhenIdentityIsSet_AndStateIsCompleteOrWaitingForValidation()
+        public async Task DownloadsLegalIdentity_WhenIdentityIsSet_AndStateIsCompleteOrWaitingForValidation()
         {
             Guid guid = Guid.NewGuid();
             this.tagProfile.SetLegalIdentity(new LegalIdentity { Id = guid.ToString() });
             this.tagProfile.IsCompleteOrWaitingForValidationValue = true;
-            this.neuronService.Raise(x => x.Loaded += null, new LoadedEventArgs(true));
+            this.neuronService.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected));
+            await Task.Delay(TimeSpan.FromSeconds(2));
             Assert.AreEqual(1, this.sut.DownloadCount);
         }
 

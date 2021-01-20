@@ -273,7 +273,10 @@ namespace XamarinApp.ViewModels.Contracts
                     _ = Task.Run(() =>
                     {
                         byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateScanUri(this.contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
-                        this.uiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                        if (this.IsBound)
+                        {
+                            this.uiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                        }
                     });
                 }
                 else
