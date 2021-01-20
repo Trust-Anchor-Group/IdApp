@@ -1,4 +1,5 @@
-﻿using Tag.Sdk.Core.Services;
+﻿using System;
+using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using XamarinApp.ViewModels;
 using XamarinApp.Views.Registration;
@@ -20,6 +21,11 @@ namespace XamarinApp
         private void RegisterRoutes()
         {
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
+        }
+
+        private void IdentityMenuItem_Clicked(object sender, EventArgs e)
+        {
+            this.navigationService.GoToAsync("ViewIdentityPage");
         }
     }
 }
