@@ -1,6 +1,4 @@
-﻿using Plugin.Media;
-using Plugin.Media.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -15,6 +13,7 @@ using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
 
@@ -276,63 +275,68 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task TakePhoto()
         {
-            if (!(CrossMedia.IsSupported &&
-                CrossMedia.Current.IsCameraAvailable &&
-                CrossMedia.Current.IsTakePhotoSupported &&
-                this.NeuronService.Contracts.FileUploadIsSupported))
+            if (!this.NeuronService.Contracts.FileUploadIsSupported)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
                 return;
             }
 
-            MediaFile photo = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions
+            FileResult photo = await MediaPicker.PickPhotoAsync();
+
+            (bool succeeded, string filePath) = await SavePhotoToDisc(photo);
+            if (succeeded)
             {
-                MaxWidthHeight = 1024,
-                CompressionQuality = 100,
-                AllowCropping = true,
-                ModalPresentationStyle = MediaPickerModalPresentationStyle.FullScreen,
-                RotateImage = true,
-                SaveMetaData = true,
-                Directory = "Photos",
-                Name = $"Photo_{DateTime.UtcNow.Ticks}.jpg",
-                DefaultCamera = CameraDevice.Front
-            });
-
-            if (photo is null)
-                return;
-
-            await AddPhoto(photo);
+                await AddPhoto(filePath);
+            }
         }
 
         private async Task PickPhoto()
         {
-            if (!(CrossMedia.IsSupported &&
-                  CrossMedia.Current.IsPickPhotoSupported &&
-                  this.NeuronService.Contracts.FileUploadIsSupported))
+            if (!this.NeuronService.Contracts.FileUploadIsSupported)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
                 return;
             }
 
-            MediaFile photo = await CrossMedia.Current.PickPhotoAsync(new PickMediaOptions
+            FileResult photo = await MediaPicker.PickPhotoAsync();
+
+            (bool succeeded, string filePath) = await SavePhotoToDisc(photo);
+            if (succeeded)
             {
-                MaxWidthHeight = 1024,
-                CompressionQuality = 100,
-                ModalPresentationStyle = MediaPickerModalPresentationStyle.FullScreen,
-                RotateImage = true,
-                SaveMetaData = true,
-            });
-
-            if (photo is null)
-                return;
-
-            await AddPhoto(photo);
+                await AddPhoto(filePath);
+            }
         }
 
-        private async Task AddPhoto(MediaFile photo)
+        private async Task<(bool, string)> SavePhotoToDisc(FileResult photo)
+        {
+            string fileName = $"Photo_{DateTime.UtcNow.Ticks}.jpg";
+            string fullFileName = Path.Combine(FileSystem.CacheDirectory, fileName);
+
+            if (photo != null)
+            {
+                try
+                {
+                    // Save stream to a locally cached file.
+                    using (Stream photoStream = await photo.OpenReadAsync())
+                    using (FileStream fileStream = File.OpenWrite(fullFileName))
+                    {
+                        await photoStream.CopyToAsync(fileStream);
+                    }
+                }
+                catch (Exception e)
+                {
+                    photo = null;
+                    this.LogService.LogException(e);
+                }
+            }
+
+            return (photo != null, fullFileName);
+        }
+
+        private async Task AddPhoto(string filePath)
         {
             MemoryStream ms = new MemoryStream();
-            using (Stream f = photo.GetStream())
+            using (Stream f = File.OpenRead(filePath))
             {
                 f.CopyTo(ms);
             }
@@ -347,7 +351,7 @@ namespace XamarinApp.ViewModels.Registration
             }
 
             string photoId = Guid.NewGuid().ToString();
-            this.photos[photoId] = new LegalIdentityAttachment(photo.Path, Constants.MimeTypes.Jpeg, bytes);
+            this.photos[photoId] = new LegalIdentityAttachment(filePath, Constants.MimeTypes.Jpeg, bytes);
             ms.Reset();
             Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
             RegisterCommand.ChangeCanExecute();
