@@ -51,6 +51,7 @@ namespace Tag.Sdk.Core.Services
         {
             if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
+                DestroyContractsClient();
                 this.contractsClient = await this.neuronService.CreateContractsClientAsync();
                 this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
                 this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
