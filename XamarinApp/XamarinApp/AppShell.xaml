@@ -51,8 +51,8 @@
     <Shell.FlyoutHeader>
         <Frame BorderColor="Black" Padding="1">
             <Grid HeightRequest="200">
-                <Image Aspect="AspectFill" Source="flowers.jpg" />
-                <Label Text="TAG" TextColor="Black" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
+                <Image Aspect="AspectFill" Source="city.jpg" />
+                <Label Text="T A G" TextColor="White" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
             </Grid>
         </Frame>
     </Shell.FlyoutHeader>
@@ -67,6 +67,11 @@
         <ShellContent Route="MainPage">
             <views:MainPage />
         </ShellContent>
+        <Tab Title="Tab VI">
+            <ShellContent Route="ViewIdentityPage" Title="VI Subpage">
+                <views:ViewIdentityPage />
+            </ShellContent>
+        </Tab>
     </FlyoutItem>
 
     <!-- <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.General}"> -->
