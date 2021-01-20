@@ -2,6 +2,7 @@
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using XamarinApp.ViewModels;
+using XamarinApp.Views;
 using XamarinApp.Views.Registration;
 
 namespace XamarinApp
@@ -15,17 +16,21 @@ namespace XamarinApp
             this.ViewModel = new AppShellViewModel();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             InitializeComponent();
+            SetTabBarIsVisible(this, false);
             RegisterRoutes();
         }
 
         private void RegisterRoutes()
         {
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
+            Routing.RegisterRoute(nameof(ViewIdentityPage), typeof(ViewIdentityPage));
         }
 
-        private void IdentityMenuItem_Clicked(object sender, EventArgs e)
+        private async void IdentityMenuItem_Clicked(object sender, EventArgs e)
         {
-            this.navigationService.GoToAsync("ViewIdentityPage");
+            string route = "ViewIdentityPage";
+            Current.FlyoutIsPresented = false;
+            await this.navigationService.GoToAsync(route);
         }
     }
 }

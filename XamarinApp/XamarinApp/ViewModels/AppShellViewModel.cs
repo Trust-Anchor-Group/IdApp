@@ -11,14 +11,14 @@ namespace XamarinApp.ViewModels
 {
     public class AppShellViewModel : BaseViewModel
     {
-        private readonly TagProfile tagProfile;
+        private readonly ITagProfile tagProfile;
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
         private readonly IUiDispatcher uiDispatcher;
 
         public AppShellViewModel()
         {
-            this.tagProfile = DependencyService.Resolve<TagProfile>();
+            this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
@@ -75,7 +75,7 @@ namespace XamarinApp.ViewModels
         {
             this.uiDispatcher.BeginInvokeOnMainThread(() =>
             {
-                e.State.ToDisplayText(this.tagProfile.Domain);
+                this.ConnectionStateText = e.State.ToDisplayText(this.tagProfile.Domain);
                 this.IsConnected = e.State == XmppState.Connected;
             });
         }
