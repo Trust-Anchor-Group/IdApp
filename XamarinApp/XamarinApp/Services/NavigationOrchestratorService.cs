@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP;
@@ -28,7 +27,7 @@ namespace XamarinApp.Services
         {
             if (this.BeginLoad())
             {
-                this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+                this.neuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
                 this.EndLoad(true);
             }
             return Task.CompletedTask;
@@ -38,21 +37,22 @@ namespace XamarinApp.Services
         {
             if (this.BeginUnload())
             {
-                this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+                this.neuronService.Contracts.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
                 this.EndUnload();
             }
 
             return Task.CompletedTask;
         }
 
-        private async void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private async void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            if (e.State == XmppState.Connected)
+            if (this.neuronService.IsOnline && e.State == XmppState.Connected)
             {
-                await Task.Delay(Constants.Timeouts.XmppInit);
                 if (this.tagProfile.LegalIdentity != null && this.tagProfile.IsCompleteOrWaitingForValidation())
                 {
-                    DownloadLegalIdentityInternal(this.tagProfile.LegalIdentity.Id);
+                    string id = this.tagProfile.LegalIdentity.Id;
+                    await Task.Delay(Constants.Timeouts.XmppInit);
+                    DownloadLegalIdentityInternal(id);
                 }
             }
         }

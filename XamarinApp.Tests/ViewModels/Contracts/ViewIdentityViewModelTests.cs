@@ -48,11 +48,10 @@ namespace XamarinApp.Tests.ViewModels.Contracts
         }
 
         [Test]
-        [Ignore("Will not work until navigation is done by specifying paths instead of page instances.")]
         public void WhenIdentityIsRevoked_ThenRegistrationPageIsShown()
         {
             this.networkService
-                .Setup(x => x.Request<string, LegalIdentity>(It.IsAny<Func<string, Task<LegalIdentity>>>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+                .Setup(x => x.Request(It.IsAny<Func<string, Task<LegalIdentity>>>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
                 .Returns(Task.FromResult((true, new LegalIdentity())));
 
             this.uiDispatcher

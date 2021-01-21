@@ -17,7 +17,14 @@ namespace XamarinApp
         {
             this.ViewModel = new AppShellViewModel();
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            InitializeComponent();
+            try
+            {
+                InitializeComponent();
+            }
+            catch (Exception e)
+            {
+                
+            }
             SetTabBarIsVisible(this, false);
             RegisterRoutes();
         }
