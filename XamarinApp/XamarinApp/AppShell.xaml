@@ -44,9 +44,26 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
-
         </ResourceDictionary>
     </Shell.Resources>
+
+    <!--<Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="0.8*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="{Binding Path=Icon}"
+                       Margin="5"
+                       HeightRequest="45" />
+                <Label Grid.Column="1"
+                       Text="{Binding Path=Title}"
+                       FontAttributes="Italic"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>-->
 
     <Shell.FlyoutHeader>
         <Frame BorderColor="Black" Padding="1">
@@ -58,47 +75,28 @@
     </Shell.FlyoutHeader>
 
     <!-- The 'loading' page, always displayed first on startup -->
-    <ShellContent Route="InitPage" Title="Init">
-        <views:InitPage />
-    </ShellContent>
+    <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="Init" IsEnabled="True" IsVisible="False">
+        <ShellContent>
+            <views:InitPage />
+        </ShellContent>
+    </FlyoutItem>
 
 	<!-- The main or root page of the app -->
     <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static local:AppResources.Home}">
         <ShellContent Route="MainPage">
             <views:MainPage />
         </ShellContent>
-        <Tab Title="Tab VI">
-            <ShellContent Route="ViewIdentityPage" Title="VI Subpage">
-                <views:ViewIdentityPage />
-            </ShellContent>
-        </Tab>
     </FlyoutItem>
 
-    <!-- <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.General}"> -->
-        <!-- <ShellContent Title="{x:Static local:AppResources.Identity}" Route="ViewIdentityPage"> -->
-            <!-- <views:ViewIdentityPage /> -->
-        <!-- </ShellContent> -->
-    <!-- </FlyoutItem> -->
-
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.Contracts}">
-        <ShellContent Title="{x:Static local:AppResources.MyCreatedContracts}" Route="MyContractsPage" IsEnabled="{Binding Path=IsConnected}">
-            <contractViews:MyContractsPage />
-        </ShellContent>
-        <ShellContent Title="{x:Static local:AppResources.SignedContracts}" Route="SignedContractsPage" IsEnabled="{Binding Path=IsConnected}">
-            <contractViews:SignedContractsPage />
-        </ShellContent>
-    </FlyoutItem>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="{x:Static local:AppResources.Notary}">
-        <ShellContent Title="{x:Static local:AppResources.NewContract}" Route="NewContractPage" IsEnabled="{Binding Path=IsConnected}">
-            <contractViews:NewContractPage />
-        </ShellContent>
-    </FlyoutItem>
-    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Title="Debug">
-        <ShellContent Title="{x:Static local:AppResources.NewContract}" Route="XmppCommunicationPage" IsEnabled="{Binding Path=IsConnected}">
-            <views:XmppCommunicationPage />
-        </ShellContent>
-    </FlyoutItem>
-
-    <MenuItem Text="Identity" Clicked="IdentityMenuItem_Clicked"/>
+    <MenuItem Text="{x:Static local:AppResources.Identity}" Clicked="ViewIdentityMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:Icons.Home}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+    <MenuItem Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+    <MenuItem Text="{x:Static local:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+    <MenuItem Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+    <MenuItem Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+    <MenuItem Text="Debug" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
 
 </sdkViews:ShellBasePage>

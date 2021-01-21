@@ -45,6 +45,13 @@
             <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="5" />
+            <Style.Triggers>
+                <Trigger TargetType="Button"
+                         Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="BackgroundColor" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="Button"
                x:Key="IconButton"
