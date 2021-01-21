@@ -83,7 +83,7 @@ namespace XamarinApp.ViewModels.Contracts
                 ContractModel model = (ContractModel)newValue;
                 if (model != null && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
                 { 
-                    viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(contract, false)));
+                    viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
                 }
             });
 

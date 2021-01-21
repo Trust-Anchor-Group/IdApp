@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms;
+using XamarinApp.Navigation;
 
 namespace XamarinApp.ViewModels
 {
     public class ScanQrCodeViewModel : BaseViewModel
     {
+        private readonly INavigationService navigationService;
         public event EventHandler ModeChanged;
 
         public ScanQrCodeViewModel()
@@ -14,6 +18,20 @@ namespace XamarinApp.ViewModels
             SwitchModeCommand = new Command(SwitchMode);
             OpenCommandText = AppResources.Open;
             SetModeText();
+            this.navigationService = DependencyService.Resolve<INavigationService>();
+        }
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            if (this.navigationService.TryPopArgs(out ScanQrCodeNavigationArgs args) && !string.IsNullOrWhiteSpace(args.CommandName))
+            {
+                OpenCommandText = args.CommandName;
+            }
+            else
+            {
+                OpenCommandText = AppResources.Open;
+            }
         }
 
         #region Properties

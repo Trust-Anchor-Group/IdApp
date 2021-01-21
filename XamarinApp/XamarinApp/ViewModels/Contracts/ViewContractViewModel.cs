@@ -459,7 +459,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                     await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
-                    await this.navigationService.ReplaceAsync(new ViewContractPage(), new ViewContractNavigationArgs(signedContract, false));
+                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(signedContract, false));
                 }
             }
             catch (Exception ex)
@@ -478,7 +478,7 @@ namespace XamarinApp.ViewModels.Contracts
                     string legalId = signature.LegalId;
                     LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
 
-                    await this.navigationService.PushAsync(new ClientSignaturePage(), new ClientSignatureNavigationArgs(signature, identity));
+                    await this.navigationService.GoToAsync(nameof(ClientSignaturePage), new ClientSignatureNavigationArgs(signature, identity));
                 }
             }
             catch (Exception ex)
@@ -491,7 +491,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                await this.navigationService.PushAsync(new ServerSignaturePage(), new ServerSignatureNavigationArgs(this.contract));
+                await this.navigationService.GoToAsync(nameof(ServerSignaturePage), new ServerSignatureNavigationArgs(this.contract));
             }
             catch (Exception ex)
             {
@@ -507,7 +507,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
-                await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(obsoletedContract, false));
+                await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(obsoletedContract, false));
             }
             catch (Exception ex)
             {
@@ -523,7 +523,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 
-                await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(deletedContract, false));
+                await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(deletedContract, false));
             }
             catch (Exception ex)
             {

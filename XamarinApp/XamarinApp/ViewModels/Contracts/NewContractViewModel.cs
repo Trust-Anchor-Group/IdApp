@@ -519,7 +519,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (signedContract != null)
                 {
-                    await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(createdContract, false));
+                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(createdContract, false));
                 }
             }
             catch (Exception ex)
@@ -535,9 +535,8 @@ namespace XamarinApp.ViewModels.Contracts
 
         private async Task AddPart()
         {
-            ScanQrCodePage page = new ScanQrCodePage { OpenCommandText = AppResources.Add };
             this.saveState = true;
-            string code = await page.ScanQrCode();
+            string code = await ScanQrCodePage.ScanQrCode(this.navigationService, AppResources.Add);
             this.saveState = false;
             this.DeleteState();
             string id = Constants.IoTSchemes.GetCode(code);

@@ -301,7 +301,7 @@
     <value>Duration</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>An error occurred</value>
+    <value>An error has occurred</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>

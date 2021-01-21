@@ -44,13 +44,12 @@ namespace XamarinApp.Views
 
         private async void ViewIdentityButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new ViewIdentityPage());
+            await this.navigationService.GoToAsync(nameof(ViewIdentityPage));
         }
 
         private async void ScanQrCodeButton_Clicked(object sender, EventArgs e)
         {
-            ScanQrCodePage page = new ScanQrCodePage();
-            string code = await page.ScanQrCode();
+            string code = await ScanQrCodePage.ScanQrCode(this.navigationService, AppResources.Open);
 
             if (string.IsNullOrWhiteSpace(code))
                 return;
@@ -90,22 +89,22 @@ namespace XamarinApp.Views
 
         private async void CreatedContractsButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new MyContractsPage());
+            await this.navigationService.GoToAsync(nameof(MyContractsPage));
         }
 
         private async void SignedContractsButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new SignedContractsPage());
+            await this.navigationService.GoToAsync(nameof(SignedContractsPage));
         }
 
         private async void NewContractButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new NewContractPage(), new NewContractNavigationArgs(ContractTypesPerCategory));
+            await this.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(ContractTypesPerCategory));
         }
 
         private async void XmppCommunicationButton_Clicked(object sender, EventArgs e)
         {
-            await this.navigationService.PushAsync(new XmppCommunicationPage());
+            await this.navigationService.GoToAsync(nameof(XmppCommunicationPage));
         }
     }
 }

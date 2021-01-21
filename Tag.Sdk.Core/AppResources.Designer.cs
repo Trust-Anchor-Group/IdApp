@@ -160,6 +160,42 @@ namespace Tag.Sdk.Core {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to close modal page.
+        /// </summary>
+        internal static string FailedToCloseModalPage {
+            get {
+                return ResourceManager.GetString("FailedToCloseModalPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to close page.
+        /// </summary>
+        internal static string FailedToClosePage {
+            get {
+                return ResourceManager.GetString("FailedToClosePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to navigate to modal page {0}.
+        /// </summary>
+        internal static string FailedToNavigateToModalPage {
+            get {
+                return ResourceManager.GetString("FailedToNavigateToModalPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to navigate to page {0}.
+        /// </summary>
+        internal static string FailedToNavigateToPage {
+            get {
+                return ResourceManager.GetString("FailedToNavigateToPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {

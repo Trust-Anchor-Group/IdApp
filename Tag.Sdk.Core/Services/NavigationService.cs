@@ -1,11 +1,20 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Tag.Sdk.Core.Services
 {
     internal sealed class NavigationService : INavigationService
     {
+        private readonly ILogService logService;
+        private readonly IUiDispatcher uiDispatcher;
         private NavigationArgs navigationArgs;
+
+        public NavigationService(ILogService logService, IUiDispatcher uiDispatcher)
+        {
+            this.logService = logService;
+            this.uiDispatcher = uiDispatcher;
+        }
 
         public void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs
         {
@@ -21,77 +30,62 @@ namespace Tag.Sdk.Core.Services
                 args = this.navigationArgs as TArgs;
             }
 
-            this.ClearArgs();
+            // Reset to null
+            this.navigationArgs = null;
+
             return args != null;
         }
 
-        private void ClearArgs()
+        public async Task GoBackAsync()
         {
-            this.navigationArgs = null;
-        }
-
-        public Task PushAsync(Page page)
-        {
-            this.ClearArgs();
-            return Application.Current.MainPage.Navigation.PushAsync(page, true);
-        }
-
-        public Task PushAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
-        {
-            this.PushArgs(args);
-            return Application.Current.MainPage.Navigation.PushAsync(page, true);
-        }
-
-        public Task PopAsync()
-        {
-            return Shell.Current.GoToAsync("..");
-        }
-
-        public Task PushModalAsync(Page page)
-        {
-            this.ClearArgs();
-            return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
-        }
-
-        public Task PushModalAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
-        {
-            this.PushArgs(args);
-            return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
-        }
-
-        public Task PopModalAsync()
-        {
-            return Application.Current.MainPage.Navigation.PopModalAsync(true);
-        }
-
-        public Task ReplaceAsync(Page page)
-        {
-            return ReplaceAsync(page, (NavigationArgs)null);
-        }
-
-        public async Task ReplaceAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
-        {
-            // Neat trick to replace current page but still get a page animation.
-            Page currPage = Application.Current.MainPage;
-            if (currPage is NavigationPage navPage)
+            try
             {
-                currPage = navPage.CurrentPage;
+                await Shell.Current.GoToAsync("..");
             }
-
-            this.PushArgs(args);
-            await Application.Current.MainPage.Navigation.PushAsync(page);
-            currPage.Navigation.RemovePage(currPage);
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
+            }
         }
 
-        public async Task GoToAsync(string route)
+        public Task GoToAsync(string route)
         {
-            await Shell.Current.GoToAsync(route);
+            return GoToAsync(route, (NavigationArgs)null);
         }
 
         public async Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
         {
             this.PushArgs(args);
-            await Shell.Current.GoToAsync(route);
+            try
+            {
+                await Shell.Current.GoToAsync(route);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route));
+            }
+        }
+
+        public Task ReplaceAsync(string route)
+        {
+            return ReplaceAsync(route, (NavigationArgs)null);
+        }
+
+        public async Task ReplaceAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+        {
+            route = $"///{route}";
+            this.PushArgs(args);
+            try
+            {
+                await Shell.Current.GoToAsync(route);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route));
+            }
         }
     }
 }

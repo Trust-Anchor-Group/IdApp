@@ -301,7 +301,7 @@
     <value>Varaktighet</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Ett fel inträffade</value>
+    <value>Ett fel har inträffat</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>

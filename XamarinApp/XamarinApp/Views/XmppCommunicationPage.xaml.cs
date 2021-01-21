@@ -19,7 +19,7 @@ namespace XamarinApp.Views
 
         protected override bool OnBackButtonPressed()
         {
-            this.navigationService.PopAsync();
+            this.navigationService.GoBackAsync();
             return true;
         }
     }

@@ -4,6 +4,7 @@ using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinApp.Navigation;
 using XamarinApp.ViewModels;
 using ZXing;
 
@@ -48,11 +49,11 @@ namespace XamarinApp.Views
 
         #region Scanning
 
-        TaskCompletionSource<string> qrCodeScanned;
+        static TaskCompletionSource<string> qrCodeScanned;
 
-        public Task<string> ScanQrCode()
+        public static Task<string> ScanQrCode(INavigationService navigationService, string commandName)
         {
-            _ = this.navigationService.PushAsync(this);
+            _ = navigationService.GoToAsync(nameof(ScanQrCodePage), new ScanQrCodeNavigationArgs(commandName));
             qrCodeScanned = new TaskCompletionSource<string>();
             return qrCodeScanned.Task;
         }
@@ -114,7 +115,7 @@ namespace XamarinApp.Views
                 qrCodeScanned.TrySetResult(code);
                 qrCodeScanned = null;
             }
-            this.uiDispatcher.BeginInvokeOnMainThread(async () => await this.navigationService.PopAsync());
+            this.uiDispatcher.BeginInvokeOnMainThread(async () => await this.navigationService.GoBackAsync());
         }
 
         protected override bool OnBackButtonPressed()

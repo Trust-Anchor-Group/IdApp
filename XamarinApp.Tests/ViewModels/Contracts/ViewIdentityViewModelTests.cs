@@ -62,7 +62,7 @@ namespace XamarinApp.Tests.ViewModels.Contracts
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
                 .And(vm => ActionCommandIsExecuted(vm.RevokeCommand))
-                .ThenAssert(() => this.navigationService.Verify(x => x.ReplaceAsync(It.IsAny<RegistrationPage>()), Times.Once));
+                .ThenAssert(() => this.navigationService.Verify(x => x.ReplaceAsync(nameof(RegistrationPage)), Times.Once));
         }
     }
 }

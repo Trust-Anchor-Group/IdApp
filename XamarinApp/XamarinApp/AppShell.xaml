@@ -90,7 +90,7 @@
 
     <MenuItem Text="{x:Static local:AppResources.Identity}" Clicked="ViewIdentityMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:Icons.Home}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Home}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>

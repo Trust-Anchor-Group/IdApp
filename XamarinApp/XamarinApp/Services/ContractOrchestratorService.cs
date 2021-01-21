@@ -78,7 +78,7 @@ namespace XamarinApp.Services
                 {
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
-                        await this.navigationService.PushAsync(new ViewIdentityPage(), new ViewIdentityNavigationArgs(e.RequestorIdentity, e));
+                        await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestorIdentity, e));
                     }
                 }
             );
@@ -116,7 +116,7 @@ namespace XamarinApp.Services
                 {
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
-                        await this.navigationService.PushAsync(new PetitionIdentityPage(), new PetitionIdentityNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
+                        await this.navigationService.GoToAsync(nameof(PetitionIdentityPage), new PetitionIdentityNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, e.RequestedIdentityId, e.PetitionId, e.Purpose));
                     }
                 });
             }
@@ -138,7 +138,7 @@ namespace XamarinApp.Services
                 }
                 else
                 {
-                    await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(e.RequestedContract, false));
+                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(e.RequestedContract, false));
                 }
             });
         }
@@ -159,7 +159,7 @@ namespace XamarinApp.Services
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.PushAsync(new PetitionContractPage(), new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
+                    await this.navigationService.GoToAsync(nameof(PetitionContractPage), new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
                 });
             }
         }
@@ -174,7 +174,7 @@ namespace XamarinApp.Services
             {
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.PushAsync(new ViewIdentityPage(), new ViewIdentityNavigationArgs(e.RequestedIdentity, null));
+                    await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestedIdentity, null));
                 });
             }
         }
@@ -238,7 +238,7 @@ namespace XamarinApp.Services
                 LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.navigationService.PushAsync(new ViewIdentityPage(), new ViewIdentityNavigationArgs(identity, null));
+                    await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
                 });
             }
             catch (Exception ex)
@@ -264,9 +264,9 @@ namespace XamarinApp.Services
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
-                        await this.navigationService.PushAsync(new NewContractPage(), new NewContractNavigationArgs(contract));
+                        await this.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract));
                     else
-                        await this.navigationService.PushAsync(new ViewContractPage(), new ViewContractNavigationArgs(contract, false));
+                        await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
                 });
             }
             catch (Exception ex)

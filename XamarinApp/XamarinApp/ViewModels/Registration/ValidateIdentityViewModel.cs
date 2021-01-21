@@ -387,8 +387,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task InviteReviewer()
         {
-            ScanQrCodePage page = new ScanQrCodePage();
-            string code = await page.ScanQrCode();
+            string code = await ScanQrCodePage.ScanQrCode(this.NavigationService, AppResources.Open);
 
             if (!Constants.IoTSchemes.StartsWithIdScheme(code))
             {

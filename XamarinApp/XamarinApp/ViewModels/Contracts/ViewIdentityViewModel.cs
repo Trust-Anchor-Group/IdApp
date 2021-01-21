@@ -770,7 +770,7 @@ namespace XamarinApp.ViewModels.Contracts
 
                 if (succeeded2)
                 {
-                    await this.navigationService.PopAsync();
+                    await this.navigationService.GoBackAsync();
                 }
             }
             catch (Exception ex)
@@ -790,7 +790,7 @@ namespace XamarinApp.ViewModels.Contracts
                 bool succeeded = await this.networkService.Request(this.NeuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false);
                 if (succeeded)
                 {
-                    await this.navigationService.PopAsync();
+                    await this.navigationService.GoBackAsync();
                 }
             }
             catch (Exception ex)
@@ -815,7 +815,7 @@ namespace XamarinApp.ViewModels.Contracts
                 {
                     this.LegalIdentity = revokedIdentity;
                     this.tagProfile.RevokeLegalIdentity(revokedIdentity);
-                    await this.navigationService.ReplaceAsync(new RegistrationPage());
+                    await this.navigationService.ReplaceAsync(nameof(RegistrationPage));
                 }
             }
             catch (Exception ex)
@@ -841,7 +841,7 @@ namespace XamarinApp.ViewModels.Contracts
                 {
                     this.LegalIdentity = compromisedIdentity;
                     this.tagProfile.RevokeLegalIdentity(compromisedIdentity);
-                    await this.navigationService.ReplaceAsync(new RegistrationPage());
+                    await this.navigationService.ReplaceAsync(nameof(RegistrationPage));
                 }
             }
             catch (Exception ex)

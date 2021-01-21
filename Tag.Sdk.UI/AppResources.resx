@@ -117,76 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountNameAlreadyTaken" xml:space="preserve">
-    <value>Kontonamnet {0} är redan taget. Prova med ett annat.</value>
-  </data>
-  <data name="AnErrorHasOccurred" xml:space="preserve">
-    <value>Ett fel har inträffat</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Avbryt</value>
-  </data>
-  <data name="CantConnectTo" xml:space="preserve">
-    <value>Kan inte ansluta till {0}</value>
-  </data>
-  <data name="ContinueAnyway" xml:space="preserve">
-    <value>Fortsätt ändå</value>
-  </data>
-  <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Applikationen ser ut att inte ha stängts korrekt. Databasen kan därför vara skadad. Ett försök att reparera den genom att nollställa den kan göras. Hur vill du fortsätta?</value>
-  </data>
-  <data name="DatabaseIssue" xml:space="preserve">
-    <value>Databas-problem</value>
-  </data>
-  <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>Reparation av databasen misslyckades. Alternativen är uttömda, fortsätt på egen risk.</value>
-  </data>
-  <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
-    <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
-  </data>
-  <data name="DomainIsNotAValidOperator" xml:space="preserve">
-    <value>{0} är inte en giltig operatör</value>
-  </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Ett fel har inträffat</value>
+    <value>An error has occurred</value>
   </data>
-  <data name="FailedToCloseModalPage" xml:space="preserve">
-    <value>Kunde inte stänga den modala sidan</value>
+  <data name="FailedToBindViewModelForPage" xml:space="preserve">
+    <value>Failed to bind viewmodel {0] for page {1}</value>
   </data>
-  <data name="FailedToClosePage" xml:space="preserve">
-    <value>Kunde inte stänga sidan</value>
+  <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
+    <value>Failed to restore state for viewmodel {0] for page {1}</value>
   </data>
-  <data name="FailedToNavigateToModalPage" xml:space="preserve">
-    <value>Kunde inte navigera till den modala sidan {0}</value>
+  <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
+    <value>Failed to save state for viewmodel {0] for page {1}</value>
   </data>
-  <data name="FailedToNavigateToPage" xml:space="preserve">
-    <value>Kunde inte navigera till sidan {0}</value>
-  </data>
-  <data name="InvalidUsernameOrPassword" xml:space="preserve">
-    <value>Ogiltigt användarnamn eller lösenord</value>
-  </data>
-  <data name="Ok" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
-    <value>Operatören {0} stödjer inte registrering av nya konton</value>
-  </data>
-  <data name="RepairAndContinue" xml:space="preserve">
-    <value>Reparera och fortsätt</value>
-  </data>
-  <data name="RequestTimedOut" xml:space="preserve">
-    <value>Begäran tog för lång tid</value>
-  </data>
-  <data name="RequestWasCancelled" xml:space="preserve">
-    <value>Begäran avbröts</value>
-  </data>
-  <data name="ThereIsNoNetwork" xml:space="preserve">
-    <value>Nätverk saknas</value>
-  </data>
-  <data name="UnableToAuthenticateWith" xml:space="preserve">
-    <value>Kan inte autentisera med {0}</value>
-  </data>
-  <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Ej möjligt att ansluta till {0}</value>
+  <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
+    <value>Failed to unbind viewmodel {0] for page {1}</value>
   </data>
 </root>

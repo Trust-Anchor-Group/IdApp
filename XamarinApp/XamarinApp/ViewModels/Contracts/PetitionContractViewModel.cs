@@ -73,7 +73,7 @@ namespace XamarinApp.ViewModels.Contracts
             bool succeeded = await this.networkService.Request(this.neuronService.Contracts.SendPetitionContractResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, true);
             if (succeeded)
             {
-                await this.navigationService.PopAsync();
+                await this.navigationService.GoBackAsync();
             }
         }
 
@@ -82,13 +82,13 @@ namespace XamarinApp.ViewModels.Contracts
             bool succeeded = await this.networkService.Request(this.neuronService.Contracts.SendPetitionIdentityResponseAsync, this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, false);
             if (succeeded)
             {
-                await this.navigationService.PopAsync();
+                await this.navigationService.GoBackAsync();
             }
         }
 
         private async Task Ignore()
         {
-            await this.navigationService.PopAsync();
+            await this.navigationService.GoBackAsync();
         }
 
         #region Properties
