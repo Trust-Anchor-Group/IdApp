@@ -610,7 +610,7 @@ namespace XamarinApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred.
+        ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string ErrorTitle {
             get {

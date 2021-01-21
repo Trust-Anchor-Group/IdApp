@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using Tag.Sdk.Core;
+using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Tag.Sdk.UI.ViewModels;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -10,9 +13,13 @@ namespace Tag.Sdk.UI.Views
         private const string DefaultMargin = "DefaultMargin";
         private const string SafeAreaInsets = "SafeAreaInsets";
         private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
+        private readonly ILogService logService;
+        private readonly IUiDispatcher uiDispatcher;
 
         public ContentBasePage()
         {
+            this.logService = DependencyService.Resolve<ILogService>();
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>(); 
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -46,9 +53,26 @@ namespace Tag.Sdk.UI.Views
             {
                 if (!ViewModel.IsBound)
                 {
-                    await ViewModel.Bind();
+                    try
+                    {
+                        await ViewModel.Bind();
+                    }
+                    catch (Exception e)
+                    {
+                        this.logService.LogException(e);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToBindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                    }
                 }
-                await ViewModel.RestoreState();
+
+                try
+                {
+                    await ViewModel.RestoreState();
+                }
+                catch (Exception e)
+                {
+                    this.logService.LogException(e);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToRestoreViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                }
             }
         }
 
@@ -58,9 +82,26 @@ namespace Tag.Sdk.UI.Views
             {
                 if (ViewModel.IsBound)
                 {
-                    await ViewModel.SaveState();
+                    try
+                    {
+                        await ViewModel.SaveState();
+                    }
+                    catch (Exception e)
+                    {
+                        this.logService.LogException(e);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToSaveViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                    }
                 }
-                await ViewModel.Unbind();
+
+                try
+                {
+                    await ViewModel.Unbind();
+                }
+                catch (Exception e)
+                {
+                    this.logService.LogException(e);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToUnbindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                }
             }
             base.OnDisappearing();
         }
