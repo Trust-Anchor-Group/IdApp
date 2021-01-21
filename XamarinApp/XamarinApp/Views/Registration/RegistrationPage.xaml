@@ -46,7 +46,7 @@
                         Grid.Column="0"
                         FontSize="24" 
                         TextColor="{StaticResource HeadingForeground}"
-                        Text="{x:Static resources:Icons.ArrowACircleLeft}" 
+                        Text="{x:Static resources:SolidIcons.ArrowACircleLeft}" 
                         FontFamily="{StaticResource FontAwesomeSolid}"
                         VerticalOptions="Center"
                         Margin="0,-12,0,-6"

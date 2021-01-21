@@ -44,16 +44,24 @@
             <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
             <Setter Property="TextColor" Value="White" />
             <Setter Property="CornerRadius" Value="5" />
+            <Style.Triggers>
+                <Trigger TargetType="Button"
+                         Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="BackgroundColor" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <Style TargetType="Button"
                x:Key="IconButton"
                ApplyToDerivedTypes="True"
                CanCascade="True">
             <Setter Property="FontSize" Value="Small" />
-            <Setter Property="BackgroundColor" Value="#333333" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
             <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="CornerRadius" Value="2" />
             <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="2" />
         </Style>
         <Style x:Key="Heading" TargetType="Label"
                ApplyToDerivedTypes="True"
