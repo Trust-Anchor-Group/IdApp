@@ -137,9 +137,7 @@ namespace Tag.Sdk.Core
         {
             public MessageRecord(string title, string message, string accept, string cancel)
             {
-                IAppInformation appInfo = DependencyService.Get<IAppInformation>();
-                string titleWithVersion = $"{title} (v{appInfo.GetVersion()})";
-                Title = titleWithVersion;
+                Title = title;
                 Message = message;
                 Accept = accept;
                 Cancel = cancel;

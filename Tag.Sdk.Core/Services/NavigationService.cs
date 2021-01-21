@@ -1,11 +1,20 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Tag.Sdk.Core.Services
 {
     internal sealed class NavigationService : INavigationService
     {
+        private readonly ILogService logService;
+        private readonly IUiDispatcher uiDispatcher;
         private NavigationArgs navigationArgs;
+
+        public NavigationService(ILogService logService, IUiDispatcher uiDispatcher)
+        {
+            this.logService = logService;
+            this.uiDispatcher = uiDispatcher;
+        }
 
         public void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs
         {
@@ -21,47 +30,74 @@ namespace Tag.Sdk.Core.Services
                 args = this.navigationArgs as TArgs;
             }
 
-            this.ClearArgs();
-            return args != null;
-        }
-
-        private void ClearArgs()
-        {
+            // Reset to null
             this.navigationArgs = null;
+
+            return args != null;
         }
 
         public Task PushAsync(Page page)
         {
-            this.ClearArgs();
-            return Application.Current.MainPage.Navigation.PushAsync(page, true);
+            return this.PushAsync(page, (NavigationArgs)null);
         }
 
-        public Task PushAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
+        public async Task PushAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
         {
             this.PushArgs(args);
-            return Application.Current.MainPage.Navigation.PushAsync(page, true);
+            try
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(page, true);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, page.GetType().Name));
+            }
         }
 
-        public Task<Page> PopAsync()
+        public async Task PopAsync()
         {
-            return Application.Current.MainPage.Navigation.PopAsync(true);
+            try
+            {
+                await Application.Current.MainPage.Navigation.PopAsync(true);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
+            }
         }
 
         public Task PushModalAsync(Page page)
         {
-            this.ClearArgs();
-            return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
+            return PushModalAsync(page, (NavigationArgs)null);
         }
 
-        public Task PushModalAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
+        public async Task PushModalAsync<TArgs>(Page page, TArgs args) where TArgs : NavigationArgs
         {
             this.PushArgs(args);
-            return Application.Current.MainPage.Navigation.PushModalAsync(page, true);
+            try
+            {
+                await Application.Current.MainPage.Navigation.PushModalAsync(page, true);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToModalPage, page.GetType().Name));
+            }
         }
 
-        public Task PopModalAsync()
+        public async Task PopModalAsync()
         {
-            return Application.Current.MainPage.Navigation.PopModalAsync(true);
+            try
+            {
+                await Application.Current.MainPage.Navigation.PopModalAsync(true);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToCloseModalPage);
+            }
         }
 
         public Task ReplaceAsync(Page page)
@@ -79,8 +115,16 @@ namespace Tag.Sdk.Core.Services
             }
 
             this.PushArgs(args);
-            await Application.Current.MainPage.Navigation.PushAsync(page);
-            currPage.Navigation.RemovePage(currPage);
+            try
+            {
+                await Application.Current.MainPage.Navigation.PushAsync(page);
+                currPage.Navigation.RemovePage(currPage);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, page.GetType().Name));
+            }
         }
     }
 }

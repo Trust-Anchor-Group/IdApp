@@ -36,7 +36,7 @@ namespace Tag.Sdk.Core
             this.StorageService = new StorageService();
             this.appAssembly = app.GetType().Assembly;
             this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.logService);
-            this.NavigationService = new NavigationService();
+            this.NavigationService = new NavigationService(this.logService, this.uiDispatcher);
         }
 
         public void Dispose()

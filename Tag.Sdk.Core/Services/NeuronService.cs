@@ -653,8 +653,12 @@ namespace Tag.Sdk.Core.Services
 
         private void ReconnectTimer_Tick(object _)
         {
-            if (!(xmppClient is null) && (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline))
+            if (xmppClient != null &&
+                (xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline) &&
+                this.networkService.IsOnline)
+            {
                 xmppClient.Reconnect();
+            }
         }
 
         public string CommsDumpAsHtml()

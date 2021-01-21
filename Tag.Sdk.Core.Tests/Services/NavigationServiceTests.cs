@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using Tag.Sdk.Core.Services;
 
 namespace Tag.Sdk.Core.Tests.Services
@@ -9,7 +10,7 @@ namespace Tag.Sdk.Core.Tests.Services
 
         public NavigationServiceTests()
         {
-            sut = new NavigationService();
+            sut = new NavigationService(new Mock<ILogService>().Object, new Mock<IUiDispatcher>().Object);
         }
 
         private sealed class TestArgs1 : NavigationArgs
