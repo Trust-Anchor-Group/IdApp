@@ -759,14 +759,14 @@ namespace XamarinApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool succeeded1, byte[] signature) = await this.networkService.Request(this.NeuronService.Contracts.SignAsync, this.identityToReview.ContentToSign);
+                (bool succeeded1, byte[] signature) = await this.networkService.TryRequest(this.NeuronService.Contracts.SignAsync, this.identityToReview.ContentToSign);
 
                 if (!succeeded1)
                 {
                     return;
                 }
 
-                bool succeeded2 = await this.networkService.Request(this.NeuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true);
+                bool succeeded2 = await this.networkService.TryRequest(this.NeuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true);
 
                 if (succeeded2)
                 {
@@ -787,7 +787,7 @@ namespace XamarinApp.ViewModels.Contracts
 
             try
             {
-                bool succeeded = await this.networkService.Request(this.NeuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false);
+                bool succeeded = await this.networkService.TryRequest(this.NeuronService.Contracts.SendPetitionSignatureResponseAsync, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false);
                 if (succeeded)
                 {
                     await this.navigationService.GoBackAsync();
@@ -810,7 +810,7 @@ namespace XamarinApp.ViewModels.Contracts
                 if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.Request(this.NeuronService.Contracts.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.ObsoleteLegalIdentityAsync, this.LegalIdentity.Id);
                 if (succeeded)
                 {
                     this.LegalIdentity = revokedIdentity;
@@ -835,7 +835,7 @@ namespace XamarinApp.ViewModels.Contracts
                 if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
                     return;
 
-                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.Request(this.NeuronService.Contracts.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.CompromisedLegalIdentityAsync, this.LegalIdentity.Id);
 
                 if (succeeded)
                 {

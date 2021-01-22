@@ -337,7 +337,7 @@ namespace XamarinApp.ViewModels.Contracts
         {
             try
             {
-                (bool succeeded, Contract retrievedContract) = await this.networkService.Request(this.neuronService.Contracts.GetContractAsync, this.contractTemplateId);
+                (bool succeeded, Contract retrievedContract) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractAsync, this.contractTemplateId);
                 if (!succeeded)
                     return;
 
@@ -493,7 +493,7 @@ namespace XamarinApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool createSucceeded, Contract createdContract) = await this.networkService.Request<string, Part[], Parameter[], ContractVisibility, ContractParts,Duration,Duration,Duration, DateTime?, DateTime?, bool, Contract>(
+                (bool createSucceeded, Contract createdContract) = await this.networkService.TryRequest<string, Part[], Parameter[], ContractVisibility, ContractParts,Duration,Duration,Duration, DateTime?, DateTime?, bool, Contract>(
                     this.neuronService.Contracts.CreateContractAsync,
                     this.contractTemplateId,
                     parts.ToArray(),
@@ -510,7 +510,7 @@ namespace XamarinApp.ViewModels.Contracts
                 Contract signedContract = null;
                 if (createSucceeded)
                 {
-                    (bool signSucceeded, Contract contract) = await this.networkService.Request(this.neuronService.Contracts.SignContractAsync, createdContract, this.SelectedRole.Name, false);
+                    (bool signSucceeded, Contract contract) = await this.networkService.TryRequest(this.neuronService.Contracts.SignContractAsync, createdContract, this.SelectedRole.Name, false);
                     if (signSucceeded)
                     {
                         signedContract = contract;

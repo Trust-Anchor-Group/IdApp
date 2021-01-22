@@ -405,7 +405,7 @@ namespace XamarinApp.ViewModels.Registration
 
             try
             {
-                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.Request(this.NeuronService.Contracts.AddLegalIdentityAsync, CreateRegisterModel(), this.photos.Values.ToArray());
+                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.AddLegalIdentityAsync, CreateRegisterModel(), this.photos.Values.ToArray());
                 if (succeeded)
                 {
                     this.LegalIdentity = addedIdentity;

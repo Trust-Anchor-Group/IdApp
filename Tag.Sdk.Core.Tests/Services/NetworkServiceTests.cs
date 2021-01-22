@@ -51,7 +51,7 @@ namespace Tag.Sdk.Core.Tests.Services
             Exception typeOfExceptionCaught = null;
             try
             {
-                await this.networkService.Request(TestFuncThatThrows, rethrowException, displayAlert, nameof(VerifyRequest));
+                await this.networkService.TryRequest(TestFuncThatThrows, rethrowException, displayAlert, nameof(VerifyRequest));
             }
             catch (Exception ex)
             {

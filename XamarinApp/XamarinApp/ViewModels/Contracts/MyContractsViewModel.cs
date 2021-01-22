@@ -99,14 +99,14 @@ namespace XamarinApp.ViewModels.Contracts
 
             if (this.showCreatedContracts)
             {
-                (bool succeeded, string[] createdContractIds) = await this.networkService.Request(this.neuronService.Contracts.GetCreatedContractsAsync);
+                (bool succeeded, string[] createdContractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetCreatedContractsAsync);
                 if (!succeeded)
                     return;
                 contractIds = createdContractIds;
             }
             else
             {
-                (bool succeeded, string[] signedContractIds) = await this.networkService.Request(this.neuronService.Contracts.GetSignedContractsAsync);
+                (bool succeeded, string[] signedContractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetSignedContractsAsync);
                 if (!succeeded)
                     return;
                 contractIds = signedContractIds;
