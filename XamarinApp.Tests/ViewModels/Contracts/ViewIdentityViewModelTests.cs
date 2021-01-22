@@ -51,7 +51,7 @@ namespace XamarinApp.Tests.ViewModels.Contracts
         public void WhenIdentityIsRevoked_ThenRegistrationPageIsShown()
         {
             this.networkService
-                .Setup(x => x.Request(It.IsAny<Func<string, Task<LegalIdentity>>>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+                .Setup(x => x.Request(It.IsAny<Func<string, Task<LegalIdentity>>>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>()))
                 .Returns(Task.FromResult((true, new LegalIdentity())));
 
             this.uiDispatcher
