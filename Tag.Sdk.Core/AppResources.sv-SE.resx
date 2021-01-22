@@ -150,17 +150,11 @@
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
-  <data name="FailedToCloseModalPage" xml:space="preserve">
-    <value>Kunde inte stänga den modala sidan</value>
-  </data>
   <data name="FailedToClosePage" xml:space="preserve">
     <value>Kunde inte stänga sidan</value>
   </data>
-  <data name="FailedToNavigateToModalPage" xml:space="preserve">
-    <value>Kunde inte navigera till den modala sidan {0}</value>
-  </data>
   <data name="FailedToNavigateToPage" xml:space="preserve">
-    <value>Kunde inte navigera till sidan {0}</value>
+    <value>Kunde inte navigera till sidan {0} {1}</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>

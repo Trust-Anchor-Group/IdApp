@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -69,17 +68,10 @@ namespace XamarinApp
             try
             {
                 this.MainPage = new AppShell();
-                //NavigationPage navigationPage = new NavigationPage(new InitPage())
-                //{
-                //    BarBackgroundColor = (Color) Current.Resources["HeadingBackground"],
-                //    BarTextColor = (Color) Current.Resources["HeadingForeground"]
-                //};
-
-                //this.MainPage = navigationPage;
             }
             catch (Exception e)
             {
-                WriteExceptionToFile("StartPage", e.ToString());
+                this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
                 return;
             }
         }
@@ -158,11 +150,9 @@ namespace XamarinApp
 
         #region Error Handling
 
-        private const string StartupCrashFileName = "CrashDump.txt";
-
         private void DisplayErrorPage(string title, string stackTrace)
         {
-            WriteExceptionToFile(title, stackTrace);
+            this.sdk.LogService.SaveExceptionDump(title, stackTrace);
 
             ScrollView sv = new ScrollView();
             StackLayout sl = new StackLayout
@@ -191,48 +181,10 @@ namespace XamarinApp
             };
         }
 
-        private void WriteExceptionToFile(string title, string stackTrace)
-        {
-            string contents;
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
-            if (File.Exists(fileName))
-            {
-                contents = File.ReadAllText(fileName);
-            }
-            else
-            {
-                contents = string.Empty;
-            }
-
-            File.WriteAllText(fileName, $"{title}{Environment.NewLine}{stackTrace}{Environment.NewLine}{contents}");
-        }
-
-        private string ReadExceptionFromFile()
-        {
-            string contents;
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
-            if (File.Exists(fileName))
-            {
-                contents = File.ReadAllText(fileName);
-            }
-            else
-            {
-                contents = string.Empty;
-            }
-
-            return contents;
-        }
-
-        private void DeleteExceptionFile()
-        {
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
-            if (File.Exists(fileName))
-                File.Delete(fileName);
-        }
 
         private async Task SendErrorReportFromPreviousRun()
         {
-            string stackTrace = ReadExceptionFromFile();
+            string stackTrace = this.sdk.LogService.LoadExceptionDump();
             if (!string.IsNullOrWhiteSpace(stackTrace))
             {
                 try
@@ -249,7 +201,7 @@ namespace XamarinApp
                 }
                 finally
                 {
-                    DeleteExceptionFile();
+                    this.sdk.LogService.DeleteExceptionDump();
                 }
             }
         }
@@ -274,7 +226,7 @@ namespace XamarinApp
         {
             if (ex != null)
             {
-                WriteExceptionToFile(title, ex.ToString());
+                this.sdk.LogService.SaveExceptionDump(title, ex.ToString());
             }
 
             if (ex != null)

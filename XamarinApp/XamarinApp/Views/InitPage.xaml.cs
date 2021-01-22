@@ -54,7 +54,7 @@ namespace XamarinApp.Views
                     await Task.Delay(TimeSpan.FromMilliseconds(250));
                     if (this.tagProfile.IsComplete())
                     {
-                        await this.navigationService.ReplaceAsync(nameof(MainPage));
+                        await this.navigationService.GoToAsync($"///{nameof(MainPage)}");
                     }
                     else
                     {

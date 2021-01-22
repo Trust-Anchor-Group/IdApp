@@ -3,7 +3,6 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
                xmlns:views="clr-namespace:XamarinApp.Views;assembly=XamarinApp"
-               xmlns:contractViews="clr-namespace:XamarinApp.Views.Contracts;assembly=XamarinApp"
                xmlns:sdkViews="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
                Title="TestIosAppDeploy"
                x:Class="XamarinApp.AppShell">
@@ -47,29 +46,14 @@
         </ResourceDictionary>
     </Shell.Resources>
 
-    <!--<Shell.ItemTemplate>
-        <DataTemplate>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.2*" />
-                    <ColumnDefinition Width="0.8*" />
-                </Grid.ColumnDefinitions>
-                <Image Source="{Binding Path=Icon}"
-                       Margin="5"
-                       HeightRequest="45" />
-                <Label Grid.Column="1"
-                       Text="{Binding Path=Title}"
-                       FontAttributes="Italic"
-                       VerticalTextAlignment="Center" />
-            </Grid>
-        </DataTemplate>
-    </Shell.ItemTemplate>-->
-
     <Shell.FlyoutHeader>
         <Frame BorderColor="Black" Padding="1">
             <Grid HeightRequest="200">
                 <Image Aspect="AspectFill" Source="city.jpg" />
-                <Label Text="T A G" TextColor="White" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
+                <Grid HorizontalOptions="End" HeightRequest="48" WidthRequest="150" VerticalOptions="Center">
+                    <BoxView BackgroundColor="{StaticResource HeadingBackgroundTranslucent}" />
+                    <Label Text="T A G" TextColor="White" FontSize="Large" FontAttributes="Bold" HorizontalTextAlignment="End" VerticalTextAlignment="Center" Margin="0,0,48,0" />
+                </Grid>
             </Grid>
         </Frame>
     </Shell.FlyoutHeader>

@@ -11,5 +11,9 @@ namespace Tag.Sdk.Core.Services
         void LogException(Exception e);
         void LogException(Exception e, params KeyValuePair<string, string>[] parameters);
         void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters);
+
+        void SaveExceptionDump(string title, string stackTrace);
+        string LoadExceptionDump();
+        void DeleteExceptionDump();
     }
 }

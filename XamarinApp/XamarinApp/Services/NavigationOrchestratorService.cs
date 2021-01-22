@@ -92,7 +92,7 @@ namespace XamarinApp.Services
                     }
                     if (gotoRegistrationPage)
                     {
-                        await this.navigationService.ReplaceAsync(nameof(RegistrationPage));
+                        await this.navigationService.GoToAsync(nameof(RegistrationPage));
                     }
                 });
             }

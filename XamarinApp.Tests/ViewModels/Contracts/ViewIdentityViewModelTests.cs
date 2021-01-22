@@ -62,7 +62,25 @@ namespace XamarinApp.Tests.ViewModels.Contracts
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
                 .And(vm => ActionCommandIsExecuted(vm.RevokeCommand))
-                .ThenAssert(() => this.navigationService.Verify(x => x.ReplaceAsync(nameof(RegistrationPage)), Times.Once));
+                .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"///{nameof(RegistrationPage)}"), Times.Once));
+        }
+
+        [Test]
+        public void WhenIdentityIsCompromised_ThenRegistrationPageIsShown()
+        {
+            this.networkService
+                .Setup(x => x.TryRequest(It.IsAny<Func<string, Task<LegalIdentity>>>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>()))
+                .Returns(Task.FromResult((true, new LegalIdentity())));
+
+            this.uiDispatcher
+                .Setup(x => x.DisplayAlert(AppResources.Confirm,
+                    AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
+                .Returns(Task.FromResult(true));
+
+            Given(AViewModel)
+                .And(async vm => await vm.Bind())
+                .And(vm => ActionCommandIsExecuted(vm.CompromiseCommand))
+                .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"///{nameof(RegistrationPage)}"), Times.Once));
         }
     }
 }

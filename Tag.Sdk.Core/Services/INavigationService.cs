@@ -7,8 +7,6 @@ namespace Tag.Sdk.Core.Services
     /// </summary>
     public interface INavigationService
     {
-        Task ReplaceAsync(string route);
-        Task ReplaceAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs;
         Task GoToAsync(string route);
         Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs;
         Task GoBackAsync();

@@ -64,27 +64,8 @@ namespace Tag.Sdk.Core.Services
             catch (Exception e)
             {
                 this.logService.LogException(e);
-                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route));
-            }
-        }
-
-        public Task ReplaceAsync(string route)
-        {
-            return ReplaceAsync(route, (NavigationArgs)null);
-        }
-
-        public async Task ReplaceAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
-        {
-            route = $"///{route}";
-            this.PushArgs(args);
-            try
-            {
-                await Shell.Current.GoToAsync(route);
-            }
-            catch (Exception e)
-            {
-                this.logService.LogException(e);
-                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route));
+                string extraInfo = $"{Environment.NewLine}{e.Message}";
+                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
             }
         }
     }
