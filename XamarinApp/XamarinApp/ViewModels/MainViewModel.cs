@@ -1,7 +1,9 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
+using Tag.Sdk.UI;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -28,6 +30,7 @@ namespace XamarinApp.ViewModels
             this.ContractsIsOnline = this.NeuronService.Contracts.IsOnline;
             this.NeuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
+            this.AssignProperties();
         }
 
         protected override Task DoUnbind()
@@ -37,7 +40,125 @@ namespace XamarinApp.ViewModels
             return base.DoUnbind();
         }
 
+        private void AssignProperties()
+        {
+            if (this.tagProfile?.LegalIdentity != null)
+            {
+                string firstName = this.tagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
+                string lastNames = this.tagProfile.LegalIdentity[Constants.XmppProperties.LastName];
+
+                if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
+                {
+                    this.FullName = $"{firstName} {lastNames}";
+                }
+                else if (!string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastNames))
+                {
+                    this.FullName = firstName;
+                }
+                else if (string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
+                {
+                    this.FullName = lastNames;
+                }
+                else
+                {
+                    this.FullName = string.Empty;
+                }
+            }
+            else
+            {
+                this.FullName = string.Empty;
+            }
+
+            // QR
+            if (this.tagProfile?.LegalIdentity != null)
+            {
+                _ = Task.Run(() =>
+                {
+                    byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+                    if (this.IsBound)
+                    {
+                        this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                    }
+                });
+            }
+            else
+            {
+                this.QrCode = null;
+            }
+        }
+
         #region Properties
+
+        public static readonly BindableProperty HasPhotoProperty =
+            BindableProperty.Create("HasPhoto", typeof(bool), typeof(MainViewModel), default(bool));
+
+        public bool HasPhoto
+        {
+            get { return (bool)GetValue(HasPhotoProperty); }
+            set { SetValue(HasPhotoProperty, value); }
+        }
+
+        public static readonly BindableProperty ImageProperty =
+            BindableProperty.Create("Image", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+            {
+                MainViewModel viewModel = (MainViewModel)b;
+                viewModel.HasPhoto = newValue != null;
+            });
+
+        public ImageSource Image
+        {
+            get { return (ImageSource)GetValue(ImageProperty); }
+            set { SetValue(ImageProperty, value); }
+        }
+
+        public static readonly BindableProperty FullNameProperty =
+            BindableProperty.Create("FullName", typeof(string), typeof(MainViewModel), default(string));
+
+        public string FullName
+        {
+            get { return (string)GetValue(FullNameProperty); }
+            set { SetValue(FullNameProperty, value); }
+        }
+
+        public static readonly BindableProperty QrCodeProperty =
+            BindableProperty.Create("QrCode", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+            {
+                MainViewModel viewModel = (MainViewModel)b;
+                viewModel.HasQrCode = newValue != null;
+            });
+
+        public ImageSource QrCode
+        {
+            get { return (ImageSource)GetValue(QrCodeProperty); }
+            set { SetValue(QrCodeProperty, value); }
+        }
+
+        public static readonly BindableProperty HasQrCodeProperty =
+            BindableProperty.Create("HasQrCode", typeof(bool), typeof(MainViewModel), default(bool));
+
+        public bool HasQrCode
+        {
+            get { return (bool)GetValue(HasQrCodeProperty); }
+            set { SetValue(HasQrCodeProperty, value); }
+        }
+
+        public static readonly BindableProperty QrCodeWidthProperty =
+            BindableProperty.Create("QrCodeWidth", typeof(int), typeof(MainViewModel), 350);
+
+        public int QrCodeWidth
+        {
+            get { return (int)GetValue(QrCodeWidthProperty); }
+            set { SetValue(QrCodeWidthProperty, value); }
+        }
+
+        public static readonly BindableProperty QrCodeHeightProperty =
+            BindableProperty.Create("QrCodeHeight", typeof(int), typeof(MainViewModel), 350);
+
+        public int QrCodeHeight
+        {
+            get { return (int)GetValue(QrCodeHeightProperty); }
+            set { SetValue(QrCodeHeightProperty, value); }
+        }
 
         public static readonly BindableProperty IsOnlineProperty =
             BindableProperty.Create("IsOnline", typeof(bool), typeof(MainViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
@@ -48,7 +169,7 @@ namespace XamarinApp.ViewModels
 
         public bool IsOnline
         {
-            get { return (bool) GetValue(IsOnlineProperty); }
+            get { return (bool)GetValue(IsOnlineProperty); }
             set { SetValue(IsOnlineProperty, value); }
         }
 
@@ -57,7 +178,7 @@ namespace XamarinApp.ViewModels
 
         public string NetworkStateText
         {
-            get { return (string) GetValue(NetworkStateTextProperty); }
+            get { return (string)GetValue(NetworkStateTextProperty); }
             set { SetValue(NetworkStateTextProperty, value); }
         }
 
@@ -79,7 +200,7 @@ namespace XamarinApp.ViewModels
 
         public string ContractsStateText
         {
-            get { return (string) GetValue(ContractsStateTextProperty); }
+            get { return (string)GetValue(ContractsStateTextProperty); }
             set { SetValue(ContractsStateTextProperty, value); }
         }
 
@@ -88,7 +209,7 @@ namespace XamarinApp.ViewModels
 
         public bool HasConnectionErrors
         {
-            get { return (bool) GetValue(HasConnectionErrorsProperty); }
+            get { return (bool)GetValue(HasConnectionErrorsProperty); }
             set { SetValue(HasConnectionErrorsProperty, value); }
         }
 
@@ -101,7 +222,7 @@ namespace XamarinApp.ViewModels
 
         public string ConnectionErrorsText
         {
-            get { return (string) GetValue(ConnectionErrorsTextProperty); }
+            get { return (string)GetValue(ConnectionErrorsTextProperty); }
             set { SetValue(ConnectionErrorsTextProperty, value); }
         }
         #endregion
@@ -123,7 +244,7 @@ namespace XamarinApp.ViewModels
 
         private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            this.UiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline );
+            this.UiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
         }
 
         private void SetConnectionErrorText()

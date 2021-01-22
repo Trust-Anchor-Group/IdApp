@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
+             xmlns:converters="clr-namespace:XamarinApp.Converters;assembly=XamarinApp"
              x:Class="XamarinApp.Views.MainPage"
              Title="{x:Static local:AppResources.MainPageTitle}"
              Shell.FlyoutBehavior="Flyout">
@@ -30,20 +31,47 @@
                     <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=ContractsStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
                     <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
                 </Grid>
-                <Label Text="{x:Static local:AppResources.General}" FontSize="Large"/>
+                <Label Text="{x:Static local:AppResources.Identity}" FontSize="Large"/>
                 <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-                <Button Text="{x:Static local:AppResources.Identity}" Clicked="ViewIdentityButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-                <Button Text="{x:Static local:AppResources.Wallet}" IsEnabled="False"/>
-                <Button Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-                <Button Text="{x:Static local:AppResources.Devices}" IsEnabled="False"/>
-                <Label Text="{x:Static local:AppResources.Contracts}" FontSize="Large"/>
-                <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-                <Button Text="{x:Static local:AppResources.MyCreatedContracts}" Clicked="CreatedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-                <Button Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-                <Label Text="{x:Static local:AppResources.Notary}" FontSize="Large"/>
-                <Button Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractButton_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-                <Label Text="Debug" FontSize="Large"/>
-                <Button Text="Server Comms" Clicked="XmppCommunicationButton_Clicked" IsEnabled="{Binding Path=IsConnected}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <views:FlipView x:Name="IdCard" WidthRequest="400" HeightRequest="400" HorizontalOptions="Center">
+                    <views:FlipView.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="IdCard_Tapped" />
+                    </views:FlipView.GestureRecognizers>
+                    <views:FlipView.FrontView>
+                        <Frame
+                            Margin="6"
+                            BackgroundColor="{StaticResource HeadingBackground}"
+                            CornerRadius="6"
+                            HasShadow="True">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                    <Grid Grid.Row="0">
+                                        <Image BackgroundColor="{StaticResource HeadingBackground}"
+                                               Aspect="AspectFill" 
+                                               Source="{Binding Path=Image}" 
+                                               IsVisible="{Binding Path=HasPhoto}"/>
+                                        <Label HorizontalOptions="Center"
+                                               VerticalOptions="Center" FontSize="42" 
+                                               TextColor="{StaticResource HeadingForeground}"
+                                               Text="{x:Static local:SolidIcons.User}"
+                                               FontFamily="{StaticResource FontAwesomeSolid}"
+                                               IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
+                                    </Grid>
+                                <Label Grid.Row="1" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Large"/>
+                            </Grid>
+                        </Frame>
+                    </views:FlipView.FrontView>
+                    <views:FlipView.BackView>
+                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" CornerRadius="2" IsClippedToBounds="True">
+                            <Grid>
+                                <Image x:Name="QrCode" BackgroundColor="{StaticResource HeadingBackground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Center" Margin="0" />
+                            </Grid>
+                        </Frame>
+                    </views:FlipView.BackView>
+                </views:FlipView>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

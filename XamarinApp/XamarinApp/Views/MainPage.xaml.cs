@@ -47,6 +47,11 @@ namespace XamarinApp.Views
             await this.navigationService.GoToAsync(nameof(ViewIdentityPage));
         }
 
+        private void IdCard_Tapped(object sender, EventArgs e)
+        {
+            this.IdCard.Flip();
+        }
+
         private async void ScanQrCodeButton_Clicked(object sender, EventArgs e)
         {
             string code = await ScanQrCodePage.ScanQrCode(this.navigationService, AppResources.Open);
