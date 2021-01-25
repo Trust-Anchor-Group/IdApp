@@ -1,13 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Tag.Sdk.UI;
+using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
+using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels
 {
@@ -15,12 +19,18 @@ namespace XamarinApp.ViewModels
     {
         private readonly ITagProfile tagProfile;
         private readonly INetworkService networkService;
+        private readonly ILogService logService;
+        private readonly INavigationService navigationService;
 
         public MainViewModel()
             : base(DependencyService.Resolve<INeuronService>(), DependencyService.Resolve<IUiDispatcher>())
         {
             this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.networkService = DependencyService.Resolve<INetworkService>();
+            this.logService = DependencyService.Resolve<ILogService>();
+            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
+            this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
         }
 
         protected override async Task DoBind()
@@ -88,6 +98,9 @@ namespace XamarinApp.ViewModels
         }
 
         #region Properties
+
+        public ICommand CompromiseCommand { get; }
+        public ICommand RevokeCommand { get; }
 
         public static readonly BindableProperty HasPhotoProperty =
             BindableProperty.Create("HasPhoto", typeof(bool), typeof(MainViewModel), default(bool));
@@ -227,9 +240,57 @@ namespace XamarinApp.ViewModels
         }
         #endregion
 
+        private async Task Revoke()
+        {
+            try
+            {
+                if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.Cancel))
+                    return;
+
+                //(bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.ObsoleteLegalIdentityAsync, this.tagProfile.LegalIdentity.Id);
+                //if (succeeded)
+                //{
+                //    this.tagProfile.RevokeLegalIdentity(revokedIdentity);
+                    await this.navigationService.GoToAsync($"/{nameof(RegistrationPage)}");
+                //}
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.UiDispatcher.DisplayAlert(ex);
+            }
+        }
+
+        private async Task Compromise()
+        {
+            try
+            {
+                if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.Cancel))
+                    return;
+
+                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.CompromisedLegalIdentityAsync, this.tagProfile.LegalIdentity.Id);
+
+                if (succeeded)
+                {
+                    this.tagProfile.RevokeLegalIdentity(compromisedIdentity);
+                    await this.navigationService.GoToAsync($"/{nameof(RegistrationPage)}");
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.UiDispatcher.DisplayAlert(ex);
+            }
+        }
+
         protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.UiDispatcher.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
+            this.UiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                this.SetConnectionStateAndText(e.State);
+                this.RevokeCommand.ChangeCanExecute();
+                this.CompromiseCommand.ChangeCanExecute();
+            });
             this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;
         }
 

@@ -33,7 +33,8 @@
                 </Grid>
                 <Label Text="{x:Static local:AppResources.Identity}" FontSize="Large"/>
                 <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-                <views:FlipView x:Name="IdCard" WidthRequest="400" HeightRequest="400" HorizontalOptions="Center">
+
+                <views:FlipView x:Name="IdCard" WidthRequest="380" HeightRequest="380" HorizontalOptions="Center">
                     <views:FlipView.GestureRecognizers>
                         <TapGestureRecognizer Tapped="IdCard_Tapped" />
                     </views:FlipView.GestureRecognizers>
@@ -45,22 +46,24 @@
                             HasShadow="True">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0">
-                                        <Image BackgroundColor="{StaticResource HeadingBackground}"
-                                               Aspect="AspectFill" 
-                                               Source="{Binding Path=Image}" 
-                                               IsVisible="{Binding Path=HasPhoto}"/>
-                                        <Label HorizontalOptions="Center"
-                                               VerticalOptions="Center" FontSize="42" 
-                                               TextColor="{StaticResource HeadingForeground}"
-                                               Text="{x:Static local:SolidIcons.User}"
-                                               FontFamily="{StaticResource FontAwesomeSolid}"
-                                               IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
-                                    </Grid>
-                                <Label Grid.Row="1" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Large"/>
+                                <Label Grid.Row="0" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                                <Grid Grid.Row="1">
+                                    <Image 
+                                        BackgroundColor="{StaticResource HeadingBackground}"
+                                        Aspect="AspectFill" 
+                                        Source="{Binding Path=Image}" 
+                                        IsVisible="{Binding Path=HasPhoto}"/>
+                                    <Label 
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="CenterAndExpand" FontSize="42" 
+                                        TextColor="{StaticResource HeadingForeground}"
+                                        Text="{x:Static local:SolidIcons.User}"
+                                        FontFamily="{StaticResource FontAwesomeSolid}"
+                                        IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
+                                </Grid>
                             </Grid>
                         </Frame>
                     </views:FlipView.FrontView>
@@ -72,6 +75,10 @@
                         </Frame>
                     </views:FlipView.BackView>
                 </views:FlipView>
+
+                <Button Text="{x:Static local:AppResources.ReportAsCompromized}" Command="{Binding Path=CompromiseCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
+                <Button Text="{x:Static local:AppResources.RevokeInformation}" Command="{Binding Path=RevokeCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

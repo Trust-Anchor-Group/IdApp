@@ -109,6 +109,8 @@ namespace Tag.Sdk.UI.Views
                     this.contentHolder.Children.Remove(this.frontView);
                     this.AddChild(this.frontView);
                 }
+
+                this.backView.IsVisible = false;
             }
         }
 
