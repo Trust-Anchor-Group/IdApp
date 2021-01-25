@@ -214,6 +214,12 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task PerformAction()
         {
+            if (!this.networkService.IsOnline)
+            {
+                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+                return;
+            }
+
             SetIsBusy(PerformActionCommand, SwitchModeCommand);
             try
             {

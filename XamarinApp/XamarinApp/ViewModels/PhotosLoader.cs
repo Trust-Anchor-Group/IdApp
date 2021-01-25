@@ -10,6 +10,7 @@ using Tag.Sdk.Core.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using Xamarin.Forms;
+using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels
 {
@@ -18,15 +19,22 @@ namespace XamarinApp.ViewModels
         private readonly ILogService logService;
         private readonly INetworkService networkService;
         private readonly INeuronService neuronService;
+        private readonly IImageCacheService imageCacheService;
         private readonly ObservableCollection<ImageSource> photos;
         private readonly List<string> attachmentIds;
         private DateTime loadPhotosTimestamp;
 
-        public PhotosLoader(ILogService logService, INetworkService networkService, INeuronService neuronService, ObservableCollection<ImageSource> photos)
+        public PhotosLoader(
+            ILogService logService, 
+            INetworkService networkService, 
+            INeuronService neuronService,
+            IImageCacheService imageCacheService,
+            ObservableCollection<ImageSource> photos)
         {
             this.logService = logService;
             this.networkService = networkService;
             this.neuronService = neuronService;
+            this.imageCacheService = imageCacheService;
             this.photos = photos;
             this.attachmentIds = new List<string>();
         }
@@ -66,15 +74,22 @@ namespace XamarinApp.ViewModels
 
                 try
                 {
-                    KeyValuePair<string, TemporaryFile> pair;
-
                     if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                         continue;
-                    
-                    pair = await this.neuronService.Contracts.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
+
+                    //Stream stream = await GetPhoto(attachment, now);
+                    //if (stream != null)
+                    //{
+                    //    stream.Reset();
+                    //    ImageSource imageSource = ImageSource.FromStream(() => stream);
+                    //    Device.BeginInvokeOnMainThread(() => photos.Add(imageSource));
+                    //}
+
+                    KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
 
                     if (this.loadPhotosTimestamp > now)
                     {
+                        pair.Value.Dispose();
                         return;
                     }
 
@@ -92,6 +107,35 @@ namespace XamarinApp.ViewModels
                 {
                     this.logService.LogException(ex);
                 }
+            }
+        }
+
+        private async Task<Stream> GetPhoto(Attachment attachment, DateTime now)
+        {
+            // 1. Found in cache?
+            if (this.imageCacheService.TryGet(attachment.Url, out Stream stream))
+            {
+                return stream;
+            }
+
+            // 2. Needs download
+            KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
+            if (this.loadPhotosTimestamp > now)
+            {
+                pair.Value.Dispose();
+                return null;
+            }
+
+            using (TemporaryFile file = pair.Value)
+            {
+                file.Reset();
+                MemoryStream ms = new MemoryStream();
+                await file.CopyToAsync(ms);
+                // 3. Save to cache
+                ms.Reset();
+                await this.imageCacheService.Add(attachment.Url, ms);
+                ms.Reset();
+                return ms;
             }
         }
     }

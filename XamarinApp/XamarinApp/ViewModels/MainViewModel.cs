@@ -73,10 +73,23 @@ namespace XamarinApp.ViewModels
                 {
                     this.FullName = string.Empty;
                 }
+
+                this.City = this.tagProfile.LegalIdentity[Constants.XmppProperties.City];
+                string countryCode = this.tagProfile.LegalIdentity[Constants.XmppProperties.Country];
+                if (ISO_3166_1.TryGetCountry(countryCode, out string country))
+                {
+                    this.Country = country;
+                }
+                else
+                {
+                    this.Country = string.Empty;
+                }
             }
             else
             {
                 this.FullName = string.Empty;
+                this.City = string.Empty;
+                this.Country = string.Empty;
             }
 
             // QR
@@ -133,6 +146,24 @@ namespace XamarinApp.ViewModels
             set { SetValue(FullNameProperty, value); }
         }
 
+        public static readonly BindableProperty CityProperty =
+            BindableProperty.Create("City", typeof(string), typeof(MainViewModel), default(string));
+
+        public string City
+        {
+            get { return (string)GetValue(CityProperty); }
+            set { SetValue(CityProperty, value); }
+        }
+
+        public static readonly BindableProperty CountryProperty =
+            BindableProperty.Create("Country", typeof(string), typeof(MainViewModel), default(string));
+
+        public string Country
+        {
+            get { return (string)GetValue(CountryProperty); }
+            set { SetValue(CountryProperty, value); }
+        }
+
         public static readonly BindableProperty QrCodeProperty =
             BindableProperty.Create("QrCode", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -156,7 +187,7 @@ namespace XamarinApp.ViewModels
         }
 
         public static readonly BindableProperty QrCodeWidthProperty =
-            BindableProperty.Create("QrCodeWidth", typeof(int), typeof(MainViewModel), 350);
+            BindableProperty.Create("QrCodeWidth", typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageWidth);
 
         public int QrCodeWidth
         {
@@ -165,7 +196,7 @@ namespace XamarinApp.ViewModels
         }
 
         public static readonly BindableProperty QrCodeHeightProperty =
-            BindableProperty.Create("QrCodeHeight", typeof(int), typeof(MainViewModel), 350);
+            BindableProperty.Create("QrCodeHeight", typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageHeight);
 
         public int QrCodeHeight
         {

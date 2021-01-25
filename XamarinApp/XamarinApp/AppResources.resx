@@ -399,6 +399,9 @@
   <data name="Network" xml:space="preserve">
     <value>Network</value>
   </data>
+  <data name="NetworkSeemsToBeMissing" xml:space="preserve">
+    <value>Network seems to be missing. Please check your configuration and coverage and try again.</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
   </data>
@@ -555,6 +558,9 @@
   <data name="Purpose" xml:space="preserve">
     <value>Purpose</value>
   </data>
+  <data name="QrCodeNotUnderstood" xml:space="preserve">
+    <value>Code not understood</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Enter manually</value>
   </data>
@@ -614,6 +620,9 @@
   </data>
   <data name="RolesInfoText" xml:space="preserve">
     <value>Below you can see the different roles defined for the contract. If more than one part is assumed for a role, this number will be shown in the description of the role.</value>
+  </data>
+  <data name="ScannedQrCode" xml:space="preserve">
+    <value>Scanned QR Code</value>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
     <value>Scan QR Code</value>

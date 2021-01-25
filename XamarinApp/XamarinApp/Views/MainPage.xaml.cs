@@ -5,10 +5,8 @@ using Tag.Sdk.Core.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XamarinApp.Navigation;
 using XamarinApp.Services;
 using XamarinApp.ViewModels;
-using XamarinApp.Views.Contracts;
 
 namespace XamarinApp.Views
 {
@@ -42,74 +40,9 @@ namespace XamarinApp.Views
             this.navigationService = DependencyService.Resolve<INavigationService>();
         }
 
-        private async void ViewIdentityButton_Clicked(object sender, EventArgs e)
-        {
-            await this.navigationService.GoToAsync(nameof(ViewIdentityPage));
-        }
-
         private void IdCard_Tapped(object sender, EventArgs e)
         {
             this.IdCard.Flip();
-        }
-
-        private async void ScanQrCodeButton_Clicked(object sender, EventArgs e)
-        {
-            string code = await ScanQrCodePage.ScanQrCode(this.navigationService, AppResources.Open);
-
-            if (string.IsNullOrWhiteSpace(code))
-                return;
-
-            try
-            {
-                Uri uri = new Uri(code);
-
-                switch (uri.Scheme.ToLower())
-                {
-                    case Constants.IoTSchemes.IotId:
-                        string legalId = Constants.IoTSchemes.GetCode(code);
-                        await this.contractOrchestratorService.OpenLegalIdentity(legalId, "Scanned QR Code");
-                        break;
-
-                    case Constants.IoTSchemes.IotSc:
-                        string contractId = Constants.IoTSchemes.GetCode(code);
-                        await this.contractOrchestratorService.OpenContract(contractId, "Scanned QR Code");
-                        break;
-
-                    case Constants.IoTSchemes.IotDisco:
-                        // TODO handle discovery scheme here.
-                        break;
-
-                    default:
-                        if (!await Launcher.TryOpenAsync(uri))
-                            await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"Code not understood:{Environment.NewLine}{Environment.NewLine}" + code);
-                        break;
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logService.LogException(ex);
-                await this.uiDispatcher.DisplayAlert(ex);
-            }
-        }
-
-        private async void CreatedContractsButton_Clicked(object sender, EventArgs e)
-        {
-            await this.navigationService.GoToAsync(nameof(MyContractsPage));
-        }
-
-        private async void SignedContractsButton_Clicked(object sender, EventArgs e)
-        {
-            await this.navigationService.GoToAsync(nameof(SignedContractsPage));
-        }
-
-        private async void NewContractButton_Clicked(object sender, EventArgs e)
-        {
-            await this.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(ContractTypesPerCategory));
-        }
-
-        private async void XmppCommunicationButton_Clicked(object sender, EventArgs e)
-        {
-            await this.navigationService.GoToAsync(nameof(XmppCommunicationPage));
         }
     }
 }

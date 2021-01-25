@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Sdk.Core;
@@ -21,7 +19,9 @@ namespace XamarinApp.ViewModels.Registration
 {
     public class RegisterIdentityViewModel : RegistrationStepViewModel
     {
-        private readonly Dictionary<string, LegalIdentityAttachment> photos;
+        private const string ProfilePhotoFileName = "ProfilePhoto.jpg";
+        private readonly string localPhotoFileName;
+        private LegalIdentityAttachment photo;
         private readonly INetworkService networkService;
 
         public RegisterIdentityViewModel(
@@ -45,9 +45,9 @@ namespace XamarinApp.ViewModels.Registration
             this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
             this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
             this.RemovePhotoCommand = new Command(_ => RemovePhoto());
-            this.photos = new Dictionary<string, LegalIdentityAttachment>();
             this.Title = AppResources.PersonalLegalInformation;
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+            this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
         }
 
         protected override async Task DoBind()
@@ -286,7 +286,7 @@ namespace XamarinApp.ViewModels.Registration
             (bool succeeded, string filePath) = await SavePhotoToDisc(photo);
             if (succeeded)
             {
-                await AddPhoto(filePath);
+                await AddPhoto(filePath, true);
             }
         }
 
@@ -303,7 +303,7 @@ namespace XamarinApp.ViewModels.Registration
             (bool succeeded, string filePath) = await SavePhotoToDisc(photo);
             if (succeeded)
             {
-                await AddPhoto(filePath);
+                await AddPhoto(filePath, true);
             }
         }
 
@@ -333,7 +333,7 @@ namespace XamarinApp.ViewModels.Registration
             return (photo != null, fullFileName);
         }
 
-        private async Task AddPhoto(string filePath)
+        private async Task AddPhoto(string filePath, bool saveLocalCopy)
         {
             MemoryStream ms = new MemoryStream();
             using (Stream f = File.OpenRead(filePath))
@@ -341,7 +341,13 @@ namespace XamarinApp.ViewModels.Registration
                 f.CopyTo(ms);
             }
             ms.Reset();
+
             byte[] bytes = ms.ToArray();
+
+            if (saveLocalCopy)
+            {
+                File.WriteAllBytes(localPhotoFileName, bytes);
+            }
 
             if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
@@ -351,8 +357,7 @@ namespace XamarinApp.ViewModels.Registration
             }
 
             RemovePhoto();
-            string photoId = Guid.NewGuid().ToString();
-            this.photos[photoId] = new LegalIdentityAttachment(filePath, Constants.MimeTypes.Jpeg, bytes);
+            this.photo = new LegalIdentityAttachment(filePath, Constants.MimeTypes.Jpeg, bytes);
             ms.Reset();
             Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
             RegisterCommand.ChangeCanExecute();
@@ -360,8 +365,19 @@ namespace XamarinApp.ViewModels.Registration
 
         private void RemovePhoto()
         {
-            this.photos.Clear();
-            Image = null;
+            try
+            {
+                this.photo = null;
+                Image = null;
+                if (File.Exists(this.localPhotoFileName))
+                {
+                    File.Delete(this.localPhotoFileName);
+                }
+            }
+            catch (Exception e)
+            {
+                this.LogService.LogException(e);
+            }
         }
 
         private async Task Register()
@@ -405,7 +421,8 @@ namespace XamarinApp.ViewModels.Registration
 
             try
             {
-                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.AddLegalIdentityAsync, CreateRegisterModel(), this.photos.Values.ToArray());
+                LegalIdentityAttachment[] photos = { photo };
+                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.AddLegalIdentityAsync, CreateRegisterModel(), photos);
                 if (succeeded)
                 {
                     this.LegalIdentity = addedIdentity;
@@ -515,7 +532,7 @@ namespace XamarinApp.ViewModels.Registration
                 return false;
             }
 
-            if (this.photos.Count <= 0)
+            if (this.photo == null)
             {
                 if (alertUser)
                 {
@@ -557,6 +574,17 @@ namespace XamarinApp.ViewModels.Registration
             this.City = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(City)));
             this.ZipCode = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ZipCode)));
             this.Region = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Region)));
+            try
+            {
+                if (File.Exists(this.localPhotoFileName))
+                {
+                    await this.AddPhoto(this.localPhotoFileName, false);
+                }
+            }
+            catch (Exception e)
+            {
+                this.LogService.LogException(e);
+            }
             await base.DoRestoreState();
         }
 

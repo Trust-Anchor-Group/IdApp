@@ -536,7 +536,7 @@ namespace XamarinApp.ViewModels.Contracts
         private async Task AddPart()
         {
             this.saveState = true;
-            string code = await ScanQrCodePage.ScanQrCode(this.navigationService, AppResources.Add);
+            string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
             this.saveState = false;
             this.DeleteState();
             string id = Constants.IoTSchemes.GetCode(code);

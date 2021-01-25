@@ -23,6 +23,7 @@ namespace XamarinApp
     {
         private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
+        private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly INavigationOrchestratorService navigationOrchestratorService;
         private readonly bool keepRunningInTheBackground = false;
@@ -48,6 +49,7 @@ namespace XamarinApp
                 builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
                 builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
                 builder.RegisterInstance(this.sdk.NavigationService).SingleInstance();
+                builder.RegisterType<ImageCacheService>().As<IImageCacheService>().SingleInstance();
                 builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
                 builder.RegisterType<NavigationOrchestratorService>().As<INavigationOrchestratorService>().SingleInstance();
                 IContainer container = builder.Build();
@@ -55,6 +57,7 @@ namespace XamarinApp
                 DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
                 // Resolve what's needed for the App class
+                this.imageCacheService = DependencyService.Resolve<IImageCacheService>();
                 this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
                 this.navigationOrchestratorService = DependencyService.Resolve<INavigationOrchestratorService>();
             }
@@ -114,6 +117,7 @@ namespace XamarinApp
 
             await this.sdk.Startup(isResuming);
 
+            await this.imageCacheService.Load(isResuming);
             await this.contractOrchestratorService.Load(isResuming);
             await this.navigationOrchestratorService.Load(isResuming);
 

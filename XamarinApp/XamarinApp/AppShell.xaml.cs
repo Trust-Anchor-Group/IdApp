@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using XamarinApp.Services;
 using XamarinApp.ViewModels;
 using XamarinApp.Views;
 using XamarinApp.Views.Contracts;
@@ -12,11 +15,17 @@ namespace XamarinApp
     public partial class AppShell
     {
         private readonly INavigationService navigationService;
+        private readonly ILogService logService;
+        private readonly IUiDispatcher uiDispatcher;
+        private readonly IContractOrchestratorService contractOrchestratorService;
 
         public AppShell()
         {
             this.ViewModel = new AppShellViewModel();
             this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.logService = DependencyService.Resolve<ILogService>();
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
+            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             InitializeComponent();
             SetTabBarIsVisible(this, false);
             RegisterRoutes();
@@ -53,7 +62,42 @@ namespace XamarinApp
 
         private async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
         {
-            await this.GoToPage(nameof(ScanQrCodePage));
+            string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Open);
+
+            if (string.IsNullOrWhiteSpace(code))
+                return;
+
+            try
+            {
+                Uri uri = new Uri(code);
+
+                switch (uri.Scheme.ToLower())
+                {
+                    case Constants.IoTSchemes.IotId:
+                        string legalId = Constants.IoTSchemes.GetCode(code);
+                        await this.contractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
+                        break;
+
+                    case Constants.IoTSchemes.IotSc:
+                        string contractId = Constants.IoTSchemes.GetCode(code);
+                        await this.contractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
+                        break;
+
+                    case Constants.IoTSchemes.IotDisco:
+                        // TODO handle discovery scheme here.
+                        break;
+
+                    default:
+                        if (!await Launcher.TryOpenAsync(uri))
+                            await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{code}");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
+            }
         }
 
         private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)

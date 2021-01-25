@@ -8,11 +8,6 @@
     <ContentView.Content>
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}">
-                <StackLayout.Resources>
-                    <Style TargetType="Label" x:Key="ValueLabel">
-                        <Setter Property="FontAttributes" Value="Bold"/>
-                    </Style>
-                </StackLayout.Resources>
                 <Label Text="{x:Static local:AppResources.ValidateIdentityInfo1Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
                 <Label Text="{x:Static local:AppResources.ValidateIdentityInfo2Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
                 <Label Text="{x:Static local:AppResources.ValidateIdentityInfo3Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />

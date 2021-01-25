@@ -9,6 +9,7 @@ using Tag.Sdk.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Navigation;
+using XamarinApp.Services;
 
 namespace XamarinApp.ViewModels.Contracts
 {
@@ -35,7 +36,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
         }
 
         protected override async Task DoBind()

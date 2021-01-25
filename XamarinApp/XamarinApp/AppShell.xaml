@@ -61,7 +61,7 @@
     <!-- The 'loading' page, always displayed first on startup -->
     <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="Init" IsEnabled="True" IsVisible="False">
         <ShellContent>
-            <views:InitPage />
+            <views:LoadingPage />
         </ShellContent>
     </FlyoutItem>
 

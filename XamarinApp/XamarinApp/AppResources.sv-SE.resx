@@ -399,6 +399,9 @@
   <data name="Network" xml:space="preserve">
     <value>Nätverk</value>
   </data>
+  <data name="NetworkSeemsToBeMissing" xml:space="preserve">
+    <value>Nätverk verkar saknas. Vänligen kolla din telefon-konfiguration och täckning och försök igen.</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
   </data>
@@ -555,6 +558,9 @@
   <data name="Purpose" xml:space="preserve">
     <value>Syfte</value>
   </data>
+  <data name="QrCodeNotUnderstood" xml:space="preserve">
+    <value>Koden kunde ej förstås</value>
+  </data>
   <data name="QrEnterManually" xml:space="preserve">
     <value>Ange manuellt</value>
   </data>
@@ -614,6 +620,9 @@
   </data>
   <data name="RolesInfoText" xml:space="preserve">
     <value>Nedan ser du de olika rollerna som är definierade för kontraktet. Om mer än en del är antagen för rollen visas det numret i rollens beskrivning.</value>
+  </data>
+  <data name="ScannedQrCode" xml:space="preserve">
+    <value>Skannad QR-kod</value>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
     <value>Scanna QR-kod</value>

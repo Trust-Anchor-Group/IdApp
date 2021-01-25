@@ -78,6 +78,21 @@
                CanCascade="True">
             <Setter Property="TextColor" Value="{StaticResource ForegroundColor}" />
         </Style>
+        <Style TargetType="Label" x:Key="ValueLabel">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="KeyLabel">
+            <Setter Property="MinimumWidthRequest" Value="400"/>
+            <Setter Property="LineBreakMode" Value="NoWrap"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="InfoText">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
         <Style TargetType="Entry"
                ApplyToDerivedTypes="True"
                CanCascade="True">

@@ -5,12 +5,12 @@ using XamarinApp.ViewModels;
 namespace XamarinApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class InitPage
+    public partial class LoadingPage
     {
-        public InitPage()
+        public LoadingPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            ViewModel = new InitViewModel();
+            ViewModel = new LoadingViewModel();
             InitializeComponent();
         }
 

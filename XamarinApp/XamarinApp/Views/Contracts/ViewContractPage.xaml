@@ -19,20 +19,6 @@
                         x:Key="ContractHumanReadableTextTemplateSelector"
                         HumanReadableText1="{StaticResource ContractHumanReadableText1Template}" />
 
-                    <Style TargetType="Label" x:Key="ValueLabel">
-                        <Setter Property="FontAttributes" Value="Bold"/>
-                        <Setter Property="LineBreakMode" Value="WordWrap"/>
-                    </Style>
-                    <Style TargetType="Label" x:Key="KeyLabel">
-                        <Setter Property="MinimumWidthRequest" Value="100"/>
-                        <Setter Property="LineBreakMode" Value="NoWrap"/>
-                    </Style>
-                    <Style TargetType="Label" x:Key="InfoText">
-                        <Setter Property="HorizontalOptions" Value="Center"/>
-                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-                        <Setter Property="FontSize" Value="Medium"/>
-                    </Style>
-
                 </ResourceDictionary>
             </StackLayout.Resources>
 

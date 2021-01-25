@@ -48,6 +48,8 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                                 <Grid Grid.Row="1">
@@ -64,13 +66,20 @@
                                         FontFamily="{StaticResource FontAwesomeSolid}"
                                         IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
                                 </Grid>
+                                <Label Grid.Row="2" Text="{Binding Path=City}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Start" FontSize="Medium"/>
+                                <Label Grid.Row="3" Text="{Binding Path=Country}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Start" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                             </Grid>
                         </Frame>
                     </views:FlipView.FrontView>
                     <views:FlipView.BackView>
                         <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" CornerRadius="2" IsClippedToBounds="True">
                             <Grid>
-                                <Image x:Name="QrCode" BackgroundColor="{StaticResource HeadingBackground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Center" Margin="0" />
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Image x:Name="QrCode" Grid.Row="0" BackgroundColor="{StaticResource HeadingBackground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start" Margin="0" />
+                                <StackLayout></StackLayout>
                             </Grid>
                         </Frame>
                     </views:FlipView.BackView>

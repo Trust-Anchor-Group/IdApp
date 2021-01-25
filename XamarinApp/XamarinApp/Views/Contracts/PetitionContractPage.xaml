@@ -10,14 +10,6 @@
             <Label Text="{x:Static local:AppResources.Petition}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource Heading}" />
             <Label Text="{x:Static local:AppResources.PetitionContractInformationText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">
-                <TableView.Resources>
-                    <Style TargetType="Label" x:Key="ValueLabel">
-                        <Setter Property="FontAttributes" Value="Bold"/>
-                    </Style>
-                    <Style TargetType="Label" x:Key="KeyLabel">
-                        <Setter Property="MinimumWidthRequest" Value="100"/>
-                    </Style>
-                </TableView.Resources>
                 <TableView.Root>
                     <TableSection>
                         <ViewCell>

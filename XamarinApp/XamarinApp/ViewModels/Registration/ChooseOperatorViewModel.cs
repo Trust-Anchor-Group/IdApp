@@ -82,6 +82,12 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task Connect()
         {
+            if (!this.networkService.IsOnline)
+            {
+                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+                return;
+            }
+
             SetIsBusy(ConnectCommand);
 
             try

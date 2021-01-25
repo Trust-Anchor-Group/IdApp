@@ -41,7 +41,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService, this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
             this.DisplayPartCommand = new Command<string>(async legalId => await ShowLegalId(legalId));
             this.SignPartAsRoleCommand = new Command<string>(async roleId => await SignContract(roleId));
             this.DisplayClientSignatureCommand = new Command<string>(async sign => await ShowClientSignature(sign));
@@ -198,7 +198,7 @@ namespace XamarinApp.ViewModels.Contracts
         }
 
         public static readonly BindableProperty QrCodeWidthProperty =
-            BindableProperty.Create("QrCodeWidth", typeof(int), typeof(ViewContractViewModel), 350);
+            BindableProperty.Create("QrCodeWidth", typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageWidth);
 
         public int QrCodeWidth
         {
@@ -207,7 +207,7 @@ namespace XamarinApp.ViewModels.Contracts
         }
 
         public static readonly BindableProperty QrCodeHeightProperty =
-            BindableProperty.Create("QrCodeHeight", typeof(int), typeof(ViewContractViewModel), 350);
+            BindableProperty.Create("QrCodeHeight", typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageHeight);
 
         public int QrCodeHeight
         {

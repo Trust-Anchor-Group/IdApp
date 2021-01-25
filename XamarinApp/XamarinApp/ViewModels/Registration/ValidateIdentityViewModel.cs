@@ -11,6 +11,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Extensions;
+using XamarinApp.Services;
 using XamarinApp.Views;
 
 namespace XamarinApp.ViewModels.Registration
@@ -35,7 +36,7 @@ namespace XamarinApp.ViewModels.Registration
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, this.Photos);
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
         }
 
         protected override async Task DoBind()
@@ -387,7 +388,7 @@ namespace XamarinApp.ViewModels.Registration
 
         private async Task InviteReviewer()
         {
-            string code = await ScanQrCodePage.ScanQrCode(this.NavigationService, AppResources.Open);
+            string code = await QrCode.ScanQrCode(this.NavigationService, AppResources.Open);
 
             if (!Constants.IoTSchemes.StartsWithIdScheme(code))
             {

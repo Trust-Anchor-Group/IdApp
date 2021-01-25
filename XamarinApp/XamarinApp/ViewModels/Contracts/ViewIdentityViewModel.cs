@@ -12,6 +12,7 @@ using Tag.Sdk.UI.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using XamarinApp.Navigation;
+using XamarinApp.Services;
 using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels.Contracts
@@ -43,7 +44,7 @@ namespace XamarinApp.ViewModels.Contracts
             this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
             this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
         }
 
         protected override async Task DoBind()
@@ -422,7 +423,7 @@ namespace XamarinApp.ViewModels.Contracts
         }
 
         public static readonly BindableProperty QrCodeWidthProperty =
-            BindableProperty.Create("QrCodeWidth", typeof(int), typeof(ViewIdentityViewModel), 350);
+            BindableProperty.Create("QrCodeWidth", typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageWidth);
 
         public int QrCodeWidth
         {
@@ -431,7 +432,7 @@ namespace XamarinApp.ViewModels.Contracts
         }
 
         public static readonly BindableProperty QrCodeHeightProperty =
-            BindableProperty.Create("QrCodeHeight", typeof(int), typeof(ViewIdentityViewModel), 350);
+            BindableProperty.Create("QrCodeHeight", typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageHeight);
 
         public int QrCodeHeight
         {

@@ -10,7 +10,7 @@ using XamarinApp.Views.Registration;
 
 namespace XamarinApp.ViewModels
 {
-    public class InitViewModel : NeuronViewModel
+    public class LoadingViewModel : NeuronViewModel
     {
         private readonly ITagProfile tagProfile;
         private readonly INavigationService navigationService;
@@ -19,7 +19,7 @@ namespace XamarinApp.ViewModels
         /// </summary>
         private bool ignoreNeuronLoadedEvent;
 
-        public InitViewModel()
+        public LoadingViewModel()
         : base(DependencyService.Resolve<INeuronService>(), DependencyService.Resolve<IUiDispatcher>())
         {
             this.tagProfile = DependencyService.Resolve<ITagProfile>();
@@ -46,7 +46,7 @@ namespace XamarinApp.ViewModels
         #region Properties
 
         public static readonly BindableProperty DisplayConnectionTextProperty =
-            BindableProperty.Create("DisplayConnectionText", typeof(bool), typeof(InitViewModel), default(bool));
+            BindableProperty.Create("DisplayConnectionText", typeof(bool), typeof(LoadingViewModel), default(bool));
 
         public bool DisplayConnectionText
         {

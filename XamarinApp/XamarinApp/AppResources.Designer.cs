@@ -907,6 +907,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Network seems to be missing. Please check your configuration and coverage and try again..
+        /// </summary>
+        internal static string NetworkSeemsToBeMissing {
+            get {
+                return ResourceManager.GetString("NetworkSeemsToBeMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neuron.
         /// </summary>
         internal static string Neuron {
@@ -1375,6 +1384,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code not understood.
+        /// </summary>
+        internal static string QrCodeNotUnderstood {
+            get {
+                return ResourceManager.GetString("QrCodeNotUnderstood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter manually.
         /// </summary>
         internal static string QrEnterManually {
@@ -1551,6 +1569,15 @@ namespace XamarinApp {
         internal static string RolesInfoText {
             get {
                 return ResourceManager.GetString("RolesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanned QR Code.
+        /// </summary>
+        internal static string ScannedQrCode {
+            get {
+                return ResourceManager.GetString("ScannedQrCode", resourceCulture);
             }
         }
         

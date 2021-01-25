@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Tag.Sdk.Core;
 using Tag.Sdk.Core.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using XamarinApp.Navigation;
 using XamarinApp.ViewModels;
 using ZXing;
 
@@ -29,12 +27,6 @@ namespace XamarinApp.Views
             InitializeComponent();
         }
 
-        public string OpenCommandText
-        {
-            get => GetViewModel<ScanQrCodeViewModel>().OpenCommandText;
-            set => GetViewModel<ScanQrCodeViewModel>().OpenCommandText = value;
-        }
-
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -46,19 +38,6 @@ namespace XamarinApp.Views
             GetViewModel<ScanQrCodeViewModel>().ModeChanged -= ViewModel_ModeChanged;
             base.OnDisappearing();
         }
-
-        #region Scanning
-
-        static TaskCompletionSource<string> qrCodeScanned;
-
-        public static Task<string> ScanQrCode(INavigationService navigationService, string commandName)
-        {
-            _ = navigationService.GoToAsync(nameof(ScanQrCodePage), new ScanQrCodeNavigationArgs(commandName));
-            qrCodeScanned = new TaskCompletionSource<string>();
-            return qrCodeScanned.Task;
-        }
-
-        #endregion
 
         private void ViewModel_ModeChanged(object sender, EventArgs e)
         {
@@ -74,7 +53,7 @@ namespace XamarinApp.Views
             {
                 string code = result.Text;
                 GetViewModel<ScanQrCodeViewModel>().Code = code;
-                TrySetResultAndClosePage(code);
+                QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, code);
             }
         }
 
@@ -105,22 +84,12 @@ namespace XamarinApp.Views
                 return;
             }
 
-            TrySetResultAndClosePage(code);
-        }
-
-        private void TrySetResultAndClosePage(string code)
-        {
-            if (!string.IsNullOrWhiteSpace(code) && qrCodeScanned != null)
-            {
-                qrCodeScanned.TrySetResult(code);
-                qrCodeScanned = null;
-            }
-            this.uiDispatcher.BeginInvokeOnMainThread(async () => await this.navigationService.GoBackAsync());
+            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, code);
         }
 
         protected override bool OnBackButtonPressed()
         {
-            TrySetResultAndClosePage(string.Empty);
+            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, string.Empty);
             return true;
         }
     }
