@@ -1,9 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Xml;
-using System.Xml.Linq;
 using Waher.Networking.Sniffers;
-using Waher.Networking.Sniffers.Model;
 
 namespace Tag.Sdk.Core.Extensions
 {
@@ -25,50 +24,16 @@ namespace Tag.Sdk.Core.Extensions
             return sb.ToString();
         }
 
-        public static string SnifferLatestToText(this InMemorySniffer sniffer)
-        {
-            if (sniffer == null)
-                return string.Empty;
-
-            StringBuilder sb = new StringBuilder();
-
-            SnifferEvent lastEvent = null;
-            using (var e = sniffer.GetEnumerator())
-            {
-                while (e.MoveNext())
-                {
-                    if (e.Current is SnifferRxText)
-                        lastEvent = e.Current;
-                }
-            }
-
-            SnifferRxText rxText = lastEvent as SnifferRxText;
-            if (rxText != null)
-            {
-                XmlReaderSettings settings = new XmlReaderSettings();
-                settings.ConformanceLevel = ConformanceLevel.Fragment;
-
-                using (StringReader stringReader = new StringReader(rxText.Text))
-                using (XmlReader reader = XmlReader.Create(stringReader, settings))
-                {
-                    XDocument doc = XDocument.Load(reader);
-                    if (doc.Root != null)
-                        sb.AppendLine(doc.Root.Value);
-                }
-            }
-
-            return sb.ToString();
-        }
-
         public static string SnifferToXml(this InMemorySniffer sniffer)
         {
             XmlWriterSettings settings = new XmlWriterSettings()
             {
                 Encoding = Encoding.UTF8,
                 Indent = true,
-                IndentChars = "\t",
-                NewLineChars = "\r\n",
-                NewLineHandling = NewLineHandling.Entitize,
+                IndentChars = "  ",
+                ConformanceLevel = ConformanceLevel.Auto,
+                NewLineChars = Environment.NewLine,
+                NewLineHandling = NewLineHandling.Replace,
                 NewLineOnAttributes = false
             };
 

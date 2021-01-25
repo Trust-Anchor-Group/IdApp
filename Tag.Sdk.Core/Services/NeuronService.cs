@@ -676,6 +676,7 @@ namespace Tag.Sdk.Core.Services
 
                 string xml = this.sniffer.SnifferToXml();
 
+                xml = $"<SnifferOutput>{xml}</SnifferOutput>";
                 var doc = new XmlDocument();
                 doc.LoadXml(xml);
 
