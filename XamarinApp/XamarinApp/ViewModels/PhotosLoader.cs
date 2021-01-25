@@ -81,7 +81,7 @@ namespace XamarinApp.ViewModels
                     //if (stream != null)
                     //{
                     //    stream.Reset();
-                    //    ImageSource imageSource = ImageSource.FromStream(() => stream);
+                    //    ImageSource imageSource = ImageSource.FromStream(() => stream); // Disposes the stream
                     //    Device.BeginInvokeOnMainThread(() => photos.Add(imageSource));
                     //}
 
