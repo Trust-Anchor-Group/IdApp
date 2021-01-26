@@ -7,3 +7,4 @@ using Xamarin.Forms.Xaml;
 [assembly: NeutralResourcesLanguage("en-US")]
 
 [assembly: InternalsVisibleTo("XamarinApp.Tests")]
+[assembly: InternalsVisibleTo("Tag.Neuron.Xamarin.UI.Tests")]

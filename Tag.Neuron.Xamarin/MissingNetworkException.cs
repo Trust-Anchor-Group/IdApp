@@ -1,0 +1,21 @@
+﻿using System;
+
+namespace Tag.Neuron.Xamarin
+{
+    public class MissingNetworkException : Exception
+    {
+        public MissingNetworkException()
+        {
+        }
+
+        public MissingNetworkException(string message)
+        : base(message)
+        {
+        }
+
+        public MissingNetworkException(string message, Exception innerException)
+        : base(message, innerException)
+        {
+        }
+    }
+}

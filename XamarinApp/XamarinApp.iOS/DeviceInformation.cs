@@ -1,4 +1,4 @@
-﻿using Tag.Sdk.Core;
+﻿using Tag.Neuron.Xamarin;
 using Xamarin.Forms;
 using UIKit;
 

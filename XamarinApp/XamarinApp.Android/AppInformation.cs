@@ -1,5 +1,5 @@
 ﻿using Android.App;
-using Tag.Sdk.Core;
+using Tag.Neuron.Xamarin;
 
 [assembly: Xamarin.Forms.Dependency(typeof(XamarinApp.Droid.AppInformation))]
 namespace XamarinApp.Droid

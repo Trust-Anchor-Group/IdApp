@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Sdk.Core;
-using Tag.Sdk.Core.Services;
-using Tag.Sdk.UI.Extensions;
+using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.Extensions;
 using Xamarin.Forms;
 
 namespace XamarinApp.ViewModels.Registration

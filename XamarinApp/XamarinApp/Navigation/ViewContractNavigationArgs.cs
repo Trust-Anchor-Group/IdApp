@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Tag.Sdk.Core.Services;
+﻿using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 
 namespace XamarinApp.Navigation

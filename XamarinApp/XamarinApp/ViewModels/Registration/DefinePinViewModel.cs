@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Sdk.Core;
-using Tag.Sdk.Core.Services;
-using Tag.Sdk.UI.Extensions;
+using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using XamarinApp.Extensions;

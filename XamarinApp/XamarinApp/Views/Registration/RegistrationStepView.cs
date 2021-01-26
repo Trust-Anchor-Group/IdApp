@@ -1,5 +1,5 @@
 ﻿using System.Windows.Input;
-using Tag.Sdk.UI.Views;
+using Tag.Neuron.Xamarin.UI.Views;
 using Xamarin.Forms;
 
 namespace XamarinApp.Views.Registration

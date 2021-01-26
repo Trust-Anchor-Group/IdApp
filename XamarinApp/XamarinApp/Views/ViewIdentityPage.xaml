@@ -2,7 +2,7 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
-             xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
              xmlns:converters="clr-namespace:XamarinApp.Converters;assembly=XamarinApp"
              x:Class="XamarinApp.Views.ViewIdentityPage"
              Title="{x:Static local:AppResources.Identity}">

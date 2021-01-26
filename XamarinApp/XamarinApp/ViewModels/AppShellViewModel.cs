@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Tag.Sdk.Core;
-using Tag.Sdk.Core.Services;
-using Tag.Sdk.UI.ViewModels;
+using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;

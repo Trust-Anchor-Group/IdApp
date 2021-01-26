@@ -2,9 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Sdk.Core;
-using Tag.Sdk.Core.Services;
-using Tag.Sdk.UI.ViewModels;
+using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using XamarinApp.Views;
@@ -24,7 +24,15 @@ namespace XamarinApp.ViewModels.Registration
         }
 
         // For unit tests
-        protected internal RegistrationViewModel(ITagProfile tagProfile, IUiDispatcher uiDispatcher, ISettingsService settingsService, INeuronService neuronService, IAuthService authService, INavigationService navigationService, INetworkService networkService, ILogService logService)
+        protected internal RegistrationViewModel(
+            ITagProfile tagProfile,
+            IUiDispatcher uiDispatcher, 
+            ISettingsService settingsService, 
+            INeuronService neuronService, 
+            IAuthService authService, 
+            INavigationService navigationService,
+            INetworkService networkService, 
+            ILogService logService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Tag.Sdk.Core.Services;
+using Tag.Neuron.Xamarin.Services;
 
 namespace XamarinApp.Services
 {

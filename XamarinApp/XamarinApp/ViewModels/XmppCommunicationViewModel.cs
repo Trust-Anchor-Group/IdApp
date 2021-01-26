@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Sdk.Core.Services;
-using Tag.Sdk.UI.ViewModels;
+using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.ViewModels;
 using Xamarin.Forms;
 
 namespace XamarinApp.ViewModels

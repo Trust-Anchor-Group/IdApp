@@ -56,11 +56,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Tag.Sdk.Core\Tag.Sdk.Core.csproj" />
-    <ProjectReference Include="..\..\Tag.Sdk.UI\Tag.Sdk.UI.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -127,6 +122,11 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
     <_Parameter1>Tag.Sdk.UI.Tests</_Parameter1>
     </AssemblyAttribute>
+</ItemGroup>
+
+<ItemGroup>
+  <ProjectReference Include="..\..\Tag.Neuron.Xamarin.UI\Tag.Neuron.Xamarin.UI.csproj" />
+  <ProjectReference Include="..\..\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.csproj" />
 </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

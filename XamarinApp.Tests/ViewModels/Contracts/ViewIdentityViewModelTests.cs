@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using Tag.Sdk.Core;
-using Tag.Sdk.Core.Services;
-using Tag.Sdk.UI.Tests;
-using Tag.Sdk.UI.Tests.Extensions;
-using Tag.Sdk.UI.Tests.ViewModels;
+using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.Tests;
+using Tag.Neuron.Xamarin.UI.Tests.Extensions;
+using Tag.Neuron.Xamarin.UI.Tests.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.ViewModels.Contracts;
 using XamarinApp.Views.Registration;

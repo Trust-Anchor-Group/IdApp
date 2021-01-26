@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Tag.Sdk.Core.Services;
+using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
 using XamarinApp.ViewModels.Contracts;
 

@@ -1,4 +1,4 @@
-﻿using Tag.Sdk.Core.Services;
+﻿using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinApp.ViewModels.Contracts;

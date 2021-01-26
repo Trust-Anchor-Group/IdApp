@@ -1,12 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Sdk.Core;
-using Tag.Sdk.Core.Services;
-using Tag.Sdk.UI.Extensions;
+using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
@@ -476,7 +474,7 @@ namespace XamarinApp.ViewModels.Registration
         {
             this.CreateNewAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(CreateNewAccountName)));
             this.ConnectToExistingAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ConnectToExistingAccountName)));
-            this.CreateRandomPassword = this.SettingsService.RestoreState<bool>(GetSettingsKey(nameof(CreateRandomPassword)), true);
+            this.CreateRandomPassword = this.SettingsService.RestoreState(GetSettingsKey(nameof(CreateRandomPassword)), true);
             await base.DoRestoreState();
         }
     }

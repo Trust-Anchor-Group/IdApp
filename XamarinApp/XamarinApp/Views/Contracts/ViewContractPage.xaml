@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:XamarinApp;assembly=XamarinApp"
              xmlns:converters="clr-namespace:XamarinApp.Converters;assembly=XamarinApp"
              xmlns:contracts="clr-namespace:XamarinApp.Views.Contracts;assembly=XamarinApp"
-             xmlns:views="clr-namespace:Tag.Sdk.UI.Views;assembly=Tag.Sdk.UI"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
              x:Class="XamarinApp.Views.Contracts.ViewContractPage"
              Title="{x:Static local:AppResources.ViewContract}">
     <ScrollView>

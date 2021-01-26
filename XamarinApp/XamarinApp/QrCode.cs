@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Tag.Sdk.Core;
-using Tag.Sdk.Core.Services;
+using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Services;
 using XamarinApp.Navigation;
 using XamarinApp.Views;
 

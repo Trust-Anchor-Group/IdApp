@@ -4,8 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Tag.Sdk.Core.Extensions;
-using Tag.Sdk.Core.Services;
+using Tag.Neuron.Xamarin.Extensions;
+using Tag.Neuron.Xamarin.Services;
 
 namespace XamarinApp.Services
 {

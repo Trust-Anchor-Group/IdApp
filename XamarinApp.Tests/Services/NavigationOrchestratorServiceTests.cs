@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
-using Tag.Sdk.Core.Models;
-using Tag.Sdk.Core.Services;
+using Tag.Neuron.Xamarin.Models;
+using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using XamarinApp.Services;

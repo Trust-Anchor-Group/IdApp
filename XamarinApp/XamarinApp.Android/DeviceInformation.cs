@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.Provider;
-using Tag.Sdk.Core;
+using Tag.Neuron.Xamarin;
 
 [assembly:Xamarin.Forms.Dependency(typeof(XamarinApp.Droid.DeviceInformation))]
 namespace XamarinApp.Droid
