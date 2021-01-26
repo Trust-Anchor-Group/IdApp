@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tag.Sdk.Core.Models;
+using Tag.Neuron.Xamarin.Models;
 
 namespace XamarinApp.Services
 {
 	public class Registration
 	{
-		private Dictionary<string, KeyValuePair<string, string>> clp = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase)
+		private readonly Dictionary<string, KeyValuePair<string, string>> clp = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase)
 		{
 			{ "domain", new KeyValuePair<string, string>("", "") }
 		};
