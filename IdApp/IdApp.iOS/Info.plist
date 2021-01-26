@@ -17,9 +17,9 @@
 	<key>MinimumOSVersion</key>
 	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>TAG Demo</string>
+	<string>TAG ID</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.tag.XamarinApp</string>
+	<string>com.tag.IdApp</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>

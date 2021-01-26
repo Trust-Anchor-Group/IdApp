@@ -4,18 +4,14 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TAG Demo")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("TAG ID")]
+[assembly: AssemblyDescription("TAG ID App")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Trust Anchor Group")]
-[assembly: AssemblyProduct("TAG Demo")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("Trust Anchor Group AB")]
+[assembly: AssemblyProduct("IdApp.iOS")]
+[assembly: AssemblyCopyright("Copyright © Trust Anchor Group AB 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
