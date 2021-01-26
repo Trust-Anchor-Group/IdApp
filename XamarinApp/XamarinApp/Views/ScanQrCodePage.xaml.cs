@@ -31,10 +31,14 @@ namespace XamarinApp.Views
         {
             base.OnAppearing();
             GetViewModel<ScanQrCodeViewModel>().ModeChanged += ViewModel_ModeChanged;
+            Scanner.IsScanning = true;
+            Scanner.IsAnalyzing = true;
         }
 
         protected override void OnDisappearing()
         {
+            Scanner.IsAnalyzing = false;
+            Scanner.IsScanning = false;
             GetViewModel<ScanQrCodeViewModel>().ModeChanged -= ViewModel_ModeChanged;
             base.OnDisappearing();
         }
@@ -51,6 +55,7 @@ namespace XamarinApp.Views
         {
             if (!string.IsNullOrWhiteSpace(result.Text))
             {
+                Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
                 string code = result.Text;
                 GetViewModel<ScanQrCodeViewModel>().Code = code;
                 QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, code);
