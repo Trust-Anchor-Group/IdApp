@@ -77,29 +77,11 @@ namespace XamarinApp.ViewModels
                     if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                         continue;
 
-                    //Stream stream = await GetPhoto(attachment, now);
-                    //if (stream != null)
-                    //{
-                    //    stream.Reset();
-                    //    ImageSource imageSource = ImageSource.FromStream(() => stream); // Disposes the stream
-                    //    Device.BeginInvokeOnMainThread(() => photos.Add(imageSource));
-                    //}
-
-                    KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
-
-                    if (this.loadPhotosTimestamp > now)
+                    Stream stream = await GetPhoto(attachment, now);
+                    if (stream != null)
                     {
-                        pair.Value.Dispose();
-                        return;
-                    }
-
-                    using (TemporaryFile file = pair.Value)
-                    {
-                        file.Reset();
-                        MemoryStream ms = new MemoryStream();
-                        await file.CopyToAsync(ms);
-                        ms.Reset();
-                        ImageSource imageSource = ImageSource.FromStream(() => ms);
+                        stream.Reset();
+                        ImageSource imageSource = ImageSource.FromStream(() => stream); // Disposes the stream
                         Device.BeginInvokeOnMainThread(() => photos.Add(imageSource));
                     }
                 }

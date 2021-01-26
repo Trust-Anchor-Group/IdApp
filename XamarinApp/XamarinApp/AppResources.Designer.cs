@@ -619,6 +619,15 @@ namespace XamarinApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to load photo.
+        /// </summary>
+        internal static string FailedToLoadPhoto {
+            get {
+                return ResourceManager.GetString("FailedToLoadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First name.
         /// </summary>
         internal static string FirstName {

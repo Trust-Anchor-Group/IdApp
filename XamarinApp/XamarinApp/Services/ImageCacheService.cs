@@ -33,14 +33,21 @@ namespace XamarinApp.Services
                 {
                     if (!isResuming)
                     {
-                        List<(string Key, string Value)> cacheEntriesAsJson = this.settingsService.RestoreStateWhere<string>(x => x.StartsWith(KeyPrefix)).ToList();
+                        List<(string, string)> cacheEntriesAsJson = this.settingsService.RestoreStateWhere<string>(x => x.StartsWith(KeyPrefix)).ToList();
                         if (cacheEntriesAsJson.Count > 0)
                         {
-                            foreach ((string Key, string Value) entry in cacheEntriesAsJson)
+                            foreach ((string Key, string Json) entry in cacheEntriesAsJson)
                             {
                                 string key = entry.Key.Substring(KeyPrefix.Length);
-                                CacheEntry ce = JsonConvert.DeserializeObject<CacheEntry>(entry.Value);
-                                this.entries[key] = ce;
+                                try
+                                {
+                                    CacheEntry ce = JsonConvert.DeserializeObject<CacheEntry>(entry.Json);
+                                    this.entries[key] = ce;
+                                }
+                                catch (Exception e)
+                                {
+                                    this.logService.LogException(e);
+                                }
                             }
                             EvictOldEntries();
                         }
@@ -63,6 +70,9 @@ namespace XamarinApp.Services
             {
                 try
                 {
+                    // Wipe any old settings, so we have a clean slate.
+                    this.settingsService.RemoveStateWhere(x => x.StartsWith(KeyPrefix));
+
                     foreach (KeyValuePair<string, CacheEntry> entry in entries)
                     {
                         string key = $"{KeyPrefix}{entry.Key}";
@@ -92,7 +102,8 @@ namespace XamarinApp.Services
                 {
                     try
                     {
-                        if (File.Exists(entry.LocalFileName) && (DateTime.UtcNow - entry.TimeStamp) < Expiry)
+                        TimeSpan age = DateTime.UtcNow - entry.TimeStamp;
+                        if (File.Exists(entry.LocalFileName) && age < Expiry)
                         {
                             stream = new MemoryStream();
                             using (FileStream fileStream = File.OpenRead(entry.LocalFileName))
@@ -120,7 +131,7 @@ namespace XamarinApp.Services
                 stream != null && 
                 stream.CanRead)
             {
-                string cacheFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), CacheFolderName);
+                string cacheFolder = GetCacheFolder();
                 if (!Directory.Exists(cacheFolder))
                 {
                     Directory.CreateDirectory(cacheFolder);
@@ -139,24 +150,36 @@ namespace XamarinApp.Services
         {
             try
             {
+                // 1. Purge entries that are too old.
                 Dictionary<string, CacheEntry> clone = entries.ToDictionary(x => x.Key, x => x.Value);
                 foreach (KeyValuePair<string, CacheEntry> entry in clone)
                 {
                     if ((DateTime.UtcNow - entry.Value.TimeStamp) >= Expiry)
                     {
-                        // Too old, evict.
-                        if (File.Exists(entry.Value.LocalFileName))
-                        {
-                            File.Delete(entry.Value.LocalFileName);
-                        }
+                        // Too old, evict from cache.
                         this.entries.Remove(entry.Key);
                     }
+                }
+
+                // 2. Now delete the actual files.
+                List<string> fileNames = clone.Select(x => x.Value.LocalFileName).ToList();
+                List<string> filesOnDisc = Directory.GetFiles(GetCacheFolder()).ToList();
+
+                var filesToBeDeleted = filesOnDisc.Except(fileNames).ToList();
+                foreach (string file in filesToBeDeleted)
+                {
+                    File.Delete(file);
                 }
             }
             catch (Exception e)
             {
                 this.logService.LogException(e);
             }
+        }
+
+        private static string GetCacheFolder()
+        {
+            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), CacheFolderName);
         }
 
         internal sealed class CacheEntry

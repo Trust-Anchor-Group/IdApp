@@ -44,7 +44,7 @@ namespace XamarinApp.ViewModels.Registration
             this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
             this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
             this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
-            this.RemovePhotoCommand = new Command(_ => RemovePhoto());
+            this.RemovePhotoCommand = new Command(_ => RemovePhoto(true));
             this.Title = AppResources.PersonalLegalInformation;
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
@@ -281,12 +281,10 @@ namespace XamarinApp.ViewModels.Registration
                 return;
             }
 
-            FileResult photo = await MediaPicker.CapturePhotoAsync();
-
-            (bool succeeded, string filePath) = await SavePhotoToDisc(photo);
-            if (succeeded)
+            FileResult capturedPhoto = await MediaPicker.CapturePhotoAsync();
+            if (capturedPhoto != null)
             {
-                await AddPhoto(filePath, true);
+                await AddPhoto(capturedPhoto.FullPath, true);
             }
         }
 
@@ -298,56 +296,32 @@ namespace XamarinApp.ViewModels.Registration
                 return;
             }
 
-            FileResult photo = await MediaPicker.PickPhotoAsync();
-
-            (bool succeeded, string filePath) = await SavePhotoToDisc(photo);
-            if (succeeded)
+            FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
+            if (pickedPhoto != null)
             {
-                await AddPhoto(filePath, true);
+                await AddPhoto(pickedPhoto.FullPath, true);
             }
-        }
-
-        private async Task<(bool, string)> SavePhotoToDisc(FileResult photo)
-        {
-            string fileName = $"Photo_{DateTime.UtcNow.Ticks}.jpg";
-            string fullFileName = Path.Combine(FileSystem.CacheDirectory, fileName);
-
-            if (photo != null)
-            {
-                try
-                {
-                    // Save stream to a locally cached file.
-                    using (Stream photoStream = await photo.OpenReadAsync())
-                    using (FileStream fileStream = File.OpenWrite(fullFileName))
-                    {
-                        await photoStream.CopyToAsync(fileStream);
-                    }
-                }
-                catch (Exception e)
-                {
-                    photo = null;
-                    this.LogService.LogException(e);
-                }
-            }
-
-            return (photo != null, fullFileName);
         }
 
         private async Task AddPhoto(string filePath, bool saveLocalCopy)
         {
             MemoryStream ms = new MemoryStream();
-            using (Stream f = File.OpenRead(filePath))
+            try
             {
-                f.CopyTo(ms);
+                using (Stream f = File.OpenRead(filePath))
+                {
+                    f.CopyTo(ms);
+                }
+                ms.Reset();
             }
-            ms.Reset();
+            catch (Exception e)
+            {
+                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToLoadPhoto);
+                this.LogService.LogException(e);
+                return;
+            }
 
             byte[] bytes = ms.ToArray();
-
-            if (saveLocalCopy)
-            {
-                File.WriteAllBytes(localPhotoFileName, bytes);
-            }
 
             if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
@@ -356,20 +330,32 @@ namespace XamarinApp.ViewModels.Registration
                 return;
             }
 
-            RemovePhoto();
+            RemovePhoto(saveLocalCopy);
+
+            if (saveLocalCopy)
+            {
+                try
+                {
+                    File.WriteAllBytes(localPhotoFileName, bytes);
+                }
+                catch (Exception e)
+                {
+                    this.LogService.LogException(e);
+                }
+            }
             this.photo = new LegalIdentityAttachment(filePath, Constants.MimeTypes.Jpeg, bytes);
             ms.Reset();
             Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
             RegisterCommand.ChangeCanExecute();
         }
 
-        private void RemovePhoto()
+        private void RemovePhoto(bool removeFileOnDisc)
         {
             try
             {
                 this.photo = null;
                 Image = null;
-                if (File.Exists(this.localPhotoFileName))
+                if (removeFileOnDisc && File.Exists(this.localPhotoFileName))
                 {
                     File.Delete(this.localPhotoFileName);
                 }
@@ -590,7 +576,7 @@ namespace XamarinApp.ViewModels.Registration
 
         public override void ClearStepState()
         {
-            RemovePhoto();
+            RemovePhoto(true);
             this.SelectedCountry = null;
             this.FirstName = string.Empty;
             this.MiddleNames = string.Empty;

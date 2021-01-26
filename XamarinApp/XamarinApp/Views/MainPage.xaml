@@ -34,7 +34,7 @@
                 <Label Text="{x:Static local:AppResources.Identity}" FontSize="Large"/>
                 <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
 
-                <views:FlipView x:Name="IdCard" WidthRequest="380" HeightRequest="380" HorizontalOptions="Center">
+                <views:FlipView x:Name="IdCard" WidthRequest="340" HeightRequest="380" HorizontalOptions="Center">
                     <views:FlipView.GestureRecognizers>
                         <TapGestureRecognizer Tapped="IdCard_Tapped" />
                     </views:FlipView.GestureRecognizers>
@@ -48,7 +48,6 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
                                 <Label Grid.Row="0" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
@@ -66,13 +65,12 @@
                                         FontFamily="{StaticResource FontAwesomeSolid}"
                                         IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
                                 </Grid>
-                                <Label Grid.Row="2" Text="{Binding Path=City}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Start" FontSize="Medium"/>
-                                <Label Grid.Row="3" Text="{Binding Path=Country}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Start" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                                <Label Grid.Row="2" Text="{Binding Path=Location}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium"/>
                             </Grid>
                         </Frame>
                     </views:FlipView.FrontView>
                     <views:FlipView.BackView>
-                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" CornerRadius="2" IsClippedToBounds="True">
+                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" CornerRadius="6" IsClippedToBounds="True">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>

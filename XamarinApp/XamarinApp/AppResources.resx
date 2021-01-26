@@ -303,6 +303,9 @@
   <data name="ErrorTitle" xml:space="preserve">
     <value>An error has occurred</value>
   </data>
+  <data name="FailedToLoadPhoto" xml:space="preserve">
+    <value>Failed to load photo</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>First name</value>
   </data>

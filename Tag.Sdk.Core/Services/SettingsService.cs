@@ -91,5 +91,20 @@ namespace Tag.Sdk.Core.Services
                 connection.Delete<Setting>(key);
             }
         }
+
+        public void RemoveStateWhere(Func<string, bool> predicate)
+        {
+            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            {
+                List<Setting> existingStates = connection.Table<Setting>().ToList();
+                foreach (var state in existingStates)
+                {
+                    if (predicate(state.Key))
+                    {
+                        connection.Delete<Setting>(state.Key);
+                    }
+                }
+            }
+        }
     }
 }

@@ -97,7 +97,7 @@ namespace XamarinApp.ViewModels
             {
                 _ = Task.Run(() =>
                 {
-                    byte[] png = QR.GenerateCodePng(Constants.IoTSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+                    byte[] png = QrCodeImageGenerator.GeneratePng(Constants.IoTSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
                     if (this.IsBound)
                     {
                         this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
@@ -147,7 +147,11 @@ namespace XamarinApp.ViewModels
         }
 
         public static readonly BindableProperty CityProperty =
-            BindableProperty.Create("City", typeof(string), typeof(MainViewModel), default(string));
+            BindableProperty.Create("City", typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                MainViewModel viewModel = (MainViewModel)b;
+                viewModel.SetLocation();
+            });
 
         public string City
         {
@@ -156,12 +160,41 @@ namespace XamarinApp.ViewModels
         }
 
         public static readonly BindableProperty CountryProperty =
-            BindableProperty.Create("Country", typeof(string), typeof(MainViewModel), default(string));
+            BindableProperty.Create("Country", typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            {
+                MainViewModel viewModel = (MainViewModel)b;
+                viewModel.SetLocation();
+            });
 
         public string Country
         {
             get { return (string)GetValue(CountryProperty); }
             set { SetValue(CountryProperty, value); }
+        }
+
+        public static readonly BindableProperty LocationProperty =
+            BindableProperty.Create("Location", typeof(string), typeof(MainViewModel), default(string));
+
+        public string Location
+        {
+            get { return (string) GetValue(LocationProperty); }
+            set { SetValue(LocationProperty, value); }
+        }
+
+        private void SetLocation()
+        {
+            if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
+            {
+                Location = $"{City}, {Country}";
+            }
+            if (!string.IsNullOrWhiteSpace(City) && string.IsNullOrWhiteSpace(Country))
+            {
+                Location = City;
+            }
+            if (string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
+            {
+                Location = Country;
+            }
         }
 
         public static readonly BindableProperty QrCodeProperty =

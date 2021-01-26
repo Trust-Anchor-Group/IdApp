@@ -3,9 +3,19 @@ using SkiaSharp.QrCode;
 
 namespace Tag.Sdk.UI
 {
-    public static class QR
+    public static class QrCodeImageGenerator
     {
-        public static byte[] GenerateCodePng(string text, int width, int height)
+        public static byte[] GeneratePng(string text, int width, int height)
+        {
+            return Generate(text, width, height, SKEncodedImageFormat.Png);
+        }
+
+        public static byte[] GenerateJpg(string text, int width, int height)
+        {
+            return Generate(text, width, height, SKEncodedImageFormat.Jpeg);
+        }
+
+        private static byte[] Generate(string text, int width, int height, SKEncodedImageFormat format)
         {
             using (QRCodeGenerator generator = new QRCodeGenerator())
             {
@@ -15,7 +25,7 @@ namespace Tag.Sdk.UI
                     surface.Canvas.Render(qr, SKRect.Create(0.0f, 0.0f, width, height), SKColors.White, SKColors.Black);
 
                     using (var image = surface.Snapshot())
-                    using (var data = image.Encode(SKEncodedImageFormat.Png, 100))
+                    using (var data = image.Encode(format, 100))
                     {
                         return data.ToArray();
                     }
