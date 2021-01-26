@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             x:Class="IdApp.Views.Contracts.ClientSignaturePage"
+             Title="{x:Static local:AppResources.ClientSignature}">
+    <ScrollView>
+        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+            <Label Text="{x:Static local:AppResources.IdentityInformation}" Style="{StaticResource Heading}" />
+            <Label Text="{x:Static local:AppResources.IdentityInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <TableView Intent="Data" HasUnevenRows="True">
+                <TableView.Root>
+                    <TableSection>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Created}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=Created}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Updated}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.State}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.FirstName}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.MiddleNames}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=MiddleNames}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.LastNames}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=LastNames}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.PersonalNumber}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=PersonalNumber}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Address}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Address}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Address2}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Address2}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.ZipCode}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=ZipCode}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Area}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Area}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.City}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=City}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Region}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Region}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Country}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.LegalId}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{x:Static local:AppResources.Signature}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
+                                <Label Text="{x:Static local:AppResources.ClientSignatureInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Role}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Role}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Timestamp}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Timestamp}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Transferable}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=IsTransferable}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Network}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Signature}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Signature}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                </TableView.Root>
+            </TableView>
+        </StackLayout>
+    </ScrollView>
+</views:ContentBasePage>

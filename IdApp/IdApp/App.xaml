@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="IdApp.App">
+    <Application.Resources>
+        <OnPlatform x:TypeArguments="x:String" 
+                    x:Key="FontAwesomeRegular">
+            <On Platform="Android" 
+                Value="FontAwesome5Free-Regular-400.otf#Regular" />
+            <On Platform="iOS" 
+                Value="FontAwesome5Free-Regular" />
+        </OnPlatform>
+        <OnPlatform x:TypeArguments="x:String" 
+                    x:Key="FontAwesomeSolid">
+            <On Platform="Android" 
+                Value="FontAwesome5Free-Solid-900.otf#Regular" />
+            <On Platform="iOS" 
+                Value="FontAwesome5Free-Solid" />
+        </OnPlatform>
+        <Color x:Key="HeadingForeground">White</Color>
+        <Color x:Key="Primary">#202E40</Color>
+        <Color x:Key="HeadingBackground">#202E40</Color>
+        <Color x:Key="HeadingBackgroundTranslucent">#cc202E40</Color>
+        <Color x:Key="AccentColor">#BADA55</Color>
+        <Color x:Key="AlertColor">Red</Color>
+        <Color x:Key="PageBackgroundColor">White</Color>
+        <Color x:Key="ForegroundColor">Black</Color>
+        <Thickness x:Key="SafeAreaInsets"/>
+        <Thickness x:Key="SafeAreaInsetsDefaultMargin">12</Thickness>
+        <Thickness x:Key="DefaultMargin">12</Thickness>
+        <Thickness x:Key="DefaultLeftOnlyMargin">12,0,0,0</Thickness>
+        <Thickness x:Key="DefaultTopOnlyMargin">0,12,0,0</Thickness>
+        <Thickness x:Key="DefaultTopAndBottomOnlyMargin">0,12,0,12</Thickness>
+        <Thickness x:Key="DefaultRightOnlyMargin">0,0,12,0</Thickness>
+        <Thickness x:Key="DefaultBottomOnlyMargin">0,0,0,12</Thickness>
+        <Thickness x:Key="DefaultLeftRightMargin">12,0,12,0</Thickness>
+        <Thickness x:Key="DefaultLeftRightAndBottomMargin">12,0,12,12</Thickness>
+        <x:Int32 x:Key="DefaultLeftMargin">12</x:Int32>
+        <x:Int32 x:Key="DefaultTopMargin">12</x:Int32>
+        <x:Int32 x:Key="DefaultRightMargin">12</x:Int32>
+        <x:Int32 x:Key="DefaultBottomMargin">12</x:Int32>
+        <Style TargetType="Button"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Medium" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="5" />
+            <Style.Triggers>
+                <Trigger TargetType="Button"
+                         Property="IsEnabled"
+                         Value="False">
+                    <Setter Property="BackgroundColor" Value="Gray" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Button"
+               x:Key="IconButton"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+            <Setter Property="TextColor" Value="White" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
+        <Style x:Key="Heading" TargetType="Label"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Label"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="TextColor" Value="{StaticResource ForegroundColor}" />
+        </Style>
+        <Style TargetType="Label" x:Key="ValueLabel">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="KeyLabel">
+            <Setter Property="MinimumWidthRequest" Value="400"/>
+            <Setter Property="LineBreakMode" Value="NoWrap"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Label" x:Key="InfoText">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
+        <Style TargetType="Entry"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="BackgroundColor">
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="iOS">LightGray</On>
+                    <On Platform="Android">Transparent</On>
+                </OnPlatform>
+            </Setter>
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+        <Style TargetType="Picker"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="BackgroundColor">
+                <OnPlatform x:TypeArguments="Color">
+                    <On Platform="iOS">LightGray</On>
+                    <On Platform="Android">Transparent</On>
+                </OnPlatform>
+            </Setter>
+            <Setter Property="TextColor" Value="Black" />
+        </Style>
+    </Application.Resources>
+</Application>

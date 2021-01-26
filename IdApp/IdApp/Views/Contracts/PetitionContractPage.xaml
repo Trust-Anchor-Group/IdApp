@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             x:Class="IdApp.Views.Contracts.PetitionContractPage"
+             Title="{x:Static local:AppResources.PetitionContract}">
+    <ScrollView>
+        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+            <Label Text="{x:Static local:AppResources.Petition}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Style="{StaticResource Heading}" />
+            <Label Text="{x:Static local:AppResources.PetitionContractInformationText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <TableView x:Name="TableView" Intent="Data" HasUnevenRows="True">
+                <TableView.Root>
+                    <TableSection>
+                        <ViewCell>
+                            <Label Text="{x:Static local:AppResources.Request}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Purpose}"/>
+                                <Label Text="{Binding Path=Purpose}" FontAttributes="Bold"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection>
+                        <ViewCell>
+                            <Label Text="{x:Static local:AppResources.RequestingEntity}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Medium" />
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Created}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=Created}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Updated}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.State}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.FirstName}" Style="{StaticResource KeyLabel}"/>
+                                <Label Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.MiddleNames}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=MiddleNames}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.LastNames}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=LastNames}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.PersonalNumber}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=PersonalNumber}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Address}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Address}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Address2}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Address2}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.ZipCode}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=ZipCode}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Area}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Area}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.City}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=City}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Region}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Region}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Country}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.LegalId}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="PhotoSection">
+                        <ViewCell Height="76">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
+                                <CollectionView  Grid.Column="1" ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
+                                    <CollectionView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" />
+                                        </DataTemplate>
+                                    </CollectionView.ItemTemplate>
+                                </CollectionView>
+                            </Grid>
+                        </ViewCell>
+                    </TableSection>
+                    <TableSection x:Name="ButtonSection">
+                        <ViewCell>
+                            <Label Text="{x:Static local:AppResources.Options}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Large" />
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="AcceptButton" Text="{x:Static local:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" />
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="DeclineButton" Text="{x:Static local:AppResources.Decline}" Command="{Binding Path=DeclineCommand}"/>
+                        </ViewCell>
+                        <ViewCell>
+                            <Button x:Name="IgnoreButton" Text="{x:Static local:AppResources.Ignore}" Command="{Binding Path=IgnoreCommand}"/>
+                        </ViewCell>
+                    </TableSection>
+                </TableView.Root>
+            </TableView>
+        </StackLayout>
+    </ScrollView>
+</views:ContentBasePage>

@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             x:Class="IdApp.Views.Contracts.MyContractsPage">
+    <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+        <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
+        <Label Text="{x:Static local:AppResources.MyContractsInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
+        <ListView x:Name="Contracts" HasUnevenRows="True" ItemsSource="{Binding Path=Contracts}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label LineBreakMode="NoWrap" Text="{Binding Path=Created}" MinimumWidthRequest="100"/>
+                            <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Name}" FontAttributes="Bold"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</views:ContentBasePage>

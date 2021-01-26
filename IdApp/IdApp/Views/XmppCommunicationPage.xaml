@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             x:Class="IdApp.Views.XmppCommunicationPage"
+             Title="Xmpp communication">
+    <ContentPage.Content>
+        <Grid Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Text="Refresh" Command="{Binding Path=RefreshCommand}" Margin="{StaticResource DefaultMargin}" />
+            <WebView Grid.Row="1" Source="{Binding Path=Html}" />
+        </Grid>
+    </ContentPage.Content>
+</views:ContentBasePage>

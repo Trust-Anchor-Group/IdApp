@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             x:Class="IdApp.Views.ScanQrCodePage"
+             Title="{x:Static local:AppResources.ScanQRCode}"
+             Shell.FlyoutBehavior="Disabled" 
+             Shell.PresentationMode="ModalAnimated">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+            <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
+                <forms:ZXingScannerView 
+                x:Name="Scanner"
+                OnScanResult="Scanner_OnScanResult"
+                IsScanning="True"
+                HeightRequest="400"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"/>
+                <forms:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlay}"/>
+            </Grid>
+            <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
+                <Label Text="{x:Static local:AppResources.QrScanLegalIdentity}" HorizontalOptions="FillAndExpand"/>
+                <Entry x:Name="LinkEntry" Text="{Binding Path=LinkText, Mode=TwoWay}" HorizontalOptions="Fill"/>
+                <Button x:Name="OpenButton" Clicked="OpenButton_Click" IsEnabled="{Binding Path=OpenIsEnabled}" Text="{Binding Path=OpenCommandText}"/>
+            </StackLayout>
+            <Button x:Name="ModeButton" Text="{Binding Path=ModeText}" Command="{Binding Path=SwitchModeCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</views:ContentBasePage>

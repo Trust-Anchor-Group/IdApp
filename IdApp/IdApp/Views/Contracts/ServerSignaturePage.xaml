@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             x:Class="IdApp.Views.Contracts.ServerSignaturePage"
+             Title="{x:Static local:AppResources.ServerSignature}">
+    <ScrollView x:Name="ScrollView">
+        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+            <Label Text="{x:Static local:AppResources.SignatureInformation}" Style="{StaticResource Heading}" />
+            <Label Text="{x:Static local:AppResources.ServerSignatureInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <TableView Intent="Data" HasUnevenRows="True">
+                <TableView.Root>
+                    <TableSection>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Provider}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Provider}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Timestamp}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Timestamp}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{x:Static local:AppResources.Signature}" Style="{StaticResource KeyLabel}" />
+                                <Label Text="{Binding Path=Signature}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </TableSection>
+                </TableView.Root>
+            </TableView>
+        </StackLayout>
+    </ScrollView>
+</views:ContentBasePage>
