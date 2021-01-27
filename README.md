@@ -1,6 +1,6 @@
-# XamarinApp
+# IdApp
 
-The **XamarinApp** (or *TAG Xamarin App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) (**TAG** for short).
+The **IdApp** (or *TAG Id App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) (**TAG** for short).
 It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com/IEEE-SA/XMPPI/IoT). This includes:
 
 * Federated & distributed Digital IDs. (Globally scalable, interoperable.)
