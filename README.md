@@ -1,6 +1,6 @@
 # IdApp
 
-The **IdApp** (or *TAG ID App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) (**TAG** for short).
+The **Id App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) (**TAG** for short).
 It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com/IEEE-SA/XMPPI/IoT). This includes:
 
 * Federated & distributed Digital IDs. (Globally scalable, interoperable.)
@@ -10,7 +10,7 @@ It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com
 * End-to-end encrypted communication.
 * Peer-to-peer communication.
 
-It is built with .NET Standard 2.0, Xamarin.Forms 4.8 (Shell) and relies heavily on the [IoTGateway][https://github.com/PeterWaher/IoTGateway] framework.
+It is built with .NET Standard 2.0, Xamarin.Forms 4.8 (Shell) and relies heavily on the [IoTGateway](https://github.com/PeterWaher/IoTGateway) framework.
 
 ## Structure
 
@@ -18,7 +18,7 @@ The app is made up of the actual app itself as well as two frameworks:
 - Tag.Neuron.Xamarin
 - Tag.Neuron.Xamarin.UI
 
-The first is a wrapper library around the [IoTGateway][https://github.com/PeterWaher/IoTGateway] framework, making it mobile app friendly, but also
+The first is a wrapper library around the [IoTGateway](https://github.com/PeterWaher/IoTGateway) framework, making it mobile app friendly, but also
 to provide convenience code and app lifecycle support for the Xamarin platform.
 
 The second is the very few base classes needed for correct structuring and binding of UI components for the common setup/teardown scenarios that occur
