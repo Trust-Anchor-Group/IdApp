@@ -96,7 +96,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Creates a dump of the latest Xmpp communication as html.
         /// </summary>
-        /// <returns>The comms dump as a html formatted string.</returns>
+        /// <returns>The communication dump as a html formatted string.</returns>
         string CommsDumpAsHtml();
     }
 }

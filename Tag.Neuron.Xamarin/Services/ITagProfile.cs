@@ -4,8 +4,17 @@ using Waher.Networking.XMPP.Contracts;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    /// <summary>
+    /// The TAG Profile is the heart of the digital identity for a specific user/device.
+    /// Use this instance to add and make a profile more complete.
+    /// The TAG Profile holds relevant data connected to not only where the user is in the registraton process,
+    /// but also Xmpp identifiers.
+    /// </summary>
     public interface ITagProfile
     {
+        /// <summary>
+        /// An event that triggers during the registration/profile build process, as the profile becomes more/less complete.
+        /// </summary>
         event EventHandler StepChanged;
         event PropertyChangedEventHandler Changed;
         string Domain { get; }

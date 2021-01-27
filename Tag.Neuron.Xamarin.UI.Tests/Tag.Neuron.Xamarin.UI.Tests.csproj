@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Tag.Neuron.Xamarin.UI\Tag.Neuron.Xamarin.UI.csproj" />
-    <ProjectReference Include="..\XamarinApp\XamarinApp\XamarinApp.csproj" />
   </ItemGroup>
 
 </Project>
