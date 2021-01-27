@@ -119,13 +119,13 @@ namespace Tag.Neuron.Xamarin.Services
             ConnectionState?.Invoke(this, e);
         }
 
-        public Task PetitionContractAsync(string contractId, string petitionId, string purpose)
+        public Task PetitionContract(string contractId, string petitionId, string purpose)
         {
             AssertContractsIsAvailable();
             return contractsClient.PetitionContractAsync(contractId, petitionId, purpose);
         }
 
-        public Task<Contract> GetContractAsync(string contractId)
+        public Task<Contract> GetContract(string contractId)
         {
             AssertContractsIsAvailable();
             return contractsClient.GetContractAsync(contractId);
@@ -137,13 +137,13 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.GetAttachmentAsync(url);
         }
 
-        public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url, TimeSpan timeout)
+        public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachment(string url, TimeSpan timeout)
         {
             AssertContractsIsAvailable();
             return contractsClient.GetAttachmentAsync(url, (int)timeout.TotalMilliseconds);
         }
 
-        public Task<Contract> CreateContractAsync(
+        public Task<Contract> CreateContract(
             string templateId,
             Part[] parts,
             Parameter[] parameters,
@@ -160,37 +160,37 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.CreateContractAsync(templateId, parts, parameters, visibility, partsMode, duration, archiveRequired, archiveOptional, signAfter, signBefore, canActAsTemplate);
         }
 
-        public Task<Contract> DeleteContractAsync(string contractId)
+        public Task<Contract> DeleteContract(string contractId)
         {
             AssertContractsIsAvailable();
             return contractsClient.DeleteContractAsync(contractId);
         }
 
-        public Task<string[]> GetCreatedContractsAsync()
+        public Task<string[]> GetCreatedContractIds()
         {
             AssertContractsIsAvailable();
             return contractsClient.GetCreatedContractsAsync();
         }
 
-        public Task<string[]> GetSignedContractsAsync()
+        public Task<string[]> GetSignedContractIds()
         {
             AssertContractsIsAvailable();
             return contractsClient.GetSignedContractsAsync();
         }
 
-        public Task<Contract> SignContractAsync(Contract contract, string role, bool transferable)
+        public Task<Contract> SignContract(Contract contract, string role, bool transferable)
         {
             AssertContractsIsAvailable();
             return contractsClient.SignContractAsync(contract, role, transferable);
         }
 
-        public Task<Contract> ObsoleteContractAsync(string contractId)
+        public Task<Contract> ObsoleteContract(string contractId)
         {
             AssertContractsIsAvailable();
             return contractsClient.ObsoleteContractAsync(contractId);
         }
 
-        public async Task<LegalIdentity> AddLegalIdentityAsync(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments)
+        public async Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments)
         {
             AssertContractsIsAvailable();
             AssertFileUploadIsAvailable();
@@ -215,31 +215,31 @@ namespace Tag.Neuron.Xamarin.Services
             return identity;
         }
 
-        public Task<LegalIdentity> GetLegalIdentityAsync(string legalIdentityId)
+        public Task<LegalIdentity> GetLegalIdentity(string legalIdentityId)
         {
             AssertContractsIsAvailable();
             return contractsClient.GetLegalIdentityAsync(legalIdentityId);
         }
 
-        public Task PetitionIdentityAsync(string legalId, string petitionId, string purpose)
+        public Task PetitionIdentity(string legalId, string petitionId, string purpose)
         {
             AssertContractsIsAvailable();
             return contractsClient.PetitionIdentityAsync(legalId, petitionId, purpose);
         }
 
-        public Task SendPetitionIdentityResponseAsync(string legalId, string petitionId, string requestorFullJid, bool response)
+        public Task SendPetitionIdentityResponse(string legalId, string petitionId, string requestorFullJid, bool response)
         {
             AssertContractsIsAvailable();
             return contractsClient.PetitionIdentityResponseAsync(legalId, petitionId, requestorFullJid, response);
         }
 
-        public Task SendPetitionContractResponseAsync(string contractId, string petitionId, string requestorFullJid, bool response)
+        public Task SendPetitionContractResponse(string contractId, string petitionId, string requestorFullJid, bool response)
         {
             AssertContractsIsAvailable();
             return contractsClient.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
         }
 
-        public Task SendPetitionSignatureResponseAsync(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
+        public Task SendPetitionSignatureResponse(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
         {
             AssertContractsIsAvailable();
             return contractsClient.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
@@ -251,19 +251,19 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.AddPeerReviewIDAttachment(identity, reviewerLegalIdentity, peerSignature);
         }
 
-        public Task PetitionPeerReviewIdAsync(string legalId, LegalIdentity identity, string petitionId, string purpose)
+        public Task PetitionPeerReviewId(string legalId, LegalIdentity identity, string petitionId, string purpose)
         {
             AssertContractsIsAvailable();
             return contractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
         }
 
-        public Task<byte[]> SignAsync(byte[] data)
+        public Task<byte[]> Sign(byte[] data)
         {
             AssertContractsIsAvailable();
             return contractsClient.SignAsync(data);
         }
 
-        public async Task<LegalIdentity[]> GetLegalIdentitiesAsync(XmppClient client = null)
+        public async Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null)
         {
             if(client == null)
             {
@@ -286,13 +286,13 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.ValidateSignature(legalIdentity, data, signature);
         }
 
-        public Task<LegalIdentity> ObsoleteLegalIdentityAsync(string legalIdentityId)
+        public Task<LegalIdentity> ObsoleteLegalIdentity(string legalIdentityId)
         {
             AssertContractsIsAvailable();
             return contractsClient.ObsoleteLegalIdentityAsync(legalIdentityId);
         }
 
-        public Task<LegalIdentity> CompromisedLegalIdentityAsync(string legalIdentityId)
+        public Task<LegalIdentity> CompromiseLegalIdentity(string legalIdentityId)
         {
             AssertContractsIsAvailable();
             return contractsClient.CompromisedLegalIdentityAsync(legalIdentityId);

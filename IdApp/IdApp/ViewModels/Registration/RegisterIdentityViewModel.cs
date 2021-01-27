@@ -408,7 +408,7 @@ namespace IdApp.ViewModels.Registration
             try
             {
                 LegalIdentityAttachment[] photos = { photo };
-                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.AddLegalIdentityAsync, CreateRegisterModel(), photos);
+                (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.AddLegalIdentity, CreateRegisterModel(), photos);
                 if (succeeded)
                 {
                     this.LegalIdentity = addedIdentity;

@@ -336,7 +336,7 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                (bool succeeded, Contract retrievedContract) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractAsync, this.contractTemplateId);
+                (bool succeeded, Contract retrievedContract) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContract, this.contractTemplateId);
                 if (!succeeded)
                     return;
 
@@ -350,7 +350,7 @@ namespace IdApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                this.logService.LogException(ex, new KeyValuePair<string, string>("Method", "GetContractAsync"), new KeyValuePair<string, string>("ContractId", this.contractTemplateId));
+                this.logService.LogException(ex, new KeyValuePair<string, string>("Method", "GetContract"), new KeyValuePair<string, string>("ContractId", this.contractTemplateId));
                 ClearTemplate();
                 await this.uiDispatcher.DisplayAlert(ex);
             }
@@ -493,7 +493,7 @@ namespace IdApp.ViewModels.Contracts
                 }
 
                 (bool createSucceeded, Contract createdContract) = await this.networkService.TryRequest<string, Part[], Parameter[], ContractVisibility, ContractParts,Duration,Duration,Duration, DateTime?, DateTime?, bool, Contract>(
-                    this.neuronService.Contracts.CreateContractAsync,
+                    this.neuronService.Contracts.CreateContract,
                     this.contractTemplateId,
                     parts.ToArray(),
                     this.contractTemplate.Parameters,
@@ -509,7 +509,7 @@ namespace IdApp.ViewModels.Contracts
                 Contract signedContract = null;
                 if (createSucceeded)
                 {
-                    (bool signSucceeded, Contract contract) = await this.networkService.TryRequest(this.neuronService.Contracts.SignContractAsync, createdContract, this.SelectedRole.Name, false);
+                    (bool signSucceeded, Contract contract) = await this.networkService.TryRequest(this.neuronService.Contracts.SignContract, createdContract, this.SelectedRole.Name, false);
                     if (signSucceeded)
                     {
                         signedContract = contract;

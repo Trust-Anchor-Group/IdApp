@@ -455,7 +455,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 if (!string.IsNullOrWhiteSpace(roleId))
                 {
-                    Contract signedContract = await this.neuronService.Contracts.SignContractAsync(this.contract, roleId, false);
+                    Contract signedContract = await this.neuronService.Contracts.SignContract(this.contract, roleId, false);
 
                     await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
@@ -476,7 +476,7 @@ namespace IdApp.ViewModels.Contracts
                 if (signature != null)
                 {
                     string legalId = signature.LegalId;
-                    LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
+                    LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentity(legalId);
 
                     await this.navigationService.GoToAsync(nameof(ClientSignaturePage), new ClientSignatureNavigationArgs(signature, identity));
                 }
@@ -503,7 +503,7 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContractAsync(this.contract.ContractId);
+                Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContract(this.contract.ContractId);
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
@@ -519,7 +519,7 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                Contract deletedContract = await this.neuronService.Contracts.DeleteContractAsync(this.contract.ContractId);
+                Contract deletedContract = await this.neuronService.Contracts.DeleteContract(this.contract.ContractId);
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 

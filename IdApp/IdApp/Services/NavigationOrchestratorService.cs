@@ -70,7 +70,7 @@ namespace IdApp.Services
             if (!isConnected)
                 return;
 
-            (bool succeeded, LegalIdentity identity) = await this.networkService.TryRequest(this.neuronService.Contracts.GetLegalIdentityAsync, legalId, displayAlert: false);
+            (bool succeeded, LegalIdentity identity) = await this.networkService.TryRequest(this.neuronService.Contracts.GetLegalIdentity, legalId, displayAlert: false);
             if (succeeded)
             {
                 Device.BeginInvokeOnMainThread(async () =>

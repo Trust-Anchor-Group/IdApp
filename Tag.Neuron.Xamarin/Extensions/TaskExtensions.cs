@@ -6,6 +6,13 @@ namespace Tag.Neuron.Xamarin.Extensions
 {
     public static class TaskExtensions
     {
+        /// <summary>
+        /// Helper method to wait for a task to complete, but with a given time limit.
+        /// </summary>
+        /// <typeparam name="TResult">The task's result.</typeparam>
+        /// <param name="task">The task to await.</param>
+        /// <param name="timeout">The maximum time to wait for the task.</param>
+        /// <returns></returns>
         public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout)
         {
             using (CancellationTokenSource tcs = new CancellationTokenSource())

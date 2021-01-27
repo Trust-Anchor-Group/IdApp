@@ -403,7 +403,7 @@ namespace IdApp.ViewModels.Registration
 
                     if (serviceDiscoverySucceeded)
                     {
-                        foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentitiesAsync(client))
+                        foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentities(client))
                         {
                             if (identity.HasClientSignature &&
                                 identity.HasClientPublicKey &&

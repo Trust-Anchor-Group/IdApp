@@ -395,7 +395,7 @@ namespace IdApp.ViewModels.Registration
                 return;
             }
 
-            bool succeeded = await this.networkService.TryRequest(this.NeuronService.Contracts.PetitionPeerReviewIdAsync, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
+            bool succeeded = await this.networkService.TryRequest(this.NeuronService.Contracts.PetitionPeerReviewId, Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation);
             if (succeeded)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);

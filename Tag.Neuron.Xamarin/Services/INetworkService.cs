@@ -5,10 +5,26 @@ using Xamarin.Essentials;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    /// <summary>
+    /// The network service is a wafer-thin wrapper around the <see cref="Xamarin.Essentials.Connectivity"/> object.
+    /// It exposes an event handler for monitoring connected state, and a DNS lookup method.
+    /// It also has helper methods to make network requests and catch and display errors if they fail.
+    /// </summary>
     public interface INetworkService : IDisposable
     {
+        /// <summary>
+        /// Triggers whenever network connectivity chanes.
+        /// </summary>
         event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged;
+        /// <summary>
+        /// Performs a DNS lookup for the specified domain name.
+        /// </summary>
+        /// <param name="domainName">The domain name whose name to resolve.</param>
+        /// <returns></returns>
         Task<(string hostName, int port)> GetXmppHostnameAndPort(string domainName);
+        /// <summary>
+        /// Determines whether we have network (wifi/cellular/other) or not.
+        /// </summary>
         bool IsOnline { get; }
 
         Task<bool> TryRequest(Func<Task> func, bool rethrowException = false, bool displayAlert = true, [CallerMemberName] string memberName = "");

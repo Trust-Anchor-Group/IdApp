@@ -94,7 +94,7 @@ namespace IdApp.Services
             }
             else
             {
-                (bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(this.neuronService.Contracts.GetLegalIdentityAsync, e.RequestedIdentityId);
+                (bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(this.neuronService.Contracts.GetLegalIdentity, e.RequestedIdentityId);
                 if (succeeded)
                 {
                     identity = li;
@@ -108,7 +108,7 @@ namespace IdApp.Services
             if (identity.State == IdentityState.Compromised ||
                 identity.State == IdentityState.Rejected)
             {
-                await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionIdentityResponseAsync, e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionIdentityResponse, e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
             }
             else
             {
@@ -125,7 +125,7 @@ namespace IdApp.Services
         private async void Contracts_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
         {
             // Reject all signature requests by default
-            await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionSignatureResponseAsync, e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
+            await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionSignatureResponse, e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
         }
 
         private void Contracts_PetitionedNeuronContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
@@ -145,7 +145,7 @@ namespace IdApp.Services
 
         private async void Contracts_PetitionForNeuronContractReceived(object sender, ContractPetitionEventArgs e)
         {
-            (bool succeeded, Contract contract) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractAsync, e.RequestedContractId);
+            (bool succeeded, Contract contract) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContract, e.RequestedContractId);
 
             if (!succeeded)
                 return;
@@ -153,7 +153,7 @@ namespace IdApp.Services
             if (contract.State == ContractState.Deleted ||
                 contract.State == ContractState.Rejected)
             {
-                await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionContractResponseAsync, e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionContractResponse, e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
             }
             else
             {
@@ -235,7 +235,7 @@ namespace IdApp.Services
         {
             try
             {
-                LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentityAsync(legalId);
+                LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentity(legalId);
                 Device.BeginInvokeOnMainThread(async () =>
                 {
                     await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
@@ -247,7 +247,7 @@ namespace IdApp.Services
                     new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
                     new KeyValuePair<string, string>("Method", nameof(OpenLegalIdentity)));
 
-                bool succeeded = await this.networkService.TryRequest(this.neuronService.Contracts.PetitionIdentityAsync, legalId, Guid.NewGuid().ToString(), purpose);
+                bool succeeded = await this.networkService.TryRequest(this.neuronService.Contracts.PetitionIdentity, legalId, Guid.NewGuid().ToString(), purpose);
                 if (succeeded)
                 {
                     await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
@@ -259,7 +259,7 @@ namespace IdApp.Services
         {
             try
             {
-                Contract contract = await this.neuronService.Contracts.GetContractAsync(contractId);
+                Contract contract = await this.neuronService.Contracts.GetContract(contractId);
 
                 Device.BeginInvokeOnMainThread(async () =>
                 {
@@ -275,7 +275,7 @@ namespace IdApp.Services
                     new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
                     new KeyValuePair<string, string>("Method", nameof(OpenContract)));
 
-                bool succeeded = await this.networkService.TryRequest(this.neuronService.Contracts.PetitionContractAsync, contractId, Guid.NewGuid().ToString(), purpose);
+                bool succeeded = await this.networkService.TryRequest(this.neuronService.Contracts.PetitionContract, contractId, Guid.NewGuid().ToString(), purpose);
                 if (succeeded)
                 {
                     await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);

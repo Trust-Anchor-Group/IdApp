@@ -101,7 +101,7 @@ namespace IdApp.ViewModels
             }
 
             // 2. Needs download
-            KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetContractAttachmentAsync(attachment.Url, Constants.Timeouts.DownloadFile);
+            KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetContractAttachment(attachment.Url, Constants.Timeouts.DownloadFile);
             if (this.loadPhotosTimestamp > now)
             {
                 pair.Value.Dispose();

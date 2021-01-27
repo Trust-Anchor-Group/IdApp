@@ -323,7 +323,7 @@ namespace IdApp.ViewModels
                 if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.No))
                     return;
 
-                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.ObsoleteLegalIdentityAsync, this.tagProfile.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.ObsoleteLegalIdentity, this.tagProfile.LegalIdentity.Id);
                 if (succeeded)
                 {
                     this.tagProfile.RevokeLegalIdentity(revokedIdentity);
@@ -344,7 +344,7 @@ namespace IdApp.ViewModels
                 if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.No))
                     return;
 
-                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.CompromisedLegalIdentityAsync, this.tagProfile.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.CompromiseLegalIdentity, this.tagProfile.LegalIdentity.Id);
 
                 if (succeeded)
                 {

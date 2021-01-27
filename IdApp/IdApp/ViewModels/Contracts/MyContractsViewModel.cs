@@ -99,14 +99,14 @@ namespace IdApp.ViewModels.Contracts
 
             if (this.showCreatedContracts)
             {
-                (bool succeeded, string[] createdContractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetCreatedContractsAsync);
+                (bool succeeded, string[] createdContractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetCreatedContractIds);
                 if (!succeeded)
                     return;
                 contractIds = createdContractIds;
             }
             else
             {
-                (bool succeeded, string[] signedContractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetSignedContractsAsync);
+                (bool succeeded, string[] signedContractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetSignedContractIds);
                 if (!succeeded)
                     return;
                 contractIds = signedContractIds;
@@ -125,7 +125,7 @@ namespace IdApp.ViewModels.Contracts
 
             foreach (string contractId in contractIds)
             {
-                Contract contract = await this.neuronService.Contracts.GetContractAsync(contractId);
+                Contract contract = await this.neuronService.Contracts.GetContract(contractId);
                 if (this.loadContractsTimestamp > now)
                 {
                     return;
