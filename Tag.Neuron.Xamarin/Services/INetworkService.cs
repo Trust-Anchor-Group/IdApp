@@ -6,14 +6,14 @@ using Xamarin.Essentials;
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
-    /// The network service is a wafer-thin wrapper around the <see cref="Xamarin.Essentials.Connectivity"/> object.
+    /// The network service is a wafer-thin wrapper around the <see cref="Connectivity"/> object.
     /// It exposes an event handler for monitoring connected state, and a DNS lookup method.
     /// It also has helper methods to make network requests and catch and display errors if they fail.
     /// </summary>
     public interface INetworkService : IDisposable
     {
         /// <summary>
-        /// Triggers whenever network connectivity chanes.
+        /// Triggers whenever network connectivity changes.
         /// </summary>
         event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged;
         /// <summary>
