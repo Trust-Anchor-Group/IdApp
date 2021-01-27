@@ -3,8 +3,14 @@ using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.UI.Behaviors
 {
+    /// <summary>
+    /// Used for moving focus to the next UI component when the Enter/Return key has been hit.
+    /// </summary>
     public class SetFocusOnCompletedBehavior : Behavior<Entry>
     {
+        /// <summary>
+        /// The view to move focus to.
+        /// </summary>
         [TypeConverter(typeof(ReferenceTypeConverter))]
         public View SetFocusTo { get; set; }
 
@@ -20,7 +26,7 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
             base.OnDetachingFrom(entry);
         }
 
-        void Entry_Completed(object sender, EventArgs e)
+        private void Entry_Completed(object sender, EventArgs e)
         {
             View view = SetFocusTo;
             if (view != null && view.IsVisible)

@@ -3,6 +3,9 @@ using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.UI.Behaviors
 {
+    /// <summary>
+    /// A behavior for being able to bind an <see cref="Entry"/>'s TextChanged event to an <see cref="ICommand"/>.
+    /// </summary>
     public class TextChangedBehavior : Behavior<Entry>
     {
         public static readonly BindableProperty TextChangedCommandProperty =
