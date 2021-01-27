@@ -3,6 +3,10 @@ using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.UI.Views
 {
+    /// <summary>
+    /// The FlipView is a user control that holds two child controls: a <see cref="FrontView"/> and a <see cref="BackView"/>.
+    /// It can be flipped like a coin when the user taps on it. In order to flip the view, simply call the <see cref="Flip"/> method.
+    /// </summary>
     public class FlipView : ContentView
     {
         private const uint duration = 300;
@@ -48,6 +52,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 fv.OrganizeViews();
             });
 
+        /// <summary>
+        /// The view displayed on the 'front' side of this user control.
+        /// </summary>
         public View FrontView
         {
             get { return (View)GetValue(FrontViewProperty); }
@@ -81,6 +88,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 fv.OrganizeViews();
             });
 
+        /// <summary>
+        /// The view displayed on the 'back' side of this user control.
+        /// </summary>
         public View BackView
         {
             get { return (View)GetValue(BackViewProperty); }
@@ -114,6 +124,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
             }
         }
 
+        /// <summary>
+        /// Makes the user control flip from front to back, or the other way around.
+        /// </summary>
         public void Flip()
         {
             if (!isFlipping)

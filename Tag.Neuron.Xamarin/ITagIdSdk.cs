@@ -4,20 +4,68 @@ using Tag.Neuron.Xamarin.Services;
 
 namespace Tag.Neuron.Xamarin
 {
+    /// <summary>
+    /// The TagIdSdk is the 'root' of the Neuron library.
+    /// Use this to access Neuron specific features and services, and to control startup/shutdown.
+    /// </summary>
     public interface ITagIdSdk : IDisposable
     {
+        /// <summary>
+        /// To be called when the app is starting, regardless of whether it a cold start, or if it is resuming.
+        /// </summary>
+        /// <param name="isResuming">Set to <c>true</c> if the app is resuming, <c>false</c> otherwise.</param>
+        /// <returns></returns>
         Task Startup(bool isResuming);
+        /// <summary>
+        /// To be called when the app is shutting down.
+        /// </summary>
+        /// <param name="keepRunningInTheBackground">Set to <c>true</c> if the app should maintain the Neuron server connection, <c>false</c> otherwise.</param>
+        /// <returns></returns>
         Task Shutdown(bool keepRunningInTheBackground);
+        /// <summary>
+        /// To be called when the app is shutting down due to an unhandled exception. Will exit as fast as possible.
+        /// </summary>
+        /// <returns></returns>
         Task ShutdownInPanic();
+        /// <summary>
+        /// Call this method regularly to save user settings so they persist sessions.
+        /// </summary>
         void AutoSave();
+        /// <summary>
+        /// The TAG Profile used for authentication/connection.
+        /// </summary>
         ITagProfile TagProfile { get; }
+        /// <summary>
+        /// A UI dispatcher for accessing the UI thread as well as display alerts to the user.
+        /// </summary>
         IUiDispatcher UiDispatcher { get; }
+        /// <summary>
+        /// Provides authorization services.
+        /// </summary>
         IAuthService AuthService { get; }
+        /// <summary>
+        /// Provides Neuron server access.
+        /// </summary>
         INeuronService NeuronService { get; }
+        /// <summary>
+        /// Provides network access.
+        /// </summary>
         INetworkService NetworkService { get; }
+        /// <summary>
+        /// The log service, collecting information about events, exceptions and the likes.
+        /// </summary>
         ILogService LogService { get; }
+        /// <summary>
+        /// Use this for persistent storage.
+        /// </summary>
         IStorageService StorageService { get; }
+        /// <summary>
+        /// Allows for saving/restoring user settings.
+        /// </summary>
         ISettingsService SettingsService { get; }
+        /// <summary>
+        /// Provides application navigation services in a generic way.
+        /// </summary>
         INavigationService NavigationService { get; }
     }
 }

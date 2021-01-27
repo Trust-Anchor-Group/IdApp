@@ -7,6 +7,11 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Tag.Neuron.Xamarin.UI.Views
 {
+    /// <summary>
+    /// A base class for all pages. This class works in close conjunction with the <see cref="BaseViewModel"/> for binding and unbinding data
+    /// when the page is shown on screen.
+    /// </summary>
+    /// <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
     public class ContentBasePage : ContentPage
     {
         private const string DefaultMargin = "DefaultMargin";
@@ -34,12 +39,20 @@ namespace Tag.Neuron.Xamarin.UI.Views
             }
         }
 
+        /// <summary>
+        /// Typed convenience property for accessing the <see cref="BindableObject.BindingContext"/> property as a view model.
+        /// </summary>
         protected BaseViewModel ViewModel
         {
             get => BindingContext as BaseViewModel;
             set => BindingContext = value;
         }
 
+        /// <summary>
+        /// Returns the viewmodel, type cast to the proper type.
+        /// </summary>
+        /// <typeparam name="T">The viewmodel type.</typeparam>
+        /// <returns></returns>
         protected T GetViewModel<T>() where T : BaseViewModel
         {
             return (T)ViewModel;

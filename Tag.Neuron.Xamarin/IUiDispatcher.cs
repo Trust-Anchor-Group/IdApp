@@ -3,15 +3,65 @@ using System.Threading.Tasks;
 
 namespace Tag.Neuron.Xamarin
 {
+    /// <summary>
+    /// A wafer-thin wrapper around the UI (main) thread.
+    /// Provides methods for displaying alerts to the user in a thread-safe way. Queues them up if there's more than one.
+    /// </summary>
     public interface IUiDispatcher
     {
+        /// <summary>
+        /// Does a begin-invoke on the main thread of the specified action.
+        /// </summary>
+        /// <param name="action">The action to execute asynchronously.</param>
         void BeginInvokeOnMainThread(Action action);
+        /// <summary>
+        /// Determines whether the app is running in the background.
+        /// </summary>
         bool IsRunningInTheBackground { get; }
+        /// <summary>
+        /// Displays an alert/message box to the user.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="message">The message to display.</param>
+        /// <param name="accept">The accept/ok button text.</param>
+        /// <param name="cancel">The cancel button text.</param>
+        /// <returns></returns>
         Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
+        /// <summary>
+        /// Displays an alert/message box to the user.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="message">The message to display.</param>
+        /// <param name="accept">The accept/ok button text.</param>
+        /// <returns></returns>
         Task DisplayAlert(string title, string message, string accept);
+        /// <summary>
+        /// Displays an alert/message box to the user.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="message">The message to display.</param>
+        /// <returns></returns>
         Task DisplayAlert(string title, string message);
+        /// <summary>
+        /// Displays an alert/message box to the user.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="message">The message to display.</param>
+        /// <param name="exception">The exception to display.</param>
+        /// <returns></returns>
         Task DisplayAlert(string title, string message, Exception exception);
+        /// <summary>
+        /// Displays an alert/message box to the user.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="exception">The exception to display.</param>
+        /// <returns></returns>
         Task DisplayAlert(string title, Exception exception);
+        /// <summary>
+        /// Displays an alert/message box to the user.
+        /// </summary>
+        /// <param name="exception">The exception to display.</param>
+        /// <returns></returns>
         Task DisplayAlert(Exception exception);
     }
 }

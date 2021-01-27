@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Tag.Neuron.Xamarin.UI.Views;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.UI.ViewModels
@@ -7,7 +8,9 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
     /// <summary>
     /// A base class for all view models, inheriting from the <see cref="BindableObject"/>.
     /// This class provides default implementations for the <see cref="DoBind"/> and <see cref="DoUnbind"/> methods.
-    /// Override those to implement setup/teardown when a page/view is appearing and disapperaring to/from the screen respectively.
+    /// Override those to implement setup/teardown when a page/view is appearing and disappearing to/from the screen respectively.
+    /// <br/>
+    /// NOTE: using this class requires your page/view to inherit from <see cref="ContentBasePage"/>.
     /// </summary>
     public class BaseViewModel : BindableObject
     {
@@ -41,7 +44,7 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         }
 
         /// <summary>
-        /// Called by the parent page when it disaappears from screen.
+        /// Called by the parent page when it disappears from screen.
         /// </summary>
         /// <returns></returns>
         public async Task Unbind()
@@ -99,6 +102,10 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Called by the parent page when it appears on screen, <em>after</em> the <see cref="Bind"/> method is called.
+        /// </summary>
+        /// <returns></returns>
         public async Task RestoreState()
         {
             foreach (BaseViewModel childViewModel in childViewModels)
@@ -108,6 +115,10 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
             await DoRestoreState();
         }
 
+        /// <summary>
+        /// Called by the parent page when it disappears on screen, <em>before</em> the <see cref="Unbind"/> method is called.
+        /// </summary>
+        /// <returns></returns>
         public async Task SaveState()
         {
             foreach (BaseViewModel childViewModel in childViewModels)
@@ -117,24 +128,41 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
             await DoSaveState();
         }
 
+        /// <summary>
+        /// Override this method to do view model specific restoring of state when it's parent page/view appears on screen.
+        /// </summary>
+        /// <returns></returns>
         protected virtual Task DoRestoreState()
         {
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Override this method to do view model specific saving of state when it's parent page/view disappears from screen.
+        /// </summary>
+        /// <returns></returns>
         protected virtual Task DoSaveState()
         {
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Helper method for getting a unique settings key for a given property.
+        /// </summary>
+        /// <param name="propertyName">The property name to convert into a settings key.</param>
+        /// <returns></returns>
         protected string GetSettingsKey(string propertyName)
         {
             return $"{this.GetType().FullName}.{propertyName}";
         }
 
+
         public static readonly BindableProperty IsBusyProperty =
             BindableProperty.Create("IsBusy", typeof(bool), typeof(BaseViewModel), default(bool));
 
+        /// <summary>
+        /// A helper property to set/get when the ViewModel is busy doing work.
+        /// </summary>
         public bool IsBusy
         {
             get { return (bool)GetValue(IsBusyProperty); }

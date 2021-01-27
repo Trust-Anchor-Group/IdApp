@@ -5,6 +5,10 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace Tag.Neuron.Xamarin.UI.Views
 {
+    /// <summary>
+    /// A base class for <see cref="Shell"/> pages. This class provides easy, typed, access to the <see cref="BindableObject.BindingContext"/> as a view model.
+    /// It also handles safe area insets for iOS when the phone has a 'rabbit ear' display.
+    /// </summary>
     public class ShellBasePage : Shell
     {
         private const string DefaultMargin = "DefaultMargin";
@@ -28,12 +32,20 @@ namespace Tag.Neuron.Xamarin.UI.Views
             }
         }
 
+        /// <summary>
+        /// Typed convenience property for accessing the <see cref="BindableObject.BindingContext"/> property as a view model.
+        /// </summary>
         protected BaseViewModel ViewModel
         {
             get => BindingContext as BaseViewModel;
             set => BindingContext = value;
         }
 
+        /// <summary>
+        /// Returns the viewmodel, type cast to the proper type.
+        /// </summary>
+        /// <typeparam name="T">The viewmodel type.</typeparam>
+        /// <returns></returns>
         protected T GetViewModel<T>() where T : BaseViewModel
         {
             return (T)ViewModel;
