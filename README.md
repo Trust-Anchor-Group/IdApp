@@ -1,6 +1,6 @@
-# IdApp
+# ID App
 
-The **Id App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) (**TAG** for short).
+The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) (**TAG** for short).
 It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com/IEEE-SA/XMPPI/IoT). This includes:
 
 * Federated & distributed Digital IDs. (Globally scalable, interoperable.)
@@ -22,7 +22,7 @@ The first is a wrapper library around the [IoTGateway](https://github.com/PeterW
 to provide convenience code and app lifecycle support for the Xamarin platform.
 
 The second is the very few base classes needed for correct structuring and binding of UI components for the common setup/teardown scenarios that occur
-when browsing/using an app.
+when browsing/using an app. Typically that means tying the Appearing/Disappearing events of a page to business logic.
 
 
 ## License
