@@ -6,8 +6,14 @@
                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                       x:Class="IdApp.Views.Registration.ChooseOperatorView">
     <ContentView.Content>
-        <Grid>
-            <Image Source="tag_bg2.jpg" Aspect="AspectFill"/>
+        <Grid Margin="0,0,0,0">
+            <Image Source="tag_bg2.jpg" Aspect="AspectFill">
+                <Image.Margin>
+                    <OnPlatform x:TypeArguments="Thickness">
+                        <On Platform="iOS" Value="-1,-1,0,0"/>
+                    </OnPlatform>
+                </Image.Margin>
+            </Image>
             <Grid Margin="{StaticResource DefaultLeftRightMargin}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
