@@ -32,10 +32,6 @@ namespace Tag.Neuron.Xamarin
         /// <returns></returns>
         Task ShutdownInPanic();
         /// <summary>
-        /// Call this method regularly to save user settings so they persist sessions.
-        /// </summary>
-        void AutoSave();
-        /// <summary>
         /// The TAG Profile used for authentication/connection.
         /// </summary>
         ITagProfile TagProfile { get; }

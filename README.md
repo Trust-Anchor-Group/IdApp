@@ -25,6 +25,15 @@ The second is the very few base classes needed for correct structuring and bindi
 when browsing/using an app. Typically that means tying the Appearing/Disappearing events of a page to business logic.
 
 
+## Documentation ##
+
+The architecture overview as well as technical guides for implementing and using the TAG Neuron SDK in a Xamarin app can be found here:
+
+[Getting Started]("./Content/GettingStarted.md")
+
+[User Interface]("./Content/UserInterface.md")
+
+
 ## License
 
 You should carefully read the following terms and conditions before using this software. Your use of this software indicates your acceptance of this 

@@ -7,7 +7,6 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
@@ -21,7 +20,6 @@ namespace IdApp
 {
     public partial class App : IDisposable
     {
-        private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
@@ -93,46 +91,39 @@ namespace IdApp
 
             try
             {
-                await PerformStartup(false);
+                await this.PerformStartup(false);
             }
             catch (Exception e)
             {
-                DisplayErrorPage("PerformStartup", e.ToString());
+                this.DisplayErrorPage("PerformStartup", e.ToString());
             }
         }
 
         protected override async void OnResume()
         {
-            await PerformStartup(true);
+            await this.PerformStartup(true);
         }
 
         protected override async void OnSleep()
         {
-            await PerformShutdown();
+            await this.PerformShutdown();
         }
 
 		private async Task PerformStartup(bool isResuming)
         {
-            await SendErrorReportFromPreviousRun();
+            await this.SendErrorReportFromPreviousRun();
 
             await this.sdk.Startup(isResuming);
 
             await this.imageCacheService.Load(isResuming);
             await this.contractOrchestratorService.Load(isResuming);
             await this.navigationOrchestratorService.Load(isResuming);
-
-            this.autoSaveTimer = new Timer(_ => AutoSave(), null, Constants.Intervals.AutoSave, Constants.Intervals.AutoSave);
         }
 
         private async Task PerformShutdown()
         {
-            if (this.autoSaveTimer != null)
-            {
-                this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
-                this.autoSaveTimer.Dispose();
-                this.autoSaveTimer = null;
-            }
-            AutoSave();
+            // Done manually here, as the Disappearing event won't trigger when exiting the app,
+            // and we want to make sure state is persisted and teardown is done correctly to avoid memory leaks.
             if (MainPage?.BindingContext is BaseViewModel vm)
             {
                 await vm.SaveState();
@@ -145,11 +136,6 @@ namespace IdApp
                 await this.contractOrchestratorService.Unload();
             }
             await this.sdk.Shutdown(keepRunningInTheBackground);
-        }
-
-        private void AutoSave()
-        {
-            this.sdk.AutoSave();
         }
 
         #region Error Handling

@@ -19,6 +19,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tag.Neuron.Xamarin.Tests", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdApp.Tests", "IdApp.Tests\IdApp.Tests.csproj", "{7C838673-1FDC-4E3F-B9C0-937784D97560}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{21240F73-9B95-4AF8-B1B1-E4197FAB406A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F13E31E8-60F7-4F2F-B69E-7B6655CCE57B}"
+	ProjectSection(SolutionItems) = preProject
+		Content\GettingStarted.md = Content\GettingStarted.md
+		Content\NeuronRegistration.md = Content\NeuronRegistration.md
+		README.md = README.md
+		Content\UserInterface.md = Content\UserInterface.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -146,6 +156,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F13E31E8-60F7-4F2F-B69E-7B6655CCE57B} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7816AF3C-464A-4113-9E1E-B9A38E86BB11}

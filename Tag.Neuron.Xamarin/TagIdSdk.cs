@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;
@@ -24,6 +25,7 @@ namespace Tag.Neuron.Xamarin
         private static ITagIdSdk instance;
         private readonly Assembly appAssembly;
         private FilesProvider databaseProvider;
+        private Timer autoSaveTimer;
 
         private TagIdSdk(Application app, params DomainModel[] domains)
         {
@@ -87,10 +89,14 @@ namespace Tag.Neuron.Xamarin
             }
 
             await this.NeuronService.Load(isResuming);
+
+            TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
+            this.autoSaveTimer = new Timer(_ => AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
         }
 
         public async Task Shutdown(bool keepRunningInTheBackground)
         {
+            StopAutoSaveTimer();
             this.uiDispatcher.IsRunningInTheBackground = true;
             if (!keepRunningInTheBackground)
             {
@@ -105,6 +111,7 @@ namespace Tag.Neuron.Xamarin
 
         public async Task ShutdownInPanic()
         {
+            StopAutoSaveTimer();
             this.uiDispatcher.IsRunningInTheBackground = false;
             await this.neuronService.UnloadFast();
             await Types.StopAllModules();
@@ -114,7 +121,17 @@ namespace Tag.Neuron.Xamarin
             this.databaseProvider = null;
         }
 
-        public void AutoSave()
+        private void StopAutoSaveTimer()
+        {
+            if (this.autoSaveTimer != null)
+            {
+                this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                this.autoSaveTimer.Dispose();
+                this.autoSaveTimer = null;
+            }
+        }
+
+        private void AutoSave()
         {
             if (this.TagProfile.IsDirty)
             {
