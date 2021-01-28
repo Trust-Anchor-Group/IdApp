@@ -31,6 +31,8 @@ The architecture overview as well as technical guides for implementing and using
 
 [Getting Started](Content/GettingStarted.md)
 
+[Neuron SDK](Content/NeuronSDK.md)
+
 [Neuron Registration](Content/NeuronRegistration.md)
 
 [User Interface](Content/UserInterface.md)
