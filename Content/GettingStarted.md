@@ -1,4 +1,4 @@
-# Documentation #
+# Getting Started #
 In order to build a Xamarin app that uses the Neuron server you need to include the TAG Neuron SDK. 
 
 ## Table of Contents ##
