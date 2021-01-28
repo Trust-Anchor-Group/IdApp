@@ -102,9 +102,9 @@ the keys can be kept secret, but copied in temporarily during compilation, and t
 2. Open up the `App.xaml.cs` file in the editor.
 3. Apply the code changes in the `App` constructor as suggested [above](#the-tag-neuron-sdk-structure).
 4. Add `override`s for the following methods:
-   A. `OnStart()`
-   2. `OnResume()`
-   3. `OnSleep()`
+    1. `OnStart()`
+    2. `OnResume()`
+    3. `OnSleep()`
  
 Use these overrides to hook into the TAG Neuron SDK. Here's the way to do it:
 ```
