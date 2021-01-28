@@ -1,9 +1,7 @@
 # Documentation #
-
 In order to build a Xamarin app that uses the Neuron server you need to include the TAG Neuron SDK. 
 
 ## Table of Contents ##
-
 - [Getting Started](#getting-started)
 - [Dependency Resolution](#dependency-resolution)
 - [The TAG Neuron SDK Structure](#the-tag-sdk-neuron-structure)
@@ -12,7 +10,6 @@ In order to build a Xamarin app that uses the Neuron server you need to include 
 - [Next Steps](#next-steps)
 
 ## Getting Started ##
-
 The TAG Neuron SDK is easy to integrate into any Xamarin App via a few lines of code.
 
 ### Dependency resolution ###
@@ -50,13 +47,12 @@ That's all you need to do. And when you need to resolve components later in the 
 This will invoke the AutoFac IoC under the hood.
 
 ## The TAG Neuron SDK Structure ##
-
 The core, or root of the TAG Neuron SDK starts with the [`ITagIdSdk`](../Tag.Neuron.Xamarin/ITagIdSdk.cs) interface. 
 Everything you need can be accessed via this interface. You create an instance of the SDK in your `App` constructor like this:
 ```
     this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
 ```
-Once this is done you can register the TAG SDK services with AutoFac like this (See details on [Registration Keys](#registration-keys) below)
+Once this is done you can register the TAG Neuron SDK services with AutoFac like this (See details on [Registration Keys](#registration-keys) below)
 ```
 public App()
 {
@@ -102,7 +98,6 @@ Cryptographic keys or secrets should never be added to source control. By placin
 the keys can be kept secret, but copied in temporarily during compilation, and then removed immediately again.
 
 ## Creating the app ##
-
 1. Start by creating a standard Xamarin App for iOS and Android.
 2. Open up the `App.xaml.cs` file in the editor.
 3. Apply the code changes in the `App` constructor as suggested [above](#the-tag-neuron-sdk-structure).
@@ -154,8 +149,7 @@ private async Task PerformShutdown()
 When this is done, you can start and run the application. It won't do anything, but now it's wired into the SDK correctly.
 
 ## Next Steps ##
-
 For further reading, please continue to these sections:
 
-- [Neuron Registration](./NeuronRegistration.md)
-- [User Interface Guidelines](./UserInterface.md)
+- [Neuron Registration](NeuronRegistration.md)
+- [User Interface Guidelines](UserInterface.md)
