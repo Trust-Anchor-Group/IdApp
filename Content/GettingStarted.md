@@ -4,7 +4,7 @@ In order to build a Xamarin app that uses the Neuron server you need to include 
 ## Table of Contents ##
 - [Getting Started](#getting-started)
 - [Dependency Resolution](#dependency-resolution)
-- [The TAG Neuron SDK Structure](#the-tag-sdk-neuron-structure)
+- [The TAG Neuron SDK Structure](#the-tag-neuron-sdk-structure)
 - [Registration Keys](#registration-keys)
 - [Creating the app](#creating-the-app)
 - [Next Steps](#next-steps)
