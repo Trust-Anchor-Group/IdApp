@@ -81,6 +81,7 @@ public App()
     DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 }
 ```
+For further reading about the TAG Neuron SDK, [have a look here](NeuronSDK.md).
 
 ## Registration Keys ##
 Registration keys for each Neuron domain is specified separately in a partial class, see [`Registration.cs`](../IdApp/IdApp/Services/Registration.cs).
@@ -152,4 +153,4 @@ When this is done, you can start and run the application. It won't do anything, 
 For further reading, please continue to these sections:
 
 - [Neuron Registration](NeuronRegistration.md)
-- [User Interface Guidelines](UserInterface.md)
+- [Neuron SDK UI](NeuronSDKUI.md)
