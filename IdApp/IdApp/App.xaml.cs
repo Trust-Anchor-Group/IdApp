@@ -34,7 +34,7 @@ namespace IdApp
 
             try
             {
-                this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
+                this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new Registration().ToArray());
                 ContainerBuilder builder = new ContainerBuilder();
                 // SDK Registrations
                 builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();

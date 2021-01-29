@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -24,10 +25,11 @@ namespace Tag.Neuron.Xamarin
     {
         private static ITagIdSdk instance;
         private readonly Assembly appAssembly;
+        private readonly Assembly[] additionalAssemblies;
         private FilesProvider databaseProvider;
         private Timer autoSaveTimer;
 
-        private TagIdSdk(Application app, params DomainModel[] domains)
+        private TagIdSdk(Assembly appAssembly, Assembly[] additionalAssemblies, params DomainModel[] domains)
         {
             this.TagProfile = new TagProfile(domains);
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
@@ -36,7 +38,8 @@ namespace Tag.Neuron.Xamarin
             this.NetworkService = new NetworkService(this.LogService, this.UiDispatcher);
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
-            this.appAssembly = app.GetType().Assembly;
+            this.appAssembly = appAssembly;
+            this.additionalAssemblies = additionalAssemblies;
             this.neuronService = new NeuronService(this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.logService);
             this.NavigationService = new NavigationService(this.logService, this.uiDispatcher);
         }
@@ -46,9 +49,13 @@ namespace Tag.Neuron.Xamarin
             instance = null;
         }
 
-        public static ITagIdSdk Create(Application app, params DomainModel[] domains)
+        public static ITagIdSdk Create(Assembly appAssembly, Assembly[] additionalAssemblies, params DomainModel[] domains)
         {
-            return instance ?? (instance = new TagIdSdk(app, domains));
+            if (appAssembly == null)
+            {
+                throw new ArgumentException("Value cannot be null", nameof(appAssembly));
+            }
+            return instance ?? (instance = new TagIdSdk(appAssembly, additionalAssemblies, domains));
         }
 
         public ITagProfile TagProfile { get; }
@@ -69,7 +76,8 @@ namespace Tag.Neuron.Xamarin
             this.uiDispatcher.IsRunningInTheBackground = false;
             if (!isResuming)
             {
-                Types.Initialize(
+                List<Assembly> assemblies = new List<Assembly>
+                {
                     this.appAssembly,
                     typeof(Database).Assembly,
                     typeof(FilesProvider).Assembly,
@@ -78,7 +86,21 @@ namespace Tag.Neuron.Xamarin
                     typeof(ContractsClient).Assembly,
                     typeof(Expression).Assembly,
                     typeof(XmppServerlessMessaging).Assembly,
-                    typeof(TagConfiguration).Assembly);
+                    typeof(TagConfiguration).Assembly
+                };
+
+                if (this.additionalAssemblies != null && this.additionalAssemblies.Length > 0)
+                {
+                    foreach (Assembly assembly in this.additionalAssemblies)
+                    {
+                        if (!assemblies.Contains(assembly))
+                        {
+                            assemblies.Add(assembly);
+                        }
+                    }
+                }
+
+                Types.Initialize(assemblies.ToArray());
             }
 
             await InitializeDatabase();
