@@ -2,17 +2,20 @@
 using IdApp.Views;
 using IdApp.Views.Contracts;
 using System;
-using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using IdApp.Views.Registration;
 using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
 namespace IdApp.Services
 {
-    internal sealed class ContractOrchestratorService : LoadableService, IContractOrchestratorService
+    internal class ContractOrchestratorService : LoadableService, IContractOrchestratorService
     {
         private readonly ITagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
@@ -41,6 +44,7 @@ namespace IdApp.Services
         {
             if (this.BeginLoad())
             {
+                this.neuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
                 this.neuronService.Contracts.PetitionForPeerReviewIdReceived += Contracts_PetitionForPeerReviewIdReceived;
                 this.neuronService.Contracts.PetitionForIdentityReceived += Contracts_PetitionForIdentityReceived;
                 this.neuronService.Contracts.PetitionForSignatureReceived += Contracts_PetitionForSignatureReceived;
@@ -57,6 +61,7 @@ namespace IdApp.Services
         {
             if (this.BeginUnload())
             {
+                this.neuronService.Contracts.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
                 this.neuronService.Contracts.PetitionForPeerReviewIdReceived -= Contracts_PetitionForPeerReviewIdReceived;
                 this.neuronService.Contracts.PetitionForIdentityReceived -= Contracts_PetitionForIdentityReceived;
                 this.neuronService.Contracts.PetitionForSignatureReceived -= Contracts_PetitionForSignatureReceived;
@@ -94,7 +99,7 @@ namespace IdApp.Services
             }
             else
             {
-                (bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(this.neuronService.Contracts.GetLegalIdentity, e.RequestedIdentityId);
+                (bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
                 if (succeeded)
                 {
                     identity = li;
@@ -108,7 +113,7 @@ namespace IdApp.Services
             if (identity.State == IdentityState.Compromised ||
                 identity.State == IdentityState.Rejected)
             {
-                await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionIdentityResponse, e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionIdentityResponse(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false));
             }
             else
             {
@@ -125,7 +130,7 @@ namespace IdApp.Services
         private async void Contracts_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
         {
             // Reject all signature requests by default
-            await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionSignatureResponse, e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false);
+            await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false));
         }
 
         private void Contracts_PetitionedNeuronContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
@@ -145,7 +150,7 @@ namespace IdApp.Services
 
         private async void Contracts_PetitionForNeuronContractReceived(object sender, ContractPetitionEventArgs e)
         {
-            (bool succeeded, Contract contract) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContract, e.RequestedContractId);
+            (bool succeeded, Contract contract) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetContract(e.RequestedContractId));
 
             if (!succeeded)
                 return;
@@ -153,7 +158,7 @@ namespace IdApp.Services
             if (contract.State == ContractState.Deleted ||
                 contract.State == ContractState.Rejected)
             {
-                await this.networkService.TryRequest(this.neuronService.Contracts.SendPetitionContractResponse, e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false);
+                await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
             }
             else
             {
@@ -212,7 +217,7 @@ namespace IdApp.Services
                         }
                         else
                         {
-                            (bool succeeded, LegalIdentity legalIdentity) = await this.networkService.TryRequest(this.neuronService.Contracts.AddPeerReviewIdAttachment, tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature);
+                            (bool succeeded, LegalIdentity legalIdentity) = await this.networkService.TryRequest(() => this.neuronService.Contracts.AddPeerReviewIdAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature));
                             if (succeeded)
                             {
                                 await this.uiDispatcher.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
@@ -229,7 +234,61 @@ namespace IdApp.Services
 
         }
 
+        private async void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            if (this.neuronService.IsOnline && e.State == XmppState.Connected)
+            {
+                if (this.tagProfile.LegalIdentity != null && this.tagProfile.IsCompleteOrWaitingForValidation())
+                {
+                    string id = this.tagProfile.LegalIdentity.Id;
+                    await Task.Delay(Constants.Timeouts.XmppInit);
+                    DownloadLegalIdentityInternal(id);
+                }
+            }
+        }
+
         #endregion
+
+        protected virtual void DownloadLegalIdentityInternal(string legalId)
+        {
+            // Run asynchronously so we're not blocking startup UI.
+            _ = DownloadLegalIdentity(this.tagProfile.LegalIdentity.Id);
+        }
+
+        private async Task DownloadLegalIdentity(string legalId)
+        {
+            bool isConnected = await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+
+            if (!isConnected)
+                return;
+
+            (bool succeeded, LegalIdentity identity) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(legalId), displayAlert: false);
+            if (succeeded)
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    bool gotoRegistrationPage = false;
+                    if (identity.State == IdentityState.Compromised)
+                    {
+                        this.tagProfile.CompromiseLegalIdentity(identity);
+                        gotoRegistrationPage = true;
+                    }
+                    else if (identity.State == IdentityState.Obsoleted)
+                    {
+                        this.tagProfile.RevokeLegalIdentity(identity);
+                        gotoRegistrationPage = true;
+                    }
+                    else
+                    {
+                        this.tagProfile.SetLegalIdentity(identity);
+                    }
+                    if (gotoRegistrationPage)
+                    {
+                        await this.navigationService.GoToAsync(nameof(RegistrationPage));
+                    }
+                });
+            }
+        }
 
         public async Task OpenLegalIdentity(string legalId, string purpose)
         {
@@ -243,11 +302,9 @@ namespace IdApp.Services
             }
             catch (Exception ex)
             {
-                this.logService.LogException(ex, 
-                    new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
-                    new KeyValuePair<string, string>("Method", nameof(OpenLegalIdentity)));
+                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 
-                bool succeeded = await this.networkService.TryRequest(this.neuronService.Contracts.PetitionIdentity, legalId, Guid.NewGuid().ToString(), purpose);
+                bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionIdentity(legalId, Guid.NewGuid().ToString(), purpose));
                 if (succeeded)
                 {
                     await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
@@ -271,11 +328,9 @@ namespace IdApp.Services
             }
             catch (Exception ex)
             {
-                this.logService.LogException(ex,
-                    new KeyValuePair<string, string>("Class", nameof(ContractOrchestratorService)),
-                    new KeyValuePair<string, string>("Method", nameof(OpenContract)));
+                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 
-                bool succeeded = await this.networkService.TryRequest(this.neuronService.Contracts.PetitionContract, contractId, Guid.NewGuid().ToString(), purpose);
+                bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionContract(contractId, Guid.NewGuid().ToString(), purpose));
                 if (succeeded)
                 {
                     await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);

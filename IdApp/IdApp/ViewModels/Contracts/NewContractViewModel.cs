@@ -336,7 +336,7 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                (bool succeeded, Contract retrievedContract) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContract, this.contractTemplateId);
+                (bool succeeded, Contract retrievedContract) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetContract(this.contractTemplateId));
                 if (!succeeded)
                     return;
 
@@ -492,24 +492,24 @@ namespace IdApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool createSucceeded, Contract createdContract) = await this.networkService.TryRequest<string, Part[], Parameter[], ContractVisibility, ContractParts,Duration,Duration,Duration, DateTime?, DateTime?, bool, Contract>(
-                    this.neuronService.Contracts.CreateContract,
-                    this.contractTemplateId,
-                    parts.ToArray(),
-                    this.contractTemplate.Parameters,
-                    this.contractTemplate.Visibility,
-                    ContractParts.ExplicitlyDefined,
-                    this.contractTemplate.Duration,
-                    this.contractTemplate.ArchiveRequired,
-                    this.contractTemplate.ArchiveOptional,
-                    null,
-                    null,
-                    false);
+                (bool createSucceeded, Contract createdContract) = await this.networkService.TryRequest(() => 
+                    this.neuronService.Contracts.CreateContract(
+                        this.contractTemplateId,
+                        parts.ToArray(),
+                        this.contractTemplate.Parameters,
+                        this.contractTemplate.Visibility,
+                        ContractParts.ExplicitlyDefined,
+                        this.contractTemplate.Duration,
+                        this.contractTemplate.ArchiveRequired,
+                        this.contractTemplate.ArchiveOptional,
+                        null,
+                        null,
+                        false));
 
                 Contract signedContract = null;
                 if (createSucceeded)
                 {
-                    (bool signSucceeded, Contract contract) = await this.networkService.TryRequest(this.neuronService.Contracts.SignContract, createdContract, this.SelectedRole.Name, false);
+                    (bool signSucceeded, Contract contract) = await this.networkService.TryRequest(() => this.neuronService.Contracts.SignContract(createdContract, this.SelectedRole.Name, false));
                     if (signSucceeded)
                     {
                         signedContract = contract;

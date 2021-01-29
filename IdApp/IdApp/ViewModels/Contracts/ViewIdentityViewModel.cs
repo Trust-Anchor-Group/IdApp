@@ -760,14 +760,14 @@ namespace IdApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool succeeded1, byte[] signature) = await this.networkService.TryRequest(this.NeuronService.Contracts.Sign, this.identityToReview.ContentToSign);
+                (bool succeeded1, byte[] signature) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.Sign(this.identityToReview.ContentToSign));
 
                 if (!succeeded1)
                 {
                     return;
                 }
 
-                bool succeeded2 = await this.networkService.TryRequest(this.NeuronService.Contracts.SendPetitionSignatureResponse, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true);
+                bool succeeded2 = await this.networkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true));
 
                 if (succeeded2)
                 {
@@ -788,7 +788,7 @@ namespace IdApp.ViewModels.Contracts
 
             try
             {
-                bool succeeded = await this.networkService.TryRequest(this.NeuronService.Contracts.SendPetitionSignatureResponse, this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false);
+                bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false));
                 if (succeeded)
                 {
                     await this.navigationService.GoBackAsync();
@@ -811,7 +811,7 @@ namespace IdApp.ViewModels.Contracts
                 if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.No))
                     return;
 
-                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.ObsoleteLegalIdentity, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
                 if (succeeded)
                 {
                     this.LegalIdentity = revokedIdentity;
@@ -836,7 +836,7 @@ namespace IdApp.ViewModels.Contracts
                 if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.No))
                     return;
 
-                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(this.NeuronService.Contracts.CompromiseLegalIdentity, this.LegalIdentity.Id);
+                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
 
                 if (succeeded)
                 {
