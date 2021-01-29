@@ -94,9 +94,9 @@ Then the `IdApp.sln` file is located in that folder. Run the build once, this wi
 In this case it would be the `/Path/To/Solution/` folder.
 Edit _this_ file, providing domain names and cryptographic keys.
 
-### Motivation ###
+#### Motivation ####
 Cryptographic keys or secrets should never be added to source control. By placing this partial class declaration on your hard drive, but _outside_ the regular solution and folder structure,
-the keys can be kept secret, but copied in temporarily during compilation, and then removed immediately again.
+the keys can be kept secret, but copied in temporarily during compilation, and then removed immediately again. *Hence the custom build steps*.
 
 ## Creating the app ##
 1. Start by creating a standard Xamarin App for iOS and Android.
@@ -153,4 +153,5 @@ When this is done, you can start and run the application. It won't do anything, 
 For further reading, please continue to these sections:
 
 - [Neuron Registration](NeuronRegistration.md)
+- [Neuron SDK](NeuronSDK.md)
 - [Neuron SDK UI](NeuronSDKUI.md)

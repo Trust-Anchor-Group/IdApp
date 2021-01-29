@@ -29,13 +29,10 @@ when browsing/using an app. Typically that means tying the Appearing/Disappearin
 
 The architecture overview as well as technical guides for implementing and using the TAG Neuron SDK in a Xamarin app can be found here:
 
-[Getting Started](Content/GettingStarted.md)
-
-[Neuron SDK](Content/NeuronSDK.md)
-
-[Neuron Registration](Content/NeuronRegistration.md)
-
-[Neuron SDK UI](Content/NeuronSDKUI.md)
+- [Getting Started](Content/GettingStarted.md)
+- [Neuron Registration](Content/NeuronRegistration.md)
+- [Neuron SDK](Content/NeuronSDK.md)
+- [Neuron SDK UI](Content/NeuronSDKUI.md)
 
 
 ## License
