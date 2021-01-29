@@ -332,7 +332,7 @@ namespace IdApp.ViewModels.Registration
             {
                 string passwordToUse = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
 
-                (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(this.TagProfile.Domain);
+                (string hostName, int portNumber) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
                 async Task OnConnected(XmppClient client)
                 {
@@ -380,7 +380,7 @@ namespace IdApp.ViewModels.Registration
             {
                 string password = Password;
 
-                (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(this.TagProfile.Domain);
+                (string hostName, int portNumber) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
                 async Task OnConnected(XmppClient client)
                 {

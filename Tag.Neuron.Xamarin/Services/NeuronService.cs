@@ -86,7 +86,7 @@ namespace Tag.Neuron.Xamarin.Services
                     this.passwordHash = this.tagProfile.PasswordHash;
                     this.passwordHashMethod = this.tagProfile.PasswordHashMethod;
 
-                    (string hostName, int portNumber) = await this.networkService.GetXmppHostnameAndPort(domainName);
+                    (string hostName, int portNumber) = await this.networkService.LookupXmppHostnameAndPort(domainName);
 
                     this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod,
                         Constants.LanguageCodes.Default, appAssembly, this.sniffer)

@@ -93,7 +93,7 @@ namespace IdApp.ViewModels.Registration
             try
             {
                 string domainName = GetOperator();
-                (this.hostName, this.portNumber) = await this.networkService.GetXmppHostnameAndPort(domainName);
+                (this.hostName, this.portNumber) = await this.networkService.LookupXmppHostnameAndPort(domainName);
 
                 (bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
@@ -176,7 +176,7 @@ namespace IdApp.ViewModels.Registration
                 }
             }
 
-            (string host, int port) = await this.networkService.GetXmppHostnameAndPort(name);
+            (string host, int port) = await this.networkService.LookupXmppHostnameAndPort(name);
 
             if (string.IsNullOrWhiteSpace(host))
                 return false;
