@@ -35,7 +35,7 @@ The architecture overview as well as technical guides for implementing and using
 
 [Neuron Registration](Content/NeuronRegistration.md)
 
-[User Interface](Content/UserInterface.md)
+[Neuron SDK UI](Content/NeuronSDKUI.md)
 
 
 ## License

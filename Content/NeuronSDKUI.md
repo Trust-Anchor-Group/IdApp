@@ -1,5 +1,5 @@
 # User Interface #
-The TAG ID App uses standard Xamarin features, and is built around the relatively new [Xamarin Shell](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/shell/) experience.
+The TAG ID App uses standard Xamarin features, and is built around the [Xamarin Shell](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/shell/) experience.
 
 ## Overview ##
 The root of the UI is of course the [`AppShell`](../IdApp/IdApp/AppShell.xaml) implementation. It declares the UI's visual hierarchy.
