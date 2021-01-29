@@ -23,7 +23,6 @@ namespace IdApp
         private readonly ITagIdSdk sdk;
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly INavigationOrchestratorService navigationOrchestratorService;
         private readonly bool keepRunningInTheBackground = false;
 
         public App()
@@ -36,8 +35,8 @@ namespace IdApp
             try
             {
                 this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
-                // Registrations
                 ContainerBuilder builder = new ContainerBuilder();
+                // SDK Registrations
                 builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
                 builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
                 builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
@@ -47,17 +46,17 @@ namespace IdApp
                 builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
                 builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
                 builder.RegisterInstance(this.sdk.NavigationService).SingleInstance();
+                // App Registrations
                 builder.RegisterType<ImageCacheService>().As<IImageCacheService>().SingleInstance();
                 builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
-                builder.RegisterType<NavigationOrchestratorService>().As<INavigationOrchestratorService>().SingleInstance();
-                IContainer container = builder.Build();
+
                 // Set AutoFac to be the dependency resolver
+                IContainer container = builder.Build();
                 DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
                 // Resolve what's needed for the App class
                 this.imageCacheService = DependencyService.Resolve<IImageCacheService>();
                 this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-                this.navigationOrchestratorService = DependencyService.Resolve<INavigationOrchestratorService>();
             }
             catch (Exception e)
             {
@@ -73,7 +72,6 @@ namespace IdApp
             catch (Exception e)
             {
                 this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
-                return;
             }
         }
 
@@ -117,7 +115,6 @@ namespace IdApp
 
             await this.imageCacheService.Load(isResuming);
             await this.contractOrchestratorService.Load(isResuming);
-            await this.navigationOrchestratorService.Load(isResuming);
         }
 
         private async Task PerformShutdown()
@@ -132,7 +129,6 @@ namespace IdApp
 
             if (!keepRunningInTheBackground)
             {
-                await this.navigationOrchestratorService.Unload();
                 await this.contractOrchestratorService.Unload();
             }
             await this.sdk.Shutdown(keepRunningInTheBackground);

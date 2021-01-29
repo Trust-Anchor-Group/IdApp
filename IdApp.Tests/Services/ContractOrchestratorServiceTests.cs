@@ -3,6 +3,7 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
@@ -10,14 +11,16 @@ using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Tests.Services
 {
-    public class NavigationOrchestratorServiceTests
+    public class ContractOrchestratorServiceTests
     {
         private readonly TestTagProfile tagProfile;
+        private readonly Mock<IUiDispatcher> uiDispatcher;
         private readonly Mock<INeuronService> neuronService;
         private readonly Mock<INeuronContracts> neuronContracts;
         private readonly Mock<INetworkService> networkService;
         private readonly Mock<INavigationService> navigationService;
-        private readonly TestNavigationOrchestratorService sut;
+        private readonly Mock<ILogService> logService;
+        private readonly TestContractOrchestratorService sut;
 
         private class TestTagProfile : TagProfile
         {
@@ -34,10 +37,10 @@ namespace IdApp.Tests.Services
             }
         }
 
-        private class TestNavigationOrchestratorService : NavigationOrchestratorService
+        private class TestContractOrchestratorService : ContractOrchestratorService
         {
-            public TestNavigationOrchestratorService(ITagProfile tagProfile, INeuronService neuronService, INetworkService networkService, INavigationService navigationService)
-            : base(tagProfile, neuronService, networkService, navigationService)
+            public TestContractOrchestratorService(ITagProfile tagProfile, IUiDispatcher uiDispatcher, INeuronService neuronService, INavigationService navigationService, ILogService logService, INetworkService networkService)
+            : base(tagProfile, uiDispatcher, neuronService, navigationService, logService, networkService)
             {
             }
 
@@ -49,7 +52,7 @@ namespace IdApp.Tests.Services
             }
         }
 
-        public NavigationOrchestratorServiceTests()
+        public ContractOrchestratorServiceTests()
         {
             this.tagProfile = new TestTagProfile();
             this.neuronService = new Mock<INeuronService>();
@@ -57,7 +60,9 @@ namespace IdApp.Tests.Services
             this.networkService = new Mock<INetworkService>();
             this.navigationService = new Mock<INavigationService>();
             this.neuronService.SetupGet(x => x.Contracts).Returns(this.neuronContracts.Object);
-            this.sut = new TestNavigationOrchestratorService(this.tagProfile, this.neuronService.Object, this.networkService.Object, this.navigationService.Object);
+            this.logService = new Mock<ILogService>();
+            this.uiDispatcher = new Mock<IUiDispatcher>();
+            this.sut = new TestContractOrchestratorService(this.tagProfile, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.logService.Object, this.networkService.Object);
         }
 
         [SetUp]
