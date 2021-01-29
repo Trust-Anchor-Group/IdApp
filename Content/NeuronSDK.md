@@ -41,9 +41,41 @@ The [AuthService](../Tag.Neuron.Xamarin/Services/IAuthService.cs) has methods to
 
 ### NetworkService ###
 The [NetworkService](../Tag.Neuron.Xamarin/Services/INetworkService.cs) allows you to check for network access, and it also provides helper methods
-to make arbitrary requests with consise error handling built-in. That's what all the `TryRequest` methods are for.
-If any call fails, they will catch errors and display alerts to the user. You don't have to use these, but they are provided for convenience.
+to make arbitrary requests with consise error handling built-in. That's what the `TryRequest` methods are for.
+If any call fails, they will catch errors, log them and display alerts to the user. You don't have to use these, but they are provided for convenience.
 
+### LogService ###
+The [LogService](../Tag.Neuron.Xamarin/Services/ILogService.cs) allows you to save log statements which are then reported back to the Neuron server.
 
+### StorageService ###
+The [StorageService](../Tag.Neuron.Xamarin/Services/IStorageService.cs) represents persistent storage, i.e. a Database. The content is encrypted. In order to
+store any object in the database, the type of object to store must be made known to the SDK. This is what the second parameter in the call `TagIdSdk.Create()` is for.
+```
+TagIdSdk.Create(this.GetType().Assembly, null, new Registration().ToArray());
+``` 
+Pass in one or more assemblies that contain the type(s) you need stored in the database.
+The type you want stored should have a collection name. Set one using an attribute like this:
+```
+[CollectionName("Orders")]
+public sealed class CustomerOrders
+{
+}
+```
+Once that is done, add this property and specify the attribute as follows:
+```
+[CollectionName("Orders")]
+public sealed class CustomerOrders
+{
+    [ObjectId]
+    public string ObjectId { get; set; }
+}
+```
+This will be the primary key for the object in the database. No need to set it, just declare it like this.
 
+### SettingsService ###
+The [SettingsService](../Tag.Neuron.Xamarin/Services/ISettingsService.cs) is for storing user specific settings, like what they last typed into an `Entry` field or similar.
+It is typically used for loading and saving UI state in the viewmodels.
 
+### NavigationService ###
+The [NavigationService](../Tag.Neuron.Xamarin/Services/INavigationService.cs) is for navigating to various pages in the app. It is a simple wrapper around the `Shell.Current.GoToAsync()` methods,
+but adds live parameter handling also. It means that instead of passing parameters via the route, you can pass real objects from one page to another. See subclasses of [`NavigationArgs`](../Tag.Neuron.Xamarin/Services/NavigationArgs.cs) for details.

@@ -57,7 +57,7 @@ Once this is done you can register the TAG Neuron SDK services with AutoFac like
 public App()
 {
     // Create the SDK
-    this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
+    this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new Registration().ToArray());
 
     ContainerBuilder builder = new ContainerBuilder();
 
