@@ -31,6 +31,8 @@ namespace IdApp.Services
             {
                 try
                 {
+                    CreateCacheFolderIfNeeded();
+
                     if (!isResuming)
                     {
                         List<(string, string)> cacheEntriesAsJson = this.settingsService.RestoreStateWhere<string>(x => x.StartsWith(KeyPrefix)).ToList();
@@ -131,11 +133,7 @@ namespace IdApp.Services
                 stream != null && 
                 stream.CanRead)
             {
-                string cacheFolder = GetCacheFolder();
-                if (!Directory.Exists(cacheFolder))
-                {
-                    Directory.CreateDirectory(cacheFolder);
-                }
+                string cacheFolder = CreateCacheFolderIfNeeded();
                 stream.Reset();
                 string localFileName = Path.Combine(cacheFolder, $"Image_{Guid.NewGuid()}.jpg");
                 using (FileStream outputStream = File.OpenWrite(localFileName))
@@ -146,10 +144,23 @@ namespace IdApp.Services
             }
         }
 
+        private string CreateCacheFolderIfNeeded()
+        {
+            string cacheFolder = GetCacheFolder();
+            if (!Directory.Exists(cacheFolder))
+            {
+                Directory.CreateDirectory(cacheFolder);
+            }
+
+            return cacheFolder;
+        }
+
         private void EvictOldEntries()
         {
             try
             {
+                string cacheFolder = CreateCacheFolderIfNeeded();
+
                 // 1. Purge entries that are too old.
                 Dictionary<string, CacheEntry> clone = entries.ToDictionary(x => x.Key, x => x.Value);
                 foreach (KeyValuePair<string, CacheEntry> entry in clone)
@@ -163,7 +174,7 @@ namespace IdApp.Services
 
                 // 2. Now delete the actual files.
                 List<string> fileNames = clone.Select(x => x.Value.LocalFileName).ToList();
-                List<string> filesOnDisc = Directory.GetFiles(GetCacheFolder()).ToList();
+                List<string> filesOnDisc = Directory.GetFiles(cacheFolder).ToList();
 
                 var filesToBeDeleted = filesOnDisc.Except(fileNames).ToList();
                 foreach (string file in filesToBeDeleted)
