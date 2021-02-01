@@ -60,7 +60,7 @@ namespace IdApp
             }
             catch (Exception e)
             {
-                DisplayErrorPage("ContainerBuilder", e.ToString());
+                DisplayBootstrapErrorPage("ContainerBuilder", e.ToString());
                 return;
             }
 
@@ -93,7 +93,7 @@ namespace IdApp
             }
             catch (Exception e)
             {
-                this.DisplayErrorPage("PerformStartup", e.ToString());
+                this.DisplayBootstrapErrorPage("PerformStartup", e.ToString());
             }
         }
 
@@ -136,7 +136,7 @@ namespace IdApp
 
         #region Error Handling
 
-        private void DisplayErrorPage(string title, string stackTrace)
+        private void DisplayBootstrapErrorPage(string title, string stackTrace)
         {
             this.sdk.LogService.SaveExceptionDump(title, stackTrace);
 

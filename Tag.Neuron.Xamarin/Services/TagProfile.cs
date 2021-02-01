@@ -450,15 +450,15 @@ namespace Tag.Neuron.Xamarin.Services
         }
 
         // Step 2, 3
-        public void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity legalIdentity)
+        public void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity identity)
         {
             this.Account = accountName;
             this.PasswordHash = clientPasswordHash;
             this.PasswordHashMethod = clientPasswordHashMethod;
-            this.LegalIdentity = legalIdentity;
-            if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account)
+            this.LegalIdentity = identity;
+            if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account && this.LegalIdentity != null)
             {
-                if (legalIdentity.IsCreatedOrApproved())
+                if (this.LegalIdentity.IsCreatedOrApproved())
                 {
                     this.IncrementConfigurationStep(RegistrationStep.ValidateIdentity);
                 }
@@ -478,10 +478,10 @@ namespace Tag.Neuron.Xamarin.Services
         }
 
         // Step 3
-        public void SetLegalIdentity(LegalIdentity legalIdentity)
+        public void SetLegalIdentity(LegalIdentity identity)
         {
-            this.LegalIdentity = legalIdentity;
-            if (this.Step == RegistrationStep.RegisterIdentity)
+            this.LegalIdentity = identity;
+            if (this.Step == RegistrationStep.RegisterIdentity && this.LegalIdentity.IsCreatedOrApproved())
             {
                 this.IncrementConfigurationStep();
             }
@@ -522,18 +522,24 @@ namespace Tag.Neuron.Xamarin.Services
         }
 
         // Step 5
-        public void SetPin(string pin, bool usePin)
+        public void SetPin(string pin, bool shouldUsePin)
         {
             this.Pin = pin;
-            this.UsePin = usePin;
-            IncrementConfigurationStep();
+            this.UsePin = shouldUsePin;
+            if (this.step == RegistrationStep.Pin)
+            {
+                IncrementConfigurationStep();
+            }
         }
 
         public void ClearPin()
         {
             this.Pin = string.Empty;
             this.UsePin = false;
-            DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
+            if (this.Step == RegistrationStep.Pin)
+            {
+                DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
+            }
         }
 
         public void SetLegalJId(string legalJId)
@@ -605,7 +611,7 @@ namespace Tag.Neuron.Xamarin.Services
         }
     }
 
-    public enum RegistrationStep : int
+    public enum RegistrationStep
     {
         Operator = 0,
         Account = 1,
