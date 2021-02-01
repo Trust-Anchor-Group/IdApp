@@ -34,7 +34,7 @@ namespace IdApp.ViewModels
         }
 
         // For unit tests
-        internal MainViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile, INetworkService networkService, ILogService logService, INavigationService navigationService)
+        protected internal MainViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile, INetworkService networkService, ILogService logService, INavigationService navigationService)
             : base(neuronService, uiDispatcher)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();

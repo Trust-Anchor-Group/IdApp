@@ -152,6 +152,7 @@ When this is done, you can start and run the application. It won't do anything, 
 ## Next Steps ##
 For further reading, please continue to these sections:
 
+- [The ID App](AppAnatomy.md)
 - [Neuron Registration](NeuronRegistration.md)
 - [Neuron SDK](NeuronSDK.md)
 - [Neuron SDK UI](NeuronSDKUI.md)
