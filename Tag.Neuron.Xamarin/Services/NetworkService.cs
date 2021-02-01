@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
+using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -151,10 +152,15 @@ namespace Tag.Neuron.Xamarin.Services
             catch (Exception e)
             {
                 thrownException = e;
+                string message = e.Message;
+                if(string.IsNullOrWhiteSpace(e.Message) && e is XmppException xe && xe.Stanza != null)
+                {
+                    message = xe.Stanza.InnerText;
+                }
                 logService.LogException(e, GetParameter(memberName));
                 if (displayAlert)
                 {
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, CreateMessage(e.Message, memberName));
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, CreateMessage(message, memberName));
                 }
             }
 
