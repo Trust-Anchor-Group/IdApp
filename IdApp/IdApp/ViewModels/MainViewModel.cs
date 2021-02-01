@@ -363,10 +363,10 @@ namespace IdApp.ViewModels
             this.UiDispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.SetConnectionStateAndText(e.State);
+                this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;
                 this.RevokeCommand.ChangeCanExecute();
                 this.CompromiseCommand.ChangeCanExecute();
             });
-            this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;
         }
 
         private void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
@@ -407,6 +407,7 @@ namespace IdApp.ViewModels
                 this.ConnectionErrorsText = string.Empty;
             }
         }
+
         protected override void SetConnectionStateAndText(XmppState state)
         {
             this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);

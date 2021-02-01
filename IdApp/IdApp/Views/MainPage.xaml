@@ -9,10 +9,10 @@
              Shell.FlyoutBehavior="Flyout">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
-                <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" />
-                <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-                <Grid Margin="{StaticResource DefaultBottomOnlyMargin}">
+            <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
+                <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" VerticalOptions="Start" />
+                <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="Start" />
+                <Grid Margin="{StaticResource DefaultBottomOnlyMargin}" VerticalOptions="Start">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="3*"/>

@@ -7,7 +7,7 @@
              x:Class="IdApp.Views.ViewIdentityPage"
              Title="{x:Static local:AppResources.Identity}">
     <ScrollView>
-        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}" VerticalOptions="Start">
+        <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">
             <Label Text="{x:Static local:AppResources.IdentityInformation}" Style="{StaticResource Heading}" IsVisible="{Binding Path=IsNotForReview}" />
             <Label Text="{x:Static local:AppResources.ViewIdentityInformationText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=IsNotForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
             <Label Text="{x:Static local:AppResources.PeerReview}" Style="{StaticResource Heading}" IsVisible="{Binding Path=IsForReview}" />

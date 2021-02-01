@@ -8,7 +8,7 @@
              Shell.FlyoutBehavior="Disabled" 
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <Grid BackgroundColor="{StaticResource HeadingBackground}">
+        <Grid BackgroundColor="{StaticResource HeadingBackground}" VerticalOptions="FillAndExpand">
             <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsets}" BackgroundColor="{StaticResource PageBackgroundColor}">
                 <StackLayout.Resources>
                     <ResourceDictionary>
@@ -69,8 +69,8 @@
                 <!-- CONTENT -->
                 <CarouselView x:Name="CarouselView"
                           IsSwipeEnabled="False"
-                          HorizontalOptions="CenterAndExpand"
-                          VerticalOptions="CenterAndExpand"
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"
                           Margin="0,-6,0,-6"
                           Position="{Binding Path=CurrentStep, Mode=TwoWay}"
                           ItemsSource="{Binding Path=RegistrationSteps}"

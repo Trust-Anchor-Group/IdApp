@@ -113,7 +113,7 @@ namespace Tag.Neuron.Xamarin
             await this.NeuronService.Load(isResuming);
 
             TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
-            this.autoSaveTimer = new Timer(_ => AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
+            this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
         }
 
         public async Task Shutdown(bool keepRunningInTheBackground)
@@ -153,18 +153,26 @@ namespace Tag.Neuron.Xamarin
             }
         }
 
-        private void AutoSave()
+        private async Task AutoSave()
         {
             if (this.TagProfile.IsDirty)
             {
                 this.TagProfile.ResetIsDirty();
                 try
                 {
-                    this.StorageService.Update(this.TagProfile.ToConfiguration());
+                    TagConfiguration tc = this.TagProfile.ToConfiguration();
+                    try
+                    {
+                        await this.StorageService.Update(tc);
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        await this.StorageService.Insert(tc);
+                    }
                 }
-                catch (Exception updateException)
+                catch (Exception ex)
                 {
-                    this.logService.LogException(updateException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                    this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
                 }
             }
         }

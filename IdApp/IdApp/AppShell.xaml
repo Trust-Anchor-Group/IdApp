@@ -47,7 +47,7 @@
     </Shell.Resources>
 
     <Shell.FlyoutHeader>
-        <Frame BorderColor="Black" Padding="1">
+        <Frame BorderColor="Black" Padding="1" CornerRadius="0">
             <Grid HeightRequest="200">
                 <Image Aspect="AspectFill" Source="city.jpg" />
                 <Grid HorizontalOptions="End" HeightRequest="48" WidthRequest="150" VerticalOptions="Center">
@@ -68,18 +68,30 @@
 	<!-- The main or root page of the app -->
     <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static local:AppResources.Home}">
         <ShellContent Route="MainPage">
+            <ShellContent.Icon>
+                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Home}"/>
+            </ShellContent.Icon>
             <views:MainPage />
         </ShellContent>
     </FlyoutItem>
 
     <MenuItem Text="{x:Static local:AppResources.Identity}" Clicked="ViewIdentityMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+    </MenuItem>
+    <MenuItem Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Home}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.ScanQr}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-    <MenuItem Text="{x:Static local:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-    <MenuItem Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+    <MenuItem Text="{x:Static local:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Contract}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+    <MenuItem Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.SignedContract}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
     <MenuItem Text="Debug" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
 

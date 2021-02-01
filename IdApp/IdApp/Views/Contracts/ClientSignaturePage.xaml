@@ -6,7 +6,7 @@
              x:Class="IdApp.Views.Contracts.ClientSignaturePage"
              Title="{x:Static local:AppResources.ClientSignature}">
     <ScrollView>
-        <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}" VerticalOptions="Start">
+        <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">
             <Label Text="{x:Static local:AppResources.IdentityInformation}" Style="{StaticResource Heading}" />
             <Label Text="{x:Static local:AppResources.IdentityInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <Grid VerticalOptions="StartAndExpand">

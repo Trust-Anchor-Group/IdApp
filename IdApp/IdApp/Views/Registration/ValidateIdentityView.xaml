@@ -11,7 +11,7 @@
                 <Label Text="{x:Static local:AppResources.ValidateIdentityInfo1Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
                 <Label Text="{x:Static local:AppResources.ValidateIdentityInfo2Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
                 <Label Text="{x:Static local:AppResources.ValidateIdentityInfo3Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
-                <Grid>
+                <Grid Margin="{StaticResource DefaultTopOnlyMargin}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
