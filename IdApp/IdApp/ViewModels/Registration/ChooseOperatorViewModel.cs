@@ -34,6 +34,8 @@ namespace IdApp.ViewModels.Registration
             this.Title = AppResources.SelectOperator;
         }
 
+        #region Properties
+
         public ObservableCollection<string> Operators { get; }
 
         public static readonly BindableProperty SelectedOperatorProperty =
@@ -79,6 +81,10 @@ namespace IdApp.ViewModels.Registration
         }
 
         public ICommand ConnectCommand { get; }
+
+        public ICommand ManualOperatorCommand { get; }
+
+        #endregion
 
         private async Task Connect()
         {
@@ -143,8 +149,6 @@ namespace IdApp.ViewModels.Registration
 
             return false;
         }
-
-        public ICommand ManualOperatorCommand { get; }
 
         private async Task ManualOperatorTextEdited(string text)
         {

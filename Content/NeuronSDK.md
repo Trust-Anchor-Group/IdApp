@@ -48,7 +48,8 @@ If any call fails, they will catch errors, log them and display alerts to the us
 ### LogService ###
 The [LogService](../Tag.Neuron.Xamarin/Services/ILogService.cs) allows you to save log statements which are then reported back to the Neuron server.
 You can of course also attach [ILogListener](../Tag.Neuron.Xamarin/Services/ILogListener.cs)s to subscribe to log events, and redirect them to other
-services like [Microsoft App Center](https://appcenter.ms/apps) for tracking Crashes and Analytics.
+services like [Microsoft App Center](https://appcenter.ms/apps) for tracking Crashes and Analytics. The [AppCenterLogListener](../IdApp/IdApp/AppCenterLogListener.cs)
+is an example of this. You can see it being added in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor.
 
 ### StorageService ###
 The [StorageService](../Tag.Neuron.Xamarin/Services/IStorageService.cs) represents persistent storage, i.e. a Database. The content is encrypted. In order to

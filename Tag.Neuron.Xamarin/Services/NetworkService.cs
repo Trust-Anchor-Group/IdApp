@@ -66,16 +66,16 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 await func();
                 return true;
-            }, rethrowException, displayAlert, memberName);
+            }, memberName, rethrowException, displayAlert);
             return succeeded;
         }
 
         public Task<(bool Succeeded, TReturn ReturnValue)> TryRequest<TReturn>(Func<Task<TReturn>> func, bool rethrowException = false, bool displayAlert = true, [CallerMemberName] string memberName = "")
         {
-            return PerformRequestInner(async () => await func(), rethrowException, displayAlert, memberName);
+            return PerformRequestInner(async () => await func(), memberName, rethrowException, displayAlert);
         }
 
-        private async Task<(bool Succeeded, TReturn ReturnValue)> PerformRequestInner<TReturn>(Func<Task<TReturn>> func, bool rethrowException = false, bool displayAlert = true, [CallerMemberName] string memberName = "")
+        private async Task<(bool Succeeded, TReturn ReturnValue)> PerformRequestInner<TReturn>(Func<Task<TReturn>> func, string memberName, bool rethrowException = false, bool displayAlert = true)
         {
             Exception thrownException;
             try
@@ -152,10 +152,14 @@ namespace Tag.Neuron.Xamarin.Services
             catch (Exception e)
             {
                 thrownException = e;
-                string message = e.Message;
-                if(string.IsNullOrWhiteSpace(e.Message) && e is XmppException xe && xe.Stanza != null)
+                string message;
+                if(e is XmppException xe && xe.Stanza != null)
                 {
                     message = xe.Stanza.InnerText;
+                }
+                else
+                {
+                    message = e.Message;
                 }
                 logService.LogException(e, GetParameter(memberName));
                 if (displayAlert)
@@ -174,11 +178,12 @@ namespace Tag.Neuron.Xamarin.Services
 
         private static string CreateMessage(string message, string memberName)
         {
+#if DEBUG
             if (!string.IsNullOrWhiteSpace(memberName))
             {
                 return $"{message}{Environment.NewLine}Caller: {memberName}";
             }
-
+#endif
             return message;
         }
 

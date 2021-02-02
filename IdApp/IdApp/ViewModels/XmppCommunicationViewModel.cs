@@ -16,8 +16,6 @@ namespace IdApp.ViewModels
             this.RefreshCommand = new Command(_ => GetHtmlContent());
         }
 
-        public ICommand RefreshCommand { get; }
-
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -28,6 +26,8 @@ namespace IdApp.ViewModels
         {
             await base.DoUnbind();
         }
+
+        public ICommand RefreshCommand { get; }
 
         public static readonly BindableProperty HtmlProperty =
             BindableProperty.Create("Html", typeof(HtmlWebViewSource), typeof(XmppCommunicationViewModel), default(HtmlWebViewSource));

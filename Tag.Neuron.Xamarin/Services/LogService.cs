@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Networking.XMPP;
@@ -74,16 +72,13 @@ namespace Tag.Neuron.Xamarin.Services
                 }
             }
 
-            Dictionary<string, string> crashParameters = parameters.GroupBy(p => p.Key).Select(g => g.First()).ToDictionary(k => k.Key, v => v.Value);
-            Crashes.TrackError(e, crashParameters);
-
             try
             {
                 Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
             }
             catch (Exception exception)
             {
-                this.SaveExceptionDump($"{nameof(LogException)} calls Log.Critical", exception.ToString());
+                this.SaveExceptionDump($"{nameof(LogException)} calls Waher.Events.Log.Critical()", exception.ToString());
             }
 
             ILogListener[] listenersClone = this.listeners.ToArray();
@@ -91,11 +86,11 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 try
                 {
-                    listener.LogException(e, extraParameters);
+                    listener.LogException(e, parameters.ToArray());
                 }
                 catch (Exception exception)
                 {
-                    this.SaveExceptionDump($"{nameof(LogException)} calls Log Listener", exception.ToString());
+                    this.SaveExceptionDump($"{nameof(LogException)} calls {nameof(ILogListener)} (of type {listener.GetType().FullName})", exception.ToString());
                 }
             }
         }
@@ -110,7 +105,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
             catch (Exception exception)
             {
-                this.SaveExceptionDump($"{nameof(LogWarning)} calls Log.Warning", exception.ToString());
+                this.SaveExceptionDump($"{nameof(LogWarning)} calls Waher.Events.Log.Warning()", exception.ToString());
             }
 
             ILogListener[] listenersClone = this.listeners.ToArray();
@@ -122,7 +117,7 @@ namespace Tag.Neuron.Xamarin.Services
                 }
                 catch (Exception exception)
                 {
-                    this.SaveExceptionDump($"{nameof(LogWarning)} calls Log Listener", exception.ToString());
+                    this.SaveExceptionDump($"{nameof(LogWarning)} calls {nameof(ILogListener)} (of type {listener.GetType().FullName})", exception.ToString());
                 }
             }
         }
@@ -134,24 +129,23 @@ namespace Tag.Neuron.Xamarin.Services
 
         public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
         {
-            if (extraParameters != null)
+            var parameters = GetParameters();
+            if (extraParameters != null && extraParameters.Length > 0)
             {
-                Analytics.TrackEvent(name, extraParameters.ToDictionary(x => x.Key, x => x.Value));
-            }
-            else
-            {
-                Analytics.TrackEvent(name);
+                foreach (var extraParameter in extraParameters)
+                {
+                    parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
+                }
             }
 
             try
             {
-                var parameters = GetParameters();
                 var tags = parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray();
                 Log.Event(new Event(DateTime.UtcNow, EventType.Informational, name, string.Empty, this.bareJid, string.Empty, EventLevel.Medium, string.Empty, string.Empty, string.Empty, tags));
             }
             catch (Exception exception)
             {
-                this.SaveExceptionDump($"{nameof(LogEvent)} calls Log.Event", exception.ToString());
+                this.SaveExceptionDump($"{nameof(LogEvent)} calls Waher.Events.Log.Event()", exception.ToString());
             }
 
             ILogListener[] listenersClone = this.listeners.ToArray();
@@ -159,11 +153,11 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 try
                 {
-                    listener.LogEvent(name, extraParameters);
+                    listener.LogEvent(name, parameters.ToArray());
                 }
                 catch (Exception exception)
                 {
-                    this.SaveExceptionDump($"{nameof(LogEvent)} calls Log Listener", exception.ToString());
+                    this.SaveExceptionDump($"{nameof(LogEvent)} calls {nameof(ILogListener)} (of type {listener.GetType().FullName})", exception.ToString());
                 }
             }
         }

@@ -68,6 +68,8 @@ namespace IdApp.ViewModels.Registration
             return base.DoUnbind();
         }
 
+        #region Properties
+
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; }
 
         public ICommand GoToPrevCommand { get; }
@@ -109,6 +111,8 @@ namespace IdApp.ViewModels.Registration
             get { return (string) GetValue(CurrentStepTitleProperty); }
             set { SetValue(CurrentStepTitleProperty, value); }
         }
+
+        #endregion
 
         public void MuteStepSync()
         {

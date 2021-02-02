@@ -54,6 +54,9 @@ namespace IdApp
                 IContainer container = builder.Build();
                 DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
+                // Register log listener
+                this.sdk.LogService.AddListener(new AppCenterLogListener());
+
                 // Resolve what's needed for the App class
                 this.imageCacheService = DependencyService.Resolve<IImageCacheService>();
                 this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();

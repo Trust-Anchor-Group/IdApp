@@ -19,13 +19,17 @@ namespace IdApp.ViewModels
         private bool ignoreNeuronLoadedEvent;
 
         public LoadingViewModel()
-            : this(DependencyService.Resolve<INeuronService>(), DependencyService.Resolve<IUiDispatcher>(), null, null)
+            : this(null, null, null, null)
         {
         }
 
         // For unit tests
-        protected internal LoadingViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile, INavigationService navigationService)
-            : base(neuronService, uiDispatcher)
+        protected internal LoadingViewModel(
+            INeuronService neuronService, 
+            IUiDispatcher uiDispatcher,
+            ITagProfile tagProfile, 
+            INavigationService navigationService)
+            : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();

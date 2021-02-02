@@ -18,12 +18,12 @@ The reason for this is that the built-in `DependencyService` is just a service l
 It is rather limited, therefore swapping it out for AutoFac is recommended.
 
 Add a reference
-to the `AutoFac` Nuget, and then add the following using statement at the top of ```App.xaml.cs```:
+to the `AutoFac` Nuget, and then add the following using statement at the top of [App.xaml.cs](../IdApp/IdApp/App.xaml.cs):
 
 ```
     using Autofac;
 ```
-Now create a container builder in the `App.xaml.cs` constructor like this:
+Now create a container builder in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor like this:
 
 ```
 public App()
@@ -100,7 +100,7 @@ the keys can be kept secret, but copied in temporarily during compilation, and t
 
 ## Creating the app ##
 1. Start by creating a standard Xamarin App for iOS and Android.
-2. Open up the `App.xaml.cs` file in the editor.
+2. Open up the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) file in the editor.
 3. Apply the code changes in the `App` constructor as suggested [above](#the-tag-neuron-sdk-structure).
 4. Add `override`s for the following methods:
     1. `OnStart()`
