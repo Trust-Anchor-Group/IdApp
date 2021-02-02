@@ -15,5 +15,7 @@
         public const string ScanQr = "\uf029";
         public const string Contract = "\uf56c";
         public const string SignedContract = "\uf573";
+        public const string NewContract = "\uf15b";
+        public const string Bug = "\uf188";
     }
 }

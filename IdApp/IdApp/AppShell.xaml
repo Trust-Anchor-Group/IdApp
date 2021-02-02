@@ -95,7 +95,15 @@
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.SignedContract}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
-    <MenuItem Text="Debug" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}"/>
+    <MenuItem Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.NewContract}" Color="{StaticResource HeadingBackground}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
+    <MenuItem Text="Debug" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Bug}" Color="{StaticResource HeadingBackground}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
 
 </sdkViews:ShellBasePage>
