@@ -30,6 +30,8 @@ namespace IdApp.ViewModels
             await base.DoUnbind();
         }
 
+        #region Properties
+
         protected IUiDispatcher UiDispatcher { get; }
         protected INeuronService NeuronService { get; }
 
@@ -50,6 +52,8 @@ namespace IdApp.ViewModels
             get { return (bool)GetValue(IsConnectedProperty); }
             set { SetValue(IsConnectedProperty, value); }
         }
+
+        #endregion
 
         protected virtual void SetConnectionStateAndText(XmppState state)
         {

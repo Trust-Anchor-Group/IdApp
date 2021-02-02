@@ -154,7 +154,8 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="accountName">The account/user name.</param>
         /// <param name="clientPasswordHash">The password hash (never send the real password).</param>
         /// <param name="clientPasswordHashMethod">The hash method used when hashing the password.</param>
-        void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity legalIdentity);
+        /// <param name="identity">The new identity.</param>
+        void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity identity);
         /// <summary>
         /// Revert Step 2.
         /// </summary>
@@ -180,8 +181,8 @@ namespace Tag.Neuron.Xamarin.Services
         ///  Step 5 - Set a pin to use for protecting the account.
         /// </summary>
         /// <param name="pin">The pin to use.</param>
-        /// <param name="usePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
-        void SetPin(string pin, bool usePin);
+        /// <param name="shouldUsePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
+        void SetPin(string pin, bool shouldUsePin);
         /// <summary>
         /// Revert Step 5.
         /// </summary>

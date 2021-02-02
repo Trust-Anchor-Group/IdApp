@@ -57,122 +57,12 @@ namespace IdApp.ViewModels.Registration
             await base.DoUnbind();
         }
 
+        #region Properties
+
         public ObservableCollection<ImageSource> Photos { get; }
 
         public ICommand InviteReviewerCommand { get; }
         public ICommand ContinueCommand { get; }
-
-        private void AssignProperties()
-        {
-            Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
-            Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
-            LegalId = this.TagProfile.LegalIdentity?.Id;
-            LegalIdentity = this.TagProfile.LegalIdentity;
-            AssignBareJId();
-            State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
-            From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
-            To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
-            if (this.TagProfile.LegalIdentity != null)
-            {
-                FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
-                MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];
-                LastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
-                PersonalNumber = this.TagProfile.LegalIdentity[Constants.XmppProperties.PersonalNumber];
-                Address = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address];
-                Address2 = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address2];
-                ZipCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.ZipCode];
-                Area = this.TagProfile.LegalIdentity[Constants.XmppProperties.Area];
-                City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
-                Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
-                CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
-            }
-            else
-            {
-                FirstName = string.Empty;
-                MiddleNames = string.Empty;
-                LastNames = string.Empty;
-                PersonalNumber = string.Empty;
-                Address = string.Empty;
-                Address2 = string.Empty;
-                ZipCode = string.Empty;
-                Area = string.Empty;
-                City = string.Empty;
-                Region = string.Empty;
-                CountryCode = string.Empty;
-            }
-            Country = ISO_3166_1.ToName(this.CountryCode);
-            IsApproved = this.TagProfile.LegalIdentity?.State == IdentityState.Approved;
-            IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
-
-            ContinueCommand.ChangeCanExecute();
-            InviteReviewerCommand.ChangeCanExecute();
-
-            SetConnectionStateAndText(this.NeuronService.State);
-
-            if (this.IsConnected)
-            {
-                this.ReloadPhotos();
-            }
-        }
-
-        private void AssignBareJId()
-        {
-            BareJId = this.NeuronService?.BareJId ?? string.Empty;
-        }
-
-        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
-            {
-                UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
-            }
-            else
-            {
-                UiDispatcher.BeginInvokeOnMainThread(AssignBareJId);
-            }
-        }
-
-        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
-        {
-            this.UiDispatcher.BeginInvokeOnMainThread(async () =>
-            {
-                this.AssignBareJId();
-                this.SetConnectionStateAndText(e.State);
-                this.InviteReviewerCommand.ChangeCanExecute();
-                if (this.IsConnected)
-                {
-                    await Task.Delay(Constants.Timeouts.XmppInit);
-                    this.ReloadPhotos();
-                }
-            });
-        }
-
-        private void SetConnectionStateAndText(XmppState state)
-        {
-            IsConnected = state == XmppState.Connected;
-            this.ConnectionStateText = state.ToDisplayText(null);
-        }
-
-        private void ReloadPhotos()
-        {
-            this.photosLoader.CancelLoadPhotos();
-            if (this.TagProfile?.LegalIdentity?.Attachments != null)
-            {
-                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments);
-            }
-        }
-
-        private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
-        {
-            UiDispatcher.BeginInvokeOnMainThread(() =>
-            {
-                this.LegalIdentity = e.Identity;
-                this.TagProfile.SetLegalIdentity(e.Identity);
-                AssignProperties();
-            });
-        }
-
-        #region Properties
 
         public static readonly BindableProperty CreatedProperty =
             BindableProperty.Create("Created", typeof(DateTime), typeof(ValidateIdentityViewModel), default(DateTime));
@@ -370,7 +260,7 @@ namespace IdApp.ViewModels.Registration
 
         public bool IsConnected
         {
-            get { return (bool) GetValue(IsConnectedProperty); }
+            get { return (bool)GetValue(IsConnectedProperty); }
             set { SetValue(IsConnectedProperty, value); }
         }
 
@@ -379,11 +269,121 @@ namespace IdApp.ViewModels.Registration
 
         public string ConnectionStateText
         {
-            get { return (string) GetValue(ConnectionStateTextProperty); }
+            get { return (string)GetValue(ConnectionStateTextProperty); }
             set { SetValue(ConnectionStateTextProperty, value); }
         }
 
         #endregion
+
+        private void AssignProperties()
+        {
+            Created = this.TagProfile.LegalIdentity?.Created ?? DateTime.MinValue;
+            Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
+            LegalId = this.TagProfile.LegalIdentity?.Id;
+            LegalIdentity = this.TagProfile.LegalIdentity;
+            AssignBareJId();
+            State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
+            From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
+            To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
+            if (this.TagProfile.LegalIdentity != null)
+            {
+                FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
+                MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];
+                LastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
+                PersonalNumber = this.TagProfile.LegalIdentity[Constants.XmppProperties.PersonalNumber];
+                Address = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address];
+                Address2 = this.TagProfile.LegalIdentity[Constants.XmppProperties.Address2];
+                ZipCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.ZipCode];
+                Area = this.TagProfile.LegalIdentity[Constants.XmppProperties.Area];
+                City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
+                Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
+                CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
+            }
+            else
+            {
+                FirstName = string.Empty;
+                MiddleNames = string.Empty;
+                LastNames = string.Empty;
+                PersonalNumber = string.Empty;
+                Address = string.Empty;
+                Address2 = string.Empty;
+                ZipCode = string.Empty;
+                Area = string.Empty;
+                City = string.Empty;
+                Region = string.Empty;
+                CountryCode = string.Empty;
+            }
+            Country = ISO_3166_1.ToName(this.CountryCode);
+            IsApproved = this.TagProfile.LegalIdentity?.State == IdentityState.Approved;
+            IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
+
+            ContinueCommand.ChangeCanExecute();
+            InviteReviewerCommand.ChangeCanExecute();
+
+            SetConnectionStateAndText(this.NeuronService.State);
+
+            if (this.IsConnected)
+            {
+                this.ReloadPhotos();
+            }
+        }
+
+        private void AssignBareJId()
+        {
+            BareJId = this.NeuronService?.BareJId ?? string.Empty;
+        }
+
+        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
+            {
+                UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
+            }
+            else
+            {
+                UiDispatcher.BeginInvokeOnMainThread(AssignBareJId);
+            }
+        }
+
+        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+            {
+                this.AssignBareJId();
+                this.SetConnectionStateAndText(e.State);
+                this.InviteReviewerCommand.ChangeCanExecute();
+                if (this.IsConnected)
+                {
+                    await Task.Delay(Constants.Timeouts.XmppInit);
+                    this.ReloadPhotos();
+                }
+            });
+        }
+
+        private void SetConnectionStateAndText(XmppState state)
+        {
+            IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(null);
+        }
+
+        private void ReloadPhotos()
+        {
+            this.photosLoader.CancelLoadPhotos();
+            if (this.TagProfile?.LegalIdentity?.Attachments != null)
+            {
+                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments);
+            }
+        }
+
+        private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+        {
+            UiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                this.LegalIdentity = e.Identity;
+                this.TagProfile.SetLegalIdentity(e.Identity);
+                AssignProperties();
+            });
+        }
 
         private async Task InviteReviewer()
         {

@@ -23,33 +23,31 @@ namespace IdApp.ViewModels
         private readonly INavigationService navigationService;
 
         public MainViewModel()
-            : this(DependencyService.Resolve<INeuronService>(), DependencyService.Resolve<IUiDispatcher>(), null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
-            this.tagProfile = DependencyService.Resolve<ITagProfile>();
-            this.networkService = DependencyService.Resolve<INetworkService>();
-            this.logService = DependencyService.Resolve<ILogService>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
-            this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
         }
 
         // For unit tests
-        internal MainViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile, INetworkService networkService, ILogService logService, INavigationService navigationService)
-            : base(neuronService, uiDispatcher)
+        protected internal MainViewModel(
+            INeuronService neuronService, 
+            IUiDispatcher uiDispatcher, 
+            ITagProfile tagProfile,
+            INetworkService networkService,
+            ILogService logService, 
+            INavigationService navigationService)
+            : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             this.logService = logService ?? DependencyService.Resolve<ILogService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
-            this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
+            this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected && ContractsIsOnline);
+            this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected && ContractsIsOnline);
         }
 
         protected override async Task DoBind()
         {
             await base.DoBind();
-            this.IsOnline = this.networkService.IsOnline;
-            this.ContractsIsOnline = this.NeuronService.Contracts.IsOnline;
             this.NeuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
             this.AssignProperties();
@@ -250,11 +248,7 @@ namespace IdApp.ViewModels
         }
 
         public static readonly BindableProperty IsOnlineProperty =
-            BindableProperty.Create("IsOnline", typeof(bool), typeof(MainViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
-            {
-                MainViewModel model = (MainViewModel)b;
-                model.NetworkStateText = model.IsOnline ? AppResources.Online : AppResources.Offline;
-            });
+            BindableProperty.Create("IsOnline", typeof(bool), typeof(MainViewModel), default(bool));
 
         public bool IsOnline
         {
@@ -272,11 +266,7 @@ namespace IdApp.ViewModels
         }
 
         public static readonly BindableProperty ContractsIsOnlineProperty =
-            BindableProperty.Create("ContractsIsOnline", typeof(bool), typeof(MainViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
-            {
-                MainViewModel model = (MainViewModel)b;
-                model.ContractsStateText = model.ContractsIsOnline ? AppResources.Online : AppResources.Offline;
-            });
+            BindableProperty.Create("ContractsIsOnline", typeof(bool), typeof(MainViewModel), default(bool));
 
         public bool ContractsIsOnline
         {
@@ -303,11 +293,7 @@ namespace IdApp.ViewModels
         }
 
         public static readonly BindableProperty ConnectionErrorsTextProperty =
-            BindableProperty.Create("ConnectionErrorsText", typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                MainViewModel model = (MainViewModel)b;
-                model.HasConnectionErrors = !string.IsNullOrWhiteSpace((string)newValue);
-            });
+            BindableProperty.Create("ConnectionErrorsText", typeof(string), typeof(MainViewModel), default(string));
 
         public string ConnectionErrorsText
         {
@@ -366,25 +352,38 @@ namespace IdApp.ViewModels
                 this.RevokeCommand.ChangeCanExecute();
                 this.CompromiseCommand.ChangeCanExecute();
             });
-            this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;
         }
 
         private void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiDispatcher.BeginInvokeOnMainThread(() =>
             {
-                this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;
-                SetConnectionErrorText();
+                this.SetConnectionStateAndText(e.State);
+                this.RevokeCommand.ChangeCanExecute();
+                this.CompromiseCommand.ChangeCanExecute();
             });
         }
 
         private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            this.UiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
+            this.UiDispatcher.BeginInvokeOnMainThread(() => SetConnectionStateAndText(this.NeuronService.State));
         }
 
-        private void SetConnectionErrorText()
+        protected override void SetConnectionStateAndText(XmppState state)
         {
+            // Network
+            this.IsOnline = this.networkService.IsOnline;
+            this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
+            
+            // Neuron server
+            this.IsConnected = state == XmppState.Connected;
+            this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);
+            
+            // Neuron Contracts
+            this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;
+            this.ContractsStateText = this.ContractsIsOnline ? AppResources.Online : AppResources.Offline;
+
+            // Any connection errors or general errors that should be displayed?
             string latestError = this.NeuronService.LatestError;
             string latestConnectionError = this.NeuronService.LatestConnectionError;
             if (!string.IsNullOrWhiteSpace(latestError) && !string.IsNullOrWhiteSpace(latestConnectionError))
@@ -406,12 +405,7 @@ namespace IdApp.ViewModels
             {
                 this.ConnectionErrorsText = string.Empty;
             }
-        }
-        protected override void SetConnectionStateAndText(XmppState state)
-        {
-            this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);
-            this.IsConnected = state == XmppState.Connected;
-            SetConnectionErrorText();
+            this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
         }
     }
 }

@@ -30,6 +30,8 @@ namespace IdApp.ViewModels.Registration
             this.LogService = logService;
         }
 
+        #region Properties
+
         public static readonly BindableProperty TitleProperty =
             BindableProperty.Create("Title", typeof(string), typeof(RegistrationStepViewModel), default(string));
 
@@ -47,6 +49,8 @@ namespace IdApp.ViewModels.Registration
         protected INavigationService NavigationService { get; }
         protected ISettingsService SettingsService { get; }
         protected ILogService LogService { get; }
+
+        #endregion
 
         protected virtual void OnStepCompleted(EventArgs e)
         {
@@ -79,7 +83,6 @@ namespace IdApp.ViewModels.Registration
 
         public virtual void ClearStepState()
         {
-            
         }
     }
 }

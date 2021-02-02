@@ -54,13 +54,16 @@ namespace IdApp
                 IContainer container = builder.Build();
                 DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 
+                // Register log listener
+                this.sdk.LogService.AddListener(new AppCenterLogListener());
+
                 // Resolve what's needed for the App class
                 this.imageCacheService = DependencyService.Resolve<IImageCacheService>();
                 this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             }
             catch (Exception e)
             {
-                DisplayErrorPage("ContainerBuilder", e.ToString());
+                DisplayBootstrapErrorPage("ContainerBuilder", e.ToString());
                 return;
             }
 
@@ -83,7 +86,7 @@ namespace IdApp
         protected override async void OnStart()
         {
             AppCenter.Start(
-                "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios={Your iOS App secret here}",
+                "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios=fdc9f466-8498-4826-bfbe-3b35dad7c284",
                 typeof(Analytics),
                 typeof(Crashes));
 
@@ -93,7 +96,7 @@ namespace IdApp
             }
             catch (Exception e)
             {
-                this.DisplayErrorPage("PerformStartup", e.ToString());
+                this.DisplayBootstrapErrorPage("PerformStartup", e.ToString());
             }
         }
 
@@ -136,7 +139,7 @@ namespace IdApp
 
         #region Error Handling
 
-        private void DisplayErrorPage(string title, string stackTrace)
+        private void DisplayBootstrapErrorPage(string title, string stackTrace)
         {
             this.sdk.LogService.SaveExceptionDump(title, stackTrace);
 

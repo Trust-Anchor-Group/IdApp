@@ -6,10 +6,9 @@
              xmlns:local="clr-namespace:IdApp;assembly=IdApp"
              x:Class="IdApp.Views.ScanQrCodePage"
              Title="{x:Static local:AppResources.ScanQRCode}"
-             Shell.FlyoutBehavior="Disabled" 
-             Shell.PresentationMode="ModalAnimated">
+             Shell.FlyoutBehavior="Disabled">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+        <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
             <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
                 <forms:ZXingScannerView 
                 x:Name="Scanner"

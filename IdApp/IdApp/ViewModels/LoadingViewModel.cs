@@ -1,7 +1,6 @@
 ﻿using IdApp.Extensions;
 using IdApp.Views;
 using IdApp.Views.Registration;
-using System;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
@@ -20,10 +19,20 @@ namespace IdApp.ViewModels
         private bool ignoreNeuronLoadedEvent;
 
         public LoadingViewModel()
-        : base(DependencyService.Resolve<INeuronService>(), DependencyService.Resolve<IUiDispatcher>())
+            : this(null, null, null, null)
         {
-            this.tagProfile = DependencyService.Resolve<ITagProfile>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+        }
+
+        // For unit tests
+        protected internal LoadingViewModel(
+            INeuronService neuronService, 
+            IUiDispatcher uiDispatcher,
+            ITagProfile tagProfile, 
+            INavigationService navigationService)
+            : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
+        {
+            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
         }
 
         protected override async Task DoBind()
@@ -78,7 +87,6 @@ namespace IdApp.ViewModels
 
                 this.UiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
-                    await Task.Delay(TimeSpan.FromMilliseconds(250));
                     if (this.tagProfile.IsComplete())
                     {
                         await this.navigationService.GoToAsync($"///{nameof(MainPage)}");
@@ -88,10 +96,6 @@ namespace IdApp.ViewModels
                         await this.navigationService.GoToAsync($"/{nameof(RegistrationPage)}");
                     }
                 });
-            }
-            else
-            {
-                
             }
         }
     }

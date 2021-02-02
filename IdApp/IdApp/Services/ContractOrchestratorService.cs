@@ -11,6 +11,7 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.StanzaErrors;
 using Xamarin.Forms;
 
 namespace IdApp.Services
@@ -300,15 +301,26 @@ namespace IdApp.Services
                     await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
                 });
             }
-            catch (Exception ex)
+            catch (ForbiddenException ex)
             {
                 this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 
-                bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionIdentity(legalId, Guid.NewGuid().ToString(), purpose));
-                if (succeeded)
+                // This happens if you try to view someone else's legal identity.
+                // When this happens, try to send a petition to view it instead.
+
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
-                }
+                    bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionIdentity(legalId, Guid.NewGuid().ToString(), purpose));
+                    if (succeeded)
+                    {
+                        await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                await this.uiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, ex);
             }
         }
 
@@ -326,15 +338,26 @@ namespace IdApp.Services
                         await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
                 });
             }
-            catch (Exception ex)
+            catch (ForbiddenException ex)
             {
                 this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 
-                bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionContract(contractId, Guid.NewGuid().ToString(), purpose));
-                if (succeeded)
+                // This happens if you try to view someone else's contract.
+                // When this happens, try to send a petition to view it instead.
+
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
-                    await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
-                }
+                    bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionContract(contractId, Guid.NewGuid().ToString(), purpose));
+                    if (succeeded)
+                    {
+                        await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                await this.uiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, ex);
             }
         }
     }

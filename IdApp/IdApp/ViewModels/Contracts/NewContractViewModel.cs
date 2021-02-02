@@ -12,7 +12,6 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
-using Waher.Content;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
@@ -49,7 +48,7 @@ namespace IdApp.ViewModels.Contracts
             this.ContractTypes = new ObservableCollection<string>();
             this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
             this.AddPartCommand = new Command(async _ => await this.AddPart());
-            this.ParameterChangedCommand = new Command(x => EditParameter(x));
+            this.ParameterChangedCommand = new Command(EditParameter);
             this.ContractRoles = new ObservableCollection<RoleModel>();
             this.ContractParameters = new ObservableCollection<ParameterModel>();
             this.ContractHumanReadableText = new ObservableCollection<string>();

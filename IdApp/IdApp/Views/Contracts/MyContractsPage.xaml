@@ -4,11 +4,11 @@
              xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
              xmlns:local="clr-namespace:IdApp;assembly=IdApp"
              x:Class="IdApp.Views.Contracts.MyContractsPage">
-    <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+    <StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
-        <Label Text="{x:Static local:AppResources.MyContractsInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
-        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
-        <ListView x:Name="Contracts" HasUnevenRows="True" ItemsSource="{Binding Path=Contracts}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}">
+        <Label Text="{x:Static local:AppResources.MyContractsInfoText}" HorizontalOptions="Center" VerticalOptions="Start" />
+        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
+        <ListView x:Name="Contracts" HasUnevenRows="True" ItemsSource="{Binding Path=Contracts}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}" VerticalOptions="StartAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

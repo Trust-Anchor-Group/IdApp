@@ -5,7 +5,7 @@
              x:Class="IdApp.Views.XmppCommunicationPage"
              Title="Xmpp communication">
     <ContentPage.Content>
-        <Grid Margin="{DynamicResource SafeAreaInsetsDefaultMargin}">
+        <Grid Margin="{StaticResource DefaultMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

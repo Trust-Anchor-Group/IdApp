@@ -27,6 +27,25 @@ namespace IdApp.ViewModels.Registration
             this.PinIsTooShortMessage = string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength);
         }
 
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
+            AssignProperties(this.NeuronService.State);
+            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+        }
+
+        protected override async Task DoUnbind()
+        {
+            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            await base.DoUnbind();
+        }
+
+        public override void ClearStepState()
+        {
+            this.Pin = string.Empty;
+            this.RetypedPin = string.Empty;
+        }
+
         #region Properties
 
         public ICommand ContinueCommand { get; }
@@ -34,11 +53,11 @@ namespace IdApp.ViewModels.Registration
 
         public static readonly BindableProperty PinProperty =
             BindableProperty.Create("Pin", typeof(string), typeof(DefinePinViewModel), string.Empty, propertyChanged: (b, oldValue, newValue) =>
-        {
-            DefinePinViewModel viewModel = (DefinePinViewModel)b;
-            viewModel.UpdatePinState();
-            viewModel.ContinueCommand.ChangeCanExecute();
-        });
+            {
+                DefinePinViewModel viewModel = (DefinePinViewModel)b;
+                viewModel.UpdatePinState();
+                viewModel.ContinueCommand.ChangeCanExecute();
+            });
 
         public string Pin
         {
@@ -80,7 +99,7 @@ namespace IdApp.ViewModels.Registration
 
         public bool PinIsTooShort
         {
-            get { return (bool) GetValue(PinIsTooShortProperty); }
+            get { return (bool)GetValue(PinIsTooShortProperty); }
             set { SetValue(PinIsTooShortProperty, value); }
         }
 
@@ -89,7 +108,7 @@ namespace IdApp.ViewModels.Registration
 
         public string PinIsTooShortMessage
         {
-            get { return (string) GetValue(PinIsTooShortMessageProperty); }
+            get { return (string)GetValue(PinIsTooShortMessageProperty); }
             set { SetValue(PinIsTooShortMessageProperty, value); }
         }
 
@@ -121,25 +140,6 @@ namespace IdApp.ViewModels.Registration
         }
 
         #endregion
-
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
-            AssignProperties(this.NeuronService.State);
-            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
-        }
-
-        protected override async Task DoUnbind()
-        {
-            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
-            await base.DoUnbind();
-        }
-
-        public override void ClearStepState()
-        {
-            this.Pin = string.Empty;
-            this.RetypedPin = string.Empty;
-        }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
