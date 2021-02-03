@@ -126,9 +126,12 @@ namespace Tag.Neuron.Xamarin
             }
             await Types.StopAllModules();
             Log.Terminate();
-            await this.databaseProvider.Flush();
-            this.databaseProvider.Dispose();
-            this.databaseProvider = null;
+            if (this.databaseProvider != null)
+            {
+                await this.databaseProvider.Flush();
+                this.databaseProvider.Dispose();
+                this.databaseProvider = null;
+            }
         }
 
         public async Task ShutdownInPanic()
@@ -138,9 +141,12 @@ namespace Tag.Neuron.Xamarin
             await this.neuronService.UnloadFast();
             await Types.StopAllModules();
             Log.Terminate();
-            await this.databaseProvider.Flush();
-            this.databaseProvider.Dispose();
-            this.databaseProvider = null;
+            if (this.databaseProvider != null)
+            {
+                await this.databaseProvider.Flush();
+                this.databaseProvider.Dispose();
+                this.databaseProvider = null;
+            }
         }
 
         private void StopAutoSaveTimer()

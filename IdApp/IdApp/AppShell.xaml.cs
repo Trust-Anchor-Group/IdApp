@@ -31,6 +31,17 @@ namespace IdApp
             RegisterRoutes();
         }
 
+        protected override void OnNavigated(ShellNavigatedEventArgs e)
+        {
+            base.OnNavigated(e);
+            // Once MainPage is shown, hide the "Loading..." Flyout, as the user shouldn't be
+            // able to navigate to that page.
+            if (e.Current.Location.ToString().Contains(nameof(MainPage)))
+            {
+                this.LoadingFlyout.IsVisible = false;
+            }
+        }
+
         private void RegisterRoutes()
         {
             Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
