@@ -1,5 +1,5 @@
 ﻿using IdApp.Extensions;
-using IdApp.Views;
+using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
@@ -23,24 +23,22 @@ namespace IdApp.ViewModels
             this.networkService = DependencyService.Resolve<INetworkService>();
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
+        }
+
+        protected override async Task DoBind()
+        {
+            await base.DoBind();
             this.IsOnline = this.networkService.IsOnline;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
-            Shell.Current.Navigated += Shell_Navigated;
         }
 
-        //protected override async Task DoBind()
-        //{
-        //    await base.DoBind();
-        //}
-
-        //protected override Task DoUnbind()
-        //{
-        //    Shell.Current.Navigated -= Shell_Navigated;
-        //    this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
-        //    this.networkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
-        //    return base.DoUnbind();
-        //}
+        protected override Task DoUnbind()
+        {
+            this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            this.networkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
+            return base.DoUnbind();
+        }
 
         #region Properties
 
@@ -67,28 +65,11 @@ namespace IdApp.ViewModels
 
         public bool IsOnline
         {
-            get { return (bool) GetValue(IsOnlineProperty); }
+            get { return (bool)GetValue(IsOnlineProperty); }
             set { SetValue(IsOnlineProperty, value); }
         }
 
-        public static readonly BindableProperty ShowLoadingFlyoutProperty =
-            BindableProperty.Create("ShowLoadingFlyout", typeof(bool), typeof(AppShellViewModel), true);
-
-        public bool ShowLoadingFlyout
-        {
-            get { return (bool)GetValue(ShowLoadingFlyoutProperty); }
-            set { SetValue(ShowLoadingFlyoutProperty, value); }
-        }
-
         #endregion
-
-        private void Shell_Navigated(object sender, ShellNavigatedEventArgs e)
-        {
-            if (e.Current.Location.ToString().Contains(nameof(MainPage)))
-            {
-                this.ShowLoadingFlyout = false;
-            }
-        }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
