@@ -1,5 +1,5 @@
 # Getting Started #
-In order to build a Xamarin app that uses the Neuron server you need to include the TAG Neuron SDK. 
+In order to build a Xamarin app that uses the Neuron server you need to include the TAG Neuron SDK. But first, have a look at how TAG has integrated XMPP into a [`Neuron` server](Xmpp.md).
 
 ## Table of Contents ##
 - [Getting Started](#getting-started)
@@ -151,7 +151,7 @@ When this is done, you can start and run the application. It won't do anything, 
 
 ## Next Steps ##
 For further reading, please continue to these sections:
-
+- [The XMPP Protocol and Neuron](Xmpp.md)
 - [The ID App](AppAnatomy.md)
 - [Neuron Registration](NeuronRegistration.md)
 - [Neuron SDK](NeuronSDK.md)
