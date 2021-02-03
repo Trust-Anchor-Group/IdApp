@@ -13,10 +13,6 @@ namespace IdApp.ViewModels
     {
         private readonly ITagProfile tagProfile;
         private readonly INavigationService navigationService;
-        /// <summary>
-        /// Skip the first event when hooking up the event handler.
-        /// </summary>
-        private bool ignoreNeuronLoadedEvent;
 
         public LoadingViewModel()
             : this(null, null, null, null)
@@ -40,15 +36,12 @@ namespace IdApp.ViewModels
             await base.DoBind();
             IsBusy = true;
             this.DisplayConnectionText = this.tagProfile.Step > RegistrationStep.Account;
-            this.ignoreNeuronLoadedEvent = true;
             this.NeuronService.Loaded += NeuronService_Loaded;
-            this.ignoreNeuronLoadedEvent = false;
         }
 
         protected override async Task DoUnbind()
         {
             this.NeuronService.Loaded -= NeuronService_Loaded;
-            this.ignoreNeuronLoadedEvent = false;
             await base.DoUnbind();
         }
 
@@ -78,9 +71,6 @@ namespace IdApp.ViewModels
 
         private void NeuronService_Loaded(object sender, LoadedEventArgs e)
         {
-            if (this.ignoreNeuronLoadedEvent)
-                return;
-
             if (e.IsLoaded)
             {
                 this.IsBusy = false;

@@ -2,6 +2,7 @@
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Application = Xamarin.Forms.Application;
 
 namespace Tag.Neuron.Xamarin.UI.Views
 {
@@ -25,10 +26,13 @@ namespace Tag.Neuron.Xamarin.UI.Views
             if (e.PropertyName == SafeAreaInsets)
             {
                 Thickness safeAreaInsets = On<global::Xamarin.Forms.PlatformConfiguration.iOS>().SafeAreaInsets();
-                global::Xamarin.Forms.Application.Current.Resources[SafeAreaInsets] = safeAreaInsets;
-                Thickness defaultMargin = (Thickness)global::Xamarin.Forms.Application.Current.Resources[DefaultMargin];
-                Thickness safeAreaInsetsDefaultMargin = new Thickness(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
-                global::Xamarin.Forms.Application.Current.Resources[SafeAreaInsetsDefaultMargin] = safeAreaInsetsDefaultMargin;
+                if (Application.Current.Resources.ContainsKey(SafeAreaInsets))
+                {
+                    Application.Current.Resources[SafeAreaInsets] = safeAreaInsets;
+                    Thickness defaultMargin = (Thickness)Application.Current.Resources[DefaultMargin];
+                    Thickness safeAreaInsetsDefaultMargin = new Thickness(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
+                    Application.Current.Resources[SafeAreaInsetsDefaultMargin] = safeAreaInsetsDefaultMargin;
+                }
             }
         }
 

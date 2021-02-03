@@ -324,21 +324,11 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
-        private event EventHandler<ConnectionStateChangedEventArgs> ConnectionState;
-
-        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged
-        {
-            add
-            {
-                ConnectionState += value;
-                value(this, new ConnectionStateChangedEventArgs(State));
-            }
-            remove => ConnectionState -= value;
-        }
+        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
         {
-            ConnectionState?.Invoke(this, e);
+            this.ConnectionStateChanged?.Invoke(this, e);
         }
 
         #endregion

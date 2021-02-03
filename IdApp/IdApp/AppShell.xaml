@@ -59,7 +59,7 @@
     </Shell.FlyoutHeader>
 
     <!-- The 'loading' page, always displayed first on startup -->
-    <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="Init" IsEnabled="True" IsVisible="False">
+    <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static local:AppResources.Loading}" IsEnabled="True" IsVisible="true">
         <ShellContent>
             <views:LoadingPage />
         </ShellContent>
