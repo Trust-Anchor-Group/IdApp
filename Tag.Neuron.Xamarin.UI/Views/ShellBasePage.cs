@@ -54,5 +54,35 @@ namespace Tag.Neuron.Xamarin.UI.Views
         {
             return (T)ViewModel;
         }
+
+        /// <summary>
+        /// Due to a bug in Xamarin Forms (https://github.com/xamarin/xamarin.forms/issues/6486)
+        /// these aren't called at startup for now. But we're leaving the methods here for the future.
+        /// </summary>
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (ViewModel != null)
+            {
+                if (!ViewModel.IsBound)
+                {
+                    await ViewModel.Bind();
+                }
+                await ViewModel.RestoreState();
+            }
+        }
+
+        protected override async void OnDisappearing()
+        {
+            if (ViewModel != null)
+            {
+                if (ViewModel.IsBound)
+                {
+                    await ViewModel.SaveState();
+                }
+                await ViewModel.Unbind();
+            }
+            base.OnDisappearing();
+        }
     }
 }
