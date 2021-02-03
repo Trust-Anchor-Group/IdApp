@@ -1,5 +1,4 @@
 ﻿using IdApp.Extensions;
-using IdApp.Views;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
@@ -26,7 +25,6 @@ namespace IdApp.ViewModels
             this.IsOnline = this.networkService.IsOnline;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
-            Shell.Current.Navigated += Shell_Navigated;
         }
 
         #region Properties
@@ -58,24 +56,7 @@ namespace IdApp.ViewModels
             set { SetValue(IsOnlineProperty, value); }
         }
 
-        public static readonly BindableProperty ShowLoadingFlyoutProperty =
-            BindableProperty.Create("ShowLoadingFlyout", typeof(bool), typeof(AppShellViewModel), true);
-
-        public bool ShowLoadingFlyout
-        {
-            get { return (bool)GetValue(ShowLoadingFlyoutProperty); }
-            set { SetValue(ShowLoadingFlyoutProperty, value); }
-        }
-
         #endregion
-
-        private void Shell_Navigated(object sender, ShellNavigatedEventArgs e)
-        {
-            if (e.Current.Location.ToString().Contains(nameof(MainPage)))
-            {
-                this.ShowLoadingFlyout = false;
-            }
-        }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {

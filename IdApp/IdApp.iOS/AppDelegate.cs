@@ -1,6 +1,5 @@
 ﻿using Foundation;
 using UIKit;
-using Xamarin.Forms;
 
 namespace IdApp.iOS
 {
@@ -19,7 +18,6 @@ namespace IdApp.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Forms.SetFlags("CarouselView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Xamarin.Forms;
 
 namespace IdApp.Droid
 {
@@ -18,7 +17,6 @@ namespace IdApp.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
-            Forms.SetFlags("CarouselView_Experimental");
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
@@ -26,8 +24,6 @@ namespace IdApp.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-            global::ZXing.Net.Mobile.Android.PermissionsHandler.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 	}
