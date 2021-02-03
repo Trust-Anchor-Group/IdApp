@@ -31,6 +31,7 @@
                     <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=ContractsStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
                     <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
                 </Grid>
+
                 <Label Text="{x:Static local:AppResources.Identity}" FontSize="Large"/>
                 <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
 
@@ -82,9 +83,6 @@
                         </Frame>
                     </views:FlipView.BackView>
                 </views:FlipView>
-
-                <Button Text="{x:Static local:AppResources.ReportAsCompromized}" Command="{Binding Path=CompromiseCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
-                <Button Text="{x:Static local:AppResources.RevokeInformation}" Command="{Binding Path=RevokeCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
 
             </StackLayout>
         </ScrollView>
