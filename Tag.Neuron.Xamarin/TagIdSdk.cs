@@ -188,6 +188,7 @@ namespace Tag.Neuron.Xamarin
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string dataFolder = Path.Combine(appDataFolder, "Data");
 
+            string createDbMethod = $"{nameof(FilesProvider)}.{nameof(FilesProvider.CreateAsync)}()";
             Task<FilesProvider> CreateDatabaseFile()
             {
                 return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
@@ -197,7 +198,7 @@ namespace Tag.Neuron.Xamarin
             try
             {
                 // 1. Try create database
-                method = nameof(CreateDatabaseFile);
+                method = createDbMethod;
                 this.databaseProvider = await CreateDatabaseFile();
                 method = nameof(FilesProvider.RepairIfInproperShutdown);
                 await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
@@ -217,9 +218,15 @@ namespace Tag.Neuron.Xamarin
                         this.databaseProvider = Database.Provider as FilesProvider;
                     }
 
+                    if (this.databaseProvider == null)
+                    {
+                        // Reasoning: If we can't create a provider, and the database doesn't have one assigned either, we're in serious trouble.
+                        // Throw an exception, which is caught below, to try and perform a recovery.
+                        const string message = "Database does not have a provider, and one cannot be created because the Database file(s) are locked. Catch 22.";
+                        method = createDbMethod;
+                        throw new InvalidOperationException(message);
+                    }
                     method = nameof(FilesProvider.RepairIfInproperShutdown);
-                    // Could throw a NullReferenceException, which is _ok_, as it is caught below.
-                    // Reasoning: If we can't create a provider, and the database doesn't have one assigned either, we're in serious trouble.
                     await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
                 }
                 catch (Exception e2)
