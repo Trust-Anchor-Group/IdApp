@@ -61,6 +61,7 @@ namespace IdApp.ViewModels.Contracts
                 this.identityToReview = null;
             }
             AssignProperties();
+            EvaluateCommands();
             this.tagProfile.Changed += TagProfile_Changed;
             this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
         }
@@ -173,15 +174,20 @@ namespace IdApp.ViewModels.Contracts
             }
         }
 
+        private void EvaluateCommands()
+        {
+            this.ApproveCommand.ChangeCanExecute();
+            this.RejectCommand.ChangeCanExecute();
+            this.RevokeCommand.ChangeCanExecute();
+            this.CompromiseCommand.ChangeCanExecute();
+        }
+
         protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiDispatcher.BeginInvokeOnMainThread(async () =>
             {
                 this.SetConnectionStateAndText(e.State);
-                this.ApproveCommand.ChangeCanExecute();
-                this.RejectCommand.ChangeCanExecute();
-                this.RevokeCommand.ChangeCanExecute();
-                this.CompromiseCommand.ChangeCanExecute();
+                this.EvaluateCommands();
                 if (this.IsConnected)
                 {
                     await Task.Delay(Constants.Timeouts.XmppInit);

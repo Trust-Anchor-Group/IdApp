@@ -1,15 +1,11 @@
 ﻿using IdApp.Extensions;
-using IdApp.Views.Registration;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -41,8 +37,6 @@ namespace IdApp.ViewModels
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             this.logService = logService ?? DependencyService.Resolve<ILogService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected && ContractsIsOnline);
-            this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected && ContractsIsOnline);
         }
 
         protected override async Task DoBind()
@@ -121,9 +115,6 @@ namespace IdApp.ViewModels
         }
 
         #region Properties
-
-        public ICommand CompromiseCommand { get; }
-        public ICommand RevokeCommand { get; }
 
         public static readonly BindableProperty HasPhotoProperty =
             BindableProperty.Create("HasPhoto", typeof(bool), typeof(MainViewModel), default(bool));
@@ -302,65 +293,11 @@ namespace IdApp.ViewModels
         }
         #endregion
 
-        private async Task Revoke()
-        {
-            try
-            {
-                if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.No))
-                    return;
-
-                (bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.ObsoleteLegalIdentity(this.tagProfile.LegalIdentity.Id));
-                if (succeeded)
-                {
-                    this.tagProfile.RevokeLegalIdentity(revokedIdentity);
-                    await this.navigationService.GoToAsync($"/{nameof(RegistrationPage)}");
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logService.LogException(ex);
-                await this.UiDispatcher.DisplayAlert(ex);
-            }
-        }
-
-        private async Task Compromise()
-        {
-            try
-            {
-                if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.No))
-                    return;
-
-                (bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.CompromiseLegalIdentity(this.tagProfile.LegalIdentity.Id));
-                if (succeeded)
-                {
-                    this.tagProfile.RevokeLegalIdentity(compromisedIdentity);
-                    await this.navigationService.GoToAsync($"/{nameof(RegistrationPage)}");
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logService.LogException(ex);
-                await this.UiDispatcher.DisplayAlert(ex);
-            }
-        }
-
-        protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
-        {
-            this.UiDispatcher.BeginInvokeOnMainThread(() =>
-            {
-                this.SetConnectionStateAndText(e.State);
-                this.RevokeCommand.ChangeCanExecute();
-                this.CompromiseCommand.ChangeCanExecute();
-            });
-        }
-
         private void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiDispatcher.BeginInvokeOnMainThread(() =>
             {
                 this.SetConnectionStateAndText(e.State);
-                this.RevokeCommand.ChangeCanExecute();
-                this.CompromiseCommand.ChangeCanExecute();
             });
         }
 
