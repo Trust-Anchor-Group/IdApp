@@ -53,6 +53,7 @@ namespace IdApp.ViewModels.Registration
         protected override async Task DoBind()
         {
             await base.DoBind();
+            RegisterCommand.ChangeCanExecute();
             this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 

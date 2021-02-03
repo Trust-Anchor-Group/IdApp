@@ -49,7 +49,7 @@ namespace IdApp
 
         private async Task GoToPage(string route)
         {
-            // Due to a bug in Xamarin.Forms 4.8 the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
+            // Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
             // Therefore we have to close it manually here.
             Current.FlyoutIsPresented = false;
             await this.navigationService.GoToAsync(route);

@@ -47,17 +47,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         public bool IsOnline => this.chatClient != null;
 
-        private event EventHandler<ConnectionStateChangedEventArgs> ConnectionState;
-
-        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged
-        {
-            add
-            {
-                ConnectionState += value;
-                value(this, new ConnectionStateChangedEventArgs(GetState()));
-            }
-            remove => ConnectionState -= value;
-        }
+        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         private XmppState GetState()
         {
@@ -66,7 +56,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
         {
-            ConnectionState?.Invoke(this, e);
+            this.ConnectionStateChanged?.Invoke(this, e);
         }
     }
 }

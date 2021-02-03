@@ -48,9 +48,9 @@ namespace IdApp.ViewModels
         protected override async Task DoBind()
         {
             await base.DoBind();
+            this.AssignProperties();
             this.NeuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
-            this.AssignProperties();
         }
 
         protected override Task DoUnbind()
