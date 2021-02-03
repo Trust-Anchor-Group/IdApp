@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Content\NeuronSDK.md = Content\NeuronSDK.md
 		Content\NeuronSDKUI.md = Content\NeuronSDKUI.md
 		README.md = README.md
+		Content\Xmpp.md = Content\Xmpp.md
 	EndProjectSection
 EndProject
 Global

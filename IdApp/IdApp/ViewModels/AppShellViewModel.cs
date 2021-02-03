@@ -29,19 +29,6 @@ namespace IdApp.ViewModels
             Shell.Current.Navigated += Shell_Navigated;
         }
 
-        //protected override async Task DoBind()
-        //{
-        //    await base.DoBind();
-        //}
-
-        //protected override Task DoUnbind()
-        //{
-        //    Shell.Current.Navigated -= Shell_Navigated;
-        //    this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
-        //    this.networkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
-        //    return base.DoUnbind();
-        //}
-
         #region Properties
 
         public static readonly BindableProperty ConnectionStateTextProperty =
@@ -67,7 +54,7 @@ namespace IdApp.ViewModels
 
         public bool IsOnline
         {
-            get { return (bool) GetValue(IsOnlineProperty); }
+            get { return (bool)GetValue(IsOnlineProperty); }
             set { SetValue(IsOnlineProperty, value); }
         }
 
