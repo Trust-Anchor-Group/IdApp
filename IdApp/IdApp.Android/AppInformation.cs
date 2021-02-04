@@ -1,8 +1,8 @@
 ﻿using Android.App;
 using Tag.Neuron.Xamarin;
 
-[assembly: Xamarin.Forms.Dependency(typeof(XamarinApp.Droid.AppInformation))]
-namespace XamarinApp.Droid
+[assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.AppInformation))]
+namespace IdApp.Android
 {
     public class AppInformation : IAppInformation
     {

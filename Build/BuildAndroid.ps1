@@ -5,8 +5,8 @@ Set-Variable -Name versionName -Value "1.2.3"
 
 # Tools
 Set-Variable -Name msbuild -Value "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\Bin\msbuild.exe"
-Set-Variable -Name zipalign -Value "C:\Program Files (x86)\Android\android-sdk\build-tools\28.0.3\zipalign.exe"
-Set-Variable -Name jarsigner -Value "C:\Program Files (x86)\Android\android-sdk\build-tools\28.0.3\apksigner.bat"
+Set-Variable -Name zipalign -Value "C:\Program Files (x86)\Android\android-sdk\build-tools\30.0.2\zipalign.exe"
+Set-Variable -Name jarsigner -Value "C:\Program Files (x86)\Android\android-sdk\build-tools\30.0.2\apksigner.bat"
 
 # Build config
 Set-Variable -Name buildManifest -Value "Properties/AndroidManifest.xml"

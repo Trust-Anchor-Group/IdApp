@@ -2,8 +2,8 @@
 using Android.Provider;
 using Tag.Neuron.Xamarin;
 
-[assembly:Xamarin.Forms.Dependency(typeof(XamarinApp.Droid.DeviceInformation))]
-namespace XamarinApp.Droid
+[assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.DeviceInformation))]
+namespace IdApp.Android
 {
     public class DeviceInformation : IDeviceInformation
     {

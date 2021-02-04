@@ -3,7 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 
-namespace IdApp.Droid
+namespace IdApp.Android
 {
     [Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
