@@ -44,9 +44,9 @@
 		<string>FontAwesome5Free-Solid-900.otf</string>
 	</array>
 	<key>CFBundleShortVersionString</key>
-	<string>2.18</string>
+	<string>2.19</string>
 	<key>CFBundleVersion</key>
-	<string>2.18</string>
+	<string>2.19</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
 </dict>
