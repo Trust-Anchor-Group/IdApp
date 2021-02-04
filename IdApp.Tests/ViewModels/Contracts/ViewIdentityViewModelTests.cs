@@ -22,22 +22,18 @@ namespace IdApp.Tests.ViewModels.Contracts
         private readonly Mock<INeuronContracts> neuronContracts;
         private readonly Mock<INavigationService> navigationService;
         private readonly Mock<INetworkService> networkService;
-        private readonly LegalIdentity identity;
-        private readonly SignaturePetitionEventArgs identityToReview;
 
         public ViewIdentityViewModelTests()
         {
-            this.identity = new LegalIdentity { Id = Guid.NewGuid().ToString() };
             this.tagProfile = new TagProfile();
             this.tagProfile.SetDomain("domain");
-            this.tagProfile.SetLegalIdentity(this.identity);
+            this.tagProfile.SetLegalIdentity(new LegalIdentity { Id = Guid.NewGuid().ToString() });
             this.uiDispatcher = new Mock<IUiDispatcher>();
             this.logService = new Mock<ILogService>();
             this.neuronService = new Mock<INeuronService>();
             this.neuronContracts = new Mock<INeuronContracts>();
             this.navigationService = new Mock<INavigationService>();
             this.networkService = new Mock<INetworkService>();
-            this.identityToReview = null;
             this.neuronService.Setup(x => x.Contracts).Returns(this.neuronContracts.Object);
             MockForms.Init();
         }
