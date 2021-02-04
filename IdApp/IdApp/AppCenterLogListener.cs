@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using Tag.Neuron.Xamarin.Services;
 
 namespace IdApp
@@ -21,27 +19,29 @@ namespace IdApp
 
         public void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters)
         {
-            if (extraParameters != null)
-            {
-                Dictionary<string, string> crashParameters = extraParameters.GroupBy(p => p.Key).Select(g => g.First()).ToDictionary(k => k.Key, v => v.Value);
-                Crashes.TrackError(e, crashParameters);
-            }
-            else
-            {
-                Crashes.TrackError(e);
-            }
+            // Uncomment when adding a reference to Microsoft AppCenter
+            //if (extraParameters != null)
+            //{
+            //    Dictionary<string, string> crashParameters = extraParameters.GroupBy(p => p.Key).Select(g => g.First()).ToDictionary(k => k.Key, v => v.Value);
+            //    Microsoft.AppCenter.Crashes.Crashes.TrackError(e, crashParameters);
+            //}
+            //else
+            //{
+            //    Microsoft.AppCenter.Crashes.Crashes.TrackError(e);
+            //}
         }
 
         public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
         {
-            if (extraParameters != null)
-            {
-                Analytics.TrackEvent(name, extraParameters.ToDictionary(x => x.Key, x => x.Value));
-            }
-            else
-            {
-                Analytics.TrackEvent(name);
-            }
+            // Uncomment when adding a reference to Microsoft AppCenter
+            //if (extraParameters != null)
+            //{
+            //    Microsoft.AppCenter.Analytics.Analytics.TrackEvent(name, extraParameters.ToDictionary(x => x.Key, x => x.Value));
+            //}
+            //else
+            //{
+            //    Microsoft.AppCenter.Analytics.Analytics.TrackEvent(name);
+            //}
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Autofac;
 using IdApp.Services;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -85,10 +82,10 @@ namespace IdApp
 
         protected override async void OnStart()
         {
-            AppCenter.Start(
-                "android=972ae016-29c4-4e4f-af9a-ad7eebfca1f7;uwp={Your UWP App secret here};ios=fdc9f466-8498-4826-bfbe-3b35dad7c284",
-                typeof(Analytics),
-                typeof(Crashes));
+            //AppCenter.Start(
+            //    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
+            //    typeof(Analytics),
+            //    typeof(Crashes));
 
             try
             {
