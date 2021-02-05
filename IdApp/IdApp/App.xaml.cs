@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.IoTGateway.Setup;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -31,7 +32,7 @@ namespace IdApp
 
             try
             {
-                this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new Registration().ToArray());
+                this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new XmppConfiguration().ToArray());
                 ContainerBuilder builder = new ContainerBuilder();
                 // SDK Registrations
                 builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
