@@ -12,6 +12,12 @@ namespace Tag.Neuron.Xamarin.UI.Tests.Extensions
             return vm;
         }
 
+        public static T When<T>(this T vm, Action<T> action) where T : BaseViewModel
+        {
+            action(vm);
+            return vm;
+        }
+
         public static T ThenAssert<T>(this T vm, Func<T, bool> func) where T : BaseViewModel
         {
             Assert.True(func(vm));
