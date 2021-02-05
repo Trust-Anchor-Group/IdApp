@@ -1,28 +1,33 @@
 # Getting Started #
-In order to build a Xamarin app that uses the Neuron server you need to include the TAG Neuron SDK. But first, have a look at how TAG has integrated XMPP into a [`Neuron` server](Xmpp.md).
+
+In order to build a Xamarin app that uses the Neuron server you need to include the TAG Neuron SDK. But first, have a look at how 
+TAG has integrated XMPP into a [`Neuron` server](Xmpp.md).
 
 ## Table of Contents ##
-- [Getting Started](#getting-started)
+
+- [Introduction](#introduction)
 - [Dependency Resolution](#dependency-resolution)
 - [The TAG Neuron SDK Structure](#the-tag-neuron-sdk-structure)
 - [Registration Keys](#registration-keys)
 - [Creating the app](#creating-the-app)
 - [Next Steps](#next-steps)
 
-## Getting Started ##
+## Introduction ##
+
 The TAG Neuron SDK is easy to integrate into any Xamarin App via a few lines of code.
 
 ### Dependency resolution ###
+
 TAG recommends using [AutoFac](https://autofac.org/) for `IoC` and dependency resolution. 
 The reason for this is that the built-in `DependencyService` is just a service locator, not a dependency injection container.
 It is rather limited, therefore swapping it out for AutoFac is recommended.
 
-Add a reference
-to the `AutoFac` Nuget, and then add the following using statement at the top of [App.xaml.cs](../IdApp/IdApp/App.xaml.cs):
+Add a reference to the `AutoFac` Nuget, and then add the following using statement at the top of [App.xaml.cs](../IdApp/IdApp/App.xaml.cs):
 
 ```
-    using Autofac;
+using Autofac;
 ```
+
 Now create a container builder in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor like this:
 
 ```
@@ -40,19 +45,26 @@ public App()
     DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 }
 ```
+
 That's all you need to do. And when you need to resolve components later in the code, invoke the built-in `DependencyService` as usual:
+
 ```
     var myService = DependencyService.Resolve<IMyServie>();
 ```
+
 This will invoke the AutoFac IoC under the hood.
 
 ## The TAG Neuron SDK Structure ##
+
 The core, or root of the TAG Neuron SDK starts with the [`ITagIdSdk`](../Tag.Neuron.Xamarin/ITagIdSdk.cs) interface. 
 Everything you need can be accessed via this interface. You create an instance of the SDK in your `App` constructor like this:
+
 ```
     this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
 ```
+
 Once this is done you can register the TAG Neuron SDK services with AutoFac like this (See details on [Registration Keys](#registration-keys) below)
+
 ```
 public App()
 {
