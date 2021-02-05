@@ -37,8 +37,8 @@ It makes it easy to mock calls for unit testing, but using it is completely opti
 The [NeuronService](../Tag.Neuron.Xamarin/Services/INeuronService.cs) represents the live connection to a Neuron server.
 It provides event handlers for managing connected state, as well as methods to access the various services the Neuron server provides (Contract handling, Chats et.c)
 
-### AuthService ###
-The [AuthService](../Tag.Neuron.Xamarin/Services/IAuthService.cs) has methods to help with cryptographic tasks like creating a random password et.c.
+### CryptoService ###
+The [CryptoService](../Tag.Neuron.Xamarin/Services/ICryptoService.cs) has methods to help with cryptographic tasks like creating a random password et.c.
 
 ### NetworkService ###
 The [NetworkService](../Tag.Neuron.Xamarin/Services/INetworkService.cs) allows you to check for network access, and it also provides helper methods
