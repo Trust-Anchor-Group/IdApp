@@ -1,7 +1,7 @@
 # ID App
 
-The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) (**TAG** for short).
-It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com/IEEE-SA/XMPPI/IoT). This includes:
+The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# provided by [Trust Anchor Group](https://trustanchorgroup.com/) 
+(**TAG** for short). It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com/IEEE-SA/XMPPI/IoT). This includes:
 
 * Federated & distributed Digital IDs. (Globally scalable, interoperable.)
 * Smart Contracts
@@ -10,24 +10,27 @@ It can be used to create custom apps based on [IEEE P1451.99](https://gitlab.com
 * End-to-end encrypted communication.
 * Peer-to-peer communication.
 
-It is built with .NET Standard 2.0, Xamarin.Forms 4.8 (Shell) and relies heavily on the [IoTGateway](https://github.com/PeterWaher/IoTGateway) framework.
+It is built with .NET Standard 2.0 and Xamarin.Forms 4.8 (Shell), and relies on nugets from the [IoTGateway](https://github.com/PeterWaher/IoTGateway) 
+framework to perform tasks related to communication and functionality defined in IEEE P1451.99.
 
 ## Structure
 
-The app is made up of the actual app itself as well as two frameworks:
+Apart from the app itself, the repository also contains two frameworks:
+
 - Tag.Neuron.Xamarin
 - Tag.Neuron.Xamarin.UI
 
-The first is a wrapper library around the [IoTGateway](https://github.com/PeterWaher/IoTGateway) framework, making it mobile app friendly, but also
-to provide convenience code and app lifecycle support for the Xamarin platform.
+The first wraps the [IoTGateway](https://github.com/PeterWaher/IoTGateway) framework into a library that is adapted to the mobile phone
+environment. It also provides convenience code and app lifecycle support for the Xamarin platform.
 
-The second is the very few base classes needed for correct structuring and binding of UI components for the common setup/teardown scenarios that occur
-when browsing/using an app. Typically that means tying the Appearing/Disappearing events of a page to business logic.
+The second contains some base classes used to structure and bind UI components for common setup and teardown scenarios that occur
+when browsing and using an app. Typically, this includes binding the Appearing/Disappearing events of a page to business logic.
 
 
 ## Documentation ##
 
-The architecture overview as well as technical guides for implementing and using the TAG Neuron SDK in a Xamarin app can be found here:
+The following sections presend an overview of the architecture, as well as technical guides for implementing and using the TAG Neuron SDK 
+in a Xamarin app:
 
 - [Getting Started](Content/GettingStarted.md)
 - [Neuron Registration](Content/NeuronRegistration.md)
@@ -75,9 +78,9 @@ direct, indirect, incidental, special, exemplary, or consequential damages (incl
 of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including 
 negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
 
-The TAG Xamarin App is © Trust Anchor Group AB 2019-2020. All rights reserved.
+The TAG Xamarin App is © Trust Anchor Group AB 2019-2021. All rights reserved.
 
 ## Contact
 
 You can choose to contact us via our [online feedback form](https://lab.tagroot.io/Feedback.md), via [company e-mail](mailto:info@trustanchorgroup.com), or the
-[author directly](https://www.linkedin.com/in/peterwaher/).
+[repository admin directly](https://www.linkedin.com/in/peterwaher/).
