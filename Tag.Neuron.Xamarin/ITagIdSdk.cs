@@ -42,7 +42,7 @@ namespace Tag.Neuron.Xamarin
         /// <summary>
         /// Provides authorization services.
         /// </summary>
-        IAuthService AuthService { get; }
+        ICryptoService CryptoService { get; }
         /// <summary>
         /// Provides Neuron server access.
         /// </summary>

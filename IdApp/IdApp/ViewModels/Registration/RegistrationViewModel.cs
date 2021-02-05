@@ -29,7 +29,7 @@ namespace IdApp.ViewModels.Registration
             IUiDispatcher uiDispatcher, 
             ISettingsService settingsService, 
             INeuronService neuronService, 
-            IAuthService authService, 
+            ICryptoService cryptoService, 
             INavigationService navigationService,
             INetworkService networkService, 
             ILogService logService)
@@ -38,7 +38,7 @@ namespace IdApp.ViewModels.Registration
             uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            authService = authService ?? DependencyService.Resolve<IAuthService>();
+            cryptoService = cryptoService ?? DependencyService.Resolve<ICryptoService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             logService = logService ?? DependencyService.Resolve<ILogService>();
@@ -46,7 +46,7 @@ namespace IdApp.ViewModels.Registration
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
                 this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
-                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, authService, networkService, logService)),
+                this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, cryptoService, networkService, logService)),
                 this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService)),
                 this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, logService))

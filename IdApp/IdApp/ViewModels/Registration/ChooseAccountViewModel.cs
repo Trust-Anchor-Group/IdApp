@@ -14,7 +14,7 @@ namespace IdApp.ViewModels.Registration
 {
     public class ChooseAccountViewModel : RegistrationStepViewModel
     {
-        private readonly IAuthService authService;
+        private readonly ICryptoService cryptoService;
         private readonly INetworkService networkService;
 
         public ChooseAccountViewModel(
@@ -23,12 +23,12 @@ namespace IdApp.ViewModels.Registration
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
-            IAuthService authService,
+            ICryptoService cryptoService,
             INetworkService networkService,
             ILogService logService)
             : base(RegistrationStep.Account, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
-            this.authService = authService;
+            this.cryptoService = cryptoService;
             this.networkService = networkService;
             this.PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
             this.ActionButtonText = AppResources.CreateNew;
@@ -330,7 +330,7 @@ namespace IdApp.ViewModels.Registration
         {
             try
             {
-                string passwordToUse = CreateRandomPassword ? this.authService.CreateRandomPassword() : Password;
+                string passwordToUse = CreateRandomPassword ? this.cryptoService.CreateRandomPassword() : Password;
 
                 (string hostName, int portNumber) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 

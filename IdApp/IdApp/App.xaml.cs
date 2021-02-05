@@ -38,7 +38,7 @@ namespace IdApp
                 builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
                 builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
                 builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
-                builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
+                builder.RegisterInstance(this.sdk.CryptoService).SingleInstance();
                 builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
                 builder.RegisterInstance(this.sdk.LogService).SingleInstance();
                 builder.RegisterInstance(this.sdk.StorageService).SingleInstance();

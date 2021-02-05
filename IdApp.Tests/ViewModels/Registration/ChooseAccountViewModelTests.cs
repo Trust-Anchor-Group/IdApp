@@ -13,7 +13,7 @@ namespace IdApp.Tests.ViewModels.Registration
         private readonly Mock<IUiDispatcher> dispatcher = new Mock<IUiDispatcher>();
         private readonly Mock<INeuronService> neuronService = new Mock<INeuronService>();
         private readonly Mock<INavigationService> navigationService = new Mock<INavigationService>();
-        private readonly Mock<IAuthService> authService = new Mock<IAuthService>();
+        private readonly Mock<ICryptoService> authService = new Mock<ICryptoService>();
         private readonly Mock<INeuronContracts> contracts = new Mock<INeuronContracts>();
         private readonly Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         private readonly Mock<INetworkService> networkService = new Mock<INetworkService>();
