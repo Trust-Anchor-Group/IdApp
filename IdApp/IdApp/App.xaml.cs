@@ -1,5 +1,4 @@
-﻿using Autofac;
-using IdApp.Services;
+﻿using IdApp.Services;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,6 +20,7 @@ namespace IdApp
         private readonly ITagIdSdk sdk;
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
+        private readonly IoC builder;
         private readonly bool keepRunningInTheBackground = false;
 
         public App()
@@ -33,24 +33,22 @@ namespace IdApp
             try
             {
                 this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new XmppConfiguration().ToArray());
-                ContainerBuilder builder = new ContainerBuilder();
+                this.builder = new IoC();
                 // SDK Registrations
-                builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
-                builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
-                builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
-                builder.RegisterInstance(this.sdk.CryptoService).SingleInstance();
-                builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
-                builder.RegisterInstance(this.sdk.LogService).SingleInstance();
-                builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
-                builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
-                builder.RegisterInstance(this.sdk.NavigationService).SingleInstance();
+                this.builder.RegisterInstance(this.sdk.UiDispatcher);
+                this.builder.RegisterInstance(this.sdk.TagProfile);
+                this.builder.RegisterInstance(this.sdk.NeuronService);
+                this.builder.RegisterInstance(this.sdk.CryptoService);
+                this.builder.RegisterInstance(this.sdk.NetworkService);
+                this.builder.RegisterInstance(this.sdk.LogService);
+                this.builder.RegisterInstance(this.sdk.StorageService);
+                this.builder.RegisterInstance(this.sdk.SettingsService);
+                this.builder.RegisterInstance(this.sdk.NavigationService);
                 // App Registrations
-                builder.RegisterType<ImageCacheService>().As<IImageCacheService>().SingleInstance();
-                builder.RegisterType<ContractOrchestratorService>().As<IContractOrchestratorService>().SingleInstance();
-
-                // Set AutoFac to be the dependency resolver
-                IContainer container = builder.Build();
-                DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
+                this.builder.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
+                this.builder.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
+                // Set resolver
+                DependencyResolver.ResolveUsing(type => this.builder.IsRegistered(type) ? builder.Resolve(type) : null);
 
                 // Register log listener
                 this.sdk.LogService.AddListener(new AppCenterLogListener());
@@ -79,6 +77,7 @@ namespace IdApp
         public void Dispose()
         {
             this.sdk?.Dispose();
+            this.builder.Dispose();
         }
 
         protected override async void OnStart()
