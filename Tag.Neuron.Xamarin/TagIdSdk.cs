@@ -34,7 +34,7 @@ namespace Tag.Neuron.Xamarin
             this.TagProfile = new TagProfile(domains);
             this.logService = new LogService(DependencyService.Resolve<IAppInformation>());
             this.uiDispatcher = new UiDispatcher();
-            this.AuthService = new AuthService(this.LogService);
+            this.CryptoService = new CryptoService(this.LogService);
             this.NetworkService = new NetworkService(this.LogService, this.UiDispatcher);
             this.SettingsService = new SettingsService();
             this.StorageService = new StorageService();
@@ -61,7 +61,7 @@ namespace Tag.Neuron.Xamarin
         public ITagProfile TagProfile { get; }
         private readonly UiDispatcher uiDispatcher;
         public IUiDispatcher UiDispatcher => this.uiDispatcher;
-        public IAuthService AuthService { get; }
+        public ICryptoService CryptoService { get; }
         private readonly IInternalNeuronService neuronService;
         public INeuronService NeuronService => this.neuronService;
         public INetworkService NetworkService { get; }
@@ -191,7 +191,7 @@ namespace Tag.Neuron.Xamarin
             string createDbMethod = $"{nameof(FilesProvider)}.{nameof(FilesProvider.CreateAsync)}()";
             Task<FilesProvider> CreateDatabaseFile()
             {
-                return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.AuthService.GetCustomKey);
+                return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.CryptoService.GetCustomKey);
             }
 
             string method = null;

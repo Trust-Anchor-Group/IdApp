@@ -8,12 +8,12 @@ using Xamarin.Essentials;
 
 namespace Tag.Neuron.Xamarin.Services
 {
-    internal sealed class AuthService : IAuthService
+    internal sealed class CryptoService : ICryptoService
     {
         private readonly ILogService logService;
         private readonly RandomNumberGenerator rnd;
 
-        public AuthService(ILogService logService)
+        public CryptoService(ILogService logService)
         {
             this.logService = logService;
             rnd = RandomNumberGenerator.Create();

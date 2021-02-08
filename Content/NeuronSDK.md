@@ -25,7 +25,7 @@ Here's a list of all services the SDK provides, and what you can use them for.
 ### TagProfile ###
 The [TagProfile](../Tag.Neuron.Xamarin/Services/ITagProfile.cs) is the user profile, which holds data about a user's identity, as well as Jabber Ids for the services discovered for the domain the user is connected to.
 This is a very central class, and the user profile can be built/completed in several steps, adding more information for each step. This is done during the registration phase,
-[read more about it here](NeuronRegistration.md).
+[read more about it here](CreatingAProfile.md).
 
 ### UiDispatcher ###
 The [UiDispatcher](../Tag.Neuron.Xamarin/IUiDispatcher.cs) provides access to the main thread. The `UiDispatcher` is mainly used for two things:
@@ -37,8 +37,8 @@ It makes it easy to mock calls for unit testing, but using it is completely opti
 The [NeuronService](../Tag.Neuron.Xamarin/Services/INeuronService.cs) represents the live connection to a Neuron server.
 It provides event handlers for managing connected state, as well as methods to access the various services the Neuron server provides (Contract handling, Chats et.c)
 
-### AuthService ###
-The [AuthService](../Tag.Neuron.Xamarin/Services/IAuthService.cs) has methods to help with cryptographic tasks like creating a random password et.c.
+### CryptoService ###
+The [CryptoService](../Tag.Neuron.Xamarin/Services/ICryptoService.cs) has methods to help with cryptographic tasks like creating a random password et.c.
 
 ### NetworkService ###
 The [NetworkService](../Tag.Neuron.Xamarin/Services/INetworkService.cs) allows you to check for network access, and it also provides helper methods

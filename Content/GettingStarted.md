@@ -17,32 +17,22 @@ TAG has integrated XMPP into a [`Neuron` server](Xmpp.md).
 The TAG Neuron SDK is easy to integrate into any Xamarin App via a few lines of code.
 
 ### Dependency resolution ###
-
-TAG recommends using [AutoFac](https://autofac.org/) for `IoC` and dependency resolution. 
+TAG  has a custom light-weight [`IoC`](../IdApp/IdApp/IoC.cs) implementation for dependency resolution. 
 The reason for this is that the built-in `DependencyService` is just a service locator, not a dependency injection container.
-It is rather limited, therefore swapping it out for AutoFac is recommended.
+It is rather limited, therefore swapping it out for the `IoC` is recommended.
 
-Add a reference to the `AutoFac` Nuget, and then add the following using statement at the top of [App.xaml.cs](../IdApp/IdApp/App.xaml.cs):
-
-```
-using Autofac;
-```
-
-Now create a container builder in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor like this:
+Create an `IoC` instance in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor like this:
 
 ```
 public App()
 {
-    ContainerBuilder builder = new ContainerBuilder();
+    builder = new IoC();
 
     // Register dependencies here
     ...
 
-    // Build the container
-    IContainer container = builder.Build();
-
-    // Set AutoFac to be the default dependency resolver
-    DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
+    // Set the IoC to be the default dependency resolver
+    DependencyResolver.ResolveUsing(type => builder.IsRegistered(type) ? builder.Resolve(type) : null);
 }
 ```
 
@@ -51,8 +41,7 @@ That's all you need to do. And when you need to resolve components later in the 
 ```
     var myService = DependencyService.Resolve<IMyServie>();
 ```
-
-This will invoke the AutoFac IoC under the hood.
+This will invoke the lightweight IoC implementation 'under the hood'.
 
 ## The TAG Neuron SDK Structure ##
 
@@ -102,7 +91,7 @@ If you have the following folder structure:
 
 ```/Path/To/Solution/IdApp/```
 
-Then the `IdApp.sln` file is located in that folder. Run the build once, this will copy the Registration.cs file (via a custom build step) to folder _above_ the solution folder. 
+Then the `IdApp.sln` file is located in that folder. Run the build once, this will copy the `Registration.cs` file (via a custom build step) to folder _above_ the solution folder. 
 In this case it would be the `/Path/To/Solution/` folder.
 Edit _this_ file, providing domain names and cryptographic keys.
 
@@ -165,6 +154,6 @@ When this is done, you can start and run the application. It won't do anything, 
 For further reading, please continue to these sections:
 - [The XMPP Protocol and Neuron](Xmpp.md)
 - [The ID App](AppAnatomy.md)
-- [Neuron Registration](NeuronRegistration.md)
+- [Creating a TAG Profile](CreatingAProfile.md)
 - [Neuron SDK](NeuronSDK.md)
 - [Neuron SDK UI](NeuronSDKUI.md)

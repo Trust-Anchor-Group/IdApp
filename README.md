@@ -10,7 +10,7 @@ The **ID App** (or *TAG ID App*) is a *white-label* Xamarin app written in C# pr
 * End-to-end encrypted communication.
 * Peer-to-peer communication.
 
-It is built with .NET Standard 2.0 and Xamarin.Forms 4.8 (Shell), and relies on nugets from the [IoTGateway](https://github.com/PeterWaher/IoTGateway) 
+It is built with .NET Standard 2.0 and Xamarin.Forms 5.0 (Shell), and relies on nugets from the [IoTGateway](https://github.com/PeterWaher/IoTGateway) 
 framework to perform tasks related to communication and functionality defined in IEEE P1451.99.
 
 ## Structure
@@ -33,7 +33,7 @@ The following sections presend an overview of the architecture, as well as techn
 in a Xamarin app:
 
 - [Getting Started](Content/GettingStarted.md)
-- [Neuron Registration](Content/NeuronRegistration.md)
+- [Creating a TAG Pprofile](Content/CreatingAProfile.md)
 - [Neuron SDK](Content/NeuronSDK.md)
 - [Neuron SDK UI](Content/NeuronSDKUI.md)
 

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
-    /// Authorization service that helps create passwords and other security related tasks.
+    /// Cryptographic service that helps create passwords and other security related tasks.
     /// </summary>
-    public interface IAuthService
+    public interface ICryptoService
     {
         /// <summary>
         /// Returns a cryptographic authorization key for the given filename.

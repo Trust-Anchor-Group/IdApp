@@ -1,4 +1,4 @@
-# Neuron Registration #
+# Creating A TAG Profile #
 In order to work with digital IDs and contracts you need to connect successfully to a Neuron server.
 To do that an account, or **TAG Profile**, needs to be built. This is done step by step,
 adding more information until it is complete. There are currently five (5) steps to take in the user registration journey:
