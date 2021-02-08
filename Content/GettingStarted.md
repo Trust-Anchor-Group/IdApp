@@ -157,3 +157,4 @@ For further reading, please continue to these sections:
 - [Creating a TAG Profile](CreatingAProfile.md)
 - [Neuron SDK](NeuronSDK.md)
 - [Neuron SDK UI](NeuronSDKUI.md)
+- [Branch Strategy](BranchStrategy.md)

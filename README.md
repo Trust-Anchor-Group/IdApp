@@ -26,7 +26,6 @@ environment. It also provides convenience code and app lifecycle support for the
 The second contains some base classes used to structure and bind UI components for common setup and teardown scenarios that occur
 when browsing and using an app. Typically, this includes binding the Appearing/Disappearing events of a page to business logic.
 
-
 ## Documentation ##
 
 The following sections presend an overview of the architecture, as well as technical guides for implementing and using the TAG Neuron SDK 
@@ -36,7 +35,7 @@ in a Xamarin app:
 - [Creating a TAG Pprofile](Content/CreatingAProfile.md)
 - [Neuron SDK](Content/NeuronSDK.md)
 - [Neuron SDK UI](Content/NeuronSDKUI.md)
-
+- [Branch Strategy](Content/BranchStrategy.md)
 
 ## License
 
