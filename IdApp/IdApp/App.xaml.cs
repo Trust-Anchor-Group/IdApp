@@ -48,9 +48,9 @@ namespace IdApp
                 this.builder.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
                 this.builder.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
                 // Set resolver
-                DependencyResolver.ResolveUsing(type => this.builder.IsRegistered(type) ? builder.Resolve(type) : null);
+                DependencyResolver.ResolveUsing(type => this.builder.IsRegistered(type) ? this.builder.Resolve(type) : null);
 
-                // Register log listener
+                // Register log listener (optional)
                 this.sdk.LogService.AddListener(new AppCenterLogListener());
 
                 // Resolve what's needed for the App class
@@ -59,7 +59,7 @@ namespace IdApp
             }
             catch (Exception e)
             {
-                DisplayBootstrapErrorPage("ContainerBuilder", e.ToString());
+                DisplayBootstrapErrorPage("IoC", e.ToString());
                 return;
             }
 
