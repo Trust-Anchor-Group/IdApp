@@ -20,7 +20,7 @@ namespace IdApp
         private readonly ITagIdSdk sdk;
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly IoC builder;
+        private readonly IoCContainer container;
         private readonly bool keepRunningInTheBackground = false;
 
         public App()
@@ -33,22 +33,22 @@ namespace IdApp
             try
             {
                 this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new XmppConfiguration().ToArray());
-                this.builder = new IoC();
+                this.container = new IoCContainer();
                 // SDK Registrations
-                this.builder.RegisterInstance(this.sdk.UiDispatcher);
-                this.builder.RegisterInstance(this.sdk.TagProfile);
-                this.builder.RegisterInstance(this.sdk.NeuronService);
-                this.builder.RegisterInstance(this.sdk.CryptoService);
-                this.builder.RegisterInstance(this.sdk.NetworkService);
-                this.builder.RegisterInstance(this.sdk.LogService);
-                this.builder.RegisterInstance(this.sdk.StorageService);
-                this.builder.RegisterInstance(this.sdk.SettingsService);
-                this.builder.RegisterInstance(this.sdk.NavigationService);
+                this.container.RegisterInstance(this.sdk.UiDispatcher);
+                this.container.RegisterInstance(this.sdk.TagProfile);
+                this.container.RegisterInstance(this.sdk.NeuronService);
+                this.container.RegisterInstance(this.sdk.CryptoService);
+                this.container.RegisterInstance(this.sdk.NetworkService);
+                this.container.RegisterInstance(this.sdk.LogService);
+                this.container.RegisterInstance(this.sdk.StorageService);
+                this.container.RegisterInstance(this.sdk.SettingsService);
+                this.container.RegisterInstance(this.sdk.NavigationService);
                 // App Registrations
-                this.builder.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
-                this.builder.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
+                this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
+                this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
                 // Set resolver
-                DependencyResolver.ResolveUsing(type => this.builder.IsRegistered(type) ? this.builder.Resolve(type) : null);
+                DependencyResolver.ResolveUsing(type => this.container.IsRegistered(type) ? this.container.Resolve(type) : null);
 
                 // Register log listener (optional)
                 this.sdk.LogService.AddListener(new AppCenterLogListener());
@@ -59,7 +59,7 @@ namespace IdApp
             }
             catch (Exception e)
             {
-                DisplayBootstrapErrorPage("IoC", e.ToString());
+                DisplayBootstrapErrorPage("IoCContainer", e.ToString());
                 return;
             }
 
@@ -77,7 +77,7 @@ namespace IdApp
         public void Dispose()
         {
             this.sdk?.Dispose();
-            this.builder.Dispose();
+            this.container.Dispose();
         }
 
         protected override async void OnStart()
@@ -123,8 +123,7 @@ namespace IdApp
             // and we want to make sure state is persisted and teardown is done correctly to avoid memory leaks.
             if (MainPage?.BindingContext is BaseViewModel vm)
             {
-                await vm.SaveState();
-                await vm.Unbind();
+                await vm.Shutdown();
             }
 
             if (!keepRunningInTheBackground)

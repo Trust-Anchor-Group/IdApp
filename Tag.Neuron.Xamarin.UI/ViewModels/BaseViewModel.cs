@@ -37,7 +37,7 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
                 await DoBind();
                 foreach (BaseViewModel childViewModel in childViewModels)
                 {
-                    await childViewModel.DoBind();
+                    await childViewModel.Bind();
                 }
                 IsBound = true;
             }
@@ -53,12 +53,14 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
             {
                 foreach (BaseViewModel childViewModel in childViewModels)
                 {
-                    await childViewModel.DoUnbind();
+                    await childViewModel.Unbind();
                 }
                 await DoUnbind();
                 IsBound = false;
             }
         }
+
+        public IEnumerable<BaseViewModel> Children => this.childViewModels;
 
         /// <summary>
         /// Use this method when nesting view models. This is the viewmodel equivalent of master/detail pages.
@@ -126,6 +128,16 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
                 await childViewModel.DoSaveState();
             }
             await DoSaveState();
+        }
+
+        /// <summary>
+        /// Convenience method that calls <see cref="SaveState"/> and then <see cref="Unbind"/>.
+        /// </summary>
+        /// <returns></returns>
+        public async Task Shutdown()
+        {
+            await this.SaveState();
+            await this.Unbind();
         }
 
         /// <summary>

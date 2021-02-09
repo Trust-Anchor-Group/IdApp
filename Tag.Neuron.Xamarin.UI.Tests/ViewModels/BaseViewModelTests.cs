@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 using Tag.Neuron.Xamarin.UI.Tests.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 
@@ -8,8 +9,13 @@ namespace Tag.Neuron.Xamarin.UI.Tests.ViewModels
     {
         protected override TestBaseViewModel AViewModel()
         {
+            return new TestBaseViewModel();
+        }
+
+        private TestBaseViewModel AViewModelWithChildren()
+        {
             TestBaseViewModel viewModel = new TestBaseViewModel();
-            viewModel.AddChild(new TestBaseViewModel());
+            viewModel.AddChild(new BaseViewModel());
             return viewModel;
         }
 
@@ -18,6 +24,23 @@ namespace Tag.Neuron.Xamarin.UI.Tests.ViewModels
         {
             GivenAViewModel()
                 .ThenAssert(vm => !vm.IsBound);
+        }
+
+        [Test]
+        public void IsNotBound_NorChildren_Initially()
+        {
+            Given(AViewModelWithChildren)
+                .ThenAssert(vm => !vm.IsBound)
+                .ThenAssert(vm => vm.Children.All(x => !x.IsBound));
+        }
+
+        [Test]
+        public void IsBound_IncludingChildren_AfterBind()
+        {
+            Given(AViewModelWithChildren)
+                .And(async vm => await vm.Bind())
+                .ThenAssert(vm => vm.IsBound)
+                .ThenAssert(vm => vm.Children.All(x => x.IsBound));
         }
 
         [Test]
@@ -35,6 +58,16 @@ namespace Tag.Neuron.Xamarin.UI.Tests.ViewModels
                 .And(async vm => await vm.Bind())
                 .And(async vm => await vm.Unbind())
                 .ThenAssert(vm => !vm.IsBound);
+        }
+
+        [Test]
+        public void IsNotBound_NorChildren_AfterBindAndThenUnBind()
+        {
+            Given(AViewModelWithChildren)
+                .And(async vm => await vm.Bind())
+                .And(async vm => await vm.Unbind())
+                .ThenAssert(vm => !vm.IsBound)
+                .ThenAssert(vm => vm.Children.All(x => !x.IsBound));
         }
     }
 

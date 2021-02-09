@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace IdApp
+namespace Tag.Neuron.Xamarin
 {
     public enum IocScope
     {
@@ -12,18 +12,18 @@ namespace IdApp
         PerRequest
     }
 
-    public sealed class IoC : IDisposable
+    public sealed class IoCContainer : IDisposable
     {
         private readonly Dictionary<Type, Tuple<Type, IocScope>> dependencyMap;
         private readonly ConcurrentDictionary<Type, object> instanceCache;
 
-        public IoC()
+        public IoCContainer()
         {
             dependencyMap = new Dictionary<Type, Tuple<Type, IocScope>>();
             instanceCache = new ConcurrentDictionary<Type, object>();
         }
 
-        ~IoC()
+        ~IoCContainer()
         {
             Dispose(false);
         }

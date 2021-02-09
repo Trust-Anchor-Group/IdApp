@@ -17,22 +17,22 @@ TAG has integrated XMPP into a [`Neuron` server](Xmpp.md).
 The TAG Neuron SDK is easy to integrate into any Xamarin App via a few lines of code.
 
 ### Dependency resolution ###
-TAG  has a custom light-weight [`IoC`](../IdApp/IdApp/IoC.cs) implementation for dependency resolution. 
+TAG  has a custom light-weight [`IoCContainer`](../Tag.Neuron.Xamarin/IoCContainer.cs) implementation for dependency resolution. 
 The reason for this is that the built-in `DependencyService` is just a service locator, not a dependency injection container.
-It is rather limited, therefore swapping it out for the `IoC` is recommended.
+It is rather limited, therefore swapping it out for the `IoCContainer` is recommended.
 
-Create an `IoC` instance in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor like this:
+Create an `IoCContainer` instance in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor like this:
 
 ```
 public App()
 {
-    builder = new IoC();
+    container = new IoCContainer();
 
     // Register dependencies here
     ...
 
     // Set the IoC to be the default dependency resolver
-    DependencyResolver.ResolveUsing(type => builder.IsRegistered(type) ? builder.Resolve(type) : null);
+    DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
 }
 ```
 
@@ -41,7 +41,7 @@ That's all you need to do. And when you need to resolve components later in the 
 ```
     var myService = DependencyService.Resolve<IMyServie>();
 ```
-This will invoke the lightweight IoC implementation 'under the hood'.
+This will invoke the lightweight IoC implementation 'under the hood'. _**Remember**_ to `Dispose()` it later.
 
 ## The TAG Neuron SDK Structure ##
 
@@ -84,20 +84,48 @@ public App()
 ```
 For further reading about the TAG Neuron SDK, [have a look here](NeuronSDK.md).
 
-## Registration Keys ##
+## Registration Keys (for developers) ##
 Registration keys for each Neuron domain is specified separately in a partial class, see [`Registration.cs`](../IdApp/IdApp/Services/Registration.cs).
-As the class is partial, the _other_ 'half' must reside in the folder _above_ the solution folder.
+As the class is partial, the _other_ 'half' must reside in the folder _above_ the solution folder. The reason for this is that the solution uses a custom build step.
 If you have the following folder structure:
 
 ```/Path/To/Solution/IdApp/```
 
-Then the `IdApp.sln` file is located in that folder. Run the build once, this will copy the `Registration.cs` file (via a custom build step) to folder _above_ the solution folder. 
+Then the `IdApp.sln` file is located in that folder.
+### First time setup ###
+Build the solution once. This will trigger the custom build step which will copy the `Registration.cs` file to folder _above_ the solution folder. 
 In this case it would be the `/Path/To/Solution/` folder.
-Edit _this_ file, providing domain names and cryptographic keys.
+Edit _this_ file, providing domain names and cryptographic keys. Here's _exactly_ what is should look like, just edit the three values:
+```
+using System;
+using System.Collections.Generic;
+
+namespace Waher.IoTGateway.Setup
+{
+  public partial class XmppConfiguration
+  {
+      private readonly Dictionary<string, KeyValuePair<string, string>> clp = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase)
+      {
+        { "<domain>", new KeyValuePair<string, string>("<key>", "<secret>") }};
+      }
+  }
+}
+``` 
 
 #### Motivation ####
-Cryptographic keys or secrets should never be added to source control. By placing this partial class declaration on your hard drive, but _outside_ the regular solution and folder structure,
-the keys can be kept secret, but copied in temporarily during compilation, and then removed immediately again. *Hence the custom build steps*.
+Cryptographic keys or secrets should _never_ be added to source control. By placing this partial class declaration on your hard drive, but _outside_ the regular solution and folder structure,
+the keys can be kept secret, but copied in temporarily during compilation, and then removed immediately again. *Hence the custom build steps*. This means the cryptographic keys
+are never committed to source control, and only included in the compiled binaries.
+
+### Acquiring Keys ###
+Keys are necessary if using TAG Neurons, and they can be requested by the operator of the Neuron(s). The keys must:
+- Have a registered owner
+- Have a maximum number of accounts that can be created with the key
+
+Accounts created using the specific key are linked to that key.
+
+**If the keys are lost:**
+Malicious users can create accounts up to, but not exceeding the limit of accounts set for the key. Maliciously created accounts can later be removed by the operator, if deemed necessary.
 
 ## Creating the app ##
 1. Start by creating a standard Xamarin App for iOS and Android.
@@ -140,8 +168,7 @@ private async Task PerformShutdown()
     // and we want to make sure state is persisted and teardown is done correctly to avoid memory leaks.
     if (MainPage?.BindingContext is BaseViewModel vm)
     {
-        await vm.SaveState();
-        await vm.Unbind();
+        await vm.Shutdown();
     }
 
     await this.sdk.Shutdown(keepRunningInTheBackground);
