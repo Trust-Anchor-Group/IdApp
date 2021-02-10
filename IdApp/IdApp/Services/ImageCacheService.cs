@@ -4,11 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Waher.Runtime.Inventory;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 
 namespace IdApp.Services
 {
+    [Singleton]
     internal sealed class ImageCacheService : LoadableService, IImageCacheService
     {
         private static readonly TimeSpan Expiry = TimeSpan.FromHours(24);

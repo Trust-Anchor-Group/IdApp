@@ -12,10 +12,12 @@ using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Services
 {
+    [Singleton]
     internal class ContractOrchestratorService : LoadableService, IContractOrchestratorService
     {
         private readonly ITagProfile tagProfile;

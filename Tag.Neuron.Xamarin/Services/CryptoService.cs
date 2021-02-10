@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 using Waher.Security;
 using Xamarin.Essentials;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal sealed class CryptoService : ICryptoService
     {
         private readonly ILogService logService;

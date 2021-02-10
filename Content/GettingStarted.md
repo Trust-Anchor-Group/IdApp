@@ -17,6 +17,7 @@ TAG has integrated XMPP into a [`Neuron` server](Xmpp.md).
 The TAG Neuron SDK is easy to integrate into any Xamarin App via a few lines of code.
 
 ### Dependency resolution ###
+
 TAG  has a custom light-weight [`IoCContainer`](../Tag.Neuron.Xamarin/IoCContainer.cs) implementation for dependency resolution. 
 The reason for this is that the built-in `DependencyService` is just a service locator, not a dependency injection container.
 It is rather limited, therefore swapping it out for the `IoCContainer` is recommended.

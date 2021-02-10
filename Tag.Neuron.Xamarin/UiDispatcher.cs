@@ -2,10 +2,12 @@
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin
 {
+    [Singleton]
     public class UiDispatcher : IUiDispatcher
     {
         private readonly ConcurrentQueue<MessageRecord> messageQueue;

@@ -7,10 +7,12 @@ using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal sealed class NeuronContracts : INeuronContracts
     {
         private readonly ITagProfile tagProfile;

@@ -5,11 +5,12 @@ using System.Linq;
 using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Networking.XMPP;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
-
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal sealed class LogService : IInternalLogService
     {
         private const string StartupCrashFileName = "CrashDump.txt";

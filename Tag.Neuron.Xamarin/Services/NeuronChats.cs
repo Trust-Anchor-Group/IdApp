@@ -2,9 +2,11 @@
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.MUC;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal sealed class NeuronChats : INeuronChats
     {
         private readonly ITagProfile tagProfile;

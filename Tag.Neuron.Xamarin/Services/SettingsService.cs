@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using SQLite;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal sealed class SettingsService : ISettingsService
     {
         private const SQLiteOpenFlags Flags =

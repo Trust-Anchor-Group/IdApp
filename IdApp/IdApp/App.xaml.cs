@@ -8,6 +8,7 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.IoTGateway.Setup;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -15,230 +16,225 @@ using Device = Xamarin.Forms.Device;
 
 namespace IdApp
 {
-    public partial class App : IDisposable
-    {
-        private readonly ITagIdSdk sdk;
-        private readonly IImageCacheService imageCacheService;
-        private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly IoCContainer container;
-        private readonly bool keepRunningInTheBackground = false;
+	public partial class App : IDisposable
+	{
+		private readonly ITagIdSdk sdk;
+		private readonly IImageCacheService imageCacheService;
+		private readonly IContractOrchestratorService contractOrchestratorService;
+		private readonly bool keepRunningInTheBackground = false;
 
-        public App()
+		public App()
 		{
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
-            InitializeComponent();
+			InitializeComponent();
 
-            try
-            {
-                this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new XmppConfiguration().ToArray());
-                this.container = new IoCContainer();
-                // SDK Registrations
-                this.container.RegisterInstance(this.sdk.UiDispatcher);
-                this.container.RegisterInstance(this.sdk.TagProfile);
-                this.container.RegisterInstance(this.sdk.NeuronService);
-                this.container.RegisterInstance(this.sdk.CryptoService);
-                this.container.RegisterInstance(this.sdk.NetworkService);
-                this.container.RegisterInstance(this.sdk.LogService);
-                this.container.RegisterInstance(this.sdk.StorageService);
-                this.container.RegisterInstance(this.sdk.SettingsService);
-                this.container.RegisterInstance(this.sdk.NavigationService);
-                // App Registrations
-                this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
-                this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
-                // Set resolver
-                DependencyResolver.ResolveUsing(type => this.container.IsRegistered(type) ? this.container.Resolve(type) : null);
+			try
+			{
+				this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new XmppConfiguration().ToArray());
+				
+				// Set resolver
+				DependencyResolver.ResolveUsing(type =>
+				{
+					try
+					{
+						return Types.Instantiate(type);
+					}
+					catch (Exception)
+					{
+						return null;
+					}
+				});
 
-                // Register log listener (optional)
-                this.sdk.LogService.AddListener(new AppCenterLogListener());
+				// Register log listener (optional)
+				this.sdk.LogService.AddListener(new AppCenterLogListener());
 
-                // Resolve what's needed for the App class
-                this.imageCacheService = DependencyService.Resolve<IImageCacheService>();
-                this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-            }
-            catch (Exception e)
-            {
-                DisplayBootstrapErrorPage("IoCContainer", e.ToString());
-                return;
-            }
+				// Resolve what's needed for the App class
+				this.imageCacheService = DependencyService.Resolve<IImageCacheService>();
+				this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
+			}
+			catch (Exception e)
+			{
+				DisplayBootstrapErrorPage("IoCContainer", e.ToString());
+				return;
+			}
 
-            // Start page
-            try
-            {
-                this.MainPage = new AppShell();
-            }
-            catch (Exception e)
-            {
-                this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
-            }
-        }
+			// Start page
+			try
+			{
+				this.MainPage = new AppShell();
+			}
+			catch (Exception e)
+			{
+				this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
+			}
+		}
 
-        public void Dispose()
-        {
-            this.sdk?.Dispose();
-            this.container.Dispose();
-        }
+		public void Dispose()
+		{
+			this.sdk?.Dispose();
+		}
 
-        protected override async void OnStart()
-        {
-            //AppCenter.Start(
-            //    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
-            //    typeof(Analytics),
-            //    typeof(Crashes));
+		protected override async void OnStart()
+		{
+			//AppCenter.Start(
+			//    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
+			//    typeof(Analytics),
+			//    typeof(Crashes));
 
-            try
-            {
-                await this.PerformStartup(false);
-            }
-            catch (Exception e)
-            {
-                this.DisplayBootstrapErrorPage("PerformStartup", e.ToString());
-            }
-        }
+			try
+			{
+				await this.PerformStartup(false);
+			}
+			catch (Exception e)
+			{
+				this.DisplayBootstrapErrorPage("PerformStartup", e.ToString());
+			}
+		}
 
-        protected override async void OnResume()
-        {
-            await this.PerformStartup(true);
-        }
+		protected override async void OnResume()
+		{
+			await this.PerformStartup(true);
+		}
 
-        protected override async void OnSleep()
-        {
-            await this.PerformShutdown();
-        }
+		protected override async void OnSleep()
+		{
+			await this.PerformShutdown();
+		}
 
 		private async Task PerformStartup(bool isResuming)
-        {
-            await this.SendErrorReportFromPreviousRun();
+		{
+			await this.SendErrorReportFromPreviousRun();
 
-            await this.sdk.Startup(isResuming);
+			await this.sdk.Startup(isResuming);
 
-            await this.imageCacheService.Load(isResuming);
-            await this.contractOrchestratorService.Load(isResuming);
-        }
+			await this.imageCacheService.Load(isResuming);
+			await this.contractOrchestratorService.Load(isResuming);
+		}
 
-        private async Task PerformShutdown()
-        {
-            // Done manually here, as the Disappearing event won't trigger when exiting the app,
-            // and we want to make sure state is persisted and teardown is done correctly to avoid memory leaks.
-            if (MainPage?.BindingContext is BaseViewModel vm)
-            {
-                await vm.Shutdown();
-            }
+		private async Task PerformShutdown()
+		{
+			// Done manually here, as the Disappearing event won't trigger when exiting the app,
+			// and we want to make sure state is persisted and teardown is done correctly to avoid memory leaks.
+			if (MainPage?.BindingContext is BaseViewModel vm)
+			{
+				await vm.Shutdown();
+			}
 
-            if (!keepRunningInTheBackground)
-            {
-                await this.contractOrchestratorService.Unload();
-            }
-            await this.sdk.Shutdown(keepRunningInTheBackground);
-        }
+			if (!keepRunningInTheBackground)
+			{
+				await this.contractOrchestratorService.Unload();
+			}
+			await this.sdk.Shutdown(keepRunningInTheBackground);
+		}
 
-        #region Error Handling
+		#region Error Handling
 
-        private void DisplayBootstrapErrorPage(string title, string stackTrace)
-        {
-            this.sdk.LogService.SaveExceptionDump(title, stackTrace);
+		private void DisplayBootstrapErrorPage(string title, string stackTrace)
+		{
+			this.sdk.LogService.SaveExceptionDump(title, stackTrace);
 
-            ScrollView sv = new ScrollView();
-            StackLayout sl = new StackLayout
-            {
-                Orientation = StackOrientation.Vertical,
-            };
-            sl.Children.Add(new Label
-            {
-                Text = title,
-                FontSize = 24,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-            });
-            sl.Children.Add(new Label
-            {
-                Text = stackTrace,
-                HorizontalOptions = LayoutOptions.FillAndExpand,
-                VerticalOptions = LayoutOptions.FillAndExpand
-            });
-            Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
-            b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
-            sl.Children.Add(b);
-            sv.Content = sl;
-            this.MainPage = new ContentPage
-            {
-                Content = sv
-            };
-        }
+			ScrollView sv = new ScrollView();
+			StackLayout sl = new StackLayout
+			{
+				Orientation = StackOrientation.Vertical,
+			};
+			sl.Children.Add(new Label
+			{
+				Text = title,
+				FontSize = 24,
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+			});
+			sl.Children.Add(new Label
+			{
+				Text = stackTrace,
+				HorizontalOptions = LayoutOptions.FillAndExpand,
+				VerticalOptions = LayoutOptions.FillAndExpand
+			});
+			Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
+			b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
+			sl.Children.Add(b);
+			sv.Content = sl;
+			this.MainPage = new ContentPage
+			{
+				Content = sv
+			};
+		}
 
 
-        private async Task SendErrorReportFromPreviousRun()
-        {
-            string stackTrace = this.sdk.LogService.LoadExceptionDump();
-            if (!string.IsNullOrWhiteSpace(stackTrace))
-            {
-                try
-                {
-                    HttpClient client = new HttpClient();
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    var content = new StringContent(stackTrace);
-                    content.Headers.ContentType.MediaType = "text/plain";
-                    await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
-                }
-                catch (Exception)
-                {
-                }
-                finally
-                {
-                    this.sdk.LogService.DeleteExceptionDump();
-                }
-            }
-        }
+		private async Task SendErrorReportFromPreviousRun()
+		{
+			string stackTrace = this.sdk.LogService.LoadExceptionDump();
+			if (!string.IsNullOrWhiteSpace(stackTrace))
+			{
+				try
+				{
+					HttpClient client = new HttpClient();
+					client.DefaultRequestHeaders.Accept.Clear();
+					client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+					var content = new StringContent(stackTrace);
+					content.Headers.ContentType.MediaType = "text/plain";
+					await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
+				}
+				catch (Exception)
+				{
+				}
+				finally
+				{
+					this.sdk.LogService.DeleteExceptionDump();
+				}
+			}
+		}
 
-        private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            Exception ex = e.Exception;
-            if (e.Exception?.InnerException != null) // Unwrap the AggregateException
-            {
-                ex = e.Exception.InnerException;
-            }
-            e.SetObserved();
-            await Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
-        }
+		private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+		{
+			Exception ex = e.Exception;
+			if (e.Exception?.InnerException != null) // Unwrap the AggregateException
+			{
+				ex = e.Exception.InnerException;
+			}
+			e.SetObserved();
+			await Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
+		}
 
-        private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            await Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
-        }
+		private async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			await Handle_UnhandledException(e.ExceptionObject as Exception, nameof(CurrentDomain_UnhandledException), true);
+		}
 
-        private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
-        {
-            if (ex != null)
-            {
-                this.sdk.LogService.SaveExceptionDump(title, ex.ToString());
-            }
+		private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
+		{
+			if (ex != null)
+			{
+				this.sdk.LogService.SaveExceptionDump(title, ex.ToString());
+			}
 
-            if (ex != null)
-            {
-                sdk?.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
-            }
+			if (ex != null)
+			{
+				sdk?.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
+			}
 
-            if (this.sdk != null && shutdown)
-            {
-                await this.sdk.ShutdownInPanic();
-            }
+			if (this.sdk != null && shutdown)
+			{
+				await this.sdk.ShutdownInPanic();
+			}
 
 #if DEBUG
-            if (!shutdown)
-            {
-                if (Device.IsInvokeRequired && MainPage != null)
-                {
-                    Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
-                }
-                else if (MainPage != null)
-                {
-                    await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
-                }
-            }
+			if (!shutdown)
+			{
+				if (Device.IsInvokeRequired && MainPage != null)
+				{
+					Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
+				}
+				else if (MainPage != null)
+				{
+					await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
+				}
+			}
 #endif
-        }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

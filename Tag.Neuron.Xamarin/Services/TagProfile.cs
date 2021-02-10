@@ -7,10 +7,12 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
+using Waher.Runtime.Inventory;
 using Waher.Security;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     public class TagProfile : ITagProfile
     {
         private readonly Dictionary<string, KeyValuePair<string, string>> domains;

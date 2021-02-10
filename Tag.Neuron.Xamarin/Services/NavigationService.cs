@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal sealed class NavigationService : INavigationService
     {
         private readonly ILogService logService;

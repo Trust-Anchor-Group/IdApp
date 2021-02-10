@@ -16,9 +16,11 @@ using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.MUC;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.ServiceDiscovery;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal sealed class NeuronService : LoadableService, IInternalNeuronService
     {
         private readonly Assembly appAssembly;

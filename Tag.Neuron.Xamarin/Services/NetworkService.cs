@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [Singleton]
     internal class NetworkService : INetworkService
     {
         private const int DefaultXmppPortNumber = 5222;
