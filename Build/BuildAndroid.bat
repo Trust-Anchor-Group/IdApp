@@ -32,10 +32,10 @@ set zipalignparams=-f 4 %apkPath% %alignedApkPath%
 
 echo.
 echo ==============================
-echo Compile Solution.
+echo Compile Android.
 echo ==============================
 echo.
-call %msbuild% ..\IdApp.sln /property:Configuration=%buildmode% /t:Rebuild
+call %msbuild% ..\IdApp\IdApp.Android\IdApp.Android.csproj /p:Configuration=%buildmode% /t:Rebuild /t:PackageForAndroid /p:AndroidSupportedAbis="armeabi-v7a;x86;arm64-v8a;x86_64"
 
 if %errorlevel%==0 (
   echo.
@@ -44,15 +44,6 @@ if %errorlevel%==0 (
   echo ==============================
   echo.
   call %vstest% %vstestparams%
-)
-
-if %errorlevel%==0 (
-  echo.
-  echo ==============================
-  echo Build Android APK
-  echo ==============================
-  echo.
-  call %msbuild% ..\IdApp\IdApp.Android\IdApp.Android.csproj /property:Configuration=%buildmode% /t:PackageForAndroid /p:AndroidSupportedAbis="armeabi-v7a;x86;arm64-v8a;x86_64"
 )
 
 if %errorlevel%==0 (
@@ -94,7 +85,9 @@ goto End
   echo.
   echo Missing arguments. This script requires two arguments.
   echo.
-  echo   Usage: build.bat "/path/to/keystore" MySecretPassword
+  echo   Usage:   BuildAndroid.bat /path/to/keystore keystorepassword
+  echo.
+  echo   Example: BuildAndroid.bat "C:\Users\JohnDoe\Documents\IdApp\TagDemo Cert\TagDemo Cert.keystore" P4ssw0rd
   echo.
  
 :End
