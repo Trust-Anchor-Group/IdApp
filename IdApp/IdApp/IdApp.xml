@@ -1,0 +1,1287 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IdApp</name>
+    </assembly>
+    <members>
+        <member name="T:IdApp.AppResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Accept">
+            <summary>
+              Looks up a localized string similar to Accept.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Account">
+            <summary>
+              Looks up a localized string similar to Account.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.AccountNameAlreadyTaken">
+            <summary>
+              Looks up a localized string similar to Account name {0} is already taken. Choose another..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.AccountNameIsInvalid">
+            <summary>
+              Looks up a localized string similar to Account name is invalid.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Add">
+            <summary>
+              Looks up a localized string similar to Add.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.AddPart">
+            <summary>
+              Looks up a localized string similar to Add part.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Address">
+            <summary>
+              Looks up a localized string similar to Address.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Address2">
+            <summary>
+              Looks up a localized string similar to Address (row 2).
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.AnErrorHasOccurred">
+            <summary>
+              Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.APeerReviewYouhaveRequestedHasBeenAccepted">
+            <summary>
+              Looks up a localized string similar to A peer review you requested has been accepted..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError">
+            <summary>
+              Looks up a localized string similar to A peer review you requested has been rejected, due to a signature error..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.APeerYouRequestedToReviewHasRejected">
+            <summary>
+              Looks up a localized string similar to A peer you requested to review your application, has rejected to approve it..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.APetitionHasBeenSentToTheContract">
+            <summary>
+              Looks up a localized string similar to A petition has been sent to the parts of the contract. If any of the parts accepts the petition, the contract information will be displayed on the screen..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.APetitionHasBeenSentToTheOwner">
+            <summary>
+              Looks up a localized string similar to A petition has been sent to the owner of the identity. If the owner accepts the petition, the identity information will be displayed on the screen..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.APetitionHasBeenSentToYourPeer">
+            <summary>
+              Looks up a localized string similar to A petition has been sent to your peer.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ApproveInformation">
+            <summary>
+              Looks up a localized string similar to Approve Information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Archiving_Optional">
+            <summary>
+              Looks up a localized string similar to Archiving (optional).
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Archiving_Required">
+            <summary>
+              Looks up a localized string similar to Archiving (required).
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Area">
+            <summary>
+              Looks up a localized string similar to Area.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to report your legal identity as compromised, stolen or hacked?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.AreYouSureYouWantToRevokeYourLegalIdentity">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to revoke your legal identity from the application?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.CanActAsTemplate">
+            <summary>
+              Looks up a localized string similar to Can act as template.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.CantConnectTo">
+            <summary>
+              Looks up a localized string similar to Can&apos;t connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ChooseAccount">
+            <summary>
+              Looks up a localized string similar to Choose account.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.City">
+            <summary>
+              Looks up a localized string similar to City.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ClientSignature">
+            <summary>
+              Looks up a localized string similar to Client Signature.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ClientSignatureInformationInfoText">
+            <summary>
+              Looks up a localized string similar to The following is information related to a client signature..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ClientSignatures">
+            <summary>
+              Looks up a localized string similar to Client Signatures.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ClientSignaturesInfoText">
+            <summary>
+              Looks up a localized string similar to Cryptographic signatures made by different parts are listed below..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Confirm">
+            <summary>
+              Looks up a localized string similar to Confirm.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Connect">
+            <summary>
+              Looks up a localized string similar to Connect.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Connection">
+            <summary>
+              Looks up a localized string similar to Connection.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Continue">
+            <summary>
+              Looks up a localized string similar to Continue.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractCategory">
+            <summary>
+              Looks up a localized string similar to Contract Category.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractHasBeenDeleted">
+            <summary>
+              Looks up a localized string similar to Contract has been deleted..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractHasBeenObsoleted">
+            <summary>
+              Looks up a localized string similar to Contract has been obsoleted..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractId">
+            <summary>
+              Looks up a localized string similar to Contract ID.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractRoleMustBeSelected">
+            <summary>
+              Looks up a localized string similar to Select contract role first, and then try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Contracts">
+            <summary>
+              Looks up a localized string similar to Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractSuccessfullySigned">
+            <summary>
+              Looks up a localized string similar to Contract successfully signed..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractType">
+            <summary>
+              Looks up a localized string similar to Contract Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractVisibility_CreatorAndParts">
+            <summary>
+              Looks up a localized string similar to Creator and parts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractVisibility_DomainAndParts">
+            <summary>
+              Looks up a localized string similar to Domain and parts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractVisibility_Public">
+            <summary>
+              Looks up a localized string similar to Public, not searchable.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractVisibility_PublicSearchable">
+            <summary>
+              Looks up a localized string similar to Public and searchable.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractVisibilityMustBeSelected">
+            <summary>
+              Looks up a localized string similar to Select contract visibility first, and then try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.CouldYouPleaseReviewMyIdentityInformation">
+            <summary>
+              Looks up a localized string similar to Could you please review my identity information?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Country">
+            <summary>
+              Looks up a localized string similar to Country.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Create">
+            <summary>
+              Looks up a localized string similar to Create.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Created">
+            <summary>
+              Looks up a localized string similar to Created.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.CreateNew">
+            <summary>
+              Looks up a localized string similar to Create new.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Decline">
+            <summary>
+              Looks up a localized string similar to Decline.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.DefinePin">
+            <summary>
+              Looks up a localized string similar to Define PIN.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.DeleteContract">
+            <summary>
+              Looks up a localized string similar to Delete contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Devices">
+            <summary>
+              Looks up a localized string similar to Devices.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Digest">
+            <summary>
+              Looks up a localized string similar to Digest.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.DomainDoesNotFollowEncryptionPolicy">
+            <summary>
+              Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.DomainIsNotAValidOperator">
+            <summary>
+              Looks up a localized string similar to {0} is not a valid operator.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.DomainNameIsInvalid">
+            <summary>
+              Looks up a localized string similar to Domain name is invalid.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Duration">
+            <summary>
+              Looks up a localized string similar to Duration.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ErrorTitle">
+            <summary>
+              Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FailedToLoadPhoto">
+            <summary>
+              Looks up a localized string similar to Failed to load photo.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FirstName">
+            <summary>
+              Looks up a localized string similar to First name.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.From">
+            <summary>
+              Looks up a localized string similar to From.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.General">
+            <summary>
+              Looks up a localized string similar to General.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.GeneralInformation">
+            <summary>
+              Looks up a localized string similar to General Information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.GeneralInformationInfoText">
+            <summary>
+              Looks up a localized string similar to Following is some general information about the contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.HashFunction">
+            <summary>
+              Looks up a localized string similar to Hash Function.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Home">
+            <summary>
+              Looks up a localized string similar to Home.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.HumanReadableText">
+            <summary>
+              Looks up a localized string similar to Human readable text.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IApproveOfMyPersonalInformationToBeAssociated">
+            <summary>
+              Looks up a localized string similar to I approve of my personal information to be associated with the legal identity I am reviewing, for the purposes of transparency..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ID">
+            <summary>
+              Looks up a localized string similar to ID.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Identity">
+            <summary>
+              Looks up a localized string similar to Identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IdentityInformation">
+            <summary>
+              Looks up a localized string similar to Identity information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IdentityInformationInfoText">
+            <summary>
+              Looks up a localized string similar to The following is personal information registered for the party who signed the contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Ignore">
+            <summary>
+              Looks up a localized string similar to Ignore.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IHaveCarefullyReviewedAllInformationAbove">
+            <summary>
+              Looks up a localized string similar to I have carefully reviewed all information above, and find it to be a correct representation of the person requesting the review:.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Incomplete">
+            <summary>
+              Looks up a localized string similar to Incomplete.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.InvalidUsernameOrPassword">
+            <summary>
+              Looks up a localized string similar to Invalid username or password.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.InvitePeerToReview">
+            <summary>
+              Looks up a localized string similar to Invite peer to review.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.LastNames">
+            <summary>
+              Looks up a localized string similar to Last name(s).
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.LegalId">
+            <summary>
+              Looks up a localized string similar to Legal Id.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Loading">
+            <summary>
+              Looks up a localized string similar to Loading....
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.LocalName">
+            <summary>
+              Looks up a localized string similar to Local name.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MachineReadableInfoText">
+            <summary>
+              Looks up a localized string similar to An overview of the machine-readable data embedded in the contract is shown below..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MachineReadableText">
+            <summary>
+              Looks up a localized string similar to Machine readable information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MainPageTitle">
+            <summary>
+              Looks up a localized string similar to TAG.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Message">
+            <summary>
+              Looks up a localized string similar to Message.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MiddleNames">
+            <summary>
+              Looks up a localized string similar to Middle name(s).
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Mode">
+            <summary>
+              Looks up a localized string similar to Mode.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MyContracts">
+            <summary>
+              Looks up a localized string similar to My Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MyContractsInfoText">
+            <summary>
+              Looks up a localized string similar to Below is a list of contracts. Click on a contract for more information about it..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MyCreatedContracts">
+            <summary>
+              Looks up a localized string similar to My Created Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Namespace">
+            <summary>
+              Looks up a localized string similar to Namespace.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Network">
+            <summary>
+              Looks up a localized string similar to Network.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.NetworkSeemsToBeMissing">
+            <summary>
+              Looks up a localized string similar to Network seems to be missing. Please check your configuration and coverage and try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Neuron">
+            <summary>
+              Looks up a localized string similar to Neuron.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.NewContract">
+            <summary>
+              Looks up a localized string similar to New Contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.No">
+            <summary>
+              Looks up a localized string similar to No.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.NoContractsFound">
+            <summary>
+              Looks up a localized string similar to No contracts found..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Notary">
+            <summary>
+              Looks up a localized string similar to Notary.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.NotConnectedToTheOperator">
+            <summary>
+              Looks up a localized string similar to Not connected to the operator.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ObsoleteContract">
+            <summary>
+              Looks up a localized string similar to Obsolete contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Offline">
+            <summary>
+              Looks up a localized string similar to Offline.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Ok">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Online">
+            <summary>
+              Looks up a localized string similar to Online.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Open">
+            <summary>
+              Looks up a localized string similar to Open.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts">
+            <summary>
+              Looks up a localized string similar to Operator does not support legal identities and smart contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.OperatorDoesNotSupportRegisteringNewAccounts">
+            <summary>
+              Looks up a localized string similar to The operator {0} does not support registration of new accounts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.OperatorDomainOther">
+            <summary>
+              Looks up a localized string similar to &lt;Other&gt;.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Options">
+            <summary>
+              Looks up a localized string similar to Options.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Parameters">
+            <summary>
+              Looks up a localized string similar to Parameters.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ParametersInfoText">
+            <summary>
+              Looks up a localized string similar to Contract parameters are shown below, together with their corresponding values..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Parts">
+            <summary>
+              Looks up a localized string similar to Parts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PartsInfoText">
+            <summary>
+              Looks up a localized string similar to The (expected) parts defined for the contract is listed below..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Password">
+            <summary>
+              Looks up a localized string similar to Password.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PasswordIsInvalid">
+            <summary>
+              Looks up a localized string similar to Password is invalid.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PasswordsDoNotMatch">
+            <summary>
+              Looks up a localized string similar to Passwords do not match.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PeerReview">
+            <summary>
+              Looks up a localized string similar to Peer Review.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PeerReviewAccepted">
+            <summary>
+              Looks up a localized string similar to Peer review accepted.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PeerReviewRejected">
+            <summary>
+              Looks up a localized string similar to Peer review rejected.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PersonalLegalInformation">
+            <summary>
+              Looks up a localized string similar to Personal/legal information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PersonalLegalInfoText">
+            <summary>
+              Looks up a localized string similar to To be able to get a wallet, perform transactions and sign smart contracts, you need an attested personal or legal identity assigned to your account..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PersonalNumber">
+            <summary>
+              Looks up a localized string similar to Personal number.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PersonalNumberDoesNotMatchCountry">
+            <summary>
+              Looks up a localized string similar to The personal number does not match national personal number regulations.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat">
+            <summary>
+              Looks up a localized string similar to The personal number does not match national personal number regulations. Expected format: .
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PersonalNumberPlaceholder">
+            <summary>
+              Looks up a localized string similar to Personal Number ({0}).
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Petition">
+            <summary>
+              Looks up a localized string similar to Petition.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionContract">
+            <summary>
+              Looks up a localized string similar to Petition Contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionContractInformationText">
+            <summary>
+              Looks up a localized string similar to A petition for the personal data in one of your contracts has been received. Review the information below and choose how you wish to respond..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionIdentity">
+            <summary>
+              Looks up a localized string similar to Petition Identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionIdentityInformationText">
+            <summary>
+              Looks up a localized string similar to A petition for the personal data of your legal identity has been received. Review the information below and choose how you wish to respond..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionSent">
+            <summary>
+              Looks up a localized string similar to Petition sent.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionToViewContractWasDenied">
+            <summary>
+              Looks up a localized string similar to Petition to view contract was denied..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionToViewLegalIdentityWasDenied">
+            <summary>
+              Looks up a localized string similar to Petition to view legal identity was denied..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PhotoIsTooLarge">
+            <summary>
+              Looks up a localized string similar to Photo is too large.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Photos">
+            <summary>
+              Looks up a localized string similar to Photos.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PickPhoto">
+            <summary>
+              Looks up a localized string similar to Pick photo.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PinIsInvalid">
+            <summary>
+              Looks up a localized string similar to PIN is invalid.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PinMustNotIncludeWhitespace">
+            <summary>
+              Looks up a localized string similar to PIN number must not include leading or trailing whitespace..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PinOrPassword">
+            <summary>
+              Looks up a localized string similar to PIN or password.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PinsDoNotMatch">
+            <summary>
+              Looks up a localized string similar to PINs do not match.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PinTooShort">
+            <summary>
+              Looks up a localized string similar to PIN number too short. At least {0} numbers (or characters) are required..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PleaseReviewAndCheckAllCheckboxes">
+            <summary>
+              Looks up a localized string similar to Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Propose">
+            <summary>
+              Looks up a localized string similar to Propose.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Provider">
+            <summary>
+              Looks up a localized string similar to Provider.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PublicKey">
+            <summary>
+              Looks up a localized string similar to Public key.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Purpose">
+            <summary>
+              Looks up a localized string similar to Purpose.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.QrCodeNotUnderstood">
+            <summary>
+              Looks up a localized string similar to Code not understood.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.QrEnterManually">
+            <summary>
+              Looks up a localized string similar to Enter manually.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.QrScanCode">
+            <summary>
+              Looks up a localized string similar to Scan code.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.QrScanLegalIdentity">
+            <summary>
+              Looks up a localized string similar to Legal Identity:.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.QrScanOverlay">
+            <summary>
+              Looks up a localized string similar to Align the QR-Code within the frame.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RandomPassword">
+            <summary>
+              Looks up a localized string similar to Random password.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Region">
+            <summary>
+              Looks up a localized string similar to Region or State.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Register">
+            <summary>
+              Looks up a localized string similar to Register.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RejectInformation">
+            <summary>
+              Looks up a localized string similar to Reject Information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ReportAsCompromized">
+            <summary>
+              Looks up a localized string similar to Report as Compromised.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Request">
+            <summary>
+              Looks up a localized string similar to Request.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RequestingEntity">
+            <summary>
+              Looks up a localized string similar to Requesting entity.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RequestTimedOut">
+            <summary>
+              Looks up a localized string similar to The request timed out.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RequestWasCancelled">
+            <summary>
+              Looks up a localized string similar to The request was cancelled.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RetypePassword">
+            <summary>
+              Looks up a localized string similar to Retype password.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RetypePinOrPassword">
+            <summary>
+              Looks up a localized string similar to Retype PIN or password.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ReviewIdentityInformationText">
+            <summary>
+              Looks up a localized string similar to You have been requested to review the following personal information. If correct, check the corresponding boxes, and press the Approve button at the bottom. You can also press the Reject button if you find anything that is incorrect..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RevokeInformation">
+            <summary>
+              Looks up a localized string similar to Revoke.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Role">
+            <summary>
+              Looks up a localized string similar to Role.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Roles">
+            <summary>
+              Looks up a localized string similar to Roles.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RolesInfoText">
+            <summary>
+              Looks up a localized string similar to Below you can see the different roles defined for the contract. If more than one part is assumed for a role, this number will be shown in the description of the role..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ScannedQrCode">
+            <summary>
+              Looks up a localized string similar to Scanned QR Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ScanQRCode">
+            <summary>
+              Looks up a localized string similar to Scan QR Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectingAPhotoIsNotSupported">
+            <summary>
+              Looks up a localized string similar to Selecting a photo is not supported on this device.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectOperator">
+            <summary>
+              Looks up a localized string similar to Select Operator.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectTheCategoryOfContractToCreate">
+            <summary>
+              Looks up a localized string similar to Select the category of contract to create..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectTheTypeOfContractToCreate">
+            <summary>
+              Looks up a localized string similar to Select the type of contract to create..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectWhoShouldHaveAccessToThisContract">
+            <summary>
+              Looks up a localized string similar to Select who should have access to this contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectYourRole">
+            <summary>
+              Looks up a localized string similar to Select your role in this contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectYourRoleInThisContract">
+            <summary>
+              Looks up a localized string similar to Select your role in this contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ServerSignature">
+            <summary>
+              Looks up a localized string similar to Server Signature.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ServerSignatureInformationInfoText">
+            <summary>
+              Looks up a localized string similar to The following is information related to a server signature..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ServerSignatures">
+            <summary>
+              Looks up a localized string similar to Server Signatures.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ServerSignaturesInfoText">
+            <summary>
+              Looks up a localized string similar to The integrity of the contract is protected by the server signature shown below..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignAfter">
+            <summary>
+              Looks up a localized string similar to Sign after.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignAsRole">
+            <summary>
+              Looks up a localized string similar to Sign as {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Signature">
+            <summary>
+              Looks up a localized string similar to Signature.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignatureInformation">
+            <summary>
+              Looks up a localized string similar to Signature information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignBefore">
+            <summary>
+              Looks up a localized string similar to Sign before.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignedContracts">
+            <summary>
+              Looks up a localized string similar to Signed Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Skip">
+            <summary>
+              Looks up a localized string similar to Skip.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.State">
+            <summary>
+              Looks up a localized string similar to State.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SuccessTitle">
+            <summary>
+              Looks up a localized string similar to Success.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TakePhoto">
+            <summary>
+              Looks up a localized string similar to Take photo.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TakingAPhotoIsNotSupported">
+            <summary>
+              Looks up a localized string similar to Taking a photo is not supported on this device.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TemplateId">
+            <summary>
+              Looks up a localized string similar to Template ID.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TheContractRequiresAtLeast_AddMoreParts">
+            <summary>
+              Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TheContractRequiresAtMost_RemoveParts">
+            <summary>
+              Looks up a localized string similar to The contract requires at most {0} part(s) of role {1}. Remove some of the parts from the contract and try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ThePasswordForTheConnectionIs">
+            <summary>
+              Looks up a localized string similar to The password for the connection is {0}. This has been copied to the clipboard..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ThereIsNoNetwork">
+            <summary>
+              Looks up a localized string similar to There is no network.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TheSpecifiedCodeIsNotALegalIdentity">
+            <summary>
+              Looks up a localized string similar to The specified code is not a legal identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Timestamp">
+            <summary>
+              Looks up a localized string similar to Time stamp.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.To">
+            <summary>
+              Looks up a localized string similar to To.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount">
+            <summary>
+              Looks up a localized string similar to To connect to {0}, you need an account. Do you want to create one, or use an existing account?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Transferable">
+            <summary>
+              Looks up a localized string similar to Transferable.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnableToAuthenticateWith">
+            <summary>
+              Looks up a localized string similar to Unable to authenticate with {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnableToConnectTo">
+            <summary>
+              Looks up a localized string similar to Unable to connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Updated">
+            <summary>
+              Looks up a localized string similar to Updated.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UseExisting">
+            <summary>
+              Looks up a localized string similar to Use existing.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ValidateIdentityInfo1Text">
+            <summary>
+              Looks up a localized string similar to Your identity information has to be validated before it can be approved. This can be done manually by your operator. It can also be done by peers..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ValidateIdentityInfo2Text">
+            <summary>
+              Looks up a localized string similar to To invite a peer to review your application, you need to scan the ID code of the peer you wish to invite. They will be able to see and review your application. When sufficient peers have reviewed your information, and certified it is correct, the operator will automatically approve your application. The information about who reviewed your identity will be encoded into the reviewed identity itself..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ValidateIdentityInfo3Text">
+            <summary>
+              Looks up a localized string similar to You can see the current status of the application below..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ValidatingInformation">
+            <summary>
+              Looks up a localized string similar to Validating information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ViewContract">
+            <summary>
+              Looks up a localized string similar to View Contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ViewIdentityInformationText">
+            <summary>
+              Looks up a localized string similar to Following is personal information registered with the legal identity. Signatures and payments are signed using this information..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Visibility">
+            <summary>
+              Looks up a localized string similar to Visibility.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Wallet">
+            <summary>
+              Looks up a localized string similar to Wallet.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.WelcomeToTagHeading">
+            <summary>
+              Looks up a localized string similar to Welcome to TAG Xamarin App!.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.WelcomeToTagSubheading">
+            <summary>
+              Looks up a localized string similar to To connect to the TAG network, you need to select an operator. Please select one from the list below..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_Authenticating">
+            <summary>
+              Looks up a localized string similar to Authenticating network identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_Binding">
+            <summary>
+              Looks up a localized string similar to Binding connection.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_Connected">
+            <summary>
+              Looks up a localized string similar to Connected.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_ConnectedTo">
+            <summary>
+              Looks up a localized string similar to Connected to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_Connecting">
+            <summary>
+              Looks up a localized string similar to Establishing connection.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_Error">
+            <summary>
+              Looks up a localized string similar to Connection error.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_FetchingRoster">
+            <summary>
+              Looks up a localized string similar to Fetching roster.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_Offline">
+            <summary>
+              Looks up a localized string similar to Disconnected.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_Registering">
+            <summary>
+              Looks up a localized string similar to Registering with broker.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_RequestingSession">
+            <summary>
+              Looks up a localized string similar to Requesting session.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_SettingPresence">
+            <summary>
+              Looks up a localized string similar to Setting presence.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_StartingEncryption">
+            <summary>
+              Looks up a localized string similar to Encrypting connection.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_StreamNegotiation">
+            <summary>
+              Looks up a localized string similar to Negotiating stream.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.XmppState_StreamOpened">
+            <summary>
+              Looks up a localized string similar to Stream established.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Yes">
+            <summary>
+              Looks up a localized string similar to Yes.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouCanProtectYourWalletPinInfo">
+            <summary>
+              Looks up a localized string similar to You can protect your wallet and sensitive information by adding an additional PIN number or password..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouNeedToApproveToAssociate">
+            <summary>
+              Looks up a localized string similar to You need to approve to associate your personal information with the identity you review. When third parties review the information in the identity, they will have access to the identity of the reviewers, for transparency..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouNeedToCheckCarefullyReviewed">
+            <summary>
+              Looks up a localized string similar to You need to check the box you have carefully reviewed all corresponding information above..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouNeedToProvideACountry">
+            <summary>
+              Looks up a localized string similar to You need to select a country.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouNeedToProvideAFirstName">
+            <summary>
+              Looks up a localized string similar to You need to provide a first name.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouNeedToProvideALastName">
+            <summary>
+              Looks up a localized string similar to You need to provide at least one last name.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouNeedToProvideAPersonalNumber">
+            <summary>
+              Looks up a localized string similar to You need to provide a personal or social security number.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouNeedToProvideAPhoto">
+            <summary>
+              Looks up a localized string similar to You need to provide a photo.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YourContractContainsErrors">
+            <summary>
+              Looks up a localized string similar to Your contract contains errors. Fix these errors and try again..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YourRole">
+            <summary>
+              Looks up a localized string similar to Your Role.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ZipCode">
+            <summary>
+              Looks up a localized string similar to Zip or Postal Code.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.IContractOrchestratorService">
+            <summary>
+            Orchestrates operations on contracts upon receiving certain events, like approving or rejecting other peers' review requests.
+            Also keeps track of the <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> for the current user, and applies the correct navigation should the legal identity be compromised or revoked.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IContractOrchestratorService.OpenLegalIdentity(System.String,System.String)">
+            <summary>
+            Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> and opens the corresponding page in the app to show it.
+            </summary>
+            <param name="legalId">The id of the legal identity to show.</param>
+            <param name="purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.IContractOrchestratorService.OpenContract(System.String,System.String)">
+            <summary>
+            Downloads the specified <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> and opens the corresponding page in the app to show it.
+            </summary>
+            <param name="contractId">The id of the contract to show.</param>
+            <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
+            <returns></returns>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.showCreatedContracts">
+            <summary>
+            Show created contracts or signed contracts?
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.RegistrationPage.UpdateUiStep">
+            This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.
+            The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
+            it still doesn't show the correct view template for that step. Instead it shows the last view template.
+            So here we scroll back and forth one step to get it to be in sync with the viewmodel.
+        </member>
+        <member name="F:Waher.IoTGateway.Setup.XmppConfiguration.BuildDate">
+            <summary>
+            Date when solution was built.
+            </summary>
+        </member>
+        <member name="F:Waher.IoTGateway.Setup.XmppConfiguration.BuildTime">
+            <summary>
+            Time when solution was built.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -13,6 +13,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
+    <DocumentationFile>C:\My Projects\IdApp\IdApp\IdApp\IdApp.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
