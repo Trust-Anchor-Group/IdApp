@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 	ProjectSection(SolutionItems) = preProject
 		Content\AppAnatomy.md = Content\AppAnatomy.md
 		Content\BranchStrategy.md = Content\BranchStrategy.md
+		Content\CommandLineBuild.md = Content\CommandLineBuild.md
 		Content\CreatingAProfile.md = Content\CreatingAProfile.md
 		Content\GettingStarted.md = Content\GettingStarted.md
 		Content\NeuronSDK.md = Content\NeuronSDK.md

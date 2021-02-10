@@ -185,3 +185,4 @@ For further reading, please continue to these sections:
 - [Neuron SDK](NeuronSDK.md)
 - [Neuron SDK UI](NeuronSDKUI.md)
 - [Branch Strategy](BranchStrategy.md)
+- [Command Line Builds (for CI)](CommandLineBuild.md)
