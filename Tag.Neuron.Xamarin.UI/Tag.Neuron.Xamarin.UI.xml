@@ -1,0 +1,281 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tag.Neuron.Xamarin.UI</name>
+    </assembly>
+    <members>
+        <member name="T:Tag.Neuron.Xamarin.UI.AppResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.AppResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.AppResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.AppResources.ErrorTitle">
+            <summary>
+              Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.AppResources.FailedToBindViewModelForPage">
+            <summary>
+              Looks up a localized string similar to Failed to bind viewmodel {0] for page {1}.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.AppResources.FailedToRestoreViewModelStateForPage">
+            <summary>
+              Looks up a localized string similar to Failed to restore state for viewmodel {0] for page {1}.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.AppResources.FailedToSaveViewModelStateForPage">
+            <summary>
+              Looks up a localized string similar to Failed to save state for viewmodel {0] for page {1}.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.AppResources.FailedToUnbindViewModelForPage">
+            <summary>
+              Looks up a localized string similar to Failed to unbind viewmodel {0] for page {1}.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnCompletedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when the Enter/Return key has been hit.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnCompletedBehavior.SetFocusTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior">
+            <summary>
+            A behavior for being able to bind an <see cref="T:Xamarin.Forms.Entry"/>'s TextChanged event to an <see cref="T:System.Windows.Input.ICommand"/>.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Extensions.CommandExtensions">
+            <summary>
+            Helper/convenience methods for the <see cref="T:System.Windows.Input.ICommand"/>.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Extensions.CommandExtensions.ChangeCanExecute(System.Windows.Input.ICommand)">
+            <summary>
+            Calls the <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> method on the given <see cref="T:System.Windows.Input.ICommand"/>, given that it <b>is</b> a <see cref="T:Xamarin.Forms.Command"/>.
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Extensions.CommandExtensions.Execute(System.Windows.Input.ICommand)">
+            <summary>
+            Calls the <see cref="M:System.Windows.Input.ICommand.Execute(System.Object)"/> method with a <c>null</c> argument, given that the command <em>can</em> be executed (<see cref="M:System.Windows.Input.ICommand.CanExecute(System.Object)"/>).
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.QrCodeImageGenerator">
+            <summary>
+            This class can generate QR Code images in two formats: Jpeg and Png.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.QrCodeImageGenerator.GeneratePng(System.String,System.Int32,System.Int32)">
+            <summary>
+            Generates a QR Code png image with the specified width and height.
+            </summary>
+            <param name="text">The QR Code</param>
+            <param name="width">Required image width.</param>
+            <param name="height">Required image height.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.QrCodeImageGenerator.GenerateJpg(System.String,System.Int32,System.Int32)">
+            <summary>
+            Generates a QR Code jpeg image with the specified width and height.
+            </summary>
+            <param name="text">The QR Code</param>
+            <param name="width">Required image width.</param>
+            <param name="height">Required image height.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel">
+            <summary>
+            A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.
+            This class provides default implementations for the <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoBind"/> and <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoUnbind"/> methods.
+            Override those to implement setup/teardown when a page/view is appearing and disappearing to/from the screen respectively.
+            <br/>
+            NOTE: using this class requires your page/view to inherit from <see cref="T:Tag.Neuron.Xamarin.UI.Views.ContentBasePage"/>.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBound">
+            <summary>
+            Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Bind">
+            <summary>
+            Called by the parent page when it appears on screen.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Unbind">
+            <summary>
+            Called by the parent page when it disappears from screen.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.AddChildViewModel``1(``0)">
+            <summary>
+            Use this method when nesting view models. This is the viewmodel equivalent of master/detail pages.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <param name="childViewModel">The child viewmodel to add.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.RemoveChildViewModel``1(``0)">
+            <summary>
+            Use this method when nesting view models. This is the viewmodel equivalent of master/detail pages.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <param name="childViewModel">The child viewmodel to remove.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoBind">
+            <summary>
+            Override this method to do view model specific setup when it's parent page/view appears on screen.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoUnbind">
+            <summary>
+            Override this method to do view model specific teardown when it's parent page/view disappears from screen.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.RestoreState">
+            <summary>
+            Called by the parent page when it appears on screen, <em>after</em> the <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Bind"/> method is called.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.SaveState">
+            <summary>
+            Called by the parent page when it disappears on screen, <em>before</em> the <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Unbind"/> method is called.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Shutdown">
+            <summary>
+            Convenience method that calls <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.SaveState"/> and then <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Unbind"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoRestoreState">
+            <summary>
+            Override this method to do view model specific restoring of state when it's parent page/view appears on screen.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoSaveState">
+            <summary>
+            Override this method to do view model specific saving of state when it's parent page/view disappears from screen.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.GetSettingsKey(System.String)">
+            <summary>
+            Helper method for getting a unique settings key for a given property.
+            </summary>
+            <param name="propertyName">The property name to convert into a settings key.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusy">
+            <summary>
+            A helper property to set/get when the ViewModel is busy doing work.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Views.ContentBasePage">
+            <summary>
+            A base class for all pages. This class works in close conjunction with the <see cref="T:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel"/> for binding and unbinding data
+            when the page is shown on screen.
+            </summary>
+            <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.ViewModel">
+            <summary>
+            Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.GetViewModel``1">
+            <summary>
+            Returns the viewmodel, type cast to the proper type.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Views.ContentBaseView">
+            <summary>
+            A convenience base class for <see cref="T:Xamarin.Forms.ContentView"/>s which provides typed access to the viewmodel it is bound to.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Views.ContentBaseView.ViewModel">
+            <summary>
+            Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ContentBaseView.GetViewModel``1">
+            <summary>
+            Returns the viewmodel, type cast to the proper type.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Views.FlipView">
+            <summary>
+            The FlipView is a user control that holds two child controls: a <see cref="P:Tag.Neuron.Xamarin.UI.Views.FlipView.FrontView"/> and a <see cref="P:Tag.Neuron.Xamarin.UI.Views.FlipView.BackView"/>.
+            It can be flipped like a coin when the user taps on it. In order to flip the view, simply call the <see cref="M:Tag.Neuron.Xamarin.UI.Views.FlipView.Flip"/> method.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Views.FlipView.FrontView">
+            <summary>
+            The view displayed on the 'front' side of this user control.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Views.FlipView.BackView">
+            <summary>
+            The view displayed on the 'back' side of this user control.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.FlipView.Flip">
+            <summary>
+            Makes the user control flip from front to back, or the other way around.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Views.ShellBasePage">
+            <summary>
+            A base class for <see cref="T:Xamarin.Forms.Shell"/> pages. This class provides easy, typed, access to the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> as a view model.
+            It also handles safe area insets for iOS when the phone has a 'rabbit ear' display.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.ViewModel">
+            <summary>
+            Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.GetViewModel``1">
+            <summary>
+            Returns the viewmodel, type cast to the proper type.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.OnAppearing">
+            <summary>
+            Due to a bug in Xamarin Forms (https://github.com/xamarin/xamarin.forms/issues/6486)
+            these aren't called at startup for now. But we're leaving the methods here for the future.
+            </summary>
+        </member>
+    </members>
+</doc>

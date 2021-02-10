@@ -9,6 +9,10 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>  
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\My Projects\IdApp\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="C:\Users\Henrik\.nuget\packages\waher.networking.xmpp.concentrator\1.1.1\contentFiles\any\netstandard1.3\Language\Waher.Networking.XMPP.Concentrator.en.lng" />
   </ItemGroup>

@@ -1,0 +1,1409 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Tag.Neuron.Xamarin</name>
+    </assembly>
+    <members>
+        <member name="T:Tag.Neuron.Xamarin.AppResources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.AccountNameAlreadyTaken">
+            <summary>
+              Looks up a localized string similar to Account name {0} is already taken. Choose another..
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.AnErrorHasOccurred">
+            <summary>
+              Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.Cancel">
+            <summary>
+              Looks up a localized string similar to Cancel.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.CantConnectTo">
+            <summary>
+              Looks up a localized string similar to Can&apos;t connect to {0}.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.ContinueAnyway">
+            <summary>
+              Looks up a localized string similar to Continue anyway.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.DatabaseCorruptInfoText">
+            <summary>
+              Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.DatabaseIssue">
+            <summary>
+              Looks up a localized string similar to Database issue.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.DatabaseRepairFailedInfoText">
+            <summary>
+              Looks up a localized string similar to Database repair failed. We&apos;re out of options now, so continue at your own risk..
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.DomainDoesNotFollowEncryptionPolicy">
+            <summary>
+              Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.DomainIsNotAValidOperator">
+            <summary>
+              Looks up a localized string similar to {0} is not a valid operator.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.ErrorTitle">
+            <summary>
+              Looks up a localized string similar to An error occurred.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.FailedToClosePage">
+            <summary>
+              Looks up a localized string similar to Failed to close page.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.FailedToNavigateToPage">
+            <summary>
+              Looks up a localized string similar to Failed to navigate to page {0}  {1}.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.InvalidUsernameOrPassword">
+            <summary>
+              Looks up a localized string similar to Invalid username or password.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.Ok">
+            <summary>
+              Looks up a localized string similar to OK.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.OperatorDoesNotSupportRegisteringNewAccounts">
+            <summary>
+              Looks up a localized string similar to The operator {0} does not support registration of new accounts.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.RepairAndContinue">
+            <summary>
+              Looks up a localized string similar to Repair and continue.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.RequestTimedOut">
+            <summary>
+              Looks up a localized string similar to The request timed out.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.RequestWasCancelled">
+            <summary>
+              Looks up a localized string similar to The request was cancelled.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.ThereIsNoNetwork">
+            <summary>
+              Looks up a localized string similar to There is no network.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToAuthenticateWith">
+            <summary>
+              Looks up a localized string similar to Unable to authenticate with {0}.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToConnectTo">
+            <summary>
+              Looks up a localized string similar to Unable to connect to {0}.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.ArrayExtensions.GetImageAttachments(Waher.Networking.XMPP.Contracts.Attachment[])">
+            <summary>
+            Returns all the attachments whose content type starts with "image".
+            </summary>
+            <param name="attachments">The attachments to iterate.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.DateTimeExtensions.GetDateOrNullIfMinValue(System.Nullable{System.DateTime})">
+            <summary>
+            Returns the actual date, if it is non-null, or <c>null</c> if it is <see cref="F:System.DateTime.MinValue"/>.
+            </summary>
+            <param name="date">The date to check.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.DateTimeExtensions.GetDateOrNullIfMinValue(System.DateTime)">
+            <summary>
+            Returns the actual date if it has a valid value, or <c>null</c> if it is <see cref="F:System.DateTime.MinValue"/>.
+            </summary>
+            <param name="date">The date to check.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.LegalIdentityExtensions.NeedsUpdating(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Returns <c>true</c> if the legal identity is either null or is in a 'bad' state (rejected, compromised or obsolete).
+            </summary>
+            <param name="legalIdentity">The legal identity whose state to check.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.LegalIdentityExtensions.IsCreatedOrApproved(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Returns <c>true</c> if the <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> is in either of the two states <c>Created</c> or <c>Approved</c>.
+            </summary>
+            <param name="legalIdentity">The legal identity whose state to check.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.ListExtensions.HasSameContentAs``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})">
+            <summary>
+            Compares to lists for content equality.
+            </summary>
+            <typeparam name="T">The list content type.</typeparam>
+            <param name="list">The first list to compare.</param>
+            <param name="other">The second list to compare.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.ObjectExtensions.GetClassAndMethod(System.Object,System.Reflection.MethodBase,System.String)">
+            <summary>
+            Returns the current class and method as a <see cref="T:System.Collections.Generic.KeyValuePair`2"/>. For debugging purposes.
+            </summary>
+            <param name="obj">The object whose class and method to extract.</param>
+            <param name="methodInfo">The current method instance.</param>
+            <param name="method">An optional method name. If not specified, the method name is extracted from the <c>methodInfo</c> parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.StreamExtensions.Reset(System.IO.Stream)">
+            <summary>
+            Convenience method for resetting a stream to position = 0.
+            </summary>
+            <param name="stream">The stream to reset.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.StringExtensions.ToSafeFileName(System.String)">
+            <summary>
+            Does a best effort of converting any given string to a valid file name.
+            </summary>
+            <param name="str">The string to convert.</param>
+            <returns>A valid file name, or <c>null</c>.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.TaskExtensions.TimeoutAfter``1(System.Threading.Tasks.Task{``0},System.TimeSpan)">
+            <summary>
+            Helper method to wait for a task to complete, but with a given time limit.
+            </summary>
+            <typeparam name="TResult">The task's result.</typeparam>
+            <param name="task">The task to await.</param>
+            <param name="timeout">The maximum time to wait for the task.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.IAppInformation">
+            <summary>
+            Dependency interface for app-specific information.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IAppInformation.GetVersion">
+            <summary>
+            Returns the version of the app.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.IDeviceInformation">
+            <summary>
+            Dependency interface for device-specific information.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IDeviceInformation.GetDeviceID">
+            <summary>
+            Gets the ID of the device.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.ISO_3166_1">
+            <summary>
+            Conversion between Country Names and ISO-3166-1 2-letter country codes.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ISO_3166_1.Codes">
+            <summary>
+            Available country codes, ordered alphabetically
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ISO_3166_1.Countries">
+            <summary>
+            Available counties, ordered alphabetically
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ISO_3166_1.TryGetCountry(System.String,System.String@)">
+            <summary>
+            Tries to get the country name, given its country code.
+            </summary>
+            <param name="code">ISO-3166-1 Country code (case insensitive).</param>
+            <param name="country">Country name, if found.</param>
+            <returns>If a country was found matching the country code.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ISO_3166_1.TryGetCode(System.String,System.String@)">
+            <summary>
+            Tries to get the ISO-3166-1 country code, given its country name.
+            </summary>
+            <param name="country">Country name (case insensitive).</param>
+            <param name="code">ISO-3166-1 Country code, if found.</param>
+            <returns>If a country code was found matching the country name.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ISO_3166_1.ToName(System.String)">
+            <summary>
+            Converts the code to a country name (if found). If not found, returns the original code.
+            </summary>
+            <param name="code">Country code.</param>
+            <returns>Country name, or if not found, the original code.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ISO_3166_1.ToCode(System.String)">
+            <summary>
+            Converts the name to a country code (if found). If not found, returns the original name.
+            </summary>
+            <param name="country">Country name.</param>
+            <returns>Country code, or if not found, the original name.</returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.ITagIdSdk">
+            <summary>
+            The TagIdSdk is the 'root' of the Neuron library.
+            Use this to access Neuron specific features and services, and to control startup/shutdown.
+            <br/>
+            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
+            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Startup(System.Boolean)">
+            <summary>
+            To be called when the app is starting, regardless of whether it a cold start, or if it is resuming.
+            </summary>
+            <param name="isResuming">Set to <c>true</c> if the app is resuming, <c>false</c> otherwise.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Shutdown(System.Boolean)">
+            <summary>
+            To be called when the app is shutting down.
+            </summary>
+            <param name="keepRunningInTheBackground">Set to <c>true</c> if the app should maintain the Neuron server connection, <c>false</c> otherwise.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.ShutdownInPanic">
+            <summary>
+            To be called when the app is shutting down due to an unhandled exception. Will exit as fast as possible.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.TagProfile">
+            <summary>
+            The TAG Profile used for authentication/connection.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.UiDispatcher">
+            <summary>
+            A UI dispatcher for accessing the UI thread as well as display alerts to the user.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.CryptoService">
+            <summary>
+            Provides authorization services.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NeuronService">
+            <summary>
+            Provides Neuron server access.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NetworkService">
+            <summary>
+            Provides network access.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.LogService">
+            <summary>
+            The log service, collecting information about events, exceptions and the likes.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.StorageService">
+            <summary>
+            Use this for persistent storage.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.SettingsService">
+            <summary>
+            Allows for saving/restoring user settings.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NavigationService">
+            <summary>
+            Provides application navigation services in a generic way.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.IUiDispatcher">
+            <summary>
+            A wafer-thin wrapper around the UI (main) thread.
+            Provides methods for displaying alerts to the user in a thread-safe way. Queues them up if there's more than one.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IUiDispatcher.BeginInvokeOnMainThread(System.Action)">
+            <summary>
+            Does a begin-invoke on the main thread of the specified action.
+            </summary>
+            <param name="action">The action to execute asynchronously.</param>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.IUiDispatcher.IsRunningInTheBackground">
+            <summary>
+            Determines whether the app is running in the background.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IUiDispatcher.DisplayAlert(System.String,System.String,System.String,System.String)">
+            <summary>
+            Displays an alert/message box to the user.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="message">The message to display.</param>
+            <param name="accept">The accept/ok button text.</param>
+            <param name="cancel">The cancel button text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IUiDispatcher.DisplayAlert(System.String,System.String,System.String)">
+            <summary>
+            Displays an alert/message box to the user.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="message">The message to display.</param>
+            <param name="accept">The accept/ok button text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IUiDispatcher.DisplayAlert(System.String,System.String)">
+            <summary>
+            Displays an alert/message box to the user.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="message">The message to display.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IUiDispatcher.DisplayAlert(System.String,System.String,System.Exception)">
+            <summary>
+            Displays an alert/message box to the user.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="message">The message to display.</param>
+            <param name="exception">The exception to display.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IUiDispatcher.DisplayAlert(System.String,System.Exception)">
+            <summary>
+            Displays an alert/message box to the user.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="exception">The exception to display.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IUiDispatcher.DisplayAlert(System.Exception)">
+            <summary>
+            Displays an alert/message box to the user.
+            </summary>
+            <param name="exception">The exception to display.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberScheme">
+            <summary>
+            Checks personal numbers against a personal number scheme.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberScheme.#ctor(System.String,System.String,Waher.Script.Expression,Waher.Script.Expression,Waher.Script.Expression)">
+            <summary>
+            Checks personal numbers against a personal number scheme.
+            </summary>
+            <param name="variableName">Name of variable to use in script for the personal number.</param>
+            <param name="displayString">A string that can be displayed to a user, informing the user about the approximate format expected.</param>
+            <param name="pattern">Expression checking if the scheme applies to a personal number.</param>
+            <param name="check">Optional expression, checking if the contents of the personal number is valid.</param>
+            <param name="normalize">Optional normalization expression.</param>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberScheme.DisplayString">
+            <summary>
+            A string that can be displayed to a user, informing the user about the approximate format expected.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberScheme.IsValid(System.String@)">
+            <summary>
+            Checks if a personal number is valid according to the personal number scheme.
+            </summary>
+            <param name="personalNumber">String representation of the personal number.</param>
+            <returns>
+            true = valid: <paramref name="personalNumber"/> may be normalized.
+            false = invalid
+            null = scheme not applicable
+            </returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberSchemes">
+            <summary>
+            Personal Number Schemes available in different countries.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@)">
+            <summary>
+            Checks if a personal number is valid, in accordance with registered personal number schemes.
+            </summary>
+            <param name="countryCode">ISO 3166-1 Country Codes.</param>
+            <param name="personalNumber">Personal Number</param>
+            <returns>
+            true = valid
+            false = invalid
+            null = no registered schemes for country.
+            </returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@,System.String@)">
+            <summary>
+            Checks if a personal number is valid, in accordance with registered personal number schemes.
+            </summary>
+            <param name="countryCode">ISO 3166-1 Country Codes.</param>
+            <param name="personalNumber">Personal Number</param>
+            <param name="displayString">A string that can be displayed to a user, informing the user about the approximate format expected.</param>
+            <returns>
+            true = valid: <paramref name="personalNumber"/> may be normalized.
+            false = invalid
+            null = no registered schemes for country.
+            </returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberSchemes.DisplayStringForCountry(System.String)">
+            <summary>
+            Gets the expected personal number format for the given country.
+            </summary>
+            <param name="countryCode">ISO 3166-1 Country Codes.</param>
+            <returns>A string that can be displayed to a user, informing the user about the approximate format expected.</returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.ICryptoService">
+            <summary>
+            Cryptographic service that helps create passwords and other security related tasks.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ICryptoService.GetCustomKey(System.String)">
+            <summary>
+            Returns a cryptographic authorization key for the given filename.
+            </summary>
+            <param name="fileName">The filename to get a key for.</param>
+            <returns>A cryptographic key.</returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.ILoadableService">
+            <summary>
+            A service that can be loaded and unloaded at will. Typically during startup and shutdown of an application.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILoadableService.Load(System.Boolean)">
+            <summary>
+            Loads the specified service.
+            </summary>
+            <param name="isResuming">Set to <c>true</c> to indicate the app is resuming as opposed to starting cold.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILoadableService.Unload">
+            <summary>
+            Unloads the specified service.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.ILoadableService.Loaded">
+            <summary>
+            Fires whenever the loading state of the service changes.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.ILogListener">
+            <summary>
+            A log listener to implement and register with the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/> to get notifications
+            and being able to piggy back other calls whenever a log event occurs.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogWarning(System.String,System.Object[])">
+            <summary>
+            Called whenever a warning is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="args">The objects to format.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogException(System.Exception)">
+            <summary>
+            Called whenever an <see cref="T:System.Exception"/> is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
+            </summary>
+            <param name="e">The exception to log.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogException(System.Exception,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Called whenever an <see cref="T:System.Exception"/> is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
+            </summary>
+            <param name="e">The exception to log.</param>
+            <param name="extraParameters">Any extra parameters that are added to the log.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogEvent(System.String,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Called whenever an event is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
+            </summary>
+            <param name="name">The name of the event.</param>
+            <param name="extraParameters">Any extra parameters that are added to the log.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.AddListener(Tag.Neuron.Xamarin.Services.ILogListener)">
+            <summary>
+            Adds an <see cref="T:Tag.Neuron.Xamarin.Services.ILogListener"/> to the log service. Any listeners will be called
+            whenever any log event occurs.
+            </summary>
+            <param name="listener">The listener to add.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.RemoveListener(Tag.Neuron.Xamarin.Services.ILogListener)">
+            <summary>
+            Removes an <see cref="T:Tag.Neuron.Xamarin.Services.ILogListener"/> to the log service.
+            </summary>
+            <param name="listener">The listener to remove.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.LogWarning(System.String,System.Object[])">
+            <summary>
+            Invoke this method to add a warning statement to the log.
+            </summary>
+            <param name="format">A composite format string.</param>
+            <param name="args">The objects to format.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.LogException(System.Exception)">
+            <summary>
+            Invoke this method to add an <see cref="T:System.Exception"/> entry to the log.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.LogException(System.Exception,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Invoke this method to add an <see cref="T:System.Exception"/> entry to the log.
+            </summary>
+            <param name="e">The exception to log.</param>
+            <param name="extraParameters">Any extra parameters that are added to the log.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.LogEvent(System.String,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
+            <summary>
+            Invoke this method to add an event entry to the log.
+            </summary>
+            <param name="name">The name of the event.</param>
+            <param name="extraParameters">Any extra parameters that are added to the log.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.SaveExceptionDump(System.String,System.String)">
+            <summary>
+            Saves an exception dump to disc, completely offline. A last resort operation.
+            </summary>
+            <param name="title">The title of the stack trace.</param>
+            <param name="stackTrace">The actual stack trace.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.LoadExceptionDump">
+            <summary>
+            Restores any exception dump that has previously been persisted with the <see cref="M:Tag.Neuron.Xamarin.Services.ILogService.SaveExceptionDump(System.String,System.String)"/> method.
+            </summary>
+            <returns>The exception dump, if it exists, or <c>null</c>.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.DeleteExceptionDump">
+            <summary>
+            Removes any exception dump from disc, if it exists.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INavigationService">
+            <summary>
+            The navigation service is a wafer-thin wrapper around the <see cref="T:Xamarin.Forms.Shell"/>'s <c>GoToAsync()</c> methods.
+            It also provides a uniform way of passing arguments to pages, see the <see cref="M:Tag.Neuron.Xamarin.Services.INavigationService.PushArgs``1(``0)"/> and <see cref="M:Tag.Neuron.Xamarin.Services.INavigationService.TryPopArgs``1(``0@)"/> methods.
+            Allows for easy mocking when unit testing.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.GoToAsync(System.String)">
+            <summary>
+            Navigates the AppShell to the specified route.
+            </summary>
+            <param name="route">The route whose matching page to navigate to.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.GoToAsync``1(System.String,``0)">
+            <summary>
+            Navigates the AppShell to the specified route, with page arguments to match.
+            </summary>
+            <param name="route">The route whose matching page to navigate to.</param>
+            <param name="args">The specific args to pass to the page.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.GoBackAsync">
+            <summary>
+            Returns to the previous page/route.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.PushArgs``1(``0)">
+            <summary>
+            Pushes page arguments onto the (one-level) deep navigation stack.
+            </summary>
+            <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:Tag.Neuron.Xamarin.Services.NavigationArgs"/>.</typeparam>
+            <param name="args">The actual args.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.TryPopArgs``1(``0@)">
+            <summary>
+            Tries to pop/read page arguments from the (one-level) deep navigation stack.
+            </summary>
+            <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:Tag.Neuron.Xamarin.Services.NavigationArgs"/>.</typeparam>
+            <param name="args">The actual args.</param>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INetworkService">
+            <summary>
+            The network service is a wafer-thin wrapper around the <see cref="T:Xamarin.Essentials.Connectivity"/> object.
+            It exposes an event handler for monitoring connected state, and a DNS lookup method.
+            It also has helper methods to make network requests and catch and display errors if they fail.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INetworkService.ConnectivityChanged">
+            <summary>
+            Triggers whenever network connectivity changes.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INetworkService.LookupXmppHostnameAndPort(System.String)">
+            <summary>
+            Performs a DNS lookup for the specified domain name.
+            </summary>
+            <param name="domainName">The domain name whose name to resolve.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INetworkService.IsOnline">
+            <summary>
+            Determines whether we have network (wifi/cellular/other) or not.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INetworkService.TryRequest(System.Func{System.Threading.Tasks.Task},System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Tries to execute a arbitrary request. If there's an error this method catches it, logs it, and displays an alert to the user.
+            </summary>
+            <param name="func">The <c>Func</c> to execute.</param>
+            <param name="rethrowException">Set to <c>true</c> if the exception should be rethrown, <c>false</c> otherwise.</param>
+            <param name="displayAlert">Set to <c>true</c> if an alert should be displayed to the user, <c>false</c> otherwise.</param>
+            <param name="memberName">(Optional) a method name to use.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INetworkService.TryRequest``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Tries to execute a arbitrary request. If there's an error this method catches it, logs it, and displays an alert to the user.
+            </summary>
+            <typeparam name="TReturn">The return type.</typeparam>
+            <param name="func">The <c>Func</c> to execute.</param>
+            <param name="rethrowException">Set to <c>true</c> if the exception should be rethrown, <c>false</c> otherwise.</param>
+            <param name="displayAlert">Set to <c>true</c> if an alert should be displayed to the user, <c>false</c> otherwise.</param>
+            <param name="memberName">(Optional) a method name to use.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INeuronChats">
+            <summary>
+            Adds support for Xmpp Chat functionality.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronChats.ConnectionStateChanged">
+            <summary>
+            Triggers whenever the chat functionality is online or not.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronChats.IsOnline">
+            <summary>
+            Returns <c>true</c> if Chats is online, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INeuronContracts">
+            <summary>
+            Adds support for legal identities, smart contracts and signatures to a Neuron Service.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.ConnectionStateChanged">
+            <summary>
+            An event to monitor a Neuron service's Contracts for connectivity.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionContract(System.String,System.String,System.String)">
+            <summary>
+            Petitions a contract with the specified id and purpose.
+            </summary>
+            <param name="contractId">The contract id.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetContract(System.String)">
+            <summary>
+            Gets the contract with the specified id.
+            </summary>
+            <param name="contractId">The contract id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetCreatedContractIds">
+            <summary>
+            Gets the id's of the created contracts.
+            </summary>
+            <returns>Id's of the created contracts.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetSignedContractIds">
+            <summary>
+            Gets the id's of the signed contracts.
+            </summary>
+            <returns>Id's of the signed contracts.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SignContract(Waher.Networking.XMPP.Contracts.Contract,System.String,System.Boolean)">
+            <summary>
+            Signs a given contract.
+            </summary>
+            <param name="contract">The contract to sign.</param>
+            <param name="role">The role of the signer.</param>
+            <param name="transferable">Whether the contract is transferable or not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ObsoleteContract(System.String)">
+            <summary>
+            Obsoletes a contract.
+            </summary>
+            <param name="contractId">The id of the contract to obsolete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.CreateContract(System.String,Waher.Networking.XMPP.Contracts.Part[],Waher.Networking.XMPP.Contracts.Parameter[],Waher.Networking.XMPP.Contracts.ContractVisibility,Waher.Networking.XMPP.Contracts.ContractParts,Waher.Content.Duration,Waher.Content.Duration,Waher.Content.Duration,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
+            <summary>
+            Creates a new contract.
+            </summary>
+            <param name="templateId">The id of the contract template to use.</param>
+            <param name="parts">The individual contract parts.</param>
+            <param name="parameters">Contract parameters.</param>
+            <param name="visibility">The contract's visibility.</param>
+            <param name="partsMode">The contract's parts.</param>
+            <param name="duration">Duration of the contract.</param>
+            <param name="archiveRequired">Required duration for contract archival.</param>
+            <param name="archiveOptional">Optional duration for contract archival.</param>
+            <param name="signAfter">Timestamp of when the contract can be signed at the earliest.</param>
+            <param name="signBefore">Timestamp of when the contract can be signed at the latest.</param>
+            <param name="canActAsTemplate">Can this contract act as a template itself?</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.DeleteContract(System.String)">
+            <summary>
+            Deletes a contract.
+            </summary>
+            <param name="contractId">The id of the contract to delete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetContractAttachment(System.String,System.TimeSpan)">
+            <summary>
+            Gets an attachment for a contract.
+            </summary>
+            <param name="url">The url of the attachment.</param>
+            <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.AddLegalIdentity(Tag.Neuron.Xamarin.Models.RegisterIdentityModel,Tag.Neuron.Xamarin.Services.LegalIdentityAttachment[])">
+            <summary>
+            Adds a legal identity.
+            </summary>
+            <param name="model">The model holding all the values needed.</param>
+            <param name="attachments">The physical attachments to upload.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetLegalIdentities(Waher.Networking.XMPP.XmppClient)">
+            <summary>
+            Returns a list of legal identities.
+            </summary>
+            <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetLegalIdentity(System.String)">
+            <summary>
+            Gets a specific legal identity.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionIdentity(System.String,System.String,System.String)">
+            <summary>
+            Petitions a legal identity.
+            </summary>
+            <param name="legalId">The id of the legal identity.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose of the petitioning.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionIdentityResponse(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Sends a response to a petitioning identity request.
+            </summary>
+            <param name="legalId">The id of the legal identity.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="requestorFullJid">The full Jid of the requestor.</param>
+            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionContractResponse(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Sends a response to a petitioning contract request.
+            </summary>
+            <param name="contractId">The id of the contract.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="requestorFullJid">The full Jid of the requestor.</param>
+            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionSignatureResponse(System.String,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
+            <summary>
+            Sends a response to a petitioning signature request.
+            </summary>
+            <param name="legalId">Legal Identity petitioned.</param>
+            <param name="content">Content to be signed.</param>
+            <param name="signature">Digital signature of content, made by the legal identity.</param>
+            <param name="petitionId">A petition identifier. This identifier will follow the petition, and can be used
+            to identify the petition request.</param>
+            <param name="requestorFullJid">Full JID of requestor.</param>
+            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.AddPeerReviewIdAttachment(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[])">
+            <summary>
+            Adds an attachment for the peer review.
+            </summary>
+            <param name="identity">The identity to which the attachment should be added.</param>
+            <param name="reviewerLegalIdentity">The identity of the reviewer.</param>
+            <param name="peerSignature">The raw signature data.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionPeerReviewId(System.String,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
+            <summary>
+            Sends a petition to a third-party to review a legal identity.
+            </summary>
+            <param name="legalId">The legal id to petition.</param>
+            <param name="identity">The legal id to peer review.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.Sign(System.Byte[])">
+            <summary>
+            Signs binary data with the corresponding private key.
+            </summary>
+            <param name="data">The data to sign.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ValidateSignature(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[],System.Byte[])">
+            <summary>Validates a signature of binary data.</summary>
+            <param name="legalIdentity">Legal identity used to create the signature.</param>
+            <param name="data">Binary data to sign-</param>
+            <param name="signature">Digital signature of data</param>
+            <returns>
+            true = Signature is valid.
+            false = Signature is invalid.
+            null = Client key algorithm is unknown, and veracity of signature could not be established.
+            </returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ObsoleteLegalIdentity(System.String)">
+            <summary>
+            Marks the legal identity as obsolete.
+            </summary>
+            <param name="legalIdentityId">The id to mark as obsolete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.CompromiseLegalIdentity(System.String)">
+            <summary>
+            Marks the legal identity as compromised.
+            </summary>
+            <param name="legalIdentityId">The legal id to mark as compromised.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.FileUploadIsSupported">
+            <summary>
+            Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.IsOnline">
+            <summary>
+            Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INeuronService">
+            <summary>
+            Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.WaitForConnectedState(System.TimeSpan)">
+            <summary>
+            Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="F:Waher.Networking.XMPP.XmppState.Connected"/>.
+            </summary>
+            <param name="timeout">Maximum timeout before giving up.</param>
+            <returns></returns>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronService.ConnectionStateChanged">
+            <summary>
+            An event that triggers whenever the connection state of the Neuron server changes.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnect(System.String,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnectAndCreateAccount(System.String,System.String,System.Int32,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="userName">The user name of the account to create.</param>
+            <param name="password">The password to use.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnectAndConnectToAccount(System.String,System.String,System.Int32,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="userName">The user name of the account to create.</param>
+            <param name="password">The password to use.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.IsOnline">
+            <summary>
+            Determines whether the Neuron server is online or not.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.State">
+            <summary>
+            The current state of the Neuron server.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.BareJId">
+            <summary>
+            The Bare Jid of the current connection, or <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.LatestError">
+            <summary>
+            The latest generic xmpp error, if any.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.LatestConnectionError">
+            <summary>
+            The latest generic xmpp connection error, if any.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.Contracts">
+            <summary>
+            Provides access to legal identities and contracts.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.Chats">
+            <summary>
+            Provides access to chat functionality.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.DiscoverServices(Waher.Networking.XMPP.XmppClient)">
+            <summary>
+            Run this method to discover services for any given Neuron server.
+            </summary>
+            <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.CommsDumpAsHtml">
+            <summary>
+            Creates a dump of the latest Xmpp communication as html.
+            </summary>
+            <returns>The communication dump as a html formatted string.</returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
+            <summary>
+            Handles common UI settings that need to be persisted during sessions.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.Object)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState``1(System.String,``0)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <typeparam name="T">The state type.</typeparam>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreStateWhere``1(System.Func{System.String,System.Boolean})">
+            <summary>
+            Returns any states whose key matches the specified predicate.
+            </summary>
+            <typeparam name="T">The state type.</typeparam>
+            <param name="predicate">A predication function that identifies the relevant keys.</param>
+            <returns>a list of matching states.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RemoveState(System.String)">
+            <summary>
+            Removes a given state.
+            </summary>
+            <param name="key">The state identifier.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RemoveStateWhere(System.Func{System.String,System.Boolean})">
+            <summary>
+            Removes any states whose key matches the specified predicate.
+            </summary>
+            <param name="predicate">A predication function that identifies the relevant keys.</param>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.IStorageService">
+            <summary>
+            Wraps the <see cref="T:Waher.Persistence.Database"/> for easy access to persistent encrypted storage. Use this for any sensitive data.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Insert(System.Object)">
+            <summary>
+            Inserts an object into the database.
+            </summary>
+            <param name="obj">The object to store.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Update(System.Object)">
+            <summary>
+            Updates an object in the database.
+            </summary>
+            <param name="obj">The object to update.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.FindFirstDeleteRest``1">
+            <summary>
+            Returns the first match (if any) of the given type. Deletes the other matching entries.
+            </summary>
+            <typeparam name="T">The type of the objects to retrieve.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.FindFirstIgnoreRest``1">
+            <summary>
+            Returns the first match (if any) of the given type. Ignores (leaves) the other matching entries.
+            </summary>
+            <typeparam name="T">The type of the objects to retrieve.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.ITagProfile">
+            <summary>
+            The TAG Profile is the heart of the digital identity for a specific user/device.
+            Use this instance to add and make a profile more complete.
+            The TAG Profile holds relevant data connected to not only where the user is in the registraton process,
+            but also Xmpp identifiers.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.ITagProfile.StepChanged">
+            <summary>
+            An event that triggers during the registration/profile build process, as the profile becomes more/less complete.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.ITagProfile.Changed">
+            <summary>
+            An event that fires whenever any property on the <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> changes.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.Domain">
+            <summary>
+            The domain this profile is connected to.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.Account">
+            <summary>
+            The account name for this profile
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.PasswordHash">
+            <summary>
+            A hash of the current password.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.PasswordHashMethod">
+            <summary>
+            The hash method used for hashing the password.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.LegalJid">
+            <summary>
+            The Jabber Legal Id for this user/profile.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.RegistryJid">
+            <summary>
+            The Xmpp registry id.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.ProvisioningJid">
+            <summary>
+            The Neuron server's provisioning Jid.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.HttpFileUploadJid">
+            <summary>
+            The Neuron server's file upload Jid.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.HttpFileUploadMaxSize">
+            <summary>
+            The Neuron server's max size for file uploads.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.LogJid">
+            <summary>
+            The Neuron server's log Jid.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.MucJid">
+            The Neuron server's multi-user chat Jid.
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.Step">
+            <summary>
+            This profile's current registration step.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.PinIsValid">
+            <summary>
+            Returns <c>true</c> if the PIN is valid, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.FileUploadIsSupported">
+            <summary>
+            Returns <c>true</c> if file upload is supported for the specified Neuron server, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.Pin">
+            <summary>
+            The user's PIN value.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.PinHash">
+            <summary>
+            A hashed version of the user's <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.Pin"/>.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.UsePin">
+            <summary>
+            Returns <c>true</c> if the <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.Pin"/> should be used, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.LegalIdentity">
+            <summary>
+            The legal identity of the curren user/profile.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.Domains">
+            <summary>
+            Domains this user can connect to.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.IsDirty">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> has changed values and need saving, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ToConfiguration">
+            <summary>
+            Converts the current <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> to a <see cref="T:Tag.Neuron.Xamarin.Services.TagConfiguration"/> object that can be persisted to the <see cref="T:Tag.Neuron.Xamarin.Services.IStorageService"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.FromConfiguration(Tag.Neuron.Xamarin.Services.TagConfiguration)">
+            <summary>
+            Copies values from the <see cref="T:Tag.Neuron.Xamarin.Services.TagConfiguration"/> to this instance.
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.NeedsUpdating">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> needs to have its values updated, <c>false</c> otherwise.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.LegalIdentityNeedsUpdating">
+            <summary>
+            Returns <c>true</c> if the current <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> needs to have its legal identity updated, <c>false</c> otherwise.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.IsCompleteOrWaitingForValidation">
+            <summary>
+            Returns <c>true</c> if the registration process for this <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> is either fully complete or is just awaiting validation, <c>false</c> otherwise.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.IsComplete">
+            <summary>
+            Returns <c>true</c> if the registration process for this <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> is either fully complete, <c>false</c> otherwise.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ResetIsDirty">
+            <summary>
+            Resets the <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.IsDirty"/> flag, can be used after persisting values to <see cref="T:Tag.Neuron.Xamarin.Services.IStorageService"/>.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetDomain(System.String)">
+            <summary>
+            Step 1 - set the domain name to connect to.
+            </summary>
+            <param name="domainName">The domain name.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ClearDomain">
+            <summary>
+            Revert Step 1.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetAccount(System.String,System.String,System.String)">
+            <summary>
+            Step 2 - set the account name and password for a <em>new</em> account.
+            </summary>
+            <param name="accountName">The account/user name.</param>
+            <param name="clientPasswordHash">The password hash (never send the real password).</param>
+            <param name="clientPasswordHashMethod">The hash method used when hashing the password.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetAccountAndLegalIdentity(System.String,System.String,System.String,Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Step 2 and 3 - set the account name and password for an <em>existing</em> account.
+            </summary>
+            <param name="accountName">The account/user name.</param>
+            <param name="clientPasswordHash">The password hash (never send the real password).</param>
+            <param name="clientPasswordHashMethod">The hash method used when hashing the password.</param>
+            <param name="identity">The new identity.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ClearAccount">
+            <summary>
+            Revert Step 2.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Step 3 - set the legal identity of a newly created account.
+            </summary>
+            <param name="legalIdentity">The legal identity to use.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ClearLegalIdentity">
+            <summary>
+            Revert Step 3.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetIsValidated">
+            <summary>
+            Step 4 - set the current legal identity as validated.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ClearIsValidated">
+            <summary>
+            Revert Step 4.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetPin(System.String,System.Boolean)">
+            <summary>
+             Step 5 - Set a pin to use for protecting the account.
+            </summary>
+            <param name="pin">The pin to use.</param>
+            <param name="shouldUsePin"><c>true</c> to use the pin, <c>false</c> otherwise.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ClearPin">
+            <summary>
+            Revert Step 5.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetLegalJId(System.String)">
+            <summary>
+            Used during Xmpp service discovery. Sets the legal id.
+            </summary>
+            <param name="legalJId">The legal id.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetProvisioningJId(System.String)">
+            <summary>
+            Used during Xmpp service discovery. Sets the provisioning id.
+            </summary>
+            <param name="provisioningJId"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetRegistryJId(System.String)">
+            <summary>
+            Used during Xmpp service discovery. Sets the registry id.
+            </summary>
+            <param name="registryJId"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetFileUploadParameters(System.String,System.Nullable{System.Int64})">
+            <summary>
+            Used during Xmpp service discovery. Sets the file upload parameters.
+            </summary>
+            <param name="httpFileUploadJId">The http file upload id.</param>
+            <param name="maxSize">The max size allowed.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetLogJId(System.String)">
+            <summary>
+            Used during Xmpp service discovery. Sets the log id.
+            </summary>
+            <param name="logJId">The log id.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetMucJId(System.String)">
+            <summary>
+            Used during Xmpp service discovery. Sets the multi-user chat id.
+            </summary>
+            <param name="mucJId">The multi-user chat id.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ComputePinHash(System.String)">
+            <summary>
+            Computes a hash of the specified PIN.
+            </summary>
+            <param name="pin">The PIN whose hash to compute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.TryGetKeys(System.String,System.String@,System.String@)">
+            <summary>
+            Tries to get the cryptographic keys for the specified domain. Used for connecting to a Neuron server.
+            </summary>
+            <param name="domainName">The domain name whose keys to look up.</param>
+            <param name="apiKey">The API key.</param>
+            <param name="secret">The API secret.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.LegalIdentityAttachment">
+            <summary>
+            Represent an attachment to a <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/>.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.LegalIdentityAttachment.Filename">
+            <summary>
+            The raw filename.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.LegalIdentityAttachment.ContentType">
+            <summary>
+            Content type (mime) of the attachment.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.LegalIdentityAttachment.Data">
+            <summary>
+            The raw file data.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.LegalIdentityAttachment.ContentLength">
+            <summary>
+            Attachment content length.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.NavigationArgs">
+            <summary>
+            An abstract base class holding page specific navigation parameters.
+            </summary>
+        </member>
+    </members>
+</doc>
