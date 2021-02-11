@@ -94,11 +94,11 @@ namespace IdApp.ViewModels.Contracts
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
-            this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractCategory)), this.SelectedContractCategory);
-            this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractType)), this.SelectedContractType);
+            await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractCategory)), this.SelectedContractCategory);
+            await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractType)), this.SelectedContractType);
             if (this.SelectedContractVisibilityItem != null)
             {
-                this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), (ContractVisibility?)this.SelectedContractVisibilityItem.Visibility);
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), (ContractVisibility?)this.SelectedContractVisibilityItem.Visibility);
             }
         }
 
@@ -106,9 +106,9 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveState)
             {
-                this.SelectedContractCategory = this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractCategory)));
-                this.SelectedContractType = this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractType)));
-                ContractVisibility? visibility = this.settingsService.RestoreState<ContractVisibility?>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+                this.SelectedContractCategory = await this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractCategory)));
+                this.SelectedContractType = await this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractType)));
+                ContractVisibility? visibility = await this.settingsService.RestoreState<ContractVisibility?>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
                 if (visibility != null)
                 {
                     this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == visibility);

@@ -34,7 +34,7 @@ namespace IdApp.Services
         }
 
         ///<inheritdoc/>
-        public override Task Load(bool isResuming)
+        public override async Task Load(bool isResuming)
         {
             if (this.BeginLoad())
             {
@@ -44,7 +44,7 @@ namespace IdApp.Services
 
                     if (!isResuming)
                     {
-                        List<(string, string)> cacheEntriesAsJson = this.settingsService.RestoreStateWhere<string>(x => x.StartsWith(KeyPrefix)).ToList();
+                        List<(string, string)> cacheEntriesAsJson = (await this.settingsService.RestoreStateWhere<string>(x => x.StartsWith(KeyPrefix))).ToList();
                         if (cacheEntriesAsJson.Count > 0)
                         {
                             foreach ((string Key, string Json) entry in cacheEntriesAsJson)
@@ -71,8 +71,6 @@ namespace IdApp.Services
                     this.EndLoad(false);
                 }
             }
-
-            return Task.CompletedTask;
         }
 
         ///<inheritdoc/>

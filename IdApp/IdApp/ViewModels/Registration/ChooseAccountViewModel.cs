@@ -465,16 +465,16 @@ namespace IdApp.ViewModels.Registration
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
-            this.SettingsService.SaveState(GetSettingsKey(nameof(CreateNewAccountName)), this.CreateNewAccountName);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(ConnectToExistingAccountName)), this.ConnectToExistingAccountName);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(CreateRandomPassword)), this.CreateRandomPassword);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(CreateNewAccountName)), this.CreateNewAccountName);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(ConnectToExistingAccountName)), this.ConnectToExistingAccountName);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(CreateRandomPassword)), this.CreateRandomPassword);
         }
 
         protected override async Task DoRestoreState()
         {
-            this.CreateNewAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(CreateNewAccountName)));
-            this.ConnectToExistingAccountName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ConnectToExistingAccountName)));
-            this.CreateRandomPassword = this.SettingsService.RestoreState(GetSettingsKey(nameof(CreateRandomPassword)), true);
+            this.CreateNewAccountName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(CreateNewAccountName)));
+            this.ConnectToExistingAccountName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ConnectToExistingAccountName)));
+            this.CreateRandomPassword = await this.SettingsService.RestoreState(GetSettingsKey(nameof(CreateRandomPassword)), true);
             await base.DoRestoreState();
         }
     }

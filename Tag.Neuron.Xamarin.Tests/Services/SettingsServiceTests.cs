@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Tag.Neuron.Xamarin.Services;
 
@@ -15,44 +16,44 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         }
 
         [Test]
-        public void SaveAndRestore_ReturnsCorrectValue()
+        public async Task SaveAndRestore_ReturnsCorrectValue()
         {
             string expected = "TAG";
-            sut.SaveState("key", expected);
-            string actual = sut.RestoreState<string>("key");
+            await sut.SaveState("key", expected);
+            string actual = await sut.RestoreState<string>("key");
             Assert.AreEqual(expected, actual);
         }
 
         [Test]
-        public void Restore_ReturnsDefaultValue()
+        public async Task Restore_ReturnsDefaultValue()
         {
             string val = "TAG";
-            sut.SaveState("key", val);
-            string actual = sut.RestoreState<string>("key2");
+            await sut.SaveState("key", val);
+            string actual = await sut.RestoreState<string>("key2");
             Assert.IsNull(actual);
         }
 
         [Test]
-        public void Restore_ReturnsSpecifiedDefaultValue()
+        public async Task Restore_ReturnsSpecifiedDefaultValue()
         {
             const string customDefaultValue = "customDefaultValue";
             string val = "TAG";
-            sut.SaveState("key", val);
-            string actual = sut.RestoreState<string>("key2", customDefaultValue);
+            await sut.SaveState("key", val);
+            string actual = await sut.RestoreState<string>("key2", customDefaultValue);
             Assert.AreEqual(customDefaultValue, actual);
         }
 
         [Test]
-        public void RestoreStateWhere_ReturnsMatches()
+        public async Task RestoreStateWhere_ReturnsMatches()
         {
             const int nSettings = 3;
             for (int i = 0; i < nSettings; i++)
             {
-                sut.SaveState($"Key{i}", $"Val{i}");
+                await sut.SaveState($"Key{i}", $"Val{i}");
             }
-            sut.SaveState("Foo", "Bar");
+            await sut.SaveState("Foo", "Bar");
 
-            List<(string Key, string Value)> actual = sut.RestoreStateWhere<string>(x => x.StartsWith("Key")).ToList();
+            List<(string Key, string Value)> actual = (await sut.RestoreStateWhere<string>(x => x.StartsWith("Key"))).ToList();
             Assert.AreEqual(nSettings, actual.Count);
             for (int i = 0; i < nSettings; i++)
             {
