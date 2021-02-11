@@ -10,6 +10,7 @@ using Tag.Neuron.Xamarin.Services;
 
 namespace IdApp.Services
 {
+    ///<inheritdoc cref="IImageCacheService"/>
     [Singleton]
     internal sealed class ImageCacheService : LoadableService, IImageCacheService
     {
@@ -20,6 +21,11 @@ namespace IdApp.Services
         private readonly ISettingsService settingsService;
         private readonly ILogService logService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ImageCacheService"/> class.
+        /// </summary>
+        /// <param name="settingsService">The settings service to use.</param>
+        /// <param name="logService">The log service to use.</param>
         public ImageCacheService(ISettingsService settingsService, ILogService logService)
         {
             this.entries = new Dictionary<string, CacheEntry>();
@@ -27,6 +33,7 @@ namespace IdApp.Services
             this.logService = logService;
         }
 
+        ///<inheritdoc/>
         public override Task Load(bool isResuming)
         {
             if (this.BeginLoad())
@@ -68,6 +75,7 @@ namespace IdApp.Services
             return Task.CompletedTask;
         }
 
+        ///<inheritdoc/>
         public override Task Unload()
         {
             if (this.BeginUnload())
@@ -94,6 +102,7 @@ namespace IdApp.Services
             return Task.CompletedTask;
         }
 
+        ///<inheritdoc/>
         public bool TryGet(string url, out Stream stream)
         {
             stream = null;
@@ -128,6 +137,7 @@ namespace IdApp.Services
             return false;
         }
 
+        ///<inheritdoc/>
         public async Task Add(string url, Stream stream)
         {
             if (!string.IsNullOrWhiteSpace(url) && 
@@ -143,6 +153,33 @@ namespace IdApp.Services
                     await stream.CopyToAsync(outputStream);
                 }
                 this.entries[url] = new CacheEntry { TimeStamp = DateTime.UtcNow, LocalFileName = localFileName };
+            }
+        }
+
+        ///<inheritdoc/>
+        public void Invalidate(string url)
+        {
+            if (!string.IsNullOrWhiteSpace(url) &&
+                Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
+            {
+                CreateCacheFolderIfNeeded();
+                if (this.entries.TryGetValue(url, out CacheEntry entry))
+                {
+                    string fileName = entry.LocalFileName;
+                    if (File.Exists(fileName))
+                    {
+                        try
+                        {
+                            File.Delete(fileName);
+                        }
+                        catch (Exception e)
+                        {
+                            this.logService.LogException(e);
+                        }
+                    }
+
+                    this.entries.Remove(url);
+                }
             }
         }
 
