@@ -2,11 +2,30 @@
 In order to work with digital IDs and contracts you need to connect successfully to a Neuron server.
 To do that an account, or **TAG Profile**, needs to be built. This is done step by step,
 adding more information until it is complete. There are currently five (5) steps to take in the user registration journey:
-1. Choose an operator (which domain to connect to)
-2. Create an account
-3. Register an identity (name, adress, et.c.)
-4. Have the identity validated, either by an administrator or your peers
-5. Choose a PIN to protect your account (optional).
+1. [Choose an operator](#choose-an-operator) (which domain to connect to)
+2. [Create an account](#create-an-account)
+3. [Register an identity](#register-an-identity) (name, adress, et.c.)
+4. [Validate the identity](#validate-an-identity), either by an administrator or your peers
+5. [Choose a PIN](#choose-a-pin) to protect your account (optional).
+
+## 1. Choose an operator ##
+The list of operators displayed in the UI depends on what you have entered in the file `Registration.cs`, see the the [Registraton Keys section](GettingStarted.md#registration-keys-for-developers) in the [Getting Started](GettingStarted.md) guide.
+
+## 2. Create an account ##
+This is where you can do one of two things:
+1. Create a new account, _or_
+2. Connect to an existing account.
+
+## 3. Register an identity ##
+This step only happens if you chose to create a _new_ account.
+
+## 4. Validate an identity ##
+When creating an account your identity must be validated. This can happen in two ways:
+1. An operator of the Neuron server you're connecting to can validate it for you.
+2. A peer can validate it, this is done by you requesting a peer review. This is done inside the app by either scanning a QR Code that belongs to your peer, or by manually entering the id. Once your peer or an operator has approved your identity, you can continue. Currently two peers are required to validate your identity.
+
+## 5. Choose a PIN ##
+Choosing a PIN is an optional step that can be skipped. Creating a PIN adds an extra layer of security.
 
 The TAG Neuron SDK for Xamarin provides this, have a look at the [`ITagProfile`](../Tag.Neuron.Xamarin/Services/ITagProfile.cs) interface.
 You can access it via the `DependencyService` class after registering it during startup. See the [Getting Started](GettingStarted.md#the-tag-neuron-sdk-structure) for details on how to do that.

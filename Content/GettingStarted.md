@@ -53,7 +53,7 @@ Everything you need can be accessed via this interface. You create an instance o
     this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
 ```
 
-Once this is done you can register the TAG Neuron SDK services with AutoFac like this (See details on [Registration Keys](#registration-keys) below)
+Once this is done you can register the TAG Neuron SDK services with an IoC container like this (See details on [Registration Keys](#registration-keys-for-developers) below)
 
 ```
 public App()
