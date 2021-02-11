@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
     /// A service that can be loaded and unloaded at will. Typically during startup and shutdown of an application.
     /// </summary>
+    [DefaultImplementation(typeof(LoadableService))]
     public interface ILoadableService
     {
         /// <summary>

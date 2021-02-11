@@ -2,12 +2,14 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
     /// Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
     /// </summary>
+    [DefaultImplementation(typeof(NeuronService))]
     public interface INeuronService : ILoadableService, IDisposable
     {
         /// <summary>

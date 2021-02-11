@@ -64,6 +64,8 @@ namespace Tag.Neuron.Xamarin.Services
 
         public void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters)
         {
+			e = Log.UnnestException(e);
+
             var parameters = GetParameters();
             if (extraParameters != null && extraParameters.Length > 0)
             {
@@ -165,6 +167,8 @@ namespace Tag.Neuron.Xamarin.Services
 
         public void SaveExceptionDump(string title, string stackTrace)
         {
+            stackTrace = Log.CleanStackTrace(stackTrace);
+
             string contents;
             string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
             if (File.Exists(fileName))

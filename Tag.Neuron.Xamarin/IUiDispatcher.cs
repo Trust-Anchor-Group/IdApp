@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin
 {
@@ -7,6 +8,7 @@ namespace Tag.Neuron.Xamarin
     /// A wafer-thin wrapper around the UI (main) thread.
     /// Provides methods for displaying alerts to the user in a thread-safe way. Queues them up if there's more than one.
     /// </summary>
+    [DefaultImplementation(typeof(UiDispatcher))]
     public interface IUiDispatcher
     {
         /// <summary>

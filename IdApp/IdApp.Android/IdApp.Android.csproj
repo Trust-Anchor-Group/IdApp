@@ -37,7 +37,7 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
-    <AndroidKeyStore>true</AndroidKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidSigningKeyStore>C:\Users\Henrik\Documents\TAG\IdApp\TagDemo Cert\TagDemo Cert.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Password</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>TagDemo Cert</AndroidSigningKeyAlias>

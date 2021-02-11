@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
     /// Cryptographic service that helps create passwords and other security related tasks.
     /// </summary>
+    [DefaultImplementation(typeof(CryptoService))]
     public interface ICryptoService
     {
         /// <summary>

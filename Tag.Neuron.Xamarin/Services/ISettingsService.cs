@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
     /// Handles common UI settings that need to be persisted during sessions.
     /// </summary>
+    [DefaultImplementation(typeof(SettingsService))]
     public interface ISettingsService
     {
         /// <summary>

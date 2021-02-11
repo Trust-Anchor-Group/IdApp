@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin
@@ -12,6 +13,7 @@ namespace Tag.Neuron.Xamarin
     /// It is imperative that you integrate this class into your <see cref="Application"/>
     /// <see cref="Application.OnStart"/> and <see cref="Application.OnResume"/> methods.
     /// </summary>
+    [DefaultImplementation(typeof(TagIdSdk))]
     public interface ITagIdSdk : IDisposable
     {
         /// <summary>

@@ -8,6 +8,7 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.Events;
 using Waher.IoTGateway.Setup;
 using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
@@ -39,22 +40,20 @@ namespace IdApp
             {
                 Assembly[] additionalAssemblies = { typeof(RegistrationStep).Assembly };
                 this.sdk = TagIdSdk.Create(this.GetType().Assembly, additionalAssemblies, new XmppConfiguration().ToArray());
-                //// SDK Registrations
-                //this.container.RegisterInstance(this.sdk.UiDispatcher);
-                //this.container.RegisterInstance(this.sdk.TagProfile);
-                //this.container.RegisterInstance(this.sdk.NeuronService);
-                //this.container.RegisterInstance(this.sdk.CryptoService);
-                //this.container.RegisterInstance(this.sdk.NetworkService);
-                //this.container.RegisterInstance(this.sdk.LogService);
-                //this.container.RegisterInstance(this.sdk.StorageService);
-                //this.container.RegisterInstance(this.sdk.SettingsService);
-                //this.container.RegisterInstance(this.sdk.NavigationService);
-                // App Registrations
-                //this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
-                //this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
 
-                // Set resolver
-                DependencyResolver.ResolveUsing(type => TypeIsRegistered(type) ? Types.Instantiate(type) : null);
+				// App Registrations
+				//this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
+				//this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
+
+				// Set resolver
+				DependencyResolver.ResolveUsing(type =>
+				{
+					object Result = Types.Instantiate(true, type);
+					if (!(Result is null))
+						return Result;
+
+					throw new InvalidOperationException("Unable to instantiate " + type.FullName);
+				});
 
 				// Register log listener (optional)
 				this.sdk.LogService.AddListener(new AppCenterLogListener());
@@ -65,7 +64,8 @@ namespace IdApp
 			}
 			catch (Exception e)
 			{
-				DisplayBootstrapErrorPage("IoCContainer", e.ToString());
+				e = Waher.Events.Log.UnnestException(e);
+				DisplayBootstrapErrorPage(e.Message, e.StackTrace);
 				return;
 			}
 
@@ -76,6 +76,7 @@ namespace IdApp
 			}
 			catch (Exception e)
 			{
+				e = Waher.Events.Log.UnnestException(e);
 				this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
 			}
 		}
@@ -85,11 +86,6 @@ namespace IdApp
 		{
 			this.sdk?.Dispose();
 		}
-
-        private static bool TypeIsRegistered(Type type)
-        {
-            return Types.IsDefaultImplementationRegistered(type) || Types.IsSingletonRegistered(type);
-        }
 
         ///<inheritdoc/>
 		protected override async void OnStart()
@@ -105,7 +101,8 @@ namespace IdApp
 			}
 			catch (Exception e)
 			{
-				this.DisplayBootstrapErrorPage("PerformStartup", e.ToString());
+				e = Waher.Events.Log.UnnestException(e);
+				this.DisplayBootstrapErrorPage(e.Message, e.StackTrace);
 			}
 		}
 
@@ -151,7 +148,7 @@ namespace IdApp
 
 		private void DisplayBootstrapErrorPage(string title, string stackTrace)
 		{
-			this.sdk.LogService.SaveExceptionDump(title, stackTrace);
+			this.sdk?.LogService?.SaveExceptionDump(title, stackTrace);
 
 			ScrollView sv = new ScrollView();
 			StackLayout sl = new StackLayout

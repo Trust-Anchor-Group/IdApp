@@ -1,10 +1,12 @@
 ﻿using System;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
     /// Adds support for Xmpp Chat functionality.
     /// </summary>
+    [DefaultImplementation(typeof(NeuronChats))]
     public interface INeuronChats : IDisposable
     {
         /// <summary>

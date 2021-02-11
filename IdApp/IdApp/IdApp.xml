@@ -4,6 +4,26 @@
         <name>IdApp</name>
     </assembly>
     <members>
+        <member name="T:IdApp.App">
+            <summary>
+            The Application class, representing an instance of the IdApp.
+            </summary>
+        </member>
+        <member name="M:IdApp.App.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.App.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.App.OnStart">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.App.OnResume">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.App.OnSleep">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.AppResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -1240,6 +1260,19 @@
               Looks up a localized string similar to Zip or Postal Code.
             </summary>
         </member>
+        <member name="T:IdApp.Extensions.XmppStateExtensions">
+            <summary>
+            Extensions for the <see cref="T:Waher.Networking.XMPP.XmppState"/> enum.
+            </summary>
+        </member>
+        <member name="M:IdApp.Extensions.XmppStateExtensions.ToDisplayText(Waher.Networking.XMPP.XmppState,System.String)">
+            <summary>
+            Converts the state to a localized string.
+            </summary>
+            <param name="state">The state to convert.</param>
+            <param name="domain">The domain, if any.</param>
+            <returns></returns>
+        </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
             Orchestrates operations on contracts upon receiving certain events, like approving or rejecting other peers' review requests.
@@ -1262,9 +1295,172 @@
             <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <returns></returns>
         </member>
+        <member name="T:IdApp.Services.IImageCacheService">
+            <summary>
+            Represents a service that caches images downloaded via http calls.
+            They are stored for a certain duration.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IImageCacheService.TryGet(System.String,System.IO.Stream@)">
+            <summary>
+            Tries to get a cached image given the specified url.
+            </summary>
+            <param name="url">The url of the image to get.</param>
+            <param name="stream">The stream pointing to the cached image if it is available.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.IImageCacheService.Add(System.String,System.IO.Stream)">
+            <summary>
+            Adds an image to the cache.
+            </summary>
+            <param name="url">The url, which is the key for accessing it later.</param>
+            <param name="stream">The image stream to store.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.IImageCacheService.Invalidate(System.String)">
+            <summary>
+            Explicitly invalidates the cache for a certain image, even though the expiry time hasn't passed.
+            </summary>
+            <param name="url">The url of the image.</param>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Services.ImageCacheService">
+            <inheritdoc cref="T:IdApp.Services.IImageCacheService"/>
+        </member>
+        <member name="M:IdApp.Services.ImageCacheService.#ctor(Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Services.ImageCacheService"/> class.
+            </summary>
+            <param name="settingsService">The settings service to use.</param>
+            <param name="logService">The log service to use.</param>
+        </member>
+        <member name="M:IdApp.Services.ImageCacheService.Load(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.ImageCacheService.Unload">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.ImageCacheService.TryGet(System.String,System.IO.Stream@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.ImageCacheService.Add(System.String,System.IO.Stream)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.ImageCacheService.Invalidate(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.showCreatedContracts">
             <summary>
             Show created contracts or signed contracts?
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.LoadingViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.LoadingViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.ViewModels.NeuronViewModel">
+            <summary>
+            A view model that holds Neuron state.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.NeuronViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates an instance of a <see cref="T:IdApp.ViewModels.NeuronViewModel"/>.
+            </summary>
+            <param name="neuronService"></param>
+            <param name="uiDispatcher"></param>
+        </member>
+        <member name="M:IdApp.ViewModels.NeuronViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.NeuronViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.NeuronViewModel.UiDispatcher">
+            <summary>
+            Gets the current <see cref="T:Tag.Neuron.Xamarin.IUiDispatcher"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.NeuronViewModel.NeuronService">
+            <summary>
+            Gets the current <see cref="T:Tag.Neuron.Xamarin.Services.INeuronService"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.NeuronViewModel.ConnectionStateTextProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.NeuronViewModel.ConnectionStateText">
+            <summary>
+            Gets the current connection state as a user friendly localized string.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.NeuronViewModel.IsConnectedProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.NeuronViewModel.IsConnected">
+            <summary>
+            Gets whether the view model is connected to a Neuron server.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.NeuronViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
+            <summary>
+            Sets both the connection state and connection text to the appropriate value.
+            </summary>
+            <param name="state">The current state.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.NeuronViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <summary>
+            Listens to connection state changes from the Neuron server.
+            </summary>
+            <param name="sender">The neuron service instance.</param>
+            <param name="e">The event args.</param>
+        </member>
+        <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
+            <summary>
+            A Viev model that represents the current XMPP Communication.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.#ctor">
+            <summary>
+            Create a new instance of an <see cref="T:IdApp.ViewModels.XmppCommunicationViewModel"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.RefreshCommand">
+            <summary>
+            The command for executing a Refresh action.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.XmppCommunicationViewModel.HtmlProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.Html">
+            <summary>
+            The html code to display
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.GetHtmlContent">
+            <summary>
+            Retrieves and assigns the <see cref="P:IdApp.ViewModels.XmppCommunicationViewModel.Html"/>.
             </summary>
         </member>
         <member name="M:IdApp.Views.Registration.RegistrationPage.UpdateUiStep">
@@ -1272,6 +1468,24 @@
             The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
             it still doesn't show the correct view template for that step. Instead it shows the last view template.
             So here we scroll back and forth one step to get it to be in sync with the viewmodel.
+        </member>
+        <member name="T:IdApp.Views.XmppCommunicationPage">
+            <summary>
+            The page displaying current XMPP Communication
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.XmppCommunicationPage.#ctor">
+            <summary>
+            Create an instance of a <see cref="T:IdApp.Views.XmppCommunicationPage"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.XmppCommunicationPage.OnBackButtonPressed">
+            <inheritdoc/>
+        </member>
+        <member name="T:Waher.IoTGateway.Setup.XmppConfiguration">
+            <summary>
+            Represents a users's Xmpp connection and profile properties.
+            </summary>
         </member>
         <member name="F:Waher.IoTGateway.Setup.XmppConfiguration.BuildDate">
             <summary>
@@ -1282,6 +1496,12 @@
             <summary>
             Time when solution was built.
             </summary>
+        </member>
+        <member name="M:Waher.IoTGateway.Setup.XmppConfiguration.ToArray">
+            <summary>
+            Converts the list of properties on this instance to an array of <see cref="T:Tag.Neuron.Xamarin.Models.DomainModel"/>s.
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

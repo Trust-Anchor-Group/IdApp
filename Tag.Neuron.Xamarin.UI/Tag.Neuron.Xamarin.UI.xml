@@ -109,6 +109,11 @@
             NOTE: using this class requires your page/view to inherit from <see cref="T:Tag.Neuron.Xamarin.UI.Views.ContentBasePage"/>.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.#ctor">
+            <summary>
+            Create an instance of a <see cref="T:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel"/>.
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBound">
             <summary>
             Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
@@ -125,6 +130,11 @@
             Called by the parent page when it disappears from screen.
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Children">
+            <summary>
+            Gets the child view models.
+            </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.AddChildViewModel``1(``0)">
             <summary>
@@ -190,6 +200,11 @@
             </summary>
             <param name="propertyName">The property name to convert into a settings key.</param>
             <returns></returns>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusyProperty">
+            <summary>
+            
+            </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusy">
             <summary>

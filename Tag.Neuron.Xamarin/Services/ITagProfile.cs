@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
@@ -10,6 +11,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// The TAG Profile holds relevant data connected to not only where the user is in the registraton process,
     /// but also Xmpp identifiers.
     /// </summary>
+    [DefaultImplementation(typeof(TagProfile))]
     public interface ITagProfile
     {
         /// <summary>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    [DefaultImplementation(typeof(LogService))]
     public interface ILogService
     {
         /// <summary>

@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Waher.Persistence;
+using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
     /// Wraps the <see cref="Database"/> for easy access to persistent encrypted storage. Use this for any sensitive data.
     /// </summary>
+    [DefaultImplementation(typeof(StorageService))]
     public interface IStorageService
     {
         /// <summary>

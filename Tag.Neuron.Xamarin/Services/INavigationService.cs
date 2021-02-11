@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.Services
@@ -8,6 +9,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// It also provides a uniform way of passing arguments to pages, see the <see cref="PushArgs{TArgs}"/> and <see cref="TryPopArgs{TArgs}"/> methods.
     /// Allows for easy mocking when unit testing.
     /// </summary>
+    [DefaultImplementation(typeof(NavigationService))]
     public interface INavigationService
     {
         /// <summary>

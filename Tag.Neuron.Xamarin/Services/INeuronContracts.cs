@@ -5,6 +5,7 @@ using Tag.Neuron.Xamarin.Models;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
 
 namespace Tag.Neuron.Xamarin.Services
@@ -12,6 +13,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// <summary>
     /// Adds support for legal identities, smart contracts and signatures to a Neuron Service.
     /// </summary>
+    [DefaultImplementation(typeof(NeuronContracts))]
     public interface INeuronContracts : IDisposable
     {
         /// <summary>

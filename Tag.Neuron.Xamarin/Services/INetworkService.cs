@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 
 namespace Tag.Neuron.Xamarin.Services
@@ -10,6 +11,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// It exposes an event handler for monitoring connected state, and a DNS lookup method.
     /// It also has helper methods to make network requests and catch and display errors if they fail.
     /// </summary>
+    [DefaultImplementation(typeof(NetworkService))]
     public interface INetworkService : IDisposable
     {
         /// <summary>
