@@ -61,26 +61,24 @@ public App()
     // Create the SDK
     this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new Registration().ToArray());
 
-    ContainerBuilder builder = new ContainerBuilder();
+    this.container = new IoCContainer();
 
     // Registrations
-    builder.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
-    builder.RegisterInstance(this.sdk.TagProfile).SingleInstance();
-    builder.RegisterInstance(this.sdk.NeuronService).SingleInstance();
-    builder.RegisterInstance(this.sdk.AuthService).SingleInstance();
-    builder.RegisterInstance(this.sdk.NetworkService).SingleInstance();
-    builder.RegisterInstance(this.sdk.LogService).SingleInstance();
-    builder.RegisterInstance(this.sdk.StorageService).SingleInstance();
-    builder.RegisterInstance(this.sdk.SettingsService).SingleInstance();
-    builder.RegisterInstance(this.sdk.NavigationService).SingleInstance();
+    this.container.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
+    this.container.RegisterInstance(this.sdk.TagProfile).SingleInstance();
+    this.container.RegisterInstance(this.sdk.NeuronService).SingleInstance();
+    this.container.RegisterInstance(this.sdk.AuthService).SingleInstance();
+    this.container.RegisterInstance(this.sdk.NetworkService).SingleInstance();
+    this.container.RegisterInstance(this.sdk.LogService).SingleInstance();
+    this.container.RegisterInstance(this.sdk.StorageService).SingleInstance();
+    this.container.RegisterInstance(this.sdk.SettingsService).SingleInstance();
+    this.container.RegisterInstance(this.sdk.NavigationService).SingleInstance();
 
     // Add your own registrations here
     ...
-    // Build the container
-    IContainer container = builder.Build();
 
-    // Set AutoFac to be the default dependency resolver
-    DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
+    // Set resolver
+    DependencyResolver.ResolveUsing(type => this.container.IsRegistered(type) ? this.container.Resolve(type) : null);
 }
 ```
 For further reading about the TAG Neuron SDK, [have a look here](NeuronSDK.md).
@@ -182,7 +180,7 @@ When this is done, you can start and run the application. It won't do anything, 
 For further reading, please continue to these sections:
 - [The XMPP Protocol and Neuron](Xmpp.md)
 - [The ID App](AppAnatomy.md)
-- [Creating a TAG Profile](CreatingAProfile.md)
+- [Creating a TAG Profile](CreatingATAGProfile.md)
 - [Neuron SDK](NeuronSDK.md)
 - [Neuron SDK UI](NeuronSDKUI.md)
 - [Branch Strategy](BranchStrategy.md)
