@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SQLite;
 using Waher.Runtime.Inventory;
@@ -32,7 +33,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
-        public void SaveState(string key, object state)
+        public Task SaveState(string key, object state)
         {
             using (var connection = new SQLiteConnection(DatabasePath, Flags))
             {
@@ -48,53 +49,62 @@ namespace Tag.Neuron.Xamarin.Services
                     connection.Insert(newState);
                 }
             }
+
+            return Task.CompletedTask;
         }
 
-        public IEnumerable<(string key, T value)> RestoreStateWhere<T>(Func<string, bool> predicate)
+        public Task<IEnumerable<(string key, T value)>> RestoreStateWhere<T>(Func<string, bool> predicate)
         {
             List<Setting> existingStates;
             using (var connection = new SQLiteConnection(DatabasePath, Flags))
             {
                 existingStates = connection.Table<Setting>().ToList();
             }
+
+            List<(string, T)> matches = new List<(string, T)>();
             foreach (var state in existingStates)
             {
                 if (predicate(state.Key))
                 {
-                    yield return (state.Key, JsonConvert.DeserializeObject<T>(state.Value));
+                    matches.Add((state.Key, JsonConvert.DeserializeObject<T>(state.Value)));
                 }
             }
+
+            return Task.FromResult((IEnumerable<(string, T)>)matches);
         }
 
-        public T RestoreState<T>(string key, T defaultValueIfNotFound = default)
+        public Task<T> RestoreState<T>(string key, T defaultValueIfNotFound = default)
         {
             if (string.IsNullOrWhiteSpace(key))
-                return defaultValueIfNotFound;
+                return Task.FromResult(defaultValueIfNotFound);
 
             using (var connection = new SQLiteConnection(DatabasePath, Flags))
             {
                 var existingState = connection.Find<Setting>(key);
                 if (existingState != null)
                 {
-                    return JsonConvert.DeserializeObject<T>(existingState.Value);
+                    T obj = JsonConvert.DeserializeObject<T>(existingState.Value);
+                    return Task.FromResult(obj);
                 }
             }
 
-            return defaultValueIfNotFound;
+            return Task.FromResult(defaultValueIfNotFound);
         }
 
-        public void RemoveState(string key)
+        public Task RemoveState(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
-                return;
+                return Task.CompletedTask;
 
             using (var connection = new SQLiteConnection(DatabasePath, Flags))
             {
                 connection.Delete<Setting>(key);
             }
+
+            return Task.CompletedTask;
         }
 
-        public void RemoveStateWhere(Func<string, bool> predicate)
+        public Task RemoveStateWhere(Func<string, bool> predicate)
         {
             using (var connection = new SQLiteConnection(DatabasePath, Flags))
             {
@@ -107,6 +117,8 @@ namespace Tag.Neuron.Xamarin.Services
                     }
                 }
             }
+
+            return Task.CompletedTask;
         }
     }
 }

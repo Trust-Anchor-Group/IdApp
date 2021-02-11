@@ -535,32 +535,32 @@ namespace IdApp.ViewModels.Registration
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
-            this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedCountry)), this.SelectedCountry);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(FirstName)), this.FirstName);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(MiddleNames)), this.MiddleNames);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(LastNames)), this.LastNames);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(PersonalNumber)), this.PersonalNumber);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(Address)), this.Address);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(Address2)), this.Address2);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(Area)), this.Area);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(City)), this.City);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(ZipCode)), this.ZipCode);
-            this.SettingsService.SaveState(GetSettingsKey(nameof(Region)), this.Region);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedCountry)), this.SelectedCountry);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(FirstName)), this.FirstName);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(MiddleNames)), this.MiddleNames);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(LastNames)), this.LastNames);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(PersonalNumber)), this.PersonalNumber);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Address)), this.Address);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Address2)), this.Address2);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Area)), this.Area);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(City)), this.City);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(ZipCode)), this.ZipCode);
+            await this.SettingsService.SaveState(GetSettingsKey(nameof(Region)), this.Region);
         }
 
         protected override async Task DoRestoreState()
         {
-            this.SelectedCountry = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedCountry)));
-            this.FirstName = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(FirstName)));
-            this.MiddleNames  = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(MiddleNames)));
-            this.LastNames = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(LastNames)));
-            this.PersonalNumber = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(PersonalNumber)));
-            this.Address = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Address)));
-            this.Address2 = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Address2)));
-            this.Area = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Area)));
-            this.City = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(City)));
-            this.ZipCode = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ZipCode)));
-            this.Region = this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Region)));
+            this.SelectedCountry = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedCountry)));
+            this.FirstName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(FirstName)));
+            this.MiddleNames  = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(MiddleNames)));
+            this.LastNames = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(LastNames)));
+            this.PersonalNumber = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(PersonalNumber)));
+            this.Address = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Address)));
+            this.Address2 = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Address2)));
+            this.Area = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Area)));
+            this.City = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(City)));
+            this.ZipCode = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ZipCode)));
+            this.Region = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(Region)));
             try
             {
                 if (this.TagProfile.Step > RegistrationStep.Account && File.Exists(this.localPhotoFileName))
