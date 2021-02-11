@@ -18,22 +18,43 @@ The TAG Neuron SDK is easy to integrate into any Xamarin App via a few lines of 
 
 ### Dependency resolution ###
 
-TAG  has a custom light-weight [`IoCContainer`](../Tag.Neuron.Xamarin/IoCContainer.cs) implementation for dependency resolution. 
+TAG has a custom light-weight `Inversion of Control` implementation for dependency resolution called `Types`.
 The reason for this is that the built-in `DependencyService` is just a service locator, not a dependency injection container.
-It is rather limited, therefore swapping it out for the `IoCContainer` is recommended.
+It is rather limited, therefore swapping it out for `Types` is recommended. In order to specify how types should be resolved you can use
+two attributes:
+1. DefaultImplementationAttribute - specifies which class is the default implementation of a certain interface.
 
-Create an `IoCContainer` instance in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor like this:
+**Example:**
+```
+[DefaultImplementation(typeof(ImageCacheService))]
+public interface IImageCacheService : ILoadableService
+```
+2. SingletonAttribute - specifies that there should only be one shared instance of this implementation.
+
+**Example:**
+``` 
+[Singleton]
+internal sealed class ImageCacheService : LoadableService, IImageCacheService
+```
+
+The two attributes can be used in combination on an interface and its implementation.
+
+`Types` automatically picks up interfaces and implementations when passing in relevant assemblies in the call to `TagIdSdk.Create`, like this:
+```
+Assembly[] additionalAssemblies = { typeof(RegistrationStep).Assembly };
+this.sdk = TagIdSdk.Create(this.GetType().Assembly, additionalAssemblies, new XmppConfiguration().ToArray());
+```
+
+Configure `Types` in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor to be the default resolver like this:
 
 ```
 public App()
 {
-    container = new IoCContainer();
-
-    // Register dependencies here
+    // Register additional dependencies here (if needed)
     ...
 
     // Set the IoC to be the default dependency resolver
-    DependencyResolver.ResolveUsing(type => container.IsRegistered(type) ? container.Resolve(type) : null);
+    DependencyResolver.ResolveUsing(type => Types.Instantiate(type));
 }
 ```
 
@@ -42,7 +63,7 @@ That's all you need to do. And when you need to resolve components later in the 
 ```
     var myService = DependencyService.Resolve<IMyServie>();
 ```
-This will invoke the lightweight IoC implementation 'under the hood'. _**Remember**_ to `Dispose()` it later.
+This will invoke the lightweight IoC implementation 'under the hood'.
 
 ## The TAG Neuron SDK Structure ##
 
