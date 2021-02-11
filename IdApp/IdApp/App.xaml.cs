@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
+using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.IoTGateway.Setup;
 using Waher.Runtime.Inventory;
@@ -24,7 +25,6 @@ namespace IdApp
 		private readonly ITagIdSdk sdk;
 		private readonly IImageCacheService imageCacheService;
 		private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly IoCContainer container;
 		private readonly bool keepRunningInTheBackground = false;
 
         ///<inheritdoc/>
@@ -37,23 +37,24 @@ namespace IdApp
 
 			try
             {
-				this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new XmppConfiguration().ToArray());
-                this.container = new IoCContainer();
-                // SDK Registrations
-                this.container.RegisterInstance(this.sdk.UiDispatcher);
-                this.container.RegisterInstance(this.sdk.TagProfile);
-                this.container.RegisterInstance(this.sdk.NeuronService);
-                this.container.RegisterInstance(this.sdk.CryptoService);
-                this.container.RegisterInstance(this.sdk.NetworkService);
-                this.container.RegisterInstance(this.sdk.LogService);
-                this.container.RegisterInstance(this.sdk.StorageService);
-                this.container.RegisterInstance(this.sdk.SettingsService);
-                this.container.RegisterInstance(this.sdk.NavigationService);
+                Assembly[] additionalAssemblies = { typeof(RegistrationStep).Assembly };
+                this.sdk = TagIdSdk.Create(this.GetType().Assembly, additionalAssemblies, new XmppConfiguration().ToArray());
+                //// SDK Registrations
+                //this.container.RegisterInstance(this.sdk.UiDispatcher);
+                //this.container.RegisterInstance(this.sdk.TagProfile);
+                //this.container.RegisterInstance(this.sdk.NeuronService);
+                //this.container.RegisterInstance(this.sdk.CryptoService);
+                //this.container.RegisterInstance(this.sdk.NetworkService);
+                //this.container.RegisterInstance(this.sdk.LogService);
+                //this.container.RegisterInstance(this.sdk.StorageService);
+                //this.container.RegisterInstance(this.sdk.SettingsService);
+                //this.container.RegisterInstance(this.sdk.NavigationService);
                 // App Registrations
-                this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
-                this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
+                //this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
+                //this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
+
                 // Set resolver
-                DependencyResolver.ResolveUsing(type => this.container.IsRegistered(type) ? this.container.Resolve(type) : null);
+                DependencyResolver.ResolveUsing(type => TypeIsRegistered(type) ? Types.Instantiate(type) : null);
 
 				// Register log listener (optional)
 				this.sdk.LogService.AddListener(new AppCenterLogListener());
@@ -83,7 +84,6 @@ namespace IdApp
         public void Dispose()
 		{
 			this.sdk?.Dispose();
-			this.container?.Dispose();
 		}
 
         private static bool TypeIsRegistered(Type type)
