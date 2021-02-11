@@ -2,6 +2,9 @@
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// Extensions for the <see cref="LegalIdentity"/> class.
+    /// </summary>
     public static class LegalIdentityExtensions
     {
         /// <summary>

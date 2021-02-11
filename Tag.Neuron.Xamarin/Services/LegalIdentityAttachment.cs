@@ -7,6 +7,12 @@ namespace Tag.Neuron.Xamarin.Services
     /// </summary>
     public sealed class LegalIdentityAttachment
     {
+        /// <summary>
+        /// Creates an instance of a <see cref="LegalIdentityAttachment"/>.
+        /// </summary>
+        /// <param name="fileName">The actual filename</param>
+        /// <param name="contentType">The content type.</param>
+        /// <param name="data">The raw file data.</param>
         public LegalIdentityAttachment(string fileName, string contentType, byte[] data)
         {
             Filename = fileName;

@@ -2,8 +2,17 @@
 
 namespace IdApp.Extensions
 {
+    /// <summary>
+    /// Extensions for the <see cref="XmppState"/> enum.
+    /// </summary>
     public static class XmppStateExtensions
     {
+        /// <summary>
+        /// Converts the state to a localized string.
+        /// </summary>
+        /// <param name="state">The state to convert.</param>
+        /// <param name="domain">The domain, if any.</param>
+        /// <returns></returns>
         public static string ToDisplayText(this XmppState state, string domain)
         {
             switch (state)

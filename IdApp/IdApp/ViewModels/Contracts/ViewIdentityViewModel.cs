@@ -182,6 +182,7 @@ namespace IdApp.ViewModels.Contracts
             this.CompromiseCommand.ChangeCanExecute();
         }
 
+        /// <inheritdoc/>
         protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiDispatcher.BeginInvokeOnMainThread(async () =>

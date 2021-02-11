@@ -16,13 +16,18 @@ using Device = Xamarin.Forms.Device;
 
 namespace IdApp
 {
+	/// <summary>
+	/// The Application class, representing an instance of the IdApp.
+	/// </summary>
 	public partial class App : IDisposable
 	{
 		private readonly ITagIdSdk sdk;
 		private readonly IImageCacheService imageCacheService;
 		private readonly IContractOrchestratorService contractOrchestratorService;
+        private readonly IoCContainer container;
 		private readonly bool keepRunningInTheBackground = false;
 
+        ///<inheritdoc/>
 		public App()
 		{
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
@@ -31,21 +36,24 @@ namespace IdApp
 			InitializeComponent();
 
 			try
-			{
+            {
 				this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new XmppConfiguration().ToArray());
-				
-				// Set resolver
-				DependencyResolver.ResolveUsing(type =>
-				{
-					try
-					{
-						return Types.Instantiate(type);
-					}
-					catch (Exception)
-					{
-						return null;
-					}
-				});
+                this.container = new IoCContainer();
+                // SDK Registrations
+                this.container.RegisterInstance(this.sdk.UiDispatcher);
+                this.container.RegisterInstance(this.sdk.TagProfile);
+                this.container.RegisterInstance(this.sdk.NeuronService);
+                this.container.RegisterInstance(this.sdk.CryptoService);
+                this.container.RegisterInstance(this.sdk.NetworkService);
+                this.container.RegisterInstance(this.sdk.LogService);
+                this.container.RegisterInstance(this.sdk.StorageService);
+                this.container.RegisterInstance(this.sdk.SettingsService);
+                this.container.RegisterInstance(this.sdk.NavigationService);
+                // App Registrations
+                this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
+                this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
+                // Set resolver
+                DependencyResolver.ResolveUsing(type => this.container.IsRegistered(type) ? this.container.Resolve(type) : null);
 
 				// Register log listener (optional)
 				this.sdk.LogService.AddListener(new AppCenterLogListener());
@@ -71,11 +79,19 @@ namespace IdApp
 			}
 		}
 
-		public void Dispose()
+        ///<inheritdoc/>
+        public void Dispose()
 		{
 			this.sdk?.Dispose();
+			this.container?.Dispose();
 		}
 
+        private static bool TypeIsRegistered(Type type)
+        {
+            return Types.IsDefaultImplementationRegistered(type) || Types.IsSingletonRegistered(type);
+        }
+
+        ///<inheritdoc/>
 		protected override async void OnStart()
 		{
 			//AppCenter.Start(
@@ -93,11 +109,13 @@ namespace IdApp
 			}
 		}
 
+        ///<inheritdoc/>
 		protected override async void OnResume()
 		{
 			await this.PerformStartup(true);
 		}
 
+        ///<inheritdoc/>
 		protected override async void OnSleep()
 		{
 			await this.PerformShutdown();

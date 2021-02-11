@@ -306,6 +306,7 @@ namespace IdApp.ViewModels
             this.UiDispatcher.BeginInvokeOnMainThread(() => SetConnectionStateAndText(this.NeuronService.State));
         }
 
+        /// <inheritdoc/>
         protected override void SetConnectionStateAndText(XmppState state)
         {
             // Network

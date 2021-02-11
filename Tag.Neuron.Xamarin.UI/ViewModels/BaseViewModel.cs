@@ -16,6 +16,9 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
     {
         private readonly List<BaseViewModel> childViewModels;
 
+        /// <summary>
+        /// Create an instance of a <see cref="BaseViewModel"/>.
+        /// </summary>
         public BaseViewModel()
         {
             this.childViewModels = new List<BaseViewModel>();
@@ -60,6 +63,9 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Gets the child view models.
+        /// </summary>
         public IEnumerable<BaseViewModel> Children => this.childViewModels;
 
         /// <summary>
@@ -168,7 +174,9 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
             return $"{this.GetType().FullName}.{propertyName}";
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly BindableProperty IsBusyProperty =
             BindableProperty.Create("IsBusy", typeof(bool), typeof(BaseViewModel), default(bool));
 

@@ -5,11 +5,16 @@ using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views
 {
+    /// <summary>
+    /// The page displaying current XMPP Communication
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class XmppCommunicationPage
     {
         private readonly INavigationService navigationService;
-
+        /// <summary>
+        /// Create an instance of a <see cref="XmppCommunicationPage"/>.
+        /// </summary>
         public XmppCommunicationPage()
         {
             InitializeComponent();
@@ -17,6 +22,7 @@ namespace IdApp.Views
             this.ViewModel = new XmppCommunicationViewModel();
         }
 
+        /// <inheritdoc/>
         protected override bool OnBackButtonPressed()
         {
             this.navigationService.GoBackAsync();

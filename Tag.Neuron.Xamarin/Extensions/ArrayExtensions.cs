@@ -5,6 +5,9 @@ using Waher.Networking.XMPP.Contracts;
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// Extensions for generic <see cref="Array"/>s.
+    /// </summary>
     public static class ArrayExtensions
     {
         /// <summary>

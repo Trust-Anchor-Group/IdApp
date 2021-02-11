@@ -58,11 +58,13 @@ namespace IdApp.ViewModels
 
         #endregion
 
+        /// <inheritdoc/>
         protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiDispatcher.BeginInvokeOnMainThread(() => SetConnectionStateAndText(e.State));
         }
 
+        /// <inheritdoc/>
         protected override void SetConnectionStateAndText(XmppState state)
         {
             this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);

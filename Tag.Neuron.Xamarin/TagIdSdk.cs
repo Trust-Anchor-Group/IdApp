@@ -21,6 +21,7 @@ using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin
 {
+    /// <inheritdoc/>
     public class TagIdSdk : ITagIdSdk
     {
         private static ITagIdSdk instance;
@@ -44,11 +45,19 @@ namespace Tag.Neuron.Xamarin
             this.NavigationService = new NavigationService(this.logService, this.uiDispatcher);
         }
 
+        /// <inheritdoc/>
         public void Dispose()
         {
             instance = null;
         }
 
+        /// <summary>
+        /// Creates an instance of the <see cref="ITagIdSdk"/>. This is a factory method.
+        /// </summary>
+        /// <param name="appAssembly"></param>
+        /// <param name="additionalAssemblies"></param>
+        /// <param name="domains"></param>
+        /// <returns></returns>
         public static ITagIdSdk Create(Assembly appAssembly, Assembly[] additionalAssemblies, params DomainModel[] domains)
         {
             if (appAssembly == null)
@@ -58,19 +67,29 @@ namespace Tag.Neuron.Xamarin
             return instance ?? (instance = new TagIdSdk(appAssembly, additionalAssemblies, domains));
         }
 
+        /// <inheritdoc/>
         public ITagProfile TagProfile { get; }
         private readonly UiDispatcher uiDispatcher;
+        /// <inheritdoc/>
         public IUiDispatcher UiDispatcher => this.uiDispatcher;
+        /// <inheritdoc/>
         public ICryptoService CryptoService { get; }
         private readonly IInternalNeuronService neuronService;
+        /// <inheritdoc/>
         public INeuronService NeuronService => this.neuronService;
+        /// <inheritdoc/>
         public INetworkService NetworkService { get; }
+        /// <inheritdoc/>
         public INavigationService NavigationService { get; }
+        /// <inheritdoc/>
         public IStorageService StorageService { get; }
+        /// <inheritdoc/>
         public ISettingsService SettingsService { get; }
         private readonly IInternalLogService logService;
+        /// <inheritdoc/>
         public ILogService LogService => logService;
 
+        /// <inheritdoc/>
         public async Task Startup(bool isResuming)
         {
             this.uiDispatcher.IsRunningInTheBackground = false;
@@ -116,6 +135,7 @@ namespace Tag.Neuron.Xamarin
             this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
         }
 
+        /// <inheritdoc/>
         public async Task Shutdown(bool keepRunningInTheBackground)
         {
             StopAutoSaveTimer();
@@ -134,6 +154,7 @@ namespace Tag.Neuron.Xamarin
             }
         }
 
+        /// <inheritdoc/>
         public async Task ShutdownInPanic()
         {
             StopAutoSaveTimer();

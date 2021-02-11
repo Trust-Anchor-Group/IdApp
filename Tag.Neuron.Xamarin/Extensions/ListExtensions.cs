@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// Extensions for the <see cref="List{T}"/> class.
+    /// </summary>
     public static class ListExtensions
     {
         /// <summary>

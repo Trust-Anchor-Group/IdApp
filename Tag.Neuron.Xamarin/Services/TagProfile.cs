@@ -12,6 +12,7 @@ using Waher.Security;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    /// <inheritdoc/>
     [Singleton]
     public class TagProfile : ITagProfile
     {
@@ -36,6 +37,10 @@ namespace Tag.Neuron.Xamarin.Services
         private RegistrationStep step = RegistrationStep.Operator;
         private bool suppressPropertyChangedEvents;
 
+        /// <summary>
+        /// Creates an instance of a <see cref="TagProfile"/>.
+        /// </summary>
+        /// <param name="domainModels">A list of domains the user should be able to connect to.</param>
         public TagProfile(params DomainModel[] domainModels)
         {
             this.domains = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase);
@@ -48,16 +53,28 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <summary>
+        /// Invoked whenever the current <see cref="Step"/> changes, to fire the <see cref="StepChanged"/> event.
+        /// </summary>
+        /// <param name="e"></param>
         protected virtual void OnStepChanged(EventArgs e)
         {
             StepChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Invoked whenever any property changes, to fire the <see cref="Changed"/> event.
+        /// </summary>
+        /// <param name="e"></param>
         protected virtual void OnChanged(PropertyChangedEventArgs e)
         {
             Changed?.Invoke(this, e);
         }
 
+        /// <summary>
+        /// Converts the current instance into a <see cref="TagConfiguration"/> object for serialization.
+        /// </summary>
+        /// <returns></returns>
         public TagConfiguration ToConfiguration()
         {
             TagConfiguration clone = new TagConfiguration
@@ -82,6 +99,10 @@ namespace Tag.Neuron.Xamarin.Services
             return clone;
         }
 
+        /// <summary>
+        /// Parses an instance of a <see cref="TagConfiguration"/> object to update this instance's properties.
+        /// </summary>
+        /// <param name="configuration"></param>
         public void FromConfiguration(TagConfiguration configuration)
         {
             try
@@ -111,6 +132,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public virtual bool NeedsUpdating()
         {
             return string.IsNullOrWhiteSpace(this.LegalJid) ||
@@ -121,16 +143,19 @@ namespace Tag.Neuron.Xamarin.Services
                    string.IsNullOrWhiteSpace(this.MucJid);
         }
 
+        /// <inheritdoc/>
         public virtual bool LegalIdentityNeedsUpdating()
         {
             return this.legalIdentity.NeedsUpdating();
         }
 
+        /// <inheritdoc/>
         public virtual bool IsCompleteOrWaitingForValidation()
         {
             return this.Step >= RegistrationStep.ValidateIdentity;
         }
 
+        /// <inheritdoc/>
         public virtual bool IsComplete()
         {
             return this.Step == RegistrationStep.Complete;
@@ -577,6 +602,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         #endregion
 
+        /// <inheritdoc/>
         public string ComputePinHash(string pin)
         {
             StringBuilder sb = new StringBuilder();
@@ -600,6 +626,7 @@ namespace Tag.Neuron.Xamarin.Services
             return Hashes.ComputeSHA384HashString(data);
         }
 
+        /// <inheritdoc/>
         public bool TryGetKeys(string domainName, out string apiKey, out string secret)
         {
             if (domains.TryGetValue(domainName, out KeyValuePair<string, string> entry))
@@ -613,64 +640,136 @@ namespace Tag.Neuron.Xamarin.Services
         }
     }
 
+    /// <summary>
+    /// The different steps of a TAG Profile registration journey.
+    /// </summary>
     public enum RegistrationStep
     {
+        /// <summary>
+        /// Choose Operator
+        /// </summary>
         Operator = 0,
+        /// <summary>
+        /// Create or connect to an account
+        /// </summary>
         Account = 1,
+        /// <summary>
+        /// Register an identity
+        /// </summary>
         RegisterIdentity = 2,
+        /// <summary>
+        /// Have the identity validated.
+        /// </summary>
         ValidateIdentity = 3,
+        /// <summary>
+        /// Create a PIN code
+        /// </summary>
         Pin = 4,
+        /// <summary>
+        /// Profile is completed.
+        /// </summary>
         Complete = 5
     }
 
+    /// <summary>
+    /// A simple POCO object for serializing and deserializing configuration properties.
+    /// </summary>
     [CollectionName("Configuration")]
     public sealed class TagConfiguration
     {
+        /// <summary>
+        /// The primary key in persistent storage.
+        /// </summary>
         [ObjectId]
         public string ObjectId { get; set; }
 
+        /// <summary>
+        /// Current domain
+        /// </summary>
         [DefaultValueStringEmpty]
         public string Domain { get; set; }
 
+        /// <summary>
+        /// Account name
+        /// </summary>
         [DefaultValueStringEmpty]
         public string Account { get; set; }
 
+        /// <summary>
+        /// Password hash
+        /// </summary>
         [DefaultValueStringEmpty]
         public string PasswordHash { get; set; }
 
+        /// <summary>
+        /// Password hash method
+        /// </summary>
         [DefaultValueStringEmpty]
         public string PasswordHashMethod { get; set; }
 
+        /// <summary>
+        /// Legal Jabber Id
+        /// </summary>
         [DefaultValueStringEmpty]
         public string LegalJid { get; set; }
 
+        /// <summary>
+        /// Registry Jabber Id
+        /// </summary>
         [DefaultValueStringEmpty]
         public string RegistryJid { get; set; }
 
+        /// <summary>
+        /// Provisioning Jabber Id
+        /// </summary>
         [DefaultValueStringEmpty]
         public string ProvisioningJid { get; set; }
 
+        /// <summary>
+        /// Http File Upload Jabber Id
+        /// </summary>
         [DefaultValueStringEmpty]
         public string HttpFileUploadJid { get; set; }
 
+        /// <summary>
+        /// Http File Upload max file size
+        /// </summary>
         [DefaultValueNull]
         public long? HttpFileUploadMaxSize { get; set; }
 
+        /// <summary>
+        /// Log Jabber Id
+        /// </summary>
         [DefaultValueStringEmpty]
         public string LogJid { get; set; }
 
+        /// <summary>
+        /// Multi user chat Jabber Id
+        /// </summary>
         [DefaultValueStringEmpty]
         public string MucJid { get; set; }
 
+        /// <summary>
+        /// The hash of the user's pin.
+        /// </summary>
         [DefaultValueStringEmpty]
         public string PinHash { get; set; }
 
+        /// <summary>
+        /// Set to true if the PIN should be used.
+        /// </summary>
         [Waher.Persistence.Attributes.DefaultValue(false)]
         public bool UsePin { get; set; }
 
+        /// <summary>
+        /// User's current legal identity.
+        /// </summary>
         [DefaultValueNull]
         public LegalIdentity LegalIdentity { get; set; }
 
+        /// <summary>
+        /// Current step in the registration process.
+        /// </summary>
         [Waher.Persistence.Attributes.DefaultValue(RegistrationStep.Operator)]
         public RegistrationStep Step { get; set; }
     }

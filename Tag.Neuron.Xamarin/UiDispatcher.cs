@@ -7,12 +7,16 @@ using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin
 {
+    /// <inheritdoc/>
     [Singleton]
     public class UiDispatcher : IUiDispatcher
     {
         private readonly ConcurrentQueue<MessageRecord> messageQueue;
         private bool isDisplayingMessages;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="UiDispatcher"/> class.
+        /// </summary>
         public UiDispatcher()
         {
             this.messageQueue = new ConcurrentQueue<MessageRecord>();
@@ -20,11 +24,13 @@ namespace Tag.Neuron.Xamarin
             this.IsRunningInTheBackground = false;
         }
 
+        /// <inheritdoc/>
         public void BeginInvokeOnMainThread(Action action)
         {
             Device.BeginInvokeOnMainThread(action);
         }
 
+        /// <inheritdoc/>
         public bool IsRunningInTheBackground { get; protected internal set; }
 
         private void StartDisplay()
@@ -39,6 +45,7 @@ namespace Tag.Neuron.Xamarin
             }
         }
 
+        /// <inheritdoc/>
         public Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
         {
             MessageRecord record = new MessageRecord(title, message, accept, cancel);
@@ -47,6 +54,7 @@ namespace Tag.Neuron.Xamarin
             return record.CompletionSource.Task;
         }
 
+        /// <inheritdoc/>
         public Task DisplayAlert(string title, string message, string accept)
         {
             MessageRecord record = new MessageRecord(title, message, accept, null);
@@ -55,6 +63,7 @@ namespace Tag.Neuron.Xamarin
             return record.CompletionSource.Task;
         }
 
+        /// <inheritdoc/>
         public Task DisplayAlert(string title, string message)
         {
             MessageRecord record = new MessageRecord(title, message, null, null);
@@ -63,6 +72,7 @@ namespace Tag.Neuron.Xamarin
             return record.CompletionSource.Task;
         }
 
+        /// <inheritdoc/>
         public async Task DisplayAlert(string title, string message, Exception exception)
         {
             StringBuilder sb = new StringBuilder();
@@ -87,11 +97,13 @@ namespace Tag.Neuron.Xamarin
             await this.DisplayAlert(title ?? AppResources.ErrorTitle, sb.ToString(), AppResources.Ok);
         }
 
+        /// <inheritdoc/>
         public Task DisplayAlert(string title, Exception exception)
         {
             return this.DisplayAlert(title, null, exception);
         }
 
+        /// <inheritdoc/>
         public Task DisplayAlert(Exception exception)
         {
             return this.DisplayAlert(AppResources.ErrorTitle, null, exception);
