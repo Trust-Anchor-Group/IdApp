@@ -2049,6 +2049,16 @@
             <param name="sender">The neuron service instance.</param>
             <param name="e">The event args.</param>
         </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromListProperty">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromList"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromList">
+            <summary>
+            <see cref="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromListProperty"/>
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
             A Viev model that represents the current XMPP Communication.
