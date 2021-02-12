@@ -9,14 +9,9 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Events;
-using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Networking.XMPP.P2P;
 using Waher.Persistence;
 using Waher.Persistence.Files;
-using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
-using Waher.Script;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin
@@ -27,14 +22,12 @@ namespace Tag.Neuron.Xamarin
 	{
 		private static ITagIdSdk instance;
 		private readonly Assembly appAssembly;
-		private readonly Assembly[] additionalAssemblies;
 		private FilesProvider databaseProvider;
 		private Timer autoSaveTimer;
 
-		private TagIdSdk(Assembly appAssembly, Assembly[] additionalAssemblies, params DomainModel[] domains)
+		private TagIdSdk(Assembly appAssembly, params DomainModel[] domains)
 		{
 			this.appAssembly = appAssembly;
-			this.additionalAssemblies = additionalAssemblies;
 
 			// TODO: Check why TagProfile does not instantiate properly
 			//this.TagProfile = Types.Instantiate<TagProfile>(false, domains);
@@ -62,15 +55,14 @@ namespace Tag.Neuron.Xamarin
 		/// Creates an instance of the <see cref="ITagIdSdk"/>. This is a factory method.
 		/// </summary>
 		/// <param name="appAssembly"></param>
-		/// <param name="additionalAssemblies"></param>
 		/// <param name="domains"></param>
 		/// <returns></returns>
-		public static ITagIdSdk Create(Assembly appAssembly, Assembly[] additionalAssemblies, params DomainModel[] domains)
+		public static ITagIdSdk Create(Assembly appAssembly, params DomainModel[] domains)
 		{
 			if (appAssembly is null)
 				throw new ArgumentException("Value cannot be null", nameof(appAssembly));
 
-			return instance ?? (instance = Types.Instantiate<TagIdSdk>(false, appAssembly, additionalAssemblies, domains));
+			return instance ?? (instance = Types.Instantiate<TagIdSdk>(false, appAssembly, domains));
 		}
 
 		/// <inheritdoc/>
@@ -98,34 +90,6 @@ namespace Tag.Neuron.Xamarin
 		public async Task Startup(bool isResuming)
 		{
 			this.uiDispatcher.IsRunningInTheBackground = false;
-			if (!isResuming)
-			{
-				List<Assembly> assemblies = new List<Assembly>
-				{
-					this.appAssembly,
-					typeof(Database).Assembly,
-					typeof(FilesProvider).Assembly,
-					typeof(ObjectSerializer).Assembly,
-					typeof(XmppClient).Assembly,
-					typeof(ContractsClient).Assembly,
-					typeof(Expression).Assembly,
-					typeof(XmppServerlessMessaging).Assembly,
-					typeof(TagConfiguration).Assembly
-				};
-
-				if (this.additionalAssemblies != null && this.additionalAssemblies.Length > 0)
-				{
-					foreach (Assembly assembly in this.additionalAssemblies)
-					{
-						if (!assemblies.Contains(assembly))
-						{
-							assemblies.Add(assembly);
-						}
-					}
-				}
-
-				Types.Initialize(assemblies.ToArray());
-			}
 
 			await InitializeDatabase();
 

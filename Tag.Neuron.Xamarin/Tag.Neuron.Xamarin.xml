@@ -220,6 +220,11 @@
             MIME Types
             </summary>
         </member>
+        <member name="F:Tag.Neuron.Xamarin.Constants.MimeTypes.Jpeg">
+            <summary>
+            The Jpeg mime type.
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Constants.XmppProperties">
             <summary>
             XMPP Protocol Properties.
@@ -366,6 +371,19 @@
             <param name="date">The date to check.</param>
             <returns></returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.DictionaryExtensions">
+            <summary>
+            An extensions class for <see cref="T:System.Collections.Generic.Dictionary`2"/> operations.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.DictionaryExtensions.AddToDictionary(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
+            <summary>
+            Adds the specified string value with the given name (key) to the dictionary. If either values are <c>null</c> or empty, nothing happens.
+            </summary>
+            <param name="dict">The dictionary to add to.</param>
+            <param name="name">The name to use as  key.</param>
+            <param name="value">The value to add.</param>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Extensions.LegalIdentityExtensions">
             <summary>
             Extensions for the <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> class.
@@ -399,6 +417,11 @@
             <param name="other">The second list to compare.</param>
             <returns></returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.ObjectExtensions">
+            <summary>
+            Generic extension class for objects of type <see cref="T:System.Object"/>.
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Extensions.ObjectExtensions.GetClassAndMethod(System.Object,System.Reflection.MethodBase,System.String)">
             <summary>
             Returns the current class and method as a <see cref="T:System.Collections.Generic.KeyValuePair`2"/>. For debugging purposes.
@@ -408,11 +431,40 @@
             <param name="method">An optional method name. If not specified, the method name is extracted from the <c>methodInfo</c> parameter.</param>
             <returns></returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.SnifferExtensions">
+            <summary>
+            Extensions for the <see cref="T:Waher.Networking.Sniffers.ISniffer"/> implementation.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.SnifferExtensions.SnifferToText(Waher.Networking.Sniffers.InMemorySniffer)">
+            <summary>
+            Converts the latest Xmpp communication that the sniffer holds to plain text.
+            </summary>
+            <param name="sniffer">The sniffer whose contents to get.</param>
+            <returns>The xmpp communication in plain text.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.SnifferExtensions.SnifferToXml(Waher.Networking.Sniffers.InMemorySniffer)">
+            <summary>
+            Converts the latest Xmpp communication that the sniffer holds to xml.
+            </summary>
+            <param name="sniffer">The sniffer whose contents to get.</param>
+            <returns>The xmpp communication in xml.</returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.StreamExtensions">
+            <summary>
+            An extensions class for <see cref="T:System.IO.Stream"/>s.
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Extensions.StreamExtensions.Reset(System.IO.Stream)">
             <summary>
             Convenience method for resetting a stream to position = 0.
             </summary>
             <param name="stream">The stream to reset.</param>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.StringExtensions">
+            <summary>
+            An extensions class for the <see cref="T:System.String"/> class.
+            </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Extensions.StringExtensions.ToSafeFileName(System.String)">
             <summary>
@@ -421,6 +473,11 @@
             <param name="str">The string to convert.</param>
             <returns>A valid file name, or <c>null</c>.</returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.TaskExtensions">
+            <summary>
+            An extensions class for the <see cref="T:System.Threading.Tasks.Task"/> class.
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Extensions.TaskExtensions.TimeoutAfter``1(System.Threading.Tasks.Task{``0},System.TimeSpan)">
             <summary>
             Helper method to wait for a task to complete, but with a given time limit.
@@ -428,6 +485,19 @@
             <typeparam name="TResult">The task's result.</typeparam>
             <param name="task">The task to await.</param>
             <param name="timeout">The maximum time to wait for the task.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.TimeSpanExtensions">
+            <summary>
+            An extensions class for the <see cref="T:System.TimeSpan"/> struct.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.TimeSpanExtensions.Multiply(System.TimeSpan,System.Int32)">
+            <summary>
+            Multiplies the <see cref="T:System.TimeSpan"/> instance by the factor specified.
+            </summary>
+            <param name="ts">The <see cref="T:System.TimeSpan"/> to multiply.</param>
+            <param name="multiplier">The multiplie to use.</param>
             <returns></returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.IAppInformation">
@@ -661,6 +731,111 @@
             <param name="message">The message.</param>
             <param name="innerException">The inner exception.</param>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Models.DomainModel">
+            <summary>
+            The data model for Neuron domains.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Models.DomainModel.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:Tag.Neuron.Xamarin.Models.DomainModel"/> class.
+            </summary>
+            <param name="domainName">The domain name to use.</param>
+            <param name="key">A key for the domain.</param>
+            <param name="secret">The domain secret.</param>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.DomainModel.Name">
+            <summary>
+            The domain name to use.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.DomainModel.Key">
+            <summary>
+            A key for the domain.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.DomainModel.Secret">
+            <summary>
+            The domain secret.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Models.RegisterIdentityModel">
+            <summary>
+            The data model for registering an identity.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.FirstName">
+            <summary>
+            First name
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.MiddleNames">
+            <summary>
+            Middle name(s) as one string
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.LastNames">
+            <summary>
+            Last name(s) as one string
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.PersonalNumber">
+            <summary>
+            Personal number
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.Address">
+            <summary>
+            Address, line 1
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.Address2">
+            <summary>
+            Address, line 2
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.ZipCode">
+            <summary>
+            Zip code (postal code)
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.Area">
+            <summary>
+            Area
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.City">
+            <summary>
+            City
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.Region">
+            <summary>
+            Region
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.Country">
+            <summary>
+            Country
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.DeviceId">
+            <summary>
+            Device Id
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.JId">
+            <summary>
+            Jabber Id
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Models.RegisterIdentityModel.ToProperties(Tag.Neuron.Xamarin.Services.INeuronService)">
+            <summary>
+            Converts the <see cref="T:Tag.Neuron.Xamarin.Models.RegisterIdentityModel"/> to an array of <inheritdoc cref="T:Waher.Networking.XMPP.Contracts.Property"/>.
+            </summary>
+            <param name="neuronService">The Neuron service to use for accessing the Bare Jid.</param>
+            <returns>The <see cref="T:Tag.Neuron.Xamarin.Models.RegisterIdentityModel"/> as a list of properties.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.PersonalNumbers.PersonalNumberScheme">
             <summary>
             Checks personal numbers against a personal number scheme.
@@ -729,6 +904,22 @@
             <param name="countryCode">ISO 3166-1 Country Codes.</param>
             <returns>A string that can be displayed to a user, informing the user about the approximate format expected.</returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs">
+            <summary>
+            Represents an event class holding data related to connection state changes.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs.#ctor(Waher.Networking.XMPP.XmppState)">
+            <summary>
+            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs"/> class.
+            </summary>
+            <param name="state">The current state.</param>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs.State">
+            <summary>
+            The current state.
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ICryptoService">
             <summary>
             Cryptographic service that helps create passwords and other security related tasks.
@@ -740,6 +931,12 @@
             </summary>
             <param name="fileName">The filename to get a key for.</param>
             <returns>A cryptographic key.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ICryptoService.CreateRandomPassword">
+            <summary>
+            Generates a random password to use.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ILoadableService">
             <summary>
@@ -764,51 +961,23 @@
             Fires whenever the loading state of the service changes.
             </summary>
         </member>
-        <member name="T:Tag.Neuron.Xamarin.Services.ILogListener">
+        <member name="T:Tag.Neuron.Xamarin.Services.ILogService">
             <summary>
-            A log listener to implement and register with the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/> to get notifications
-            and being able to piggy back other calls whenever a log event occurs.
+            A log implementation for logging warnings, exceptions and events.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogWarning(System.String,System.Object[])">
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.AddListener(Waher.Events.IEventSink)">
             <summary>
-            Called whenever a warning is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
-            </summary>
-            <param name="format">A composite format string.</param>
-            <param name="args">The objects to format.</param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogException(System.Exception)">
-            <summary>
-            Called whenever an <see cref="T:System.Exception"/> is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
-            </summary>
-            <param name="e">The exception to log.</param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogException(System.Exception,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
-            <summary>
-            Called whenever an <see cref="T:System.Exception"/> is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
-            </summary>
-            <param name="e">The exception to log.</param>
-            <param name="extraParameters">Any extra parameters that are added to the log.</param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ILogListener.LogEvent(System.String,System.Collections.Generic.KeyValuePair{System.String,System.String}[])">
-            <summary>
-            Called whenever an event is added to the <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/>.
-            </summary>
-            <param name="name">The name of the event.</param>
-            <param name="extraParameters">Any extra parameters that are added to the log.</param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.AddListener(Tag.Neuron.Xamarin.Services.ILogListener)">
-            <summary>
-            Adds an <see cref="T:Tag.Neuron.Xamarin.Services.ILogListener"/> to the log service. Any listeners will be called
+            Adds an <see cref="T:Waher.Events.IEventSink"/> to the log service. Any listeners will be called
             whenever any log event occurs.
             </summary>
-            <param name="listener">The listener to add.</param>
+            <param name="eventSink">The listener to add.</param>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.RemoveListener(Tag.Neuron.Xamarin.Services.ILogListener)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.RemoveListener(Waher.Events.IEventSink)">
             <summary>
-            Removes an <see cref="T:Tag.Neuron.Xamarin.Services.ILogListener"/> to the log service.
+            Removes an <see cref="T:Waher.Events.IEventSink"/> to the log service.
             </summary>
-            <param name="listener">The listener to remove.</param>
+            <param name="eventSink">The listener to remove.</param>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ILogService.LogWarning(System.String,System.Object[])">
             <summary>
@@ -854,6 +1023,12 @@
             <summary>
             Removes any exception dump from disc, if it exists.
             </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ILogService.GetParameters">
+            <summary>
+            Gets a list of extra parameters that are useful when logging: Platform, RuntimeVersion, AppVersion.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INavigationService">
             <summary>
@@ -1168,6 +1343,46 @@
             Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
             </summary>
         </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.LegalIdentityChanged">
+            <summary>
+            An event that fires when a legal identity changes.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForIdentityReceived">
+            <summary>
+            An event that fires when a petition for an identity is received.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedIdentityResponseReceived">
+            <summary>
+            An event that fires when a petitioned identity response is received.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForContractReceived">
+            <summary>
+            An event that fires when a petition for a contract is received.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedContractResponseReceived">
+            <summary>
+            An event that fires when a petitioned contract response is received.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForPeerReviewIdReceived">
+            <summary>
+            An event that fires when a petition for peer review is received.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedPeerReviewIdResponseReceived">
+            <summary>
+            An event that fires when a petitioned peer review response is received.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForSignatureReceived">
+            <summary>
+            An event that fires when a petition for a signature is received.
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronService">
             <summary>
             Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
@@ -1351,7 +1566,7 @@
             <summary>
             The TAG Profile is the heart of the digital identity for a specific user/device.
             Use this instance to add and make a profile more complete.
-            The TAG Profile holds relevant data connected to not only where the user is in the registraton process,
+            The TAG Profile holds relevant data connected to not only where the user is in the registration process,
             but also Xmpp identifiers.
             </summary>
         </member>
@@ -1570,6 +1785,18 @@
             Revert Step 5.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.RevokeLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Sets the current <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.LegalIdentity"/> to the revoked identity, and reverses the <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.Step"/> property.
+            </summary>
+            <param name="revokedIdentity">The revoked identity to use.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.CompromiseLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Sets the current <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.LegalIdentity"/> to the compromised identity, and reverses the <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.Step"/> property.
+            </summary>
+            <param name="compromisedIdentity">The compromised identity to use.</param>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetLegalJId(System.String)">
             <summary>
             Used during Xmpp service discovery. Sets the legal id.
@@ -1740,6 +1967,9 @@
             The current loaded state.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.LogService.GetParameters">
+            <inheritdoc/>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.NavigationArgs">
             <summary>
             An abstract base class holding page specific navigation parameters.
@@ -1747,6 +1977,16 @@
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.TagProfile">
             <inheritdoc/>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.TagProfile.StepChanged">
+            <summary>
+            An event that fires every time the <see cref="P:Tag.Neuron.Xamarin.Services.TagProfile.Step"/> property changes.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.TagProfile.Changed">
+            <summary>
+            An event that fires every time any property changes.
+            </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.#ctor(Tag.Neuron.Xamarin.Models.DomainModel[])">
             <summary>
@@ -1788,6 +2028,126 @@
             <inheritdoc/>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.IsComplete">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Domain">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Account">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PasswordHash">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PasswordHashMethod">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LegalJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.RegistryJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.ProvisioningJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.HttpFileUploadJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.HttpFileUploadMaxSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LogJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.MucJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Step">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PinIsValid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.FileUploadIsSupported">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Pin">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PinHash">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.UsePin">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LegalIdentity">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Domains">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.IsDirty">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ResetIsDirty">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetDomain(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearDomain">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetAccount(System.String,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetAccountAndLegalIdentity(System.String,System.String,System.String,Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearAccount">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearLegalIdentity">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.RevokeLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.CompromiseLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetIsValidated">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearIsValidated">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetPin(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearPin">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLegalJId(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetProvisioningJId(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetRegistryJId(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetFileUploadParameters(System.String,System.Nullable{System.Int64})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLogJId(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetMucJId(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ComputePinHash(System.String)">
@@ -1922,12 +2282,11 @@
         <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Dispose">
             <inheritdoc/>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,System.Reflection.Assembly[],Tag.Neuron.Xamarin.Models.DomainModel[])">
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,Tag.Neuron.Xamarin.Models.DomainModel[])">
             <summary>
             Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.ITagIdSdk"/>. This is a factory method.
             </summary>
             <param name="appAssembly"></param>
-            <param name="additionalAssemblies"></param>
             <param name="domains"></param>
             <returns></returns>
         </member>
