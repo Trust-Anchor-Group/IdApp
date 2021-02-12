@@ -210,13 +210,37 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         bool IsOnline { get; }
 
+        /// <summary>
+        /// An event that fires when a legal identity changes.
+        /// </summary>
         event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
+        /// <summary>
+        /// An event that fires when a petition for an identity is received.
+        /// </summary>
         event EventHandler<LegalIdentityPetitionEventArgs> PetitionForIdentityReceived;
+        /// <summary>
+        /// An event that fires when a petitioned identity response is received.
+        /// </summary>
         event EventHandler<LegalIdentityPetitionResponseEventArgs> PetitionedIdentityResponseReceived;
+        /// <summary>
+        /// An event that fires when a petition for a contract is received.
+        /// </summary>
         event EventHandler<ContractPetitionEventArgs> PetitionForContractReceived;
+        /// <summary>
+        /// An event that fires when a petitioned contract response is received.
+        /// </summary>
         event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
+        /// <summary>
+        /// An event that fires when a petition for peer review is received.
+        /// </summary>
         event EventHandler<SignaturePetitionEventArgs> PetitionForPeerReviewIdReceived;
+        /// <summary>
+        /// An event that fires when a petitioned peer review response is received.
+        /// </summary>
         event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
+        /// <summary>
+        /// An event that fires when a petition for a signature is received.
+        /// </summary>
         event EventHandler<SignaturePetitionEventArgs> PetitionForSignatureReceived;
     }
 }

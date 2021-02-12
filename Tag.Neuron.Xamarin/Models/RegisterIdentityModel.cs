@@ -9,18 +9,57 @@ namespace Tag.Neuron.Xamarin.Models
     /// </summary>
     public class RegisterIdentityModel
     {
+        /// <summary>
+        /// First name
+        /// </summary>
         public string FirstName { get; set; }
+        /// <summary>
+        /// Middle name(s) as one string
+        /// </summary>
         public string MiddleNames { get; set; }
+        /// <summary>
+        /// Last name(s) as one string
+        /// </summary>
         public string LastNames { get; set; }
+        /// <summary>
+        /// Personal number
+        /// </summary>
         public string PersonalNumber { get; set; }
+        /// <summary>
+        /// Address, line 1
+        /// </summary>
         public string Address { get; set; }
+        /// <summary>
+        /// Address, line 2
+        /// </summary>
         public string Address2 { get; set; }
+        /// <summary>
+        /// Zip code (postal code)
+        /// </summary>
         public string ZipCode { get; set; }
+        /// <summary>
+        /// Area
+        /// </summary>
         public string Area { get; set; }
+        /// <summary>
+        /// City
+        /// </summary>
         public string City { get; set; }
+        /// <summary>
+        /// Region
+        /// </summary>
         public string Region { get; set; }
+        /// <summary>
+        /// Country
+        /// </summary>
         public string Country { get; set; }
+        /// <summary>
+        /// Device Id
+        /// </summary>
         public string DeviceId { get; set; }
+        /// <summary>
+        /// Jabber Id
+        /// </summary>
         public string JId { get; set; }
 
         /// <summary>

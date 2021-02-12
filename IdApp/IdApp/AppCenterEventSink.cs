@@ -31,155 +31,7 @@ namespace IdApp
         {
         }
 
-        public void LogDebug(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogDebug(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogDebug(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogDebug(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogDebug(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogDebug(string message, string actor, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogDebug(string message, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogInformational(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogInformational(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogInformational(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogInformational(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogInformational(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogInformational(string message, string actor, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogInformational(string message, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogNotice(string message, string actor, string eventId, EventLevel level, string facility, string module,
-            string stackTrace, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogNotice(string message, string actor, string eventId, EventLevel level, string facility, string module,
-            params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogNotice(string message, string actor, string eventId, EventLevel level, string facility,
-            params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogNotice(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogNotice(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogNotice(string message, string actor, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogNotice(string message, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogWarning(string message, string actor, string eventId, EventLevel level, string facility, string module,
-            string stackTrace, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogWarning(string message, string actor, string eventId, EventLevel level, string facility, string module,
-            params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogWarning(string message, string actor, string eventId, EventLevel level, string facility,
-            params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogWarning(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogWarning(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogWarning(string message, string actor, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogWarning(string message, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogError(string message, string actor, string eventId, EventLevel level, string facility, string module,
-            string stackTrace, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogError(string message, string actor, string eventId, EventLevel level, string facility, string module,
-            params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogError(string message, string actor, string eventId, EventLevel level, string facility,
-            params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogError(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogError(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogError(string message, string actor, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
-        public void LogError(string message, params KeyValuePair<string, object>[] tags)
-        {
-        }
-
+        /// <inheritdoc/>
         public void LogError(Exception exception, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
         {
             // Uncomment when adding a reference to Microsoft AppCenter
@@ -201,185 +53,408 @@ namespace IdApp
             }
             //else
             //{
-                //Microsoft.AppCenter.Crashes.Crashes.TrackError(exception);
+            //Microsoft.AppCenter.Crashes.Crashes.TrackError(exception);
             //}
         }
 
+        #region Not (yet) implemented
+
+        /// <inheritdoc/>
+        public void LogDebug(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogDebug(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogDebug(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogDebug(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogDebug(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogDebug(string message, string actor, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogDebug(string message, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogInformational(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogInformational(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogInformational(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogInformational(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogInformational(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogInformational(string message, string actor, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogInformational(string message, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogNotice(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogNotice(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogNotice(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogNotice(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogNotice(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogNotice(string message, string actor, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogNotice(string message, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogWarning(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogWarning(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogWarning(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogWarning(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogWarning(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogWarning(string message, string actor, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogWarning(string message, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogError(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogError(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogError(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogError(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogError(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogError(string message, string actor, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
+        public void LogError(string message, params KeyValuePair<string, object>[] tags)
+        {
+        }
+
+        /// <inheritdoc/>
         public void LogError(Exception exception, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogError(Exception exception, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogError(Exception exception, string actor, string eventId, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogError(Exception exception, string actor, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogError(Exception exception, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(string message, string actor, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(string message, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(Exception exception, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(Exception exception, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(Exception exception, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(Exception exception, string actor, string eventId, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(Exception exception, string actor, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogCritical(Exception exception, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(string message, string actor, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(string message, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(Exception exception, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(Exception exception, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(Exception exception, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(Exception exception, string actor, string eventId, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(Exception exception, string actor, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogAlert(Exception exception, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(string message, string actor, string eventId, EventLevel level, string facility, string module, string stackTrace, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(string message, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(string message, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(string message, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(string message, string actor, string eventId, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(string message, string actor, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(string message, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(Exception exception, string actor, string eventId, EventLevel level, string facility, string module, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(Exception exception, string actor, string eventId, EventLevel level, string facility, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(Exception exception, string actor, string eventId, EventLevel level, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(Exception exception, string actor, string eventId, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(Exception exception, string actor, params KeyValuePair<string, object>[] tags)
         {
         }
 
+        /// <inheritdoc/>
         public void LogEmergency(Exception exception, params KeyValuePair<string, object>[] tags)
         {
         }
+
+        #endregion
 
         /// <inheritdoc/>
         public string ObjectID => AppCenterSinkId;

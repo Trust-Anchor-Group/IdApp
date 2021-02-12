@@ -133,6 +133,9 @@ namespace Tag.Neuron.Xamarin
         /// </summary>
         public static class MimeTypes
         {
+            /// <summary>
+            /// The Jpeg mime type.
+            /// </summary>
             public const string Jpeg = "image/jpeg";
         }
 
