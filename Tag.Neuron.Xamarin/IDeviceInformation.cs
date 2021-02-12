@@ -8,6 +8,6 @@
         /// <summary>
         /// Gets the ID of the device.
         /// </summary>
-        string GetDeviceID();
+        string GetDeviceId();
     }
 }

@@ -10,7 +10,7 @@ namespace IdApp.iOS
         /// <summary>
         /// Gets the ID of the device.
         /// </summary>
-        public string GetDeviceID()
+        public string GetDeviceId()
         {
             return UIDevice.CurrentDevice.IdentifierForVendor.ToString();
         }

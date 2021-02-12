@@ -9,9 +9,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
     /// </summary>
     public class FlipView : ContentView
     {
-        private const uint duration = 300;
-        private static readonly Easing easingIn = Easing.SinIn;
-        private static readonly Easing easingOut = Easing.SinOut;
+        private const uint DurationInMs = 300;
+        private static readonly Easing EasingIn = Easing.SinIn;
+        private static readonly Easing EasingOut = Easing.SinOut;
 
         private readonly RelativeLayout contentHolder;
         private View frontView;
@@ -19,12 +19,18 @@ namespace Tag.Neuron.Xamarin.UI.Views
         private bool isFlipped;
         private bool isFlipping;
 
+        /// <summary>
+        /// Creates an instance of the <see cref="FlipView"/> control.
+        /// </summary>
         public FlipView()
         {
             contentHolder = new RelativeLayout();
             Content = contentHolder;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly BindableProperty FrontViewProperty =
             BindableProperty.Create("FrontView", typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -61,6 +67,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
             set { SetValue(FrontViewProperty, value); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static readonly BindableProperty BackViewProperty =
             BindableProperty.Create("BackView", typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -176,28 +185,28 @@ namespace Tag.Neuron.Xamarin.UI.Views
         {
             ViewExtensions.CancelAnimations(this);
             this.RotationY = 360;
-            await this.RotateYTo(270, duration, easingIn);
+            await this.RotateYTo(270, DurationInMs, EasingIn);
         }
 
         private async Task RotateBackToFront_Forward()
         {
             ViewExtensions.CancelAnimations(this);
             this.RotationY = 90;
-            await this.RotateYTo(0, duration, easingOut);
+            await this.RotateYTo(0, DurationInMs, EasingOut);
         }
 
         private async Task RotateFrontToBack_Reverse()
         {
             ViewExtensions.CancelAnimations(this);
             this.RotationY = 0;
-            await this.RotateYTo(90, duration, easingIn);
+            await this.RotateYTo(90, DurationInMs, EasingIn);
         }
 
         private async Task RotateBackToFront_Reverse()
         {
             ViewExtensions.CancelAnimations(this);
             this.RotationY = 270;
-            await this.RotateYTo(360, duration, easingOut);
+            await this.RotateYTo(360, DurationInMs, EasingOut);
         }
 
         #endregion

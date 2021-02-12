@@ -446,7 +446,7 @@
             Dependency interface for device-specific information.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.IDeviceInformation.GetDeviceID">
+        <member name="M:Tag.Neuron.Xamarin.IDeviceInformation.GetDeviceId">
             <summary>
             Gets the ID of the device.
             </summary>

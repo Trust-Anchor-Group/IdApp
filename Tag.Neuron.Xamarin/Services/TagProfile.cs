@@ -17,8 +17,16 @@ namespace Tag.Neuron.Xamarin.Services
     public class TagProfile : ITagProfile
     {
         private readonly Dictionary<string, KeyValuePair<string, string>> domains;
+
+        /// <summary>
+        /// An event that fires every time the <see cref="Step"/> property changes.
+        /// </summary>
         public event EventHandler StepChanged;
+        /// <summary>
+        /// An event that fires every time any property changes.
+        /// </summary>
         public event PropertyChangedEventHandler Changed;
+
         private LegalIdentity legalIdentity;
         private string objectId;
         private string domain;
@@ -163,6 +171,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         #region Properties
 
+        /// <inheritdoc/>
         public string Domain
         {
             get => this.domain;
@@ -176,6 +185,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string Account
         {
             get => this.account;
@@ -189,6 +199,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string PasswordHash
         {
             get => this.passwordHash;
@@ -202,6 +213,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string PasswordHashMethod
         {
             get => this.passwordHashMethod;
@@ -215,6 +227,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string LegalJid
         {
             get => this.legalJid;
@@ -228,6 +241,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string RegistryJid
         {
             get => this.registryJid;
@@ -241,6 +255,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string ProvisioningJid
         {
             get => this.provisioningJid;
@@ -254,6 +269,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string HttpFileUploadJid
         {
             get => this.httpFileUploadJid;
@@ -267,6 +283,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public long? HttpFileUploadMaxSize
         {
             get => this.httpFileUploadMaxSize;
@@ -280,6 +297,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string LogJid
         {
             get => this.logJid;
@@ -293,6 +311,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string MucJid
         {
             get => this.mucJid;
@@ -306,6 +325,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public RegistrationStep Step
         {
             get => this.step;
@@ -320,15 +340,19 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public bool PinIsValid => !this.UsePin || !string.IsNullOrEmpty(this.PinHash);
 
+        /// <inheritdoc/>
         public bool FileUploadIsSupported => !string.IsNullOrWhiteSpace(this.HttpFileUploadJid) && this.HttpFileUploadMaxSize.HasValue;
 
+        /// <inheritdoc/>
         public string Pin
         {
             set => this.pinHash = this.ComputePinHash(value);
         }
 
+        /// <inheritdoc/>
         public string PinHash
         {
             get => this.pinHash;
@@ -342,6 +366,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public bool UsePin
         {
             get => this.usePin;
@@ -355,6 +380,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public LegalIdentity LegalIdentity
         {
             get => this.legalIdentity;
@@ -368,8 +394,10 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public string[] Domains => this.domains.Keys.ToArray();
 
+        /// <inheritdoc/>
         public bool IsDirty { get; private set; }
 
         private void FlagAsDirty(string propertyName)
@@ -381,6 +409,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public void ResetIsDirty()
         {
             this.IsDirty = false;
@@ -448,7 +477,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
-        // Step 1
+        /// <inheritdoc/>
         public void SetDomain(string domainName)
         {
             this.Domain = domainName;
@@ -458,13 +487,14 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public void ClearDomain()
         {
             this.Domain = string.Empty;
             this.DecrementConfigurationStep(RegistrationStep.Operator);
         }
 
-        // Step 2
+        /// <inheritdoc/>
         public void SetAccount(string accountName, string clientPasswordHash, string clientPasswordHashMethod)
         {
             this.Account = accountName;
@@ -476,7 +506,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
-        // Step 2, 3
+        /// <inheritdoc/>
         public void SetAccountAndLegalIdentity(string accountName, string clientPasswordHash, string clientPasswordHashMethod, LegalIdentity identity)
         {
             this.Account = accountName;
@@ -496,6 +526,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public void ClearAccount()
         {
             this.Account = string.Empty;
@@ -504,7 +535,7 @@ namespace Tag.Neuron.Xamarin.Services
             this.DecrementConfigurationStep(RegistrationStep.Operator); // prev
         }
 
-        // Step 3
+        /// <inheritdoc/>
         public void SetLegalIdentity(LegalIdentity identity)
         {
             this.LegalIdentity = identity;
@@ -514,6 +545,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public void ClearLegalIdentity()
         {
             this.LegalIdentity = null;
@@ -521,19 +553,21 @@ namespace Tag.Neuron.Xamarin.Services
             this.DecrementConfigurationStep(RegistrationStep.Account); // prev
         }
 
+        /// <inheritdoc/>
         public void RevokeLegalIdentity(LegalIdentity revokedIdentity)
         {
             this.LegalIdentity = revokedIdentity;
             this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
         }
 
+        /// <inheritdoc/>
         public void CompromiseLegalIdentity(LegalIdentity compromisedIdentity)
         {
             this.LegalIdentity = compromisedIdentity;
             this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
         }
 
-        // Step 4
+        /// <inheritdoc/>
         public void SetIsValidated()
         {
             if (this.Step == RegistrationStep.ValidateIdentity)
@@ -542,13 +576,14 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public void ClearIsValidated()
         {
             this.DecrementConfigurationStep(RegistrationStep.Account); // Bypass Register (step 3), go directly to Account (Step2)
             this.ClearLegalIdentity();
         }
 
-        // Step 5
+        /// <inheritdoc/>
         public void SetPin(string pin, bool shouldUsePin)
         {
             this.Pin = pin;
@@ -559,6 +594,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public void ClearPin()
         {
             this.Pin = string.Empty;
@@ -569,32 +605,38 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
+        /// <inheritdoc/>
         public void SetLegalJId(string legalJId)
         {
             this.LegalJid = legalJId;
         }
 
+        /// <inheritdoc/>
         public void SetProvisioningJId(string provisioningJId)
         {
             this.ProvisioningJid = provisioningJId;
         }
 
+        /// <inheritdoc/>
         public void SetRegistryJId(string registryJId)
         {
             this.RegistryJid = registryJId;
         }
 
+        /// <inheritdoc/>
         public void SetFileUploadParameters(string httpFileUploadJId, long? maxSize)
         {
             this.HttpFileUploadJid = httpFileUploadJId;
             this.HttpFileUploadMaxSize = maxSize;
         }
 
+        /// <inheritdoc/>
         public void SetLogJId(string logJId)
         {
             this.LogJid = logJId;
         }
 
+        /// <inheritdoc/>
         public void SetMucJId(string mucJId)
         {
             this.MucJid = mucJId;

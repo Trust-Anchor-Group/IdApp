@@ -14,12 +14,14 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
         [TypeConverter(typeof(ReferenceTypeConverter))]
         public View SetFocusTo { get; set; }
 
+        /// <inheritdoc/>
         protected override void OnAttachedTo(Entry entry)
         {
             entry.Completed += Entry_Completed;
             base.OnAttachedTo(entry);
         }
 
+        /// <inheritdoc/>
         protected override void OnDetachingFrom(Entry entry)
         {
             entry.TextChanged -= Entry_Completed;

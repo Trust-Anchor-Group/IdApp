@@ -36,7 +36,7 @@ namespace IdApp.ViewModels.Registration
         {
             this.networkService = networkService;
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
-            this.DeviceId = deviceInfo?.GetDeviceID();
+            this.DeviceId = deviceInfo?.GetDeviceId();
             this.Countries = new ObservableCollection<string>();
             foreach (string country in ISO_3166_1.Countries)
                 this.Countries.Add(country);

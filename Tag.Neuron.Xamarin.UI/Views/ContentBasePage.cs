@@ -20,6 +20,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
         private readonly ILogService logService;
         private readonly IUiDispatcher uiDispatcher;
 
+        /// <summary>
+        /// Creates an instance of the <see cref="ContentBasePage"/> class.
+        /// </summary>
         public ContentBasePage()
         {
             this.logService = DependencyService.Resolve<ILogService>();
@@ -58,6 +61,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
             return (T)ViewModel;
         }
 
+        /// <inheritdoc/>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -88,6 +92,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
             }
         }
 
+        /// <inheritdoc/>
         protected override async void OnDisappearing()
         {
             if (ViewModel != null)
