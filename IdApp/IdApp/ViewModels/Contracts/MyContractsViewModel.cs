@@ -13,6 +13,9 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
 {
+    /// <summary>
+    /// The view model to bind to when displaying 'my' contracts.
+    /// </summary>
     public class MyContractsViewModel : BaseViewModel
     {
         private readonly Dictionary<string, Contract> contractsMap;
@@ -27,6 +30,10 @@ namespace IdApp.ViewModels.Contracts
         private readonly IUiDispatcher uiDispatcher;
         private DateTime loadContractsTimestamp;
 
+        /// <summary>
+        /// Creates an instance of the <see cref="MyContractsViewModel"/> class.
+        /// <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
+        /// </summary>
         public MyContractsViewModel(bool showCreatedContracts)
         {
             this.neuronService = DependencyService.Resolve<INeuronService>();
@@ -39,6 +46,7 @@ namespace IdApp.ViewModels.Contracts
             this.Title = showCreatedContracts ? AppResources.MyContracts : AppResources.SignedContracts;
         }
 
+        /// <inheritdoc/>
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -47,6 +55,7 @@ namespace IdApp.ViewModels.Contracts
             _ = LoadContracts(this.loadContractsTimestamp);
         }
 
+        /// <inheritdoc/>
         protected override async Task DoUnbind()
         {
             this.ShowContractsMissing = false;
@@ -56,26 +65,44 @@ namespace IdApp.ViewModels.Contracts
             await base.DoUnbind();
         }
 
+        /// <summary>
+        /// See <see cref="Title"/>
+        /// </summary>
         public static readonly BindableProperty TitleProperty =
             BindableProperty.Create("Title", typeof(string), typeof(MyContractsViewModel), default(string));
 
+        /// <summary>
+        /// Gets or sets the title for the view displaying contracts.
+        /// </summary>
         public string Title
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="ShowContractsMissing"/>
+        /// </summary>
         public static readonly BindableProperty ShowContractsMissingProperty =
             BindableProperty.Create("ShowContractsMissing", typeof(bool), typeof(MyContractsViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether to show a contracts missing alert or not.
+        /// </summary>
         public bool ShowContractsMissing
         {
             get { return (bool) GetValue(ShowContractsMissingProperty); }
             set { SetValue(ShowContractsMissingProperty, value); }
         }
 
+        /// <summary>
+        /// Holds the list of contracts to display.
+        /// </summary>
         public ObservableCollection<ContractModel> Contracts { get; }
 
+        /// <summary>
+        /// See <see cref="SelectedContract"/>
+        /// </summary>
         public static readonly BindableProperty SelectedContractProperty =
             BindableProperty.Create("SelectedContract", typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -87,6 +114,9 @@ namespace IdApp.ViewModels.Contracts
                 }
             });
 
+        /// <summary>
+        /// The currently selected contract, if any.
+        /// </summary>
         public ContractModel SelectedContract
         {
             get { return (ContractModel)GetValue(SelectedContractProperty); }

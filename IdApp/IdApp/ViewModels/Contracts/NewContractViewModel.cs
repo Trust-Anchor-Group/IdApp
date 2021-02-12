@@ -17,6 +17,9 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
 {
+    /// <summary>
+    /// The view model to bind to when displaying a new contract view or page.
+    /// </summary>
     public class NewContractViewModel : BaseViewModel
     {
         private SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
@@ -32,6 +35,9 @@ namespace IdApp.ViewModels.Contracts
         private string contractTemplateId;
         private bool saveState;
 
+        /// <summary>
+        /// Creates an instance of the <see cref="NewContractViewModel"/> class.
+        /// </summary>
         public NewContractViewModel()
         {
             this.contractTypesPerCategory = new SortedDictionary<string, SortedDictionary<string, string>>();
@@ -54,6 +60,7 @@ namespace IdApp.ViewModels.Contracts
             this.ContractHumanReadableText = new ObservableCollection<string>();
         }
 
+        /// <inheritdoc/>
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -80,6 +87,7 @@ namespace IdApp.ViewModels.Contracts
             this.UsePin = this.tagProfile.UsePin;
         }
 
+        /// <inheritdoc/>
         protected override async Task DoUnbind()
         {
             this.ContractCategories.Clear();
@@ -91,6 +99,7 @@ namespace IdApp.ViewModels.Contracts
             await base.DoUnbind();
         }
 
+        /// <inheritdoc/>
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
@@ -102,6 +111,7 @@ namespace IdApp.ViewModels.Contracts
             }
         }
 
+        /// <inheritdoc/>
         protected override async Task DoRestoreState()
         {
             if (this.saveState)
@@ -126,43 +136,79 @@ namespace IdApp.ViewModels.Contracts
 
         #region Properties
 
+        /// <summary>
+        /// The Propose action which creates a new contract.
+        /// </summary>
         public ICommand ProposeCommand { get; }
 
+        /// <summary>
+        /// The Add part action which adds a new part to a contract.
+        /// </summary>
         public ICommand AddPartCommand { get; }
 
+        /// <summary>
+        /// A parameter changed command to execute when a contract parameter changes.
+        /// </summary>
         public ICommand ParameterChangedCommand { get; }
 
+        /// <summary>
+        /// See <see cref="IsTemplate"/>
+        /// </summary>
         public static readonly BindableProperty IsTemplateProperty =
             BindableProperty.Create("IsTemplate", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether this contract is a template or not.
+        /// </summary>
         public bool IsTemplate
         {
             get { return (bool)GetValue(IsTemplateProperty); }
             set { SetValue(IsTemplateProperty, value); }
         }
 
+        /// <summary>
+        /// A list of valid visibility items to choose from for this contract.
+        /// </summary>
         public ObservableCollection<ContractVisibilityModel> ContractVisibilityItems { get; }
 
+        /// <summary>
+        /// See <see cref="SelectedContractVisibilityItem"/>
+        /// </summary>
         public static readonly BindableProperty SelectedContractVisibilityItemProperty =
             BindableProperty.Create("SelectedContractVisibilityItem", typeof(ContractVisibilityModel), typeof(NewContractViewModel), default(ContractVisibilityModel));
 
+        /// <summary>
+        /// The selected contract visibility item, if any.
+        /// </summary>
         public ContractVisibilityModel SelectedContractVisibilityItem
         {
             get { return (ContractVisibilityModel)GetValue(SelectedContractVisibilityItemProperty); }
             set { SetValue(SelectedContractVisibilityItemProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="VisibilityIsEnabled"/>
+        /// </summary>
         public static readonly BindableProperty VisibilityIsEnabledProperty =
             BindableProperty.Create("VisibilityIsEnabled", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the visibility items should be shown to the user or not.
+        /// </summary>
         public bool VisibilityIsEnabled
         {
             get { return (bool)GetValue(VisibilityIsEnabledProperty); }
             set { SetValue(VisibilityIsEnabledProperty, value); }
         }
 
+        /// <summary>
+        /// The valid list of contract categories.
+        /// </summary>
         public ObservableCollection<string> ContractCategories { get; }
 
+        /// <summary>
+        /// See <see cref="SelectedContractCategory"/>
+        /// </summary>
         public static readonly BindableProperty SelectedContractCategoryProperty =
             BindableProperty.Create("SelectedContractCategory", typeof(string), typeof(NewContractViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -170,23 +216,38 @@ namespace IdApp.ViewModels.Contracts
                 viewModel.UpdateContractTypes();
             });
 
+        /// <summary>
+        /// The selected contract category, if any.
+        /// </summary>
         public string SelectedContractCategory
         {
             get { return (string)GetValue(SelectedContractCategoryProperty); }
             set { SetValue(SelectedContractCategoryProperty, value); }
         }
 
+        /// <summary>
+        /// The list of contract types to choose from.
+        /// </summary>
         public ObservableCollection<string> ContractTypes { get; }
 
+        /// <summary>
+        /// See <see cref="HasContractTypes"/>
+        /// </summary>
         public static readonly BindableProperty HasContractTypesProperty =
             BindableProperty.Create("HasContractTypes", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has contract types or not.
+        /// </summary>
         public bool HasContractTypes
         {
             get { return (bool)GetValue(HasContractTypesProperty); }
             set { SetValue(HasContractTypesProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="SelectedContractType"/>
+        /// </summary>
         public static readonly BindableProperty SelectedContractTypeProperty =
             BindableProperty.Create("SelectedContractType", typeof(string), typeof(NewContractViewModel), default(string), propertyChanged: async (b, oldValue, newValue) =>
             {
@@ -194,21 +255,33 @@ namespace IdApp.ViewModels.Contracts
                 await viewModel.UpdateContractTemplate();
             });
 
+        /// <summary>
+        /// The selected contract type, if any.
+        /// </summary>
         public string SelectedContractType
         {
             get { return (string)GetValue(SelectedContractTypeProperty); }
             set { SetValue(SelectedContractTypeProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Pin"/>
+        /// </summary>
         public static readonly BindableProperty PinProperty =
             BindableProperty.Create("Pin", typeof(string), typeof(NewContractViewModel), default(string));
 
+        /// <summary>
+        /// Gets or sets the user selected Pin. Can be null.
+        /// </summary>
         public string Pin
         {
             get { return (string)GetValue(PinProperty); }
             set { SetValue(PinProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="SelectedRole"/>
+        /// </summary>
         public static readonly BindableProperty SelectedRoleProperty =
             BindableProperty.Create("SelectedRole", typeof(RoleModel), typeof(NewContractViewModel), default(RoleModel), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -217,66 +290,114 @@ namespace IdApp.ViewModels.Contracts
                 viewModel.AddRole((RoleModel)newValue);
             });
 
+        /// <summary>
+        /// The role selected for the contract, if any.
+        /// </summary>
         public RoleModel SelectedRole
         {
             get { return (RoleModel)GetValue(SelectedRoleProperty); }
             set { SetValue(SelectedRoleProperty, value); }
         }
 
+        /// <summary>
+        /// The list of available contract roles.
+        /// </summary>
         public ObservableCollection<RoleModel> ContractRoles { get; }
 
+        /// <summary>
+        /// The list of available contract parameters.
+        /// </summary>
         public ObservableCollection<ParameterModel> ContractParameters { get; }
 
+        /// <summary>
+        /// The list of available human readable texts belonging to the contract.
+        /// </summary>
         public ObservableCollection<string> ContractHumanReadableText { get; }
 
+        /// <summary>
+        /// See <see cref="UsePin"/>
+        /// </summary>
         public static readonly BindableProperty UsePinProperty =
             BindableProperty.Create("UsePin", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether a pin should be used for added security.
+        /// </summary>
         public bool UsePin
         {
             get { return (bool)GetValue(UsePinProperty); }
             set { SetValue(UsePinProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasTemplate"/>
+        /// </summary>
         public static readonly BindableProperty HasTemplateProperty =
             BindableProperty.Create("HasTemplate", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has a template or not.
+        /// </summary>
         public bool HasTemplate
         {
             get { return (bool)GetValue(HasTemplateProperty); }
             set { SetValue(HasTemplateProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasRoles"/>
+        /// </summary>
         public static readonly BindableProperty HasRolesProperty =
             BindableProperty.Create("HasRoles", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has roles.
+        /// </summary>
         public bool HasRoles
         {
             get { return (bool)GetValue(HasRolesProperty); }
             set { SetValue(HasRolesProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasParameters"/>
+        /// </summary>
         public static readonly BindableProperty HasParametersProperty =
             BindableProperty.Create("HasParameters", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has parameters.
+        /// </summary>
         public bool HasParameters
         {
             get { return (bool)GetValue(HasParametersProperty); }
             set { SetValue(HasParametersProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasHumanReadableText"/>
+        /// </summary>
         public static readonly BindableProperty HasHumanReadableTextProperty =
             BindableProperty.Create("HasHumanReadableText", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract is comprised of human readable text.
+        /// </summary>
         public bool HasHumanReadableText
         {
             get { return (bool)GetValue(HasHumanReadableTextProperty); }
             set { SetValue(HasHumanReadableTextProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="CanAddParts"/>
+        /// </summary>
         public static readonly BindableProperty CanAddPartsProperty =
             BindableProperty.Create("CanAddParts", typeof(bool), typeof(NewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether a user can add parts to a contract.
+        /// </summary>
         public bool CanAddParts
         {
             get { return (bool)GetValue(CanAddPartsProperty); }
