@@ -29,12 +29,7 @@ namespace Tag.Neuron.Xamarin
 		{
 			this.appAssembly = appAssembly;
 
-			// TODO: Check why TagProfile does not instantiate properly
-			//this.TagProfile = Types.Instantiate<TagProfile>(false, domains);
-
-			this.TagProfile = new TagProfile(domains);
-			Types.RegisterSingleton(this.TagProfile);
-
+			this.TagProfile = Types.Instantiate<TagProfile>(false, (object)domains);
 			this.LogService = Types.Instantiate<LogService>(false, DependencyService.Resolve<IAppInformation>());
 			this.uiDispatcher = Types.Instantiate<UiDispatcher>(false);
 			this.CryptoService = Types.Instantiate<CryptoService>(false, this.LogService);
