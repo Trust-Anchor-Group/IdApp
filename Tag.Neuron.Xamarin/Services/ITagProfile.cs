@@ -8,7 +8,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// <summary>
     /// The TAG Profile is the heart of the digital identity for a specific user/device.
     /// Use this instance to add and make a profile more complete.
-    /// The TAG Profile holds relevant data connected to not only where the user is in the registraton process,
+    /// The TAG Profile holds relevant data connected to not only where the user is in the registration process,
     /// but also Xmpp identifiers.
     /// </summary>
     [DefaultImplementation(typeof(TagProfile))]
@@ -189,10 +189,16 @@ namespace Tag.Neuron.Xamarin.Services
         /// Revert Step 5.
         /// </summary>
         void ClearPin();
-
+        /// <summary>
+        /// Sets the current <see cref="LegalIdentity"/> to the revoked identity, and reverses the <see cref="Step"/> property.
+        /// </summary>
+        /// <param name="revokedIdentity">The revoked identity to use.</param>
         void RevokeLegalIdentity(LegalIdentity revokedIdentity);
+        /// <summary>
+        /// Sets the current <see cref="LegalIdentity"/> to the compromised identity, and reverses the <see cref="Step"/> property.
+        /// </summary>
+        /// <param name="compromisedIdentity">The compromised identity to use.</param>
         void CompromiseLegalIdentity(LegalIdentity compromisedIdentity);
-
         /// <summary>
         /// Used during Xmpp service discovery. Sets the legal id.
         /// </summary>

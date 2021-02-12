@@ -6,8 +6,16 @@ using Waher.Networking.Sniffers;
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// Extensions for the <see cref="ISniffer"/> implementation.
+    /// </summary>
     public static class SnifferExtensions
     {
+        /// <summary>
+        /// Converts the latest Xmpp communication that the sniffer holds to plain text.
+        /// </summary>
+        /// <param name="sniffer">The sniffer whose contents to get.</param>
+        /// <returns>The xmpp communication in plain text.</returns>
         public static string SnifferToText(this InMemorySniffer sniffer)
         {
             if (sniffer == null)
@@ -24,6 +32,11 @@ namespace Tag.Neuron.Xamarin.Extensions
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Converts the latest Xmpp communication that the sniffer holds to xml.
+        /// </summary>
+        /// <param name="sniffer">The sniffer whose contents to get.</param>
+        /// <returns>The xmpp communication in xml.</returns>
         public static string SnifferToXml(this InMemorySniffer sniffer)
         {
             XmlWriterSettings settings = new XmlWriterSettings()

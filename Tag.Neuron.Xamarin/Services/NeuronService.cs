@@ -25,7 +25,7 @@ namespace Tag.Neuron.Xamarin.Services
     {
         private readonly Assembly appAssembly;
         private readonly INetworkService networkService;
-        private readonly IInternalLogService logService;
+        private readonly ILogService logService;
         private readonly ITagProfile tagProfile;
         private Timer reconnectTimer;
         private XmppClient xmppClient;
@@ -39,8 +39,9 @@ namespace Tag.Neuron.Xamarin.Services
         private readonly InMemorySniffer sniffer;
         private bool isCreatingClient;
         private bool isCreatingContractClient;
+        private XmppEventSink xmppEventSink;
 
-        public NeuronService(Assembly appAssembly, ITagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, IInternalLogService logService)
+        public NeuronService(Assembly appAssembly, ITagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, ILogService logService)
         {
             this.appAssembly = appAssembly;
             this.networkService = networkService;
@@ -109,6 +110,8 @@ namespace Tag.Neuron.Xamarin.Services
 
                     this.xmppClient.Connect(domainName);
 
+                    this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
+
                     bool connectSucceeded = false;
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
@@ -147,7 +150,13 @@ namespace Tag.Neuron.Xamarin.Services
                 this.xmppClient.OnConnectionError -= XmppClient_ConnectionError;
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
-                this.logService.UnRegisterEventSink();
+                if (this.xmppEventSink != null)
+                {
+                    this.logService.RemoveListener(this.xmppEventSink);
+                    this.xmppEventSink.Dispose();
+                    this.xmppEventSink = null;
+                }
+
                 this.xmppClient.Dispose();
             }
             this.xmppClient = null;
@@ -238,7 +247,7 @@ namespace Tag.Neuron.Xamarin.Services
                         await CreateContractsClientIfNeeded();
                     }
 
-                    this.logService.RegisterEventSink(this.xmppClient, this.tagProfile.LogJid);
+                    this.logService.AddListener(this.xmppEventSink);
 
                     break;
 

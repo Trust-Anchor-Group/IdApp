@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// An extensions class for the <see cref="Task"/> class.
+    /// </summary>
     public static class TaskExtensions
     {
         /// <summary>

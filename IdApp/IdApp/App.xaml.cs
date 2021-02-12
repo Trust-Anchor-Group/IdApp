@@ -8,7 +8,6 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
-using Waher.Events;
 using Waher.IoTGateway.Setup;
 using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
@@ -56,7 +55,7 @@ namespace IdApp
 				});
 
 				// Register log listener (optional)
-				this.sdk.LogService.AddListener(new AppCenterLogListener());
+				this.sdk.LogService.AddListener(new AppCenterEventSink(this.sdk.LogService));
 
 				// Resolve what's needed for the App class
 				this.imageCacheService = DependencyService.Resolve<IImageCacheService>();

@@ -5,7 +5,7 @@ using Waher.Networking.XMPP.MUC;
 
 namespace Tag.Neuron.Xamarin.Services
 {
-    public interface IInternalNeuronService : INeuronService
+    internal interface IInternalNeuronService : INeuronService
     {
         Task<ContractsClient> CreateContractsClientAsync();
         Task<HttpFileUploadClient> CreateFileUploadClientAsync();

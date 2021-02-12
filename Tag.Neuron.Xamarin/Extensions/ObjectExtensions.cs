@@ -3,6 +3,9 @@ using System.Reflection;
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// Generic extension class for objects of type <see cref="object"/>.
+    /// </summary>
     public static class ObjectExtensions
     {
         /// <summary>

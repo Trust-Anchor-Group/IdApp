@@ -42,14 +42,14 @@ namespace Tag.Neuron.Xamarin
 			this.TagProfile = new TagProfile(domains);
 			Types.RegisterSingleton(this.TagProfile);
 
-			this.logService = Types.Instantiate<LogService>(false, DependencyService.Resolve<IAppInformation>());
+			this.LogService = Types.Instantiate<LogService>(false, DependencyService.Resolve<IAppInformation>());
 			this.uiDispatcher = Types.Instantiate<UiDispatcher>(false);
 			this.CryptoService = Types.Instantiate<CryptoService>(false, this.LogService);
 			this.NetworkService = Types.Instantiate<NetworkService>(false, this.LogService, this.UiDispatcher);
 			this.SettingsService = Types.Instantiate<SettingsService>(false);
 			this.StorageService = Types.Instantiate<StorageService>(false);
-			this.neuronService = Types.Instantiate<NeuronService>(false, this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.logService);
-			this.NavigationService = Types.Instantiate<NavigationService>(false, this.logService, this.uiDispatcher);
+			this.neuronService = Types.Instantiate<NeuronService>(false, this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
+			this.NavigationService = Types.Instantiate<NavigationService>(false, this.LogService, this.uiDispatcher);
 		}
 
 		/// <inheritdoc/>
@@ -91,9 +91,8 @@ namespace Tag.Neuron.Xamarin
 		public IStorageService StorageService { get; }
 		/// <inheritdoc/>
 		public ISettingsService SettingsService { get; }
-		private readonly IInternalLogService logService;
-		/// <inheritdoc/>
-		public ILogService LogService => logService;
+        /// <inheritdoc/>
+        public ILogService LogService { get; }
 
 		/// <inheritdoc/>
 		public async Task Startup(bool isResuming)
@@ -205,7 +204,7 @@ namespace Tag.Neuron.Xamarin
 				}
 				catch (Exception ex)
 				{
-					this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+					this.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 				}
 			}
 		}
@@ -233,7 +232,7 @@ namespace Tag.Neuron.Xamarin
 			catch (Exception e1)
 			{
 				// Create failed.
-				this.logService.LogException(e1, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+				this.LogService.LogException(e1, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
 
 				try
 				{
@@ -259,7 +258,7 @@ namespace Tag.Neuron.Xamarin
 				catch (Exception e2)
 				{
 					// Repair failed
-					this.logService.LogException(e2, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+					this.LogService.LogException(e2, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
 
 					if (await this.UiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
 					{
@@ -274,7 +273,7 @@ namespace Tag.Neuron.Xamarin
 						catch (Exception e3)
 						{
 							// Delete and create new failed. We're out of options.
-							this.logService.LogException(e3, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+							this.LogService.LogException(e3, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
 							await this.UiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
 						}
 					}
@@ -288,7 +287,7 @@ namespace Tag.Neuron.Xamarin
 			}
 			catch (Exception e)
 			{
-				this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+				this.LogService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
 			}
 		}
 
@@ -302,7 +301,7 @@ namespace Tag.Neuron.Xamarin
 			}
 			catch (Exception findException)
 			{
-				this.logService.LogException(findException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+				this.LogService.LogException(findException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 				configuration = null;
 			}
 
@@ -315,7 +314,7 @@ namespace Tag.Neuron.Xamarin
 				}
 				catch (Exception insertException)
 				{
-					this.logService.LogException(insertException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+					this.LogService.LogException(insertException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 				}
 			}
 

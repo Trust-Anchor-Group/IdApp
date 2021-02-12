@@ -12,6 +12,9 @@ using Xamarin.Forms;
 
 namespace IdApp
 {
+    /// <summary>
+    /// The Xamarin Forms Shell implementation of the TAG ID App.
+    /// </summary>
     public partial class AppShell
     {
         private readonly INavigationService navigationService;
@@ -19,6 +22,9 @@ namespace IdApp
         private readonly IUiDispatcher uiDispatcher;
         private readonly IContractOrchestratorService contractOrchestratorService;
 
+        /// <summary>
+        /// Create a new instance of the <see cref="AppShell"/> class.
+        /// </summary>
         public AppShell()
         {
             this.ViewModel = new AppShellViewModel();
@@ -31,6 +37,7 @@ namespace IdApp
             RegisterRoutes();
         }
 
+        /// <inheritdoc/>
         protected override void OnNavigated(ShellNavigatedEventArgs e)
         {
             base.OnNavigated(e);

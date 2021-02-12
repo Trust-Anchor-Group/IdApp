@@ -94,7 +94,7 @@ namespace IdApp.Services
 
         private async void Contracts_PetitionForIdentityReceived(object sender, LegalIdentityPetitionEventArgs e)
         {
-            LegalIdentity identity = null;
+            LegalIdentity identity;
 
             if (e.RequestedIdentityId == this.tagProfile.LegalIdentity?.Id)
             {
@@ -103,7 +103,7 @@ namespace IdApp.Services
             else
             {
                 (bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
-                if (succeeded)
+                if (succeeded && li != null)
                 {
                     identity = li;
                 }
@@ -111,6 +111,12 @@ namespace IdApp.Services
                 {
                     return;
                 }
+            }
+
+            if (identity == null)
+            {
+                this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForIdentityReceived)}() - identity is missing or cannot be retrieved, ignore.");
+                return;
             }
 
             if (identity.State == IdentityState.Compromised ||

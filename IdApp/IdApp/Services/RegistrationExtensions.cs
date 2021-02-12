@@ -4,7 +4,7 @@ using Tag.Neuron.Xamarin.Models;
 namespace Waher.IoTGateway.Setup
 {
     /// <summary>
-    /// Represents a users's Xmpp connection and profile properties.
+    /// Represents a user's Xmpp connection and profile properties.
     /// </summary>
     public partial class XmppConfiguration
     {

@@ -2,6 +2,9 @@
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// An extensions class for <see cref="Stream"/>s.
+    /// </summary>
     public static class StreamExtensions
     {
         /// <summary>

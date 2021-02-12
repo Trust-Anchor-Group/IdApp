@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using Waher.Events;
 using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
 {
+    /// <summary>
+    /// A log implementation for logging warnings, exceptions and events.
+    /// </summary>
     [DefaultImplementation(typeof(LogService))]
     public interface ILogService
     {
         /// <summary>
-        /// Adds an <see cref="ILogListener"/> to the log service. Any listeners will be called
+        /// Adds an <see cref="IEventSink"/> to the log service. Any listeners will be called
         /// whenever any log event occurs.
         /// </summary>
-        /// <param name="listener">The listener to add.</param>
-        void AddListener(ILogListener listener);
+        /// <param name="eventSink">The listener to add.</param>
+        void AddListener(IEventSink eventSink);
         /// <summary>
-        /// Removes an <see cref="ILogListener"/> to the log service.
+        /// Removes an <see cref="IEventSink"/> to the log service.
         /// </summary>
-        /// <param name="listener">The listener to remove.</param>
-        void RemoveListener(ILogListener listener);
+        /// <param name="eventSink">The listener to remove.</param>
+        void RemoveListener(IEventSink eventSink);
         /// <summary>
         /// Invoke this method to add a warning statement to the log.
         /// </summary>
@@ -57,5 +61,11 @@ namespace Tag.Neuron.Xamarin.Services
         /// Removes any exception dump from disc, if it exists.
         /// </summary>
         void DeleteExceptionDump();
+
+        /// <summary>
+        /// Gets a list of extra parameters that are useful when logging: Platform, RuntimeVersion, AppVersion.
+        /// </summary>
+        /// <returns></returns>
+        IList<KeyValuePair<string, string>> GetParameters();
     }
 }

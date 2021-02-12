@@ -4,61 +4,37 @@ using System.IO;
 using System.Linq;
 using Waher.Events;
 using Waher.Events.XMPP;
-using Waher.Networking.XMPP;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     [Singleton]
-    internal sealed class LogService : IInternalLogService
+    internal sealed class LogService : ILogService
     {
         private const string StartupCrashFileName = "CrashDump.txt";
-
-        private XmppEventSink eventSink;
         private readonly IAppInformation appInformation;
         private string bareJid = string.Empty;
-        private readonly IList<ILogListener> listeners;
 
         public LogService(IAppInformation appInformation)
         {
             this.appInformation = appInformation;
-            this.listeners = new List<ILogListener>();
         }
 
-        public void RegisterEventSink(XmppClient client, string logJid)
+        public void AddListener(IEventSink eventSink)
         {
-            if (eventSink == null && !string.IsNullOrWhiteSpace(logJid))
+            if (eventSink is XmppEventSink xmppEventSink)
             {
-                this.bareJid = client.BareJID ?? string.Empty;
-                eventSink = new XmppEventSink("XMPP Event Sink", client, logJid, false);
-                Log.Register(eventSink);
+                this.bareJid = xmppEventSink.Client?.BareJID;
             }
+            Log.Register(eventSink);
         }
 
-        public void UnRegisterEventSink()
+        public void RemoveListener(IEventSink eventSink)
         {
             if (eventSink != null)
             {
                 Log.Unregister(eventSink);
-                eventSink.Dispose();
-                eventSink = null;
-            }
-        }
-
-        public void AddListener(ILogListener listener)
-        {
-            if (listener != null)
-            {
-                this.listeners.Add(listener);
-            }
-        }
-
-        public void RemoveListener(ILogListener listener)
-        {
-            if (listener != null)
-            {
-                this.listeners.Remove(listener);
             }
         }
 
@@ -83,19 +59,6 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 this.SaveExceptionDump($"{nameof(LogException)} calls Waher.Events.Log.Critical()", exception.ToString());
             }
-
-            ILogListener[] listenersClone = this.listeners.ToArray();
-            foreach (ILogListener listener in listenersClone)
-            {
-                try
-                {
-                    listener.LogException(e, parameters.ToArray());
-                }
-                catch (Exception exception)
-                {
-                    this.SaveExceptionDump($"{nameof(LogException)} calls {nameof(ILogListener)} (of type {listener.GetType().FullName})", exception.ToString());
-                }
-            }
         }
 
         public void LogWarning(string format, params object[] args)
@@ -109,19 +72,6 @@ namespace Tag.Neuron.Xamarin.Services
             catch (Exception exception)
             {
                 this.SaveExceptionDump($"{nameof(LogWarning)} calls Waher.Events.Log.Warning()", exception.ToString());
-            }
-
-            ILogListener[] listenersClone = this.listeners.ToArray();
-            foreach (ILogListener listener in listenersClone)
-            {
-                try
-                {
-                    listener.LogWarning(format, args);
-                }
-                catch (Exception exception)
-                {
-                    this.SaveExceptionDump($"{nameof(LogWarning)} calls {nameof(ILogListener)} (of type {listener.GetType().FullName})", exception.ToString());
-                }
             }
         }
 
@@ -149,19 +99,6 @@ namespace Tag.Neuron.Xamarin.Services
             catch (Exception exception)
             {
                 this.SaveExceptionDump($"{nameof(LogEvent)} calls Waher.Events.Log.Event()", exception.ToString());
-            }
-
-            ILogListener[] listenersClone = this.listeners.ToArray();
-            foreach (ILogListener listener in listenersClone)
-            {
-                try
-                {
-                    listener.LogEvent(name, parameters.ToArray());
-                }
-                catch (Exception exception)
-                {
-                    this.SaveExceptionDump($"{nameof(LogEvent)} calls {nameof(ILogListener)} (of type {listener.GetType().FullName})", exception.ToString());
-                }
             }
         }
 
@@ -206,7 +143,8 @@ namespace Tag.Neuron.Xamarin.Services
                 File.Delete(fileName);
         }
 
-        private List<KeyValuePair<string, string>> GetParameters()
+        ///<inheritdoc/>
+        public IList<KeyValuePair<string, string>> GetParameters()
         {
             return new List<KeyValuePair<string, string>>
             {

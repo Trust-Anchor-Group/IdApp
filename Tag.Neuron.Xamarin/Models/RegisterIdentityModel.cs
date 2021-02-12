@@ -4,6 +4,9 @@ using Waher.Networking.XMPP.Contracts;
 
 namespace Tag.Neuron.Xamarin.Models
 {
+    /// <summary>
+    /// The data model for registering an identity.
+    /// </summary>
     public class RegisterIdentityModel
     {
         public string FirstName { get; set; }
@@ -20,6 +23,11 @@ namespace Tag.Neuron.Xamarin.Models
         public string DeviceId { get; set; }
         public string JId { get; set; }
 
+        /// <summary>
+        /// Converts the <see cref="RegisterIdentityModel"/> to an array of <inheritdoc cref="Property"/>.
+        /// </summary>
+        /// <param name="neuronService">The Neuron service to use for accessing the Bare Jid.</param>
+        /// <returns>The <see cref="RegisterIdentityModel"/> as a list of properties.</returns>
         public Property[] ToProperties(INeuronService neuronService)
         {
             List<Property> properties = new List<Property>();

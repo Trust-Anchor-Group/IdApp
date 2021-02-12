@@ -4,6 +4,9 @@ using System.Linq;
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
+    /// <summary>
+    /// An extensions class for the <see cref="string"/> class.
+    /// </summary>
     public static class StringExtensions
     {
         private static readonly List<string> InvalidFileNameChars;
