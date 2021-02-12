@@ -35,9 +35,6 @@
             </summary>
             <param name="logService">The log service to use.</param>
         </member>
-        <member name="M:IdApp.AppCenterEventSink.LogError(System.Exception,System.String,System.String,Waher.Events.EventLevel,System.String,System.String,System.Collections.Generic.KeyValuePair{System.String,System.Object}[])">
-            <inheritdoc cref="T:Waher.Events.LogObject"/>
-        </member>
         <member name="M:IdApp.AppCenterEventSink.Queue(Waher.Events.Event)">
             <inheritdoc/>
         </member>
