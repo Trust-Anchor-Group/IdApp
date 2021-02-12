@@ -55,10 +55,42 @@
             The view to move focus to.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnCompletedBehavior.OnAttachedTo(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnCompletedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior">
             <summary>
             A behavior for being able to bind an <see cref="T:Xamarin.Forms.Entry"/>'s TextChanged event to an <see cref="T:System.Windows.Input.ICommand"/>.
             </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior.TextChangedCommandProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior.TextChangedCommand">
+            <summary>
+            The command to bind to when text changes.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior.TextChangedCommandParameterProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior.TextChangedCommandParameter">
+            <summary>
+            The command parameter to bind to when text changes.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior.OnAttachedTo(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
+            <inheritdoc/>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Extensions.CommandExtensions">
             <summary>
@@ -218,6 +250,11 @@
             </summary>
             <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.UI.Views.ContentBasePage"/> class.
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.ViewModel">
             <summary>
             Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
@@ -229,6 +266,12 @@
             </summary>
             <typeparam name="T">The viewmodel type.</typeparam>
             <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.OnAppearing">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.OnDisappearing">
+            <inheritdoc/>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Views.ContentBaseView">
             <summary>
@@ -253,9 +296,24 @@
             It can be flipped like a coin when the user taps on it. In order to flip the view, simply call the <see cref="M:Tag.Neuron.Xamarin.UI.Views.FlipView.Flip"/> method.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.FlipView.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.UI.Views.FlipView"/> control.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.UI.Views.FlipView.FrontViewProperty">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.UI.Views.FlipView.FrontView">
             <summary>
             The view displayed on the 'front' side of this user control.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.UI.Views.FlipView.BackViewProperty">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.UI.Views.FlipView.BackView">
@@ -274,6 +332,11 @@
             It also handles safe area insets for iOS when the phone has a 'rabbit ear' display.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.UI.Views.ShellBasePage"/> class.
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.ViewModel">
             <summary>
             Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
@@ -287,10 +350,12 @@
             <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.OnAppearing">
-            <summary>
             Due to a bug in Xamarin Forms (https://github.com/xamarin/xamarin.forms/issues/6486)
-            these aren't called at startup for now. But we're leaving the methods here for the future.
-            </summary>
+            these two methods aren't called at startup for now. But we're leaving the methods here for the future.
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.OnDisappearing">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

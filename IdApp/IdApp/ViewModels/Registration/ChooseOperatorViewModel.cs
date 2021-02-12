@@ -66,9 +66,15 @@ namespace IdApp.ViewModels.Registration
             set { SetValue(ManualOperatorProperty, value); }
         }
 
+        /// <summary>
+        /// <see cref="ChooseOperatorFromList"/>
+        /// </summary>
         public static readonly BindableProperty ChooseOperatorFromListProperty =
             BindableProperty.Create("ChooseOperatorFromList", typeof(bool), typeof(ChooseOperatorViewModel), default(bool));
 
+        /// <summary>
+        /// <see cref="ChooseOperatorFromListProperty"/>
+        /// </summary>
         public bool ChooseOperatorFromList
         {
             get { return (bool)GetValue(ChooseOperatorFromListProperty); }

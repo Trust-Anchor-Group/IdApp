@@ -24,6 +24,20 @@
         <member name="M:IdApp.App.OnSleep">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.AppCenterEventSink">
+            <summary>
+            An event sink for reporting events to Microsoft App Center Analytics and Crashes.
+            </summary>
+        </member>
+        <member name="M:IdApp.AppCenterEventSink.#ctor(Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.AppCenterEventSink"/> class.
+            </summary>
+            <param name="logService">The log service to use.</param>
+        </member>
+        <member name="M:IdApp.AppCenterEventSink.Queue(Waher.Events.Event)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.AppResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -1260,6 +1274,92 @@
               Looks up a localized string similar to Zip or Postal Code.
             </summary>
         </member>
+        <member name="T:IdApp.AppShell">
+            <summary>
+            The Xamarin Forms Shell implementation of the TAG ID App.
+            </summary>
+        </member>
+        <member name="M:IdApp.AppShell.#ctor">
+            <summary>
+            Create a new instance of the <see cref="T:IdApp.AppShell"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.AppShell.OnNavigated(Xamarin.Forms.ShellNavigatedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.BooleanConverter">
+            <summary>
+            Converts, or flips, a boolean value to it's inverse value. I.e. turns <c>true</c> to <c>false</c>, or the other way around.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.BooleanConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
+            <summary>
+            Converts a boolean value to a bold font (if true), or regular font (if false).
+            </summary>
+        </member>
+        <member name="P:IdApp.Converters.BooleanToBoldFontConverter.Invert">
+            <summary>
+            Set to true if the conversion should be inverted or not.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToBoldFontConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.BooleanToColorConverter">
+            <summary>
+            Converts a boolean value to a color ("AlertColor"), or <see cref="P:Xamarin.Forms.Color.Default"/> (if false).
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToColorConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToColorConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToColorConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.BooleanToTextTypeConverter">
+            <summary>
+            Converts a boolean value to a <see cref="T:Xamarin.Forms.TextType"/> value, which is <c>Html</c> if <c>true</c>, or <c>Text</c> if <c>false</c>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Extensions.BooleanExtensions">
+            <summary>
+            An extension class for the boolean primitive type.
+            </summary>
+        </member>
+        <member name="M:IdApp.Extensions.BooleanExtensions.ToYesNo(System.Boolean)">
+            <summary>
+            Converts a boolean value to the localized string 'Yes' if <c>true</c>, or 'No' if <c>false</c>.
+            </summary>
+            <param name="b"></param>
+            <returns></returns>
+        </member>
         <member name="T:IdApp.Extensions.XmppStateExtensions">
             <summary>
             Extensions for the <see cref="T:Waher.Networking.XMPP.XmppState"/> enum.
@@ -1272,6 +1372,508 @@
             <param name="state">The state to convert.</param>
             <param name="domain">The domain, if any.</param>
             <returns></returns>
+        </member>
+        <member name="T:IdApp.Icons">
+            <summary>
+            A list of Unicode constants for the FontAwesome Regular Icons.
+            </summary>
+        </member>
+        <member name="F:IdApp.Icons.Images">
+            <summary>
+            The images icon
+            </summary>
+        </member>
+        <member name="F:IdApp.Icons.TrashAlt">
+            <summary>
+            The trash can icon
+            </summary>
+        </member>
+        <member name="T:IdApp.SolidIcons">
+            <summary>
+            A list of Unicode constants for the FontAwesome Solod Icons.
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.ArrowACircleLeft">
+            <summary>
+            A left arrow with a circle around it
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.Camera">
+            <summary>
+            The camer icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.User">
+            <summary>
+            The user icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.Home">
+            <summary>
+            The home (house) icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.ScanQr">
+            <summary>
+            The Scan QR icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.Contract">
+            <summary>
+            The contract icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.SignedContract">
+            <summary>
+            The signed contract icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.NewContract">
+            <summary>
+            The new contract icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.Bug">
+            <summary>
+            The bug icon
+            </summary>
+        </member>
+        <member name="T:IdApp.Models.ContractModel">
+            <summary>
+            The data model for a contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.ContractModel.#ctor(System.String,System.DateTime,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Models.ContractModel"/> class.
+            </summary>
+            <param name="contractId">The contract id.</param>
+            <param name="created">The created timestamp of the contract.</param>
+            <param name="name">The name of the contract.</param>
+        </member>
+        <member name="P:IdApp.Models.ContractModel.ContractId">
+            <summary>
+            The contract id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.ContractModel.Created">
+            <summary>
+            The created timestamp of the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.ContractModel.Name">
+            <summary>
+            The name of the contract.
+            </summary>
+        </member>
+        <member name="T:IdApp.Models.ContractVisibilityModel">
+            <summary>
+            The data model for contract visibility.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.ContractVisibilityModel.#ctor(Waher.Networking.XMPP.Contracts.ContractVisibility,System.String)">
+            <summary>
+            Create an instance of the <see cref="T:IdApp.Models.ContractVisibilityModel"/> class.
+            </summary>
+            <param name="visibility">The contract visibility.</param>
+            <param name="name">The contract name.</param>
+        </member>
+        <member name="P:IdApp.Models.ContractVisibilityModel.Visibility">
+            <summary>
+            The contract visibility.
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.ContractVisibilityModel.Name">
+            <summary>
+            The contract name.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.ContractVisibilityModel.ToString">
+            <summary>
+            Returns the string representation, i.e. name, of this <see cref="T:IdApp.Models.ContractVisibilityModel"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Models.ParameterModel">
+            <summary>
+            The data model for contract parameters.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.ParameterModel.#ctor(System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Models.ParameterModel"/> class.
+            </summary>
+            <param name="id">The parameter id.</param>
+            <param name="name">The parameter name.</param>
+        </member>
+        <member name="P:IdApp.Models.ParameterModel.Id">
+            <summary>
+            The parameter id.
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.ParameterModel.NameProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.ParameterModel.Name">
+            <summary>
+            The parameter name.
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.ParameterModel.IsValidProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.ParameterModel.IsValid">
+            <summary>
+            Gets or sets whether this parameter is valid or not.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.ParameterModel.ToString">
+            <summary>
+            Returns the string representation, i.e. name, of this <see cref="T:IdApp.Models.ParameterModel"/> instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Models.PartModel">
+            <summary>
+            The data model for a contract part.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.PartModel.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Models.PartModel"/> class.
+            </summary>
+            <param name="key">A unique contract part key.</param>
+            <param name="value">The contract part value.</param>
+            <param name="legalId">A legal id (optional).</param>
+        </member>
+        <member name="F:IdApp.Models.PartModel.KeyProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.PartModel.Key">
+            <summary>
+            A unique contract part key.
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.PartModel.ValueProperty">
+            <summary>
+            The contract part value.
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.PartModel.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.PartModel.LegalIdProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.PartModel.LegalId">
+            <summary>
+            A legal id (optional).
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.PartModel.CanSignProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.PartModel.CanSign">
+            <summary>
+            Gets or sets whether the contract part can sign a contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.PartModel.SignAsRoleProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.PartModel.SignAsRole">
+            <summary>
+            The role to use when signing.
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.PartModel.SignAsRoleTextProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.PartModel.SignAsRoleText">
+            <summary>
+            The free text value of the 'sign as role'
+            </summary>
+        </member>
+        <member name="F:IdApp.Models.PartModel.IsHtmlProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Models.PartModel.IsHtml">
+            <summary>
+            Gets or sets whether the format of the contract part is html or not.
+            </summary>
+        </member>
+        <member name="T:IdApp.Models.RoleModel">
+            <summary>
+            The data model for a contract role.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.RoleModel.#ctor(System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Models.RoleModel"/> class.
+            </summary>
+            <param name="name">The name of the role.</param>
+        </member>
+        <member name="P:IdApp.Models.RoleModel.Name">
+            <summary>
+            The name of the role.
+            </summary>
+        </member>
+        <member name="M:IdApp.Models.RoleModel.ToString">
+            <summary>
+            Returns a string representation, i.e. name, of this <see cref="T:IdApp.Models.RoleModel"/> instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Navigation.ClientSignatureNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a client signature.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.ClientSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.ClientSignature,Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.ClientSignatureNavigationArgs"/> class.
+            </summary>
+            <param name="signature">The signature to display.</param>
+            <param name="identity">The legal identity to display.</param>
+        </member>
+        <member name="P:IdApp.Navigation.ClientSignatureNavigationArgs.Signature">
+            <summary>
+            The signature to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.ClientSignatureNavigationArgs.Identity">
+            <summary>
+            The legal identity to display.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.NewContractNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a new contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.NewContractNavigationArgs"/> class.
+            </summary>
+            <param name="contract">The contract to use as template.</param>
+        </member>
+        <member name="M:IdApp.Navigation.NewContractNavigationArgs.#ctor(System.Collections.Generic.SortedDictionary{System.String,System.Collections.Generic.SortedDictionary{System.String,System.String}})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.NewContractNavigationArgs"/> class.
+            </summary>
+            <param name="contractTypesPerCategory">A dictionary of all contract types, organized per category.</param>
+        </member>
+        <member name="M:IdApp.Navigation.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Collections.Generic.SortedDictionary{System.String,System.Collections.Generic.SortedDictionary{System.String,System.String}})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.NewContractNavigationArgs"/> class.
+            </summary>
+            <param name="contract">The contract to use as template.</param>
+            <param name="contractTypesPerCategory">A dictionary of all contract types, organized per category.</param>
+        </member>
+        <member name="P:IdApp.Navigation.NewContractNavigationArgs.Contract">
+            <summary>
+            The contract to use as template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.NewContractNavigationArgs.ContractTypesPerCategory">
+            <summary>
+            The contract types available, organized per category.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.PetitionContractNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a contract petition request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.PetitionContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,Waher.Networking.XMPP.Contracts.Contract,System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.PetitionContractNavigationArgs"/> class.
+            </summary>
+            <param name="requestorIdentity">The identity of the requestor</param>
+            <param name="requestorFullJid">The identity of the requestor</param>
+            <param name="requestedContract">The identity of the requestor</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose of the petition.</param>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.RequestorIdentity">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.RequestorFullJid">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.RequestedContract">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.PetitionId">
+            <summary>
+            The petition id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.Purpose">
+            <summary>
+            The purpose of the petition.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.PetitionIdentityNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a petition of a legal identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.PetitionIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.PetitionIdentityNavigationArgs"/> class.
+            </summary>
+            <param name="requestorIdentity">The identity of the requestor.</param>
+            <param name="requestorFullJid">The full Jid of the requestor.</param>
+            <param name="requestedIdentityId">The requested identity id.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose of the petition.</param>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.RequestorIdentity">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.RequestorFullJid">
+            <summary>
+            The full Jid of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.RequestedIdentityId">
+            <summary>
+            The requested identity id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.PetitionId">
+            <summary>
+            The petition id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.Purpose">
+            <summary>
+            The purpose of the petition.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.ScanQrCodeNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views scanning a QR code.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.ScanQrCodeNavigationArgs.#ctor(System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.ScanQrCodeNavigationArgs"/> class.
+            </summary>
+            <param name="commandName">The command name (localized) to display.</param>
+        </member>
+        <member name="P:IdApp.Navigation.ScanQrCodeNavigationArgs.CommandName">
+            <summary>
+            The command name (localized) to display.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.ServerSignatureNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a server signature.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.ServerSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.ServerSignatureNavigationArgs"/> class.
+            </summary>
+            <param name="contract">The contract to display.</param>
+        </member>
+        <member name="P:IdApp.Navigation.ServerSignatureNavigationArgs.Contract">
+            <summary>
+            The contract to display.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.ViewContractNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.ViewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.ViewContractNavigationArgs"/> class.
+            </summary>
+            <param name="contract">The contract to display.</param>
+            <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
+        </member>
+        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.Contract">
+            <summary>
+            The contract to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.IsReadOnly">
+            <summary>
+            <c>true</c> if the contract is readonly, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.ViewIdentityNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a legal identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.ViewIdentityNavigationArgs"/> class.
+            </summary>
+            <param name="identity">The identity.</param>
+            <param name="identityToReview">An identity to review, or <c>null</c>.</param>
+        </member>
+        <member name="P:IdApp.Navigation.ViewIdentityNavigationArgs.Identity">
+            <summary>
+            The identity to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.ViewIdentityNavigationArgs.IdentityToReview">
+            <summary>
+            The identity to review, if any.
+            </summary>
+        </member>
+        <member name="T:IdApp.QrCode">
+            <summary>
+            Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
+            </summary>
+        </member>
+        <member name="M:IdApp.QrCode.ScanQrCode(Tag.Neuron.Xamarin.Services.INavigationService,System.String)">
+            <summary>
+            Navigates to the Scan QR Code Page, waits for scan to comlete, and returns the result.
+            </summary>
+            <param name="navigationService">The navigation service to use for page navigation.</param>
+            <param name="commandName">The localized name of the command to display when scanning.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.QrCode.TrySetResultAndClosePage(Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,System.String)">
+            <summary>
+            Tries to set the Scan QR Code result and close the scan page.
+            </summary>
+            <param name="navigationService">The navigation service to use for page navigation.</param>
+            <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
+            <param name="code">The code to set.</param>
         </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
@@ -1348,6 +1950,26 @@
         </member>
         <member name="M:IdApp.Services.ImageCacheService.Invalidate(System.String)">
             <inheritdoc/>
+        </member>
+        <member name="T:IdApp.UiConstants">
+            <summary>
+            Constant, reusable, immutable values related to the UI.
+            </summary>
+        </member>
+        <member name="T:IdApp.UiConstants.QrCode">
+            <summary>
+            QR Code constants.
+            </summary>
+        </member>
+        <member name="F:IdApp.UiConstants.QrCode.DefaultImageWidth">
+            <summary>
+            The default width to use when generating QR Code images.
+            </summary>
+        </member>
+        <member name="F:IdApp.UiConstants.QrCode.DefaultImageHeight">
+            <summary>
+            The default height to use when generating QR Code images.
+            </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.showCreatedContracts">
             <summary>
@@ -1427,6 +2049,16 @@
             <param name="sender">The neuron service instance.</param>
             <param name="e">The event args.</param>
         </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromListProperty">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromList"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromList">
+            <summary>
+            <see cref="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromListProperty"/>
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
             A Viev model that represents the current XMPP Communication.
@@ -1463,6 +2095,22 @@
             Retrieves and assigns the <see cref="P:IdApp.ViewModels.XmppCommunicationViewModel.Html"/>.
             </summary>
         </member>
+        <member name="T:IdApp.Views.CodeScannedEventArgs">
+            <summary>
+            An event args class that holds dat about the currently scanned QR code.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.CodeScannedEventArgs.#ctor(System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Views.CodeScannedEventArgs"/> class.
+            </summary>
+            <param name="code">The scanned QR code</param>
+        </member>
+        <member name="P:IdApp.Views.CodeScannedEventArgs.Code">
+            <summary>
+            The scanned QR code
+            </summary>
+        </member>
         <member name="M:IdApp.Views.Registration.RegistrationPage.UpdateUiStep">
             This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.
             The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
@@ -1484,7 +2132,7 @@
         </member>
         <member name="T:Waher.IoTGateway.Setup.XmppConfiguration">
             <summary>
-            Represents a users's Xmpp connection and profile properties.
+            Represents a user's Xmpp connection and profile properties.
             </summary>
         </member>
         <member name="F:Waher.IoTGateway.Setup.XmppConfiguration.BuildDate">

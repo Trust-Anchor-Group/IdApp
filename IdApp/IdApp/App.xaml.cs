@@ -9,7 +9,15 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.IoTGateway.Setup;
+using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.P2P;
+using Waher.Persistence;
+using Waher.Persistence.Files;
+using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Settings;
+using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
@@ -37,16 +45,34 @@ namespace IdApp
 
 			try
             {
-                Assembly[] additionalAssemblies = { typeof(RegistrationStep).Assembly };
-                this.sdk = TagIdSdk.Create(this.GetType().Assembly, additionalAssemblies, new XmppConfiguration().ToArray());
+				Assembly AppAssembly = this.GetType().Assembly;
 
-				// App Registrations
-				//this.container.Register<IImageCacheService, ImageCacheService>(IocScope.Singleton);
-				//this.container.Register<IContractOrchestratorService, ContractOrchestratorService>(IocScope.Singleton);
+				if (!Types.IsInitialized)
+				{
+					// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
+
+					Types.Initialize(
+						AppAssembly,								// Allows for objects defined in this assembly, to be instantiated and persisted.
+						typeof(Database).Assembly,					// Indexes default attributes
+						typeof(ObjectSerializer).Assembly,			// Indexes general serializers
+						typeof(FilesProvider).Assembly,				// Indexes special serializers
+						typeof(RuntimeSettings).Assembly,			// Allows for persistence of settings in the object database
+						typeof(XmppClient).Assembly,				// Serialization of general XMPP objects
+						typeof(ContractsClient).Assembly,			// Serialization of XMPP objects related to digital identities and smart contracts
+						typeof(Expression).Assembly,				// Indexes basic script functions
+						typeof(XmppServerlessMessaging).Assembly,	// Indexes End-to-End encryption mechanisms
+						typeof(TagConfiguration).Assembly,			// Indexes persistable objects
+						typeof(RegistrationStep).Assembly);         // Indexes persistable objects
+				}
+
+                this.sdk = TagIdSdk.Create(AppAssembly, new XmppConfiguration().ToArray());
 
 				// Set resolver
 				DependencyResolver.ResolveUsing(type =>
 				{
+					if (Types.GetType(type.FullName) is null)
+						return null;	// Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
+
 					object Result = Types.Instantiate(true, type);
 					if (!(Result is null))
 						return Result;
