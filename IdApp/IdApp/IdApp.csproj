@@ -44,6 +44,7 @@
     <PackageReference Include="Waher.Persistence.FilesLW" Version="1.2.5" />
     <PackageReference Include="Waher.Runtime.Inventory" Version="1.0.20" />
     <PackageReference Include="Waher.Runtime.Language" Version="1.0.4" />
+    <PackageReference Include="Waher.Runtime.Profiling" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Queue" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Settings" Version="1.0.6" />
     <PackageReference Include="Waher.Runtime.Temporary" Version="1.0.0" />
