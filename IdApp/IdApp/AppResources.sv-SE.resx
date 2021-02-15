@@ -300,6 +300,9 @@
   <data name="Duration" xml:space="preserve">
     <value>Varaktighet</value>
   </data>
+  <data name="EnterAnOperatorName" xml:space="preserve">
+    <value>Ange en operatör</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>

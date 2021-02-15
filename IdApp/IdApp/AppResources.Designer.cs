@@ -610,6 +610,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter an operator.
+        /// </summary>
+        internal static string EnterAnOperatorName {
+            get {
+                return ResourceManager.GetString("EnterAnOperatorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string ErrorTitle {

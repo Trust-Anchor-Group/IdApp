@@ -4,6 +4,7 @@
                       xmlns:registration="clr-namespace:IdApp.Views.Registration;assembly=IdApp"
                       xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                      xmlns:system="clr-namespace:System;assembly=netstandard"
                       x:Class="IdApp.Views.Registration.ChooseOperatorView">
     <ContentView.Content>
         <Grid Margin="0,0,0,0">
@@ -26,8 +27,18 @@
                 <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagSubheading}" VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
 
                 <StackLayout Grid.Row="2" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-                    <Picker x:Name="OperatorPicker" Title="{x:Static resources:AppResources.SelectOperator}" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
-                    <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" TextChanged="ManualDomainEntry_TextChanged" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False"/>
+                    <Grid>
+                        <Frame CornerRadius="5" BackgroundColor="#99ffffff">
+                            <Frame.IsVisible>
+                                <OnPlatform x:TypeArguments="system:Boolean">
+                                    <On Platform="Android" Value="true"/>
+                                    <On Platform="iOS" Value="false"/>
+                                </OnPlatform>
+                            </Frame.IsVisible>
+                        </Frame>
+                        <Picker x:Name="OperatorPicker" IsVisible="{Binding Path=ChooseOperatorFromList}" Title="{x:Static resources:AppResources.SelectOperator}" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
+                        <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" Placeholder="{x:Static resources:AppResources.EnterAnOperatorName}" TextChanged="ManualDomainEntry_TextChanged" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False"/>
+                    </Grid>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
                 </StackLayout>
                 <Button Grid.Row="3" x:Name="ConnectButton" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.Connect}" Command="{Binding Path=ConnectCommand}"/>
