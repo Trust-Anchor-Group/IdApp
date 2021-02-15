@@ -39,10 +39,28 @@ internal sealed class ImageCacheService : LoadableService, IImageCacheService
 
 The two attributes can be used in combination on an interface and its implementation.
 
-`Types` automatically picks up interfaces and implementations when passing in relevant assemblies in the call to `TagIdSdk.Create`, like this:
+If you need to register types to resolve, make that call to `Types.Initialize` _before_ the call to `TagIdSdk.Create`, like this:
 ```
-Assembly[] additionalAssemblies = { typeof(RegistrationStep).Assembly };
-this.sdk = TagIdSdk.Create(this.GetType().Assembly, additionalAssemblies, new XmppConfiguration().ToArray());
+Assembly appAssembly = this.GetType().Assembly;
+
+if (!Types.IsInitialized)
+{
+    // Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
+    Types.Initialize(
+        appAssembly,                                // Allows for objects defined in this assembly, to be instantiated and persisted.
+        typeof(Database).Assembly,                  // Indexes default attributes
+        typeof(ObjectSerializer).Assembly,          // Indexes general serializers
+        typeof(FilesProvider).Assembly,             // Indexes special serializers
+        typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
+        typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
+        typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
+        typeof(Expression).Assembly,                // Indexes basic script functions
+        typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
+        typeof(TagConfiguration).Assembly,          // Indexes persistable objects
+        typeof(RegistrationStep).Assembly);         // Indexes persistable objects
+}
+
+this.sdk = TagIdSdk.Create(this.GetType().Assembly, new XmppConfiguration().ToArray());
 ```
 
 Configure `Types` in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor to be the default resolver like this:
@@ -50,11 +68,15 @@ Configure `Types` in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor t
 ```
 public App()
 {
-    // Register additional dependencies here (if needed)
     ...
 
     // Set the IoC to be the default dependency resolver
-    DependencyResolver.ResolveUsing(type => Types.Instantiate(type));
+    DependencyResolver.ResolveUsing(type =>
+	{
+        if (Types.GetType(type.FullName) is null)
+	        return null;	// Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
+        return Types.Instantiate(true, type);
+    });
 }
 ```
 
@@ -74,34 +96,6 @@ Everything you need can be accessed via this interface. You create an instance o
     this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
 ```
 
-Once this is done you can register the TAG Neuron SDK services with an IoC container like this (See details on [Registration Keys](#registration-keys-for-developers) below)
-
-```
-public App()
-{
-    // Create the SDK
-    this.sdk = TagIdSdk.Create(this.GetType().Assembly, null, new Registration().ToArray());
-
-    this.container = new IoCContainer();
-
-    // Registrations
-    this.container.RegisterInstance(this.sdk.UiDispatcher).SingleInstance();
-    this.container.RegisterInstance(this.sdk.TagProfile).SingleInstance();
-    this.container.RegisterInstance(this.sdk.NeuronService).SingleInstance();
-    this.container.RegisterInstance(this.sdk.AuthService).SingleInstance();
-    this.container.RegisterInstance(this.sdk.NetworkService).SingleInstance();
-    this.container.RegisterInstance(this.sdk.LogService).SingleInstance();
-    this.container.RegisterInstance(this.sdk.StorageService).SingleInstance();
-    this.container.RegisterInstance(this.sdk.SettingsService).SingleInstance();
-    this.container.RegisterInstance(this.sdk.NavigationService).SingleInstance();
-
-    // Add your own registrations here
-    ...
-
-    // Set resolver
-    DependencyResolver.ResolveUsing(type => this.container.IsRegistered(type) ? this.container.Resolve(type) : null);
-}
-```
 For further reading about the TAG Neuron SDK, [have a look here](NeuronSDK.md).
 
 ## Registration Keys (for developers) ##
@@ -196,6 +190,37 @@ private async Task PerformShutdown()
 
 ```
 When this is done, you can start and run the application. It won't do anything, but now it's wired into the SDK correctly.
+
+## Debugging the App ##
+You can debug the app in the Android Emulator, the iOS emulator, or on a real phone.
+
+### Android specifics ###
+The minimum Android version is 'Q' (API level 29), this is set in Application tab _and_ in the Android Manifest tag in the `IdApp.Android` properties.
+In Visual Studio, click on "Tools"-> "Android" -> "Android Device Manager". If the list is empty, you need to create a new device. Click on the "New" button,
+and make sure the "OS" dropdown in the bottom left corner is set to at least 'Q' (API level 29). When done, hit the "Create" button. This device can now
+be used for running and debugging the app.
+
+### iOS specifics ###
+The minimum iOS version is 9 (change it by opening the `Info.plist` file in the `IdApp.iOS project`).
+In order to run the iOS version of the app on either a simulator or on a real phone, you must have your [paired your Windows](https://docs.microsoft.com/en-us/xamarin/ios/get-started/installation/windows/connecting-to-mac/) machine to a Mac, i.e. the Mac host is available in the network.
+Once the pairing is set up, hit F5 to debug in the Simulator or on your iPhone.
+
+## Deploying the App ##
+Deploying, as opposed to debugging, requires the app to be signed. This is done slightly differently for Android and iOS.
+
+### Android specifics ###
+In order to sign the app you need a Keystore. One can easily be created, [read on here for details](https://docs.microsoft.com/en-us/xamarin/android/deploy-test/signing/?tabs=windows).
+
+Now open the Properties page for the IdApp.Android project and select the "Android Package Signing" tab. Tick the checkbox and fill in the values matching your keystore.
+
+Right-click the IdApp.Android project and choose "Archive...". This will build an app archive, and then display the Archive Manager page in Visual Studio. Select the latest archive
+and click on the "Distribute" button. Choose "Ad Hoc" for internal distribution, or "Google Play" for upload to the Play Store. Select the Keystore again, and hit ok. This will create
+a signed version of the app, ready for distribution.
+
+### iOS specifics ###
+Signing happens 'automatically' when building the iOS version of the app, as it is associated with an Apple developer license. Right-click the IdApp.iOS project and choose "Properties", then the "iOS Bundle Signing" tab.
+There you can specify how to provision the app. Either automatically or manually. When your app signing is set up correctly, the build process will produce a correctly signed
+app for use on an iOS device. If you want to distribute it to a select group, or to the App Store, you may need a different provisioning profile than the one you use for development.
 
 ## Next Steps ##
 For further reading, please continue to these sections:
