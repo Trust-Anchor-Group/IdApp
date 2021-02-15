@@ -73,11 +73,7 @@ namespace IdApp
 					if (Types.GetType(type.FullName) is null)
 						return null;	// Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
-					object Result = Types.Instantiate(true, type);
-					if (!(Result is null))
-						return Result;
-
-					throw new InvalidOperationException("Unable to instantiate " + type.FullName);
+					return Types.Instantiate(true, type);
 				});
 
 				// Register log listener (optional)

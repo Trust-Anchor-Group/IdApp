@@ -1971,9 +1971,521 @@
             The default height to use when generating QR Code images.
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.Contracts.ClientSignatureViewModel">
+            <summary>
+            The view model to bind to for when displaying client signatures.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ClientSignatureViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ClientSignatureViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ClientSignatureViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Created">
+            <summary>
+            The Created date of the signature
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.UpdatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Updated">
+            <summary>
+             The Updated timestamp of the signature
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.LegalIdProperty">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.LegalId">
+            <summary>
+            The Legal id of the signature
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.StateProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.State"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.State">
+            <summary>
+            The current state of the signature
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.From">
+            <summary>
+            The from date of the signature
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.To">
+            <summary>
+            The to date of the signature
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.FirstNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.FirstName">
+            <summary>
+            The legal identity's first name property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.MiddleNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.MiddleNames">
+            <summary>
+            The legal identity's middle names property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.LastNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.LastNames">
+            <summary>
+            The legal identity's last names property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.PersonalNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.PersonalNumber">
+            <summary>
+            The legal identity's personal number property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.AddressProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Address">
+            <summary>
+            The legal identity's address property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Address2Property">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Address2">
+            <summary>
+            The legal identity's address line 2 property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.ZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.ZipCode">
+            <summary>
+            The legal identity's zip code property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.AreaProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Area">
+            <summary>
+            The legal identity's Area property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.CityProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.City">
+            <summary>
+            The legal identity's city property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.RegionProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Region">
+            <summary>
+            The legal identity's region property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.CountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.CountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.CountryCode">
+            <summary>
+            The legal identity's country code property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.CountryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Country">
+            <summary>
+            The legal identity's country property
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.IsApprovedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.IsApproved"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.IsApproved">
+            <summary>
+            Determines whether the identity is approved or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.RoleProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Role"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Role">
+            <summary>
+            The role of the signature
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.TimestampProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Timestamp"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Timestamp">
+            <summary>
+            The signature's timestamp.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.IsTransferableProperty">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.IsTransferable"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.IsTransferable">
+            <summary>
+            Determines whether the signature is transferable or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJIdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJId">
+            <summary>
+            Gets or sets the Bare Jid of the signature.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.SignatureProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Signature"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.Signature">
+            <summary>
+            The signature in plain text.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.MyContractsViewModel">
+            <summary>
+            The view model to bind to when displaying 'my' contracts.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.showCreatedContracts">
             <summary>
             Show created contracts or signed contracts?
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.#ctor(System.Boolean)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.MyContractsViewModel"/> class.
+            <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Title">
+            <summary>
+            Gets or sets the title for the view displaying contracts.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.ShowContractsMissingProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.MyContractsViewModel.ShowContractsMissing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.ShowContractsMissing">
+            <summary>
+            Gets or sets whether to show a contracts missing alert or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Contracts">
+            <summary>
+            Holds the list of contracts to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.SelectedContractProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.MyContractsViewModel.SelectedContract"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.SelectedContract">
+            <summary>
+            The currently selected contract, if any.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.NewContractViewModel">
+            <summary>
+            The view model to bind to when displaying a new contract view or page.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.NewContractViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.DoSaveState">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.DoRestoreState">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ProposeCommand">
+            <summary>
+            The Propose action which creates a new contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.AddPartCommand">
+            <summary>
+            The Add part action which adds a new part to a contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ParameterChangedCommand">
+            <summary>
+            A parameter changed command to execute when a contract parameter changes.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.IsTemplateProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.IsTemplate"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.IsTemplate">
+            <summary>
+            Gets or sets whether this contract is a template or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractVisibilityItems">
+            <summary>
+            A list of valid visibility items to choose from for this contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractVisibilityItemProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractVisibilityItem"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractVisibilityItem">
+            <summary>
+            The selected contract visibility item, if any.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.VisibilityIsEnabledProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.VisibilityIsEnabled"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.VisibilityIsEnabled">
+            <summary>
+            Gets or sets whether the visibility items should be shown to the user or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractCategories">
+            <summary>
+            The valid list of contract categories.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractCategoryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractCategory"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractCategory">
+            <summary>
+            The selected contract category, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractTypes">
+            <summary>
+            The list of contract types to choose from.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasContractTypesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasContractTypes"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasContractTypes">
+            <summary>
+            Gets or sets whether the contract has contract types or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractType">
+            <summary>
+            The selected contract type, if any.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.PinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.Pin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.Pin">
+            <summary>
+            Gets or sets the user selected Pin. Can be null.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedRoleProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedRole"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedRole">
+            <summary>
+            The role selected for the contract, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractRoles">
+            <summary>
+            The list of available contract roles.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractParameters">
+            <summary>
+            The list of available contract parameters.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractHumanReadableText">
+            <summary>
+            The list of available human readable texts belonging to the contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.UsePinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.UsePin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.UsePin">
+            <summary>
+            Gets or sets whether a pin should be used for added security.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasTemplateProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasTemplate"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasTemplate">
+            <summary>
+            Gets or sets whether the contract has a template or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasRolesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasRoles"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasRoles">
+            <summary>
+            Gets or sets whether the contract has roles.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasParametersProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasParameters"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasParameters">
+            <summary>
+            Gets or sets whether the contract has parameters.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasHumanReadableTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasHumanReadableText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasHumanReadableText">
+            <summary>
+            Gets or sets whether the contract is comprised of human readable text.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.CanAddPartsProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.CanAddParts"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.CanAddParts">
+            <summary>
+            Gets or sets whether a user can add parts to a contract.
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">

@@ -29,15 +29,16 @@ namespace Tag.Neuron.Xamarin
 		{
 			this.appAssembly = appAssembly;
 
-			this.TagProfile = Types.Instantiate<TagProfile>(false, (object)domains);
-			this.LogService = Types.Instantiate<LogService>(false, DependencyService.Resolve<IAppInformation>());
-			this.uiDispatcher = Types.Instantiate<UiDispatcher>(false);
-			this.CryptoService = Types.Instantiate<CryptoService>(false, this.LogService);
-			this.NetworkService = Types.Instantiate<NetworkService>(false, this.LogService, this.UiDispatcher);
-			this.SettingsService = Types.Instantiate<SettingsService>(false);
-			this.StorageService = Types.Instantiate<StorageService>(false);
-			this.neuronService = Types.Instantiate<NeuronService>(false, this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
-			this.NavigationService = Types.Instantiate<NavigationService>(false, this.LogService, this.uiDispatcher);
+			this.TagProfile = Types.InstantiateDefault<TagProfile>(false, (object)domains);
+			this.LogService = Types.InstantiateDefault<LogService>(false, DependencyService.Resolve<IAppInformation>());
+			this.uiDispatcher = Types.InstantiateDefault<UiDispatcher>(false);
+			this.CryptoService = Types.InstantiateDefault<CryptoService>(false, this.LogService);
+			this.NetworkService = Types.InstantiateDefault<NetworkService>(false, this.LogService, this.UiDispatcher);
+			this.SettingsService = Types.InstantiateDefault<SettingsService>(false);
+			this.StorageService = Types.InstantiateDefault<StorageService>(false);
+			this.neuronService = Types.InstantiateDefault<NeuronService>(false, this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
+			this.NavigationService = Types.InstantiateDefault<NavigationService>(false, this.LogService, this.uiDispatcher);
+
 		}
 
 		/// <inheritdoc/>
@@ -57,7 +58,7 @@ namespace Tag.Neuron.Xamarin
 			if (appAssembly is null)
 				throw new ArgumentException("Value cannot be null", nameof(appAssembly));
 
-			return instance ?? (instance = Types.Instantiate<TagIdSdk>(false, appAssembly, domains));
+			return instance ?? (instance = Types.InstantiateDefault<TagIdSdk>(false, appAssembly, domains));
 		}
 
 		/// <inheritdoc/>
