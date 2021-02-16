@@ -45,14 +45,14 @@ namespace IdApp
 
 			try
             {
-				Assembly AppAssembly = this.GetType().Assembly;
+				Assembly appAssembly = this.GetType().Assembly;
 
 				if (!Types.IsInitialized)
 				{
 					// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
 
 					Types.Initialize(
-						AppAssembly,								// Allows for objects defined in this assembly, to be instantiated and persisted.
+						appAssembly,								// Allows for objects defined in this assembly, to be instantiated and persisted.
 						typeof(Database).Assembly,					// Indexes default attributes
 						typeof(ObjectSerializer).Assembly,			// Indexes general serializers
 						typeof(FilesProvider).Assembly,				// Indexes special serializers
@@ -65,7 +65,7 @@ namespace IdApp
 						typeof(RegistrationStep).Assembly);         // Indexes persistable objects
 				}
 
-                this.sdk = TagIdSdk.Create(AppAssembly, new XmppConfiguration().ToArray());
+                this.sdk = TagIdSdk.Create(appAssembly, new XmppConfiguration().ToArray());
 
 				// Set resolver
 				DependencyResolver.ResolveUsing(type =>

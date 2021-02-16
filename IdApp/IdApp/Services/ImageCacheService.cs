@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Waher.Runtime.Inventory;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -52,7 +51,7 @@ namespace IdApp.Services
                                 string key = entry.Key.Substring(KeyPrefix.Length);
                                 try
                                 {
-                                    CacheEntry ce = JsonConvert.DeserializeObject<CacheEntry>(entry.Json);
+                                    CacheEntry ce = (CacheEntry)Waher.Content.JSON.Parse(entry.Json);
                                     this.entries[key] = ce;
                                 }
                                 catch (Exception e)
@@ -86,7 +85,7 @@ namespace IdApp.Services
                     foreach (KeyValuePair<string, CacheEntry> entry in entries)
                     {
                         string key = $"{KeyPrefix}{entry.Key}";
-                        this.settingsService.SaveState(key, JsonConvert.SerializeObject(entry.Value));
+                        this.settingsService.SaveState(key, Waher.Content.JSON.Encode(entry.Value, true));
                     }
                 }
                 catch (Exception e)

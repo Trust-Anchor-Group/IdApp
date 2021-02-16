@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using SQLite;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
@@ -40,12 +39,12 @@ namespace Tag.Neuron.Xamarin.Services
                 var existingState = connection.Find<Setting>(key);
                 if (existingState != null)
                 {
-                    existingState.Value = JsonConvert.SerializeObject(state);
+                    existingState.Value = Waher.Content.JSON.Encode(state, true);
                     connection.Update(existingState);
                 }
                 else
                 {
-                    var newState = new Setting { Key = key, Value = JsonConvert.SerializeObject(state) };
+                    var newState = new Setting { Key = key, Value = Waher.Content.JSON.Encode(state, true) };
                     connection.Insert(newState);
                 }
             }
@@ -66,7 +65,7 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 if (predicate(state.Key))
                 {
-                    matches.Add((state.Key, JsonConvert.DeserializeObject<T>(state.Value)));
+                    matches.Add((state.Key, (T)Waher.Content.JSON.Parse(state.Value)));
                 }
             }
 
@@ -83,7 +82,7 @@ namespace Tag.Neuron.Xamarin.Services
                 var existingState = connection.Find<Setting>(key);
                 if (existingState != null)
                 {
-                    T obj = JsonConvert.DeserializeObject<T>(existingState.Value);
+                    T obj = (T)Waher.Content.JSON.Parse(existingState.Value);
                     return Task.FromResult(obj);
                 }
             }
