@@ -144,7 +144,7 @@ namespace IdApp
 
 		private async Task PerformStartup(bool isResuming)
 		{
-			ProfilerThread Thread = this.startupProfiler?.MainThread.CreateSubThread("Startup", ProfilerThreadType.Sequential);
+			ProfilerThread Thread = this.startupProfiler?.MainThread.CreateSubThread("AppStartup", ProfilerThreadType.Sequential);
 			Thread?.Start();
 
 			try
@@ -155,7 +155,7 @@ namespace IdApp
 
 				Thread?.NewState("Startup");
 
-				await this.sdk.Startup(isResuming);
+				await this.sdk.Startup(isResuming, Thread?.CreateSubThread("SdkStartup", ProfilerThreadType.Sequential));
 
 				Thread?.NewState("Cache");
 

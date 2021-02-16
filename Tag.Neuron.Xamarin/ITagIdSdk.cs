@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin
@@ -20,8 +21,8 @@ namespace Tag.Neuron.Xamarin
         /// To be called when the app is starting, regardless of whether it a cold start, or if it is resuming.
         /// </summary>
         /// <param name="isResuming">Set to <c>true</c> if the app is resuming, <c>false</c> otherwise.</param>
-        /// <returns></returns>
-        Task Startup(bool isResuming);
+        /// <param name="Thread">Optional Profiler Thread, for profiling startup times. May be null.</param>
+        Task Startup(bool isResuming, ProfilerThread Thread);
         /// <summary>
         /// To be called when the app is shutting down.
         /// </summary>
