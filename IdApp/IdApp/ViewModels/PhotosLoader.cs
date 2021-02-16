@@ -14,6 +14,12 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels
 {
+    /// <summary>
+    /// This is a helper class for downloading photos via http requests.
+    /// It loads photos in the background, typically photo attachments connected to a
+    /// digital identity. When the photos are loaded, they are added to an <see cref="ObservableCollection{T}"/> on the main thread.
+    /// This class also handles errors when trying to load photos, and internally it uses a <see cref="IImageCacheService"/>.
+    /// </summary>
     public class PhotosLoader
     {
         private readonly ILogService logService;
@@ -24,6 +30,14 @@ namespace IdApp.ViewModels
         private readonly List<string> attachmentIds;
         private DateTime loadPhotosTimestamp;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="PhotosLoader"/> class.
+        /// </summary>
+        /// <param name="logService">The log service to use if and when logging errors.</param>
+        /// <param name="networkService">The network service to use for checking connectivity.</param>
+        /// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+        /// <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+        /// <param name="photos">The collection the photos should be added to when downloaded.</param>
         public PhotosLoader(
             ILogService logService, 
             INetworkService networkService, 
@@ -39,11 +53,20 @@ namespace IdApp.ViewModels
             this.attachmentIds = new List<string>();
         }
 
+        /// <summary>
+        /// Loads photos from the specified list of attachments.
+        /// </summary>
+        /// <param name="attachments">The attachments whose files to download.</param>
+        /// <returns></returns>
         public Task LoadPhotos(Attachment[] attachments)
         {
             return LoadPhotos(attachments, DateTime.UtcNow);
         }
 
+        /// <summary>
+        /// Cancels any ongoing download of photos in progress. Also
+        /// clears the collection of photos from its content.
+        /// </summary>
         public void CancelLoadPhotos()
         {
             this.loadPhotosTimestamp = DateTime.UtcNow;

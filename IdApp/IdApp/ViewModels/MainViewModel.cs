@@ -11,6 +11,10 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels
 {
+    /// <summary>
+    /// The view model to bind to for the main page of the application. Holds basic user profile state
+    /// as well as connection state.
+    /// </summary>
     public class MainViewModel : NeuronViewModel
     {
         private readonly ITagProfile tagProfile;
@@ -18,12 +22,18 @@ namespace IdApp.ViewModels
         private readonly ILogService logService;
         private readonly INavigationService navigationService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="MainViewModel"/> class.
+        /// </summary>
         public MainViewModel()
             : this(null, null, null, null, null, null)
         {
         }
 
-        // For unit tests
+        /// <summary>
+        /// Creates a new instance of the <see cref="MainViewModel"/> class.
+        /// For unit tests.
+        /// </summary>
         protected internal MainViewModel(
             INeuronService neuronService, 
             IUiDispatcher uiDispatcher, 
@@ -39,6 +49,7 @@ namespace IdApp.ViewModels
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
         }
 
+        /// <inheritdoc />
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -47,6 +58,7 @@ namespace IdApp.ViewModels
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
         }
 
+        /// <inheritdoc />
         protected override Task DoUnbind()
         {
             this.NeuronService.Contracts.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
@@ -116,15 +128,24 @@ namespace IdApp.ViewModels
 
         #region Properties
 
+        /// <summary>
+        /// See <see cref="HasPhoto"/>
+        /// </summary>
         public static readonly BindableProperty HasPhotoProperty =
             BindableProperty.Create("HasPhoto", typeof(bool), typeof(MainViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the current user has a photo associated with the account.
+        /// </summary>
         public bool HasPhoto
         {
             get { return (bool)GetValue(HasPhotoProperty); }
             set { SetValue(HasPhotoProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Image"/>
+        /// </summary>
         public static readonly BindableProperty ImageProperty =
             BindableProperty.Create("Image", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -132,21 +153,33 @@ namespace IdApp.ViewModels
                 viewModel.HasPhoto = newValue != null;
             });
 
+        /// <summary>
+        /// Gets or sets the current user's photo.
+        /// </summary>
         public ImageSource Image
         {
             get { return (ImageSource)GetValue(ImageProperty); }
             set { SetValue(ImageProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="FullName"/>
+        /// </summary>
         public static readonly BindableProperty FullNameProperty =
             BindableProperty.Create("FullName", typeof(string), typeof(MainViewModel), default(string));
 
+        /// <summary>
+        /// Gets or sets the current user's full name.
+        /// </summary>
         public string FullName
         {
             get { return (string)GetValue(FullNameProperty); }
             set { SetValue(FullNameProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="City"/>
+        /// </summary>
         public static readonly BindableProperty CityProperty =
             BindableProperty.Create("City", typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -154,12 +187,18 @@ namespace IdApp.ViewModels
                 viewModel.SetLocation();
             });
 
+        /// <summary>
+        /// Gets or sets the current user's city.
+        /// </summary>
         public string City
         {
             get { return (string)GetValue(CityProperty); }
             set { SetValue(CityProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Country"/>
+        /// </summary>
         public static readonly BindableProperty CountryProperty =
             BindableProperty.Create("Country", typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -167,15 +206,24 @@ namespace IdApp.ViewModels
                 viewModel.SetLocation();
             });
 
+        /// <summary>
+        /// Gets or sets the current user's country.
+        /// </summary>
         public string Country
         {
             get { return (string)GetValue(CountryProperty); }
             set { SetValue(CountryProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Location"/>
+        /// </summary>
         public static readonly BindableProperty LocationProperty =
             BindableProperty.Create("Location", typeof(string), typeof(MainViewModel), default(string));
 
+        /// <summary>
+        /// Gets or sets the current user's location.
+        /// </summary>
         public string Location
         {
             get { return (string) GetValue(LocationProperty); }
@@ -198,6 +246,9 @@ namespace IdApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// See <see cref="QrCode"/>
+        /// </summary>
         public static readonly BindableProperty QrCodeProperty =
             BindableProperty.Create("QrCode", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -205,87 +256,145 @@ namespace IdApp.ViewModels
                 viewModel.HasQrCode = newValue != null;
             });
 
+
+        /// <summary>
+        /// Gets or sets the current user's identity as a QR code image.
+        /// </summary>
         public ImageSource QrCode
         {
             get { return (ImageSource)GetValue(QrCodeProperty); }
             set { SetValue(QrCodeProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasQrCode"/>
+        /// </summary>
         public static readonly BindableProperty HasQrCodeProperty =
             BindableProperty.Create("HasQrCode", typeof(bool), typeof(MainViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets if a <see cref="QrCode"/> exists for the current user.
+        /// </summary>
         public bool HasQrCode
         {
             get { return (bool)GetValue(HasQrCodeProperty); }
             set { SetValue(HasQrCodeProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="QrCodeWidth"/>
+        /// </summary>
         public static readonly BindableProperty QrCodeWidthProperty =
             BindableProperty.Create("QrCodeWidth", typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageWidth);
 
+        /// <summary>
+        /// Gets or sets the width, in pixels, of the <see cref="QrCode"/> being generated.
+        /// </summary>
         public int QrCodeWidth
         {
             get { return (int)GetValue(QrCodeWidthProperty); }
             set { SetValue(QrCodeWidthProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="QrCodeHeight"/>
+        /// </summary>
         public static readonly BindableProperty QrCodeHeightProperty =
             BindableProperty.Create("QrCodeHeight", typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageHeight);
 
+        /// <summary>
+        /// Gets or sets the height, in pixels, of the <see cref="QrCode"/> being generated.
+        /// </summary>
         public int QrCodeHeight
         {
             get { return (int)GetValue(QrCodeHeightProperty); }
             set { SetValue(QrCodeHeightProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="IsOnline"/>
+        /// </summary>
         public static readonly BindableProperty IsOnlineProperty =
             BindableProperty.Create("IsOnline", typeof(bool), typeof(MainViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the app is currently online, i.e. has network access.
+        /// </summary>
         public bool IsOnline
         {
             get { return (bool)GetValue(IsOnlineProperty); }
             set { SetValue(IsOnlineProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="NetworkStateText"/>
+        /// </summary>
         public static readonly BindableProperty NetworkStateTextProperty =
             BindableProperty.Create("NetworkStateText", typeof(string), typeof(MainViewModel), default(string));
 
+        /// <summary>
+        /// Gets or sets the user friendly network state text for display.
+        /// </summary>
         public string NetworkStateText
         {
             get { return (string)GetValue(NetworkStateTextProperty); }
             set { SetValue(NetworkStateTextProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="ContractsIsOnline"/>
+        /// </summary>
         public static readonly BindableProperty ContractsIsOnlineProperty =
             BindableProperty.Create("ContractsIsOnline", typeof(bool), typeof(MainViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contracts features of the Neuron server is online.
+        /// </summary>
         public bool ContractsIsOnline
         {
             get { return (bool)GetValue(ContractsIsOnlineProperty); }
             set { SetValue(ContractsIsOnlineProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="ContractsStateText"/>
+        /// </summary>
         public static readonly BindableProperty ContractsStateTextProperty =
             BindableProperty.Create("ContractsStateText", typeof(string), typeof(MainViewModel), default(string));
 
+        /// <summary>
+        /// Gets or sets the user friendly contracts connection state text for display.
+        /// </summary>
         public string ContractsStateText
         {
             get { return (string)GetValue(ContractsStateTextProperty); }
             set { SetValue(ContractsStateTextProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasConnectionErrors"/>
+        /// </summary>
         public static readonly BindableProperty HasConnectionErrorsProperty =
             BindableProperty.Create("HasConnectionErrors", typeof(bool), typeof(MainViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether there are any connection errors at all for the app.
+        /// </summary>
         public bool HasConnectionErrors
         {
             get { return (bool)GetValue(HasConnectionErrorsProperty); }
             set { SetValue(HasConnectionErrorsProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="ConnectionErrorsText"/>
+        /// </summary>
         public static readonly BindableProperty ConnectionErrorsTextProperty =
             BindableProperty.Create("ConnectionErrorsText", typeof(string), typeof(MainViewModel), default(string));
 
+        /// <summary>
+        /// Gets or sets the user friendly connection errors text for display. Can be null.
+        /// </summary>
         public string ConnectionErrorsText
         {
             get { return (string)GetValue(ConnectionErrorsTextProperty); }

@@ -7,7 +7,7 @@ using Xamarin.Forms;
 namespace IdApp.ViewModels
 {
     /// <summary>
-    /// A Viev model that represents the current XMPP Communication.
+    /// A View model that represents the current XMPP Communication.
     /// </summary>
     public class XmppCommunicationViewModel : BaseViewModel
     {

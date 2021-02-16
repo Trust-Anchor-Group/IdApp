@@ -10,16 +10,23 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
 {
+    /// <summary>
+    /// The view model to bind to for when displaying server signatures.
+    /// </summary>
     public class ServerSignatureViewModel : BaseViewModel
     {
         private readonly INavigationService navigationService;
         private Contract contract;
 
+        /// <summary>
+        /// Creates an instance of the <see cref="ServerSignatureViewModel"/> class.
+        /// </summary>
         public ServerSignatureViewModel()
         {
             this.navigationService = DependencyService.Resolve<INavigationService>();
         }
 
+        /// <inheritdoc/>
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -32,27 +39,45 @@ namespace IdApp.ViewModels.Contracts
 
         #region Properties
 
+        /// <summary>
+        /// See <see cref="Provider"/>
+        /// </summary>
         public static readonly BindableProperty ProviderProperty =
             BindableProperty.Create("Provider", typeof(string), typeof(ServerSignatureViewModel), default(string));
 
+        /// <summary>
+        /// The provider of the server signature contract.
+        /// </summary>
         public string Provider
         {
             get { return (string) GetValue(ProviderProperty); }
             set { SetValue(ProviderProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Timestamp"/>
+        /// </summary>
         public static readonly BindableProperty TimestampProperty =
             BindableProperty.Create("Timestamp", typeof(string), typeof(ServerSignatureViewModel), default(string));
 
+        /// <summary>
+        /// The time stamp of the server signature contract.
+        /// </summary>
         public string Timestamp
         {
             get { return (string)GetValue(TimestampProperty); }
             set { SetValue(TimestampProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Signature"/>
+        /// </summary>
         public static readonly BindableProperty SignatureProperty =
             BindableProperty.Create("Signature", typeof(string), typeof(ServerSignatureViewModel), default(string));
 
+        /// <summary>
+        /// The signature of the server signature contract.
+        /// </summary>
         public string Signature
         {
             get { return (string)GetValue(SignatureProperty); }

@@ -9,17 +9,26 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels
 {
+    /// <summary>
+    /// The view model to bind to for a loading page, i.e. a page showing the loading/startup state of a Xamarin app.
+    /// </summary>
     public class LoadingViewModel : NeuronViewModel
     {
         private readonly ITagProfile tagProfile;
         private readonly INavigationService navigationService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="LoadingViewModel"/> class.
+        /// </summary>
         public LoadingViewModel()
             : this(null, null, null, null)
         {
         }
 
-        // For unit tests
+        /// <summary>
+        /// Creates a new instance of the <see cref="LoadingViewModel"/> class.
+        /// For unit tests.
+        /// </summary>
         protected internal LoadingViewModel(
             INeuronService neuronService, 
             IUiDispatcher uiDispatcher,
@@ -31,6 +40,7 @@ namespace IdApp.ViewModels
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
         }
 
+        /// <inheritdoc />
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -39,6 +49,7 @@ namespace IdApp.ViewModels
             this.NeuronService.Loaded += NeuronService_Loaded;
         }
 
+        /// <inheritdoc />
         protected override async Task DoUnbind()
         {
             this.NeuronService.Loaded -= NeuronService_Loaded;
@@ -47,9 +58,15 @@ namespace IdApp.ViewModels
 
         #region Properties
 
+        /// <summary>
+        /// See <see cref="DisplayConnectionText"/>
+        /// </summary>
         public static readonly BindableProperty DisplayConnectionTextProperty =
             BindableProperty.Create("DisplayConnectionText", typeof(bool), typeof(LoadingViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the user friendly connection text should be visible on screen or not.
+        /// </summary>
         public bool DisplayConnectionText
         {
             get { return (bool)GetValue(DisplayConnectionTextProperty); }

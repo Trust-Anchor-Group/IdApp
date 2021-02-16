@@ -20,6 +20,9 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
 {
+    /// <summary>
+    /// The view model to bind to for when displaying contracts.
+    /// </summary>
     public class ViewContractViewModel : BaseViewModel
     {
         private Contract contract;
@@ -32,6 +35,9 @@ namespace IdApp.ViewModels.Contracts
         private readonly ITagProfile tagProfile;
         private readonly PhotosLoader photosLoader;
 
+        /// <summary>
+        /// Creates an instance of the <see cref="ViewContractViewModel"/> class.
+        /// </summary>
         public ViewContractViewModel()
         {
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
@@ -58,6 +64,7 @@ namespace IdApp.ViewModels.Contracts
             this.ContractServerSignatures = new ObservableCollection<PartModel>();
         }
 
+        /// <inheritdoc/>
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -74,6 +81,7 @@ namespace IdApp.ViewModels.Contracts
             await LoadContract();
         }
 
+        /// <inheritdoc/>
         protected override async Task DoUnbind()
         {
             this.ClearContract();
@@ -82,99 +90,185 @@ namespace IdApp.ViewModels.Contracts
 
         #region Properties
 
+        /// <summary>
+        /// The command to bind to when displaying part of a contract
+        /// </summary>
         public ICommand DisplayPartCommand { get; }
 
+        /// <summary>
+        /// The command to bind to when signing part of a contract
+        /// </summary>
         public ICommand SignPartAsRoleCommand { get; }
 
+        /// <summary>
+        /// The command to bind to when displaying the client signature of a contract
+        /// </summary>
         public ICommand DisplayClientSignatureCommand { get; }
 
+        /// <summary>
+        /// The command to bind to when displaying the server signature of a contract
+        /// </summary>
         public ICommand DisplayServerSignatureCommand { get; }
 
+        /// <summary>
+        /// The command to bind to when marking a contract as obsolete.
+        /// </summary>
         public ICommand ObsoleteContractCommand { get; }
 
+        /// <summary>
+        /// The command to bind to when deleting a contract.
+        /// </summary>
         public ICommand DeleteContractCommand { get; }
-
+        /// <summary>
+        /// Holds a list of general information sections for the contract.
+        /// </summary>
         public ObservableCollection<PartModel> GeneralInformation { get; }
 
+        /// <summary>
+        /// Holds a list of roles for the contract.
+        /// </summary>
         public ObservableCollection<PartModel> ContractRoles { get; }
 
+        /// <summary>
+        /// Holds a list of parts for the contract.
+        /// </summary>
         public ObservableCollection<PartModel> ContractParts { get; }
 
+        /// <summary>
+        /// Holds a list of parameters for the contract.
+        /// </summary>
         public ObservableCollection<ParameterModel> ContractParameters { get; }
 
+        /// <summary>
+        /// Holds a list of human readable text for the contract.
+        /// </summary>
         public ObservableCollection<string> ContractHumanReadableText { get; }
 
+        /// <summary>
+        /// Holds a list of machine readable texts for the contract.
+        /// </summary>
         public ObservableCollection<PartModel> ContractMachineReadableText { get; }
 
+        /// <summary>
+        /// Holds a list of client signatures for the contract.
+        /// </summary>
         public ObservableCollection<PartModel> ContractClientSignatures { get; }
 
+        /// <summary>
+        /// Holds a list of server signatures for the contract.
+        /// </summary>
         public ObservableCollection<PartModel> ContractServerSignatures { get; }
 
         public ObservableCollection<ImageSource> Photos { get; }
 
+        /// <summary>
+        /// See <see cref="HasRoles"/>
+        /// </summary>
         public static readonly BindableProperty HasRolesProperty =
             BindableProperty.Create("HasRoles", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has any roles to display.
+        /// </summary>
         public bool HasRoles
         {
             get { return (bool)GetValue(HasRolesProperty); }
             set { SetValue(HasRolesProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasParts"/>
+        /// </summary>
         public static readonly BindableProperty HasPartsProperty =
             BindableProperty.Create("HasParts", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has any contract parts to display.
+        /// </summary>
         public bool HasParts
         {
             get { return (bool)GetValue(HasPartsProperty); }
             set { SetValue(HasPartsProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasParameters"/>
+        /// </summary>
         public static readonly BindableProperty HasParametersProperty =
             BindableProperty.Create("HasParameters", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has any parameters to display.
+        /// </summary>
         public bool HasParameters
         {
             get { return (bool)GetValue(HasParametersProperty); }
             set { SetValue(HasParametersProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasHumanReadableText"/>
+        /// </summary>
         public static readonly BindableProperty HasHumanReadableTextProperty =
             BindableProperty.Create("HasHumanReadableText", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has any human readable texts to display.
+        /// </summary>
         public bool HasHumanReadableText
         {
             get { return (bool)GetValue(HasHumanReadableTextProperty); }
             set { SetValue(HasHumanReadableTextProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasMachineReadableText"/>
+        /// </summary>
         public static readonly BindableProperty HasMachineReadableTextProperty =
             BindableProperty.Create("HasMachineReadableText", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has any machine readable texts to display.
+        /// </summary>
         public bool HasMachineReadableText
         {
             get { return (bool)GetValue(HasMachineReadableTextProperty); }
             set { SetValue(HasMachineReadableTextProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasClientSignatures"/>
+        /// </summary>
         public static readonly BindableProperty HasClientSignaturesProperty =
             BindableProperty.Create("HasClientSignatures", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has any client signatures to display.
+        /// </summary>
         public bool HasClientSignatures
         {
             get { return (bool)GetValue(HasClientSignaturesProperty); }
             set { SetValue(HasClientSignaturesProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasServerSignatures"/>
+        /// </summary>
         public static readonly BindableProperty HasServerSignaturesProperty =
             BindableProperty.Create("HasServerSignatures", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has any server signatures to display.
+        /// </summary>
         public bool HasServerSignatures
         {
             get { return (bool)GetValue(HasServerSignaturesProperty); }
             set { SetValue(HasServerSignaturesProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="QrCode"/>
+        /// </summary>
         public static readonly BindableProperty QrCodeProperty =
             BindableProperty.Create("QrCode", typeof(ImageSource), typeof(ViewContractViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -182,42 +276,69 @@ namespace IdApp.ViewModels.Contracts
                 viewModel.HasQrCode = newValue != null;
             });
 
+        /// <summary>
+        /// Gets or sets the QR Code image.
+        /// </summary>
         public ImageSource QrCode
         {
             get { return (ImageSource)GetValue(QrCodeProperty); }
             set { SetValue(QrCodeProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="HasQrCode"/>
+        /// </summary>
         public static readonly BindableProperty HasQrCodeProperty =
             BindableProperty.Create("HasQrCode", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the contract has a QR Code image for display.
+        /// </summary>
         public bool HasQrCode
         {
             get { return (bool) GetValue(HasQrCodeProperty); }
             set { SetValue(HasQrCodeProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="QrCodeWidth"/>
+        /// </summary>
         public static readonly BindableProperty QrCodeWidthProperty =
             BindableProperty.Create("QrCodeWidth", typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageWidth);
 
+        /// <summary>
+        /// Gets or sets the width in pixels of the generated QR code image.
+        /// </summary>
         public int QrCodeWidth
         {
             get { return (int) GetValue(QrCodeWidthProperty); }
             set { SetValue(QrCodeWidthProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="QrCodeHeight"/>
+        /// </summary>
         public static readonly BindableProperty QrCodeHeightProperty =
             BindableProperty.Create("QrCodeHeight", typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageHeight);
 
+        /// <summary>
+        /// Gets or sets the height in pixels of the generated QR code image.
+        /// </summary>
         public int QrCodeHeight
         {
             get { return (int) GetValue(QrCodeHeightProperty); }
             set { SetValue(QrCodeHeightProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="CanDeleteOrObsoleteContract"/>
+        /// </summary>
         public static readonly BindableProperty CanDeleteOrObsoleteContractProperty =
             BindableProperty.Create("CanDeleteOrObsoleteContract", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether a user can delete or obsolete a contract.
+        /// </summary>
         public bool CanDeleteOrObsoleteContract
         {
             get { return (bool) GetValue(CanDeleteOrObsoleteContractProperty); }
