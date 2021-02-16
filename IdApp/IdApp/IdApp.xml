@@ -359,6 +359,11 @@
               Looks up a localized string similar to Duration.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.EnterAnOperatorName">
+            <summary>
+              Looks up a localized string similar to Enter an operator.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ErrorTitle">
             <summary>
               Looks up a localized string similar to An error has occurred.

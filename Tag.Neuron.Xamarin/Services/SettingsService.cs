@@ -1,123 +1,85 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
-using SQLite;
 using Waher.Runtime.Inventory;
-using Xamarin.Forms;
+using Waher.Runtime.Settings;
 
 namespace Tag.Neuron.Xamarin.Services
 {
     [Singleton]
     internal sealed class SettingsService : ISettingsService
     {
-        private const SQLiteOpenFlags Flags =
-            // open the database in read/write mode
-            SQLiteOpenFlags.ReadWrite |
-            // create the database if it doesn't exist
-            SQLiteOpenFlags.Create |
-            // enable multi-threaded database access
-            SQLiteOpenFlags.SharedCache;
+        private const string WildCard = "*";
+        private const string EmptyJson = "{}";
 
-        private static string DatabasePath => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TagId.db3");
-
-        public SettingsService()
+        private static string FormatKey(string keyPrefix)
         {
-            if (!DesignMode.IsDesignModeEnabled)
+            if (string.IsNullOrWhiteSpace(keyPrefix))
             {
-                using (var connection = new SQLiteConnection(DatabasePath, Flags))
-                {
-                    connection.CreateTable<Setting>();
-                }
+                return WildCard;
             }
+            if (!keyPrefix.EndsWith(WildCard))
+            {
+                keyPrefix += WildCard;
+            }
+
+            return keyPrefix;
         }
 
-        public Task SaveState(string key, object state)
+        public async Task SaveState(string key, object state)
         {
-            using (var connection = new SQLiteConnection(DatabasePath, Flags))
-            {
-                var existingState = connection.Find<Setting>(key);
-                if (existingState != null)
-                {
-                    existingState.Value = Waher.Content.JSON.Encode(state, true);
-                    connection.Update(existingState);
-                }
-                else
-                {
-                    var newState = new Setting { Key = key, Value = Waher.Content.JSON.Encode(state, true) };
-                    connection.Insert(newState);
-                }
-            }
-
-            return Task.CompletedTask;
+            string stateValue = state != null ? Waher.Content.JSON.Encode(state, true) : EmptyJson;
+            await RuntimeSettings.SetAsync(key, stateValue);
         }
 
-        public Task<IEnumerable<(string key, T value)>> RestoreStateWhere<T>(Func<string, bool> predicate)
+        public async Task<IEnumerable<(string key, T value)>> RestoreStateWhereKeyStartsWith<T>(string keyPrefix)
         {
-            List<Setting> existingStates;
-            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            if (string.IsNullOrWhiteSpace(keyPrefix))
             {
-                existingStates = connection.Table<Setting>().ToList();
+                return Array.Empty<(string, T)>();
             }
 
+            keyPrefix = FormatKey(keyPrefix);
+
+            var existingStates = (await RuntimeSettings.GetWhereKeyLikeAsync(keyPrefix, WildCard));
             List<(string, T)> matches = new List<(string, T)>();
             foreach (var state in existingStates)
             {
-                if (predicate(state.Key))
-                {
-                    matches.Add((state.Key, (T)Waher.Content.JSON.Parse(state.Value)));
-                }
+                matches.Add((state.Key, (T)Waher.Content.JSON.Parse((string)state.Value)));
             }
 
-            return Task.FromResult((IEnumerable<(string, T)>)matches);
+            return matches;
         }
 
-        public Task<T> RestoreState<T>(string key, T defaultValueIfNotFound = default)
+        public async Task<T> RestoreState<T>(string key, T defaultValueIfNotFound = default)
         {
             if (string.IsNullOrWhiteSpace(key))
-                return Task.FromResult(defaultValueIfNotFound);
+                return defaultValueIfNotFound;
 
-            using (var connection = new SQLiteConnection(DatabasePath, Flags))
+            string existingState = await RuntimeSettings.GetAsync(key, EmptyJson);
+
+            if (!string.IsNullOrWhiteSpace(existingState))
             {
-                var existingState = connection.Find<Setting>(key);
-                if (existingState != null)
-                {
-                    T obj = (T)Waher.Content.JSON.Parse(existingState.Value);
-                    return Task.FromResult(obj);
-                }
+                return (T)Waher.Content.JSON.Parse(existingState);
             }
 
-            return Task.FromResult(defaultValueIfNotFound);
+            return defaultValueIfNotFound;
         }
 
-        public Task RemoveState(string key)
+        public async Task RemoveState(string key)
         {
             if (string.IsNullOrWhiteSpace(key))
-                return Task.CompletedTask;
-
-            using (var connection = new SQLiteConnection(DatabasePath, Flags))
-            {
-                connection.Delete<Setting>(key);
-            }
-
-            return Task.CompletedTask;
+                return;
+            await RuntimeSettings.DeleteAsync(key);
         }
 
-        public Task RemoveStateWhere(Func<string, bool> predicate)
+        public async Task RemoveStateWhereKeyStartsWith(string keyPrefix)
         {
-            using (var connection = new SQLiteConnection(DatabasePath, Flags))
-            {
-                List<Setting> existingStates = connection.Table<Setting>().ToList();
-                foreach (var state in existingStates)
-                {
-                    if (predicate(state.Key))
-                    {
-                        connection.Delete<Setting>(state.Key);
-                    }
-                }
-            }
+            if (string.IsNullOrWhiteSpace(keyPrefix))
+                return;
 
-            return Task.CompletedTask;
+            keyPrefix = FormatKey(keyPrefix);
+            await RuntimeSettings.DeleteWhereKeyLikeAsync(keyPrefix, WildCard);
         }
     }
 }

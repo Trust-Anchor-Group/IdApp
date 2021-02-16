@@ -575,12 +575,12 @@
             <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Startup(System.Boolean)">
+        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Startup(System.Boolean,Waher.Runtime.Profiling.ProfilerThread)">
             <summary>
             To be called when the app is starting, regardless of whether it a cold start, or if it is resuming.
             </summary>
             <param name="isResuming">Set to <c>true</c> if the app is resuming, <c>false</c> otherwise.</param>
-            <returns></returns>
+            <param name="Thread">Optional Profiler Thread, for profiling startup times. May be null.</param>
         </member>
         <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Shutdown(System.Boolean)">
             <summary>
@@ -2317,7 +2317,7 @@
         <member name="P:Tag.Neuron.Xamarin.TagIdSdk.LogService">
             <inheritdoc/>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Startup(System.Boolean)">
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Startup(System.Boolean,Waher.Runtime.Profiling.ProfilerThread)">
             <inheritdoc/>
         </member>
         <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Shutdown(System.Boolean)">

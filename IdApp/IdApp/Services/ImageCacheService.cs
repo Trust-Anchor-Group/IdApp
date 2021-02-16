@@ -43,7 +43,7 @@ namespace IdApp.Services
 
                     if (!isResuming)
                     {
-                        List<(string, string)> cacheEntriesAsJson = (await this.settingsService.RestoreStateWhere<string>(x => x.StartsWith(KeyPrefix))).ToList();
+                        List<(string, string)> cacheEntriesAsJson = (await this.settingsService.RestoreStateWhereKeyStartsWith<string>(KeyPrefix)).ToList();
                         if (cacheEntriesAsJson.Count > 0)
                         {
                             foreach ((string Key, string Json) entry in cacheEntriesAsJson)
@@ -80,7 +80,7 @@ namespace IdApp.Services
                 try
                 {
                     // Wipe any old settings, so we have a clean slate.
-                    this.settingsService.RemoveStateWhere(x => x.StartsWith(KeyPrefix));
+                    this.settingsService.RemoveStateWhereKeyStartsWith(KeyPrefix);
 
                     foreach (KeyValuePair<string, CacheEntry> entry in entries)
                     {

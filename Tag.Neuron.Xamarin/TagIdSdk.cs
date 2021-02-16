@@ -12,6 +12,7 @@ using Waher.Events;
 using Waher.Persistence;
 using Waher.Persistence.Files;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin
@@ -38,7 +39,6 @@ namespace Tag.Neuron.Xamarin
 			this.StorageService = Types.InstantiateDefault<StorageService>(false);
 			this.neuronService = Types.InstantiateDefault<NeuronService>(false, this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
 			this.NavigationService = Types.InstantiateDefault<NavigationService>(false, this.LogService, this.uiDispatcher);
-
 		}
 
 		/// <inheritdoc/>
@@ -83,21 +83,32 @@ namespace Tag.Neuron.Xamarin
         public ILogService LogService { get; }
 
 		/// <inheritdoc/>
-		public async Task Startup(bool isResuming)
+		public async Task Startup(bool isResuming, ProfilerThread Thread)
 		{
+			Thread?.Start();
+			Thread?.NewState("DB");
+
 			this.uiDispatcher.IsRunningInTheBackground = false;
 
-			await InitializeDatabase();
+			await InitializeDatabase(Thread?.CreateSubThread("DbStartup", ProfilerThreadType.Sequential));
+
+			Thread?.NewState("Config");
 
 			if (!isResuming)
 			{
 				await CreateOrRestoreConfiguration();
 			}
 
+			Thread?.NewState("Load");
+
 			await this.NeuronService.Load(isResuming);
+
+			Thread?.NewState("Timer");
 
 			TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
 			this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
+
+			Thread?.Stop();
 		}
 
 		/// <inheritdoc/>
@@ -169,8 +180,11 @@ namespace Tag.Neuron.Xamarin
 			}
 		}
 
-		private async Task InitializeDatabase()
+		private async Task InitializeDatabase(ProfilerThread Thread)
 		{
+			Thread?.Start();
+			Thread?.NewState("Folders");
+
 			string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			string dataFolder = Path.Combine(appDataFolder, "Data");
 
@@ -183,19 +197,29 @@ namespace Tag.Neuron.Xamarin
 			string method = null;
 			try
 			{
+				Thread?.NewState("Provider");
+
 				// 1. Try create database
 				method = createDbMethod;
 				this.databaseProvider = await CreateDatabaseFile();
+
+				Thread?.NewState("Repair");
+
 				method = nameof(FilesProvider.RepairIfInproperShutdown);
 				await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
 			}
 			catch (Exception e1)
 			{
+				e1 = Log.UnnestException(e1);
+				Thread?.Exception(e1);
+
 				// Create failed.
 				this.LogService.LogException(e1, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
 
 				try
 				{
+					Thread?.NewState("Repair2");
+
 					// 2. Try repair database
 					if (this.databaseProvider == null && Database.HasProvider)
 					{
@@ -217,23 +241,42 @@ namespace Tag.Neuron.Xamarin
 				}
 				catch (Exception e2)
 				{
+					e2 = Log.UnnestException(e2);
+					Thread?.Exception(e2);
+
 					// Repair failed
 					this.LogService.LogException(e2, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+
+					Thread?.NewState("UserAlert");
 
 					if (await this.UiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
 					{
 						try
 						{
+							Thread?.NewState("Delete");
+
 							// 3. Delete and create a new empty database
 							method = "Delete database file(s) and create new empty database";
 							Directory.Delete(dataFolder, true);
+
+							Thread?.NewState("Recreate");
+
 							this.databaseProvider = await CreateDatabaseFile();
+
+							Thread?.NewState("Repair3");
+
 							await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
 						}
 						catch (Exception e3)
 						{
+							e3 = Log.UnnestException(e3);
+							Thread?.Exception(e3);
+
 							// Delete and create new failed. We're out of options.
 							this.LogService.LogException(e3, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
+
+							Thread?.NewState("DisplayAlert2");
+
 							await this.UiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
 						}
 					}
@@ -242,13 +285,19 @@ namespace Tag.Neuron.Xamarin
 
 			try
 			{
+				Thread?.NewState("Register");
+
 				method = $"{nameof(Database)}.{nameof(Database.Register)}";
 				Database.Register(databaseProvider, false);
 			}
 			catch (Exception e)
 			{
+				e = Log.UnnestException(e);
+				Thread?.Exception(e);
 				this.LogService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), method));
 			}
+
+			Thread?.Stop();
 		}
 
 		private async Task CreateOrRestoreConfiguration()

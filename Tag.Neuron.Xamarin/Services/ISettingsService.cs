@@ -29,9 +29,9 @@ namespace Tag.Neuron.Xamarin.Services
         /// Returns any states whose key matches the specified predicate.
         /// </summary>
         /// <typeparam name="T">The state type.</typeparam>
-        /// <param name="predicate">A predication function that identifies the relevant keys.</param>
+        /// <param name="keyPrefix">The string value the key should start with, like "Foo". Do not include wildcards.</param>
         /// <returns>a list of matching states.</returns>
-        Task<IEnumerable<(string key, T value)>> RestoreStateWhere<T>(Func<string, bool> predicate);
+        Task<IEnumerable<(string key, T value)>> RestoreStateWhereKeyStartsWith<T>(string keyPrefix);
         /// <summary>
         /// Removes a given state.
         /// </summary>
@@ -40,7 +40,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Removes any states whose key matches the specified predicate.
         /// </summary>
-        /// <param name="predicate">A predication function that identifies the relevant keys.</param>
-        Task RemoveStateWhere(Func<string, bool> predicate);
+        /// <param name="keyPrefix">The string value the key should start with, like "Foo". Do not include wildcards.</param>
+        Task RemoveStateWhereKeyStartsWith(string keyPrefix);
     }
 }

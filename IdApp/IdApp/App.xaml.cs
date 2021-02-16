@@ -16,6 +16,7 @@ using Waher.Persistence;
 using Waher.Persistence.Files;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Script;
 using Xamarin.Essentials;
@@ -34,17 +35,24 @@ namespace IdApp
 		private readonly IImageCacheService imageCacheService;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly bool keepRunningInTheBackground = false;
+		private Profiler startupProfiler;
 
-        ///<inheritdoc/>
+		///<inheritdoc/>
 		public App()
 		{
+			this.startupProfiler = new Profiler("Startup", ProfilerThreadType.Sequential);
+			this.startupProfiler.Start();
+			this.startupProfiler.NewState("Init");
+
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
 			InitializeComponent();
 
 			try
-            {
+			{
+				this.startupProfiler.NewState("Types");
+
 				Assembly appAssembly = this.GetType().Assembly;
 
 				if (!Types.IsInitialized)
@@ -52,26 +60,28 @@ namespace IdApp
 					// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
 
 					Types.Initialize(
-						appAssembly,								// Allows for objects defined in this assembly, to be instantiated and persisted.
-						typeof(Database).Assembly,					// Indexes default attributes
-						typeof(ObjectSerializer).Assembly,			// Indexes general serializers
-						typeof(FilesProvider).Assembly,				// Indexes special serializers
-						typeof(RuntimeSettings).Assembly,			// Allows for persistence of settings in the object database
-						typeof(XmppClient).Assembly,				// Serialization of general XMPP objects
-						typeof(ContractsClient).Assembly,			// Serialization of XMPP objects related to digital identities and smart contracts
-						typeof(Expression).Assembly,				// Indexes basic script functions
-						typeof(XmppServerlessMessaging).Assembly,	// Indexes End-to-End encryption mechanisms
-						typeof(TagConfiguration).Assembly,			// Indexes persistable objects
+						appAssembly,                                // Allows for objects defined in this assembly, to be instantiated and persisted.
+						typeof(Database).Assembly,                  // Indexes default attributes
+						typeof(ObjectSerializer).Assembly,          // Indexes general serializers
+						typeof(FilesProvider).Assembly,             // Indexes special serializers
+						typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
+						typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
+						typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
+						typeof(Expression).Assembly,                // Indexes basic script functions
+						typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
+						typeof(TagConfiguration).Assembly,          // Indexes persistable objects
 						typeof(RegistrationStep).Assembly);         // Indexes persistable objects
 				}
 
-                this.sdk = TagIdSdk.Create(appAssembly, new XmppConfiguration().ToArray());
+				this.startupProfiler.NewState("SDK");
+
+				this.sdk = TagIdSdk.Create(appAssembly, new XmppConfiguration().ToArray());
 
 				// Set resolver
 				DependencyResolver.ResolveUsing(type =>
 				{
 					if (Types.GetType(type.FullName) is null)
-						return null;	// Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
+						return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
 					return Types.Instantiate(true, type);
 				});
@@ -86,6 +96,7 @@ namespace IdApp
 			catch (Exception e)
 			{
 				e = Waher.Events.Log.UnnestException(e);
+				this.startupProfiler.Exception(e);
 				DisplayBootstrapErrorPage(e.Message, e.StackTrace);
 				return;
 			}
@@ -93,22 +104,27 @@ namespace IdApp
 			// Start page
 			try
 			{
+				this.startupProfiler.NewState("MainPage");
+
 				this.MainPage = new AppShell();
 			}
 			catch (Exception e)
 			{
 				e = Waher.Events.Log.UnnestException(e);
+				this.startupProfiler.Exception(e);
 				this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
 			}
+
+			this.startupProfiler.MainThread.Idle();
 		}
 
-        ///<inheritdoc/>
-        public void Dispose()
+		///<inheritdoc/>
+		public void Dispose()
 		{
 			this.sdk?.Dispose();
 		}
 
-        ///<inheritdoc/>
+		///<inheritdoc/>
 		protected override async void OnStart()
 		{
 			//AppCenter.Start(
@@ -116,37 +132,53 @@ namespace IdApp
 			//    typeof(Analytics),
 			//    typeof(Crashes));
 
-			try
-			{
-				await this.PerformStartup(false);
-			}
-			catch (Exception e)
-			{
-				e = Waher.Events.Log.UnnestException(e);
-				this.DisplayBootstrapErrorPage(e.Message, e.StackTrace);
-			}
+			await this.PerformStartup(false);
 		}
 
-        ///<inheritdoc/>
+		///<inheritdoc/>
 		protected override async void OnResume()
 		{
 			await this.PerformStartup(true);
 		}
 
-        ///<inheritdoc/>
+		private async Task PerformStartup(bool isResuming)
+		{
+			ProfilerThread Thread = this.startupProfiler?.MainThread.CreateSubThread("AppStartup", ProfilerThreadType.Sequential);
+			Thread?.Start();
+
+			try
+			{
+				Thread?.NewState("Report");
+
+				await this.SendErrorReportFromPreviousRun();
+
+				Thread?.NewState("Startup");
+
+				await this.sdk.Startup(isResuming, Thread?.CreateSubThread("SdkStartup", ProfilerThreadType.Sequential));
+
+				Thread?.NewState("Cache");
+
+				await this.imageCacheService.Load(isResuming);
+
+				Thread?.NewState("Orchestrator");
+
+				await this.contractOrchestratorService.Load(isResuming);
+			}
+			catch (Exception e)
+			{
+				e = Waher.Events.Log.UnnestException(e);
+				Thread?.Exception(e);
+				this.DisplayBootstrapErrorPage(e.Message, e.StackTrace);
+			}
+
+			Thread?.Stop();
+			this.SendStartupProfile();
+		}
+
+		///<inheritdoc/>
 		protected override async void OnSleep()
 		{
 			await this.PerformShutdown();
-		}
-
-		private async Task PerformStartup(bool isResuming)
-		{
-			await this.SendErrorReportFromPreviousRun();
-
-			await this.sdk.Startup(isResuming);
-
-			await this.imageCacheService.Load(isResuming);
-			await this.contractOrchestratorService.Load(isResuming);
 		}
 
 		private async Task PerformShutdown()
@@ -198,7 +230,6 @@ namespace IdApp
 			};
 		}
 
-
 		private async Task SendErrorReportFromPreviousRun()
 		{
 			string stackTrace = this.sdk.LogService.LoadExceptionDump();
@@ -206,20 +237,52 @@ namespace IdApp
 			{
 				try
 				{
-					HttpClient client = new HttpClient();
-					client.DefaultRequestHeaders.Accept.Clear();
-					client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-					var content = new StringContent(stackTrace);
-					content.Headers.ContentType.MediaType = "text/plain";
-					await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
-				}
-				catch (Exception)
-				{
+					await this.SendAlert(stackTrace, "text/plain");
 				}
 				finally
 				{
 					this.sdk.LogService.DeleteExceptionDump();
 				}
+			}
+		}
+
+		private async Task SendAlert(string Message, string ContentType)
+		{
+			try
+			{
+				HttpClient client = new HttpClient();
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				var content = new StringContent(Message);
+				content.Headers.ContentType.MediaType = ContentType;
+				await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
+			}
+			catch (Exception ex)
+			{
+				Waher.Events.Log.Critical(ex);
+			}
+		}
+
+		private void SendStartupProfile()
+		{
+			if (!(this.startupProfiler is null))
+			{
+				this.startupProfiler.Stop();
+				string Uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
+
+				this.startupProfiler = null;
+
+				Task.Run(async () =>
+				{
+					try
+					{
+						await SendAlert("```uml\r\n" + Uml + "```", "text/markdown");
+					}
+					catch (Exception ex)
+					{
+						Waher.Events.Log.Critical(ex);
+					}
+				});
 			}
 		}
 
