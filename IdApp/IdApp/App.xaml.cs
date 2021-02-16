@@ -122,7 +122,7 @@ namespace IdApp
 			{
 				try
 				{
-					await SendAlert("```uml\r\n" + Uml + "```");
+					await SendAlert("```uml\r\n" + Uml + "```", "text/markdown");
 				}
 				catch (Exception ex)
 				{
@@ -234,7 +234,7 @@ namespace IdApp
 			{
 				try
 				{
-					await this.SendAlert(stackTrace);
+					await this.SendAlert(stackTrace, "text/plain");
 				}
 				finally
 				{
@@ -243,7 +243,7 @@ namespace IdApp
 			}
 		}
 
-		private async Task SendAlert(string Message)
+		private async Task SendAlert(string Message, string ContentType)
 		{
 			try
 			{
@@ -251,7 +251,7 @@ namespace IdApp
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 				var content = new StringContent(Message);
-				content.Headers.ContentType.MediaType = "text/plain";
+				content.Headers.ContentType.MediaType = ContentType;
 				await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
 			}
 			catch (Exception ex)
