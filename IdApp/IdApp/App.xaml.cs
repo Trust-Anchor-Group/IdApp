@@ -36,13 +36,14 @@ namespace IdApp
 		private readonly IImageCacheService imageCacheService;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly bool keepRunningInTheBackground = false;
+		private Profiler startupProfiler;
 
 		///<inheritdoc/>
 		public App()
 		{
-			Profiler StartupProfiler = new Profiler("Startup", ProfilerThreadType.Sequential);
-			StartupProfiler.Start();
-			StartupProfiler.NewState("Init");
+			this.startupProfiler = new Profiler("Startup", ProfilerThreadType.Sequential);
+			this.startupProfiler.Start();
+			this.startupProfiler.NewState("Init");
 
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
@@ -51,7 +52,7 @@ namespace IdApp
 
 			try
 			{
-				StartupProfiler.NewState("Types");
+				this.startupProfiler.NewState("Types");
 
 				Assembly AppAssembly = this.GetType().Assembly;
 
@@ -73,7 +74,7 @@ namespace IdApp
 						typeof(RegistrationStep).Assembly);         // Indexes persistable objects
 				}
 
-				StartupProfiler.NewState("SDK");
+				this.startupProfiler.NewState("SDK");
 
 				this.sdk = TagIdSdk.Create(AppAssembly, new XmppConfiguration().ToArray());
 
@@ -96,7 +97,7 @@ namespace IdApp
 			catch (Exception e)
 			{
 				e = Waher.Events.Log.UnnestException(e);
-				StartupProfiler.Exception(e);
+				this.startupProfiler.Exception(e);
 				DisplayBootstrapErrorPage(e.Message, e.StackTrace);
 				return;
 			}
@@ -104,31 +105,18 @@ namespace IdApp
 			// Start page
 			try
 			{
-				StartupProfiler.NewState("MainPage");
+				this.startupProfiler.NewState("MainPage");
 
 				this.MainPage = new AppShell();
 			}
 			catch (Exception e)
 			{
 				e = Waher.Events.Log.UnnestException(e);
-				StartupProfiler.Exception(e);
+				this.startupProfiler.Exception(e);
 				this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
 			}
 
-			StartupProfiler.Stop();
-			string Uml = StartupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
-
-			Task.Run(async () =>
-			{
-				try
-				{
-					await SendAlert("```uml\r\n" + Uml + "```", "text/markdown");
-				}
-				catch (Exception ex)
-				{
-					Waher.Events.Log.Critical(ex);
-				}
-			});
+			this.startupProfiler.MainThread.Idle();
 		}
 
 		///<inheritdoc/>
@@ -137,7 +125,7 @@ namespace IdApp
 			this.sdk?.Dispose();
 		}
 
-        ///<inheritdoc/>
+		///<inheritdoc/>
 		protected override async void OnStart()
 		{
 			//AppCenter.Start(
@@ -145,37 +133,53 @@ namespace IdApp
 			//    typeof(Analytics),
 			//    typeof(Crashes));
 
-			try
-			{
-				await this.PerformStartup(false);
-			}
-			catch (Exception e)
-			{
-				e = Waher.Events.Log.UnnestException(e);
-				this.DisplayBootstrapErrorPage(e.Message, e.StackTrace);
-			}
+			await this.PerformStartup(false);
 		}
 
-        ///<inheritdoc/>
+		///<inheritdoc/>
 		protected override async void OnResume()
 		{
 			await this.PerformStartup(true);
 		}
 
-        ///<inheritdoc/>
+		private async Task PerformStartup(bool isResuming)
+		{
+			ProfilerThread Thread = this.startupProfiler?.MainThread.CreateSubThread("Startup", ProfilerThreadType.Sequential);
+			Thread?.Start();
+
+			try
+			{
+				Thread?.NewState("Report");
+
+				await this.SendErrorReportFromPreviousRun();
+
+				Thread?.NewState("Startup");
+
+				await this.sdk.Startup(isResuming);
+
+				Thread?.NewState("Cache");
+
+				await this.imageCacheService.Load(isResuming);
+
+				Thread?.NewState("Orchestrator");
+
+				await this.contractOrchestratorService.Load(isResuming);
+			}
+			catch (Exception e)
+			{
+				e = Waher.Events.Log.UnnestException(e);
+				Thread?.Exception(e);
+				this.DisplayBootstrapErrorPage(e.Message, e.StackTrace);
+			}
+
+			Thread?.Stop();
+			this.SendStartupProfile();
+		}
+
+		///<inheritdoc/>
 		protected override async void OnSleep()
 		{
 			await this.PerformShutdown();
-		}
-
-		private async Task PerformStartup(bool isResuming)
-		{
-			await this.SendErrorReportFromPreviousRun();
-
-			await this.sdk.Startup(isResuming);
-
-			await this.imageCacheService.Load(isResuming);
-			await this.contractOrchestratorService.Load(isResuming);
 		}
 
 		private async Task PerformShutdown()
@@ -257,6 +261,29 @@ namespace IdApp
 			catch (Exception ex)
 			{
 				Waher.Events.Log.Critical(ex);
+			}
+		}
+
+		private void SendStartupProfile()
+		{
+			if (!(this.startupProfiler is null))
+			{
+				this.startupProfiler.Stop();
+				string Uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
+
+				this.startupProfiler = null;
+
+				Task.Run(async () =>
+				{
+					try
+					{
+						await SendAlert("```uml\r\n" + Uml + "```", "text/markdown");
+					}
+					catch (Exception ex)
+					{
+						Waher.Events.Log.Critical(ex);
+					}
+				});
 			}
 		}
 
