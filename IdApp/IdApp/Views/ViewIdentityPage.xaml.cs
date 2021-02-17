@@ -6,11 +6,17 @@ using Xamarin.Forms;
 
 namespace IdApp.Views
 {
+    /// <summary>
+    /// A page to display when the user wants to view an identity.
+    /// </summary>
     [DesignTimeVisible(true)]
     public partial class ViewIdentityPage
     {
         private readonly INavigationService navigationService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ViewIdentityPage"/> class.
+        /// </summary>
         public ViewIdentityPage()
         {
             this.navigationService = DependencyService.Resolve<INavigationService>();
@@ -24,6 +30,10 @@ namespace IdApp.Views
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Overrides the back button behavior to handle navigation internally instead.
+        /// </summary>
+        /// <returns></returns>
         protected override bool OnBackButtonPressed()
         {
             this.navigationService.GoBackAsync();

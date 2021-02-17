@@ -22,7 +22,10 @@ namespace IdApp.Views
             this.ViewModel = new XmppCommunicationViewModel();
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Overrides the back button behavior to handle navigation internally instead.
+        /// </summary>
+        /// <returns></returns>
         protected override bool OnBackButtonPressed()
         {
             this.navigationService.GoBackAsync();

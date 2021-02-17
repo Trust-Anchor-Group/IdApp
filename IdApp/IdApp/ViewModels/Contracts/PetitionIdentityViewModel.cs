@@ -204,6 +204,9 @@ namespace IdApp.ViewModels.Contracts
             set { SetValue(ToProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="FirstName"/>
+        /// </summary>
         public static readonly BindableProperty FirstNameProperty =
             BindableProperty.Create("FirstName", typeof(string), typeof(PetitionIdentityViewModel), default(string));
 
@@ -261,6 +264,9 @@ namespace IdApp.ViewModels.Contracts
             set { SetValue(PersonalNumberProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Address"/>
+        /// </summary>
         public static readonly BindableProperty AddressProperty =
             BindableProperty.Create("Address", typeof(string), typeof(PetitionIdentityViewModel), default(string));
 
@@ -318,6 +324,9 @@ namespace IdApp.ViewModels.Contracts
             set { SetValue(AreaProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="City"/>
+        /// </summary>
         public static readonly BindableProperty CityProperty =
             BindableProperty.Create("City", typeof(string), typeof(PetitionIdentityViewModel), default(string));
 

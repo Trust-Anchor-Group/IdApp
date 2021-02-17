@@ -10,12 +10,25 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Registration
 {
+    /// <summary>
+    /// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
+    /// </summary>
     public class ChooseOperatorViewModel : RegistrationStepViewModel
     {
         private readonly INetworkService networkService;
         private string hostName;
         private int portNumber;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ChooseOperatorViewModel"/> class.
+        /// </summary>
+        /// <param name="tagProfile">The tag profile to work with.</param>
+        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="navigationService">The navigation service to use for app navigation</param>
+        /// <param name="settingsService">The settings service for persisting UI state.</param>
+        /// <param name="networkService">The network service for network access.</param>
+        /// <param name="logService">The log service.</param>
         public ChooseOperatorViewModel(
             ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
@@ -36,8 +49,14 @@ namespace IdApp.ViewModels.Registration
 
         #region Properties
 
+        /// <summary>
+        /// The list of operators a user can choose from.
+        /// </summary>
         public ObservableCollection<string> Operators { get; }
 
+        /// <summary>
+        /// See <see cref="SelectedOperator"/>
+        /// </summary>
         public static readonly BindableProperty SelectedOperatorProperty =
             BindableProperty.Create("SelectedOperator", typeof(string), typeof(ChooseOperatorViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -47,12 +66,18 @@ namespace IdApp.ViewModels.Registration
                 viewModel.ConnectCommand.ChangeCanExecute();
             });
 
+        /// <summary>
+        /// The selected operator from the list of <see cref="Operators"/>, if any.
+        /// </summary>
         public string SelectedOperator
         {
             get { return (string)GetValue(SelectedOperatorProperty); }
             set { SetValue(SelectedOperatorProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="ManualOperator"/>
+        /// </summary>
         public static readonly BindableProperty ManualOperatorProperty =
             BindableProperty.Create("ManualOperator", typeof(string), typeof(ChooseOperatorViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -60,6 +85,9 @@ namespace IdApp.ViewModels.Registration
                 viewModel.ConnectCommand.ChangeCanExecute();
             });
 
+        /// <summary>
+        /// The manually entered operator, if one isn't chosen from the list of <see cref="Operators"/>.
+        /// </summary>
         public string ManualOperator
         {
             get { return (string)GetValue(ManualOperatorProperty); }
@@ -81,13 +109,19 @@ namespace IdApp.ViewModels.Registration
             set { SetValue(ChooseOperatorFromListProperty, value); }
         }
 
-        public string GetOperator()
+        private string GetOperator()
         {
             return !string.IsNullOrWhiteSpace(SelectedOperator) ? SelectedOperator : ManualOperator;
         }
 
+        /// <summary>
+        /// The command to bind to for connecting to the <see cref="SelectedOperator"/>.
+        /// </summary>
         public ICommand ConnectCommand { get; }
 
+        /// <summary>
+        /// The command to bind to when editing the manual operator text in the UI.
+        /// </summary>
         public ICommand ManualOperatorCommand { get; }
 
         #endregion

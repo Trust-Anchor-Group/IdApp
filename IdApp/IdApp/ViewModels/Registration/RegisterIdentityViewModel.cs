@@ -17,6 +17,9 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Registration
 {
+    /// <summary>
+    /// The view model to bind to when showing Step 3 of the registration flow: registering an identity.
+    /// </summary>
     public class RegisterIdentityViewModel : RegistrationStepViewModel
     {
         private const string ProfilePhotoFileName = "ProfilePhoto.jpg";
@@ -24,6 +27,16 @@ namespace IdApp.ViewModels.Registration
         private LegalIdentityAttachment photo;
         private readonly INetworkService networkService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="RegisterIdentityModel"/> class.
+        /// </summary>
+        /// <param name="tagProfile">The tag profile to work with.</param>
+        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="navigationService">The navigation service to use for app navigation</param>
+        /// <param name="settingsService">The settings service for persisting UI state.</param>
+        /// <param name="networkService">The network service for network access.</param>
+        /// <param name="logService">The log service.</param>
         public RegisterIdentityViewModel(
             ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
@@ -50,6 +63,7 @@ namespace IdApp.ViewModels.Registration
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
         }
 
+        /// <inheritdoc />
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -57,6 +71,7 @@ namespace IdApp.ViewModels.Registration
             this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }
 
+        /// <inheritdoc />
         protected override async Task DoUnbind()
         {
             this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
@@ -65,20 +80,41 @@ namespace IdApp.ViewModels.Registration
 
         #region Properties
 
+        /// <summary>
+        /// The command to bind to for performing the 'register' action.
+        /// </summary>
         public ICommand RegisterCommand { get; }
+        /// <summary>
+        /// The command to bind to for taking a photo with the camera.
+        /// </summary>
         public ICommand TakePhotoCommand { get; }
+        /// <summary>
+        /// The command to bind to for selecting a photo from the camera roll.
+        /// </summary>
         public ICommand PickPhotoCommand { get; }
+        /// <summary>
+        /// The command to bind to for removing the currently selected photo.
+        /// </summary>
         public ICommand RemovePhotoCommand { get; }
 
+        /// <summary>
+        /// The <see cref="HasPhoto"/>
+        /// </summary>
         public static readonly BindableProperty HasPhotoProperty =
             BindableProperty.Create("HasPhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the user has selected a photo for their account or not.
+        /// </summary>
         public bool HasPhoto
         {
             get { return (bool) GetValue(HasPhotoProperty); }
             set { SetValue(HasPhotoProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="HasPhoto"/>
+        /// </summary>
         public static readonly BindableProperty ImageProperty =
             BindableProperty.Create("Image", typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -86,14 +122,23 @@ namespace IdApp.ViewModels.Registration
                 viewModel.HasPhoto = newValue != null;
             });
 
+        /// <summary>
+        /// The image source, i.e. the file representing the selected photo.
+        /// </summary>
         public ImageSource Image
         {
             get { return (ImageSource)GetValue(ImageProperty); }
             set { SetValue(ImageProperty, value); }
         }
 
+        /// <summary>
+        /// The list of all available countries a user can select from.
+        /// </summary>
         public ObservableCollection<string> Countries { get; }
 
+        /// <summary>
+        /// The <see cref="HasPhoto"/>
+        /// </summary>
         public static readonly BindableProperty SelectedCountryProperty =
             BindableProperty.Create("SelectedCountry", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -117,134 +162,224 @@ namespace IdApp.ViewModels.Registration
                 }
             });
 
+        /// <summary>
+        /// The user selected country from the list of <see cref="Countries"/>.
+        /// </summary>
         public string SelectedCountry
         {
             get { return (string)GetValue(SelectedCountryProperty); }
             set { SetValue(SelectedCountryProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="FirstName"/>
+        /// </summary>
         public static readonly BindableProperty FirstNameProperty =
             BindableProperty.Create("FirstName", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
+        /// <summary>
+        /// The user's first name
+        /// </summary>
         public string FirstName
         {
             get { return (string)GetValue(FirstNameProperty); }
             set { SetValue(FirstNameProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="MiddleNames"/>
+        /// </summary>
         public static readonly BindableProperty MiddleNamesProperty =
             BindableProperty.Create("MiddleNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
+        /// <summary>
+        /// The user's middle name(s)
+        /// </summary>
         public string MiddleNames
         {
             get { return (string)GetValue(MiddleNamesProperty); }
             set { SetValue(MiddleNamesProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="LastNames"/>
+        /// </summary>
         public static readonly BindableProperty LastNamesProperty =
             BindableProperty.Create("LastNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
+        /// <summary>
+        /// The user's last name(s)
+        /// </summary>
         public string LastNames
         {
             get { return (string)GetValue(LastNamesProperty); }
             set { SetValue(LastNamesProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="PersonalNumber"/>
+        /// </summary>
         public static readonly BindableProperty PersonalNumberProperty =
             BindableProperty.Create("PersonalNumber", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
+        /// <summary>
+        /// The user's personal number
+        /// </summary>
         public string PersonalNumber
         {
             get { return (string)GetValue(PersonalNumberProperty); }
             set { SetValue(PersonalNumberProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="PersonalNumberPlaceholder"/>
+        /// </summary>
         public static readonly BindableProperty PersonalNumberPlaceholderProperty =
             BindableProperty.Create("PersonalNumberPlaceholder", typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
+        /// <summary>
+        /// The personal number placeholder, used as a guide to the user to enter the correct format, which depends on the <see cref="SelectedCountry"/>.
+        /// </summary>
         public string PersonalNumberPlaceholder
         {
             get { return (string) GetValue(PersonalNumberPlaceholderProperty); }
             set { SetValue(PersonalNumberPlaceholderProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="Address"/>
+        /// </summary>
         public static readonly BindableProperty AddressProperty =
             BindableProperty.Create("Address", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
+        /// <summary>
+        /// The user's address, line 1.
+        /// </summary>
         public string Address
         {
             get { return (string)GetValue(AddressProperty); }
             set { SetValue(AddressProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="Address2"/>
+        /// </summary>
         public static readonly BindableProperty Address2Property =
             BindableProperty.Create("Address2", typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
+        /// <summary>
+        /// The user's address, line 2.
+        /// </summary>
         public string Address2
         {
             get { return (string)GetValue(Address2Property); }
             set { SetValue(Address2Property, value); }
         }
 
+        /// <summary>
+        /// The <see cref="ZipCode"/>
+        /// </summary>
         public static readonly BindableProperty ZipCodeProperty =
             BindableProperty.Create("ZipCode", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
+        /// <summary>
+        /// The user's zip code
+        /// </summary>
         public string ZipCode
         {
             get { return (string)GetValue(ZipCodeProperty); }
             set { SetValue(ZipCodeProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="Area"/>
+        /// </summary>
         public static readonly BindableProperty AreaProperty =
             BindableProperty.Create("Area", typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
+        /// <summary>
+        /// The user's area
+        /// </summary>
         public string Area
         {
             get { return (string)GetValue(AreaProperty); }
             set { SetValue(AreaProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="City"/>
+        /// </summary>
         public static readonly BindableProperty CityProperty =
             BindableProperty.Create("City", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
+        /// <summary>
+        /// The user's city
+        /// </summary>
         public string City
         {
             get { return (string)GetValue(CityProperty); }
             set { SetValue(CityProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="Region"/>
+        /// </summary>
         public static readonly BindableProperty RegionProperty =
             BindableProperty.Create("Region", typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
+        /// <summary>
+        /// The user's region
+        /// </summary>
         public string Region
         {
             get { return (string)GetValue(RegionProperty); }
             set { SetValue(RegionProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="DeviceId"/>
+        /// </summary>
         public static readonly BindableProperty DeviceIdProperty =
             BindableProperty.Create("DeviceId", typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
+        /// <summary>
+        /// The device id.
+        /// </summary>
         public string DeviceId
         {
             get { return (string)GetValue(DeviceIdProperty); }
             set { SetValue(DeviceIdProperty, value); }
         }
 
+        /// <summary>
+        /// The user's legal identity, set when the registration has occurred.
+        /// </summary>
         public LegalIdentity LegalIdentity { get; private set; }
 
+        /// <summary>
+        /// The <see cref="HasPhoto"/>
+        /// </summary>
         public static readonly BindableProperty IsConnectedProperty =
             BindableProperty.Create("IsConnected", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the app is connected to an XMPP server.
+        /// </summary>
         public bool IsConnected
         {
             get { return (bool) GetValue(IsConnectedProperty); }
             set { SetValue(IsConnectedProperty, value); }
         }
 
+        /// <summary>
+        /// The <see cref="ConnectionStateText"/>
+        /// </summary>
         public static readonly BindableProperty ConnectionStateTextProperty =
             BindableProperty.Create("ConnectionStateText", typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
+        /// <summary>
+        /// The user friendly connection state text to display to the user.
+        /// </summary>
         public string ConnectionStateText
         {
             get { return (string) GetValue(ConnectionStateTextProperty); }
@@ -532,6 +667,7 @@ namespace IdApp.ViewModels.Registration
             return true;
         }
 
+        /// <inheritdoc />
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
@@ -548,6 +684,7 @@ namespace IdApp.ViewModels.Registration
             await this.SettingsService.SaveState(GetSettingsKey(nameof(Region)), this.Region);
         }
 
+        /// <inheritdoc />
         protected override async Task DoRestoreState()
         {
             this.SelectedCountry = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedCountry)));
@@ -575,6 +712,7 @@ namespace IdApp.ViewModels.Registration
             await base.DoRestoreState();
         }
 
+        /// <inheritdoc />
         public override void ClearStepState()
         {
             RemovePhoto(true);

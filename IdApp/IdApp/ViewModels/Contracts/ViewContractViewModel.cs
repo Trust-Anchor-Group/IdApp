@@ -159,6 +159,9 @@ namespace IdApp.ViewModels.Contracts
         /// </summary>
         public ObservableCollection<PartModel> ContractServerSignatures { get; }
 
+        /// <summary>
+        /// Gets the list of photos associated with the contract.
+        /// </summary>
         public ObservableCollection<ImageSource> Photos { get; }
 
         /// <summary>

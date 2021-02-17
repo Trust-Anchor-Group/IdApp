@@ -8,11 +8,17 @@ using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Registration
 {
+    /// <summary>
+    /// A page for guiding the user through the registration process for setting up a digital identity.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationPage
     {
         private readonly IUiDispatcher uiDispatcher;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="RegistrationPage"/> class.
+        /// </summary>
         public RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
@@ -21,6 +27,9 @@ namespace IdApp.Views.Registration
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Overridden to sync the view with the view model when the page appears on screen.
+        /// </summary>
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -56,11 +65,15 @@ namespace IdApp.Views.Registration
                     vm.MuteStepSync();
                     this.CarouselView.ScrollTo(otherStep, position: ScrollToPosition.Center, animate: false);
                     this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center, animate: false);
-                    this.uiDispatcher.BeginInvokeOnMainThread(() => vm.UnmuteStepSync());
+                    this.uiDispatcher.BeginInvokeOnMainThread(() => vm.UnMuteStepSync());
                 }
             });
         }
 
+        /// <summary>
+        /// Overrides the back button behavior to handle navigation internally instead.
+        /// </summary>
+        /// <returns></returns>
         protected override bool OnBackButtonPressed()
         {
             RegistrationViewModel viewModel = GetViewModel<RegistrationViewModel>();

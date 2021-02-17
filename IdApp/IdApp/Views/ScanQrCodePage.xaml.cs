@@ -8,17 +8,28 @@ using ZXing;
 
 namespace IdApp.Views
 {
+    /// <summary>
+    /// A page to display for scanning of a QR code, either automatically via the camera, or by entering the code manually.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScanQrCodePage
     {
         private readonly IUiDispatcher uiDispatcher;
         private readonly INavigationService navigationService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
+        /// </summary>
         public ScanQrCodePage()
             : this(null)
         {
         }
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
+        /// For unit tests.
+        /// </summary>
+        /// <param name="viewModel">The view model to use.</param>
         protected internal ScanQrCodePage(ScanQrCodeViewModel viewModel)
         {
             this.ViewModel = viewModel ?? new ScanQrCodeViewModel();
@@ -27,6 +38,9 @@ namespace IdApp.Views
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Overridden to initialize the QR Code scanner when the page appears on screen.
+        /// </summary>
         protected override void OnAppearing()
         {
             base.OnAppearing();
@@ -35,6 +49,9 @@ namespace IdApp.Views
             Scanner.IsAnalyzing = true;
         }
 
+        /// <summary>
+        /// Overridden to un-initialize the QR Code scanner when the page disappears from screen.
+        /// </summary>
         protected override void OnDisappearing()
         {
             Scanner.IsAnalyzing = false;
@@ -92,6 +109,10 @@ namespace IdApp.Views
             QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, code);
         }
 
+        /// <summary>
+        /// Overrides the back button behavior to handle navigation internally instead.
+        /// </summary>
+        /// <returns></returns>
         protected override bool OnBackButtonPressed()
         {
             QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, string.Empty);

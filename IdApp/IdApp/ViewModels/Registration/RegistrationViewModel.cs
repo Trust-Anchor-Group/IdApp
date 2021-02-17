@@ -12,18 +12,27 @@ using Command = Xamarin.Forms.Command;
 
 namespace IdApp.ViewModels.Registration
 {
+    /// <summary>
+    /// The view model to bind to for displaying a registration page or view to the user.
+    /// </summary>
     public class RegistrationViewModel : BaseViewModel
     {
         private readonly ITagProfile tagProfile;
         private readonly INavigationService navigationService;
         private bool muteStepSync;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
+        /// </summary>
         public RegistrationViewModel()
             : this(null, null, null, null, null, null, null, null)
         {
         }
 
-        // For unit tests
+        /// <summary>
+        /// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
+        /// For unit tests.
+        /// </summary>
         protected internal RegistrationViewModel(
             ITagProfile tagProfile,
             IUiDispatcher uiDispatcher, 
@@ -55,6 +64,7 @@ namespace IdApp.ViewModels.Registration
             UpdateStepTitle();
         }
 
+        /// <inheritdoc />
         protected override async Task DoBind()
         {
             await base.DoBind();
@@ -62,6 +72,7 @@ namespace IdApp.ViewModels.Registration
             SyncTagProfileStep();
         }
 
+        /// <inheritdoc />
         protected override Task DoUnbind()
         {
             RegistrationSteps.ForEach(x => x.StepCompleted -= RegistrationStep_Completed);
@@ -70,19 +81,34 @@ namespace IdApp.ViewModels.Registration
 
         #region Properties
 
+        /// <summary>
+        /// The list of steps needed to register a digital identity.
+        /// </summary>
         public ObservableCollection<RegistrationStepViewModel> RegistrationSteps { get; }
 
+        /// <summary>
+        /// The command to bind to for moving backwards to the previous step in the registration process.
+        /// </summary>
         public ICommand GoToPrevCommand { get; }
 
+        /// <summary>
+        /// See <see cref="CanGoBack"/>
+        /// </summary>
         public static readonly BindableProperty CanGoBackProperty =
             BindableProperty.Create("CanGoBack", typeof(bool), typeof(RegistrationViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether navigation back to the previous registration step can be performed.
+        /// </summary>
         public bool CanGoBack
         {
             get { return (bool) GetValue(CanGoBackProperty); }
             set { SetValue(CanGoBackProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="CurrentStep"/>
+        /// </summary>
         public static readonly BindableProperty CurrentStepProperty =
             BindableProperty.Create("CurrentStep", typeof(int), typeof(RegistrationViewModel), default(int), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -91,6 +117,9 @@ namespace IdApp.ViewModels.Registration
                 viewModel.CanGoBack = viewModel.GoToPrevCommand.CanExecute(null);
             });
 
+        /// <summary>
+        /// Gets or sets the current step from the list of <see cref="RegistrationSteps"/>.
+        /// </summary>
         public int CurrentStep
         {
             get { return (int)GetValue(CurrentStepProperty); }
@@ -103,9 +132,15 @@ namespace IdApp.ViewModels.Registration
             }
         }
 
+        /// <summary>
+        /// See <see cref="CurrentStep"/>
+        /// </summary>
         public static readonly BindableProperty CurrentStepTitleProperty =
             BindableProperty.Create("CurrentStepTitle", typeof(string), typeof(RegistrationViewModel), default(string));
 
+        /// <summary>
+        /// The title of the current step. Displayed in the UI.
+        /// </summary>
         public string CurrentStepTitle
         {
             get { return (string) GetValue(CurrentStepTitleProperty); }
@@ -114,12 +149,20 @@ namespace IdApp.ViewModels.Registration
 
         #endregion
 
+        /// <summary>
+        /// Temporarily mutes the synchronization of the <see cref="CurrentStep"/> property.
+        /// This is a hack to workaround a bug on Android.
+        /// </summary>
         public void MuteStepSync()
         {
             this.muteStepSync = true;
         }
 
-        public void UnmuteStepSync()
+        /// <summary>
+        /// Un-mutes the synchronization of the <see cref="CurrentStep"/> property. See <see cref="MuteStepSync"/>.
+        /// This is a hack to workaround a bug on Android.
+        /// </summary>
+        public void UnMuteStepSync()
         {
             this.muteStepSync = false;
         }

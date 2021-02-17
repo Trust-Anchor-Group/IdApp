@@ -9,6 +9,10 @@ using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views
 {
+    /// <summary>
+    /// A root, or main page, for the application. This is the starting point, from here you can navigate to other pages
+    /// and take various actions.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage
     {
@@ -29,6 +33,9 @@ namespace IdApp.Views
                 }*/
             };
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="MainPage"/> class.
+        /// </summary>
         public MainPage()
         {
             InitializeComponent();

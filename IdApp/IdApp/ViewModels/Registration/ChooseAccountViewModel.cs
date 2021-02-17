@@ -12,11 +12,25 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Registration
 {
+    /// <summary>
+    /// The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
+    /// </summary>
     public class ChooseAccountViewModel : RegistrationStepViewModel
     {
         private readonly ICryptoService cryptoService;
         private readonly INetworkService networkService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ChooseAccountViewModel"/> class.
+        /// </summary>
+        /// <param name="tagProfile">The tag profile to work with.</param>
+        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="navigationService">The navigation service to use for app navigation</param>
+        /// <param name="settingsService">The settings service for persisting UI state.</param>
+        /// <param name="cryptoService">The crypto service to use for password generation.</param>
+        /// <param name="networkService">The network service for network access.</param>
+        /// <param name="logService">The log service.</param>
         public ChooseAccountViewModel(
             ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
@@ -39,12 +53,14 @@ namespace IdApp.ViewModels.Registration
             this.Title = AppResources.ChooseAccount;
         }
 
+        /// <inheritdoc />
         protected override async Task DoBind()
         {
             await base.DoBind();
             this.TagProfile.Changed += TagProfile_Changed;
         }
 
+        /// <inheritdoc />
         protected override async Task DoUnbind()
         {
             this.TagProfile.Changed -= TagProfile_Changed;
@@ -61,17 +77,29 @@ namespace IdApp.ViewModels.Registration
 
         #region Properties
 
+        /// <summary>
+        /// The current mode this view model is in. Create new account, or connect to existing?
+        /// </summary>
         public AccountMode Mode { get; private set; }
 
+        /// <summary>
+        /// See <see cref="IntroText"/>
+        /// </summary>
         public static readonly BindableProperty IntroTextProperty =
             BindableProperty.Create("IntroText", typeof(string), typeof(ChooseAccountViewModel), default(string));
 
+        /// <summary>
+        /// The localized intro text to display to the user for explaining what 'choose account' is for.
+        /// </summary>
         public string IntroText
         {
             get { return (string)GetValue(IntroTextProperty); }
             set { SetValue(IntroTextProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="CreateNew"/>
+        /// </summary>
         public static readonly BindableProperty CreateNewProperty =
             BindableProperty.Create("CreateNew", typeof(bool), typeof(ChooseAccountViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -83,12 +111,18 @@ namespace IdApp.ViewModels.Registration
                 viewModel.UpdatePasswordState();
             });
 
+        /// <summary>
+        /// Gets or sets whether the user wants to create a new account (as opposed to connect to existing).
+        /// </summary>
         public bool CreateNew
         {
             get { return (bool)GetValue(CreateNewProperty); }
             set { SetValue(CreateNewProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="CreateRandomPassword"/>
+        /// </summary>
         public static readonly BindableProperty CreateRandomPasswordProperty =
             BindableProperty.Create("CreateRandomPassword", typeof(bool), typeof(ChooseAccountViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -102,12 +136,18 @@ namespace IdApp.ViewModels.Registration
                 viewModel.UpdatePasswordState();
             });
 
+        /// <summary>
+        /// Gets or sets whether a random password should be created or not.
+        /// </summary>
         public bool CreateRandomPassword
         {
             get { return (bool)GetValue(CreateRandomPasswordProperty); }
             set { SetValue(CreateRandomPasswordProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="CreateNewAccountName"/>
+        /// </summary>
         public static readonly BindableProperty CreateNewAccountNameProperty =
             BindableProperty.Create("CreateNewAccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -115,12 +155,18 @@ namespace IdApp.ViewModels.Registration
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
+        /// <summary>
+        /// The account name to use when creating a new account.
+        /// </summary>
         public string CreateNewAccountName
         {
             get { return (string)GetValue(CreateNewAccountNameProperty); }
             set { SetValue(CreateNewAccountNameProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="ConnectToExistingAccountName"/>
+        /// </summary>
         public static readonly BindableProperty ConnectToExistingAccountNameProperty =
             BindableProperty.Create("ConnectToExistingAccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -128,12 +174,18 @@ namespace IdApp.ViewModels.Registration
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
+        /// <summary>
+        /// The account name to use when connecting to an existing account.
+        /// </summary>
         public string ConnectToExistingAccountName
         {
             get { return (string)GetValue(ConnectToExistingAccountNameProperty); }
             set { SetValue(ConnectToExistingAccountNameProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="Password"/>
+        /// </summary>
         public static readonly BindableProperty PasswordProperty =
             BindableProperty.Create("Password", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -142,12 +194,18 @@ namespace IdApp.ViewModels.Registration
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
+        /// <summary>
+        /// Gets or sets the password to use.
+        /// </summary>
         public string Password
         {
             get { return (string)GetValue(PasswordProperty); }
             set { SetValue(PasswordProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="RetypedPassword"/>
+        /// </summary>
         public static readonly BindableProperty RetypedPasswordProperty =
             BindableProperty.Create("RetypedPassword", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
@@ -156,6 +214,9 @@ namespace IdApp.ViewModels.Registration
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
+        /// <summary>
+        /// Gets or sets the second password entry, used for validation.
+        /// </summary>
         public string RetypedPassword
         {
             get { return (string)GetValue(RetypedPasswordProperty); }
@@ -167,36 +228,64 @@ namespace IdApp.ViewModels.Registration
             PasswordsDoNotMatch = (Password != RetypedPassword) && CreateNew && !CreateRandomPassword;
         }
 
+        /// <summary>
+        /// See <see cref="PasswordsDoNotMatch"/>
+        /// </summary>
         public static readonly BindableProperty PasswordsDoNotMatchProperty =
             BindableProperty.Create("PasswordsDoNotMatch", typeof(bool), typeof(ChooseAccountViewModel), default(bool));
 
+        /// <summary>
+        /// Gets or sets whether the <see cref="Password"/> matches the <see cref="RetypedPassword"/> or not.
+        /// </summary>
         public bool PasswordsDoNotMatch
         {
             get { return (bool)GetValue(PasswordsDoNotMatchProperty); }
             set { SetValue(PasswordsDoNotMatchProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="ActionButtonText"/>
+        /// </summary>
         public static readonly BindableProperty ActionButtonTextProperty =
             BindableProperty.Create("ActionButtonText", typeof(string), typeof(ChooseAccountViewModel), default(string));
 
+        /// <summary>
+        /// The localized text to display on the action button, typically "Create" or "Connect".
+        /// </summary>
         public string ActionButtonText
         {
             get { return (string)GetValue(ActionButtonTextProperty); }
             set { SetValue(ActionButtonTextProperty, value); }
         }
 
+        /// <summary>
+        /// Gets or sets the hashed password value.
+        /// </summary>
         public string PasswordHash { get; set; }
 
+        /// <summary>
+        /// Gets or sets the hash method used when hashing a password.
+        /// </summary>
         public string PasswordHashMethod { get; set; }
 
+        /// <summary>
+        /// The legal identity, if any. Typically set after creating an account or connecting to an existing account.
+        /// </summary>
         public LegalIdentity LegalIdentity { get; set; }
 
+        /// <summary>
+        /// The command to bind to for switching <see cref="Mode"/>.
+        /// </summary>
         public ICommand SwitchModeCommand { get; }
 
+        /// <summary>
+        /// The command to bind to for executing the appropriate action, create or connect.
+        /// </summary>
         public ICommand PerformActionCommand { get; }
 
         #endregion
 
+        /// <inheritdoc />
         public override void ClearStepState()
         {
             this.ConnectToExistingAccountName = string.Empty;
@@ -462,6 +551,7 @@ namespace IdApp.ViewModels.Registration
             return false;
         }
 
+        /// <inheritdoc />
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
@@ -470,6 +560,7 @@ namespace IdApp.ViewModels.Registration
             await this.SettingsService.SaveState(GetSettingsKey(nameof(CreateRandomPassword)), this.CreateRandomPassword);
         }
 
+        /// <inheritdoc />
         protected override async Task DoRestoreState()
         {
             this.CreateNewAccountName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(CreateNewAccountName)));
@@ -479,9 +570,18 @@ namespace IdApp.ViewModels.Registration
         }
     }
 
+    /// <summary>
+    /// Different types of account modes: create or connect.
+    /// </summary>
     public enum AccountMode
     {
+        /// <summary>
+        /// Create new account.
+        /// </summary>
         Create,
+        /// <summary>
+        /// Connect to an existing account.
+        /// </summary>
         Connect
     }
 }

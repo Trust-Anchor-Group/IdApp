@@ -5,22 +5,28 @@ using Xamarin.Forms;
 
 namespace IdApp.Views.Contracts
 {
+    /// <summary>
+    /// A page to display when the user is asked to petition a contract.
+    /// </summary>
     [DesignTimeVisible(true)]
 	public partial class PetitionContractPage
 	{
         private readonly INavigationService navigationService;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="PetitionContractPage"/> class.
+        /// </summary>
 		public PetitionContractPage()
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.ViewModel = new PetitionContractViewModel();
 			InitializeComponent();
+        }
 
-            // TODO: fix this. Is it a simple copy/paste to get certain sections into a page?
-   //         ViewContractPage info = new ViewContractPage(requestedContract, true);
-			//info.MoveInfo(this.TableView);
-		}
-
+        /// <summary>
+        /// Overrides the back button behavior to handle navigation internally instead.
+        /// </summary>
+        /// <returns></returns>
         protected override bool OnBackButtonPressed()
         {
             this.navigationService.GoBackAsync();
