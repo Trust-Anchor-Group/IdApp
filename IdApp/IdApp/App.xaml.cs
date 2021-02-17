@@ -124,22 +124,41 @@ namespace IdApp
 			this.sdk?.Dispose();
 		}
 
+#if OPTIMIZE_STARTUP
 		///<inheritdoc/>
-		protected override async void OnStart()
+		protected override void OnStart()
 		{
 			//AppCenter.Start(
 			//    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
 			//    typeof(Analytics),
 			//    typeof(Crashes));
 
-			await this.PerformStartup(false);
+			_ = this.PerformStartup(false);
 		}
 
 		///<inheritdoc/>
-		protected override async void OnResume()
+		protected override void OnResume()
 		{
-			await this.PerformStartup(true);
+			_ = this.PerformStartup(true);
 		}
+#else
+        ///<inheritdoc/>
+        protected override async void OnStart()
+        {
+            //AppCenter.Start(
+            //    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
+            //    typeof(Analytics),
+            //    typeof(Crashes));
+
+            await this.PerformStartup(false);
+        }
+
+        ///<inheritdoc/>
+        protected override async void OnResume()
+        {
+            await this.PerformStartup(true);
+        }
+#endif
 
 		private async Task PerformStartup(bool isResuming)
 		{
@@ -197,7 +216,7 @@ namespace IdApp
 			await this.sdk.Shutdown(keepRunningInTheBackground);
 		}
 
-		#region Error Handling
+#region Error Handling
 
 		private void DisplayBootstrapErrorPage(string title, string stackTrace)
 		{
@@ -334,6 +353,6 @@ namespace IdApp
 #endif
 		}
 
-		#endregion
+#endregion
 	}
 }

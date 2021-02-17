@@ -55,10 +55,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         public void Dispose()
         {
-            this.reconnectTimer?.Change(Timeout.Infinite, Timeout.Infinite);
-
             this.tagProfile.StepChanged -= TagProfile_StepChanged;
-
             this.DestroyXmppClient();
             this.Contracts.Dispose();
         }
@@ -113,11 +110,24 @@ namespace Tag.Neuron.Xamarin.Services
                     this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
 
                     bool connectSucceeded = false;
+
+#if OPTIMIZE_STARTUP
+                    // Await connected state during registration, but not otherwise.
+                    if (this.xmppClient != null && !this.tagProfile.IsCompleteOrWaitingForValidation())
+                    {
+                        connectSucceeded = await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+                    }
+                    // This saves startup time for registered users with a complete profile
+                    if (this.xmppClient != null && this.tagProfile.IsComplete())
+                    {
+                        connectSucceeded = true;
+                    }
+#else
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
                         connectSucceeded = await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
                     }
-
+#endif
                     if (connectSucceeded)
                     {
                         await CreateContractsClientIfNeeded();
@@ -143,6 +153,7 @@ namespace Tag.Neuron.Xamarin.Services
         private void DestroyXmppClient()
         {
             this.reconnectTimer?.Dispose();
+            this.reconnectTimer = null;
             this.contracts.DestroyClients();
             if (this.xmppClient != null)
             {
@@ -291,13 +302,18 @@ namespace Tag.Neuron.Xamarin.Services
                         this.xmppClient.State == XmppState.Connected && 
                         this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
+#if OPTIMIZE_STARTUP
+                        // Don't await this one, just fire and forget, to improve startup time.
+                        _ = this.xmppClient.SetPresenceAsync(Availability.Online);
+#else
                         await this.xmppClient.SetPresenceAsync(Availability.Online);
+#endif
                     }
                     this.EndLoad(true);
                 }
                 catch (Exception ex)
                 {
-                    this.logService.LogException(ex, new KeyValuePair<string, string>("Method", $"{typeof(NeuronService)}.{nameof(Load)}()"));
+                    this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
                     this.EndLoad(false);
                 }
             }
@@ -328,7 +344,7 @@ namespace Tag.Neuron.Xamarin.Services
                 }
                 catch (Exception ex)
                 {
-                    this.logService.LogException(ex, new KeyValuePair<string, string>("Method", $"{typeof(NeuronService)}.{nameof(Unload)}()"));
+                    this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
                 }
 
                 this.EndUnload();
