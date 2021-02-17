@@ -58,7 +58,7 @@ namespace Tag.Neuron.Xamarin.Services
 
             string existingState = await RuntimeSettings.GetAsync(key, EmptyJson);
 
-            if (!string.IsNullOrWhiteSpace(existingState))
+            if (!string.IsNullOrWhiteSpace(existingState) && existingState != EmptyJson)
             {
                 return (T)Waher.Content.JSON.Parse(existingState);
             }
