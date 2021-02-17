@@ -384,6 +384,28 @@
             <param name="name">The name to use as  key.</param>
             <param name="value">The value to add.</param>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.EnumerableExtensions">
+            <summary>
+            Extension methods for <see cref="T:System.Collections.Generic.IEnumerable`1"/> objects.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.EnumerableExtensions.Create``1(``0)">
+            <summary>
+            Creates an <see cref="T:System.Collections.Generic.IEnumerable`1"/> from the specified item.
+            </summary>
+            <typeparam name="TSource">The desired type.</typeparam>
+            <param name="item">The item to convert to an IEnumerable.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.EnumerableExtensions.Append``1(System.Collections.Generic.IEnumerable{``0},``0)">
+            <summary>
+            Appends an item to an existing <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+            <typeparam name="TSource">The item type</typeparam>
+            <param name="first">The enumerable to append to.</param>
+            <param name="second">The item to append.</param>
+            <returns></returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Extensions.LegalIdentityExtensions">
             <summary>
             Extensions for the <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> class.
@@ -1509,12 +1531,12 @@
             <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreStateWhere``1(System.Func{System.String,System.Boolean})">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreStateWhereKeyStartsWith``1(System.String)">
             <summary>
             Returns any states whose key matches the specified predicate.
             </summary>
             <typeparam name="T">The state type.</typeparam>
-            <param name="predicate">A predication function that identifies the relevant keys.</param>
+            <param name="keyPrefix">The string value the key should start with, like "Foo". Do not include wildcards.</param>
             <returns>a list of matching states.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RemoveState(System.String)">
@@ -1523,11 +1545,11 @@
             </summary>
             <param name="key">The state identifier.</param>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RemoveStateWhere(System.Func{System.String,System.Boolean})">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RemoveStateWhereKeyStartsWith(System.String)">
             <summary>
             Removes any states whose key matches the specified predicate.
             </summary>
-            <param name="predicate">A predication function that identifies the relevant keys.</param>
+            <param name="keyPrefix">The string value the key should start with, like "Foo". Do not include wildcards.</param>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.IStorageService">
             <summary>
