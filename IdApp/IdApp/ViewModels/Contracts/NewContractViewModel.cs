@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
@@ -470,7 +472,9 @@ namespace IdApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
-                this.logService.LogException(ex, new KeyValuePair<string, string>("Method", "GetContract"), new KeyValuePair<string, string>("ContractId", this.contractTemplateId));
+                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
+                    .Append(new KeyValuePair<string, string>("ContractId", this.contractTemplateId))
+                    .ToArray());
                 ClearTemplate();
                 await this.uiDispatcher.DisplayAlert(ex);
             }
