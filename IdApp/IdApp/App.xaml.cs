@@ -168,19 +168,15 @@ namespace IdApp
 			try
 			{
 				Thread?.NewState("Report");
-
 				await this.SendErrorReportFromPreviousRun();
 
 				Thread?.NewState("Startup");
-
 				await this.sdk.Startup(isResuming, Thread?.CreateSubThread("SdkStartup", ProfilerThreadType.Sequential));
 
 				Thread?.NewState("Cache");
-
 				await this.imageCacheService.Load(isResuming);
 
 				Thread?.NewState("Orchestrator");
-
 				await this.contractOrchestratorService.Load(isResuming);
 			}
 			catch (Exception e)
