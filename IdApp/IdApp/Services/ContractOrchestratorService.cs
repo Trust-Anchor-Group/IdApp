@@ -311,10 +311,9 @@ namespace IdApp.Services
             }
             catch (ForbiddenException ex)
             {
-                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-
                 // This happens if you try to view someone else's legal identity.
                 // When this happens, try to send a petition to view it instead.
+                // Normal operation. Should not be logged.
 
                 this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
@@ -348,10 +347,9 @@ namespace IdApp.Services
             }
             catch (ForbiddenException ex)
             {
-                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-
                 // This happens if you try to view someone else's contract.
                 // When this happens, try to send a petition to view it instead.
+                // Normal operation. Should not be logged.
 
                 this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
