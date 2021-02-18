@@ -1976,6 +1976,47 @@
             The default height to use when generating QR Code images.
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.AppShellViewModel">
+            <summary>
+            The view model to bind to for the App Shell, when using Xamarin Forms 5.0 or greater.
+            This is the root, or bootstrap view model.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.AppShellViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.AppShellViewModel"/> class.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.AppShellViewModel.ConnectionStateTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.AppShellViewModel.ConnectionStateText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.ConnectionStateText">
+            <summary>
+            Gets or sets whether the connection state text, i.e a user friendly string showing XMPP connection info.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.AppShellViewModel.IsConnectedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.AppShellViewModel.IsConnected"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.IsConnected">
+            <summary>
+            Gets or sets whether the application is connected to an XMPP server.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.AppShellViewModel.IsOnlineProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.AppShellViewModel.IsOnline"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.IsOnline">
+            <summary>
+            Gets or sets whether the application is online, i.e. has network access.
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Contracts.ClientSignatureViewModel">
             <summary>
             The view model to bind to for when displaying client signatures.
@@ -2493,14 +2534,1551 @@
             Gets or sets whether a user can add parts to a contract.
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.Contracts.PetitionContractViewModel">
+            <summary>
+            The view model to bind to when displaying petitioning of a contract in a view or page.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionContractViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.AcceptCommand">
+            <summary>
+            The command to bind to for accepting the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.DeclineCommand">
+            <summary>
+            The command to bind to for declining the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.IgnoreCommand">
+            <summary>
+            The command to bind to for ignoring the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Photos">
+            <summary>
+            The list of photos related to the contract being petitioned.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Created">
+            <summary>
+            Created date of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.UpdatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Updated">
+            <summary>
+            Updated date of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.LegalIdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.LegalId">
+            <summary>
+            Legal id of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.StateProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.State"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.State">
+            <summary>
+            Current state of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.From">
+            <summary>
+            From date (validity range) of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.To">
+            <summary>
+            To date (validity range) of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.FirstNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.FirstName">
+            <summary>
+            First name of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.MiddleNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.MiddleNames">
+            <summary>
+            Middle name(s) of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.LastNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.LastNames">
+            <summary>
+            Last name(s) of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.PersonalNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.PersonalNumber">
+            <summary>
+            Personal number of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.AddressProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Address">
+            <summary>
+            Address of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.Address2Property">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Address2">
+            <summary>
+            Address (line 2) of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.ZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.ZipCode">
+            <summary>
+            Zip code of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.AreaProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Area">
+            <summary>
+            Area of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.CityProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.City">
+            <summary>
+            City of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.RegionProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Region">
+            <summary>
+            Region of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.CountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.CountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.CountryCode">
+            <summary>
+            Country code of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.CountryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Country">
+            <summary>
+            Country of the contract
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.IsApprovedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.IsApproved"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.IsApproved">
+            <summary>
+            Is the contract approved?
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.PurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Purpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Purpose">
+            <summary>
+            What's the purpose of the petition?
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.PetitionIdentityViewModel">
+            <summary>
+            The view model to bind to when displaying petitioning of an identity in a view or page.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionIdentityViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.AcceptCommand">
+            <summary>
+            The command to bind to for accepting the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.DeclineCommand">
+            <summary>
+            The command to bind to for declining the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.IgnoreCommand">
+            <summary>
+            The command to bind to for ignoring the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Photos">
+            <summary>
+            The list of photos related to the identity being petitioned.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Created">
+            <summary>
+            Created date of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.UpdatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Updated">
+            <summary>
+            Updated date of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.LegalIdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.LegalId">
+            <summary>
+            Legal id of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.StateProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.State"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.State">
+            <summary>
+            Current state of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.From">
+            <summary>
+            From date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.To">
+            <summary>
+            To date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.FirstNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.FirstName">
+            <summary>
+            First name of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.MiddleNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.MiddleNames">
+            <summary>
+            Middle name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.LastNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.LastNames">
+            <summary>
+            Last name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.PersonalNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.PersonalNumber">
+            <summary>
+            Personal number of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.AddressProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Address">
+            <summary>
+            Address of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Address2Property">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Address2">
+            <summary>
+            Address (line 2) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.ZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.ZipCode">
+            <summary>
+            Zip code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.AreaProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Area">
+            <summary>
+            Area of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.CityProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.City">
+            <summary>
+            City of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.RegionProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Region">
+            <summary>
+            Region of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.CountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.CountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.CountryCode">
+            <summary>
+            Country code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.CountryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Country">
+            <summary>
+            Country of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.IsApprovedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.IsApproved"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.IsApproved">
+            <summary>
+            Is the contract approved?
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.PurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Purpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Purpose">
+            <summary>
+            What's the purpose of the petition?
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.ServerSignatureViewModel">
+            <summary>
+            The view model to bind to for when displaying server signatures.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ServerSignatureViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ServerSignatureViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ServerSignatureViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ServerSignatureViewModel.ProviderProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ServerSignatureViewModel.Provider"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ServerSignatureViewModel.Provider">
+            <summary>
+            The provider of the server signature contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ServerSignatureViewModel.TimestampProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ServerSignatureViewModel.Timestamp"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ServerSignatureViewModel.Timestamp">
+            <summary>
+            The time stamp of the server signature contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ServerSignatureViewModel.SignatureProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ServerSignatureViewModel.Signature"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ServerSignatureViewModel.Signature">
+            <summary>
+            The signature of the server signature contract.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.ViewContractViewModel">
+            <summary>
+            The view model to bind to for when displaying contracts.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewContractViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DisplayPartCommand">
+            <summary>
+            The command to bind to when displaying part of a contract
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.SignPartAsRoleCommand">
+            <summary>
+            The command to bind to when signing part of a contract
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DisplayClientSignatureCommand">
+            <summary>
+            The command to bind to when displaying the client signature of a contract
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DisplayServerSignatureCommand">
+            <summary>
+            The command to bind to when displaying the server signature of a contract
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ObsoleteContractCommand">
+            <summary>
+            The command to bind to when marking a contract as obsolete.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DeleteContractCommand">
+            <summary>
+            The command to bind to when deleting a contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.GeneralInformation">
+            <summary>
+            Holds a list of general information sections for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractRoles">
+            <summary>
+            Holds a list of roles for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractParts">
+            <summary>
+            Holds a list of parts for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractParameters">
+            <summary>
+            Holds a list of parameters for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractHumanReadableText">
+            <summary>
+            Holds a list of human readable text for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractMachineReadableText">
+            <summary>
+            Holds a list of machine readable texts for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractClientSignatures">
+            <summary>
+            Holds a list of client signatures for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractServerSignatures">
+            <summary>
+            Holds a list of server signatures for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Photos">
+            <summary>
+            Gets the list of photos associated with the contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasRolesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasRoles"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasRoles">
+            <summary>
+            Gets or sets whether the contract has any roles to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasPartsProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasParts"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasParts">
+            <summary>
+            Gets or sets whether the contract has any contract parts to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasParametersProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasParameters"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasParameters">
+            <summary>
+            Gets or sets whether the contract has any parameters to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasHumanReadableTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasHumanReadableText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasHumanReadableText">
+            <summary>
+            Gets or sets whether the contract has any human readable texts to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasMachineReadableTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasMachineReadableText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasMachineReadableText">
+            <summary>
+            Gets or sets whether the contract has any machine readable texts to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasClientSignaturesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasClientSignatures"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasClientSignatures">
+            <summary>
+            Gets or sets whether the contract has any client signatures to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasServerSignaturesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasServerSignatures"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasServerSignatures">
+            <summary>
+            Gets or sets whether the contract has any server signatures to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCode">
+            <summary>
+            Gets or sets the QR Code image.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasQrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasQrCode">
+            <summary>
+            Gets or sets whether the contract has a QR Code image for display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCodeWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCodeWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCodeWidth">
+            <summary>
+            Gets or sets the width in pixels of the generated QR code image.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCodeHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCodeHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.QrCodeHeight">
+            <summary>
+            Gets or sets the height in pixels of the generated QR code image.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteOrObsoleteContractProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteOrObsoleteContract"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteOrObsoleteContract">
+            <summary>
+            Gets or sets whether a user can delete or obsolete a contract.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel">
+            <summary>
+            The view model to bind to for when displaying identities.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Photos">
+            <summary>
+            Holds a list of photos associated with this identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApproveCommand">
+            <summary>
+            The command to bind to for approving an identity
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RejectCommand">
+            <summary>
+            The command to bind to for rejecting an identity
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CompromiseCommand">
+            <summary>
+            The command to bind to for flagging an identity as compromised.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RevokeCommand">
+            <summary>
+            The command to bind to for revoking an identity
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Created">
+            <summary>
+            Created time stamp of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.UpdatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Updated">
+            <summary>
+            Updated time stamp of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalIdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalId">
+            <summary>
+            Legal id of the identity
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalIdentity">
+            <summary>
+            The full legal identity of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJIdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJId">
+            <summary>
+            Bare Jid of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PublicKeyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PublicKey"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PublicKey">
+            <summary>
+            Public key of the identity's signature.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.StateProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.State"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.State">
+            <summary>
+            Current state of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.From">
+            <summary>
+            From date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.To">
+            <summary>
+            To date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName">
+            <summary>
+            First name of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames">
+            <summary>
+            Middle name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames">
+            <summary>
+            Last name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber">
+            <summary>
+            Personal number of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address">
+            <summary>
+            Address of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2Property">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2">
+            <summary>
+            Address (line 2) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode">
+            <summary>
+            Zip code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area">
+            <summary>
+            Area of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City">
+            <summary>
+            City of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region">
+            <summary>
+            Region of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Country">
+            <summary>
+            Country of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCode">
+            <summary>
+            Country code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsApprovedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsApproved"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeProperty">
+            <summary>
+            See <see cref="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeProperty"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCode">
+            <summary>
+            Generated QR code image for the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.HasQrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.HasQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.HasQrCode">
+            <summary>
+            Determines whether there's a generated <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCode"/> image for this identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeWidth">
+            <summary>
+            Gets or sets the width, in pixels, of the QR Code image to generate.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeHeight">
+            <summary>
+            Gets or sets the height, in pixels, of the QR Code image to generate.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsApproved">
+            <summary>
+            Gets or sets whether the identity is approved or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsCreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsCreated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsCreated">
+            <summary>
+            Gets or sets created state of the identity, i.e. if it has been created or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReview"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReview">
+            <summary>
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReview"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReviewProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReview"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReview">
+            <summary>
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReview"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsPersonalProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsPersonal"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsPersonal">
+            <summary>
+            Gets or sets whether the identity is a personal identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin">
+            <summary>
+            Gets or sets the PIN code for the identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2IsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2IsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeIsChecked">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCode"/> property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CarefulReviewIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CarefulReviewIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CarefulReviewIsChecked">
+            <summary>
+            Gets or sets whether the Careful Review property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApprovePiiIsCheckedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApprovePiiIsChecked"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApprovePiiIsChecked">
+            <summary>
+            Gets or sets whether the ApprovePii property is checked (when being reviewed)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewFirstNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewFirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewFirstName">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewMiddleNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewMiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewMiddleNames">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewLastNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewLastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewLastNames">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewPersonalNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewPersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewPersonalNumber">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddressProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress2Property">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress2">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCityProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCity"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCity">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewZipCode">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAreaProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewArea"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewArea">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewRegionProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewRegion"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewRegion">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCountryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCountry"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCountry">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Country"/> property is for review.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAndPinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAndPin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAndPin">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin"/> property is for review.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.LoadingViewModel">
+            <summary>
+            The view model to bind to for a loading page, i.e. a page showing the loading/startup state of a Xamarin app.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.LoadingViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.LoadingViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.LoadingViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.LoadingViewModel"/> class.
+            For unit tests.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.LoadingViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.LoadingViewModel.DoUnbind">
+            <inheritdoc />
+        </member>
+        <member name="F:IdApp.ViewModels.LoadingViewModel.DisplayConnectionTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.LoadingViewModel.DisplayConnectionText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.LoadingViewModel.DisplayConnectionText">
+            <summary>
+            Gets or sets whether the user friendly connection text should be visible on screen or not.
+            </summary>
         </member>
         <member name="M:IdApp.ViewModels.LoadingViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.ViewModels.LoadingViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
+        </member>
+        <member name="T:IdApp.ViewModels.MainViewModel">
+            <summary>
+            The view model to bind to for the main page of the application. Holds basic user profile state
+            as well as connection state.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INavigationService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
+            For unit tests.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.MainViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.MainViewModel.DoUnbind">
+            <inheritdoc />
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.HasPhotoProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.HasPhoto"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.HasPhoto">
+            <summary>
+            Gets or sets whether the current user has a photo associated with the account.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ImageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.Image"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.Image">
+            <summary>
+            Gets or sets the current user's photo.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.FullNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.FullName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.FullName">
+            <summary>
+            Gets or sets the current user's full name.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.CityProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.City">
+            <summary>
+            Gets or sets the current user's city.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.CountryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.Country">
+            <summary>
+            Gets or sets the current user's country.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.LocationProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.Location"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.Location">
+            <summary>
+            Gets or sets the current user's location.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.QrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.QrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.QrCode">
+            <summary>
+            Gets or sets the current user's identity as a QR code image.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.HasQrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.HasQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.HasQrCode">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.MainViewModel.QrCode"/> exists for the current user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.QrCodeWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.QrCodeWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.QrCodeWidth">
+            <summary>
+            Gets or sets the width, in pixels, of the <see cref="P:IdApp.ViewModels.MainViewModel.QrCode"/> being generated.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.QrCodeHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.QrCodeHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.QrCodeHeight">
+            <summary>
+            Gets or sets the height, in pixels, of the <see cref="P:IdApp.ViewModels.MainViewModel.QrCode"/> being generated.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.IsOnlineProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.IsOnline"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.IsOnline">
+            <summary>
+            Gets or sets whether the app is currently online, i.e. has network access.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.NetworkStateTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.NetworkStateText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.NetworkStateText">
+            <summary>
+            Gets or sets the user friendly network state text for display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ContractsIsOnlineProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ContractsIsOnline"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ContractsIsOnline">
+            <summary>
+            Gets or sets whether the contracts features of the Neuron server is online.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ContractsStateTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ContractsStateText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ContractsStateText">
+            <summary>
+            Gets or sets the user friendly contracts connection state text for display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.HasConnectionErrorsProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.HasConnectionErrors"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.HasConnectionErrors">
+            <summary>
+            Gets or sets whether there are any connection errors at all for the app.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ConnectionErrorsTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ConnectionErrorsText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ConnectionErrorsText">
+            <summary>
+            Gets or sets the user friendly connection errors text for display. Can be null.
+            </summary>
         </member>
         <member name="M:IdApp.ViewModels.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
@@ -2566,6 +4144,247 @@
             <param name="sender">The neuron service instance.</param>
             <param name="e">The event args.</param>
         </member>
+        <member name="T:IdApp.ViewModels.PhotosLoader">
+            <summary>
+            This is a helper class for downloading photos via http requests.
+            It loads photos in the background, typically photo attachments connected to a
+            digital identity. When the photos are loaded, they are added to an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> on the main thread.
+            This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.IImageCacheService"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,IdApp.Services.IImageCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.PhotosLoader"/> class.
+            </summary>
+            <param name="logService">The log service to use if and when logging errors.</param>
+            <param name="networkService">The network service to use for checking connectivity.</param>
+            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+            <param name="photos">The collection the photos should be added to when downloaded.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
+            <summary>
+            Loads photos from the specified list of attachments.
+            </summary>
+            <param name="attachments">The attachments whose files to download.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.ViewModels.PhotosLoader.CancelLoadPhotos">
+            <summary>
+            Cancels any ongoing download of photos in progress. Also
+            clears the collection of photos from its content.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.ChooseAccountViewModel">
+            <summary>
+            The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ChooseAccountViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.ChooseAccountViewModel"/> class.
+            </summary>
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="cryptoService">The crypto service to use for password generation.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="logService">The log service.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ChooseAccountViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ChooseAccountViewModel.DoUnbind">
+            <inheritdoc />
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.Mode">
+            <summary>
+            The current mode this view model is in. Create new account, or connect to existing?
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.IntroTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.IntroText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.IntroText">
+            <summary>
+            The localized intro text to display to the user for explaining what 'choose account' is for.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateNewProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateNew"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateNew">
+            <summary>
+            Gets or sets whether the user wants to create a new account (as opposed to connect to existing).
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateRandomPasswordProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateRandomPassword"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateRandomPassword">
+            <summary>
+            Gets or sets whether a random password should be created or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateNewAccountNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateNewAccountName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.CreateNewAccountName">
+            <summary>
+            The account name to use when creating a new account.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.ConnectToExistingAccountNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.ConnectToExistingAccountName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.ConnectToExistingAccountName">
+            <summary>
+            The account name to use when connecting to an existing account.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.PasswordProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.Password"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.Password">
+            <summary>
+            Gets or sets the password to use.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.RetypedPasswordProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.RetypedPassword"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.RetypedPassword">
+            <summary>
+            Gets or sets the second password entry, used for validation.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.PasswordsDoNotMatchProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.PasswordsDoNotMatch"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.PasswordsDoNotMatch">
+            <summary>
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.Password"/> matches the <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.RetypedPassword"/> or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseAccountViewModel.ActionButtonTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.ActionButtonText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.ActionButtonText">
+            <summary>
+            The localized text to display on the action button, typically "Create" or "Connect".
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.PasswordHash">
+            <summary>
+            Gets or sets the hashed password value.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.PasswordHashMethod">
+            <summary>
+            Gets or sets the hash method used when hashing a password.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.LegalIdentity">
+            <summary>
+            The legal identity, if any. Typically set after creating an account or connecting to an existing account.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.SwitchModeCommand">
+            <summary>
+            The command to bind to for switching <see cref="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.Mode"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseAccountViewModel.PerformActionCommand">
+            <summary>
+            The command to bind to for executing the appropriate action, create or connect.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ChooseAccountViewModel.ClearStepState">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ChooseAccountViewModel.DoSaveState">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ChooseAccountViewModel.DoRestoreState">
+            <inheritdoc />
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.AccountMode">
+            <summary>
+            Different types of account modes: create or connect.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.AccountMode.Create">
+            <summary>
+            Create new account.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.AccountMode.Connect">
+            <summary>
+            Connect to an existing account.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.ChooseOperatorViewModel">
+            <summary>
+            The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ChooseOperatorViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.ChooseOperatorViewModel"/> class.
+            </summary>
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="logService">The log service.</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.Operators">
+            <summary>
+            The list of operators a user can choose from.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.SelectedOperatorProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.SelectedOperator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.SelectedOperator">
+            <summary>
+            The selected operator from the list of <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.Operators"/>, if any.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ManualOperatorProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ManualOperator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ManualOperator">
+            <summary>
+            The manually entered operator, if one isn't chosen from the list of <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.Operators"/>.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromListProperty">
             <summary>
             <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromList"/>
@@ -2576,9 +4395,912 @@
             <see cref="F:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ChooseOperatorFromListProperty"/>
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ConnectCommand">
+            <summary>
+            The command to bind to for connecting to the <see cref="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.SelectedOperator"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ChooseOperatorViewModel.ManualOperatorCommand">
+            <summary>
+            The command to bind to when editing the manual operator text in the UI.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.DefinePinViewModel">
+            <summary>
+            The view model to bind to when showing Step 5 of the registration flow: defining a PIN.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.DefinePinViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.DefinePinViewModel"/> class.
+            </summary>
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="logService">The log service.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.DefinePinViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.DefinePinViewModel.DoUnbind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.DefinePinViewModel.ClearStepState">
+            <inheritdoc />
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.ContinueCommand">
+            <summary>
+            The command to bind to for continuing to the next step in the registration flow.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.SkipCommand">
+            <summary>
+            The command to bind to for skipping this step and moving on to the next step in the registration flow.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.PinProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.Pin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.Pin">
+            <summary>
+            The PIn code entered by the user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.RetypedPinProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.RetypedPin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.RetypedPin">
+            <summary>
+            The retyped pin to use for validation against <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.Pin"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.PinsDoNotMatchProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.PinsDoNotMatch"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.PinsDoNotMatch">
+            <summary>
+            Gets or sets whether the entered Pin differ betweeen <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.Pin"/> and <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.RetypedPin"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.PinIsTooShortProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.PinIsTooShort"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.PinIsTooShort">
+            <summary>
+            Gets or sets whether the entered PIN is too short.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.PinIsTooShortMessageProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.PinIsTooShortMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.PinIsTooShortMessage">
+            <summary>
+            The localized message to display if and when the PIN code is too short.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.UsePinProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.UsePin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.UsePin">
+            <summary>
+            Gets or sets whether a PIn should be used for validation.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.IsConnectedProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.IsConnected"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.IsConnected">
+            <summary>
+            Gets or sets if the app is connected to a Neuron server.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.DefinePinViewModel.ConnectionStateTextProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.DefinePinViewModel.ConnectionStateText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.DefinePinViewModel.ConnectionStateText">
+            <summary>
+            The user friendly connection state text to display to the user.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.RegisterIdentityViewModel">
+            <summary>
+            The view model to bind to when showing Step 3 of the registration flow: registering an identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:Tag.Neuron.Xamarin.Models.RegisterIdentityModel"/> class.
+            </summary>
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="logService">The log service.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DoUnbind">
+            <inheritdoc />
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.RegisterCommand">
+            <summary>
+            The command to bind to for performing the 'register' action.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.TakePhotoCommand">
+            <summary>
+            The command to bind to for taking a photo with the camera.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PickPhotoCommand">
+            <summary>
+            The command to bind to for selecting a photo from the camera roll.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.RemovePhotoCommand">
+            <summary>
+            The command to bind to for removing the currently selected photo.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.HasPhotoProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.HasPhoto"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.HasPhoto">
+            <summary>
+            Gets or sets whether the user has selected a photo for their account or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ImageProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.HasPhoto"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Image">
+            <summary>
+            The image source, i.e. the file representing the selected photo.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Countries">
+            <summary>
+            The list of all available countries a user can select from.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.SelectedCountryProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.HasPhoto"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.SelectedCountry">
+            <summary>
+            The user selected country from the list of <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Countries"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.FirstNameProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.FirstName">
+            <summary>
+            The user's first name
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.MiddleNamesProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.MiddleNames">
+            <summary>
+            The user's middle name(s)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.LastNamesProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.LastNames">
+            <summary>
+            The user's last name(s)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PersonalNumberProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PersonalNumber">
+            <summary>
+            The user's personal number
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PersonalNumberPlaceholderProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PersonalNumberPlaceholder"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PersonalNumberPlaceholder">
+            <summary>
+            The personal number placeholder, used as a guide to the user to enter the correct format, which depends on the <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.SelectedCountry"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AddressProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Address">
+            <summary>
+            The user's address, line 1.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Address2Property">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Address2">
+            <summary>
+            The user's address, line 2.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ZipCodeProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ZipCode">
+            <summary>
+            The user's zip code
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AreaProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Area">
+            <summary>
+            The user's area
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.CityProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.City">
+            <summary>
+            The user's city
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.RegionProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Region">
+            <summary>
+            The user's region
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DeviceIdProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DeviceId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DeviceId">
+            <summary>
+            The device id.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.LegalIdentity">
+            <summary>
+            The user's legal identity, set when the registration has occurred.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.IsConnectedProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.HasPhoto"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.IsConnected">
+            <summary>
+            Gets or sets whether the app is connected to an XMPP server.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ConnectionStateTextProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ConnectionStateText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ConnectionStateText">
+            <summary>
+            The user friendly connection state text to display to the user.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DoSaveState">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DoRestoreState">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ClearStepState">
+            <inheritdoc />
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.RegistrationStepViewModel">
+            <summary>
+            A base class for all view models that handle any part of the registration flow.
+            </summary>
+        </member>
+        <member name="E:IdApp.ViewModels.Registration.RegistrationStepViewModel.StepCompleted">
+            <summary>
+            An event that fires whenever the <see cref="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.Step"/> property changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationStepViewModel.#ctor(Tag.Neuron.Xamarin.Services.RegistrationStep,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.RegisterIdentityViewModel"/> class.
+            </summary>
+            <param name="step">The current step for this instance.</param>
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="logService">The log service.</param>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegistrationStepViewModel.TitleProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.Title"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.Title">
+            <summary>
+            The title to display on the page or view rendering this view model.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.Step">
+            <summary>
+            The current step for this view model instance.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.UiDispatcher">
+            <summary>
+            The <see cref="T:Tag.Neuron.Xamarin.IUiDispatcher"/> instance.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.TagProfile">
+            <summary>
+            The <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/> instance to edit.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.NeuronService">
+            <summary>
+            The <see cref="T:Tag.Neuron.Xamarin.Services.INeuronService"/> instance.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.NavigationService">
+            <summary>
+            The <see cref="T:Tag.Neuron.Xamarin.Services.INavigationService"/> instance.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.SettingsService">
+            <summary>
+            The <see cref="T:Tag.Neuron.Xamarin.Services.ISettingsService"/> instance.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationStepViewModel.LogService">
+            <summary>
+            The <see cref="T:Tag.Neuron.Xamarin.Services.ILogService"/> instance.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationStepViewModel.OnStepCompleted(System.EventArgs)">
+            <summary>
+            Call this method to fire the <see cref="E:IdApp.ViewModels.Registration.RegistrationStepViewModel.StepCompleted"/> event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationStepViewModel.BeginInvokeSetIsDone(System.Windows.Input.ICommand[])">
+            <summary>
+            A helper method for asynchronously setting this registration step to Done, and also calling
+            <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> on the list of commands passed in.
+            </summary>
+            <param name="commands">The commands to re-evaluate.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationStepViewModel.SetIsDone(System.Windows.Input.ICommand[])">
+            <summary>
+            A helper method for synchronously setting this registration step to Done, and also calling
+            <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> on the list of commands passed in.
+            </summary>
+            <param name="commands">The commands to re-evaluate.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationStepViewModel.SetIsBusy(System.Windows.Input.ICommand[])">
+            <summary>
+            Sets the <see cref="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusy"/> flag for this instance. Also calls
+            <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> on the list of commands passed in.
+            </summary>
+            <param name="commands">The commands to re-evaluate.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationStepViewModel.ClearStepState">
+            <summary>
+            Invoked whenever a registration step needs to be reverted, therefore wiping all persisted UI state.
+            Override this to clear any settings for the specific step view model.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.RegistrationViewModel">
+            <summary>
+            The view model to bind to for displaying a registration page or view to the user.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.RegistrationViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.RegistrationViewModel"/> class.
+            For unit tests.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.DoUnbind">
+            <inheritdoc />
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationViewModel.RegistrationSteps">
+            <summary>
+            The list of steps needed to register a digital identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationViewModel.GoToPrevCommand">
+            <summary>
+            The command to bind to for moving backwards to the previous step in the registration process.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegistrationViewModel.CanGoBackProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.RegistrationViewModel.CanGoBack"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationViewModel.CanGoBack">
+            <summary>
+            Gets or sets whether navigation back to the previous registration step can be performed.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStepProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStep"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStep">
+            <summary>
+            Gets or sets the current step from the list of <see cref="P:IdApp.ViewModels.Registration.RegistrationViewModel.RegistrationSteps"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStepTitleProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStep"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStepTitle">
+            <summary>
+            The title of the current step. Displayed in the UI.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.MuteStepSync">
+            <summary>
+            Temporarily mutes the synchronization of the <see cref="P:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStep"/> property.
+            This is a hack to workaround a bug on Android.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.UnMuteStepSync">
+            <summary>
+            Un-mutes the synchronization of the <see cref="P:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStep"/> property. See <see cref="M:IdApp.ViewModels.Registration.RegistrationViewModel.MuteStepSync"/>.
+            This is a hack to workaround a bug on Android.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Registration.ValidateIdentityViewModel">
+            <summary>
+            The view model to bind to when showing Step 4 of the registration flow: validating an identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.ValidateIdentityViewModel"/> class.
+            </summary>
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="logService">The log service.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.DoUnbind">
+            <inheritdoc />
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Photos">
+            <summary>
+            The list of photos associated with this legal identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.InviteReviewerCommand">
+            <summary>
+            The command to bind to for inviting a reviewer to approve the user's identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ContinueCommand">
+            <summary>
+            The command to bind to for continuing to the next step in the registration process.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.CreatedProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Created">
+            <summary>
+            Gets or sets the Created time stamp of the legal identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.UpdatedProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Updated">
+            <summary>
+            Gets or sets the Updated time stamp of the legal identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.LegalIdProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.LegalId">
+            <summary>
+            Gets or sets the Id of the legal identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.LegalIdentity">
+            <summary>
+            Gets or sets the legal identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJIdProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJId">
+            <summary>
+            Gets or sets the Bare Jid registered with the Neuron server.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.StateProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.State"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.State">
+            <summary>
+            The current state of the user's legal identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.FromProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.From">
+            <summary>
+            Gets or sets the From time stamp (validity range) of the user's identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ToProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.To">
+            <summary>
+            Gets or sets the To time stamp (validity range) of the user's identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.FirstNameProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.FirstName">
+            <summary>
+            The user's first name
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.MiddleNamesProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.MiddleNames">
+            <summary>
+            The user's middle name(s)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.LastNamesProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.LastNames">
+            <summary>
+            The user's last name(s)
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.PersonalNumberProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.PersonalNumber">
+            <summary>
+            The user's personal number
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.AddressProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Address">
+            <summary>
+            The user's address, line 1.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Address2Property">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Address2">
+            <summary>
+            The user's address, line 2.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ZipCodeProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ZipCode">
+            <summary>
+            The user's zip code
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.AreaProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Area">
+            <summary>
+            The user's area
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.CityProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.City">
+            <summary>
+            The user's city
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.RegionProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Region">
+            <summary>
+            The user's region
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.CountryProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.Country">
+            <summary>
+            Gets or sets the user's country.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.CountryCodeProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.CountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.CountryCode">
+            <summary>
+            Gets or sets the user's country.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsApprovedProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsApproved"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsApproved">
+            <summary>
+            Gets or sets if the user's identity is approved or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsCreatedProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsCreated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsCreated">
+            <summary>
+            Gets or sets if the user's identity has been created.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsConnectedProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsConnected"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.IsConnected">
+            <summary>
+            Gets or sets if the app is connected to a Neuron server.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ConnectionStateTextProperty">
+            <summary>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ConnectionStateText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.ConnectionStateText">
+            <summary>
+            The user friendly connection state text to display to the user.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.ScanQrCodeViewModel">
+            <summary>
+            The view model to bind to when scanning a QR code.
+            </summary>
+        </member>
+        <member name="E:IdApp.ViewModels.ScanQrCodeViewModel.ModeChanged">
+            <summary>
+            An event that is fired when the scanning mode changes from automatic scan to manual entry.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.ScanQrCodeViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.ScanQrCodeViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.ScanQrCodeViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.SwitchModeCommand">
+            <summary>
+            Action to bind to for switching scan mode from manual to automatic.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.ScanQrCodeViewModel.LinkTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.ScanQrCodeViewModel.LinkText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.LinkText">
+            <summary>
+            The link text, i.e. the full qr code including scheme.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.ScanQrCodeViewModel.CodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.ScanQrCodeViewModel.Code"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.Code">
+            <summary>
+            The raw QR code, minus the scheme.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.ScanQrCodeViewModel.OpenCommandTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.ScanQrCodeViewModel.OpenCommandText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.OpenCommandText">
+            <summary>
+            The localized, user friendly command name to display in the UI for scanning a QR Code. Typically "Add" or "Open".
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.ScanQrCodeViewModel.OpenIsEnabledProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.ScanQrCodeViewModel.OpenIsEnabled"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.OpenIsEnabled">
+            <summary>
+            Gets or sets whether the open command is enabled or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsAutomaticProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsAutomatic"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsAutomatic">
+            <summary>
+            Gets or sets whether the QR scanning is automatic or manual. <seealso cref="P:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsManual"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsManualProperty">
+            <summary>
+            <see cref="P:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsManual"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsManual">
+            <summary>
+            Gets or sets whether the QR scanning is automatic or manual. <seealso cref="P:IdApp.ViewModels.ScanQrCodeViewModel.ScanIsAutomatic"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.ScanQrCodeViewModel.ModeTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.ScanQrCodeViewModel.ModeText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ScanQrCodeViewModel.ModeText">
+            <summary>
+            The localized mode text to display to the user.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.ScanQrCodeViewModel.OnModeChanged(System.EventArgs)">
+            <summary>
+            Invoke this method to fire the <see cref="E:IdApp.ViewModels.ScanQrCodeViewModel.ModeChanged"/> event.
+            </summary>
+            <param name="e"></param>
+        </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
-            A Viev model that represents the current XMPP Communication.
+            A View model that represents the current XMPP Communication.
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.#ctor">
@@ -2628,11 +5350,407 @@
             The scanned QR code
             </summary>
         </member>
+        <member name="T:IdApp.Views.Contracts.ClientSignaturePage">
+            <summary>
+            A page that displays a client signature.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ClientSignaturePage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ClientSignaturePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ClientSignaturePage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector">
+            <summary>
+            A data template selector for displaying various types of human readable text.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector.HumanReadableText1">
+            <summary>
+            The first human readable text template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector.HumanReadableText2">
+            <summary>
+            The second human readable text template.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <summary>
+            Chooses the best matching data template based on the type of human readable text.
+            </summary>
+            <param name="item">The human readable text to display.</param>
+            <param name="container"></param>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.ContractParameterDataTemplateSelector">
+            <summary>
+            A data template selector for displaying various types of contract parameters.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Contracts.ContractParameterDataTemplateSelector.Parameter1">
+            <summary>
+            The first parameter template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Contracts.ContractParameterDataTemplateSelector.Parameter2">
+            <summary>
+            The second parameter template.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ContractParameterDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <summary>
+            Chooses the best matching data template based on the type of contract parameter.
+            </summary>
+            <param name="item">The parameter to display.</param>
+            <param name="container"></param>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.ContractRoleDataTemplateSelector">
+            <summary>
+            A data template selector for displaying various types of contract roles.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Contracts.ContractRoleDataTemplateSelector.Role1">
+            <summary>
+            The first role template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Contracts.ContractRoleDataTemplateSelector.Role2">
+            <summary>
+            The second role template.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ContractRoleDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <summary>
+            Chooses the best matching data template based on the type of contract role.
+            </summary>
+            <param name="item">The role to display.</param>
+            <param name="container"></param>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.MyContractsPage">
+            <summary>
+            A page that displays a list of the current user's contracts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.MyContractsPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.MyContractsPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.MyContractsPage.#ctor(System.Boolean)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.MyContractsPage"/> class.
+            </summary>
+            <param name="showCreatedContracts">Set to <c>true</c> if created contracts should be shown, <c>false</c> otherwise.</param>
+        </member>
+        <member name="M:IdApp.Views.Contracts.MyContractsPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.NewContractPage">
+            <summary>
+            A page that allows the user to create a new contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.NewContractPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.NewContractPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.NewContractPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.PetitionContractPage">
+            <summary>
+            A page to display when the user is asked to petition a contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.PetitionContractPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.PetitionContractPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.PetitionContractPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.PetitionIdentityPage">
+            <summary>
+            A page to display when the user is asked to petition an identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.PetitionIdentityPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.PetitionIdentityPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.PetitionIdentityPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.ServerSignaturePage">
+            <summary>
+            A page that displays a server signature.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ServerSignaturePage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ServerSignaturePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ServerSignaturePage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.SignedContractsPage">
+            <summary>
+            A page that displays a list of contracts signed by the current user.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.SignedContractsPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.SignedContractsPage"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Contracts.ViewContractPage">
+            <summary>
+            A page that displays a specific contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ViewContractPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ViewContractPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ViewContractPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.LoadingPage">
+            <summary>
+            A page to use when the application is loading, or initializing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.LoadingPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.LoadingPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.LoadingPage.OnAppearing">
+            <summary>
+            Overridden to start an animation when the page is displayed on screen.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.MainPage">
+            <summary>
+            A root, or main page, for the application. This is the starting point, from here you can navigate to other pages
+            and take various actions.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.MainPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.MainPage"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Registration.ChooseAccountView">
+            <summary>
+            A view to display the 'create account or connect to existing account' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.ChooseAccountView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Registration.ChooseAccountView"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Registration.ChooseOperatorView">
+            <summary>
+            A view to display the 'choose operator' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.ChooseOperatorView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Registration.ChooseOperatorView"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Registration.DefinePinView">
+            <summary>
+            A view to display the 'choose pin' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.DefinePinView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Registration.DefinePinView"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Registration.RegisterIdentityView">
+            <summary>
+            A view to display the 'register identity' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.RegisterIdentityView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Registration.RegisterIdentityView"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Registration.RegistrationPage">
+            <summary>
+            A page for guiding the user through the registration process for setting up a digital identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.RegistrationPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Registration.RegistrationPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.RegistrationPage.OnAppearing">
+            <summary>
+            Overridden to sync the view with the view model when the page appears on screen.
+            </summary>
+        </member>
         <member name="M:IdApp.Views.Registration.RegistrationPage.UpdateUiStep">
             This is a hack. The issue is that the Carousel view doesn't reflect the CurrentStep binding correctly in the UI.
             The viewmodel is correct. The position property on the CarouselView is correct. But during restarts
             it still doesn't show the correct view template for that step. Instead it shows the last view template.
             So here we scroll back and forth one step to get it to be in sync with the viewmodel.
+        </member>
+        <member name="M:IdApp.Views.Registration.RegistrationPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Registration.RegistrationStepDataTemplateSelector">
+            <summary>
+            A data template selector for displaying various types of registration steps.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Registration.RegistrationStepDataTemplateSelector.ChooseOperator">
+            <summary>
+            The choose operator template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Registration.RegistrationStepDataTemplateSelector.ChooseAccount">
+            <summary>
+            The choose account template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Registration.RegistrationStepDataTemplateSelector.RegisterIdentity">
+            <summary>
+            The register identity template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Registration.RegistrationStepDataTemplateSelector.ValidateIdentity">
+            <summary>
+            The validate identity template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Registration.RegistrationStepDataTemplateSelector.DefinePin">
+            <summary>
+            The define pin template.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.RegistrationStepDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <summary>
+            Chooses the best matching data template based on the type of registration step.
+            </summary>
+            <param name="item">The step to display.</param>
+            <param name="container"></param>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Registration.RegistrationStepView">
+            <summary>
+            A base class view for all registration steps views. Inherit from this to get access to the <see cref="P:IdApp.Views.Registration.RegistrationStepView.StepCompletedCommand"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.Registration.RegistrationStepView.StepCompletedCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.Registration.RegistrationStepView.StepCompletedCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.Registration.RegistrationStepView.StepCompletedCommand">
+            <summary>
+            The command to bind to for signaling to listeners that this step has completed.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Registration.ValidateIdentityView">
+            <summary>
+            A view to display the 'validate identity' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Registration.ValidateIdentityView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Registration.ValidateIdentityView"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.ScanQrCodePage">
+            <summary>
+            A page to display for scanning of a QR code, either automatically via the camera, or by entering the code manually.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.ScanQrCodePage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.ScanQrCodePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.ScanQrCodePage.#ctor(IdApp.ViewModels.ScanQrCodeViewModel)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.ScanQrCodePage"/> class.
+            For unit tests.
+            </summary>
+            <param name="viewModel">The view model to use.</param>
+        </member>
+        <member name="M:IdApp.Views.ScanQrCodePage.OnAppearing">
+            <summary>
+            Overridden to initialize the QR Code scanner when the page appears on screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.ScanQrCodePage.OnDisappearing">
+            <summary>
+            Overridden to un-initialize the QR Code scanner when the page disappears from screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.ScanQrCodePage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.ViewIdentityPage">
+            <summary>
+            A page to display when the user wants to view an identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.ViewIdentityPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.ViewIdentityPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.ViewIdentityPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:IdApp.Views.XmppCommunicationPage">
             <summary>
@@ -2645,7 +5763,10 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.XmppCommunicationPage.OnBackButtonPressed">
-            <inheritdoc/>
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Waher.IoTGateway.Setup.XmppConfiguration">
             <summary>
