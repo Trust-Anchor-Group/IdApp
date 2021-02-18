@@ -111,7 +111,6 @@ namespace Tag.Neuron.Xamarin.Services
 
                     bool connectSucceeded = false;
 
-#if OPTIMIZE_STARTUP
                     // Await connected state during registration, but not otherwise.
                     if (this.xmppClient != null && !this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
@@ -122,12 +121,7 @@ namespace Tag.Neuron.Xamarin.Services
                     {
                         connectSucceeded = true;
                     }
-#else
-                    if (this.tagProfile.IsCompleteOrWaitingForValidation())
-                    {
-                        connectSucceeded = await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
-                    }
-#endif
+
                     if (connectSucceeded)
                     {
                         await CreateContractsClientIfNeeded();
@@ -302,12 +296,8 @@ namespace Tag.Neuron.Xamarin.Services
                         this.xmppClient.State == XmppState.Connected && 
                         this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
-#if OPTIMIZE_STARTUP
                         // Don't await this one, just fire and forget, to improve startup time.
                         _ = this.xmppClient.SetPresenceAsync(Availability.Online);
-#else
-                        await this.xmppClient.SetPresenceAsync(Availability.Online);
-#endif
                     }
                     this.EndLoad(true);
                 }

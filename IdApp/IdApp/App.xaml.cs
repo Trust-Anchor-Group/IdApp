@@ -29,7 +29,7 @@ namespace IdApp
 	/// <summary>
 	/// The Application class, representing an instance of the IdApp.
 	/// </summary>
-	public partial class App : IDisposable
+	public partial class App
 	{
 		private readonly ITagIdSdk sdk;
 		private readonly IImageCacheService imageCacheService;
@@ -86,6 +86,9 @@ namespace IdApp
 					return Types.Instantiate(true, type);
 				});
 
+                // Get the db started right away to save startup time.
+                this.sdk.StorageService.Init(this.startupProfiler.CreateThread("Database", ProfilerThreadType.Sequential));
+
 				// Register log listener (optional)
 				this.sdk.LogService.AddListener(new AppCenterEventSink(this.sdk.LogService));
 
@@ -118,30 +121,6 @@ namespace IdApp
 			this.startupProfiler.MainThread.Idle();
 		}
 
-		///<inheritdoc/>
-		public void Dispose()
-		{
-			this.sdk?.Dispose();
-		}
-
-#if OPTIMIZE_STARTUP
-		///<inheritdoc/>
-		protected override void OnStart()
-		{
-			//AppCenter.Start(
-			//    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
-			//    typeof(Analytics),
-			//    typeof(Crashes));
-
-			_ = this.PerformStartup(false);
-		}
-
-		///<inheritdoc/>
-		protected override void OnResume()
-		{
-			_ = this.PerformStartup(true);
-		}
-#else
         ///<inheritdoc/>
         protected override async void OnStart()
         {
@@ -158,7 +137,6 @@ namespace IdApp
         {
             await this.PerformStartup(true);
         }
-#endif
 
 		private async Task PerformStartup(bool isResuming)
 		{

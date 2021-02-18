@@ -1411,6 +1411,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to QR Code.
+        /// </summary>
+        internal static string Qrcode {
+            get {
+                return ResourceManager.GetString("Qrcode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code not understood.
         /// </summary>
         internal static string QrCodeNotUnderstood {

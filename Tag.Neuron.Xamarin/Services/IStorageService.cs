@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Waher.Persistence;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 
 namespace Tag.Neuron.Xamarin.Services
 {
@@ -10,6 +11,32 @@ namespace Tag.Neuron.Xamarin.Services
     [DefaultImplementation(typeof(StorageService))]
     public interface IStorageService
     {
+        #region LifeCycle management
+
+        /// <summary>
+        /// Initializes the persistent storage on a background task. This call is asynchronous.
+        /// </summary>
+        /// <param name="Thread"></param>
+        void Init(ProfilerThread Thread);
+        /// <summary>
+        /// Returns a task so the persistent storage's ready state can be awaited.
+        /// </summary>
+        /// <returns></returns>
+        Task<StorageState> WaitForReadyState();
+        /// <summary>
+        /// Tries to repair the database if something went wrong. Alerts the user if needed.
+        /// </summary>
+        /// <param name="Thread"></param>
+        /// <returns></returns>
+        Task TryRepairDatabase(ProfilerThread Thread);
+        /// <summary>
+        /// Shuts down this persistent storage instance.
+        /// </summary>
+        /// <returns></returns>
+        Task Shutdown();
+
+        #endregion
+
         /// <summary>
         /// Inserts an object into the database.
         /// </summary>
@@ -34,5 +61,24 @@ namespace Tag.Neuron.Xamarin.Services
         /// <typeparam name="T">The type of the objects to retrieve.</typeparam>
         /// <returns></returns>
         Task<T> FindFirstIgnoreRest<T>() where T : class;
+    }
+
+    /// <summary>
+    /// Represents the different states persistent storage can be in.
+    /// </summary>
+    public enum StorageState
+    {
+        /// <summary>
+        /// Persistent storage has not yet been initialized.
+        /// </summary>
+        NotInitialized,
+        /// <summary>
+        /// Persistent storage is ready.
+        /// </summary>
+        Ready,
+        /// <summary>
+        /// Persistent storage is experiencing failures, and needs repair.
+        /// </summary>
+        NeedsRepair
     }
 }

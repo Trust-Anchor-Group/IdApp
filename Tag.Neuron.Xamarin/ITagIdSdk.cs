@@ -15,7 +15,7 @@ namespace Tag.Neuron.Xamarin
     /// <see cref="Application.OnStart"/> and <see cref="Application.OnResume"/> methods.
     /// </summary>
     [DefaultImplementation(typeof(TagIdSdk))]
-    public interface ITagIdSdk : IDisposable
+    public interface ITagIdSdk
     {
         /// <summary>
         /// To be called when the app is starting, regardless of whether it a cold start, or if it is resuming.
