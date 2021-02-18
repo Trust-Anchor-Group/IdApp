@@ -29,7 +29,7 @@ namespace IdApp
 	/// <summary>
 	/// The Application class, representing an instance of the IdApp.
 	/// </summary>
-	public partial class App : IDisposable
+	public partial class App
 	{
 		private readonly ITagIdSdk sdk;
 		private readonly IImageCacheService imageCacheService;
@@ -116,12 +116,6 @@ namespace IdApp
 			}
 
 			this.startupProfiler.MainThread.Idle();
-		}
-
-		///<inheritdoc/>
-		public void Dispose()
-		{
-			this.sdk?.Dispose();
 		}
 
 #if OPTIMIZE_STARTUP

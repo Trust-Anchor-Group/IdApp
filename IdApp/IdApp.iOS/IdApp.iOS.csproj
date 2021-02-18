@@ -137,6 +137,18 @@
     <ImageAsset Include="Assets.xcassets\city.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FlipIcon_DarkMode.imageset\FlipIcon_DarkMode.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FlipIcon_LightMode.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FlipIcon_LightMode.imageset\FlipIcon_LightMode.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\FlipIcon_DarkMode.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\tag_bg.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>

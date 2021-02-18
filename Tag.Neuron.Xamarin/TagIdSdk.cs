@@ -21,15 +21,12 @@ namespace Tag.Neuron.Xamarin
 	[Singleton]
 	public class TagIdSdk : ITagIdSdk
 	{
-		private static ITagIdSdk instance;
-		private readonly Assembly appAssembly;
+		private static ITagIdSdk Instance;
 		private FilesProvider databaseProvider;
 		private Timer autoSaveTimer;
 
 		private TagIdSdk(Assembly appAssembly, params DomainModel[] domains)
 		{
-			this.appAssembly = appAssembly;
-
 			this.TagProfile = Types.InstantiateDefault<TagProfile>(false, (object)domains);
 			this.LogService = Types.InstantiateDefault<LogService>(false, DependencyService.Resolve<IAppInformation>());
 			this.uiDispatcher = Types.InstantiateDefault<UiDispatcher>(false);
@@ -37,14 +34,8 @@ namespace Tag.Neuron.Xamarin
 			this.NetworkService = Types.InstantiateDefault<NetworkService>(false, this.LogService, this.UiDispatcher);
 			this.SettingsService = Types.InstantiateDefault<SettingsService>(false);
 			this.StorageService = Types.InstantiateDefault<StorageService>(false);
-			this.neuronService = Types.InstantiateDefault<NeuronService>(false, this.appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
+			this.neuronService = Types.InstantiateDefault<NeuronService>(false, appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
 			this.NavigationService = Types.InstantiateDefault<NavigationService>(false, this.LogService, this.uiDispatcher);
-		}
-
-		/// <inheritdoc/>
-		public void Dispose()
-		{
-			instance = null;
 		}
 
 		/// <summary>
@@ -58,7 +49,7 @@ namespace Tag.Neuron.Xamarin
 			if (appAssembly is null)
 				throw new ArgumentException("Value cannot be null", nameof(appAssembly));
 
-			return instance ?? (instance = Types.InstantiateDefault<TagIdSdk>(false, appAssembly, domains));
+			return Instance ?? (Instance = Types.InstantiateDefault<TagIdSdk>(false, appAssembly, domains));
 		}
 
 		/// <inheritdoc/>

@@ -51,8 +51,13 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Row="0" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                                <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                                <Image Grid.Row="0" Grid.Column="1" Source="FlipIcon_DarkMode" WidthRequest="24" HeightRequest="24" VerticalOptions="Start"/>
+                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                                     <Image 
                                         BackgroundColor="{StaticResource HeadingBackground}"
                                         Aspect="AspectFill" 
@@ -66,7 +71,7 @@
                                         FontFamily="{StaticResource FontAwesomeSolid}"
                                         IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
                                 </Grid>
-                                <Label Grid.Row="2" Text="{Binding Path=Location}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium"/>
+                                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Location}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium"/>
                             </Grid>
                         </Frame>
                     </views:FlipView.FrontView>
@@ -77,8 +82,9 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <Image x:Name="QrCode" Grid.Row="0" BackgroundColor="{StaticResource HeadingBackground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start" Margin="0" />
-                                <StackLayout></StackLayout>
+                                <Label Grid.Row="0" Text="QR Code" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                                <Image Grid.Row="0" Source="FlipIcon_LightMode" WidthRequest="24" HeightRequest="24" VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}"/>
+                                <Image x:Name="QrCode" Grid.Row="1" BackgroundColor="{StaticResource HeadingBackground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start" Margin="0" />
                             </Grid>
                         </Frame>
                     </views:FlipView.BackView>
