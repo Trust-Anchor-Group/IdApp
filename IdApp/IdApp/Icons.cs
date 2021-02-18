@@ -55,5 +55,13 @@
         /// The bug icon
         /// </summary>
         public const string Bug = "\uf188";
+        /// <summary>
+        /// The sign out icon
+        /// </summary>
+        public const string SignOut = "\uf2f5";
+        /// <summary>
+        /// The sign in icon
+        /// </summary>
+        public const string SignIn = "\uf2f6";
     }
 }

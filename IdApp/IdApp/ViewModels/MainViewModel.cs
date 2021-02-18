@@ -129,6 +129,21 @@ namespace IdApp.ViewModels
         #region Properties
 
         /// <summary>
+        /// See <see cref="IsTemporarilyLoggedOut"/>
+        /// </summary>
+        public static readonly BindableProperty IsTemporarilyLoggedOutProperty =
+            BindableProperty.Create("IsTemporarilyLoggedOut", typeof(bool), typeof(MainViewModel), default(bool));
+
+        /// <summary>
+        /// Gets or sets whether the user is temporarily logged out by manually logging themselves out.
+        /// </summary>
+        public bool IsTemporarilyLoggedOut
+        {
+            get { return (bool) GetValue(IsTemporarilyLoggedOutProperty); }
+            set { SetValue(IsTemporarilyLoggedOutProperty, value); }
+        }
+
+        /// <summary>
         /// See <see cref="HasPhoto"/>
         /// </summary>
         public static readonly BindableProperty HasPhotoProperty =

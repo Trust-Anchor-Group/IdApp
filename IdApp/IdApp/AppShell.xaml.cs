@@ -137,5 +137,17 @@ namespace IdApp
         {
             await this.GoToPage(nameof(XmppCommunicationPage));
         }
+
+        private async void SignOutMenuItem_Clicked(object sender, EventArgs e)
+        {
+            Current.FlyoutIsPresented = false;
+            await Task.CompletedTask;
+        }
+
+        private async void SignInMenuItem_Clicked(object sender, EventArgs e)
+        {
+            Current.FlyoutIsPresented = false;
+            await Task.CompletedTask;
+        }
     }
 }

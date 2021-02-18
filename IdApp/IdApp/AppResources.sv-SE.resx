@@ -687,6 +687,12 @@
   <data name="SignedContracts" xml:space="preserve">
     <value>Signerade kontrakt</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Logga in</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Logga ut</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>Hoppa över</value>
   </data>

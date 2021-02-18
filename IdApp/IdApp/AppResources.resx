@@ -690,6 +690,12 @@
   <data name="SignedContracts" xml:space="preserve">
     <value>Signed Contracts</value>
   </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Log out</value>
+  </data>
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
   </data>
