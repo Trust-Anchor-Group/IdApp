@@ -86,6 +86,9 @@ namespace IdApp
 					return Types.Instantiate(true, type);
 				});
 
+                // Get the db started right away to save startup time.
+                this.sdk.StorageService.Init(this.startupProfiler.CreateThread("Database", ProfilerThreadType.Sequential));
+
 				// Register log listener (optional)
 				this.sdk.LogService.AddListener(new AppCenterEventSink(this.sdk.LogService));
 

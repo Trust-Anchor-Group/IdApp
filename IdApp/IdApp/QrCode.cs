@@ -14,7 +14,7 @@ namespace IdApp
         private static TaskCompletionSource<string> qrCodeScanned;
 
         /// <summary>
-        /// Navigates to the Scan QR Code Page, waits for scan to comlete, and returns the result.
+        /// Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
         /// </summary>
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
         /// <param name="commandName">The localized name of the command to display when scanning.</param>

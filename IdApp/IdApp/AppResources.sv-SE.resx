@@ -564,6 +564,9 @@
   <data name="Purpose" xml:space="preserve">
     <value>Syfte</value>
   </data>
+  <data name="Qrcode" xml:space="preserve">
+    <value>QR-kod</value>
+  </data>
   <data name="QrCodeNotUnderstood" xml:space="preserve">
     <value>Koden kunde ej förstås</value>
   </data>
