@@ -46,12 +46,12 @@ namespace IdApp.Services
                         List<(string, string)> cacheEntriesAsJson = (await this.settingsService.RestoreStateWhereKeyStartsWith<string>(KeyPrefix)).ToList();
                         if (cacheEntriesAsJson.Count > 0)
                         {
-                            foreach ((string Key, string Json) entry in cacheEntriesAsJson)
+                            foreach ((string Key, string Json) in cacheEntriesAsJson)
                             {
-                                string key = entry.Key.Substring(KeyPrefix.Length);
+                                string key = Key.Substring(KeyPrefix.Length);
                                 try
                                 {
-                                    CacheEntry ce = (CacheEntry)Waher.Content.JSON.Parse(entry.Json);
+                                    CacheEntry ce = (CacheEntry)Waher.Content.JSON.Parse(Json);
                                     this.entries[key] = ce;
                                 }
                                 catch (Exception e)

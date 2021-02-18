@@ -309,7 +309,7 @@ namespace IdApp.Services
                     await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
                 });
             }
-            catch (ForbiddenException ex)
+            catch (ForbiddenException)
             {
                 // This happens if you try to view someone else's legal identity.
                 // When this happens, try to send a petition to view it instead.
