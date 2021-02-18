@@ -121,24 +121,6 @@ namespace IdApp
 			this.startupProfiler.MainThread.Idle();
 		}
 
-#if OPTIMIZE_STARTUP
-		///<inheritdoc/>
-		protected override void OnStart()
-		{
-			//AppCenter.Start(
-			//    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
-			//    typeof(Analytics),
-			//    typeof(Crashes));
-
-			_ = this.PerformStartup(false);
-		}
-
-		///<inheritdoc/>
-		protected override void OnResume()
-		{
-			_ = this.PerformStartup(true);
-		}
-#else
         ///<inheritdoc/>
         protected override async void OnStart()
         {
@@ -155,7 +137,6 @@ namespace IdApp
         {
             await this.PerformStartup(true);
         }
-#endif
 
 		private async Task PerformStartup(bool isResuming)
 		{

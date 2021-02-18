@@ -22,7 +22,7 @@
             </StackLayout>
             <ActivityIndicator Grid.Row="2" IsVisible="true" IsRunning="true" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
             <Frame Grid.Row="3" IsVisible="{Binding Path=DisplayConnectionText}" CornerRadius="5" BackgroundColor="#99ffffff">
-                <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}" FontSize="Large" TextColor="Black"/>
+                <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}" FontSize="Medium" TextColor="Black"/>
             </Frame>
         </Grid>
     </ContentPage.Content>
