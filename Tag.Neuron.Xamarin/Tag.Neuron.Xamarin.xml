@@ -1551,12 +1551,102 @@
             Handles common UI settings that need to be persisted during sessions.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.String)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.Int64)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.Double)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.Boolean)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.DateTime)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.TimeSpan)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.Object)">
             <summary>
             Saves state with the given key.
             </summary>
             <param name="key">The key to use.</param>
             <param name="state">The state to save.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.String)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.Int64)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.Double)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.Boolean)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.DateTime)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.TimeSpan)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState``1(System.String,``0)">
             <summary>

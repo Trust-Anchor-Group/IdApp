@@ -16,7 +16,98 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="key">The key to use.</param>
         /// <param name="state">The state to save.</param>
+        Task SaveState(string key, string state);
+
+        /// <summary>
+        /// Saves state with the given key.
+        /// </summary>
+        /// <param name="key">The key to use.</param>
+        /// <param name="state">The state to save.</param>
+        Task SaveState(string key, long state);
+
+        /// <summary>
+        /// Saves state with the given key.
+        /// </summary>
+        /// <param name="key">The key to use.</param>
+        /// <param name="state">The state to save.</param>
+        Task SaveState(string key, double state);
+
+        /// <summary>
+        /// Saves state with the given key.
+        /// </summary>
+        /// <param name="key">The key to use.</param>
+        /// <param name="state">The state to save.</param>
+        Task SaveState(string key, bool state);
+
+        /// <summary>
+        /// Saves state with the given key.
+        /// </summary>
+        /// <param name="key">The key to use.</param>
+        /// <param name="state">The state to save.</param>
+        Task SaveState(string key, DateTime state);
+
+        /// <summary>
+        /// Saves state with the given key.
+        /// </summary>
+        /// <param name="key">The key to use.</param>
+        /// <param name="state">The state to save.</param>
+        Task SaveState(string key, TimeSpan state);
+
+        /// <summary>
+        /// Saves state with the given key.
+        /// </summary>
+        /// <param name="key">The key to use.</param>
+        /// <param name="state">The state to save.</param>
         Task SaveState(string key, object state);
+
+        /// <summary>
+        /// Restores state for the specified key.
+        /// </summary>
+        /// <param name="key">The state id.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+        /// <returns></returns>
+        Task<string> RestoreState(string key, string defaultValueIfNotFound = default);
+
+        /// <summary>
+        /// Restores state for the specified key.
+        /// </summary>
+        /// <param name="key">The state id.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+        /// <returns></returns>
+        Task<long> RestoreState(string key, long defaultValueIfNotFound = default);
+
+        /// <summary>
+        /// Restores state for the specified key.
+        /// </summary>
+        /// <param name="key">The state id.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+        /// <returns></returns>
+        Task<double> RestoreState(string key, double defaultValueIfNotFound = default);
+
+        /// <summary>
+        /// Restores state for the specified key.
+        /// </summary>
+        /// <param name="key">The state id.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+        /// <returns></returns>
+        Task<bool> RestoreState(string key, bool defaultValueIfNotFound = default);
+
+        /// <summary>
+        /// Restores state for the specified key.
+        /// </summary>
+        /// <param name="key">The state id.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+        /// <returns></returns>
+        Task<DateTime> RestoreState(string key, DateTime defaultValueIfNotFound = default);
+
+        /// <summary>
+        /// Restores state for the specified key.
+        /// </summary>
+        /// <param name="key">The state id.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+        /// <returns></returns>
+        Task<TimeSpan> RestoreState(string key, TimeSpan defaultValueIfNotFound = default);
+
         /// <summary>
         /// Restores state for the specified key.
         /// </summary>
@@ -25,6 +116,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
         Task<T> RestoreState<T>(string key, T defaultValueIfNotFound = default);
+
         /// <summary>
         /// Returns any states whose key matches the specified predicate.
         /// </summary>
@@ -32,11 +124,13 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="keyPrefix">The string value the key should start with, like "Foo". Do not include wildcards.</param>
         /// <returns>a list of matching states.</returns>
         Task<IEnumerable<(string key, T value)>> RestoreStateWhereKeyStartsWith<T>(string keyPrefix);
+
         /// <summary>
         /// Removes a given state.
         /// </summary>
         /// <param name="key">The state identifier.</param>
         Task RemoveState(string key);
+
         /// <summary>
         /// Removes any states whose key matches the specified predicate.
         /// </summary>
