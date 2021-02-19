@@ -191,6 +191,10 @@ private async Task PerformShutdown()
 ```
 When this is done, you can start and run the application. It won't do anything, but now it's wired into the SDK correctly.
 
+## Developing the App ##
+The app is built with the industry standard [MVVM](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm) pattern.
+[Here's a short intro](Mvvm.md) with links to further reading.
+
 ## Debugging the App ##
 You can debug the app in the Android Emulator, the iOS emulator, or on a real phone.
 

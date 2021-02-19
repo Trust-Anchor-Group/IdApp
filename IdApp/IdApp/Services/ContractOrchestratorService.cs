@@ -302,7 +302,9 @@ namespace IdApp.Services
                         gotoRegistrationPage = true;
                     }
                     else
+                    {
                         this.tagProfile.SetLegalIdentity(identity);
+                    }
                     
                     if (gotoRegistrationPage)
                     {
