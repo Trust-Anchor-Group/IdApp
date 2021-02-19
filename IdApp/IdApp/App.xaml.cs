@@ -3,6 +3,7 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
@@ -40,10 +41,11 @@ namespace IdApp
 		///<inheritdoc/>
 		public App()
 		{
-			this.startupProfiler = new Profiler("Startup", ProfilerThreadType.Sequential);
-			this.startupProfiler.Start();
-			this.startupProfiler.NewState("Init");
+			this.startupProfiler = new Profiler("Startup", ProfilerThreadType.Sequential);	// Comment out, to remove startup profiling.
+			this.startupProfiler?.Start();
+			this.startupProfiler?.NewState("Init");
 
+			AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
@@ -51,7 +53,7 @@ namespace IdApp
 
 			try
 			{
-				this.startupProfiler.NewState("Types");
+				this.startupProfiler?.NewState("Types");
 
 				Assembly appAssembly = this.GetType().Assembly;
 
@@ -73,9 +75,9 @@ namespace IdApp
 						typeof(RegistrationStep).Assembly);         // Indexes persistable objects
 				}
 
-				this.startupProfiler.NewState("SDK");
+				this.startupProfiler?.NewState("SDK");
 
-				this.sdk = TagIdSdk.Create(appAssembly, new XmppConfiguration().ToArray());
+				this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
 
 				// Set resolver
 				DependencyResolver.ResolveUsing(type =>
@@ -87,7 +89,7 @@ namespace IdApp
 				});
 
                 // Get the db started right away to save startup time.
-                this.sdk.StorageService.Init(this.startupProfiler.CreateThread("Database", ProfilerThreadType.Sequential));
+                this.sdk.StorageService.Init(this.startupProfiler?.CreateThread("Database", ProfilerThreadType.Sequential));
 
 				// Register log listener (optional)
 				this.sdk.LogService.AddListener(new AppCenterEventSink(this.sdk.LogService));
@@ -99,7 +101,7 @@ namespace IdApp
 			catch (Exception e)
 			{
 				e = Waher.Events.Log.UnnestException(e);
-				this.startupProfiler.Exception(e);
+				this.startupProfiler?.Exception(e);
 				DisplayBootstrapErrorPage(e.Message, e.StackTrace);
 				return;
 			}
@@ -107,22 +109,22 @@ namespace IdApp
 			// Start page
 			try
 			{
-				this.startupProfiler.NewState("MainPage");
+				this.startupProfiler?.NewState("MainPage");
 
 				this.MainPage = new AppShell();
 			}
 			catch (Exception e)
 			{
 				e = Waher.Events.Log.UnnestException(e);
-				this.startupProfiler.Exception(e);
+				this.startupProfiler?.Exception(e);
 				this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
 			}
 
-			this.startupProfiler.MainThread.Idle();
+			this.startupProfiler?.MainThread.Idle();
 		}
 
-        ///<inheritdoc/>
-        protected override async void OnStart()
+		///<inheritdoc/>
+		protected override async void OnStart()
         {
             //AppCenter.Start(
             //    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
@@ -149,7 +151,7 @@ namespace IdApp
 				await this.SendErrorReportFromPreviousRun();
 
 				Thread?.NewState("Startup");
-				await this.sdk.Startup(isResuming, Thread?.CreateSubThread("SdkStartup", ProfilerThreadType.Sequential));
+				await this.sdk.Startup(isResuming);
 
 				Thread?.NewState("Cache");
 				await this.imageCacheService.Load(isResuming);
@@ -256,11 +258,18 @@ namespace IdApp
 			}
 		}
 
+		private void CurrentDomain_FirstChanceException(object sender, FirstChanceExceptionEventArgs e)
+		{
+			this.startupProfiler?.Exception(e.Exception);
+		}
+
 		private void SendStartupProfile()
 		{
 			if (!(this.startupProfiler is null))
 			{
 				this.startupProfiler.Stop();
+				AppDomain.CurrentDomain.FirstChanceException -= CurrentDomain_FirstChanceException;
+
 				string Uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
 
 				this.startupProfiler = null;

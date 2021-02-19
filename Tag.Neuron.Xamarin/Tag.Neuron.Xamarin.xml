@@ -597,12 +597,11 @@
             <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Startup(System.Boolean,Waher.Runtime.Profiling.ProfilerThread)">
+        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Startup(System.Boolean)">
             <summary>
             To be called when the app is starting, regardless of whether it a cold start, or if it is resuming.
             </summary>
             <param name="isResuming">Set to <c>true</c> if the app is resuming, <c>false</c> otherwise.</param>
-            <param name="Thread">Optional Profiler Thread, for profiling startup times. May be null.</param>
         </member>
         <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Shutdown(System.Boolean)">
             <summary>
@@ -660,6 +659,11 @@
         <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NavigationService">
             <summary>
             Provides application navigation services in a generic way.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.StartupProfiler">
+            <summary>
+            Profiler of startup process, if any.
             </summary>
         </member>
         <member name="T:Tag.Neuron.Xamarin.IUiDispatcher">
@@ -2405,13 +2409,14 @@
         <member name="T:Tag.Neuron.Xamarin.TagIdSdk">
             <inheritdoc/>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,Tag.Neuron.Xamarin.Models.DomainModel[])">
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,Waher.Runtime.Profiling.Profiler,Tag.Neuron.Xamarin.Models.DomainModel[])">
             <summary>
             Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.ITagIdSdk"/>. This is a factory method.
             </summary>
-            <param name="appAssembly"></param>
-            <param name="domains"></param>
-            <returns></returns>
+            <param name="appAssembly">Assembly of application hosting the library.</param>
+            <param name="StartupProfiler">Optional Startup profiler. May be null.</param>
+            <param name="domains">Featured domains.</param>
+            <returns>Tag ID SDK instance reference.</returns>
         </member>
         <member name="P:Tag.Neuron.Xamarin.TagIdSdk.TagProfile">
             <inheritdoc/>
@@ -2440,7 +2445,12 @@
         <member name="P:Tag.Neuron.Xamarin.TagIdSdk.LogService">
             <inheritdoc/>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Startup(System.Boolean,Waher.Runtime.Profiling.ProfilerThread)">
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.StartupProfiler">
+            <summary>
+            Profiler of startup process, if any.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Startup(System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Shutdown(System.Boolean)">

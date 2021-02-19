@@ -18,10 +18,12 @@ namespace Tag.Neuron.Xamarin
 	public class TagIdSdk : ITagIdSdk
 	{
 		private static ITagIdSdk Instance;
+		private readonly Profiler startupProfiler;
 		private Timer autoSaveTimer;
 
-		private TagIdSdk(Assembly appAssembly, params DomainModel[] domains)
+		private TagIdSdk(Assembly appAssembly, Profiler StartupProfiler, params DomainModel[] domains)
 		{
+			this.startupProfiler = StartupProfiler;
 			this.TagProfile = Types.InstantiateDefault<TagProfile>(false, (object)domains);
 			this.LogService = Types.InstantiateDefault<LogService>(false, DependencyService.Resolve<IAppInformation>());
 			this.uiDispatcher = Types.InstantiateDefault<UiDispatcher>(false);
@@ -29,48 +31,67 @@ namespace Tag.Neuron.Xamarin
 			this.NetworkService = Types.InstantiateDefault<NetworkService>(false, this.LogService, this.UiDispatcher);
 			this.SettingsService = Types.InstantiateDefault<SettingsService>(false);
 			this.StorageService = Types.InstantiateDefault<StorageService>(false);
-			this.neuronService = Types.InstantiateDefault<NeuronService>(false, appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
 			this.NavigationService = Types.InstantiateDefault<NavigationService>(false, this.LogService, this.uiDispatcher);
+
+			NeuronService NeuronService = Types.InstantiateDefault<NeuronService>(false, appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService);
+			NeuronService.StartupProfiler = StartupProfiler;
+			this.neuronService = NeuronService;
 		}
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ITagIdSdk"/>. This is a factory method.
 		/// </summary>
-		/// <param name="appAssembly"></param>
-		/// <param name="domains"></param>
-		/// <returns></returns>
-		public static ITagIdSdk Create(Assembly appAssembly, params DomainModel[] domains)
+		/// <param name="appAssembly">Assembly of application hosting the library.</param>
+		/// <param name="StartupProfiler">Optional Startup profiler. May be null.</param>
+		/// <param name="domains">Featured domains.</param>
+		/// <returns>Tag ID SDK instance reference.</returns>
+		public static ITagIdSdk Create(Assembly appAssembly, Profiler StartupProfiler, params DomainModel[] domains)
 		{
 			if (appAssembly is null)
 				throw new ArgumentException("Value cannot be null", nameof(appAssembly));
 
-			return Instance ?? (Instance = Types.InstantiateDefault<TagIdSdk>(false, appAssembly, domains));
+			return Instance ?? (Instance = Types.InstantiateDefault<TagIdSdk>(false, appAssembly, StartupProfiler, domains));
 		}
+
+		private readonly UiDispatcher uiDispatcher;
+		private readonly IInternalNeuronService neuronService;
 
 		/// <inheritdoc/>
 		public ITagProfile TagProfile { get; }
-		private readonly UiDispatcher uiDispatcher;
+		
 		/// <inheritdoc/>
 		public IUiDispatcher UiDispatcher => this.uiDispatcher;
+		
 		/// <inheritdoc/>
 		public ICryptoService CryptoService { get; }
-		private readonly IInternalNeuronService neuronService;
+		
 		/// <inheritdoc/>
 		public INeuronService NeuronService => this.neuronService;
+		
 		/// <inheritdoc/>
 		public INetworkService NetworkService { get; }
+		
 		/// <inheritdoc/>
 		public INavigationService NavigationService { get; }
+		
 		/// <inheritdoc/>
 		public IStorageService StorageService { get; }
+		
 		/// <inheritdoc/>
 		public ISettingsService SettingsService { get; }
-        /// <inheritdoc/>
+        
+		/// <inheritdoc/>
         public ILogService LogService { get; }
 
+		/// <summary>
+		/// Profiler of startup process, if any.
+		/// </summary>
+		public Profiler StartupProfiler => this.startupProfiler;
+
 		/// <inheritdoc/>
-		public async Task Startup(bool isResuming, ProfilerThread Thread)
+		public async Task Startup(bool isResuming)
 		{
+			ProfilerThread Thread = this.startupProfiler?.CreateThread("SdkStartup", ProfilerThreadType.Sequential);
 			Thread?.Start();
 			Thread?.NewState("DB");
 

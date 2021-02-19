@@ -17,6 +17,7 @@ using Waher.Networking.XMPP.MUC;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.ServiceDiscovery;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 
 namespace Tag.Neuron.Xamarin.Services
 {
@@ -29,6 +30,8 @@ namespace Tag.Neuron.Xamarin.Services
         private readonly ITagProfile tagProfile;
         private Timer reconnectTimer;
         private XmppClient xmppClient;
+        private Profiler startupProfiler;
+        private ProfilerThread xmppThread;
         private readonly NeuronContracts contracts;
         private readonly NeuronChats chats;
         private string domainName;
@@ -61,10 +64,20 @@ namespace Tag.Neuron.Xamarin.Services
             this.Contracts.Dispose();
         }
 
+        public Profiler StartupProfiler
+		{
+            get => this.startupProfiler;
+            internal set => this.startupProfiler = value;
+		}
+
         #region Create/Destroy
 
         private async Task CreateXmppClient()
         {
+            this.xmppThread = this.startupProfiler?.CreateThread("XMPP", ProfilerThreadType.StateMachine);
+            this.xmppThread?.Start();
+            this.xmppThread?.Idle();
+
             if (isCreatingClient)
                 return;
 
@@ -232,6 +245,8 @@ namespace Tag.Neuron.Xamarin.Services
 
         private async Task XmppClient_StateChanged(object sender, XmppState newState)
         {
+            this.xmppThread?.NewState(newState.ToString());
+
             switch (newState)
             {
                 case XmppState.Connected:
@@ -256,6 +271,9 @@ namespace Tag.Neuron.Xamarin.Services
 
                     this.logService.AddListener(this.xmppEventSink);
 
+                    this.xmppThread?.Stop();
+                    this.xmppThread = null;
+                    this.startupProfiler = null;
                     break;
 
                 case XmppState.Error:
@@ -264,6 +282,10 @@ namespace Tag.Neuron.Xamarin.Services
                         this.xmppSettingsOk = false;
                         this.xmppClient?.Reconnect();
                     }
+
+                    this.xmppThread?.Stop();
+                    this.xmppThread = null;
+                    this.startupProfiler = null;
                     break;
             }
 
