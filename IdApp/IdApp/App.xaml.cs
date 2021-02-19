@@ -265,10 +265,11 @@ namespace IdApp
 
 		private void SendStartupProfile()
 		{
+			AppDomain.CurrentDomain.FirstChanceException -= CurrentDomain_FirstChanceException;
+
 			if (!(this.startupProfiler is null))
 			{
 				this.startupProfiler.Stop();
-				AppDomain.CurrentDomain.FirstChanceException -= CurrentDomain_FirstChanceException;
 
 				string Uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
 
