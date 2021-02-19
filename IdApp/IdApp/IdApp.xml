@@ -1011,6 +1011,11 @@
               Looks up a localized string similar to Log in.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.SigningIn">
+            <summary>
+              Looks up a localized string similar to Logging in....
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.SignOut">
             <summary>
               Looks up a localized string similar to Log out.
@@ -1239,6 +1244,11 @@
         <member name="P:IdApp.AppResources.YouCanProtectYourWalletPinInfo">
             <summary>
               Looks up a localized string similar to You can protect your wallet and sensitive information by adding an additional PIN number or password..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YouHaveNowBeenSignedOut">
+            <summary>
+              Looks up a localized string similar to You have now been signed out. To sign in again, use the menu in the top left corner..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.YouNeedToApproveToAssociate">
@@ -2037,6 +2047,36 @@
         <member name="P:IdApp.ViewModels.AppShellViewModel.IsOnline">
             <summary>
             Gets or sets whether the application is online, i.e. has network access.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.AppShellViewModel.UserIsLoggedOutProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.AppShellViewModel.UserIsLoggedOut"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.UserIsLoggedOut">
+            <summary>
+            Gets or sets whether the user is logged in or out.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.AppShellViewModel.LogInOutGlyphProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.AppShellViewModel.LogInOutGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.LogInOutGlyph">
+            <summary>
+            The icon to use for the log in/log out menu item.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.AppShellViewModel.LogInOutTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.AppShellViewModel.LogInOutText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.LogInOutText">
+            <summary>
+            The text to use for the log in/log out menu item.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Contracts.ClientSignatureViewModel">
@@ -3930,7 +3970,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INavigationService)">
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INetworkService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             For unit tests.
@@ -3941,16 +3981,6 @@
         </member>
         <member name="M:IdApp.ViewModels.MainViewModel.DoUnbind">
             <inheritdoc />
-        </member>
-        <member name="F:IdApp.ViewModels.MainViewModel.IsTemporarilyLoggedOutProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.MainViewModel.IsTemporarilyLoggedOut"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.MainViewModel.IsTemporarilyLoggedOut">
-            <summary>
-            Gets or sets whether the user is temporarily logged out by manually logging themselves out.
-            </summary>
         </member>
         <member name="F:IdApp.ViewModels.MainViewModel.HasPhotoProperty">
             <summary>
@@ -4111,6 +4141,19 @@
             <summary>
             Gets or sets the user friendly connection errors text for display. Can be null.
             </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.YouAreNowLoggedOutTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.YouAreNowLoggedOutText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.YouAreNowLoggedOutText">
+            <summary>
+            The text to display in the UI, on the logout panel, depending on whether the user has manually logged out or in.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.MainViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc />
         </member>
         <member name="M:IdApp.ViewModels.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
@@ -5604,6 +5647,12 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Views.MainPage"/> class.
             </summary>
+        </member>
+        <member name="M:IdApp.Views.MainPage.OnAppearing">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.Views.MainPage.OnDisappearing">
+            <inheritdoc />
         </member>
         <member name="T:IdApp.Views.Registration.ChooseAccountView">
             <summary>

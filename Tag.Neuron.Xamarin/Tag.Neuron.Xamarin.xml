@@ -931,15 +931,21 @@
             Represents an event class holding data related to connection state changes.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs.#ctor(Waher.Networking.XMPP.XmppState)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs.#ctor(Waher.Networking.XMPP.XmppState,System.Boolean)">
             <summary>
             Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs"/> class.
             </summary>
             <param name="state">The current state.</param>
+            <param name="isUserInitiated">Sets whether the user manually initiated a logout (or login).</param>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs.State">
             <summary>
             The current state.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs.IsUserInitiated">
+            <summary>
+            Gets whether the user manually initiated a logout (or login).
             </summary>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ICryptoService">
@@ -1469,6 +1475,23 @@
             <param name="appAssembly">The current app's main assembly.</param>
             <param name="connectedFunc">A callback to use if and when connected.</param>
             <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.LogOut">
+            <summary>
+            Logs out the current user, shutting down the XMPP connection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.LogIn">
+            <summary>
+            Logs in the current user, re-establishing te XMPP connection.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.IsLoggedOut">
+            <summary>
+            Determines whether the user has logged out or not.
+            </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.IsOnline">
             <summary>
