@@ -40,6 +40,7 @@ namespace Tag.Neuron.Xamarin.Services
         private bool isCreatingClient;
         private bool isCreatingContractClient;
         private XmppEventSink xmppEventSink;
+        private bool userInitiatedLogInOrOut;
 
         public NeuronService(Assembly appAssembly, ITagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, ILogService logService)
         {
@@ -105,14 +106,15 @@ namespace Tag.Neuron.Xamarin.Services
                     this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
                     this.xmppClient.OnError += XmppClient_Error;
 
+                    this.IsLoggedOut = false;
                     this.xmppClient.Connect(domainName);
 
                     this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
 
                     bool connectSucceeded = false;
 
-                    // Await connected state during registration, but not otherwise.
-                    if (this.xmppClient != null && !this.tagProfile.IsCompleteOrWaitingForValidation())
+                    // Await connected state during registration or user initiated log in, but not otherwise.
+                    if (this.xmppClient != null && (!this.tagProfile.IsCompleteOrWaitingForValidation() || this.userInitiatedLogInOrOut))
                     {
                         connectSucceeded = await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
                     }
@@ -154,7 +156,7 @@ namespace Tag.Neuron.Xamarin.Services
                 this.xmppClient.OnError -= XmppClient_Error;
                 this.xmppClient.OnConnectionError -= XmppClient_ConnectionError;
                 this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
-                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
+                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline, this.userInitiatedLogInOrOut));
                 if (this.xmppEventSink != null)
                 {
                     this.logService.RemoveListener(this.xmppEventSink);
@@ -265,7 +267,7 @@ namespace Tag.Neuron.Xamarin.Services
                     break;
             }
 
-            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(newState));
+            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(newState, this.userInitiatedLogInOrOut));
         }
 
         #region Lifecycle
@@ -352,6 +354,8 @@ namespace Tag.Neuron.Xamarin.Services
 
         #region State
 
+        public bool IsLoggedOut { get; private set; }
+
         public bool IsOnline => !(this.xmppClient is null) && this.xmppClient.State == XmppState.Connected;
 
         public XmppState State => this.xmppClient?.State ?? XmppState.Offline;
@@ -372,6 +376,51 @@ namespace Tag.Neuron.Xamarin.Services
             Connect,
             ConnectAndCreateAccount,
             ConnectAndConnectToAccount
+        }
+
+        public Task LogOut()
+        {
+            if (!this.IsLoggedOut)
+            {
+                this.userInitiatedLogInOrOut = true;
+                try
+                {
+                    this.IsLoggedOut = true;
+                    this.DestroyXmppClient();
+                }
+                catch (Exception e)
+                {
+                    this.IsLoggedOut = false;
+                    this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                }
+                finally
+                {
+                    this.userInitiatedLogInOrOut = false;
+                }
+            }
+            return Task.CompletedTask;
+        }
+
+        public async Task LogIn()
+        {
+            if (this.IsLoggedOut && this.ShouldCreateClient())
+            {
+                this.userInitiatedLogInOrOut = true;
+                try
+                {
+                    this.IsLoggedOut = false;
+                    await this.CreateXmppClient();
+                }
+                catch (Exception e)
+                {
+                    this.IsLoggedOut = true;
+                    this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                }
+                finally
+                {
+                    this.userInitiatedLogInOrOut = false;
+                }
+            }
         }
 
         public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, string hostName, int portNumber, string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)

@@ -58,7 +58,7 @@ namespace IdApp.Tests.ViewModels
             GivenAViewModel()
                 .And(async vm => await vm.Bind())
                 .ThenAssert(vm => vm.ConnectionStateText == AppResources.XmppState_Authenticating)
-                .When(vm => this.neuronService.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected)))
+                .When(vm => this.neuronService.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected, false)))
                 .ThenAssert(vm => vm.ConnectionStateText == AppResources.XmppState_Connected);
         }
     }

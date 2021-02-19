@@ -84,7 +84,7 @@ namespace IdApp.Tests.Services
             this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
             this.tagProfile.SetLegalIdentity(new LegalIdentity { Id = guid.ToString() });
             this.tagProfile.IsCompleteOrWaitingForValidationValue = true;
-            this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected));
+            this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected, false));
             await Task.Delay(TimeSpan.FromSeconds(2));
             Assert.AreEqual(1, this.sut.DownloadCount);
         }
@@ -95,7 +95,7 @@ namespace IdApp.Tests.Services
             Guid guid = Guid.NewGuid();
             this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
             this.tagProfile.IsCompleteOrWaitingForValidationValue = true;
-            this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected));
+            this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected, false));
             Assert.AreEqual(0, this.sut.DownloadCount);
         }
 
@@ -106,7 +106,7 @@ namespace IdApp.Tests.Services
             Guid guid = Guid.NewGuid();
             this.tagProfile.SetLegalIdentity(new LegalIdentity { Id = guid.ToString() });
             this.tagProfile.IsCompleteOrWaitingForValidationValue = false;
-            this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected));
+            this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected, false));
             Assert.AreEqual(0, this.sut.DownloadCount);
         }
     }

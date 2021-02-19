@@ -19,14 +19,12 @@ namespace IdApp.ViewModels
     {
         private readonly ITagProfile tagProfile;
         private readonly INetworkService networkService;
-        private readonly ILogService logService;
-        private readonly INavigationService navigationService;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
         public MainViewModel()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -38,15 +36,12 @@ namespace IdApp.ViewModels
             INeuronService neuronService, 
             IUiDispatcher uiDispatcher, 
             ITagProfile tagProfile,
-            INetworkService networkService,
-            ILogService logService, 
-            INavigationService navigationService)
+            INetworkService networkService)
             : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-            this.logService = logService ?? DependencyService.Resolve<ILogService>();
-            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
+            this.UpdateLoggedOutText(true);
         }
 
         /// <inheritdoc />
@@ -127,21 +122,6 @@ namespace IdApp.ViewModels
         }
 
         #region Properties
-
-        /// <summary>
-        /// See <see cref="IsTemporarilyLoggedOut"/>
-        /// </summary>
-        public static readonly BindableProperty IsTemporarilyLoggedOutProperty =
-            BindableProperty.Create("IsTemporarilyLoggedOut", typeof(bool), typeof(MainViewModel), default(bool));
-
-        /// <summary>
-        /// Gets or sets whether the user is temporarily logged out by manually logging themselves out.
-        /// </summary>
-        public bool IsTemporarilyLoggedOut
-        {
-            get { return (bool) GetValue(IsTemporarilyLoggedOutProperty); }
-            set { SetValue(IsTemporarilyLoggedOutProperty, value); }
-        }
 
         /// <summary>
         /// See <see cref="HasPhoto"/>
@@ -243,22 +223,6 @@ namespace IdApp.ViewModels
         {
             get { return (string) GetValue(LocationProperty); }
             set { SetValue(LocationProperty, value); }
-        }
-
-        private void SetLocation()
-        {
-            if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
-            {
-                Location = $"{City}, {Country}";
-            }
-            if (!string.IsNullOrWhiteSpace(City) && string.IsNullOrWhiteSpace(Country))
-            {
-                Location = City;
-            }
-            if (string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
-            {
-                Location = Country;
-            }
         }
 
         /// <summary>
@@ -415,7 +379,57 @@ namespace IdApp.ViewModels
             get { return (string)GetValue(ConnectionErrorsTextProperty); }
             set { SetValue(ConnectionErrorsTextProperty, value); }
         }
+
+        /// <summary>
+        /// See <see cref="YouAreNowLoggedOutText"/>
+        /// </summary>
+        public static readonly BindableProperty YouAreNowLoggedOutTextProperty =
+            BindableProperty.Create("YouAreNowLoggedOutText", typeof(string), typeof(MainViewModel), default(string));
+
+        /// <summary>
+        /// The text to display in the UI, on the logout panel, depending on whether the user has manually logged out or in.
+        /// </summary>
+        public string YouAreNowLoggedOutText
+        {
+            get { return (string) GetValue(YouAreNowLoggedOutTextProperty); }
+            set { SetValue(YouAreNowLoggedOutTextProperty, value); }
+        }
+
         #endregion
+
+        private void UpdateLoggedOutText(bool isLoggedOut)
+        {
+            this.YouAreNowLoggedOutText = isLoggedOut ? AppResources.YouHaveNowBeenSignedOut : AppResources.SigningIn;
+        }
+
+        private void SetLocation()
+        {
+            if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
+            {
+                Location = $"{City}, {Country}";
+            }
+            if (!string.IsNullOrWhiteSpace(City) && string.IsNullOrWhiteSpace(Country))
+            {
+                Location = City;
+            }
+            if (string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
+            {
+                Location = Country;
+            }
+        }
+
+        /// <inheritdoc />
+        protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            this.UiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                this.SetConnectionStateAndText(e.State);
+                if (e.IsUserInitiated)
+                {
+                    this.UpdateLoggedOutText(e.State == XmppState.Offline);
+                }
+            });
+        }
 
         private void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {

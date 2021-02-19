@@ -61,6 +61,21 @@ namespace Tag.Neuron.Xamarin.Services
         Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
+        /// Logs out the current user, shutting down the XMPP connection.
+        /// </summary>
+        /// <returns></returns>
+        Task LogOut();
+        /// <summary>
+        /// Logs in the current user, re-establishing te XMPP connection.
+        /// </summary>
+        /// <returns></returns>
+        Task LogIn();
+
+        /// <summary>
+        /// Determines whether the user has logged out or not.
+        /// </summary>
+        bool IsLoggedOut { get; }
+        /// <summary>
         /// Determines whether the Neuron server is online or not.
         /// </summary>
         bool IsOnline { get; }

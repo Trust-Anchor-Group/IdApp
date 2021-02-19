@@ -32,6 +32,7 @@ namespace IdApp.ViewModels
             this.IsOnline = this.networkService.IsOnline;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
+            this.UpdateLogInLogOutMenuItem();
         }
 
         #region Properties
@@ -81,7 +82,66 @@ namespace IdApp.ViewModels
             set { SetValue(IsOnlineProperty, value); }
         }
 
+        /// <summary>
+        /// See <see cref="UserIsLoggedOut"/>
+        /// </summary>
+        public static readonly BindableProperty UserIsLoggedOutProperty =
+            BindableProperty.Create("UserIsLoggedOut", typeof(bool), typeof(AppShellViewModel), default(bool));
+
+        /// <summary>
+        /// Gets or sets whether the user is logged in or out.
+        /// </summary>
+        public bool UserIsLoggedOut
+        {
+            get { return (bool)GetValue(UserIsLoggedOutProperty); }
+            set { SetValue(UserIsLoggedOutProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="LogInOutGlyph"/>
+        /// </summary>
+        public static readonly BindableProperty LogInOutGlyphProperty =
+            BindableProperty.Create("LogInOutGlyph", typeof(FontImageSource), typeof(AppShellViewModel), default(FontImageSource));
+
+        /// <summary>
+        /// The icon to use for the log in/log out menu item.
+        /// </summary>
+        public FontImageSource LogInOutGlyph
+        {
+            get { return (FontImageSource)GetValue(LogInOutGlyphProperty); }
+            set { SetValue(LogInOutGlyphProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="LogInOutText"/>
+        /// </summary>
+        public static readonly BindableProperty LogInOutTextProperty =
+            BindableProperty.Create("LogInOutText", typeof(string), typeof(AppShellViewModel), default(string));
+
+        /// <summary>
+        /// The text to use for the log in/log out menu item.
+        /// </summary>
+        public string LogInOutText
+        {
+            get { return (string) GetValue(LogInOutTextProperty); }
+            set { SetValue(LogInOutTextProperty, value); }
+        }
+
         #endregion
+
+        private void UpdateLogInLogOutMenuItem()
+        {
+            if (this.UserIsLoggedOut)
+            {
+                this.LogInOutGlyph = new FontImageSource { Glyph = SolidIcons.SignIn };
+                this.LogInOutText = AppResources.SignIn;
+            }
+            else
+            {
+                this.LogInOutGlyph = new FontImageSource { Glyph = SolidIcons.SignOut };
+                this.LogInOutText = AppResources.SignOut;
+            }
+        }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
@@ -89,6 +149,8 @@ namespace IdApp.ViewModels
             {
                 this.ConnectionStateText = e.State.ToDisplayText(this.tagProfile.Domain);
                 this.IsConnected = e.State == XmppState.Connected;
+                this.UserIsLoggedOut = this.neuronService.IsLoggedOut;
+                this.UpdateLogInLogOutMenuItem();
             });
         }
 

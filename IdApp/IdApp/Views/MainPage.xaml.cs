@@ -1,9 +1,9 @@
-﻿using IdApp.Services;
-using IdApp.ViewModels;
+﻿using IdApp.ViewModels;
 using System;
 using System.Collections.Generic;
-using Tag.Neuron.Xamarin;
+using System.Threading.Tasks;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -16,10 +16,7 @@ namespace IdApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage
     {
-        private readonly ILogService logService;
-        private readonly IUiDispatcher uiDispatcher;
-        private readonly IContractOrchestratorService contractOrchestratorService;
-        private readonly INavigationService navigationService;
+        private readonly INeuronService neuronService;
 
         private static readonly SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory =
             new SortedDictionary<string, SortedDictionary<string, string>>()
@@ -40,10 +37,42 @@ namespace IdApp.Views
         {
             InitializeComponent();
             ViewModel = new MainViewModel();
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
-            this.logService = DependencyService.Resolve<ILogService>();
-            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.neuronService = DependencyService.Resolve<INeuronService>();
+        }
+
+        /// <inheritdoc />
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+        }
+
+        /// <inheritdoc />
+        protected override void OnDisappearing()
+        {
+            this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            base.OnDisappearing();
+        }
+
+        private async void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        {
+            const uint durationInMs = 300;
+            if (e.IsUserInitiated)
+            {
+                if (this.neuronService.IsLoggedOut && e.State == XmppState.Offline)
+                {
+                    // Show (slide down) logout panel
+                    await Task.Delay(TimeSpan.FromMilliseconds(500));
+                    this.LogoutPanel.TranslationY = -Height;
+                    await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.SinIn);
+                }
+                else if (!this.neuronService.IsLoggedOut && e.State == XmppState.Connected)
+                {
+                    // Hide (slide up) logout panel
+                    await Task.Delay(TimeSpan.FromMilliseconds(500));
+                    await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
+                }
+            }
         }
 
         private void IdCard_Tapped(object sender, EventArgs e)

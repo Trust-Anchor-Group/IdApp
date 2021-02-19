@@ -17,6 +17,8 @@ namespace IdApp
     /// </summary>
     public partial class AppShell
     {
+        private readonly INeuronService neuronService;
+        private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
         private readonly ILogService logService;
         private readonly IUiDispatcher uiDispatcher;
@@ -28,6 +30,8 @@ namespace IdApp
         public AppShell()
         {
             this.ViewModel = new AppShellViewModel();
+            this.neuronService = DependencyService.Resolve<INeuronService>();
+            this.networkService = DependencyService.Resolve<INetworkService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.logService = DependencyService.Resolve<ILogService>();
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
@@ -70,7 +74,13 @@ namespace IdApp
             // Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
             // Therefore we have to close it manually here.
             Current.FlyoutIsPresented = false;
-            await this.navigationService.GoToAsync(route);
+
+            // Due to a bug in Xamarin Shell the menu items can still be clicked on, even though we bind the "IsEnabled" property.
+            // So we do a manual check here.
+            if (this.GetViewModel<AppShellViewModel>().IsConnected)
+            {
+                await this.navigationService.GoToAsync(route);
+            }
         }
 
         private async void ViewIdentityMenuItem_Clicked(object sender, EventArgs e)
@@ -138,16 +148,27 @@ namespace IdApp
             await this.GoToPage(nameof(XmppCommunicationPage));
         }
 
-        private async void SignOutMenuItem_Clicked(object sender, EventArgs e)
+        private void SignInOutMenuItem_Clicked(object sender, EventArgs e)
         {
             Current.FlyoutIsPresented = false;
-            await Task.CompletedTask;
-        }
+            // Break the call chain by 'posting' to the main thread, allowing the fly out menu to hide before initiating the login/out.
+            this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+            {
+                if (!this.networkService.IsOnline)
+                {
+                    await this.uiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, AppResources.NetworkSeemsToBeMissing);
+                    return;
+                }
 
-        private async void SignInMenuItem_Clicked(object sender, EventArgs e)
-        {
-            Current.FlyoutIsPresented = false;
-            await Task.CompletedTask;
+                if (this.neuronService.IsLoggedOut)
+                {
+                    await this.neuronService.LogIn();
+                }
+                else
+                {
+                    await this.neuronService.LogOut();
+                }
+            });
         }
     }
 }
