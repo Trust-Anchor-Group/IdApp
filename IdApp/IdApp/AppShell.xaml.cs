@@ -91,7 +91,7 @@ namespace IdApp
         private async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
         {
             string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Open);
-
+            
             if (string.IsNullOrWhiteSpace(code))
                 return;
 

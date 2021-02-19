@@ -36,7 +36,7 @@ namespace IdApp
         {
             if (!string.IsNullOrWhiteSpace(code) && qrCodeScanned != null)
             {
-                qrCodeScanned.TrySetResult(code);
+                qrCodeScanned.TrySetResult(code.Trim());
                 qrCodeScanned = null;
             }
             uiDispatcher.BeginInvokeOnMainThread(async () => await navigationService.GoBackAsync());
