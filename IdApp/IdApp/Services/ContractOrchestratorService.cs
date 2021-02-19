@@ -287,7 +287,7 @@ namespace IdApp.Services
                         this.tagProfile.RevokeLegalIdentity(identity);
                         gotoRegistrationPage = true;
                     }
-                    else if (!await this.neuronService.Contracts.HasPrivateKey(identity.Id))
+                    else if (identity.State == IdentityState.Approved && !await this.neuronService.Contracts.HasPrivateKey(identity.Id))
                     {
                         try
                         {
