@@ -129,10 +129,10 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId);
         }
 
-        public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachment(string url, TimeSpan timeout)
+        public Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith SignWith, TimeSpan timeout)
         {
             AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId, (int)timeout.TotalMilliseconds);
+            return contractsClient.GetAttachmentAsync(url, SignWith, (int)timeout.TotalMilliseconds);
         }
 
         public Task<Contract> CreateContract(

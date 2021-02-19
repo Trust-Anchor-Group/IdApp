@@ -537,7 +537,7 @@ namespace IdApp.ViewModels.Contracts
 
                 if (this.contract.Attachments != null)
                 {
-                    _ = this.photosLoader.LoadPhotos(this.contract.Attachments);
+                    _ = this.photosLoader.LoadPhotos(this.contract.Attachments, SignWith.LatestApprovedId);
                 }
             }
             catch (Exception ex)

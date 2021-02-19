@@ -99,15 +99,16 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="contractId">The id of the contract to delete.</param>
         /// <returns></returns>
         Task<Contract> DeleteContract(string contractId);
-        
+
         /// <summary>
         /// Gets an attachment for a contract.
         /// </summary>
         /// <param name="url">The url of the attachment.</param>
         /// <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
-        /// <returns></returns>
+        /// <param name="SignWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+        /// <returns>Content-Type, and attachment file.</returns>
+        Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith SignWith, TimeSpan timeout);
         
-        Task<KeyValuePair<string, TemporaryFile>> GetContractAttachment(string url, TimeSpan timeout);
         /// <summary>
         /// Adds a legal identity.
         /// </summary>

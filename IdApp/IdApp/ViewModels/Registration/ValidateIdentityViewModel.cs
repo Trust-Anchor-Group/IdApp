@@ -536,7 +536,7 @@ namespace IdApp.ViewModels.Registration
             this.photosLoader.CancelLoadPhotos();
             if (this.TagProfile?.LegalIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments);
+                _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
             }
         }
 

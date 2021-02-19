@@ -225,7 +225,7 @@ namespace IdApp.ViewModels.Contracts
             this.photosLoader.CancelLoadPhotos();
             if (this.tagProfile?.LegalIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.tagProfile.LegalIdentity.Attachments);
+                _ = this.photosLoader.LoadPhotos(this.tagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
             }
         }
 

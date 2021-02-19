@@ -60,7 +60,7 @@ namespace IdApp.ViewModels.Contracts
             this.AssignProperties();
             if (this.requestorIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments);
+                _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments, SignWith.LatestApprovedId);
             }
         }
 

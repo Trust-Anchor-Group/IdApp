@@ -4237,11 +4237,12 @@
             <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
             <param name="photos">The collection the photos should be added to when downloaded.</param>
         </member>
-        <member name="M:IdApp.ViewModels.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
+        <member name="M:IdApp.ViewModels.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith)">
             <summary>
             Loads photos from the specified list of attachments.
             </summary>
             <param name="attachments">The attachments whose files to download.</param>
+            <param name="SignWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <returns></returns>
         </member>
         <member name="M:IdApp.ViewModels.PhotosLoader.CancelLoadPhotos">
