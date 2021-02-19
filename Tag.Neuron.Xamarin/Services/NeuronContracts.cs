@@ -126,13 +126,13 @@ namespace Tag.Neuron.Xamarin.Services
         public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url)
         {
             AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url);
+            return contractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId);
         }
 
         public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachment(string url, TimeSpan timeout)
         {
             AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url, (int)timeout.TotalMilliseconds);
+            return contractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId, (int)timeout.TotalMilliseconds);
         }
 
         public Task<Contract> CreateContract(
@@ -187,6 +187,8 @@ namespace Tag.Neuron.Xamarin.Services
             AssertContractsIsAvailable();
             AssertFileUploadIsAvailable();
 
+            await contractsClient.GenerateNewKeys();
+
             LegalIdentity identity = await contractsClient.ApplyAsync(model.ToProperties(this.neuronService));
 
             foreach (var a in attachments)
@@ -199,12 +201,23 @@ namespace Tag.Neuron.Xamarin.Services
 
                 await e2.PUT(a.Data, a.ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
 
-                byte[] signature = await contractsClient.SignAsync(a.Data);
+                byte[] signature = await contractsClient.SignAsync(a.Data, SignWith.CurrentKeys);
 
                 identity = await contractsClient.AddLegalIdAttachmentAsync(identity.Id, e2.GetUrl, signature);
             }
 
             return identity;
+        }
+
+        /// <summary>
+        /// Checks if the client has access to the private keys of the specified legal identity.
+        /// </summary>
+        /// <param name="legalIdentityId">The id of the legal identity.</param>
+        /// <returns>If private keys are available.</returns>
+        public Task<bool> HasPrivateKey(string legalIdentityId)
+		{
+            AssertContractsIsAvailable();
+            return contractsClient.HasPrivateKey(legalIdentityId);
         }
 
         public Task<LegalIdentity> GetLegalIdentity(string legalIdentityId)
@@ -249,10 +262,10 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
         }
 
-        public Task<byte[]> Sign(byte[] data)
+        public Task<byte[]> Sign(byte[] data, SignWith SignWith)
         {
             AssertContractsIsAvailable();
-            return contractsClient.SignAsync(data);
+            return contractsClient.SignAsync(data, SignWith);
         }
 
         public async Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null)

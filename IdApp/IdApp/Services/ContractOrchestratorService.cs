@@ -287,10 +287,23 @@ namespace IdApp.Services
                         this.tagProfile.RevokeLegalIdentity(identity);
                         gotoRegistrationPage = true;
                     }
-                    else
+                    else if (!await this.neuronService.Contracts.HasPrivateKey(identity.Id))
                     {
-                        this.tagProfile.SetLegalIdentity(identity);
+                        try
+                        {
+                            await this.neuronService.Contracts.ObsoleteLegalIdentity(identity.Id);
+                        }
+                        catch (Exception ex)
+						{
+                            this.logService.LogException(ex);
+						}
+
+                        this.tagProfile.RevokeLegalIdentity(identity);
+                        gotoRegistrationPage = true;
                     }
+                    else
+                        this.tagProfile.SetLegalIdentity(identity);
+                    
                     if (gotoRegistrationPage)
                     {
                         await this.navigationService.GoToAsync(nameof(RegistrationPage));

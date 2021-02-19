@@ -1122,7 +1122,7 @@ namespace IdApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool succeeded1, byte[] signature) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.Sign(this.identityToReview.ContentToSign));
+                (bool succeeded1, byte[] signature) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
 
                 if (!succeeded1)
                 {
