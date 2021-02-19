@@ -1262,6 +1262,13 @@
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns></returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.HasPrivateKey(System.String)">
+            <summary>
+            Checks if the client has access to the private keys of the specified legal identity.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity.</param>
+            <returns>If private keys are available.</returns>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionIdentity(System.String,System.String,System.String)">
             <summary>
             Petitions a legal identity.
@@ -1323,11 +1330,12 @@
             <param name="purpose">The purpose.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.Sign(System.Byte[])">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
             <summary>
             Signs binary data with the corresponding private key.
             </summary>
             <param name="data">The data to sign.</param>
+            <param name="SignWith">What keys that can be used to sign the data.</param>
             <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ValidateSignature(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[],System.Byte[])">
@@ -1556,6 +1564,31 @@
             Wraps the <see cref="T:Waher.Persistence.Database"/> for easy access to persistent encrypted storage. Use this for any sensitive data.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Init(Waher.Runtime.Profiling.ProfilerThread)">
+            <summary>
+            Initializes the persistent storage on a background task. This call is asynchronous.
+            </summary>
+            <param name="Thread"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.WaitForReadyState">
+            <summary>
+            Returns a task so the persistent storage's ready state can be awaited.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.TryRepairDatabase(Waher.Runtime.Profiling.ProfilerThread)">
+            <summary>
+            Tries to repair the database if something went wrong. Alerts the user if needed.
+            </summary>
+            <param name="Thread"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Shutdown">
+            <summary>
+            Shuts down this persistent storage instance.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Insert(System.Object)">
             <summary>
             Inserts an object into the database.
@@ -1583,6 +1616,26 @@
             </summary>
             <typeparam name="T">The type of the objects to retrieve.</typeparam>
             <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.StorageState">
+            <summary>
+            Represents the different states persistent storage can be in.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.StorageState.NotInitialized">
+            <summary>
+            Persistent storage has not yet been initialized.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.StorageState.Ready">
+            <summary>
+            Persistent storage is ready.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.StorageState.NeedsRepair">
+            <summary>
+            Persistent storage is experiencing failures, and needs repair.
+            </summary>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ITagProfile">
             <summary>
@@ -1997,6 +2050,33 @@
             An abstract base class holding page specific navigation parameters.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.HasPrivateKey(System.String)">
+            <summary>
+            Checks if the client has access to the private keys of the specified legal identity.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity.</param>
+            <returns>If private keys are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates a new instance of the <see cref="T:Tag.Neuron.Xamarin.Services.StorageService"/> class.
+            </summary>
+            <param name="logService">The log service to use for logging.</param>
+            <param name="cryptoService">The crypto service to use.</param>
+            <param name="uiDispatcher">The UI Dispatcher, for main thread access and to display alerts.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.Init(Waher.Runtime.Profiling.ProfilerThread)">
+            <inheritdoc />
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.WaitForReadyState">
+            <inheritdoc />
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.TryRepairDatabase(Waher.Runtime.Profiling.ProfilerThread)">
+            <inheritdoc />
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.Shutdown">
+            <inheritdoc />
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.TagProfile">
             <inheritdoc/>
         </member>
@@ -2299,9 +2379,6 @@
             </summary>
         </member>
         <member name="T:Tag.Neuron.Xamarin.TagIdSdk">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Dispose">
             <inheritdoc/>
         </member>
         <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,Tag.Neuron.Xamarin.Models.DomainModel[])">

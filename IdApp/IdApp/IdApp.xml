@@ -12,9 +12,6 @@
         <member name="M:IdApp.App.#ctor">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.App.Dispose">
-            <inheritdoc/>
-        </member>
         <member name="M:IdApp.App.OnStart">
             <inheritdoc/>
         </member>
@@ -804,6 +801,11 @@
               Looks up a localized string similar to Purpose.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Qrcode">
+            <summary>
+              Looks up a localized string similar to QR Code.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.QrCodeNotUnderstood">
             <summary>
               Looks up a localized string similar to Code not understood.
@@ -1002,6 +1004,16 @@
         <member name="P:IdApp.AppResources.SignedContracts">
             <summary>
               Looks up a localized string similar to Signed Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignIn">
+            <summary>
+              Looks up a localized string similar to Log in.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignOut">
+            <summary>
+              Looks up a localized string similar to Log out.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Skip">
@@ -1443,6 +1455,16 @@
             The bug icon
             </summary>
         </member>
+        <member name="F:IdApp.SolidIcons.SignOut">
+            <summary>
+            The sign out icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.SignIn">
+            <summary>
+            The sign in icon
+            </summary>
+        </member>
         <member name="T:IdApp.Models.ContractModel">
             <summary>
             The data model for a contract.
@@ -1866,7 +1888,7 @@
         </member>
         <member name="M:IdApp.QrCode.ScanQrCode(Tag.Neuron.Xamarin.Services.INavigationService,System.String)">
             <summary>
-            Navigates to the Scan QR Code Page, waits for scan to comlete, and returns the result.
+            Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
             </summary>
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="commandName">The localized name of the command to display when scanning.</param>
@@ -3919,6 +3941,16 @@
         </member>
         <member name="M:IdApp.ViewModels.MainViewModel.DoUnbind">
             <inheritdoc />
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.IsTemporarilyLoggedOutProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.IsTemporarilyLoggedOut"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.IsTemporarilyLoggedOut">
+            <summary>
+            Gets or sets whether the user is temporarily logged out by manually logging themselves out.
+            </summary>
         </member>
         <member name="F:IdApp.ViewModels.MainViewModel.HasPhotoProperty">
             <summary>
