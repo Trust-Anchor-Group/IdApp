@@ -39,14 +39,14 @@ namespace Tag.Neuron.Xamarin.Services
         {
             await CreateContractsClient();
             await CreateFileUploadClient();
-            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState()));
+            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
         }
 
         internal void DestroyClients()
         {
             DestroyContractsClient();
             DestroyFileUploadClient();
-            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState()));
+            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
         }
 
         private async Task CreateContractsClient()

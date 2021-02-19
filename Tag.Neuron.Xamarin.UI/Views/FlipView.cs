@@ -183,28 +183,28 @@ namespace Tag.Neuron.Xamarin.UI.Views
 
         private async Task RotateFrontToBack_Forward()
         {
-            ViewExtensions.CancelAnimations(this);
+            this.CancelAnimations();
             this.RotationY = 360;
             await this.RotateYTo(270, DurationInMs, EasingIn);
         }
 
         private async Task RotateBackToFront_Forward()
         {
-            ViewExtensions.CancelAnimations(this);
+            this.CancelAnimations();
             this.RotationY = 90;
             await this.RotateYTo(0, DurationInMs, EasingOut);
         }
 
         private async Task RotateFrontToBack_Reverse()
         {
-            ViewExtensions.CancelAnimations(this);
+            this.CancelAnimations();
             this.RotationY = 0;
             await this.RotateYTo(90, DurationInMs, EasingIn);
         }
 
         private async Task RotateBackToFront_Reverse()
         {
-            ViewExtensions.CancelAnimations(this);
+            this.CancelAnimations();
             this.RotationY = 270;
             await this.RotateYTo(360, DurationInMs, EasingOut);
         }

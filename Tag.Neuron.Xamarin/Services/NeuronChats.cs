@@ -33,7 +33,7 @@ namespace Tag.Neuron.Xamarin.Services
             if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
                 this.chatClient = await this.neuronService.CreateMultiUserChatClientAsync();
-                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState()));
+                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
             }
         }
 
@@ -43,7 +43,7 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 this.chatClient.Dispose();
                 this.chatClient = null;
-                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState()));
+                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
             }
         }
 

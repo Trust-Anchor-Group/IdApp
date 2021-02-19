@@ -690,6 +690,9 @@
   <data name="SignIn" xml:space="preserve">
     <value>Logga in</value>
   </data>
+  <data name="SigningIn" xml:space="preserve">
+    <value>Loggar in...</value>
+  </data>
   <data name="SignOut" xml:space="preserve">
     <value>Logga ut</value>
   </data>
@@ -827,6 +830,9 @@
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>Du kan skydda din plånbok och känslig information genom att lägga till en PIN-kod eller ett lösenord.</value>
+  </data>
+  <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
+    <value>Du är nu utloggad. För att logga in igen, använd menyn i hörnet uppe till vänster.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
     <value>Du behöver godkänna att din personliga information associeras med identiteten du granskar. När tredje part granskar information kopplat till identiteten får de tillgång till granskarnas identitet, för transparensens skull.</value>

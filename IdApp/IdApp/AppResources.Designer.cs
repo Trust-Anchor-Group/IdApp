@@ -1789,6 +1789,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Logging in....
+        /// </summary>
+        internal static string SigningIn {
+            get {
+                return ResourceManager.GetString("SigningIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log out.
         /// </summary>
         internal static string SignOut {
@@ -2199,6 +2208,15 @@ namespace IdApp {
         internal static string YouCanProtectYourWalletPinInfo {
             get {
                 return ResourceManager.GetString("YouCanProtectYourWalletPinInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have now been signed out. To sign in again, use the menu in the top left corner..
+        /// </summary>
+        internal static string YouHaveNowBeenSignedOut {
+            get {
+                return ResourceManager.GetString("YouHaveNowBeenSignedOut", resourceCulture);
             }
         }
         

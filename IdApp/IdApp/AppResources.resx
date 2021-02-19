@@ -693,6 +693,9 @@
   <data name="SignIn" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="SigningIn" xml:space="preserve">
+    <value>Logging in...</value>
+  </data>
   <data name="SignOut" xml:space="preserve">
     <value>Log out</value>
   </data>
@@ -830,6 +833,9 @@
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>You can protect your wallet and sensitive information by adding an additional PIN number or password.</value>
+  </data>
+  <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
+    <value>You have now been signed out. To sign in again, use the menu in the top left corner.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
     <value>You need to approve to associate your personal information with the identity you review. When third parties review the information in the identity, they will have access to the identity of the reviewers, for transparency.</value>

@@ -12,14 +12,21 @@ namespace Tag.Neuron.Xamarin.Services
         /// Creates an instance of the <see cref="ConnectionStateChangedEventArgs"/> class.
         /// </summary>
         /// <param name="state">The current state.</param>
-        public ConnectionStateChangedEventArgs(XmppState state)
+        /// <param name="isUserInitiated">Sets whether the user manually initiated a logout (or login).</param>
+        public ConnectionStateChangedEventArgs(XmppState state, bool isUserInitiated)
         {
             State = state;
+            this.IsUserInitiated = isUserInitiated;
         }
 
         /// <summary>
         /// The current state.
         /// </summary>
         public XmppState State { get; }
+
+        /// <summary>
+        /// Gets whether the user manually initiated a logout (or login).
+        /// </summary>
+        public bool IsUserInitiated { get; }
     }
 }
