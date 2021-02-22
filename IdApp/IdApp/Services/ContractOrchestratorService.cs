@@ -402,7 +402,7 @@ namespace IdApp.Services
 		/// TAG Signature request scanned.
 		/// </summary>
 		/// <param name="request">Request string.</param>
-		public Task TagSignature(string request)
+		public async Task TagSignature(string request)
 		{
 			int i = request.IndexOf(',');
 			if (i < 0)
@@ -431,9 +431,7 @@ namespace IdApp.Services
 			if (!this.neuronService.IsOnline)
 				throw new InvalidOperationException("App is not connected to the network.");
 
-			this.neuronService.Xmpp.SendMessage(MessageType.Normal, JID, Xml.ToString(), string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
-
-			return Task.CompletedTask;
+			await this.neuronService.Xmpp.IqSetAsync(JID, Xml.ToString());
 		}
 
 	}
