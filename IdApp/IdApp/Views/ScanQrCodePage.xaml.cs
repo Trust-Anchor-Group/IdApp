@@ -88,7 +88,7 @@ namespace IdApp.Views
 
                 if (!string.IsNullOrWhiteSpace(scheme))
                 {
-                    if (scheme != Constants.IoTSchemes.IotId)
+                    if (scheme != Constants.IoTSchemes.UriSchemeIotId)
                     {
                         await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
                         return;

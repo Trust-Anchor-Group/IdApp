@@ -40,17 +40,21 @@ namespace Tag.Neuron.Xamarin
         public static class IoTSchemes
         {
             /// <summary>
-            /// The IoT ID constant
+            /// The IoT ID URI Scheme
             /// </summary>
-            public const string IotId = "iotid";
+            public const string UriSchemeIotId = "iotid";
+
             /// <summary>
-            /// The IoT Discovery constant
+            /// The IoT Discovery URI Scheme
             /// </summary>
-            public const string IotDisco = "iotdisco";
+            public const string UriSchemeIotDisco = "iotdisco";
+
             /// <summary>
-            /// The IoT Scan constant
+            /// The IoT Smart Contract URI Scheme
             /// </summary>
-            public const string IotSc = "iotsc";
+            public const string UriSchemeIotSc = "iotsc";
+
+
 
             /// <summary>
             /// Gets the predefined scheme from an IoT Code
@@ -63,9 +67,9 @@ namespace Tag.Neuron.Xamarin
                 {
                     int i = code.IndexOf(':');
                     if (i > 0 && 
-                        (code.StartsWith(IotId, StringComparison.InvariantCultureIgnoreCase) ||
-                        code.StartsWith(IotDisco, StringComparison.InvariantCultureIgnoreCase) ||
-                        code.StartsWith(IotSc, StringComparison.InvariantCultureIgnoreCase)))
+                        (code.StartsWith(UriSchemeIotId, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(UriSchemeIotDisco, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(UriSchemeIotSc, StringComparison.InvariantCultureIgnoreCase)))
                     {
                         return code.Substring(0, i).ToLowerInvariant();
                     }
@@ -82,7 +86,7 @@ namespace Tag.Neuron.Xamarin
             public static bool StartsWithIdScheme(string code)
             {
                 return !string.IsNullOrWhiteSpace(code) &&
-                       code.StartsWith(IotId + ":", StringComparison.InvariantCultureIgnoreCase);
+                       code.StartsWith(UriSchemeIotId + ":", StringComparison.InvariantCultureIgnoreCase);
             }
 
             /// <summary>
@@ -92,7 +96,7 @@ namespace Tag.Neuron.Xamarin
             /// <returns></returns>
             public static string CreateScanUri(string id)
             {
-                return $"{IotSc}:{id}";
+                return $"{UriSchemeIotSc}:{id}";
             }
 
             /// <summary>
@@ -102,7 +106,7 @@ namespace Tag.Neuron.Xamarin
             /// <returns></returns>
             public static string CreateIdUri(string id)
             {
-                return $"{IotId}:{id}";
+                return $"{UriSchemeIotId}:{id}";
             }
 
             /// <summary>
@@ -116,9 +120,9 @@ namespace Tag.Neuron.Xamarin
                 {
                     int i = code.IndexOf(':');
                     if (i > 0 && 
-                        (code.StartsWith(IotId, StringComparison.InvariantCultureIgnoreCase) ||
-                        code.StartsWith(IotDisco, StringComparison.InvariantCultureIgnoreCase) ||
-                        code.StartsWith(IotSc, StringComparison.InvariantCultureIgnoreCase)))
+                        (code.StartsWith(UriSchemeIotId, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(UriSchemeIotDisco, StringComparison.InvariantCultureIgnoreCase) ||
+                        code.StartsWith(UriSchemeIotSc, StringComparison.InvariantCultureIgnoreCase)))
                     {
                         return code.Substring(i + 1).ToLowerInvariant();
                     }

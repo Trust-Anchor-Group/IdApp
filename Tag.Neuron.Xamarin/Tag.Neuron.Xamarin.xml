@@ -165,19 +165,19 @@
             IoT Schemes
             </summary>
         </member>
-        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.IotId">
+        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.UriSchemeIotId">
             <summary>
-            The IoT ID constant
+            The IoT ID URI Scheme
             </summary>
         </member>
-        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.IotDisco">
+        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.UriSchemeIotDisco">
             <summary>
-            The IoT Discovery constant
+            The IoT Discovery URI Scheme
             </summary>
         </member>
-        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.IotSc">
+        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.UriSchemeIotSc">
             <summary>
-            The IoT Scan constant
+            The IoT Smart Contract URI Scheme
             </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Constants.IoTSchemes.GetScheme(System.String)">
