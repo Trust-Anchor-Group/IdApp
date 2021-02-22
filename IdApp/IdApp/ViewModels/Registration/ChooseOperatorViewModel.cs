@@ -111,7 +111,7 @@ namespace IdApp.ViewModels.Registration
 
         private string GetOperator()
         {
-            return !string.IsNullOrWhiteSpace(SelectedOperator) ? SelectedOperator : ManualOperator;
+            return !string.IsNullOrWhiteSpace(SelectedOperator) && SelectedOperator != AppResources.OperatorDomainOther ? SelectedOperator : ManualOperator;
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace IdApp.ViewModels.Registration
         private async Task<bool> IsValidDomainName(string name)
         {
             string[] parts = name.Split('.');
-            if (parts.Length <= 1)
+            if (parts.Length <= 1 && string.Compare(name, "localhost", StringComparison.InvariantCultureIgnoreCase) != 0)
                 return false;
 
             foreach (string part in parts)

@@ -36,8 +36,10 @@
                                 </OnPlatform>
                             </Frame.IsVisible>
                         </Frame>
-                        <Picker x:Name="OperatorPicker" IsVisible="{Binding Path=ChooseOperatorFromList}" Title="{x:Static resources:AppResources.SelectOperator}" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
-                        <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" Placeholder="{x:Static resources:AppResources.EnterAnOperatorName}" TextChanged="ManualDomainEntry_TextChanged" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False"/>
+                        <StackLayout Orientation="Vertical">
+                            <Picker x:Name="OperatorPicker" Title="{x:Static resources:AppResources.SelectOperator}" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
+                            <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" Placeholder="{x:Static resources:AppResources.EnterAnOperatorName}" TextChanged="ManualDomainEntry_TextChanged" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False"/>
+                        </StackLayout>
                     </Grid>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
                 </StackLayout>
