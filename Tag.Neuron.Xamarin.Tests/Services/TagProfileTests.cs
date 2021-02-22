@@ -278,7 +278,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         }
 
         [Test]
-        public void ClearIsValidated_DecrementsStep_Twice()
+        public void ClearIsValidated_DecrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
@@ -289,10 +289,10 @@ namespace Tag.Neuron.Xamarin.Tests.Services
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Approved };
             tagProfile.SetLegalIdentity(identity);
             Assert.AreEqual(RegistrationStep.ValidateIdentity, tagProfile.Step);
-            tagProfile.SetIsValidated();
-            Assert.AreEqual(RegistrationStep.Pin, tagProfile.Step);
             tagProfile.ClearIsValidated();
-            Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
+            Assert.IsNull(tagProfile.LegalIdentity);
+            Assert.IsNull(tagProfile.LegalJid);
         }
 
         [Test]

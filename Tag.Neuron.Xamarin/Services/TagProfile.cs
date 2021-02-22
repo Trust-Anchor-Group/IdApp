@@ -548,9 +548,14 @@ namespace Tag.Neuron.Xamarin.Services
         /// <inheritdoc/>
         public void ClearLegalIdentity()
         {
+            this.ClearLegalIdentityInternal();
+            this.DecrementConfigurationStep(RegistrationStep.Account); // prev
+        }
+
+        private void ClearLegalIdentityInternal()
+        {
             this.LegalIdentity = null;
             this.LegalJid = null;
-            this.DecrementConfigurationStep(RegistrationStep.Account); // prev
         }
 
         /// <inheritdoc/>
@@ -579,8 +584,8 @@ namespace Tag.Neuron.Xamarin.Services
         /// <inheritdoc/>
         public void ClearIsValidated()
         {
-            this.DecrementConfigurationStep(RegistrationStep.Account); // Bypass Register (step 3), go directly to Account (Step2)
-            this.ClearLegalIdentity();
+            this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
+            this.ClearLegalIdentityInternal();
         }
 
         /// <inheritdoc/>
