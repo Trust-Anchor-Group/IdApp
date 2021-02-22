@@ -390,6 +390,8 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public XmppState State => this.xmppClient?.State ?? XmppState.Offline;
 
+		public XmppClient Xmpp => this.xmppClient;
+
 		public string LatestError { get; private set; }
 
 		public string LatestConnectionError { get; private set; }

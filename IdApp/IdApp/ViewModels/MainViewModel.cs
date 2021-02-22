@@ -108,7 +108,7 @@ namespace IdApp.ViewModels
             {
                 _ = Task.Run(() =>
                 {
-                    byte[] png = QrCodeImageGenerator.GeneratePng(Constants.IoTSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+                    byte[] png = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
                     if (this.IsBound)
                     {
                         this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));

@@ -101,18 +101,23 @@ namespace IdApp
 
                 switch (uri.Scheme.ToLower())
                 {
-                    case Constants.IoTSchemes.UriSchemeIotId:
-                        string legalId = Constants.IoTSchemes.GetCode(code);
+                    case Constants.UriSchemes.UriSchemeIotId:
+                        string legalId = Constants.UriSchemes.GetCode(code);
                         await this.contractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
                         break;
 
-                    case Constants.IoTSchemes.UriSchemeIotSc:
-                        string contractId = Constants.IoTSchemes.GetCode(code);
+                    case Constants.UriSchemes.UriSchemeIotSc:
+                        string contractId = Constants.UriSchemes.GetCode(code);
                         await this.contractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
                         break;
 
-                    case Constants.IoTSchemes.UriSchemeIotDisco:
+                    case Constants.UriSchemes.UriSchemeIotDisco:
                         // TODO handle discovery scheme here.
+                        break;
+
+                    case Constants.UriSchemes.UriSchemeTagSign:
+                        string request = Constants.UriSchemes.GetCode(code);
+                        await this.contractOrchestratorService.TagSignature(request);
                         break;
 
                     default:

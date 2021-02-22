@@ -17,7 +17,7 @@ namespace Tag.Neuron.Xamarin.Tests
         [TestCase("ioTSC:123", "iotsc")]
         public void IoTSchemes_GetScheme(string code, string expected)
         {
-            string actual = Constants.IoTSchemes.GetScheme(code);
+            string actual = Constants.UriSchemes.GetScheme(code);
             Assert.AreEqual(expected, actual);
         }
 
@@ -34,7 +34,7 @@ namespace Tag.Neuron.Xamarin.Tests
         [TestCase("ioTSC:123", "123")]
         public void IoTSchemes_GetCode(string code, string expected)
         {
-            string actual = Constants.IoTSchemes.GetCode(code);
+            string actual = Constants.UriSchemes.GetCode(code);
             Assert.AreEqual(expected, actual);
         }
     }

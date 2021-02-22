@@ -84,11 +84,11 @@ namespace IdApp.Views
             string code = GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
             try
             {
-                string scheme = Constants.IoTSchemes.GetScheme(code);
+                string scheme = Constants.UriSchemes.GetScheme(code);
 
                 if (!string.IsNullOrWhiteSpace(scheme))
                 {
-                    if (scheme != Constants.IoTSchemes.UriSchemeIotId)
+                    if (scheme != Constants.UriSchemes.UriSchemeIotId)
                     {
                         await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
                         return;
