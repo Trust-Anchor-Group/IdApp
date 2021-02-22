@@ -48,6 +48,9 @@ namespace Tag.Neuron.Xamarin.Services
 
         public async Task<(string hostName, int port)> LookupXmppHostnameAndPort(string domainName)
         {
+            if (string.Compare(domainName, "localhost", true) == 0)
+                return (domainName, DefaultXmppPortNumber);
+
             try
             {
                 SRV endpoint = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
