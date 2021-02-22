@@ -588,84 +588,6 @@
             <param name="country">Country name.</param>
             <returns>Country code, or if not found, the original name.</returns>
         </member>
-        <member name="T:Tag.Neuron.Xamarin.ITagIdSdk">
-            <summary>
-            The TagIdSdk is the 'root' of the Neuron library.
-            Use this to access Neuron specific features and services, and to control startup/shutdown.
-            <br/>
-            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
-            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
-            </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Startup(System.Boolean)">
-            <summary>
-            To be called when the app is starting, regardless of whether it a cold start, or if it is resuming.
-            </summary>
-            <param name="isResuming">Set to <c>true</c> if the app is resuming, <c>false</c> otherwise.</param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Shutdown(System.Boolean)">
-            <summary>
-            To be called when the app is shutting down.
-            </summary>
-            <param name="keepRunningInTheBackground">Set to <c>true</c> if the app should maintain the Neuron server connection, <c>false</c> otherwise.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.ShutdownInPanic">
-            <summary>
-            To be called when the app is shutting down due to an unhandled exception. Will exit as fast as possible.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.TagProfile">
-            <summary>
-            The TAG Profile used for authentication/connection.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.UiDispatcher">
-            <summary>
-            A UI dispatcher for accessing the UI thread as well as display alerts to the user.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.CryptoService">
-            <summary>
-            Provides authorization services.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NeuronService">
-            <summary>
-            Provides Neuron server access.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NetworkService">
-            <summary>
-            Provides network access.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.LogService">
-            <summary>
-            The log service, collecting information about events, exceptions and the likes.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.StorageService">
-            <summary>
-            Use this for persistent storage.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.SettingsService">
-            <summary>
-            Allows for saving/restoring user settings.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NavigationService">
-            <summary>
-            Provides application navigation services in a generic way.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.StartupProfiler">
-            <summary>
-            Profiler of startup process, if any.
-            </summary>
-        </member>
         <member name="T:Tag.Neuron.Xamarin.IUiDispatcher">
             <summary>
             A wafer-thin wrapper around the UI (main) thread.
@@ -1248,7 +1170,7 @@
             </summary>
             <param name="url">The url of the attachment.</param>
             <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
-            <param name="SignWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <returns>Content-Type, and attachment file.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.AddLegalIdentity(Tag.Neuron.Xamarin.Models.RegisterIdentityModel,Tag.Neuron.Xamarin.Services.LegalIdentityAttachment[])">
@@ -1346,7 +1268,7 @@
             Signs binary data with the corresponding private key.
             </summary>
             <param name="data">The data to sign.</param>
-            <param name="SignWith">What keys that can be used to sign the data.</param>
+            <param name="signWith">What keys that can be used to sign the data.</param>
             <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ValidateSignature(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[],System.Byte[])">
@@ -1546,6 +1468,12 @@
             </summary>
             <returns>The communication dump as a html formatted string.</returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.UnloadFast">
+            <summary>
+            Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>
             Handles common UI settings that need to be persisted during sessions.
@@ -1600,7 +1528,7 @@
             <param name="key">The key to use.</param>
             <param name="state">The state to save.</param>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreStringState(System.String,System.String)">
             <summary>
             Restores state for the specified key.
             </summary>
@@ -1608,7 +1536,7 @@
             <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.Int64)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreLongState(System.String,System.Int64)">
             <summary>
             Restores state for the specified key.
             </summary>
@@ -1616,7 +1544,7 @@
             <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.Double)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreDoubleState(System.String,System.Double)">
             <summary>
             Restores state for the specified key.
             </summary>
@@ -1624,7 +1552,7 @@
             <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.Boolean)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreBoolState(System.String,System.Boolean)">
             <summary>
             Restores state for the specified key.
             </summary>
@@ -1632,7 +1560,7 @@
             <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.DateTime)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreDateTimeState(System.String,System.DateTime)">
             <summary>
             Restores state for the specified key.
             </summary>
@@ -1640,7 +1568,7 @@
             <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreState(System.String,System.TimeSpan)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreTimeSpanState(System.String,System.TimeSpan)">
             <summary>
             Restores state for the specified key.
             </summary>
@@ -2495,59 +2423,6 @@
             <summary>
             Current step in the registration process.
             </summary>
-        </member>
-        <member name="T:Tag.Neuron.Xamarin.TagIdSdk">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,Waher.Runtime.Profiling.Profiler,Tag.Neuron.Xamarin.Models.DomainModel[])">
-            <summary>
-            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.ITagIdSdk"/>. This is a factory method.
-            </summary>
-            <param name="appAssembly">Assembly of application hosting the library.</param>
-            <param name="StartupProfiler">Optional Startup profiler. May be null.</param>
-            <param name="domains">Featured domains.</param>
-            <returns>Tag ID SDK instance reference.</returns>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.TagProfile">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.UiDispatcher">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.CryptoService">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.NeuronService">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.NetworkService">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.NavigationService">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.StorageService">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.SettingsService">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.LogService">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.StartupProfiler">
-            <summary>
-            Profiler of startup process, if any.
-            </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Startup(System.Boolean)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Shutdown(System.Boolean)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.ShutdownInPanic">
-            <inheritdoc/>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UiDispatcher">
             <inheritdoc/>
