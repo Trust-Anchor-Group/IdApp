@@ -26,17 +26,19 @@ namespace Tag.Neuron.Xamarin.Services
         /// To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
         /// </summary>
         /// <param name="domain">The server's domain name.</param>
+        /// <param name="isIpAddress">If the domain is provided as an IP address.</param>
         /// <param name="hostName">The server's host name.</param>
         /// <param name="portNumber">The xmpp port.</param>
         /// <param name="languageCode">Language code to use for communication.</param>
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
         /// <returns></returns>
-        Task<(bool succeeded, string errorMessage)> TryConnect(string domain, string hostName, int portNumber, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
+        Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
         /// <summary>
         /// To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
         /// </summary>
         /// <param name="domain">The server's domain name.</param>
+        /// <param name="isIpAddress">If the domain is provided as an IP address.</param>
         /// <param name="hostName">The server's host name.</param>
         /// <param name="portNumber">The xmpp port.</param>
         /// <param name="userName">The user name of the account to create.</param>
@@ -45,11 +47,12 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
         /// <returns></returns>
-        Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
+        Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
         /// <summary>
         /// To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
         /// </summary>
         /// <param name="domain">The server's domain name.</param>
+        /// <param name="isIpAddress">If the domain is provided as an IP address.</param>
         /// <param name="hostName">The server's host name.</param>
         /// <param name="portNumber">The xmpp port.</param>
         /// <param name="userName">The user name of the account to create.</param>
@@ -58,7 +61,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
         /// <returns></returns>
-        Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
+        Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, bool isIpAddress, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
         /// Logs out the current user, shutting down the XMPP connection.
