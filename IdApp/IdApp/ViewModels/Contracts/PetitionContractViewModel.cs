@@ -42,7 +42,7 @@ namespace IdApp.ViewModels.Contracts
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.neuronService, DependencyService.Resolve<IUiDispatcher>(), DependencyService.Resolve<IImageCacheService>(), this.Photos);
         }
 
         /// <inheritdoc/>

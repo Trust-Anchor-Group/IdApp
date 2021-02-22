@@ -49,7 +49,7 @@ namespace IdApp.ViewModels.Contracts
             this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
             this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService, this.uiDispatcher, DependencyService.Resolve<IImageCacheService>(), this.Photos);
             this.DisplayPartCommand = new Command<string>(async legalId => await ShowLegalId(legalId));
             this.SignPartAsRoleCommand = new Command<string>(async roleId => await SignContract(roleId));
             this.DisplayClientSignatureCommand = new Command<string>(async sign => await ShowClientSignature(sign));

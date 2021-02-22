@@ -861,6 +861,18 @@
   <data name="YourContractContainsErrors" xml:space="preserve">
     <value>Your contract contains errors. Fix these errors and try again.</value>
   </data>
+  <data name="YourLegalIdentity" xml:space="preserve">
+    <value>Your legal identity</value>
+  </data>
+  <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
+    <value>Your legal identity has been marked as compromised. You have therefore been redirected to create a new account.</value>
+  </data>
+  <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
+    <value>Your legal identity has been marked obsolete. You have therefore been redirected to create a new account.</value>
+  </data>
+  <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
+    <value>Your legal identity's signing keys are invalid. You have therefore been redirected to create a new account.</value>
+  </data>
   <data name="YourRole" xml:space="preserve">
     <value>Your Role</value>
   </data>

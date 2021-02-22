@@ -50,7 +50,7 @@ namespace IdApp.ViewModels.Contracts
             this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
             this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, uiDispatcher, DependencyService.Resolve<IImageCacheService>(), this.Photos);
         }
 
         /// <inheritdoc/>

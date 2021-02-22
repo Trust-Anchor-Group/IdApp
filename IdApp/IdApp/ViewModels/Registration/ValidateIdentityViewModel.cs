@@ -48,7 +48,7 @@ namespace IdApp.ViewModels.Registration
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, DependencyService.Resolve<IImageCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, DependencyService.Resolve<IImageCacheService>(), this.Photos);
         }
 
         /// <inheritdoc />

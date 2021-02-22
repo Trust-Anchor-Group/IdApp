@@ -858,6 +858,18 @@
   <data name="YourContractContainsErrors" xml:space="preserve">
     <value>Kontraktet innehåller fel. Rätta dem och försök igen.</value>
   </data>
+  <data name="YourLegalIdentity" xml:space="preserve">
+    <value>Din juridiska identitet</value>
+  </data>
+  <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
+    <value>Din juridiska identitet har markerats som komprometterad. Du har därför hänvisats till registreringen för att skapa ett nytt konto.</value>
+  </data>
+  <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
+    <value>Din juridiska identitet har markerats som föråldrad. Du har därför hänvisats till registreringen för att skapa ett nytt konto.</value>
+  </data>
+  <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
+    <value>Din juridiska identitets signeringsnycklar är ogiltiga. Du har därför hänvisats till registreringen för att skapa ett nytt konto.</value>
+  </data>
   <data name="YourRole" xml:space="preserve">
     <value>Din roll</value>
   </data>

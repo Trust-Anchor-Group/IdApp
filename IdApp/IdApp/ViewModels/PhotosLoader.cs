@@ -25,6 +25,7 @@ namespace IdApp.ViewModels
         private readonly ILogService logService;
         private readonly INetworkService networkService;
         private readonly INeuronService neuronService;
+        private readonly IUiDispatcher uiDispatcher;
         private readonly IImageCacheService imageCacheService;
         private readonly ObservableCollection<ImageSource> photos;
         private readonly List<string> attachmentIds;
@@ -36,18 +37,21 @@ namespace IdApp.ViewModels
         /// <param name="logService">The log service to use if and when logging errors.</param>
         /// <param name="networkService">The network service to use for checking connectivity.</param>
         /// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+        /// <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
         /// <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
         /// <param name="photos">The collection the photos should be added to when downloaded.</param>
         public PhotosLoader(
             ILogService logService, 
             INetworkService networkService, 
             INeuronService neuronService,
+            IUiDispatcher uiDispatcher,
             IImageCacheService imageCacheService,
             ObservableCollection<ImageSource> photos)
         {
             this.logService = logService;
             this.networkService = networkService;
             this.neuronService = neuronService;
+            this.uiDispatcher = uiDispatcher;
             this.imageCacheService = imageCacheService;
             this.photos = photos;
             this.attachmentIds = new List<string>();
@@ -106,7 +110,7 @@ namespace IdApp.ViewModels
                     {
                         stream.Reset();
                         ImageSource imageSource = ImageSource.FromStream(() => stream); // Disposes the stream
-                        Device.BeginInvokeOnMainThread(() => photos.Add(imageSource));
+                        this.uiDispatcher.BeginInvokeOnMainThread(() => photos.Add(imageSource));
                     }
                 }
                 catch (Exception ex)

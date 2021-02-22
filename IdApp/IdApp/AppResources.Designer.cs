@@ -2293,6 +2293,42 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your legal identity.
+        /// </summary>
+        internal static string YourLegalIdentity {
+            get {
+                return ResourceManager.GetString("YourLegalIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your legal identity has been marked as compromised. You have therefore been redirected to create a new account..
+        /// </summary>
+        internal static string YourLegalIdentityHasBeenCompromised {
+            get {
+                return ResourceManager.GetString("YourLegalIdentityHasBeenCompromised", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your legal identity has been marked obsolete. You have therefore been redirected to create a new account..
+        /// </summary>
+        internal static string YourLegalIdentityHasBeenObsoleted {
+            get {
+                return ResourceManager.GetString("YourLegalIdentityHasBeenObsoleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your legal identity&apos;s signing keys are invalid. You have therefore been redirected to create a new account..
+        /// </summary>
+        internal static string YourLegalIdentityHasInvalidOrMissingKeys {
+            get {
+                return ResourceManager.GetString("YourLegalIdentityHasInvalidOrMissingKeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your Role.
         /// </summary>
         internal static string YourRole {

@@ -13,7 +13,6 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
-using Xamarin.Forms;
 
 namespace IdApp.Services
 {
@@ -82,7 +81,7 @@ namespace IdApp.Services
 
         private void Contracts_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
@@ -126,7 +125,7 @@ namespace IdApp.Services
             }
             else
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     if (this.tagProfile.IsCompleteOrWaitingForValidation())
                     {
@@ -144,7 +143,7 @@ namespace IdApp.Services
 
         private void Contracts_PetitionedNeuronContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(async () =>
+            this.uiDispatcher.BeginInvokeOnMainThread(async () =>
             {
                 if (!e.Response || e.RequestedContract is null)
                 {
@@ -171,7 +170,7 @@ namespace IdApp.Services
             }
             else
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     await this.navigationService.GoToAsync(nameof(PetitionContractPage), new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
                 });
@@ -186,7 +185,7 @@ namespace IdApp.Services
             }
             else
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestedIdentity, null));
                 });
@@ -218,7 +217,7 @@ namespace IdApp.Services
                         return;
                     }
 
-                    Device.BeginInvokeOnMainThread(async () =>
+                    this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                     {
                         if (!result.HasValue || !result.Value)
                         {
@@ -274,21 +273,25 @@ namespace IdApp.Services
             (bool succeeded, LegalIdentity identity) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(legalId), displayAlert: false);
             if (succeeded)
             {
-                Device.BeginInvokeOnMainThread(async () =>
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
+                    string userMessage = null;
                     bool gotoRegistrationPage = false;
                     if (identity.State == IdentityState.Compromised)
                     {
+                        userMessage = AppResources.YourLegalIdentityHasBeenCompromised;
                         this.tagProfile.CompromiseLegalIdentity(identity);
                         gotoRegistrationPage = true;
                     }
                     else if (identity.State == IdentityState.Obsoleted)
                     {
+                        userMessage = AppResources.YourLegalIdentityHasBeenObsoleted;
                         this.tagProfile.RevokeLegalIdentity(identity);
                         gotoRegistrationPage = true;
                     }
                     else if (identity.State == IdentityState.Approved && !await this.neuronService.Contracts.HasPrivateKey(identity.Id))
                     {
+                        userMessage = AppResources.YourLegalIdentityHasInvalidOrMissingKeys;
                         try
                         {
                             identity = await this.neuronService.Contracts.ObsoleteLegalIdentity(identity.Id);
@@ -309,6 +312,18 @@ namespace IdApp.Services
                     if (gotoRegistrationPage)
                     {
                         await this.navigationService.GoToAsync(nameof(RegistrationPage));
+
+                        // After navigating to the registration page, show the user why this happened.
+                        if (!string.IsNullOrWhiteSpace(userMessage))
+                        {
+                            // Do a begin invoke here so the page animation has time to finish,
+                            // and the view model loads state et.c. before showing the alert.
+                            // This gives a better UX experience.
+                            this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+                            {
+                                await this.uiDispatcher.DisplayAlert(AppResources.YourLegalIdentity, userMessage);
+                            });
+                        }
                     }
                 });
             }
@@ -319,7 +334,7 @@ namespace IdApp.Services
             try
             {
                 LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentity(legalId);
-                Device.BeginInvokeOnMainThread(async () =>
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
                 });
@@ -352,7 +367,7 @@ namespace IdApp.Services
             {
                 Contract contract = await this.neuronService.Contracts.GetContract(contractId);
 
-                Device.BeginInvokeOnMainThread(async () =>
+                this.uiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
                         await this.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract));
