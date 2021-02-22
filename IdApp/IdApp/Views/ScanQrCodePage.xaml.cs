@@ -1,9 +1,9 @@
-﻿using System;
+﻿using IdApp.ViewModels;
+using System;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using IdApp.ViewModels;
 using ZXing;
 
 namespace IdApp.Views
@@ -73,7 +73,7 @@ namespace IdApp.Views
             if (!string.IsNullOrWhiteSpace(result.Text))
             {
                 Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
-                string code = result.Text;
+                string code = result.Text?.Trim();
                 GetViewModel<ScanQrCodeViewModel>().Code = code;
                 QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, code);
             }
@@ -81,7 +81,7 @@ namespace IdApp.Views
 
         private async void OpenButton_Click(object sender, EventArgs e)
         {
-            string code = GetViewModel<ScanQrCodeViewModel>().LinkText;
+            string code = GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
             try
             {
                 string scheme = Constants.IoTSchemes.GetScheme(code);
