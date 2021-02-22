@@ -1291,6 +1291,26 @@
               Looks up a localized string similar to Your contract contains errors. Fix these errors and try again..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.YourLegalIdentity">
+            <summary>
+              Looks up a localized string similar to Your legal identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YourLegalIdentityHasBeenCompromised">
+            <summary>
+              Looks up a localized string similar to Your legal identity has been marked as compromised. You have therefore been redirected to create a new account..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YourLegalIdentityHasBeenObsoleted">
+            <summary>
+              Looks up a localized string similar to Your legal identity has been marked obsolete. You have therefore been redirected to create a new account..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.YourLegalIdentityHasInvalidOrMissingKeys">
+            <summary>
+              Looks up a localized string similar to Your legal identity&apos;s signing keys are invalid. You have therefore been redirected to create a new account..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.YourRole">
             <summary>
               Looks up a localized string similar to Your Role.
@@ -1911,6 +1931,26 @@
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
             <param name="code">The code to set.</param>
+        </member>
+        <member name="T:IdApp.Services.CacheEntry">
+            <summary>
+            Contains information about a file in the local cache.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.CacheEntry.#ctor">
+            <summary>
+            Contains information about a file in the local cache.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.CacheEntry.TimeStamp">
+            <summary>
+            Timestamp of entry
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.CacheEntry.LocalFileName">
+            <summary>
+            Local file name.
+            </summary>
         </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
@@ -4227,13 +4267,14 @@
             This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.IImageCacheService"/>.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,IdApp.Services.IImageCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
+        <member name="M:IdApp.ViewModels.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.PhotosLoader"/> class.
             </summary>
             <param name="logService">The log service to use if and when logging errors.</param>
             <param name="networkService">The network service to use for checking connectivity.</param>
             <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
             <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
             <param name="photos">The collection the photos should be added to when downloaded.</param>
         </member>
@@ -4242,7 +4283,7 @@
             Loads photos from the specified list of attachments.
             </summary>
             <param name="attachments">The attachments whose files to download.</param>
-            <param name="SignWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <returns></returns>
         </member>
         <member name="M:IdApp.ViewModels.PhotosLoader.CancelLoadPhotos">
