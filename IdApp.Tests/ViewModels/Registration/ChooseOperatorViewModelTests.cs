@@ -70,5 +70,44 @@ namespace IdApp.Tests.ViewModels.Registration
                 .And(vm => vm.ManualOperator = "Baz")
                 .ThenAssert(vm => vm.ConnectCommand.IsEnabled());
         }
+
+        [Test]
+        public void When_OperatorsAreMissing_AndNoManualOperatorIsNotSet_ThenButtonIsDisabled()
+        {
+            Given(AViewModel)
+                .And(vm => vm.SelectedOperator = null)
+                .ThenAssert(vm => vm.ConnectCommand.IsDisabled());
+        }
+
+        [Test]
+        public void When_OperatorsAreMissing_AndNoManualOperatorIsSet_ThenButtonIsDisabled()
+        {
+            Given(AViewModel)
+                .And(vm => vm.SelectedOperator = null)
+                .And(vm => vm.ManualOperator = "foo")
+                .ThenAssert(vm => vm.ConnectCommand.IsEnabled());
+        }
+
+        [Test]
+        public void When_OperatorIsSetToOther_AndManualOperatorIsMissing_ThenButtonIsDisabled()
+        {
+            Given(AViewModel)
+                .And(vm => vm.Operators.Add("foo"))
+                .And(vm => vm.Operators.Add(AppResources.OperatorDomainOther))
+                .And(vm => vm.SelectedOperator = AppResources.OperatorDomainOther)
+                .And(vm => vm.ManualOperator = null)
+                .ThenAssert(vm => vm.ConnectCommand.IsDisabled());
+        }
+
+        [Test]
+        public void When_OperatorIsSetToOther_AndManualOperatorIsSet_ThenButtonIsEnabled()
+        {
+            Given(AViewModel)
+                .And(vm => vm.Operators.Add("foo"))
+                .And(vm => vm.Operators.Add(AppResources.OperatorDomainOther))
+                .And(vm => vm.SelectedOperator = AppResources.OperatorDomainOther)
+                .And(vm => vm.ManualOperator = "bar")
+                .ThenAssert(vm => vm.ConnectCommand.IsEnabled());
+        }
     }
 }

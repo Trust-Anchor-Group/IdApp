@@ -263,7 +263,7 @@ namespace IdApp.Services
             _ = DownloadLegalIdentity(this.tagProfile.LegalIdentity.Id);
         }
 
-        private async Task DownloadLegalIdentity(string legalId)
+        protected async Task DownloadLegalIdentity(string legalId)
         {
             bool isConnected = await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
 
