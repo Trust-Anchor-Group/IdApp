@@ -1363,11 +1363,12 @@
             An event that triggers whenever the connection state of the Neuron server changes.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnect(System.String,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnect(System.String,System.Boolean,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
             <summary>
             To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
             </summary>
             <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
             <param name="hostName">The server's host name.</param>
             <param name="portNumber">The xmpp port.</param>
             <param name="languageCode">Language code to use for communication.</param>
@@ -1375,11 +1376,12 @@
             <param name="connectedFunc">A callback to use if and when connected.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnectAndCreateAccount(System.String,System.String,System.Int32,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnectAndCreateAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
             <summary>
             To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
             </summary>
             <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
             <param name="hostName">The server's host name.</param>
             <param name="portNumber">The xmpp port.</param>
             <param name="userName">The user name of the account to create.</param>
@@ -1389,11 +1391,12 @@
             <param name="connectedFunc">A callback to use if and when connected.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnectAndConnectToAccount(System.String,System.String,System.Int32,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.TryConnectAndConnectToAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
             <summary>
             To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
             </summary>
             <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
             <param name="hostName">The server's host name.</param>
             <param name="portNumber">The xmpp port.</param>
             <param name="userName">The user name of the account to create.</param>

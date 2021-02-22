@@ -421,7 +421,7 @@ namespace IdApp.ViewModels.Registration
             {
                 string passwordToUse = CreateRandomPassword ? this.cryptoService.CreateRandomPassword() : Password;
 
-                (string hostName, int portNumber) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
+                (string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
                 async Task OnConnected(XmppClient client)
                 {
@@ -434,7 +434,7 @@ namespace IdApp.ViewModels.Registration
                     this.TagProfile.SetAccount(this.CreateNewAccountName, client.PasswordHash, client.PasswordHashMethod);
                 }
 
-                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain, hostName, portNumber, this.CreateNewAccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain, isIpAddress, hostName, portNumber, this.CreateNewAccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {
@@ -469,7 +469,7 @@ namespace IdApp.ViewModels.Registration
             {
                 string password = Password;
 
-                (string hostName, int portNumber) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
+                (string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
                 async Task OnConnected(XmppClient client)
                 {
@@ -533,7 +533,7 @@ namespace IdApp.ViewModels.Registration
                     }
                 }
 
-                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain, hostName, portNumber, this.ConnectToExistingAccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain, isIpAddress, hostName, portNumber, this.ConnectToExistingAccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (!succeeded)
                 {

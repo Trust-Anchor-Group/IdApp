@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
@@ -18,6 +19,7 @@ namespace IdApp.ViewModels.Registration
 		private readonly INetworkService networkService;
 		private string hostName;
 		private int portNumber;
+		private bool isIpAddress;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ChooseOperatorViewModel"/> class.
@@ -109,10 +111,10 @@ namespace IdApp.ViewModels.Registration
 			set { SetValue(ChooseOperatorFromListProperty, value); }
 		}
 
-        private string GetOperator()
-        {
-            return !string.IsNullOrWhiteSpace(SelectedOperator) && SelectedOperator != AppResources.OperatorDomainOther ? SelectedOperator : ManualOperator;
-        }
+		private string GetOperator()
+		{
+			return !string.IsNullOrWhiteSpace(SelectedOperator) && SelectedOperator != AppResources.OperatorDomainOther ? SelectedOperator : ManualOperator;
+		}
 
 		/// <summary>
 		/// The command to bind to for connecting to the <see cref="SelectedOperator"/>.
@@ -139,9 +141,9 @@ namespace IdApp.ViewModels.Registration
 			try
 			{
 				string domainName = GetOperator();
-				(this.hostName, this.portNumber) = await this.networkService.LookupXmppHostnameAndPort(domainName);
+				(this.hostName, this.portNumber, this.isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
 
-				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
+				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, this.isIpAddress, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
 
 				UiDispatcher.BeginInvokeOnMainThread(async () =>
 				{
@@ -202,31 +204,35 @@ namespace IdApp.ViewModels.Registration
 			}
 		}
 
-        private async Task<bool> IsValidDomainName(string name)
-        {
-            string[] parts = name.Split('.');
-            if (parts.Length <= 1 && string.Compare(name, "localhost", StringComparison.InvariantCultureIgnoreCase) != 0)
-                return false;
-
-			foreach (string part in parts)
+		private async Task<bool> IsValidDomainName(string name)
+		{
+			if (!IPAddress.TryParse(name, out IPAddress _))
 			{
-				if (string.IsNullOrWhiteSpace(part))
+				string[] parts = name.Split('.');
+				if (parts.Length <= 1)
 					return false;
 
-				foreach (char ch in part)
+				foreach (string part in parts)
 				{
-					if (!char.IsLetter(ch) && !char.IsDigit(ch) && ch != '-')
+					if (string.IsNullOrWhiteSpace(part))
 						return false;
+
+					foreach (char ch in part)
+					{
+						if (!char.IsLetter(ch) && !char.IsDigit(ch) && ch != '-')
+							return false;
+					}
 				}
 			}
 
-			(string host, int port) = await this.networkService.LookupXmppHostnameAndPort(name);
+			(string host, int port, bool isIp) = await this.networkService.LookupXmppHostnameAndPort(name);
 
 			if (string.IsNullOrWhiteSpace(host))
 				return false;
 
 			this.hostName = host;
 			this.portNumber = port;
+			this.isIpAddress = isIp;
 
 			return true;
 		}

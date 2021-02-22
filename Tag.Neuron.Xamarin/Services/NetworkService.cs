@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Waher.Networking.DNS;
@@ -46,25 +47,25 @@ namespace Tag.Neuron.Xamarin.Services
         public virtual bool IsOnline => Connectivity.NetworkAccess == NetworkAccess.Internet ||
                                 Connectivity.NetworkAccess == NetworkAccess.ConstrainedInternet;
 
-        public async Task<(string hostName, int port)> LookupXmppHostnameAndPort(string domainName)
+        public async Task<(string hostName, int port, bool isIpAddress)> LookupXmppHostnameAndPort(string domainName)
         {
-            if (string.Compare(domainName, "localhost", StringComparison.InvariantCultureIgnoreCase) == 0)
+            if (IPAddress.TryParse(domainName, out IPAddress _))
             {
-                return (domainName, DefaultXmppPortNumber);
+                return (domainName, DefaultXmppPortNumber, true);
             }
 
             try
             {
                 SRV endpoint = await DnsResolver.LookupServiceEndpoint(domainName, "xmpp-client", "tcp");
                 if (!(endpoint is null) && !string.IsNullOrWhiteSpace(endpoint.TargetHost) && endpoint.Port > 0)
-                    return (endpoint.TargetHost, endpoint.Port);
+                    return (endpoint.TargetHost, endpoint.Port, false);
             }
             catch (Exception)
             {
                 // No service endpoint registered
             }
 
-            return (domainName, DefaultXmppPortNumber);
+            return (domainName, DefaultXmppPortNumber, false);
         }
 
         public async Task<bool> TryRequest(Func<Task> func, bool rethrowException = false, bool displayAlert = true, [CallerMemberName] string memberName = "")
