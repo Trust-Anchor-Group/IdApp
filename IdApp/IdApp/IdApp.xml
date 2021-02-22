@@ -1912,6 +1912,26 @@
             <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
             <param name="code">The code to set.</param>
         </member>
+        <member name="T:IdApp.Services.CacheEntry">
+            <summary>
+            Contains information about a file in the local cache.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.CacheEntry.#ctor">
+            <summary>
+            Contains information about a file in the local cache.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.CacheEntry.TimeStamp">
+            <summary>
+            Timestamp of entry
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.CacheEntry.LocalFileName">
+            <summary>
+            Local file name.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
             Orchestrates operations on contracts upon receiving certain events, like approving or rejecting other peers' review requests.
