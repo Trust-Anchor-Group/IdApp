@@ -46,8 +46,8 @@ namespace IdApp
 
 				if (!(@event.Tags is null))
 				{
-					foreach (KeyValuePair<string, object> Tag in @event.Tags)
-						crashParameters[Tag.Key] = Tag.Value?.ToString() ?? string.Empty;
+					foreach (KeyValuePair<string, object> tag in @event.Tags)
+						crashParameters[tag.Key] = tag.Value?.ToString() ?? string.Empty;
 				}
 
 				// Add base properties like app version etc.

@@ -105,9 +105,9 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="url">The url of the attachment.</param>
         /// <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
-        /// <param name="SignWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+        /// <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
         /// <returns>Content-Type, and attachment file.</returns>
-        Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith SignWith, TimeSpan timeout);
+        Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith signWith, TimeSpan timeout);
         
         /// <summary>
         /// Adds a legal identity.
@@ -203,9 +203,9 @@ namespace Tag.Neuron.Xamarin.Services
         /// Signs binary data with the corresponding private key.
         /// </summary>
         /// <param name="data">The data to sign.</param>
-		/// <param name="SignWith">What keys that can be used to sign the data.</param>
+		/// <param name="signWith">What keys that can be used to sign the data.</param>
         /// <returns></returns>
-        Task<byte[]> Sign(byte[] data, SignWith SignWith);
+        Task<byte[]> Sign(byte[] data, SignWith signWith);
         
         /// <summary>Validates a signature of binary data.</summary>
         /// <param name="legalIdentity">Legal identity used to create the signature.</param>

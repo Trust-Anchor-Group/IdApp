@@ -45,7 +45,13 @@ namespace Tag.Neuron.Xamarin.Services
         private XmppEventSink xmppEventSink;
         private bool userInitiatedLogInOrOut;
 
-        public NeuronService(Assembly appAssembly, ITagProfile tagProfile, IUiDispatcher uiDispatcher, INetworkService networkService, ILogService logService)
+        public NeuronService(
+            Assembly appAssembly, 
+            ITagProfile tagProfile, 
+            IUiDispatcher uiDispatcher, 
+            INetworkService networkService, 
+            ILogService logService,
+            Profiler startupProfiler)
         {
             this.appAssembly = appAssembly;
             this.networkService = networkService;
@@ -55,6 +61,7 @@ namespace Tag.Neuron.Xamarin.Services
             this.chats = new NeuronChats(this.tagProfile, uiDispatcher, this, this.logService);
             this.sniffer = new InMemorySniffer(250);
             this.tagProfile.StepChanged += TagProfile_StepChanged;
+            this.startupProfiler = startupProfiler;
         }
 
         public void Dispose()
@@ -64,11 +71,11 @@ namespace Tag.Neuron.Xamarin.Services
             this.Contracts.Dispose();
         }
 
-        public Profiler StartupProfiler
-		{
-            get => this.startupProfiler;
-            internal set => this.startupProfiler = value;
-		}
+  //      public Profiler StartupProfiler
+		//{
+  //          get => this.startupProfiler;
+  //          internal set => this.startupProfiler = value;
+		//}
 
         #region Create/Destroy
 

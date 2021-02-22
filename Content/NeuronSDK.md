@@ -1,22 +1,26 @@
 # TAG Neuron SDK #
 The TAG Neuron SDK is built to easily integrate the [IoTGateway](https://github.com/PeterWaher/IoTGateway) framework into a Xamarin app.
-It all starts with the [`ITagIdSdk`](../Tag.Neuron.Xamarin/ITagIdSdk.cs) interface.
+It is wrapped using a list of interfaces, providing various services.
 
-You create an instance of the SDK via the static `Create()` factory method on the [`TagIdSdk`](../Tag.Neuron.Xamarin/TagIdSdk.cs) class.
-Pass in the app assembly and the registration keys for each domain. You can read more about the [registration keys here](GettingStarted.md#registration-keys).
+You create an instance of the services you need in the App constructor. Pass in the registration keys for each domain to the `ITagProfile` instance. You can read more about the [registration keys here](GettingStarted.md#registration-keys).
 
 ```
 public partial class App
 {
-    private readonly ITagIdSdk sdk;
+    private readonly ITagProfile tagProfile;
+    private readonly ILogService logService;
+    private readonly INeuronService neuronService;
+    ...
 
     public App()
     {
-        this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
+        this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)new XmppConfiguration().ToArray());
+        this.logService = Types.InstantiateDefault<ILogService>();
+        this.neuronService = Types.InstantiateDefault<INeuronService>();
     }
 }
 ```
-Once this is done you have access to all features and services the SDK provides. You can use it as-is, or register the services via the IoC Container of your choosing.
+Once this is done you have access to the features and services the SDK provides. You can use it as-is, or register the services via the IoC Container of your choosing.
 Many of the services are wafer-thin wrappers around platform features, making it very easy to mock for unit testing.
 
 ## Features/Services ##
@@ -47,16 +51,14 @@ If any call fails, they will catch errors, log them and display alerts to the us
 
 ### LogService ###
 The [LogService](../Tag.Neuron.Xamarin/Services/ILogService.cs) allows you to save log statements which are then reported back to the Neuron server.
-You can of course also attach [ILogListener](../Tag.Neuron.Xamarin/Services/ILogListener.cs)s to subscribe to log events, and redirect them to other
-services like [Microsoft App Center](https://appcenter.ms/apps) for tracking Crashes and Analytics. The [AppCenterLogListener](../IdApp/IdApp/AppCenterLogListener.cs)
+You can of course also attach `IEventSink`s to subscribe to log events, and redirect them to other
+services like [Microsoft App Center](https://appcenter.ms/apps) for tracking Crashes and Analytics. The [AppCenterEventSink](../IdApp/IdApp/AppCenterEventSink.cs)
 is an example of this. You can see it being added in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor.
 
 ### StorageService ###
 The [StorageService](../Tag.Neuron.Xamarin/Services/IStorageService.cs) represents persistent storage, i.e. a Database. The content is encrypted. In order to
-store any object in the database, the type of object to store must be made known to the SDK. This is what the second parameter in the call `TagIdSdk.Create()` is for.
-```
-TagIdSdk.Create(this.GetType().Assembly, null, new Registration().ToArray());
-``` 
+store any object in the database, the type of object to store must be made known to the SDK. This is what the parameters to `Types.Initialize` in the App constructor is for.
+
 Pass in one or more assemblies that contain the type(s) you need stored in the database.
 The type you want stored should have a collection name. Set one using an attribute like this:
 ```

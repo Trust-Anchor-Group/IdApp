@@ -118,8 +118,8 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveState)
             {
-                this.SelectedContractCategory = await this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractCategory)));
-                this.SelectedContractType = await this.settingsService.RestoreState<string>(GetSettingsKey(nameof(SelectedContractType)));
+                this.SelectedContractCategory = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedContractCategory)));
+                this.SelectedContractType = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedContractType)));
                 ContractVisibility? visibility = await this.settingsService.RestoreState<ContractVisibility?>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
                 if (visibility != null)
                 {

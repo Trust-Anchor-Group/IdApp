@@ -115,5 +115,11 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <returns>The communication dump as a html formatted string.</returns>
         string CommsDumpAsHtml();
+
+        /// <summary>
+        /// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
+        /// </summary>
+        /// <returns></returns>
+        Task UnloadFast();
     }
 }

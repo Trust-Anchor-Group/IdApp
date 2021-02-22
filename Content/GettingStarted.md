@@ -89,11 +89,11 @@ This will invoke the lightweight IoC implementation 'under the hood'.
 
 ## The TAG Neuron SDK Structure ##
 
-The core, or root of the TAG Neuron SDK starts with the [`ITagIdSdk`](../Tag.Neuron.Xamarin/ITagIdSdk.cs) interface. 
-Everything you need can be accessed via this interface. You create an instance of the SDK in your `App` constructor like this:
+The core, or root of the TAG Neuron SDK starts with the declared service interfaces. You create an instance of the services in your `App` constructor like this:
 
 ```
-    this.sdk = TagIdSdk.Create(this, new Registration().ToArray());
+    this.neuronService = Types.InstantiateDefault<INeuronService>(false);
+    ....
 ```
 
 For further reading about the TAG Neuron SDK, [have a look here](NeuronSDK.md).

@@ -74,39 +74,41 @@ namespace Tag.Neuron.Xamarin.Services
 
 			foreach (var state in existingStates)
 			{
-				if (state.Value is T TypedValue)
-					matches.Add((state.Key, TypedValue));
+				if (state.Value is T typedValue)
+					matches.Add((state.Key, typedValue));
 			}
 
 			return matches;
 		}
 
-		public Task<string> RestoreState(string key, string defaultValueIfNotFound = default)
+		public async Task<string> RestoreStringState(string key, string defaultValueIfNotFound = default)
+		{
+			string str = await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
+            str = str?.Trim('"');
+            return str;
+        }
+
+		public Task<long> RestoreLongState(string key, long defaultValueIfNotFound = default)
 		{
 			return RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
 		}
 
-		public Task<long> RestoreState(string key, long defaultValueIfNotFound = default)
+		public Task<double> RestoreDoubleState(string key, double defaultValueIfNotFound = default)
 		{
 			return RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
 		}
 
-		public Task<double> RestoreState(string key, double defaultValueIfNotFound = default)
+		public Task<bool> RestoreBoolState(string key, bool defaultValueIfNotFound = default)
 		{
 			return RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
 		}
 
-		public Task<bool> RestoreState(string key, bool defaultValueIfNotFound = default)
+		public Task<DateTime> RestoreDateTimeState(string key, DateTime defaultValueIfNotFound = default)
 		{
 			return RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
 		}
 
-		public Task<DateTime> RestoreState(string key, DateTime defaultValueIfNotFound = default)
-		{
-			return RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
-		}
-
-		public Task<TimeSpan> RestoreState(string key, TimeSpan defaultValueIfNotFound = default)
+		public Task<TimeSpan> RestoreTimeSpanState(string key, TimeSpan defaultValueIfNotFound = default)
 		{
 			return RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
 		}
@@ -118,8 +120,8 @@ namespace Tag.Neuron.Xamarin.Services
 
 			object existingState = await RuntimeSettings.GetAsync(key, null);
 
-			if (existingState is T TypedValue)
-				return TypedValue;
+            if (existingState is T typedValue)
+				return typedValue;
 			else
 				return defaultValueIfNotFound;
 		}

@@ -45,8 +45,8 @@ namespace IdApp.Services
 					{
 						List<(string, CacheEntry)> cacheEntries = (await this.settingsService.RestoreStateWhereKeyStartsWith<CacheEntry>(KeyPrefix)).ToList();
 
-						foreach ((string Key, CacheEntry Entry) in cacheEntries)
-							this.entries[Key] = Entry;
+						foreach ((string key, CacheEntry entry) in cacheEntries)
+							this.entries[key] = entry;
 
 						EvictOldEntries();
 					}

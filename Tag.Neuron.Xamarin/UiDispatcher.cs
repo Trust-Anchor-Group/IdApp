@@ -31,7 +31,7 @@ namespace Tag.Neuron.Xamarin
         }
 
         /// <inheritdoc/>
-        public bool IsRunningInTheBackground { get; protected internal set; }
+        public bool IsRunningInTheBackground { get; set; }
 
         private void StartDisplay()
         {

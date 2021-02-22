@@ -129,10 +129,10 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId);
         }
 
-        public Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith SignWith, TimeSpan timeout)
+        public Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith signWith, TimeSpan timeout)
         {
             AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url, SignWith, (int)timeout.TotalMilliseconds);
+            return contractsClient.GetAttachmentAsync(url, signWith, (int)timeout.TotalMilliseconds);
         }
 
         public Task<Contract> CreateContract(
@@ -262,10 +262,10 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
         }
 
-        public Task<byte[]> Sign(byte[] data, SignWith SignWith)
+        public Task<byte[]> Sign(byte[] data, SignWith signWith)
         {
             AssertContractsIsAvailable();
-            return contractsClient.SignAsync(data, SignWith);
+            return contractsClient.SignAsync(data, signWith);
         }
 
         public async Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null)

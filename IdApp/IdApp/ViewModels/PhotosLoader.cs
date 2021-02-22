@@ -57,11 +57,11 @@ namespace IdApp.ViewModels
         /// Loads photos from the specified list of attachments.
         /// </summary>
         /// <param name="attachments">The attachments whose files to download.</param>
-        /// <param name="SignWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+        /// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
         /// <returns></returns>
-        public Task LoadPhotos(Attachment[] attachments, SignWith SignWith)
+        public Task LoadPhotos(Attachment[] attachments, SignWith signWith)
         {
-            return LoadPhotos(attachments, SignWith, DateTime.UtcNow);
+            return LoadPhotos(attachments, signWith, DateTime.UtcNow);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace IdApp.ViewModels
             this.attachmentIds.Clear();
         }
 
-        private async Task LoadPhotos(Attachment[] attachments, SignWith SignWith, DateTime now)
+        private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now)
         {
             if (attachments == null || attachments.Length <= 0)
                 return;
@@ -101,7 +101,7 @@ namespace IdApp.ViewModels
                     if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                         continue;
 
-                    Stream stream = await GetPhoto(attachment, SignWith, now);
+                    Stream stream = await GetPhoto(attachment, signWith, now);
                     if (stream != null)
                     {
                         stream.Reset();
@@ -116,7 +116,7 @@ namespace IdApp.ViewModels
             }
         }
 
-        private async Task<Stream> GetPhoto(Attachment attachment, SignWith SignWith, DateTime now)
+        private async Task<Stream> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
         {
             // 1. Found in cache?
             if (this.imageCacheService.TryGet(attachment.Url, out Stream stream))
@@ -125,7 +125,7 @@ namespace IdApp.ViewModels
             }
 
             // 2. Needs download
-            KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetAttachment(attachment.Url, SignWith, Constants.Timeouts.DownloadFile);
+            KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
             if (this.loadPhotosTimestamp > now)
             {
                 pair.Value.Dispose();

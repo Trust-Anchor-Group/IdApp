@@ -563,9 +563,9 @@ namespace IdApp.ViewModels.Registration
         /// <inheritdoc />
         protected override async Task DoRestoreState()
         {
-            this.CreateNewAccountName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(CreateNewAccountName)));
-            this.ConnectToExistingAccountName = await this.SettingsService.RestoreState<string>(GetSettingsKey(nameof(ConnectToExistingAccountName)));
-            this.CreateRandomPassword = await this.SettingsService.RestoreState(GetSettingsKey(nameof(CreateRandomPassword)), true);
+            this.CreateNewAccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(CreateNewAccountName)));
+            this.ConnectToExistingAccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(ConnectToExistingAccountName)));
+            this.CreateRandomPassword = await this.SettingsService.RestoreBoolState(GetSettingsKey(nameof(CreateRandomPassword)), true);
             await base.DoRestoreState();
         }
     }

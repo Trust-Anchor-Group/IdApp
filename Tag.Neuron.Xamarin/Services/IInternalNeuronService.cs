@@ -10,6 +10,5 @@ namespace Tag.Neuron.Xamarin.Services
         Task<ContractsClient> CreateContractsClientAsync();
         Task<HttpFileUploadClient> CreateFileUploadClientAsync();
         Task<MultiUserChatClient> CreateMultiUserChatClientAsync();
-        Task UnloadFast();
     }
 }

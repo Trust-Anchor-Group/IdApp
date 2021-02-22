@@ -19,7 +19,7 @@ namespace Tag.Neuron.Xamarin
         /// <summary>
         /// Determines whether the app is running in the background.
         /// </summary>
-        bool IsRunningInTheBackground { get; }
+        bool IsRunningInTheBackground { get; set; }
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>

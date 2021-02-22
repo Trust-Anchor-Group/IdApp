@@ -291,7 +291,7 @@ namespace IdApp.Services
                     {
                         try
                         {
-                            await this.neuronService.Contracts.ObsoleteLegalIdentity(identity.Id);
+                            identity = await this.neuronService.Contracts.ObsoleteLegalIdentity(identity.Id);
                         }
                         catch (Exception ex)
 						{

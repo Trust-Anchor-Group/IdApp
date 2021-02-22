@@ -66,7 +66,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="key">The state id.</param>
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
-        Task<string> RestoreState(string key, string defaultValueIfNotFound = default);
+        Task<string> RestoreStringState(string key, string defaultValueIfNotFound = default);
 
         /// <summary>
         /// Restores state for the specified key.
@@ -74,7 +74,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="key">The state id.</param>
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
-        Task<long> RestoreState(string key, long defaultValueIfNotFound = default);
+        Task<long> RestoreLongState(string key, long defaultValueIfNotFound = default);
 
         /// <summary>
         /// Restores state for the specified key.
@@ -82,7 +82,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="key">The state id.</param>
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
-        Task<double> RestoreState(string key, double defaultValueIfNotFound = default);
+        Task<double> RestoreDoubleState(string key, double defaultValueIfNotFound = default);
 
         /// <summary>
         /// Restores state for the specified key.
@@ -90,7 +90,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="key">The state id.</param>
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
-        Task<bool> RestoreState(string key, bool defaultValueIfNotFound = default);
+        Task<bool> RestoreBoolState(string key, bool defaultValueIfNotFound = default);
 
         /// <summary>
         /// Restores state for the specified key.
@@ -98,7 +98,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="key">The state id.</param>
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
-        Task<DateTime> RestoreState(string key, DateTime defaultValueIfNotFound = default);
+        Task<DateTime> RestoreDateTimeState(string key, DateTime defaultValueIfNotFound = default);
 
         /// <summary>
         /// Restores state for the specified key.
@@ -106,7 +106,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="key">The state id.</param>
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
-        Task<TimeSpan> RestoreState(string key, TimeSpan defaultValueIfNotFound = default);
+        Task<TimeSpan> RestoreTimeSpanState(string key, TimeSpan defaultValueIfNotFound = default);
 
         /// <summary>
         /// Restores state for the specified key.
