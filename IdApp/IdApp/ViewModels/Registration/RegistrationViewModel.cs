@@ -172,7 +172,12 @@ namespace IdApp.ViewModels.Registration
             this.CurrentStepTitle = this.RegistrationSteps[this.CurrentStep].Title;
         }
 
-        private void RegistrationStep_Completed(object sender, EventArgs e)
+        /// <summary>
+        /// An event handler for listening to completion of the different registration steps.
+        /// </summary>
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The default event args.</param>
+        protected internal void RegistrationStep_Completed(object sender, EventArgs e)
         {
             RegistrationStep step = ((RegistrationStepViewModel)sender).Step;
             switch (step)

@@ -764,7 +764,7 @@ namespace IdApp.ViewModels.Registration
         /// <summary>
         /// Copies values from the existing TAG Profile's Legal identity.
         /// </summary>
-        public void PopulateFromTagProfile()
+        public virtual void PopulateFromTagProfile()
         {
             LegalIdentity identity = this.TagProfile.LegalIdentity;
             if (identity != null)
