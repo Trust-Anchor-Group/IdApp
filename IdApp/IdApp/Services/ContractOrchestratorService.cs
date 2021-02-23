@@ -138,8 +138,46 @@ namespace IdApp.Services
 
 		private async void Contracts_PetitionForSignatureReceived(object sender, SignaturePetitionEventArgs e)
 		{
-			// Reject all signature requests by default
-			await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false));
+			LegalIdentity identity;
+
+			if (e.SignatoryIdentityId == this.tagProfile.LegalIdentity?.Id)
+			{
+				identity = this.tagProfile.LegalIdentity;
+			}
+			else
+			{
+				(bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
+				if (succeeded && li != null)
+				{
+					identity = li;
+				}
+				else
+				{
+					return;
+				}
+			}
+
+			if (identity == null)
+			{
+				this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForIdentityReceived)}() - identity is missing or cannot be retrieved, ignore.");
+				return;
+			}
+
+			if (identity.State == IdentityState.Compromised ||
+				identity.State == IdentityState.Rejected)
+			{
+				await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false));
+			}
+			else
+			{
+				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				{
+					if (this.tagProfile.IsCompleteOrWaitingForValidation())
+					{
+						await this.navigationService.GoToAsync(nameof(PetitionSignaturePage), new PetitionSignatureNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, e.SignatoryIdentityId, e.ContentToSign, e.PetitionId, e.Purpose));
+					}
+				});
+			}
 		}
 
 		private void Contracts_PetitionedNeuronContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)

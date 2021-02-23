@@ -107,6 +107,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\Contracts\PetitionSignaturePage.xaml.cs">
+      <DependentUpon>PetitionSignaturePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\LoadingPage.xaml.cs">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>
