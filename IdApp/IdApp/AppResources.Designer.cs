@@ -1231,7 +1231,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Petition.
+        ///   Looks up a localized string similar to Request.
         /// </summary>
         internal static string Petition {
             get {
@@ -1240,7 +1240,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Petition Contract.
+        ///   Looks up a localized string similar to Access to Contract.
         /// </summary>
         internal static string PetitionContract {
             get {
@@ -1258,7 +1258,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Petition Identity.
+        ///   Looks up a localized string similar to Access to Identity.
         /// </summary>
         internal static string PetitionIdentity {
             get {
@@ -1281,6 +1281,24 @@ namespace IdApp {
         internal static string PetitionSent {
             get {
                 return ResourceManager.GetString("PetitionSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Signature requested.
+        /// </summary>
+        internal static string PetitionSignature {
+            get {
+                return ResourceManager.GetString("PetitionSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A request for your signature has been received. Review the reason above, and the information about who sent the request, and then choose how you wish to respond..
+        /// </summary>
+        internal static string PetitionSignatureInformationText {
+            get {
+                return ResourceManager.GetString("PetitionSignatureInformationText", resourceCulture);
             }
         }
         
@@ -1456,20 +1474,20 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Legal Identity:.
-        /// </summary>
-        internal static string QrScanLegalIdentity {
-            get {
-                return ResourceManager.GetString("QrScanLegalIdentity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Align the QR-Code within the frame.
         /// </summary>
         internal static string QrScanOverlay {
             get {
                 return ResourceManager.GetString("QrScanOverlay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URI:.
+        /// </summary>
+        internal static string QrScanUri {
+            get {
+                return ResourceManager.GetString("QrScanUri", resourceCulture);
             }
         }
         
@@ -1965,6 +1983,15 @@ namespace IdApp {
         internal static string UnableToConnectTo {
             get {
                 return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The text does not conform to any of the supported URI schemes..
+        /// </summary>
+        internal static string UnsupportedUriScheme {
+            get {
+                return ResourceManager.GetString("UnsupportedUriScheme", resourceCulture);
             }
         }
         

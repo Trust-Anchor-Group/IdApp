@@ -508,22 +508,28 @@
     <value>Personal Number ({0})</value>
   </data>
   <data name="Petition" xml:space="preserve">
-    <value>Petition</value>
+    <value>Request</value>
   </data>
   <data name="PetitionContract" xml:space="preserve">
-    <value>Petition Contract</value>
+    <value>Access to Contract</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
     <value>A petition for the personal data in one of your contracts has been received. Review the information below and choose how you wish to respond.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
-    <value>Petition Identity</value>
+    <value>Access to Identity</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
     <value>A petition for the personal data of your legal identity has been received. Review the information below and choose how you wish to respond.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Petition sent</value>
+  </data>
+  <data name="PetitionSignature" xml:space="preserve">
+    <value>Signature requested</value>
+  </data>
+  <data name="PetitionSignatureInformationText" xml:space="preserve">
+    <value>A request for your signature has been received. Review the reason above, and the information about who sent the request, and then choose how you wish to respond.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
     <value>Petition to view contract was denied.</value>
@@ -582,11 +588,11 @@
   <data name="QrScanCode" xml:space="preserve">
     <value>Scan code</value>
   </data>
-  <data name="QrScanLegalIdentity" xml:space="preserve">
-    <value>Legal Identity:</value>
-  </data>
   <data name="QrScanOverlay" xml:space="preserve">
     <value>Align the QR-Code within the frame</value>
+  </data>
+  <data name="QrScanUri" xml:space="preserve">
+    <value>URI:</value>
   </data>
   <data name="RandomPassword" xml:space="preserve">
     <value>Random password</value>
@@ -752,6 +758,9 @@
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>
+  </data>
+  <data name="UnsupportedUriScheme" xml:space="preserve">
+    <value>The text does not conform to any of the supported URI schemes.</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Updated</value>

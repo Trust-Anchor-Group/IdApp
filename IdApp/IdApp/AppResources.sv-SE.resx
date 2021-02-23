@@ -505,22 +505,28 @@
     <value>Personnummer ({0})</value>
   </data>
   <data name="Petition" xml:space="preserve">
-    <value>Ansökan</value>
+    <value>Förfrågan</value>
   </data>
   <data name="PetitionContract" xml:space="preserve">
-    <value>Granska kontrakt</value>
+    <value>Åtkomst till kontrakt</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
     <value>En ansökan för personlig data tillhörande ett av dina kontrakt har mottagits. Vänligen granska informationen edan och välj hur du vill svara.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
-    <value>Granska identitet</value>
+    <value>Åtkomst till identitet</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
     <value>En ansökan för personlig data tillhörande din juridiska identitet har mottagits. Vänligen granska informationen nedan och välj hur du vill svara.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
     <value>Begäran skickad</value>
+  </data>
+  <data name="PetitionSignature" xml:space="preserve">
+    <value>Signatur önskad</value>
+  </data>
+  <data name="PetitionSignatureInformationText" xml:space="preserve">
+    <value>En förfrågan om din signature har mottagits. Granska anledningen ovan, och informationen om vem som skickat förfrågan, och välj sedan hur du vill svara.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
     <value>Begäran att få se kontraktet avslogs.</value>
@@ -579,11 +585,11 @@
   <data name="QrScanCode" xml:space="preserve">
     <value>Scanna kod</value>
   </data>
-  <data name="QrScanLegalIdentity" xml:space="preserve">
-    <value>Juridisk identitet:</value>
-  </data>
   <data name="QrScanOverlay" xml:space="preserve">
     <value>Passa in QR-koden i ramen</value>
+  </data>
+  <data name="QrScanUri" xml:space="preserve">
+    <value>URI:</value>
   </data>
   <data name="RandomPassword" xml:space="preserve">
     <value>Slumpmässigt lösenord</value>
@@ -749,6 +755,9 @@
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>
+  </data>
+  <data name="UnsupportedUriScheme" xml:space="preserve">
+    <value>Texten överensstämmer inte med någon av de URI-scheman som stöds.</value>
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Uppdaterad</value>
