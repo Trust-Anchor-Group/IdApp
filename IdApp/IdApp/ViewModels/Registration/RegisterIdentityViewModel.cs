@@ -742,5 +742,31 @@ namespace IdApp.ViewModels.Registration
             this.SettingsService.RemoveState(GetSettingsKey(nameof(ZipCode)));
             this.SettingsService.RemoveState(GetSettingsKey(nameof(Region)));
         }
+
+        /// <summary>
+        /// Copies values from the existing TAG Profile's Legal identity.
+        /// </summary>
+        public void PopulateFromTagProfile()
+        {
+            LegalIdentity identity = this.TagProfile.LegalIdentity;
+            if (identity != null)
+            {
+                this.FirstName = identity[Constants.XmppProperties.FirstName];
+                this.MiddleNames = identity[Constants.XmppProperties.MiddleName];
+                this.LastNames = identity[Constants.XmppProperties.LastName];
+                this.PersonalNumber = identity[Constants.XmppProperties.PersonalNumber];
+                this.Address = identity[Constants.XmppProperties.Address];
+                this.Address2 = identity[Constants.XmppProperties.Address2];
+                this.ZipCode = identity[Constants.XmppProperties.ZipCode];
+                this.Area = identity[Constants.XmppProperties.Area];
+                this.City = identity[Constants.XmppProperties.City];
+                this.Region = identity[Constants.XmppProperties.Region];
+                string countryCode = identity[Constants.XmppProperties.Country];
+                if (!string.IsNullOrWhiteSpace(countryCode) && ISO_3166_1.TryGetCountry(countryCode, out string country))
+                {
+                    this.SelectedCountry = country;
+                }
+            }
+        }
     }
 }

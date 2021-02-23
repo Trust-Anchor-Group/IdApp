@@ -36,5 +36,11 @@ namespace Tag.Neuron.Xamarin.UI.Tests.Extensions
         {
             action();
         }
+
+        public static T Finally<T>(this T vm, Action<T> action) where T : BaseViewModel
+        {
+            action(vm);
+            return vm;
+        }
     }
 }

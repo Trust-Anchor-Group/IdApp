@@ -178,6 +178,12 @@ namespace IdApp.ViewModels.Registration
             switch (step)
             {
                 case RegistrationStep.Account:
+                    // User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
+                    if (this.tagProfile.LegalIdentity != null)
+                    {
+                        RegisterIdentityViewModel vm = (RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
+                        vm.PopulateFromTagProfile();
+                    }
                     SyncTagProfileStep();
                     break;
 
