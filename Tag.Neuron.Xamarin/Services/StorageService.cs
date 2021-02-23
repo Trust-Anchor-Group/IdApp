@@ -125,8 +125,9 @@ namespace Tag.Neuron.Xamarin.Services
 		private async Task InitializeAsync(ProfilerThread Thread)
 		{
 			string createDbMethod = $"{nameof(FilesProvider)}.{nameof(FilesProvider.CreateAsync)}()";
-
 			string method = null;
+
+			Thread?.Start();
 			try
 			{
 				Thread?.NewState("Provider");
@@ -199,7 +200,7 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 			finally
 			{
-				Thread?.Idle();
+				Thread?.Stop();
 			}
 		}
 
