@@ -89,7 +89,7 @@ namespace IdApp.Services
 		}
 
 		///<inheritdoc/>
-		public bool TryGet(string url, out Stream stream)
+		public bool TryGet(string url, out MemoryStream stream)
 		{
 			stream = null;
 

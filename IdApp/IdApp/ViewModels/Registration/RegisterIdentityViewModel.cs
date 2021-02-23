@@ -2,8 +2,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;
@@ -26,6 +28,7 @@ namespace IdApp.ViewModels.Registration
         private readonly string localPhotoFileName;
         private LegalIdentityAttachment photo;
         private readonly INetworkService networkService;
+        private readonly PhotosLoader photosLoader;
 
         /// <summary>
         /// Creates a new instance of the <see cref="RegisterIdentityModel"/> class.
@@ -40,8 +43,8 @@ namespace IdApp.ViewModels.Registration
         public RegisterIdentityViewModel(
             ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
-            INeuronService neuronService, 
-            INavigationService navigationService, 
+            INeuronService neuronService,
+            INavigationService navigationService,
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService)
@@ -61,6 +64,7 @@ namespace IdApp.ViewModels.Registration
             this.Title = AppResources.PersonalLegalInformation;
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, DependencyService.Resolve<IImageCacheService>(), new ObservableCollection<ImageSource>());
         }
 
         /// <inheritdoc />
@@ -108,7 +112,7 @@ namespace IdApp.ViewModels.Registration
         /// </summary>
         public bool HasPhoto
         {
-            get { return (bool) GetValue(HasPhotoProperty); }
+            get { return (bool)GetValue(HasPhotoProperty); }
             set { SetValue(HasPhotoProperty, value); }
         }
 
@@ -242,7 +246,7 @@ namespace IdApp.ViewModels.Registration
         /// </summary>
         public string PersonalNumberPlaceholder
         {
-            get { return (string) GetValue(PersonalNumberPlaceholderProperty); }
+            get { return (string)GetValue(PersonalNumberPlaceholderProperty); }
             set { SetValue(PersonalNumberPlaceholderProperty, value); }
         }
 
@@ -367,7 +371,7 @@ namespace IdApp.ViewModels.Registration
         /// </summary>
         public bool IsConnected
         {
-            get { return (bool) GetValue(IsConnectedProperty); }
+            get { return (bool)GetValue(IsConnectedProperty); }
             set { SetValue(IsConnectedProperty, value); }
         }
 
@@ -382,7 +386,7 @@ namespace IdApp.ViewModels.Registration
         /// </summary>
         public string ConnectionStateText
         {
-            get { return (string) GetValue(ConnectionStateTextProperty); }
+            get { return (string)GetValue(ConnectionStateTextProperty); }
             set { SetValue(ConnectionStateTextProperty, value); }
         }
 
@@ -442,6 +446,45 @@ namespace IdApp.ViewModels.Registration
         /// <summary>
         /// Adds a photo from the specified path to use as a profile photo.
         /// </summary>
+        /// <param name="ms">The file stream.</param>
+        /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
+        /// <returns></returns>
+        protected internal async Task AddPhoto(MemoryStream ms, bool saveLocalCopy, bool showAlert)
+        {
+            byte[] bytes = ms.ToArray();
+
+            if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
+            {
+                ms.Dispose();
+                if (showAlert)
+                {
+                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+                }
+                return;
+            }
+
+            RemovePhoto(saveLocalCopy);
+
+            if (saveLocalCopy)
+            {
+                try
+                {
+                    File.WriteAllBytes(localPhotoFileName, bytes);
+                }
+                catch (Exception e)
+                {
+                    this.LogService.LogException(e);
+                }
+            }
+            this.photo = new LegalIdentityAttachment(localPhotoFileName, Constants.MimeTypes.Jpeg, bytes);
+            ms.Reset();
+            Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
+            RegisterCommand.ChangeCanExecute();
+        }
+
+        /// <summary>
+        /// Adds a photo from the specified path to use as a profile photo.
+        /// </summary>
         /// <param name="filePath">The full path to the file.</param>
         /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
         /// <returns></returns>
@@ -463,32 +506,7 @@ namespace IdApp.ViewModels.Registration
                 return;
             }
 
-            byte[] bytes = ms.ToArray();
-
-            if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
-            {
-                ms.Dispose();
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
-                return;
-            }
-
-            RemovePhoto(saveLocalCopy);
-
-            if (saveLocalCopy)
-            {
-                try
-                {
-                    File.WriteAllBytes(localPhotoFileName, bytes);
-                }
-                catch (Exception e)
-                {
-                    this.LogService.LogException(e);
-                }
-            }
-            this.photo = new LegalIdentityAttachment(filePath, Constants.MimeTypes.Jpeg, bytes);
-            ms.Reset();
-            Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
-            RegisterCommand.ChangeCanExecute();
+            await AddPhoto(ms, saveLocalCopy, true);
         }
 
         private void RemovePhoto(bool removeFileOnDisc)
@@ -692,7 +710,7 @@ namespace IdApp.ViewModels.Registration
         {
             this.SelectedCountry = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(SelectedCountry)));
             this.FirstName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(FirstName)));
-            this.MiddleNames  = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(MiddleNames)));
+            this.MiddleNames = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(MiddleNames)));
             this.LastNames = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(LastNames)));
             this.PersonalNumber = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(PersonalNumber)));
             this.Address = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(Address)));
@@ -765,6 +783,30 @@ namespace IdApp.ViewModels.Registration
                 if (!string.IsNullOrWhiteSpace(countryCode) && ISO_3166_1.TryGetCountry(countryCode, out string country))
                 {
                     this.SelectedCountry = country;
+                }
+
+                Attachment firstAttachment = identity.Attachments?.FirstOrDefault();
+                if (firstAttachment != null)
+                {
+                    // Don't await this one, just let it run asynchronously.
+                    this.photosLoader
+                        .LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys)
+                        .ContinueWith(task =>
+                        {
+                            MemoryStream stream = task.Result;
+                            if (stream != null)
+                            {
+                                if (!this.IsBound)
+                                {
+                                    stream.Dispose();
+                                    return;
+                                }
+                                this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+                                {
+                                    await this.AddPhoto(stream, true, false);
+                                });
+                            }
+                        });
                 }
             }
         }

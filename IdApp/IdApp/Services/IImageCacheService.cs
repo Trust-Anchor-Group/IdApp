@@ -18,7 +18,7 @@ namespace IdApp.Services
         /// <param name="url">The url of the image to get.</param>
         /// <param name="stream">The stream pointing to the cached image if it is available.</param>
         /// <returns></returns>
-        bool TryGet(string url, out Stream stream);
+        bool TryGet(string url, out MemoryStream stream);
         /// <summary>
         /// Adds an image to the cache.
         /// </summary>

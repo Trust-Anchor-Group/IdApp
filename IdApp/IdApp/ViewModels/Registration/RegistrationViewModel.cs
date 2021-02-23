@@ -222,6 +222,8 @@ namespace IdApp.ViewModels.Registration
                     break;
 
                 case RegistrationStep.ValidateIdentity:
+                    RegisterIdentityViewModel vm = (RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
+                    vm.PopulateFromTagProfile();
                     this.RegistrationSteps[CurrentStep].ClearStepState();
                     this.tagProfile.ClearIsValidated();
                     break;

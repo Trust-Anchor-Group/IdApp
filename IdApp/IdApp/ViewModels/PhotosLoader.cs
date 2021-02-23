@@ -79,6 +79,31 @@ namespace IdApp.ViewModels
             this.attachmentIds.Clear();
         }
 
+        /// <summary>
+        /// Downloads one photo and stores in cache.
+        /// </summary>
+        /// <param name="attachment">The attachment to download.</param>
+        /// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+        /// <returns></returns>
+        public async Task<MemoryStream> LoadOnePhoto(Attachment attachment, SignWith signWith)
+        {
+            try
+            {
+                if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
+                    return null;
+
+                MemoryStream stream = await GetPhoto(attachment, signWith, DateTime.UtcNow);
+                stream?.Reset();
+                return stream;
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+            }
+
+            return null;
+        }
+
         private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now)
         {
             if (attachments == null || attachments.Length <= 0)
@@ -120,10 +145,10 @@ namespace IdApp.ViewModels
             }
         }
 
-        private async Task<Stream> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
+        private async Task<MemoryStream> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
         {
             // 1. Found in cache?
-            if (this.imageCacheService.TryGet(attachment.Url, out Stream stream))
+            if (this.imageCacheService.TryGet(attachment.Url, out MemoryStream stream))
             {
                 return stream;
             }
