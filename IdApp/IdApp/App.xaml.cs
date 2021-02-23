@@ -409,21 +409,21 @@ namespace IdApp
 			{
 				this.startupProfiler.Stop();
 
-				string uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
-
-				this.startupProfiler = null;
-
-				Task.Run(async () =>
-				{
-					try
-					{
-						await SendAlert("```uml\r\n" + uml + "```", "text/markdown");
-					}
-					catch (Exception ex)
-					{
-						Waher.Events.Log.Critical(ex);
-					}
-				});
+				//string uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
+				//
+				//this.startupProfiler = null;
+				//
+				//Task.Run(async () =>
+				//{
+				//	try
+				//	{
+				//		await SendAlert("```uml\r\n" + uml + "```", "text/markdown");
+				//	}
+				//	catch (Exception ex)
+				//	{
+				//		Waher.Events.Log.Critical(ex);
+				//	}
+				//});
 			}
 		}
 
