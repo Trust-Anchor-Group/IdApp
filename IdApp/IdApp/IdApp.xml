@@ -451,6 +451,11 @@
               Looks up a localized string similar to Incomplete.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.InformationIsMissingOrInvalid">
+            <summary>
+              Looks up a localized string similar to Information is missing or invalid.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.InvalidUsernameOrPassword">
             <summary>
               Looks up a localized string similar to Invalid username or password.
@@ -1992,7 +1997,7 @@
             They are stored for a certain duration.
             </summary>
         </member>
-        <member name="M:IdApp.Services.IImageCacheService.TryGet(System.String,System.IO.Stream@)">
+        <member name="M:IdApp.Services.IImageCacheService.TryGet(System.String,System.IO.MemoryStream@)">
             <summary>
             Tries to get a cached image given the specified url.
             </summary>
@@ -2031,7 +2036,7 @@
         <member name="M:IdApp.Services.ImageCacheService.Unload">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.ImageCacheService.TryGet(System.String,System.IO.Stream@)">
+        <member name="M:IdApp.Services.ImageCacheService.TryGet(System.String,System.IO.MemoryStream@)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.ImageCacheService.Add(System.String,System.IO.Stream)">
@@ -4304,6 +4309,14 @@
             clears the collection of photos from its content.
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.PhotosLoader.LoadOnePhoto(Waher.Networking.XMPP.Contracts.Attachment,Waher.Networking.XMPP.Contracts.SignWith)">
+            <summary>
+            Downloads one photo and stores in cache.
+            </summary>
+            <param name="attachment">The attachment to download.</param>
+            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <returns></returns>
+        </member>
         <member name="T:IdApp.ViewModels.Registration.ChooseAccountViewModel">
             <summary>
             The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
@@ -4872,6 +4885,23 @@
             The user friendly connection state text to display to the user.
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AddPhoto(System.IO.MemoryStream,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a photo from the specified path to use as a profile photo.
+            </summary>
+            <param name="ms">The file stream.</param>
+            <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
+            <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AddPhoto(System.String,System.Boolean)">
+            <summary>
+            Adds a photo from the specified path to use as a profile photo.
+            </summary>
+            <param name="filePath">The full path to the file.</param>
+            <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
+            <returns></returns>
+        </member>
         <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DoSaveState">
             <inheritdoc />
         </member>
@@ -4880,6 +4910,11 @@
         </member>
         <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ClearStepState">
             <inheritdoc />
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.PopulateFromTagProfile">
+            <summary>
+            Copies values from the existing TAG Profile's Legal identity.
+            </summary>
         </member>
         <member name="T:IdApp.ViewModels.Registration.RegistrationStepViewModel">
             <summary>
@@ -5054,6 +5089,13 @@
             Un-mutes the synchronization of the <see cref="P:IdApp.ViewModels.Registration.RegistrationViewModel.CurrentStep"/> property. See <see cref="M:IdApp.ViewModels.Registration.RegistrationViewModel.MuteStepSync"/>.
             This is a hack to workaround a bug on Android.
             </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.RegistrationStep_Completed(System.Object,System.EventArgs)">
+            <summary>
+            An event handler for listening to completion of the different registration steps.
+            </summary>
+            <param name="sender">The event sender.</param>
+            <param name="e">The default event args.</param>
         </member>
         <member name="T:IdApp.ViewModels.Registration.ValidateIdentityViewModel">
             <summary>
