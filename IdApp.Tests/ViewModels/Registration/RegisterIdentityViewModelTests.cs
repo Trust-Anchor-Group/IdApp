@@ -7,6 +7,7 @@ using NUnit.Framework;
 using SkiaSharp;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.Tests;
 using Tag.Neuron.Xamarin.UI.Tests.ViewModels;
 using Waher.Networking.XMPP.Contracts;
@@ -91,7 +92,7 @@ namespace IdApp.Tests.ViewModels.Registration
             vm.SelectedCountry = "SWEDEN";
             vm.PersonalNumber = "191212-1212";
             // When
-            vm.RegisterCommand.Execute(null);
+            vm.RegisterCommand.Execute();
             // Then
             this.tagProfile.Verify(x => x.SetLegalIdentity(identity), Times.Once);
             Assert.IsTrue(stepCompletedEventFired == 1);
@@ -117,7 +118,7 @@ namespace IdApp.Tests.ViewModels.Registration
             vm.SelectedCountry = "SWEDEN";
             vm.PersonalNumber = "191212-1212";
             // When
-            vm.RegisterCommand.Execute(null);
+            vm.RegisterCommand.Execute();
             // Then
             this.tagProfile.Verify(x => x.SetLegalIdentity(identity), Times.Never);
             Assert.IsTrue(stepCompletedEventFired == 0);

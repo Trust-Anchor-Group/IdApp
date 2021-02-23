@@ -448,6 +448,7 @@ namespace IdApp.ViewModels.Registration
         /// </summary>
         /// <param name="ms">The file stream.</param>
         /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
+        /// <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
         /// <returns></returns>
         protected internal async Task AddPhoto(MemoryStream ms, bool saveLocalCopy, bool showAlert)
         {

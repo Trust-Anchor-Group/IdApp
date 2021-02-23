@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 
 namespace Tag.Neuron.Xamarin.UI.Tests.ViewModels
@@ -25,7 +26,7 @@ namespace Tag.Neuron.Xamarin.UI.Tests.ViewModels
 
         protected void ActionCommandIsExecuted(ICommand command)
         {
-            command.Execute(null);
+            command.Execute();
         }
     }
 }
