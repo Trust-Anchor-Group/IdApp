@@ -628,7 +628,7 @@ namespace IdApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAFirstName);
+                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAFirstName);
                 }
                 return false;
             }
@@ -637,7 +637,7 @@ namespace IdApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideALastName);
+                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideALastName);
                 }
                 return false;
             }
@@ -646,7 +646,7 @@ namespace IdApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAPersonalNumber);
+                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPersonalNumber);
                 }
                 return false;
             }
@@ -655,17 +655,14 @@ namespace IdApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideACountry);
+                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideACountry);
                 }
                 return false;
             }
 
-            if (this.photo == null)
+            if (this.photo == null && alertUser)
             {
-                if (alertUser)
-                {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YouNeedToProvideAPhoto);
-                }
+                await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
 
                 return false;
             }

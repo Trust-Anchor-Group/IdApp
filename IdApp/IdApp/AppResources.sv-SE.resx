@@ -354,6 +354,9 @@
   <data name="Incomplete" xml:space="preserve">
     <value>Ej komplett</value>
   </data>
+  <data name="InformationIsMissingOrInvalid" xml:space="preserve">
+    <value>Information saknas eller är ogiltig</value>
+  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
   </data>

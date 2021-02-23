@@ -781,6 +781,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information is missing or invalid.
+        /// </summary>
+        internal static string InformationIsMissingOrInvalid {
+            get {
+                return ResourceManager.GetString("InformationIsMissingOrInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {

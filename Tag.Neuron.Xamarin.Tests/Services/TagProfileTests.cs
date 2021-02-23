@@ -90,9 +90,11 @@ namespace Tag.Neuron.Xamarin.Tests.Services
             tagProfile.SetDomain("domain");
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
+            tagProfile.SetLegalJId("jid");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
             tagProfile.ClearAccount();
             Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.IsNull(tagProfile.LegalJid);
         }
 
         [Test]
@@ -285,6 +287,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
             tagProfile.SetDomain("domain");
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
+            tagProfile.SetLegalJId("jid");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Approved };
             tagProfile.SetLegalIdentity(identity);
@@ -292,7 +295,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
             tagProfile.ClearIsValidated();
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
             Assert.IsNull(tagProfile.LegalIdentity);
-            Assert.IsNull(tagProfile.LegalJid);
+            Assert.AreEqual("jid", tagProfile.LegalJid);
         }
 
         [Test]

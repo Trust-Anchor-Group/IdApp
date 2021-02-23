@@ -532,6 +532,7 @@ namespace Tag.Neuron.Xamarin.Services
             this.Account = string.Empty;
             this.PasswordHash = string.Empty;
             this.PasswordHashMethod = string.Empty;
+            this.LegalJid = null;
             this.DecrementConfigurationStep(RegistrationStep.Operator); // prev
         }
 
@@ -548,14 +549,9 @@ namespace Tag.Neuron.Xamarin.Services
         /// <inheritdoc/>
         public void ClearLegalIdentity()
         {
-            this.ClearLegalIdentityInternal();
-            this.DecrementConfigurationStep(RegistrationStep.Account); // prev
-        }
-
-        private void ClearLegalIdentityInternal()
-        {
             this.LegalIdentity = null;
             this.LegalJid = null;
+            this.DecrementConfigurationStep(RegistrationStep.Account); // prev
         }
 
         /// <inheritdoc/>
@@ -584,8 +580,8 @@ namespace Tag.Neuron.Xamarin.Services
         /// <inheritdoc/>
         public void ClearIsValidated()
         {
+            this.LegalIdentity = null;
             this.DecrementConfigurationStep(RegistrationStep.RegisterIdentity);
-            this.ClearLegalIdentityInternal();
         }
 
         /// <inheritdoc/>

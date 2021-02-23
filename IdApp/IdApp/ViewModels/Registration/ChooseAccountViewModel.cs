@@ -355,7 +355,7 @@ namespace IdApp.ViewModels.Registration
                 {
                     if (alertUser)
                     {
-                        await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
+                        await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.AccountNameIsInvalid, AppResources.Ok);
                     }
 
                     return false;
@@ -370,7 +370,7 @@ namespace IdApp.ViewModels.Registration
                 {
                     if (alertUser)
                     {
-                        await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordsDoNotMatch, AppResources.Ok);
+                        await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.PasswordsDoNotMatch, AppResources.Ok);
                     }
                     return false;
                 }
@@ -384,7 +384,7 @@ namespace IdApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.DomainNameIsInvalid, AppResources.Ok);
+                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.DomainNameIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -393,7 +393,7 @@ namespace IdApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.AccountNameIsInvalid, AppResources.Ok);
+                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.AccountNameIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
@@ -402,7 +402,7 @@ namespace IdApp.ViewModels.Registration
             {
                 if (alertUser)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PasswordIsInvalid, AppResources.Ok);
+                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.PasswordIsInvalid, AppResources.Ok);
                 }
                 return false;
             }
