@@ -5,6 +5,7 @@
                       xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                       xmlns:system="clr-namespace:System;assembly=netstandard"
+                      xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
                       x:Class="IdApp.Views.Registration.ChooseOperatorView">
     <ContentView.Content>
         <Grid Margin="0,0,0,0">
@@ -36,9 +37,13 @@
                                 </OnPlatform>
                             </Frame.IsVisible>
                         </Frame>
-                        <StackLayout Orientation="Vertical">
+                        <StackLayout Orientation="Vertical" x:Name="DomainPanel">
                             <Picker x:Name="OperatorPicker" Title="{x:Static resources:AppResources.SelectOperator}" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
-                            <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" Placeholder="{x:Static resources:AppResources.EnterAnOperatorName}" TextChanged="ManualDomainEntry_TextChanged" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False"/>
+                            <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" Placeholder="{x:Static resources:AppResources.EnterAnOperatorName}" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False">
+                                <Entry.Behaviors>
+                                    <behaviors:TextChangedBehavior TextChangedCommand="{Binding BindingContext.ManualOperatorCommand, Source={x:Reference ManualDomainEntry}}" TextChangedCommandParameter="{Binding Path=Text, Source={x:Reference ManualDomainEntry}}" />
+                                </Entry.Behaviors>
+                            </Entry>
                         </StackLayout>
                     </Grid>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />

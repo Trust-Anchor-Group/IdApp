@@ -439,14 +439,20 @@ namespace IdApp.ViewModels.Registration
             }
         }
 
-        private async Task AddPhoto(string filePath, bool saveLocalCopy)
+        /// <summary>
+        /// Adds a photo from the specified path to use as a profile photo.
+        /// </summary>
+        /// <param name="filePath">The full path to the file.</param>
+        /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
+        /// <returns></returns>
+        protected internal async Task AddPhoto(string filePath, bool saveLocalCopy)
         {
             MemoryStream ms = new MemoryStream();
             try
             {
                 using (Stream f = File.OpenRead(filePath))
                 {
-                    f.CopyTo(ms);
+                    await f.CopyToAsync(ms);
                 }
                 ms.Reset();
             }

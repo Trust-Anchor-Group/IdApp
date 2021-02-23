@@ -84,6 +84,7 @@ namespace IdApp.ViewModels.Registration
 			BindableProperty.Create("ManualOperator", typeof(string), typeof(ChooseOperatorViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
 				ChooseOperatorViewModel viewModel = (ChooseOperatorViewModel)b;
+				System.Diagnostics.Debug.WriteLine($"ManualOperator changed from '{oldValue}' to '{newValue}'");
 				viewModel.ConnectCommand.ChangeCanExecute();
 			});
 

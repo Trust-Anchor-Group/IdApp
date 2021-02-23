@@ -17,10 +17,5 @@ namespace IdApp.Views.Registration
         {
             InitializeComponent();
         }
-
-        private void ManualDomainEntry_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            GetViewModel<ChooseOperatorViewModel>().ManualOperatorCommand.Execute(e.NewTextValue);
-        }
     }
 }
