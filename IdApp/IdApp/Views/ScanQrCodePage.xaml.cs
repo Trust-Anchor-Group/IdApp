@@ -86,17 +86,9 @@ namespace IdApp.Views
             {
                 string scheme = Constants.UriSchemes.GetScheme(code);
 
-                if (!string.IsNullOrWhiteSpace(scheme))
+                if (string.IsNullOrWhiteSpace(scheme))
                 {
-                    if (scheme != Constants.UriSchemes.UriSchemeIotId)
-                    {
-                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
-                        return;
-                    }
-                }
-                else
-                {
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity, AppResources.Ok);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnsupportedUriScheme, AppResources.Ok);
                     return;
                 }
             }

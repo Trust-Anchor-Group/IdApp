@@ -14,6 +14,7 @@ namespace IdApp.ViewModels
     public class ScanQrCodeViewModel : BaseViewModel
     {
         private readonly INavigationService navigationService;
+
         /// <summary>
         /// An event that is fired when the scanning mode changes from automatic scan to manual entry.
         /// </summary>
