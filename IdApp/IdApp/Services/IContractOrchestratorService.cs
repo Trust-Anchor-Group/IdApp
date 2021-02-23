@@ -27,5 +27,11 @@ namespace IdApp.Services
         /// <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
         /// <returns></returns>
         Task OpenContract(string contractId, string purpose);
+
+        /// <summary>
+        /// TAG Signature request scanned.
+        /// </summary>
+        /// <param name="request">Request string.</param>
+        Task TagSignature(string request);
     }
 }

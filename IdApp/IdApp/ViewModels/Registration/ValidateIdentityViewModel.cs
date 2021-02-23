@@ -554,13 +554,13 @@ namespace IdApp.ViewModels.Registration
         {
             string code = await QrCode.ScanQrCode(this.NavigationService, AppResources.Open);
 
-            if (!Constants.IoTSchemes.StartsWithIdScheme(code))
+            if (!Constants.UriSchemes.StartsWithIdScheme(code))
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
                 return;
             }
 
-            bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(Constants.IoTSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
+            bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(Constants.UriSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
             if (succeeded)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);

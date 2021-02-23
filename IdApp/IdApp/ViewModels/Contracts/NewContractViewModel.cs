@@ -662,7 +662,7 @@ namespace IdApp.ViewModels.Contracts
             string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
             this.saveState = false;
             this.DeleteState();
-            string id = Constants.IoTSchemes.GetCode(code);
+            string id = Constants.UriSchemes.GetCode(code);
             if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
             {
                 AddRole(new RoleModel(id));

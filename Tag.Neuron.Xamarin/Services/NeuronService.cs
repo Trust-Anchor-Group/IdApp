@@ -390,6 +390,8 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public XmppState State => this.xmppClient?.State ?? XmppState.Offline;
 
+		public XmppClient Xmpp => this.xmppClient;
+
 		public string LatestError { get; private set; }
 
 		public string LatestConnectionError { get; private set; }
@@ -545,7 +547,7 @@ namespace Tag.Neuron.Xamarin.Services
 							client.AllowRegistration();
 					}
 
-					client.TrustServer = string.Compare(hostName, "localhost", true) == 0;
+					client.TrustServer = !isIpAddress;
 					client.AllowCramMD5 = false;
 					client.AllowDigestMD5 = false;
 					client.AllowPlain = false;

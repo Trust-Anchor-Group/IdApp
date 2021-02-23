@@ -1952,6 +1952,12 @@
             Local file name.
             </summary>
         </member>
+        <member name="M:IdApp.Services.ContractOrchestratorService.TagSignature(System.String)">
+            <summary>
+            TAG Signature request scanned.
+            </summary>
+            <param name="request">Request string.</param>
+        </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
             Orchestrates operations on contracts upon receiving certain events, like approving or rejecting other peers' review requests.
@@ -1973,6 +1979,12 @@
             <param name="contractId">The id of the contract to show.</param>
             <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
             <returns></returns>
+        </member>
+        <member name="M:IdApp.Services.IContractOrchestratorService.TagSignature(System.String)">
+            <summary>
+            TAG Signature request scanned.
+            </summary>
+            <param name="request">Request string.</param>
         </member>
         <member name="T:IdApp.Services.IImageCacheService">
             <summary>

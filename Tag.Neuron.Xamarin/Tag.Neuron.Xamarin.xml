@@ -160,55 +160,60 @@
             The default language code.
             </summary>
         </member>
-        <member name="T:Tag.Neuron.Xamarin.Constants.IoTSchemes">
+        <member name="T:Tag.Neuron.Xamarin.Constants.UriSchemes">
             <summary>
             IoT Schemes
             </summary>
         </member>
-        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.IotId">
+        <member name="F:Tag.Neuron.Xamarin.Constants.UriSchemes.UriSchemeIotId">
             <summary>
-            The IoT ID constant
+            The IoT ID URI Scheme (iotid)
             </summary>
         </member>
-        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.IotDisco">
+        <member name="F:Tag.Neuron.Xamarin.Constants.UriSchemes.UriSchemeIotDisco">
             <summary>
-            The IoT Discovery constant
+            The IoT Discovery URI Scheme (iotdisco)
             </summary>
         </member>
-        <member name="F:Tag.Neuron.Xamarin.Constants.IoTSchemes.IotSc">
+        <member name="F:Tag.Neuron.Xamarin.Constants.UriSchemes.UriSchemeIotSc">
             <summary>
-            The IoT Scan constant
+            The IoT Smart Contract URI Scheme (iotsc)
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Constants.IoTSchemes.GetScheme(System.String)">
+        <member name="F:Tag.Neuron.Xamarin.Constants.UriSchemes.UriSchemeTagSign">
+            <summary>
+            TAG Signature (Quick-Login) URI Scheme (tagsign)
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Constants.UriSchemes.GetScheme(System.String)">
             <summary>
             Gets the predefined scheme from an IoT Code
             </summary>
             <param name="code">The code to parse.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Constants.IoTSchemes.StartsWithIdScheme(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Constants.UriSchemes.StartsWithIdScheme(System.String)">
             <summary>
             Checks if the specified code starts with the IoT ID scheme.
             </summary>
             <param name="code">The code to parse.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Constants.IoTSchemes.CreateScanUri(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Constants.UriSchemes.CreateSmartContractUri(System.String)">
             <summary>
             Generates a IoT Scan Uri form the specified id.
             </summary>
             <param name="id">The Id to use when generating the Uri.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Constants.IoTSchemes.CreateIdUri(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Constants.UriSchemes.CreateIdUri(System.String)">
             <summary>
             Generates a IoT ID Uri form the specified id.
             </summary>
             <param name="id">The Id to use when generating the Uri.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Constants.IoTSchemes.GetCode(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Constants.UriSchemes.GetCode(System.String)">
             <summary>
             Returns the raw code, minus the scheme.
             </summary>
@@ -1431,6 +1436,11 @@
         <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.State">
             <summary>
             The current state of the Neuron server.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.Xmpp">
+            <summary>
+            Interface to the XMPP network.
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.BareJId">
