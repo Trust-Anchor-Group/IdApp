@@ -66,6 +66,7 @@ namespace IdApp
             Routing.RegisterRoute(nameof(ServerSignaturePage), typeof(ServerSignaturePage));
             Routing.RegisterRoute(nameof(PetitionContractPage), typeof(PetitionContractPage));
             Routing.RegisterRoute(nameof(PetitionIdentityPage), typeof(PetitionIdentityPage));
+            Routing.RegisterRoute(nameof(PetitionSignaturePage), typeof(PetitionSignaturePage));
             Routing.RegisterRoute(nameof(XmppCommunicationPage), typeof(XmppCommunicationPage));
         }
 
