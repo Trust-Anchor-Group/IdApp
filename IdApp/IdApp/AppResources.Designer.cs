@@ -1294,7 +1294,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A request for your signature has been received. Review the reason above, and the information about who sent the request, and then choose how you wish to respond..
+        ///   Looks up a localized string similar to A request for your signature has been received. Review the reason below, and the information about who sent the request, and then choose how you wish to respond..
         /// </summary>
         internal static string PetitionSignatureInformationText {
             get {

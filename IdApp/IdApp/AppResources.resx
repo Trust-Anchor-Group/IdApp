@@ -529,7 +529,7 @@
     <value>Signature requested</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>A request for your signature has been received. Review the reason above, and the information about who sent the request, and then choose how you wish to respond.</value>
+    <value>A request for your signature has been received. Review the reason below, and the information about who sent the request, and then choose how you wish to respond.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
     <value>Petition to view contract was denied.</value>

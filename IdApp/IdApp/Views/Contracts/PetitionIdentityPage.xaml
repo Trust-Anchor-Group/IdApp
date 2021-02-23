@@ -40,10 +40,9 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!-- -->
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.Request}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Large" />
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.Purpose}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Large" />
                 <!-- -->
-                <Label Grid.Row="1" Grid.Column="0" Text="{x:Static local:AppResources.Purpose}" Style="{StaticResource KeyLabel}"/>
-                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=Purpose}" Style="{StaticResource ValueLabel}"/>
+                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Purpose}" Style="{StaticResource ValueLabel}"/>
                 <!-- -->
                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.RequestingEntity}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" FontSize="Large" />
                 <!-- -->

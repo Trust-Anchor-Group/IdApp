@@ -526,7 +526,7 @@
     <value>Signatur önskad</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>En förfrågan om din signature har mottagits. Granska anledningen ovan, och informationen om vem som skickat förfrågan, och välj sedan hur du vill svara.</value>
+    <value>En förfrågan om din signature har mottagits. Granska anledningen nedan, och informationen om vem som skickat förfrågan, och välj sedan hur du vill svara.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
     <value>Begäran att få se kontraktet avslogs.</value>
