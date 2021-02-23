@@ -703,12 +703,12 @@
         </member>
         <member name="P:IdApp.AppResources.Petition">
             <summary>
-              Looks up a localized string similar to Petition.
+              Looks up a localized string similar to Request.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PetitionContract">
             <summary>
-              Looks up a localized string similar to Petition Contract.
+              Looks up a localized string similar to Access to Contract.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PetitionContractInformationText">
@@ -718,7 +718,7 @@
         </member>
         <member name="P:IdApp.AppResources.PetitionIdentity">
             <summary>
-              Looks up a localized string similar to Petition Identity.
+              Looks up a localized string similar to Access to Identity.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PetitionIdentityInformationText">
@@ -729,6 +729,16 @@
         <member name="P:IdApp.AppResources.PetitionSent">
             <summary>
               Looks up a localized string similar to Petition sent.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionSignature">
+            <summary>
+              Looks up a localized string similar to Signature requested.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PetitionSignatureInformationText">
+            <summary>
+              Looks up a localized string similar to A request for your signature has been received. Review the reason above, and the information about who sent the request, and then choose how you wish to respond..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PetitionToViewContractWasDenied">
@@ -826,14 +836,14 @@
               Looks up a localized string similar to Scan code.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.QrScanLegalIdentity">
-            <summary>
-              Looks up a localized string similar to Legal Identity:.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.QrScanOverlay">
             <summary>
               Looks up a localized string similar to Align the QR-Code within the frame.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.QrScanUri">
+            <summary>
+              Looks up a localized string similar to URI:.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.RandomPassword">
@@ -1109,6 +1119,11 @@
         <member name="P:IdApp.AppResources.UnableToConnectTo">
             <summary>
               Looks up a localized string similar to Unable to connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnsupportedUriScheme">
+            <summary>
+              Looks up a localized string similar to The text does not conform to any of the supported URI schemes..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Updated">
@@ -1836,6 +1851,52 @@
             </summary>
         </member>
         <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.Purpose">
+            <summary>
+            The purpose of the petition.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.PetitionSignatureNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a petition of a signature.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.PetitionSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.Byte[],System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.PetitionSignatureNavigationArgs"/> class.
+            </summary>
+            <param name="requestorIdentity">The identity of the requestor.</param>
+            <param name="requestorFullJid">The full Jid of the requestor.</param>
+            <param name="signatoryIdentityId">Legal ID requested to sign <see cref="P:IdApp.Navigation.PetitionSignatureNavigationArgs.ContentToSign"/>.</param>
+            <param name="contentToSign">Digital content to sign.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose of the petition.</param>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.RequestorIdentity">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.RequestorFullJid">
+            <summary>
+            The full Jid of the requestor.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.SignatoryIdentityId">
+            <summary>
+            Legal ID requested to sign <see cref="P:IdApp.Navigation.PetitionSignatureNavigationArgs.ContentToSign"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.ContentToSign">
+            <summary>
+            Digital content to sign.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.PetitionId">
+            <summary>
+            The petition id.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.Purpose">
             <summary>
             The purpose of the petition.
             </summary>
@@ -3121,6 +3182,242 @@
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Purpose">
+            <summary>
+            What's the purpose of the petition?
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.PetitionSignatureViewModel">
+            <summary>
+            The view model to bind to when displaying petitioning of a signature in a view or page.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionSignatureViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.AcceptCommand">
+            <summary>
+            The command to bind to for accepting the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.DeclineCommand">
+            <summary>
+            The command to bind to for declining the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.IgnoreCommand">
+            <summary>
+            The command to bind to for ignoring the petition
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Photos">
+            <summary>
+            The list of photos related to the identity being petitioned.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Created">
+            <summary>
+            Created date of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.UpdatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Updated"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Updated">
+            <summary>
+            Updated date of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.LegalIdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.LegalId">
+            <summary>
+            Legal id of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.StateProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.State"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.State">
+            <summary>
+            Current state of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.From">
+            <summary>
+            From date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.To">
+            <summary>
+            To date (validity range) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.FirstNameProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.FirstName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.FirstName">
+            <summary>
+            First name of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.MiddleNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.MiddleNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.MiddleNames">
+            <summary>
+            Middle name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.LastNamesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.LastNames"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.LastNames">
+            <summary>
+            Last name(s) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.PersonalNumberProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.PersonalNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.PersonalNumber">
+            <summary>
+            Personal number of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.AddressProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Address"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Address">
+            <summary>
+            Address of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Address2Property">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Address2"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Address2">
+            <summary>
+            Address (line 2) of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.ZipCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.ZipCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.ZipCode">
+            <summary>
+            Zip code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.AreaProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Area"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Area">
+            <summary>
+            Area of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.CityProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.City"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.City">
+            <summary>
+            City of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.RegionProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Region"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Region">
+            <summary>
+            Region of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.CountryCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.CountryCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.CountryCode">
+            <summary>
+            Country code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.CountryProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Country"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Country">
+            <summary>
+            Country of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.IsApprovedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.IsApproved"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.IsApproved">
+            <summary>
+            Is the contract approved?
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.PurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Purpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Purpose">
             <summary>
             What's the purpose of the petition?
             </summary>
@@ -5671,6 +5968,22 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.Contracts.PetitionIdentityPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Contracts.PetitionSignaturePage">
+            <summary>
+            A page to display when the user is asked to sign data.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.PetitionSignaturePage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.PetitionSignaturePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.PetitionSignaturePage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
