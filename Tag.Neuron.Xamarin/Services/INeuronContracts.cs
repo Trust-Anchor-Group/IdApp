@@ -16,20 +16,108 @@ namespace Tag.Neuron.Xamarin.Services
     [DefaultImplementation(typeof(NeuronContracts))]
     public interface INeuronContracts : IDisposable
     {
+        #region General
+
+        /// <summary>
+        /// Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
+        /// </summary>
+        bool FileUploadIsSupported { get; }
+
+        /// <summary>
+        /// Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
+        /// </summary>
+        bool IsOnline { get; }
+
         /// <summary>
         /// An event to monitor a Neuron service's Contracts for connectivity.
         /// </summary>
         event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
+        #endregion
+
+        #region Legal Identities
+
         /// <summary>
-        /// Petitions a contract with the specified id and purpose.
+        /// Adds a legal identity.
         /// </summary>
-        /// <param name="contractId">The contract id.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="purpose">The purpose.</param>
+        /// <param name="model">The model holding all the values needed.</param>
+        /// <param name="attachments">The physical attachments to upload.</param>
         /// <returns></returns>
-        Task PetitionContract(string contractId, string petitionId, string purpose);
-        
+        Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments);
+
+        /// <summary>
+        /// Returns a list of legal identities.
+        /// </summary>
+        /// <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
+        /// <returns></returns>
+        Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null);
+
+        /// <summary>
+        /// Gets a specific legal identity.
+        /// </summary>
+        /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+        /// <returns></returns>
+        Task<LegalIdentity> GetLegalIdentity(string legalIdentityId);
+
+        /// <summary>
+        /// Checks if the client has access to the private keys of the specified legal identity.
+        /// </summary>
+        /// <param name="legalIdentityId">The id of the legal identity.</param>
+        /// <returns>If private keys are available.</returns>
+        Task<bool> HasPrivateKey(string legalIdentityId);
+
+        /// <summary>
+        /// Marks the legal identity as obsolete.
+        /// </summary>
+        /// <param name="legalIdentityId">The id to mark as obsolete.</param>
+        /// <returns></returns>
+        Task<LegalIdentity> ObsoleteLegalIdentity(string legalIdentityId);
+
+        /// <summary>
+        /// Marks the legal identity as compromised.
+        /// </summary>
+        /// <param name="legalIdentityId">The legal id to mark as compromised.</param>
+        /// <returns></returns>
+        Task<LegalIdentity> CompromiseLegalIdentity(string legalIdentityId);
+
+        /// <summary>
+        /// Petitions a legal identity.
+        /// </summary>
+        /// <param name="legalId">The id of the legal identity.</param>
+        /// <param name="petitionId">The petition id.</param>
+        /// <param name="purpose">The purpose of the petitioning.</param>
+        /// <returns></returns>
+        Task PetitionIdentity(string legalId, string petitionId, string purpose);
+
+        /// <summary>
+        /// Sends a response to a petitioning identity request.
+        /// </summary>
+        /// <param name="legalId">The id of the legal identity.</param>
+        /// <param name="petitionId">The petition id.</param>
+        /// <param name="requestorFullJid">The full Jid of the requestor.</param>
+        /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
+        /// <returns></returns>
+        Task SendPetitionIdentityResponse(string legalId, string petitionId, string requestorFullJid, bool response);
+
+        /// <summary>
+        /// An event that fires when a legal identity changes.
+        /// </summary>
+        event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
+
+        /// <summary>
+        /// An event that fires when a petition for an identity is received.
+        /// </summary>
+        event EventHandler<LegalIdentityPetitionEventArgs> PetitionForIdentityReceived;
+
+        /// <summary>
+        /// An event that fires when a petitioned identity response is received.
+        /// </summary>
+        event EventHandler<LegalIdentityPetitionResponseEventArgs> PetitionedIdentityResponseReceived;
+
+        #endregion
+
+        #region Smart Contracts
+
         /// <summary>
         /// Gets the contract with the specified id.
         /// </summary>
@@ -101,62 +189,14 @@ namespace Tag.Neuron.Xamarin.Services
         Task<Contract> DeleteContract(string contractId);
 
         /// <summary>
-        /// Gets an attachment for a contract.
+        /// Petitions a contract with the specified id and purpose.
         /// </summary>
-        /// <param name="url">The url of the attachment.</param>
-        /// <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
-        /// <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
-        /// <returns>Content-Type, and attachment file.</returns>
-        Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith signWith, TimeSpan timeout);
-        
-        /// <summary>
-        /// Adds a legal identity.
-        /// </summary>
-        /// <param name="model">The model holding all the values needed.</param>
-        /// <param name="attachments">The physical attachments to upload.</param>
-        /// <returns></returns>
-        Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments);
-        
-        /// <summary>
-        /// Returns a list of legal identities.
-        /// </summary>
-        /// <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
-        /// <returns></returns>
-        Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null);
-        
-        /// <summary>
-        /// Gets a specific legal identity.
-        /// </summary>
-        /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
-        /// <returns></returns>
-        Task<LegalIdentity> GetLegalIdentity(string legalIdentityId);
-
-        /// <summary>
-        /// Checks if the client has access to the private keys of the specified legal identity.
-        /// </summary>
-        /// <param name="legalIdentityId">The id of the legal identity.</param>
-        /// <returns>If private keys are available.</returns>
-        Task<bool> HasPrivateKey(string legalIdentityId);
-
-        /// <summary>
-        /// Petitions a legal identity.
-        /// </summary>
-        /// <param name="legalId">The id of the legal identity.</param>
+        /// <param name="contractId">The contract id.</param>
         /// <param name="petitionId">The petition id.</param>
-        /// <param name="purpose">The purpose of the petitioning.</param>
+        /// <param name="purpose">The purpose.</param>
         /// <returns></returns>
-        Task PetitionIdentity(string legalId, string petitionId, string purpose);
-        
-        /// <summary>
-        /// Sends a response to a petitioning identity request.
-        /// </summary>
-        /// <param name="legalId">The id of the legal identity.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="requestorFullJid">The full Jid of the requestor.</param>
-        /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        /// <returns></returns>
-        Task SendPetitionIdentityResponse(string legalId, string petitionId, string requestorFullJid, bool response);
-        
+        Task PetitionContract(string contractId, string petitionId, string purpose);
+
         /// <summary>
         /// Sends a response to a petitioning contract request.
         /// </summary>
@@ -166,7 +206,86 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
         /// <returns></returns>
         Task SendPetitionContractResponse(string contractId, string petitionId, string requestorFullJid, bool response);
-        
+
+        /// <summary>
+        /// An event that fires when a petition for a contract is received.
+        /// </summary>
+        event EventHandler<ContractPetitionEventArgs> PetitionForContractReceived;
+
+        /// <summary>
+        /// An event that fires when a petitioned contract response is received.
+        /// </summary>
+        event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
+
+        #endregion
+
+        #region Attachments
+
+        /// <summary>
+        /// Gets an attachment for a contract.
+        /// </summary>
+        /// <param name="url">The url of the attachment.</param>
+        /// <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
+        /// <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+        /// <returns>Content-Type, and attachment file.</returns>
+        Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith signWith, TimeSpan timeout);
+
+        #endregion
+
+        #region Peer Review
+
+        /// <summary>
+        /// Sends a petition to a third-party to review a legal identity.
+        /// </summary>
+        /// <param name="legalId">The legal id to petition.</param>
+        /// <param name="identity">The legal id to peer review.</param>
+        /// <param name="petitionId">The petition id.</param>
+        /// <param name="purpose">The purpose.</param>
+        /// <returns></returns>
+        Task PetitionPeerReviewId(string legalId, LegalIdentity identity, string petitionId, string purpose);
+
+        /// <summary>
+        /// Adds an attachment for the peer review.
+        /// </summary>
+        /// <param name="identity">The identity to which the attachment should be added.</param>
+        /// <param name="reviewerLegalIdentity">The identity of the reviewer.</param>
+        /// <param name="peerSignature">The raw signature data.</param>
+        /// <returns></returns>
+        Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature);
+
+        /// <summary>
+        /// An event that fires when a petition for peer review is received.
+        /// </summary>
+        event EventHandler<SignaturePetitionEventArgs> PetitionForPeerReviewIdReceived;
+
+        /// <summary>
+        /// An event that fires when a petitioned peer review response is received.
+        /// </summary>
+        event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
+
+        #endregion
+
+        #region Signatures
+
+        /// <summary>
+        /// Signs binary data with the corresponding private key.
+        /// </summary>
+        /// <param name="data">The data to sign.</param>
+        /// <param name="signWith">What keys that can be used to sign the data.</param>
+        /// <returns></returns>
+        Task<byte[]> Sign(byte[] data, SignWith signWith);
+
+        /// <summary>Validates a signature of binary data.</summary>
+        /// <param name="legalIdentity">Legal identity used to create the signature.</param>
+        /// <param name="data">Binary data to sign-</param>
+        /// <param name="signature">Digital signature of data</param>
+        /// <returns>
+        /// true = Signature is valid.
+        /// false = Signature is invalid.
+        /// null = Client key algorithm is unknown, and veracity of signature could not be established.
+        /// </returns>
+        bool? ValidateSignature(LegalIdentity legalIdentity, byte[] data, byte[] signature);
+
         /// <summary>
         /// Sends a response to a petitioning signature request.
         /// </summary>
@@ -179,107 +298,12 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
         /// <returns></returns>
         Task SendPetitionSignatureResponse(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
-        
-        /// <summary>
-        /// Adds an attachment for the peer review.
-        /// </summary>
-        /// <param name="identity">The identity to which the attachment should be added.</param>
-        /// <param name="reviewerLegalIdentity">The identity of the reviewer.</param>
-        /// <param name="peerSignature">The raw signature data.</param>
-        /// <returns></returns>
-        Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature);
-        
-        /// <summary>
-        /// Sends a petition to a third-party to review a legal identity.
-        /// </summary>
-        /// <param name="legalId">The legal id to petition.</param>
-        /// <param name="identity">The legal id to peer review.</param>
-        /// <param name="petitionId">The petition id.</param>
-        /// <param name="purpose">The purpose.</param>
-        /// <returns></returns>
-        Task PetitionPeerReviewId(string legalId, LegalIdentity identity, string petitionId, string purpose);
-        
-        /// <summary>
-        /// Signs binary data with the corresponding private key.
-        /// </summary>
-        /// <param name="data">The data to sign.</param>
-		/// <param name="signWith">What keys that can be used to sign the data.</param>
-        /// <returns></returns>
-        Task<byte[]> Sign(byte[] data, SignWith signWith);
-        
-        /// <summary>Validates a signature of binary data.</summary>
-        /// <param name="legalIdentity">Legal identity used to create the signature.</param>
-        /// <param name="data">Binary data to sign-</param>
-        /// <param name="signature">Digital signature of data</param>
-        /// <returns>
-        /// true = Signature is valid.
-        /// false = Signature is invalid.
-        /// null = Client key algorithm is unknown, and veracity of signature could not be established.
-        /// </returns>
-        bool? ValidateSignature(LegalIdentity legalIdentity, byte[] data, byte[] signature);
-        
-        /// <summary>
-        /// Marks the legal identity as obsolete.
-        /// </summary>
-        /// <param name="legalIdentityId">The id to mark as obsolete.</param>
-        /// <returns></returns>
-        Task<LegalIdentity> ObsoleteLegalIdentity(string legalIdentityId);
-        
-        /// <summary>
-        /// Marks the legal identity as compromised.
-        /// </summary>
-        /// <param name="legalIdentityId">The legal id to mark as compromised.</param>
-        /// <returns></returns>
-        Task<LegalIdentity> CompromiseLegalIdentity(string legalIdentityId);
 
-        /// <summary>
-        /// Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
-        /// </summary>
-        bool FileUploadIsSupported { get; }
-        
-        /// <summary>
-        /// Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
-        /// </summary>
-        bool IsOnline { get; }
-
-        /// <summary>
-        /// An event that fires when a legal identity changes.
-        /// </summary>
-        event EventHandler<LegalIdentityChangedEventArgs> LegalIdentityChanged;
-        
-        /// <summary>
-        /// An event that fires when a petition for an identity is received.
-        /// </summary>
-        event EventHandler<LegalIdentityPetitionEventArgs> PetitionForIdentityReceived;
-        
-        /// <summary>
-        /// An event that fires when a petitioned identity response is received.
-        /// </summary>
-        event EventHandler<LegalIdentityPetitionResponseEventArgs> PetitionedIdentityResponseReceived;
-        
-        /// <summary>
-        /// An event that fires when a petition for a contract is received.
-        /// </summary>
-        event EventHandler<ContractPetitionEventArgs> PetitionForContractReceived;
-        
-        /// <summary>
-        /// An event that fires when a petitioned contract response is received.
-        /// </summary>
-        event EventHandler<ContractPetitionResponseEventArgs> PetitionedContractResponseReceived;
-        
-        /// <summary>
-        /// An event that fires when a petition for peer review is received.
-        /// </summary>
-        event EventHandler<SignaturePetitionEventArgs> PetitionForPeerReviewIdReceived;
-        
-        /// <summary>
-        /// An event that fires when a petitioned peer review response is received.
-        /// </summary>
-        event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
-        
         /// <summary>
         /// An event that fires when a petition for a signature is received.
         /// </summary>
         event EventHandler<SignaturePetitionEventArgs> PetitionForSignatureReceived;
+
+        #endregion
     }
 }

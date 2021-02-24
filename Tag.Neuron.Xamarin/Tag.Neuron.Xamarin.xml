@@ -1103,19 +1103,97 @@
             Adds support for legal identities, smart contracts and signatures to a Neuron Service.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.FileUploadIsSupported">
+            <summary>
+            Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.IsOnline">
+            <summary>
+            Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
+            </summary>
+        </member>
         <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.ConnectionStateChanged">
             <summary>
             An event to monitor a Neuron service's Contracts for connectivity.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionContract(System.String,System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.AddLegalIdentity(Tag.Neuron.Xamarin.Models.RegisterIdentityModel,Tag.Neuron.Xamarin.Services.LegalIdentityAttachment[])">
             <summary>
-            Petitions a contract with the specified id and purpose.
+            Adds a legal identity.
             </summary>
-            <param name="contractId">The contract id.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="purpose">The purpose.</param>
+            <param name="model">The model holding all the values needed.</param>
+            <param name="attachments">The physical attachments to upload.</param>
             <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetLegalIdentities(Waher.Networking.XMPP.XmppClient)">
+            <summary>
+            Returns a list of legal identities.
+            </summary>
+            <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetLegalIdentity(System.String)">
+            <summary>
+            Gets a specific legal identity.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.HasPrivateKey(System.String)">
+            <summary>
+            Checks if the client has access to the private keys of the specified legal identity.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity.</param>
+            <returns>If private keys are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ObsoleteLegalIdentity(System.String)">
+            <summary>
+            Marks the legal identity as obsolete.
+            </summary>
+            <param name="legalIdentityId">The id to mark as obsolete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.CompromiseLegalIdentity(System.String)">
+            <summary>
+            Marks the legal identity as compromised.
+            </summary>
+            <param name="legalIdentityId">The legal id to mark as compromised.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionIdentity(System.String,System.String,System.String)">
+            <summary>
+            Petitions a legal identity.
+            </summary>
+            <param name="legalId">The id of the legal identity.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose of the petitioning.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionIdentityResponse(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Sends a response to a petitioning identity request.
+            </summary>
+            <param name="legalId">The id of the legal identity.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="requestorFullJid">The full Jid of the requestor.</param>
+            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <returns></returns>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.LegalIdentityChanged">
+            <summary>
+            An event that fires when a legal identity changes.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForIdentityReceived">
+            <summary>
+            An event that fires when a petition for an identity is received.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedIdentityResponseReceived">
+            <summary>
+            An event that fires when a petitioned identity response is received.
+            </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetContract(System.String)">
             <summary>
@@ -1176,61 +1254,13 @@
             <param name="contractId">The id of the contract to delete.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetAttachment(System.String,Waher.Networking.XMPP.Contracts.SignWith,System.TimeSpan)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionContract(System.String,System.String,System.String)">
             <summary>
-            Gets an attachment for a contract.
+            Petitions a contract with the specified id and purpose.
             </summary>
-            <param name="url">The url of the attachment.</param>
-            <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
-            <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <returns>Content-Type, and attachment file.</returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.AddLegalIdentity(Tag.Neuron.Xamarin.Models.RegisterIdentityModel,Tag.Neuron.Xamarin.Services.LegalIdentityAttachment[])">
-            <summary>
-            Adds a legal identity.
-            </summary>
-            <param name="model">The model holding all the values needed.</param>
-            <param name="attachments">The physical attachments to upload.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetLegalIdentities(Waher.Networking.XMPP.XmppClient)">
-            <summary>
-            Returns a list of legal identities.
-            </summary>
-            <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetLegalIdentity(System.String)">
-            <summary>
-            Gets a specific legal identity.
-            </summary>
-            <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.HasPrivateKey(System.String)">
-            <summary>
-            Checks if the client has access to the private keys of the specified legal identity.
-            </summary>
-            <param name="legalIdentityId">The id of the legal identity.</param>
-            <returns>If private keys are available.</returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionIdentity(System.String,System.String,System.String)">
-            <summary>
-            Petitions a legal identity.
-            </summary>
-            <param name="legalId">The id of the legal identity.</param>
+            <param name="contractId">The contract id.</param>
             <param name="petitionId">The petition id.</param>
-            <param name="purpose">The purpose of the petitioning.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionIdentityResponse(System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            Sends a response to a petitioning identity request.
-            </summary>
-            <param name="legalId">The id of the legal identity.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="requestorFullJid">The full Jid of the requestor.</param>
-            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+            <param name="purpose">The purpose.</param>
             <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionContractResponse(System.String,System.String,System.String,System.Boolean)">
@@ -1243,17 +1273,33 @@
             <param name="response">If the petition is accepted (true) or rejected (false).</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionSignatureResponse(System.String,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForContractReceived">
             <summary>
-            Sends a response to a petitioning signature request.
+            An event that fires when a petition for a contract is received.
             </summary>
-            <param name="legalId">Legal Identity petitioned.</param>
-            <param name="content">Content to be signed.</param>
-            <param name="signature">Digital signature of content, made by the legal identity.</param>
-            <param name="petitionId">A petition identifier. This identifier will follow the petition, and can be used
-            to identify the petition request.</param>
-            <param name="requestorFullJid">Full JID of requestor.</param>
-            <param name="response">If the petition is accepted (true) or rejected (false).</param>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedContractResponseReceived">
+            <summary>
+            An event that fires when a petitioned contract response is received.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetAttachment(System.String,Waher.Networking.XMPP.Contracts.SignWith,System.TimeSpan)">
+            <summary>
+            Gets an attachment for a contract.
+            </summary>
+            <param name="url">The url of the attachment.</param>
+            <param name="timeout">Max timeout allowed when retrieving an attachment.</param>
+            <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <returns>Content-Type, and attachment file.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionPeerReviewId(System.String,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
+            <summary>
+            Sends a petition to a third-party to review a legal identity.
+            </summary>
+            <param name="legalId">The legal id to petition.</param>
+            <param name="identity">The legal id to peer review.</param>
+            <param name="petitionId">The petition id.</param>
+            <param name="purpose">The purpose.</param>
             <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.AddPeerReviewIdAttachment(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[])">
@@ -1265,15 +1311,15 @@
             <param name="peerSignature">The raw signature data.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionPeerReviewId(System.String,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForPeerReviewIdReceived">
             <summary>
-            Sends a petition to a third-party to review a legal identity.
+            An event that fires when a petition for peer review is received.
             </summary>
-            <param name="legalId">The legal id to petition.</param>
-            <param name="identity">The legal id to peer review.</param>
-            <param name="petitionId">The petition id.</param>
-            <param name="purpose">The purpose.</param>
-            <returns></returns>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedPeerReviewIdResponseReceived">
+            <summary>
+            An event that fires when a petitioned peer review response is received.
+            </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
             <summary>
@@ -1294,64 +1340,18 @@
             null = Client key algorithm is unknown, and veracity of signature could not be established.
             </returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ObsoleteLegalIdentity(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SendPetitionSignatureResponse(System.String,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
             <summary>
-            Marks the legal identity as obsolete.
+            Sends a response to a petitioning signature request.
             </summary>
-            <param name="legalIdentityId">The id to mark as obsolete.</param>
+            <param name="legalId">Legal Identity petitioned.</param>
+            <param name="content">Content to be signed.</param>
+            <param name="signature">Digital signature of content, made by the legal identity.</param>
+            <param name="petitionId">A petition identifier. This identifier will follow the petition, and can be used
+            to identify the petition request.</param>
+            <param name="requestorFullJid">Full JID of requestor.</param>
+            <param name="response">If the petition is accepted (true) or rejected (false).</param>
             <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.CompromiseLegalIdentity(System.String)">
-            <summary>
-            Marks the legal identity as compromised.
-            </summary>
-            <param name="legalIdentityId">The legal id to mark as compromised.</param>
-            <returns></returns>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.FileUploadIsSupported">
-            <summary>
-            Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.IsOnline">
-            <summary>
-            Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.LegalIdentityChanged">
-            <summary>
-            An event that fires when a legal identity changes.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForIdentityReceived">
-            <summary>
-            An event that fires when a petition for an identity is received.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedIdentityResponseReceived">
-            <summary>
-            An event that fires when a petitioned identity response is received.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForContractReceived">
-            <summary>
-            An event that fires when a petition for a contract is received.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedContractResponseReceived">
-            <summary>
-            An event that fires when a petitioned contract response is received.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForPeerReviewIdReceived">
-            <summary>
-            An event that fires when a petition for peer review is received.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionedPeerReviewIdResponseReceived">
-            <summary>
-            An event that fires when a petitioned peer review response is received.
-            </summary>
         </member>
         <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForSignatureReceived">
             <summary>
@@ -1660,28 +1660,30 @@
             Inserts an object into the database.
             </summary>
             <param name="obj">The object to store.</param>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Update(System.Object)">
             <summary>
             Updates an object in the database.
             </summary>
             <param name="obj">The object to update.</param>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.FindFirstDeleteRest``1">
             <summary>
             Returns the first match (if any) of the given type. Deletes the other matching entries.
             </summary>
             <typeparam name="T">The type of the objects to retrieve.</typeparam>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.FindFirstIgnoreRest``1">
             <summary>
             Returns the first match (if any) of the given type. Ignores (leaves) the other matching entries.
             </summary>
             <typeparam name="T">The type of the objects to retrieve.</typeparam>
-            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Export(Waher.Persistence.Serialization.IDatabaseExport)">
+            <summary>
+            Exports the contents of the database to <paramref name="Output"/>.
+            </summary>
+            <param name="Output">Receives the contents of the database.</param>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.StorageState">
             <summary>
