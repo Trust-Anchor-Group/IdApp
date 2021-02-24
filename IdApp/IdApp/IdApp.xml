@@ -4324,7 +4324,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INetworkService)">
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             For unit tests.
@@ -4581,9 +4581,21 @@
             This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.IImageCacheService"/>.
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.PhotosLoader"/> class.
+            Use this constructor for when you want to load a a <b>single photo</b>.
+            </summary>
+            <param name="logService">The log service to use if and when logging errors.</param>
+            <param name="networkService">The network service to use for checking connectivity.</param>
+            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+        </member>
         <member name="M:IdApp.ViewModels.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.PhotosLoader"/> class.
+            Use this constructor for when you want to load a <b>list of photos</b>.
             </summary>
             <param name="logService">The log service to use if and when logging errors.</param>
             <param name="networkService">The network service to use for checking connectivity.</param>

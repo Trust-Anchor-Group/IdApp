@@ -357,6 +357,13 @@
             <param name="attachments">The attachments to iterate.</param>
             <returns></returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.ArrayExtensions.GetFirstImageAttachment(Waher.Networking.XMPP.Contracts.Attachment[])">
+            <summary>
+            Returns the first image attachment of the array, if there is one.
+            </summary>
+            <param name="attachments">The attachments to iterate.</param>
+            <returns>The first image attachment, or <c>null</c>.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Extensions.DateTimeExtensions">
             <summary>
             Extensions for the <see cref="T:System.DateTime"/> class.
