@@ -455,10 +455,9 @@ namespace IdApp
 		/// <param name="IncludeUnchanged">If unchanged material should be included.</param>
 		public static async Task SendDatabaseDiff(string FileName, bool IncludeUnchanged)
 		{
-			IStorageService StorageService = Types.Instantiate<IStorageService>(false);
 			StringBuilder Xml = new StringBuilder();
 
-			await StorageService.Export(new XmlDatabaseExport(Xml, true, 256));
+			await Database.Export(new XmlDatabaseExport(Xml, true, 256));
 
 			string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			FileName = Path.Combine(AppDataFolder, FileName);
