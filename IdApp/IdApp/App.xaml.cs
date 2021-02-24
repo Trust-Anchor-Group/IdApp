@@ -526,6 +526,7 @@ namespace IdApp
 			await SendAlert(DiffMsg, "text/markdown");
 
 			File.WriteAllText(FileName, CurrentState);
+			File.WriteAllText(FileName + ".diff.md", DiffMsg);
 		}
 
 		private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
