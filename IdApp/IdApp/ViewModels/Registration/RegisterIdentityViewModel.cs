@@ -3,7 +3,6 @@ using IdApp.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
@@ -786,7 +785,7 @@ namespace IdApp.ViewModels.Registration
                     this.SelectedCountry = country;
                 }
 
-                Attachment firstAttachment = identity.Attachments?.FirstOrDefault();
+                Attachment firstAttachment = identity.Attachments?.GetFirstImageAttachment();
                 if (firstAttachment != null)
                 {
                     // Don't await this one, just let it run asynchronously.

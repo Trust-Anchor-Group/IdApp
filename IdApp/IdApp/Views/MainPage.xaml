@@ -72,7 +72,7 @@
                                         FontFamily="{StaticResource FontAwesomeSolid}"
                                         IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
                                     </Grid>
-                                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Location}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" FontSize="Medium"/>
+                                    <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Location}" TextColor="{StaticResource HeadingForeground}" Margin="{StaticResource DefaultTopOnlyMargin}" HorizontalOptions="Center" FontSize="Medium"/>
                                 </Grid>
                             </Frame>
                         </views:FlipView.FrontView>

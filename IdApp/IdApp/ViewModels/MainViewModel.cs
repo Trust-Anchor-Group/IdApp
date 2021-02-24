@@ -2,9 +2,9 @@
 using IdApp.Services;
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
 using Waher.Networking.XMPP;
@@ -46,10 +46,11 @@ namespace IdApp.ViewModels
             : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
             logService = logService ?? DependencyService.Resolve<ILogService>();
+            neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, imageCacheService);
+            this.photosLoader = new PhotosLoader(logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
         }
 
@@ -130,7 +131,7 @@ namespace IdApp.ViewModels
                 this.QrCode = null;
             }
 
-            Attachment firstAttachment = this.tagProfile?.LegalIdentity?.Attachments?.FirstOrDefault();
+            Attachment firstAttachment = this.tagProfile?.LegalIdentity?.Attachments?.GetFirstImageAttachment();
             if (firstAttachment != null)
             {
                 // Don't await this one, just let it run asynchronously.

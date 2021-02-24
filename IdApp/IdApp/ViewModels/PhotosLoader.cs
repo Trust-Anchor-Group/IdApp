@@ -46,14 +46,8 @@ namespace IdApp.ViewModels
             INeuronService neuronService,
             IUiDispatcher uiDispatcher,
             IImageCacheService imageCacheService)
+            : this(logService, networkService, neuronService, uiDispatcher, imageCacheService, new ObservableCollection<ImageSource>())
         {
-            this.logService = logService;
-            this.networkService = networkService;
-            this.neuronService = neuronService;
-            this.uiDispatcher = uiDispatcher;
-            this.imageCacheService = imageCacheService;
-            this.photos = new ObservableCollection<ImageSource>(); // Just assign a default value so nothing breaks on a null-ref.
-            this.attachmentIds = new List<string>();
         }
 
         /// <summary>

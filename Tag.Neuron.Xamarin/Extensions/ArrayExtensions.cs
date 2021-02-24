@@ -17,7 +17,21 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <returns></returns>
         public static IEnumerable<Attachment> GetImageAttachments(this Attachment[] attachments)
         {
+            if (attachments == null)
+            {
+                return Enumerable.Empty<Attachment>();
+            }
             return attachments.Where(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// Returns the first image attachment of the array, if there is one.
+        /// </summary>
+        /// <param name="attachments">The attachments to iterate.</param>
+        /// <returns>The first image attachment, or <c>null</c>.</returns>
+        public static Attachment GetFirstImageAttachment(this Attachment[] attachments)
+        {
+            return attachments?.FirstOrDefault(x => x.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase));
         }
     }
 }
