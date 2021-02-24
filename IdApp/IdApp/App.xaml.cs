@@ -250,18 +250,27 @@ namespace IdApp
 		private async Task Shutdown(bool inPanic)
 		{
 			StopAutoSaveTimer();
-			this.uiDispatcher.IsRunningInTheBackground = !inPanic;
-			if (inPanic)
+			if (this.uiDispatcher != null)
             {
-                await this.neuronService.UnloadFast();
+                this.uiDispatcher.IsRunningInTheBackground = !inPanic;
             }
-			else if(!this.keepRunningInTheBackground)
-			{
-                await this.neuronService.Unload();
+			if (this.neuronService != null)
+            {
+                if (inPanic)
+                {
+                    await this.neuronService.UnloadFast();
+                }
+                else if(!this.keepRunningInTheBackground)
+                {
+                    await this.neuronService.Unload();
+                }
             }
 			await Types.StopAllModules();
 			Waher.Events.Log.Terminate();
-			await this.storageService.Shutdown();
+			if (this.storageService != null)
+            {
+                await this.storageService.Shutdown();
+            }
 		}
 
 		#endregion
