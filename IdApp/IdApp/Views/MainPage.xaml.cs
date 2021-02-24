@@ -62,14 +62,14 @@ namespace IdApp.Views
                 if (this.neuronService.IsLoggedOut && e.State == XmppState.Offline)
                 {
                     // Show (slide down) logout panel
-                    await Task.Delay(TimeSpan.FromMilliseconds(500));
+                    await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
                     this.LogoutPanel.TranslationY = -Height;
                     await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.SinIn);
                 }
                 else if (!this.neuronService.IsLoggedOut && e.State == XmppState.Connected)
                 {
                     // Hide (slide up) logout panel
-                    await Task.Delay(TimeSpan.FromMilliseconds(500));
+                    await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
                     await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
                 }
             }
