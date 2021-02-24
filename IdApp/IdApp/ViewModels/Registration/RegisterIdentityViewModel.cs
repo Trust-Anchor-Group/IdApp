@@ -1,11 +1,11 @@
 ﻿using IdApp.Extensions;
+using IdApp.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;
@@ -64,7 +64,7 @@ namespace IdApp.ViewModels.Registration
             this.Title = AppResources.PersonalLegalInformation;
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, DependencyService.Resolve<IImageCacheService>(), new ObservableCollection<ImageSource>());
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, DependencyService.Resolve<IImageCacheService>());
         }
 
         /// <inheritdoc />
@@ -78,6 +78,7 @@ namespace IdApp.ViewModels.Registration
         /// <inheritdoc />
         protected override async Task DoUnbind()
         {
+            this.photosLoader.CancelLoadPhotos();
             this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
             await base.DoUnbind();
         }
@@ -453,7 +454,6 @@ namespace IdApp.ViewModels.Registration
         protected internal async Task AddPhoto(MemoryStream ms, bool saveLocalCopy, bool showAlert)
         {
             byte[] bytes = ms.ToArray();
-
             if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
                 ms.Dispose();
@@ -797,7 +797,7 @@ namespace IdApp.ViewModels.Registration
                             MemoryStream stream = task.Result;
                             if (stream != null)
                             {
-                                if (!this.IsBound)
+                                if (!this.IsBound) // Page no longer on screen when download is done?
                                 {
                                     stream.Dispose();
                                     return;
@@ -807,7 +807,7 @@ namespace IdApp.ViewModels.Registration
                                     await this.AddPhoto(stream, true, false);
                                 });
                             }
-                        });
+                        }, TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.NotOnCanceled);
                 }
             }
         }

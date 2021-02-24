@@ -33,6 +33,32 @@ namespace IdApp.ViewModels
 
         /// <summary>
         /// Creates a new instance of the <see cref="PhotosLoader"/> class.
+        /// Use this constructor for when you want to load a a <b>single photo</b>.
+        /// </summary>
+        /// <param name="logService">The log service to use if and when logging errors.</param>
+        /// <param name="networkService">The network service to use for checking connectivity.</param>
+        /// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+        /// <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+        /// <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+        public PhotosLoader(
+            ILogService logService,
+            INetworkService networkService,
+            INeuronService neuronService,
+            IUiDispatcher uiDispatcher,
+            IImageCacheService imageCacheService)
+        {
+            this.logService = logService;
+            this.networkService = networkService;
+            this.neuronService = neuronService;
+            this.uiDispatcher = uiDispatcher;
+            this.imageCacheService = imageCacheService;
+            this.photos = new ObservableCollection<ImageSource>(); // Just assign a default value so nothing breaks on a null-ref.
+            this.attachmentIds = new List<string>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="PhotosLoader"/> class.
+        /// Use this constructor for when you want to load a <b>list of photos</b>.
         /// </summary>
         /// <param name="logService">The log service to use if and when logging errors.</param>
         /// <param name="networkService">The network service to use for checking connectivity.</param>

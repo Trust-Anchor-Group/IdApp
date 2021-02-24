@@ -1,11 +1,14 @@
 ﻿using IdApp.Extensions;
+using IdApp.Services;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -19,12 +22,13 @@ namespace IdApp.ViewModels
     {
         private readonly ITagProfile tagProfile;
         private readonly INetworkService networkService;
+        private readonly PhotosLoader photosLoader;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
         public MainViewModel()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null, null)
         {
         }
 
@@ -33,14 +37,19 @@ namespace IdApp.ViewModels
         /// For unit tests.
         /// </summary>
         protected internal MainViewModel(
+            ILogService logService,
             INeuronService neuronService, 
             IUiDispatcher uiDispatcher, 
             ITagProfile tagProfile,
-            INetworkService networkService)
+            INetworkService networkService,
+            IImageCacheService imageCacheService)
             : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
+            logService = logService ?? DependencyService.Resolve<ILogService>();
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
+            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
         }
 
@@ -56,6 +65,7 @@ namespace IdApp.ViewModels
         /// <inheritdoc />
         protected override Task DoUnbind()
         {
+            this.photosLoader.CancelLoadPhotos();
             this.NeuronService.Contracts.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
             this.networkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
             return base.DoUnbind();
@@ -118,6 +128,30 @@ namespace IdApp.ViewModels
             else
             {
                 this.QrCode = null;
+            }
+
+            Attachment firstAttachment = this.tagProfile?.LegalIdentity?.Attachments?.FirstOrDefault();
+            if (firstAttachment != null)
+            {
+                // Don't await this one, just let it run asynchronously.
+                this.photosLoader
+                    .LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys)
+                    .ContinueWith(task =>
+                    {
+                        MemoryStream ms = task.Result;
+                        if (ms != null)
+                        {
+                            if (!this.IsBound) // Page no longer on screen when download is done?
+                            {
+                                ms.Dispose();
+                                return;
+                            }
+                            this.UiDispatcher.BeginInvokeOnMainThread(() =>
+                            {
+                                Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
+                            });
+                        }
+                    }, TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.NotOnCanceled);
             }
         }
 

@@ -100,8 +100,8 @@ namespace IdApp.ViewModels.Contracts
         {
             bool succeeded = await this.networkService.TryRequest(async () =>
             {
-                byte[] Signature = await this.neuronService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
-                await this.neuronService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, Signature,
+                byte[] signature = await this.neuronService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
+                await this.neuronService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, signature,
                     this.petitionId, this.requestorFullJid, true);
             });
 

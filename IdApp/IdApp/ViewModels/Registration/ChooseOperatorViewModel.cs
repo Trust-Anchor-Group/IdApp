@@ -11,10 +11,10 @@ using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Registration
 {
-	/// <summary>
-	/// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
-	/// </summary>
-	public class ChooseOperatorViewModel : RegistrationStepViewModel
+    /// <summary>
+    /// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
+    /// </summary>
+    public class ChooseOperatorViewModel : RegistrationStepViewModel
 	{
 		private readonly INetworkService networkService;
 		private string hostName;
