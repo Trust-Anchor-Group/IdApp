@@ -58,7 +58,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
                 .And(vm => ActionCommandIsExecuted(vm.RevokeCommand))
-                .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"///{nameof(RegistrationPage)}"), Times.Once))
+                .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"{nameof(RegistrationPage)}"), Times.Once))
                 .ThenAssert(() => this.uiDispatcher.Verify(x => x.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.No), Times.Once));
         }
 
@@ -77,7 +77,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
                 .And(vm => ActionCommandIsExecuted(vm.CompromiseCommand))
-                .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"///{nameof(RegistrationPage)}"), Times.Once))
+                .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"{nameof(RegistrationPage)}"), Times.Once))
                 .ThenAssert(() => this.uiDispatcher.Verify(x => x.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.No), Times.Once));
         }
     }
