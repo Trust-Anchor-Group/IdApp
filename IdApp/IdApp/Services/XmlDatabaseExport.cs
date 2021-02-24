@@ -48,6 +48,7 @@ namespace IdApp.Services
 		{
 			if (this.disposeWriter)
 			{
+				this.output.Flush();
 				this.output.Dispose();
 				this.disposeWriter = false;
 			}

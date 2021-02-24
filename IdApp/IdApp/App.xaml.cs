@@ -9,12 +9,10 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
-using Waher.Content.Markdown;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -455,9 +453,22 @@ namespace IdApp
 		/// <param name="IncludeUnchanged">If unchanged material should be included.</param>
 		public static async Task SendDatabaseDiff(string FileName, bool IncludeUnchanged)
 		{
+			Dictionary<string, bool> CollectionNames = new Dictionary<string, bool>();
+
+			foreach (string CollectionName in await Database.GetCollections())
+				CollectionNames[CollectionName] = true;
+
+			CollectionNames.Remove("DnsCache");
+
+			string[] Selection = new string[CollectionNames.Count];
+			CollectionNames.Keys.CopyTo(Selection, 0);
+
 			StringBuilder Xml = new StringBuilder();
 
-			await Database.Export(new XmlDatabaseExport(Xml, true, 256));
+			using (XmlDatabaseExport Output = new XmlDatabaseExport(Xml, true, 256))
+			{
+				await Database.Export(Output, Selection);
+			}
 
 			string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			FileName = Path.Combine(AppDataFolder, FileName);
@@ -496,15 +507,23 @@ namespace IdApp
 						break;
 				}
 
+				Markdown.Append(Prefix);
+				Markdown.AppendLine("```xml");
+
 				foreach (string Row in Step.Symbols)
 				{
 					Markdown.Append(Prefix);
-					Markdown.Append(MarkdownDocument.Encode(Row));
+					Markdown.Append(Row);
 					Markdown.AppendLine("  ");
 				}
+
+				Markdown.Append(Prefix);
+				Markdown.AppendLine("```");
 			}
 
-			await SendAlert(Markdown.ToString(), "text/markdown");
+			string DiffMsg = Markdown.ToString();
+
+			await SendAlert(DiffMsg, "text/markdown");
 
 			File.WriteAllText(FileName, CurrentState);
 		}
