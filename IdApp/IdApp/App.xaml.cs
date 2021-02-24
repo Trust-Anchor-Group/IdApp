@@ -27,6 +27,7 @@ using Waher.Runtime.Text;
 using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 using Device = Xamarin.Forms.Device;
 
 namespace IdApp
@@ -102,25 +103,14 @@ namespace IdApp
 				this.imageCacheService = Types.InstantiateDefault<IImageCacheService>(false, this.settingsService, this.logService);
 				this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.tagProfile, this.uiDispatcher, this.neuronService, this.navigationService, this.logService, this.networkService);
 
-				DependencyService.RegisterSingleton(this.tagProfile);
-				DependencyService.RegisterSingleton(this.logService);
-				DependencyService.RegisterSingleton(this.uiDispatcher);
-				DependencyService.RegisterSingleton(this.cryptoService);
-				DependencyService.RegisterSingleton(this.networkService);
-				DependencyService.RegisterSingleton(this.settingsService);
-				DependencyService.RegisterSingleton(this.storageService);
-				DependencyService.RegisterSingleton(this.navigationService);
-				DependencyService.RegisterSingleton(this.neuronService);
-				DependencyService.RegisterSingleton(this.imageCacheService);
-				DependencyService.RegisterSingleton(this.contractOrchestratorService);
 				// Set resolver
-				//DependencyResolver.ResolveUsing(type =>
-				//{
-				//    if (Types.GetType(type.FullName) is null)
-				//        return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
+				DependencyResolver.ResolveUsing(type =>
+				{
+					if (Types.GetType(type.FullName) is null)
+						return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
-				//    return Types.Instantiate(true, type);
-				//});
+					return Types.Instantiate(true, type);
+				});
 
 				// Get the db started right away to save startup time.
 				this.storageService.Init(this.startupProfiler?.CreateThread("Database", ProfilerThreadType.Sequential));
