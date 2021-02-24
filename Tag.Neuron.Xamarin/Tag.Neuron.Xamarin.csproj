@@ -38,7 +38,7 @@
     <PackageReference Include="Waher.Networking.UPnP" Version="1.0.5" />
     <PackageReference Include="Waher.Networking.XMPP" Version="1.1.9" />
     <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="1.1.1" />
-    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="1.2.2" />
+    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="1.2.3" />
     <PackageReference Include="Waher.Networking.XMPP.Control" Version="1.1.1" />
     <PackageReference Include="Waher.Networking.XMPP.MUC" Version="1.0.3" />
     <PackageReference Include="Waher.Networking.XMPP.P2P" Version="1.1.5" />
