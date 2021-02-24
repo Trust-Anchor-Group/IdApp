@@ -471,7 +471,7 @@ namespace IdApp
 
 			Markdown.Append("Database content changes (`");
 			Markdown.Append(FileName);
-			Markdown.AppendLine("`:");
+			Markdown.AppendLine("`):");
 
 			foreach (Step<string> Step in Script.Steps)
 			{
