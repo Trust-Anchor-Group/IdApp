@@ -283,7 +283,7 @@ namespace IdApp.Services
 
 		private async void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			if (this.neuronService.IsOnline && e.State == XmppState.Connected)
+			if (this.neuronService.IsOnline && this.neuronService.Contracts.IsOnline && e.State == XmppState.Connected)
 			{
 				if (this.tagProfile.LegalIdentity != null && this.tagProfile.IsCompleteOrWaitingForValidation())
 				{
@@ -299,14 +299,16 @@ namespace IdApp.Services
 		protected virtual void DownloadLegalIdentityInternal(string legalId)
 		{
 			// Run asynchronously so we're not blocking startup UI.
-			_ = DownloadLegalIdentity(this.tagProfile.LegalIdentity.Id);
+			_ = DownloadLegalIdentity(legalId);
 		}
 
 		protected async Task DownloadLegalIdentity(string legalId)
-		{
-			bool isConnected = await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+        {
+            bool isConnected = this.neuronService != null &&
+                               await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect)
+                               && this.neuronService.Contracts.IsOnline;
 
-			if (!isConnected)
+            if (!isConnected)
 				return;
 
 			(bool succeeded, LegalIdentity identity) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(legalId), displayAlert: false);

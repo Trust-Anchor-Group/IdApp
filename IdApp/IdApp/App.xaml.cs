@@ -374,18 +374,21 @@ namespace IdApp
 
 		private async Task SendErrorReportFromPreviousRun()
 		{
-			string stackTrace = this.logService.LoadExceptionDump();
-			if (!string.IsNullOrWhiteSpace(stackTrace))
-			{
-				try
-				{
-					await this.SendAlert(stackTrace, "text/plain");
-				}
-				finally
-				{
-					this.logService.DeleteExceptionDump();
-				}
-			}
+			if (this.logService != null)
+            {
+                string stackTrace = this.logService.LoadExceptionDump();
+                if (!string.IsNullOrWhiteSpace(stackTrace))
+                {
+                    try
+                    {
+                        await this.SendAlert(stackTrace, "text/plain");
+                    }
+                    finally
+                    {
+                        this.logService.DeleteExceptionDump();
+                    }
+                }
+            }
 		}
 
 		private async Task SendAlert(string message, string contentType)
