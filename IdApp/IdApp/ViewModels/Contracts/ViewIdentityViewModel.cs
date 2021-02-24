@@ -1178,7 +1178,7 @@ namespace IdApp.ViewModels.Contracts
                 {
                     this.LegalIdentity = revokedIdentity;
                     this.tagProfile.RevokeLegalIdentity(revokedIdentity);
-                    await this.navigationService.GoToAsync($"///{nameof(RegistrationPage)}");
+                    await this.navigationService.GoToAsync($"{nameof(RegistrationPage)}");
                 }
             }
             catch (Exception ex)
@@ -1204,7 +1204,7 @@ namespace IdApp.ViewModels.Contracts
                 {
                     this.LegalIdentity = compromisedIdentity;
                     this.tagProfile.RevokeLegalIdentity(compromisedIdentity);
-                    await this.navigationService.GoToAsync($"///{nameof(RegistrationPage)}");
+                    await this.navigationService.GoToAsync($"{nameof(RegistrationPage)}");
                 }
             }
             catch (Exception ex)
