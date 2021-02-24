@@ -83,6 +83,7 @@ namespace IdApp.ViewModels.Registration
         /// The command to bind to for inviting a reviewer to approve the user's identity.
         /// </summary>
         public ICommand InviteReviewerCommand { get; }
+
         /// <summary>
         /// The command to bind to for continuing to the next step in the registration process.
         /// </summary>
