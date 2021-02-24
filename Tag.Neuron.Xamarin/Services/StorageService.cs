@@ -7,6 +7,7 @@ using Tag.Neuron.Xamarin.Extensions;
 using Waher.Events;
 using Waher.Persistence;
 using Waher.Persistence.Files;
+using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 
@@ -233,6 +234,11 @@ namespace Tag.Neuron.Xamarin.Services
 		public Task<T> FindFirstIgnoreRest<T>() where T : class
 		{
 			return Database.FindFirstIgnoreRest<T>();
+		}
+
+		public Task Export(IDatabaseExport Output)
+		{
+			return Database.Export(Output);
 		}
 	}
 }

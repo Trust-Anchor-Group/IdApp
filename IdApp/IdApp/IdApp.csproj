@@ -46,6 +46,7 @@
     <PackageReference Include="Waher.Runtime.Queue" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Settings" Version="1.0.8" />
     <PackageReference Include="Waher.Runtime.Temporary" Version="1.0.0" />
+    <PackageReference Include="Waher.Runtime.Text" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Timing" Version="1.0.4" />
     <PackageReference Include="Waher.Script" Version="1.0.50" />
     <PackageReference Include="Waher.Security" Version="1.0.8" />

@@ -151,6 +151,15 @@ namespace IdApp
 
         private async void DebugMenuItem_Clicked(object sender, EventArgs e)
         {
+            try
+            {
+                await App.SendDatabaseDiff("Debug.xml", true);
+            }
+            catch (Exception ex)
+			{
+                logService.LogException(ex);
+			}
+
             await this.GoToPage(nameof(XmppCommunicationPage));
         }
 
