@@ -70,7 +70,7 @@ namespace Tag.Neuron.Xamarin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to bind viewmodel {0] for page {1}.
+        ///   Looks up a localized string similar to Failed to bind viewmodel {0} for page {1}.
         /// </summary>
         internal static string FailedToBindViewModelForPage {
             get {
@@ -79,7 +79,7 @@ namespace Tag.Neuron.Xamarin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to restore state for viewmodel {0] for page {1}.
+        ///   Looks up a localized string similar to Failed to restore state for viewmodel {0} for page {1}.
         /// </summary>
         internal static string FailedToRestoreViewModelStateForPage {
             get {
@@ -88,7 +88,7 @@ namespace Tag.Neuron.Xamarin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to save state for viewmodel {0] for page {1}.
+        ///   Looks up a localized string similar to Failed to save state for viewmodel {0} for page {1}.
         /// </summary>
         internal static string FailedToSaveViewModelStateForPage {
             get {
@@ -97,7 +97,7 @@ namespace Tag.Neuron.Xamarin.UI {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to unbind viewmodel {0] for page {1}.
+        ///   Looks up a localized string similar to Failed to unbind viewmodel {0} for page {1}.
         /// </summary>
         internal static string FailedToUnbindViewModelForPage {
             get {

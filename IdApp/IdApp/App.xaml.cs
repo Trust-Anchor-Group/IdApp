@@ -90,9 +90,8 @@ namespace IdApp
 
 				this.startupProfiler?.NewState("SDK");
 
-				IAppInformation appInfo = DependencyService.Resolve<IAppInformation>();
 				this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)new XmppConfiguration().ToArray());
-				this.logService = Types.InstantiateDefault<ILogService>(false, appInfo);
+				this.logService = Types.InstantiateDefault<ILogService>(false);
 				this.uiDispatcher = Types.InstantiateDefault<IUiDispatcher>(false);
 				this.cryptoService = Types.InstantiateDefault<ICryptoService>(false, this.logService);
 				this.networkService = Types.InstantiateDefault<INetworkService>(false, this.logService, this.uiDispatcher);

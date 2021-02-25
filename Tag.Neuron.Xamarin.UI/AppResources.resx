@@ -121,15 +121,15 @@
     <value>An error has occurred</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Failed to bind viewmodel {0] for page {1}</value>
+    <value>Failed to bind viewmodel {0} for page {1}</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Failed to restore state for viewmodel {0] for page {1}</value>
+    <value>Failed to restore state for viewmodel {0} for page {1}</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Failed to save state for viewmodel {0] for page {1}</value>
+    <value>Failed to save state for viewmodel {0} for page {1}</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Failed to unbind viewmodel {0] for page {1}</value>
+    <value>Failed to unbind viewmodel {0} for page {1}</value>
   </data>
 </root>

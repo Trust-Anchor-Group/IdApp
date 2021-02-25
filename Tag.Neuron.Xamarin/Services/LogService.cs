@@ -5,6 +5,7 @@ using System.Linq;
 using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Runtime.Inventory;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.Services
@@ -13,13 +14,7 @@ namespace Tag.Neuron.Xamarin.Services
     internal sealed class LogService : ILogService
     {
         private const string StartupCrashFileName = "CrashDump.txt";
-        private readonly IAppInformation appInformation;
         private string bareJid = string.Empty;
-
-        public LogService(IAppInformation appInformation)
-        {
-            this.appInformation = appInformation;
-        }
 
         public void AddListener(IEventSink eventSink)
         {
@@ -150,7 +145,7 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 new KeyValuePair<string, string>("Platform", Device.RuntimePlatform),
                 new KeyValuePair<string, string>("RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion),
-                new KeyValuePair<string, string>("AppVersion", this.appInformation.GetVersion())
+                new KeyValuePair<string, string>("AppVersion", AppInfo.VersionString)
             };
         }
     }
