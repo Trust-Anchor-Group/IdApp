@@ -437,6 +437,14 @@
             <param name="legalIdentity">The legal identity whose state to check.</param>
             <returns></returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.LegalIdentityExtensions.GetJId(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String)">
+            <summary>
+            Returns the JID if the <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> has one, or the empty string otherwise.
+            </summary>
+            <param name="legalIdentity">The legal identity whose JID to get.</param>
+            <param name="defaultValueIfNotFound">The default value to use if JID isn't found.</param>
+            <returns></returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Extensions.ListExtensions">
             <summary>
             Extensions for the <see cref="T:System.Collections.Generic.List`1"/> class.
