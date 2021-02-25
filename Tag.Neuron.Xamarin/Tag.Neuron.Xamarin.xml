@@ -542,27 +542,6 @@
             <param name="multiplier">The multiplie to use.</param>
             <returns></returns>
         </member>
-        <member name="T:Tag.Neuron.Xamarin.IAppInformation">
-            <summary>
-            Dependency interface for app-specific information.
-            </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.IAppInformation.GetVersion">
-            <summary>
-            Returns the version of the app.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Tag.Neuron.Xamarin.IDeviceInformation">
-            <summary>
-            Dependency interface for device-specific information.
-            </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.IDeviceInformation.GetDeviceId">
-            <summary>
-            Gets the ID of the device.
-            </summary>
-        </member>
         <member name="T:Tag.Neuron.Xamarin.ISO_3166_1">
             <summary>
             Conversion between Country Names and ISO-3166-1 2-letter country codes.

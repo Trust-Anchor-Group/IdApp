@@ -59,6 +59,11 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.About">
+            <summary>
+              Looks up a localized string similar to About the app.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Accept">
             <summary>
               Looks up a localized string similar to Accept.
