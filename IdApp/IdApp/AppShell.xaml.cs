@@ -4,6 +4,7 @@ using IdApp.Views;
 using IdApp.Views.Contracts;
 using IdApp.Views.Registration;
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
@@ -191,7 +192,10 @@ namespace IdApp
             Current.FlyoutIsPresented = false;
             this.uiDispatcher.BeginInvokeOnMainThread(async () =>
             {
-                await this.uiDispatcher.DisplayAlert(AppInfo.Name, AppInfo.VersionString);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"Version: {AppInfo.VersionString}");
+                sb.AppendLine($"Running on: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
+                await this.uiDispatcher.DisplayAlert(AppInfo.Name, sb.ToString());
             });
         }
     }

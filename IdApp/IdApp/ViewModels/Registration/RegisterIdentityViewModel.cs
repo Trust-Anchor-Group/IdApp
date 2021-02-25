@@ -50,8 +50,14 @@ namespace IdApp.ViewModels.Registration
          : base(RegistrationStep.RegisterIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
-            IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
-            this.DeviceId = deviceInfo?.GetDeviceId();
+            try
+            {
+                this.DeviceId = DeviceInfo.Model;
+            }
+            catch (NotImplementedInReferenceAssemblyException)
+            {
+                // Only happens when unit testing (since we're not linking in the platform specific assembly).
+            }
             this.Countries = new ObservableCollection<string>();
             foreach (string country in ISO_3166_1.Countries)
                 this.Countries.Add(country);

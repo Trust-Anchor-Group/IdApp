@@ -61,6 +61,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About the app.
+        /// </summary>
+        internal static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string Accept {

@@ -145,7 +145,13 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 new KeyValuePair<string, string>("Platform", Device.RuntimePlatform),
                 new KeyValuePair<string, string>("RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion),
-                new KeyValuePair<string, string>("AppVersion", AppInfo.VersionString)
+                new KeyValuePair<string, string>("AppVersion", AppInfo.VersionString),
+                new KeyValuePair<string, string>("Manufacturer", DeviceInfo.Manufacturer),
+                new KeyValuePair<string, string>("Device Model", DeviceInfo.Model),
+                new KeyValuePair<string, string>("Device Name", DeviceInfo.Name),
+                new KeyValuePair<string, string>("OS", DeviceInfo.VersionString),
+                new KeyValuePair<string, string>("Platform", DeviceInfo.Platform.ToString()),
+                new KeyValuePair<string, string>("Device Type", DeviceInfo.DeviceType.ToString()),
             };
         }
     }
