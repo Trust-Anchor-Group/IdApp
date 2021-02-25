@@ -159,7 +159,7 @@ namespace IdApp.Services
 
 			if (identity == null)
 			{
-				this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForIdentityReceived)}() - identity is missing or cannot be retrieved, ignore.");
+				this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForSignatureReceived)}() - identity is missing or cannot be retrieved, ignore.");
 				return;
 			}
 

@@ -83,6 +83,7 @@ namespace IdApp.ViewModels.Registration
         /// The command to bind to for inviting a reviewer to approve the user's identity.
         /// </summary>
         public ICommand InviteReviewerCommand { get; }
+
         /// <summary>
         /// The command to bind to for continuing to the next step in the registration process.
         /// </summary>
@@ -560,7 +561,9 @@ namespace IdApp.ViewModels.Registration
                 return;
             }
 
-            bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(Constants.UriSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
+            bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(
+                Constants.UriSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
+
             if (succeeded)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);

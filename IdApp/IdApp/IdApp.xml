@@ -21,6 +21,13 @@
         <member name="M:IdApp.App.OnSleep">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.App.SendDatabaseDiff(System.String,System.Boolean)">
+            <summary>
+            Sends the contents of the database to support.
+            </summary>
+            <param name="FileName">Name of file used to keep track of state changes.</param>
+            <param name="IncludeUnchanged">If unchanged material should be included.</param>
+        </member>
         <member name="T:IdApp.AppCenterEventSink">
             <summary>
             An event sink for reporting events to Microsoft App Center Analytics and Crashes.
@@ -2104,6 +2111,65 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.ImageCacheService.Invalidate(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Services.XmlDatabaseExport">
+            <summary>
+            Exports database contents to XML.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.#ctor(System.Text.StringBuilder,System.Boolean,System.Int32)">
+            <summary>
+            Exports database contents to XML.
+            </summary>
+            <param name="Output">XML output is directed to this XML writer.</param>
+            <param name="Indent">If output should be indented (true), or written without unnecessary whitespace (false).</param>
+            <param name="BinaryDataSizeLimit">Size limit of binary data fields. If larger, only a byte count will be presented.</param>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.#ctor(System.Xml.XmlWriter,System.Int32)">
+            <summary>
+            Exports database contents to XML.
+            </summary>
+            <param name="Output">XML output is directed to this XML writer.</param>
+            <param name="BinaryDataSizeLimit">Size limit of binary data fields. If larger, only a byte count will be presented.</param>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.StartDatabase">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.EndDatabase">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.StartCollection(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.EndCollection">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.StartIndex">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.ReportIndexField(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.EndIndex">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.StartObject(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.ReportProperty(System.String,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.EndObject">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.ReportError(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.XmlDatabaseExport.ReportException(System.Exception)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.UiConstants">

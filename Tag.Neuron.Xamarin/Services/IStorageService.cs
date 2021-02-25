@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
 using Waher.Persistence;
+using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 
@@ -41,26 +44,31 @@ namespace Tag.Neuron.Xamarin.Services
         /// Inserts an object into the database.
         /// </summary>
         /// <param name="obj">The object to store.</param>
-        /// <returns></returns>
         Task Insert(object obj);
+
         /// <summary>
         /// Updates an object in the database.
         /// </summary>
         /// <param name="obj">The object to update.</param>
-        /// <returns></returns>
         Task Update(object obj);
+        
         /// <summary>
         /// Returns the first match (if any) of the given type. Deletes the other matching entries.
         /// </summary>
         /// <typeparam name="T">The type of the objects to retrieve.</typeparam>
-        /// <returns></returns>
         Task<T> FindFirstDeleteRest<T>() where T : class;
+        
         /// <summary>
         /// Returns the first match (if any) of the given type. Ignores (leaves) the other matching entries.
         /// </summary>
         /// <typeparam name="T">The type of the objects to retrieve.</typeparam>
-        /// <returns></returns>
         Task<T> FindFirstIgnoreRest<T>() where T : class;
+
+        /// <summary>
+        /// Exports the contents of the database to <paramref name="Output"/>.
+        /// </summary>
+        /// <param name="Output">Receives the contents of the database.</param>
+        Task Export(IDatabaseExport Output);
     }
 
     /// <summary>
@@ -72,10 +80,12 @@ namespace Tag.Neuron.Xamarin.Services
         /// Persistent storage has not yet been initialized.
         /// </summary>
         NotInitialized,
+        
         /// <summary>
         /// Persistent storage is ready.
         /// </summary>
         Ready,
+        
         /// <summary>
         /// Persistent storage is experiencing failures, and needs repair.
         /// </summary>
