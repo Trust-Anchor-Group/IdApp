@@ -384,7 +384,7 @@ namespace IdApp
 			}
 		}
 
-		private async static Task SendAlert(string message, string contentType)
+		private static async Task SendAlert(string message, string contentType)
 		{
 			try
 			{
