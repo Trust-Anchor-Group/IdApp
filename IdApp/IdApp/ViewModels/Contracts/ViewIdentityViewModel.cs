@@ -113,7 +113,18 @@ namespace IdApp.ViewModels.Contracts
             Created = this.LegalIdentity?.Created ?? DateTime.MinValue;
             Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.LegalIdentity?.Id;
-            BareJId = this.NeuronService?.BareJId ?? string.Empty;
+            if (this.identityToReview.RequestorIdentity != null)
+            {
+                BareJId = this.identityToReview.RequestorIdentity.GetJId(Constants.NotAvailableValue);
+            }
+            else if (this.LegalIdentity != null)
+            {
+                BareJId = this.LegalIdentity.GetJId(Constants.NotAvailableValue);
+            }
+            else
+            {
+                BareJId = Constants.NotAvailableValue;
+            }
             if (this.LegalIdentity?.ClientPubKey != null)
             {
                 PublicKey = Convert.ToBase64String(this.LegalIdentity.ClientPubKey);
@@ -223,9 +234,18 @@ namespace IdApp.ViewModels.Contracts
         private void ReloadPhotos()
         {
             this.photosLoader.CancelLoadPhotos();
-            if (this.tagProfile?.LegalIdentity?.Attachments != null)
+            Attachment[] attachments;
+            if (this.identityToReview?.RequestorIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.tagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
+                attachments = this.identityToReview.RequestorIdentity.Attachments;
+            }
+            else
+            {
+                attachments = this.LegalIdentity?.Attachments;
+            }
+            if (attachments != null)
+            {
+                _ = this.photosLoader.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys);
             }
         }
 

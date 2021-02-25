@@ -1,4 +1,6 @@
-﻿using Waher.Networking.XMPP.Contracts;
+﻿using System;
+using System.Linq;
+using Waher.Networking.XMPP.Contracts;
 
 namespace Tag.Neuron.Xamarin.Extensions
 {
@@ -28,6 +30,23 @@ namespace Tag.Neuron.Xamarin.Extensions
         public static bool IsCreatedOrApproved(this LegalIdentity legalIdentity)
         {
             return legalIdentity != null && (legalIdentity.State == IdentityState.Created || legalIdentity.State == IdentityState.Approved);
+        }
+
+        /// <summary>
+        /// Returns the JID if the <see cref="LegalIdentity"/> has one, or the empty string otherwise.
+        /// </summary>
+        /// <param name="legalIdentity">The legal identity whose JID to get.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if JID isn't found.</param>
+        /// <returns></returns>
+        public static string GetJId(this LegalIdentity legalIdentity, string defaultValueIfNotFound = "")
+        {
+            string jid = null;
+            if (legalIdentity != null && legalIdentity.Properties?.Length > 0)
+            { 
+                jid = legalIdentity.Properties.FirstOrDefault(x => x.Name == Constants.XmppProperties.JId)?.Value;
+            }
+
+            return !string.IsNullOrWhiteSpace(jid) ? jid : defaultValueIfNotFound;
         }
     }
 }

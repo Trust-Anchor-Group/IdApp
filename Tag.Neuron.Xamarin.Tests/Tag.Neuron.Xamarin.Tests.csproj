@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

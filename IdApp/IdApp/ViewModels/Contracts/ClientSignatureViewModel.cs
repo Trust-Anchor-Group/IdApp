@@ -426,6 +426,7 @@ namespace IdApp.ViewModels.Contracts
                 this.CountryCode = identity[Constants.XmppProperties.Country];
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
                 this.IsApproved = identity.State == IdentityState.Approved;
+                this.BareJId = identity.GetJId(Constants.NotAvailableValue);
             }
             else
             {
@@ -448,6 +449,7 @@ namespace IdApp.ViewModels.Contracts
                 this.CountryCode = Constants.NotAvailableValue;
                 this.Country = Constants.NotAvailableValue;
                 this.IsApproved = false;
+                this.BareJId = Constants.NotAvailableValue;
             }
             if (signature != null)
             {
@@ -462,7 +464,6 @@ namespace IdApp.ViewModels.Contracts
                 this.Role = Constants.NotAvailableValue;
                 this.Timestamp = Constants.NotAvailableValue;
                 this.IsTransferable = AppResources.No;
-                this.BareJId = Constants.NotAvailableValue;
                 this.Signature = Constants.NotAvailableValue;
             }
         }
