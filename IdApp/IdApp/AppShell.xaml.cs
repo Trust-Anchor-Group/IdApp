@@ -153,7 +153,7 @@ namespace IdApp
         {
             try
             {
-                await App.SendDatabaseDiff("Debug.xml", true);
+                await App.EvaluateDatabaseDiff("Debug.xml", true, false);
             }
             catch (Exception ex)
 			{
