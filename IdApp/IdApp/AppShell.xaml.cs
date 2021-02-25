@@ -185,5 +185,14 @@ namespace IdApp
                 }
             });
         }
+
+        private void AboutMenuItem_Clicked(object sender, EventArgs e)
+        {
+            Current.FlyoutIsPresented = false;
+            this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+            {
+                await this.uiDispatcher.DisplayAlert(AppInfo.Name, AppInfo.VersionString);
+            });
+        }
     }
 }

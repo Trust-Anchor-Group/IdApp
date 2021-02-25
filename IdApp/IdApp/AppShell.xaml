@@ -107,5 +107,10 @@
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{Binding Path=LogInOutGlyph}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
+    <MenuItem Text="{x:Static local:AppResources.NewContract}" Clicked="AboutMenuItem_Clicked">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}" Glyph="{Binding Path=QuestionCircle}" Color="{StaticResource HeadingBackground}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
 
 </sdkViews:ShellBasePage>
