@@ -21,12 +21,13 @@
         <member name="M:IdApp.App.OnSleep">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.App.SendDatabaseDiff(System.String,System.Boolean)">
+        <member name="M:IdApp.App.EvaluateDatabaseDiff(System.String,System.Boolean,System.Boolean)">
             <summary>
             Sends the contents of the database to support.
             </summary>
             <param name="FileName">Name of file used to keep track of state changes.</param>
             <param name="IncludeUnchanged">If unchanged material should be included.</param>
+            <param name="SendAsAlert">If an alert is to be sent.</param>
         </member>
         <member name="T:IdApp.AppCenterEventSink">
             <summary>

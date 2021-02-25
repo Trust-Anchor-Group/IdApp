@@ -50,7 +50,7 @@ namespace IdApp
 		private readonly IImageCacheService imageCacheService;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly bool keepRunningInTheBackground = false;
-		private readonly Profiler startupProfiler;
+		private Profiler startupProfiler;
 
 		///<inheritdoc/>
 		public App()
@@ -219,7 +219,7 @@ namespace IdApp
 			}
 
 			thread?.Stop();
-			this.StartupCompleted();
+			this.StartupCompleted("StartupProfile.uml", false);
 		}
 
 		///<inheritdoc/>
@@ -410,7 +410,7 @@ namespace IdApp
 			this.startupProfiler?.Exception(e.Exception);
 		}
 
-		private void StartupCompleted()
+		private void StartupCompleted(string ProfileFileName, bool SendProfilingAsAlert)
 		{
 			AppDomain.CurrentDomain.FirstChanceException -= CurrentDomain_FirstChanceException;
 
@@ -418,21 +418,29 @@ namespace IdApp
 			{
 				this.startupProfiler.Stop();
 
-				//string uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
-				//
-				//this.startupProfiler = null;
-				//
-				//Task.Run(async () =>
-				//{
-				//	try
-				//	{
-				//		await SendAlert("```uml\r\n" + uml + "```", "text/markdown");
-				//	}
-				//	catch (Exception ex)
-				//	{
-				//		Waher.Events.Log.Critical(ex);
-				//	}
-				//});
+				string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+				ProfileFileName = Path.Combine(AppDataFolder, ProfileFileName);
+
+				string uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
+				File.WriteAllText(ProfileFileName, uml);
+				
+				if (SendProfilingAsAlert)
+				{
+
+					Task.Run(async () =>
+					{
+						try
+						{
+							await SendAlert("```uml\r\n" + uml + "```", "text/markdown");
+						}
+						catch (Exception ex)
+						{
+							Waher.Events.Log.Critical(ex);
+						}
+					});
+				}
+
+				this.startupProfiler = null;
 			}
 		}
 
@@ -441,7 +449,8 @@ namespace IdApp
 		/// </summary>
 		/// <param name="FileName">Name of file used to keep track of state changes.</param>
 		/// <param name="IncludeUnchanged">If unchanged material should be included.</param>
-		public static async Task SendDatabaseDiff(string FileName, bool IncludeUnchanged)
+		/// <param name="SendAsAlert">If an alert is to be sent.</param>
+		public static async Task EvaluateDatabaseDiff(string FileName, bool IncludeUnchanged, bool SendAsAlert)
 		{
 			Dictionary<string, bool> CollectionNames = new Dictionary<string, bool>();
 
@@ -513,7 +522,8 @@ namespace IdApp
 
 			string DiffMsg = Markdown.ToString();
 
-			await SendAlert(DiffMsg, "text/markdown");
+			if (SendAsAlert)
+				await SendAlert(DiffMsg, "text/markdown");
 
 			File.WriteAllText(FileName, CurrentState);
 			File.WriteAllText(FileName + ".diff.md", DiffMsg);
