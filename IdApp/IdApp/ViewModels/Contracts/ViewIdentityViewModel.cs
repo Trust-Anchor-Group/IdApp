@@ -113,7 +113,7 @@ namespace IdApp.ViewModels.Contracts
             Created = this.LegalIdentity?.Created ?? DateTime.MinValue;
             Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.LegalIdentity?.Id;
-            if (this.identityToReview.RequestorIdentity != null)
+            if (this.identityToReview?.RequestorIdentity != null)
             {
                 BareJId = this.identityToReview.RequestorIdentity.GetJId(Constants.NotAvailableValue);
             }

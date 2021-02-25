@@ -4,18 +4,21 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Threading.Tasks;
+using System.Xml;
+using IdApp.Navigation;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Tests;
 using Tag.Neuron.Xamarin.UI.Tests.Extensions;
 using Tag.Neuron.Xamarin.UI.Tests.ViewModels;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Tests.ViewModels.Contracts
 {
     public class ViewIdentityViewModelTests : ViewModelTests<ViewIdentityViewModel>
     {
-        private readonly ITagProfile tagProfile;
+        private readonly Mock<ITagProfile> tagProfile;
         private readonly Mock<IUiDispatcher> uiDispatcher;
         private readonly Mock<ILogService> logService;
         private readonly Mock<INeuronService> neuronService;
@@ -25,9 +28,7 @@ namespace IdApp.Tests.ViewModels.Contracts
 
         public ViewIdentityViewModelTests()
         {
-            this.tagProfile = new TagProfile();
-            this.tagProfile.SetDomain("domain");
-            this.tagProfile.SetLegalIdentity(new LegalIdentity { Id = Guid.NewGuid().ToString() });
+            this.tagProfile = new Mock<ITagProfile>();
             this.uiDispatcher = new Mock<IUiDispatcher>();
             this.logService = new Mock<ILogService>();
             this.neuronService = new Mock<INeuronService>();
@@ -40,7 +41,70 @@ namespace IdApp.Tests.ViewModels.Contracts
 
         protected override ViewIdentityViewModel AViewModel()
         {
-            return new ViewIdentityViewModel(this.tagProfile, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.networkService.Object, this.logService.Object);
+            return new ViewIdentityViewModel(this.tagProfile.Object, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.networkService.Object, this.logService.Object);
+        }
+
+        [SetUp]
+        public void Setup()
+        {
+            this.tagProfile.SetupGet(x => x.Domain).Returns("domain");
+            this.tagProfile.SetupGet(x => x.LegalIdentity).Returns(new LegalIdentity { Id = Guid.NewGuid().ToString() });
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            this.tagProfile.Reset();
+            this.navigationService.Reset();
+            this.uiDispatcher.Reset();
+        }
+
+        [Test]
+        public void AssignsBareJId_FromLegalIdentity_WhenIdentityToReviewIsNull()
+        {
+            LegalIdentity legalIdentity = new LegalIdentity
+            {
+                Properties = new[]
+                {
+                    new Property(Constants.XmppProperties.JId, "42")
+                }
+            };
+            ViewIdentityNavigationArgs args = new ViewIdentityNavigationArgs(legalIdentity, null);
+            this.navigationService.Setup(x => x.TryPopArgs(out args)).Returns(true);
+
+            Given(AViewModel)
+                .And(async vm => await vm.Bind())
+                .ThenAssert(vm => vm.BareJId == "42");
+        }
+
+        [Test]
+        public void AssignsBareJId_FromIdentityToReview_WhenItExists()
+        {
+            LegalIdentity legalIdentity = new LegalIdentity
+            {
+                Properties = new[]
+                {
+                    new Property(Constants.XmppProperties.JId, "42")
+                }
+            };
+            LegalIdentity identityToReview = new LegalIdentity
+            {
+                Properties = new[]
+                {
+                    new Property(Constants.XmppProperties.JId, "43")
+                }
+            };
+            XmppClient client = new XmppClient("host", 4000, "user", "pass", string.Empty, GetType().Assembly);
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml("<?xml version=\"1.0\" ?><root></root>");
+
+            ViewIdentityNavigationArgs args = new ViewIdentityNavigationArgs(legalIdentity, 
+                new SignaturePetitionEventArgs(new MessageEventArgs(client, doc.DocumentElement), identityToReview, Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), "purpose", new byte[0]));
+            this.navigationService.Setup(x => x.TryPopArgs(out args)).Returns(true);
+
+            Given(AViewModel)
+                .And(async vm => await vm.Bind())
+                .ThenAssert(vm => vm.BareJId == "43");
         }
 
         [Test]
@@ -58,6 +122,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
                 .And(vm => ActionCommandIsExecuted(vm.RevokeCommand))
+                .ThenAssert(() => this.tagProfile.Verify(x => x.RevokeLegalIdentity(It.IsAny<LegalIdentity>()), Times.Once))
                 .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"{nameof(RegistrationPage)}"), Times.Once))
                 .ThenAssert(() => this.uiDispatcher.Verify(x => x.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.No), Times.Once));
         }
@@ -77,6 +142,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
                 .And(vm => ActionCommandIsExecuted(vm.CompromiseCommand))
+                .ThenAssert(() => this.tagProfile.Verify(x => x.RevokeLegalIdentity(It.IsAny<LegalIdentity>()), Times.Once))
                 .ThenAssert(() => this.navigationService.Verify(x => x.GoToAsync($"{nameof(RegistrationPage)}"), Times.Once))
                 .ThenAssert(() => this.uiDispatcher.Verify(x => x.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.No), Times.Once));
         }
