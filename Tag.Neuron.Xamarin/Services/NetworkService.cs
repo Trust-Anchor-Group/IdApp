@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Tag.Neuron.Xamarin.Extensions;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
@@ -99,7 +100,7 @@ namespace Tag.Neuron.Xamarin.Services
                 }
                 else
                 {
-                    TReturn t = await func();
+                    TReturn t = await func().TimeoutAfter(Constants.Timeouts.GenericRequest);
                     return (true, t);
                 }
             }
