@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Waher.Networking.XMPP;
 
 namespace Tag.Neuron.Xamarin.Services
@@ -6,6 +7,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// <summary>
     /// Represents an event class holding data related to connection state changes.
     /// </summary>
+    [DebuggerDisplay("State = {State} IsUserInitiated = {IsUserInitiated}")]
     public sealed class ConnectionStateChangedEventArgs : EventArgs
     {
         /// <summary>

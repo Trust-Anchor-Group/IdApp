@@ -45,14 +45,20 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool userInitiatedLogInOrOut;
 
 		public NeuronService(
-			Assembly appAssembly,
 			ITagProfile tagProfile,
 			IUiDispatcher uiDispatcher,
 			INetworkService networkService,
 			ILogService logService,
 			Profiler startupProfiler)
 		{
-			this.appAssembly = appAssembly;
+            if (Types.TryGetModuleParameter("AppAssembly", out object a) && a is Assembly aa)
+            {
+                this.appAssembly = aa;
+            }
+            else
+            {
+                this.appAssembly = GetType().Assembly;
+            }
 			this.networkService = networkService;
 			this.logService = logService;
 			this.tagProfile = tagProfile;
@@ -250,11 +256,10 @@ namespace Tag.Neuron.Xamarin.Services
 					}
                     string legalJidAfter = this.tagProfile.LegalJid;
 
-                    bool legalJidWasCleared = !string.IsNullOrWhiteSpace(legalJidBefore) &&
-                                               string.IsNullOrWhiteSpace(legalJidAfter);
+                    bool legalJidWasCleared = !string.IsNullOrWhiteSpace(legalJidBefore) && string.IsNullOrWhiteSpace(legalJidAfter);
+                    bool legalJidIsValid = !string.IsNullOrWhiteSpace(legalJidAfter);
+					bool legalJidHasChangedAndIsValid = legalJidIsValid && !string.Equals(legalJidBefore, legalJidAfter);
 
-					bool legalJidHasChangedAndIsValid = !string.IsNullOrWhiteSpace(legalJidAfter) &&
-                                                         !string.Equals(legalJidBefore, legalJidAfter);
 					// If LegalJid was cleared, or is different
 					if (legalJidWasCleared || legalJidHasChangedAndIsValid)
                     {
@@ -262,7 +267,7 @@ namespace Tag.Neuron.Xamarin.Services
                     }
 
 					// If we have a valid Jid, and contracts isn't created yet.
-					if (legalJidHasChangedAndIsValid)
+					if (legalJidHasChangedAndIsValid || (legalJidIsValid && !this.contracts.IsOnline))
                     {
                         try
                         {
@@ -370,7 +375,7 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-		public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
+        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
 		private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
 		{

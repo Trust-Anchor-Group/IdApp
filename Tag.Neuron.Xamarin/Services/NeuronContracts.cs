@@ -37,16 +37,14 @@ namespace Tag.Neuron.Xamarin.Services
 
         internal async Task CreateClients()
         {
-            await CreateContractsClient();
             await CreateFileUploadClient();
-            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
+            await CreateContractsClient();
         }
 
         internal void DestroyClients()
         {
-            DestroyContractsClient();
             DestroyFileUploadClient();
-            this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
+            DestroyContractsClient();
         }
 
         private async Task CreateContractsClient()
@@ -54,6 +52,7 @@ namespace Tag.Neuron.Xamarin.Services
             if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
                 DestroyContractsClient();
+                XmppState stateBefore = GetState();
                 this.contractsClient = await this.neuronService.CreateContractsClientAsync();
                 this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
                 this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
@@ -64,11 +63,17 @@ namespace Tag.Neuron.Xamarin.Services
                 this.contractsClient.PetitionedSignatureResponseReceived += ContractsClient_PetitionedSignatureResponseReceived;
                 this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
                 this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
+                XmppState stateAfter = GetState();
+                if (stateBefore != stateAfter)
+                {
+                    this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(stateAfter, false));
+                }
             }
         }
 
         private void DestroyContractsClient()
         {
+            XmppState stateBefore = GetState();
             if (this.contractsClient != null)
             {
                 this.contractsClient.IdentityUpdated -= ContractsClient_IdentityUpdated;
@@ -82,6 +87,11 @@ namespace Tag.Neuron.Xamarin.Services
                 this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
                 this.contractsClient.Dispose();
                 this.contractsClient = null;
+            }
+            XmppState stateAfter = GetState();
+            if (stateBefore != stateAfter)
+            {
+                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(stateAfter, false));
             }
         }
 

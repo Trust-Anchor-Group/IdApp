@@ -38,19 +38,20 @@ namespace IdApp
 	public partial class App
 	{
 		private Timer autoSaveTimer;
-		private readonly ITagProfile tagProfile;
-		private readonly ILogService logService;
-		private readonly IUiDispatcher uiDispatcher;
-		private readonly ICryptoService cryptoService;
-		private readonly INetworkService networkService;
-		private readonly ISettingsService settingsService;
-		private readonly IStorageService storageService;
-		private readonly INavigationService navigationService;
-		private readonly INeuronService neuronService;
-		private readonly IImageCacheService imageCacheService;
-		private readonly IContractOrchestratorService contractOrchestratorService;
+		private ITagProfile tagProfile;
+		private ILogService logService;
+		private IUiDispatcher uiDispatcher;
+		private ICryptoService cryptoService;
+		private INetworkService networkService;
+		private ISettingsService settingsService;
+		private IStorageService storageService;
+		private INavigationService navigationService;
+		private INeuronService neuronService;
+		private IImageCacheService imageCacheService;
+		private IContractOrchestratorService contractOrchestratorService;
 		private readonly bool keepRunningInTheBackground = false;
 		private Profiler startupProfiler;
+        private readonly Assembly appAssembly;
 
 		///<inheritdoc/>
 		public App()
@@ -69,7 +70,7 @@ namespace IdApp
 			{
 				this.startupProfiler?.NewState("Types");
 
-				Assembly appAssembly = this.GetType().Assembly;
+				this.appAssembly = this.GetType().Assembly;
 
 				if (!Types.IsInitialized)
 				{
@@ -90,17 +91,7 @@ namespace IdApp
 
 				this.startupProfiler?.NewState("SDK");
 
-				this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)new XmppConfiguration().ToArray());
-				this.logService = Types.InstantiateDefault<ILogService>(false);
-				this.uiDispatcher = Types.InstantiateDefault<IUiDispatcher>(false);
-				this.cryptoService = Types.InstantiateDefault<ICryptoService>(false, this.logService);
-				this.networkService = Types.InstantiateDefault<INetworkService>(false, this.logService, this.uiDispatcher);
-				this.settingsService = Types.InstantiateDefault<ISettingsService>(false);
-				this.storageService = Types.InstantiateDefault<IStorageService>(false, this.logService, this.cryptoService, this.uiDispatcher);
-				this.navigationService = Types.InstantiateDefault<INavigationService>(false, this.logService, this.uiDispatcher);
-				this.neuronService = Types.InstantiateDefault<INeuronService>(false, appAssembly, this.tagProfile, this.uiDispatcher, this.networkService, this.logService, startupProfiler);
-				this.imageCacheService = Types.InstantiateDefault<IImageCacheService>(false, this.settingsService, this.logService);
-                this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.tagProfile, this.uiDispatcher, this.neuronService, this.navigationService, this.logService, this.networkService);
+                this.CreateServices();
 
                 // Set resolver
                 DependencyResolver.ResolveUsing(type =>
@@ -144,6 +135,40 @@ namespace IdApp
 
 		#region Startup/Shutdown
 
+		private void CreateServices()
+        {
+            if (this.tagProfile != null)
+                return;
+
+			Types.SetModuleParameter("AppAssembly", this.GetType().Assembly);
+            this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)new XmppConfiguration().ToArray());
+            this.logService = Types.Instantiate<ILogService>(false);
+            this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
+            this.cryptoService = Types.Instantiate<ICryptoService>(false);
+            this.networkService = Types.Instantiate<INetworkService>(false);
+            this.settingsService = Types.Instantiate<ISettingsService>(false);
+            this.storageService = Types.Instantiate<IStorageService>(false);
+            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.neuronService = Types.InstantiateDefault<INeuronService>(false);
+            this.imageCacheService = Types.Instantiate<IImageCacheService>(false);
+            this.contractOrchestratorService = Types.Instantiate<IContractOrchestratorService>(false);
+        }
+
+		private void DestroyServices()
+        {
+            this.tagProfile = null;
+            this.logService = null;
+            this.uiDispatcher = null;
+            this.cryptoService = null;
+            this.networkService = null;
+            this.settingsService = null;
+            this.storageService = null;
+            this.navigationService = null;
+            this.neuronService = null;
+            this.imageCacheService = null;
+            this.contractOrchestratorService = null;
+        }
+
 		///<inheritdoc/>
 		protected override async void OnStart()
 		{
@@ -168,6 +193,8 @@ namespace IdApp
 
 			try
 			{
+				this.CreateServices();
+
 				thread?.NewState("Report");
 				await this.SendErrorReportFromPreviousRun();
 
@@ -188,12 +215,9 @@ namespace IdApp
 					await this.storageService.TryRepairDatabase(sdkStartupThread);
 				}
 
-				if (!isResuming)
-				{
-					await this.CreateOrRestoreConfiguration();
-				}
+                await this.CreateOrRestoreConfiguration();
 
-				sdkStartupThread?.NewState("Load");
+                sdkStartupThread?.NewState("Load");
 
 				await this.neuronService.Load(isResuming);
 
@@ -263,6 +287,7 @@ namespace IdApp
 			{
 				await this.storageService.Shutdown();
 			}
+			this.DestroyServices();
 		}
 
 		#endregion

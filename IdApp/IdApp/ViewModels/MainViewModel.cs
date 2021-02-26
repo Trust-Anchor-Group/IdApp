@@ -46,7 +46,6 @@ namespace IdApp.ViewModels
             : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
             logService = logService ?? DependencyService.Resolve<ILogService>();
-            neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
@@ -59,6 +58,7 @@ namespace IdApp.ViewModels
         {
             await base.DoBind();
             this.AssignProperties();
+            this.SetConnectionStateAndText(this.NeuronService.State);
             this.NeuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
             this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
         }
@@ -470,7 +470,7 @@ namespace IdApp.ViewModels
         {
             this.UiDispatcher.BeginInvokeOnMainThread(() =>
             {
-                this.SetConnectionStateAndText(e.State);
+                this.SetConnectionStateAndText(this.NeuronService.State);
             });
         }
 
