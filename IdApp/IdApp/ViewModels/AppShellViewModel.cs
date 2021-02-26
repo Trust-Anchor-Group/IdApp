@@ -101,14 +101,14 @@ namespace IdApp.ViewModels
         /// See <see cref="LogInOutGlyph"/>
         /// </summary>
         public static readonly BindableProperty LogInOutGlyphProperty =
-            BindableProperty.Create("LogInOutGlyph", typeof(FontImageSource), typeof(AppShellViewModel), default(FontImageSource));
+            BindableProperty.Create("LogInOutGlyph", typeof(string), typeof(AppShellViewModel), default(string));
 
         /// <summary>
         /// The icon to use for the log in/log out menu item.
         /// </summary>
-        public FontImageSource LogInOutGlyph
+        public string LogInOutGlyph
         {
-            get { return (FontImageSource)GetValue(LogInOutGlyphProperty); }
+            get { return (string)GetValue(LogInOutGlyphProperty); }
             set { SetValue(LogInOutGlyphProperty, value); }
         }
 
@@ -133,12 +133,12 @@ namespace IdApp.ViewModels
         {
             if (this.UserIsLoggedOut)
             {
-                this.LogInOutGlyph = new FontImageSource { Glyph = SolidIcons.SignIn };
+                this.LogInOutGlyph = SolidIcons.SignIn;
                 this.LogInOutText = AppResources.SignIn;
             }
             else
             {
-                this.LogInOutGlyph = new FontImageSource { Glyph = SolidIcons.SignOut };
+                this.LogInOutGlyph = SolidIcons.SignOut;
                 this.LogInOutText = AppResources.SignOut;
             }
         }
