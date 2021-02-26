@@ -320,6 +320,11 @@
             Timer Timeout Values
             </summary>
         </member>
+        <member name="F:Tag.Neuron.Xamarin.Constants.Timeouts.GenericRequest">
+            <summary>
+            Generic request timeout
+            </summary>
+        </member>
         <member name="F:Tag.Neuron.Xamarin.Constants.Timeouts.Database">
             <summary>
             Database timeout
