@@ -6,7 +6,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
 {
     public class NavigationServiceTests
     {
-        private readonly INavigationService sut;
+        private readonly NavigationService sut;
 
         public NavigationServiceTests()
         {
@@ -33,7 +33,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         }
 
         [Test]
-        public void PopArgs_Twice_ReturnsNullTheSecondTime()
+        public void PopArgs_Twice_ReturnsSameArgsTheSecondTime()
         {
             TestArgs1 ta1 = new TestArgs1();
             sut.PushArgs(ta1);
@@ -43,8 +43,8 @@ namespace Tag.Neuron.Xamarin.Tests.Services
             Assert.AreSame(ta1, ta2);
 
             succeeded = sut.TryPopArgs(out ta2);
-            Assert.IsFalse(succeeded);
-            Assert.IsNull(ta2);
+            Assert.IsTrue(succeeded);
+            Assert.AreSame(ta1, ta2);
         }
 
         [Test]

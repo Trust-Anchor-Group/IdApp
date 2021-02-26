@@ -109,7 +109,7 @@
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.About}" Clicked="AboutMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeRegular}" Glyph="{x:Static local:Icons.QuestionCircle}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.QuestionCircle}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
 

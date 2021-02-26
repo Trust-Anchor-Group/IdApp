@@ -13,8 +13,8 @@
         /// The trash can icon
         /// </summary>
         public const string TrashAlt = "\uf2ed";
-        public const string QuestionCircle = "\uf059";
     }
+
     /// <summary>
     /// A list of Unicode constants for the FontAwesome Solod Icons.
     /// </summary>
@@ -64,5 +64,9 @@
         /// The sign in icon
         /// </summary>
         public const string SignIn = "\uf2f6";
+        /// <summary>
+        /// The question mark in a circle icon
+        /// </summary>
+        public const string QuestionCircle = "\uf059";
     }
 }

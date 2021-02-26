@@ -31,12 +31,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <returns></returns>
         Task GoBackAsync();
         /// <summary>
-        /// Pushes page arguments onto the (one-level) deep navigation stack.
-        /// </summary>
-        /// <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="NavigationArgs"/>.</typeparam>
-        /// <param name="args">The actual args.</param>
-        void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs;
-        /// <summary>
         /// Tries to pop/read page arguments from the (one-level) deep navigation stack.
         /// </summary>
         /// <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="NavigationArgs"/>.</typeparam>

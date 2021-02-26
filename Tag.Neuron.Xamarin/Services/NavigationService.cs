@@ -18,7 +18,7 @@ namespace Tag.Neuron.Xamarin.Services
             this.uiDispatcher = uiDispatcher;
         }
 
-        public void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs
+        internal void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs
         {
             this.navigationArgs = args;
         }
@@ -31,9 +31,6 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 args = this.navigationArgs as TArgs;
             }
-
-            // Reset to null
-            this.navigationArgs = null;
 
             return args != null;
         }
