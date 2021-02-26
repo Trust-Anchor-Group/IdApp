@@ -542,6 +542,16 @@
             <param name="multiplier">The multiplie to use.</param>
             <returns></returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.IDeviceInformation">
+            <summary>
+            Dependency interface for device-specific information.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IDeviceInformation.GetDeviceId">
+            <summary>
+            Gets the ID of the device.
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.ISO_3166_1">
             <summary>
             Conversion between Country Names and ISO-3166-1 2-letter country codes.
@@ -986,7 +996,7 @@
         <member name="T:Tag.Neuron.Xamarin.Services.INavigationService">
             <summary>
             The navigation service is a wafer-thin wrapper around the <see cref="T:Xamarin.Forms.Shell"/>'s <c>GoToAsync()</c> methods.
-            It also provides a uniform way of passing arguments to pages, see the <see cref="M:Tag.Neuron.Xamarin.Services.INavigationService.PushArgs``1(``0)"/> and <see cref="M:Tag.Neuron.Xamarin.Services.INavigationService.TryPopArgs``1(``0@)"/> methods.
+            It also provides a uniform way of passing arguments to pages, see the <see cref="!:PushArgs&lt;TArgs&gt;"/> and <see cref="M:Tag.Neuron.Xamarin.Services.INavigationService.TryPopArgs``1(``0@)"/> methods.
             Allows for easy mocking when unit testing.
             </summary>
         </member>
@@ -1010,13 +1020,6 @@
             Returns to the previous page/route.
             </summary>
             <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.PushArgs``1(``0)">
-            <summary>
-            Pushes page arguments onto the (one-level) deep navigation stack.
-            </summary>
-            <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:Tag.Neuron.Xamarin.Services.NavigationArgs"/>.</typeparam>
-            <param name="args">The actual args.</param>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.TryPopArgs``1(``0@)">
             <summary>
