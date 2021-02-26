@@ -1528,6 +1528,11 @@
             The sign in icon
             </summary>
         </member>
+        <member name="F:IdApp.SolidIcons.QuestionCircle">
+            <summary>
+            The question mark in a circle icon
+            </summary>
+        </member>
         <member name="T:IdApp.Models.ContractModel">
             <summary>
             The data model for a contract.
