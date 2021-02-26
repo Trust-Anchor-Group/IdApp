@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +21,7 @@ using Waher.Runtime.Profiling;
 
 namespace Tag.Neuron.Xamarin.Services
 {
-	[Singleton]
+    [Singleton]
 	internal sealed class NeuronService : LoadableService, IInternalNeuronService
 	{
 		private readonly Assembly appAssembly;
@@ -42,7 +41,6 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool xmppSettingsOk;
 		private readonly InMemorySniffer sniffer;
 		private bool isCreatingClient;
-		private bool isCreatingContractClient;
 		private XmppEventSink xmppEventSink;
 		private bool userInitiatedLogInOrOut;
 
@@ -71,12 +69,6 @@ namespace Tag.Neuron.Xamarin.Services
 			this.DestroyXmppClient();
 			this.Contracts.Dispose();
 		}
-
-		//      public Profiler StartupProfiler
-		//{
-		//          get => this.startupProfiler;
-		//          internal set => this.startupProfiler = value;
-		//}
 
 		#region Create/Destroy
 
@@ -110,8 +102,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 					(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
 
-					this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod,
-						Constants.LanguageCodes.Default, appAssembly, this.sniffer)
+					this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer)
 					{
 						TrustServer = !isIpAddress,
 						AllowCramMD5 = false,
@@ -126,39 +117,37 @@ namespace Tag.Neuron.Xamarin.Services
 					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
+                    this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
+
+                    if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+                    {
+                        await this.contracts.CreateClients();
+                    }
 
 					this.IsLoggedOut = false;
 					this.xmppClient.Connect(isIpAddress ? string.Empty : domainName);
 
-					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
-
-					bool connectSucceeded = false;
-
+                    bool connectSucceeded = false;
 					// Await connected state during registration or user initiated log in, but not otherwise.
-					if (this.xmppClient != null && (!this.tagProfile.IsCompleteOrWaitingForValidation() || this.userInitiatedLogInOrOut))
+					if (!this.tagProfile.IsCompleteOrWaitingForValidation() || this.userInitiatedLogInOrOut)
 					{
 						connectSucceeded = await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
 					}
 					// This saves startup time for registered users with a complete profile
-					if (this.xmppClient != null && this.tagProfile.IsComplete())
+					if (this.tagProfile.IsComplete())
 					{
 						connectSucceeded = true;
 					}
 
-					if (connectSucceeded)
-					{
-						await CreateContractsClientIfNeeded();
-					}
-					else
-					{
-						this.logService.LogWarning("Connect to Xmpp server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
+					if (!connectSucceeded)
+                    {
+						this.logService.LogWarning("Connect to XMPP server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
 							this.domainName,
 							this.accountName,
 							(int)Constants.Timeouts.XmppConnect.TotalMilliseconds);
 					}
 
-					this.reconnectTimer?.Dispose();
-					this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
+					this.RecreateReconnectTimer();
 				}
 			}
 			finally
@@ -205,22 +194,11 @@ namespace Tag.Neuron.Xamarin.Services
 			return this.tagProfile.Step <= RegistrationStep.Account && this.xmppClient != null;
 		}
 
-		private async Task CreateContractsClientIfNeeded()
-		{
-			if (!this.contracts.IsOnline && !this.isCreatingContractClient)
-			{
-				this.isCreatingContractClient = true;
-				try
-				{
-					await this.contracts.CreateClients();
-				}
-				catch (Exception e)
-				{
-					this.logService.LogException(e);
-				}
-				this.isCreatingContractClient = false;
-			}
-		}
+		private void RecreateReconnectTimer()
+        {
+			this.reconnectTimer?.Dispose();
+            this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
+        }
 
 		#endregion
 
@@ -263,19 +241,38 @@ namespace Tag.Neuron.Xamarin.Services
 
 					this.xmppSettingsOk = true;
 
-					this.reconnectTimer?.Dispose();
-					this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
+					this.RecreateReconnectTimer();
 
+                    string legalJidBefore = this.tagProfile.LegalJid;
 					if (this.tagProfile.NeedsUpdating())
 					{
 						await this.DiscoverServices();
 					}
+                    string legalJidAfter = this.tagProfile.LegalJid;
 
-					if (!isCreatingClient)
-					{
-						// Only do this during reconnect attempts.
-						await CreateContractsClientIfNeeded();
-					}
+                    bool legalJidWasCleared = !string.IsNullOrWhiteSpace(legalJidBefore) &&
+                                               string.IsNullOrWhiteSpace(legalJidAfter);
+
+					bool legalJidHasChangedAndIsValid = !string.IsNullOrWhiteSpace(legalJidAfter) &&
+                                                         !string.Equals(legalJidBefore, legalJidAfter);
+					// If LegalJid was cleared, or is different
+					if (legalJidWasCleared || legalJidHasChangedAndIsValid)
+                    {
+                        this.contracts.DestroyClients();
+                    }
+
+					// If we have a valid Jid, and contracts isn't created yet.
+					if (legalJidHasChangedAndIsValid)
+                    {
+                        try
+                        {
+                            await this.contracts.CreateClients();
+                        }
+                        catch (Exception e)
+                        {
+                            this.logService.LogException(e);
+                        }
+                    }
 
 					this.logService.AddListener(this.xmppEventSink);
 

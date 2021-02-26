@@ -193,9 +193,12 @@ namespace IdApp
             this.uiDispatcher.BeginInvokeOnMainThread(async () =>
             {
                 StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"Name: {AppInfo.Name}");
                 sb.AppendLine($"Version: {AppInfo.VersionString}");
-                sb.AppendLine($"Running on: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
-                await this.uiDispatcher.DisplayAlert(AppInfo.Name, sb.ToString());
+                sb.AppendLine($"Platform: {Device.RuntimePlatform}");
+                sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
+                sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
+                await this.uiDispatcher.DisplayAlert(AppResources.About, sb.ToString());
             });
         }
     }
