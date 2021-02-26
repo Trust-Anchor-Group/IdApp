@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.IoTGateway.Setup;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -195,6 +196,8 @@ namespace IdApp
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"Name: {AppInfo.Name}");
                 sb.AppendLine($"Version: {AppInfo.VersionString}");
+                sb.AppendLine($"Build date: {XmppConfiguration.BuildDate}");
+                sb.AppendLine($"Build time: {XmppConfiguration.BuildTime}");
                 sb.AppendLine($"Platform: {Device.RuntimePlatform}");
                 sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
                 sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
