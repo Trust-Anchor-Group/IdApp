@@ -6,6 +6,7 @@ using System;
 using System.Threading.Tasks;
 using System.Xml;
 using IdApp.Navigation;
+using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Tests;
@@ -25,6 +26,7 @@ namespace IdApp.Tests.ViewModels.Contracts
         private readonly Mock<INeuronContracts> neuronContracts;
         private readonly Mock<INavigationService> navigationService;
         private readonly Mock<INetworkService> networkService;
+        private readonly Mock<IImageCacheService> imageCacheService;
 
         public ViewIdentityViewModelTests()
         {
@@ -35,13 +37,14 @@ namespace IdApp.Tests.ViewModels.Contracts
             this.neuronContracts = new Mock<INeuronContracts>();
             this.navigationService = new Mock<INavigationService>();
             this.networkService = new Mock<INetworkService>();
+            this.imageCacheService = new Mock<IImageCacheService>();
             this.neuronService.Setup(x => x.Contracts).Returns(this.neuronContracts.Object);
             MockForms.Init();
         }
 
         protected override ViewIdentityViewModel AViewModel()
         {
-            return new ViewIdentityViewModel(this.tagProfile.Object, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.networkService.Object, this.logService.Object);
+            return new ViewIdentityViewModel(this.tagProfile.Object, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.networkService.Object, this.logService.Object, this.imageCacheService.Object);
         }
 
         [SetUp]
@@ -57,6 +60,44 @@ namespace IdApp.Tests.ViewModels.Contracts
             this.tagProfile.Reset();
             this.navigationService.Reset();
             this.uiDispatcher.Reset();
+        }
+
+        [Test]
+        public void AssignsLegalIdentity_FromTagProfile_WhenArgsIsEmpty()
+        {
+            LegalIdentity legalIdentity = new LegalIdentity
+            {
+                Properties = new[]
+                {
+                    new Property(Constants.XmppProperties.JId, "42")
+                }
+            };
+            ViewIdentityNavigationArgs args = new ViewIdentityNavigationArgs(null, null);
+            this.navigationService.Setup(x => x.TryPopArgs(out args)).Returns(true);
+            this.tagProfile.SetupGet(x => x.LegalIdentity).Returns(legalIdentity);
+
+            Given(AViewModel)
+                .And(async vm => await vm.Bind())
+                .ThenAssert(vm => ReferenceEquals(legalIdentity, vm.LegalIdentity));
+        }
+
+        [Test]
+        public void AssignsLegalIdentity_FromArgs_WhenSet()
+        {
+            LegalIdentity legalIdentityArgs = new LegalIdentity
+            {
+                Properties = new[]
+                {
+                    new Property(Constants.XmppProperties.JId, "42")
+                }
+            };
+            ViewIdentityNavigationArgs args = new ViewIdentityNavigationArgs(legalIdentityArgs, null);
+            this.navigationService.Setup(x => x.TryPopArgs(out args)).Returns(true);
+            this.tagProfile.SetupGet(x => x.LegalIdentity).Returns(new LegalIdentity { Id = Guid.NewGuid().ToString() });
+
+            Given(AViewModel)
+                .And(async vm => await vm.Bind())
+                .ThenAssert(vm => ReferenceEquals(legalIdentityArgs, vm.LegalIdentity));
         }
 
         [Test]

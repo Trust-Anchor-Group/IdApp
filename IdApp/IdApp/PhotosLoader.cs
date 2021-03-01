@@ -12,7 +12,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using Xamarin.Forms;
 
-namespace IdApp.ViewModels
+namespace IdApp
 {
     /// <summary>
     /// This is a helper class for downloading photos via http requests.

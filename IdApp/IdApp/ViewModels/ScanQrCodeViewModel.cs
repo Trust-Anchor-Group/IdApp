@@ -24,11 +24,20 @@ namespace IdApp.ViewModels
         /// Creates a new instance of the <see cref="ScanQrCodeViewModel"/> class.
         /// </summary>
         public ScanQrCodeViewModel()
+            : this(null)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ScanQrCodeViewModel"/> class.
+        /// For unit tests.
+        /// </summary>
+        protected internal ScanQrCodeViewModel(INavigationService navigationService)
         {
             SwitchModeCommand = new Command(SwitchMode);
             OpenCommandText = AppResources.Open;
             SetModeText();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
         }
 
         /// <inheritdoc />

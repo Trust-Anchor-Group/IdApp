@@ -22,8 +22,18 @@ namespace IdApp.ViewModels.Contracts
         /// Creates an instance of the <see cref="ServerSignatureViewModel"/> class.
         /// </summary>
         public ServerSignatureViewModel()
+            : this(null)
         {
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="ServerSignatureViewModel"/> class.
+        /// For unit tests.
+        /// <param name="navigationService">The navigation service.</param>
+        /// </summary>
+        protected internal ServerSignatureViewModel(INavigationService navigationService)
+        {
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
         }
 
         /// <inheritdoc/>

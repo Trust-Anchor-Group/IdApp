@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
@@ -25,13 +26,22 @@ namespace IdApp.ViewModels.Registration
         /// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
         /// </summary>
         public RegistrationViewModel()
-            : this(null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null)
         {
         }
 
         /// <summary>
         /// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
         /// For unit tests.
+        /// <param name="tagProfile">The tag profile to work with.</param>
+        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="settingsService">The settings service for persisting UI state.</param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="cryptoService">The service to use for cryptographic operations.</param>
+        /// <param name="navigationService">The navigation service to use for app navigation</param>
+        /// <param name="networkService">The network and connectivity service.</param>
+        /// <param name="logService">The log service.</param>
+        /// <param name="imageCacheService">The image cache to use.</param>
         /// </summary>
         protected internal RegistrationViewModel(
             ITagProfile tagProfile,
@@ -41,7 +51,8 @@ namespace IdApp.ViewModels.Registration
             ICryptoService cryptoService, 
             INavigationService navigationService,
             INetworkService networkService, 
-            ILogService logService)
+            ILogService logService,
+            IImageCacheService imageCacheService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
@@ -51,13 +62,14 @@ namespace IdApp.ViewModels.Registration
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             logService = logService ?? DependencyService.Resolve<ILogService>();
+            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
                 this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, cryptoService, networkService, logService)),
-                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService)),
-                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
+                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService, imageCacheService)),
+                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService, imageCacheService)),
                 this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, logService))
             };
             SyncTagProfileStep();

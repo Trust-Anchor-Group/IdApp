@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using IdApp.Services;
 using IdApp.ViewModels.Registration;
 using Moq;
 using NUnit.Framework;
@@ -24,6 +25,7 @@ namespace IdApp.Tests.ViewModels.Registration
         private readonly Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         private readonly Mock<INetworkService> networkService = new Mock<INetworkService>();
         private readonly Mock<ILogService> logService = new Mock<ILogService>();
+        private readonly Mock<IImageCacheService> imageCacheService = new Mock<IImageCacheService>();
 
         public RegisterIdentityViewModelTests()
         {
@@ -33,7 +35,7 @@ namespace IdApp.Tests.ViewModels.Registration
 
         protected override RegisterIdentityViewModel AViewModel()
         {
-            return new RegisterIdentityViewModel(tagProfile.Object, dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object);
+            return new RegisterIdentityViewModel(tagProfile.Object, dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object, this.imageCacheService.Object);
         }
 
         const string Folder = "images";

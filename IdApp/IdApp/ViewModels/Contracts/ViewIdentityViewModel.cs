@@ -38,19 +38,21 @@ namespace IdApp.ViewModels.Contracts
             INeuronService neuronService,
             INavigationService navigationService,
             INetworkService networkService,
-            ILogService logService)
+            ILogService logService,
+            IImageCacheService imageCacheService)
         : base(neuronService, uiDispatcher)
         {
             this.tagProfile = tagProfile;
             this.logService = logService;
             this.navigationService = navigationService;
             this.networkService = networkService;
+            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
             this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
             this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);
             this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
             this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, uiDispatcher, DependencyService.Resolve<IImageCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService, this.Photos);
         }
 
         /// <inheritdoc/>
@@ -62,7 +64,7 @@ namespace IdApp.ViewModels.Contracts
                 this.LegalIdentity = args.Identity ?? tagProfile.LegalIdentity;
                 this.identityToReview = args.IdentityToReview;
             }
-            else if (this.LegalIdentity == null)
+            if (this.LegalIdentity == null)
             {
                 this.LegalIdentity = tagProfile.LegalIdentity;
                 this.identityToReview = null;
@@ -79,6 +81,7 @@ namespace IdApp.ViewModels.Contracts
             this.photosLoader.CancelLoadPhotos();
             this.tagProfile.Changed -= TagProfile_Changed;
             this.NeuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
+            this.LegalIdentity = null;
             await base.DoUnbind();
         }
 

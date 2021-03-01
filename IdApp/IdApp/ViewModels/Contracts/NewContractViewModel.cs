@@ -41,16 +41,42 @@ namespace IdApp.ViewModels.Contracts
         /// Creates an instance of the <see cref="NewContractViewModel"/> class.
         /// </summary>
         public NewContractViewModel()
+            : this(null, null, null, null, null, null, null, null)
         {
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="NewContractViewModel"/> class.
+        /// For unit tests.
+        /// <param name="tagProfile">The tag profile to work with.</param>
+        /// <param name="logService">The log service.</param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="networkService">The network and connectivity service.</param>
+        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="navigationService">The navigation service to use for app navigation</param>
+        /// <param name="settingsService">The settings service for persisting UI state.</param>
+        /// <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
+        /// </summary>
+        protected internal NewContractViewModel(
+            ITagProfile tagProfile, 
+            ILogService logService, 
+            INeuronService neuronService, 
+            INetworkService networkService, 
+            IUiDispatcher uiDispatcher,
+            INavigationService navigationService,
+            ISettingsService settingsService,
+            IContractOrchestratorService contractOrchestratorService)
+        {
+            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
+            this.logService = logService ?? DependencyService.Resolve<ILogService>();
+            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
+            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
+            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
+            this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
+            this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
+
             this.contractTypesPerCategory = new SortedDictionary<string, SortedDictionary<string, string>>();
-            this.logService = DependencyService.Resolve<ILogService>();
-            this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.networkService = DependencyService.Resolve<INetworkService>();
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.settingsService = DependencyService.Resolve<ISettingsService>();
-            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-            this.tagProfile = DependencyService.Resolve<ITagProfile>();
             this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
             this.ContractCategories = new ObservableCollection<string>();
             this.ContractTypes = new ObservableCollection<string>();

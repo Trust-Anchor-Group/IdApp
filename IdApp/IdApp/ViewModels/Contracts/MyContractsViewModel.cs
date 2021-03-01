@@ -35,11 +35,25 @@ namespace IdApp.ViewModels.Contracts
         /// <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
         /// </summary>
         public MyContractsViewModel(bool showCreatedContracts)
+            : this(showCreatedContracts, null, null, null, null)
         {
-            this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.networkService = DependencyService.Resolve<INetworkService>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="MyContractsViewModel"/> class.
+        /// For unit tests.
+        /// <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="networkService">The network service for network access.</param>
+        /// <param name="navigationService">The navigation service.</param>
+        /// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+        /// </summary>
+        protected internal MyContractsViewModel(bool showCreatedContracts, INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher)
+        {
+            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
+            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
+            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             this.showCreatedContracts = showCreatedContracts;
             this.contractsMap = new Dictionary<string, Contract>();
             this.Contracts = new ObservableCollection<ContractModel>();

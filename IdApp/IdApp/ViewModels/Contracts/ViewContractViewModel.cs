@@ -41,15 +41,43 @@ namespace IdApp.ViewModels.Contracts
         /// Creates an instance of the <see cref="ViewContractViewModel"/> class.
         /// </summary>
         public ViewContractViewModel()
+            : this(null, null, null, null, null, null, null, null)
         {
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
-            this.logService = DependencyService.Resolve<ILogService>();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-            this.tagProfile = DependencyService.Resolve<ITagProfile>();
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="ViewContractViewModel"/> class.
+        /// For unit tests.
+        /// <param name="tagProfile">The tag profile to work with.</param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="logService">The log service.</param>
+        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="navigationService">The navigation service to use for app navigation</param>
+        /// <param name="networkService">The network and connectivity service.</param>
+        /// <param name="imageCacheService">The image cache to use.</param>
+        /// <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
+        /// </summary>
+        protected internal ViewContractViewModel(
+            ITagProfile tagProfile,
+            INeuronService neuronService, 
+            ILogService logService, 
+            IUiDispatcher uiDispatcher,
+            INavigationService navigationService,
+            INetworkService networkService,
+            IImageCacheService imageCacheService,
+            IContractOrchestratorService contractOrchestratorService)
+        {
+            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
+            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
+            this.logService = logService ?? DependencyService.Resolve<ILogService>();
+            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
+            networkService = networkService ?? DependencyService.Resolve<INetworkService>();
+            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
+            this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
+
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, DependencyService.Resolve<INetworkService>(), this.neuronService, this.uiDispatcher, DependencyService.Resolve<IImageCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService,networkService, this.neuronService, this.uiDispatcher, imageCacheService, this.Photos);
             this.DisplayPartCommand = new Command<string>(async legalId => await ShowLegalId(legalId));
             this.SignPartAsRoleCommand = new Command<string>(async roleId => await SignContract(roleId));
             this.DisplayClientSignatureCommand = new Command<string>(async sign => await ShowClientSignature(sign));

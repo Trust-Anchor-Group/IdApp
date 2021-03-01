@@ -1,5 +1,6 @@
 ﻿using IdApp.ViewModels.Contracts;
 using System.ComponentModel;
+using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
@@ -26,7 +27,8 @@ namespace IdApp.Views
                 DependencyService.Resolve<INeuronService>(),
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
-                DependencyService.Resolve<ILogService>());
+                DependencyService.Resolve<ILogService>(),
+                DependencyService.Resolve<IImageCacheService>());
             InitializeComponent();
         }
 

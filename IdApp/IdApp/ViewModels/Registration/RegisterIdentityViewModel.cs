@@ -31,7 +31,6 @@ namespace IdApp.ViewModels.Registration
 
         /// <summary>
         /// Creates a new instance of the <see cref="RegisterIdentityModel"/> class.
-        /// </summary>
         /// <param name="tagProfile">The tag profile to work with.</param>
         /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
         /// <param name="neuronService">The Neuron service for XMPP communication.</param>
@@ -39,6 +38,8 @@ namespace IdApp.ViewModels.Registration
         /// <param name="settingsService">The settings service for persisting UI state.</param>
         /// <param name="networkService">The network service for network access.</param>
         /// <param name="logService">The log service.</param>
+        /// <param name="imageCacheService">The image cache to use.</param>
+        /// </summary>
         public RegisterIdentityViewModel(
             ITagProfile tagProfile,
             IUiDispatcher uiDispatcher,
@@ -46,7 +47,8 @@ namespace IdApp.ViewModels.Registration
             INavigationService navigationService,
             ISettingsService settingsService,
             INetworkService networkService,
-            ILogService logService)
+            ILogService logService,
+            IImageCacheService imageCacheService)
          : base(RegistrationStep.RegisterIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
@@ -63,7 +65,8 @@ namespace IdApp.ViewModels.Registration
             this.Title = AppResources.PersonalLegalInformation;
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, DependencyService.Resolve<IImageCacheService>());
+            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, imageCacheService);
         }
 
         /// <inheritdoc />

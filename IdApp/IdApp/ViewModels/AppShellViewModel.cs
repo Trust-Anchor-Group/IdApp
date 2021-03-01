@@ -23,11 +23,20 @@ namespace IdApp.ViewModels
         /// Creates a new instance of the <see cref="AppShellViewModel"/> class.
         /// </summary>
         public AppShellViewModel()
+            : this(null, null, null, null)
         {
-            this.tagProfile = DependencyService.Resolve<ITagProfile>();
-            this.neuronService = DependencyService.Resolve<INeuronService>();
-            this.networkService = DependencyService.Resolve<INetworkService>();
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="AppShellViewModel"/> class.
+        /// For unit tests.
+        /// </summary>
+        protected internal AppShellViewModel(ITagProfile tagProfile, INeuronService neuronService, INetworkService networkService, IUiDispatcher uiDispatcher)
+        {
+            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
+            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
+            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
+            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
             this.IsOnline = this.networkService.IsOnline;
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;

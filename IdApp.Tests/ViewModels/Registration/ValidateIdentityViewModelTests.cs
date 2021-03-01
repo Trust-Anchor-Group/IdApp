@@ -1,4 +1,5 @@
-﻿using IdApp.ViewModels.Registration;
+﻿using IdApp.Services;
+using IdApp.ViewModels.Registration;
 using Moq;
 using NUnit.Framework;
 using Tag.Neuron.Xamarin;
@@ -20,6 +21,7 @@ namespace IdApp.Tests.ViewModels.Registration
         private readonly Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         private readonly Mock<INetworkService> networkService = new Mock<INetworkService>();
         private readonly Mock<ILogService> logService = new Mock<ILogService>();
+        private readonly Mock<IImageCacheService> imageCacheService = new Mock<IImageCacheService>();
 
         public ValidateIdentityViewModelTests()
         {
@@ -29,7 +31,7 @@ namespace IdApp.Tests.ViewModels.Registration
 
         protected override ValidateIdentityViewModel AViewModel()
         {
-            return new ValidateIdentityViewModel(tagProfile.Object, dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object);
+            return new ValidateIdentityViewModel(tagProfile.Object, dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object, this.imageCacheService.Object);
         }
 
         [Test]

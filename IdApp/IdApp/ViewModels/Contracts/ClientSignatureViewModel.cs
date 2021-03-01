@@ -19,12 +19,23 @@ namespace IdApp.ViewModels.Contracts
         private readonly INavigationService navigationService;
         private ClientSignature signature;
         private LegalIdentity identity;
+
         /// <summary>
         /// Creates an instance of the <see cref="ClientSignatureViewModel"/> class.
         /// </summary>
         public ClientSignatureViewModel()
+            : this(null)
         {
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="ClientSignatureViewModel"/> class.
+        /// For unit tests.
+        /// <param name="navigationService">The navigation service.</param>
+        /// </summary>
+        protected internal ClientSignatureViewModel(INavigationService navigationService)
+        {
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
         }
 
         /// <inheritdoc/>

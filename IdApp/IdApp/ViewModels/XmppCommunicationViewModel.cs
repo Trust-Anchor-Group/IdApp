@@ -17,8 +17,17 @@ namespace IdApp.ViewModels
         /// Create a new instance of an <see cref="XmppCommunicationViewModel"/>.
         /// </summary>
         public XmppCommunicationViewModel()
+            : this(null)
         {
-            this.neuronService = DependencyService.Resolve<INeuronService>();
+        }
+
+        /// <summary>
+        /// Create a new instance of an <see cref="XmppCommunicationViewModel"/>.
+        /// For unit tests.
+        /// </summary>
+        protected internal XmppCommunicationViewModel(INeuronService neuronService)
+        {
+            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
             this.RefreshCommand = new Command(_ => GetHtmlContent());
         }
 

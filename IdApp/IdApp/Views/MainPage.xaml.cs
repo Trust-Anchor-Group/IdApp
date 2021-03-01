@@ -17,6 +17,7 @@ namespace IdApp.Views
     public partial class MainPage
     {
         private readonly INeuronService neuronService;
+        private bool logoutPanelIsShown;
 
         private static readonly SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory =
             new SortedDictionary<string, SortedDictionary<string, string>>()
@@ -63,6 +64,7 @@ namespace IdApp.Views
                 {
                     // Show (slide down) logout panel
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
+                    this.logoutPanelIsShown = true;
                     this.LogoutPanel.TranslationY = -Height;
                     await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.SinIn);
                 }
@@ -70,8 +72,14 @@ namespace IdApp.Views
                 {
                     // Hide (slide up) logout panel
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
+                    this.logoutPanelIsShown = false;
                     await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
                 }
+            }
+            else if (logoutPanelIsShown)
+            {
+                this.logoutPanelIsShown = false;
+                await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
             }
         }
 
