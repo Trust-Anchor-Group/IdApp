@@ -62,19 +62,19 @@ namespace IdApp.Services
 		}
 
 		///<inheritdoc/>
-		public override Task Unload()
+		public override async Task Unload()
 		{
 			if (this.BeginUnload())
 			{
 				try
 				{
 					// Wipe any old settings, so we have a clean slate.
-					this.settingsService.RemoveStateWhereKeyStartsWith(KeyPrefix);
+					await this.settingsService.RemoveStateWhereKeyStartsWith(KeyPrefix);
 
 					foreach (KeyValuePair<string, CacheEntry> entry in entries)
 					{
 						string key = $"{KeyPrefix}{entry.Key}";
-						this.settingsService.SaveState(key, entry.Value);
+						await this.settingsService.SaveState(key, entry.Value);
 					}
 				}
 				catch (Exception e)
@@ -84,8 +84,6 @@ namespace IdApp.Services
 
 				this.EndLoad(false);
 			}
-
-			return Task.CompletedTask;
 		}
 
 		///<inheritdoc/>
