@@ -23,11 +23,6 @@ namespace Tag.Neuron.Xamarin.Services
             this.logService = logService;
         }
 
-        public void Dispose()
-        {
-            this.DestroyClient();
-        }
-
         internal async Task CreateClient()
         {
             if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))

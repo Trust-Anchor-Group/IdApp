@@ -140,7 +140,7 @@ namespace IdApp
             if (this.tagProfile != null)
                 return;
 
-			Types.SetModuleParameter("AppAssembly", this.GetType().Assembly);
+			Types.SetModuleParameter("AppAssembly", appAssembly);
             this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)new XmppConfiguration().ToArray());
             this.logService = Types.Instantiate<ILogService>(false);
             this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
@@ -217,6 +217,10 @@ namespace IdApp
 
                 await this.CreateOrRestoreConfiguration();
 
+                sdkStartupThread?.NewState("Network");
+
+				await this.networkService.Load(isResuming);
+
                 sdkStartupThread?.NewState("Load");
 
 				await this.neuronService.Load(isResuming);
@@ -255,11 +259,6 @@ namespace IdApp
 				await vm.Shutdown();
 			}
 
-			if (!keepRunningInTheBackground && this.contractOrchestratorService != null)
-			{
-				await this.contractOrchestratorService.Unload();
-			}
-
 			await this.Shutdown(false);
 		}
 
@@ -270,18 +269,25 @@ namespace IdApp
 			{
 				this.uiDispatcher.IsRunningInTheBackground = !inPanic;
 			}
-			if (this.neuronService != null)
-			{
-				if (inPanic)
-				{
-					await this.neuronService.UnloadFast();
-				}
-				else if (!this.keepRunningInTheBackground)
-				{
-					await this.neuronService.Unload();
-				}
-			}
-			await Types.StopAllModules();
+
+            if (inPanic)
+            {
+                if (this.neuronService != null)
+                    await this.neuronService.UnloadFast();
+            }
+            else if (!this.keepRunningInTheBackground)
+            {
+                if (this.contractOrchestratorService != null)
+                    await this.contractOrchestratorService.Unload();
+                if (this.neuronService != null)
+                    await this.neuronService.Unload();
+                if (this.networkService != null)
+                    await this.networkService.Unload();
+                if (this.imageCacheService != null)
+                    await this.imageCacheService.Unload();
+            }
+
+            await Types.StopAllModules();
 			Waher.Events.Log.Terminate();
 			if (this.storageService != null)
 			{

@@ -14,7 +14,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// Adds support for legal identities, smart contracts and signatures to a Neuron Service.
     /// </summary>
     [DefaultImplementation(typeof(NeuronContracts))]
-    public interface INeuronContracts : IDisposable
+    public interface INeuronContracts
     {
         #region General
 

@@ -65,15 +65,7 @@ namespace Tag.Neuron.Xamarin.Services
 			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService);
 			this.chats = new NeuronChats(this.tagProfile, uiDispatcher, this, this.logService);
 			this.sniffer = new InMemorySniffer(250);
-			this.tagProfile.StepChanged += TagProfile_StepChanged;
 			this.startupProfiler = startupProfiler;
-		}
-
-		public void Dispose()
-		{
-			this.tagProfile.StepChanged -= TagProfile_StepChanged;
-			this.DestroyXmppClient();
-			this.Contracts.Dispose();
 		}
 
 		#region Create/Destroy
@@ -322,6 +314,8 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				try
 				{
+                    this.tagProfile.StepChanged += TagProfile_StepChanged;
+
 					if (ShouldCreateClient())
 					{
 						await this.CreateXmppClient();
@@ -359,6 +353,8 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				try
 				{
+                    this.tagProfile.StepChanged -= TagProfile_StepChanged;
+
 					if (this.xmppClient != null && !fast)
 					{
 						await this.xmppClient.SetPresenceAsync(Availability.Offline);

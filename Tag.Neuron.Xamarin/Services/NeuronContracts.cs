@@ -30,11 +30,6 @@ namespace Tag.Neuron.Xamarin.Services
             this.logService = logService;
         }
 
-        public void Dispose()
-        {
-            this.DestroyClients();
-        }
-
         internal async Task CreateClients()
         {
             await CreateFileUploadClient();

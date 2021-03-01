@@ -10,7 +10,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
     /// </summary>
     [DefaultImplementation(typeof(NeuronService))]
-    public interface INeuronService : ILoadableService, IDisposable
+    public interface INeuronService : ILoadableService
     {
         /// <summary>
         /// Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="XmppState.Connected"/>.

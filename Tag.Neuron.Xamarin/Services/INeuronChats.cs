@@ -7,7 +7,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// Adds support for Xmpp Chat functionality.
     /// </summary>
     [DefaultImplementation(typeof(NeuronChats))]
-    public interface INeuronChats : IDisposable
+    public interface INeuronChats
     {
         /// <summary>
         /// Triggers whenever the chat functionality is online or not.

@@ -14,7 +14,7 @@ using Xamarin.Forms;
 namespace Tag.Neuron.Xamarin.Services
 {
     [Singleton]
-    internal class NetworkService : INetworkService
+    internal class NetworkService : LoadableService, INetworkService
     {
         private const int DefaultXmppPortNumber = 5222;
         private readonly ILogService logService;
@@ -26,18 +26,36 @@ namespace Tag.Neuron.Xamarin.Services
         {
             this.uiDispatcher = uiDispatcher;
             this.logService = logService;
-            if (DeviceInfo.Platform != DevicePlatform.Unknown && !DesignMode.IsDesignModeEnabled) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
-            {
-                Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
-            }
         }
 
-        public void Dispose()
+        ///<inheritdoc/>
+        public override Task Load(bool isResuming)
         {
-            if (DeviceInfo.Platform != DevicePlatform.Unknown)
+            if (this.BeginLoad())
             {
-                Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
+                if (DeviceInfo.Platform != DevicePlatform.Unknown && !DesignMode.IsDesignModeEnabled) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
+                {
+                    Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
+                }
+                this.EndLoad(true);
             }
+
+            return Task.CompletedTask;
+        }
+
+        ///<inheritdoc/>
+        public override Task Unload()
+        {
+            if (this.BeginUnload())
+            {
+                if (DeviceInfo.Platform != DevicePlatform.Unknown)
+                {
+                    Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
+                }
+                this.EndLoad(false);
+            }
+
+            return Task.CompletedTask;
         }
 
         private void Connectivity_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
