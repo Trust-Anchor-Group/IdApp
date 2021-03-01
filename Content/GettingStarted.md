@@ -39,7 +39,7 @@ internal sealed class ImageCacheService : LoadableService, IImageCacheService
 
 The two attributes can be used in combination on an interface and its implementation.
 
-If you need to register types to resolve, make that call to `Types.Initialize` _before_ the call to `TagIdSdk.Create`, like this:
+If you need to register types to resolve, make that call to `Types.Initialize` _before_ the call to `Types.Instantiate<T>()`, like this:
 ```
 Assembly appAssembly = this.GetType().Assembly;
 
@@ -60,7 +60,6 @@ if (!Types.IsInitialized)
         typeof(RegistrationStep).Assembly);         // Indexes persistable objects
 }
 
-this.sdk = TagIdSdk.Create(this.GetType().Assembly, new XmppConfiguration().ToArray());
 ```
 
 Configure `Types` in the [App.xaml.cs](../IdApp/IdApp/App.xaml.cs) constructor to be the default resolver like this:
@@ -150,7 +149,7 @@ Malicious users can create accounts up to, but not exceeding the limit of accoun
     2. `OnResume()`
     3. `OnSleep()`
  
-Use these overrides to hook into the TAG Neuron SDK. Here's the way to do it:
+Use these overrides to hook into the TAG Neuron SDK (the services). Here's the way to do it:
 ```
 protected override async void OnStart()
 {
@@ -171,7 +170,7 @@ protected override async void OnSleep()
 ```
 private async Task PerformStartup(bool isResuming)
 {
-    await this.sdk.Startup(isResuming);
+    await this.neuronService.Load(isResuming);
     // Call or invoke other services here.
     ....
 }
@@ -185,7 +184,9 @@ private async Task PerformShutdown()
         await vm.Shutdown();
     }
 
-    await this.sdk.Shutdown(keepRunningInTheBackground);
+    await this.neuronService.Unload();
+    // Call or invoke other services here.
+    ....
 }
 
 ```

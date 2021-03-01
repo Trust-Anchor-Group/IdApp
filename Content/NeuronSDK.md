@@ -17,6 +17,7 @@ public partial class App
         this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)new XmppConfiguration().ToArray());
         this.logService = Types.InstantiateDefault<ILogService>();
         this.neuronService = Types.InstantiateDefault<INeuronService>();
+        ....
     }
 }
 ```
@@ -101,3 +102,10 @@ The main purpose of the `NaviagationService` is two-fold:
 2. Make it easy to find all navigation calls in the code, as well as pass live parameters.
 
 Using it is completely optional, feel free to call `Shell.Current.GoToAsync()` directly instead.
+
+### A Note on Dispose ###
+In general, Dispose is used to handle _unmanaged_ resources. This is usually not needed, but _can_ of course be implemented
+in various parts of the app. However, it should _not_ be done in the `Service` instances, as these are **re-used** during restarts.
+When the app shuts down, all the services' `Unload()` method is called. When the app starts, the services' `Load()` method is called.
+This is especially important to know during soft restarts, like when you're switching apps. In this case the pages and view models are kept around,
+which means they reference the same services. If you dispose a service and then recreate it, the app will fail.
