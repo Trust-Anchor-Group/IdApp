@@ -103,7 +103,7 @@ namespace IdApp
                 this.settingsService = Types.Instantiate<ISettingsService>(false);
                 this.storageService = Types.Instantiate<IStorageService>(false);
                 this.navigationService = Types.Instantiate<INavigationService>(false);
-                this.neuronService = Types.InstantiateDefault<INeuronService>(false);
+                this.neuronService = Types.Instantiate<INeuronService>(false);
                 this.imageCacheService = Types.Instantiate<IImageCacheService>(false);
                 this.contractOrchestratorService = Types.Instantiate<IContractOrchestratorService>(false);
 
