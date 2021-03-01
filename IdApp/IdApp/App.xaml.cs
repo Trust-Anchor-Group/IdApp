@@ -95,7 +95,7 @@ namespace IdApp
                 this.startupProfiler?.NewState("SDK");
                 // Create Services
                 Types.SetModuleParameter("AppAssembly", appAssembly);
-                this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)this.domainModels);
+                this.tagProfile = Types.InstantiateDefault<ITagProfile>(false, (object)this.domainModels);
                 this.logService = Types.Instantiate<ILogService>(false);
                 this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
                 this.cryptoService = Types.Instantiate<ICryptoService>(false);
@@ -103,7 +103,7 @@ namespace IdApp
                 this.settingsService = Types.Instantiate<ISettingsService>(false);
                 this.storageService = Types.Instantiate<IStorageService>(false);
                 this.navigationService = Types.Instantiate<INavigationService>(false);
-                this.neuronService = Types.InstantiateDefault<INeuronService>(false);
+                this.neuronService = Types.Instantiate<INeuronService>(false);
                 this.imageCacheService = Types.Instantiate<IImageCacheService>(false);
                 this.contractOrchestratorService = Types.Instantiate<IContractOrchestratorService>(false);
 
@@ -151,7 +151,7 @@ namespace IdApp
 
         private void ReRegisterServices()
         {
-            if (!Types.IsSingletonRegistered(typeof(TagProfile), (object)this.domainModels))
+            if (!Types.IsSingletonRegistered(typeof(ITagProfile), (object)this.domainModels))
                 Types.RegisterSingleton(this.tagProfile, (object)this.domainModels);
 
             if (!Types.IsSingletonRegistered(typeof(ILogService)))
