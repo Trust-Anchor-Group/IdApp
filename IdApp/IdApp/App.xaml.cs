@@ -151,7 +151,7 @@ namespace IdApp
 
         private void ReRegisterServices()
         {
-            if (!Types.IsSingletonRegistered(typeof(TagProfile), (object)this.domainModels))
+            if (!Types.IsSingletonRegistered(typeof(ITagProfile), (object)this.domainModels))
                 Types.RegisterSingleton(this.tagProfile, (object)this.domainModels);
 
             if (!Types.IsSingletonRegistered(typeof(ILogService)))
