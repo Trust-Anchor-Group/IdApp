@@ -2113,6 +2113,12 @@
             An abstract base class holding page specific navigation parameters.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NetworkService.Load(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NetworkService.Unload">
+            <inheritdoc/>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.HasPrivateKey(System.String)">
             <summary>
             Checks if the client has access to the private keys of the specified legal identity.
