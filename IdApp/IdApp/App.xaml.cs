@@ -95,7 +95,7 @@ namespace IdApp
                 this.startupProfiler?.NewState("SDK");
                 // Create Services
                 Types.SetModuleParameter("AppAssembly", appAssembly);
-                this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)this.domainModels);
+                this.tagProfile = Types.InstantiateDefault<ITagProfile>(false, (object)this.domainModels);
                 this.logService = Types.Instantiate<ILogService>(false);
                 this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
                 this.cryptoService = Types.Instantiate<ICryptoService>(false);
