@@ -799,6 +799,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inspect communication.
+        /// </summary>
+        internal static string Inspect {
+            get {
+                return ResourceManager.GetString("Inspect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {

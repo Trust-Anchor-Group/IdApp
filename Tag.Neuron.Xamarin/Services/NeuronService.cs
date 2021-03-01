@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
@@ -43,6 +42,11 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool isCreatingClient;
 		private XmppEventSink xmppEventSink;
 		private bool userInitiatedLogInOrOut;
+		private string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Tx {color: #ffffff; background-color: #008000;display: block;} </style>";
+		private string sentHtml;
+		private string sentTextData;
+		private string HistoryTextData;
+		private string historyHtml;
 
 		public NeuronService(
 			ITagProfile tagProfile,
@@ -747,7 +751,29 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-		public string CommsDumpAsHtml()
+		public void ClearHtmlContent()
+		{
+			historyHtml = sentHtml;
+			HistoryTextData = sentTextData;
+		}
+
+		public string CommsDumpAsText(string state)
+		{
+			string response;
+			if (HistoryTextData == null || state != "History")
+			{
+				response = sniffer.SnifferToText();
+			}
+			else
+			{
+				response = sniffer.SnifferToText().Replace(HistoryTextData, "");
+			}
+
+			return response;
+		}
+
+
+		public string CommsDumpAsHtml(bool history = false)
 		{
 			string html = string.Empty;
 
@@ -762,20 +788,18 @@ namespace Tag.Neuron.Xamarin.Services
 
 				string xml = this.sniffer.SnifferToXml();
 
-				xml = $"<SnifferOutput>{xml}</SnifferOutput>";
-				var doc = new XmlDocument();
-				doc.LoadXml(xml);
+				sentHtml = xml;
+				sentTextData = sniffer.SnifferToText();
 
-				using (var stream = new MemoryStream())
-				using (XmlWriter writer = new XmlTextWriter(stream, Encoding.UTF8))
+				if (historyHtml != null && !history)
 				{
-					xslt.Transform(doc, null, writer);
-					stream.Position = 0;
-					using (var sr = new StreamReader(stream))
-					{
-						html = sr.ReadToEnd();
-					}
+					xml = xml.Replace(historyHtml, "");
 				}
+
+				xml = $"<SnifferOutput>{xml}</SnifferOutput>";
+
+				//adding coloring to debug lines
+				html = cssColoring + fixtags(xml);
 			}
 			catch (Exception e)
 			{
@@ -783,6 +807,14 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 
 			return html;
+		}
+
+		//fixing broken tags
+		private string fixtags(string xml)
+		{
+			var result = xml.Replace("&lt;", "<").Replace("&gt;", ">");
+
+			return result;
 		}
 	}
 }
