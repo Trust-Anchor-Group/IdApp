@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
+using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.IoTGateway.Setup;
@@ -51,6 +52,7 @@ namespace IdApp
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly bool keepRunningInTheBackground = false;
         private Profiler startupProfiler;
+        private readonly DomainModel[] domainModels;
 
         ///<inheritdoc/>
         public App()
@@ -62,6 +64,8 @@ namespace IdApp
             AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+
+            this.domainModels = new XmppConfiguration().ToArray();
 
             InitializeComponent();
 
@@ -89,10 +93,9 @@ namespace IdApp
                 }
 
                 this.startupProfiler?.NewState("SDK");
-
                 // Create Services
                 Types.SetModuleParameter("AppAssembly", appAssembly);
-                this.tagProfile = Types.InstantiateDefault<TagProfile>(false, (object)new XmppConfiguration().ToArray());
+                this.tagProfile = Types.InstantiateDefault<ITagProfile>(false, (object)this.domainModels);
                 this.logService = Types.Instantiate<ILogService>(false);
                 this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
                 this.cryptoService = Types.Instantiate<ICryptoService>(false);
@@ -100,7 +103,7 @@ namespace IdApp
                 this.settingsService = Types.Instantiate<ISettingsService>(false);
                 this.storageService = Types.Instantiate<IStorageService>(false);
                 this.navigationService = Types.Instantiate<INavigationService>(false);
-                this.neuronService = Types.InstantiateDefault<INeuronService>(false);
+                this.neuronService = Types.Instantiate<INeuronService>(false);
                 this.imageCacheService = Types.Instantiate<IImageCacheService>(false);
                 this.contractOrchestratorService = Types.Instantiate<IContractOrchestratorService>(false);
 
@@ -148,8 +151,8 @@ namespace IdApp
 
         private void ReRegisterServices()
         {
-            if (!Types.IsSingletonRegistered(typeof(TagProfile)))
-                Types.RegisterSingleton(this.tagProfile);
+            if (!Types.IsSingletonRegistered(typeof(ITagProfile), (object)this.domainModels))
+                Types.RegisterSingleton(this.tagProfile, (object)this.domainModels);
 
             if (!Types.IsSingletonRegistered(typeof(ILogService)))
                 Types.RegisterSingleton(this.logService);

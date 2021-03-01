@@ -1995,6 +1995,59 @@
             The identity to review, if any.
             </summary>
         </member>
+        <member name="T:IdApp.PhotosLoader">
+            <summary>
+            This is a helper class for downloading photos via http requests.
+            It loads photos in the background, typically photo attachments connected to a
+            digital identity. When the photos are loaded, they are added to an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> on the main thread.
+            This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.IImageCacheService"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
+            Use this constructor for when you want to load a a <b>single photo</b>.
+            </summary>
+            <param name="logService">The log service to use if and when logging errors.</param>
+            <param name="networkService">The network service to use for checking connectivity.</param>
+            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+        </member>
+        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
+            Use this constructor for when you want to load a <b>list of photos</b>.
+            </summary>
+            <param name="logService">The log service to use if and when logging errors.</param>
+            <param name="networkService">The network service to use for checking connectivity.</param>
+            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+            <param name="photos">The collection the photos should be added to when downloaded.</param>
+        </member>
+        <member name="M:IdApp.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith)">
+            <summary>
+            Loads photos from the specified list of attachments.
+            </summary>
+            <param name="attachments">The attachments whose files to download.</param>
+            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.PhotosLoader.CancelLoadPhotos">
+            <summary>
+            Cancels any ongoing download of photos in progress. Also
+            clears the collection of photos from its content.
+            </summary>
+        </member>
+        <member name="M:IdApp.PhotosLoader.LoadOnePhoto(Waher.Networking.XMPP.Contracts.Attachment,Waher.Networking.XMPP.Contracts.SignWith)">
+            <summary>
+            Downloads one photo and stores in cache.
+            </summary>
+            <param name="attachment">The attachment to download.</param>
+            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <returns></returns>
+        </member>
         <member name="T:IdApp.QrCode">
             <summary>
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
@@ -2214,6 +2267,12 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.AppShellViewModel"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.AppShellViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.AppShellViewModel"/> class.
+            For unit tests.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.AppShellViewModel.ConnectionStateTextProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.AppShellViewModel.ConnectionStateText"/>
@@ -2282,6 +2341,13 @@
         <member name="M:IdApp.ViewModels.Contracts.ClientSignatureViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ClientSignatureViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ClientSignatureViewModel.#ctor(Tag.Neuron.Xamarin.Services.INavigationService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ClientSignatureViewModel"/> class.
+            For unit tests.
+            <param name="navigationService">The navigation service.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.ClientSignatureViewModel.DoBind">
@@ -2543,6 +2609,17 @@
             <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.#ctor(System.Boolean,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.MyContractsViewModel"/> class.
+            For unit tests.
+            <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="navigationService">The navigation service.</param>
+            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -2592,6 +2669,20 @@
         <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.NewContractViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,IdApp.Services.IContractOrchestratorService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.NewContractViewModel"/> class.
+            For unit tests.
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="logService">The log service.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="networkService">The network and connectivity service.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.DoBind">
@@ -2799,6 +2890,18 @@
         <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionContractViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionContractViewModel"/> class.
+            For unit tests.
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="logService">The log service.</param>
+            <param name="networkService">The network and connectivity service.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="imageCacheService">The image cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.DoBind">
@@ -3037,6 +3140,18 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionIdentityViewModel"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionIdentityViewModel"/> class.
+            For unit tests.
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="logService">The log service.</param>
+            <param name="networkService">The network and connectivity service.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="imageCacheService">The image cache to use.</param>
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -3271,6 +3386,18 @@
         <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionSignatureViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionSignatureViewModel"/> class.
+            For unit tests.
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="logService">The log service.</param>
+            <param name="networkService">The network and connectivity service.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="imageCacheService">The image cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.DoBind">
@@ -3509,6 +3636,13 @@
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ServerSignatureViewModel"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.Contracts.ServerSignatureViewModel.#ctor(Tag.Neuron.Xamarin.Services.INavigationService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ServerSignatureViewModel"/> class.
+            For unit tests.
+            <param name="navigationService">The navigation service.</param>
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.Contracts.ServerSignatureViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -3550,6 +3684,20 @@
         <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewContractViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewContractViewModel"/> class.
+            For unit tests.
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="logService">The log service.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="networkService">The network and connectivity service.</param>
+            <param name="imageCacheService">The image cache to use.</param>
+            <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.DoBind">
@@ -3758,7 +3906,7 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel"/> class.
             </summary>
@@ -4650,59 +4798,6 @@
             <param name="sender">The neuron service instance.</param>
             <param name="e">The event args.</param>
         </member>
-        <member name="T:IdApp.ViewModels.PhotosLoader">
-            <summary>
-            This is a helper class for downloading photos via http requests.
-            It loads photos in the background, typically photo attachments connected to a
-            digital identity. When the photos are loaded, they are added to an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> on the main thread.
-            This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.IImageCacheService"/>.
-            </summary>
-        </member>
-        <member name="M:IdApp.ViewModels.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.ViewModels.PhotosLoader"/> class.
-            Use this constructor for when you want to load a a <b>single photo</b>.
-            </summary>
-            <param name="logService">The log service to use if and when logging errors.</param>
-            <param name="networkService">The network service to use for checking connectivity.</param>
-            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
-        </member>
-        <member name="M:IdApp.ViewModels.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.ViewModels.PhotosLoader"/> class.
-            Use this constructor for when you want to load a <b>list of photos</b>.
-            </summary>
-            <param name="logService">The log service to use if and when logging errors.</param>
-            <param name="networkService">The network service to use for checking connectivity.</param>
-            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
-            <param name="photos">The collection the photos should be added to when downloaded.</param>
-        </member>
-        <member name="M:IdApp.ViewModels.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith)">
-            <summary>
-            Loads photos from the specified list of attachments.
-            </summary>
-            <param name="attachments">The attachments whose files to download.</param>
-            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <returns></returns>
-        </member>
-        <member name="M:IdApp.ViewModels.PhotosLoader.CancelLoadPhotos">
-            <summary>
-            Cancels any ongoing download of photos in progress. Also
-            clears the collection of photos from its content.
-            </summary>
-        </member>
-        <member name="M:IdApp.ViewModels.PhotosLoader.LoadOnePhoto(Waher.Networking.XMPP.Contracts.Attachment,Waher.Networking.XMPP.Contracts.SignWith)">
-            <summary>
-            Downloads one photo and stores in cache.
-            </summary>
-            <param name="attachment">The attachment to download.</param>
-            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <returns></returns>
-        </member>
         <member name="T:IdApp.ViewModels.Registration.ChooseAccountViewModel">
             <summary>
             The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
@@ -5053,10 +5148,9 @@
             The view model to bind to when showing Step 3 of the registration flow: registering an identity.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:Tag.Neuron.Xamarin.Models.RegisterIdentityModel"/> class.
-            </summary>
             <param name="tagProfile">The tag profile to work with.</param>
             <param name="uiDispatcher">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
@@ -5064,6 +5158,8 @@
             <param name="settingsService">The settings service for persisting UI state.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="logService">The log service.</param>
+            <param name="imageCacheService">The image cache to use.</param>
+            </summary>
         </member>
         <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DoBind">
             <inheritdoc />
@@ -5412,10 +5508,19 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.RegistrationViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.RegistrationViewModel"/> class.
             For unit tests.
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="cryptoService">The service to use for cryptographic operations.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="networkService">The network and connectivity service.</param>
+            <param name="logService">The log service.</param>
+            <param name="imageCacheService">The image cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.DoBind">
@@ -5488,10 +5593,9 @@
             The view model to bind to when showing Step 4 of the registration flow: validating an identity.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.ValidateIdentityViewModel"/> class.
-            </summary>
             <param name="tagProfile">The tag profile to work with.</param>
             <param name="uiDispatcher">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
@@ -5499,6 +5603,8 @@
             <param name="settingsService">The settings service for persisting UI state.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="logService">The log service.</param>
+            <param name="imageCacheService">The image cache to use.</param>
+            </summary>
         </member>
         <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.DoBind">
             <inheritdoc />
@@ -5771,6 +5877,12 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.ScanQrCodeViewModel"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.ScanQrCodeViewModel.#ctor(Tag.Neuron.Xamarin.Services.INavigationService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.ScanQrCodeViewModel"/> class.
+            For unit tests.
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.ScanQrCodeViewModel.DoBind">
             <inheritdoc />
         </member>
@@ -5863,6 +5975,12 @@
         <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.#ctor">
             <summary>
             Create a new instance of an <see cref="T:IdApp.ViewModels.XmppCommunicationViewModel"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService)">
+            <summary>
+            Create a new instance of an <see cref="T:IdApp.ViewModels.XmppCommunicationViewModel"/>.
+            For unit tests.
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.DoBind">
