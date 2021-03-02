@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
@@ -208,6 +209,21 @@ namespace IdApp.ViewModels.Contracts
             {
                 this.ReloadPhotos();
             }
+        }
+
+        public Task<MemoryStream> GetImageStreamFor(int index)
+        {
+            if (index < 0)
+                return null;
+
+            if (this.LegalIdentity?.Attachments == null)
+                return null;
+
+            var imageAttachments = this.LegalIdentity.Attachments.GetImageAttachments().ToList();
+            if (index >= imageAttachments.Count)
+                return null;
+
+            return this.photosLoader.LoadOnePhoto(imageAttachments[index], SignWith.LatestApprovedIdOrCurrentKeys);
         }
 
         private void EvaluateAllCommands()
