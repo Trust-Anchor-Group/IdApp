@@ -1477,11 +1477,22 @@
             <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
             <returns></returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.CommsDumpAsHtml">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.CommsDumpAsHtml(System.Boolean)">
             <summary>
             Creates a dump of the latest Xmpp communication as html.
             </summary>
             <returns>The communication dump as a html formatted string.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.ClearHtmlContent">
+            <summary>
+            saves already sent html to history.
+            </summary>        
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.CommsDumpAsText(System.String)">
+            <summary>
+            Creates a dump of the latest Xmpp communication as Text.
+            </summary>
+            <returns>The communication dump as a text formatted string.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.UnloadFast">
             <summary>
