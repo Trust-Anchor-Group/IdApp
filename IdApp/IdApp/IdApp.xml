@@ -6029,6 +6029,11 @@
             The command that toggle to show history or actual data.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.SendDebugInfoCommand">
+            <summary>
+            The command for sending filed to server for debug.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.XmppCommunicationViewModel.HtmlProperty">
             <summary>
             
