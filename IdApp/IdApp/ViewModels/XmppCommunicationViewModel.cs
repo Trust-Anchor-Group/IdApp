@@ -7,6 +7,7 @@ using Tag.Neuron.Xamarin.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.Generic;
+using System.IO;
 
 namespace IdApp.ViewModels
 {
@@ -58,6 +59,7 @@ namespace IdApp.ViewModels
             ClearCommand = new Command(_ => ClearHtmlContent());
             CopyCommand = new Command(_ => CopyHtmlToClipboard());
             ShowHistoryCommand = new Command(_ => showHTMLHistory());
+            SendDebugInfoCommand = new Command(_ => sendDebugInfo());
 
             HistoryButtonText = "History";
 
@@ -88,7 +90,11 @@ namespace IdApp.ViewModels
         /// <summary>
         /// The command that toggle to show history or actual data.
         /// </summary>
-        public ICommand ShowHistoryCommand { get; }
+        public ICommand ShowHistoryCommand { get; }     
+        /// <summary>
+        /// The command for sending filed to server for debug.
+        /// </summary>
+        public ICommand SendDebugInfoCommand { get; }
 
         /// <summary>
         /// 
@@ -173,9 +179,35 @@ namespace IdApp.ViewModels
             }
             catch(Exception ex)
             {
-                this.logService.LogException(ex, new KeyValuePair<string, string>("Method", "AutoDebugInspect"));
+                this.logService.LogException(ex, new KeyValuePair<string, string>("AutoRefresh", "AutoDebugInspect"));
             }
               
+        }
+
+        private async void sendDebugInfo()
+        {
+            bool answer = await Application.Current.MainPage.DisplayAlert("Send Debug Information", "Are you sure you want to send debug information to TAG? This will include key information, so you should create a new ID once troubleshooting is completed.", "Yes", "No");
+                       
+            if (answer)
+            {
+                try
+                {
+                    var configPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    var filesList = Directory.GetFiles(configPath);
+
+                    foreach (var file in filesList)
+                    {
+                        string extension = Path.GetExtension(file);
+                        string contentType = Waher.Content.InternetContent.GetContentType(extension);
+                        string message = File.ReadAllText(file);
+                        //await App.SendAlert(message, contentType);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.logService.LogException(ex, new KeyValuePair<string, string>("sendDebugInfo", "AutoDebugInspect"));
+                }
+            }  
         }
     }
 }
