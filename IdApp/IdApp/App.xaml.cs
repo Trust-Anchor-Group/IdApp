@@ -14,6 +14,9 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.Content;
+using Waher.Content.Xml;
+using Waher.Content.Markdown;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -84,6 +87,9 @@ namespace IdApp
                         typeof(ObjectSerializer).Assembly,          // Indexes general serializers
                         typeof(FilesProvider).Assembly,             // Indexes special serializers
                         typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
+                        typeof(InternetContent).Assembly,           // Common Content-Types
+                        typeof(XML).Assembly,                       // XML Content-Type
+                        typeof(MarkdownDocument).Assembly,          // Markdown support
                         typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
                         typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
                         typeof(Expression).Assembly,                // Indexes basic script functions
