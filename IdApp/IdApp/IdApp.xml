@@ -6031,7 +6031,7 @@
         </member>
         <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.SendDebugInfoCommand">
             <summary>
-            The command for sending filed to server for debug.
+            The command for sending files to server for debug.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.XmppCommunicationViewModel.HtmlProperty">

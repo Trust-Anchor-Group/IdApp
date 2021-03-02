@@ -92,7 +92,7 @@ namespace IdApp.ViewModels
         /// </summary>
         public ICommand ShowHistoryCommand { get; }     
         /// <summary>
-        /// The command for sending filed to server for debug.
+        /// The command for sending files to server for debug.
         /// </summary>
         public ICommand SendDebugInfoCommand { get; }
 
