@@ -112,6 +112,9 @@ namespace IdApp
                 if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                     return null;
 
+                if (attachment == null)
+                    return null;
+
                 MemoryStream stream = await GetPhoto(attachment, signWith, DateTime.UtcNow);
                 stream?.Reset();
                 return stream;
