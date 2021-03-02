@@ -198,9 +198,22 @@ namespace IdApp.ViewModels
                     foreach (var file in filesList)
                     {
                         string extension = Path.GetExtension(file);
-                        string contentType = Waher.Content.InternetContent.GetContentType(extension);
-                        string message = File.ReadAllText(file);
-                        //await App.SendAlert(message, contentType);
+
+                        string contentType;
+                        string message;
+
+                        if (extension == ".uml")
+                        {
+                            contentType = "text/markdown";
+                            message = $"```uml\n{File.ReadAllText(file)}```";
+                        }
+                        else
+                        {
+                            contentType = Waher.Content.InternetContent.GetContentType(extension);
+                            message = File.ReadAllText(file);
+                        }      
+                        
+                        await App.SendAlert(message, contentType);
                     }
                 }
                 catch (Exception ex)
