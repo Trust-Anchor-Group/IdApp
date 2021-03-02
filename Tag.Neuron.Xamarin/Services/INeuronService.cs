@@ -130,12 +130,23 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
         /// <returns></returns>
         Task<bool> DiscoverServices(XmppClient client = null);
-        
+
         /// <summary>
         /// Creates a dump of the latest Xmpp communication as html.
         /// </summary>
         /// <returns>The communication dump as a html formatted string.</returns>
-        string CommsDumpAsHtml();
+        string CommsDumpAsHtml(bool history = false);
+
+        /// <summary>
+        /// saves already sent html to history.
+        /// </summary>        
+        void ClearHtmlContent();
+
+        /// <summary>
+        /// Creates a dump of the latest Xmpp communication as Text.
+        /// </summary>
+        /// <returns>The communication dump as a text formatted string.</returns>
+        string CommsDumpAsText(string state);
 
         /// <summary>
         /// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.

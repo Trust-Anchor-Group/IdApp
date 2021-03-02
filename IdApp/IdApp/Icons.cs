@@ -57,6 +57,10 @@
         /// </summary>
         public const string Bug = "\uf188";
         /// <summary>
+        /// The inspect icon
+        /// </summary>
+        public const string Inspect = "\uf002";
+        /// <summary>
         /// The sign out icon
         /// </summary>
         public const string SignOut = "\uf2f5";

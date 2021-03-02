@@ -97,9 +97,9 @@
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.NewContract}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem x:Name="DebugMenuItem" Text="Debug" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
+    <MenuItem x:Name="DebugMenuItem" Text="{x:Static local:AppResources.Inspect}" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Bug}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Inspect}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{Binding Path=LogInOutText}" Clicked="SignInOutMenuItem_Clicked">
