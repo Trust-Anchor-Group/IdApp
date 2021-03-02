@@ -45,7 +45,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Tx {color: #ffffff; background-color: #008000;display: block;} </style>";
 		private string sentHtml;
 		private string sentTextData;
-		private string HistoryTextData;
+		private string historyTextData;
 		private string historyHtml;
 
 		public NeuronService(
@@ -754,19 +754,19 @@ namespace Tag.Neuron.Xamarin.Services
 		public void ClearHtmlContent()
 		{
 			historyHtml = sentHtml;
-			HistoryTextData = sentTextData;
+			historyTextData = sentTextData;
 		}
 
 		public string CommsDumpAsText(string state)
 		{
 			string response;
-			if (HistoryTextData == null || state != "History")
+			if (historyTextData == null || state != "History")
 			{
 				response = sniffer.SnifferToText();
 			}
 			else
 			{
-				response = sniffer.SnifferToText().Replace(HistoryTextData, "");
+				response = sniffer.SnifferToText().Replace(historyTextData, "");
 			}
 
 			return response;

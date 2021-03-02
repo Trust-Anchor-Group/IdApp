@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.Views;
 using Xamarin.Forms;
 
@@ -175,7 +177,20 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         }
 
         /// <summary>
-        /// 
+        /// Executes the <see cref="Command.ChangeCanExecute"/> method on all commands.
+        /// This is done to update the UI state for those UI components that bind to a command.
+        /// </summary>
+        /// <param name="commands">The commands to evaluate.</param>
+        protected void EvaluateCommands(params ICommand[] commands)
+        {
+            foreach (ICommand command in commands)
+            {
+                command.ChangeCanExecute();
+            }
+        }
+
+        /// <summary>
+        /// <see cref="IsBusy"/>
         /// </summary>
         public static readonly BindableProperty IsBusyProperty =
             BindableProperty.Create("IsBusy", typeof(bool), typeof(BaseViewModel), default(bool));

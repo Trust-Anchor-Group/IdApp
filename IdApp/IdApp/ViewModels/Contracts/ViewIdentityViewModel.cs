@@ -11,7 +11,6 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
@@ -70,7 +69,7 @@ namespace IdApp.ViewModels.Contracts
                 this.identityToReview = null;
             }
             AssignProperties();
-            EvaluateCommands();
+            EvaluateAllCommands();
             this.tagProfile.Changed += TagProfile_Changed;
             this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
         }
@@ -211,12 +210,9 @@ namespace IdApp.ViewModels.Contracts
             }
         }
 
-        private void EvaluateCommands()
+        private void EvaluateAllCommands()
         {
-            this.ApproveCommand.ChangeCanExecute();
-            this.RejectCommand.ChangeCanExecute();
-            this.RevokeCommand.ChangeCanExecute();
-            this.CompromiseCommand.ChangeCanExecute();
+            this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.CompromiseCommand);
         }
 
         /// <inheritdoc/>
@@ -225,7 +221,7 @@ namespace IdApp.ViewModels.Contracts
             this.UiDispatcher.BeginInvokeOnMainThread(async () =>
             {
                 this.SetConnectionStateAndText(e.State);
-                this.EvaluateCommands();
+                this.EvaluateAllCommands();
                 if (this.IsConnected)
                 {
                     await Task.Delay(Constants.Timeouts.XmppInit);

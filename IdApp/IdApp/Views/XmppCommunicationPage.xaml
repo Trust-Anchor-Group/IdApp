@@ -17,7 +17,7 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Row="0" Grid.Column="0" Text="Clear" Command="{Binding Path=ClearCommand}" Margin="{StaticResource DefaultMargin}" />
             <Button Grid.Row="0" Grid.Column="1" Text="Copy" Command="{Binding Path=CopyCommand}" Margin="{StaticResource DefaultMargin}" />
-            <Button Grid.Row="0" Grid.Column="2"  Text="{Binding HistoryButtonText}" Command="{Binding Path=ShowHistoryCommand}" Margin="{StaticResource DefaultMargin}" />
+            <Button Grid.Row="0" Grid.Column="2"  Text="{Binding Path=HistoryButtonText}" Command="{Binding Path=ShowHistoryCommand}" Margin="{StaticResource DefaultMargin}" />
             <WebView Grid.Row="1" Grid.ColumnSpan="3" Source="{Binding Path=Html}" />
         </Grid>
     </ContentPage.Content>

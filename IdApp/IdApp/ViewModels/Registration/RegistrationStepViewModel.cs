@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Xamarin.Forms;
 
@@ -122,10 +121,7 @@ namespace IdApp.ViewModels.Registration
         protected void SetIsDone(params ICommand[] commands)
         {
             IsBusy = false;
-            foreach (ICommand command in commands)
-            {
-                command.ChangeCanExecute();
-            }
+            EvaluateCommands(commands);
         }
 
         /// <summary>
@@ -136,10 +132,7 @@ namespace IdApp.ViewModels.Registration
         protected void SetIsBusy(params ICommand[] commands)
         {
             IsBusy = true;
-            foreach (ICommand command in commands)
-            {
-                command.ChangeCanExecute();
-            }
+            EvaluateCommands(commands);
         }
 
         /// <summary>
