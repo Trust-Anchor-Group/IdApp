@@ -9,7 +9,7 @@
             <Grid>
                 <StackLayout Orientation="Vertical" Margin="12">
                     <CarouselView x:Name="CarouselView"
-                                  IsSwipeEnabled="True"
+                                  IsSwipeEnabled="{Binding Path=IsSwipeEnabled}"
                                   HorizontalOptions="FillAndExpand"
                                   VerticalOptions="FillAndExpand"
                                   ItemsSource="{Binding Path=Photos}"

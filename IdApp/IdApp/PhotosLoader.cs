@@ -82,10 +82,11 @@ namespace IdApp
         /// </summary>
         /// <param name="attachments">The attachments whose files to download.</param>
         /// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
+        /// <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
         /// <returns></returns>
-        public Task LoadPhotos(Attachment[] attachments, SignWith signWith)
+        public Task LoadPhotos(Attachment[] attachments, SignWith signWith, Action whenDoneAction = null)
         {
-            return LoadPhotos(attachments, signWith, DateTime.UtcNow);
+            return LoadPhotos(attachments, signWith, DateTime.UtcNow, whenDoneAction);
         }
 
         /// <summary>
@@ -127,16 +128,22 @@ namespace IdApp
             return null;
         }
 
-        private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now)
+        private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now, Action whenDoneAction)
         {
             if (attachments == null || attachments.Length <= 0)
+            {
+                whenDoneAction?.Invoke();
                 return;
+            }
 
             List<Attachment> attachmentsList = attachments.GetImageAttachments().ToList();
             List<string> newAttachmentIds = attachmentsList.Select(x => x.Id).ToList();
 
             if (this.attachmentIds.HasSameContentAs(newAttachmentIds))
+            {
+                whenDoneAction?.Invoke();
                 return;
+            }
 
             this.attachmentIds.Clear();
             this.attachmentIds.AddRange(newAttachmentIds);
@@ -145,6 +152,7 @@ namespace IdApp
             {
                 if (this.loadPhotosTimestamp > now)
                 {
+                    whenDoneAction?.Invoke();
                     return;
                 }
 
@@ -157,8 +165,11 @@ namespace IdApp
                     if (stream != null)
                     {
                         stream.Reset();
-                        ImageSource imageSource = ImageSource.FromStream(() => stream); // Disposes the stream
-                        this.uiDispatcher.BeginInvokeOnMainThread(() => photos.Add(imageSource));
+                        this.uiDispatcher.BeginInvokeOnMainThread(() =>
+                        {
+                            ImageSource imageSource = ImageSource.FromStream(() => stream); // Disposes the stream
+                            photos.Add(imageSource);
+                        });
                     }
                 }
                 catch (Exception ex)
@@ -166,6 +177,8 @@ namespace IdApp
                     this.logService.LogException(ex);
                 }
             }
+
+            whenDoneAction?.Invoke();
         }
 
         private async Task<MemoryStream> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
@@ -178,6 +191,7 @@ namespace IdApp
 
             // 2. Needs download
             KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
+            // If download has been cancelled any time _during_ download, stop here.
             if (this.loadPhotosTimestamp > now)
             {
                 pair.Value.Dispose();

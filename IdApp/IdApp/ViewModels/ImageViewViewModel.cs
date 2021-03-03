@@ -13,6 +13,7 @@ namespace IdApp.ViewModels
     /// </summary>
     public class ImageViewViewModel : BaseViewModel
     {
+        private readonly IUiDispatcher uiDispatcher;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
@@ -20,6 +21,7 @@ namespace IdApp.ViewModels
         /// </summary>
         public ImageViewViewModel()
         {
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(
                 DependencyService.Resolve<ILogService>(),
@@ -36,13 +38,32 @@ namespace IdApp.ViewModels
         public ObservableCollection<ImageSource> Photos { get; }
 
         /// <summary>
+        /// See <see cref="IsSwipeEnabled"/>
+        /// </summary>
+        public static readonly BindableProperty IsSwipeEnabledProperty =
+            BindableProperty.Create("IsSwipeEnabled", typeof(bool), typeof(ImageViewViewModel), default(bool));
+
+        /// <summary>
+        /// Gets or sets whether a user can swipe to see the photos.
+        /// </summary>
+        public bool IsSwipeEnabled
+        {
+            get { return (bool) GetValue(IsSwipeEnabledProperty); }
+            set { SetValue(IsSwipeEnabledProperty, value); }
+        }
+
+        /// <summary>
         /// Loads the attachments photos, if there are any.
         /// </summary>
         /// <param name="attachments">The attachments to load.</param>
         public void LoadPhotos(Attachment[] attachments)
         {
             this.photosLoader.CancelLoadPhotos();
-            _ = this.photosLoader.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys);
+            this.IsSwipeEnabled = false;
+            _ = this.photosLoader.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys, () =>
+            {
+                this.uiDispatcher.BeginInvokeOnMainThread(() => this.IsSwipeEnabled = this.Photos.Count > 1);
+            });
         }
 
         /// <summary>
