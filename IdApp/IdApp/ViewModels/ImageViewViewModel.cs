@@ -11,14 +11,14 @@ namespace IdApp.ViewModels
     /// <summary>
     ///  The class to use as binding context for displaying images.
     /// </summary>
-    public class ImageViewModel : BaseViewModel
+    public class ImageViewViewModel : BaseViewModel
     {
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ImageViewModel"/> class.
+        /// Creates a new instance of the <see cref="ImageViewViewModel"/> class.
         /// </summary>
-        public ImageViewModel()
+        public ImageViewViewModel()
         {
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(

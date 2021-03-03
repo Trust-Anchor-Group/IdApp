@@ -15,7 +15,7 @@
                                   ItemsSource="{Binding Path=Photos}"
                                   IndicatorView="IndicatorView">
                         <CarouselView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="ImageSource">
                                 <Image Source="{Binding}" Aspect="AspectFill"/>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
