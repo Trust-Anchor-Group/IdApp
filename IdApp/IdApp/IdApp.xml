@@ -469,6 +469,11 @@
               Looks up a localized string similar to Information is missing or invalid.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Inspect">
+            <summary>
+              Looks up a localized string similar to Inspect communication.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.InvalidUsernameOrPassword">
             <summary>
               Looks up a localized string similar to Invalid username or password.
@@ -1516,6 +1521,11 @@
         <member name="F:IdApp.SolidIcons.Bug">
             <summary>
             The bug icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.Inspect">
+            <summary>
+            The inspect icon
             </summary>
         </member>
         <member name="F:IdApp.SolidIcons.SignOut">
@@ -5972,6 +5982,21 @@
             A View model that represents the current XMPP Communication.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.XmppCommunicationViewModel.autoUpdateTimeInMilliseconds">
+            <summary>
+            Time between checks for debug update in milliseconds.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.XmppCommunicationViewModel.HistoryButtonTextProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.HistoryButtonText">
+            <summary>
+            History/Actual button lable.
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.#ctor">
             <summary>
             Create a new instance of an <see cref="T:IdApp.ViewModels.XmppCommunicationViewModel"/>.
@@ -5989,9 +6014,24 @@
         <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.RefreshCommand">
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.ClearCommand">
             <summary>
-            The command for executing a Refresh action.
+            The command for clearing inspect window.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.CopyCommand">
+            <summary>
+            The command for copying data to clipboard.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.ShowHistoryCommand">
+            <summary>
+            The command that toggle to show history or actual data.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.XmppCommunicationViewModel.SendDebugInfoCommand">
+            <summary>
+            The command for sending files to server for debug.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.XmppCommunicationViewModel.HtmlProperty">
@@ -6004,7 +6044,27 @@
             The html code to display
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.GetHtmlContent">
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.CopyHtmlToClipboard">
+            <summary>
+            Copies debug info to clipboard
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.ClearHtmlContent">
+            <summary>
+            Clears actual data (History data is not changed).
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.showHTMLHistory">
+            <summary>
+            Toggles showing history or actual debug info.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.runAutoUpdateTask">
+            <summary>
+            Create cancellationtoken and run debug auto update task.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.XmppCommunicationViewModel.AutoRefresh">
             <summary>
             Retrieves and assigns the <see cref="P:IdApp.ViewModels.XmppCommunicationViewModel.Html"/>.
             </summary>
