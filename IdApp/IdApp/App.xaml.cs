@@ -90,9 +90,9 @@ namespace IdApp
                 // Create Services
                 this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
                 this.imageCacheService = new ImageCacheService(this.sdk.SettingsService, this.sdk.LogService);
-                this.sdk.RegisterSingleton(this.imageCacheService);
+                this.sdk.RegisterSingleton<IImageCacheService, ImageCacheService>(this.imageCacheService);
                 this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
-                this.sdk.RegisterSingleton(this.contractOrchestratorService);
+                this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
 
                 // Set resolver
                 DependencyResolver.ResolveUsing(type =>

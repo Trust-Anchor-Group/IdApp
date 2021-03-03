@@ -73,16 +73,16 @@
                 <BindableLayout.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Path=Key}" Style="{StaticResource KeyLabel}"/>
+                            <Label Text="{Binding Path=Id}" Style="{StaticResource KeyLabel}"/>
                             <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}" TextType="{Binding Path=IsHtml, Converter={converters:BooleanToTextTypeConverter}}"/>
-                            <Button Text="{Binding Path=SignAsRoleText}" IsVisible="{Binding Path=CanSign}" Command="{Binding Path=SignPartAsRoleCommand, Source={x:Reference ContractStackLayout}}" CommandParameter="{Binding Path=SignAsRole}" />
+                            <Button Text="{Binding Path=Name}" IsVisible="{Binding Path=CanSign}" Command="{Binding Path=SignPartAsRoleCommand, Source={x:Reference ContractStackLayout}}" CommandParameter="{Binding Path=SignAsRole}" />
                         </StackLayout>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
 
             <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" BindableLayout.ItemTemplate="{StaticResource ContractHumanReadableTextTemplateSelector}" />
+            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" BindableLayout.ItemTemplateSelector="{StaticResource ContractHumanReadableTextTemplateSelector}" />
 
             <Label Text="{x:Static local:AppResources.MachineReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasMachineReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <Label Text="{x:Static local:AppResources.MachineReadableInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasMachineReadableText}" />
@@ -128,8 +128,8 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </StackLayout>
-            <Button Text="{x:Static local:AppResources.ObsoleteContract}" Command="{Binding Path=ObsoleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}"/>
-            <Button Text="{x:Static local:AppResources.DeleteContract}" Command="{Binding Path=DeleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}"/>
+            <Button Text="{x:Static local:AppResources.ObsoleteContract}" Command="{Binding Path=ObsoleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
+            <Button Text="{x:Static local:AppResources.DeleteContract}" Command="{Binding Path=DeleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
         </StackLayout>
     </ScrollView>
 </views:ContentBasePage>

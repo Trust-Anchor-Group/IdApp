@@ -1,6 +1,5 @@
 ﻿using System;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Networking.DNS.Enumerations;
 using Waher.Runtime.Profiling;
 using Xamarin.Forms;
 
@@ -68,15 +67,16 @@ namespace Tag.Neuron.Xamarin
         /// <summary>
         /// Registers a singleton implementation instance for later resolve.
         /// </summary>
-        /// <typeparam name="T">The interface it implements.</typeparam>
+        /// <typeparam name="TFrom">The interface it implements.</typeparam>
+        /// <typeparam name="TTo">The implementation class.</typeparam>
         /// <param name="singleton">The singleton instance to register.</param>
-        void RegisterSingleton<T>(T singleton);
+        void RegisterSingleton<TFrom, TTo>(TFrom singleton) where TTo : TFrom;
 
         /// <summary>
-        /// Resolves the type <see cref="t"/> using an IoC pattern.
+        /// Resolves the type <b>t</b> using an IoC pattern.
         /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
+        /// <param name="t">The type to resolve.</param>
+        /// <returns>The resolved type, or <c>null</c>.</returns>
         object Resolve(Type t);
     }
 }
