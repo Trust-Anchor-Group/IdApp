@@ -602,6 +602,80 @@
             <param name="country">Country name.</param>
             <returns>Country code, or if not found, the original name.</returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.ITagIdSdk">
+            <summary>
+            The TagIdSdk is the 'root' of the Neuron library.
+            Use this to access Neuron specific features and services, and to control startup/shutdown.
+            <br/>
+            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
+            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.TagProfile">
+            <summary>
+            The TAG Profile used for authentication/connection.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.UiDispatcher">
+            <summary>
+            A UI dispatcher for accessing the UI thread as well as display alerts to the user.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.CryptoService">
+            <summary>
+            Provides authorization services.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NeuronService">
+            <summary>
+            Provides Neuron server access.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NetworkService">
+            <summary>
+            Provides network access.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.LogService">
+            <summary>
+            The log service, collecting information about events, exceptions and the likes.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.StorageService">
+            <summary>
+            Use this for persistent storage.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.SettingsService">
+            <summary>
+            Allows for saving/restoring user settings.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.NavigationService">
+            <summary>
+            Provides application navigation services in a generic way.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.ITagIdSdk.StartupProfiler">
+            <summary>
+            Profiler of startup process, if any.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.RegisterSingleton``2(``0)">
+            <summary>
+            Registers a singleton implementation instance for later resolve.
+            </summary>
+            <typeparam name="TFrom">The interface it implements.</typeparam>
+            <typeparam name="TTo">The implementation class.</typeparam>
+            <param name="singleton">The singleton instance to register.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Resolve(System.Type)">
+            <summary>
+            Resolves the type <b>t</b> using an IoC pattern.
+            </summary>
+            <param name="t">The type to resolve.</param>
+            <returns>The resolved type, or <c>null</c>.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.IUiDispatcher">
             <summary>
             A wafer-thin wrapper around the UI (main) thread.
@@ -2457,6 +2531,60 @@
             <summary>
             Current step in the registration process.
             </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.TagIdSdk">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,Waher.Runtime.Profiling.Profiler,Tag.Neuron.Xamarin.Models.DomainModel[])">
+            <summary>
+            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.ITagIdSdk"/>. This is a factory method.
+            </summary>
+            <param name="appAssembly">The assembly containing the main App class.</param>
+            <param name="startupProfiler">Optional Startup profiler. May be null.</param>
+            <param name="domains">Featured domains.</param>
+            <returns>Tag ID SDK instance reference.</returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.TagProfile">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.UiDispatcher">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.CryptoService">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.NeuronService">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.NetworkService">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.NavigationService">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.StorageService">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.SettingsService">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.LogService">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.TagIdSdk.StartupProfiler">
+            <summary>
+            Profiler of startup process, if any.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.RegisterSingleton``2(``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Resolve(System.Type)">
+            <summary>
+            A wafer-thin IoC implementation for the services provided by the <see cref="T:Tag.Neuron.Xamarin.ITagIdSdk"/>.
+            </summary>
+            <param name="t">The type to resolve.</param>
+            <returns>The resolved type, if found, or <c>null</c>.</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UiDispatcher">
             <inheritdoc/>

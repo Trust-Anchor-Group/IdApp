@@ -233,9 +233,16 @@
             <param name="propertyName">The property name to convert into a settings key.</param>
             <returns></returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.EvaluateCommands(System.Windows.Input.ICommand[])">
+            <summary>
+            Executes the <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> method on all commands.
+            This is done to update the UI state for those UI components that bind to a command.
+            </summary>
+            <param name="commands">The commands to evaluate.</param>
+        </member>
         <member name="F:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusyProperty">
             <summary>
-            
+            <see cref="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusy"/>
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusy">
