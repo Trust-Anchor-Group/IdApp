@@ -77,9 +77,6 @@
   <EmbeddedResource Update="AppResources.sv-SE.resx">
     <Generator>ResXFileCodeGenerator</Generator>
   </EmbeddedResource>
-  <EmbeddedResource Update="Views\ImageView.xaml">
-    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-  </EmbeddedResource>
 </ItemGroup>
 
 </Project>

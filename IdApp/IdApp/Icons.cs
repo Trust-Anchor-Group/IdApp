@@ -53,9 +53,9 @@
         /// </summary>
         public const string NewContract = "\uf15b";
         /// <summary>
-        /// The bug icon
+        /// The times ('x') icon
         /// </summary>
-        public const string Bug = "\uf188";
+        public const string Times = "\uf00d";
         /// <summary>
         /// The inspect icon
         /// </summary>

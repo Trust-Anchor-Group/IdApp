@@ -111,6 +111,9 @@
     <Compile Update="Views\Contracts\PetitionSignaturePage.xaml.cs">
       <DependentUpon>PetitionSignaturePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\ImageView.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
     <Compile Update="Views\LoadingPage.xaml.cs">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>

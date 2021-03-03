@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
-using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.IoTGateway.Setup;
@@ -39,20 +38,11 @@ namespace IdApp
     public partial class App
     {
         private Timer autoSaveTimer;
-        private readonly ITagProfile tagProfile;
-        private readonly ILogService logService;
-        private readonly IUiDispatcher uiDispatcher;
-        private readonly ICryptoService cryptoService;
-        private readonly INetworkService networkService;
-        private readonly ISettingsService settingsService;
-        private readonly IStorageService storageService;
-        private readonly INavigationService navigationService;
-        private readonly INeuronService neuronService;
+        private readonly ITagIdSdk sdk;
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly bool keepRunningInTheBackground = false;
         private Profiler startupProfiler;
-        private readonly DomainModel[] domainModels;
 
         ///<inheritdoc/>
         public App()
@@ -64,8 +54,6 @@ namespace IdApp
             AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-
-            this.domainModels = new XmppConfiguration().ToArray();
 
             InitializeComponent();
 
@@ -94,22 +82,19 @@ namespace IdApp
 
                 this.startupProfiler?.NewState("SDK");
                 // Create Services
-                Types.SetModuleParameter("AppAssembly", appAssembly);
-                this.tagProfile = Types.InstantiateDefault<ITagProfile>(false, (object)this.domainModels);
-                this.logService = Types.Instantiate<ILogService>(false);
-                this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
-                this.cryptoService = Types.Instantiate<ICryptoService>(false);
-                this.networkService = Types.Instantiate<INetworkService>(false);
-                this.settingsService = Types.Instantiate<ISettingsService>(false);
-                this.storageService = Types.Instantiate<IStorageService>(false);
-                this.navigationService = Types.Instantiate<INavigationService>(false);
-                this.neuronService = Types.Instantiate<INeuronService>(false);
-                this.imageCacheService = Types.Instantiate<IImageCacheService>(false);
-                this.contractOrchestratorService = Types.Instantiate<IContractOrchestratorService>(false);
+                this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
+                this.imageCacheService = new ImageCacheService(this.sdk.SettingsService, this.sdk.LogService);
+                this.sdk.RegisterSingleton(this.imageCacheService);
+                this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
+                this.sdk.RegisterSingleton(this.contractOrchestratorService);
 
                 // Set resolver
                 DependencyResolver.ResolveUsing(type =>
                 {
+                    object obj = this.sdk.Resolve(type);
+                    if (obj != null)
+                        return obj;
+
                     if (Types.GetType(type.FullName) is null)
                         return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
@@ -117,10 +102,10 @@ namespace IdApp
                 });
 
                 // Get the db started right away to save startup time.
-                this.storageService.Init(this.startupProfiler?.CreateThread("Database", ProfilerThreadType.Sequential));
+                this.sdk.StorageService.Init(this.startupProfiler?.CreateThread("Database", ProfilerThreadType.Sequential));
 
                 // Register log listener (optional)
-                this.logService.AddListener(new AppCenterEventSink(this.logService));
+                this.sdk.LogService.AddListener(new AppCenterEventSink(this.sdk.LogService));
             }
             catch (Exception e)
             {
@@ -141,49 +126,13 @@ namespace IdApp
             {
                 e = Waher.Events.Log.UnnestException(e);
                 this.startupProfiler?.Exception(e);
-                this.logService.SaveExceptionDump("StartPage", e.ToString());
+                this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
             }
 
             this.startupProfiler?.MainThread.Idle();
         }
 
         #region Startup/Shutdown
-
-        private void ReRegisterServices()
-        {
-            if (!Types.IsSingletonRegistered(typeof(ITagProfile), (object)this.domainModels))
-                Types.RegisterSingleton(this.tagProfile, (object)this.domainModels);
-
-            if (!Types.IsSingletonRegistered(typeof(ILogService)))
-                Types.RegisterSingleton(this.logService);
-
-            if (!Types.IsSingletonRegistered(typeof(IUiDispatcher)))
-                Types.RegisterSingleton(this.uiDispatcher);
-
-            if (!Types.IsSingletonRegistered(typeof(ICryptoService)))
-                Types.RegisterSingleton(this.cryptoService);
-
-            if (!Types.IsSingletonRegistered(typeof(INetworkService)))
-                Types.RegisterSingleton(this.networkService);
-
-            if (!Types.IsSingletonRegistered(typeof(ISettingsService)))
-                Types.RegisterSingleton(this.settingsService);
-
-            if (!Types.IsSingletonRegistered(typeof(IStorageService)))
-                Types.RegisterSingleton(this.storageService);
-
-            if (!Types.IsSingletonRegistered(typeof(INavigationService)))
-                Types.RegisterSingleton(this.navigationService);
-
-            if (!Types.IsSingletonRegistered(typeof(INeuronService)))
-                Types.RegisterSingleton(this.neuronService);
-
-            if (!Types.IsSingletonRegistered(typeof(IImageCacheService)))
-                Types.RegisterSingleton(this.imageCacheService);
-
-            if (!Types.IsSingletonRegistered(typeof(IContractOrchestratorService)))
-                Types.RegisterSingleton(this.contractOrchestratorService);
-        }
 
         ///<inheritdoc/>
         protected override async void OnStart()
@@ -209,11 +158,6 @@ namespace IdApp
 
             try
             {
-                if(isResuming)
-                {
-                    this.ReRegisterServices();
-                }
-
                 thread?.NewState("Report");
                 await this.SendErrorReportFromPreviousRun();
 
@@ -222,16 +166,16 @@ namespace IdApp
                 sdkStartupThread?.Start();
                 sdkStartupThread?.NewState("DB");
 
-                this.uiDispatcher.IsRunningInTheBackground = false;
+                this.sdk.UiDispatcher.IsRunningInTheBackground = false;
 
                 // Start the db.
                 // This is for soft restarts.
                 // If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
-                this.storageService.Init(sdkStartupThread);
-                StorageState dbState = await this.storageService.WaitForReadyState();
+                this.sdk.StorageService.Init(sdkStartupThread);
+                StorageState dbState = await this.sdk.StorageService.WaitForReadyState();
                 if (dbState == StorageState.NeedsRepair)
                 {
-                    await this.storageService.TryRepairDatabase(sdkStartupThread);
+                    await this.sdk.StorageService.TryRepairDatabase(sdkStartupThread);
                 }
 
                 if (!isResuming)
@@ -241,11 +185,11 @@ namespace IdApp
 
                 sdkStartupThread?.NewState("Network");
 
-                await this.networkService.Load(isResuming);
+                await this.sdk.NetworkService.Load(isResuming);
 
                 sdkStartupThread?.NewState("Load");
 
-                await this.neuronService.Load(isResuming);
+                await this.sdk.NeuronService.Load(isResuming);
 
                 sdkStartupThread?.NewState("Timer");
 
@@ -287,33 +231,33 @@ namespace IdApp
         private async Task Shutdown(bool inPanic)
         {
             StopAutoSaveTimer();
-            if (this.uiDispatcher != null)
+            if (this.sdk.UiDispatcher != null)
             {
-                this.uiDispatcher.IsRunningInTheBackground = !inPanic;
+                this.sdk.UiDispatcher.IsRunningInTheBackground = !inPanic;
             }
 
             if (inPanic)
             {
-                if (this.neuronService != null)
-                    await this.neuronService.UnloadFast();
+                if (this.sdk.NeuronService != null)
+                    await this.sdk.NeuronService.UnloadFast();
             }
             else if (!this.keepRunningInTheBackground)
             {
                 if (this.contractOrchestratorService != null)
                     await this.contractOrchestratorService.Unload();
-                if (this.neuronService != null)
-                    await this.neuronService.Unload();
-                if (this.networkService != null)
-                    await this.networkService.Unload();
+                if (this.sdk.NeuronService != null)
+                    await this.sdk.NeuronService.Unload();
+                if (this.sdk.NetworkService != null)
+                    await this.sdk.NetworkService.Unload();
                 if (this.imageCacheService != null)
                     await this.imageCacheService.Unload();
             }
 
             await Types.StopAllModules();
             Waher.Events.Log.Terminate();
-            if (this.storageService != null)
+            if (this.sdk.StorageService != null)
             {
-                await this.storageService.Shutdown();
+                await this.sdk.StorageService.Shutdown();
             }
         }
 
@@ -331,24 +275,24 @@ namespace IdApp
 
         private async Task AutoSave()
         {
-            if (this.tagProfile.IsDirty)
+            if (this.sdk.TagProfile.IsDirty)
             {
-                this.tagProfile.ResetIsDirty();
+                this.sdk.TagProfile.ResetIsDirty();
                 try
                 {
-                    TagConfiguration tc = this.tagProfile.ToConfiguration();
+                    TagConfiguration tc = this.sdk.TagProfile.ToConfiguration();
                     try
                     {
-                        await this.storageService.Update(tc);
+                        await this.sdk.StorageService.Update(tc);
                     }
                     catch (KeyNotFoundException)
                     {
-                        await this.storageService.Insert(tc);
+                        await this.sdk.StorageService.Insert(tc);
                     }
                 }
                 catch (Exception ex)
                 {
-                    this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                    this.sdk.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
                 }
             }
         }
@@ -359,11 +303,11 @@ namespace IdApp
 
             try
             {
-                configuration = await this.storageService.FindFirstDeleteRest<TagConfiguration>();
+                configuration = await this.sdk.StorageService.FindFirstDeleteRest<TagConfiguration>();
             }
             catch (Exception findException)
             {
-                this.logService.LogException(findException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                this.sdk.LogService.LogException(findException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
                 configuration = null;
             }
 
@@ -372,15 +316,15 @@ namespace IdApp
                 configuration = new TagConfiguration();
                 try
                 {
-                    await this.storageService.Insert(configuration);
+                    await this.sdk.StorageService.Insert(configuration);
                 }
                 catch (Exception insertException)
                 {
-                    this.logService.LogException(insertException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+                    this.sdk.LogService.LogException(insertException, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
                 }
             }
 
-            this.tagProfile.FromConfiguration(configuration);
+            this.sdk.TagProfile.FromConfiguration(configuration);
         }
 
         #region Error Handling
@@ -405,12 +349,12 @@ namespace IdApp
         {
             if (ex != null)
             {
-                this.logService.SaveExceptionDump(title, ex.ToString());
+                this.sdk.LogService.SaveExceptionDump(title, ex.ToString());
             }
 
             if (ex != null)
             {
-                this.logService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
+                this.sdk.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
             }
 
             if (shutdown)
@@ -440,7 +384,7 @@ namespace IdApp
 
         private void DisplayBootstrapErrorPage(string title, string stackTrace)
         {
-            this.logService?.SaveExceptionDump(title, stackTrace);
+            this.sdk.LogService?.SaveExceptionDump(title, stackTrace);
 
             ScrollView sv = new ScrollView();
             StackLayout sl = new StackLayout
@@ -471,9 +415,9 @@ namespace IdApp
 
         private async Task SendErrorReportFromPreviousRun()
         {
-            if (this.logService != null)
+            if (this.sdk.LogService != null)
             {
-                string stackTrace = this.logService.LoadExceptionDump();
+                string stackTrace = this.sdk.LogService.LoadExceptionDump();
                 if (!string.IsNullOrWhiteSpace(stackTrace))
                 {
                     try
@@ -482,7 +426,7 @@ namespace IdApp
                     }
                     finally
                     {
-                        this.logService.DeleteExceptionDump();
+                        this.sdk.LogService.DeleteExceptionDump();
                     }
                 }
             }

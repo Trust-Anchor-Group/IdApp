@@ -49,20 +49,14 @@ namespace Tag.Neuron.Xamarin.Services
 		private string historyHtml;
 
 		public NeuronService(
+			Assembly appAssembly,
 			ITagProfile tagProfile,
 			IUiDispatcher uiDispatcher,
 			INetworkService networkService,
 			ILogService logService,
 			Profiler startupProfiler)
-		{
-            if (Types.TryGetModuleParameter("AppAssembly", out object a) && a is Assembly aa)
-            {
-                this.appAssembly = aa;
-            }
-            else
-            {
-                this.appAssembly = GetType().Assembly;
-            }
+        {
+            this.appAssembly = appAssembly;
 			this.networkService = networkService;
 			this.logService = logService;
 			this.tagProfile = tagProfile;
