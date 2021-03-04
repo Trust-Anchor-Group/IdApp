@@ -616,7 +616,7 @@ namespace Tag.Neuron.Xamarin.Services
 			return (succeeded, errorMessage);
 		}
 
-		public Task<ContractsClient> CreateContractsClientAsync()
+		public async Task<ContractsClient> CreateContractsClientAsync()
 		{
 			if (this.xmppClient == null)
 			{
@@ -627,7 +627,19 @@ namespace Tag.Neuron.Xamarin.Services
 				throw new InvalidOperationException("LegalJid is not defined");
 			}
 
-			return ContractsClient.Create(this.xmppClient, this.tagProfile.LegalJid);
+			ContractsClient Result = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
+
+			if (!await Result.LoadKeys(false))
+			{
+				await Result.GenerateNewKeys();	
+				// TODO: Only create keys if absolutely certain keys have not been created before, to avoid overwriting previous keys.
+				// TODO: Before generating new keys, except for the first time, a message should be displayed informing the user that 
+				//       keys seem to be lost, and if the user would like to generate new keys (and that generating new keys will
+				//       obsolete any current ID, if such exists). Generating new keys should also take the user back to the view 
+				//       where a new Legal Identity needs to be applied for, and previous IDs need to be obsoleted.
+			}
+
+			return Result;
 		}
 
 

@@ -283,7 +283,7 @@ namespace Tag.Neuron.Xamarin.Services
             else
             {
                 AssertContractsIsAvailable(false);
-                using (ContractsClient cc = await ContractsClient.Create(client, this.tagProfile.LegalJid))
+                using (ContractsClient cc = new ContractsClient(client, this.tagProfile.LegalJid))  // No need to load keys for this operation.
                 {
                     return await cc.GetLegalIdentitiesAsync();
                 }
