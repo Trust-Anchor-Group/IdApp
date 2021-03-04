@@ -119,10 +119,10 @@ namespace IdApp.ViewModels
             {
                 _ = Task.Run(() =>
                 {
-                    byte[] png = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+                    byte[] bytes = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
                     if (this.IsBound)
                     {
-                        this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                        this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
                     }
                 });
             }
@@ -142,14 +142,17 @@ namespace IdApp.ViewModels
                         MemoryStream ms = task.Result;
                         if (ms != null)
                         {
+                            byte[] bytes = ms.ToArray();
+                            ms.Dispose();
+
                             if (!this.IsBound) // Page no longer on screen when download is done?
                             {
-                                ms.Dispose();
                                 return;
                             }
+
                             this.UiDispatcher.BeginInvokeOnMainThread(() =>
                             {
-                                Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
+                                Image = ImageSource.FromStream(() => new MemoryStream(bytes));
                             });
                         }
                     }, TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.NotOnCanceled);

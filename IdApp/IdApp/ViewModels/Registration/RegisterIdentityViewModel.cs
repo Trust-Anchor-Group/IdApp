@@ -456,9 +456,9 @@ namespace IdApp.ViewModels.Registration
         protected internal async Task AddPhoto(MemoryStream ms, bool saveLocalCopy, bool showAlert)
         {
             byte[] bytes = ms.ToArray();
+            ms.Dispose();
             if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
-                ms.Dispose();
                 if (showAlert)
                 {
                     await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
@@ -480,8 +480,7 @@ namespace IdApp.ViewModels.Registration
                 }
             }
             this.photo = new LegalIdentityAttachment(localPhotoFileName, Constants.MimeTypes.Jpeg, bytes);
-            ms.Reset();
-            Image = ImageSource.FromStream(() => ms); // .FromStream disposes the stream
+            Image = ImageSource.FromStream(() => new MemoryStream(bytes));
             RegisterCommand.ChangeCanExecute();
         }
 

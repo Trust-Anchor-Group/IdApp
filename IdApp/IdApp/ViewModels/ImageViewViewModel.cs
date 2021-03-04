@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using IdApp.Services;
 using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
@@ -60,6 +61,7 @@ namespace IdApp.ViewModels
         {
             this.photosLoader.CancelLoadPhotos();
             this.IsSwipeEnabled = false;
+
             _ = this.photosLoader.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys, () =>
             {
                 this.uiDispatcher.BeginInvokeOnMainThread(() => this.IsSwipeEnabled = this.Photos.Count > 1);

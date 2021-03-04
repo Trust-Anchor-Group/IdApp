@@ -108,6 +108,7 @@ namespace IdApp.Services
 								fileStream.CopyTo(stream);
 								stream.Reset();
 							}
+							System.Diagnostics.Debug.WriteLine($"ImageCacheService.TryGet '{url}', MS = {stream.GetHashCode()}, Length = {stream.Length}");
 							return true;
 						}
 					}

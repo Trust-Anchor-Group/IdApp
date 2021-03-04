@@ -161,14 +161,14 @@ namespace IdApp
                     if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                         continue;
 
-                    Stream stream = await GetPhoto(attachment, signWith, now);
+                    MemoryStream stream = await GetPhoto(attachment, signWith, now);
                     if (stream != null)
                     {
-                        stream.Reset();
+                        byte[] bytes = stream.ToArray();
+                        stream.Dispose();
                         this.uiDispatcher.BeginInvokeOnMainThread(() =>
                         {
-                            ImageSource imageSource = ImageSource.FromStream(() => stream); // Disposes the stream
-                            photos.Add(imageSource);
+                            photos.Add(ImageSource.FromStream(() => new MemoryStream(bytes)));
                         });
                     }
                 }

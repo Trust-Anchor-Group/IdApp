@@ -19,8 +19,8 @@
             <Button Grid.Row="0" Grid.Column="0" Text="Clear" Command="{Binding Path=ClearCommand}" Margin="{StaticResource DefaultMargin}" />
             <Button Grid.Row="0" Grid.Column="1" Text="Copy" Command="{Binding Path=CopyCommand}" Margin="{StaticResource DefaultMargin}" />
             <Button Grid.Row="0" Grid.Column="2" Text="{Binding HistoryButtonText}" Command="{Binding Path=ShowHistoryCommand}" Margin="{StaticResource DefaultMargin}" />
-            <Button Grid.Row="1" Grid.ColumnSpan="3" Text="Send Debug Information" Command="{Binding Path=SendDebugInfoCommand}" Margin="{StaticResource DefaultMargin}" />
-            <WebView Grid.Row="2" Grid.ColumnSpan="3" Source="{Binding Path=Html}" />
+            <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Text="Send Debug Information" Command="{Binding Path=SendDebugInfoCommand}" Margin="{StaticResource DefaultMargin}" />
+            <WebView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding Path=Html}" />
         </Grid>
     </ContentPage.Content>
 </views:ContentBasePage>

@@ -426,10 +426,10 @@ namespace IdApp.ViewModels.Contracts
                 {
                     _ = Task.Run(() =>
                     {
-                        byte[] png = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
+                        byte[] bytes = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
                         if (this.IsBound)
                         {
-                            this.uiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(png)));
+                            this.uiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
                         }
                     });
                 }
