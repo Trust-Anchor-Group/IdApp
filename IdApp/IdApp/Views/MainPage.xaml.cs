@@ -68,11 +68,11 @@ namespace IdApp.Views
                     this.LogoutPanel.TranslationY = -Height;
                     await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.SinIn);
                 }
-                else if (!this.neuronService.IsLoggedOut && e.State == XmppState.Connected)
+                else if (!this.neuronService.IsLoggedOut && this.logoutPanelIsShown)
                 {
+                    this.logoutPanelIsShown = false;
                     // Hide (slide up) logout panel
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
-                    this.logoutPanelIsShown = false;
                     await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
                 }
             }
