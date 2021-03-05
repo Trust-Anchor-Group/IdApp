@@ -135,10 +135,10 @@
                     <Image Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="3" x:Name="QrCode" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="CenterAndExpand" Margin="0" />
                     <!-- - -->
                     <CheckBox Grid.Row="19" Grid.Column="0" x:Name="CarefulReviewCheck" IsChecked="{Binding Path=CarefulReviewIsChecked, Mode=TwoWay}" IsVisible="{Binding Path=IsForReview}"/>
-                    <Label Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IHaveCarefullyReviewedAllInformationAbove}" VerticalOptions="Center" IsVisible="{Binding Path=IsForReview}"/>
+                    <Label Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IHaveCarefullyReviewedAllInformationAbove}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12"/>
                     <!-- - -->
                     <CheckBox Grid.Row="20" Grid.Column="0" x:Name="ApprovePiiCheck" IsChecked="{Binding Path=ApprovePiiIsChecked, Mode=TwoWay}" IsVisible="{Binding Path=IsForReview}"/>
-                    <Label Grid.Row="20" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IApproveOfMyPersonalInformationToBeAssociated}" VerticalOptions="Center" IsVisible="{Binding Path=IsForReview}"/>
+                    <Label Grid.Row="20" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IApproveOfMyPersonalInformationToBeAssociated}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12" />
                     <!-- - -->
                     <Label Grid.Row="21" Grid.Column="0" Text="{x:Static local:AppResources.PinOrPassword}" VerticalOptions="Center" IsVisible="{Binding Path=IsForReviewAndPin}"/>
                     <Entry Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2" IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}" VerticalOptions="Center" WidthRequest="300" MinimumWidthRequest="150" IsVisible="{Binding Path=IsForReviewAndPin}"/>
