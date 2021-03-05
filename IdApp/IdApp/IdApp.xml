@@ -2036,12 +2036,13 @@
             <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
             <param name="photos">The collection the photos should be added to when downloaded.</param>
         </member>
-        <member name="M:IdApp.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith)">
+        <member name="M:IdApp.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith,System.Action)">
             <summary>
             Loads photos from the specified list of attachments.
             </summary>
             <param name="attachments">The attachments whose files to download.</param>
             <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
             <returns></returns>
         </member>
         <member name="M:IdApp.PhotosLoader.CancelLoadPhotos">
@@ -4510,28 +4511,38 @@
             Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin"/> property is for review.
             </summary>
         </member>
-        <member name="T:IdApp.ViewModels.ImageViewModel">
+        <member name="T:IdApp.ViewModels.ImageViewViewModel">
             <summary>
              The class to use as binding context for displaying images.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.ImageViewModel.#ctor">
+        <member name="M:IdApp.ViewModels.ImageViewViewModel.#ctor">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.ViewModels.ImageViewModel"/> class.
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.ImageViewViewModel"/> class.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.ImageViewModel.Photos">
+        <member name="P:IdApp.ViewModels.ImageViewViewModel.Photos">
             <summary>
             Holds the list of photos to display.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.ImageViewModel.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
+        <member name="F:IdApp.ViewModels.ImageViewViewModel.IsSwipeEnabledProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.ImageViewViewModel.IsSwipeEnabled"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.ImageViewViewModel.IsSwipeEnabled">
+            <summary>
+            Gets or sets whether a user can swipe to see the photos.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.ImageViewViewModel.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
             <summary>
             Loads the attachments photos, if there are any.
             </summary>
             <param name="attachments">The attachments to load.</param>
         </member>
-        <member name="M:IdApp.ViewModels.ImageViewModel.ClearPhotos">
+        <member name="M:IdApp.ViewModels.ImageViewViewModel.ClearPhotos">
             <summary>
             Clears the currently displayed photos.
             </summary>
@@ -6244,6 +6255,9 @@
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.PetitionContractPage"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Views.Contracts.PetitionContractPage.OnDisappearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Views.Contracts.PetitionContractPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
@@ -6260,6 +6274,9 @@
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.PetitionIdentityPage"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Views.Contracts.PetitionIdentityPage.OnDisappearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Views.Contracts.PetitionIdentityPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
@@ -6275,6 +6292,9 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.PetitionSignaturePage"/> class.
             </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.PetitionSignaturePage.OnDisappearing">
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Views.Contracts.PetitionSignaturePage.OnBackButtonPressed">
             <summary>

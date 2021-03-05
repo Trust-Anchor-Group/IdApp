@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Xsl;
 using Tag.Neuron.Xamarin.Extensions;
+using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
@@ -631,6 +632,11 @@ namespace Tag.Neuron.Xamarin.Services
 
 			if (!await Result.LoadKeys(false))
 			{
+				Log.Alert("Temporary restriction: Automatic generation of keys disabled.",
+					string.Empty, string.Empty, string.Empty, EventLevel.Major, string.Empty, string.Empty, Environment.StackTrace);
+
+				throw new Exception("Temporary restriction: Automatic generation of keys disabled.");
+
 				await Result.GenerateNewKeys();	
 				// TODO: Only create keys if absolutely certain keys have not been created before, to avoid overwriting previous keys.
 				// TODO: Before generating new keys, except for the first time, a message should be displayed informing the user that 
