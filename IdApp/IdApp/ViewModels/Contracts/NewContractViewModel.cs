@@ -24,7 +24,6 @@ namespace IdApp.ViewModels.Contracts
     /// </summary>
     public class NewContractViewModel : BaseViewModel
     {
-        private SortedDictionary<string, SortedDictionary<string, string>> contractTypesPerCategory;
         private Contract contractTemplate;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
@@ -76,10 +75,7 @@ namespace IdApp.ViewModels.Contracts
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
 
-            this.contractTypesPerCategory = new SortedDictionary<string, SortedDictionary<string, string>>();
             this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
-            this.ContractCategories = new ObservableCollection<string>();
-            this.ContractTypes = new ObservableCollection<string>();
             this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
             this.AddPartCommand = new Command(async _ => await this.AddPart());
             this.ParameterChangedCommand = new Command(EditParameter);
@@ -92,20 +88,12 @@ namespace IdApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
-            if (this.navigationService.TryPopArgs(out NewContractNavigationArgs args))
-            {
-                this.contractTemplate = args.Contract;
-                this.contractTypesPerCategory = args.ContractTypesPerCategory;
-            }
-            this.IsTemplate = this.contractTypesPerCategory != null;
 
-            if (this.contractTypesPerCategory != null && this.contractTypesPerCategory.Count > 0)
-            {
-                foreach (string contractType in this.contractTypesPerCategory.Keys)
-                {
-                    this.ContractCategories.Add(contractType);
-                }
-            }
+            if (this.navigationService.TryPopArgs(out NewContractNavigationArgs args))
+                this.contractTemplate = args.Contract;
+
+            this.contractTemplateId = this.contractTemplate?.ContractId ?? string.Empty;
+            this.IsTemplate = this.contractTemplate?.CanActAsTemplate ?? false;
 
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.CreatorAndParts, AppResources.ContractVisibility_CreatorAndParts));
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.DomainAndParts, AppResources.ContractVisibility_DomainAndParts));
@@ -115,15 +103,69 @@ namespace IdApp.ViewModels.Contracts
             this.UsePin = this.tagProfile.UsePin;
         }
 
+        private async Task BindTemplate()
+        {
+            try
+            {
+                this.BindTemplateParts();
+
+                this.HasTemplate = true;
+                this.HasRoles = this.ContractRoles.Count > 0;
+                this.HasParameters = this.ContractParameters.Count > 0;
+                this.HasHumanReadableText = this.ContractHumanReadableText.Count > 0;
+                this.ProposeCommand.ChangeCanExecute();
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
+                    .Append(new KeyValuePair<string, string>("ContractId", this.contractTemplateId))
+                    .ToArray());
+
+                ClearTemplate();
+                await this.uiDispatcher.DisplayAlert(ex);
+            }
+        }
+
+        private void BindTemplateParts()
+        {
+            foreach (Role role in this.contractTemplate.Roles)
+            {
+                this.ContractRoles.Add(new RoleModel(role.Name));
+                if (role.MinCount > 0)
+                    this.CanAddParts = true;
+                
+                // TODO: replace this with a data template selector
+                //Populate(this.Roles, role.ToXamarinForms(contract.DefaultLanguage, contract));
+            }
+
+            foreach (Parameter parameter in contractTemplate.Parameters)
+            {
+                this.ContractParameters.Add(new ParameterModel(parameter.Name, FilterDefaultValues(parameter.Name)));
+                
+                // TODO: replace this with a data template selector
+                //Populate(Parameters, parameter.ToXamarinForms(contract.DefaultLanguage, contract));
+            }
+        }
+
+        private void LoadHumanReadableText()
+        {
+            this.ContractHumanReadableText.Clear();
+
+            if (!(this.contractTemplate is null))
+            {
+                // TODO: replace this with a data template selector
+                //Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
+            }
+        }
+
         /// <inheritdoc/>
         protected override async Task DoUnbind()
         {
-            this.ContractCategories.Clear();
-            this.ContractTypes.Clear();
             this.ContractRoles.Clear();
             this.ContractVisibilityItems.Clear();
             this.ContractHumanReadableText.Clear();
             this.ContractParameters.Clear();
+
             await base.DoUnbind();
         }
 
@@ -131,12 +173,9 @@ namespace IdApp.ViewModels.Contracts
         protected override async Task DoSaveState()
         {
             await base.DoSaveState();
-            await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractCategory)), this.SelectedContractCategory);
-            await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractType)), this.SelectedContractType);
-            if (this.SelectedContractVisibilityItem != null)
-            {
+
+            if (!(this.SelectedContractVisibilityItem is null))
                 await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), (ContractVisibility?)this.SelectedContractVisibilityItem.Visibility);
-            }
         }
 
         /// <inheritdoc/>
@@ -144,21 +183,16 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveState)
             {
-                this.SelectedContractCategory = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedContractCategory)));
-                this.SelectedContractType = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedContractType)));
                 ContractVisibility? visibility = await this.settingsService.RestoreState<ContractVisibility?>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-                if (visibility != null)
-                {
+             
+                if (!(visibility is null))
                     this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == visibility);
-                }
             }
             await base.DoRestoreState();
         }
 
         private void DeleteState()
         {
-            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractCategory)));
-            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractType)));
             this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
         }
 
@@ -227,69 +261,6 @@ namespace IdApp.ViewModels.Contracts
         {
             get { return (bool)GetValue(VisibilityIsEnabledProperty); }
             set { SetValue(VisibilityIsEnabledProperty, value); }
-        }
-
-        /// <summary>
-        /// The valid list of contract categories.
-        /// </summary>
-        public ObservableCollection<string> ContractCategories { get; }
-
-        /// <summary>
-        /// See <see cref="SelectedContractCategory"/>
-        /// </summary>
-        public static readonly BindableProperty SelectedContractCategoryProperty =
-            BindableProperty.Create("SelectedContractCategory", typeof(string), typeof(NewContractViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                NewContractViewModel viewModel = (NewContractViewModel)b;
-                viewModel.UpdateContractTypes();
-            });
-
-        /// <summary>
-        /// The selected contract category, if any.
-        /// </summary>
-        public string SelectedContractCategory
-        {
-            get { return (string)GetValue(SelectedContractCategoryProperty); }
-            set { SetValue(SelectedContractCategoryProperty, value); }
-        }
-
-        /// <summary>
-        /// The list of contract types to choose from.
-        /// </summary>
-        public ObservableCollection<string> ContractTypes { get; }
-
-        /// <summary>
-        /// See <see cref="HasContractTypes"/>
-        /// </summary>
-        public static readonly BindableProperty HasContractTypesProperty =
-            BindableProperty.Create("HasContractTypes", typeof(bool), typeof(NewContractViewModel), default(bool));
-
-        /// <summary>
-        /// Gets or sets whether the contract has contract types or not.
-        /// </summary>
-        public bool HasContractTypes
-        {
-            get { return (bool)GetValue(HasContractTypesProperty); }
-            set { SetValue(HasContractTypesProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="SelectedContractType"/>
-        /// </summary>
-        public static readonly BindableProperty SelectedContractTypeProperty =
-            BindableProperty.Create("SelectedContractType", typeof(string), typeof(NewContractViewModel), default(string), propertyChanged: async (b, oldValue, newValue) =>
-            {
-                NewContractViewModel viewModel = (NewContractViewModel)b;
-                await viewModel.UpdateContractTemplate();
-            });
-
-        /// <summary>
-        /// The selected contract type, if any.
-        /// </summary>
-        public string SelectedContractType
-        {
-            get { return (string)GetValue(SelectedContractTypeProperty); }
-            set { SetValue(SelectedContractTypeProperty, value); }
         }
 
         /// <summary>
@@ -434,37 +405,6 @@ namespace IdApp.ViewModels.Contracts
 
         #endregion
 
-        private void UpdateContractTypes()
-        {
-            this.ContractTypes.Clear();
-
-            if (!string.IsNullOrWhiteSpace(this.SelectedContractCategory) &&
-                this.contractTypesPerCategory != null &&
-                this.contractTypesPerCategory.TryGetValue(this.SelectedContractCategory, out SortedDictionary<string, string> idsPerType))
-            {
-                foreach (KeyValuePair<string, string> id in idsPerType)
-                {
-                    this.ContractTypes.Add(id.Key);
-                }
-            }
-
-            this.HasContractTypes = this.ContractTypes.Count > 0;
-        }
-
-        private async Task UpdateContractTemplate()
-        {
-            this.ClearTemplate();
-
-            if (!string.IsNullOrWhiteSpace(this.SelectedContractType) &&
-                this.contractTypesPerCategory != null &&
-                this.contractTypesPerCategory.TryGetValue(this.SelectedContractCategory, out SortedDictionary<string, string> idsPerType) &&
-                idsPerType.TryGetValue(this.SelectedContractType, out string templateId))
-            {
-                this.contractTemplateId = templateId;
-                await this.LoadTemplate();
-            }
-        }
-
         private void ClearTemplate()
         {
             this.contractTemplate = null;
@@ -478,64 +418,6 @@ namespace IdApp.ViewModels.Contracts
             this.HasHumanReadableText = this.ContractHumanReadableText.Count > 0;
             this.CanAddParts = false;
             this.ProposeCommand.ChangeCanExecute();
-        }
-
-        private async Task LoadTemplate()
-        {
-            try
-            {
-                (bool succeeded, Contract retrievedContract) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetContract(this.contractTemplateId));
-                if (!succeeded)
-                    return;
-
-                this.contractTemplate = retrievedContract;
-                this.LoadTemplateParts();
-                this.HasTemplate = true;
-                this.HasRoles = this.ContractRoles.Count > 0;
-                this.HasParameters = this.ContractParameters.Count > 0;
-                this.HasHumanReadableText = this.ContractHumanReadableText.Count > 0;
-                this.ProposeCommand.ChangeCanExecute();
-            }
-            catch (Exception ex)
-            {
-                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
-                    .Append(new KeyValuePair<string, string>("ContractId", this.contractTemplateId))
-                    .ToArray());
-                ClearTemplate();
-                await this.uiDispatcher.DisplayAlert(ex);
-            }
-        }
-
-        private void LoadTemplateParts()
-        {
-            foreach (Role role in this.contractTemplate.Roles)
-            {
-                this.ContractRoles.Add(new RoleModel(role.Name));
-                if (role.MinCount > 0)
-                {
-                    this.CanAddParts = true;
-                }
-                // TODO: replace this with a data template selector
-                //Populate(this.Roles, role.ToXamarinForms(contract.DefaultLanguage, contract));
-            }
-
-            foreach (Parameter parameter in contractTemplate.Parameters)
-            {
-                this.ContractParameters.Add(new ParameterModel(parameter.Name, FilterDefaultValues(parameter.Name)));
-                // TODO: replace this with a data template selector
-                //Populate(Parameters, parameter.ToXamarinForms(contract.DefaultLanguage, contract));
-            }
-        }
-
-        private void LoadHumanReadableText()
-        {
-            this.ContractHumanReadableText.Clear();
-
-            if (this.contractTemplate != null)
-            {
-                // TODO: replace this with a data template selector
-                //Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
-            }
         }
 
         private static string FilterDefaultValues(string s)
@@ -573,7 +455,7 @@ namespace IdApp.ViewModels.Contracts
                                 nr = min = max = 0;
 
                                 Role r = this.contractTemplate.Roles.FirstOrDefault(x => x.Name == role);
-                                if (r != null)
+                                if (!(r is null))
                                 {
                                     min = r.MinCount;
                                     max = r.MaxCount;
@@ -622,7 +504,7 @@ namespace IdApp.ViewModels.Contracts
 
                 this.contractTemplate.PartsMode = ContractParts.Open;
 
-                if (this.SelectedContractVisibilityItem == null)
+                if (this.SelectedContractVisibilityItem is null)
                 {
                     await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
                     return;
@@ -630,7 +512,7 @@ namespace IdApp.ViewModels.Contracts
 
                 this.contractTemplate.Visibility = this.SelectedContractVisibilityItem.Visibility;
 
-                if (this.SelectedRole == null)
+                if (this.SelectedRole is null)
                 {
                     await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
                     return;
@@ -666,10 +548,8 @@ namespace IdApp.ViewModels.Contracts
                     }
                 }
 
-                if (signedContract != null)
-                {
+                if (!(signedContract is null))
                     await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(createdContract, false));
-                }
             }
             catch (Exception ex)
             {
@@ -679,7 +559,7 @@ namespace IdApp.ViewModels.Contracts
 
         private bool CanPropose()
         {
-            return this.contractTemplate != null;
+            return !(this.contractTemplate is null);
         }
 
         private async Task AddPart()
@@ -697,21 +577,18 @@ namespace IdApp.ViewModels.Contracts
 
         private void AddRole(RoleModel model)
         {
-            if (model != null)
-            {
+            if (!(model is null))
                 this.ContractRoles.Add(model);
-            }
         }
 
         private void RemoveRole(RoleModel model)
         {
-            if (model != null)
+            if (!(model is null))
             {
                 RoleModel existing = this.ContractRoles.FirstOrDefault(x => x.Name == model.Name);
-                if (existing != null)
-                {
+                
+                if (!(existing is null))
                     this.ContractRoles.Remove(existing);
-                }
             }
         }
 
@@ -721,7 +598,7 @@ namespace IdApp.ViewModels.Contracts
                 return;
 
             Parameter p = this.contractTemplate.Parameters.FirstOrDefault(x => x.Name == model.Id);
-            if (p != null)
+            if (!(p is null))
             {
                 if (p is StringParameter sp)
                 {

@@ -43,7 +43,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool isCreatingClient;
 		private XmppEventSink xmppEventSink;
 		private bool userInitiatedLogInOrOut;
-		private string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Tx {color: #ffffff; background-color: #008000;display: block;} </style>";
+		private readonly string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Tx {color: #ffffff; background-color: #008000;display: block;} </style>";
 		private string sentHtml;
 		private string sentTextData;
 		private string historyTextData;

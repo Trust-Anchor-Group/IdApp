@@ -1,6 +1,5 @@
 ﻿using IdApp.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
@@ -18,18 +17,6 @@ namespace IdApp.Views
     {
         private readonly INeuronService neuronService;
         private bool logoutPanelIsShown;
-
-        private static readonly SortedDictionary<string, SortedDictionary<string, string>> ContractTypesPerCategory =
-            new SortedDictionary<string, SortedDictionary<string, string>>()
-            {/*
-                {
-                    "Put Title of Contract Category here",
-                    new SortedDictionary<string, string>()
-                    {
-                        { "Put Title of Contract Template here", "Put contract identity of template here." }
-                    }
-                }*/
-            };
 
         /// <summary>
         /// Creates a new instance of the <see cref="MainPage"/> class.

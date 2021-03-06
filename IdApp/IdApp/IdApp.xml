@@ -1780,27 +1780,9 @@
             </summary>
             <param name="contract">The contract to use as template.</param>
         </member>
-        <member name="M:IdApp.Navigation.NewContractNavigationArgs.#ctor(System.Collections.Generic.SortedDictionary{System.String,System.Collections.Generic.SortedDictionary{System.String,System.String}})">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.NewContractNavigationArgs"/> class.
-            </summary>
-            <param name="contractTypesPerCategory">A dictionary of all contract types, organized per category.</param>
-        </member>
-        <member name="M:IdApp.Navigation.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Collections.Generic.SortedDictionary{System.String,System.Collections.Generic.SortedDictionary{System.String,System.String}})">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.NewContractNavigationArgs"/> class.
-            </summary>
-            <param name="contract">The contract to use as template.</param>
-            <param name="contractTypesPerCategory">A dictionary of all contract types, organized per category.</param>
-        </member>
         <member name="P:IdApp.Navigation.NewContractNavigationArgs.Contract">
             <summary>
             The contract to use as template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Navigation.NewContractNavigationArgs.ContractTypesPerCategory">
-            <summary>
-            The contract types available, organized per category.
             </summary>
         </member>
         <member name="T:IdApp.Navigation.PetitionContractNavigationArgs">
@@ -2756,46 +2738,6 @@
         <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.VisibilityIsEnabled">
             <summary>
             Gets or sets whether the visibility items should be shown to the user or not.
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractCategories">
-            <summary>
-            The valid list of contract categories.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractCategoryProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractCategory"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractCategory">
-            <summary>
-            The selected contract category, if any.
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractTypes">
-            <summary>
-            The list of contract types to choose from.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasContractTypesProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasContractTypes"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasContractTypes">
-            <summary>
-            Gets or sets whether the contract has contract types or not.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractTypeProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractType"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedContractType">
-            <summary>
-            The selected contract type, if any.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.PinProperty">
