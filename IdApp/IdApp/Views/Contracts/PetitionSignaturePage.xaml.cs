@@ -28,8 +28,8 @@ namespace IdApp.Views.Contracts
         /// <inheritdoc/>
         protected override void OnDisappearing()
         {
-            base.OnDisappearing();
             this.PhotoViewer.HidePhotos();
+            base.OnDisappearing();
         }
 
         /// <summary>

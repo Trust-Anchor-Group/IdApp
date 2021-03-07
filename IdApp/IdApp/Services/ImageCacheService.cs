@@ -82,7 +82,7 @@ namespace IdApp.Services
 					this.logService.LogException(e);
 				}
 
-				this.EndLoad(false);
+				this.EndUnload();
 			}
 		}
 

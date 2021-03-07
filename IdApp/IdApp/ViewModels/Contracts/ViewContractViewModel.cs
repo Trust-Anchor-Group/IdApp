@@ -27,7 +27,6 @@ namespace IdApp.ViewModels.Contracts
     /// </summary>
     public class ViewContractViewModel : BaseViewModel
     {
-        private Contract contract;
         private bool isReadOnly;
         private readonly IUiDispatcher uiDispatcher;
         private readonly ILogService logService;
@@ -100,12 +99,12 @@ namespace IdApp.ViewModels.Contracts
             await base.DoBind();
             if (this.navigationService.TryPopArgs(out ViewContractNavigationArgs args))
             {
-                this.contract = args.Contract;
+                this.Contract = args.Contract;
                 this.isReadOnly = args.IsReadOnly;
             }
             else
             {
-                this.contract = null;
+                this.Contract = null;
                 this.isReadOnly = true;
             }
             await LoadContract();
@@ -193,6 +192,8 @@ namespace IdApp.ViewModels.Contracts
         /// Gets the list of photos associated with the contract.
         /// </summary>
         public ObservableCollection<ImageSource> Photos { get; }
+
+        public Contract Contract { get; private set; }
 
         /// <summary>
         /// See <see cref="HasRoles"/>
@@ -383,7 +384,7 @@ namespace IdApp.ViewModels.Contracts
         private void ClearContract()
         {
             this.photosLoader.CancelLoadPhotos();
-            this.contract = null;
+            this.Contract = null;
             this.GeneralInformation.Clear();
             this.ContractParameters.Clear();
             this.ContractRoles.Clear();
@@ -407,26 +408,26 @@ namespace IdApp.ViewModels.Contracts
             try
             {
                 // General Information
-                this.GeneralInformation.Add(new PartModel(AppResources.Created, contract.Created.ToString(CultureInfo.CurrentUICulture)));
-                if (this.contract.Updated > DateTime.MinValue)
+                this.GeneralInformation.Add(new PartModel(AppResources.Created, Contract.Created.ToString(CultureInfo.CurrentUICulture)));
+                if (this.Contract.Updated > DateTime.MinValue)
                 {
-                    this.GeneralInformation.Add(new PartModel(AppResources.Created, contract.Updated.ToString(CultureInfo.CurrentUICulture)));
+                    this.GeneralInformation.Add(new PartModel(AppResources.Created, Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
                 }
-                this.GeneralInformation.Add(new PartModel(AppResources.State, contract.State.ToString()));
-                this.GeneralInformation.Add(new PartModel(AppResources.Visibility, contract.Visibility.ToString()));
-                this.GeneralInformation.Add(new PartModel(AppResources.Duration, contract.Duration.ToString()));
-                this.GeneralInformation.Add(new PartModel(AppResources.From, contract.From.ToString(CultureInfo.CurrentUICulture)));
-                this.GeneralInformation.Add(new PartModel(AppResources.To, contract.To.ToString(CultureInfo.CurrentUICulture)));
-                this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Optional, contract.ArchiveOptional.ToString()));
-                this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Required, contract.ArchiveRequired.ToString()));
-                this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, contract.CanActAsTemplate.ToYesNo()));
+                this.GeneralInformation.Add(new PartModel(AppResources.State, Contract.State.ToString()));
+                this.GeneralInformation.Add(new PartModel(AppResources.Visibility, Contract.Visibility.ToString()));
+                this.GeneralInformation.Add(new PartModel(AppResources.Duration, Contract.Duration.ToString()));
+                this.GeneralInformation.Add(new PartModel(AppResources.From, Contract.From.ToString(CultureInfo.CurrentUICulture)));
+                this.GeneralInformation.Add(new PartModel(AppResources.To, Contract.To.ToString(CultureInfo.CurrentUICulture)));
+                this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Optional, Contract.ArchiveOptional.ToString()));
+                this.GeneralInformation.Add(new PartModel(AppResources.Archiving_Required, Contract.ArchiveRequired.ToString()));
+                this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, Contract.CanActAsTemplate.ToYesNo()));
 
                 // QR
-                if (this.contract != null)
+                if (this.Contract != null)
                 {
                     _ = Task.Run(() =>
                     {
-                        byte[] bytes = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
+                        byte[] bytes = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
                         if (this.IsBound)
                         {
                             this.uiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
@@ -441,14 +442,14 @@ namespace IdApp.ViewModels.Contracts
                 // Parts
                 bool hasSigned = false;
                 bool acceptsSignatures =
-                    (contract.State == ContractState.Approved || contract.State == ContractState.BeingSigned) &&
-                    (!contract.SignAfter.HasValue || contract.SignAfter.Value < DateTime.Now) &&
-                    (!contract.SignBefore.HasValue || contract.SignBefore.Value > DateTime.Now);
+                    (Contract.State == ContractState.Approved || Contract.State == ContractState.BeingSigned) &&
+                    (!Contract.SignAfter.HasValue || Contract.SignAfter.Value < DateTime.Now) &&
+                    (!Contract.SignBefore.HasValue || Contract.SignBefore.Value > DateTime.Now);
                 Dictionary<string, int> nrSignatures = new Dictionary<string, int>();
 
-                if (contract.ClientSignatures != null)
+                if (Contract.ClientSignatures != null)
                 {
-                    foreach (ClientSignature signature in contract.ClientSignatures)
+                    foreach (ClientSignature signature in Contract.ClientSignatures)
                     {
                         if (signature.LegalId == this.tagProfile.LegalIdentity.Id)
                             hasSigned = true;
@@ -460,18 +461,18 @@ namespace IdApp.ViewModels.Contracts
                     }
                 }
 
-                if (contract.SignAfter.HasValue)
+                if (Contract.SignAfter.HasValue)
                 {
-                    this.ContractParts.Add(new PartModel(AppResources.SignAfter, contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture)));
+                    this.ContractParts.Add(new PartModel(AppResources.SignAfter, Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture)));
                 }
-                if (contract.SignBefore.HasValue)
+                if (Contract.SignBefore.HasValue)
                 {
-                    this.ContractParts.Add(new PartModel(AppResources.SignBefore, contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture)));
+                    this.ContractParts.Add(new PartModel(AppResources.SignBefore, Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture)));
                 }
-                this.ContractParts.Add(new PartModel(AppResources.Mode, contract.PartsMode.ToString()));
-                if (contract.Parts != null)
+                this.ContractParts.Add(new PartModel(AppResources.Mode, Contract.PartsMode.ToString()));
+                if (Contract.Parts != null)
                 {
-                    foreach (Part part in contract.Parts)
+                    foreach (Part part in Contract.Parts)
                     {
                         PartModel model = new PartModel(part.Role, part.LegalId, part.LegalId);
                         if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.tagProfile.LegalIdentity.Id)
@@ -484,11 +485,11 @@ namespace IdApp.ViewModels.Contracts
                 }
 
                 // Roles
-                if (this.contract.Roles != null)
+                if (this.Contract.Roles != null)
                 {
-                    foreach (Role role in this.contract.Roles)
+                    foreach (Role role in this.Contract.Roles)
                     {
-                        string html = role.ToHTML(contract.DefaultLanguage, contract);
+                        string html = role.ToHTML(Contract.DefaultLanguage, Contract);
                         html = Waher.Content.Html.HtmlDocument.GetBody(html);
 
                         PartModel model = new PartModel(role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount))
@@ -496,7 +497,7 @@ namespace IdApp.ViewModels.Contracts
                             IsHtml = true
                         };
 
-                        if (!this.isReadOnly && acceptsSignatures && !hasSigned && this.contract.PartsMode == Waher.Networking.XMPP.Contracts.ContractParts.Open &&
+                        if (!this.isReadOnly && acceptsSignatures && !hasSigned && this.Contract.PartsMode == Waher.Networking.XMPP.Contracts.ContractParts.Open &&
                             (!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount))
                         {
                             model.SignAsRole = role.Name;
@@ -507,9 +508,9 @@ namespace IdApp.ViewModels.Contracts
                 }
 
                 // Parameters
-                if (contract.Parameters != null)
+                if (Contract.Parameters != null)
                 {
-                    foreach (Parameter parameter in contract.Parameters)
+                    foreach (Parameter parameter in Contract.Parameters)
                     {
                         ParameterModel model = new ParameterModel(parameter.Name, parameter.ObjectValue?.ToString());
                         this.ContractParameters.Add(model);
@@ -521,20 +522,20 @@ namespace IdApp.ViewModels.Contracts
                 //Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
 
                 // Machine readable text
-                this.ContractMachineReadableText.Add(new PartModel(AppResources.ContractId, contract.ContractId.ToString()));
+                this.ContractMachineReadableText.Add(new PartModel(AppResources.ContractId, Contract.ContractId.ToString()));
 
-                if (!string.IsNullOrEmpty(contract.TemplateId))
-                    this.ContractMachineReadableText.Add(new PartModel(AppResources.TemplateId, contract.TemplateId));
+                if (!string.IsNullOrEmpty(Contract.TemplateId))
+                    this.ContractMachineReadableText.Add(new PartModel(AppResources.TemplateId, Contract.TemplateId));
 
-                this.ContractMachineReadableText.Add(new PartModel(AppResources.Digest, Convert.ToBase64String(contract.ContentSchemaDigest)));
-                this.ContractMachineReadableText.Add(new PartModel(AppResources.HashFunction, contract.ContentSchemaHashFunction.ToString()));
-                this.ContractMachineReadableText.Add(new PartModel(AppResources.LocalName, contract.ForMachinesLocalName.ToString()));
-                this.ContractMachineReadableText.Add(new PartModel(AppResources.Namespace, contract.ForMachinesNamespace.ToString()));
+                this.ContractMachineReadableText.Add(new PartModel(AppResources.Digest, Convert.ToBase64String(Contract.ContentSchemaDigest)));
+                this.ContractMachineReadableText.Add(new PartModel(AppResources.HashFunction, Contract.ContentSchemaHashFunction.ToString()));
+                this.ContractMachineReadableText.Add(new PartModel(AppResources.LocalName, Contract.ForMachinesLocalName.ToString()));
+                this.ContractMachineReadableText.Add(new PartModel(AppResources.Namespace, Contract.ForMachinesNamespace.ToString()));
 
                 // Client signatures
-                if (contract.ClientSignatures != null)
+                if (Contract.ClientSignatures != null)
                 {
-                    foreach (ClientSignature signature in contract.ClientSignatures)
+                    foreach (ClientSignature signature in Contract.ClientSignatures)
                     {
                         string sign = Convert.ToBase64String(signature.DigitalSignature);
                         PartModel model = new PartModel(signature.Role, $"{signature.LegalId}, {signature.BareJid}, {signature.Timestamp.ToString(CultureInfo.CurrentUICulture)}, {sign}")
@@ -546,14 +547,14 @@ namespace IdApp.ViewModels.Contracts
                 }
 
                 // Server signature
-                if (contract.ServerSignature != null)
+                if (Contract.ServerSignature != null)
                 {
-                    string sign = Convert.ToBase64String(contract.ServerSignature.DigitalSignature);
-                    PartModel model = new PartModel(contract.Provider, $"{contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture)}, {sign}");
+                    string sign = Convert.ToBase64String(Contract.ServerSignature.DigitalSignature);
+                    PartModel model = new PartModel(Contract.Provider, $"{Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture)}, {sign}");
                     this.ContractServerSignatures.Add(model);
                 }
 
-                this.CanDeleteOrObsoleteContract = !this.isReadOnly && !contract.IsLegallyBinding(true);
+                this.CanDeleteOrObsoleteContract = !this.isReadOnly && !Contract.IsLegallyBinding(true);
 
                 this.HasRoles = this.ContractRoles.Count > 0;
                 this.HasParts = this.ContractParts.Count > 0;
@@ -563,15 +564,15 @@ namespace IdApp.ViewModels.Contracts
                 this.HasClientSignatures = this.ContractClientSignatures.Count > 0;
                 this.HasServerSignatures = this.ContractServerSignatures.Count > 0;
 
-                if (this.contract.Attachments != null)
+                if (this.Contract.Attachments != null)
                 {
-                    _ = this.photosLoader.LoadPhotos(this.contract.Attachments, SignWith.LatestApprovedId);
+                    _ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId);
                 }
             }
             catch (Exception ex)
             {
                 this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
-                    .Append(new KeyValuePair<string, string>("ContractId", this.contract.ContractId))
+                    .Append(new KeyValuePair<string, string>("ContractId", this.Contract.ContractId))
                     .ToArray());
                 ClearContract();
                 await this.uiDispatcher.DisplayAlert(ex);
@@ -601,6 +602,7 @@ namespace IdApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.uiDispatcher.DisplayAlert(ex);
             }
         }
@@ -611,7 +613,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 if (!string.IsNullOrWhiteSpace(roleId))
                 {
-                    Contract signedContract = await this.neuronService.Contracts.SignContract(this.contract, roleId, false);
+                    Contract signedContract = await this.neuronService.Contracts.SignContract(this.Contract, roleId, false);
 
                     await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
@@ -620,6 +622,7 @@ namespace IdApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.uiDispatcher.DisplayAlert(ex);
             }
         }
@@ -628,7 +631,7 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                ClientSignature signature = this.contract.ClientSignatures.FirstOrDefault(x => sign == Convert.ToBase64String(x.DigitalSignature));
+                ClientSignature signature = this.Contract.ClientSignatures.FirstOrDefault(x => sign == Convert.ToBase64String(x.DigitalSignature));
                 if (signature != null)
                 {
                     string legalId = signature.LegalId;
@@ -639,6 +642,7 @@ namespace IdApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.uiDispatcher.DisplayAlert(ex);
             }
         }
@@ -647,10 +651,11 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                await this.navigationService.GoToAsync(nameof(ServerSignaturePage), new ServerSignatureNavigationArgs(this.contract));
+                await this.navigationService.GoToAsync(nameof(ServerSignaturePage), new ServerSignatureNavigationArgs(this.Contract));
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.uiDispatcher.DisplayAlert(ex);
             }
         }
@@ -659,7 +664,7 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContract(this.contract.ContractId);
+                Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContract(this.Contract.ContractId);
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
@@ -667,6 +672,7 @@ namespace IdApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.uiDispatcher.DisplayAlert(ex);
             }
         }
@@ -675,7 +681,7 @@ namespace IdApp.ViewModels.Contracts
         {
             try
             {
-                Contract deletedContract = await this.neuronService.Contracts.DeleteContract(this.contract.ContractId);
+                Contract deletedContract = await this.neuronService.Contracts.DeleteContract(this.Contract.ContractId);
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 
@@ -683,6 +689,7 @@ namespace IdApp.ViewModels.Contracts
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.uiDispatcher.DisplayAlert(ex);
             }
         }

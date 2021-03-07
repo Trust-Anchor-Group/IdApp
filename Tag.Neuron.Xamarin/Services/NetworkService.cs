@@ -52,7 +52,7 @@ namespace Tag.Neuron.Xamarin.Services
                 {
                     Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
                 }
-                this.EndLoad(false);
+                this.EndUnload();
             }
 
             return Task.CompletedTask;
