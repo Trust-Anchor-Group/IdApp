@@ -98,7 +98,7 @@ namespace IdApp.ViewModels.Contracts
 
         private void AssignProperties()
         {
-            if (contract != null)
+            if (!(contract is null))
             {
                 this.Provider = contract.Provider;
                 this.Timestamp = contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture);

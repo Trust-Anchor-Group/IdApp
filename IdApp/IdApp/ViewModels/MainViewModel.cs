@@ -74,7 +74,7 @@ namespace IdApp.ViewModels
 
         private void AssignProperties()
         {
-            if (this.tagProfile?.LegalIdentity != null)
+            if (!(this.tagProfile?.LegalIdentity is null))
             {
                 string firstName = this.tagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
                 string lastNames = this.tagProfile.LegalIdentity[Constants.XmppProperties.LastName];
@@ -115,7 +115,7 @@ namespace IdApp.ViewModels
             }
 
             // QR
-            if (this.tagProfile?.LegalIdentity != null)
+            if (!(this.tagProfile?.LegalIdentity is null))
             {
                 _ = Task.Run(() =>
                 {
@@ -132,7 +132,7 @@ namespace IdApp.ViewModels
             }
 
             Attachment firstAttachment = this.tagProfile?.LegalIdentity?.Attachments?.GetFirstImageAttachment();
-            if (firstAttachment != null)
+            if (!(firstAttachment is null))
             {
                 // Don't await this one, just let it run asynchronously.
                 this.photosLoader
@@ -140,7 +140,7 @@ namespace IdApp.ViewModels
                     .ContinueWith(task =>
                     {
                         MemoryStream ms = task.Result;
-                        if (ms != null)
+                        if (!(ms is null))
                         {
                             byte[] bytes = ms.ToArray();
                             ms.Dispose();
@@ -183,7 +183,7 @@ namespace IdApp.ViewModels
             BindableProperty.Create("Image", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
                 MainViewModel viewModel = (MainViewModel)b;
-                viewModel.HasPhoto = newValue != null;
+                viewModel.HasPhoto = !(newValue is null);
             });
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace IdApp.ViewModels
             BindableProperty.Create("QrCode", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
                 MainViewModel viewModel = (MainViewModel)b;
-                viewModel.HasQrCode = newValue != null;
+                viewModel.HasQrCode = !(newValue is null);
             });
 
 

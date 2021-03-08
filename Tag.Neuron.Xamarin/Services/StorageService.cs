@@ -49,7 +49,7 @@ namespace Tag.Neuron.Xamarin.Services
 			if (this.isInitializing)
 				return;
 
-			if (this.initializedState != null)
+			if (!(this.initializedState is null))
 				return;
 
 			this.databaseTcs = new TaskCompletionSource<StorageState>();
@@ -60,7 +60,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <inheritdoc />
 		public Task<StorageState> WaitForReadyState()
 		{
-			if (this.databaseTcs != null)
+			if (!(this.databaseTcs is null))
 			{
 				return this.databaseTcs.Task;
 			}
@@ -107,7 +107,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <inheritdoc />
 		public async Task Shutdown()
 		{
-			if (this.databaseProvider != null)
+			if (!(this.databaseProvider is null))
 			{
 				await this.databaseProvider.Flush();
 				this.databaseProvider.Dispose();

@@ -141,7 +141,7 @@ namespace Tag.Neuron.Xamarin.Services
                         await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
                     }
                 }
-                else if (ae.InnerException != null)
+                else if (!(ae.InnerException is null))
                 {
                     logService.LogException(ae.InnerException, GetParameter(memberName));
                     if (displayAlert)
@@ -180,7 +180,7 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 thrownException = e;
                 string message;
-                if(e is XmppException xe && xe.Stanza != null)
+                if(e is XmppException xe && !(xe.Stanza is null))
                 {
                     message = xe.Stanza.InnerText;
                 }

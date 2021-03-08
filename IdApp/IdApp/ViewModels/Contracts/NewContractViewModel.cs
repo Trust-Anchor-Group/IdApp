@@ -87,7 +87,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 this.template = args.Contract;
             }
-            else if (this.templateToUse != null)
+            else if (!(this.templateToUse is null))
             {
                 this.template = this.templateToUse;
                 this.templateToUse = null;

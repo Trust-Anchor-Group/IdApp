@@ -162,7 +162,7 @@ namespace IdApp
                         continue;
 
                     MemoryStream stream = await GetPhoto(attachment, signWith, now);
-                    if (stream != null)
+                    if (!(stream is null))
                     {
                         byte[] bytes = stream.ToArray();
                         stream.Dispose();

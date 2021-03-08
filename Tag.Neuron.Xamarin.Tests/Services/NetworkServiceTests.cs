@@ -38,7 +38,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             Task<bool> TestFuncThatThrows()
             {
-                if (e != null)
+                if (!(e is null))
                 {
                     throw e;
                 }

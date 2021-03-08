@@ -416,7 +416,7 @@ namespace IdApp.ViewModels.Contracts
 
         private void AssignProperties()
         {
-            if (identity != null)
+            if (!(identity is null))
             {
                 this.Created = identity.Created;
                 this.Updated = identity.Updated.GetDateOrNullIfMinValue();
@@ -462,7 +462,7 @@ namespace IdApp.ViewModels.Contracts
                 this.IsApproved = false;
                 this.BareJId = Constants.NotAvailableValue;
             }
-            if (signature != null)
+            if (!(signature is null))
             {
                 this.Role = signature.Role;
                 this.Timestamp = signature.Timestamp.ToString(CultureInfo.CurrentUICulture);

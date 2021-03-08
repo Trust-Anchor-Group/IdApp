@@ -126,7 +126,7 @@ namespace IdApp.ViewModels.Registration
             BindableProperty.Create("Image", typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
                 RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
-                viewModel.HasPhoto = newValue != null;
+                viewModel.HasPhoto = !(newValue is null);
             });
 
         /// <summary>
@@ -425,7 +425,7 @@ namespace IdApp.ViewModels.Registration
             }
 
             FileResult capturedPhoto = await MediaPicker.CapturePhotoAsync();
-            if (capturedPhoto != null)
+            if (!(capturedPhoto is null))
             {
                 await AddPhoto(capturedPhoto.FullPath, true);
             }
@@ -440,7 +440,7 @@ namespace IdApp.ViewModels.Registration
             }
 
             FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
-            if (pickedPhoto != null)
+            if (!(pickedPhoto is null))
             {
                 await AddPhoto(pickedPhoto.FullPath, true);
             }
@@ -767,7 +767,7 @@ namespace IdApp.ViewModels.Registration
         public virtual void PopulateFromTagProfile()
         {
             LegalIdentity identity = this.TagProfile.LegalIdentity;
-            if (identity != null)
+            if (!(identity is null))
             {
                 this.FirstName = identity[Constants.XmppProperties.FirstName];
                 this.MiddleNames = identity[Constants.XmppProperties.MiddleName];
@@ -786,7 +786,7 @@ namespace IdApp.ViewModels.Registration
                 }
 
                 Attachment firstAttachment = identity.Attachments?.GetFirstImageAttachment();
-                if (firstAttachment != null)
+                if (!(firstAttachment is null))
                 {
                     // Don't await this one, just let it run asynchronously.
                     this.photosLoader
@@ -794,7 +794,7 @@ namespace IdApp.ViewModels.Registration
                         .ContinueWith(task =>
                         {
                             MemoryStream stream = task.Result;
-                            if (stream != null)
+                            if (!(stream is null))
                             {
                                 if (!this.IsBound) // Page no longer on screen when download is done?
                                 {

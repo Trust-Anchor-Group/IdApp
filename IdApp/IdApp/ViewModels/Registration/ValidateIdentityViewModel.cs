@@ -454,7 +454,7 @@ namespace IdApp.ViewModels.Registration
             State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
             From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
             To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
-            if (this.TagProfile.LegalIdentity != null)
+            if (!(this.TagProfile.LegalIdentity is null))
             {
                 FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
                 MiddleNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.MiddleName];
@@ -538,7 +538,7 @@ namespace IdApp.ViewModels.Registration
         private void ReloadPhotos()
         {
             this.photosLoader.CancelLoadPhotos();
-            if (this.TagProfile?.LegalIdentity?.Attachments != null)
+            if (!(this.TagProfile?.LegalIdentity?.Attachments is null))
             {
                 _ = this.photosLoader.LoadPhotos(this.TagProfile.LegalIdentity.Attachments, SignWith.LatestApprovedIdOrCurrentKeys);
             }

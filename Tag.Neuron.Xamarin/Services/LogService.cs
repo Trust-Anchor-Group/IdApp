@@ -27,7 +27,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         public void RemoveListener(IEventSink eventSink)
         {
-            if (eventSink != null)
+            if (!(eventSink is null))
             {
                 Log.Unregister(eventSink);
             }
@@ -38,7 +38,7 @@ namespace Tag.Neuron.Xamarin.Services
 			e = Log.UnnestException(e);
 
             var parameters = GetParameters();
-            if (extraParameters != null && extraParameters.Length > 0)
+            if (!(extraParameters is null) && extraParameters.Length > 0)
             {
                 foreach (var extraParameter in extraParameters)
                 {
@@ -78,7 +78,7 @@ namespace Tag.Neuron.Xamarin.Services
         public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
         {
             var parameters = GetParameters();
-            if (extraParameters != null && extraParameters.Length > 0)
+            if (!(extraParameters is null) && extraParameters.Length > 0)
             {
                 foreach (var extraParameter in extraParameters)
                 {

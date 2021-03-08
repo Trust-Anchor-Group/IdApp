@@ -82,7 +82,7 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				isCreatingClient = true;
 
-				if (this.xmppClient != null)
+				if (!(this.xmppClient is null))
 				{
 					DestroyXmppClient();
 				}
@@ -158,13 +158,13 @@ namespace Tag.Neuron.Xamarin.Services
 			this.reconnectTimer?.Dispose();
 			this.reconnectTimer = null;
 			this.contracts.DestroyClients();
-			if (this.xmppClient != null)
+			if (!(this.xmppClient is null))
 			{
 				this.xmppClient.OnError -= XmppClient_Error;
 				this.xmppClient.OnConnectionError -= XmppClient_ConnectionError;
 				this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
 				this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline, this.userInitiatedLogInOrOut));
-				if (this.xmppEventSink != null)
+				if (!(this.xmppEventSink is null))
 				{
 					this.logService.RemoveListener(this.xmppEventSink);
 					this.xmppEventSink.Dispose();
@@ -188,7 +188,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private bool ShouldDestroyClient()
 		{
-			return this.tagProfile.Step <= RegistrationStep.Account && this.xmppClient != null;
+			return this.tagProfile.Step <= RegistrationStep.Account && !(this.xmppClient is null);
 		}
 
 		private void RecreateReconnectTimer()
@@ -319,7 +319,7 @@ namespace Tag.Neuron.Xamarin.Services
 					{
 						await this.CreateXmppClient();
 					}
-					if (this.xmppClient != null &&
+					if (!(this.xmppClient is null) &&
 						this.xmppClient.State == XmppState.Connected &&
 						this.tagProfile.IsCompleteOrWaitingForValidation())
 					{
@@ -354,7 +354,7 @@ namespace Tag.Neuron.Xamarin.Services
 				{
                     this.tagProfile.StepChanged -= TagProfile_StepChanged;
 
-					if (this.xmppClient != null && !fast)
+					if (!(this.xmppClient is null) && !fast)
 					{
 						await this.xmppClient.SetPresenceAsync(Availability.Offline);
 					}
@@ -567,7 +567,7 @@ namespace Tag.Neuron.Xamarin.Services
 						succeeded = await connected.Task;
 					}
 
-					if (succeeded && connectedFunc != null)
+					if (succeeded && !(connectedFunc is null))
 					{
 						await connectedFunc(client);
 					}
@@ -755,7 +755,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private void ReconnectTimer_Tick(object _)
 		{
-			if (xmppClient != null &&
+			if (!(xmppClient is null) &&
 				(xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline) &&
 				this.networkService.IsOnline)
 			{
@@ -803,7 +803,7 @@ namespace Tag.Neuron.Xamarin.Services
 				sentHtml = xml;
 				sentTextData = sniffer.SnifferToText();
 
-				if (historyHtml != null && !history)
+				if (!(historyHtml is null) && !history)
 				{
 					xml = xml.Replace(historyHtml, "");
 				}

@@ -122,7 +122,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 MyContractsViewModel viewModel = (MyContractsViewModel)b;
                 ContractModel model = (ContractModel)newValue;
-                if (model != null && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
+                if (!(model is null) && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
                 { 
                     viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
                 }

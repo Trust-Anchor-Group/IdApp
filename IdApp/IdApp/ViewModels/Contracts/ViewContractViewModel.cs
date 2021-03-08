@@ -289,7 +289,7 @@ namespace IdApp.ViewModels.Contracts
             BindableProperty.Create("QrCode", typeof(ImageSource), typeof(ViewContractViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
                 ViewContractViewModel viewModel = (ViewContractViewModel)b;
-                viewModel.HasQrCode = newValue != null;
+                viewModel.HasQrCode = !(newValue is null);
             });
 
         /// <summary>
@@ -407,7 +407,7 @@ namespace IdApp.ViewModels.Contracts
                     (!Contract.SignBefore.HasValue || Contract.SignBefore.Value > DateTime.Now);
                 Dictionary<string, int> nrSignatures = new Dictionary<string, int>();
 
-                if (Contract.ClientSignatures != null)
+                if (!(Contract.ClientSignatures is null))
                 {
                     foreach (ClientSignature signature in Contract.ClientSignatures)
                     {
@@ -437,7 +437,7 @@ namespace IdApp.ViewModels.Contracts
                 this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, Contract.CanActAsTemplate.ToYesNo()));
 
                 // QR
-                if (this.Contract != null)
+                if (!(this.Contract is null))
                 {
                     _ = Task.Run(() =>
                     {
@@ -566,7 +566,7 @@ namespace IdApp.ViewModels.Contracts
                 this.HasClientSignatures = this.ClientSignatures.Children.Count > 0;
                 this.HasServerSignatures = this.ServerSignatures.Children.Count > 0;
 
-                if (this.Contract.Attachments != null)
+                if (!(this.Contract.Attachments is null))
                 {
                     _ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId);
                 }
@@ -668,7 +668,7 @@ namespace IdApp.ViewModels.Contracts
                 {
                     string sign = layout.StyleId;
                     ClientSignature signature = this.Contract.ClientSignatures.FirstOrDefault(x => sign == Convert.ToBase64String(x.DigitalSignature));
-                    if (signature != null)
+                    if (!(signature is null))
                     {
                         string legalId = signature.LegalId;
                         LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentity(legalId);

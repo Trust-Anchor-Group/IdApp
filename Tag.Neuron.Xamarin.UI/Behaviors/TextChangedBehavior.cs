@@ -54,7 +54,7 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
 
         void Entry_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextChangedCommand != null && TextChangedCommand.CanExecute(null))
+            if (!(TextChangedCommand is null) && TextChangedCommand.CanExecute(null))
             {
                 TextChangedCommand.Execute(TextChangedCommandParameter);
             }

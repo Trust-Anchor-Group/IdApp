@@ -69,7 +69,7 @@ namespace Tag.Neuron.Xamarin.Services
         private void DestroyContractsClient()
         {
             XmppState stateBefore = GetState();
-            if (this.contractsClient != null)
+            if (!(this.contractsClient is null))
             {
                 this.contractsClient.IdentityUpdated -= ContractsClient_IdentityUpdated;
                 this.contractsClient.PetitionForIdentityReceived -= ContractsClient_PetitionForIdentityReceived;
@@ -108,7 +108,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         private XmppState GetState()
         {
-            return this.contractsClient != null ? XmppState.Connected : XmppState.Offline;
+            return !(this.contractsClient is null) ? XmppState.Connected : XmppState.Offline;
         }
 
         private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
@@ -319,7 +319,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         private bool ContractsIsAvailable(bool checkClient = true)
         {
-            bool clientIsOk = (checkClient && contractsClient != null) || !checkClient;
+            bool clientIsOk = (checkClient && !(contractsClient is null)) || !checkClient;
 
             return clientIsOk && !string.IsNullOrWhiteSpace(this.tagProfile.LegalJid);
         }
@@ -334,7 +334,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         private bool FileUploadIsAvailable()
         {
-            return fileUploadClient != null && this.tagProfile.FileUploadIsSupported;
+            return !(fileUploadClient is null) && this.tagProfile.FileUploadIsSupported;
         }
 
         #region Events
@@ -530,7 +530,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         #endregion
 
-        public bool IsOnline => this.contractsClient != null;
+        public bool IsOnline => !(this.contractsClient is null);
 
         public bool FileUploadIsSupported =>
             tagProfile.FileUploadIsSupported &&
