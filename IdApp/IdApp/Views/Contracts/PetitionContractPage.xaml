@@ -94,7 +94,7 @@
                     <Label Grid.Row="17" Grid.Column="1" Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
                     <!-- -->
                     <Label Grid.Row="18" Grid.Column="0" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
-                    <ScrollView Grid.Row="18" Grid.Column="1" Orientation="Horizontal">
+                    <ScrollView Grid.Row="18" Grid.Column="1" Orientation="Horizontal" HeightRequest="68">
                         <FlexLayout x:Name="PhotosLayout"
                                     AlignContent="Center"
                                     AlignItems="Center" 
