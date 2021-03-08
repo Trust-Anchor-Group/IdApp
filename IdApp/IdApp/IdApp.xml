@@ -1599,49 +1599,6 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="T:IdApp.Models.ParameterModel">
-            <summary>
-            The data model for contract parameters.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.ParameterModel.#ctor(System.String,System.String)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Models.ParameterModel"/> class.
-            </summary>
-            <param name="id">The parameter id.</param>
-            <param name="name">The parameter name.</param>
-        </member>
-        <member name="P:IdApp.Models.ParameterModel.Id">
-            <summary>
-            The parameter id.
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.ParameterModel.NameProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.ParameterModel.Name">
-            <summary>
-            The parameter name.
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.ParameterModel.IsValidProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.ParameterModel.IsValid">
-            <summary>
-            Gets or sets whether this parameter is valid or not.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.ParameterModel.ToString">
-            <summary>
-            Returns the string representation, i.e. name, of this <see cref="T:IdApp.Models.ParameterModel"/> instance.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:IdApp.Models.PartModel">
             <summary>
             The data model for a contract part.
@@ -1724,28 +1681,6 @@
             <summary>
             Gets or sets whether the format of the contract part is html or not.
             </summary>
-        </member>
-        <member name="T:IdApp.Models.RoleModel">
-            <summary>
-            The data model for a contract role.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.RoleModel.#ctor(System.String)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Models.RoleModel"/> class.
-            </summary>
-            <param name="name">The name of the role.</param>
-        </member>
-        <member name="P:IdApp.Models.RoleModel.Name">
-            <summary>
-            The name of the role.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.RoleModel.ToString">
-            <summary>
-            Returns a string representation, i.e. name, of this <see cref="T:IdApp.Models.RoleModel"/> instance.
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:IdApp.Navigation.ClientSignatureNavigationArgs">
             <summary>
@@ -2664,14 +2599,13 @@
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.NewContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,IdApp.Services.IContractOrchestratorService)">
+        <member name="M:IdApp.ViewModels.Contracts.NewContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,IdApp.Services.IContractOrchestratorService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.NewContractViewModel"/> class.
             For unit tests.
             <param name="tagProfile">The tag profile to work with.</param>
             <param name="logService">The log service.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="networkService">The network and connectivity service.</param>
             <param name="uiDispatcher">The UI dispatcher for alerts.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
@@ -2693,16 +2627,6 @@
         <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ProposeCommand">
             <summary>
             The Propose action which creates a new contract.
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.AddPartCommand">
-            <summary>
-            The Add part action which adds a new part to a contract.
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ParameterChangedCommand">
-            <summary>
-            A parameter changed command to execute when a contract parameter changes.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.IsTemplateProperty">
@@ -2750,6 +2674,11 @@
             Gets or sets the user selected Pin. Can be null.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.AvailableRoles">
+            <summary>
+            The different roles available to choose from when creating a contract.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedRoleProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.SelectedRole"/>
@@ -2760,19 +2689,19 @@
             The role selected for the contract, if any.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractRoles">
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.Roles">
             <summary>
-            The list of available contract roles.
+            Holds Xaml code for visually representing a contract's roles.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractParameters">
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.Parameters">
             <summary>
-            The list of available contract parameters.
+            Holds Xaml code for visually representing a contract's parameters.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.ContractHumanReadableText">
+        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HumanReadableText">
             <summary>
-            The list of available human readable texts belonging to the contract.
+            Holds Xaml code for visually representing a contract's human readable text section.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.UsePinProperty">
@@ -6063,75 +5992,6 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
-        </member>
-        <member name="T:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector">
-            <summary>
-            A data template selector for displaying various types of human readable text.
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector.HumanReadableText1">
-            <summary>
-            The first human readable text template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector.HumanReadableText2">
-            <summary>
-            The second human readable text template.
-            </summary>
-        </member>
-        <member name="M:IdApp.Views.Contracts.ContractHumanReadableTextDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
-            <summary>
-            Chooses the best matching data template based on the type of human readable text.
-            </summary>
-            <param name="item">The human readable text to display.</param>
-            <param name="container"></param>
-            <returns></returns>
-        </member>
-        <member name="T:IdApp.Views.Contracts.ContractParameterDataTemplateSelector">
-            <summary>
-            A data template selector for displaying various types of contract parameters.
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.Contracts.ContractParameterDataTemplateSelector.Parameter1">
-            <summary>
-            The first parameter template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.Contracts.ContractParameterDataTemplateSelector.Parameter2">
-            <summary>
-            The second parameter template.
-            </summary>
-        </member>
-        <member name="M:IdApp.Views.Contracts.ContractParameterDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
-            <summary>
-            Chooses the best matching data template based on the type of contract parameter.
-            </summary>
-            <param name="item">The parameter to display.</param>
-            <param name="container"></param>
-            <returns></returns>
-        </member>
-        <member name="T:IdApp.Views.Contracts.ContractRoleDataTemplateSelector">
-            <summary>
-            A data template selector for displaying various types of contract roles.
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.Contracts.ContractRoleDataTemplateSelector.Role1">
-            <summary>
-            The first role template.
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.Contracts.ContractRoleDataTemplateSelector.Role2">
-            <summary>
-            The second role template.
-            </summary>
-        </member>
-        <member name="M:IdApp.Views.Contracts.ContractRoleDataTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
-            <summary>
-            Chooses the best matching data template based on the type of contract role.
-            </summary>
-            <param name="item">The role to display.</param>
-            <param name="container"></param>
             <returns></returns>
         </member>
         <member name="T:IdApp.Views.Contracts.MyContractsPage">
