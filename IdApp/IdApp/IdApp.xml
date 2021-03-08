@@ -2714,16 +2714,6 @@
             Gets or sets whether a pin should be used for added security.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasTemplateProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasTemplate"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasTemplate">
-            <summary>
-            Gets or sets whether the contract has a template or not.
-            </summary>
-        </member>
         <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HasRolesProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HasRoles"/>

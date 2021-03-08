@@ -286,21 +286,6 @@ namespace IdApp.ViewModels.Contracts
         }
 
         /// <summary>
-        /// See <see cref="HasTemplate"/>
-        /// </summary>
-        public static readonly BindableProperty HasTemplateProperty =
-            BindableProperty.Create("HasTemplate", typeof(bool), typeof(NewContractViewModel), default(bool));
-
-        /// <summary>
-        /// Gets or sets whether the contract has a template or not.
-        /// </summary>
-        public bool HasTemplate
-        {
-            get { return (bool)GetValue(HasTemplateProperty); }
-            set { SetValue(HasTemplateProperty, value); }
-        }
-
-        /// <summary>
         /// See <see cref="HasRoles"/>
         /// </summary>
         public static readonly BindableProperty HasRolesProperty =
@@ -376,7 +361,6 @@ namespace IdApp.ViewModels.Contracts
             this.HasHumanReadableText = false;
 
             this.UsePin = false;
-            this.HasTemplate = false;
             this.CanAddParts = false;
             this.VisibilityIsEnabled = false;
             this.EvaluateCommands(this.ProposeCommand);
