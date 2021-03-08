@@ -75,6 +75,14 @@
             <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
+        <Style x:Key="LeftAlignedHeading" TargetType="Label"
+               ApplyToDerivedTypes="True"
+               CanCascade="True">
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="Margin" Value="{StaticResource DefaultBottomOnlyMargin}" />
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+        </Style>
         <Style TargetType="Label"
                ApplyToDerivedTypes="True"
                CanCascade="True">

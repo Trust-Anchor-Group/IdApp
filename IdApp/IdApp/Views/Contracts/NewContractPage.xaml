@@ -4,45 +4,10 @@
              xmlns:local="clr-namespace:IdApp;assembly=IdApp"
              xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
              xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-             xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
-             xmlns:contracts="clr-namespace:IdApp.Views.Contracts;assembly=IdApp"
              x:Class="IdApp.Views.Contracts.NewContractPage"
              Title="{x:Static local:AppResources.NewContract}">
     <ScrollView>
-        <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="NewContractStackLayout">
-            <StackLayout.Resources>
-                <ResourceDictionary>
-
-                    <DataTemplate x:Key="ContractRole1Template">
-                        <Label Text="{Binding Path=Name}" LineBreakMode="NoWrap" FontSize="Medium"/>
-                    </DataTemplate>
-
-                    <contracts:ContractRoleDataTemplateSelector
-                        x:Key="ContractRoleTemplateSelector"
-                        Role1="{StaticResource ContractRole1Template}" />
-
-                    <DataTemplate x:Key="ContractParameter1Template">
-                        <Entry Text="{Binding Path=Name, Mode=TwoWay}" HorizontalOptions="FillAndExpand" TextColor="{Binding Path=IsValid, Converter={converters:BooleanToColorConverter}}" x:Name="ParameterEntry">
-                            <Entry.Behaviors>
-                                <behaviors:TextChangedBehavior TextChangedCommand="{Binding BindingContext.ParameterChangedCommand, Source={x:Reference NewContractStackLayout}}" TextChangedCommandParameter="{Binding BindingContext, Source={x:Reference ParameterEntry}}" />
-                            </Entry.Behaviors>
-                        </Entry>
-                    </DataTemplate>
-
-                    <contracts:ContractParameterDataTemplateSelector
-                        x:Key="ContractParameterTemplateSelector"
-                        Parameter1="{StaticResource ContractParameter1Template}" />
-
-                    <DataTemplate x:Key="ContractHumanReadableText1Template">
-                        <Label />
-                    </DataTemplate>
-
-                    <contracts:ContractHumanReadableTextDataTemplateSelector
-                        x:Key="ContractHumanReadableTextTemplateSelector"
-                        HumanReadableText1="{StaticResource ContractHumanReadableText1Template}" />
-
-                </ResourceDictionary>
-            </StackLayout.Resources>
+        <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" x:Name="NewContractStackLayout">
 
             <StackLayout Orientation="Vertical" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}">
                 <Label Text="{x:Static local:AppResources.ContractCategory}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
@@ -54,18 +19,17 @@
             <Label Text="{x:Static local:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
             <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" ItemsSource="{Binding Path=ContractVisibilityItems}" SelectedItem="{Binding Path=SelectedContractVisibilityItem, Mode=TwoWay}" IsEnabled="{Binding Path=HasTemplate}"/>
             <Label Text="{x:Static local:AppResources.YourRole}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
-            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=ContractRoles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
+            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=AvailableRoles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
 
-            <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}" BindableLayout.ItemTemplateSelector="{StaticResource ContractRoleTemplateSelector}"/>
+            <ContentView IsVisible="{Binding Path=HasRoles}" Content="{Binding Path=Roles}" />
 
             <Button Text="{x:Static local:AppResources.AddPart}" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
 
             <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}" BindableLayout.ItemTemplateSelector="{StaticResource ContractParameterTemplateSelector}" />
+            <ContentView IsVisible="{Binding Path=HasParameters}" Content="{Binding Path=Parameters}" />
 
             <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-            <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" BindableLayout.ItemTemplateSelector="{StaticResource ContractHumanReadableTextTemplateSelector}" />
+            <ContentView IsVisible="{Binding Path=HasHumanReadableText}" Content="{Binding Path=HumanReadableText}" />
 
             <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
             <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>

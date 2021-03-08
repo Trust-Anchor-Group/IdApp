@@ -6,16 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.ViewModels.Contracts
 {
@@ -24,23 +22,23 @@ namespace IdApp.ViewModels.Contracts
     /// </summary>
     public class NewContractViewModel : BaseViewModel
     {
-        private Contract contractTemplate;
+        private Contract template;
+        private Contract templateToUse;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
-        private readonly INetworkService networkService;
         private readonly INavigationService navigationService;
         private readonly IUiDispatcher uiDispatcher;
         private readonly ISettingsService settingsService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly ITagProfile tagProfile;
-        private string contractTemplateId;
+        private string templateId;
         private bool saveState;
 
         /// <summary>
         /// Creates an instance of the <see cref="NewContractViewModel"/> class.
         /// </summary>
         public NewContractViewModel()
-            : this(null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null)
         {
         }
 
@@ -50,17 +48,15 @@ namespace IdApp.ViewModels.Contracts
         /// <param name="tagProfile">The tag profile to work with.</param>
         /// <param name="logService">The log service.</param>
         /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="networkService">The network and connectivity service.</param>
         /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="settingsService">The settings service for persisting UI state.</param>
         /// <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
         /// </summary>
         protected internal NewContractViewModel(
-            ITagProfile tagProfile, 
-            ILogService logService, 
-            INeuronService neuronService, 
-            INetworkService networkService, 
+            ITagProfile tagProfile,
+            ILogService logService,
+            INeuronService neuronService,
             IUiDispatcher uiDispatcher,
             INavigationService navigationService,
             ISettingsService settingsService,
@@ -69,19 +65,17 @@ namespace IdApp.ViewModels.Contracts
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.logService = logService ?? DependencyService.Resolve<ILogService>();
             this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
             this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
 
             this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
+            this.AvailableRoles = new ObservableCollection<string>();
             this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
-            this.AddPartCommand = new Command(async _ => await this.AddPart());
-            this.ParameterChangedCommand = new Command(EditParameter);
-            this.ContractRoles = new ObservableCollection<RoleModel>();
-            this.ContractParameters = new ObservableCollection<ParameterModel>();
-            this.ContractHumanReadableText = new ObservableCollection<string>();
+            this.Roles = new StackLayout();
+            this.Parameters = new StackLayout();
+            this.HumanReadableText = new StackLayout();
         }
 
         /// <inheritdoc/>
@@ -90,81 +84,31 @@ namespace IdApp.ViewModels.Contracts
             await base.DoBind();
 
             if (this.navigationService.TryPopArgs(out NewContractNavigationArgs args))
-                this.contractTemplate = args.Contract;
-
-            this.contractTemplateId = this.contractTemplate?.ContractId ?? string.Empty;
-            this.IsTemplate = this.contractTemplate?.CanActAsTemplate ?? false;
+            {
+                this.template = args.Contract;
+            }
+            else if (this.templateToUse != null)
+            {
+                this.template = this.templateToUse;
+                this.templateToUse = null;
+            }
+            this.templateId = this.template?.ContractId ?? string.Empty;
+            this.IsTemplate = this.template?.CanActAsTemplate ?? false;
 
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.CreatorAndParts, AppResources.ContractVisibility_CreatorAndParts));
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.DomainAndParts, AppResources.ContractVisibility_DomainAndParts));
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
-            this.UsePin = this.tagProfile.UsePin;
-        }
-
-        private async Task BindTemplate()
-        {
-            try
-            {
-                this.BindTemplateParts();
-
-                this.HasTemplate = true;
-                this.HasRoles = this.ContractRoles.Count > 0;
-                this.HasParameters = this.ContractParameters.Count > 0;
-                this.HasHumanReadableText = this.ContractHumanReadableText.Count > 0;
-                this.ProposeCommand.ChangeCanExecute();
-            }
-            catch (Exception ex)
-            {
-                this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
-                    .Append(new KeyValuePair<string, string>("ContractId", this.contractTemplateId))
-                    .ToArray());
-
-                ClearTemplate();
-                await this.uiDispatcher.DisplayAlert(ex);
-            }
-        }
-
-        private void BindTemplateParts()
-        {
-            foreach (Role role in this.contractTemplate.Roles)
-            {
-                this.ContractRoles.Add(new RoleModel(role.Name));
-                if (role.MinCount > 0)
-                    this.CanAddParts = true;
-                
-                // TODO: replace this with a data template selector
-                //Populate(this.Roles, role.ToXamarinForms(contract.DefaultLanguage, contract));
-            }
-
-            foreach (Parameter parameter in contractTemplate.Parameters)
-            {
-                this.ContractParameters.Add(new ParameterModel(parameter.Name, FilterDefaultValues(parameter.Name)));
-                
-                // TODO: replace this with a data template selector
-                //Populate(Parameters, parameter.ToXamarinForms(contract.DefaultLanguage, contract));
-            }
-        }
-
-        private void LoadHumanReadableText()
-        {
-            this.ContractHumanReadableText.Clear();
-
-            if (!(this.contractTemplate is null))
-            {
-                // TODO: replace this with a data template selector
-                //Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
-            }
+            this.PopulateTemplateForm();
         }
 
         /// <inheritdoc/>
         protected override async Task DoUnbind()
         {
-            this.ContractRoles.Clear();
             this.ContractVisibilityItems.Clear();
-            this.ContractHumanReadableText.Clear();
-            this.ContractParameters.Clear();
+
+            this.ClearTemplate();
 
             await base.DoUnbind();
         }
@@ -175,7 +119,13 @@ namespace IdApp.ViewModels.Contracts
             await base.DoSaveState();
 
             if (!(this.SelectedContractVisibilityItem is null))
+            {
                 await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), (ContractVisibility?)this.SelectedContractVisibilityItem.Visibility);
+            }
+            if (!(SelectedRole is null))
+            {
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedRole)), this.SelectedRole);
+            }
         }
 
         /// <inheritdoc/>
@@ -184,9 +134,18 @@ namespace IdApp.ViewModels.Contracts
             if (this.saveState)
             {
                 ContractVisibility? visibility = await this.settingsService.RestoreState<ContractVisibility?>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-             
+
                 if (!(visibility is null))
+                {
                     this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == visibility);
+                }
+
+                string selectedRole = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedRole)));
+                string matchingRole = this.AvailableRoles.FirstOrDefault(x => x.Equals(selectedRole));
+                if (!string.IsNullOrWhiteSpace(matchingRole))
+                {
+                    this.SelectedRole = matchingRole;
+                }
             }
             await base.DoRestoreState();
         }
@@ -202,16 +161,6 @@ namespace IdApp.ViewModels.Contracts
         /// The Propose action which creates a new contract.
         /// </summary>
         public ICommand ProposeCommand { get; }
-
-        /// <summary>
-        /// The Add part action which adds a new part to a contract.
-        /// </summary>
-        public ICommand AddPartCommand { get; }
-
-        /// <summary>
-        /// A parameter changed command to execute when a contract parameter changes.
-        /// </summary>
-        public ICommand ParameterChangedCommand { get; }
 
         /// <summary>
         /// See <see cref="IsTemplate"/>
@@ -279,39 +228,46 @@ namespace IdApp.ViewModels.Contracts
         }
 
         /// <summary>
+        /// The different roles available to choose from when creating a contract.
+        /// </summary>
+        public ObservableCollection<string> AvailableRoles { get; }
+
+        /// <summary>
         /// See <see cref="SelectedRole"/>
         /// </summary>
         public static readonly BindableProperty SelectedRoleProperty =
-            BindableProperty.Create("SelectedRole", typeof(RoleModel), typeof(NewContractViewModel), default(RoleModel), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create("SelectedRole", typeof(string), typeof(NewContractViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 NewContractViewModel viewModel = (NewContractViewModel)b;
-                viewModel.RemoveRole((RoleModel)oldValue);
-                viewModel.AddRole((RoleModel)newValue);
+                string oldRole = (string)oldValue;
+                viewModel.RemoveRole(oldRole, viewModel.tagProfile.LegalIdentity.Id);
+                string newRole = (string)newValue;
+                viewModel.AddRole(newRole, viewModel.tagProfile.LegalIdentity.Id);
             });
 
         /// <summary>
         /// The role selected for the contract, if any.
         /// </summary>
-        public RoleModel SelectedRole
+        public string SelectedRole
         {
-            get { return (RoleModel)GetValue(SelectedRoleProperty); }
+            get { return (string)GetValue(SelectedRoleProperty); }
             set { SetValue(SelectedRoleProperty, value); }
         }
 
         /// <summary>
-        /// The list of available contract roles.
+        /// Holds Xaml code for visually representing a contract's roles.
         /// </summary>
-        public ObservableCollection<RoleModel> ContractRoles { get; }
+        public StackLayout Roles { get; }
 
         /// <summary>
-        /// The list of available contract parameters.
+        /// Holds Xaml code for visually representing a contract's parameters.
         /// </summary>
-        public ObservableCollection<ParameterModel> ContractParameters { get; }
+        public StackLayout Parameters { get; }
 
         /// <summary>
-        /// The list of available human readable texts belonging to the contract.
+        /// Holds Xaml code for visually representing a contract's human readable text section.
         /// </summary>
-        public ObservableCollection<string> ContractHumanReadableText { get; }
+        public StackLayout HumanReadableText { get; }
 
         /// <summary>
         /// See <see cref="UsePin"/>
@@ -407,112 +363,287 @@ namespace IdApp.ViewModels.Contracts
 
         private void ClearTemplate()
         {
-            this.contractTemplate = null;
-            this.ContractParameters.Clear();
-            this.ContractRoles.Clear();
-            this.ContractHumanReadableText.Clear();
+            this.template = null;
+
+            this.Roles.Children.Clear();
+            this.HasRoles = false;
+
+            this.Parameters.Children.Clear();
+            this.HasParameters = false;
+
+            this.HumanReadableText.Children.Clear();
+            this.HasHumanReadableText = false;
+
             this.UsePin = false;
             this.HasTemplate = false;
-            this.HasRoles = this.ContractRoles.Count > 0;
-            this.HasParameters = this.ContractParameters.Count > 0;
-            this.HasHumanReadableText = this.ContractHumanReadableText.Count > 0;
             this.CanAddParts = false;
-            this.ProposeCommand.ChangeCanExecute();
+            this.VisibilityIsEnabled = false;
+            this.EvaluateCommands(this.ProposeCommand);
         }
 
-        private static string FilterDefaultValues(string s)
+        private void RemoveRole(string role, string legalId)
         {
-            foreach (char ch in s)
+            Label ToRemove = null;
+            int State = 0;
+
+            foreach (View View in this.Roles.Children)
             {
-                if (char.ToUpper(ch) != ch)
-                    return s;
+                switch (State)
+                {
+                    case 0:
+                        if (View is Label Label && Label.StyleId == role)
+                            State++;
+                        break;
+
+                    case 1:
+                        if (View is Button Button)
+                        {
+                            if (!(ToRemove is null))
+                            {
+                                this.Roles.Children.Remove(ToRemove);
+                                Button.IsEnabled = true;
+                            }
+                            return;
+                        }
+                        else if (View is Label Label2 && Label2.StyleId == legalId)
+                            ToRemove = Label2;
+                        break;
+                }
+            }
+        }
+
+        private void AddRole(string role, string legalId)
+        {
+            int State = 0;
+            int i = 0;
+            int NrParts = 0;
+            Role RoleObj = null;
+
+            foreach (Role R in this.template.Roles)
+            {
+                if (R.Name == role)
+                {
+                    RoleObj = R;
+                    break;
+                }
             }
 
-            return string.Empty;
+            if (RoleObj is null)
+                return;
+
+            foreach (View View in this.Roles.Children)
+            {
+                switch (State)
+                {
+                    case 0:
+                        if (View is Label Label && Label.StyleId == role)
+                            State++;
+                        break;
+
+                    case 1:
+                        if (View is Button Button)
+                        {
+                            TapGestureRecognizer OpenLegalId = new TapGestureRecognizer();
+                            OpenLegalId.Tapped += this.LegalId_Tapped;
+
+                            Label = new Label
+                            {
+                                Text = legalId,
+                                StyleId = legalId,
+                                HorizontalOptions = LayoutOptions.FillAndExpand,
+                                HorizontalTextAlignment = TextAlignment.Center,
+                                FontAttributes = FontAttributes.Bold
+                            };
+
+                            Label.GestureRecognizers.Add(OpenLegalId);
+
+                            this.Roles.Children.Insert(i, Label);
+                            NrParts++;
+
+                            if (NrParts >= RoleObj.MaxCount)
+                                Button.IsEnabled = false;
+
+                            return;
+                        }
+                        else if (View is Label)
+                            NrParts++;
+                        break;
+                }
+
+                i++;
+            }
+        }
+
+        private async void LegalId_Tapped(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
+                {
+                    await this.contractOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
+                }
+            }
+            catch (Exception ex)
+            {
+                this.logService.LogException(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
+            }
+        }
+
+        private async void AddPartButton_Clicked(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                this.templateToUse = this.template;
+                this.saveState = true;
+                string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
+                this.saveState = false;
+                this.DeleteState();
+                string id = Constants.UriSchemes.GetCode(code);
+                if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
+                {
+                    AddRole(button.StyleId, id);
+                }
+            }
+        }
+
+        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is Entry Entry)
+            {
+                foreach (Parameter P in this.template.Parameters)
+                {
+                    if (P.Name == Entry.StyleId)
+                    {
+                        if (P is StringParameter SP)
+                            SP.Value = e.NewTextValue;
+                        else if (P is NumericalParameter NP)
+                        {
+                            if (double.TryParse(e.NewTextValue, out double d))
+                            {
+                                NP.Value = d;
+                                Entry.BackgroundColor = Color.Default;
+                            }
+                            else
+                            {
+                                Entry.BackgroundColor = Color.Salmon;
+                                return;
+                            }
+                        }
+
+                        PopulateHumanReadableText();
+                        break;
+                    }
+                }
+            }
         }
 
         private async Task Propose()
         {
+            List<Part> Parts = new List<Part>();
+            Contract Created = null;
+            string Role = string.Empty;
+            int State = 0;
+            int Nr = 0;
+            int Min = 0;
+            int Max = 0;
+
             try
             {
-                List<Part> parts = new List<Part>();
-                // TODO:fix this code.
-#if NEEDS_FIXING
-                string role = string.Empty;
-                int state = 0;
-                int nr = 0;
-                int min = 0;
-                int max = 0;
-                foreach (RoleModel view in this.ContractRoles)
+                foreach (View View in this.Roles.Children)
                 {
-                    switch (state)
+                    switch (State)
                     {
                         case 0:
-                            if (view is Label label && !string.IsNullOrEmpty(label.StyleId))
+                            if (View is Label Label && !string.IsNullOrEmpty(Label.StyleId))
                             {
-                                role = label.StyleId;
-                                state++;
-                                nr = min = max = 0;
+                                Role = Label.StyleId;
+                                State++;
+                                Nr = Min = Max = 0;
 
-                                Role r = this.contractTemplate.Roles.FirstOrDefault(x => x.Name == role);
-                                if (!(r is null))
+                                foreach (Role R in this.template.Roles)
                                 {
-                                    min = r.MinCount;
-                                    max = r.MaxCount;
+                                    if (R.Name == Role)
+                                    {
+                                        Min = R.MinCount;
+                                        Max = R.MaxCount;
+                                        break;
+                                    }
                                 }
                             }
                             break;
 
                         case 1:
-                            if (view is Button)
+                            if (View is Button)
                             {
-                                if (nr < min)
+                                if (Nr < Min)
                                 {
-                                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, min, role));
+                                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
                                     return;
                                 }
 
-                                if (nr > min)
+                                if (Nr > Min)
                                 {
-                                    await this.navigationService.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, max, role));
+                                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
                                     return;
                                 }
 
-                                state--;
-                                role = string.Empty;
+                                State--;
+                                Role = string.Empty;
                             }
-                            else if (view is Label label2 && !string.IsNullOrEmpty(role))
+                            else if (View is Label Label2 && !string.IsNullOrEmpty(Role))
                             {
-                                parts.Add(new Part()
+                                Parts.Add(new Part
                                 {
-                                    Role = role,
-                                    LegalId = label2.StyleId
+                                    Role = Role,
+                                    LegalId = Label2.StyleId
                                 });
 
-                                nr++;
+                                Nr++;
                             }
                             break;
                     }
                 }
-#endif
 
-                if (this.ContractParameters.Any(x => !x.IsValid))
+                foreach (View View in this.Parameters.Children)
                 {
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
-                    return;
+                    if (View is Entry Entry)
+                    {
+                        if (Entry.BackgroundColor == Color.Salmon)
+                        {
+                            await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
+                            Entry.Focus();
+                            return;
+                        }
+                    }
                 }
 
-                this.contractTemplate.PartsMode = ContractParts.Open;
-
-                if (this.SelectedContractVisibilityItem is null)
+                this.template.PartsMode = ContractParts.Open;
+                int i = this.ContractVisibilityItems.IndexOf(this.SelectedContractVisibilityItem);
+                switch (i)
                 {
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
-                    return;
+                    case 0:
+                        this.template.Visibility = ContractVisibility.CreatorAndParts;
+                        break;
+
+                    case 1:
+                        this.template.Visibility = ContractVisibility.DomainAndParts;
+                        break;
+
+                    case 2:
+                        this.template.Visibility = ContractVisibility.Public;
+                        break;
+
+                    case 3:
+                        this.template.Visibility = ContractVisibility.PublicSearchable;
+                        break;
+
+                    default:
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
+                        return;
                 }
 
-                this.contractTemplate.Visibility = this.SelectedContractVisibilityItem.Visibility;
-
-                if (this.SelectedRole is null)
+                if ((this.SelectedRole is null))
                 {
                     await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
                     return;
@@ -524,113 +655,146 @@ namespace IdApp.ViewModels.Contracts
                     return;
                 }
 
-                (bool createSucceeded, Contract createdContract) = await this.networkService.TryRequest(() => 
-                    this.neuronService.Contracts.CreateContract(
-                        this.contractTemplateId,
-                        parts.ToArray(),
-                        this.contractTemplate.Parameters,
-                        this.contractTemplate.Visibility,
-                        ContractParts.ExplicitlyDefined,
-                        this.contractTemplate.Duration,
-                        this.contractTemplate.ArchiveRequired,
-                        this.contractTemplate.ArchiveOptional,
-                        null,
-                        null,
-                        false));
+                Created = await this.neuronService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
+                    this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration, this.template.ArchiveRequired,
+                    this.template.ArchiveOptional, null, null, false);
 
-                Contract signedContract = null;
-                if (createSucceeded)
-                {
-                    (bool signSucceeded, Contract contract) = await this.networkService.TryRequest(() => this.neuronService.Contracts.SignContract(createdContract, this.SelectedRole.Name, false));
-                    if (signSucceeded)
-                    {
-                        signedContract = contract;
-                    }
-                }
-
-                if (!(signedContract is null))
-                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(createdContract, false));
+                Created = await this.neuronService.Contracts.SignContract(Created, this.SelectedRole, false);
             }
             catch (Exception ex)
             {
+                this.logService.LogException(ex);
                 await this.uiDispatcher.DisplayAlert(ex);
             }
+            finally
+            {
+                if (!(Created is null))
+                {
+                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false));
+                }
+            }
+        }
+
+        internal static string FilterDefaultValues(string s)
+        {
+            foreach (char ch in s)
+            {
+                if (char.ToUpper(ch) != ch)
+                    return s;
+            }
+
+            return string.Empty;
+        }
+
+        internal static void Populate(StackLayout Layout, string Xaml)
+        {
+            StackLayout HumanReadable = new StackLayout().LoadFromXaml(Xaml);
+
+            List<View> Children = new List<View>();
+            Children.AddRange(HumanReadable.Children);
+
+            foreach (View Element in Children)
+                Layout.Children.Add(Element);
+        }
+
+        private async void LoadTemplate()
+        {
+            try
+            {
+                this.template = await this.neuronService.Contracts.GetContract(this.templateId);
+                this.uiDispatcher.BeginInvokeOnMainThread(this.PopulateTemplateForm);
+            }
+            catch (Exception ex)
+            {
+                this.template = null;
+                this.logService.LogException(ex);
+                await this.uiDispatcher.DisplayAlert(ex);
+            }
+        }
+
+        private void PopulateTemplateForm()
+        {
+            if (this.template is null)
+            {
+                this.EvaluateCommands(this.ProposeCommand);
+                return;
+            }
+
+            this.PopulateHumanReadableText();
+
+            this.Parameters.Children.Clear();
+            this.Roles.Children.Clear();
+
+            this.AvailableRoles.Clear();
+            this.HasRoles = this.template.Roles.Length > 0;
+            this.VisibilityIsEnabled = true;
+
+            foreach (Role Role in this.template.Roles)
+            {
+                this.AvailableRoles.Add(Role.Name);
+
+                this.Roles.Children.Add(new Label
+                {
+                    Text = Role.Name,
+                    Style = (Style)Application.Current.Resources["LeftAlignedHeading"],
+                    StyleId = Role.Name
+                });
+
+                Populate(this.Roles, Role.ToXamarinForms(this.template.DefaultLanguage, this.template));
+
+                if (Role.MinCount > 0)
+                {
+                    Button button = new Button
+                    {
+                        Text = AppResources.AddPart,
+                        StyleId = Role.Name,
+                        Margin = (Thickness)Application.Current.Resources["DefaultBottomOnlyMargin"]
+                    };
+                    button.Clicked += AddPartButton_Clicked;
+
+                    this.Roles.Children.Add(button);
+                }
+            }
+
+            this.Parameters.Children.Add(new Label
+            {
+                Text = AppResources.Parameters,
+                FontSize = 18,
+                TextColor = Color.Navy,
+                LineBreakMode = LineBreakMode.WordWrap
+            });
+
+            Entry Entry;
+
+            foreach (Parameter Parameter in this.template.Parameters)
+            {
+                Populate(Parameters, Parameter.ToXamarinForms(this.template.DefaultLanguage, this.template));
+
+                Parameters.Children.Add(Entry = new Entry
+                {
+                    StyleId = Parameter.Name,
+                    Text = FilterDefaultValues(Parameter.ObjectValue?.ToString()),
+                    HorizontalOptions = LayoutOptions.FillAndExpand,
+                });
+
+                Entry.TextChanged += Entry_TextChanged;
+            }
+
+            this.UsePin = this.tagProfile.UsePin;
+            this.EvaluateCommands(this.ProposeCommand);
+        }
+
+        private void PopulateHumanReadableText()
+        {
+            this.HumanReadableText.Children.Clear();
+
+            if (!(this.template is null))
+                Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
         }
 
         private bool CanPropose()
         {
-            return !(this.contractTemplate is null);
-        }
-
-        private async Task AddPart()
-        {
-            this.saveState = true;
-            string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
-            this.saveState = false;
-            this.DeleteState();
-            string id = Constants.UriSchemes.GetCode(code);
-            if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
-            {
-                AddRole(new RoleModel(id));
-            }
-        }
-
-        private void AddRole(RoleModel model)
-        {
-            if (!(model is null))
-                this.ContractRoles.Add(model);
-        }
-
-        private void RemoveRole(RoleModel model)
-        {
-            if (!(model is null))
-            {
-                RoleModel existing = this.ContractRoles.FirstOrDefault(x => x.Name == model.Name);
-                
-                if (!(existing is null))
-                    this.ContractRoles.Remove(existing);
-            }
-        }
-
-        private void EditParameter(object obj)
-        {
-            if (!(obj is ParameterModel model))
-                return;
-
-            Parameter p = this.contractTemplate.Parameters.FirstOrDefault(x => x.Name == model.Id);
-            if (!(p is null))
-            {
-                if (p is StringParameter sp)
-                {
-                    sp.Value = model.Name;
-                    model.IsValid = true;
-                }
-                else if (p is NumericalParameter np)
-                {
-                    if (double.TryParse(model.Name, out double d))
-                    {
-                        np.Value = d;
-                        model.IsValid = true;
-                    }
-                    else
-                    {
-                        model.IsValid = false;
-                    }
-                }
-                LoadHumanReadableText();
-            }
-        }
-
-        private async Task ShowLegalId(string legalId)
-        {
-            try
-            {
-                await this.contractOrchestratorService.OpenLegalIdentity(legalId, "For inclusion as part in a contract.");
-            }
-            catch (Exception ex)
-            {
-                await this.uiDispatcher.DisplayAlert(ex);
-            }
+            return !(this.template is null);
         }
     }
 }
