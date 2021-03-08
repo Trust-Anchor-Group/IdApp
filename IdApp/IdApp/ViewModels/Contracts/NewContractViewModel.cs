@@ -153,6 +153,7 @@ namespace IdApp.ViewModels.Contracts
         private void DeleteState()
         {
             this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
         }
 
         #region Properties
