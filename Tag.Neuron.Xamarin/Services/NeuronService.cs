@@ -69,7 +69,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		#region Create/Destroy
 
-		private async Task CreateXmppClient()
+		private async Task CreateXmppClient(bool CanCreateKeys)
 		{
 			this.xmppThread = this.startupProfiler?.CreateThread("XMPP", ProfilerThreadType.StateMachine);
 			this.xmppThread?.Start();
@@ -118,7 +118,7 @@ namespace Tag.Neuron.Xamarin.Services
 
                     if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
                     {
-                        await this.contracts.CreateClients();
+                        await this.contracts.CreateClients(CanCreateKeys);
                     }
 
 					this.IsLoggedOut = false;
@@ -206,7 +206,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 			if (ShouldCreateClient())
 			{
-				await this.CreateXmppClient();
+				await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity);
 			}
 			else if (ShouldDestroyClient())
 			{
@@ -262,7 +262,7 @@ namespace Tag.Neuron.Xamarin.Services
                     {
                         try
                         {
-                            await this.contracts.CreateClients();
+                            await this.contracts.CreateClients(false);
                         }
                         catch (Exception e)
                         {
@@ -317,7 +317,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 					if (ShouldCreateClient())
 					{
-						await this.CreateXmppClient();
+						await this.CreateXmppClient(false);
 					}
 					if (!(this.xmppClient is null) &&
 						this.xmppClient.State == XmppState.Connected &&
@@ -438,7 +438,7 @@ namespace Tag.Neuron.Xamarin.Services
 				try
 				{
 					this.IsLoggedOut = false;
-					await this.CreateXmppClient();
+					await this.CreateXmppClient(false);
 				}
 				catch (Exception e)
 				{
@@ -617,7 +617,7 @@ namespace Tag.Neuron.Xamarin.Services
 			return (succeeded, errorMessage);
 		}
 
-		public async Task<ContractsClient> CreateContractsClientAsync()
+		public async Task<ContractsClient> CreateContractsClientAsync(bool CanCreateKeys)
 		{
 			if (this.xmppClient is null)
 			{
@@ -632,17 +632,15 @@ namespace Tag.Neuron.Xamarin.Services
 
 			if (!await Result.LoadKeys(false))
 			{
-				Log.Alert("Temporary restriction: Automatic generation of keys disabled.",
-					string.Empty, string.Empty, string.Empty, EventLevel.Major, string.Empty, string.Empty, Environment.StackTrace);
+				if (!CanCreateKeys)
+				{
+					Log.Alert("Regeneration of keys not permitted at this time.",
+						string.Empty, string.Empty, string.Empty, EventLevel.Major, string.Empty, string.Empty, Environment.StackTrace);
 
-				throw new Exception("Temporary restriction: Automatic generation of keys disabled.");
+					throw new Exception("Regeneration of keys not permitted at this time.");
+				}
 
 				await Result.GenerateNewKeys();	
-				// TODO: Only create keys if absolutely certain keys have not been created before, to avoid overwriting previous keys.
-				// TODO: Before generating new keys, except for the first time, a message should be displayed informing the user that 
-				//       keys seem to be lost, and if the user would like to generate new keys (and that generating new keys will
-				//       obsolete any current ID, if such exists). Generating new keys should also take the user back to the view 
-				//       where a new Legal Identity needs to be applied for, and previous IDs need to be obsoleted.
 			}
 
 			return Result;

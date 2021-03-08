@@ -30,10 +30,10 @@ namespace Tag.Neuron.Xamarin.Services
             this.logService = logService;
         }
 
-        internal async Task CreateClients()
+        internal async Task CreateClients(bool CanCreateKeys)
         {
             await CreateFileUploadClient();
-            await CreateContractsClient();
+            await CreateContractsClient(CanCreateKeys);
         }
 
         internal void DestroyClients()
@@ -42,13 +42,13 @@ namespace Tag.Neuron.Xamarin.Services
             DestroyContractsClient();
         }
 
-        private async Task CreateContractsClient()
+        private async Task CreateContractsClient(bool CanCreateKeys)
         {
             if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
             {
                 DestroyContractsClient();
                 XmppState stateBefore = GetState();
-                this.contractsClient = await this.neuronService.CreateContractsClientAsync();
+                this.contractsClient = await this.neuronService.CreateContractsClientAsync(CanCreateKeys);
                 this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
                 this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
                 this.contractsClient.PetitionedIdentityResponseReceived += ContractsClient_PetitionedIdentityResponseReceived;
