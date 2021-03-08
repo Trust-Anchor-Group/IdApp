@@ -2,8 +2,6 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:IdApp;assembly=IdApp"
-             xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-             xmlns:contracts="clr-namespace:IdApp.Views.Contracts;assembly=IdApp"
              xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
              xmlns:appViews="clr-namespace:IdApp.Views;assembly=IdApp"
              x:Class="IdApp.Views.Contracts.ViewContractPage"
@@ -11,19 +9,7 @@
     <Grid>
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
-                <StackLayout.Resources>
-                    <ResourceDictionary>
-                        <DataTemplate x:Key="ContractHumanReadableText1Template">
-                            <Label />
-                        </DataTemplate>
-
-                        <contracts:ContractHumanReadableTextDataTemplateSelector
-                        x:Key="ContractHumanReadableTextTemplateSelector"
-                        HumanReadableText1="{StaticResource ContractHumanReadableText1Template}" />
-
-                    </ResourceDictionary>
-                </StackLayout.Resources>
-
+                <!-- GENERAL -->
                 <Label Text="{x:Static local:AppResources.GeneralInformation}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" />
                 <Label Text="{x:Static local:AppResources.GeneralInformationInfoText}" Style="{StaticResource InfoText}" />
                 <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=GeneralInformation}">
@@ -36,109 +22,16 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
-
-                <Image x:Name="QrCode" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="CenterAndExpand" Margin="{StaticResource DefaultTopOnlyMargin}" />
-
-                <Label Text="{x:Static local:AppResources.Roles}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.RolesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasRoles}"/>
-                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractRoles}" IsVisible="{Binding Path=HasRoles}">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=Key}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}"/>
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
-
-                <Label Text="{x:Static local:AppResources.Parts}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParts}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.PartsInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParts}"  />
-                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParts}" IsVisible="{Binding Path=HasParts}" >
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=DisplayPartCommand, Source={x:Reference ContractStackLayout}}" CommandParameter="{Binding Path=LegalId}" />
-                                </StackLayout.GestureRecognizers>
-                                <Label Text="{Binding Path=Key}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}"/>
-                                <Button Text="{Binding Path=SignAsRoleText}" IsVisible="{Binding Path=CanSign}" Command="{Binding Path=SignPartAsRoleCommand, Source={x:Reference ContractStackLayout}}" CommandParameter="{Binding Path=SignAsRole}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
-
-                <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.ParametersInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParameters}" />
-                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractParameters}" IsVisible="{Binding Path=HasParameters}" >
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=Id}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}" TextType="{Binding Path=IsHtml, Converter={converters:BooleanToTextTypeConverter}}"/>
-                                <Button Text="{Binding Path=Name}" IsVisible="{Binding Path=CanSign}" Command="{Binding Path=SignPartAsRoleCommand, Source={x:Reference ContractStackLayout}}" CommandParameter="{Binding Path=SignAsRole}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
-
-                <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractHumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" BindableLayout.ItemTemplateSelector="{StaticResource ContractHumanReadableTextTemplateSelector}" />
-
-                <Label Text="{x:Static local:AppResources.MachineReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasMachineReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.MachineReadableInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasMachineReadableText}" />
-                <StackLayout Orientation="Vertical" Spacing="0" BindableLayout.ItemsSource="{Binding Path=ContractMachineReadableText}" IsVisible="{Binding Path=HasMachineReadableText}">
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=Key}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
-
-                <Label Text="{x:Static local:AppResources.ClientSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasClientSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.ClientSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasClientSignatures}" />
-                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractClientSignatures}" IsVisible="{Binding Path=HasClientSignatures}" >
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=DisplayClientSignatureCommand, Source={x:Reference ContractStackLayout}}" CommandParameter="{Binding Path=LegalId}" />
-                                </StackLayout.GestureRecognizers>
-                                <Label Text="{Binding Path=Key}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}"/>
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
-
-                <Label Text="{x:Static local:AppResources.ServerSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasServerSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.ServerSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasServerSignatures}" />
-                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=ContractServerSignatures}" IsVisible="{Binding Path=HasServerSignatures}" >
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Path=DisplayServerSignatureCommand, Source={x:Reference ContractStackLayout}}" />
-                                </StackLayout.GestureRecognizers>
-                                <Label Text="{Binding Path=Key}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=Value}" Style="{StaticResource ValueLabel}"/>
-                            </StackLayout>
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
-                </StackLayout>
+                <!-- PHOTOS -->
                 <StackLayout Orientation="Horizontal">
                     <Label Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
                     <ScrollView Orientation="Horizontal">
                         <FlexLayout x:Name="PhotosLayout"
-                                AlignContent="Center"
-                                AlignItems="Center" 
-                                Direction="Row" 
-                                JustifyContent="Start" 
-                                BindableLayout.ItemsSource="{Binding Path=Photos}">
+                                    AlignContent="Center"
+                                    AlignItems="Center" 
+                                    Direction="Row" 
+                                    JustifyContent="Start" 
+                                    BindableLayout.ItemsSource="{Binding Path=Photos}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" Margin="2">
@@ -151,6 +44,36 @@
                         </FlexLayout>
                     </ScrollView>
                 </StackLayout>
+                <!-- QR -->
+                <Image x:Name="QrCode" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="CenterAndExpand" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <!-- ROLES -->
+                <Label Text="{x:Static local:AppResources.Roles}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasRoles}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <Label Text="{x:Static local:AppResources.RolesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasRoles}"/>
+                <ContentView Content="{Binding Path=Roles}" IsVisible="{Binding Path=HasRoles}"/>
+                <!-- PARTs -->
+                <Label Text="{x:Static local:AppResources.Parts}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParts}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <Label Text="{x:Static local:AppResources.PartsInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParts}"  />
+                <ContentView Content="{Binding Path=Parts}" IsVisible="{Binding Path=HasParts}"/>
+                <!-- PARAMETERS -->
+                <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <Label Text="{x:Static local:AppResources.ParametersInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParameters}" />
+                <ContentView Content="{Binding Path=Parameters}" IsVisible="{Binding Path=HasParameters}"/>
+                <!-- HUMAN READABLE TEXT -->
+                <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <ContentView Content="{Binding Path=HumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}"/>
+                <!-- MACHINE READABLE TEXT -->
+                <Label Text="{x:Static local:AppResources.MachineReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasMachineReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <Label Text="{x:Static local:AppResources.MachineReadableInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasMachineReadableText}" />
+                <ContentView Content="{Binding Path=MachineReadableText}" IsVisible="{Binding Path=HasMachineReadableText}"/>
+                <!-- CLIENT SIGNATURES -->
+                <Label Text="{x:Static local:AppResources.ClientSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasClientSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <Label Text="{x:Static local:AppResources.ClientSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasClientSignatures}" />
+                <ContentView Content="{Binding Path=ClientSignatures}" IsVisible="{Binding Path=HasClientSignatures}"/>
+                <!-- SERVER SIGNATURES -->
+                <Label Text="{x:Static local:AppResources.ServerSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasServerSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <Label Text="{x:Static local:AppResources.ServerSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasServerSignatures}" />
+                <ContentView Content="{Binding Path=ServerSignatures}" IsVisible="{Binding Path=HasServerSignatures}"/>
+                <!-- BUTTONS -->
                 <Button Text="{x:Static local:AppResources.ObsoleteContract}" Command="{Binding Path=ObsoleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 <Button Text="{x:Static local:AppResources.DeleteContract}" Command="{Binding Path=DeleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
