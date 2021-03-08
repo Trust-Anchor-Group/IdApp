@@ -3659,26 +3659,6 @@
         <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DisplayPartCommand">
-            <summary>
-            The command to bind to when displaying part of a contract
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.SignPartAsRoleCommand">
-            <summary>
-            The command to bind to when signing part of a contract
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DisplayClientSignatureCommand">
-            <summary>
-            The command to bind to when displaying the client signature of a contract
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DisplayServerSignatureCommand">
-            <summary>
-            The command to bind to when displaying the server signature of a contract
-            </summary>
-        </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ObsoleteContractCommand">
             <summary>
             The command to bind to when marking a contract as obsolete.
@@ -3694,44 +3674,49 @@
             Holds a list of general information sections for the contract.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractRoles">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Roles">
             <summary>
-            Holds a list of roles for the contract.
+            Holds Xaml code for visually representing a contract's roles.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractParts">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Parts">
             <summary>
-            Holds a list of parts for the contract.
+            Holds Xaml code for visually representing a contract's parts.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractParameters">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Parameters">
             <summary>
-            Holds a list of parameters for the contract.
+            Holds Xaml code for visually representing a contract's parameters.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractHumanReadableText">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HumanReadableText">
             <summary>
-            Holds a list of human readable text for the contract.
+            Holds Xaml code for visually representing a contract's human readable text section.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractMachineReadableText">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.MachineReadableText">
             <summary>
-            Holds a list of machine readable texts for the contract.
+            Holds Xaml code for visually representing a contract's machine readable text section.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractClientSignatures">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ClientSignatures">
             <summary>
-            Holds a list of client signatures for the contract.
+            Holds Xaml code for visually representing a contract's client signatures.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ContractServerSignatures">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ServerSignatures">
             <summary>
-            Holds a list of server signatures for the contract.
+            Holds Xaml code for visually representing a contract's server signatures.
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Photos">
             <summary>
             Gets the list of photos associated with the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Contract">
+            <summary>
+            The contract to display.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasRolesProperty">
@@ -6279,6 +6264,9 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ViewContractPage"/> class.
             </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ViewContractPage.OnDisappearing">
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Views.Contracts.ViewContractPage.OnBackButtonPressed">
             <summary>
