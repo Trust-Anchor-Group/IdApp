@@ -222,9 +222,6 @@
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-  <data name="ContractCategory" xml:space="preserve">
-    <value>Contract Category</value>
-  </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
     <value>Contract has been deleted.</value>
   </data>
@@ -242,9 +239,6 @@
   </data>
   <data name="ContractSuccessfullySigned" xml:space="preserve">
     <value>Contract successfully signed.</value>
-  </data>
-  <data name="ContractType" xml:space="preserve">
-    <value>Contract Type</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
     <value>Select contract visibility first, and then try again.</value>
@@ -659,12 +653,6 @@
   </data>
   <data name="SelectOperator" xml:space="preserve">
     <value>Select Operator</value>
-  </data>
-  <data name="SelectTheCategoryOfContractToCreate" xml:space="preserve">
-    <value>Select the category of contract to create.</value>
-  </data>
-  <data name="SelectTheTypeOfContractToCreate" xml:space="preserve">
-    <value>Select the type of contract to create.</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
     <value>Select who should have access to this contract.</value>

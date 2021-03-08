@@ -234,11 +234,6 @@
               Looks up a localized string similar to Continue.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.ContractCategory">
-            <summary>
-              Looks up a localized string similar to Contract Category.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.ContractHasBeenDeleted">
             <summary>
               Looks up a localized string similar to Contract has been deleted..
@@ -267,11 +262,6 @@
         <member name="P:IdApp.AppResources.ContractSuccessfullySigned">
             <summary>
               Looks up a localized string similar to Contract successfully signed..
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.ContractType">
-            <summary>
-              Looks up a localized string similar to Contract Type.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ContractVisibility_CreatorAndParts">
@@ -962,16 +952,6 @@
         <member name="P:IdApp.AppResources.SelectOperator">
             <summary>
               Looks up a localized string similar to Select Operator.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.SelectTheCategoryOfContractToCreate">
-            <summary>
-              Looks up a localized string similar to Select the category of contract to create..
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.SelectTheTypeOfContractToCreate">
-            <summary>
-              Looks up a localized string similar to Select the type of contract to create..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SelectWhoShouldHaveAccessToThisContract">

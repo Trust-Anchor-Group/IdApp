@@ -376,15 +376,6 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contract Category.
-        /// </summary>
-        internal static string ContractCategory {
-            get {
-                return ResourceManager.GetString("ContractCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Contract has been deleted..
         /// </summary>
         internal static string ContractHasBeenDeleted {
@@ -435,15 +426,6 @@ namespace IdApp {
         internal static string ContractSuccessfullySigned {
             get {
                 return ResourceManager.GetString("ContractSuccessfullySigned", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Contract Type.
-        /// </summary>
-        internal static string ContractType {
-            get {
-                return ResourceManager.GetString("ContractType", resourceCulture);
             }
         }
         
@@ -1686,24 +1668,6 @@ namespace IdApp {
         internal static string SelectOperator {
             get {
                 return ResourceManager.GetString("SelectOperator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the category of contract to create..
-        /// </summary>
-        internal static string SelectTheCategoryOfContractToCreate {
-            get {
-                return ResourceManager.GetString("SelectTheCategoryOfContractToCreate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the type of contract to create..
-        /// </summary>
-        internal static string SelectTheTypeOfContractToCreate {
-            get {
-                return ResourceManager.GetString("SelectTheTypeOfContractToCreate", resourceCulture);
             }
         }
         

@@ -9,13 +9,6 @@
     <ScrollView>
         <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" x:Name="NewContractStackLayout">
 
-            <StackLayout Orientation="Vertical" IsVisible="{Binding Path=IsTemplate, Converter={converters:BooleanConverter}}">
-                <Label Text="{x:Static local:AppResources.ContractCategory}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
-                <Picker Title="{x:Static local:AppResources.SelectTheCategoryOfContractToCreate}" ItemsSource="{Binding Path=ContractCategories}" SelectedItem="{Binding Path=SelectedContractCategory, Mode=TwoWay}" />
-                <Label Text="{x:Static local:AppResources.ContractType}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
-                <Picker Title="{x:Static local:AppResources.SelectTheTypeOfContractToCreate}" ItemsSource="{Binding Path=ContractTypes}" SelectedItem="{Binding Path=SelectedContractType, Mode=TwoWay}" IsEnabled="{Binding Path=HasContractTypes}" />
-            </StackLayout>
-
             <Label Text="{x:Static local:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
             <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" ItemsSource="{Binding Path=ContractVisibilityItems}" SelectedItem="{Binding Path=SelectedContractVisibilityItem, Mode=TwoWay}"/>
             <Label Text="{x:Static local:AppResources.YourRole}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
