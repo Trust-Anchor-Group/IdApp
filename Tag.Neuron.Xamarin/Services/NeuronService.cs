@@ -179,7 +179,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool ShouldCreateClient()
 		{
 			return this.tagProfile.Step > RegistrationStep.Account &&
-				   (this.xmppClient == null ||
+				   (this.xmppClient is null ||
 					this.domainName != this.tagProfile.Domain ||
 					this.accountName != this.tagProfile.Account ||
 					this.passwordHash != this.tagProfile.PasswordHash ||
@@ -297,7 +297,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public async Task<bool> WaitForConnectedState(TimeSpan timeout)
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 				return false;
 
 			if (this.xmppClient.State == XmppState.Connected)
@@ -619,7 +619,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public async Task<ContractsClient> CreateContractsClientAsync()
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 			{
 				throw new InvalidOperationException("XmppClient is not connected");
 			}
@@ -651,7 +651,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public Task<HttpFileUploadClient> CreateFileUploadClientAsync()
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 			{
 				throw new InvalidOperationException("XmppClient is not connected");
 			}
@@ -669,7 +669,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public Task<MultiUserChatClient> CreateMultiUserChatClientAsync()
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 			{
 				throw new InvalidOperationException("XmppClient is not connected");
 			}
@@ -684,7 +684,7 @@ namespace Tag.Neuron.Xamarin.Services
 		public async Task<bool> DiscoverServices(XmppClient client = null)
 		{
 			client = client ?? xmppClient;
-			if (client == null)
+			if (client is null)
 				return false;
 
 			ServiceItemsDiscoveryEventArgs response;
@@ -772,7 +772,7 @@ namespace Tag.Neuron.Xamarin.Services
 		public string CommsDumpAsText(string state)
 		{
 			string response;
-			if (historyTextData == null || state != "History")
+			if (historyTextData is null || state != "History")
 			{
 				response = sniffer.SnifferToText();
 			}

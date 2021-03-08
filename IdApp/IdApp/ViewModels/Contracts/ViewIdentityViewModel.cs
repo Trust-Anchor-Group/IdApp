@@ -63,7 +63,7 @@ namespace IdApp.ViewModels.Contracts
                 this.LegalIdentity = args.Identity ?? tagProfile.LegalIdentity;
                 this.identityToReview = args.IdentityToReview;
             }
-            if (this.LegalIdentity == null)
+            if (this.LegalIdentity is null)
             {
                 this.LegalIdentity = tagProfile.LegalIdentity;
                 this.identityToReview = null;
@@ -1164,7 +1164,7 @@ namespace IdApp.ViewModels.Contracts
 
         private async Task Reject()
         {
-            if (this.identityToReview == null)
+            if (this.identityToReview is null)
                 return;
 
             try

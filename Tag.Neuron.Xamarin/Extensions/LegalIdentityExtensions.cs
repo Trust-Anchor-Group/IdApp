@@ -16,7 +16,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <returns></returns>
         public static bool NeedsUpdating(this LegalIdentity legalIdentity)
         {
-            return legalIdentity == null ||
+            return legalIdentity is null ||
                 legalIdentity.State == IdentityState.Compromised ||
                 legalIdentity.State == IdentityState.Obsoleted ||
                 legalIdentity.State == IdentityState.Rejected;

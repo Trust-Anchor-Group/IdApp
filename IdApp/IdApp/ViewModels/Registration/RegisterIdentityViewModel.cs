@@ -678,7 +678,7 @@ namespace IdApp.ViewModels.Registration
                 return false;
             }
 
-            if (this.photo == null && alertUser)
+            if (this.photo is null && alertUser)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
 

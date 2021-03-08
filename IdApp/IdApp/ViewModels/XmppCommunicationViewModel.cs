@@ -170,7 +170,7 @@ namespace IdApp.ViewModels
                 {
                     string newHtml = neuronService.CommsDumpAsHtml();
 
-                    if (Html == null || !Html.Html.GetHashCode().Equals(newHtml.GetHashCode()))
+                    if (Html is null || !Html.Html.GetHashCode().Equals(newHtml.GetHashCode()))
                     {
                         Html = new HtmlWebViewSource
                         {

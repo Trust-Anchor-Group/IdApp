@@ -317,7 +317,7 @@ namespace IdApp
                 configuration = null;
             }
 
-            if (configuration == null)
+            if (configuration is null)
             {
                 configuration = new TagConfiguration();
                 try

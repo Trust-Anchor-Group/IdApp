@@ -56,7 +56,7 @@ namespace IdApp.Tests.ViewModels.Registration
                 {
                     // Pre-condition
                     RegisterIdentityViewModel rvm = (RegisterIdentityViewModel)vm.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
-                    return rvm.FirstName == null && rvm.LastNames == null && rvm.City == null;
+                    return rvm.FirstName is null && rvm.LastNames is null && rvm.City is null;
                 })
                 .When(vm =>
                 {
@@ -99,7 +99,7 @@ namespace IdApp.Tests.ViewModels.Registration
                 {
                     // Pre-condition
                     RegisterIdentityViewModel rvm = (RegisterIdentityViewModel)vm.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
-                    return rvm.FirstName == null && rvm.LastNames == null && rvm.City == null;
+                    return rvm.FirstName is null && rvm.LastNames is null && rvm.City is null;
                 })
                 .When(vm =>
                 {

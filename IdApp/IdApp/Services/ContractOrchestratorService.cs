@@ -113,7 +113,7 @@ namespace IdApp.Services
 				}
 			}
 
-			if (identity == null)
+			if (identity is null)
 			{
 				this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForIdentityReceived)}() - identity is missing or cannot be retrieved, ignore.");
 				return;
@@ -157,7 +157,7 @@ namespace IdApp.Services
 				}
 			}
 
-			if (identity == null)
+			if (identity is null)
 			{
 				this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForSignatureReceived)}() - identity is missing or cannot be retrieved, ignore.");
 				return;

@@ -155,14 +155,14 @@ namespace Tag.Neuron.Xamarin.Services
 					Thread?.NewState("Repair2");
 
 					// 2. Try repair database
-					if (this.databaseProvider == null && Database.HasProvider)
+					if (this.databaseProvider is null && Database.HasProvider)
 					{
 						// This is an attempt that _can_ work.
 						// During a soft restart, there _may_ be a provider registered already. If so, grab it.
 						this.databaseProvider = Database.Provider as FilesProvider;
 					}
 
-					if (this.databaseProvider == null)
+					if (this.databaseProvider is null)
 					{
 						// Reasoning: If we can't create a provider, and the database doesn't have one assigned either, we're in serious trouble.
 						// Throw an exception, which is caught below, to try and perform a recovery.

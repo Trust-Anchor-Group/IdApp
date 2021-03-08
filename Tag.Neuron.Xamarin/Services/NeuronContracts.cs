@@ -275,7 +275,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         public async Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null)
         {
-            if(client == null)
+            if(client is null)
             {
                 AssertContractsIsAvailable();
                 return await contractsClient.GetLegalIdentitiesAsync();
