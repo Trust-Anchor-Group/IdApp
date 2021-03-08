@@ -6,7 +6,7 @@ namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
     /// The navigation service is a wafer-thin wrapper around the <see cref="Shell"/>'s <c>GoToAsync()</c> methods.
-    /// It also provides a uniform way of passing arguments to pages, see the <see cref="PushArgs{TArgs}"/> and <see cref="TryPopArgs{TArgs}"/> methods.
+    /// It also provides a uniform way of passing arguments to pages.
     /// Allows for easy mocking when unit testing.
     /// </summary>
     [DefaultImplementation(typeof(NavigationService))]
