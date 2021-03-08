@@ -461,7 +461,7 @@ namespace IdApp.ViewModels.Contracts
                         string html = role.ToHTML(Contract.DefaultLanguage, Contract);
                         html = Waher.Content.Html.HtmlDocument.GetBody(html);
 
-                        AddTag(this.Roles, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
+                        AddKeyValueLabelPair(this.Roles, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
 
                         if (!this.isReadOnly && acceptsSignatures && !hasSigned && this.Contract.PartsMode == ContractParts.Open &&
                             (!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount))
@@ -479,12 +479,12 @@ namespace IdApp.ViewModels.Contracts
 
                 // Parts
                 if (Contract.SignAfter.HasValue)
-                    AddTag(this.Parts, AppResources.SignAfter, Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
+                    AddKeyValueLabelPair(this.Parts, AppResources.SignAfter, Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
 
                 if (Contract.SignBefore.HasValue)
-                    AddTag(this.Parts, AppResources.SignBefore, Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
+                    AddKeyValueLabelPair(this.Parts, AppResources.SignBefore, Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
 
-                AddTag(this.Parts, AppResources.Mode, Contract.PartsMode.ToString());
+                AddKeyValueLabelPair(this.Parts, AppResources.Mode, Contract.PartsMode.ToString());
 
                 if (!(Contract.Parts is null))
                 {
@@ -493,7 +493,7 @@ namespace IdApp.ViewModels.Contracts
 
                     foreach (Part part in Contract.Parts)
                     {
-                        AddTag(this.Parts, part.Role, part.LegalId, false, part.LegalId, openLegalId);
+                        AddKeyValueLabelPair(this.Parts, part.Role, part.LegalId, false, part.LegalId, openLegalId);
 
                         if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.tagProfile.LegalIdentity.Id)
                         {
@@ -512,7 +512,7 @@ namespace IdApp.ViewModels.Contracts
                 if (!(Contract.Parameters is null))
                 {
                     foreach (Parameter parameter in Contract.Parameters)
-                        AddTag(this.Parameters, parameter.Name, parameter.ObjectValue?.ToString());
+                        AddKeyValueLabelPair(this.Parameters, parameter.Name, parameter.ObjectValue?.ToString());
                 }
 
                 // Human readable text
@@ -524,13 +524,13 @@ namespace IdApp.ViewModels.Contracts
                     this.HumanReadableText.Children.Add(view);
 
                 // Machine readable text
-                AddTag(this.MachineReadableText, AppResources.ContractId, Contract.ContractId);
+                AddKeyValueLabelPair(this.MachineReadableText, AppResources.ContractId, Contract.ContractId);
                 if (!string.IsNullOrEmpty(Contract.TemplateId))
-                    AddTag(this.MachineReadableText, AppResources.TemplateId, Contract.TemplateId);
-                AddTag(this.MachineReadableText, AppResources.Digest, Convert.ToBase64String(Contract.ContentSchemaDigest));
-                AddTag(this.MachineReadableText, AppResources.HashFunction, Contract.ContentSchemaHashFunction.ToString());
-                AddTag(this.MachineReadableText, AppResources.LocalName, Contract.ForMachinesLocalName);
-                AddTag(this.MachineReadableText, AppResources.Namespace, Contract.ForMachinesNamespace);
+                    AddKeyValueLabelPair(this.MachineReadableText, AppResources.TemplateId, Contract.TemplateId);
+                AddKeyValueLabelPair(this.MachineReadableText, AppResources.Digest, Convert.ToBase64String(Contract.ContentSchemaDigest));
+                AddKeyValueLabelPair(this.MachineReadableText, AppResources.HashFunction, Contract.ContentSchemaHashFunction.ToString());
+                AddKeyValueLabelPair(this.MachineReadableText, AppResources.LocalName, Contract.ForMachinesLocalName);
+                AddKeyValueLabelPair(this.MachineReadableText, AppResources.Namespace, Contract.ForMachinesNamespace);
 
                 // Client signatures
                 if (!(Contract.ClientSignatures is null))
@@ -540,9 +540,9 @@ namespace IdApp.ViewModels.Contracts
 
                     foreach (ClientSignature signature in Contract.ClientSignatures)
                     {
-                        string Sign = Convert.ToBase64String(signature.DigitalSignature);
-                        AddTag(this.ClientSignatures, signature.Role, signature.LegalId + ", " + signature.BareJid + ", " +
-                                                                      signature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " + Sign, false, Sign, openClientSignature);
+                        string sign = Convert.ToBase64String(signature.DigitalSignature);
+                        AddKeyValueLabelPair(this.ClientSignatures, signature.Role, signature.LegalId + ", " + signature.BareJid + ", " +
+                                                                      signature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " + sign, false, sign, openClientSignature);
                     }
                 }
 
@@ -552,7 +552,7 @@ namespace IdApp.ViewModels.Contracts
                     TapGestureRecognizer openServerSignature = new TapGestureRecognizer();
                     openServerSignature.Tapped += this.ServerSignature_Tapped;
 
-                    AddTag(this.ServerSignatures, Contract.Provider, Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
+                    AddKeyValueLabelPair(this.ServerSignatures, Contract.Provider, Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
                                                                     Convert.ToBase64String(Contract.ServerSignature.DigitalSignature), false, Contract.ContractId, openServerSignature);
                 }
 
@@ -593,12 +593,12 @@ namespace IdApp.ViewModels.Contracts
             return $" ({min} - {max})";
         }
 
-        private static void AddTag(StackLayout container, string key, string value)
+        private static void AddKeyValueLabelPair(StackLayout container, string key, string value)
         {
-            AddTag(container, key, value, false, string.Empty, null);
+            AddKeyValueLabelPair(container, key, value, false, string.Empty, null);
         }
 
-        private static void AddTag(StackLayout container, string key, string value, bool isHtml, string styleId, TapGestureRecognizer tapGestureRecognizer)
+        private static void AddKeyValueLabelPair(StackLayout container, string key, string value, bool isHtml, string styleId, TapGestureRecognizer tapGestureRecognizer)
         {
             StackLayout layout = new StackLayout
             {
@@ -618,7 +618,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 Text = value,
                 TextType = isHtml ? TextType.Html : TextType.Text,
-                Style = (Style)Application.Current.Resources["ValueLabel"]
+                Style = isHtml ? (Style)Application.Current.Resources["FormattedValueLabel"] : (Style)Application.Current.Resources["ValueLabel"]
             });
 
             if (!(tapGestureRecognizer is null))
