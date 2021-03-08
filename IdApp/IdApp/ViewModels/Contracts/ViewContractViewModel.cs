@@ -193,6 +193,9 @@ namespace IdApp.ViewModels.Contracts
         /// </summary>
         public ObservableCollection<ImageSource> Photos { get; }
 
+        /// <summary>
+        /// The contract to display.
+        /// </summary>
         public Contract Contract { get; private set; }
 
         /// <summary>

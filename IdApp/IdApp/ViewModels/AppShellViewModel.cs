@@ -1,10 +1,12 @@
-﻿using IdApp.Extensions;
+﻿using System.Linq;
+using IdApp.Extensions;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.ViewModels
 {
@@ -110,14 +112,14 @@ namespace IdApp.ViewModels
         /// See <see cref="LogInOutGlyph"/>
         /// </summary>
         public static readonly BindableProperty LogInOutGlyphProperty =
-            BindableProperty.Create("LogInOutGlyph", typeof(string), typeof(AppShellViewModel), default(string));
+            BindableProperty.Create("LogInOutGlyph", typeof(FontImageSource), typeof(AppShellViewModel), default(FontImageSource));
 
         /// <summary>
         /// The icon to use for the log in/log out menu item.
         /// </summary>
-        public string LogInOutGlyph
+        public FontImageSource LogInOutGlyph
         {
-            get { return (string)GetValue(LogInOutGlyphProperty); }
+            get { return (FontImageSource) GetValue(LogInOutGlyphProperty); }
             set { SetValue(LogInOutGlyphProperty, value); }
         }
 
@@ -142,12 +144,22 @@ namespace IdApp.ViewModels
         {
             if (this.UserIsLoggedOut)
             {
-                this.LogInOutGlyph = SolidIcons.SignIn;
+                this.LogInOutGlyph = new FontImageSource
+                {
+                    FontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"],
+                    Glyph = SolidIcons.SignIn,
+                    Color = (Color)Application.Current.Resources["HeadingBackground"]
+                };
                 this.LogInOutText = AppResources.SignIn;
             }
             else
             {
-                this.LogInOutGlyph = SolidIcons.SignOut;
+                this.LogInOutGlyph = new FontImageSource
+                {
+                    FontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"],
+                    Glyph = SolidIcons.SignOut,
+                    Color = (Color)Application.Current.Resources["HeadingBackground"]
+                };
                 this.LogInOutText = AppResources.SignOut;
             }
         }

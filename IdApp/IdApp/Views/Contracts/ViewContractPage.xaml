@@ -130,13 +130,9 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
-                    <ScrollView Grid.Column="1" Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
+                    <ScrollView Orientation="Horizontal">
                         <FlexLayout x:Name="PhotosLayout"
                                 AlignContent="Center"
                                 AlignItems="Center" 
@@ -154,7 +150,7 @@
                             </BindableLayout.ItemTemplate>
                         </FlexLayout>
                     </ScrollView>
-                </Grid>
+                </StackLayout>
                 <Button Text="{x:Static local:AppResources.ObsoleteContract}" Command="{Binding Path=ObsoleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 <Button Text="{x:Static local:AppResources.DeleteContract}" Command="{Binding Path=DeleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>

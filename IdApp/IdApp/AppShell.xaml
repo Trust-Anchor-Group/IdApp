@@ -102,11 +102,7 @@
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Inspect}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem Text="{Binding Path=LogInOutText}" Clicked="SignInOutMenuItem_Clicked">
-        <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{Binding Path=LogInOutGlyph}" Color="{StaticResource HeadingBackground}"/>
-        </MenuItem.IconImageSource>
-    </MenuItem>
+    <MenuItem x:Name="SignInOutMenuItem" Text="{Binding Path=LogInOutText}" Clicked="SignInOutMenuItem_Clicked" IconImageSource="{Binding Path=LogInOutGlyph}"/>
     <MenuItem Text="{x:Static local:AppResources.About}" Clicked="AboutMenuItem_Clicked">
         <MenuItem.IconImageSource>
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.QuestionCircle}" Color="{StaticResource HeadingBackground}"/>
