@@ -559,6 +559,18 @@ namespace IdApp.ViewModels.Registration
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
+            {
+                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportThingRegistries);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(this.TagProfile.ProvisioningJid))
+            {
+                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportProvisioningAndDecisionSupportForThings);
+                return;
+            }
+
             if (!this.NeuronService.IsOnline)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);

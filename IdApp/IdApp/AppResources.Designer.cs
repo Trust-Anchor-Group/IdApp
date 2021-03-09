@@ -1060,11 +1060,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Operator does not support Provisioning and Decision Support for things.
+        /// </summary>
+        internal static string OperatorDoesNotSupportProvisioningAndDecisionSupportForThings {
+            get {
+                return ResourceManager.GetString("OperatorDoesNotSupportProvisioningAndDecisionSupportForThings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The operator {0} does not support registration of new accounts.
         /// </summary>
         internal static string OperatorDoesNotSupportRegisteringNewAccounts {
             get {
                 return ResourceManager.GetString("OperatorDoesNotSupportRegisteringNewAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Operator does not support Thing Registries.
+        /// </summary>
+        internal static string OperatorDoesNotSupportThingRegistries {
+            get {
+                return ResourceManager.GetString("OperatorDoesNotSupportThingRegistries", resourceCulture);
             }
         }
         

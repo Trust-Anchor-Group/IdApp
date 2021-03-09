@@ -450,8 +450,14 @@
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
     <value>Operator does not support legal identities and smart contracts</value>
   </data>
+  <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
+    <value>Operator does not support Provisioning and Decision Support for things</value>
+  </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>The operator {0} does not support registration of new accounts</value>
+  </data>
+  <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
+    <value>Operator does not support Thing Registries</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>

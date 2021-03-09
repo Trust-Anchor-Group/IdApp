@@ -447,8 +447,14 @@
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
     <value>Operatören stödjer inte juridiska identiteter och smarta kontrakt</value>
   </data>
+  <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
+    <value>Operatören stödjer inte provisionering och beslutsstöd för saker</value>
+  </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>Operatören {0} stödjer inte registrering av nya konton</value>
+  </data>
+  <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
+    <value>Operatören stödjer inte Sakregister</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Annan&gt;</value>
