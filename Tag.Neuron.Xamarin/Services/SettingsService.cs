@@ -67,6 +67,12 @@ namespace Tag.Neuron.Xamarin.Services
 			await RuntimeSettings.SetAsync(key, state);
 		}
 
+		public async Task SaveState(string key, Enum state)
+		{
+			await this.storageService.WaitForReadyState();
+			await RuntimeSettings.SetAsync(key, state);
+		}
+
 		public async Task SaveState(string key, object state)
 		{
             await this.storageService.WaitForReadyState();
@@ -133,6 +139,12 @@ namespace Tag.Neuron.Xamarin.Services
 			return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
 		}
 
+		public async Task<Enum> RestoreEnumState(string key, Enum defaultValueIfNotFound = default)
+		{
+			await this.storageService.WaitForReadyState();
+			return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
+		}
+
 		public async Task<T> RestoreState<T>(string key, T defaultValueIfNotFound = default)
 		{
 			if (string.IsNullOrWhiteSpace(key))
@@ -140,7 +152,7 @@ namespace Tag.Neuron.Xamarin.Services
 
             await this.storageService.WaitForReadyState();
 
-			object existingState = await RuntimeSettings.GetAsync(key, null);
+			object existingState = await RuntimeSettings.GetAsync(key, (object)null);
 
             if (existingState is T typedValue)
 				return typedValue;

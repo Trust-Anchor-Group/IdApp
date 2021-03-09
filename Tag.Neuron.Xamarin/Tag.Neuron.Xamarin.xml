@@ -1621,6 +1621,13 @@
             <param name="key">The key to use.</param>
             <param name="state">The state to save.</param>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.Enum)">
+            <summary>
+            Saves state with the given key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="state">The state to save.</param>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.SaveState(System.String,System.Object)">
             <summary>
             Saves state with the given key.
@@ -1669,6 +1676,14 @@
             <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreTimeSpanState(System.String,System.TimeSpan)">
+            <summary>
+            Restores state for the specified key.
+            </summary>
+            <param name="key">The state id.</param>
+            <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.RestoreEnumState(System.String,System.Enum)">
             <summary>
             Restores state for the specified key.
             </summary>
