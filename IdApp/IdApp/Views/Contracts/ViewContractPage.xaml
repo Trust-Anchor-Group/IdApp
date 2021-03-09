@@ -25,7 +25,7 @@
                 <!-- PHOTOS -->
                 <StackLayout Orientation="Horizontal" IsVisible="{Binding Path=HasPhotos}">
                     <Label Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
-                    <ScrollView Orientation="Horizontal" HeightRequest="68">
+                    <ScrollView Orientation="Horizontal" HeightRequest="68" x:Name="PhotosScrollView">
                         <FlexLayout x:Name="PhotosLayout"
                                     AlignContent="Center"
                                     AlignItems="Center" 

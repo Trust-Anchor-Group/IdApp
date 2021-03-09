@@ -26,6 +26,13 @@ namespace IdApp.Views.Contracts
 		}
 
         /// <inheritdoc/>
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.ForceReRender(this.PhotosScrollView);
+        }
+
+        /// <inheritdoc/>
         protected override void OnDisappearing()
         {
             this.PhotoViewer.HidePhotos();

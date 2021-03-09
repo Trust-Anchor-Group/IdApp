@@ -130,5 +130,22 @@ namespace Tag.Neuron.Xamarin.UI.Views
             }
             base.OnDisappearing();
         }
+
+        /// <summary>
+        /// TODO: remove this, as it shouldn't be neeed. It's here because ScrollView's typically don't refresh when their child content changes size.
+        /// It's a helper method for forcing a layout re-render of the specified components.
+        /// </summary>
+        /// <param name="layouts">The layout components to re-render.</param>
+        protected void ForceReRender(params Layout[] layouts)
+        {
+            // Important to BeginInvoke here to get the UI to update properly.
+            this.uiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                foreach (Layout layout in layouts)
+                {
+                    layout.ForceLayout();
+                }
+            });
+        }
     }
 }
