@@ -18,12 +18,14 @@ namespace Tag.Neuron.Xamarin.Services
         /// Triggers whenever network connectivity changes.
         /// </summary>
         event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged;
+
         /// <summary>
         /// Performs a DNS lookup for the specified domain name.
         /// </summary>
         /// <param name="domainName">The domain name whose name to resolve.</param>
         /// <returns></returns>
         Task<(string hostName, int port, bool isIpAddress)> LookupXmppHostnameAndPort(string domainName);
+        
         /// <summary>
         /// Determines whether we have network (wifi/cellular/other) or not.
         /// </summary>
