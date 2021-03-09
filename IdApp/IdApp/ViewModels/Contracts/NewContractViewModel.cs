@@ -502,7 +502,7 @@ namespace IdApp.ViewModels.Contracts
             }
         }
 
-        private void Entry_TextChanged(object sender, TextChangedEventArgs e)
+        private void Parameter_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (sender is Entry Entry)
             {
@@ -670,17 +670,6 @@ namespace IdApp.ViewModels.Contracts
             }
         }
 
-        internal static string FilterDefaultValues(string s)
-        {
-            foreach (char ch in s)
-            {
-                if (char.ToUpper(ch) != ch)
-                    return s;
-            }
-
-            return string.Empty;
-        }
-
         internal static void Populate(StackLayout Layout, string Xaml)
         {
             StackLayout xaml = new StackLayout().LoadFromXaml(Xaml);
@@ -750,11 +739,11 @@ namespace IdApp.ViewModels.Contracts
                 Parameters.Children.Add(Entry = new Entry
                 {
                     StyleId = Parameter.Name,
-                    Text = FilterDefaultValues(Parameter.ObjectValue?.ToString()),
+                    Text = Parameter.ObjectValue?.ToString(),
                     HorizontalOptions = LayoutOptions.FillAndExpand,
                 });
 
-                Entry.TextChanged += Entry_TextChanged;
+                Entry.TextChanged += Parameter_TextChanged;
             }
 
             this.HasParameters = this.Parameters.Children.Count > 0;
