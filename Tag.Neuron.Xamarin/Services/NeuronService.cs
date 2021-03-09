@@ -809,7 +809,7 @@ namespace Tag.Neuron.Xamarin.Services
 				xml = $"<SnifferOutput>{xml}</SnifferOutput>";
 
 				//adding coloring to debug lines
-				html = cssColoring + fixtags(xml);
+				html = cssColoring + FixTags(xml);
 			}
 			catch (Exception e)
 			{
@@ -820,7 +820,7 @@ namespace Tag.Neuron.Xamarin.Services
 		}
 
 		//fixing broken tags
-		private string fixtags(string xml)
+		private string FixTags(string xml)
 		{
 			var result = xml.Replace("&lt;", "<").Replace("&gt;", ">");
 
