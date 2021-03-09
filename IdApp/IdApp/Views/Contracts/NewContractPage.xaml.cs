@@ -1,4 +1,5 @@
 ﻿using IdApp.ViewModels.Contracts;
+using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,6 +12,7 @@ namespace IdApp.Views.Contracts
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class NewContractPage
 	{
+        private readonly IUiDispatcher uiDispatcher;
         private readonly INavigationService navigationService;
 
         /// <summary>
@@ -18,9 +20,20 @@ namespace IdApp.Views.Contracts
         /// </summary>
 		public NewContractPage()
         {
+            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.ViewModel = new NewContractViewModel();
             InitializeComponent();
+        }
+
+        /// <inheritdoc/>
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            this.uiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                this.RootScrollView.ForceLayout();
+            });
         }
 
         /// <summary>

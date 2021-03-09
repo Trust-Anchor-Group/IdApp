@@ -101,12 +101,6 @@ namespace IdApp.ViewModels.Contracts
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
             this.PopulateTemplateForm();
-            this.uiDispatcher.BeginInvokeOnMainThread(() =>
-            {
-                this.Roles.ForceLayout();
-                this.Parameters.ForceLayout();
-                this.HumanReadableText.ForceLayout();
-            });
         }
 
         /// <inheritdoc/>
@@ -127,7 +121,7 @@ namespace IdApp.ViewModels.Contracts
             if (!(this.SelectedContractVisibilityItem is null))
             {
                 ContractVisibility value = this.SelectedContractVisibilityItem.Visibility;
-                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value.ToString());
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value);
             }
             if (!(SelectedRole is null))
             {
@@ -140,9 +134,10 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveState)
             {
-                string visibilityStr = await this.settingsService.RestoreStringState(nameof(SelectedContractVisibilityItem));
-                if (Enum.TryParse(visibilityStr, out ContractVisibility cv))
+                Enum e = await this.settingsService.RestoreEnumState(nameof(SelectedContractVisibilityItem));
+                if (e != null)
                 {
+                    ContractVisibility cv = (ContractVisibility)e;
                     this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);
                 }
 
@@ -162,7 +157,7 @@ namespace IdApp.ViewModels.Contracts
             this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
         }
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// The Propose action which creates a new contract.
@@ -354,7 +349,7 @@ namespace IdApp.ViewModels.Contracts
             set { SetValue(CanAddPartsProperty, value); }
         }
 
-        #endregion
+#endregion
 
         private void ClearTemplate(bool propertiesOnly)
         {
