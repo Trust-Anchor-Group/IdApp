@@ -2,6 +2,7 @@
 using IdApp.Services;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
@@ -21,6 +22,7 @@ namespace IdApp.ViewModels
     public class MainViewModel : NeuronViewModel
     {
         private readonly ITagProfile tagProfile;
+        private readonly ILogService logService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
 
@@ -45,11 +47,11 @@ namespace IdApp.ViewModels
             IImageCacheService imageCacheService)
             : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
-            logService = logService ?? DependencyService.Resolve<ILogService>();
+            this.logService = logService ?? DependencyService.Resolve<ILogService>();
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
-            this.photosLoader = new PhotosLoader(logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
+            this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
         }
 
@@ -135,27 +137,44 @@ namespace IdApp.ViewModels
             if (!(firstAttachment is null))
             {
                 // Don't await this one, just let it run asynchronously.
-                this.photosLoader
-                    .LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys)
-                    .ContinueWith(task =>
+                _ = this.LoadProfilePhoto(firstAttachment);
+            }
+        }
+
+        private async Task LoadProfilePhoto(Attachment firstAttachment)
+        {
+            try
+            {
+                bool connected = await this.NeuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+                if (!connected || !this.IsBound)
+                    return;
+
+                MemoryStream ms = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
+                if (!this.IsBound)
+                {
+                    ms?.Dispose();
+                    return;
+                }
+
+                if (ms != null)
+                {
+                    byte[] bytes = ms.ToArray();
+                    ms.Dispose();
+
+                    if (!this.IsBound) // Page no longer on screen when download is done?
                     {
-                        MemoryStream ms = task.Result;
-                        if (!(ms is null))
-                        {
-                            byte[] bytes = ms.ToArray();
-                            ms.Dispose();
+                        return;
+                    }
 
-                            if (!this.IsBound) // Page no longer on screen when download is done?
-                            {
-                                return;
-                            }
-
-                            this.UiDispatcher.BeginInvokeOnMainThread(() =>
-                            {
-                                Image = ImageSource.FromStream(() => new MemoryStream(bytes));
-                            });
-                        }
-                    }, TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.NotOnCanceled);
+                    this.UiDispatcher.BeginInvokeOnMainThread(() =>
+                    {
+                        Image = ImageSource.FromStream(() => new MemoryStream(bytes));
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
             }
         }
 
