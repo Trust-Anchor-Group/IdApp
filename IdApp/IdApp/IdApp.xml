@@ -6397,6 +6397,12 @@
             Represents a user's Xmpp connection and profile properties.
             </summary>
         </member>
+        <member name="M:Waher.IoTGateway.Setup.XmppConfiguration.ToArray">
+            <summary>
+            Converts the list of properties on this instance to an array of <see cref="T:Tag.Neuron.Xamarin.Models.DomainModel"/>s.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="F:Waher.IoTGateway.Setup.XmppConfiguration.BuildDate">
             <summary>
             Date when solution was built.
@@ -6406,12 +6412,6 @@
             <summary>
             Time when solution was built.
             </summary>
-        </member>
-        <member name="M:Waher.IoTGateway.Setup.XmppConfiguration.ToArray">
-            <summary>
-            Converts the list of properties on this instance to an array of <see cref="T:Tag.Neuron.Xamarin.Models.DomainModel"/>s.
-            </summary>
-            <returns></returns>
         </member>
     </members>
 </doc>
