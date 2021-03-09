@@ -27,7 +27,7 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
         /// 
         /// </summary>
         public static readonly BindableProperty TextChangedCommandParameterProperty =
-            BindableProperty.Create("TextChangedCommandParameter", typeof(object), typeof(TextChangedBehavior), default(object));
+            BindableProperty.Create("TextChangedCommandParameter", typeof(object), typeof(TextChangedBehavior), default);
 
         /// <summary>
         /// The command parameter to bind to when text changes.
