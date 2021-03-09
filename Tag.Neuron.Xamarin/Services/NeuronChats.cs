@@ -25,7 +25,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         internal async Task CreateClient()
         {
-            if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+            if (!string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
             {
                 this.chatClient = await this.neuronService.CreateMultiUserChatClientAsync();
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
@@ -48,7 +48,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         private XmppState GetState()
         {
-            return !(this.chatClient is null) ? XmppState.Connected : XmppState.Offline;
+            return this.chatClient.Client.State;
         }
 
         private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
