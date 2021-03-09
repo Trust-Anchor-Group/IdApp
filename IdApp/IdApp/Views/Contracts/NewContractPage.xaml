@@ -7,19 +7,26 @@
              Title="{x:Static local:AppResources.NewContract}">
     <ScrollView>
         <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" x:Name="NewContractStackLayout">
+            <StackLayout.Resources>
+                <Style TargetType="Label"
+                        ApplyToDerivedTypes="True"
+                        CanCascade="True">
+                    <Setter Property="FontSize" Value="Small" />
+                </Style>
+            </StackLayout.Resources>
 
             <Label Text="{x:Static local:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
             <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" ItemsSource="{Binding Path=ContractVisibilityItems}" SelectedItem="{Binding Path=SelectedContractVisibilityItem, Mode=TwoWay}"/>
             <Label Text="{x:Static local:AppResources.YourRole}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
             <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" ItemsSource="{Binding Path=AvailableRoles}" SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" IsEnabled="{Binding Path=HasRoles}"/>
 
-            <ContentView IsVisible="{Binding Path=HasRoles}" Content="{Binding Path=Roles}" />
+            <ContentView Content="{Binding Path=Roles}" />
 
             <Button Text="{x:Static local:AppResources.AddPart}" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
 
-            <ContentView IsVisible="{Binding Path=HasParameters}" Content="{Binding Path=Parameters}" />
+            <ContentView Content="{Binding Path=Parameters}" />
 
-            <ContentView IsVisible="{Binding Path=HasHumanReadableText}" Content="{Binding Path=HumanReadableText}" />
+            <ContentView Content="{Binding Path=HumanReadableText}" />
 
             <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
             <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>

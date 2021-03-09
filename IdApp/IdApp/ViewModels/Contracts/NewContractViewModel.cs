@@ -100,7 +100,13 @@ namespace IdApp.ViewModels.Contracts
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
-            this.uiDispatcher.BeginInvokeOnMainThread(this.PopulateTemplateForm);
+            this.PopulateTemplateForm();
+            this.uiDispatcher.BeginInvokeOnMainThread(() =>
+            {
+                this.Roles.ForceLayout();
+                this.Parameters.ForceLayout();
+                this.HumanReadableText.ForceLayout();
+            });
         }
 
         /// <inheritdoc/>
@@ -120,8 +126,8 @@ namespace IdApp.ViewModels.Contracts
 
             if (!(this.SelectedContractVisibilityItem is null))
             {
-                ContractVisibility? value = this.SelectedContractVisibilityItem.Visibility;
-                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value);
+                ContractVisibility value = this.SelectedContractVisibilityItem.Visibility;
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value.ToString());
             }
             if (!(SelectedRole is null))
             {
@@ -134,11 +140,10 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveState)
             {
-                ContractVisibility? visibility = await this.settingsService.RestoreState<ContractVisibility?>(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-
-                if (!(visibility is null))
+                string visibilityStr = await this.settingsService.RestoreStringState(nameof(SelectedContractVisibilityItem));
+                if (Enum.TryParse(visibilityStr, out ContractVisibility cv))
                 {
-                    this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == visibility);
+                    this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);
                 }
 
                 string selectedRole = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedRole)));
@@ -358,6 +363,7 @@ namespace IdApp.ViewModels.Contracts
                 this.template = null;
             }
 
+            this.SelectedRole = null;
             this.AvailableRoles.Clear();
 
             this.Roles.Children.Clear();
@@ -732,18 +738,20 @@ namespace IdApp.ViewModels.Contracts
                 }
             }
 
-            this.Parameters.Children.Add(new Label
+            if (template.Parameters.Length > 0)
             {
-                Text = AppResources.Parameters,
-                Style = (Style)Application.Current.Resources["LeftAlignedHeading"]
-            });
-
-            Entry Entry;
+                this.Parameters.Children.Add(new Label
+                {
+                    Text = AppResources.Parameters,
+                    Style = (Style)Application.Current.Resources["LeftAlignedHeading"]
+                });
+            }
 
             foreach (Parameter Parameter in this.template.Parameters)
             {
                 Populate(Parameters, Parameter.ToXamarinForms(this.template.DefaultLanguage, this.template));
 
+                Entry Entry;
                 Parameters.Children.Add(Entry = new Entry
                 {
                     StyleId = Parameter.Name,
