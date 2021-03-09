@@ -23,7 +23,6 @@ namespace IdApp.ViewModels.Contracts
     public class NewContractViewModel : BaseViewModel
     {
         private Contract template;
-        private Contract templateToUse;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
         private readonly INavigationService navigationService;
@@ -33,6 +32,7 @@ namespace IdApp.ViewModels.Contracts
         private readonly ITagProfile tagProfile;
         private string templateId;
         private bool saveState;
+        private Contract stateTemplate;
 
         /// <summary>
         /// Creates an instance of the <see cref="NewContractViewModel"/> class.
@@ -87,10 +87,10 @@ namespace IdApp.ViewModels.Contracts
             {
                 this.template = args.Contract;
             }
-            else if (this.templateToUse != null)
+            else if (this.stateTemplate != null)
             {
-                this.template = this.templateToUse;
-                this.templateToUse = null;
+                this.template = this.stateTemplate;
+                this.stateTemplate = null;
             }
             this.templateId = this.template?.ContractId ?? string.Empty;
             this.IsTemplate = this.template?.CanActAsTemplate ?? false;
@@ -366,6 +366,8 @@ namespace IdApp.ViewModels.Contracts
         {
             this.template = null;
 
+            this.AvailableRoles.Clear();
+
             this.Roles.Children.Clear();
             this.HasRoles = false;
 
@@ -495,8 +497,8 @@ namespace IdApp.ViewModels.Contracts
         {
             if (sender is Button button)
             {
-                this.templateToUse = this.template;
                 this.saveState = true;
+                this.stateTemplate = this.template;
                 string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
                 this.saveState = false;
                 this.DeleteState();
@@ -689,12 +691,12 @@ namespace IdApp.ViewModels.Contracts
 
         internal static void Populate(StackLayout Layout, string Xaml)
         {
-            StackLayout HumanReadable = new StackLayout().LoadFromXaml(Xaml);
+            StackLayout xaml = new StackLayout().LoadFromXaml(Xaml);
 
-            List<View> Children = new List<View>();
-            Children.AddRange(HumanReadable.Children);
+            List<View> children = new List<View>();
+            children.AddRange(xaml.Children);
 
-            foreach (View Element in Children)
+            foreach (View Element in children)
                 Layout.Children.Add(Element);
         }
 
@@ -760,9 +762,7 @@ namespace IdApp.ViewModels.Contracts
             this.Parameters.Children.Add(new Label
             {
                 Text = AppResources.Parameters,
-                FontSize = 18,
-                TextColor = Color.Navy,
-                LineBreakMode = LineBreakMode.WordWrap
+                Style = (Style)Application.Current.Resources["LeftAlignedHeading"]
             });
 
             Entry Entry;

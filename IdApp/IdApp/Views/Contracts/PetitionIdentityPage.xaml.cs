@@ -48,7 +48,7 @@ namespace IdApp.Views.Contracts
 
         private void Image_Tapped(object sender, EventArgs e)
         {
-            Attachment[] attachments = this.GetViewModel<ViewIdentityViewModel>().LegalIdentity?.Attachments;
+            Attachment[] attachments = this.GetViewModel<PetitionIdentityViewModel>().RequestorIdentity?.Attachments;
             this.PhotoViewer.ShowPhotos(attachments);
         }
     }

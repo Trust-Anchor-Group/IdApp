@@ -22,7 +22,6 @@ namespace IdApp.ViewModels.Contracts
         private readonly INavigationService navigationService;
         private readonly INetworkService networkService;
         private LegalIdentity requestorIdentity;
-        private Contract requestedContract;
         private string requestorFullJid;
         private string petitionId;
         private string purpose;
@@ -75,7 +74,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 this.requestorIdentity = args.RequestorIdentity;
                 this.requestorFullJid = args.RequestorFullJid;
-                this.requestedContract = args.RequestedContract;
+                this.RequestedContract = args.RequestedContract;
                 this.petitionId = args.PetitionId;
                 this.purpose = args.Purpose;
             }
@@ -111,9 +110,14 @@ namespace IdApp.ViewModels.Contracts
         /// </summary>
         public ObservableCollection<ImageSource> Photos { get; }
 
+        /// <summary>
+        /// The contract to display.
+        /// </summary>
+        public Contract RequestedContract { get; private set; }
+
         private async Task Accept()
         {
-            bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, true));
+            bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, true));
             if (succeeded)
             {
                 await this.navigationService.GoBackAsync();
@@ -122,7 +126,7 @@ namespace IdApp.ViewModels.Contracts
 
         private async Task Decline()
         {
-            bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(this.requestedContract.ContractId, this.petitionId, this.requestorFullJid, false));
+            bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, false));
             if (succeeded)
             {
                 await this.navigationService.GoBackAsync();

@@ -21,7 +21,6 @@ namespace IdApp.ViewModels.Contracts
         private readonly INavigationService navigationService;
         private readonly INeuronService neuronService;
         private readonly INetworkService networkService;
-        private LegalIdentity requestorIdentity;
         private string requestorFullJid;
         private string signatoryIdentityId;
         private string petitionId;
@@ -75,7 +74,7 @@ namespace IdApp.ViewModels.Contracts
         
             if (this.navigationService.TryPopArgs(out PetitionSignatureNavigationArgs args))
             {
-                this.requestorIdentity = args.RequestorIdentity;
+                this.RequestorIdentity = args.RequestorIdentity;
                 this.requestorFullJid = args.RequestorFullJid;
                 this.signatoryIdentityId = args.SignatoryIdentityId;
                 this.contentToSign = args.ContentToSign;
@@ -85,9 +84,9 @@ namespace IdApp.ViewModels.Contracts
             
             this.AssignProperties();
             
-            if (this.requestorIdentity?.Attachments != null)
+            if (this.RequestorIdentity?.Attachments != null)
             {
-                _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments, SignWith.LatestApprovedId);
+                _ = this.photosLoader.LoadPhotos(this.RequestorIdentity.Attachments, SignWith.LatestApprovedId);
             }
         }
 
@@ -117,6 +116,11 @@ namespace IdApp.ViewModels.Contracts
         /// The list of photos related to the identity being petitioned.
         /// </summary>
         public ObservableCollection<ImageSource> Photos { get; }
+
+        /// <summary>
+        /// The identity of the requestor.
+        /// </summary>
+        public LegalIdentity RequestorIdentity { get; private set; }
 
         private async Task Accept()
         {
@@ -455,27 +459,27 @@ namespace IdApp.ViewModels.Contracts
 
         private void AssignProperties()
         {
-            if (this.requestorIdentity != null)
+            if (this.RequestorIdentity != null)
             {
-                this.Created = this.requestorIdentity.Created;
-                this.Updated = this.requestorIdentity.Updated.GetDateOrNullIfMinValue();
-                this.LegalId = this.requestorIdentity.Id;
-                this.State = this.requestorIdentity.State.ToString();
-                this.From = this.requestorIdentity.From.GetDateOrNullIfMinValue();
-                this.To = this.requestorIdentity.To.GetDateOrNullIfMinValue();
-                this.FirstName = this.requestorIdentity[Constants.XmppProperties.FirstName];
-                this.MiddleNames = this.requestorIdentity[Constants.XmppProperties.MiddleName];
-                this.LastNames = this.requestorIdentity[Constants.XmppProperties.LastName];
-                this.PersonalNumber = this.requestorIdentity[Constants.XmppProperties.PersonalNumber];
-                this.Address = this.requestorIdentity[Constants.XmppProperties.Address];
-                this.Address2 = this.requestorIdentity[Constants.XmppProperties.Address2];
-                this.ZipCode = this.requestorIdentity[Constants.XmppProperties.ZipCode];
-                this.Area = this.requestorIdentity[Constants.XmppProperties.Area];
-                this.City = this.requestorIdentity[Constants.XmppProperties.City];
-                this.Region = this.requestorIdentity[Constants.XmppProperties.Region];
-                this.CountryCode = this.requestorIdentity[Constants.XmppProperties.Country];
+                this.Created = this.RequestorIdentity.Created;
+                this.Updated = this.RequestorIdentity.Updated.GetDateOrNullIfMinValue();
+                this.LegalId = this.RequestorIdentity.Id;
+                this.State = this.RequestorIdentity.State.ToString();
+                this.From = this.RequestorIdentity.From.GetDateOrNullIfMinValue();
+                this.To = this.RequestorIdentity.To.GetDateOrNullIfMinValue();
+                this.FirstName = this.RequestorIdentity[Constants.XmppProperties.FirstName];
+                this.MiddleNames = this.RequestorIdentity[Constants.XmppProperties.MiddleName];
+                this.LastNames = this.RequestorIdentity[Constants.XmppProperties.LastName];
+                this.PersonalNumber = this.RequestorIdentity[Constants.XmppProperties.PersonalNumber];
+                this.Address = this.RequestorIdentity[Constants.XmppProperties.Address];
+                this.Address2 = this.RequestorIdentity[Constants.XmppProperties.Address2];
+                this.ZipCode = this.RequestorIdentity[Constants.XmppProperties.ZipCode];
+                this.Area = this.RequestorIdentity[Constants.XmppProperties.Area];
+                this.City = this.RequestorIdentity[Constants.XmppProperties.City];
+                this.Region = this.RequestorIdentity[Constants.XmppProperties.Region];
+                this.CountryCode = this.RequestorIdentity[Constants.XmppProperties.Country];
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
-                this.IsApproved = this.requestorIdentity.State == IdentityState.Approved;
+                this.IsApproved = this.RequestorIdentity.State == IdentityState.Approved;
             }
             else
             {
