@@ -23,7 +23,7 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
                 <!-- PHOTOS -->
-                <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Horizontal" IsVisible="{Binding Path=HasPhotos}">
                     <Label Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
                     <ScrollView Orientation="Horizontal" HeightRequest="68">
                         <FlexLayout x:Name="PhotosLayout"

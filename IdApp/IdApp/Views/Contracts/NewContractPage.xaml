@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:IdApp;assembly=IdApp"
              xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
-             xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
              x:Class="IdApp.Views.Contracts.NewContractPage"
              Title="{x:Static local:AppResources.NewContract}">
     <ScrollView>

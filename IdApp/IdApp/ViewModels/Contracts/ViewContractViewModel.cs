@@ -178,6 +178,21 @@ namespace IdApp.ViewModels.Contracts
         public Contract Contract { get; private set; }
 
         /// <summary>
+        /// See <see cref="HasPhotos"/>
+        /// </summary>
+        public static readonly BindableProperty HasPhotosProperty =
+            BindableProperty.Create("HasPhotos", typeof(bool), typeof(ViewContractViewModel), default(bool));
+
+        /// <summary>
+        /// Gets or sets whether photos are available.
+        /// </summary>
+        public bool HasPhotos
+        {
+            get { return (bool)GetValue(HasPhotosProperty); }
+            set { SetValue(HasPhotosProperty, value); }
+        }
+
+        /// <summary>
         /// See <see cref="HasRoles"/>
         /// </summary>
         public static readonly BindableProperty HasRolesProperty =
@@ -366,6 +381,7 @@ namespace IdApp.ViewModels.Contracts
         private void ClearContract()
         {
             this.photosLoader.CancelLoadPhotos();
+            this.HasPhotos = false;
             this.Contract = null;
 
             this.GeneralInformation.Clear();
@@ -568,7 +584,10 @@ namespace IdApp.ViewModels.Contracts
 
                 if (!(this.Contract.Attachments is null))
                 {
-                    _ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId);
+                    _ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId, () =>
+                        {
+                            this.uiDispatcher.BeginInvokeOnMainThread(() => HasPhotos = this.Photos.Count > 0);
+                        });
                 }
             }
             catch (Exception ex)
