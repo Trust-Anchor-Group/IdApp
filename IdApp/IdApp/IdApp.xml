@@ -2782,6 +2782,11 @@
             The list of photos related to the contract being petitioned.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.RequestedContract">
+            <summary>
+            The contract to display.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Contracts.PetitionContractViewModel.CreatedProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Contracts.PetitionContractViewModel.Created"/>
@@ -3030,6 +3035,11 @@
             The list of photos related to the identity being petitioned.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.RequestorIdentity">
+            <summary>
+            The identity of the requestor.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.CreatedProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.Created"/>
@@ -3276,6 +3286,11 @@
         <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.Photos">
             <summary>
             The list of photos related to the identity being petitioned.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.RequestorIdentity">
+            <summary>
+            The identity of the requestor.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.CreatedProperty">
@@ -3616,6 +3631,16 @@
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Contract">
             <summary>
             The contract to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasPhotosProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasPhotos"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HasPhotos">
+            <summary>
+            Gets or sets whether photos are available.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HasRolesProperty">

@@ -58,6 +58,13 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="key">The key to use.</param>
         /// <param name="state">The state to save.</param>
+        Task SaveState(string key, Enum state);
+
+        /// <summary>
+        /// Saves state with the given key.
+        /// </summary>
+        /// <param name="key">The key to use.</param>
+        /// <param name="state">The state to save.</param>
         Task SaveState(string key, object state);
 
         /// <summary>
@@ -107,6 +114,14 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
         /// <returns></returns>
         Task<TimeSpan> RestoreTimeSpanState(string key, TimeSpan defaultValueIfNotFound = default);
+
+        /// <summary>
+        /// Restores state for the specified key.
+        /// </summary>
+        /// <param name="key">The state id.</param>
+        /// <param name="defaultValueIfNotFound">The default value to use if the state isn't found.</param>
+        /// <returns></returns>
+        Task<Enum> RestoreEnumState(string key, Enum defaultValueIfNotFound = default);
 
         /// <summary>
         /// Restores state for the specified key.
