@@ -4,7 +4,7 @@ using Waher.Runtime.Inventory;
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
-    /// Adds support for Xmpp Chat functionality.
+    /// Adds support for Xmpp Multi-User Chat functionality.
     /// </summary>
     [DefaultImplementation(typeof(NeuronMultiUserChat))]
     public interface INeuronMultiUserChat

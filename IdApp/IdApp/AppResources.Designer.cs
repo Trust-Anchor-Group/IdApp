@@ -2381,5 +2381,16 @@ namespace IdApp {
                 return ResourceManager.GetString("ZipCode", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid IoT Discovery Code.
+        /// </summary>
+        internal static string InvalidIoTDiscoveryCode
+        {
+            get
+            {
+                return ResourceManager.GetString("InvalidIoTDiscoveryCode", resourceCulture);
+            }
+        }
     }
 }

@@ -1,14 +1,17 @@
-﻿using IdApp.Services;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using IdApp.Services;
 using IdApp.ViewModels;
 using IdApp.Views;
 using IdApp.Views.Contracts;
 using IdApp.Views.Registration;
-using System;
-using System.Text;
-using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.IoTGateway.Setup;
+using Waher.Networking.XMPP.Provisioning;
+using Waher.Networking.XMPP.Provisioning.SearchOperators;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -122,7 +125,16 @@ namespace IdApp
                         break;
 
                     case Constants.UriSchemes.UriSchemeIotDisco:
-                        // TODO handle discovery scheme here.
+                        if (this.neuronService.ThingRegistry.TryDecodeIoTDiscoClaimURI(code, out MetaDataTag[] Tags))
+                        {
+                            // TODO handle a Claim URI here.
+                        }
+                        else if (this.neuronService.ThingRegistry.TryDecodeIoTDiscoSearchURI(code, out IEnumerable<SearchOperator> Operators))
+                        {
+                            // TODO handle a Search URI here.
+                        }
+                        else
+                            await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{code}");
                         break;
 
                     case Constants.UriSchemes.UriSchemeTagSign:

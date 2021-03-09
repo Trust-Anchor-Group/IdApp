@@ -13,7 +13,7 @@ namespace Tag.Neuron.Xamarin.Services
         private readonly IUiDispatcher uiDispatcher;
         private readonly IInternalNeuronService neuronService;
         private readonly ILogService logService;
-        private MultiUserChatClient chatClient;
+        private MultiUserChatClient mucClient;
 
         internal NeuronMultiUserChat(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
         {
@@ -27,28 +27,28 @@ namespace Tag.Neuron.Xamarin.Services
         {
             if (!string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
             {
-                this.chatClient = await this.neuronService.CreateMultiUserChatClientAsync();
+                this.mucClient = await this.neuronService.CreateMultiUserChatClientAsync();
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
             }
         }
 
         internal void DestroyClient()
         {
-            if (!(this.chatClient is null))
+            if (!(this.mucClient is null))
             {
-                this.chatClient.Dispose();
-                this.chatClient = null;
+                this.mucClient.Dispose();
+                this.mucClient = null;
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
             }
         }
 
-        public bool IsOnline => !(this.chatClient is null);
+        public bool IsOnline => !(this.mucClient is null);
 
         public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         private XmppState GetState()
         {
-            return this.chatClient.Client.State;
+            return this.mucClient.Client.State;
         }
 
         private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)

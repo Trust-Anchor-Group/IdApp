@@ -33,7 +33,8 @@ namespace Tag.Neuron.Xamarin.Services
 		private Profiler startupProfiler;
 		private ProfilerThread xmppThread;
 		private readonly NeuronContracts contracts;
-		private readonly NeuronMultiUserChat chats;
+		private readonly NeuronMultiUserChat muc;
+		private readonly NeuronThingRegistry thingRegistry;
 		private string domainName;
 		private string accountName;
 		private string passwordHash;
@@ -62,7 +63,8 @@ namespace Tag.Neuron.Xamarin.Services
 			this.logService = logService;
 			this.tagProfile = tagProfile;
 			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService);
-			this.chats = new NeuronMultiUserChat(this.tagProfile, uiDispatcher, this, this.logService);
+			this.muc = new NeuronMultiUserChat(this.tagProfile, uiDispatcher, this, this.logService);
+			this.thingRegistry = new NeuronThingRegistry(this.tagProfile, uiDispatcher, this, this.logService);
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = startupProfiler;
 		}
@@ -398,7 +400,8 @@ namespace Tag.Neuron.Xamarin.Services
 		#endregion
 
 		public INeuronContracts Contracts => this.contracts;
-		public INeuronMultiUserChat Chats => this.chats;
+		public INeuronMultiUserChat MultiUserChat => this.muc;
+		public INeuronThingRegistry ThingRegistry => this.thingRegistry;
 
 		private enum ConnectOperation
 		{
@@ -650,17 +653,13 @@ namespace Tag.Neuron.Xamarin.Services
 		public Task<HttpFileUploadClient> CreateFileUploadClientAsync()
 		{
 			if (this.xmppClient is null)
-			{
-				throw new InvalidOperationException("XmppClient is not connected");
-			}
+				throw new InvalidOperationException("The XMPP Client is not connected");
+
 			if (string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid))
-			{
-				throw new InvalidOperationException("HttpFileUploadJid is not defined");
-			}
+				throw new InvalidOperationException("No HTTP File Upload Service defined");
+
 			if (!this.tagProfile.HttpFileUploadMaxSize.HasValue)
-			{
 				throw new InvalidOperationException("HttpFileUploadMaxSize is not defined");
-			}
 
 			return Task.FromResult(new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize));
 		}
@@ -668,15 +667,23 @@ namespace Tag.Neuron.Xamarin.Services
 		public Task<MultiUserChatClient> CreateMultiUserChatClientAsync()
 		{
 			if (this.xmppClient is null)
-			{
-				throw new InvalidOperationException("XmppClient is not connected");
-			}
+				throw new InvalidOperationException("The XMPP Client is not connected");
+			
 			if (string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
-			{
-				throw new InvalidOperationException("MucJid is not defined");
-			}
+				throw new InvalidOperationException("There is no Multi-User Chat Service defined.");
 
 			return Task.FromResult(new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid));
+		}
+
+		public Task<ThingRegistryClient> CreateThingRegistryClientAsync()
+		{
+			if (this.xmppClient is null)
+				throw new InvalidOperationException("The XMPP Client is not connected");
+
+			if (string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+				throw new InvalidOperationException("There is no Thing Registry Service defined.");
+
+			return Task.FromResult(new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid));
 		}
 
 		public async Task<bool> DiscoverServices(XmppClient client = null)

@@ -1349,6 +1349,11 @@
               Looks up a localized string similar to Zip or Postal Code.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.InvalidIoTDiscoveryCode">
+            <summary>
+              Looks up a localized string similar to Invalid IoT Discovery Code.
+            </summary>
+        </member>
         <member name="T:IdApp.AppShell">
             <summary>
             The Xamarin Forms Shell implementation of the TAG ID App.

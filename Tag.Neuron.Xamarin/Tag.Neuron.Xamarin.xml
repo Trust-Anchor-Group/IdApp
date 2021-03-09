@@ -85,6 +85,11 @@
               Looks up a localized string similar to Failed to navigate to page {0}  {1}.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.InvalidIoTDiscoveryCode">
+            <summary>
+              Looks up a localized string similar to Invalid IoT Discovery Code.
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.InvalidUsernameOrPassword">
             <summary>
               Looks up a localized string similar to Invalid username or password.
@@ -1414,7 +1419,7 @@
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronMultiUserChat">
             <summary>
-            Adds support for Xmpp Chat functionality.
+            Adds support for Xmpp Multi-User Chat functionality.
             </summary>
         </member>
         <member name="E:Tag.Neuron.Xamarin.Services.INeuronMultiUserChat.ConnectionStateChanged">
@@ -1539,7 +1544,12 @@
             Provides access to legal identities and contracts.
             </summary>
         </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.Chats">
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.MultiUserChat">
+            <summary>
+            Provides access to chat functionality.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.ThingRegistry">
             <summary>
             Provides access to chat functionality.
             </summary>
@@ -1573,6 +1583,27 @@
             Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INeuronThingRegistry">
+            <summary>
+            Adds support for Xmpp Chat functionality.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.TryDecodeIoTDiscoClaimURI(System.String,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
+            <summary>
+            Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Tags">Decoded meta data tags.</param>
+            <returns>If DiscoUri was successfully decoded.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.TryDecodeIoTDiscoSearchURI(System.String,System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator}@)">
+            <summary>
+            Decodes an IoTDisco URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Operators">Search operators.</param>
+            <returns>If the URI could be parsed.</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>
