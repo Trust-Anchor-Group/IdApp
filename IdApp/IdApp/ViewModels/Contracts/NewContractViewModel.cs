@@ -100,7 +100,7 @@ namespace IdApp.ViewModels.Contracts
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
-            this.PopulateTemplateForm();
+            this.uiDispatcher.BeginInvokeOnMainThread(this.PopulateTemplateForm);
         }
 
         /// <inheritdoc/>
@@ -108,7 +108,7 @@ namespace IdApp.ViewModels.Contracts
         {
             this.ContractVisibilityItems.Clear();
 
-            this.ClearTemplate();
+            this.ClearTemplate(false);
 
             await base.DoUnbind();
         }
@@ -120,7 +120,8 @@ namespace IdApp.ViewModels.Contracts
 
             if (!(this.SelectedContractVisibilityItem is null))
             {
-                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), (ContractVisibility?)this.SelectedContractVisibilityItem.Visibility);
+                ContractVisibility? value = this.SelectedContractVisibilityItem.Visibility;
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value);
             }
             if (!(SelectedRole is null))
             {
@@ -243,7 +244,10 @@ namespace IdApp.ViewModels.Contracts
                 string oldRole = (string)oldValue;
                 viewModel.RemoveRole(oldRole, viewModel.tagProfile.LegalIdentity.Id);
                 string newRole = (string)newValue;
-                viewModel.AddRole(newRole, viewModel.tagProfile.LegalIdentity.Id);
+                if (!(viewModel.template is null) && !string.IsNullOrWhiteSpace(newRole))
+                {
+                    viewModel.AddRole(newRole, viewModel.tagProfile.LegalIdentity.Id);
+                }
             });
 
         /// <summary>
@@ -347,9 +351,12 @@ namespace IdApp.ViewModels.Contracts
 
         #endregion
 
-        private void ClearTemplate()
+        private void ClearTemplate(bool propertiesOnly)
         {
-            this.template = null;
+            if (!propertiesOnly)
+            {
+                this.template = null;
+            }
 
             this.AvailableRoles.Clear();
 
@@ -684,35 +691,17 @@ namespace IdApp.ViewModels.Contracts
                 Layout.Children.Add(Element);
         }
 
-        private async void LoadTemplate()
-        {
-            try
-            {
-                this.template = await this.neuronService.Contracts.GetContract(this.templateId);
-                this.uiDispatcher.BeginInvokeOnMainThread(this.PopulateTemplateForm);
-            }
-            catch (Exception ex)
-            {
-                this.template = null;
-                this.logService.LogException(ex);
-                await this.uiDispatcher.DisplayAlert(ex);
-            }
-        }
-
         private void PopulateTemplateForm()
         {
+            this.ClearTemplate(true);
+
             if (this.template is null)
             {
-                this.EvaluateCommands(this.ProposeCommand);
                 return;
             }
 
             this.PopulateHumanReadableText();
 
-            this.Parameters.Children.Clear();
-            this.Roles.Children.Clear();
-
-            this.AvailableRoles.Clear();
             this.HasRoles = this.template.Roles.Length > 0;
             this.VisibilityIsEnabled = true;
 
@@ -765,7 +754,10 @@ namespace IdApp.ViewModels.Contracts
                 Entry.TextChanged += Entry_TextChanged;
             }
 
+            this.HasParameters = this.Parameters.Children.Count > 0;
+
             this.UsePin = this.tagProfile.UsePin;
+
             this.EvaluateCommands(this.ProposeCommand);
         }
 
@@ -775,6 +767,8 @@ namespace IdApp.ViewModels.Contracts
 
             if (!(this.template is null))
                 Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
+
+            this.HasHumanReadableText = this.HumanReadableText.Children.Count > 0;
         }
 
         private bool CanPropose()

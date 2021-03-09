@@ -17,10 +17,8 @@
 
             <Button Text="{x:Static local:AppResources.AddPart}" IsVisible="{Binding Path=CanAddParts}" Command="{Binding Path=AddPartCommand}"/>
 
-            <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <ContentView IsVisible="{Binding Path=HasParameters}" Content="{Binding Path=Parameters}" />
 
-            <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <ContentView IsVisible="{Binding Path=HasHumanReadableText}" Content="{Binding Path=HumanReadableText}" />
 
             <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>

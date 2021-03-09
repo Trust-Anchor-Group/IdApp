@@ -150,7 +150,7 @@ namespace IdApp.ViewModels
                     return;
 
                 MemoryStream ms = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
-                if (!this.IsBound)
+                if (!this.IsBound) // Page no longer on screen when download is done?
                 {
                     ms?.Dispose();
                     return;
@@ -160,11 +160,6 @@ namespace IdApp.ViewModels
                 {
                     byte[] bytes = ms.ToArray();
                     ms.Dispose();
-
-                    if (!this.IsBound) // Page no longer on screen when download is done?
-                    {
-                        return;
-                    }
 
                     this.UiDispatcher.BeginInvokeOnMainThread(() =>
                     {
