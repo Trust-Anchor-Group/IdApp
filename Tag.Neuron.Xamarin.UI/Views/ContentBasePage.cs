@@ -76,7 +76,8 @@ namespace Tag.Neuron.Xamarin.UI.Views
                     catch (Exception e)
                     {
                         this.logService.LogException(e);
-                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToBindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                        string msg = string.Format(AppResources.FailedToBindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
 
@@ -87,7 +88,8 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 catch (Exception e)
                 {
                     this.logService.LogException(e);
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToRestoreViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                    string msg = string.Format(AppResources.FailedToRestoreViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
         }
@@ -106,7 +108,8 @@ namespace Tag.Neuron.Xamarin.UI.Views
                     catch (Exception e)
                     {
                         this.logService.LogException(e);
-                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToSaveViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                        string msg = string.Format(AppResources.FailedToSaveViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
 
@@ -117,7 +120,8 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 catch (Exception e)
                 {
                     this.logService.LogException(e);
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToUnbindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName));
+                    string msg = string.Format(AppResources.FailedToUnbindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
+                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
             base.OnDisappearing();
