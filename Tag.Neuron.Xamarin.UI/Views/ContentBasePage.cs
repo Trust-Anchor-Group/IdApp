@@ -132,8 +132,8 @@ namespace Tag.Neuron.Xamarin.UI.Views
         }
 
         /// <summary>
-        /// TODO: remove this, as it shouldn't be neeed. It's here because ScrollView's typically don't refresh when their child content changes size.
-        /// It's a helper method for forcing a layout re-render of the specified components.
+        /// TODO: remove this, as it shouldn't be needed. It's here because ScrollView's typically don't refresh when their child content changes size.
+        /// It's a helper method for forcing a layout re-render of the specified components. It will do so asynchronously, by executing a BeginInvoke.
         /// </summary>
         /// <param name="layouts">The layout components to re-render.</param>
         protected void ForceReRender(params Layout[] layouts)
