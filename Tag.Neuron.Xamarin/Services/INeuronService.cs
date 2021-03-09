@@ -122,7 +122,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Provides access to chat functionality.
         /// </summary>
-        INeuronChats Chats { get; }
+        INeuronMultiUserChat Chats { get; }
 
         /// <summary>
         /// Run this method to discover services for any given Neuron server.

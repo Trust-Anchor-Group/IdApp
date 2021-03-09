@@ -1152,21 +1152,6 @@
             <param name="memberName">(Optional) a method name to use.</param>
             <returns></returns>
         </member>
-        <member name="T:Tag.Neuron.Xamarin.Services.INeuronChats">
-            <summary>
-            Adds support for Xmpp Chat functionality.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronChats.ConnectionStateChanged">
-            <summary>
-            Triggers whenever the chat functionality is online or not.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.INeuronChats.IsOnline">
-            <summary>
-            Returns <c>true</c> if Chats is online, <c>false</c> otherwise.
-            </summary>
-        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronContracts">
             <summary>
             Adds support for legal identities, smart contracts and signatures to a Neuron Service.
@@ -1425,6 +1410,21 @@
         <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.PetitionForSignatureReceived">
             <summary>
             An event that fires when a petition for a signature is received.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INeuronMultiUserChat">
+            <summary>
+            Adds support for Xmpp Chat functionality.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronMultiUserChat.ConnectionStateChanged">
+            <summary>
+            Triggers whenever the chat functionality is online or not.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronMultiUserChat.IsOnline">
+            <summary>
+            Returns <c>true</c> if Chats is online, <c>false</c> otherwise.
             </summary>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronService">

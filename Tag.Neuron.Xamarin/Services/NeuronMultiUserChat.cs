@@ -7,7 +7,7 @@ using Waher.Runtime.Inventory;
 namespace Tag.Neuron.Xamarin.Services
 {
     [Singleton]
-    internal sealed class NeuronChats : INeuronChats
+    internal sealed class NeuronMultiUserChat : INeuronMultiUserChat
     {
         private readonly ITagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
@@ -15,7 +15,7 @@ namespace Tag.Neuron.Xamarin.Services
         private readonly ILogService logService;
         private MultiUserChatClient chatClient;
 
-        internal NeuronChats(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
+        internal NeuronMultiUserChat(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
         {
             this.tagProfile = tagProfile;
             this.uiDispatcher = uiDispatcher;

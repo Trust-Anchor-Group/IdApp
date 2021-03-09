@@ -33,7 +33,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private Profiler startupProfiler;
 		private ProfilerThread xmppThread;
 		private readonly NeuronContracts contracts;
-		private readonly NeuronChats chats;
+		private readonly NeuronMultiUserChat chats;
 		private string domainName;
 		private string accountName;
 		private string passwordHash;
@@ -62,7 +62,7 @@ namespace Tag.Neuron.Xamarin.Services
 			this.logService = logService;
 			this.tagProfile = tagProfile;
 			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService);
-			this.chats = new NeuronChats(this.tagProfile, uiDispatcher, this, this.logService);
+			this.chats = new NeuronMultiUserChat(this.tagProfile, uiDispatcher, this, this.logService);
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = startupProfiler;
 		}
@@ -398,7 +398,7 @@ namespace Tag.Neuron.Xamarin.Services
 		#endregion
 
 		public INeuronContracts Contracts => this.contracts;
-		public INeuronChats Chats => this.chats;
+		public INeuronMultiUserChat Chats => this.chats;
 
 		private enum ConnectOperation
 		{
