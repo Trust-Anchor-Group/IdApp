@@ -70,7 +70,9 @@ namespace Tag.Neuron.Xamarin
         /// <typeparam name="TFrom">The interface it implements.</typeparam>
         /// <typeparam name="TTo">The implementation class.</typeparam>
         /// <param name="singleton">The singleton instance to register.</param>
-        void RegisterSingleton<TFrom, TTo>(TFrom singleton) where TTo : TFrom;
+        void RegisterSingleton<TFrom, TTo>(TFrom singleton)
+            where TTo : TFrom
+            where TFrom : class;
 
         /// <summary>
         /// Resolves the type <b>t</b> using an IoC pattern.

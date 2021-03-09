@@ -1075,7 +1075,7 @@
         <member name="T:Tag.Neuron.Xamarin.Services.INavigationService">
             <summary>
             The navigation service is a wafer-thin wrapper around the <see cref="T:Xamarin.Forms.Shell"/>'s <c>GoToAsync()</c> methods.
-            It also provides a uniform way of passing arguments to pages, see the <see cref="!:PushArgs&lt;TArgs&gt;"/> and <see cref="M:Tag.Neuron.Xamarin.Services.INavigationService.TryPopArgs``1(``0@)"/> methods.
+            It also provides a uniform way of passing arguments to pages.
             Allows for easy mocking when unit testing.
             </summary>
         </member>

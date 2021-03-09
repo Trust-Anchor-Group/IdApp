@@ -65,7 +65,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            if (ViewModel != null)
+            if (!(ViewModel is null))
             {
                 if (!ViewModel.IsBound)
                 {
@@ -95,7 +95,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
         /// <inheritdoc/>
         protected override async void OnDisappearing()
         {
-            if (ViewModel != null)
+            if (!(ViewModel is null))
             {
                 if (ViewModel.IsBound)
                 {

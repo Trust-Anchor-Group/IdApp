@@ -35,9 +35,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
             BindableProperty.Create("FrontView", typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
             {
                 FlipView fv = (FlipView)b;
-                if (newValue != null)
+                if (!(newValue is null))
                 {
-                    if (fv.frontView != null)
+                    if (!(fv.frontView is null))
                     {
                         fv.contentHolder.Children.Remove(fv.frontView);
                     }
@@ -47,7 +47,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 }
                 else
                 {
-                    if (fv.frontView != null)
+                    if (!(fv.frontView is null))
                     {
                         fv.contentHolder.Children.Remove(fv.frontView);
                     }
@@ -74,9 +74,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
             BindableProperty.Create("BackView", typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
             {
                 FlipView fv = (FlipView)b;
-                if (newValue != null)
+                if (!(newValue is null))
                 {
-                    if (fv.backView != null)
+                    if (!(fv.backView is null))
                     {
                         fv.contentHolder.Children.Remove(fv.backView);
                     }
@@ -86,7 +86,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 }
                 else
                 {
-                    if (fv.backView != null)
+                    if (!(fv.backView is null))
                     {
                         fv.contentHolder.Children.Remove(fv.backView);
                     }
@@ -119,7 +119,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
 
         private void OrganizeViews()
         {
-            if (this.frontView != null && this.backView != null && this.contentHolder.Children.Count > 1)
+            if (!(this.frontView is null) && !(this.backView is null) && this.contentHolder.Children.Count > 1)
             {
                 int fi = this.contentHolder.Children.IndexOf(this.frontView);
                 int bi = this.contentHolder.Children.IndexOf(this.backView);

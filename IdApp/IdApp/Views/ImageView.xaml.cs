@@ -31,7 +31,7 @@ namespace IdApp.Views
         /// <param name="attachments">The attachments to show.</param>
         public void ShowPhotos(Attachment[] attachments)
         {
-            if (attachments == null || attachments.Length <= 0)
+            if (attachments is null || attachments.Length <= 0)
                 return;
 
             var imageAttachments = attachments.GetImageAttachments().ToArray();

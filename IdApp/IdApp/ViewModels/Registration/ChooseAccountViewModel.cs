@@ -513,16 +513,16 @@ namespace IdApp.ViewModels.Registration
                             }
                         }
 
-                        if (approvedIdentity != null)
+                        if (!(approvedIdentity is null))
                         {
                             this.LegalIdentity = approvedIdentity;
                         }
-                        else if (createdIdentity != null)
+                        else if (!(createdIdentity is null))
                         {
                             this.LegalIdentity = createdIdentity;
                         }
 
-                        if (this.LegalIdentity != null)
+                        if (!(this.LegalIdentity is null))
                         {
                             this.TagProfile.SetAccountAndLegalIdentity(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
                         }

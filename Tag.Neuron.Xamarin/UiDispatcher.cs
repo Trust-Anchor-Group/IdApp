@@ -76,9 +76,9 @@ namespace Tag.Neuron.Xamarin
         public async Task DisplayAlert(string title, string message, Exception exception)
         {
             StringBuilder sb = new StringBuilder();
-            if (exception != null)
+            if (!(exception is null))
             {
-                if (exception is AggregateException aggregate && aggregate.InnerException != null)
+                if (exception is AggregateException aggregate && !(aggregate.InnerException is null))
                 {
                     exception = aggregate.InnerException;
                 }

@@ -34,7 +34,7 @@ namespace IdApp
         /// <param name="code">The code to set.</param>
         public static void TrySetResultAndClosePage(INavigationService navigationService, IUiDispatcher uiDispatcher, string code)
         {
-            if (!string.IsNullOrWhiteSpace(code) && qrCodeScanned != null)
+            if (!string.IsNullOrWhiteSpace(code) && !(qrCodeScanned is null))
             {
                 qrCodeScanned.TrySetResult(code.Trim());
                 qrCodeScanned = null;

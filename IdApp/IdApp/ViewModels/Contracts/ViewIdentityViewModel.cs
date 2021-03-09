@@ -63,7 +63,7 @@ namespace IdApp.ViewModels.Contracts
                 this.LegalIdentity = args.Identity ?? tagProfile.LegalIdentity;
                 this.identityToReview = args.IdentityToReview;
             }
-            if (this.LegalIdentity == null)
+            if (this.LegalIdentity is null)
             {
                 this.LegalIdentity = tagProfile.LegalIdentity;
                 this.identityToReview = null;
@@ -115,11 +115,11 @@ namespace IdApp.ViewModels.Contracts
             Created = this.LegalIdentity?.Created ?? DateTime.MinValue;
             Updated = this.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.LegalIdentity?.Id;
-            if (this.identityToReview?.RequestorIdentity != null)
+            if (!(this.identityToReview?.RequestorIdentity is null))
             {
                 BareJId = this.identityToReview.RequestorIdentity.GetJId(Constants.NotAvailableValue);
             }
-            else if (this.LegalIdentity != null)
+            else if (!(this.LegalIdentity is null))
             {
                 BareJId = this.LegalIdentity.GetJId(Constants.NotAvailableValue);
             }
@@ -127,7 +127,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 BareJId = Constants.NotAvailableValue;
             }
-            if (this.LegalIdentity?.ClientPubKey != null)
+            if (!(this.LegalIdentity?.ClientPubKey is null))
             {
                 PublicKey = Convert.ToBase64String(this.LegalIdentity.ClientPubKey);
             }
@@ -138,7 +138,7 @@ namespace IdApp.ViewModels.Contracts
             State = this.LegalIdentity?.State ?? IdentityState.Rejected;
             From = this.LegalIdentity?.From.GetDateOrNullIfMinValue();
             To = this.LegalIdentity?.To.GetDateOrNullIfMinValue();
-            if (this.LegalIdentity != null)
+            if (!(this.LegalIdentity is null))
             {
                 FirstName = this.LegalIdentity[Constants.XmppProperties.FirstName];
                 MiddleNames = this.LegalIdentity[Constants.XmppProperties.MiddleName];
@@ -171,7 +171,7 @@ namespace IdApp.ViewModels.Contracts
             IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
             IsPersonal = this.tagProfile.LegalIdentity?.Id == this.LegalIdentity?.Id;
-            IsForReview = this.identityToReview != null;
+            IsForReview = !(this.identityToReview is null);
             IsNotForReview = !IsForReview;
 
             IsForReviewFirstName = !string.IsNullOrWhiteSpace(this.FirstName) && this.IsForReview;
@@ -185,10 +185,10 @@ namespace IdApp.ViewModels.Contracts
             IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
             IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
             IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
-            IsForReviewAndPin = this.identityToReview != null && this.tagProfile.UsePin;
+            IsForReviewAndPin = !(this.identityToReview is null) && this.tagProfile.UsePin;
 
             // QR
-            if (this.LegalIdentity != null)
+            if (!(this.LegalIdentity is null))
             {
                 _ = Task.Run(() =>
                 {
@@ -234,7 +234,7 @@ namespace IdApp.ViewModels.Contracts
         {
             this.photosLoader.CancelLoadPhotos();
             Attachment[] attachments;
-            if (this.identityToReview?.RequestorIdentity?.Attachments != null)
+            if (!(this.identityToReview?.RequestorIdentity?.Attachments is null))
             {
                 attachments = this.identityToReview.RequestorIdentity.Attachments;
             }
@@ -242,7 +242,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 attachments = this.LegalIdentity?.Attachments;
             }
-            if (attachments != null)
+            if (!(attachments is null))
             {
                 _ = this.photosLoader.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys);
             }
@@ -582,7 +582,7 @@ namespace IdApp.ViewModels.Contracts
             BindableProperty.Create("QrCode", typeof(ImageSource), typeof(ViewIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
             {
                 ViewIdentityViewModel viewModel = (ViewIdentityViewModel)b;
-                viewModel.HasQrCode = newValue != null;
+                viewModel.HasQrCode = !(newValue is null);
             });
 
         /// <summary>
@@ -1164,7 +1164,7 @@ namespace IdApp.ViewModels.Contracts
 
         private async Task Reject()
         {
-            if (this.identityToReview == null)
+            if (this.identityToReview is null)
                 return;
 
             try

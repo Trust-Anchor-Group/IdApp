@@ -23,7 +23,7 @@ namespace Tag.Neuron.Xamarin.UI.Tests
 
         public void BeginInvokeOnMainThread(Action action)
         {
-            if (invokeOnMainThread == null)
+            if (invokeOnMainThread is null)
                 action();
             else
                 invokeOnMainThread(action);
@@ -75,7 +75,7 @@ namespace Tag.Neuron.Xamarin.UI.Tests
 
         public Task<Stream> GetStreamAsync(Uri uri, CancellationToken cancellationToken)
         {
-            if (getStreamAsync == null)
+            if (getStreamAsync is null)
                 throw new NotImplementedException();
             return getStreamAsync(uri, cancellationToken);
         }

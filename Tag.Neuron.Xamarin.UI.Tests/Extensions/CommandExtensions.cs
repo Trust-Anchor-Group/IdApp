@@ -6,7 +6,7 @@ namespace Tag.Neuron.Xamarin.UI.Tests.Extensions
     {
         public static bool IsDisabled(this ICommand command)
         {
-            return command != null && command.CanExecute(null) == false;
+            return !(command is null) && command.CanExecute(null) == false;
         }
 
         public static bool IsEnabled(this ICommand command)

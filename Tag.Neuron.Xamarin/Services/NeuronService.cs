@@ -69,7 +69,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		#region Create/Destroy
 
-		private async Task CreateXmppClient()
+		private async Task CreateXmppClient(bool CanCreateKeys)
 		{
 			this.xmppThread = this.startupProfiler?.CreateThread("XMPP", ProfilerThreadType.StateMachine);
 			this.xmppThread?.Start();
@@ -82,7 +82,7 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				isCreatingClient = true;
 
-				if (this.xmppClient != null)
+				if (!(this.xmppClient is null))
 				{
 					DestroyXmppClient();
 				}
@@ -118,7 +118,7 @@ namespace Tag.Neuron.Xamarin.Services
 
                     if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
                     {
-                        await this.contracts.CreateClients();
+                        await this.contracts.CreateClients(CanCreateKeys);
                     }
 
 					this.IsLoggedOut = false;
@@ -158,13 +158,13 @@ namespace Tag.Neuron.Xamarin.Services
 			this.reconnectTimer?.Dispose();
 			this.reconnectTimer = null;
 			this.contracts.DestroyClients();
-			if (this.xmppClient != null)
+			if (!(this.xmppClient is null))
 			{
 				this.xmppClient.OnError -= XmppClient_Error;
 				this.xmppClient.OnConnectionError -= XmppClient_ConnectionError;
 				this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
 				this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline, this.userInitiatedLogInOrOut));
-				if (this.xmppEventSink != null)
+				if (!(this.xmppEventSink is null))
 				{
 					this.logService.RemoveListener(this.xmppEventSink);
 					this.xmppEventSink.Dispose();
@@ -179,7 +179,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool ShouldCreateClient()
 		{
 			return this.tagProfile.Step > RegistrationStep.Account &&
-				   (this.xmppClient == null ||
+				   (this.xmppClient is null ||
 					this.domainName != this.tagProfile.Domain ||
 					this.accountName != this.tagProfile.Account ||
 					this.passwordHash != this.tagProfile.PasswordHash ||
@@ -188,7 +188,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private bool ShouldDestroyClient()
 		{
-			return this.tagProfile.Step <= RegistrationStep.Account && this.xmppClient != null;
+			return this.tagProfile.Step <= RegistrationStep.Account && !(this.xmppClient is null);
 		}
 
 		private void RecreateReconnectTimer()
@@ -206,7 +206,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 			if (ShouldCreateClient())
 			{
-				await this.CreateXmppClient();
+				await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity);
 			}
 			else if (ShouldDestroyClient())
 			{
@@ -262,7 +262,7 @@ namespace Tag.Neuron.Xamarin.Services
                     {
                         try
                         {
-                            await this.contracts.CreateClients();
+                            await this.contracts.CreateClients(false);
                         }
                         catch (Exception e)
                         {
@@ -297,7 +297,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public async Task<bool> WaitForConnectedState(TimeSpan timeout)
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 				return false;
 
 			if (this.xmppClient.State == XmppState.Connected)
@@ -317,9 +317,9 @@ namespace Tag.Neuron.Xamarin.Services
 
 					if (ShouldCreateClient())
 					{
-						await this.CreateXmppClient();
+						await this.CreateXmppClient(false);
 					}
-					if (this.xmppClient != null &&
+					if (!(this.xmppClient is null) &&
 						this.xmppClient.State == XmppState.Connected &&
 						this.tagProfile.IsCompleteOrWaitingForValidation())
 					{
@@ -354,7 +354,7 @@ namespace Tag.Neuron.Xamarin.Services
 				{
                     this.tagProfile.StepChanged -= TagProfile_StepChanged;
 
-					if (this.xmppClient != null && !fast)
+					if (!(this.xmppClient is null) && !fast)
 					{
 						await this.xmppClient.SetPresenceAsync(Availability.Offline);
 					}
@@ -438,7 +438,7 @@ namespace Tag.Neuron.Xamarin.Services
 				try
 				{
 					this.IsLoggedOut = false;
-					await this.CreateXmppClient();
+					await this.CreateXmppClient(false);
 				}
 				catch (Exception e)
 				{
@@ -567,7 +567,7 @@ namespace Tag.Neuron.Xamarin.Services
 						succeeded = await connected.Task;
 					}
 
-					if (succeeded && connectedFunc != null)
+					if (succeeded && !(connectedFunc is null))
 					{
 						await connectedFunc(client);
 					}
@@ -617,9 +617,9 @@ namespace Tag.Neuron.Xamarin.Services
 			return (succeeded, errorMessage);
 		}
 
-		public async Task<ContractsClient> CreateContractsClientAsync()
+		public async Task<ContractsClient> CreateContractsClientAsync(bool CanCreateKeys)
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 			{
 				throw new InvalidOperationException("XmppClient is not connected");
 			}
@@ -632,17 +632,15 @@ namespace Tag.Neuron.Xamarin.Services
 
 			if (!await Result.LoadKeys(false))
 			{
-				Log.Alert("Temporary restriction: Automatic generation of keys disabled.",
-					string.Empty, string.Empty, string.Empty, EventLevel.Major, string.Empty, string.Empty, Environment.StackTrace);
+				if (!CanCreateKeys)
+				{
+					Log.Alert("Regeneration of keys not permitted at this time.",
+						string.Empty, string.Empty, string.Empty, EventLevel.Major, string.Empty, string.Empty, Environment.StackTrace);
 
-				throw new Exception("Temporary restriction: Automatic generation of keys disabled.");
+					throw new Exception("Regeneration of keys not permitted at this time.");
+				}
 
 				await Result.GenerateNewKeys();	
-				// TODO: Only create keys if absolutely certain keys have not been created before, to avoid overwriting previous keys.
-				// TODO: Before generating new keys, except for the first time, a message should be displayed informing the user that 
-				//       keys seem to be lost, and if the user would like to generate new keys (and that generating new keys will
-				//       obsolete any current ID, if such exists). Generating new keys should also take the user back to the view 
-				//       where a new Legal Identity needs to be applied for, and previous IDs need to be obsoleted.
 			}
 
 			return Result;
@@ -651,7 +649,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public Task<HttpFileUploadClient> CreateFileUploadClientAsync()
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 			{
 				throw new InvalidOperationException("XmppClient is not connected");
 			}
@@ -669,7 +667,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public Task<MultiUserChatClient> CreateMultiUserChatClientAsync()
 		{
-			if (this.xmppClient == null)
+			if (this.xmppClient is null)
 			{
 				throw new InvalidOperationException("XmppClient is not connected");
 			}
@@ -684,7 +682,7 @@ namespace Tag.Neuron.Xamarin.Services
 		public async Task<bool> DiscoverServices(XmppClient client = null)
 		{
 			client = client ?? xmppClient;
-			if (client == null)
+			if (client is null)
 				return false;
 
 			ServiceItemsDiscoveryEventArgs response;
@@ -755,7 +753,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private void ReconnectTimer_Tick(object _)
 		{
-			if (xmppClient != null &&
+			if (!(xmppClient is null) &&
 				(xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline) &&
 				this.networkService.IsOnline)
 			{
@@ -772,7 +770,7 @@ namespace Tag.Neuron.Xamarin.Services
 		public string CommsDumpAsText(string state)
 		{
 			string response;
-			if (historyTextData == null || state != "History")
+			if (historyTextData is null || state != "History")
 			{
 				response = sniffer.SnifferToText();
 			}
@@ -803,7 +801,7 @@ namespace Tag.Neuron.Xamarin.Services
 				sentHtml = xml;
 				sentTextData = sniffer.SnifferToText();
 
-				if (historyHtml != null && !history)
+				if (!(historyHtml is null) && !history)
 				{
 					xml = xml.Replace(historyHtml, "");
 				}

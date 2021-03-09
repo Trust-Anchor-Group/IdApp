@@ -113,7 +113,7 @@ namespace IdApp
                 if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                     return null;
 
-                if (attachment == null)
+                if (attachment is null)
                     return null;
 
                 MemoryStream stream = await GetPhoto(attachment, signWith, DateTime.UtcNow);
@@ -130,7 +130,7 @@ namespace IdApp
 
         private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now, Action whenDoneAction)
         {
-            if (attachments == null || attachments.Length <= 0)
+            if (attachments is null || attachments.Length <= 0)
             {
                 whenDoneAction?.Invoke();
                 return;
@@ -162,7 +162,7 @@ namespace IdApp
                         continue;
 
                     MemoryStream stream = await GetPhoto(attachment, signWith, now);
-                    if (stream != null)
+                    if (!(stream is null))
                     {
                         byte[] bytes = stream.ToArray();
                         stream.Dispose();

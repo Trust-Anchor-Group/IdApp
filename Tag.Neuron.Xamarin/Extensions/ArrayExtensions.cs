@@ -17,7 +17,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <returns></returns>
         public static IEnumerable<Attachment> GetImageAttachments(this Attachment[] attachments)
         {
-            if (attachments == null)
+            if (attachments is null)
             {
                 return Enumerable.Empty<Attachment>();
             }

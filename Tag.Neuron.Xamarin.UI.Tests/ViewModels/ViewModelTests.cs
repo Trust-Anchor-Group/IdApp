@@ -20,7 +20,7 @@ namespace Tag.Neuron.Xamarin.UI.Tests.ViewModels
 
         protected bool ActionCommandIsDisabled(ICommand command)
         {
-            return command != null && command.CanExecute(null) == false;
+            return !(command is null) && command.CanExecute(null) == false;
         }
 
         protected void ActionCommandIsExecuted(ICommand command)

@@ -31,7 +31,7 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
         private void Entry_Completed(object sender, EventArgs e)
         {
             View view = SetFocusTo;
-            if (view != null && view.IsVisible)
+            if (!(view is null) && view.IsVisible)
             {
                 view.Focus();
             }

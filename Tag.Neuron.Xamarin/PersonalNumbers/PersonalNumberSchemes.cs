@@ -26,7 +26,7 @@ namespace Tag.Neuron.Xamarin.PersonalNumbers
 				}
 
                 XmlNodeList childNodes = doc.DocumentElement?.ChildNodes;
-                if (childNodes == null)
+                if (childNodes is null)
                     return;
 
 				foreach (XmlNode n in childNodes)

@@ -103,7 +103,7 @@ namespace IdApp.Services
 			else
 			{
 				(bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
-				if (succeeded && li != null)
+				if (succeeded && !(li is null))
 				{
 					identity = li;
 				}
@@ -113,7 +113,7 @@ namespace IdApp.Services
 				}
 			}
 
-			if (identity == null)
+			if (identity is null)
 			{
 				this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForIdentityReceived)}() - identity is missing or cannot be retrieved, ignore.");
 				return;
@@ -147,7 +147,7 @@ namespace IdApp.Services
 			else
 			{
 				(bool succeeded, LegalIdentity li) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
-				if (succeeded && li != null)
+				if (succeeded && !(li is null))
 				{
 					identity = li;
 				}
@@ -157,7 +157,7 @@ namespace IdApp.Services
 				}
 			}
 
-			if (identity == null)
+			if (identity is null)
 			{
 				this.logService.LogWarning($"{GetType().Name}.{nameof(Contracts_PetitionForSignatureReceived)}() - identity is missing or cannot be retrieved, ignore.");
 				return;
@@ -285,7 +285,7 @@ namespace IdApp.Services
 		{
 			if (this.neuronService.IsOnline && this.neuronService.Contracts.IsOnline && e.State == XmppState.Connected)
 			{
-				if (this.tagProfile.LegalIdentity != null && this.tagProfile.IsCompleteOrWaitingForValidation())
+				if (!(this.tagProfile.LegalIdentity is null) && this.tagProfile.IsCompleteOrWaitingForValidation())
 				{
 					string id = this.tagProfile.LegalIdentity.Id;
 					await Task.Delay(Constants.Timeouts.XmppInit);
@@ -304,7 +304,7 @@ namespace IdApp.Services
 
 		protected async Task DownloadLegalIdentity(string legalId)
         {
-            bool isConnected = this.neuronService != null &&
+            bool isConnected = !(this.neuronService is null) &&
                                await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect)
                                && this.neuronService.Contracts.IsOnline;
 

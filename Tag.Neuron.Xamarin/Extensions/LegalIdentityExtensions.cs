@@ -16,7 +16,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <returns></returns>
         public static bool NeedsUpdating(this LegalIdentity legalIdentity)
         {
-            return legalIdentity == null ||
+            return legalIdentity is null ||
                 legalIdentity.State == IdentityState.Compromised ||
                 legalIdentity.State == IdentityState.Obsoleted ||
                 legalIdentity.State == IdentityState.Rejected;
@@ -29,7 +29,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <returns></returns>
         public static bool IsCreatedOrApproved(this LegalIdentity legalIdentity)
         {
-            return legalIdentity != null && (legalIdentity.State == IdentityState.Created || legalIdentity.State == IdentityState.Approved);
+            return !(legalIdentity is null) && (legalIdentity.State == IdentityState.Created || legalIdentity.State == IdentityState.Approved);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         public static string GetJId(this LegalIdentity legalIdentity, string defaultValueIfNotFound = "")
         {
             string jid = null;
-            if (legalIdentity != null && legalIdentity.Properties?.Length > 0)
+            if (!(legalIdentity is null) && legalIdentity.Properties?.Length > 0)
             { 
                 jid = legalIdentity.Properties.FirstOrDefault(x => x.Name == Constants.XmppProperties.JId)?.Value;
             }

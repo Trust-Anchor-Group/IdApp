@@ -82,9 +82,11 @@ namespace Tag.Neuron.Xamarin
         public Profiler StartupProfiler { get; }
 
         /// <inheritdoc/>
-        public void RegisterSingleton<TFrom, TTo>(TFrom singleton) where TTo : TFrom
+        public void RegisterSingleton<TFrom, TTo>(TFrom singleton) 
+            where TTo : TFrom
+            where TFrom : class
         {
-            if (singleton != null)
+            if (!(singleton is null))
             {
                 Type t = typeof(TFrom);
                 this.singletons[t] = singleton;

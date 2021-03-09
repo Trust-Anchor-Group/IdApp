@@ -98,7 +98,7 @@ namespace IdApp
                 DependencyResolver.ResolveUsing(type =>
                 {
                     object obj = this.sdk.Resolve(type);
-                    if (obj != null)
+                    if (!(obj is null))
                         return obj;
 
                     if (Types.GetType(type.FullName) is null)
@@ -237,31 +237,31 @@ namespace IdApp
         private async Task Shutdown(bool inPanic)
         {
             StopAutoSaveTimer();
-            if (this.sdk.UiDispatcher != null)
+            if (!(this.sdk.UiDispatcher is null))
             {
                 this.sdk.UiDispatcher.IsRunningInTheBackground = !inPanic;
             }
 
             if (inPanic)
             {
-                if (this.sdk.NeuronService != null)
+                if (!(this.sdk.NeuronService is null))
                     await this.sdk.NeuronService.UnloadFast();
             }
             else if (!this.keepRunningInTheBackground)
             {
-                if (this.contractOrchestratorService != null)
+                if (!(this.contractOrchestratorService is null))
                     await this.contractOrchestratorService.Unload();
-                if (this.sdk.NeuronService != null)
+                if (!(this.sdk.NeuronService is null))
                     await this.sdk.NeuronService.Unload();
-                if (this.sdk.NetworkService != null)
+                if (!(this.sdk.NetworkService is null))
                     await this.sdk.NetworkService.Unload();
-                if (this.imageCacheService != null)
+                if (!(this.imageCacheService is null))
                     await this.imageCacheService.Unload();
             }
 
             await Types.StopAllModules();
             Waher.Events.Log.Terminate();
-            if (this.sdk.StorageService != null)
+            if (!(this.sdk.StorageService is null))
             {
                 await this.sdk.StorageService.Shutdown();
             }
@@ -271,7 +271,7 @@ namespace IdApp
 
         private void StopAutoSaveTimer()
         {
-            if (this.autoSaveTimer != null)
+            if (!(this.autoSaveTimer is null))
             {
                 this.autoSaveTimer.Change(Timeout.Infinite, Timeout.Infinite);
                 this.autoSaveTimer.Dispose();
@@ -317,7 +317,7 @@ namespace IdApp
                 configuration = null;
             }
 
-            if (configuration == null)
+            if (configuration is null)
             {
                 configuration = new TagConfiguration();
                 try
@@ -338,7 +338,7 @@ namespace IdApp
         private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             Exception ex = e.Exception;
-            if (e.Exception?.InnerException != null) // Unwrap the AggregateException
+            if (!(e.Exception?.InnerException is null)) // Unwrap the AggregateException
             {
                 ex = e.Exception.InnerException;
             }
@@ -353,12 +353,12 @@ namespace IdApp
 
         private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
         {
-            if (ex != null)
+            if (!(ex is null))
             {
                 this.sdk.LogService.SaveExceptionDump(title, ex.ToString());
             }
 
-            if (ex != null)
+            if (!(ex is null))
             {
                 this.sdk.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
             }
@@ -371,11 +371,11 @@ namespace IdApp
 #if DEBUG
             if (!shutdown)
             {
-                if (Device.IsInvokeRequired && MainPage != null)
+                if (Device.IsInvokeRequired && !(MainPage is null))
                 {
                     Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
                 }
-                else if (MainPage != null)
+                else if (!(MainPage is null))
                 {
                     await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
                 }
@@ -421,7 +421,7 @@ namespace IdApp
 
         private async Task SendErrorReportFromPreviousRun()
         {
-            if (this.sdk.LogService != null)
+            if (!(this.sdk.LogService is null))
             {
                 string stackTrace = this.sdk.LogService.LoadExceptionDump();
                 if (!string.IsNullOrWhiteSpace(stackTrace))

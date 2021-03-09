@@ -27,12 +27,12 @@ namespace Tag.Neuron.Xamarin.Services
         {
             args = default;
 
-            if (this.navigationArgs != null)
+            if (!(this.navigationArgs is null))
             {
                 args = this.navigationArgs as TArgs;
             }
 
-            return args != null;
+            return !(args is null);
         }
 
         public async Task GoBackAsync()

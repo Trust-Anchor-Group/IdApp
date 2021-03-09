@@ -34,7 +34,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         internal void DestroyClient()
         {
-            if (this.chatClient != null)
+            if (!(this.chatClient is null))
             {
                 this.chatClient.Dispose();
                 this.chatClient = null;
@@ -42,13 +42,13 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
-        public bool IsOnline => this.chatClient != null;
+        public bool IsOnline => !(this.chatClient is null);
 
         public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
         private XmppState GetState()
         {
-            return this.chatClient != null ? XmppState.Connected : XmppState.Offline;
+            return !(this.chatClient is null) ? XmppState.Connected : XmppState.Offline;
         }
 
         private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)

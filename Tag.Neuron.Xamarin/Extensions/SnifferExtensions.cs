@@ -18,7 +18,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <returns>The xmpp communication in plain text.</returns>
         public static string SnifferToText(this InMemorySniffer sniffer)
         {
-            if (sniffer == null)
+            if (sniffer is null)
                 return string.Empty;
 
             StringBuilder sb = new StringBuilder();
@@ -55,7 +55,7 @@ namespace Tag.Neuron.Xamarin.Extensions
 
         internal static string SnifferToXml(InMemorySniffer sniffer, XmlWriterSettings settings)
         {
-            if (sniffer == null)
+            if (sniffer is null)
                 return string.Empty;
 
             StringBuilder sb = new StringBuilder();

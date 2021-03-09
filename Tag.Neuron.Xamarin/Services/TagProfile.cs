@@ -52,7 +52,7 @@ namespace Tag.Neuron.Xamarin.Services
         public TagProfile(params DomainModel[] domainModels)
         {
             this.domains = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase);
-            if (domainModels != null && domainModels.Length > 0)
+            if (!(domainModels is null) && domainModels.Length > 0)
             {
                 foreach (DomainModel domainModel in domainModels)
                 {
@@ -513,7 +513,7 @@ namespace Tag.Neuron.Xamarin.Services
             this.PasswordHash = clientPasswordHash;
             this.PasswordHashMethod = clientPasswordHashMethod;
             this.LegalIdentity = identity;
-            if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account && this.LegalIdentity != null)
+            if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account && !(this.LegalIdentity is null))
             {
                 if (this.LegalIdentity.IsCreatedOrApproved())
                 {

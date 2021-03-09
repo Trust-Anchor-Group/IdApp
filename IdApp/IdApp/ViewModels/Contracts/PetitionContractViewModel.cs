@@ -79,7 +79,7 @@ namespace IdApp.ViewModels.Contracts
                 this.purpose = args.Purpose;
             }
             this.AssignProperties();
-            if (this.requestorIdentity?.Attachments != null)
+            if (!(this.requestorIdentity?.Attachments is null))
             {
                 _ = this.photosLoader.LoadPhotos(this.requestorIdentity.Attachments, SignWith.LatestApprovedId);
             }
@@ -444,7 +444,7 @@ namespace IdApp.ViewModels.Contracts
 
         private void AssignProperties()
         {
-            if (this.requestorIdentity != null)
+            if (!(this.requestorIdentity is null))
             {
                 this.Created = this.requestorIdentity.Created;
                 this.Updated = this.requestorIdentity.Updated.GetDateOrNullIfMinValue();

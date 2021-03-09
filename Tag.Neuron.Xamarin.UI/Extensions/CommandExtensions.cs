@@ -26,7 +26,7 @@ namespace Tag.Neuron.Xamarin.UI.Extensions
         /// <param name="command"></param>
         public static void Execute(this ICommand command)
         {
-            if (command != null && command.CanExecute(null))
+            if (!(command is null) && command.CanExecute(null))
             {
                 command?.Execute(null);
             }

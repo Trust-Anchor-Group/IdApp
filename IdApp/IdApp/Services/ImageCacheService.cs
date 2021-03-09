@@ -127,7 +127,7 @@ namespace IdApp.Services
 		{
 			if (!string.IsNullOrWhiteSpace(url) &&
 				Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute) &&
-				stream != null &&
+				!(stream is null) &&
 				stream.CanRead)
 			{
 				string cacheFolder = CreateCacheFolderIfNeeded();
