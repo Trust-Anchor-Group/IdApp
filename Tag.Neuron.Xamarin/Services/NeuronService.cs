@@ -649,8 +649,7 @@ namespace Tag.Neuron.Xamarin.Services
 			return Result;
 		}
 
-
-		public Task<HttpFileUploadClient> CreateFileUploadClientAsync()
+		public HttpFileUploadClient CreateFileUploadClient()
 		{
 			if (this.xmppClient is null)
 				throw new InvalidOperationException("The XMPP Client is not connected");
@@ -661,10 +660,10 @@ namespace Tag.Neuron.Xamarin.Services
 			if (!this.tagProfile.HttpFileUploadMaxSize.HasValue)
 				throw new InvalidOperationException("HttpFileUploadMaxSize is not defined");
 
-			return Task.FromResult(new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize));
+			return new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize);
 		}
 
-		public Task<MultiUserChatClient> CreateMultiUserChatClientAsync()
+		public MultiUserChatClient CreateMultiUserChatClient()
 		{
 			if (this.xmppClient is null)
 				throw new InvalidOperationException("The XMPP Client is not connected");
@@ -672,10 +671,10 @@ namespace Tag.Neuron.Xamarin.Services
 			if (string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
 				throw new InvalidOperationException("There is no Multi-User Chat Service defined.");
 
-			return Task.FromResult(new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid));
+			return new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid);
 		}
 
-		public Task<ThingRegistryClient> CreateThingRegistryClientAsync()
+		public ThingRegistryClient CreateThingRegistryClient()
 		{
 			if (this.xmppClient is null)
 				throw new InvalidOperationException("The XMPP Client is not connected");
@@ -683,7 +682,7 @@ namespace Tag.Neuron.Xamarin.Services
 			if (string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
 				throw new InvalidOperationException("There is no Thing Registry Service defined.");
 
-			return Task.FromResult(new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid));
+			return new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
 		}
 
 		public async Task<bool> DiscoverServices(XmppClient client = null)

@@ -249,9 +249,11 @@ namespace IdApp.ViewModels.Things
 					return;
 				}
 
-				bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
-				if (succeeded)
+				(bool succeeded, string Error) = await this.networkService.TryRequest(() => this.NeuronService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
+				if (string.IsNullOrEmpty(Error))
 					await this.navigationService.GoBackAsync();
+				else
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, Error);
 			}
 			catch (Exception ex)
 			{

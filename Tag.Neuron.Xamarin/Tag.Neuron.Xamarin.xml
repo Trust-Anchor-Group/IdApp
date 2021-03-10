@@ -1630,6 +1630,8 @@
             </summary>
             <param name="DiscoUri">IoTDisco URI</param>
             <param name="MakePublic">If the device should be public in the thing registry.</param>
+            <returns>If OK, null is returned. If the thing could not be claimed, an error message from the neuron
+            describing why is returned. Other types of errors, raise exceptions.</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>
