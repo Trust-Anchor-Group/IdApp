@@ -827,11 +827,9 @@ namespace Tag.Neuron.Xamarin.Services
 		}
 
 		//fixing broken tags
-		private string FixTags(string xml)
+		private static string FixTags(string xml)
 		{
-			var result = xml.Replace("&lt;", "<").Replace("&gt;", ">");
-
-			return result;
+			return xml.Replace("&lt;", "<").Replace("&gt;", ">");
 		}
 	}
 }

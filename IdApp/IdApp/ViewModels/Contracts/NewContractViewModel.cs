@@ -33,7 +33,19 @@ namespace IdApp.ViewModels.Contracts
         private string templateId;
         private bool saveState;
         private Contract stateTemplate;
+        private RoleToAdd roleToAdd;
 
+        private sealed class RoleToAdd
+        {
+            public RoleToAdd(string roleName, string legalId)
+            {
+                this.RoleName = roleName;
+                this.LegalId = legalId;
+            }
+
+            public string RoleName { get; set; }
+            public string LegalId { get; set; }
+        }
         /// <summary>
         /// Creates an instance of the <see cref="NewContractViewModel"/> class.
         /// </summary>
@@ -147,7 +159,15 @@ namespace IdApp.ViewModels.Contracts
                 {
                     this.SelectedRole = matchingRole;
                 }
+                if (this.roleToAdd != null)
+                {
+                    this.AddRole(this.roleToAdd.RoleName, this.roleToAdd.LegalId);
+                }
+
+                this.roleToAdd = null;
+                this.DeleteState();
             }
+            this.saveState = false;
             await base.DoRestoreState();
         }
 
@@ -414,7 +434,14 @@ namespace IdApp.ViewModels.Contracts
             int NrParts = 0;
             Role RoleObj = null;
 
-            foreach (Role R in this.template.Roles)
+            Contract contractToUse = this.template ?? this.stateTemplate;
+
+            if ((contractToUse is null))
+            {
+                return;
+            }
+
+            foreach (Role R in contractToUse.Roles)
             {
                 if (R.Name == role)
                 {
@@ -492,12 +519,10 @@ namespace IdApp.ViewModels.Contracts
                 this.saveState = true;
                 this.stateTemplate = this.template;
                 string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
-                this.saveState = false;
-                this.DeleteState();
                 string id = Constants.UriSchemes.GetCode(code);
                 if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
                 {
-                    AddRole(button.StyleId, id);
+                    this.roleToAdd = new RoleToAdd(button.StyleId, id);
                 }
             }
         }
