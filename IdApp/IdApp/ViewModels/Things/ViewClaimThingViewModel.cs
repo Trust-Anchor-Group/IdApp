@@ -58,7 +58,7 @@ namespace IdApp.ViewModels.Things
                 if (this.NeuronService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
 				{
                     foreach (MetaDataTag Tag in Tags)
-                        this.Tags.Add(new HumanReadableTag(Tag));
+                        this.Tags.Add(new HumanReadableTag(Tag, this));
 				}
             }
             
@@ -171,6 +171,23 @@ namespace IdApp.ViewModels.Things
         }
 
         #endregion
+
+        /// <summary>
+        /// Called when tag value has been clicked.
+        /// </summary>
+        internal async void LabelClicked(HumanReadableTag Tag)
+        {
+            try
+            {
+                //await Clipboard.SetTextAsync($"iotid:{LegalId}");
+                //await UiDispatcher.DisplayAlert("Copied", "Your ID was copied to clipboard.");
+            }
+            catch (Exception ex)
+            {
+                //logService.LogException(ex);
+                //await UiDispatcher.DisplayAlert(ex);
+            }
+        }
 
         private async Task ClaimThing()
         {

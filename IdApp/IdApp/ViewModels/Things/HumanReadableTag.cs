@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Windows.Input;
 using Waher.Networking.XMPP.Provisioning;
+using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Things
 {
@@ -9,15 +11,25 @@ namespace IdApp.ViewModels.Things
 	public class HumanReadableTag
 	{
 		private readonly MetaDataTag tag;
+		private readonly ViewClaimThingViewModel model;
 
 		/// <summary>
 		/// Classed used to present a meta-data tag in a human interface.
 		/// </summary>
 		/// <param name="Tag">Meta-data tag.</param>
-		public HumanReadableTag(MetaDataTag Tag)
+		/// <param name="Model">View model reference.</param>
+		public HumanReadableTag(MetaDataTag Tag, ViewClaimThingViewModel Model)
 		{
 			this.tag = Tag;
+			this.model = Model;
+
+            this.ClickCommand = new Command(_ => this.LabelClicked());
 		}
+
+		/// <summary>
+		/// The command for clicking a tag value.
+		/// </summary>
+		public ICommand ClickCommand { get; }
 
 		/// <summary>
 		/// Human-readable tag name
@@ -88,5 +100,14 @@ namespace IdApp.ViewModels.Things
 					return this.tag.StringValue + " " + s;
 			}
 		}
+
+		/// <summary>
+		/// Called when tag value has been clicked.
+		/// </summary>
+		private void LabelClicked()
+		{
+			this.model?.LabelClicked(this);
+		}
+
 	}
 }

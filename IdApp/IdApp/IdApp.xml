@@ -6055,11 +6055,17 @@
             Classed used to present a meta-data tag in a human interface.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.#ctor(Waher.Networking.XMPP.Provisioning.MetaDataTag)">
+        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.#ctor(Waher.Networking.XMPP.Provisioning.MetaDataTag,IdApp.ViewModels.Things.ViewClaimThingViewModel)">
             <summary>
             Classed used to present a meta-data tag in a human interface.
             </summary>
             <param name="Tag">Meta-data tag.</param>
+            <param name="Model">View model reference.</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.ClickCommand">
+            <summary>
+            The command for clicking a tag value.
+            </summary>
         </member>
         <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Name">
             <summary>
@@ -6074,6 +6080,11 @@
         <member name="P:IdApp.ViewModels.Things.HumanReadableTag.StringValue">
             <summary>
             String value of tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.LabelClicked">
+            <summary>
+            Called when tag value has been clicked.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Things.ViewClaimThingViewModel">
@@ -6115,11 +6126,6 @@
             The command to bind to for claiming a thing
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClickCommand">
-            <summary>
-            The command for clicking a tag value.
-            </summary>
-        </member>
         <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThingProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThing"/>
@@ -6150,9 +6156,9 @@
             Gets or sets the PIN code for the identity.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.LabelClicked(System.Object)">
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.LabelClicked(IdApp.ViewModels.Things.HumanReadableTag)">
             <summary>
-            Copies ID to clipboard
+            Called when tag value has been clicked.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">

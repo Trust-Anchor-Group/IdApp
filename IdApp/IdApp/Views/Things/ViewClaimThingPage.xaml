@@ -16,7 +16,11 @@
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Path=Name}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
-                                <Label LineBreakMode="WordWrap" Text="{Binding Path=StringValue}" Style="{StaticResource ValueLabel}"/>
+                                <Label LineBreakMode="WordWrap" Text="{Binding Path=StringValue}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ClickCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </StackLayout>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
