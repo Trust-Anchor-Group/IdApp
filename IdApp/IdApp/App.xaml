@@ -95,6 +95,12 @@
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
         </Style>
+        <Style TargetType="Label" x:Key="ClickableValueLabel">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="LineBreakMode" Value="WordWrap"/>
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+            <Setter Property="TextColor" Value="Blue"/>
+        </Style>
         <Style TargetType="Label" x:Key="FormattedValueLabel">
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
