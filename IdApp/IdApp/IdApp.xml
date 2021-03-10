@@ -3843,6 +3843,11 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyCommand">
+            <summary>
+            The command for copying data to clipboard.
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel"/> class.
@@ -3877,6 +3882,11 @@
         <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RevokeCommand">
             <summary>
             The command to bind to for revoking an identity
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyHtmlToClipboard">
+            <summary>
+            Copies ID to clipboard
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
