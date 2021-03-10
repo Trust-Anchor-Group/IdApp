@@ -18,8 +18,12 @@ using Waher.Content.Xml;
 using Waher.Content.Markdown;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.P2P;
+using Waher.Networking.XMPP.Provisioning;
+using Waher.Networking.XMPP.Sensor;
 using Waher.Persistence;
 using Waher.Persistence.Files;
 using Waher.Persistence.Serialization;
@@ -81,6 +85,10 @@ namespace IdApp
                         typeof(MarkdownDocument).Assembly,          // Markdown support
                         typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
                         typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
+                        typeof(ProvisioningClient).Assembly,        // Serialization of XMPP objects related to thing registries, provisioning and decision support.
+                        typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
+                        typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
+                        typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
                         typeof(Expression).Assembly,                // Indexes basic script functions
                         typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
                         typeof(TagConfiguration).Assembly,          // Indexes persistable objects

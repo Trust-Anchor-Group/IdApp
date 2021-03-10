@@ -156,6 +156,9 @@
   <data name="FailedToNavigateToPage" xml:space="preserve">
     <value>Kunde inte navigera till sidan {0} {1}</value>
   </data>
+  <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
+    <value>Not a valid iotdisco claim URI.</value>
+  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
+  </data>
+  <data name="UnableToClaimThing" xml:space="preserve">
+    <value>Kunde inte göra anspråk på saken.</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>

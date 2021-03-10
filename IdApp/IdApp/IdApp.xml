@@ -194,6 +194,11 @@
               Looks up a localized string similar to City.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ClaimThing">
+            <summary>
+              Looks up a localized string similar to Claim Thing.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ClientSignature">
             <summary>
               Looks up a localized string similar to Client Signature.
@@ -459,6 +464,16 @@
               Looks up a localized string similar to Incomplete.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.InformationAboutThing">
+            <summary>
+              Looks up a localized string similar to Information about thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.InformationAboutThingText">
+            <summary>
+              Looks up a localized string similar to The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.InformationIsMissingOrInvalid">
             <summary>
               Looks up a localized string similar to Information is missing or invalid.
@@ -517,6 +532,11 @@
         <member name="P:IdApp.AppResources.MainPageTitle">
             <summary>
               Looks up a localized string similar to TAG.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MakeThingPublic">
+            <summary>
+              Looks up a localized string similar to Make thing public.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Message">
@@ -1876,6 +1896,22 @@
         <member name="P:IdApp.Navigation.ServerSignatureNavigationArgs.Contract">
             <summary>
             The contract to display.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.ViewClaimThingNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to claiming things.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.ViewClaimThingNavigationArgs.#ctor(System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.ViewClaimThingNavigationArgs"/> class.
+            </summary>
+            <param name="Uri">iotdisco URI contining the claim parameters.</param>
+        </member>
+        <member name="P:IdApp.Navigation.ViewClaimThingNavigationArgs.Uri">
+            <summary>
+            The iotdisco claim URI
             </summary>
         </member>
         <member name="T:IdApp.Navigation.ViewContractNavigationArgs">
@@ -3807,6 +3843,11 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyCommand">
+            <summary>
+            The command for copying data to clipboard.
+            </summary>
+        </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel"/> class.
@@ -3841,6 +3882,11 @@
         <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RevokeCommand">
             <summary>
             The command to bind to for revoking an identity
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyHtmlToClipboard">
+            <summary>
+            Copies ID to clipboard
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
@@ -5904,6 +5950,75 @@
             </summary>
             <param name="e"></param>
         </member>
+        <member name="T:IdApp.ViewModels.Things.ViewClaimThingViewModel">
+            <summary>
+            The view model to bind to for when displaying thing claim information.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Things.ViewClaimThingViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.UriProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.Uri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.Uri">
+            <summary>
+            iotdisco URI to process
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.Tags">
+            <summary>
+            Holds a list of meta-data tags associated with a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClaimThingCommand">
+            <summary>
+            The command to bind to for claiming a thing
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThingProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThing">
+            <summary>
+            Gets or sets whether a user can claim a thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.MakePublicProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.MakePublic"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.MakePublic">
+            <summary>
+            Gets or sets whether a user can claim a thing.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.PinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.Pin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.Pin">
+            <summary>
+            Gets or sets the PIN code for the identity.
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
             A View model that represents the current XMPP Communication.
@@ -6391,6 +6506,22 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.ScanQrCodePage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Things.ViewClaimThingPage">
+            <summary>
+            A page that displays a specific contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Things.ViewClaimThingPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Things.ViewClaimThingPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Things.ViewClaimThingPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

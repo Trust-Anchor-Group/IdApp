@@ -304,6 +304,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Claim Thing.
+        /// </summary>
+        internal static string ClaimThing {
+            get {
+                return ResourceManager.GetString("ClaimThing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Client Signature.
         /// </summary>
         internal static string ClientSignature {
@@ -781,6 +790,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information about thing.
+        /// </summary>
+        internal static string InformationAboutThing {
+            get {
+                return ResourceManager.GetString("InformationAboutThing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry..
+        /// </summary>
+        internal static string InformationAboutThingText {
+            get {
+                return ResourceManager.GetString("InformationAboutThingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information is missing or invalid.
         /// </summary>
         internal static string InformationIsMissingOrInvalid {
@@ -885,6 +912,15 @@ namespace IdApp {
         internal static string MainPageTitle {
             get {
                 return ResourceManager.GetString("MainPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make thing public.
+        /// </summary>
+        internal static string MakeThingPublic {
+            get {
+                return ResourceManager.GetString("MakeThingPublic", resourceCulture);
             }
         }
         

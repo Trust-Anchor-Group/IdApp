@@ -156,6 +156,9 @@
   <data name="FailedToNavigateToPage" xml:space="preserve">
     <value>Failed to navigate to page {0}  {1}</value>
   </data>
+  <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
+    <value>Not a valid iotdisco claim URI.</value>
+  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>
   </data>
@@ -179,6 +182,9 @@
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Unable to authenticate with {0}</value>
+  </data>
+  <data name="UnableToClaimThing" xml:space="preserve">
+    <value>Unable to claim thing</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>

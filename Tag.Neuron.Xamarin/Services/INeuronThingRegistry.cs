@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.Provisioning.SearchOperators;
@@ -41,5 +42,12 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <param name="Operators">Search operators.</param>
 		/// <returns>If the URI could be parsed.</returns>
 		bool TryDecodeIoTDiscoSearchURI(string DiscoUri, out IEnumerable<SearchOperator> Operators);
+
+		/// <summary>
+		/// Claims a think in accordance with parameters defined in a iotdisco claim URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <param name="MakePublic">If the device should be public in the thing registry.</param>
+		Task ClaimThing(string DiscoUri, bool MakePublic);
 	}
 }
