@@ -210,6 +210,9 @@
   <data name="ClientSignaturesInfoText" xml:space="preserve">
     <value>Kryptografiska signaturer skapade av olika delar visas nedan.</value>
   </data>
+  <data name="CodeNotRecognized" xml:space="preserve">
+    <value>Koden kunde inte kännas igen.</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Bekräfta</value>
   </data>
@@ -356,6 +359,9 @@
   </data>
   <data name="Inspect" xml:space="preserve">
     <value>Inspektera kommunikationen</value>
+  </data>
+  <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
+    <value>Ogiltig kod för IoT-sökning</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>

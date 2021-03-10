@@ -178,15 +178,6 @@ namespace Tag.Neuron.Xamarin {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid IoT Discovery Code.
-        /// </summary>
-        internal static string InvalidIoTDiscoveryCode {
-            get {
-                return ResourceManager.GetString("InvalidIoTDiscoveryCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {

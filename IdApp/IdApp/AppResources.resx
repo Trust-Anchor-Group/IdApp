@@ -210,6 +210,9 @@
   <data name="ClientSignaturesInfoText" xml:space="preserve">
     <value>Cryptographic signatures made by different parts are listed below.</value>
   </data>
+  <data name="CodeNotRecognized" xml:space="preserve">
+    <value>Code not recognized.</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
@@ -359,6 +362,9 @@
   </data>
   <data name="Inspect" xml:space="preserve">
     <value>Inspect communication</value>
+  </data>
+  <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
+    <value>Invalid IoT Discovery Code</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>

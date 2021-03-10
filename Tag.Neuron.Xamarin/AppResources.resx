@@ -156,9 +156,6 @@
   <data name="FailedToNavigateToPage" xml:space="preserve">
     <value>Failed to navigate to page {0}  {1}</value>
   </data>
-  <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
-    <value>Invalid IoT Discovery Code</value>
-  </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>
   </data>
