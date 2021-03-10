@@ -789,6 +789,9 @@
   <data name="SuccessTitle" xml:space="preserve">
     <value>Operationen lyckades</value>
   </data>
+  <data name="TagValueCopiedToClipboard" xml:space="preserve">
+    <value>Värdet kopierades till klippboken</value>
+  </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Ta foto</value>
   </data>

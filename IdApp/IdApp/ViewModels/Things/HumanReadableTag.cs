@@ -32,6 +32,11 @@ namespace IdApp.ViewModels.Things
 		public ICommand ClickCommand { get; }
 
 		/// <summary>
+		/// Original meta-data tag.
+		/// </summary>
+		public MetaDataTag Tag => this.tag;
+
+		/// <summary>
 		/// Human-readable tag name
 		/// </summary>
 		public string Name

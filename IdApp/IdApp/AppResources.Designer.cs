@@ -2086,6 +2086,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tag value copied to clipboard.
+        /// </summary>
+        internal static string TagValueCopiedToClipboard {
+            get {
+                return ResourceManager.GetString("TagValueCopiedToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Take photo.
         /// </summary>
         internal static string TakePhoto {

@@ -6067,6 +6067,11 @@
             The command for clicking a tag value.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Tag">
+            <summary>
+            Original meta-data tag.
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Name">
             <summary>
             Human-readable tag name
