@@ -26,7 +26,7 @@
                     <Label Text="{x:Static local:AppResources.MakeThingPublic}" VerticalOptions="FillAndExpand" Margin="0,0,0,12" />
                 </StackLayout>
                 <!-- BUTTONS -->
-                <Button Text="{x:Static local:AppResources.ClaimThing}" Command="{Binding Path=ClaimThingCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Button Text="{x:Static local:AppResources.ClaimThing}" Command="{Binding Path=ClaimThingCommand}" IsVisible="{Binding Path=CanClaimThing}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>
     </Grid>
