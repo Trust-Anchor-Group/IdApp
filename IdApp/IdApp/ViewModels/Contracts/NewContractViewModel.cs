@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Views;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
@@ -22,6 +23,7 @@ namespace IdApp.ViewModels.Contracts
     /// </summary>
     public class NewContractViewModel : BaseViewModel
     {
+        private static readonly string PartSettingsPrefix = $"{typeof(NewContractViewModel)}.Part_";
         private Contract template;
         private readonly ILogService logService;
         private readonly INeuronService neuronService;
@@ -33,19 +35,7 @@ namespace IdApp.ViewModels.Contracts
         private string templateId;
         private bool saveState;
         private Contract stateTemplate;
-        private RoleToAdd roleToAdd;
-
-        private sealed class RoleToAdd
-        {
-            public RoleToAdd(string roleName, string legalId)
-            {
-                this.RoleName = roleName;
-                this.LegalId = legalId;
-            }
-
-            public string RoleName { get; set; }
-            public string LegalId { get; set; }
-        }
+        private readonly Dictionary<string, string> partsToAdd;
 
         /// <summary>
         /// Creates an instance of the <see cref="NewContractViewModel"/> class.
@@ -89,6 +79,7 @@ namespace IdApp.ViewModels.Contracts
             this.Roles = new StackLayout();
             this.Parameters = new StackLayout();
             this.HumanReadableText = new StackLayout();
+            this.partsToAdd = new Dictionary<string, string>();
         }
 
         /// <inheritdoc/>
@@ -114,6 +105,17 @@ namespace IdApp.ViewModels.Contracts
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
             this.PopulateTemplateForm();
+
+            //if (this.template != null && this.template.Roles.Length > 3)
+            //{
+            //    this.uiDispatcher.BeginInvokeOnMainThread(() =>
+            //    {
+            //        //this.AddRole(this.template.Roles[0].Name, "iotid:27cf6787-b5de-b59b-540e-58819e6e897f@legal.lab.tagroot.io"); // TA33
+            //        this.AddRole(this.template.Roles[1].Name, "iotid:27da7543-6bc9-a2a8-600e-28f904261ef6@legal.cybercity.online"); // Peter EM
+            //        this.AddRole(this.template.Roles[2].Name, "iotid:27c6d6f2-568c-c07c-040e-dd8dd1fcf047@legal.cybercity.online"); // Peter Ph
+            //        this.AddRole(this.template.Roles[3].Name, "iotid:27da352c-7db9-0580-040d-939fe741fe23@legal.lab.tagroot.io"); // Stas Ph
+            //    });
+            //}
         }
 
         /// <inheritdoc/>
@@ -123,6 +125,12 @@ namespace IdApp.ViewModels.Contracts
 
             this.ClearTemplate(false);
 
+            if (!this.saveState)
+            {
+                await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+                await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+                await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+            }
             await base.DoUnbind();
         }
 
@@ -134,12 +142,35 @@ namespace IdApp.ViewModels.Contracts
             if (!(this.SelectedContractVisibilityItem is null))
             {
                 ContractVisibility value = this.SelectedContractVisibilityItem.Visibility;
-                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value);
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value.ToString());
+            }
+            else
+            {
+                await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
             }
             if (!(SelectedRole is null))
             {
                 await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedRole)), this.SelectedRole);
             }
+            else
+            {
+                await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+            }
+            if (this.partsToAdd.Count > 0)
+            {
+                int i = 0;
+                foreach (KeyValuePair<string, string> part in this.partsToAdd)
+                {
+                    string settingsKey = $"{PartSettingsPrefix}{part.Key}";
+                    await this.settingsService.SaveState(settingsKey, part.Value);
+                    i++;
+                }
+            }
+            else
+            {
+                await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+            }
+            this.partsToAdd.Clear();
         }
 
         /// <inheritdoc/>
@@ -147,10 +178,9 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveState)
             {
-                Enum e = await this.settingsService.RestoreEnumState(nameof(SelectedContractVisibilityItem));
-                if (e != null)
+                string visibilityStr = await this.settingsService.RestoreStringState(nameof(SelectedContractVisibilityItem));
+                if (!string.IsNullOrWhiteSpace(visibilityStr) && Enum.TryParse(visibilityStr, true, out ContractVisibility cv))
                 {
-                    ContractVisibility cv = (ContractVisibility)e;
                     this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);
                 }
 
@@ -160,22 +190,36 @@ namespace IdApp.ViewModels.Contracts
                 {
                     this.SelectedRole = matchingRole;
                 }
-                if (this.roleToAdd != null)
+
+                List<(string key, string value)> settings = (await this.settingsService.RestoreStateWhereKeyStartsWith<string>(PartSettingsPrefix)).ToList();
+                if (settings.Count > 0)
                 {
-                    this.AddRole(this.roleToAdd.RoleName, this.roleToAdd.LegalId);
+                    this.partsToAdd.Clear();
+                    foreach ((string key, string value) in settings)
+                    {
+                        string part = key.Substring(PartSettingsPrefix.Length);
+                        this.partsToAdd[part] = value;
+                    }
+                }
+                if (this.partsToAdd.Count > 0)
+                {
+                    foreach (KeyValuePair<string, string> part in this.partsToAdd)
+                    {
+                        this.AddRole(part.Key, part.Value);
+                    }
                 }
 
-                this.roleToAdd = null;
-                this.DeleteState();
+                await this.DeleteState();
             }
             this.saveState = false;
             await base.DoRestoreState();
         }
 
-        private void DeleteState()
+        private async Task DeleteState()
         {
-            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-            this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+            await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+            await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+            await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
         }
 
 #region Properties
@@ -523,7 +567,9 @@ namespace IdApp.ViewModels.Contracts
                 string id = Constants.UriSchemes.GetCode(code);
                 if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
                 {
-                    this.roleToAdd = new RoleToAdd(button.StyleId, id);
+                    this.partsToAdd[button.StyleId] = id;
+                    string settingsKey = $"{PartSettingsPrefix}{button.StyleId}";
+                    await this.settingsService.SaveState(settingsKey, id);
                 }
             }
         }
@@ -691,7 +737,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 if (!(Created is null))
                 {
-                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false));
+                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false) { ReturnRoute = nameof(MainPage) });
                 }
             }
         }

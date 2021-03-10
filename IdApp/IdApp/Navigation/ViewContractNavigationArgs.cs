@@ -23,6 +23,7 @@ namespace IdApp.Navigation
         /// The contract to display.
         /// </summary>
         public Contract Contract { get; }
+
         /// <summary>
         /// <c>true</c> if the contract is readonly, <c>false</c> otherwise.
         /// </summary>
