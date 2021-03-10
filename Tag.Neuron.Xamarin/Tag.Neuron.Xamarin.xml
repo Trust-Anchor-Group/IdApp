@@ -85,6 +85,11 @@
               Looks up a localized string similar to Failed to navigate to page {0}  {1}.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.InvalidIoTDiscoClaimUri">
+            <summary>
+              Looks up a localized string similar to Not a valid iotdisco claim URI..
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.InvalidUsernameOrPassword">
             <summary>
               Looks up a localized string similar to Invalid username or password.
@@ -123,6 +128,11 @@
         <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToAuthenticateWith">
             <summary>
               Looks up a localized string similar to Unable to authenticate with {0}.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToClaimThing">
+            <summary>
+              Looks up a localized string similar to Unable to claim thing.
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToConnectTo">
@@ -1613,6 +1623,13 @@
             <param name="DiscoUri">IoTDisco URI</param>
             <param name="Operators">Search operators.</param>
             <returns>If the URI could be parsed.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.ClaimThing(System.String,System.Boolean)">
+            <summary>
+            Claims a think in accordance with parameters defined in a iotdisco claim URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="MakePublic">If the device should be public in the thing registry.</param>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>

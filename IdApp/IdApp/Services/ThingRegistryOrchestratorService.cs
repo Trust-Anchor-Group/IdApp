@@ -1,11 +1,11 @@
-﻿using IdApp.Navigation;
-using IdApp.Views;
-using IdApp.Views.Contracts;
-using IdApp.Views.Registration;
+﻿using IdApp.Views.Registration;
 using System;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using IdApp.Navigation;
+using IdApp.Views;
+using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -68,6 +68,11 @@ namespace IdApp.Services
 
 		public Task OpenClaimDevice(string Uri)
 		{
+			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			{
+				await this.navigationService.GoToAsync(nameof(ViewClaimThingPage), new ViewClaimThingNavigationArgs(Uri));
+			});
+
 			return Task.CompletedTask;
 		}
 

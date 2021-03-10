@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             x:Class="IdApp.Views.Things.ViewClaimThingPage"
+             Title="{x:Static local:AppResources.ClaimThing}">
+    <Grid>
+        <ScrollView>
+            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+                <!-- TAGS -->
+                <Label Text="{x:Static local:AppResources.InformationAboutThing}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" />
+                <Label Text="{x:Static local:AppResources.InformationAboutThingText}" Style="{StaticResource InfoText}" />
+                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Tags}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Path=Name}" Style="{StaticResource KeyLabel}"/>
+                                <Label LineBreakMode="NoWrap" Text="{Binding Path=StringValue}" Style="{StaticResource ValueLabel}"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding Path=MakePublic, Mode=TwoWay}"/>
+                    <Label Text="{x:Static local:AppResources.MakeThingPublic}" VerticalOptions="FillAndExpand" Margin="0,0,0,12" />
+                </StackLayout>
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.ClaimThing}" Command="{Binding Path=ClaimThingCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</views:ContentBasePage>

@@ -198,6 +198,9 @@
   <data name="City" xml:space="preserve">
     <value>Stad</value>
   </data>
+  <data name="ClaimThing" xml:space="preserve">
+    <value>Anspråk på sak</value>
+  </data>
   <data name="ClientSignature" xml:space="preserve">
     <value>Klientsignatur</value>
   </data>
@@ -354,6 +357,12 @@
   <data name="Incomplete" xml:space="preserve">
     <value>Ej komplett</value>
   </data>
+  <data name="InformationAboutThing" xml:space="preserve">
+    <value>Information om sak</value>
+  </data>
+  <data name="InformationAboutThingText" xml:space="preserve">
+    <value>Följande information har gjorts tillgänglig om saken vars kod du skannade. Välj om du vill göra anspråk på denna sak som din, och också om du vill göra den publikt sökbar i sakregistret.</value>
+  </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Information saknas eller är ogiltig</value>
   </data>
@@ -389,6 +398,9 @@
   </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>TAG</value>
+  </data>
+  <data name="MakeThingPublic" xml:space="preserve">
+    <value>Gör saken publik</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>

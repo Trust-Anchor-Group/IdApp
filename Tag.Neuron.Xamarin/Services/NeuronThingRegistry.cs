@@ -56,5 +56,25 @@ namespace Tag.Neuron.Xamarin.Services
 			return ThingRegistryClient.TryDecodeIoTDiscoURI(DiscoUri, out Operators);
 		}
 
+		public Task ClaimThing(string DiscoUri, bool MakePublic)
+		{
+			if (!this.TryDecodeIoTDiscoClaimURI(DiscoUri, out MetaDataTag[] Tags))
+				throw new ArgumentException(AppResources.InvalidIoTDiscoClaimUri, nameof(DiscoUri));
+
+			TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+
+			this.registryClient.Mine(MakePublic, Tags, (sender, e) =>
+			{
+				if (e.Ok)
+					Result.TrySetResult(true);
+				else
+					Result.TrySetException(e.StanzaError ?? new Exception(string.IsNullOrEmpty(e.ErrorText) ? AppResources.UnableToClaimThing : e.ErrorText));
+
+				return Task.CompletedTask;
+			}, null);
+
+			return Result.Task;
+		}
+
 	}
 }

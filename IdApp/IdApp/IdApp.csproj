@@ -123,6 +123,9 @@
     <Compile Update="Views\Registration\ChooseOperatorView.xaml.cs">
       <DependentUpon>ChooseOperatorView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Things\ViewClaimThingPage.xaml.cs">
+      <DependentUpon>ViewClaimThingPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 <ItemGroup>
