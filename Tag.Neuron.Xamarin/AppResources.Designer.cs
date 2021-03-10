@@ -178,6 +178,15 @@ namespace Tag.Neuron.Xamarin {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not a valid iotdisco claim URI..
+        /// </summary>
+        internal static string InvalidIoTDiscoClaimUri {
+            get {
+                return ResourceManager.GetString("InvalidIoTDiscoClaimUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid username or password.
         /// </summary>
         internal static string InvalidUsernameOrPassword {
@@ -246,6 +255,15 @@ namespace Tag.Neuron.Xamarin {
         internal static string UnableToAuthenticateWith {
             get {
                 return ResourceManager.GetString("UnableToAuthenticateWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to claim thing.
+        /// </summary>
+        internal static string UnableToClaimThing {
+            get {
+                return ResourceManager.GetString("UnableToClaimThing", resourceCulture);
             }
         }
         

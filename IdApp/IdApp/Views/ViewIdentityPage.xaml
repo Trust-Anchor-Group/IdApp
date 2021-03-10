@@ -104,7 +104,11 @@
                     <Label Grid.Row="13" Grid.Column="2" Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <Label Grid.Row="14" Grid.Column="1" Text="{x:Static local:AppResources.ID}" Style="{StaticResource KeyLabel}" />
-                    <Label Grid.Row="14" Grid.Column="2" Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Row="14" Grid.Column="2" Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CopyCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                     <!-- - -->
                     <Label Grid.Row="15" Grid.Column="1" Text="{x:Static local:AppResources.Network}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="15" Grid.Column="2" Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>

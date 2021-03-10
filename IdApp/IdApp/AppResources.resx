@@ -198,6 +198,9 @@
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
+  <data name="ClaimThing" xml:space="preserve">
+    <value>Claim Thing</value>
+  </data>
   <data name="ClientSignature" xml:space="preserve">
     <value>Client Signature</value>
   </data>
@@ -357,6 +360,12 @@
   <data name="Incomplete" xml:space="preserve">
     <value>Incomplete</value>
   </data>
+  <data name="InformationAboutThing" xml:space="preserve">
+    <value>Information about thing</value>
+  </data>
+  <data name="InformationAboutThingText" xml:space="preserve">
+    <value>The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry.</value>
+  </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Information is missing or invalid</value>
   </data>
@@ -392,6 +401,9 @@
   </data>
   <data name="MainPageTitle" xml:space="preserve">
     <value>TAG</value>
+  </data>
+  <data name="MakeThingPublic" xml:space="preserve">
+    <value>Make thing public</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
