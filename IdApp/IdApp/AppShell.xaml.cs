@@ -27,6 +27,8 @@ namespace IdApp
 		private readonly IUiDispatcher uiDispatcher;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
+		private static AppShell _instance;
+		internal static AppShell Instance => _instance ?? (_instance = new AppShell());
 
 		/// <summary>
 		/// Create a new instance of the <see cref="AppShell"/> class.

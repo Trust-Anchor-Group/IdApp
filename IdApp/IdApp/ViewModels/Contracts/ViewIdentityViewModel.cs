@@ -220,19 +220,16 @@ namespace IdApp.ViewModels.Contracts
         /// Copies ID to clipboard
         /// </summary>
         private async void CopyHtmlToClipboard()
-        {
-            bool answer = await Application.Current.MainPage.DisplayAlert("Copy ID to Clipboard", "Are you sure you want to copy iotid to clipboard.", "Yes", "No");
-
-            if (answer)
+        {           
+            try
             {
-                try
-                {
-                    await Clipboard.SetTextAsync($"iotid:{LegalId}");
-                }
-                catch (Exception ex)
-                {
-                    this.logService.LogException(ex);
-                }
+                await Clipboard.SetTextAsync($"iotid:{LegalId}");
+                await UiDispatcher.DisplayAlert("Copied", "Your ID was copied to clipboard.");
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
+                await UiDispatcher.DisplayAlert("Error", "Could not copy your ID.");
             }
         }
 
