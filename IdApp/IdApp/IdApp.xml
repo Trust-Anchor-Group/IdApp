@@ -2105,6 +2105,25 @@
         <member name="M:IdApp.Services.ImageCacheService.Invalidate(System.String)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Services.IThingRegistryOrchestratorService">
+            <summary>
+            Orchestrates operations on things via Thing Registry services.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IThingRegistryOrchestratorService.OpenClaimDevice(System.String)">
+            <summary>
+            Opens the Claim Device View, allowing the user to revise device information found in the iotdisco URI provided,
+            and claim it.
+            </summary>
+            <param name="Uri">iotdisco claim URI</param>
+        </member>
+        <member name="M:IdApp.Services.IThingRegistryOrchestratorService.OpenSearchDevices(System.String)">
+            <summary>
+            Opens the Search Devices View, allowing the user to revise search parameters found in the iotdisco URI provided,
+            and start the search for devices.
+            </summary>
+            <param name="Uri">iotdisco search URI</param>
+        </member>
         <member name="T:IdApp.Services.XmlDatabaseExport">
             <summary>
             Exports database contents to XML.

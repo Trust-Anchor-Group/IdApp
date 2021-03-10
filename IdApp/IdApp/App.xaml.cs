@@ -44,6 +44,7 @@ namespace IdApp
         private readonly ITagIdSdk sdk;
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
+        private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
         private readonly bool keepRunningInTheBackground = false;
         private Profiler startupProfiler;
 
@@ -93,6 +94,8 @@ namespace IdApp
                 this.sdk.RegisterSingleton<IImageCacheService, ImageCacheService>(this.imageCacheService);
                 this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
                 this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
+                this.thingRegistryOrchestratorService = new ThingRegistryOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
+                this.sdk.RegisterSingleton<IThingRegistryOrchestratorService, ThingRegistryOrchestratorService>(this.thingRegistryOrchestratorService);
 
                 // Set resolver
                 DependencyResolver.ResolveUsing(type =>
@@ -190,15 +193,12 @@ namespace IdApp
                 }
 
                 sdkStartupThread?.NewState("Network");
-
                 await this.sdk.NetworkService.Load(isResuming);
 
                 sdkStartupThread?.NewState("Load");
-
                 await this.sdk.NeuronService.Load(isResuming);
 
                 sdkStartupThread?.NewState("Timer");
-
                 TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
                 this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
 
@@ -207,8 +207,9 @@ namespace IdApp
                 thread?.NewState("Cache");
                 await this.imageCacheService.Load(isResuming);
 
-                thread?.NewState("Orchestrator");
+                thread?.NewState("Orchestrators");
                 await this.contractOrchestratorService.Load(isResuming);
+                await this.thingRegistryOrchestratorService.Load(isResuming);
             }
             catch (Exception e)
             {
@@ -251,10 +252,16 @@ namespace IdApp
             {
                 if (!(this.contractOrchestratorService is null))
                     await this.contractOrchestratorService.Unload();
+
+                if (!(this.thingRegistryOrchestratorService is null))
+                    await this.thingRegistryOrchestratorService.Unload();
+
                 if (!(this.sdk.NeuronService is null))
                     await this.sdk.NeuronService.Unload();
+                
                 if (!(this.sdk.NetworkService is null))
                     await this.sdk.NetworkService.Unload();
+                
                 if (!(this.imageCacheService is null))
                     await this.imageCacheService.Unload();
             }

@@ -10,8 +10,6 @@ using IdApp.Views.Registration;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.IoTGateway.Setup;
-using Waher.Networking.XMPP.Provisioning;
-using Waher.Networking.XMPP.Provisioning.SearchOperators;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -28,6 +26,7 @@ namespace IdApp
 		private readonly ILogService logService;
 		private readonly IUiDispatcher uiDispatcher;
 		private readonly IContractOrchestratorService contractOrchestratorService;
+		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
 
 		/// <summary>
 		/// Create a new instance of the <see cref="AppShell"/> class.
@@ -41,6 +40,7 @@ namespace IdApp
 			this.logService = DependencyService.Resolve<ILogService>();
 			this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
 			this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
+			this.thingRegistryOrchestratorService = DependencyService.Resolve<IThingRegistryOrchestratorService>();
 			InitializeComponent();
 			SetTabBarIsVisible(this, false);
 			RegisterRoutes();
@@ -130,13 +130,9 @@ namespace IdApp
 
 					case Constants.UriSchemes.UriSchemeIotDisco:
 						if (this.neuronService.ThingRegistry.IsIoTDiscoClaimURI(DecodedText))
-						{
-							// TODO handle a Claim URI here.
-						}
+							await this.thingRegistryOrchestratorService.OpenClaimDevice(DecodedText);
 						else if (this.neuronService.ThingRegistry.IsIoTDiscoSearchURI(DecodedText))
-						{
-							// TODO handle a Search URI here.
-						}
+							await this.thingRegistryOrchestratorService.OpenSearchDevices(DecodedText);
 						else
 							await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{DecodedText}");
 						break;
