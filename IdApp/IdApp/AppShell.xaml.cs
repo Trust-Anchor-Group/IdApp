@@ -94,7 +94,7 @@ namespace IdApp
 			await this.GoToPage(nameof(ViewIdentityPage));
 		}
 
-		private async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
+		internal async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
 		{
 			// Due to a bug in Xamarin Shell the menu items can still be clicked on, even though we bind the "IsEnabled" property.
 			// So we do a manual check here.

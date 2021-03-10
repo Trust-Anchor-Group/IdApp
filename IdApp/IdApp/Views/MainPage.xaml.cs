@@ -18,6 +18,7 @@ namespace IdApp.Views
         private readonly INeuronService neuronService;
         private bool logoutPanelIsShown;
         private readonly INavigationService navigationService;
+        private AppShell AppShellInstance;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MainPage"/> class.
@@ -26,6 +27,7 @@ namespace IdApp.Views
         {
             InitializeComponent();
             ViewModel = new MainViewModel();
+            AppShellInstance = new AppShell();
             this.neuronService = DependencyService.Resolve<INeuronService>();
             this.navigationService = DependencyService.Resolve<INavigationService>();
         }
@@ -80,9 +82,9 @@ namespace IdApp.Views
             this.IdCard.Flip();
         }
 
-        private async void ScanQr_Clicked(object sender, EventArgs e)
+        private void ScanQr_Clicked(object sender, EventArgs e)
         {
-            await IdApp.QrCode.ScanQrCode(this.navigationService, AppResources.Open);
+            AppShellInstance.ScanQrCodeMenuItem_Clicked(sender, e);
         }
     }
 }
