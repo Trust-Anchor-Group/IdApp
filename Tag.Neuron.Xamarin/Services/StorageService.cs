@@ -23,7 +23,6 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool isInitializing;
 		private StorageState? initializedState;
 		private TaskCompletionSource<StorageState> databaseTcs;
-		private readonly string appDataFolder;
 		private readonly string dataFolder;
 
 		/// <summary>
@@ -37,7 +36,7 @@ namespace Tag.Neuron.Xamarin.Services
 			this.logService = logService;
 			this.cryptoService = cryptoService;
 			this.uiDispatcher = uiDispatcher;
-			this.appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			this.dataFolder = Path.Combine(appDataFolder, "Data");
 		}
 

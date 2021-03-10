@@ -17,6 +17,7 @@ namespace IdApp.Views
     {
         private readonly INeuronService neuronService;
         private bool logoutPanelIsShown;
+        private readonly INavigationService navigationService;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MainPage"/> class.
@@ -26,6 +27,7 @@ namespace IdApp.Views
             InitializeComponent();
             ViewModel = new MainViewModel();
             this.neuronService = DependencyService.Resolve<INeuronService>();
+            this.navigationService = DependencyService.Resolve<INavigationService>();
         }
 
         /// <inheritdoc />
@@ -52,12 +54,14 @@ namespace IdApp.Views
                     // Show (slide down) logout panel
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
                     this.logoutPanelIsShown = true;
+                    this.ScanQrButton.IsEnabled = false;
                     this.LogoutPanel.TranslationY = -Height;
                     await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.BounceOut);
                 }
                 else if (!this.neuronService.IsLoggedOut && this.logoutPanelIsShown)
                 {
                     this.logoutPanelIsShown = false;
+                    this.ScanQrButton.IsEnabled = true;
                     // Hide (slide up) logout panel
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
                     await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
@@ -65,6 +69,7 @@ namespace IdApp.Views
             }
             else if (logoutPanelIsShown)
             {
+                this.ScanQrButton.IsEnabled = true;
                 this.logoutPanelIsShown = false;
                 await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
             }
@@ -73,6 +78,11 @@ namespace IdApp.Views
         private void IdCard_Tapped(object sender, EventArgs e)
         {
             this.IdCard.Flip();
+        }
+
+        private async void ScanQr_Clicked(object sender, EventArgs e)
+        {
+            await IdApp.QrCode.ScanQrCode(this.navigationService, AppResources.Open);
         }
     }
 }

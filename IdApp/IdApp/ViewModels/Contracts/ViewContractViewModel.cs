@@ -105,7 +105,10 @@ namespace IdApp.ViewModels.Contracts
                 this.Contract = null;
                 this.isReadOnly = true;
             }
-            await LoadContract();
+            if (this.Contract != null)
+            {
+                await LoadContract();
+            }
         }
 
         /// <inheritdoc/>

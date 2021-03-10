@@ -29,7 +29,7 @@ namespace IdApp.Views.Contracts
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            this.ForceReRender(this.PhotosScrollView);
+            this.ForceReRender(this.RootScrollView);
         }
 
         /// <inheritdoc/>

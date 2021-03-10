@@ -7,6 +7,13 @@
              x:Class="IdApp.Views.MainPage"
              Title="{x:Static local:AppResources.MainPageTitle}"
              Shell.FlyoutBehavior="Flyout">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:Name="ScanQrButton" Clicked="ScanQr_Clicked">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.ScanQr}" Color="{StaticResource HeadingBackground}"/>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             <Grid>

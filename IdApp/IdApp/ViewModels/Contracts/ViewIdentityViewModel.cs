@@ -12,6 +12,7 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
 using Waher.Networking.XMPP.Contracts;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
@@ -27,6 +28,10 @@ namespace IdApp.ViewModels.Contracts
         private readonly INavigationService navigationService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
+        /// <summary>
+        /// The command for copying data to clipboard.
+        /// </summary>
+        public ICommand CopyCommand { get; }
 
         /// <summary>
         /// Creates an instance of the <see cref="ViewIdentityViewModel"/> class.
@@ -52,6 +57,7 @@ namespace IdApp.ViewModels.Contracts
             this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService, this.Photos);
+            CopyCommand = new Command(_ => CopyHtmlToClipboard());
         }
 
         /// <inheritdoc/>
@@ -207,6 +213,26 @@ namespace IdApp.ViewModels.Contracts
             if (this.IsConnected)
             {
                 this.ReloadPhotos();
+            }
+        }
+
+        /// <summary>
+        /// Copies ID to clipboard
+        /// </summary>
+        private async void CopyHtmlToClipboard()
+        {
+            bool answer = await Application.Current.MainPage.DisplayAlert("Copy ID to Clipboard", "Are you sure you want to copy iotid to clipboard.", "Yes", "No");
+
+            if (answer)
+            {
+                try
+                {
+                    await Clipboard.SetTextAsync($"iotid:{LegalId}");
+                }
+                catch (Exception ex)
+                {
+                    this.logService.LogException(ex);
+                }
             }
         }
 

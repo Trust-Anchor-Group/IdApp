@@ -39,7 +39,8 @@ namespace Tag.Neuron.Xamarin.Services
         {
             try
             {
-                await Shell.Current.GoToAsync("..");
+                string route = (this.navigationArgs != null && !string.IsNullOrWhiteSpace(this.navigationArgs.ReturnRoute)) ? this.navigationArgs.ReturnRoute : "..";
+                await Shell.Current.GoToAsync(route);
             }
             catch (Exception e)
             {
