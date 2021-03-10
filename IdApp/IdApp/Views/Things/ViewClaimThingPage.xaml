@@ -9,9 +9,9 @@
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
                 <!-- TAGS -->
-                <Label Text="{x:Static local:AppResources.InformationAboutThing}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.InformationAboutThingText}" Style="{StaticResource InfoText}" />
-                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Tags}">
+                <Label Text="{x:Static local:AppResources.InformationAboutThing}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.InformationAboutThingText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Tags}" VerticalOptions="StartAndExpand" Margin="{StaticResource DefaultMargin}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
@@ -21,9 +21,9 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding Path=MakePublic, Mode=TwoWay}"/>
-                    <Label Text="{x:Static local:AppResources.MakeThingPublic}" VerticalOptions="FillAndExpand" Margin="0,0,0,12" />
+                <StackLayout Orientation="Horizontal" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
+                    <CheckBox IsChecked="{Binding Path=MakePublic, Mode=TwoWay}" VerticalOptions="Center"/>
+                    <Label Text="{x:Static local:AppResources.MakeThingPublic}" VerticalOptions="Center" />
                 </StackLayout>
                 <!-- BUTTONS -->
                 <Button Text="{x:Static local:AppResources.ClaimThing}" Command="{Binding Path=ClaimThingCommand}" IsVisible="{Binding Path=CanClaimThing}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
