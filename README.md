@@ -32,7 +32,7 @@ The following sections presend an overview of the architecture, as well as techn
 in a Xamarin app:
 
 - [Getting Started](Content/GettingStarted.md)
-- [Creating a TAG Pprofile](Content/CreatingATAGProfile.md)
+- [Creating a TAG Profile](Content/CreatingATAGProfile.md)
 - [Neuron SDK](Content/NeuronSDK.md)
 - [Neuron SDK UI](Content/NeuronSDKUI.md)
 - [Branch Strategy](Content/BranchStrategy.md)
