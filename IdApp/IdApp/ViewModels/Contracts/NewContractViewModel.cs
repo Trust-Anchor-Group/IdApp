@@ -46,6 +46,7 @@ namespace IdApp.ViewModels.Contracts
             public string RoleName { get; set; }
             public string LegalId { get; set; }
         }
+
         /// <summary>
         /// Creates an instance of the <see cref="NewContractViewModel"/> class.
         /// </summary>
