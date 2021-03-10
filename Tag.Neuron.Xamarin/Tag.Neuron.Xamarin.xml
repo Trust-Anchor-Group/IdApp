@@ -2270,6 +2270,11 @@
             An abstract base class holding page specific navigation parameters.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.NavigationArgs.ReturnRoute">
+            <summary>
+            The route to use when going back, if any.
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NetworkService.Load(System.Boolean)">
             <inheritdoc/>
         </member>
