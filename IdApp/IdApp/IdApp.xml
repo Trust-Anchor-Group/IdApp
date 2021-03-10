@@ -104,9 +104,19 @@
               Looks up a localized string similar to Address (row 2).
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Altitude">
+            <summary>
+              Looks up a localized string similar to Altitude.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.AnErrorHasOccurred">
             <summary>
               Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Apartment">
+            <summary>
+              Looks up a localized string similar to Apartment.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.APeerReviewYouhaveRequestedHasBeenAccepted">
@@ -169,6 +179,11 @@
               Looks up a localized string similar to Are you sure you want to revoke your legal identity from the application?.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Building">
+            <summary>
+              Looks up a localized string similar to Building.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.CanActAsTemplate">
             <summary>
               Looks up a localized string similar to Can act as template.
@@ -197,6 +212,11 @@
         <member name="P:IdApp.AppResources.ClaimThing">
             <summary>
               Looks up a localized string similar to Claim Thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Class">
+            <summary>
+              Looks up a localized string similar to Class.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ClientSignature">
@@ -499,9 +519,19 @@
               Looks up a localized string similar to Invite peer to review.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Key">
+            <summary>
+              Looks up a localized string similar to Key.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.LastNames">
             <summary>
               Looks up a localized string similar to Last name(s).
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Latitude">
+            <summary>
+              Looks up a localized string similar to Latitude.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.LegalId">
@@ -517,6 +547,11 @@
         <member name="P:IdApp.AppResources.LocalName">
             <summary>
               Looks up a localized string similar to Local name.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Longitude">
+            <summary>
+              Looks up a localized string similar to Longitude.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.MachineReadableInfoText">
@@ -539,9 +574,24 @@
               Looks up a localized string similar to Make thing public.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Manufacturer">
+            <summary>
+              Looks up a localized string similar to Manufacturer.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Message">
             <summary>
               Looks up a localized string similar to Message.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MeterLocation">
+            <summary>
+              Looks up a localized string similar to Meter Location.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.MeterNumber">
+            <summary>
+              Looks up a localized string similar to Meter Number.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.MiddleNames">
@@ -552,6 +602,11 @@
         <member name="P:IdApp.AppResources.Mode">
             <summary>
               Looks up a localized string similar to Mode.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Model">
+            <summary>
+              Looks up a localized string similar to Model.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.MyContracts">
@@ -567,6 +622,11 @@
         <member name="P:IdApp.AppResources.MyCreatedContracts">
             <summary>
               Looks up a localized string similar to My Created Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Name">
+            <summary>
+              Looks up a localized string similar to Name.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Namespace">
@@ -844,6 +904,11 @@
               Looks up a localized string similar to Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ProductInformation">
+            <summary>
+              Looks up a localized string similar to Product Information.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Propose">
             <summary>
               Looks up a localized string similar to Propose.
@@ -907,6 +972,11 @@
         <member name="P:IdApp.AppResources.Register">
             <summary>
               Looks up a localized string similar to Register.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Registry">
+            <summary>
+              Looks up a localized string similar to Registry.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.RejectInformation">
@@ -974,6 +1044,11 @@
               Looks up a localized string similar to Below you can see the different roles defined for the contract. If more than one part is assumed for a role, this number will be shown in the description of the role..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Room">
+            <summary>
+              Looks up a localized string similar to Room.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ScannedQrCode">
             <summary>
               Looks up a localized string similar to Scanned QR Code.
@@ -1007,6 +1082,11 @@
         <member name="P:IdApp.AppResources.SelectYourRoleInThisContract">
             <summary>
               Looks up a localized string similar to Select your role in this contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SerialNumber">
+            <summary>
+              Looks up a localized string similar to Serial Number.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ServerSignature">
@@ -1082,6 +1162,16 @@
         <member name="P:IdApp.AppResources.State">
             <summary>
               Looks up a localized string similar to State.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.StreetName">
+            <summary>
+              Looks up a localized string similar to Street Name.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.StreetNumber">
+            <summary>
+              Looks up a localized string similar to Street Number.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SuccessTitle">
@@ -1192,6 +1282,11 @@
         <member name="P:IdApp.AppResources.ValidatingInformation">
             <summary>
               Looks up a localized string similar to Validating information.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Version">
+            <summary>
+              Looks up a localized string similar to Version.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ViewContract">
@@ -4447,38 +4542,38 @@
             Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin"/> property is for review.
             </summary>
         </member>
-        <member name="T:IdApp.ViewModels.ImageViewViewModel">
+        <member name="T:IdApp.ViewModels.ImageViewModel">
             <summary>
              The class to use as binding context for displaying images.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.ImageViewViewModel.#ctor">
+        <member name="M:IdApp.ViewModels.ImageViewModel.#ctor">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.ViewModels.ImageViewViewModel"/> class.
+            Creates a new instance of the <see cref="T:IdApp.ViewModels.ImageViewModel"/> class.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.ImageViewViewModel.Photos">
+        <member name="P:IdApp.ViewModels.ImageViewModel.Photos">
             <summary>
             Holds the list of photos to display.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.ImageViewViewModel.IsSwipeEnabledProperty">
+        <member name="F:IdApp.ViewModels.ImageViewModel.IsSwipeEnabledProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.ImageViewViewModel.IsSwipeEnabled"/>
+            See <see cref="P:IdApp.ViewModels.ImageViewModel.IsSwipeEnabled"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.ImageViewViewModel.IsSwipeEnabled">
+        <member name="P:IdApp.ViewModels.ImageViewModel.IsSwipeEnabled">
             <summary>
             Gets or sets whether a user can swipe to see the photos.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.ImageViewViewModel.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
+        <member name="M:IdApp.ViewModels.ImageViewModel.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
             <summary>
             Loads the attachments photos, if there are any.
             </summary>
             <param name="attachments">The attachments to load.</param>
         </member>
-        <member name="M:IdApp.ViewModels.ImageViewViewModel.ClearPhotos">
+        <member name="M:IdApp.ViewModels.ImageViewModel.ClearPhotos">
             <summary>
             Clears the currently displayed photos.
             </summary>
@@ -5950,6 +6045,32 @@
             </summary>
             <param name="e"></param>
         </member>
+        <member name="T:IdApp.ViewModels.Things.HumanReadableTag">
+            <summary>
+            Classed used to present a meta-data tag in a human interface.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.#ctor(Waher.Networking.XMPP.Provisioning.MetaDataTag)">
+            <summary>
+            Classed used to present a meta-data tag in a human interface.
+            </summary>
+            <param name="Tag">Meta-data tag.</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Name">
+            <summary>
+            Human-readable tag name
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Unit">
+            <summary>
+            Unit associated with the tag.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.StringValue">
+            <summary>
+            String value of tag.
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Things.ViewClaimThingViewModel">
             <summary>
             The view model to bind to for when displaying thing claim information.
@@ -6347,6 +6468,28 @@
         </member>
         <member name="M:IdApp.Views.MainPage.OnDisappearing">
             <inheritdoc />
+        </member>
+        <member name="T:IdApp.Views.MainTabBarView">
+            <summary>
+            Represents the main tab bar in the Main page of the application.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.MainTabBarView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.MainTabBarView"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.MainTabBarView.Show">
+            <summary>
+            Call this method to show the toolbar content.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Views.MainTabBarView.Hide">
+            <summary>
+            Call this method to hide the toolbar content.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:IdApp.Views.Registration.ChooseAccountView">
             <summary>

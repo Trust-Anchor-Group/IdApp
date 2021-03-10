@@ -144,8 +144,14 @@
   <data name="Address2" xml:space="preserve">
     <value>Adress (rad 2)</value>
   </data>
+  <data name="Altitude" xml:space="preserve">
+    <value>Höjd</value>
+  </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>Ett fel har inträffat</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Lägenhet</value>
   </data>
   <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
     <value>En granskning du begärde har accepterats.</value>
@@ -183,6 +189,9 @@
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
     <value>Är du säker på att du vill återkalla din juridiska identitet från applikationen?</value>
   </data>
+  <data name="Building" xml:space="preserve">
+    <value>Fastighet</value>
+  </data>
   <data name="CanActAsTemplate" xml:space="preserve">
     <value>Can agera som mall</value>
   </data>
@@ -200,6 +209,9 @@
   </data>
   <data name="ClaimThing" xml:space="preserve">
     <value>Anspråk på sak</value>
+  </data>
+  <data name="Class" xml:space="preserve">
+    <value>Klass</value>
   </data>
   <data name="ClientSignature" xml:space="preserve">
     <value>Klientsignatur</value>
@@ -378,8 +390,14 @@
   <data name="InvitePeerToReview" xml:space="preserve">
     <value>Bjud in vän att granska</value>
   </data>
+  <data name="Key" xml:space="preserve">
+    <value>Nyckel</value>
+  </data>
   <data name="LastNames" xml:space="preserve">
     <value>Efternamn</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Latitud</value>
   </data>
   <data name="LegalId" xml:space="preserve">
     <value>Juridiskt Id</value>
@@ -389,6 +407,9 @@
   </data>
   <data name="LocalName" xml:space="preserve">
     <value>Lokalt namn</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Longitud</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
     <value>En översikt över den maskinläsbara informationen visas nedan.</value>
@@ -402,14 +423,26 @@
   <data name="MakeThingPublic" xml:space="preserve">
     <value>Gör saken publik</value>
   </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Tillverkare</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>
+  </data>
+  <data name="MeterLocation" xml:space="preserve">
+    <value>Mätarplats</value>
+  </data>
+  <data name="MeterNumber" xml:space="preserve">
+    <value>Mätarnummer</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
     <value>Mellannamn</value>
   </data>
   <data name="Mode" xml:space="preserve">
     <value>Typ</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Modell</value>
   </data>
   <data name="MyContracts" xml:space="preserve">
     <value>Mina kontrakt</value>
@@ -419,6 +452,9 @@
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
     <value>Mina skapade kontrakt</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Namn</value>
   </data>
   <data name="Namespace" xml:space="preserve">
     <value>Namnrymd</value>
@@ -585,6 +621,9 @@
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
     <value>Vänligen granska alla information ovan och bocka för de tillhörande checkboxarna om informationen stämmer. Detta måste göras innan informationen kan godkännas.</value>
   </data>
+  <data name="ProductInformation" xml:space="preserve">
+    <value>Produktinformation</value>
+  </data>
   <data name="Propose" xml:space="preserve">
     <value>Föreslå</value>
   </data>
@@ -623,6 +662,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Registrera</value>
+  </data>
+  <data name="Registry" xml:space="preserve">
+    <value>Register</value>
   </data>
   <data name="RejectInformation" xml:space="preserve">
     <value>Neka</value>
@@ -663,6 +705,9 @@
   <data name="RolesInfoText" xml:space="preserve">
     <value>Nedan ser du de olika rollerna som är definierade för kontraktet. Om mer än en del är antagen för rollen visas det numret i rollens beskrivning.</value>
   </data>
+  <data name="Room" xml:space="preserve">
+    <value>Rum</value>
+  </data>
   <data name="ScannedQrCode" xml:space="preserve">
     <value>Skannad QR-kod</value>
   </data>
@@ -683,6 +728,9 @@
   </data>
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
     <value>Välj din roll för kontraktet.</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Serienummer</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
     <value>Serversignatur</value>
@@ -728,6 +776,12 @@
   </data>
   <data name="State" xml:space="preserve">
     <value>Tillstånd</value>
+  </data>
+  <data name="StreetName" xml:space="preserve">
+    <value>Gatunamn</value>
+  </data>
+  <data name="StreetNumber" xml:space="preserve">
+    <value>Gatnummer</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Operationen lyckades</value>
@@ -794,6 +848,9 @@
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validerar information</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="ViewContract" xml:space="preserve">
     <value>Visa kontrakt</value>

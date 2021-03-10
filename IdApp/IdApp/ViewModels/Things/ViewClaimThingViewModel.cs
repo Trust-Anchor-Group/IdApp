@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Provisioning;
 using Xamarin.Forms;
 
@@ -42,7 +43,7 @@ namespace IdApp.ViewModels.Things
             imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
 
             this.ClaimThingCommand = new Command(async _ => await ClaimThing(), _ => IsConnected);
-            this.Tags = new ObservableCollection<MetaDataTag>();
+            this.Tags = new ObservableCollection<HumanReadableTag>();
         }
 
         /// <inheritdoc/>
@@ -57,7 +58,7 @@ namespace IdApp.ViewModels.Things
                 if (this.NeuronService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
 				{
                     foreach (MetaDataTag Tag in Tags)
-                        this.Tags.Add(Tag);
+                        this.Tags.Add(new HumanReadableTag(Tag));
 				}
             }
             
@@ -74,7 +75,7 @@ namespace IdApp.ViewModels.Things
             await base.DoUnbind();
         }
 
-        private void AssignProperties()
+		private void AssignProperties()
         {
         }
 
@@ -118,7 +119,7 @@ namespace IdApp.ViewModels.Things
         /// <summary>
         /// Holds a list of meta-data tags associated with a thing.
         /// </summary>
-        public ObservableCollection<MetaDataTag> Tags { get; }
+        public ObservableCollection<HumanReadableTag> Tags { get; }
 
         /// <summary>
         /// The command to bind to for claiming a thing
@@ -136,8 +137,7 @@ namespace IdApp.ViewModels.Things
         /// </summary>
         public bool CanClaimThing
         {
-            get { return (bool)GetValue(CanClaimThingProperty); }
-            set { SetValue(CanClaimThingProperty, value); }
+            get { return this.NeuronService.State == XmppState.Connected; }
         }
 
         /// <summary>

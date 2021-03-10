@@ -142,11 +142,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Altitude.
+        /// </summary>
+        internal static string Altitude {
+            get {
+                return ResourceManager.GetString("Altitude", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string AnErrorHasOccurred {
             get {
                 return ResourceManager.GetString("AnErrorHasOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apartment.
+        /// </summary>
+        internal static string Apartment {
+            get {
+                return ResourceManager.GetString("Apartment", resourceCulture);
             }
         }
         
@@ -259,6 +277,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Building.
+        /// </summary>
+        internal static string Building {
+            get {
+                return ResourceManager.GetString("Building", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can act as template.
         /// </summary>
         internal static string CanActAsTemplate {
@@ -309,6 +336,15 @@ namespace IdApp {
         internal static string ClaimThing {
             get {
                 return ResourceManager.GetString("ClaimThing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Class.
+        /// </summary>
+        internal static string Class {
+            get {
+                return ResourceManager.GetString("Class", resourceCulture);
             }
         }
         
@@ -853,11 +889,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Key.
+        /// </summary>
+        internal static string Key {
+            get {
+                return ResourceManager.GetString("Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name(s).
         /// </summary>
         internal static string LastNames {
             get {
                 return ResourceManager.GetString("LastNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude.
+        /// </summary>
+        internal static string Latitude {
+            get {
+                return ResourceManager.GetString("Latitude", resourceCulture);
             }
         }
         
@@ -885,6 +939,15 @@ namespace IdApp {
         internal static string LocalName {
             get {
                 return ResourceManager.GetString("LocalName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitude.
+        /// </summary>
+        internal static string Longitude {
+            get {
+                return ResourceManager.GetString("Longitude", resourceCulture);
             }
         }
         
@@ -925,11 +988,38 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manufacturer.
+        /// </summary>
+        internal static string Manufacturer {
+            get {
+                return ResourceManager.GetString("Manufacturer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         internal static string Message {
             get {
                 return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meter Location.
+        /// </summary>
+        internal static string MeterLocation {
+            get {
+                return ResourceManager.GetString("MeterLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meter Number.
+        /// </summary>
+        internal static string MeterNumber {
+            get {
+                return ResourceManager.GetString("MeterNumber", resourceCulture);
             }
         }
         
@@ -948,6 +1038,15 @@ namespace IdApp {
         internal static string Mode {
             get {
                 return ResourceManager.GetString("Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model.
+        /// </summary>
+        internal static string Model {
+            get {
+                return ResourceManager.GetString("Model", resourceCulture);
             }
         }
         
@@ -975,6 +1074,15 @@ namespace IdApp {
         internal static string MyCreatedContracts {
             get {
                 return ResourceManager.GetString("MyCreatedContracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
@@ -1474,6 +1582,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Information.
+        /// </summary>
+        internal static string ProductInformation {
+            get {
+                return ResourceManager.GetString("ProductInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Propose.
         /// </summary>
         internal static string Propose {
@@ -1587,6 +1704,15 @@ namespace IdApp {
         internal static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registry.
+        /// </summary>
+        internal static string Registry {
+            get {
+                return ResourceManager.GetString("Registry", resourceCulture);
             }
         }
         
@@ -1708,6 +1834,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Room.
+        /// </summary>
+        internal static string Room {
+            get {
+                return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Scanned QR Code.
         /// </summary>
         internal static string ScannedQrCode {
@@ -1767,6 +1902,15 @@ namespace IdApp {
         internal static string SelectYourRoleInThisContract {
             get {
                 return ResourceManager.GetString("SelectYourRoleInThisContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Serial Number.
+        /// </summary>
+        internal static string SerialNumber {
+            get {
+                return ResourceManager.GetString("SerialNumber", resourceCulture);
             }
         }
         
@@ -1902,6 +2046,24 @@ namespace IdApp {
         internal static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street Name.
+        /// </summary>
+        internal static string StreetName {
+            get {
+                return ResourceManager.GetString("StreetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street Number.
+        /// </summary>
+        internal static string StreetNumber {
+            get {
+                return ResourceManager.GetString("StreetNumber", resourceCulture);
             }
         }
         
@@ -2100,6 +2262,15 @@ namespace IdApp {
         internal static string ValidatingInformation {
             get {
                 return ResourceManager.GetString("ValidatingInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        internal static string Version {
+            get {
+                return ResourceManager.GetString("Version", resourceCulture);
             }
         }
         
