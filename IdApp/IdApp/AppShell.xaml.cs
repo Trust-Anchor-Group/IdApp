@@ -27,6 +27,8 @@ namespace IdApp
 		private readonly IUiDispatcher uiDispatcher;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
+		private static AppShell _instance;
+		internal static AppShell Instance => _instance ?? (_instance = new AppShell());
 
 		/// <summary>
 		/// Create a new instance of the <see cref="AppShell"/> class.
@@ -95,7 +97,7 @@ namespace IdApp
 			await this.GoToPage(nameof(ViewIdentityPage));
 		}
 
-		private async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
+		internal async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
 		{
 			// Due to a bug in Xamarin Shell the menu items can still be clicked on, even though we bind the "IsEnabled" property.
 			// So we do a manual check here.

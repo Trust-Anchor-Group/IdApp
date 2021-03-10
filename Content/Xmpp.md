@@ -42,4 +42,4 @@ for viewing, approving, revoking digital contracts and IDs.
 To explore more about TAGs XMPP implementation, have a look at this documentation:
 - [Neuron SDK](NeuronSDK.md)
 - [Neuron SDK UI](NeuronSDKUI.md)
-- [Creating a TAG Pprofile](CreatingATAGProfile.md)
+- [Creating a TAG Profile](CreatingATAGProfile.md)
