@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using IdApp.Services;
 using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
@@ -12,15 +11,15 @@ namespace IdApp.ViewModels
     /// <summary>
     ///  The class to use as binding context for displaying images.
     /// </summary>
-    public class ImageViewViewModel : BaseViewModel
+    public class ImageViewModel : BaseViewModel
     {
         private readonly IUiDispatcher uiDispatcher;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ImageViewViewModel"/> class.
+        /// Creates a new instance of the <see cref="ImageViewModel"/> class.
         /// </summary>
-        public ImageViewViewModel()
+        public ImageViewModel()
         {
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
             this.Photos = new ObservableCollection<ImageSource>();
@@ -42,7 +41,7 @@ namespace IdApp.ViewModels
         /// See <see cref="IsSwipeEnabled"/>
         /// </summary>
         public static readonly BindableProperty IsSwipeEnabledProperty =
-            BindableProperty.Create("IsSwipeEnabled", typeof(bool), typeof(ImageViewViewModel), default(bool));
+            BindableProperty.Create("IsSwipeEnabled", typeof(bool), typeof(ImageViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether a user can swipe to see the photos.

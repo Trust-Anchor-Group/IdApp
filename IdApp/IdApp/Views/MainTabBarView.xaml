@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
+             x:Class="IdApp.Views.MainTabBarView">
+    <ContentView.Content>
+        <Grid x:Name="MainToolBar" Grid.Row="2" VerticalOptions="EndAndExpand" HeightRequest="80">
+            <Grid x:Name="ToolBarContent" Grid.Row="0" VerticalOptions="End" ColumnSpacing="1" TranslationY="{Binding Path=Height, Source={x:Reference MainToolBar}}" Margin="0,0,0,2">
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackgroundTranslucent}"/>
+                        <Setter Property="TextColor" Value="{StaticResource HeadingForeground}"/>
+                        <Setter Property="CornerRadius" Value="0"/>
+                        <Setter Property="VerticalOptions" Value="End"/>
+                        <Setter Property="Margin" Value="0"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="0" Command="{Binding Path=FirstCommand}" Text="{x:Static resources:SolidIcons.User}" FontFamily="{StaticResource FontAwesomeSolid}"/>
+                <Button Grid.Row="0" Grid.Column="1" Command="{Binding Path=SecondCommand}" Text="{x:Static resources:SolidIcons.User}" FontFamily="{StaticResource FontAwesomeSolid}"/>
+                <Button Grid.Row="0" Grid.Column="2" Command="{Binding Path=ThirdCommand}" Text="{x:Static resources:SolidIcons.User}" FontFamily="{StaticResource FontAwesomeSolid}"/>
+                <Button Grid.Row="0" Grid.Column="3" Command="{Binding Path=FourthCommand}" Text="{x:Static resources:SolidIcons.User}" FontFamily="{StaticResource FontAwesomeSolid}"/>
+                <!-- The round button -->
+                <Ellipse Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" WidthRequest="72" HeightRequest="72" Margin="0,0,0,6" Fill="{StaticResource HeadingForeground}" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Ellipse.Clip>
+                        <RectangleGeometry></RectangleGeometry>
+                    </Ellipse.Clip>
+                </Ellipse>
+                <Button x:Name="ScanButton" Text="{x:Static resources:SolidIcons.ScanQr}" FontFamily="{StaticResource FontAwesomeSolid}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,6" CornerRadius="30" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center" Command="{Binding Path=ScanCommand}"/>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</views:ContentBaseView>

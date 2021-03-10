@@ -22,7 +22,7 @@ namespace IdApp.Views
         public ImageView()
         {
             InitializeComponent();
-            ViewModel = new ImageViewViewModel();
+            ViewModel = new ImageViewModel();
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace IdApp.Views
                 return;
 
             this.IsVisible = true;
-            GetViewModel<ImageViewViewModel>().LoadPhotos(attachments);
+            GetViewModel<ImageViewModel>().LoadPhotos(attachments);
             Device.BeginInvokeOnMainThread(async () =>
             {
                 await this.PhotoViewer.FadeTo(1d, DurationInMs, Easing.SinIn);
@@ -52,7 +52,7 @@ namespace IdApp.Views
         public void HidePhotos()
         {
             this.PhotoViewer.Opacity = 0;
-            GetViewModel<ImageViewViewModel>().ClearPhotos();
+            GetViewModel<ImageViewModel>().ClearPhotos();
             this.IsVisible = false;
         }
 
