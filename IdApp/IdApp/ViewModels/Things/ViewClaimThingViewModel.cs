@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Networking.DNS;
+using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Provisioning;
 using Xamarin.Essentials;
@@ -142,6 +144,11 @@ namespace IdApp.ViewModels.Things
 		}
 
 		/// <summary>
+		/// If PIN should be used.
+		/// </summary>
+		public bool UsePin => this.tagProfile?.UsePin ?? false;
+
+		/// <summary>
 		/// See <see cref="MakePublic"/>
 		/// </summary>
 		public static readonly BindableProperty MakePublicProperty =
@@ -191,18 +198,24 @@ namespace IdApp.ViewModels.Things
 						break;
 
 					case "PURL":
+
 						if (System.Uri.TryCreate(Value, UriKind.Absolute, out Uri) && await Launcher.TryOpenAsync(Uri))
 							return;
 						break;
 
 					case "R":
-						int i = Value.IndexOf('.');
-						if (i < 0)
+						SRV SRV;
+
+						try
+						{
+							SRV = await DnsResolver.LookupServiceEndpoint(Value, "xmpp-server", "tcp");
+						}
+						catch
+						{
 							break;
+						}
 
-						string Temp = "https://" + Value.Substring(i + 1);
-
-						if (System.Uri.TryCreate(Temp, UriKind.Absolute, out Uri) && await Launcher.TryOpenAsync(Uri))
+						if (System.Uri.TryCreate("https://" + SRV.TargetHost, UriKind.Absolute, out Uri) && await Launcher.TryOpenAsync(Uri))
 							return;
 						break;
 

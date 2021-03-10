@@ -1184,6 +1184,11 @@
               Looks up a localized string similar to Success.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.TagValueCopiedToClipboard">
+            <summary>
+              Looks up a localized string similar to Tag value copied to clipboard.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.TakePhoto">
             <summary>
               Looks up a localized string similar to Take photo.
@@ -6139,6 +6144,11 @@
         <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThing">
             <summary>
             Gets or sets whether a user can claim a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.UsePin">
+            <summary>
+            If PIN should be used.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.MakePublicProperty">
