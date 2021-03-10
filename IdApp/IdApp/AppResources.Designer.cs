@@ -772,6 +772,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your ID was copied to the clipboard..
+        /// </summary>
+        internal static string IdCopiedSuccessfully {
+            get {
+                return ResourceManager.GetString("IdCopiedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Identity.
         /// </summary>
         internal static string Identity {

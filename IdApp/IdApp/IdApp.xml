@@ -454,6 +454,11 @@
               Looks up a localized string similar to ID.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.IdCopiedSuccessfully">
+            <summary>
+              Looks up a localized string similar to Your ID was copied to the clipboard..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Identity">
             <summary>
               Looks up a localized string similar to Identity.
@@ -3938,11 +3943,6 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyCommand">
-            <summary>
-            The command for copying data to clipboard.
-            </summary>
-        </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel"/> class.
@@ -3977,6 +3977,11 @@
         <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RevokeCommand">
             <summary>
             The command to bind to for revoking an identity
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyCommand">
+            <summary>
+            The command for copying data to clipboard.
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyHtmlToClipboard">
@@ -6110,6 +6115,11 @@
             The command to bind to for claiming a thing
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClickCommand">
+            <summary>
+            The command for clicking a tag value.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThingProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.CanClaimThing"/>
@@ -6138,6 +6148,11 @@
         <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.Pin">
             <summary>
             Gets or sets the PIN code for the identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.LabelClicked(System.Object)">
+            <summary>
+            Copies ID to clipboard
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">

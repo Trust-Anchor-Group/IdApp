@@ -354,6 +354,9 @@
   <data name="ID" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="IdCopiedSuccessfully" xml:space="preserve">
+    <value>Your ID was copied to the clipboard.</value>
+  </data>
   <data name="Identity" xml:space="preserve">
     <value>Identity</value>
   </data>
