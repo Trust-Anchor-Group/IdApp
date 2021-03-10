@@ -36,6 +36,16 @@ namespace Tag.Neuron.Xamarin.Services
 			this.registryClient = null;
 		}
 
+		public bool IsIoTDiscoClaimURI(string DiscoUri)
+		{
+			return ThingRegistryClient.IsIoTDiscoClaimURI(DiscoUri);
+		}
+
+		public bool IsIoTDiscoSearchURI(string DiscoUri)
+		{
+			return ThingRegistryClient.IsIoTDiscoSearchURI(DiscoUri);
+		}
+
 		public bool TryDecodeIoTDiscoClaimURI(string DiscoUri, out MetaDataTag[] Tags)
 		{
 			return ThingRegistryClient.TryDecodeIoTDiscoClaimURI(DiscoUri, out Tags);

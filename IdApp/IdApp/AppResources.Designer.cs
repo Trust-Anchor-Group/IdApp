@@ -340,6 +340,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Code not recognized..
+        /// </summary>
+        internal static string CodeNotRecognized {
+            get {
+                return ResourceManager.GetString("CodeNotRecognized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
         internal static string Confirm {
@@ -786,6 +795,15 @@ namespace IdApp {
         internal static string Inspect {
             get {
                 return ResourceManager.GetString("Inspect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid IoT Discovery Code.
+        /// </summary>
+        internal static string InvalidIoTDiscoveryCode {
+            get {
+                return ResourceManager.GetString("InvalidIoTDiscoveryCode", resourceCulture);
             }
         }
         
@@ -2379,17 +2397,6 @@ namespace IdApp {
         internal static string ZipCode {
             get {
                 return ResourceManager.GetString("ZipCode", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Invalid IoT Discovery Code.
-        /// </summary>
-        internal static string InvalidIoTDiscoveryCode
-        {
-            get
-            {
-                return ResourceManager.GetString("InvalidIoTDiscoveryCode", resourceCulture);
             }
         }
     }

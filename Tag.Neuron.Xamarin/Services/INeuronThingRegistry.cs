@@ -13,6 +13,20 @@ namespace Tag.Neuron.Xamarin.Services
     public interface INeuronThingRegistry
     {
 		/// <summary>
+		/// Checks if a URI is a claim URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <returns>If <paramref name="DiscoUri"/> is a claim URI.</returns>
+		bool IsIoTDiscoClaimURI(string DiscoUri);
+
+		/// <summary>
+		/// Checks if a URI is a search URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <returns>If <paramref name="DiscoUri"/> is a search URI.</returns>
+		bool IsIoTDiscoSearchURI(string DiscoUri);
+
+		/// <summary>
 		/// Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
 		/// </summary>
 		/// <param name="DiscoUri">IoTDisco URI</param>
