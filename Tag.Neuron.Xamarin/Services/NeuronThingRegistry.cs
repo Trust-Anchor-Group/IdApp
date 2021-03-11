@@ -24,10 +24,15 @@ namespace Tag.Neuron.Xamarin.Services
 			this.logService = logService;
 		}
 
-		internal async Task CreateClient()
+		public ThingRegistryClient RegistryClient
 		{
-			if (!string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
-				this.registryClient = await this.neuronService.CreateThingRegistryClientAsync();
+			get
+			{
+				if (this.registryClient is null)
+					this.registryClient = this.neuronService.CreateThingRegistryClient();
+
+				return this.registryClient;
+			}
 		}
 
 		internal void DestroyClient()
@@ -56,19 +61,19 @@ namespace Tag.Neuron.Xamarin.Services
 			return ThingRegistryClient.TryDecodeIoTDiscoURI(DiscoUri, out Operators);
 		}
 
-		public Task ClaimThing(string DiscoUri, bool MakePublic)
+		public Task<string> ClaimThing(string DiscoUri, bool MakePublic)
 		{
 			if (!this.TryDecodeIoTDiscoClaimURI(DiscoUri, out MetaDataTag[] Tags))
 				throw new ArgumentException(AppResources.InvalidIoTDiscoClaimUri, nameof(DiscoUri));
 
-			TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+			TaskCompletionSource<string> Result = new TaskCompletionSource<string>();
 
-			this.registryClient.Mine(MakePublic, Tags, (sender, e) =>
+			this.RegistryClient.Mine(MakePublic, Tags, (sender, e) =>
 			{
 				if (e.Ok)
-					Result.TrySetResult(true);
+					Result.TrySetResult(null);
 				else
-					Result.TrySetException(e.StanzaError ?? new Exception(string.IsNullOrEmpty(e.ErrorText) ? AppResources.UnableToClaimThing : e.ErrorText));
+					Result.TrySetResult(string.IsNullOrEmpty(e.ErrorText) ? AppResources.UnableToClaimThing : e.ErrorText);
 
 				return Task.CompletedTask;
 			}, null);

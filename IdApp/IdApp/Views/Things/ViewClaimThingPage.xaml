@@ -15,8 +15,12 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=Name}" Style="{StaticResource KeyLabel}"/>
-                                <Label LineBreakMode="NoWrap" Text="{Binding Path=StringValue}" Style="{StaticResource ValueLabel}"/>
+                                <Label Text="{Binding Path=Name}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
+                                <Label LineBreakMode="WordWrap" Text="{Binding Path=StringValue}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding ClickCommand}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
                             </StackLayout>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
@@ -25,8 +29,11 @@
                     <CheckBox IsChecked="{Binding Path=MakePublic, Mode=TwoWay}" VerticalOptions="Center"/>
                     <Label Text="{x:Static local:AppResources.MakeThingPublic}" VerticalOptions="Center" />
                 </StackLayout>
+                <!-- PIN -->
+                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
+                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
                 <!-- BUTTONS -->
-                <Button Text="{x:Static local:AppResources.ClaimThing}" Command="{Binding Path=ClaimThingCommand}" IsVisible="{Binding Path=CanClaimThing}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Button Text="{x:Static local:AppResources.ClaimThing}" Command="{Binding Path=ClaimThingCommand}" IsEnabled="{Binding Path=CanClaimThing}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

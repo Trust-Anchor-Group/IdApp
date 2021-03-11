@@ -32,7 +32,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         internal async Task CreateClients(bool CanCreateKeys)
         {
-            await CreateFileUploadClient();
+            CreateFileUploadClient();
             await CreateContractsClient(CanCreateKeys);
         }
 
@@ -90,12 +90,10 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
-        private async Task CreateFileUploadClient()
+        private void CreateFileUploadClient()
         {
             if (!string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
-            {
-                this.fileUploadClient = await this.neuronService.CreateFileUploadClientAsync();
-            }
+                this.fileUploadClient = this.neuronService.CreateFileUploadClient();
         }
 
         private void DestroyFileUploadClient()

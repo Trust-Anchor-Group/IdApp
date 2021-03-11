@@ -48,6 +48,8 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="DiscoUri">IoTDisco URI</param>
 		/// <param name="MakePublic">If the device should be public in the thing registry.</param>
-		Task ClaimThing(string DiscoUri, bool MakePublic);
+		/// <returns>If OK, null is returned. If the thing could not be claimed, an error message from the neuron
+		/// describing why is returned. Other types of errors, raise exceptions.</returns>
+		Task<string> ClaimThing(string DiscoUri, bool MakePublic);
 	}
 }

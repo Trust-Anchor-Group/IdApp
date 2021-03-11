@@ -144,8 +144,14 @@
   <data name="Address2" xml:space="preserve">
     <value>Address (row 2)</value>
   </data>
+  <data name="Altitude" xml:space="preserve">
+    <value>Altitude</value>
+  </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>An error has occurred</value>
+  </data>
+  <data name="Apartment" xml:space="preserve">
+    <value>Apartment</value>
   </data>
   <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
     <value>A peer review you requested has been accepted.</value>
@@ -183,6 +189,9 @@
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
     <value>Are you sure you want to revoke your legal identity from the application?</value>
   </data>
+  <data name="Building" xml:space="preserve">
+    <value>Building</value>
+  </data>
   <data name="CanActAsTemplate" xml:space="preserve">
     <value>Can act as template</value>
   </data>
@@ -200,6 +209,9 @@
   </data>
   <data name="ClaimThing" xml:space="preserve">
     <value>Claim Thing</value>
+  </data>
+  <data name="Class" xml:space="preserve">
+    <value>Class</value>
   </data>
   <data name="ClientSignature" xml:space="preserve">
     <value>Client Signature</value>
@@ -342,6 +354,9 @@
   <data name="ID" xml:space="preserve">
     <value>ID</value>
   </data>
+  <data name="IdCopiedSuccessfully" xml:space="preserve">
+    <value>Your ID was copied to the clipboard.</value>
+  </data>
   <data name="Identity" xml:space="preserve">
     <value>Identity</value>
   </data>
@@ -381,8 +396,14 @@
   <data name="InvitePeerToReview" xml:space="preserve">
     <value>Invite peer to review</value>
   </data>
+  <data name="Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
   <data name="LastNames" xml:space="preserve">
     <value>Last name(s)</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Latitude</value>
   </data>
   <data name="LegalId" xml:space="preserve">
     <value>Legal Id</value>
@@ -392,6 +413,9 @@
   </data>
   <data name="LocalName" xml:space="preserve">
     <value>Local name</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Longitude</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
     <value>An overview of the machine-readable data embedded in the contract is shown below.</value>
@@ -405,14 +429,26 @@
   <data name="MakeThingPublic" xml:space="preserve">
     <value>Make thing public</value>
   </data>
+  <data name="Manufacturer" xml:space="preserve">
+    <value>Manufacturer</value>
+  </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
+  </data>
+  <data name="MeterLocation" xml:space="preserve">
+    <value>Meter Location</value>
+  </data>
+  <data name="MeterNumber" xml:space="preserve">
+    <value>Meter Number</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
     <value>Middle name(s)</value>
   </data>
   <data name="Mode" xml:space="preserve">
     <value>Mode</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Model</value>
   </data>
   <data name="MyContracts" xml:space="preserve">
     <value>My Contracts</value>
@@ -422,6 +458,9 @@
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
     <value>My Created Contracts</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="Namespace" xml:space="preserve">
     <value>Namespace</value>
@@ -588,6 +627,9 @@
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
     <value>Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information.</value>
   </data>
+  <data name="ProductInformation" xml:space="preserve">
+    <value>Product Information</value>
+  </data>
   <data name="Propose" xml:space="preserve">
     <value>Propose</value>
   </data>
@@ -626,6 +668,9 @@
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Registry" xml:space="preserve">
+    <value>Registry</value>
   </data>
   <data name="RejectInformation" xml:space="preserve">
     <value>Reject Information</value>
@@ -666,6 +711,9 @@
   <data name="RolesInfoText" xml:space="preserve">
     <value>Below you can see the different roles defined for the contract. If more than one part is assumed for a role, this number will be shown in the description of the role.</value>
   </data>
+  <data name="Room" xml:space="preserve">
+    <value>Room</value>
+  </data>
   <data name="ScannedQrCode" xml:space="preserve">
     <value>Scanned QR Code</value>
   </data>
@@ -686,6 +734,9 @@
   </data>
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
     <value>Select your role in this contract.</value>
+  </data>
+  <data name="SerialNumber" xml:space="preserve">
+    <value>Serial Number</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
     <value>Server Signature</value>
@@ -732,8 +783,17 @@
   <data name="State" xml:space="preserve">
     <value>State</value>
   </data>
+  <data name="StreetName" xml:space="preserve">
+    <value>Street Name</value>
+  </data>
+  <data name="StreetNumber" xml:space="preserve">
+    <value>Street Number</value>
+  </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Success</value>
+  </data>
+  <data name="TagValueCopiedToClipboard" xml:space="preserve">
+    <value>Tag value copied to clipboard</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
     <value>Take photo</value>
@@ -797,6 +857,9 @@
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validating information</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="ViewContract" xml:space="preserve">
     <value>View Contract</value>

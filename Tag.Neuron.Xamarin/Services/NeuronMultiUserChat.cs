@@ -23,11 +23,11 @@ namespace Tag.Neuron.Xamarin.Services
             this.logService = logService;
         }
 
-        internal async Task CreateClient()
+        internal void CreateClient()
         {
             if (!string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
             {
-                this.mucClient = await this.neuronService.CreateMultiUserChatClientAsync();
+                this.mucClient = this.neuronService.CreateMultiUserChatClient();
                 this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(GetState(), false));
             }
         }

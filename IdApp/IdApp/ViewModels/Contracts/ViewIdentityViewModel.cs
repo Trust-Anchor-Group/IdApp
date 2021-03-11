@@ -28,10 +28,6 @@ namespace IdApp.ViewModels.Contracts
         private readonly INavigationService navigationService;
         private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
-        /// <summary>
-        /// The command for copying data to clipboard.
-        /// </summary>
-        public ICommand CopyCommand { get; }
 
         /// <summary>
         /// Creates an instance of the <see cref="ViewIdentityViewModel"/> class.
@@ -57,7 +53,7 @@ namespace IdApp.ViewModels.Contracts
             this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService, this.Photos);
-            CopyCommand = new Command(_ => CopyHtmlToClipboard());
+            this.CopyCommand = new Command(_ => this.CopyHtmlToClipboard());
         }
 
         /// <inheritdoc/>
@@ -101,18 +97,26 @@ namespace IdApp.ViewModels.Contracts
         /// The command to bind to for approving an identity
         /// </summary>
         public ICommand ApproveCommand { get; }
+
         /// <summary>
         /// The command to bind to for rejecting an identity
         /// </summary>
         public ICommand RejectCommand { get; }
+
         /// <summary>
         /// The command to bind to for flagging an identity as compromised.
         /// </summary>
         public ICommand CompromiseCommand { get; }
+
         /// <summary>
         /// The command to bind to for revoking an identity
         /// </summary>
         public ICommand RevokeCommand { get; }
+
+        /// <summary>
+        /// The command for copying data to clipboard.
+        /// </summary>
+        public ICommand CopyCommand { get; }
 
         #endregion
 
@@ -224,12 +228,12 @@ namespace IdApp.ViewModels.Contracts
             try
             {
                 await Clipboard.SetTextAsync($"iotid:{LegalId}");
-                await UiDispatcher.DisplayAlert("Copied", "Your ID was copied to clipboard.");
+                await UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
             }
             catch (Exception ex)
             {
                 logService.LogException(ex);
-                await UiDispatcher.DisplayAlert("Error", "Could not copy your ID.");
+                await UiDispatcher.DisplayAlert(ex);
             }
         }
 

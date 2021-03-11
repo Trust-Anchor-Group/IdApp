@@ -44,10 +44,10 @@ namespace IdApp.ViewModels
             this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
             this.logService = logService ?? DependencyService.Resolve<ILogService>();
 
-            ClearCommand = new Command(_ => ClearHtmlContent());
-            CopyCommand = new Command(_ => CopyHtmlToClipboard());
-            ShowHistoryCommand = new Command(_ => ShowHtmlHistory());
-            SendDebugInfoCommand = new Command(_ => SendDebugInfo());
+            ClearCommand = new Command(_ => this.ClearHtmlContent());
+            CopyCommand = new Command(_ => this.CopyHtmlToClipboard());
+            ShowHistoryCommand = new Command(_ => this.ShowHtmlHistory());
+            SendDebugInfoCommand = new Command(_ => this.SendDebugInfo());
 
             HistoryButtonText = "History";
 
@@ -71,14 +71,17 @@ namespace IdApp.ViewModels
         /// The command for clearing inspect window.
         /// </summary>
         public ICommand ClearCommand { get; }
+
         /// <summary>
         /// The command for copying data to clipboard.
         /// </summary>
         public ICommand CopyCommand { get; }
+        
         /// <summary>
         /// The command that toggle to show history or actual data.
         /// </summary>
         public ICommand ShowHistoryCommand { get; }
+        
         /// <summary>
         /// The command for sending files to server for debug.
         /// </summary>

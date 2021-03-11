@@ -9,8 +9,8 @@ namespace Tag.Neuron.Xamarin.Services
     internal interface IInternalNeuronService : INeuronService
     {
         Task<ContractsClient> CreateContractsClientAsync(bool CanCreateKeys);
-        Task<HttpFileUploadClient> CreateFileUploadClientAsync();
-        Task<MultiUserChatClient> CreateMultiUserChatClientAsync();
-        Task<ThingRegistryClient> CreateThingRegistryClientAsync();
+        HttpFileUploadClient CreateFileUploadClient();
+        MultiUserChatClient CreateMultiUserChatClient();
+        ThingRegistryClient CreateThingRegistryClient();
     }
 }
