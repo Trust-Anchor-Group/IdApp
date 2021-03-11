@@ -146,7 +146,7 @@ namespace IdApp.ViewModels
             try
             {
                 bool connected = await this.NeuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
-                if (!connected || !this.IsBound)
+                if (!connected)
                     return;
 
                 MemoryStream ms = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);

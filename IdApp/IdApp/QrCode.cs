@@ -17,10 +17,24 @@ namespace IdApp
 
         /// <summary>
         /// Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
+        /// This is seemingly simple, but performs several operations, namely:
+        /// <list type="bullet">
+        /// <item>
+        /// <description>Display the <see cref="ScanQrCodePage"/></description>
+        /// </item>
+        /// <item>
+        /// <description>Wait for the user to scan a QR code or enter it manually, or cancel.</description>
+        /// </item>
+        /// <item>
+        /// <description>Navigate back to the calling page.</description>
+        /// </item>
+        /// </list>
+        /// In order to handle processing in the correct order, you may need to use the <c>action</c> parameter. It is provided
+        /// to do additional processing <em>before</em> the <see cref="ScanQrCodePage"/> is navigated away from.
         /// </summary>
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
         /// <param name="commandName">The localized name of the command to display when scanning.</param>
-        /// <param name="action">The asynchronous action to invoke right after a QR Code has been scanned.</param>
+        /// <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
         /// <returns></returns>
         public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null)
         {

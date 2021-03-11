@@ -51,28 +51,28 @@
                 <Label Text="{x:Static local:AppResources.RolesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasRoles}"/>
                 <ContentView Content="{Binding Path=Roles}" IsVisible="{Binding Path=HasRoles}"/>
                 <!-- PARTs -->
-                <Label Text="{x:Static local:AppResources.Parts}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParts}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.PartsInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParts}"  />
-                <ContentView Content="{Binding Path=Parts}" IsVisible="{Binding Path=HasParts}"/>
+                <Label Text="{x:Static local:AppResources.Parts}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParts}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
+                <Label Text="{x:Static local:AppResources.PartsInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParts}"  VerticalOptions="StartAndExpand" />
+                <ContentView Content="{Binding Path=Parts}" IsVisible="{Binding Path=HasParts}" VerticalOptions="StartAndExpand" />
                 <!-- PARAMETERS -->
-                <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.ParametersInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParameters}" />
-                <ContentView Content="{Binding Path=Parameters}" IsVisible="{Binding Path=HasParameters}"/>
+                <Label Text="{x:Static local:AppResources.Parameters}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasParameters}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
+                <Label Text="{x:Static local:AppResources.ParametersInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasParameters}" VerticalOptions="StartAndExpand" />
+                <ContentView Content="{Binding Path=Parameters}" IsVisible="{Binding Path=HasParameters}" VerticalOptions="StartAndExpand"/>
                 <!-- HUMAN READABLE TEXT -->
-                <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <ContentView Content="{Binding Path=HumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}"/>
+                <Label Text="{x:Static local:AppResources.HumanReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasHumanReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
+                <ContentView Content="{Binding Path=HumanReadableText}" IsVisible="{Binding Path=HasHumanReadableText}" VerticalOptions="StartAndExpand"/>
                 <!-- MACHINE READABLE TEXT -->
-                <Label Text="{x:Static local:AppResources.MachineReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasMachineReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.MachineReadableInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasMachineReadableText}" />
-                <ContentView Content="{Binding Path=MachineReadableText}" IsVisible="{Binding Path=HasMachineReadableText}"/>
+                <Label Text="{x:Static local:AppResources.MachineReadableText}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasMachineReadableText}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
+                <Label Text="{x:Static local:AppResources.MachineReadableInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasMachineReadableText}" VerticalOptions="StartAndExpand" />
+                <ContentView Content="{Binding Path=MachineReadableText}" IsVisible="{Binding Path=HasMachineReadableText}" VerticalOptions="StartAndExpand"/>
                 <!-- CLIENT SIGNATURES -->
-                <Label Text="{x:Static local:AppResources.ClientSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasClientSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.ClientSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasClientSignatures}" />
-                <ContentView Content="{Binding Path=ClientSignatures}" IsVisible="{Binding Path=HasClientSignatures}"/>
+                <Label Text="{x:Static local:AppResources.ClientSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasClientSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
+                <Label Text="{x:Static local:AppResources.ClientSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasClientSignatures}" VerticalOptions="StartAndExpand" />
+                <ContentView Content="{Binding Path=ClientSignatures}" IsVisible="{Binding Path=HasClientSignatures}" VerticalOptions="StartAndExpand"/>
                 <!-- SERVER SIGNATURES -->
-                <Label Text="{x:Static local:AppResources.ServerSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasServerSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.ServerSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasServerSignatures}" />
-                <ContentView Content="{Binding Path=ServerSignatures}" IsVisible="{Binding Path=HasServerSignatures}"/>
+                <Label Text="{x:Static local:AppResources.ServerSignatures}" Style="{StaticResource Heading}" IsVisible="{Binding Path=HasServerSignatures}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="StartAndExpand" />
+                <Label Text="{x:Static local:AppResources.ServerSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasServerSignatures}" VerticalOptions="StartAndExpand" />
+                <ContentView Content="{Binding Path=ServerSignatures}" IsVisible="{Binding Path=HasServerSignatures}" VerticalOptions="StartAndExpand"/>
                 <!-- BUTTONS -->
                 <Button Text="{x:Static local:AppResources.ObsoleteContract}" Command="{Binding Path=ObsoleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
                 <Button Text="{x:Static local:AppResources.DeleteContract}" Command="{Binding Path=DeleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>

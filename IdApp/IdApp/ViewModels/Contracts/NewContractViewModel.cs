@@ -130,8 +130,7 @@ namespace IdApp.ViewModels.Contracts
 
             if (!(this.SelectedContractVisibilityItem is null))
             {
-                string visibility = this.SelectedContractVisibilityItem.Visibility.ToString();
-                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), visibility);
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
             }
             else
             {
@@ -165,9 +164,10 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveStateWhileScanning)
             {
-                string visibilityStr = await this.settingsService.RestoreStringState(nameof(SelectedContractVisibilityItem));
-                if (!string.IsNullOrWhiteSpace(visibilityStr) && Enum.TryParse(visibilityStr, true, out ContractVisibility cv))
+                Enum e = await this.settingsService.RestoreEnumState(nameof(SelectedContractVisibilityItem));
+                if (e != null)
                 {
+                    ContractVisibility cv = (ContractVisibility)e;
                     this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);
                 }
 
