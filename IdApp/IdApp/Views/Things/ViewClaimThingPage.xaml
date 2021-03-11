@@ -11,14 +11,14 @@
                 <!-- TAGS -->
                 <Label Text="{x:Static local:AppResources.InformationAboutThing}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static local:AppResources.InformationAboutThingText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
-                <StackLayout Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Tags}" VerticalOptions="StartAndExpand" Margin="{StaticResource DefaultMargin}">
+                <StackLayout x:Name="TagLayout" Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Tags}" VerticalOptions="StartAndExpand" Margin="{StaticResource DefaultMargin}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Path=Name}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
                                 <Label LineBreakMode="WordWrap" Text="{Binding Path=StringValue}" Style="{StaticResource ClickableValueLabel}">
                                     <Label.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding ClickCommand}" />
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.ClickCommand, Source={x:Reference TagLayout}}" CommandParameter="{Binding}" />
                                     </Label.GestureRecognizers>
                                 </Label>
                             </StackLayout>

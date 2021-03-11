@@ -1,5 +1,4 @@
 ﻿using IdApp.Navigation;
-using IdApp.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -35,18 +34,18 @@ namespace IdApp.ViewModels.Things
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
-			ILogService logService,
-			IImageCacheService imageCacheService)
+			ILogService logService)
 		: base(neuronService, uiDispatcher)
 		{
 			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
-			imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
 
 			this.ClaimThingCommand = new Command(async _ => await ClaimThing(), _ => IsConnected);
 			this.Tags = new ObservableCollection<HumanReadableTag>();
+
+            this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 		}
 
 		/// <inheritdoc/>
@@ -61,7 +60,7 @@ namespace IdApp.ViewModels.Things
 				if (this.NeuronService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
 				{
 					foreach (MetaDataTag Tag in Tags)
-						this.Tags.Add(new HumanReadableTag(Tag, this));
+						this.Tags.Add(new HumanReadableTag(Tag));
 				}
 			}
 
@@ -180,13 +179,17 @@ namespace IdApp.ViewModels.Things
 
 		#endregion
 
-		/// <summary>
-		/// Called when tag value has been clicked.
-		/// </summary>
-		internal async void LabelClicked(HumanReadableTag Tag)
-		{
-			try
-			{
+        /// <summary>
+        /// Command to bind to for detecting when a tag value has been clicked on.
+        /// </summary>
+		public ICommand ClickCommand { get; }
+
+		private async Task LabelClicked(object obj)
+        {
+            HumanReadableTag Tag = (HumanReadableTag)obj;
+
+            try
+            {
 				string Name = Tag.Tag.Name;
 				string Value = Tag.Tag.StringValue;
 

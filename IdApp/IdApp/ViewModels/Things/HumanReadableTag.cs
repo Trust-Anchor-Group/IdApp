@@ -1,35 +1,22 @@
-﻿using System;
-using System.Windows.Input;
-using Waher.Networking.XMPP.Provisioning;
-using Xamarin.Forms;
+﻿using Waher.Networking.XMPP.Provisioning;
 
 namespace IdApp.ViewModels.Things
 {
 	/// <summary>
-	/// Classed used to present a meta-data tag in a human interface.
+	/// Class used to present a meta-data tag in a human interface.
 	/// </summary>
 	public class HumanReadableTag
 	{
 		private readonly MetaDataTag tag;
-		private readonly ViewClaimThingViewModel model;
 
 		/// <summary>
 		/// Classed used to present a meta-data tag in a human interface.
 		/// </summary>
 		/// <param name="Tag">Meta-data tag.</param>
-		/// <param name="Model">View model reference.</param>
-		public HumanReadableTag(MetaDataTag Tag, ViewClaimThingViewModel Model)
+		public HumanReadableTag(MetaDataTag Tag)
 		{
 			this.tag = Tag;
-			this.model = Model;
-
-            this.ClickCommand = new Command(_ => this.LabelClicked());
 		}
-
-		/// <summary>
-		/// The command for clicking a tag value.
-		/// </summary>
-		public ICommand ClickCommand { get; }
 
 		/// <summary>
 		/// Original meta-data tag.
@@ -105,14 +92,5 @@ namespace IdApp.ViewModels.Things
 					return this.tag.StringValue + " " + s;
 			}
 		}
-
-		/// <summary>
-		/// Called when tag value has been clicked.
-		/// </summary>
-		private void LabelClicked()
-		{
-			this.model?.LabelClicked(this);
-		}
-
 	}
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using IdApp.Services;
-using IdApp.ViewModels.Things;
+﻿using IdApp.ViewModels.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
@@ -9,7 +7,7 @@ using Xamarin.Forms.Xaml;
 namespace IdApp.Views.Things
 {
     /// <summary>
-    /// A page that displays a specific contract.
+    /// A page that displays a specific claim thing.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ViewClaimThingPage
@@ -28,8 +26,7 @@ namespace IdApp.Views.Things
                 DependencyService.Resolve<INeuronService>(),
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
-                DependencyService.Resolve<ILogService>(),
-                DependencyService.Resolve<IImageCacheService>());
+                DependencyService.Resolve<ILogService>());
             InitializeComponent();
 		}
 
