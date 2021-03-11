@@ -640,7 +640,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 Text = value,
                 TextType = isHtml ? TextType.Html : TextType.Text,
-                Style = isHtml ? (Style)Application.Current.Resources["FormattedValueLabel"] : (Style)Application.Current.Resources["ValueLabel"]
+                Style = (Style)Application.Current.Resources[isHtml ? "FormattedValueLabel" : tapGestureRecognizer is null ? "ValueLabel" : "ClickableValueLabel"]
             });
 
             if (!(tapGestureRecognizer is null))
