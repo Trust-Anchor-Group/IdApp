@@ -6438,6 +6438,9 @@
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ViewContractPage"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Views.Contracts.ViewContractPage.OnAppearing">
+            <inheritdoc/>
+        </member>
         <member name="M:IdApp.Views.Contracts.ViewContractPage.OnDisappearing">
             <inheritdoc/>
         </member>
