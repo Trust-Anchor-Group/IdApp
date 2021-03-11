@@ -1,4 +1,5 @@
-﻿using IdApp.Navigation;
+﻿using System;
+using IdApp.Navigation;
 using IdApp.Views;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
@@ -12,15 +13,18 @@ namespace IdApp
     public static class QrCode
     {
         private static TaskCompletionSource<string> qrCodeScanned;
+        private static Func<string, Task> callback;
 
         /// <summary>
         /// Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
         /// </summary>
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
         /// <param name="commandName">The localized name of the command to display when scanning.</param>
+        /// <param name="action">The asynchronous action to invoke right after a QR Code has been scanned.</param>
         /// <returns></returns>
-        public static Task<string> ScanQrCode(INavigationService navigationService, string commandName)
+        public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null)
         {
+            callback = action;
             _ = navigationService.GoToAsync(nameof(ScanQrCodePage), new ScanQrCodeNavigationArgs(commandName));
             qrCodeScanned = new TaskCompletionSource<string>();
             return qrCodeScanned.Task;
@@ -36,6 +40,11 @@ namespace IdApp
         {
             uiDispatcher.BeginInvokeOnMainThread(async () =>
             {
+                if (callback != null)
+                {
+                    await callback(code);
+                }
+                callback = null;
                 await navigationService.GoBackAsync();
                 if (!string.IsNullOrWhiteSpace(code) && !(qrCodeScanned is null))
                 {

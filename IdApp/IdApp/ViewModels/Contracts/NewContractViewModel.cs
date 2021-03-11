@@ -130,8 +130,8 @@ namespace IdApp.ViewModels.Contracts
 
             if (!(this.SelectedContractVisibilityItem is null))
             {
-                ContractVisibility value = this.SelectedContractVisibilityItem.Visibility;
-                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), value.ToString());
+                string visibility = this.SelectedContractVisibilityItem.Visibility.ToString();
+                await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), visibility);
             }
             else
             {
@@ -147,12 +147,10 @@ namespace IdApp.ViewModels.Contracts
             }
             if (this.partsToAdd.Count > 0)
             {
-                int i = 0;
                 foreach (KeyValuePair<string, string> part in this.partsToAdd)
                 {
                     string settingsKey = $"{PartSettingsPrefix}{part.Key}";
                     await this.settingsService.SaveState(settingsKey, part.Value);
-                    i++;
                 }
             }
             else
@@ -552,14 +550,16 @@ namespace IdApp.ViewModels.Contracts
             {
                 this.saveStateWhileScanning = true;
                 this.stateTemplateWhileScanning = this.template;
-                string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
-                string id = Constants.UriSchemes.GetCode(code);
-                if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
+                await QrCode.ScanQrCode(this.navigationService, AppResources.Add, async code =>
                 {
-                    this.partsToAdd[button.StyleId] = id;
-                    string settingsKey = $"{PartSettingsPrefix}{button.StyleId}";
-                    await this.settingsService.SaveState(settingsKey, id);
-                }
+                    string id = Constants.UriSchemes.GetCode(code);
+                    if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
+                    {
+                        this.partsToAdd[button.StyleId] = id;
+                        string settingsKey = $"{PartSettingsPrefix}{button.StyleId}";
+                        await this.settingsService.SaveState(settingsKey, id);
+                    }
+                });
             }
         }
 
