@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
@@ -10,26 +11,59 @@ namespace Tag.Neuron.Xamarin.Services
     {
         private readonly ILogService logService;
         private readonly IUiDispatcher uiDispatcher;
-        private NavigationArgs navigationArgs;
+        private NavigationArgs currentNavigationArgs;
+        private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
 
         public NavigationService(ILogService logService, IUiDispatcher uiDispatcher)
         {
             this.logService = logService;
             this.uiDispatcher = uiDispatcher;
+            this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
         }
 
-        internal void PushArgs<TArgs>(TArgs args) where TArgs : NavigationArgs
+        private bool TryGetPageName(string route, out string pageName)
         {
-            this.navigationArgs = args;
+            pageName = null;
+            if (!string.IsNullOrWhiteSpace(route))
+            {
+                pageName = route.TrimStart('.', '/');
+                return !string.IsNullOrWhiteSpace(pageName);
+            }
+
+            return false;
+        }
+
+        internal void PushArgs<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
+        {
+            this.currentNavigationArgs = args;
+
+            if (this.TryGetPageName(route, out string pageName))
+            {
+                if (args != null)
+                {
+                    this.navigationArgsMap[pageName] = args;
+                }
+                else
+                {
+                    this.navigationArgsMap.Remove(pageName);
+                }
+            }
         }
 
         public bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs
         {
-            args = default;
+            string route = Shell.Current.CurrentPage?.GetType().Name;
+            return this.TryPopArgs(route, out args);
+        }
 
-            if (!(this.navigationArgs is null))
+        internal bool TryPopArgs<TArgs>(string route, out TArgs args) where TArgs : NavigationArgs
+        {
+            args = default;
+            if (this.TryGetPageName(route, out string pageName) && 
+                this.navigationArgsMap.TryGetValue(pageName, out NavigationArgs navArgs) &&
+                !(navArgs is null))
             {
-                args = this.navigationArgs as TArgs;
+                args = navArgs as TArgs;
             }
 
             return !(args is null);
@@ -39,7 +73,7 @@ namespace Tag.Neuron.Xamarin.Services
         {
             try
             {
-                string route = (this.navigationArgs != null && !string.IsNullOrWhiteSpace(this.navigationArgs.ReturnRoute)) ? this.navigationArgs.ReturnRoute : "..";
+                string route = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : "..";
                 await Shell.Current.GoToAsync(route);
             }
             catch (Exception e)
@@ -56,7 +90,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         public async Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs
         {
-            this.PushArgs(args);
+            this.PushArgs(route, args);
             try
             {
                 await Shell.Current.GoToAsync(route);

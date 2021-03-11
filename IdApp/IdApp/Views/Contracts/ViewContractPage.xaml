@@ -7,7 +7,7 @@
              x:Class="IdApp.Views.Contracts.ViewContractPage"
              Title="{x:Static local:AppResources.ViewContract}">
     <Grid>
-        <ScrollView x:Name="RootScrollView">
+        <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
                 <!-- GENERAL -->
                 <Label Text="{x:Static local:AppResources.GeneralInformation}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" />

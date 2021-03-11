@@ -33,8 +33,8 @@ namespace IdApp.ViewModels.Contracts
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly ITagProfile tagProfile;
         private string templateId;
-        private bool saveState;
-        private Contract stateTemplate;
+        private bool saveStateWhileScanning;
+        private Contract stateTemplateWhileScanning;
         private readonly Dictionary<string, string> partsToAdd;
 
         /// <summary>
@@ -91,10 +91,10 @@ namespace IdApp.ViewModels.Contracts
             {
                 this.template = args.Contract;
             }
-            else if (!(this.stateTemplate is null))
+            else if (!(this.stateTemplateWhileScanning is null))
             {
-                this.template = this.stateTemplate;
-                this.stateTemplate = null;
+                this.template = this.stateTemplateWhileScanning;
+                this.stateTemplateWhileScanning = null;
             }
             this.templateId = this.template?.ContractId ?? string.Empty;
             this.IsTemplate = this.template?.CanActAsTemplate ?? false;
@@ -105,17 +105,6 @@ namespace IdApp.ViewModels.Contracts
             this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
             this.PopulateTemplateForm();
-
-            //if (this.template != null && this.template.Roles.Length > 3)
-            //{
-            //    this.uiDispatcher.BeginInvokeOnMainThread(() =>
-            //    {
-            //        //this.AddRole(this.template.Roles[0].Name, "iotid:27cf6787-b5de-b59b-540e-58819e6e897f@legal.lab.tagroot.io"); // TA33
-            //        this.AddRole(this.template.Roles[1].Name, "iotid:27da7543-6bc9-a2a8-600e-28f904261ef6@legal.cybercity.online"); // Peter EM
-            //        this.AddRole(this.template.Roles[2].Name, "iotid:27c6d6f2-568c-c07c-040e-dd8dd1fcf047@legal.cybercity.online"); // Peter Ph
-            //        this.AddRole(this.template.Roles[3].Name, "iotid:27da352c-7db9-0580-040d-939fe741fe23@legal.lab.tagroot.io"); // Stas Ph
-            //    });
-            //}
         }
 
         /// <inheritdoc/>
@@ -125,7 +114,7 @@ namespace IdApp.ViewModels.Contracts
 
             this.ClearTemplate(false);
 
-            if (!this.saveState)
+            if (!this.saveStateWhileScanning)
             {
                 await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
                 await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
@@ -176,7 +165,7 @@ namespace IdApp.ViewModels.Contracts
         /// <inheritdoc/>
         protected override async Task DoRestoreState()
         {
-            if (this.saveState)
+            if (this.saveStateWhileScanning)
             {
                 string visibilityStr = await this.settingsService.RestoreStringState(nameof(SelectedContractVisibilityItem));
                 if (!string.IsNullOrWhiteSpace(visibilityStr) && Enum.TryParse(visibilityStr, true, out ContractVisibility cv))
@@ -211,7 +200,7 @@ namespace IdApp.ViewModels.Contracts
 
                 await this.DeleteState();
             }
-            this.saveState = false;
+            this.saveStateWhileScanning = false;
             await base.DoRestoreState();
         }
 
@@ -479,7 +468,7 @@ namespace IdApp.ViewModels.Contracts
             int NrParts = 0;
             Role RoleObj = null;
 
-            Contract contractToUse = this.template ?? this.stateTemplate;
+            Contract contractToUse = this.template ?? this.stateTemplateWhileScanning;
 
             if ((contractToUse is null))
             {
@@ -561,8 +550,8 @@ namespace IdApp.ViewModels.Contracts
         {
             if (sender is Button button)
             {
-                this.saveState = true;
-                this.stateTemplate = this.template;
+                this.saveStateWhileScanning = true;
+                this.stateTemplateWhileScanning = this.template;
                 string code = await QrCode.ScanQrCode(this.navigationService, AppResources.Add);
                 string id = Constants.UriSchemes.GetCode(code);
                 if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))

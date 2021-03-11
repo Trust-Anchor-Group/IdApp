@@ -49,7 +49,6 @@ namespace IdApp
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
-        private readonly bool keepRunningInTheBackground = false;
         private Profiler startupProfiler;
 
         ///<inheritdoc/>
@@ -256,7 +255,7 @@ namespace IdApp
                 if (!(this.sdk.NeuronService is null))
                     await this.sdk.NeuronService.UnloadFast();
             }
-            else if (!this.keepRunningInTheBackground)
+            else
             {
                 if (!(this.contractOrchestratorService is null))
                     await this.contractOrchestratorService.Unload();

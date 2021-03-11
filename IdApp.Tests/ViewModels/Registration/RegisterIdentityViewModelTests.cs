@@ -70,6 +70,8 @@ namespace IdApp.Tests.ViewModels.Registration
             this.dispatcher.Setup(x => x.BeginInvokeOnMainThread(It.IsAny<Action>())).Callback<Action>(x => x());
             this.tagProfile.SetupGet(x => x.HttpFileUploadMaxSize).Returns(short.MaxValue);
             this.tagProfile.SetupGet(x => x.LegalJid).Returns(Guid.NewGuid().ToString);
+            this.tagProfile.SetupGet(x => x.RegistryJid).Returns(Guid.NewGuid().ToString);
+            this.tagProfile.SetupGet(x => x.ProvisioningJid).Returns(Guid.NewGuid().ToString);
 
             return AViewModel();
         }

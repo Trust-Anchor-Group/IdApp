@@ -7,6 +7,8 @@ namespace Tag.Neuron.Xamarin.Tests.Services
     public class NavigationServiceTests
     {
         private readonly NavigationService sut;
+        private const string Page1Name = "MyPage";
+        private const string Page2Name = "MyOtherPage";
 
         public NavigationServiceTests()
         {
@@ -25,9 +27,9 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void PushArgs_ReturnsSameAsPopped()
         {
             TestArgs1 ta1 = new TestArgs1();
-            sut.PushArgs(ta1);
+            sut.PushArgs(Page1Name, ta1);
 
-            bool succeeded = sut.TryPopArgs(out TestArgs1 ta2);
+            bool succeeded = sut.TryPopArgs(Page1Name, out TestArgs1 ta2);
             Assert.IsTrue(succeeded);
             Assert.AreSame(ta1, ta2);
         }
@@ -36,13 +38,13 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void PopArgs_Twice_ReturnsSameArgsTheSecondTime()
         {
             TestArgs1 ta1 = new TestArgs1();
-            sut.PushArgs(ta1);
+            sut.PushArgs(Page1Name, ta1);
 
-            bool succeeded = sut.TryPopArgs(out TestArgs1 ta2);
+            bool succeeded = sut.TryPopArgs(Page1Name, out TestArgs1 ta2);
             Assert.IsTrue(succeeded);
             Assert.AreSame(ta1, ta2);
 
-            succeeded = sut.TryPopArgs(out ta2);
+            succeeded = sut.TryPopArgs(Page1Name, out ta2);
             Assert.IsTrue(succeeded);
             Assert.AreSame(ta1, ta2);
         }
@@ -51,9 +53,9 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void PushArgs_ReturnsNull_IfPushedDiffersFromPopped()
         {
             TestArgs1 ta1 = new TestArgs1();
-            sut.PushArgs(ta1);
+            sut.PushArgs(Page1Name, ta1);
 
-            bool succeeded = sut.TryPopArgs(out TestArgs2 ta2);
+            bool succeeded = sut.TryPopArgs(Page1Name, out TestArgs2 ta2);
             Assert.IsFalse(succeeded);
             Assert.IsNull(ta2);
         }
@@ -61,10 +63,28 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         [Test]
         public void PushArgs_PushNull_ReturnsNull()
         {
-            sut.PushArgs((NavigationArgs)null);
-            bool succeeded = sut.TryPopArgs(out TestArgs1 ta1);
+            sut.PushArgs(Page1Name, (NavigationArgs)null);
+            bool succeeded = sut.TryPopArgs(Page1Name, out TestArgs1 ta1);
             Assert.IsFalse(succeeded);
             Assert.IsNull(ta1);
+        }
+
+        [Test]
+        public void PushArgs_AreHandledPerPage()
+        {
+            TestArgs1 ta1 = new TestArgs1();
+            sut.PushArgs(Page1Name, ta1);
+
+            bool succeeded = sut.TryPopArgs(Page1Name, out TestArgs1 actual1);
+            Assert.IsTrue(succeeded);
+            Assert.AreSame(ta1, actual1);
+
+            TestArgs2 ta2 = new TestArgs2();
+            sut.PushArgs(Page2Name, ta2);
+
+            succeeded = sut.TryPopArgs(Page2Name, out TestArgs2 actual2);
+            Assert.IsTrue(succeeded);
+            Assert.AreSame(ta2, actual2);
         }
     }
 }
