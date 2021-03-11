@@ -164,7 +164,7 @@ namespace IdApp.ViewModels.Contracts
         {
             if (this.saveStateWhileScanning)
             {
-                Enum e = await this.settingsService.RestoreEnumState(nameof(SelectedContractVisibilityItem));
+                Enum e = await this.settingsService.RestoreEnumState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
                 if (e != null)
                 {
                     ContractVisibility cv = (ContractVisibility)e;
