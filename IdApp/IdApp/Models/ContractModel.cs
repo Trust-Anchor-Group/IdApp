@@ -12,22 +12,25 @@ namespace IdApp.Models
         /// Creates an instance of the <see cref="ContractModel"/> class.
         /// </summary>
         /// <param name="contractId">The contract id.</param>
-        /// <param name="created">The created timestamp of the contract.</param>
+        /// <param name="timestamp">The timestamp to show with the contract reference.</param>
         /// <param name="name">The name of the contract.</param>
-        public ContractModel(string contractId, DateTime created, string name)
+        public ContractModel(string contractId, DateTime timestamp, string name)
         {
             this.ContractId = contractId;
-            this.Created = created.ToString(CultureInfo.CurrentUICulture);
+            this.Timestamp = timestamp.ToString(CultureInfo.CurrentUICulture);
             this.Name = name;
         }
+
         /// <summary>
         /// The contract id.
         /// </summary>
         public string ContractId { get; }
+
         /// <summary>
         /// The created timestamp of the contract.
         /// </summary>
-        public string Created { get; }
+        public string Timestamp { get; }
+
         /// <summary>
         /// The name of the contract.
         /// </summary>

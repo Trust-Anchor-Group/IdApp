@@ -2303,7 +2303,7 @@
             <summary>
             Gets the id's of contract templates used.
             </summary>
-            <returns>Id's of contract templates.</returns>
+            <returns>Id's of contract templates, together with the last time they were used.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.HasPrivateKey(System.String)">
             <summary>

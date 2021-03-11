@@ -13,7 +13,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
-                            <Label LineBreakMode="NoWrap" Text="{Binding Path=Created}" MinimumWidthRequest="100"/>
+                            <Label LineBreakMode="NoWrap" Text="{Binding Path=Timestamp}" MinimumWidthRequest="100"/>
                             <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Name}" FontAttributes="Bold"/>
                         </StackLayout>
                     </ViewCell>

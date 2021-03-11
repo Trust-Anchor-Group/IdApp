@@ -141,7 +141,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// Gets the id's of contract templates used.
         /// </summary>
         /// <returns>Id's of contract templates.</returns>
-        Task<string[]> GetContractTemplateIds();
+        Task<KeyValuePair<DateTime, string>[]> GetContractTemplateIds();
 
         /// <summary>
         /// Signs a given contract.

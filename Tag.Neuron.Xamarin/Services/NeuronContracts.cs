@@ -179,26 +179,18 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Gets the id's of contract templates used.
         /// </summary>
-        /// <returns>Id's of contract templates.</returns>
-        public async Task<string[]> GetContractTemplateIds()
+        /// <returns>Id's of contract templates, together with the last time they were used.</returns>
+        public async Task<KeyValuePair<DateTime, string>[]> GetContractTemplateIds()
         {
-            SortedDictionary<DateTime, string> ByTimeDesc = new SortedDictionary<DateTime, string>(new DateTimeDesc());
+            List<KeyValuePair<DateTime, string>> Result = new List<KeyValuePair<DateTime, string>>();
             string Prefix = Constants.KeyPrefixes.ContractTemplatePrefix;
             int PrefixLen = Prefix.Length;
 
             foreach ((string Key, DateTime LastUsed) in await this.settingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
-                ByTimeDesc[LastUsed] = Key.Substring(PrefixLen);
+                Result.Add(new KeyValuePair<DateTime, string>(LastUsed, Key.Substring(PrefixLen)));
 
-            string[] Result = new string[ByTimeDesc.Count];
-            ByTimeDesc.Values.CopyTo(Result, 0);
-
-            return Result;
+            return Result.ToArray();
         }
-
-		private class DateTimeDesc : IComparer<DateTime>
-		{
-            public int Compare(DateTime x, DateTime y) => y.CompareTo(x);
-		}
 
 		public Task<Contract> SignContract(Contract contract, string role, bool transferable)
         {

@@ -177,7 +177,10 @@ namespace IdApp.ViewModels.Contracts
 				ContractModel model = (ContractModel)newValue;
 				if (!(model is null) && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
 				{
-					viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
+					if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
+						viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract)));
+					else
+						viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
 				}
 			});
 
@@ -194,19 +197,22 @@ namespace IdApp.ViewModels.Contracts
 		{
 			bool succeeded;
 			string[] contractIds;
+			KeyValuePair<DateTime, string>[] timestampsAndcontractIds;
 
 			switch (this.contractsListMode)
 			{
 				case ContractsListMode.MyContracts:
 					(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetCreatedContractIds);
+					timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
 					break;
 
 				case ContractsListMode.SignedContracts:
 					(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetSignedContractIds);
+					timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
 					break;
 
 				case ContractsListMode.ContractTemplates:
-					(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractTemplateIds);
+					(succeeded, timestampsAndcontractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractTemplateIds);
 					break;
 
 				default:
@@ -219,23 +225,51 @@ namespace IdApp.ViewModels.Contracts
 			if (this.loadContractsTimestamp > now)
 				return;
 
-			if (contractIds.Length <= 0)
+			if (timestampsAndcontractIds.Length <= 0)
 			{
 				this.uiDispatcher.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
 				return;
 			}
 
-			foreach (string contractId in contractIds)
+			List<ContractModel> Models = new List<ContractModel>();
+
+			foreach (KeyValuePair<DateTime, string> P in timestampsAndcontractIds)
 			{
-				Contract contract = await this.neuronService.Contracts.GetContract(contractId);
+				DateTime Timestamp = P.Key;
+				string ContractId = P.Value;
+				Contract contract = await this.neuronService.Contracts.GetContract(ContractId);
+
 				if (this.loadContractsTimestamp > now)
-				{
 					return;
-				}
-				this.contractsMap[contractId] = contract;
-				ContractModel model = new ContractModel(contract.ContractId, contract.Created, $"{contract.ContractId} ({contract.ForMachinesNamespace}#{contract.ForMachinesLocalName})");
-				this.Contracts.Add(model);
+
+				if (Timestamp == DateTime.MinValue)
+					Timestamp = contract.Created;
+				
+				this.contractsMap[ContractId] = contract;
+				Models.Add(new ContractModel(ContractId, Timestamp, $"{contract.ContractId} ({contract.ForMachinesNamespace}#{contract.ForMachinesLocalName})"));
 			}
+
+			Models.Sort(new DateTimeDesc());
+
+			foreach (ContractModel Model in Models)
+				this.Contracts.Add(Model);
 		}
+
+		private class DateTimeDesc : IComparer<ContractModel>
+		{
+			public int Compare(ContractModel x, ContractModel y) => y.Timestamp.CompareTo(x.Timestamp);
+		}
+
+		private static KeyValuePair<DateTime, string>[] AnnotateWithMinDateTime(string[] IDs)
+		{
+			KeyValuePair<DateTime, string>[] Result = new KeyValuePair<DateTime, string>[IDs.Length];
+			int i = 0;
+
+			foreach (string ID in IDs)
+				Result[i++] = new KeyValuePair<DateTime, string>(DateTime.MinValue, ID);
+
+			return Result;
+		}
+
 	}
 }

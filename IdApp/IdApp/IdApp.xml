@@ -1693,7 +1693,7 @@
             Creates an instance of the <see cref="T:IdApp.Models.ContractModel"/> class.
             </summary>
             <param name="contractId">The contract id.</param>
-            <param name="created">The created timestamp of the contract.</param>
+            <param name="timestamp">The timestamp to show with the contract reference.</param>
             <param name="name">The name of the contract.</param>
         </member>
         <member name="P:IdApp.Models.ContractModel.ContractId">
@@ -1701,7 +1701,7 @@
             The contract id.
             </summary>
         </member>
-        <member name="P:IdApp.Models.ContractModel.Created">
+        <member name="P:IdApp.Models.ContractModel.Timestamp">
             <summary>
             The created timestamp of the contract.
             </summary>
