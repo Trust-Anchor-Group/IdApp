@@ -106,56 +106,9 @@ namespace IdApp
 				return;
 			}
 
-			string DecodedText = await QrCode.ScanQrCode(this.navigationService, AppResources.Open);
-
-			if (string.IsNullOrWhiteSpace(DecodedText))
-				return;
-
-			try
-			{
-				if (!Uri.TryCreate(DecodedText, UriKind.Absolute, out Uri uri))
-				{
-					await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
-					return;
-				}
-
-				switch (uri.Scheme.ToLower())
-				{
-					case Constants.UriSchemes.UriSchemeIotId:
-						string legalId = Constants.UriSchemes.GetCode(DecodedText);
-						await this.contractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
-						break;
-
-					case Constants.UriSchemes.UriSchemeIotSc:
-						string contractId = Constants.UriSchemes.GetCode(DecodedText);
-						await this.contractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
-						break;
-
-					case Constants.UriSchemes.UriSchemeIotDisco:
-						if (this.neuronService.ThingRegistry.IsIoTDiscoClaimURI(DecodedText))
-							await this.thingRegistryOrchestratorService.OpenClaimDevice(DecodedText);
-						else if (this.neuronService.ThingRegistry.IsIoTDiscoSearchURI(DecodedText))
-							await this.thingRegistryOrchestratorService.OpenSearchDevices(DecodedText);
-						else
-							await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{DecodedText}");
-						break;
-
-					case Constants.UriSchemes.UriSchemeTagSign:
-						string request = Constants.UriSchemes.GetCode(DecodedText);
-						await this.contractOrchestratorService.TagSignature(request);
-						break;
-
-					default:
-						if (!await Launcher.TryOpenAsync(uri))
-							await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{DecodedText}");
-						break;
-				}
-			}
-			catch (Exception ex)
-			{
-				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
-			}
+            await QrCode.ScanQrCodeAndHandleResult(this.logService, this.neuronService, this.navigationService,
+                this.uiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
+                AppResources.Open);
 		}
 
 		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)

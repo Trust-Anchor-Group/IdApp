@@ -4,6 +4,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using IdApp.Views;
+using IdApp.Views.Contracts;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -24,13 +27,16 @@ namespace IdApp.ViewModels
         private readonly ITagProfile tagProfile;
         private readonly ILogService logService;
         private readonly INetworkService networkService;
+        private readonly INavigationService navigationService;
+        private readonly IContractOrchestratorService contractOrchestratorService;
+        private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
         public MainViewModel()
-            : this(null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -43,16 +49,27 @@ namespace IdApp.ViewModels
             INeuronService neuronService, 
             IUiDispatcher uiDispatcher, 
             ITagProfile tagProfile,
+            INavigationService navigationService,
             INetworkService networkService,
-            IImageCacheService imageCacheService)
+            IImageCacheService imageCacheService,
+            IContractOrchestratorService contractOrchestratorService,
+            IThingRegistryOrchestratorService thingThingRegistryOrchestratorService)
             : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
             this.logService = logService ?? DependencyService.Resolve<ILogService>();
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
+            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
+            this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
+            this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? DependencyService.Resolve<IThingRegistryOrchestratorService>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
+            this.ViewIdentityCommand = new Command(async () => await ViewIdentity(), () => this.IsConnected);
+            this.ViewMyContractsCommand = new Command(async () => await ViewMyContracts(), () => this.IsConnected);
+            this.ScanQrCodeCommand = new Command(async () => await ScanQrCode(), () => this.IsConnected);
+            this.ViewSignedContractsCommand = new Command(async () => await ViewSignedContracts(), () => this.IsConnected);
+            this.ViewNewContractCommand = new Command(async () => await ViewNewContract(), () => this.IsConnected);
         }
 
         /// <inheritdoc />
@@ -174,6 +191,81 @@ namespace IdApp.ViewModels
         }
 
         #region Properties
+
+        /// <summary>
+        /// See <see cref="ViewIdentityCommand"/>
+        /// </summary>
+        public static readonly BindableProperty ViewIdentityCommandProperty =
+            BindableProperty.Create("ViewIdentityCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+        /// <summary>
+        /// The command to bind to for viewing the user's identity
+        /// </summary>
+        public ICommand ViewIdentityCommand
+        {
+            get { return (ICommand)GetValue(ViewIdentityCommandProperty); }
+            set { SetValue(ViewIdentityCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="ViewMyContractsCommand"/>
+        /// </summary>
+        public static readonly BindableProperty ViewMyContractsCommandProperty =
+            BindableProperty.Create("ViewMyContractsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+        /// <summary>
+        /// The command to bind to for viewing the user's own contracts.
+        /// </summary>
+        public ICommand ViewMyContractsCommand
+        {
+            get { return (ICommand)GetValue(ViewMyContractsCommandProperty); }
+            set { SetValue(ViewMyContractsCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="ViewSignedContractsCommand"/>
+        /// </summary>
+        public static readonly BindableProperty ViewSignedContractsCommandProperty =
+            BindableProperty.Create("ViewSignedContractsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+        /// <summary>
+        /// The command to bind to for viewing the user's signed contracts.
+        /// </summary>
+        public ICommand ViewSignedContractsCommand
+        {
+            get { return (ICommand)GetValue(ViewSignedContractsCommandProperty); }
+            set { SetValue(ViewSignedContractsCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="ViewNewContractCommand"/>
+        /// </summary>
+        public static readonly BindableProperty ViewNewContractsCommandProperty =
+            BindableProperty.Create("ViewNewContractCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+        /// <summary>
+        /// The command to bind to for creating a new contract.
+        /// </summary>
+        public ICommand ViewNewContractCommand
+        {
+            get { return (ICommand)GetValue(ViewNewContractsCommandProperty); }
+            set { SetValue(ViewNewContractsCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="ScanQrCodeCommand"/>
+        /// </summary>
+        public static readonly BindableProperty ScanQrCodeCommandProperty =
+            BindableProperty.Create("ScanQrCodeCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+        /// <summary>
+        /// The command to bind to for scanning a QR code.
+        /// </summary>
+        public ICommand ScanQrCodeCommand
+        {
+            get { return (ICommand) GetValue(ScanQrCodeCommandProperty); }
+            set { SetValue(ScanQrCodeCommandProperty, value); }
+        }
 
         /// <summary>
         /// See <see cref="HasPhoto"/>
@@ -449,6 +541,33 @@ namespace IdApp.ViewModels
 
         #endregion
 
+        private async Task ViewIdentity()
+        {
+            await this.navigationService.GoToAsync(nameof(ViewIdentityPage));
+        }
+
+        private async Task ViewMyContracts()
+        {
+            await this.navigationService.GoToAsync(nameof(MyContractsPage));
+        }
+
+        private async Task ViewSignedContracts()
+        {
+            await this.navigationService.GoToAsync(nameof(SignedContractsPage));
+        }
+
+        private async Task ViewNewContract()
+        {
+            await this.navigationService.GoToAsync(nameof(NewContractPage));
+        }
+
+        private async Task ScanQrCode()
+        {
+            await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
+                this.UiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
+                AppResources.Open);
+        }
+
         private void UpdateLoggedOutText(bool isLoggedOut)
         {
             this.YouAreNowLoggedOutText = isLoggedOut ? AppResources.YouHaveNowBeenSignedOut : AppResources.SigningIn;
@@ -534,6 +653,7 @@ namespace IdApp.ViewModels
                 this.ConnectionErrorsText = string.Empty;
             }
             this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
+            this.EvaluateCommands(this.ViewIdentityCommand, this.ViewMyContractsCommand, this.ScanQrCodeCommand, this.ViewSignedContractsCommand, this.ViewNewContractCommand);
         }
     }
 }

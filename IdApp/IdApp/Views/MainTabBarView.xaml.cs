@@ -287,8 +287,8 @@ namespace IdApp.Views
             if (!this.isShowing)
             {
                 this.isShowing = true;
-                Task translateButton3Task = this.Button3.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
-                Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, this.MainToolBar.Height, DurationInMs, Easing.SinOut);
+                Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, 0, DurationInMs, Easing.SinIn);
+                Task translateButton3Task = this.Button3.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
                 await Task.WhenAll(translateButton3Task, translateToolBarTask);
             }
         }
@@ -301,8 +301,8 @@ namespace IdApp.Views
         {
             if (this.isShowing)
             {
-                Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, 0, DurationInMs, Easing.SinIn);
-                Task translateButton3Task = this.Button3.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
+                Task translateButton3Task = this.Button3.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
+                Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, this.MainToolBar.Height, DurationInMs, Easing.SinOut);
                 await Task.WhenAll(translateToolBarTask, translateButton3Task);
                 this.isShowing = false;
             }
