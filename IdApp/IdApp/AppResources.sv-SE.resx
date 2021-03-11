@@ -258,6 +258,12 @@
   <data name="ContractSuccessfullySigned" xml:space="preserve">
     <value>Kontraktet signerades.</value>
   </data>
+  <data name="ContractTemplates" xml:space="preserve">
+    <value>Kontraktmallar</value>
+  </data>
+  <data name="ContractTemplatesInfoText" xml:space="preserve">
+    <value>Nedan visas en lista över kontraktmallar du har använt. Klicka på en kontraktsmall för att skapa ett nytt kontrakt baserat på den mallen.</value>
+  </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
     <value>Välj kontrakt-synlighet först och försök igen.</value>
   </data>
@@ -451,7 +457,7 @@
     <value>Mina kontrakt</value>
   </data>
   <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Nedan visas en lista på kontrakt. Klicka på ett kontrakt för att få mer information om det.</value>
+    <value>Nedan visas en lista över kontrakt du har skapat. Klicka på ett kontrakt för att få mer information om det.</value>
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
     <value>Mina skapade kontrakt</value>
@@ -764,6 +770,9 @@
   </data>
   <data name="SignedContracts" xml:space="preserve">
     <value>Signerade kontrakt</value>
+  </data>
+  <data name="SignedContractsInfoText" xml:space="preserve">
+    <value>Nedan visas en lista över kontrakt du har skrivit under. Klicka på ett kontrakt för att få mer information om det.</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Logga in</value>

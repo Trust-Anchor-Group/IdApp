@@ -9,7 +9,7 @@
         /// Creates a new instance of the <see cref="SignedContractsPage"/> class.
         /// </summary>
         public SignedContractsPage()
-            : base(false)
+            : base(ViewModels.Contracts.ContractsListMode.SignedContracts)
         {
         }
     }

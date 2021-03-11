@@ -170,6 +170,16 @@
             The default language code.
             </summary>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Constants.KeyPrefixes">
+            <summary>
+            Key prefix constants
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Constants.KeyPrefixes.ContractTemplatePrefix">
+            <summary>
+            Contract.Template.
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Constants.UriSchemes">
             <summary>
             IoT Schemes
@@ -1278,6 +1288,12 @@
             </summary>
             <returns>Id's of the signed contracts.</returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.GetContractTemplateIds">
+            <summary>
+            Gets the id's of contract templates used.
+            </summary>
+            <returns>Id's of contract templates.</returns>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.SignContract(Waher.Networking.XMPP.Contracts.Contract,System.String,System.Boolean)">
             <summary>
             Signs a given contract.
@@ -2282,6 +2298,12 @@
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NetworkService.Unload">
             <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.GetContractTemplateIds">
+            <summary>
+            Gets the id's of contract templates used.
+            </summary>
+            <returns>Id's of contract templates.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.HasPrivateKey(System.String)">
             <summary>

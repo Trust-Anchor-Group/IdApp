@@ -19,15 +19,18 @@ namespace Tag.Neuron.Xamarin.Services
         private readonly IUiDispatcher uiDispatcher;
         private readonly IInternalNeuronService neuronService;
         private readonly ILogService logService;
+        private readonly ISettingsService settingsService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        internal NeuronContracts(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
+        internal NeuronContracts(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, 
+            ILogService logService, ISettingsService settingsService)
         {
             this.tagProfile = tagProfile;
             this.uiDispatcher = uiDispatcher;
             this.neuronService = neuronService;
             this.logService = logService;
+            this.settingsService = settingsService;
         }
 
         internal async Task CreateClients(bool CanCreateKeys)
@@ -173,7 +176,31 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.GetSignedContractsAsync();
         }
 
-        public Task<Contract> SignContract(Contract contract, string role, bool transferable)
+        /// <summary>
+        /// Gets the id's of contract templates used.
+        /// </summary>
+        /// <returns>Id's of contract templates.</returns>
+        public async Task<string[]> GetContractTemplateIds()
+        {
+            SortedDictionary<DateTime, string> ByTimeDesc = new SortedDictionary<DateTime, string>(new DateTimeDesc());
+            string Prefix = Constants.KeyPrefixes.ContractTemplatePrefix;
+            int PrefixLen = Prefix.Length;
+
+            foreach ((string Key, DateTime LastUsed) in await this.settingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
+                ByTimeDesc[LastUsed] = Key.Substring(PrefixLen);
+
+            string[] Result = new string[ByTimeDesc.Count];
+            ByTimeDesc.Values.CopyTo(Result, 0);
+
+            return Result;
+        }
+
+		private class DateTimeDesc : IComparer<DateTime>
+		{
+            public int Compare(DateTime x, DateTime y) => y.CompareTo(x);
+		}
+
+		public Task<Contract> SignContract(Contract contract, string role, bool transferable)
         {
             AssertContractsIsAvailable();
             return contractsClient.SignContractAsync(contract, role, transferable);

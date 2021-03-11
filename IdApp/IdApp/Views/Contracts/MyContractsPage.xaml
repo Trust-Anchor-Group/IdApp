@@ -6,7 +6,7 @@
              x:Class="IdApp.Views.Contracts.MyContractsPage">
     <StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
-        <Label Text="{x:Static local:AppResources.MyContractsInfoText}" HorizontalOptions="Center" VerticalOptions="Start" />
+        <Label Text="{Binding Path=Description, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
         <ListView x:Name="Contracts" HasUnevenRows="True" ItemsSource="{Binding Path=Contracts}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}" VerticalOptions="StartAndExpand">
             <ListView.ItemTemplate>

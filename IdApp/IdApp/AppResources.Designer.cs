@@ -484,6 +484,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contract Templates.
+        /// </summary>
+        internal static string ContractTemplates {
+            get {
+                return ResourceManager.GetString("ContractTemplates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below is a list of contract templates that you have used. Click on a template to create a new contract based on that template..
+        /// </summary>
+        internal static string ContractTemplatesInfoText {
+            get {
+                return ResourceManager.GetString("ContractTemplatesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creator and parts.
         /// </summary>
         internal static string ContractVisibility_CreatorAndParts {
@@ -1069,7 +1087,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Below is a list of contracts. Click on a contract for more information about it..
+        ///   Looks up a localized string similar to Below is a list of contracts that you have created. Click on a contract for more information about it..
         /// </summary>
         internal static string MyContractsInfoText {
             get {
@@ -2010,6 +2028,15 @@ namespace IdApp {
         internal static string SignedContracts {
             get {
                 return ResourceManager.GetString("SignedContracts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below is a list of contracts that you have signed. Click on a contract for more information about it..
+        /// </summary>
+        internal static string SignedContractsInfoText {
+            get {
+                return ResourceManager.GetString("SignedContractsInfoText", resourceCulture);
             }
         }
         

@@ -99,7 +99,7 @@ namespace IdApp
                 this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
                 this.imageCacheService = new ImageCacheService(this.sdk.SettingsService, this.sdk.LogService);
                 this.sdk.RegisterSingleton<IImageCacheService, ImageCacheService>(this.imageCacheService);
-                this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
+                this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
                 this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
                 this.thingRegistryOrchestratorService = new ThingRegistryOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
                 this.sdk.RegisterSingleton<IThingRegistryOrchestratorService, ThingRegistryOrchestratorService>(this.thingRegistryOrchestratorService);

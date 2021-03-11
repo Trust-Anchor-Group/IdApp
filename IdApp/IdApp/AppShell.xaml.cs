@@ -67,6 +67,7 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(ScanQrCodePage), typeof(ScanQrCodePage));
 			Routing.RegisterRoute(nameof(MyContractsPage), typeof(MyContractsPage));
 			Routing.RegisterRoute(nameof(SignedContractsPage), typeof(SignedContractsPage));
+			Routing.RegisterRoute(nameof(ContractTemplatesPage), typeof(ContractTemplatesPage));
 			Routing.RegisterRoute(nameof(NewContractPage), typeof(NewContractPage));
 			Routing.RegisterRoute(nameof(ViewContractPage), typeof(ViewContractPage));
 			Routing.RegisterRoute(nameof(ClientSignaturePage), typeof(ClientSignaturePage));
@@ -170,7 +171,7 @@ namespace IdApp
 
 		private async void NewContractMenuItem_Clicked(object sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(NewContractPage));
+			await this.GoToPage(nameof(ContractTemplatesPage));
 		}
 
 		private async void DebugMenuItem_Clicked(object sender, EventArgs e)
