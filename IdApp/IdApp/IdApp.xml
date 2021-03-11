@@ -2122,12 +2122,13 @@
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
         </member>
-        <member name="M:IdApp.QrCode.ScanQrCode(Tag.Neuron.Xamarin.Services.INavigationService,System.String)">
+        <member name="M:IdApp.QrCode.ScanQrCode(Tag.Neuron.Xamarin.Services.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
             <summary>
             Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
             </summary>
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="commandName">The localized name of the command to display when scanning.</param>
+            <param name="action">The asynchronous action to invoke right after a QR Code has been scanned.</param>
             <returns></returns>
         </member>
         <member name="M:IdApp.QrCode.TrySetResultAndClosePage(Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,System.String)">
@@ -6057,20 +6058,14 @@
         </member>
         <member name="T:IdApp.ViewModels.Things.HumanReadableTag">
             <summary>
-            Classed used to present a meta-data tag in a human interface.
+            Class used to present a meta-data tag in a human interface.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.#ctor(Waher.Networking.XMPP.Provisioning.MetaDataTag,IdApp.ViewModels.Things.ViewClaimThingViewModel)">
+        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.#ctor(Waher.Networking.XMPP.Provisioning.MetaDataTag)">
             <summary>
             Classed used to present a meta-data tag in a human interface.
             </summary>
             <param name="Tag">Meta-data tag.</param>
-            <param name="Model">View model reference.</param>
-        </member>
-        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.ClickCommand">
-            <summary>
-            The command for clicking a tag value.
-            </summary>
         </member>
         <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Tag">
             <summary>
@@ -6092,17 +6087,12 @@
             String value of tag.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.LabelClicked">
-            <summary>
-            Called when tag value has been clicked.
-            </summary>
-        </member>
         <member name="T:IdApp.ViewModels.Things.ViewClaimThingViewModel">
             <summary>
             The view model to bind to for when displaying thing claim information.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Things.ViewClaimThingViewModel"/> class.
             </summary>
@@ -6171,9 +6161,9 @@
             Gets or sets the PIN code for the identity.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.LabelClicked(IdApp.ViewModels.Things.HumanReadableTag)">
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClickCommand">
             <summary>
-            Called when tag value has been clicked.
+            Command to bind to for detecting when a tag value has been clicked on.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
@@ -6434,9 +6424,6 @@
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ViewContractPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Views.Contracts.ViewContractPage.OnAppearing">
-            <inheritdoc/>
-        </member>
         <member name="M:IdApp.Views.Contracts.ViewContractPage.OnDisappearing">
             <inheritdoc/>
         </member>
@@ -6513,6 +6500,156 @@
         <member name="M:IdApp.Views.MainTabBarView.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Views.MainTabBarView"/> class.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button1CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button1Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button1Command">
+            <summary>
+            The command to bind to for the first button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button2CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button2Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button2Command">
+            <summary>
+            The command to bind to for the second button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button3CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button3Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button3Command">
+            <summary>
+            The command to bind to for the third button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button4CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button4Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button4Command">
+            <summary>
+            The command to bind to for the fourth button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button5CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button5Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button5Command">
+            <summary>
+            The command to bind to for the fifth button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button1FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button1FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button1FontFamily">
+            <summary>
+            The font family to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button2FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button2FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button2FontFamily">
+            <summary>
+            The font family to use for text on the second button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button3FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button3FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button3FontFamily">
+            <summary>
+            The font family to use for text on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button4FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button4FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button4FontFamily">
+            <summary>
+            The font family to use for text on the fourth button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button5FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button5FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button5FontFamily">
+            <summary>
+            The font family to use for text on the fifth button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button1TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button1Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button1Text">
+            <summary>
+            The text to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button2TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button2Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button2Text">
+            <summary>
+            The text to use for text on the second button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button3TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button3Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button3Text">
+            <summary>
+            The text to use for text on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button4TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button4Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button4Text">
+            <summary>
+            The text to use for text on the fourth button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.Button5TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.Button5Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.Button5Text">
+            <summary>
+            The text to use for text on the fifth button
             </summary>
         </member>
         <member name="M:IdApp.Views.MainTabBarView.Show">
@@ -6692,7 +6829,7 @@
         </member>
         <member name="T:IdApp.Views.Things.ViewClaimThingPage">
             <summary>
-            A page that displays a specific contract.
+            A page that displays a specific claim thing.
             </summary>
         </member>
         <member name="M:IdApp.Views.Things.ViewClaimThingPage.#ctor">
