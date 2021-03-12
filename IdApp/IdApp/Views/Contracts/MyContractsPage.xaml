@@ -14,7 +14,7 @@
                     <ViewCell>
                         <StackLayout Orientation="Horizontal">
                             <Label LineBreakMode="NoWrap" Text="{Binding Path=Timestamp}" MinimumWidthRequest="100"/>
-                            <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Name}" FontAttributes="Bold"/>
+                            <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
