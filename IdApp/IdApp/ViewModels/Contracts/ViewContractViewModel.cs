@@ -81,14 +81,6 @@ namespace IdApp.ViewModels.Contracts
             this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
             this.DeleteContractCommand = new Command(async _ => await DeleteContract());
             this.GeneralInformation = new ObservableCollection<PartModel>();
-            this.Roles = new StackLayout();
-            this.Parts = new StackLayout();
-            this.Parameters = new StackLayout();
-            this.HumanReadableText = new StackLayout();
-            this.MachineReadableText = new StackLayout();
-            this.ClientSignatures = new StackLayout();
-            this.ServerSignatures = new StackLayout();
-
         }
 
         /// <inheritdoc/>
@@ -136,39 +128,109 @@ namespace IdApp.ViewModels.Contracts
         public ObservableCollection<PartModel> GeneralInformation { get; }
 
         /// <summary>
+        /// See <see cref="Roles"/>
+        /// </summary>
+        public static readonly BindableProperty RolesProperty =
+            BindableProperty.Create("Roles", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+
+        /// <summary>
         /// Holds Xaml code for visually representing a contract's roles.
         /// </summary>
-        public StackLayout Roles { get; }
+        public StackLayout Roles
+        {
+            get { return (StackLayout)GetValue(RolesProperty); }
+            set { SetValue(RolesProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="Parts"/>
+        /// </summary>
+        public static readonly BindableProperty PartsProperty =
+            BindableProperty.Create("Parts", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's parts.
         /// </summary>
-        public StackLayout Parts { get; }
+        public StackLayout Parts
+        {
+            get { return (StackLayout)GetValue(PartsProperty); }
+            set { SetValue(PartsProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="Parameters"/>
+        /// </summary>
+        public static readonly BindableProperty ParametersProperty =
+            BindableProperty.Create("Parameters", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's parameters.
         /// </summary>
-        public StackLayout Parameters { get; }
+        public StackLayout Parameters
+        {
+            get { return (StackLayout)GetValue(ParametersProperty); }
+            set { SetValue(ParametersProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="HumanReadableText"/>
+        /// </summary>
+        public static readonly BindableProperty HumanReadableTextProperty =
+            BindableProperty.Create("HumanReadableText", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's human readable text section.
         /// </summary>
-        public StackLayout HumanReadableText { get; }
+        public StackLayout HumanReadableText
+        {
+            get { return (StackLayout)GetValue(HumanReadableTextProperty); }
+            set { SetValue(HumanReadableTextProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="MachineReadableText"/>
+        /// </summary>
+        public static readonly BindableProperty MachineReadableTextProperty =
+            BindableProperty.Create("MachineReadableText", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's machine readable text section.
         /// </summary>
-        public StackLayout MachineReadableText { get; }
+        public StackLayout MachineReadableText
+        {
+            get { return (StackLayout)GetValue(MachineReadableTextProperty); }
+            set { SetValue(MachineReadableTextProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="ClientSignatures"/>
+        /// </summary>
+        public static readonly BindableProperty ClientSignaturesProperty =
+            BindableProperty.Create("ClientSignatures", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's client signatures.
         /// </summary>
-        public StackLayout ClientSignatures { get; }
+        public StackLayout ClientSignatures
+        {
+            get { return (StackLayout)GetValue(ClientSignaturesProperty); }
+            set { SetValue(ClientSignaturesProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="ServerSignatures"/>
+        /// </summary>
+        public static readonly BindableProperty ServerSignaturesProperty =
+            BindableProperty.Create("ServerSignatures", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's server signatures.
         /// </summary>
-        public StackLayout ServerSignatures { get; }
+        public StackLayout ServerSignatures
+        {
+            get { return (StackLayout)GetValue(ServerSignaturesProperty); }
+            set { SetValue(ServerSignaturesProperty, value); }
+        }
 
         /// <summary>
         /// Gets the list of photos associated with the contract.
@@ -384,34 +446,25 @@ namespace IdApp.ViewModels.Contracts
         private void ClearContract()
         {
             this.photosLoader.CancelLoadPhotos();
-            this.HasPhotos = false;
             this.Contract = null;
-
             this.GeneralInformation.Clear();
-
             this.QrCode = null;
-
-            this.Roles.Children.Clear();
+            this.Roles = null;
+            this.Parts = null;
+            this.Parameters = null;
+            this.HumanReadableText = null;
+            this.MachineReadableText = null;
+            this.ClientSignatures = null;
+            this.ServerSignatures = null;
+            this.HasPhotos = false;
+            this.HasQrCode = false;
             this.HasRoles = false;
-
-            this.Parts.Children.Clear();
             this.HasParts = false;
-
-            this.Parameters.Children.Clear();
             this.HasParameters = false;
-
-            this.HumanReadableText.Children.Clear();
             this.HasHumanReadableText = false;
-
-            this.MachineReadableText.Children.Clear();
             this.HasMachineReadableText = false;
-
-            this.ClientSignatures.Children.Clear();
             this.HasClientSignatures = false;
-
-            this.ServerSignatures.Children.Clear();
             this.HasServerSignatures = false;
-
             this.CanDeleteOrObsoleteContract = false;
         }
 
@@ -456,31 +509,32 @@ namespace IdApp.ViewModels.Contracts
                 this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, Contract.CanActAsTemplate.ToYesNo()));
 
                 // QR
-                if (!(this.Contract is null))
+                _ = Task.Run(() =>
                 {
-                    _ = Task.Run(() =>
+                    byte[] bytes = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
+                    this.uiDispatcher.BeginInvokeOnMainThread(() =>
                     {
-                        byte[] bytes = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
                         if (this.IsBound)
                         {
-                            this.uiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
+                            this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
+                        }
+                        else
+                        {
+                            this.QrCode = null;
                         }
                     });
-                }
-                else
-                {
-                    this.QrCode = null;
-                }
+                });
 
                 // Roles
                 if (!(Contract.Roles is null))
                 {
+                    StackLayout rolesLayout = new StackLayout();
                     foreach (Role role in Contract.Roles)
                     {
                         string html = role.ToHTML(Contract.DefaultLanguage, Contract);
                         html = Waher.Content.Html.HtmlDocument.GetBody(html);
 
-                        AddKeyValueLabelPair(this.Roles, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
+                        AddKeyValueLabelPair(rolesLayout, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
 
                         if (!this.isReadOnly && acceptsSignatures && !hasSigned && this.Contract.PartsMode == ContractParts.Open &&
                             (!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount))
@@ -491,19 +545,22 @@ namespace IdApp.ViewModels.Contracts
                                 StyleId = role.Name
                             };
                             button.Clicked += SignButton_Clicked;
-                            this.Roles.Children.Add(button);
+                            rolesLayout.Children.Add(button);
                         }
                     }
+                    this.Roles = rolesLayout;
                 }
 
                 // Parts
+                StackLayout partsLayout = new StackLayout();
                 if (Contract.SignAfter.HasValue)
-                    AddKeyValueLabelPair(this.Parts, AppResources.SignAfter, Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
+                    AddKeyValueLabelPair(partsLayout, AppResources.SignAfter, Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
 
                 if (Contract.SignBefore.HasValue)
-                    AddKeyValueLabelPair(this.Parts, AppResources.SignBefore, Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
+                    AddKeyValueLabelPair(partsLayout, AppResources.SignBefore, Contract.SignBefore.Value.ToString(CultureInfo.CurrentUICulture));
 
-                AddKeyValueLabelPair(this.Parts, AppResources.Mode, Contract.PartsMode.ToString());
+                AddKeyValueLabelPair(partsLayout, AppResources.Mode, Contract.PartsMode.ToString());
+
 
                 if (!(Contract.Parts is null))
                 {
@@ -512,7 +569,7 @@ namespace IdApp.ViewModels.Contracts
 
                     foreach (Part part in Contract.Parts)
                     {
-                        AddKeyValueLabelPair(this.Parts, part.Role, part.LegalId, false, part.LegalId, openLegalId);
+                        AddKeyValueLabelPair(partsLayout, part.Role, part.LegalId, false, part.LegalId, openLegalId);
 
                         if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.tagProfile.LegalIdentity.Id)
                         {
@@ -522,75 +579,91 @@ namespace IdApp.ViewModels.Contracts
                                 StyleId = part.Role
                             };
                             button.Clicked += SignButton_Clicked;
-                            this.Parts.Children.Add(button);
+                            partsLayout.Children.Add(button);
                         }
                     }
                 }
+                this.Parts = partsLayout;
 
                 // Parameters
                 if (!(Contract.Parameters is null))
                 {
+                    StackLayout parametersLayout = new StackLayout();
                     foreach (Parameter parameter in Contract.Parameters)
-                        AddKeyValueLabelPair(this.Parameters, parameter.Name, parameter.ObjectValue?.ToString());
+                        AddKeyValueLabelPair(parametersLayout, parameter.Name, parameter.ObjectValue?.ToString());
+                    this.Parameters = parametersLayout;
                 }
 
                 // Human readable text
+                StackLayout humanReadableTextLayout = new StackLayout();
                 string xaml = Contract.ToXamarinForms(Contract.DefaultLanguage);
                 StackLayout humanReadableXaml = new StackLayout().LoadFromXaml(xaml);
                 List<View> children = new List<View>();
                 children.AddRange(humanReadableXaml.Children);
                 foreach (View view in children)
-                    this.HumanReadableText.Children.Add(view);
+                    humanReadableTextLayout.Children.Add(view);
+                this.HumanReadableText = humanReadableTextLayout;
 
                 // Machine readable text
-                AddKeyValueLabelPair(this.MachineReadableText, AppResources.ContractId, Contract.ContractId);
+                StackLayout machineReadableTextLayout = new StackLayout();
+                AddKeyValueLabelPair(machineReadableTextLayout, AppResources.ContractId, Contract.ContractId);
                 if (!string.IsNullOrEmpty(Contract.TemplateId))
-                    AddKeyValueLabelPair(this.MachineReadableText, AppResources.TemplateId, Contract.TemplateId);
-                AddKeyValueLabelPair(this.MachineReadableText, AppResources.Digest, Convert.ToBase64String(Contract.ContentSchemaDigest));
-                AddKeyValueLabelPair(this.MachineReadableText, AppResources.HashFunction, Contract.ContentSchemaHashFunction.ToString());
-                AddKeyValueLabelPair(this.MachineReadableText, AppResources.LocalName, Contract.ForMachinesLocalName);
-                AddKeyValueLabelPair(this.MachineReadableText, AppResources.Namespace, Contract.ForMachinesNamespace);
+                    AddKeyValueLabelPair(machineReadableTextLayout, AppResources.TemplateId, Contract.TemplateId);
+                AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Digest, Convert.ToBase64String(Contract.ContentSchemaDigest));
+                AddKeyValueLabelPair(machineReadableTextLayout, AppResources.HashFunction, Contract.ContentSchemaHashFunction.ToString());
+                AddKeyValueLabelPair(machineReadableTextLayout, AppResources.LocalName, Contract.ForMachinesLocalName);
+                AddKeyValueLabelPair(machineReadableTextLayout, AppResources.Namespace, Contract.ForMachinesNamespace);
+                this.MachineReadableText = machineReadableTextLayout;
 
                 // Client signatures
                 if (!(Contract.ClientSignatures is null))
                 {
+                    StackLayout clientSignaturesLayout = new StackLayout();
                     TapGestureRecognizer openClientSignature = new TapGestureRecognizer();
                     openClientSignature.Tapped += this.ClientSignature_Tapped;
 
                     foreach (ClientSignature signature in Contract.ClientSignatures)
                     {
                         string sign = Convert.ToBase64String(signature.DigitalSignature);
-                        AddKeyValueLabelPair(this.ClientSignatures, signature.Role, signature.LegalId + ", " + signature.BareJid + ", " +
+                        AddKeyValueLabelPair(clientSignaturesLayout, signature.Role, signature.LegalId + ", " + signature.BareJid + ", " +
                                                                       signature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " + sign, false, sign, openClientSignature);
                     }
+
+                    this.ClientSignatures = clientSignaturesLayout;
                 }
 
                 // Server signature
                 if (!(Contract.ServerSignature is null))
                 {
+                    StackLayout serverSignaturesLayout = new StackLayout();
                     TapGestureRecognizer openServerSignature = new TapGestureRecognizer();
                     openServerSignature.Tapped += this.ServerSignature_Tapped;
 
-                    AddKeyValueLabelPair(this.ServerSignatures, Contract.Provider, Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
+                    AddKeyValueLabelPair(serverSignaturesLayout, Contract.Provider, Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
                                                                     Convert.ToBase64String(Contract.ServerSignature.DigitalSignature), false, Contract.ContractId, openServerSignature);
+                    this.ServerSignatures = serverSignaturesLayout;
                 }
 
                 this.CanDeleteOrObsoleteContract = !this.isReadOnly && !Contract.IsLegallyBinding(true);
 
-                this.HasRoles = this.Roles.Children.Count > 0;
-                this.HasParts = this.Parts.Children.Count > 0;
-                this.HasParameters = this.Parameters.Children.Count > 0;
-                this.HasHumanReadableText = this.HumanReadableText.Children.Count > 0;
-                this.HasMachineReadableText = this.MachineReadableText.Children.Count > 0;
-                this.HasClientSignatures = this.ClientSignatures.Children.Count > 0;
-                this.HasServerSignatures = this.ServerSignatures.Children.Count > 0;
+                this.HasRoles = this.Roles?.Children.Count > 0;
+                this.HasParts = this.Parts?.Children.Count > 0;
+                this.HasParameters = this.Parameters?.Children.Count > 0;
+                this.HasHumanReadableText = this.HumanReadableText?.Children.Count > 0;
+                this.HasMachineReadableText = this.MachineReadableText?.Children.Count > 0;
+                this.HasClientSignatures = this.ClientSignatures?.Children.Count > 0;
+                this.HasServerSignatures = this.ServerSignatures?.Children.Count > 0;
 
-                if (!(this.Contract.Attachments is null))
+                if (!(this.Contract.Attachments is null) && this.Contract.Attachments.Length > 0)
                 {
                     _ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId, () =>
                         {
                             this.uiDispatcher.BeginInvokeOnMainThread(() => HasPhotos = this.Photos.Count > 0);
                         });
+                }
+                else
+                {
+                    this.HasPhotos = false;
                 }
             }
             catch (Exception ex)

@@ -76,9 +76,6 @@ namespace IdApp.ViewModels.Contracts
             this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
             this.AvailableRoles = new ObservableCollection<string>();
             this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
-            this.Roles = new StackLayout();
-            this.Parameters = new StackLayout();
-            this.HumanReadableText = new StackLayout();
             this.partsToAdd = new Dictionary<string, string>();
         }
 
@@ -312,19 +309,49 @@ namespace IdApp.ViewModels.Contracts
         }
 
         /// <summary>
+        /// See <see cref="Roles"/>
+        /// </summary>
+        public static readonly BindableProperty RolesProperty =
+            BindableProperty.Create("Roles", typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
+
+        /// <summary>
         /// Holds Xaml code for visually representing a contract's roles.
         /// </summary>
-        public StackLayout Roles { get; }
+        public StackLayout Roles
+        {
+            get { return (StackLayout)GetValue(RolesProperty); }
+            set { SetValue(RolesProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="Parameters"/>
+        /// </summary>
+        public static readonly BindableProperty ParametersProperty =
+            BindableProperty.Create("Parameters", typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's parameters.
         /// </summary>
-        public StackLayout Parameters { get; }
+        public StackLayout Parameters
+        {
+            get { return (StackLayout)GetValue(ParametersProperty); }
+            set { SetValue(ParametersProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="HumanReadableText"/>
+        /// </summary>
+        public static readonly BindableProperty HumanReadableTextProperty =
+            BindableProperty.Create("HumanReadableText", typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
 
         /// <summary>
         /// Holds Xaml code for visually representing a contract's human readable text section.
         /// </summary>
-        public StackLayout HumanReadableText { get; }
+        public StackLayout HumanReadableText
+        {
+            get { return (StackLayout)GetValue(HumanReadableTextProperty); }
+            set { SetValue(HumanReadableTextProperty, value); }
+        }
 
         /// <summary>
         /// See <see cref="UsePin"/>
@@ -413,13 +440,13 @@ namespace IdApp.ViewModels.Contracts
             this.SelectedRole = null;
             this.AvailableRoles.Clear();
 
-            this.Roles.Children.Clear();
+            this.Roles = null;
             this.HasRoles = false;
 
-            this.Parameters.Children.Clear();
+            this.Parameters = null;
             this.HasParameters = false;
 
-            this.HumanReadableText.Children.Clear();
+            this.HumanReadableText = null;
             this.HasHumanReadableText = false;
 
             this.UsePin = false;
@@ -432,6 +459,9 @@ namespace IdApp.ViewModels.Contracts
         {
             Label ToRemove = null;
             int State = 0;
+
+            if ((this.Roles is null))
+                return;
 
             foreach (View View in this.Roles.Children)
             {
@@ -468,7 +498,7 @@ namespace IdApp.ViewModels.Contracts
 
             Contract contractToUse = this.template ?? this.stateTemplateWhileScanning;
 
-            if ((contractToUse is null))
+            if ((contractToUse is null) || (this.Roles is null))
             {
                 return;
             }
@@ -726,7 +756,7 @@ namespace IdApp.ViewModels.Contracts
             {
                 if (!(Created is null))
                 {
-                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false) { ReturnRoute = nameof(MainPage) });
+                    await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false) { ReturnRoute = $"///{nameof(MainPage)}" });
                 }
             }
         }
@@ -756,18 +786,19 @@ namespace IdApp.ViewModels.Contracts
             this.HasRoles = this.template.Roles.Length > 0;
             this.VisibilityIsEnabled = true;
 
+            StackLayout rolesLayout = new StackLayout();
             foreach (Role Role in this.template.Roles)
             {
                 this.AvailableRoles.Add(Role.Name);
 
-                this.Roles.Children.Add(new Label
+                rolesLayout.Children.Add(new Label
                 {
                     Text = Role.Name,
                     Style = (Style)Application.Current.Resources["LeftAlignedHeading"],
                     StyleId = Role.Name
                 });
 
-                Populate(this.Roles, Role.ToXamarinForms(this.template.DefaultLanguage, this.template));
+                Populate(rolesLayout, Role.ToXamarinForms(this.template.DefaultLanguage, this.template));
 
                 if (Role.MinCount > 0)
                 {
@@ -779,13 +810,15 @@ namespace IdApp.ViewModels.Contracts
                     };
                     button.Clicked += AddPartButton_Clicked;
 
-                    this.Roles.Children.Add(button);
+                    rolesLayout.Children.Add(button);
                 }
             }
+            this.Roles = rolesLayout;
 
+            StackLayout parametersLayout = new StackLayout();
             if (template.Parameters.Length > 0)
             {
-                this.Parameters.Children.Add(new Label
+                parametersLayout.Children.Add(new Label
                 {
                     Text = AppResources.Parameters,
                     Style = (Style)Application.Current.Resources["LeftAlignedHeading"]
@@ -794,10 +827,10 @@ namespace IdApp.ViewModels.Contracts
 
             foreach (Parameter Parameter in this.template.Parameters)
             {
-                Populate(Parameters, Parameter.ToXamarinForms(this.template.DefaultLanguage, this.template));
+                Populate(parametersLayout, Parameter.ToXamarinForms(this.template.DefaultLanguage, this.template));
 
                 Entry Entry;
-                Parameters.Children.Add(Entry = new Entry
+                parametersLayout.Children.Add(Entry = new Entry
                 {
                     StyleId = Parameter.Name,
                     Text = Parameter.ObjectValue?.ToString(),
@@ -806,6 +839,7 @@ namespace IdApp.ViewModels.Contracts
 
                 Entry.TextChanged += Parameter_TextChanged;
             }
+            this.Parameters = parametersLayout;
 
             this.HasParameters = this.Parameters.Children.Count > 0;
 
@@ -816,12 +850,15 @@ namespace IdApp.ViewModels.Contracts
 
         private void PopulateHumanReadableText()
         {
-            this.HumanReadableText.Children.Clear();
+            this.HumanReadableText = null;
+
+            StackLayout humanReadableTextLayout = new StackLayout();
 
             if (!(this.template is null))
-                Populate(this.HumanReadableText, this.template.ToXamarinForms(this.template.DefaultLanguage));
+                Populate(humanReadableTextLayout, this.template.ToXamarinForms(this.template.DefaultLanguage));
 
-            this.HasHumanReadableText = this.HumanReadableText.Children.Count > 0;
+            this.HumanReadableText = humanReadableTextLayout;
+            this.HasHumanReadableText = humanReadableTextLayout.Children.Count > 0;
         }
 
         private bool CanPropose()
