@@ -23,12 +23,12 @@ namespace IdApp.Views.Contracts
             InitializeComponent();
         }
 
-        /// <inheritdoc/>
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            this.ForceReRender(this.RootScrollView);
-        }
+        ///// <inheritdoc/>
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
+        //    this.ForceReRender(this.RootScrollView);
+        //}
 
         /// <summary>
         /// Overrides the back button behavior to handle navigation internally instead.
