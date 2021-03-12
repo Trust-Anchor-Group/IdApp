@@ -2,8 +2,7 @@
 <views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
-             x:Class="IdApp.Views.MainTabBarView"
-             x:Name="TheMainTabBarView">
+             x:Class="IdApp.Views.MainTabBarView">
     <ContentView.Content>
         <Grid x:Name="MainToolBar" Grid.Row="2" VerticalOptions="EndAndExpand" HeightRequest="84">
             <Grid x:Name="ToolBarContent" Grid.Row="0" VerticalOptions="End" ColumnSpacing="1" TranslationY="{Binding Path=Height, Source={x:Reference MainToolBar}}" Margin="0,0,0,2">
