@@ -2909,14 +2909,29 @@
             The role selected for the contract, if any.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.RolesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.Roles"/>
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.Roles">
             <summary>
             Holds Xaml code for visually representing a contract's roles.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.ParametersProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.Parameters"/>
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.Parameters">
             <summary>
             Holds Xaml code for visually representing a contract's parameters.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.NewContractViewModel.HumanReadableTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.NewContractViewModel.HumanReadableText"/>
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.HumanReadableText">
@@ -3828,9 +3843,19 @@
             Holds a list of general information sections for the contract.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.RolesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Roles"/>
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Roles">
             <summary>
             Holds Xaml code for visually representing a contract's roles.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.PartsProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Parts"/>
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Parts">
@@ -3838,9 +3863,19 @@
             Holds Xaml code for visually representing a contract's parts.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.ParametersProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Parameters"/>
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Parameters">
             <summary>
             Holds Xaml code for visually representing a contract's parameters.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.HumanReadableTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HumanReadableText"/>
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.HumanReadableText">
@@ -3848,14 +3883,29 @@
             Holds Xaml code for visually representing a contract's human readable text section.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.MachineReadableTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.MachineReadableText"/>
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.MachineReadableText">
             <summary>
             Holds Xaml code for visually representing a contract's machine readable text section.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.ClientSignaturesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ClientSignatures"/>
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ClientSignatures">
             <summary>
             Holds Xaml code for visually representing a contract's client signatures.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.ServerSignaturesProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ServerSignatures"/>
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.ServerSignatures">
@@ -6391,9 +6441,6 @@
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.NewContractPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Views.Contracts.NewContractPage.OnAppearing">
-            <inheritdoc/>
-        </member>
         <member name="M:IdApp.Views.Contracts.NewContractPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
@@ -6492,9 +6539,6 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ViewContractPage"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Views.Contracts.ViewContractPage.OnAppearing">
-            <inheritdoc/>
         </member>
         <member name="M:IdApp.Views.Contracts.ViewContractPage.OnDisappearing">
             <inheritdoc/>
