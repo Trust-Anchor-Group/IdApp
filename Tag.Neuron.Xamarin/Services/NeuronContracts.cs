@@ -19,15 +19,18 @@ namespace Tag.Neuron.Xamarin.Services
         private readonly IUiDispatcher uiDispatcher;
         private readonly IInternalNeuronService neuronService;
         private readonly ILogService logService;
+        private readonly ISettingsService settingsService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        internal NeuronContracts(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
+        internal NeuronContracts(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, 
+            ILogService logService, ISettingsService settingsService)
         {
             this.tagProfile = tagProfile;
             this.uiDispatcher = uiDispatcher;
             this.neuronService = neuronService;
             this.logService = logService;
+            this.settingsService = settingsService;
         }
 
         internal async Task CreateClients(bool CanCreateKeys)
@@ -173,7 +176,23 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.GetSignedContractsAsync();
         }
 
-        public Task<Contract> SignContract(Contract contract, string role, bool transferable)
+        /// <summary>
+        /// Gets the id's of contract templates used.
+        /// </summary>
+        /// <returns>Id's of contract templates, together with the last time they were used.</returns>
+        public async Task<KeyValuePair<DateTime, string>[]> GetContractTemplateIds()
+        {
+            List<KeyValuePair<DateTime, string>> Result = new List<KeyValuePair<DateTime, string>>();
+            string Prefix = Constants.KeyPrefixes.ContractTemplatePrefix;
+            int PrefixLen = Prefix.Length;
+
+            foreach ((string Key, DateTime LastUsed) in await this.settingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
+                Result.Add(new KeyValuePair<DateTime, string>(LastUsed, Key.Substring(PrefixLen)));
+
+            return Result.ToArray();
+        }
+
+		public Task<Contract> SignContract(Contract contract, string role, bool transferable)
         {
             AssertContractsIsAvailable();
             return contractsClient.SignContractAsync(contract, role, transferable);

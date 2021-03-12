@@ -33,7 +33,7 @@ namespace Tag.Neuron.Xamarin
             this.singletons.Add(typeof(ISettingsService), this.SettingsService);
             this.NavigationService = new NavigationService(this.LogService, this.UiDispatcher);
             this.singletons.Add(typeof(INavigationService), this.NavigationService);
-            this.NeuronService = new NeuronService(appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService, startupProfiler);
+            this.NeuronService = new NeuronService(appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService, this.SettingsService, startupProfiler);
             this.singletons.Add(typeof(INeuronService), this.NeuronService);
         }
 

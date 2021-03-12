@@ -294,6 +294,16 @@
               Looks up a localized string similar to Contract successfully signed..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ContractTemplates">
+            <summary>
+              Looks up a localized string similar to Contract Templates.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContractTemplatesInfoText">
+            <summary>
+              Looks up a localized string similar to Below is a list of contract templates that you have used. Click on a template to create a new contract based on that template..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ContractVisibility_CreatorAndParts">
             <summary>
               Looks up a localized string similar to Creator and parts.
@@ -621,7 +631,7 @@
         </member>
         <member name="P:IdApp.AppResources.MyContractsInfoText">
             <summary>
-              Looks up a localized string similar to Below is a list of contracts. Click on a contract for more information about it..
+              Looks up a localized string similar to Below is a list of contracts that you have created. Click on a contract for more information about it..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.MyCreatedContracts">
@@ -1142,6 +1152,11 @@
         <member name="P:IdApp.AppResources.SignedContracts">
             <summary>
               Looks up a localized string similar to Signed Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SignedContractsInfoText">
+            <summary>
+              Looks up a localized string similar to Below is a list of contracts that you have signed. Click on a contract for more information about it..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SignIn">
@@ -1678,7 +1693,7 @@
             Creates an instance of the <see cref="T:IdApp.Models.ContractModel"/> class.
             </summary>
             <param name="contractId">The contract id.</param>
-            <param name="created">The created timestamp of the contract.</param>
+            <param name="timestamp">The timestamp to show with the contract reference.</param>
             <param name="name">The name of the contract.</param>
         </member>
         <member name="P:IdApp.Models.ContractModel.ContractId">
@@ -1686,7 +1701,7 @@
             The contract id.
             </summary>
         </member>
-        <member name="P:IdApp.Models.ContractModel.Created">
+        <member name="P:IdApp.Models.ContractModel.Timestamp">
             <summary>
             The created timestamp of the contract.
             </summary>
@@ -2696,32 +2711,52 @@
             The signature in plain text.
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.Contracts.ContractsListMode">
+            <summary>
+            What list of contracts to display
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ContractsListMode.MyContracts">
+            <summary>
+            Contracts I have created
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ContractsListMode.SignedContracts">
+            <summary>
+            Contracts I have signed
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ContractsListMode.ContractTemplates">
+            <summary>
+            Contract templates I have used to create new contracts
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Contracts.MyContractsViewModel">
             <summary>
             The view model to bind to when displaying 'my' contracts.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.showCreatedContracts">
+        <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.contractsListMode">
             <summary>
             Show created contracts or signed contracts?
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.#ctor(System.Boolean)">
+        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.#ctor(IdApp.ViewModels.Contracts.ContractsListMode)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.MyContractsViewModel"/> class.
-            <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
             </summary>
+            <param name="ContractsListMode">What list of contracts to display.</param>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.#ctor(System.Boolean,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
+        <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.#ctor(IdApp.ViewModels.Contracts.ContractsListMode,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.MyContractsViewModel"/> class.
             For unit tests.
-            <param name="showCreatedContracts">Set to <c>true</c> to show created contracts, <c>false</c> otherwise.</param>
+            </summary>
+            <param name="ContractsListMode">What list of contracts to display.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="navigationService">The navigation service.</param>
             <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
-            </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.MyContractsViewModel.DoBind">
             <inheritdoc/>
@@ -2737,6 +2772,16 @@
         <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Title">
             <summary>
             Gets or sets the title for the view displaying contracts.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.DescriptionProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Description"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Description">
+            <summary>
+            Gets or sets the introductory text for the view displaying contracts.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.ShowContractsMissingProperty">
@@ -6304,6 +6349,16 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:IdApp.Views.Contracts.ContractTemplatesPage">
+            <summary>
+            A page that displays a list of contract templates used by the current user.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ContractTemplatesPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ContractTemplatesPage"/> class.
+            </summary>
+        </member>
         <member name="T:IdApp.Views.Contracts.MyContractsPage">
             <summary>
             A page that displays a list of the current user's contracts.
@@ -6314,11 +6369,11 @@
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.MyContractsPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Views.Contracts.MyContractsPage.#ctor(System.Boolean)">
+        <member name="M:IdApp.Views.Contracts.MyContractsPage.#ctor(IdApp.ViewModels.Contracts.ContractsListMode)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.MyContractsPage"/> class.
             </summary>
-            <param name="showCreatedContracts">Set to <c>true</c> if created contracts should be shown, <c>false</c> otherwise.</param>
+            <param name="ContractsListMode">What list of contracts to display.</param>
         </member>
         <member name="M:IdApp.Views.Contracts.MyContractsPage.OnBackButtonPressed">
             <summary>
@@ -6437,6 +6492,9 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Views.Contracts.ViewContractPage"/> class.
             </summary>
+        </member>
+        <member name="M:IdApp.Views.Contracts.ViewContractPage.OnAppearing">
+            <inheritdoc/>
         </member>
         <member name="M:IdApp.Views.Contracts.ViewContractPage.OnDisappearing">
             <inheritdoc/>

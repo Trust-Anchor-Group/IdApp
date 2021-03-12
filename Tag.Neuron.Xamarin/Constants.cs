@@ -35,6 +35,17 @@ namespace Tag.Neuron.Xamarin
         }
 
         /// <summary>
+        /// Key prefix constants
+        /// </summary>
+        public static class KeyPrefixes
+		{
+            /// <summary>
+            /// Contract.Template.
+            /// </summary>
+            public const string ContractTemplatePrefix = "Contract.Template.";
+        }
+
+        /// <summary>
         /// IoT Schemes
         /// </summary>
         public static class UriSchemes

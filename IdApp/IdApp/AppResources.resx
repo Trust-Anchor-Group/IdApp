@@ -258,6 +258,12 @@
   <data name="ContractSuccessfullySigned" xml:space="preserve">
     <value>Contract successfully signed.</value>
   </data>
+  <data name="ContractTemplates" xml:space="preserve">
+    <value>Contract Templates</value>
+  </data>
+  <data name="ContractTemplatesInfoText" xml:space="preserve">
+    <value>Below is a list of contract templates that you have used. Click on a template to create a new contract based on that template.</value>
+  </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
     <value>Select contract visibility first, and then try again.</value>
   </data>
@@ -454,7 +460,7 @@
     <value>My Contracts</value>
   </data>
   <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Below is a list of contracts. Click on a contract for more information about it.</value>
+    <value>Below is a list of contracts that you have created. Click on a contract for more information about it.</value>
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
     <value>My Created Contracts</value>
@@ -767,6 +773,9 @@
   </data>
   <data name="SignedContracts" xml:space="preserve">
     <value>Signed Contracts</value>
+  </data>
+  <data name="SignedContractsInfoText" xml:space="preserve">
+    <value>Below is a list of contracts that you have signed. Click on a contract for more information about it.</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Log in</value>

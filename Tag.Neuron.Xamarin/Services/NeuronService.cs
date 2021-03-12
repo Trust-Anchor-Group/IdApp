@@ -28,6 +28,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private readonly INetworkService networkService;
 		private readonly ILogService logService;
 		private readonly ITagProfile tagProfile;
+		private readonly ISettingsService settingsService;
 		private Timer reconnectTimer;
 		private XmppClient xmppClient;
 		private Profiler startupProfiler;
@@ -56,13 +57,15 @@ namespace Tag.Neuron.Xamarin.Services
 			IUiDispatcher uiDispatcher,
 			INetworkService networkService,
 			ILogService logService,
+			ISettingsService settingsService,
 			Profiler startupProfiler)
         {
             this.appAssembly = appAssembly;
 			this.networkService = networkService;
 			this.logService = logService;
 			this.tagProfile = tagProfile;
-			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService);
+			this.settingsService = settingsService;
+			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService, this.settingsService);
 			this.muc = new NeuronMultiUserChat(this.tagProfile, uiDispatcher, this, this.logService);
 			this.thingRegistry = new NeuronThingRegistry(this.tagProfile, uiDispatcher, this, this.logService);
 			this.sniffer = new InMemorySniffer(250);

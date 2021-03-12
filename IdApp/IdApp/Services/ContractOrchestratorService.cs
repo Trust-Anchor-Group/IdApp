@@ -26,6 +26,7 @@ namespace IdApp.Services
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
 		private readonly INetworkService networkService;
+		private readonly ISettingsService settingsService;
 
 		public ContractOrchestratorService(
 			ITagProfile tagProfile,
@@ -33,7 +34,8 @@ namespace IdApp.Services
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,
-			INetworkService networkService)
+			INetworkService networkService,
+			ISettingsService settingsService)
 		{
 			this.tagProfile = tagProfile;
 			this.uiDispatcher = uiDispatcher;
@@ -41,6 +43,7 @@ namespace IdApp.Services
 			this.navigationService = navigationService;
 			this.logService = logService;
 			this.networkService = networkService;
+			this.settingsService = settingsService;
 		}
 
 		public override Task Load(bool isResuming)
@@ -411,7 +414,10 @@ namespace IdApp.Services
 				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
 				{
 					if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
+					{
+						await this.settingsService.SaveState(Constants.KeyPrefixes.ContractTemplatePrefix + contract.ContractId, DateTime.Now);
 						await this.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract));
+					}
 					else
 						await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
 				});
