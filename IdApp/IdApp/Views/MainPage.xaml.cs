@@ -33,11 +33,13 @@ namespace IdApp.Views
         {
             base.OnAppearing();
             this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+            _ = this.MainTabBar.Show();
         }
 
         /// <inheritdoc />
-        protected override void OnDisappearing()
+        protected override async void OnDisappearing()
         {
+            await this.MainTabBar.Hide();
             this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
             base.OnDisappearing();
         }
@@ -52,14 +54,12 @@ namespace IdApp.Views
                     // Show (slide down) logout panel
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
                     this.logoutPanelIsShown = true;
-                    this.ScanQrButton.IsEnabled = false;
                     this.LogoutPanel.TranslationY = -Height;
                     await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.BounceOut);
                 }
                 else if (!this.neuronService.IsLoggedOut && this.logoutPanelIsShown)
                 {
                     this.logoutPanelIsShown = false;
-                    this.ScanQrButton.IsEnabled = true;
                     // Hide (slide up) logout panel
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
                     await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
@@ -67,7 +67,6 @@ namespace IdApp.Views
             }
             else if (logoutPanelIsShown)
             {
-                this.ScanQrButton.IsEnabled = true;
                 this.logoutPanelIsShown = false;
                 await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
             }
@@ -76,11 +75,6 @@ namespace IdApp.Views
         private void IdCard_Tapped(object sender, EventArgs e)
         {
             this.IdCard.Flip();
-        }
-
-        private void ScanQr_Clicked(object sender, EventArgs e)
-        {
-            AppShell.Instance.ScanQrCodeMenuItem_Clicked(sender, e);
         }
     }
 }

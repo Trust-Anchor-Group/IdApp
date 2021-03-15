@@ -20,6 +20,9 @@ namespace IdApp.Tests.ViewModels
         private readonly Mock<IUiDispatcher> uiDispatcher;
         private readonly Mock<ITagProfile> tagProfile;
         private readonly Mock<INetworkService> networkService;
+        private readonly Mock<INavigationService> navigationService;
+        private readonly Mock<IContractOrchestratorService> contractOrchestratorService;
+        private readonly Mock<IThingRegistryOrchestratorService> thingRegistryOrchestratorService;
 
         public MainViewModelTests()
         {
@@ -28,6 +31,9 @@ namespace IdApp.Tests.ViewModels
             this.neuronService = new Mock<INeuronService>();
             this.neuronContracts = new Mock<INeuronContracts>();
             this.uiDispatcher = new Mock<IUiDispatcher>();
+            this.navigationService = new Mock<INavigationService>();
+            this.contractOrchestratorService = new Mock<IContractOrchestratorService>();
+            this.thingRegistryOrchestratorService = new Mock<IThingRegistryOrchestratorService>();
             this.tagProfile = new Mock<ITagProfile>();
             this.tagProfile.SetupGet(x => x.Domain).Returns("domain");
             LegalIdentity legalIdentity = new LegalIdentity { Id = Guid.NewGuid().ToString(), State = IdentityState.Approved };
@@ -46,7 +52,7 @@ namespace IdApp.Tests.ViewModels
 
         protected override MainViewModel AViewModel()
         {
-            return new MainViewModel(this.logService.Object, this.neuronService.Object, this.uiDispatcher.Object, this.tagProfile.Object, this.networkService.Object, this.imageCacheService.Object);
+            return new MainViewModel(this.logService.Object, this.neuronService.Object, this.uiDispatcher.Object, this.tagProfile.Object, this.navigationService.Object, this.networkService.Object, this.imageCacheService.Object, this.contractOrchestratorService.Object, this.thingRegistryOrchestratorService.Object);
         }
 
         [Test]

@@ -2,8 +2,10 @@
 using IdApp.Navigation;
 using IdApp.Views;
 using System.Threading.Tasks;
+using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Xamarin.Essentials;
 
 namespace IdApp
 {
@@ -14,6 +16,81 @@ namespace IdApp
     {
         private static TaskCompletionSource<string> qrCodeScanned;
         private static Func<string, Task> callback;
+
+        /// <summary>
+        /// Scans a QR Code, and depending on the actual result, takes different actions. This typically means navigating to an appropriate page.
+        /// </summary>
+        /// <param name="logService">The log service to use for logging.</param>
+        /// <param name="neuronService">The Neuron service for XMPP access</param>
+        /// <param name="navigationService">The navigation service for page navigation.</param>
+        /// <param name="uiDispatcher">The ui dispatcher for main thread access.</param>
+        /// <param name="contractOrchestratorService">The contract orchestrator service.</param>
+        /// <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
+        /// <param name="commandName">The command name to display on the button when scanning.</param>
+        /// <param name="action">An optional callback that will be called after scan, but before page navigation.</param>
+        /// <returns></returns>
+        public static async Task ScanQrCodeAndHandleResult(
+            ILogService logService,
+            INeuronService neuronService,
+            INavigationService navigationService,
+            IUiDispatcher uiDispatcher,
+            IContractOrchestratorService contractOrchestratorService,
+            IThingRegistryOrchestratorService thingRegistryOrchestratorService,
+            string commandName, 
+            Func<string, Task> action = null)
+        {
+            string decodedText = await IdApp.QrCode.ScanQrCode(navigationService, AppResources.Open);
+
+            if (string.IsNullOrWhiteSpace(decodedText))
+                return;
+
+            try
+            {
+                if (!Uri.TryCreate(decodedText, UriKind.Absolute, out Uri uri))
+                {
+                    await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
+                    return;
+                }
+
+                switch (uri.Scheme.ToLower())
+                {
+                    case Constants.UriSchemes.UriSchemeIotId:
+                        string legalId = Constants.UriSchemes.GetCode(decodedText);
+                        await contractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
+                        break;
+
+                    case Constants.UriSchemes.UriSchemeIotSc:
+                        string contractId = Constants.UriSchemes.GetCode(decodedText);
+                        await contractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
+                        break;
+
+                    case Constants.UriSchemes.UriSchemeIotDisco:
+                        if (neuronService.ThingRegistry.IsIoTDiscoClaimURI(decodedText))
+                            await thingRegistryOrchestratorService.OpenClaimDevice(decodedText);
+                        else if (neuronService.ThingRegistry.IsIoTDiscoSearchURI(decodedText))
+                            await thingRegistryOrchestratorService.OpenSearchDevices(decodedText);
+                        else
+                            await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{decodedText}");
+                        break;
+
+                    case Constants.UriSchemes.UriSchemeTagSign:
+                        string request = Constants.UriSchemes.GetCode(decodedText);
+                        await contractOrchestratorService.TagSignature(request);
+                        break;
+
+                    default:
+                        if (!await Launcher.TryOpenAsync(uri))
+                            await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{decodedText}");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                logService.LogException(ex);
+                await uiDispatcher.DisplayAlert(ex);
+            }
+
+        }
 
         /// <summary>
         /// Navigates to the Scan QR Code Page, waits for scan to complete, and returns the result.
