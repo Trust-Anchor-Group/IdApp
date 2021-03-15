@@ -25,28 +25,20 @@ namespace IdApp.Views
             this.Button1FontFamily = fontFamily;
             this.Button2FontFamily = fontFamily;
             this.Button3FontFamily = fontFamily;
-            this.Button4FontFamily = fontFamily;
-            this.Button5FontFamily = fontFamily;
 
             InitializeComponent();
 
             Button1.SetBinding(Button.CommandProperty, new Binding(nameof(Button1Command), source: this));
             Button2.SetBinding(Button.CommandProperty, new Binding(nameof(Button2Command), source: this));
             Button3.SetBinding(Button.CommandProperty, new Binding(nameof(Button3Command), source: this));
-            Button4.SetBinding(Button.CommandProperty, new Binding(nameof(Button4Command), source: this));
-            Button5.SetBinding(Button.CommandProperty, new Binding(nameof(Button5Command), source: this));
 
             Button1.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button1FontFamily), source: this));
             Button2.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button2FontFamily), source: this));
             Button3.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button3FontFamily), source: this));
-            Button4.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button4FontFamily), source: this));
-            Button5.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button5FontFamily), source: this));
 
             Button1.SetBinding(Button.TextProperty, new Binding(nameof(Button1Text), source: this));
             Button2.SetBinding(Button.TextProperty, new Binding(nameof(Button2Text), source: this));
             Button3.SetBinding(Button.TextProperty, new Binding(nameof(Button3Text), source: this));
-            Button4.SetBinding(Button.TextProperty, new Binding(nameof(Button4Text), source: this));
-            Button5.SetBinding(Button.TextProperty, new Binding(nameof(Button5Text), source: this));
         }
 
         #region Properties
@@ -97,36 +89,6 @@ namespace IdApp.Views
         }
 
         /// <summary>
-        /// See <see cref="Button4Command"/>
-        /// </summary>
-        public static readonly BindableProperty Button4CommandProperty =
-            BindableProperty.Create("Button4Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
-
-        /// <summary>
-        /// The command to bind to for the fourth button.
-        /// </summary>
-        public ICommand Button4Command
-        {
-            get { return (ICommand)GetValue(Button4CommandProperty); }
-            set { SetValue(Button4CommandProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="Button5Command"/>
-        /// </summary>
-        public static readonly BindableProperty Button5CommandProperty =
-            BindableProperty.Create("Button5Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
-
-        /// <summary>
-        /// The command to bind to for the fifth button.
-        /// </summary>
-        public ICommand Button5Command
-        {
-            get { return (ICommand)GetValue(Button5CommandProperty); }
-            set { SetValue(Button5CommandProperty, value); }
-        }
-
-        /// <summary>
         /// See <see cref="Button1FontFamily"/>
         /// </summary>
         public static readonly BindableProperty Button1FontFamilyProperty =
@@ -169,36 +131,6 @@ namespace IdApp.Views
         {
             get { return (string)GetValue(Button3FontFamilyProperty); }
             set { SetValue(Button3FontFamilyProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="Button4FontFamily"/>
-        /// </summary>
-        public static readonly BindableProperty Button4FontFamilyProperty =
-            BindableProperty.Create("Button4FontFamily", typeof(string), typeof(MainTabBarView), default(string));
-
-        /// <summary>
-        /// The font family to use for text on the fourth button
-        /// </summary>
-        public string Button4FontFamily
-        {
-            get { return (string)GetValue(Button4FontFamilyProperty); }
-            set { SetValue(Button4FontFamilyProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="Button5FontFamily"/>
-        /// </summary>
-        public static readonly BindableProperty Button5FontFamilyProperty =
-            BindableProperty.Create("Button5FontFamily", typeof(string), typeof(MainTabBarView), default(string));
-
-        /// <summary>
-        /// The font family to use for text on the fifth button
-        /// </summary>
-        public string Button5FontFamily
-        {
-            get { return (string)GetValue(Button5FontFamilyProperty); }
-            set { SetValue(Button5FontFamilyProperty, value); }
         }
 
         /// <summary>
@@ -246,36 +178,6 @@ namespace IdApp.Views
             set { SetValue(Button3TextProperty, value); }
         }
 
-        /// <summary>
-        /// See <see cref="Button4Text"/>
-        /// </summary>
-        public static readonly BindableProperty Button4TextProperty =
-            BindableProperty.Create("Button4Text", typeof(string), typeof(MainTabBarView), default(string));
-
-        /// <summary>
-        /// The text to use for text on the fourth button
-        /// </summary>
-        public string Button4Text
-        {
-            get { return (string)GetValue(Button4TextProperty); }
-            set { SetValue(Button4TextProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="Button5Text"/>
-        /// </summary>
-        public static readonly BindableProperty Button5TextProperty =
-            BindableProperty.Create("Button5Text", typeof(string), typeof(MainTabBarView), default(string));
-
-        /// <summary>
-        /// The text to use for text on the fifth button
-        /// </summary>
-        public string Button5Text
-        {
-            get { return (string)GetValue(Button5TextProperty); }
-            set { SetValue(Button5TextProperty, value); }
-        }
-
         #endregion
 
         /// <summary>
@@ -288,8 +190,8 @@ namespace IdApp.Views
             {
                 this.isShowing = true;
                 Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, 0, DurationInMs, Easing.SinIn);
-                Task translateButton3Task = this.Button3.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
-                await Task.WhenAll(translateButton3Task, translateToolBarTask);
+                Task translateMiddleButtonTask = this.Button2.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
+                await Task.WhenAll(translateMiddleButtonTask, translateToolBarTask);
             }
         }
 
@@ -301,9 +203,9 @@ namespace IdApp.Views
         {
             if (this.isShowing)
             {
-                Task translateButton3Task = this.Button3.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
+                Task translateMiddleButtonTask = this.Button2.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
                 Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, this.MainToolBar.Height, DurationInMs, Easing.SinOut);
-                await Task.WhenAll(translateToolBarTask, translateButton3Task);
+                await Task.WhenAll(translateToolBarTask, translateMiddleButtonTask);
                 this.isShowing = false;
             }
         }

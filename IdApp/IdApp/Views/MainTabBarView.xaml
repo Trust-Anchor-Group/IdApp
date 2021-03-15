@@ -4,8 +4,8 @@
              xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
              x:Class="IdApp.Views.MainTabBarView">
     <ContentView.Content>
-        <Grid x:Name="MainToolBar" Grid.Row="2" VerticalOptions="EndAndExpand" HeightRequest="84">
-            <Grid x:Name="ToolBarContent" Grid.Row="0" VerticalOptions="End" ColumnSpacing="1" TranslationY="{Binding Path=Height, Source={x:Reference MainToolBar}}" Margin="0,0,0,2">
+        <Grid x:Name="MainToolBar" VerticalOptions="EndAndExpand" HeightRequest="84">
+            <Grid x:Name="ToolBarContent" Grid.Row="0" VerticalOptions="End" ColumnSpacing="0" TranslationY="{Binding Path=Height, Source={x:Reference MainToolBar}}" Margin="0,0,0,2">
                 <Grid.Resources>
                     <Style TargetType="Button">
                         <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}"/>
@@ -19,17 +19,22 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
+                <!-- Left button -->
                 <Button x:Name="Button1" Grid.Row="0" Grid.Column="0" FontSize="Medium" />
-                <Button x:Name="Button2" Grid.Row="0" Grid.Column="1" FontSize="Medium" />
-                <Button x:Name="Button4" Grid.Row="0" Grid.Column="2" FontSize="Medium" />
-                <Button x:Name="Button5" Grid.Row="0" Grid.Column="3" FontSize="Medium" />
-                <!-- The round button -->
-                <Path Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Fill="White" WidthRequest="72" HeightRequest="72" Margin="0,0,0,8" HorizontalOptions="Center" VerticalOptions="Center">
+                <!-- Right button -->
+                <Button x:Name="Button3" Grid.Row="0" Grid.Column="2" FontSize="Medium"/>
+                <!-- BEGIN round button backdrop -->
+                <!-- solid background -->
+                <BoxView Grid.Row="0" Grid.Column="1" VerticalOptions="End" HorizontalOptions="Fill" HeightRequest="48" BackgroundColor="{StaticResource HeadingBackground}"/>
+                <!-- bottom half circle -->
+                <Path Grid.Row="0" Grid.Column="1" WidthRequest="72" HeightRequest="72" Margin="0,0,0,8" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Path.Fill>
+                        <SolidColorBrush Color="{StaticResource HeadingForeground}"/>
+                    </Path.Fill>
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
@@ -52,7 +57,12 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
-                <Button x:Name="Button3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,0,16" CornerRadius="30" WidthRequest="60" HeightRequest="60" HorizontalOptions="Center" VerticalOptions="Center"  FontSize="Large"/>
+                <!-- vertical 'bar' -->
+                <BoxView Grid.Row="0" Grid.Column="1" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="4" HeightRequest="48" BackgroundColor="{StaticResource HeadingForeground}"/>
+                <!-- END round button backdrop -->
+
+                <!-- The center button -->
+                <Button x:Name="Button2" Grid.Row="0" Grid.Column="1" Margin="0,0,0,16" CornerRadius="32" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
             </Grid>
         </Grid>
     </ContentView.Content>

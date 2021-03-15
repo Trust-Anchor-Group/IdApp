@@ -5,7 +5,6 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Views;
 using IdApp.Views.Contracts;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
@@ -65,11 +64,9 @@ namespace IdApp.ViewModels
             this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? DependencyService.Resolve<IThingRegistryOrchestratorService>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
-            this.ViewIdentityCommand = new Command(async () => await ViewIdentity(), () => this.IsConnected);
             this.ViewMyContractsCommand = new Command(async () => await ViewMyContracts(), () => this.IsConnected);
             this.ScanQrCodeCommand = new Command(async () => await ScanQrCode(), () => this.IsConnected);
-            this.ViewSignedContractsCommand = new Command(async () => await ViewSignedContracts(), () => this.IsConnected);
-            this.ViewNewContractCommand = new Command(async () => await ViewNewContract(), () => this.IsConnected);
+            this.ViewWalletCommand = new Command(async () => await ViewWallet(), () => this.IsConnected);
         }
 
         /// <inheritdoc />
@@ -193,21 +190,6 @@ namespace IdApp.ViewModels
         #region Properties
 
         /// <summary>
-        /// See <see cref="ViewIdentityCommand"/>
-        /// </summary>
-        public static readonly BindableProperty ViewIdentityCommandProperty =
-            BindableProperty.Create("ViewIdentityCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
-
-        /// <summary>
-        /// The command to bind to for viewing the user's identity
-        /// </summary>
-        public ICommand ViewIdentityCommand
-        {
-            get { return (ICommand)GetValue(ViewIdentityCommandProperty); }
-            set { SetValue(ViewIdentityCommandProperty, value); }
-        }
-
-        /// <summary>
         /// See <see cref="ViewMyContractsCommand"/>
         /// </summary>
         public static readonly BindableProperty ViewMyContractsCommandProperty =
@@ -223,36 +205,6 @@ namespace IdApp.ViewModels
         }
 
         /// <summary>
-        /// See <see cref="ViewSignedContractsCommand"/>
-        /// </summary>
-        public static readonly BindableProperty ViewSignedContractsCommandProperty =
-            BindableProperty.Create("ViewSignedContractsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
-
-        /// <summary>
-        /// The command to bind to for viewing the user's signed contracts.
-        /// </summary>
-        public ICommand ViewSignedContractsCommand
-        {
-            get { return (ICommand)GetValue(ViewSignedContractsCommandProperty); }
-            set { SetValue(ViewSignedContractsCommandProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="ViewNewContractCommand"/>
-        /// </summary>
-        public static readonly BindableProperty ViewNewContractsCommandProperty =
-            BindableProperty.Create("ViewNewContractCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
-
-        /// <summary>
-        /// The command to bind to for creating a new contract.
-        /// </summary>
-        public ICommand ViewNewContractCommand
-        {
-            get { return (ICommand)GetValue(ViewNewContractsCommandProperty); }
-            set { SetValue(ViewNewContractsCommandProperty, value); }
-        }
-
-        /// <summary>
         /// See <see cref="ScanQrCodeCommand"/>
         /// </summary>
         public static readonly BindableProperty ScanQrCodeCommandProperty =
@@ -263,8 +215,23 @@ namespace IdApp.ViewModels
         /// </summary>
         public ICommand ScanQrCodeCommand
         {
-            get { return (ICommand) GetValue(ScanQrCodeCommandProperty); }
+            get { return (ICommand)GetValue(ScanQrCodeCommandProperty); }
             set { SetValue(ScanQrCodeCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="ViewWalletCommand"/>
+        /// </summary>
+        public static readonly BindableProperty ViewWalletCommandProperty =
+            BindableProperty.Create("ViewWalletCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+        /// <summary>
+        /// The command to bind to for viewing a user's wallet.
+        /// </summary>
+        public ICommand ViewWalletCommand
+        {
+            get { return (ICommand)GetValue(ViewWalletCommandProperty); }
+            set { SetValue(ViewWalletCommandProperty, value); }
         }
 
         /// <summary>
@@ -541,24 +508,14 @@ namespace IdApp.ViewModels
 
         #endregion
 
-        private async Task ViewIdentity()
-        {
-            await this.navigationService.GoToAsync(nameof(ViewIdentityPage));
-        }
-
         private async Task ViewMyContracts()
         {
             await this.navigationService.GoToAsync(nameof(MyContractsPage));
         }
 
-        private async Task ViewSignedContracts()
+        private async Task ViewWallet()
         {
-            await this.navigationService.GoToAsync(nameof(SignedContractsPage));
-        }
-
-        private async Task ViewNewContract()
-        {
-            await this.navigationService.GoToAsync(nameof(NewContractPage));
+            await this.UiDispatcher.DisplayAlert("Wallet", "Wallet placeholder");
         }
 
         private async Task ScanQrCode()
@@ -653,7 +610,7 @@ namespace IdApp.ViewModels
                 this.ConnectionErrorsText = string.Empty;
             }
             this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
-            this.EvaluateCommands(this.ViewIdentityCommand, this.ViewMyContractsCommand, this.ScanQrCodeCommand, this.ViewSignedContractsCommand, this.ViewNewContractCommand);
+            this.EvaluateCommands(this.ViewMyContractsCommand, this.ScanQrCodeCommand, this.ViewWalletCommand);
         }
     }
 }

@@ -72,5 +72,9 @@
         /// The question mark in a circle icon
         /// </summary>
         public const string QuestionCircle = "\uf059";
+        /// <summary>
+        /// The wallet icon
+        /// </summary>
+        public const string Wallet = "\uf555";
     }
 }
