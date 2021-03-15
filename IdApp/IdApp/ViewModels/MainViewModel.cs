@@ -164,11 +164,6 @@ namespace IdApp.ViewModels
                     return;
 
                 MemoryStream ms = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
-                if (!this.IsBound) // Page no longer on screen when download is done?
-                {
-                    ms?.Dispose();
-                    return;
-                }
 
                 if (ms != null)
                 {
@@ -177,7 +172,10 @@ namespace IdApp.ViewModels
 
                     this.UiDispatcher.BeginInvokeOnMainThread(() =>
                     {
-                        Image = ImageSource.FromStream(() => new MemoryStream(bytes));
+                        if (this.IsBound)
+                        {
+                            Image = ImageSource.FromStream(() => new MemoryStream(bytes));
+                        }
                     });
                 }
             }
