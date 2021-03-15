@@ -9,6 +9,7 @@ namespace Tag.Neuron.Xamarin.Services
     [Singleton]
     internal sealed class NavigationService : INavigationService
     {
+        private const string DefaultGoBackRoute = "..";
         private readonly ILogService logService;
         private readonly IUiDispatcher uiDispatcher;
         private NavigationArgs currentNavigationArgs;
@@ -19,6 +20,24 @@ namespace Tag.Neuron.Xamarin.Services
             this.logService = logService;
             this.uiDispatcher = uiDispatcher;
             this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
+
+            // Handle back button behavior
+            bool isManuallyNavigatingBack = false;
+            Shell.Current.Navigating += async (s, e) =>
+            {
+                string customGoBackRoute = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+                string path = e.Target.Location.ToString();
+                if (path == DefaultGoBackRoute && // user wants to go back
+                    customGoBackRoute != DefaultGoBackRoute && // we have a custom back route to use instead of the default one
+                    e.CanCancel && // Can we cancel navigation?
+                    !isManuallyNavigatingBack) // Avoid recursion
+                {
+                    isManuallyNavigatingBack = true;
+                    e.Cancel();
+                    await this.GoBackAsync();
+                    isManuallyNavigatingBack = false;
+                }
+            };
         }
 
         private bool TryGetPageName(string route, out string pageName)
@@ -73,8 +92,8 @@ namespace Tag.Neuron.Xamarin.Services
         {
             try
             {
-                string route = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : "..";
-                await Shell.Current.GoToAsync(route);
+                string route = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+                await Shell.Current.GoToAsync(route, true);
             }
             catch (Exception e)
             {
@@ -93,7 +112,7 @@ namespace Tag.Neuron.Xamarin.Services
             this.PushArgs(route, args);
             try
             {
-                await Shell.Current.GoToAsync(route);
+                await Shell.Current.GoToAsync(route, true);
             }
             catch (Exception e)
             {
