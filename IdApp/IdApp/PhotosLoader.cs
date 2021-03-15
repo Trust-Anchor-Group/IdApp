@@ -95,9 +95,16 @@ namespace IdApp
         /// </summary>
         public void CancelLoadPhotos()
         {
-            this.loadPhotosTimestamp = DateTime.UtcNow;
-            this.photos.Clear();
-            this.attachmentIds.Clear();
+            try
+            {
+                this.loadPhotosTimestamp = DateTime.UtcNow;
+                this.attachmentIds.Clear();
+                this.photos.Clear();
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         /// <summary>
