@@ -7,12 +7,26 @@
         <Grid x:Name="MainToolBar" VerticalOptions="EndAndExpand" HeightRequest="84">
             <Grid x:Name="ToolBarContent" Grid.Row="0" VerticalOptions="End" ColumnSpacing="0" TranslationY="{Binding Path=Height, Source={x:Reference MainToolBar}}" Margin="0,0,0,2">
                 <Grid.Resources>
-                    <Style TargetType="Button">
+                    <Style TargetType="Button" x:Key="TabBarButton">
                         <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}"/>
                         <Setter Property="TextColor" Value="{StaticResource HeadingForeground}"/>
                         <Setter Property="CornerRadius" Value="0"/>
                         <Setter Property="VerticalOptions" Value="End"/>
                         <Setter Property="Margin" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger TargetType="Button"
+                                     Property="IsEnabled"
+                                     Value="False">
+                                <Setter Property="TextColor" Value="Gray" />
+                                <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+                            </Trigger>
+                            <Trigger TargetType="Button"
+                                     Property="IsEnabled"
+                                     Value="True">
+                                <Setter Property="TextColor" Value="{StaticResource HeadingForeground}" />
+                                <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
@@ -24,9 +38,9 @@
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <!-- Left button -->
-                <Button x:Name="Button1" Grid.Row="0" Grid.Column="0" FontSize="Medium" />
+                <Button x:Name="Button1" Grid.Row="0" Grid.Column="0" FontSize="Medium" Style="{StaticResource TabBarButton}" />
                 <!-- Right button -->
-                <Button x:Name="Button3" Grid.Row="0" Grid.Column="2" FontSize="Medium"/>
+                <Button x:Name="Button3" Grid.Row="0" Grid.Column="2" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
                 <!-- BEGIN round button backdrop -->
                 <!-- solid background -->
                 <BoxView Grid.Row="0" Grid.Column="1" VerticalOptions="End" HorizontalOptions="Fill" HeightRequest="48" BackgroundColor="{StaticResource HeadingBackground}"/>
@@ -62,7 +76,7 @@
                 <!-- END round button backdrop -->
 
                 <!-- The center button -->
-                <Button x:Name="Button2" Grid.Row="0" Grid.Column="1" Margin="0,0,0,16" CornerRadius="32" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                <Button x:Name="Button2" Grid.Row="0" Grid.Column="1" Style="{StaticResource TabBarButton}" Margin="0,0,0,16" CornerRadius="32" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
             </Grid>
         </Grid>
     </ContentView.Content>

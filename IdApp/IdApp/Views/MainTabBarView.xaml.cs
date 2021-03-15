@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,7 +14,7 @@ namespace IdApp.Views
     public partial class MainTabBarView
     {
         private const uint DurationInMs = 250;
-
+        private readonly ILogService logService;
         private bool isShowing;
 
         /// <summary>
@@ -20,6 +22,7 @@ namespace IdApp.Views
         /// </summary>
         public MainTabBarView()
         {
+            this.logService = DependencyService.Resolve<ILogService>();
             // Set default values here.
             OnPlatform<string> fontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"];
             this.Button1FontFamily = fontFamily;
@@ -188,10 +191,23 @@ namespace IdApp.Views
         {
             if (!this.isShowing)
             {
+                this.ToolBarContent.CancelAnimations();
+                this.Button2.CancelAnimations();
                 this.isShowing = true;
                 Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, 0, DurationInMs, Easing.SinIn);
                 Task translateMiddleButtonTask = this.Button2.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
-                await Task.WhenAll(translateMiddleButtonTask, translateToolBarTask);
+                try
+                {
+                    await Task.WhenAll(translateMiddleButtonTask, translateToolBarTask);
+                }
+                catch (TaskCanceledException)
+                {
+                    // Ok, do nothing
+                }
+                catch (Exception e)
+                {
+                    this.logService.LogException(e);   
+                }
             }
         }
 
@@ -203,10 +219,23 @@ namespace IdApp.Views
         {
             if (this.isShowing)
             {
+                this.isShowing = false;
+                this.Button2.CancelAnimations();
+                this.ToolBarContent.CancelAnimations();
                 Task translateMiddleButtonTask = this.Button2.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
                 Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, this.MainToolBar.Height, DurationInMs, Easing.SinOut);
-                await Task.WhenAll(translateToolBarTask, translateMiddleButtonTask);
-                this.isShowing = false;
+                try
+                {
+                    await Task.WhenAll(translateToolBarTask, translateMiddleButtonTask);
+                }
+                catch (TaskCanceledException)
+                {
+                    // Ok, do nothing
+                }
+                catch (Exception e)
+                {
+                    this.logService.LogException(e);
+                }
             }
         }
     }

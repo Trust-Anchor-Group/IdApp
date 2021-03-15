@@ -55,7 +55,7 @@ namespace IdApp.Views
                     await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
                     this.logoutPanelIsShown = true;
                     this.LogoutPanel.TranslationY = -Height;
-                    await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.BounceOut);
+                    await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.SinIn);
                 }
                 else if (!this.neuronService.IsLoggedOut && this.logoutPanelIsShown)
                 {
