@@ -10,7 +10,7 @@ namespace Tag.Neuron.Xamarin.Services
     /// Allows for easy mocking when unit testing.
     /// </summary>
     [DefaultImplementation(typeof(NavigationService))]
-    public interface INavigationService
+    public interface INavigationService : ILoadableService
     {
         /// <summary>
         /// Navigates the AppShell to the specified route.

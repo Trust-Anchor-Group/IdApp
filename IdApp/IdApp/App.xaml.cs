@@ -211,6 +211,9 @@ namespace IdApp
 
                 sdkStartupThread?.Stop();
 
+                thread?.NewState("Navigation");
+                await this.sdk.NavigationService.Load(isResuming);
+
                 thread?.NewState("Cache");
                 await this.imageCacheService.Load(isResuming);
 
@@ -257,6 +260,9 @@ namespace IdApp
             }
             else
             {
+                if (!(this.sdk.NavigationService is null))
+                    await this.sdk.NavigationService.Unload();
+
                 if (!(this.contractOrchestratorService is null))
                     await this.contractOrchestratorService.Unload();
 
@@ -404,7 +410,7 @@ namespace IdApp
 
         private void DisplayBootstrapErrorPage(string title, string stackTrace)
         {
-            this.sdk.LogService?.SaveExceptionDump(title, stackTrace);
+            this.sdk?.LogService?.SaveExceptionDump(title, stackTrace);
 
             ScrollView sv = new ScrollView();
             StackLayout sl = new StackLayout
@@ -435,7 +441,7 @@ namespace IdApp
 
         private async Task SendErrorReportFromPreviousRun()
         {
-            if (!(this.sdk.LogService is null))
+            if (!(this.sdk?.LogService is null))
             {
                 string stackTrace = this.sdk.LogService.LoadExceptionDump();
                 if (!string.IsNullOrWhiteSpace(stackTrace))

@@ -7,37 +7,75 @@ using Xamarin.Forms;
 namespace Tag.Neuron.Xamarin.Services
 {
     [Singleton]
-    internal sealed class NavigationService : INavigationService
+    internal sealed class NavigationService : LoadableService, INavigationService
     {
         private const string DefaultGoBackRoute = "..";
         private readonly ILogService logService;
         private readonly IUiDispatcher uiDispatcher;
         private NavigationArgs currentNavigationArgs;
         private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
+        bool isManuallyNavigatingBack = false;
 
         public NavigationService(ILogService logService, IUiDispatcher uiDispatcher)
         {
             this.logService = logService;
             this.uiDispatcher = uiDispatcher;
             this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
+        }
 
-            // Handle back button behavior
-            bool isManuallyNavigatingBack = false;
-            Shell.Current.Navigating += async (s, e) =>
+        ///<inheritdoc/>
+        public override Task Load(bool isResuming)
+        {
+            if (this.BeginLoad())
             {
-                string customGoBackRoute = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
-                string path = e.Target.Location.ToString();
-                if (path == DefaultGoBackRoute && // user wants to go back
-                    customGoBackRoute != DefaultGoBackRoute && // we have a custom back route to use instead of the default one
-                    e.CanCancel && // Can we cancel navigation?
-                    !isManuallyNavigatingBack) // Avoid recursion
+                try
                 {
-                    isManuallyNavigatingBack = true;
-                    e.Cancel();
-                    await this.GoBackAsync();
-                    isManuallyNavigatingBack = false;
+                    Shell.Current.Navigating += Shell_Navigating;
                 }
-            };
+                catch (Exception e)
+                {
+                    this.logService.LogException(e);
+                    this.EndLoad(false);
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+
+        ///<inheritdoc/>
+        public override Task Unload()
+        {
+            if (this.BeginUnload())
+            {
+                try
+                {
+                    Shell.Current.Navigating -= Shell_Navigating;
+                }
+                catch (Exception e)
+                {
+                    this.logService.LogException(e);
+                }
+
+                this.EndUnload();
+            }
+            return Task.CompletedTask;
+        }
+
+
+        private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
+        {
+            string customGoBackRoute = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+            string path = e.Target.Location.ToString();
+            if (path == DefaultGoBackRoute && // user wants to go back
+                customGoBackRoute != DefaultGoBackRoute && // we have a custom back route to use instead of the default one
+                e.CanCancel && // Can we cancel navigation?
+                !this.isManuallyNavigatingBack) // Avoid recursion
+            {
+                this.isManuallyNavigatingBack = true;
+                e.Cancel();
+                await this.GoBackAsync();
+                this.isManuallyNavigatingBack = false;
+            }
         }
 
         private bool TryGetPageName(string route, out string pageName)
