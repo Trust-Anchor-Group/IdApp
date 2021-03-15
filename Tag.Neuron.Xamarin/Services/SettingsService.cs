@@ -87,17 +87,19 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 return Array.Empty<(string, T)>();
             }
-            await this.storageService.WaitForReadyState();
 
-            keyPrefix = FormatKey(keyPrefix);
-
-            Dictionary<string, object> existingStates = (await RuntimeSettings.GetWhereKeyLikeAsync(keyPrefix, WildCard));
             List<(string, T)> matches = new List<(string, T)>();
 
-            foreach (var state in existingStates)
+            if (await this.StorageIsReady())
             {
-                if (state.Value is T typedValue)
-                    matches.Add((state.Key, typedValue));
+                keyPrefix = FormatKey(keyPrefix);
+                Dictionary<string, object> existingStates = (await RuntimeSettings.GetWhereKeyLikeAsync(keyPrefix, WildCard));
+
+                foreach (var state in existingStates)
+                {
+                    if (state.Value is T typedValue)
+                        matches.Add((state.Key, typedValue));
+                }
             }
 
             return matches;
@@ -212,6 +214,7 @@ namespace Tag.Neuron.Xamarin.Services
             {
                 return true;
             }
+            this.logService.AddTraceLog("SettingsService.StorageIsReady, state = " + state);
 
             this.logService.LogWarning($"SettingsService: storage is in state {state}");
 
