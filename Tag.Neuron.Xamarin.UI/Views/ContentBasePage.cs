@@ -25,10 +25,19 @@ namespace Tag.Neuron.Xamarin.UI.Views
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
         /// </summary>
         public ContentBasePage()
+            : this(null, null, null)
         {
-            this.logService = DependencyService.Resolve<ILogService>();
-            this.settingsService = DependencyService.Resolve<ISettingsService>();
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>(); 
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="ContentBasePage"/> class.
+        /// For unit tests.
+        /// </summary>
+        protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiDispatcher uiDispatcher)
+        {
+            this.logService = logService ?? DependencyService.Resolve<ILogService>();
+            this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
+            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             PropertyChanged += OnPropertyChanged;
         }
 
