@@ -10,20 +10,21 @@
         <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">
             <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
                 <!-- BEGIN HEADER -->
-                <Frame Padding="1" CornerRadius="2" BorderColor="LightGray">
+                <Frame Padding="1" CornerRadius="2" BorderColor="LightGray" HasShadow="False">
                 <Grid RowSpacing="2" ColumnSpacing="2" Padding="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="42"/>
                         <RowDefinition Height="32"/>
                         <RowDefinition Height="42"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="42"/>
                         <ColumnDefinition Width="42"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Margin="{StaticResource DefaultRightOnlyMargin}" Text="{x:Static resources:AppResources.PersonalLegalInfoText}" />
-                    <Frame Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="1" CornerRadius="2" IsClippedToBounds="True">
+                    <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="{StaticResource DefaultRightOnlyMargin}" Text="{x:Static resources:AppResources.PersonalLegalInfoText}" VerticalOptions="StartAndExpand" />
+                    <Frame Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="1" CornerRadius="2" IsClippedToBounds="True" HasShadow="False">
                         <Grid>
                             <Image BackgroundColor="White" Aspect="AspectFill" Source="{Binding Path=Image}" IsVisible="{Binding Path=HasPhoto}"/>
                             <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="42" 

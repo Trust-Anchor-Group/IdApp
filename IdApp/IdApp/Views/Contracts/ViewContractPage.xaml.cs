@@ -38,11 +38,8 @@ namespace IdApp.Views.Contracts
 		/// <returns></returns>
 		protected override bool OnBackButtonPressed()
 		{
-			if (this.PhotoViewer.PhotosAreShowing())
-				this.PhotoViewer.HidePhotos();
-			else
-				this.navigationService.GoBackAsync();
-			return true;
+            this.navigationService.GoBackAsync();
+            return true;
 		}
 
 		private void Image_Tapped(object sender, EventArgs e)

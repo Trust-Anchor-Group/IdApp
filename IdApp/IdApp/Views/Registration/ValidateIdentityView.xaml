@@ -86,13 +86,20 @@
                     <Label Grid.Row="15" Grid.Column="1" Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <Label Grid.Row="16" Grid.Column="0" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
-                    <CollectionView Grid.Row="16" Grid.Column="1" HeightRequest="76" ItemsSource="{Binding Path=Photos}" ItemsLayout="HorizontalList" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}" BackgroundColor="LightGray">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" />
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
+                    <ScrollView Grid.Row="16" Grid.Column="1" Orientation="Horizontal" HeightRequest="68">
+                        <FlexLayout x:Name="PhotosLayout"
+                                    AlignContent="Center"
+                                    AlignItems="Center" 
+                                    Direction="Row" 
+                                    JustifyContent="Start" 
+                                    BindableLayout.ItemsSource="{Binding Path=Photos}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" Margin="2"/>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                    </ScrollView>
                     <!-- - -->
                     <StackLayout Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
                         <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:BooleanConverter}}"/>

@@ -47,10 +47,7 @@ namespace IdApp.Views
         /// <returns></returns>
         protected override bool OnBackButtonPressed()
         {
-            if (this.PhotoViewer.PhotosAreShowing())
-                this.PhotoViewer.HidePhotos();
-            else
-                this.navigationService.GoBackAsync();
+            this.navigationService.GoBackAsync();
             return true;
         }
 
