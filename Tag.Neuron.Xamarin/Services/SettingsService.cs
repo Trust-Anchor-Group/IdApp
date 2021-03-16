@@ -35,50 +35,98 @@ namespace Tag.Neuron.Xamarin.Services
 
         public async Task SaveState(string key, string state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task SaveState(string key, long state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task SaveState(string key, double state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task SaveState(string key, bool state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task SaveState(string key, DateTime state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task SaveState(string key, TimeSpan state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task SaveState(string key, Enum state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task SaveState(string key, object state)
         {
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.SetAsync(key, state);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task<IEnumerable<(string key, T value)>> RestoreStateWhereKeyStartsWith<T>(string keyPrefix)
@@ -90,7 +138,7 @@ namespace Tag.Neuron.Xamarin.Services
 
             List<(string, T)> matches = new List<(string, T)>();
 
-            if (await this.StorageIsReady())
+            try
             {
                 keyPrefix = FormatKey(keyPrefix);
                 Dictionary<string, object> existingStates = (await RuntimeSettings.GetWhereKeyLikeAsync(keyPrefix, WildCard));
@@ -101,72 +149,111 @@ namespace Tag.Neuron.Xamarin.Services
                         matches.Add((state.Key, typedValue));
                 }
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
 
             return matches;
         }
 
         public async Task<string> RestoreStringState(string key, string defaultValueIfNotFound = default)
         {
-            if (await this.StorageIsReady())
+            try
             {
                 string str = await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
                 str = str?.Trim('"');
                 return str;
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
         public async Task<long> RestoreLongState(string key, long defaultValueIfNotFound = default)
         {
-            if (await this.StorageIsReady())
+            try
             {
                 return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
         public async Task<double> RestoreDoubleState(string key, double defaultValueIfNotFound = default)
         {
-            if (await this.StorageIsReady())
+            try
             {
                 return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
         public async Task<bool> RestoreBoolState(string key, bool defaultValueIfNotFound = default)
         {
-            if (await this.StorageIsReady())
+            try
             {
                 return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
         public async Task<DateTime> RestoreDateTimeState(string key, DateTime defaultValueIfNotFound = default)
         {
-            if (await this.StorageIsReady())
+            try
             {
                 return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
         public async Task<TimeSpan> RestoreTimeSpanState(string key, TimeSpan defaultValueIfNotFound = default)
         {
-            if (await this.StorageIsReady())
+            try
             {
                 return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
         public async Task<Enum> RestoreEnumState(string key, Enum defaultValueIfNotFound = default)
         {
-            if (await this.StorageIsReady())
+            try
             {
                 return await RuntimeSettings.GetAsync(key, defaultValueIfNotFound);
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
@@ -175,7 +262,8 @@ namespace Tag.Neuron.Xamarin.Services
             if (string.IsNullOrWhiteSpace(key))
                 return defaultValueIfNotFound;
 
-            if (await this.StorageIsReady())
+
+            try
             {
                 object existingState = await RuntimeSettings.GetAsync(key, (object)null);
 
@@ -183,6 +271,11 @@ namespace Tag.Neuron.Xamarin.Services
                     return typedValue;
                 return defaultValueIfNotFound;
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
+
             return defaultValueIfNotFound;
         }
 
@@ -191,8 +284,14 @@ namespace Tag.Neuron.Xamarin.Services
             if (string.IsNullOrWhiteSpace(key))
                 return;
 
-            if (await this.StorageIsReady())
+            try
+            {
                 await RuntimeSettings.DeleteAsync(key);
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
         public async Task RemoveStateWhereKeyStartsWith(string keyPrefix)
@@ -200,23 +299,24 @@ namespace Tag.Neuron.Xamarin.Services
             if (string.IsNullOrWhiteSpace(keyPrefix))
                 return;
 
-            if (await this.StorageIsReady())
+            try
             {
                 keyPrefix = FormatKey(keyPrefix);
                 await RuntimeSettings.DeleteWhereKeyLikeAsync(keyPrefix, WildCard);
             }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
         }
 
-        private async Task<bool> StorageIsReady()
+        public async Task<bool> WaitForReadyState()
         {
             StorageState state = await this.storageService.WaitForReadyState();
             if (state == StorageState.Ready)
             {
                 return true;
             }
-            this.logService.AddTraceLog("SettingsService.StorageIsReady, state = " + state);
-
-            this.logService.LogWarning($"SettingsService: storage is in state {state}");
 
             return false;
         }

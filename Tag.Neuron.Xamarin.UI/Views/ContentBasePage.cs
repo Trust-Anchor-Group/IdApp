@@ -18,6 +18,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
         private const string SafeAreaInsets = "SafeAreaInsets";
         private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
         private readonly ILogService logService;
+        private readonly ISettingsService settingsService;
         private readonly IUiDispatcher uiDispatcher;
 
         /// <summary>
@@ -26,6 +27,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
         public ContentBasePage()
         {
             this.logService = DependencyService.Resolve<ILogService>();
+            this.settingsService = DependencyService.Resolve<ISettingsService>();
             this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>(); 
             PropertyChanged += OnPropertyChanged;
         }
@@ -84,7 +86,10 @@ namespace Tag.Neuron.Xamarin.UI.Views
 
                 try
                 {
-                    await ViewModel.RestoreState();
+                    if (await this.settingsService.WaitForReadyState())
+                    {
+                        await ViewModel.RestoreState();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -105,7 +110,10 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 {
                     try
                     {
-                        await ViewModel.SaveState();
+                        if (await this.settingsService.WaitForReadyState())
+                        {
+                            await ViewModel.SaveState();
+                        }
                     }
                     catch (Exception e)
                     {

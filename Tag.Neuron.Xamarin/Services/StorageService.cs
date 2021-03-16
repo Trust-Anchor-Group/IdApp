@@ -20,10 +20,10 @@ namespace Tag.Neuron.Xamarin.Services
 		private readonly ILogService logService;
 		private readonly ICryptoService cryptoService;
 		private readonly IUiDispatcher uiDispatcher;
-		private bool isInitializing;
-		private StorageState? initializedState;
+		private StorageState currentState;
 		private TaskCompletionSource<StorageState> databaseTcs;
 		private readonly string dataFolder;
+        private Task initializeTask;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="StorageService"/> class.
@@ -38,33 +38,31 @@ namespace Tag.Neuron.Xamarin.Services
 			this.uiDispatcher = uiDispatcher;
 			string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			this.dataFolder = Path.Combine(appDataFolder, "Data");
-		}
+            this.currentState = StorageState.NotInitialized;
+            this.databaseTcs = new TaskCompletionSource<StorageState>();
+        }
 
 		#region LifeCycle management
 
 		/// <inheritdoc />
 		public void Init(ProfilerThread Thread)
 		{
-			if (this.isInitializing)
-				return;
-
-			if (!(this.initializedState is null))
-				return;
-
-			this.databaseTcs = new TaskCompletionSource<StorageState>();
-			this.isInitializing = true;
-			_ = InitializeAsync(Thread);
+			if (this.currentState == StorageState.NotInitialized)
+            {
+                this.currentState = StorageState.Initializing;
+                this.initializeTask = InitializeAsync(Thread);
+            }
 		}
 
 		/// <inheritdoc />
 		public Task<StorageState> WaitForReadyState()
 		{
-			if (!(this.databaseTcs is null))
-			{
-				return this.databaseTcs.Task;
-			}
+			if (this.currentState == StorageState.Ready || this.currentState == StorageState.NeedsRepair)
+            {
+                return Task.FromResult(this.currentState);
+            }
 
-			return Task.FromResult(this.initializedState.GetValueOrDefault());
+            return this.databaseTcs.Task;
 		}
 
 		/// <inheritdoc />
@@ -87,6 +85,8 @@ namespace Tag.Neuron.Xamarin.Services
 					Thread?.NewState("Repair3");
 
 					await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
+
+					this.SetState(StorageState.Ready);
 				}
 				catch (Exception e3)
 				{
@@ -106,15 +106,21 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <inheritdoc />
 		public async Task Shutdown()
 		{
-			if (!(this.databaseProvider is null))
-			{
-				await this.databaseProvider.Flush();
-				this.databaseProvider.Dispose();
-				this.databaseProvider = null;
-			}
+            this.currentState = StorageState.NotInitialized;
 
-			this.isInitializing = false;
-			this.initializedState = null;
+			try
+			{
+                if (!(this.databaseProvider is null))
+                {
+                    await this.databaseProvider.Flush();
+                    this.databaseProvider.Dispose();
+                    this.databaseProvider = null;
+                }
+            }
+            catch (Exception e)
+            {
+                this.logService.LogException(e);
+            }
 		}
 
 		private Task<FilesProvider> CreateDatabaseFile()
@@ -186,10 +192,17 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				Thread?.NewState("Register");
 
-				method = $"{nameof(Database)}.{nameof(Database.Register)}";
-				Database.Register(databaseProvider, false);
-				// All is good.
-				this.SetState(StorageState.Ready);
+				if (databaseProvider != null)
+                {
+                    method = $"{nameof(Database)}.{nameof(Database.Register)}";
+                    Database.Register(databaseProvider, false);
+                    // All is good.
+					this.SetState(StorageState.Ready);
+                }
+                else
+                {
+                    this.SetState(StorageState.NeedsRepair);
+                }
 			}
 			catch (Exception e)
 			{
@@ -204,15 +217,13 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-		private void SetState(StorageState state)
-		{
-			this.isInitializing = false;
-			this.initializedState = state;
-			this.databaseTcs.TrySetResult(state);
-			this.databaseTcs = null;
-		}
-
-
+        private void SetState(StorageState state)
+        {
+            this.currentState = state;
+            this.databaseTcs.TrySetResult(state);
+			// The Tcs task is now spent, create a new one.
+            this.databaseTcs = new TaskCompletionSource<StorageState>();
+        }
 		#endregion
 
 		public Task Insert(object obj)
@@ -235,9 +246,9 @@ namespace Tag.Neuron.Xamarin.Services
 			return Database.FindFirstIgnoreRest<T>();
 		}
 
-		public Task Export(IDatabaseExport Output)
+		public Task Export(IDatabaseExport exportOutput)
 		{
-			return Database.Export(Output);
+			return Database.Export(exportOutput);
 		}
 	}
 }

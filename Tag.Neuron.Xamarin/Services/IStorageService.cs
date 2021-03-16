@@ -65,10 +65,10 @@ namespace Tag.Neuron.Xamarin.Services
         Task<T> FindFirstIgnoreRest<T>() where T : class;
 
         /// <summary>
-        /// Exports the contents of the database to <paramref name="Output"/>.
+        /// Exports the contents of the database to <paramref name="exportOutput"/>.
         /// </summary>
-        /// <param name="Output">Receives the contents of the database.</param>
-        Task Export(IDatabaseExport Output);
+        /// <param name="exportOutput">Receives the contents of the database.</param>
+        Task Export(IDatabaseExport exportOutput);
     }
 
     /// <summary>
@@ -80,7 +80,12 @@ namespace Tag.Neuron.Xamarin.Services
         /// Persistent storage has not yet been initialized.
         /// </summary>
         NotInitialized,
-        
+
+        /// <summary>
+        /// Persistent storage is currently being initialized.
+        /// </summary>
+        Initializing,
+
         /// <summary>
         /// Persistent storage is ready.
         /// </summary>

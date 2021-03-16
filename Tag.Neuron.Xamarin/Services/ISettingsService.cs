@@ -151,5 +151,11 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="keyPrefix">The string value the key should start with, like "Foo". Do not include wildcards.</param>
         Task RemoveStateWhereKeyStartsWith(string keyPrefix);
+
+        /// <summary>
+        /// Lets you await the settings so they're initialized and ready for reading/writing.
+        /// </summary>
+        /// <returns><c>true</c> if ready to use, <c>false</c> otherwise.</returns>
+        Task<bool> WaitForReadyState();
     }
 }
