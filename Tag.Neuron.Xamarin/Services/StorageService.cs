@@ -86,9 +86,16 @@ namespace Tag.Neuron.Xamarin.Services
 
 					await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
 
-					this.SetState(StorageState.Ready);
-				}
-				catch (Exception e3)
+					// If we had to repair, we must register the provider 'again', as one hasn't been provided yet.
+					if (!Database.HasProvider)
+                    {
+                        method = $"{nameof(Database)}.{nameof(Database.Register)}";
+                        Database.Register(databaseProvider, false);
+                    }
+                    // All is good.
+                    this.SetState(StorageState.Ready);
+                }
+                catch (Exception e3)
 				{
 					e3 = Log.UnnestException(e3);
 					Thread?.Exception(e3);
