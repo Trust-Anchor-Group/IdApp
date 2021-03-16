@@ -279,12 +279,12 @@ namespace IdApp
                     await this.imageCacheService.Unload();
             }
 
-            await Types.StopAllModules();
-            Waher.Events.Log.Terminate();
             if (!(this.sdk.StorageService is null))
             {
                 await this.sdk.StorageService.Shutdown();
             }
+            await Types.StopAllModules();
+            Waher.Events.Log.Terminate();
         }
 
         #endregion

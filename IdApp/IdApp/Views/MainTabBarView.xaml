@@ -13,6 +13,7 @@
                         <Setter Property="CornerRadius" Value="0"/>
                         <Setter Property="VerticalOptions" Value="End"/>
                         <Setter Property="Margin" Value="0"/>
+                        <Setter Property="HeightRequest" Value="48"/>
                         <Style.Triggers>
                             <Trigger TargetType="Button"
                                      Property="IsEnabled"
