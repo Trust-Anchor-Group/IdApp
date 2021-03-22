@@ -1,5 +1,6 @@
 ﻿using System;
 using EDaler;
+using EDaler.Uris;
 using Waher.Runtime.Inventory;
 
 namespace Tag.Neuron.Xamarin.Services
@@ -39,6 +40,17 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			this.eDalerClient?.Dispose();
 			this.eDalerClient = null;
+		}
+
+		/// <summary>
+		/// Tries to parse an eDaler URI.
+		/// </summary>
+		/// <param name="Uri">URI string.</param>
+		/// <param name="Parsed">Parsed eDaler URI, if successful.</param>
+		/// <returns>If URI string could be parsed.</returns>
+		public bool TryParseEDalerUri(string Uri, out EDalerUri Parsed)
+		{
+			return EDalerUri.TryParse(Uri, out Parsed);
 		}
 
 	}

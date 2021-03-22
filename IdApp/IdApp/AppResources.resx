@@ -393,6 +393,9 @@
   <data name="Inspect" xml:space="preserve">
     <value>Inspect communication</value>
   </data>
+  <data name="InvalidEDalerUri" xml:space="preserve">
+    <value>Invalid eDaler URI.</value>
+  </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
     <value>Invalid IoT Discovery Code</value>
   </data>
@@ -845,6 +848,9 @@
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>
+  </data>
+  <data name="UnrecognizedEDalerURI" xml:space="preserve">
+    <value>Unrecognized eDaler URI.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
     <value>The text does not conform to any of the supported URI schemes.</value>

@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using EDaler;
+using EDaler.Uris;
+using EDaler.Uris.Incomplete;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -50,18 +52,15 @@ namespace IdApp.Services
 		public override Task Load(bool isResuming)
 		{
 			if (this.BeginLoad())
-			{
 				this.EndLoad(true);
-			}
+			
 			return Task.CompletedTask;
 		}
 
 		public override Task Unload()
 		{
 			if (this.BeginUnload())
-			{
 				this.EndUnload();
-			}
 
 			return Task.CompletedTask;
 		}
@@ -75,9 +74,35 @@ namespace IdApp.Services
 		/// eDaler URI scanned.
 		/// </summary>
 		/// <param name="uri">eDaler URI.</param>
-		public Task EDalerUri(string uri)
+		public async Task EDalerUri(string uri)
 		{
-			return Task.CompletedTask;
+			if (!this.neuronService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed))
+			{
+				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidEDalerUri);
+				return;
+			}
+
+			if (Parsed is EDalerIssuerUri IssuerUri)
+			{
+				// TODO
+			}
+			else if (Parsed is EDalerDestroyerUri DestroyerUri)
+			{
+				// TODO
+			}
+			else if (Parsed is EDalerPaymentUri PaymentUri)
+			{
+				// TODO
+			}
+			else if (Parsed is EDalerIncompletePaymeUri PaymeUri)	// Incomplete URI
+			{
+				// TODO
+			}
+			else
+			{
+				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnrecognizedEDalerURI);
+				return;
+			}
 		}
 
 	}

@@ -1669,6 +1669,14 @@
             Adds support for eDaler wallets.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@)">
+            <summary>
+            Tries to parse an eDaler URI.
+            </summary>
+            <param name="Uri">URI string.</param>
+            <param name="Parsed">Parsed eDaler URI, if successful.</param>
+            <returns>If URI string could be parsed.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>
             Handles common UI settings that need to be persisted during sessions.
@@ -2366,6 +2374,14 @@
             </summary>
             <param name="legalIdentityId">The id of the legal identity.</param>
             <returns>If private keys are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@)">
+            <summary>
+            Tries to parse an eDaler URI.
+            </summary>
+            <param name="Uri">URI string.</param>
+            <param name="Parsed">Parsed eDaler URI, if successful.</param>
+            <returns>If URI string could be parsed.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.StorageService.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.IUiDispatcher)">
             <summary>

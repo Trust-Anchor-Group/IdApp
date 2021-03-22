@@ -519,6 +519,11 @@
               Looks up a localized string similar to Inspect communication.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.InvalidEDalerUri">
+            <summary>
+              Looks up a localized string similar to Invalid eDaler URI..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.InvalidIoTDiscoveryCode">
             <summary>
               Looks up a localized string similar to Invalid IoT Discovery Code.
@@ -1272,6 +1277,11 @@
         <member name="P:IdApp.AppResources.UnableToConnectTo">
             <summary>
               Looks up a localized string similar to Unable to connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnrecognizedEDalerURI">
+            <summary>
+              Looks up a localized string similar to Unrecognized eDaler URI..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnsupportedUriScheme">

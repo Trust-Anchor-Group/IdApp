@@ -889,6 +889,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid eDaler URI..
+        /// </summary>
+        internal static string InvalidEDalerUri {
+            get {
+                return ResourceManager.GetString("InvalidEDalerUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid IoT Discovery Code.
         /// </summary>
         internal static string InvalidIoTDiscoveryCode {
@@ -2244,6 +2253,15 @@ namespace IdApp {
         internal static string UnableToConnectTo {
             get {
                 return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized eDaler URI..
+        /// </summary>
+        internal static string UnrecognizedEDalerURI {
+            get {
+                return ResourceManager.GetString("UnrecognizedEDalerURI", resourceCulture);
             }
         }
         
