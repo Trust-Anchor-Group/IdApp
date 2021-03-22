@@ -26,6 +26,7 @@ namespace IdApp
         /// <param name="uiDispatcher">The ui dispatcher for main thread access.</param>
         /// <param name="contractOrchestratorService">The contract orchestrator service.</param>
         /// <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
+        /// <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
         /// <param name="commandName">The command name to display on the button when scanning.</param>
         /// <param name="action">An optional callback that will be called after scan, but before page navigation.</param>
         /// <returns></returns>
@@ -36,6 +37,7 @@ namespace IdApp
             IUiDispatcher uiDispatcher,
             IContractOrchestratorService contractOrchestratorService,
             IThingRegistryOrchestratorService thingRegistryOrchestratorService,
+            IEDalerOrchestratorService eDalerOrchestratorService,
             string commandName, 
             Func<string, Task> action = null)
         {
@@ -76,6 +78,10 @@ namespace IdApp
                     case Constants.UriSchemes.UriSchemeTagSign:
                         string request = Constants.UriSchemes.GetCode(decodedText);
                         await contractOrchestratorService.TagSignature(request);
+                        break;
+
+                    case Constants.UriSchemes.UriSchemeEDaler:
+                        await eDalerOrchestratorService.EDalerUri(decodedText);
                         break;
 
                     default:

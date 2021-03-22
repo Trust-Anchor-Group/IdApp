@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using EDaler;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.MUC;
@@ -12,5 +13,6 @@ namespace Tag.Neuron.Xamarin.Services
         HttpFileUploadClient CreateFileUploadClient();
         MultiUserChatClient CreateMultiUserChatClient();
         ThingRegistryClient CreateThingRegistryClient();
+        EDalerClient CreateEDalerClient();
     }
 }

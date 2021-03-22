@@ -33,6 +33,11 @@ namespace Tag.Neuron.Xamarin.Services
             this.settingsService = settingsService;
         }
 
+        /// <summary>
+        /// Contracts client
+        /// </summary>
+        public ContractsClient ContractsClient => contractsClient;
+
         internal async Task CreateClients(bool CanCreateKeys)
         {
             CreateFileUploadClient();

@@ -2142,7 +2142,7 @@
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
         </member>
-        <member name="M:IdApp.QrCode.ScanQrCodeAndHandleResult(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
+        <member name="M:IdApp.QrCode.ScanQrCodeAndHandleResult(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,IdApp.Services.IEDalerOrchestratorService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
             <summary>
             Scans a QR Code, and depending on the actual result, takes different actions. This typically means navigating to an appropriate page.
             </summary>
@@ -2152,6 +2152,7 @@
             <param name="uiDispatcher">The ui dispatcher for main thread access.</param>
             <param name="contractOrchestratorService">The contract orchestrator service.</param>
             <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
+            <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
             <param name="commandName">The command name to display on the button when scanning.</param>
             <param name="action">An optional callback that will be called after scan, but before page navigation.</param>
             <returns></returns>
@@ -2213,6 +2214,12 @@
             </summary>
             <param name="request">Request string.</param>
         </member>
+        <member name="M:IdApp.Services.EDalerOrchestratorService.EDalerUri(System.String)">
+            <summary>
+            eDaler URI scanned.
+            </summary>
+            <param name="uri">eDaler URI.</param>
+        </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
             Orchestrates operations on contracts upon receiving certain events, like approving or rejecting other peers' review requests.
@@ -2240,6 +2247,17 @@
             TAG Signature request scanned.
             </summary>
             <param name="request">Request string.</param>
+        </member>
+        <member name="T:IdApp.Services.IEDalerOrchestratorService">
+            <summary>
+            Orchestrates eDaler operations.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IEDalerOrchestratorService.EDalerUri(System.String)">
+            <summary>
+            eDaler URI scanned.
+            </summary>
+            <param name="uri">eDaler URI.</param>
         </member>
         <member name="T:IdApp.Services.IImageCacheService">
             <summary>
@@ -4766,7 +4784,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService)">
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,IdApp.Services.IEDalerOrchestratorService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             For unit tests.

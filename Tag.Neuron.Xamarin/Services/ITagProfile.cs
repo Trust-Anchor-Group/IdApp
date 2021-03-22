@@ -45,12 +45,12 @@ namespace Tag.Neuron.Xamarin.Services
         string PasswordHashMethod { get; }
         
         /// <summary>
-        /// The Jabber Legal Id for this user/profile.
+        /// The Jabber Legal JID for this user/profile.
         /// </summary>
         string LegalJid { get; }
         
         /// <summary>
-        /// The Xmpp registry id.
+        /// The Thing Registry JID
         /// </summary>
         string RegistryJid { get; }
         
@@ -73,10 +73,17 @@ namespace Tag.Neuron.Xamarin.Services
         /// The Neuron server's log Jid.
         /// </summary>
         string LogJid { get; }
-        
+
+        /// <summary>
         /// The Neuron server's multi-user chat Jid.
+        /// </summary>
         string MucJid { get; }
-        
+
+        /// <summary>
+        /// The Neuron server's eDaler service JID.
+        /// </summary>
+        string EDalerJid { get; }
+
         /// <summary>
         /// This profile's current registration step.
         /// </summary>
@@ -277,7 +284,13 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="mucJId">The multi-user chat id.</param>
         void SetMucJId(string mucJId);
-       
+
+        /// <summary>
+        /// Used during Xmpp service discovery. Sets the eDaler service JID.
+        /// </summary>
+        /// <param name="eDalerJId">The eDaler service JID.</param>
+        void SetEDalerJid(string eDalerJId);
+
         /// <summary>
         /// Computes a hash of the specified PIN.
         /// </summary>

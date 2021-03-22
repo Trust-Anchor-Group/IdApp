@@ -28,6 +28,7 @@
   </ItemGroup>
 
 <ItemGroup>
+    <PackageReference Include="EDaler" Version="1.0.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="Waher.Content" Version="1.0.30" />
     <PackageReference Include="Waher.Content.Xml" Version="1.0.12" />

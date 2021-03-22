@@ -29,13 +29,14 @@ namespace IdApp.ViewModels
         private readonly INavigationService navigationService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
+        private readonly IEDalerOrchestratorService eDalerOrchestratorService;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
         public MainViewModel()
-            : this(null, null, null, null, null, null, null, null, null)
+            : this(null, null, null, null, null, null, null, null, null, null)
         {
         }
 
@@ -52,7 +53,8 @@ namespace IdApp.ViewModels
             INetworkService networkService,
             IImageCacheService imageCacheService,
             IContractOrchestratorService contractOrchestratorService,
-            IThingRegistryOrchestratorService thingThingRegistryOrchestratorService)
+            IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
+            IEDalerOrchestratorService eDalerOrchestratorService)
             : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
         {
             this.logService = logService ?? DependencyService.Resolve<ILogService>();
@@ -62,6 +64,7 @@ namespace IdApp.ViewModels
             imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
             this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
             this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? DependencyService.Resolve<IThingRegistryOrchestratorService>();
+            this.eDalerOrchestratorService = eDalerOrchestratorService ?? DependencyService.Resolve<IEDalerOrchestratorService>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
             this.ViewMyContractsCommand = new Command(async () => await ViewMyContracts(), () => this.IsConnected);
@@ -96,32 +99,21 @@ namespace IdApp.ViewModels
                 string lastNames = this.tagProfile.LegalIdentity[Constants.XmppProperties.LastName];
 
                 if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
-                {
                     this.FullName = $"{firstName} {lastNames}";
-                }
                 else if (!string.IsNullOrWhiteSpace(firstName) && string.IsNullOrWhiteSpace(lastNames))
-                {
                     this.FullName = firstName;
-                }
                 else if (string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
-                {
                     this.FullName = lastNames;
-                }
                 else
-                {
                     this.FullName = string.Empty;
-                }
 
                 this.City = this.tagProfile.LegalIdentity[Constants.XmppProperties.City];
                 string countryCode = this.tagProfile.LegalIdentity[Constants.XmppProperties.Country];
+                
                 if (ISO_3166_1.TryGetCountry(countryCode, out string country))
-                {
                     this.Country = country;
-                }
                 else
-                {
                     this.Country = string.Empty;
-                }
             }
             else
             {
@@ -143,9 +135,7 @@ namespace IdApp.ViewModels
                 });
             }
             else
-            {
                 this.QrCode = null;
-            }
 
             Attachment firstAttachment = this.tagProfile?.LegalIdentity?.Attachments?.GetFirstImageAttachment();
             if (!(firstAttachment is null))
@@ -520,7 +510,7 @@ namespace IdApp.ViewModels
         {
             await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
                 this.UiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
-                AppResources.Open);
+                this.eDalerOrchestratorService, AppResources.Open);
         }
 
         private void UpdateLoggedOutText(bool isLoggedOut)

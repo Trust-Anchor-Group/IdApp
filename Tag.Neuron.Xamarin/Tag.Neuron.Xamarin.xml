@@ -205,6 +205,11 @@
             TAG Signature (Quick-Login) URI Scheme (tagsign)
             </summary>
         </member>
+        <member name="F:Tag.Neuron.Xamarin.Constants.UriSchemes.UriSchemeEDaler">
+            <summary>
+            eDaler URI Scheme (edaler)
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Constants.UriSchemes.GetScheme(System.String)">
             <summary>
             Gets the predefined scheme from an IoT Code
@@ -1177,6 +1182,11 @@
             Adds support for legal identities, smart contracts and signatures to a Neuron Service.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.ContractsClient">
+            <summary>
+            Contracts client
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.FileUploadIsSupported">
             <summary>
             Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
@@ -1575,6 +1585,11 @@
             Provides access to chat functionality.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.Wallet">
+            <summary>
+            Provides access to the eDaler wallet.
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronService.DiscoverServices(Waher.Networking.XMPP.XmppClient)">
             <summary>
             Run this method to discover services for any given Neuron server.
@@ -1607,7 +1622,7 @@
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronThingRegistry">
             <summary>
-            Adds support for Xmpp Chat functionality.
+            Adds support for XMPP Thing Registries
             </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.IsIoTDiscoClaimURI(System.String)">
@@ -1648,6 +1663,11 @@
             <param name="MakePublic">If the device should be public in the thing registry.</param>
             <returns>If OK, null is returned. If the thing could not be claimed, an error message from the neuron
             describing why is returned. Other types of errors, raise exceptions.</returns>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INeuronWallet">
+            <summary>
+            Adds support for eDaler wallets.
+            </summary>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>
@@ -1926,12 +1946,12 @@
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.LegalJid">
             <summary>
-            The Jabber Legal Id for this user/profile.
+            The Jabber Legal JID for this user/profile.
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.RegistryJid">
             <summary>
-            The Xmpp registry id.
+            The Thing Registry JID
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.ProvisioningJid">
@@ -1955,7 +1975,14 @@
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.MucJid">
+            <summary>
             The Neuron server's multi-user chat Jid.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.EDalerJid">
+            <summary>
+            The Neuron server's eDaler service JID.
+            </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.Step">
             <summary>
@@ -2158,6 +2185,12 @@
             </summary>
             <param name="mucJId">The multi-user chat id.</param>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetEDalerJid(System.String)">
+            <summary>
+            Used during Xmpp service discovery. Sets the eDaler service JID.
+            </summary>
+            <param name="eDalerJId">The eDaler service JID.</param>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ComputePinHash(System.String)">
             <summary>
             Computes a hash of the specified PIN.
@@ -2316,6 +2349,11 @@
         <member name="M:Tag.Neuron.Xamarin.Services.NetworkService.Unload">
             <inheritdoc/>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.NeuronContracts.ContractsClient">
+            <summary>
+            Contracts client
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.GetContractTemplateIds">
             <summary>
             Gets the id's of contract templates used.
@@ -2437,6 +2475,9 @@
         <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.MucJid">
             <inheritdoc/>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.EDalerJid">
+            <inheritdoc/>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Step">
             <inheritdoc/>
         </member>
@@ -2524,6 +2565,9 @@
         <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetMucJId(System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetEDalerJid(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ComputePinHash(System.String)">
             <inheritdoc/>
         </member>
@@ -2602,7 +2646,7 @@
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.RegistryJid">
             <summary>
-            Registry Jabber Id
+            The Thing Registry JID
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.ProvisioningJid">
@@ -2622,12 +2666,17 @@
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.LogJid">
             <summary>
-            Log Jabber Id
+            Log Jabber JID
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.MucJid">
             <summary>
-            Multi user chat Jabber Id
+            Multi user chat Jabber JID
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.EDalerJid">
+            <summary>
+            eDaler Service JID
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.PinHash">

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Xsl;
 using Tag.Neuron.Xamarin.Extensions;
+using EDaler;
 using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
@@ -36,6 +37,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private readonly NeuronContracts contracts;
 		private readonly NeuronMultiUserChat muc;
 		private readonly NeuronThingRegistry thingRegistry;
+		private readonly NeuronWallet wallet;
 		private string domainName;
 		private string accountName;
 		private string passwordHash;
@@ -68,6 +70,7 @@ namespace Tag.Neuron.Xamarin.Services
 			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService, this.settingsService);
 			this.muc = new NeuronMultiUserChat(this.tagProfile, uiDispatcher, this, this.logService);
 			this.thingRegistry = new NeuronThingRegistry(this.tagProfile, uiDispatcher, this, this.logService);
+			this.wallet = new NeuronWallet(this.tagProfile, uiDispatcher, this, this.logService, this.contracts);
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = startupProfiler;
 		}
@@ -405,6 +408,7 @@ namespace Tag.Neuron.Xamarin.Services
 		public INeuronContracts Contracts => this.contracts;
 		public INeuronMultiUserChat MultiUserChat => this.muc;
 		public INeuronThingRegistry ThingRegistry => this.thingRegistry;
+		public INeuronWallet Wallet => this.wallet;
 
 		private enum ConnectOperation
 		{
@@ -688,6 +692,17 @@ namespace Tag.Neuron.Xamarin.Services
 			return new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
 		}
 
+		public EDalerClient CreateEDalerClient()
+		{
+			if (this.xmppClient is null)
+				throw new InvalidOperationException("The XMPP Client is not connected");
+
+			if (string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
+				throw new InvalidOperationException("There is no eDaler Service defined.");
+
+			return new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
+		}
+
 		public async Task<bool> DiscoverServices(XmppClient client = null)
 		{
 			client = client ?? xmppClient;
@@ -712,14 +727,10 @@ namespace Tag.Neuron.Xamarin.Services
 				ServiceDiscoveryEventArgs itemResponse = await client.ServiceDiscoveryAsync(null, item.JID, item.Node);
 
 				if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
-				{
 					this.tagProfile.SetLegalJId(item.JID);
-				}
 
 				if (itemResponse.HasFeature(ThingRegistryClient.NamespaceDiscovery))
-				{
 					this.tagProfile.SetRegistryJId(item.JID);
-				}
 
 				if (itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
 					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
@@ -735,14 +746,13 @@ namespace Tag.Neuron.Xamarin.Services
 				}
 
 				if (itemResponse.HasFeature(XmppEventSink.NamespaceEventLogging))
-				{
 					this.tagProfile.SetLogJId(item.JID);
-				}
 
 				if (itemResponse.HasFeature(MultiUserChatClient.NamespaceMuc))
-				{
 					this.tagProfile.SetMucJId(item.JID);
-				}
+
+				if (itemResponse.HasFeature(EDalerClient.NamespaceEDaler))
+					this.tagProfile.SetEDalerJid(item.JID);
 			}
 
 			if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
