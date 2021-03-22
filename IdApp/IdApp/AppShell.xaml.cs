@@ -7,6 +7,7 @@ using IdApp.Views;
 using IdApp.Views.Contracts;
 using IdApp.Views.Registration;
 using IdApp.Views.Things;
+using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.IoTGateway.Setup;
@@ -79,6 +80,7 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(PetitionSignaturePage), typeof(PetitionSignaturePage));
 			Routing.RegisterRoute(nameof(XmppCommunicationPage), typeof(XmppCommunicationPage));
 			Routing.RegisterRoute(nameof(ViewClaimThingPage), typeof(ViewClaimThingPage));
+			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));
 		}
 
 		private async Task GoToPage(string route)

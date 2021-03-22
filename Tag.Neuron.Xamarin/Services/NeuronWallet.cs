@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
 using Waher.Runtime.Inventory;
@@ -8,21 +9,12 @@ namespace Tag.Neuron.Xamarin.Services
 	[Singleton]
 	internal sealed class NeuronWallet : INeuronWallet
 	{
-		private readonly ITagProfile tagProfile;
-		private readonly IUiDispatcher uiDispatcher;
 		private readonly IInternalNeuronService neuronService;
-		private readonly ILogService logService;
-		private readonly INeuronContracts contracts;
 		private EDalerClient eDalerClient;
 
-		internal NeuronWallet(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, 
-			ILogService logService, INeuronContracts contracts)
+		internal NeuronWallet(IInternalNeuronService neuronService)
 		{
-			this.tagProfile = tagProfile;
-			this.uiDispatcher = uiDispatcher;
 			this.neuronService = neuronService;
-			this.logService = logService;
-			this.contracts = contracts;
 		}
 
 		public EDalerClient EDalerClient
@@ -51,6 +43,16 @@ namespace Tag.Neuron.Xamarin.Services
 		public bool TryParseEDalerUri(string Uri, out EDalerUri Parsed)
 		{
 			return EDalerUri.TryParse(Uri, out Parsed);
+		}
+
+		/// <summary>
+		/// Sends an eDaler URI to the eDaler service.
+		/// </summary>
+		/// <param name="Uri">eDaler URI</param>
+		/// <returns>Transaction object containing information about the processed URI.</returns>
+		public Task<Transaction> SendUri(string Uri)
+		{
+			return this.eDalerClient.SendEDalerUriAsync(Uri);
 		}
 
 	}

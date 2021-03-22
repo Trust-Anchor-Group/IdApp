@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             x:Class="IdApp.Views.Wallet.IssueEDalerPage"
+             Title="{x:Static local:AppResources.ReceiveEDaler}">
+    <Grid>
+        <ScrollView>
+            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+                <!-- TAGS -->
+                <Label Text="{x:Static local:AppResources.EDalerNote}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.EDalerNoteDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <!-- PIN -->
+                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
+                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" IsEnabled="{Binding Path=CanAccept}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</views:ContentBasePage>

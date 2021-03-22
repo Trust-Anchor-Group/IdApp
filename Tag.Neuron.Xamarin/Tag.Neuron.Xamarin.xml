@@ -1677,6 +1677,13 @@
             <param name="Parsed">Parsed eDaler URI, if successful.</param>
             <returns>If URI string could be parsed.</returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.SendUri(System.String)">
+            <summary>
+            Sends an eDaler URI to the eDaler service.
+            </summary>
+            <param name="Uri">eDaler URI</param>
+            <returns>Transaction object containing information about the processed URI.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>
             Handles common UI settings that need to be persisted during sessions.
@@ -2382,6 +2389,13 @@
             <param name="Uri">URI string.</param>
             <param name="Parsed">Parsed eDaler URI, if successful.</param>
             <returns>If URI string could be parsed.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.SendUri(System.String)">
+            <summary>
+            Sends an eDaler URI to the eDaler service.
+            </summary>
+            <param name="Uri">eDaler URI</param>
+            <returns>Transaction object containing information about the processed URI.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.StorageService.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.IUiDispatcher)">
             <summary>

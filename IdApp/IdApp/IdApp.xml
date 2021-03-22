@@ -399,6 +399,16 @@
               Looks up a localized string similar to Duration.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.EDalerNote">
+            <summary>
+              Looks up a localized string similar to eDaler Note.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.EDalerNoteDescription">
+            <summary>
+              Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified in the note..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.EnterAnOperatorName">
             <summary>
               Looks up a localized string similar to Enter an operator.
@@ -407,6 +417,11 @@
         <member name="P:IdApp.AppResources.ErrorTitle">
             <summary>
               Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ExpiredEDalerUri">
+            <summary>
+              Looks up a localized string similar to This eDaler code has expired..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.FailedToLoadPhoto">
@@ -984,6 +999,11 @@
               Looks up a localized string similar to Random password.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ReceiveEDaler">
+            <summary>
+              Looks up a localized string similar to Receive eDaler.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Region">
             <summary>
               Looks up a localized string similar to Region or State.
@@ -1277,6 +1297,11 @@
         <member name="P:IdApp.AppResources.UnableToConnectTo">
             <summary>
               Looks up a localized string similar to Unable to connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnableToProcessEDalerUri">
+            <summary>
+              Looks up a localized string similar to Unable to process eDaler code..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnrecognizedEDalerURI">
@@ -1859,6 +1884,22 @@
             The legal identity to display.
             </summary>
         </member>
+        <member name="T:IdApp.Navigation.EDalerUriNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to eDaler URIs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerUriNavigationArgs"/> class.
+            </summary>
+            <param name="Uri">Parsed edaler URI.</param>
+        </member>
+        <member name="P:IdApp.Navigation.EDalerUriNavigationArgs.Uri">
+            <summary>
+            The edaler URI
+            </summary>
+        </member>
         <member name="T:IdApp.Navigation.NewContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a new contract.
@@ -2221,7 +2262,7 @@
             </summary>
             <param name="request">Request string.</param>
         </member>
-        <member name="M:IdApp.Services.EDalerOrchestratorService.EDalerUri(System.String)">
+        <member name="M:IdApp.Services.EDalerOrchestratorService.OpenEDalerUri(System.String)">
             <summary>
             eDaler URI scanned.
             </summary>
@@ -2260,7 +2301,7 @@
             Orchestrates eDaler operations.
             </summary>
         </member>
-        <member name="M:IdApp.Services.IEDalerOrchestratorService.EDalerUri(System.String)">
+        <member name="M:IdApp.Services.IEDalerOrchestratorService.OpenEDalerUri(System.String)">
             <summary>
             eDaler URI scanned.
             </summary>
@@ -6349,6 +6390,70 @@
             Command to bind to for detecting when a tag value has been clicked on.
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.Wallet.EDalerUriViewModel">
+            <summary>
+            The view model to bind to for when displaying thing claim information.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.EDalerUriViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.UriProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Uri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Uri">
+            <summary>
+            iotdisco URI to process
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AcceptCommand">
+            <summary>
+            The command to bind to for claiming a thing
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAcceptProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept">
+            <summary>
+            Gets or sets whether a user can claim a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.UsePin">
+            <summary>
+            If PIN should be used.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.PinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Pin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Pin">
+            <summary>
+            Gets or sets the PIN code for the identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ClickCommand">
+            <summary>
+            Command to bind to for detecting when a tag value has been clicked on.
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
             A View model that represents the current XMPP Communication.
@@ -6987,6 +7092,22 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Views.ViewIdentityPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Wallet.IssueEDalerPage">
+            <summary>
+            A page that displays a specific claim thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.IssueEDalerPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.IssueEDalerPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.IssueEDalerPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

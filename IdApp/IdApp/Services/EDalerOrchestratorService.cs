@@ -1,21 +1,11 @@
-﻿using IdApp.Navigation;
-using IdApp.Views;
-using IdApp.Views.Contracts;
-using IdApp.Views.Registration;
-using System;
-using System.Reflection;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
-using EDaler;
 using EDaler.Uris;
 using EDaler.Uris.Incomplete;
+using IdApp.Navigation;
+using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Content.Xml;
-using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services
@@ -82,19 +72,28 @@ namespace IdApp.Services
 				return;
 			}
 
-			if (Parsed is EDalerIssuerUri IssuerUri)
+			if (Parsed.Expires.AddDays(1) < DateTime.UtcNow)
+			{
+				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ExpiredEDalerUri);
+				return;
+			}
+
+			if (Parsed is EDalerIssuerUri)
+			{
+				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				{
+					await this.navigationService.GoToAsync(nameof(IssueEDalerPage), new EDalerUriNavigationArgs(Parsed));
+				});
+			}
+			else if (Parsed is EDalerDestroyerUri)
 			{
 				// TODO
 			}
-			else if (Parsed is EDalerDestroyerUri DestroyerUri)
+			else if (Parsed is EDalerPaymentUri)
 			{
 				// TODO
 			}
-			else if (Parsed is EDalerPaymentUri PaymentUri)
-			{
-				// TODO
-			}
-			else if (Parsed is EDalerIncompletePaymeUri PaymeUri)	// Incomplete URI
+			else if (Parsed is EDalerIncompletePaymeUri)	// Incomplete URI
 			{
 				// TODO
 			}

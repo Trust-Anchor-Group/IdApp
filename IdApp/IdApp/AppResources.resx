@@ -321,11 +321,20 @@
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="EDalerNote" xml:space="preserve">
+    <value>eDaler Note</value>
+  </data>
+  <data name="EDalerNoteDescription" xml:space="preserve">
+    <value>The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified in the note.</value>
+  </data>
   <data name="EnterAnOperatorName" xml:space="preserve">
     <value>Enter an operator</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>An error has occurred</value>
+  </data>
+  <data name="ExpiredEDalerUri" xml:space="preserve">
+    <value>This eDaler code has expired.</value>
   </data>
   <data name="FailedToLoadPhoto" xml:space="preserve">
     <value>Failed to load photo</value>
@@ -672,6 +681,9 @@
   <data name="RandomPassword" xml:space="preserve">
     <value>Random password</value>
   </data>
+  <data name="ReceiveEDaler" xml:space="preserve">
+    <value>Receive eDaler</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Region or State</value>
   </data>
@@ -848,6 +860,9 @@
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>
+  </data>
+  <data name="UnableToProcessEDalerUri" xml:space="preserve">
+    <value>Unable to process eDaler code.</value>
   </data>
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
     <value>Unrecognized eDaler URI.</value>
