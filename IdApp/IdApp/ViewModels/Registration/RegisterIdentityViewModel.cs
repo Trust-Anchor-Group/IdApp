@@ -424,10 +424,30 @@ namespace IdApp.ViewModels.Registration
                 return;
             }
 
-            FileResult capturedPhoto = await MediaPicker.CapturePhotoAsync();
+            FileResult capturedPhoto;
+
+            try
+            {
+                capturedPhoto = await MediaPicker.CapturePhotoAsync();
+                if (capturedPhoto is null)
+                    return;
+            }
+            catch (Exception)
+			{
+                await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+                return;
+            }
+
             if (!(capturedPhoto is null))
             {
-                await AddPhoto(capturedPhoto.FullPath, true);
+                try
+                {
+                    await AddPhoto(capturedPhoto.FullPath, true);
+                }
+                catch (Exception ex)
+				{
+                    await this.UiDispatcher.DisplayAlert(ex);
+                }
             }
         }
 
