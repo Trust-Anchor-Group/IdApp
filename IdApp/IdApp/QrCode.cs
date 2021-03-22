@@ -76,7 +76,7 @@ namespace IdApp
                         break;
 
                     case Constants.UriSchemes.UriSchemeEDaler:
-                        await eDalerOrchestratorService.EDalerUri(decodedText);
+                        await eDalerOrchestratorService.OpenEDalerUri(decodedText);
                         break;
 
                     default:

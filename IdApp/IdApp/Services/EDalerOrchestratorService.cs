@@ -74,7 +74,7 @@ namespace IdApp.Services
 		/// eDaler URI scanned.
 		/// </summary>
 		/// <param name="uri">eDaler URI.</param>
-		public async Task EDalerUri(string uri)
+		public async Task OpenEDalerUri(string uri)
 		{
 			if (!this.neuronService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed))
 			{

@@ -15,6 +15,6 @@ namespace IdApp.Services
         /// eDaler URI scanned.
         /// </summary>
         /// <param name="uri">eDaler URI.</param>
-        Task EDalerUri(string uri);
+        Task OpenEDalerUri(string uri);
     }
 }
