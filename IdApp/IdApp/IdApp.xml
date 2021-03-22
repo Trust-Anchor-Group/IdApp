@@ -406,7 +406,7 @@
         </member>
         <member name="P:IdApp.AppResources.EDalerNoteDescription">
             <summary>
-              Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified in the note..
+              Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified on the note..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.EnterAnOperatorName">
@@ -6416,7 +6416,117 @@
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Uri">
             <summary>
-            iotdisco URI to process
+            edaler URI to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount">
+            <summary>
+            Amount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Currency">
+            <summary>
+            Currency of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Created">
+            <summary>
+            When code was created.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ExpiresProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Expires"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Expires">
+            <summary>
+            When code expires
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.IdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Id"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Id">
+            <summary>
+            Globally unique identifier of code
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.From">
+            <summary>
+            From who eDaler is to be transferred
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromType">
+            <summary>
+            Type of identity specified in <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.From"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.To">
+            <summary>
+            To whom eDaler is to be transferred
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToType">
+            <summary>
+            Type of identity specified in <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.To"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CompleteProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Complete"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Complete">
+            <summary>
+            If the URI is complete or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.MessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Message"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Message">
+            <summary>
+            Message of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AcceptCommand">
@@ -6431,7 +6541,7 @@
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept">
             <summary>
-            Gets or sets whether a user can claim a thing.
+            Gets or sets whether a user can accept the URI or not.
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.UsePin">

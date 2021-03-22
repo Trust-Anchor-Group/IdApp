@@ -40,7 +40,7 @@ namespace IdApp.ViewModels.Wallet
 
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
 
-            this.ClickCommand = new Command(async x => await this.LabelClicked(x));
+			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 		}
 
 		/// <inheritdoc/>
@@ -51,6 +51,27 @@ namespace IdApp.ViewModels.Wallet
 			if (this.navigationService.TryPopArgs(out EDalerUriNavigationArgs args))
 			{
 				this.Uri = args.Uri.UriString;
+				this.Id = args.Uri.Id;
+				this.Amount = args.Uri.Amount;
+				this.Currency = args.Uri.Currency;
+				this.Created = args.Uri.Created;
+				this.Expires = args.Uri.Expires;
+				this.From = args.Uri.From;
+				this.FromType = args.Uri.FromType;
+				this.To = args.Uri.To;
+				this.ToType = args.Uri.ToType;
+				this.Complete = args.Uri.Complete;
+
+				if (!(args.Uri.EncryptedMessage is null))
+				{
+					if (args.Uri.EncryptionPublicKey is null)
+						this.Message = System.Text.Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
+					else
+					{
+						this.Message = await this.NeuronService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
+							args.Uri.EncryptionPublicKey, args.Uri.From);
+					}
+				}
 			}
 
 			AssignProperties();
@@ -99,12 +120,177 @@ namespace IdApp.ViewModels.Wallet
 			BindableProperty.Create("Uri", typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
-		/// iotdisco URI to process
+		/// edaler URI to process
 		/// </summary>
 		public string Uri
 		{
 			get { return (string)GetValue(UriProperty); }
 			set { SetValue(UriProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Amount"/>
+		/// </summary>
+		public static readonly BindableProperty AmountProperty =
+			BindableProperty.Create("Amount", typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
+
+		/// <summary>
+		/// Amount of eDaler to process
+		/// </summary>
+		public decimal Amount
+		{
+			get { return (decimal)GetValue(AmountProperty); }
+			set { SetValue(AmountProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Currency"/>
+		/// </summary>
+		public static readonly BindableProperty CurrencyProperty =
+			BindableProperty.Create("Currency", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// Currency of eDaler to process
+		/// </summary>
+		public string Currency
+		{
+			get { return (string)GetValue(CurrencyProperty); }
+			set { SetValue(CurrencyProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Created"/>
+		/// </summary>
+		public static readonly BindableProperty CreatedProperty =
+			BindableProperty.Create("Created", typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
+
+		/// <summary>
+		/// When code was created.
+		/// </summary>
+		public DateTime Created
+		{
+			get { return (DateTime)GetValue(CreatedProperty); }
+			set { SetValue(CreatedProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Expires"/>
+		/// </summary>
+		public static readonly BindableProperty ExpiresProperty =
+			BindableProperty.Create("Expires", typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
+
+		/// <summary>
+		/// When code expires
+		/// </summary>
+		public DateTime Expires
+		{
+			get { return (DateTime)GetValue(ExpiresProperty); }
+			set { SetValue(ExpiresProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Id"/>
+		/// </summary>
+		public static readonly BindableProperty IdProperty =
+			BindableProperty.Create("Id", typeof(Guid), typeof(EDalerUriViewModel), default(Guid));
+
+		/// <summary>
+		/// Globally unique identifier of code
+		/// </summary>
+		public Guid Id
+		{
+			get { return (Guid)GetValue(IdProperty); }
+			set { SetValue(IdProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="From"/>
+		/// </summary>
+		public static readonly BindableProperty FromProperty =
+			BindableProperty.Create("From", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// From who eDaler is to be transferred
+		/// </summary>
+		public string From
+		{
+			get { return (string)GetValue(FromProperty); }
+			set { SetValue(FromProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="FromType"/>
+		/// </summary>
+		public static readonly BindableProperty FromTypeProperty =
+			BindableProperty.Create("FromType", typeof(EntityType), typeof(EDalerUriViewModel), default(EntityType));
+
+		/// <summary>
+		/// Type of identity specified in <see cref="From"/>
+		/// </summary>
+		public EntityType FromType
+		{
+			get { return (EntityType)GetValue(FromTypeProperty); }
+			set { SetValue(FromTypeProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="To"/>
+		/// </summary>
+		public static readonly BindableProperty ToProperty =
+			BindableProperty.Create("To", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// To whom eDaler is to be transferred
+		/// </summary>
+		public string To
+		{
+			get { return (string)GetValue(ToProperty); }
+			set { SetValue(ToProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="ToType"/>
+		/// </summary>
+		public static readonly BindableProperty ToTypeProperty =
+			BindableProperty.Create("ToType", typeof(EntityType), typeof(EDalerUriViewModel), default(EntityType));
+
+		/// <summary>
+		/// Type of identity specified in <see cref="To"/>
+		/// </summary>
+		public EntityType ToType
+		{
+			get { return (EntityType)GetValue(ToTypeProperty); }
+			set { SetValue(ToTypeProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Complete"/>
+		/// </summary>
+		public static readonly BindableProperty CompleteProperty =
+			BindableProperty.Create("Complete", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If the URI is complete or not.
+		/// </summary>
+		public bool Complete
+		{
+			get { return (bool)GetValue(CompleteProperty); }
+			set { SetValue(CompleteProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Message"/>
+		/// </summary>
+		public static readonly BindableProperty MessageProperty =
+			BindableProperty.Create("Message", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// Message of eDaler to process
+		/// </summary>
+		public string Message
+		{
+			get { return (string)GetValue(MessageProperty); }
+			set { SetValue(MessageProperty, value); }
 		}
 
 		/// <summary>
@@ -119,7 +305,7 @@ namespace IdApp.ViewModels.Wallet
 			BindableProperty.Create("CanAccept", typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
-		/// Gets or sets whether a user can claim a thing.
+		/// Gets or sets whether a user can accept the URI or not.
 		/// </summary>
 		public bool CanAccept
 		{
@@ -148,14 +334,14 @@ namespace IdApp.ViewModels.Wallet
 
 		#endregion
 
-        /// <summary>
-        /// Command to bind to for detecting when a tag value has been clicked on.
-        /// </summary>
+		/// <summary>
+		/// Command to bind to for detecting when a tag value has been clicked on.
+		/// </summary>
 		public ICommand ClickCommand { get; }
 
 		private Task LabelClicked(object _)
-        {
-			return Task.CompletedTask;	// TODO
+		{
+			return Task.CompletedTask;  // TODO
 		}
 
 		private async Task Accept()

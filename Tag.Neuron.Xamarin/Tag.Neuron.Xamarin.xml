@@ -1677,6 +1677,15 @@
             <param name="Parsed">Parsed eDaler URI, if successful.</param>
             <returns>If URI string could be parsed.</returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.TryDecryptMessage(System.Byte[],System.Byte[],System.String)">
+            <summary>
+            Tries to decrypt an encrypted private message.
+            </summary>
+            <param name="EncryptedMessage">Encrypted message.</param>
+            <param name="PublicKey">Public key used.</param>
+            <param name="RemoteEndpoint">Remote endpoint</param>
+            <returns>Decrypted string, if successful, or null, if not.</returns>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.SendUri(System.String)">
             <summary>
             Sends an eDaler URI to the eDaler service.
@@ -2389,6 +2398,15 @@
             <param name="Uri">URI string.</param>
             <param name="Parsed">Parsed eDaler URI, if successful.</param>
             <returns>If URI string could be parsed.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.TryDecryptMessage(System.Byte[],System.Byte[],System.String)">
+            <summary>
+            Tries to decrypt an encrypted private message.
+            </summary>
+            <param name="EncryptedMessage">Encrypted message.</param>
+            <param name="PublicKey">Public key used.</param>
+            <param name="RemoteEndpoint">Remote endpoint</param>
+            <returns>Decrypted string, if successful, or null, if not.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.SendUri(System.String)">
             <summary>

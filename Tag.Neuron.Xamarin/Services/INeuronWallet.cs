@@ -21,6 +21,15 @@ namespace Tag.Neuron.Xamarin.Services
 		bool TryParseEDalerUri(string Uri, out EDalerUri Parsed);
 
 		/// <summary>
+		/// Tries to decrypt an encrypted private message.
+		/// </summary>
+		/// <param name="EncryptedMessage">Encrypted message.</param>
+		/// <param name="PublicKey">Public key used.</param>
+		/// <param name="RemoteEndpoint">Remote endpoint</param>
+		/// <returns>Decrypted string, if successful, or null, if not.</returns>
+		Task<string> TryDecryptMessage(byte[] EncryptedMessage, byte[] PublicKey, string RemoteEndpoint);
+
+		/// <summary>
 		/// Sends an eDaler URI to the eDaler service.
 		/// </summary>
 		/// <param name="Uri">eDaler URI</param>
