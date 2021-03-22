@@ -262,6 +262,12 @@
             Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.UI.Views.ContentBasePage"/> class.
             </summary>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.UI.Views.ContentBasePage"/> class.
+            For unit tests.
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.ViewModel">
             <summary>
             Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.

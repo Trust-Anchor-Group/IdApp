@@ -1683,6 +1683,11 @@
             The question mark in a circle icon
             </summary>
         </member>
+        <member name="F:IdApp.SolidIcons.Wallet">
+            <summary>
+            The wallet icon
+            </summary>
+        </member>
         <member name="T:IdApp.Models.ContractModel">
             <summary>
             The data model for a contract.
@@ -2136,6 +2141,20 @@
             <summary>
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
+        </member>
+        <member name="M:IdApp.QrCode.ScanQrCodeAndHandleResult(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
+            <summary>
+            Scans a QR Code, and depending on the actual result, takes different actions. This typically means navigating to an appropriate page.
+            </summary>
+            <param name="logService">The log service to use for logging.</param>
+            <param name="neuronService">The Neuron service for XMPP access</param>
+            <param name="navigationService">The navigation service for page navigation.</param>
+            <param name="uiDispatcher">The ui dispatcher for main thread access.</param>
+            <param name="contractOrchestratorService">The contract orchestrator service.</param>
+            <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
+            <param name="commandName">The command name to display on the button when scanning.</param>
+            <param name="action">An optional callback that will be called after scan, but before page navigation.</param>
+            <returns></returns>
         </member>
         <member name="M:IdApp.QrCode.ScanQrCode(Tag.Neuron.Xamarin.Services.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
             <summary>
@@ -4747,7 +4766,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             For unit tests.
@@ -4758,6 +4777,36 @@
         </member>
         <member name="M:IdApp.ViewModels.MainViewModel.DoUnbind">
             <inheritdoc />
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ViewMyContractsCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ViewMyContractsCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ViewMyContractsCommand">
+            <summary>
+            The command to bind to for viewing the user's own contracts.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ScanQrCodeCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ScanQrCodeCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ScanQrCodeCommand">
+            <summary>
+            The command to bind to for scanning a QR code.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ViewWalletCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ViewWalletCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ViewWalletCommand">
+            <summary>
+            The command to bind to for viewing a user's wallet.
+            </summary>
         </member>
         <member name="F:IdApp.ViewModels.MainViewModel.HasPhotoProperty">
             <summary>
@@ -6648,26 +6697,6 @@
             The command to bind to for the third button.
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button4CommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button4Command"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button4Command">
-            <summary>
-            The command to bind to for the fourth button.
-            </summary>
-        </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button5CommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button5Command"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button5Command">
-            <summary>
-            The command to bind to for the fifth button.
-            </summary>
-        </member>
         <member name="F:IdApp.Views.MainTabBarView.Button1FontFamilyProperty">
             <summary>
             See <see cref="P:IdApp.Views.MainTabBarView.Button1FontFamily"/>
@@ -6698,26 +6727,6 @@
             The font family to use for text on the third button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button4FontFamilyProperty">
-            <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button4FontFamily"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button4FontFamily">
-            <summary>
-            The font family to use for text on the fourth button
-            </summary>
-        </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button5FontFamilyProperty">
-            <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button5FontFamily"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button5FontFamily">
-            <summary>
-            The font family to use for text on the fifth button
-            </summary>
-        </member>
         <member name="F:IdApp.Views.MainTabBarView.Button1TextProperty">
             <summary>
             See <see cref="P:IdApp.Views.MainTabBarView.Button1Text"/>
@@ -6746,26 +6755,6 @@
         <member name="P:IdApp.Views.MainTabBarView.Button3Text">
             <summary>
             The text to use for text on the third button
-            </summary>
-        </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button4TextProperty">
-            <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button4Text"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button4Text">
-            <summary>
-            The text to use for text on the fourth button
-            </summary>
-        </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button5TextProperty">
-            <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button5Text"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button5Text">
-            <summary>
-            The text to use for text on the fifth button
             </summary>
         </member>
         <member name="M:IdApp.Views.MainTabBarView.Show">

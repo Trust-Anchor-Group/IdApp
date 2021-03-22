@@ -9,6 +9,7 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using EDaler;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -89,6 +90,7 @@ namespace IdApp
                         typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
                         typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
                         typeof(Expression).Assembly,                // Indexes basic script functions
+                        typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
                         typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
                         typeof(TagConfiguration).Assembly,          // Indexes persistable objects
                         typeof(RegistrationStep).Assembly);         // Indexes persistable objects
