@@ -10,18 +10,12 @@ namespace Tag.Neuron.Xamarin.Services
 	[Singleton]
 	internal sealed class NeuronThingRegistry : INeuronThingRegistry
 	{
-		private readonly ITagProfile tagProfile;
-		private readonly IUiDispatcher uiDispatcher;
 		private readonly IInternalNeuronService neuronService;
-		private readonly ILogService logService;
 		private ThingRegistryClient registryClient;
 
-		internal NeuronThingRegistry(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
+		internal NeuronThingRegistry(IInternalNeuronService neuronService)
 		{
-			this.tagProfile = tagProfile;
-			this.uiDispatcher = uiDispatcher;
 			this.neuronService = neuronService;
-			this.logService = logService;
 		}
 
 		public ThingRegistryClient RegistryClient

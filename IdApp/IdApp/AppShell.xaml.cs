@@ -111,7 +111,7 @@ namespace IdApp
 
             await QrCode.ScanQrCodeAndHandleResult(this.logService, this.neuronService, this.navigationService,
                 this.uiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
-				this.eDalerOrchestratorService, AppResources.Open);
+				this.eDalerOrchestratorService);
 		}
 
 		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)

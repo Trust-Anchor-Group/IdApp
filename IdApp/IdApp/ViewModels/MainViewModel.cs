@@ -510,7 +510,7 @@ namespace IdApp.ViewModels
         {
             await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
                 this.UiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
-                this.eDalerOrchestratorService, AppResources.Open);
+                this.eDalerOrchestratorService);
         }
 
         private void UpdateLoggedOutText(bool isLoggedOut)

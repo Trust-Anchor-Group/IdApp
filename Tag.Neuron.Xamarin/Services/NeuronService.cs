@@ -68,8 +68,8 @@ namespace Tag.Neuron.Xamarin.Services
 			this.tagProfile = tagProfile;
 			this.settingsService = settingsService;
 			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService, this.settingsService);
-			this.muc = new NeuronMultiUserChat(this.tagProfile, uiDispatcher, this, this.logService);
-			this.thingRegistry = new NeuronThingRegistry(this.tagProfile, uiDispatcher, this, this.logService);
+			this.muc = new NeuronMultiUserChat(this.tagProfile, this);
+			this.thingRegistry = new NeuronThingRegistry(this);
 			this.wallet = new NeuronWallet(this.tagProfile, uiDispatcher, this, this.logService, this.contracts);
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = startupProfiler;

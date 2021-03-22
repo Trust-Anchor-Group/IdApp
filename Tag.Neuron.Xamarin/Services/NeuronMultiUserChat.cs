@@ -10,17 +10,13 @@ namespace Tag.Neuron.Xamarin.Services
     internal sealed class NeuronMultiUserChat : INeuronMultiUserChat
     {
         private readonly ITagProfile tagProfile;
-        private readonly IUiDispatcher uiDispatcher;
         private readonly IInternalNeuronService neuronService;
-        private readonly ILogService logService;
         private MultiUserChatClient mucClient;
 
-        internal NeuronMultiUserChat(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, ILogService logService)
+        internal NeuronMultiUserChat(ITagProfile tagProfile, IInternalNeuronService neuronService)
         {
             this.tagProfile = tagProfile;
-            this.uiDispatcher = uiDispatcher;
             this.neuronService = neuronService;
-            this.logService = logService;
         }
 
         internal void CreateClient()

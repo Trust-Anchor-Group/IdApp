@@ -27,9 +27,6 @@ namespace IdApp
         /// <param name="contractOrchestratorService">The contract orchestrator service.</param>
         /// <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
         /// <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
-        /// <param name="commandName">The command name to display on the button when scanning.</param>
-        /// <param name="action">An optional callback that will be called after scan, but before page navigation.</param>
-        /// <returns></returns>
         public static async Task ScanQrCodeAndHandleResult(
             ILogService logService,
             INeuronService neuronService,
@@ -37,9 +34,7 @@ namespace IdApp
             IUiDispatcher uiDispatcher,
             IContractOrchestratorService contractOrchestratorService,
             IThingRegistryOrchestratorService thingRegistryOrchestratorService,
-            IEDalerOrchestratorService eDalerOrchestratorService,
-            string commandName, 
-            Func<string, Task> action = null)
+            IEDalerOrchestratorService eDalerOrchestratorService)
         {
             string decodedText = await IdApp.QrCode.ScanQrCode(navigationService, AppResources.Open);
 
