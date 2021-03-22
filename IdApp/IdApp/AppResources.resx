@@ -325,7 +325,7 @@
     <value>eDaler Note</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified in the note.</value>
+    <value>The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified on the note.</value>
   </data>
   <data name="EnterAnOperatorName" xml:space="preserve">
     <value>Enter an operator</value>

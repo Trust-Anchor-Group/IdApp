@@ -325,7 +325,7 @@
     <value>eDaler-sedel</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>Koden representerar en eDaler-sedel. Du kan acceptera den genom att trycka på Acceptera-knappen nedan. Om den inte har accepterats innan, kommer din plånbok att ta emot det antal eDaler som sedeln specificerar.</value>
+    <value>Koden representerar en eDaler-sedel. Du kan acceptera den genom att trycka på Acceptera-knappen nedan. Om den inte har accepterats innan, kommer din plånbok att ta emot det antal eDaler som står på sedeln.</value>
   </data>
   <data name="EnterAnOperatorName" xml:space="preserve">
     <value>Ange en operatör</value>

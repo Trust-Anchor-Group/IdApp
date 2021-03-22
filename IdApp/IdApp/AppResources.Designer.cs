@@ -682,7 +682,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified in the note..
+        ///   Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified on the note..
         /// </summary>
         internal static string EDalerNoteDescription {
             get {
