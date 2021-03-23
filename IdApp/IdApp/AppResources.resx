@@ -954,6 +954,9 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>You can protect your wallet and sensitive information by adding an additional PIN number or password.</value>
   </data>

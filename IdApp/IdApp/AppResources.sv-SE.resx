@@ -951,6 +951,9 @@
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Igår</value>
+  </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
     <value>Du kan skydda din plånbok och känslig information genom att lägga till en PIN-kod eller ett lösenord.</value>
   </data>

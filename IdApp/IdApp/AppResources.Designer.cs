@@ -2572,6 +2572,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Yesterday.
+        /// </summary>
+        internal static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can protect your wallet and sensitive information by adding an additional PIN number or password..
         /// </summary>
         internal static string YouCanProtectYourWalletPinInfo {

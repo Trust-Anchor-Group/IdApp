@@ -1454,6 +1454,11 @@
               Looks up a localized string similar to Yes.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Yesterday">
+            <summary>
+              Looks up a localized string similar to Yesterday.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.YouCanProtectYourWalletPinInfo">
             <summary>
               Looks up a localized string similar to You can protect your wallet and sensitive information by adding an additional PIN number or password..
@@ -6462,6 +6467,68 @@
             Command to bind to for detecting when a tag value has been clicked on.
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.Wallet.AccountEventItem">
+            <summary>
+            Encapsulates a <see cref="T:EDaler.AccountEvent"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.ViewModels.Wallet.MyWalletViewModel)">
+            <summary>
+            Encapsulates a <see cref="T:EDaler.AccountEvent"/> object.
+            </summary>
+            <param name="AccountEvent">Account event.</param>
+            <param name="ViewModel">Current view model</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Balance">
+            <summary>
+            Balance after event.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Change">
+            <summary>
+            Balance change
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Timestamp">
+            <summary>
+            Timestamp of event
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.TransactionId">
+            <summary>
+            Transaction ID corresponding to event.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Remote">
+            <summary>
+            Remote endpoint in transaction.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Message">
+            <summary>
+            Any message associated with event.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.HasMessage">
+            <summary>
+            If the event has a message.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Currency">
+            <summary>
+            Currency used for event.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.TextColor">
+            <summary>
+            Color to use when displaying change.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.TimestampStr">
+            <summary>
+            String representation of timestamp
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Wallet.EDalerReceivedViewModel">
             <summary>
             The view model to bind to for when displaying thing claim information.
@@ -6917,6 +6984,47 @@
         <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Events">
             <summary>
             Holds a list of account events
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Wallet.PendingPaymentItem">
+            <summary>
+            Encapsulates a <see cref="T:EDaler.PendingPayment"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.PendingPaymentItem.#ctor(EDaler.PendingPayment)">
+            <summary>
+            Encapsulates a <see cref="T:EDaler.PendingPayment"/> object.
+            </summary>
+            <param name="PendingPayment">Pending payment.</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Id">
+            <summary>
+            Associated transaction ID
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Expires">
+            <summary>
+            When pending payment expires
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Currency">
+            <summary>
+            Currency of pending payment
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Amount">
+            <summary>
+            Amount pending
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.From">
+            <summary>
+            Sender of payment
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.To">
+            <summary>
+            Recipient of payment
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">

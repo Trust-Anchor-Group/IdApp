@@ -26,8 +26,6 @@
         <Color x:Key="AlertColor">Red</Color>
         <Color x:Key="PageBackgroundColor">White</Color>
         <Color x:Key="ForegroundColor">Black</Color>
-        <Color x:Key="NegativeColor">Red</Color>
-        <Color x:Key="PositiveColor">Black</Color>
         <Color x:Key="PendingColor">Salmon</Color>
         <Thickness x:Key="SafeAreaInsets"/>
         <Thickness x:Key="SafeAreaInsetsDefaultMargin">12</Thickness>

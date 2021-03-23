@@ -26,8 +26,11 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			get
 			{
-				if (this.eDalerClient is null)
+				if (this.eDalerClient is null || this.eDalerClient.Client != this.neuronService.Xmpp)
 				{
+					this.eDalerClient?.Dispose();
+					this.eDalerClient = null;
+
 					this.eDalerClient = this.neuronService.CreateEDalerClient();
 					this.eDalerClient.BalanceUpdated += EDalerClient_BalanceUpdated;
 				}

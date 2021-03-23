@@ -37,8 +37,8 @@ namespace IdApp.ViewModels.Wallet
 			this.navigationService = navigationService;
 			this.networkService = networkService;
 
-			this.PendingPayments = new ObservableCollection<PendingPayment>();
-			this.Events = new ObservableCollection<AccountEvent>();
+			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
+			this.Events = new ObservableCollection<AccountEventItem>();
 		}
 
 		/// <inheritdoc/>
@@ -89,14 +89,14 @@ namespace IdApp.ViewModels.Wallet
 			if (!(PendingPayments is null))
 			{
 				foreach (PendingPayment Payment in PendingPayments)
-					this.PendingPayments.Add(Payment);
+					this.PendingPayments.Add(new PendingPaymentItem(Payment));
 			}
 
 			this.Events.Clear();
 			if (!(Events is null))
 			{
 				foreach (AccountEvent Event in Events)
-					this.Events.Add(Event);
+					this.Events.Add(new AccountEventItem(Event, this));
 			}
 		}
 
@@ -276,12 +276,12 @@ namespace IdApp.ViewModels.Wallet
 		/// <summary>
 		/// Holds a list of pending payments
 		/// </summary>
-		public ObservableCollection<PendingPayment> PendingPayments { get; }
+		public ObservableCollection<PendingPaymentItem> PendingPayments { get; }
 
 		/// <summary>
 		/// Holds a list of account events
 		/// </summary>
-		public ObservableCollection<AccountEvent> Events { get; }
+		public ObservableCollection<AccountEventItem> Events { get; }
 
 		#endregion
 

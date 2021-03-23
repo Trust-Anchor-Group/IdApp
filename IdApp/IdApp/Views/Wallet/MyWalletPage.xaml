@@ -71,18 +71,29 @@
                              Margin="{StaticResource DefaultMargin}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=Remote}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
-                                <Label LineBreakMode="WordWrap">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Remote}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap"/>
+                                <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="WordWrap" TextColor="{Binding Path=TextColor}" HorizontalTextAlignment="End">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding Path=Change}" FontAttributes="Bold"/>
+                                            <Span Text="{Binding Path=Change}" FontSize="30" FontAttributes="Bold"/>
                                             <Span Text=" "/>
-                                            <Span Text="{Binding Path=Currency}"/>
+                                            <Span Text="{Binding Path=Currency}" FontSize="20"/>
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                            </StackLayout>
+                                <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="WordWrap"/>
+                            </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>

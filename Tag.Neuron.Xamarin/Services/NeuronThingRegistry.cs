@@ -22,8 +22,13 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			get
 			{
-				if (this.registryClient is null)
+				if (this.registryClient is null || this.registryClient.Client != this.neuronService.Xmpp)
+				{
+					this.registryClient?.Dispose();
+					this.registryClient = null;
+
 					this.registryClient = this.neuronService.CreateThingRegistryClient();
+				}
 
 				return this.registryClient;
 			}
