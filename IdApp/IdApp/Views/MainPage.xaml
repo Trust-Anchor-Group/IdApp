@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
-             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
-             xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-             xmlns:appViews="clr-namespace:IdApp.Views;assembly=IdApp"
-             x:Class="IdApp.Views.MainPage"
-             Title="{x:Static local:AppResources.MainPageTitle}"
-             Shell.FlyoutBehavior="Flyout">
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:appViews="clr-namespace:IdApp.Views;assembly=IdApp"
+                       x:Class="IdApp.Views.MainPage"
+                       Title="{x:Static local:AppResources.MainPageTitle}"
+                       Shell.FlyoutBehavior="Flyout">
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -47,11 +47,10 @@
                                 <TapGestureRecognizer Tapped="IdCard_Tapped" />
                             </views:FlipView.GestureRecognizers>
                             <views:FlipView.FrontView>
-                                <Frame
-                            Margin="6"
-                            BackgroundColor="{StaticResource HeadingBackground}"
-                            CornerRadius="6"
-                            HasShadow="True">
+                                <Frame Margin="6"
+                                       BackgroundColor="{StaticResource HeadingBackground}"
+                                       CornerRadius="6"
+                                       HasShadow="True">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
@@ -65,18 +64,16 @@
                                         <Label Grid.Row="0" Grid.Column="0" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                                         <Image Grid.Row="0" Grid.Column="1" Source="FlipIcon_DarkMode" WidthRequest="24" HeightRequest="24" VerticalOptions="Start"/>
                                         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                                            <Image 
-                                        BackgroundColor="{StaticResource HeadingBackground}"
-                                        Aspect="AspectFill" 
-                                        Source="{Binding Path=Image}" 
-                                        IsVisible="{Binding Path=HasPhoto}"/>
-                                            <Label 
-                                        HorizontalOptions="CenterAndExpand"
-                                        VerticalOptions="CenterAndExpand" FontSize="42" 
-                                        TextColor="{StaticResource HeadingForeground}"
-                                        Text="{x:Static local:SolidIcons.User}"
-                                        FontFamily="{StaticResource FontAwesomeSolid}"
-                                        IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
+                                            <Image BackgroundColor="{StaticResource HeadingBackground}"
+                                                   Aspect="AspectFill" 
+                                                   Source="{Binding Path=Image}" 
+                                                   IsVisible="{Binding Path=HasPhoto}"/>
+                                            <Label HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand" FontSize="42" 
+                                                   TextColor="{StaticResource HeadingForeground}"
+                                                   Text="{x:Static local:SolidIcons.User}"
+                                                   FontFamily="{StaticResource FontAwesomeSolid}"
+                                                   IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
                                         </Grid>
                                         <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=Location}" TextColor="{StaticResource HeadingForeground}" Margin="{StaticResource DefaultTopOnlyMargin}" HorizontalOptions="Center" FontSize="Medium"/>
                                     </Grid>
@@ -101,16 +98,14 @@
 
                 </Grid>
             </ScrollView>
-            <appViews:MainTabBarView 
-                x:Name="MainTabBar"
-                Grid.Row="1" 
-                Button1Text="{x:Static local:SolidIcons.Contract}" 
-                Button2Text="{x:Static local:SolidIcons.ScanQr}" 
-                Button3Text="{x:Static local:SolidIcons.Wallet}" 
-                Button1Command="{Binding Path=ViewMyContractsCommand}"
-                Button2Command="{Binding Path=ScanQrCodeCommand}"
-                Button3Command="{Binding Path=ViewWalletCommand}"
-                />
+            <appViews:MainTabBarView x:Name="MainTabBar"
+                                     Grid.Row="1" 
+                                     Button1Text="{x:Static local:SolidIcons.Contract}" 
+                                     Button2Text="{x:Static local:SolidIcons.ScanQr}" 
+                                     Button3Text="{x:Static local:SolidIcons.Wallet}" 
+                                     Button1Command="{Binding Path=ViewMyContractsCommand}"
+                                     Button2Command="{Binding Path=ScanQrCodeCommand}"
+                                     Button3Command="{Binding Path=ViewWalletCommand}" />
 
             <!-- The logout screen, hiding main page. -->
             <Grid Grid.Row="0" Grid.RowSpan="2"
