@@ -147,6 +147,9 @@
   <data name="Altitude" xml:space="preserve">
     <value>Höjd</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Belopp:</value>
+  </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
@@ -701,6 +704,12 @@
   </data>
   <data name="RequestingEntity" xml:space="preserve">
     <value>Begärande entitet</value>
+  </data>
+  <data name="RequestPayment" xml:space="preserve">
+    <value>Efterfråga betalning</value>
+  </data>
+  <data name="RequestPaymentDescription" xml:space="preserve">
+    <value>För att efterfråga en betalning från någon, fyll i detaljerna om betalningen nedan, och klicka knappen för att en Generera QR-kod. Den genererade koden kan användas av den andra parten för att generera en betalning till ditt konto.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>Begäran tog för lång tid</value>

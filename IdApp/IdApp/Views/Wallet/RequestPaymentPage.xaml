@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       x:Class="IdApp.Views.Wallet.RequestPaymentPage"
+                       Title="{x:Static local:AppResources.RequestPayment}">
+    <Grid>
+        <ScrollView>
+            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+                <Label Text="{x:Static local:AppResources.RequestPayment}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.RequestPaymentDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <!-- Note -->
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{x:Static local:AppResources.Amount}"/>
+                            <Span Text=" ("/>
+                            <Span Text="{Binding Path=Currency}"/>
+                            <Span Text=")"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</views:ContentBasePage>

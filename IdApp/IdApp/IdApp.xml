@@ -109,6 +109,11 @@
               Looks up a localized string similar to Altitude.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Amount">
+            <summary>
+              Looks up a localized string similar to Amount:.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.AnErrorHasOccurred">
             <summary>
               Looks up a localized string similar to An error has occurred.
@@ -1039,6 +1044,16 @@
               Looks up a localized string similar to Requesting entity.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.RequestPayment">
+            <summary>
+              Looks up a localized string similar to Request Payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RequestPaymentDescription">
+            <summary>
+              Looks up a localized string similar to To request payment from someone, fill in the details about the payment below, and click the Generate QR Code button. The generated code can be used by the other party, to generate a payment to your account..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.RequestTimedOut">
             <summary>
               Looks up a localized string similar to The request timed out.
@@ -1889,38 +1904,6 @@
             The legal identity to display.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.EDalerBalanceNavigationArgs">
-            <summary>
-            Holds navigation parameters specific to an eDaler balance event.
-            </summary>
-        </member>
-        <member name="M:IdApp.Navigation.EDalerBalanceNavigationArgs.#ctor(EDaler.Balance)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerBalanceNavigationArgs"/> class.
-            </summary>
-            <param name="Balance">Balance information.</param>
-        </member>
-        <member name="P:IdApp.Navigation.EDalerBalanceNavigationArgs.Balance">
-            <summary>
-            eDaler balance object.
-            </summary>
-        </member>
-        <member name="T:IdApp.Navigation.EDalerUriNavigationArgs">
-            <summary>
-            Holds navigation parameters specific to eDaler URIs.
-            </summary>
-        </member>
-        <member name="M:IdApp.Navigation.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerUriNavigationArgs"/> class.
-            </summary>
-            <param name="Uri">Parsed edaler URI.</param>
-        </member>
-        <member name="P:IdApp.Navigation.EDalerUriNavigationArgs.Uri">
-            <summary>
-            The edaler URI
-            </summary>
-        </member>
         <member name="T:IdApp.Navigation.NewContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a new contract.
@@ -1975,6 +1958,28 @@
         <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.Purpose">
             <summary>
             The purpose of the petition.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.ViewContractNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.ViewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.ViewContractNavigationArgs"/> class.
+            </summary>
+            <param name="contract">The contract to display.</param>
+            <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
+        </member>
+        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.Contract">
+            <summary>
+            The contract to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.IsReadOnly">
+            <summary>
+            <c>true</c> if the contract is readonly, <c>false</c> otherwise.
             </summary>
         </member>
         <member name="T:IdApp.Navigation.PetitionIdentityNavigationArgs">
@@ -2111,28 +2116,6 @@
             The iotdisco claim URI
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.ViewContractNavigationArgs">
-            <summary>
-            Holds navigation parameters specific to views displaying a contract.
-            </summary>
-        </member>
-        <member name="M:IdApp.Navigation.ViewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.ViewContractNavigationArgs"/> class.
-            </summary>
-            <param name="contract">The contract to display.</param>
-            <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
-        </member>
-        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.Contract">
-            <summary>
-            The contract to display.
-            </summary>
-        </member>
-        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.IsReadOnly">
-            <summary>
-            <c>true</c> if the contract is readonly, <c>false</c> otherwise.
-            </summary>
-        </member>
         <member name="T:IdApp.Navigation.ViewIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a legal identity.
@@ -2153,6 +2136,38 @@
         <member name="P:IdApp.Navigation.ViewIdentityNavigationArgs.IdentityToReview">
             <summary>
             The identity to review, if any.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.EDalerBalanceNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to an eDaler balance event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.EDalerBalanceNavigationArgs.#ctor(EDaler.Balance)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerBalanceNavigationArgs"/> class.
+            </summary>
+            <param name="Balance">Balance information.</param>
+        </member>
+        <member name="P:IdApp.Navigation.EDalerBalanceNavigationArgs.Balance">
+            <summary>
+            eDaler balance object.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.EDalerUriNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to eDaler URIs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerUriNavigationArgs"/> class.
+            </summary>
+            <param name="Uri">Parsed edaler URI.</param>
+        </member>
+        <member name="P:IdApp.Navigation.EDalerUriNavigationArgs.Uri">
+            <summary>
+            The edaler URI
             </summary>
         </member>
         <member name="T:IdApp.Navigation.WalletNavigationArgs">
@@ -6531,7 +6546,7 @@
         </member>
         <member name="T:IdApp.ViewModels.Wallet.EDalerReceivedViewModel">
             <summary>
-            The view model to bind to for when displaying thing claim information.
+            The view model to bind to for displaying information about an incoming balance change.
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
@@ -6986,6 +7001,11 @@
             Holds a list of account events
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.RequestPaymentCommand">
+            <summary>
+            The command to bind to for claiming a thing
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Wallet.PendingPaymentItem">
             <summary>
             Encapsulates a <see cref="T:EDaler.PendingPayment"/> object.
@@ -7025,6 +7045,60 @@
         <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.To">
             <summary>
             Recipient of payment
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Wallet.RequestPaymentViewModel">
+            <summary>
+            The view model to bind to for requesting a payment.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.RequestPaymentViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Amount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Amount">
+            <summary>
+            Amount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Currency">
+            <summary>
+            Currency of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.MessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Message"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Message">
+            <summary>
+            Message of eDaler to process
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.GenerateQrCodeCommand">
+            <summary>
+            The command to bind to for claiming a thing
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
@@ -7713,6 +7787,22 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.Wallet.MyWalletPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Wallet.RequestPaymentPage">
+            <summary>
+            A page that displays information about eDaler received.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.RequestPaymentPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.RequestPaymentPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.RequestPaymentPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

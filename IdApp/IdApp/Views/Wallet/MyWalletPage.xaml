@@ -98,6 +98,9 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
 
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.RequestPayment}" Command="{Binding Path=RequestPaymentCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+
             </StackLayout>
         </ScrollView>
     </Grid>

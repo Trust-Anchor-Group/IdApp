@@ -2,8 +2,10 @@
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using EDaler;
 using IdApp.Navigation;
+using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
@@ -36,6 +38,8 @@ namespace IdApp.ViewModels.Wallet
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
+
+			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => IsConnected);
 
 			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			this.Events = new ObservableCollection<AccountEventItem>();
@@ -102,6 +106,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private void EvaluateAllCommands()
 		{
+			this.EvaluateCommands(this.RequestPaymentCommand);
 		}
 
 		private Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
@@ -283,7 +288,17 @@ namespace IdApp.ViewModels.Wallet
 		/// </summary>
 		public ObservableCollection<AccountEventItem> Events { get; }
 
+		/// <summary>
+		/// The command to bind to for claiming a thing
+		/// </summary>
+		public ICommand RequestPaymentCommand { get; }
+
 		#endregion
+
+		private async Task RequestPayment()
+		{
+			await this.navigationService.GoToAsync(nameof(RequestPaymentPage));
+		}
 
 	}
 }

@@ -14,7 +14,7 @@ using Xamarin.Forms;
 namespace IdApp.ViewModels.Wallet
 {
 	/// <summary>
-	/// The view model to bind to for when displaying thing claim information.
+	/// The view model to bind to for displaying information about an incoming balance change.
 	/// </summary>
 	public class EDalerReceivedViewModel : NeuronViewModel
 	{

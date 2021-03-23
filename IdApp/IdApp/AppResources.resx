@@ -147,6 +147,9 @@
   <data name="Altitude" xml:space="preserve">
     <value>Altitude</value>
   </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount:</value>
+  </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>An error has occurred</value>
   </data>
@@ -704,6 +707,12 @@
   </data>
   <data name="RequestingEntity" xml:space="preserve">
     <value>Requesting entity</value>
+  </data>
+  <data name="RequestPayment" xml:space="preserve">
+    <value>Request Payment</value>
+  </data>
+  <data name="RequestPaymentDescription" xml:space="preserve">
+    <value>To request payment from someone, fill in the details about the payment below, and click the Generate QR Code button. The generated code can be used by the other party, to generate a payment to your account.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>The request timed out</value>

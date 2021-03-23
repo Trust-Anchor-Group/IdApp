@@ -151,6 +151,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount:.
+        /// </summary>
+        internal static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string AnErrorHasOccurred {
@@ -1821,6 +1830,24 @@ namespace IdApp {
         internal static string RequestingEntity {
             get {
                 return ResourceManager.GetString("RequestingEntity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Payment.
+        /// </summary>
+        internal static string RequestPayment {
+            get {
+                return ResourceManager.GetString("RequestPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To request payment from someone, fill in the details about the payment below, and click the Generate QR Code button. The generated code can be used by the other party, to generate a payment to your account..
+        /// </summary>
+        internal static string RequestPaymentDescription {
+            get {
+                return ResourceManager.GetString("RequestPaymentDescription", resourceCulture);
             }
         }
         

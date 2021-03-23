@@ -130,6 +130,9 @@
     <Compile Update="Views\Things\ViewClaimThingPage.xaml.cs">
       <DependentUpon>ViewClaimThingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Wallet\RequestPaymentPage.xaml.cs">
+      <DependentUpon>RequestPaymentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Wallet\EDalerReceivedPage.xaml.cs">
       <DependentUpon>EDalerReceivedPage.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
 <ItemGroup>
   <ProjectReference Include="..\..\Tag.Neuron.Xamarin.UI\Tag.Neuron.Xamarin.UI.csproj" />
   <ProjectReference Include="..\..\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.csproj" />
+</ItemGroup>
+
+<ItemGroup>
+  <Folder Include="Navigation\Registration\" />
 </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
