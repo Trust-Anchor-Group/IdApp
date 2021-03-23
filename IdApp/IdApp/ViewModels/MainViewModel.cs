@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Views.Contracts;
+using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -503,7 +504,7 @@ namespace IdApp.ViewModels
 
         private async Task ViewWallet()
         {
-            await this.UiDispatcher.DisplayAlert("Wallet", "Wallet placeholder");
+            await this.navigationService.GoToAsync(nameof(MyWalletPage));
         }
 
         private async Task ScanQrCode()

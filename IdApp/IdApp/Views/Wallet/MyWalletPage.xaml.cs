@@ -7,17 +7,17 @@ using Xamarin.Forms.Xaml;
 namespace IdApp.Views.Wallet
 {
     /// <summary>
-    /// A page that allows the user to receive newly issued eDaler.
+    /// A page that allows the user to view the contents of its wallet, pending payments and recent account events.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class IssueEDalerPage
+	public partial class MyWalletPage
     {
         private readonly INavigationService navigationService;
 
         /// <summary>
         /// Creates a new instance of the <see cref="IssueEDalerPage"/> class.
         /// </summary>
-		public IssueEDalerPage()
+		public MyWalletPage()
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.ViewModel = new EDalerUriViewModel(

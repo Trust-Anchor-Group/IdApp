@@ -81,6 +81,8 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(XmppCommunicationPage), typeof(XmppCommunicationPage));
 			Routing.RegisterRoute(nameof(ViewClaimThingPage), typeof(ViewClaimThingPage));
 			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));
+			Routing.RegisterRoute(nameof(EDalerReceivedPage), typeof(EDalerReceivedPage));
+			Routing.RegisterRoute(nameof(MyWalletPage), typeof(MyWalletPage));
 		}
 
 		private async Task GoToPage(string route)

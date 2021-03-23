@@ -1884,6 +1884,22 @@
             The legal identity to display.
             </summary>
         </member>
+        <member name="T:IdApp.Navigation.EDalerBalanceNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to an eDaler balance event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.EDalerBalanceNavigationArgs.#ctor(EDaler.Balance)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerBalanceNavigationArgs"/> class.
+            </summary>
+            <param name="Balance">Balance information.</param>
+        </member>
+        <member name="P:IdApp.Navigation.EDalerBalanceNavigationArgs.Balance">
+            <summary>
+            eDaler balance object.
+            </summary>
+        </member>
         <member name="T:IdApp.Navigation.EDalerUriNavigationArgs">
             <summary>
             Holds navigation parameters specific to eDaler URIs.
@@ -6390,9 +6406,153 @@
             Command to bind to for detecting when a tag value has been clicked on.
             </summary>
         </member>
-        <member name="T:IdApp.ViewModels.Wallet.EDalerUriViewModel">
+        <member name="T:IdApp.ViewModels.Wallet.EDalerReceivedViewModel">
             <summary>
             The view model to bind to for when displaying thing claim information.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.EDalerUriViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.AmountProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Amount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Amount">
+            <summary>
+            Amount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.ChangeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Change"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Change">
+            <summary>
+            Change in balance represented by current event.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasChangeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasChange"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasChange">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Change"/> is defined.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Currency">
+            <summary>
+            Currency of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.TimestampProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Timestamp"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Timestamp">
+            <summary>
+            When code was created.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.IdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Id"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Id">
+            <summary>
+            Globally unique identifier of code
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasIdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasId">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Id"/> is defined.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.From">
+            <summary>
+            From who eDaler is to be transferred
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasFromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasFrom"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasFrom">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.From"/> is defined.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.MessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Message"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.Message">
+            <summary>
+            Message of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.HasMessage">
+            <summary>
+            HasMessage of eDaler to process
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.AcceptCommand">
+            <summary>
+            The command to bind to for claiming a thing
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.EDalerGlyphProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.EDalerGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.EDalerGlyph">
+            <summary>
+            eDaler glyph URL
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Wallet.EDalerUriViewModel">
+            <summary>
+            The view model to bind to for when displaying the contents of an eDaler URI.
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
@@ -6583,6 +6743,25 @@
             <summary>
             Command to bind to for detecting when a from label has been clicked on.
             </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Wallet.MyWalletViewModel">
+            <summary>
+            The view model to bind to for when displaying the wallet.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.MyWalletViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
@@ -7227,9 +7406,25 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:IdApp.Views.Wallet.EDalerReceivedPage">
+            <summary>
+            A page that displays information about eDaler received.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.EDalerReceivedPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.EDalerReceivedPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.EDalerReceivedPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:IdApp.Views.Wallet.IssueEDalerPage">
             <summary>
-            A page that displays a specific claim thing.
+            A page that allows the user to receive newly issued eDaler.
             </summary>
         </member>
         <member name="M:IdApp.Views.Wallet.IssueEDalerPage.#ctor">
@@ -7238,6 +7433,22 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.Wallet.IssueEDalerPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Wallet.MyWalletPage">
+            <summary>
+            A page that allows the user to view the contents of its wallet, pending payments and recent account events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.MyWalletPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.IssueEDalerPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.MyWalletPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

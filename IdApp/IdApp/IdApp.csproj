@@ -130,6 +130,12 @@
     <Compile Update="Views\Things\ViewClaimThingPage.xaml.cs">
       <DependentUpon>ViewClaimThingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Wallet\EDalerReceivedPage.xaml.cs">
+      <DependentUpon>EDalerReceivedPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\MyWalletPage.xaml.cs">
+      <DependentUpon>MyWalletPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Wallet\IssueEDalerPage.xaml.cs">
       <DependentUpon>IssueEDalerPage.xaml</DependentUpon>
     </Compile>

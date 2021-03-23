@@ -1693,6 +1693,80 @@
             <param name="Uri">eDaler URI</param>
             <returns>Transaction object containing information about the processed URI.</returns>
         </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronWallet.BalanceUpdated">
+            <summary>
+            Event raised when balance has been updated.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.GetAccountEventsAsync(System.Int32)">
+            <summary>
+            Gets account events available for the wallet.
+            </summary>
+            <param name="MaxCount">Maximum number of events to return.</param>
+            <returns>Events found, and if more events are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.GetAccountEventsAsync(System.Int32,System.DateTime)">
+            <summary>
+            Gets account events available for the wallet.
+            </summary>
+            <param name="MaxCount">Maximum number of events to return.</param>
+            <param name="From">From what point in time events should be returned.</param>
+            <returns>Events found, and if more events are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.GetBalanceAsync">
+            <summary>
+            Gets the current account balance.
+            </summary>
+            <returns>Current account balance.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.GetPendingPayments">
+            <summary>
+            Gets pending payments
+            </summary>
+            <returns>(Total amount, currency, items)</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="ToBareJid">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32,System.String)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="ToBareJid">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <param name="Message">Unencrypted message to send to recipient.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="To">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32,System.String)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="To">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ISettingsService">
             <summary>
             Handles common UI settings that need to be persisted during sessions.
@@ -2414,6 +2488,75 @@
             </summary>
             <param name="Uri">eDaler URI</param>
             <returns>Transaction object containing information about the processed URI.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.GetAccountEventsAsync(System.Int32)">
+            <summary>
+            Gets account events available for the wallet.
+            </summary>
+            <param name="MaxCount">Maximum number of events to return.</param>
+            <returns>Events found, and if more events are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.GetAccountEventsAsync(System.Int32,System.DateTime)">
+            <summary>
+            Gets account events available for the wallet.
+            </summary>
+            <param name="MaxCount">Maximum number of events to return.</param>
+            <param name="From">From what point in time events should be returned.</param>
+            <returns>Events found, and if more events are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.GetBalanceAsync">
+            <summary>
+            Gets the current account balance.
+            </summary>
+            <returns>Current account balance.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.GetPendingPayments">
+            <summary>
+            Gets pending payments
+            </summary>
+            <returns>(Total amount, currency, items)</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="ToBareJid">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32,System.String)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="ToBareJid">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <param name="Message">Unencrypted message to send to recipient.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="To">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32,System.String)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="To">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
+            <returns>Signed payment URI.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.StorageService.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.IUiDispatcher)">
             <summary>

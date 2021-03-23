@@ -14,7 +14,7 @@ using Xamarin.Forms;
 namespace IdApp.ViewModels.Wallet
 {
 	/// <summary>
-	/// The view model to bind to for when displaying thing claim information.
+	/// The view model to bind to for when displaying the contents of an eDaler URI.
 	/// </summary>
 	public class EDalerUriViewModel : NeuronViewModel
 	{

@@ -7,20 +7,20 @@ using Xamarin.Forms.Xaml;
 namespace IdApp.Views.Wallet
 {
     /// <summary>
-    /// A page that allows the user to receive newly issued eDaler.
+    /// A page that displays information about eDaler received.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class IssueEDalerPage
+	public partial class EDalerReceivedPage
     {
         private readonly INavigationService navigationService;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="IssueEDalerPage"/> class.
+        /// Creates a new instance of the <see cref="EDalerReceivedPage"/> class.
         /// </summary>
-		public IssueEDalerPage()
+		public EDalerReceivedPage()
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.ViewModel = new EDalerUriViewModel(
+            this.ViewModel = new EDalerReceivedViewModel(
                 DependencyService.Resolve<ITagProfile>(),
                 DependencyService.Resolve<IUiDispatcher>(),
                 DependencyService.Resolve<INeuronService>(),

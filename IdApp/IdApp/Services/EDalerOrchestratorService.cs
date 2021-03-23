@@ -42,7 +42,10 @@ namespace IdApp.Services
 		public override Task Load(bool isResuming)
 		{
 			if (this.BeginLoad())
+			{
+				this.neuronService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
 				this.EndLoad(true);
+			}
 			
 			return Task.CompletedTask;
 		}
@@ -50,13 +53,28 @@ namespace IdApp.Services
 		public override Task Unload()
 		{
 			if (this.BeginUnload())
+			{
+				this.neuronService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
 				this.EndUnload();
+			}
 
 			return Task.CompletedTask;
 		}
 
 		#region Event Handlers
 
+		private Task Wallet_BalanceUpdated(object Sender, EDaler.BalanceEventArgs e)
+		{
+			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			{
+				if ((e.Balance.Event?.Change ?? 0) > 0)
+					await this.navigationService.GoToAsync(nameof(EDalerReceivedPage), new EDalerBalanceNavigationArgs(e.Balance));
+				else
+					await this.navigationService.GoToAsync(nameof(MyWalletPage));
+			});
+
+			return Task.CompletedTask;
+		}
 
 		#endregion
 
