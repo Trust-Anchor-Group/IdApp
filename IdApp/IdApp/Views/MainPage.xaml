@@ -15,34 +15,43 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <ScrollView Grid.Row="0" Margin="0,0,0,0">
-                <Grid>
-                    <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
-                        <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" VerticalOptions="Start" />
-                        <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="Start" />
-                        <Grid Margin="{StaticResource DefaultBottomOnlyMargin}" VerticalOptions="Start">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="3*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Text="{x:Static local:AppResources.Network}" />
-                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Path=NetworkStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
-                            <Label Grid.Row="1" Grid.Column="0" Text="{x:Static local:AppResources.Neuron}" />
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=ConnectionStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
-                            <Label Grid.Row="2" Grid.Column="0" Text="{x:Static local:AppResources.Contracts}" />
-                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=ContractsStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
-                            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
-                        </Grid>
+                    <Grid Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.ColumnSpan="3">
+                            <Label Text="{x:Static local:AppResources.Connection}" FontSize="Large" VerticalOptions="Start" />
+                            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="Start" />
+                            <Grid Margin="{StaticResource DefaultBottomOnlyMargin}" VerticalOptions="Start">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="{x:Static local:AppResources.Network}" />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Path=NetworkStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                                <Label Grid.Row="1" Grid.Column="0" Text="{x:Static local:AppResources.Neuron}" />
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=ConnectionStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                                <Label Grid.Row="2" Grid.Column="0" Text="{x:Static local:AppResources.Contracts}" />
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=ContractsStateText}" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap"/>
+                                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=ConnectionErrorsText}" FontAttributes="Italic" HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
+                            </Grid>
 
-                        <Label Text="{x:Static local:AppResources.Identity}" FontSize="Large"/>
-                        <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
-
-                        <views:FlipView x:Name="IdCard" WidthRequest="340" HeightRequest="380" HorizontalOptions="Center">
+                            <Label Text="{x:Static local:AppResources.Identity}" FontSize="Large"/>
+                            <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" />
+                          </StackLayout>
+                    <views:FlipView Grid.Column="1" Grid.Row="1" WidthRequest="340" VerticalOptions="FillAndExpand" x:Name="IdCard" HorizontalOptions="Center">
                             <views:FlipView.GestureRecognizers>
                                 <TapGestureRecognizer Tapped="IdCard_Tapped" />
                             </views:FlipView.GestureRecognizers>
@@ -91,15 +100,12 @@
                                         </Grid.RowDefinitions>
                                         <Label Grid.Row="0" Text="{x:Static local:AppResources.Qrcode}" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                                         <Image Grid.Row="0" Source="FlipIcon_LightMode" WidthRequest="24" HeightRequest="24" VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}"/>
-                                        <Image x:Name="QrCode" Grid.Row="1" BackgroundColor="{StaticResource HeadingBackground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start" Margin="0" />
+                                    <Image x:Name="QrCode" Grid.Row="1" BackgroundColor="{StaticResource HeadingForeground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start" Margin="0" />
                                     </Grid>
                                 </Frame>
                             </views:FlipView.BackView>
                         </views:FlipView>
-
-                    </StackLayout>
-
-                </Grid>
+                    </Grid>
             </ScrollView>
             <appViews:MainTabBarView 
                 x:Name="MainTabBar"
