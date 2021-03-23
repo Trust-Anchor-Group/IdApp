@@ -1,5 +1,5 @@
 ﻿using IdApp.Models;
-using IdApp.Navigation;
+using IdApp.Navigation.Contracts;
 using IdApp.Views.Contracts;
 using System;
 using System.Collections.Generic;

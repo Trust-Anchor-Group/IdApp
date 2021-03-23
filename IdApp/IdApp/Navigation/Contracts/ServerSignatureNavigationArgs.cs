@@ -1,7 +1,7 @@
 ﻿using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Navigation
+namespace IdApp.Navigation.Contracts
 {
     /// <summary>
     /// Holds navigation parameters specific to views displaying a server signature.

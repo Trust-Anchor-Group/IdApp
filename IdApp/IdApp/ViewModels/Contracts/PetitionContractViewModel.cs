@@ -1,4 +1,4 @@
-﻿using IdApp.Navigation;
+﻿using IdApp.Navigation.Contracts;
 using IdApp.Services;
 using System;
 using System.Collections.ObjectModel;

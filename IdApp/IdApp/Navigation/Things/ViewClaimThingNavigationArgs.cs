@@ -1,7 +1,7 @@
 ﻿using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Navigation
+namespace IdApp.Navigation.Things
 {
     /// <summary>
     /// Holds navigation parameters specific to claiming things.

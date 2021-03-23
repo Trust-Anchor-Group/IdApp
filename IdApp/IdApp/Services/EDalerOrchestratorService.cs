@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
 using EDaler.Uris.Incomplete;
-using IdApp.Navigation;
+using IdApp.Navigation.Wallet;
 using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;

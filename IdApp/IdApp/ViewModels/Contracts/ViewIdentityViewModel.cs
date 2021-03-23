@@ -1,4 +1,4 @@
-﻿using IdApp.Navigation;
+﻿using IdApp.Navigation.Identity;
 using IdApp.Services;
 using IdApp.Views.Registration;
 using System;

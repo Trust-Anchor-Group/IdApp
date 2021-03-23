@@ -1,7 +1,7 @@
 ﻿using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Navigation
+namespace IdApp.Navigation.Identity
 {
     /// <summary>
     /// Holds navigation parameters specific to views displaying a legal identity.

@@ -1882,52 +1882,52 @@
             Gets or sets whether the format of the contract part is html or not.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.ClientSignatureNavigationArgs">
+        <member name="T:IdApp.Navigation.Contracts.ClientSignatureNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a client signature.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.ClientSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.ClientSignature,Waher.Networking.XMPP.Contracts.LegalIdentity)">
+        <member name="M:IdApp.Navigation.Contracts.ClientSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.ClientSignature,Waher.Networking.XMPP.Contracts.LegalIdentity)">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.ClientSignatureNavigationArgs"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Contracts.ClientSignatureNavigationArgs"/> class.
             </summary>
             <param name="signature">The signature to display.</param>
             <param name="identity">The legal identity to display.</param>
         </member>
-        <member name="P:IdApp.Navigation.ClientSignatureNavigationArgs.Signature">
+        <member name="P:IdApp.Navigation.Contracts.ClientSignatureNavigationArgs.Signature">
             <summary>
             The signature to display.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.ClientSignatureNavigationArgs.Identity">
+        <member name="P:IdApp.Navigation.Contracts.ClientSignatureNavigationArgs.Identity">
             <summary>
             The legal identity to display.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.NewContractNavigationArgs">
+        <member name="T:IdApp.Navigation.Contracts.NewContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a new contract.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
+        <member name="M:IdApp.Navigation.Contracts.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.NewContractNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Navigation.Contracts.NewContractNavigationArgs"/> class.
             </summary>
             <param name="contract">The contract to use as template.</param>
         </member>
-        <member name="P:IdApp.Navigation.NewContractNavigationArgs.Contract">
+        <member name="P:IdApp.Navigation.Contracts.NewContractNavigationArgs.Contract">
             <summary>
             The contract to use as template.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.PetitionContractNavigationArgs">
+        <member name="T:IdApp.Navigation.Contracts.PetitionContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a contract petition request.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.PetitionContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,Waher.Networking.XMPP.Contracts.Contract,System.String,System.String)">
+        <member name="M:IdApp.Navigation.Contracts.PetitionContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,Waher.Networking.XMPP.Contracts.Contract,System.String,System.String)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.PetitionContractNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Navigation.Contracts.PetitionContractNavigationArgs"/> class.
             </summary>
             <param name="requestorIdentity">The identity of the requestor</param>
             <param name="requestorFullJid">The identity of the requestor</param>
@@ -1935,61 +1935,77 @@
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose of the petition.</param>
         </member>
-        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.RequestorIdentity">
+        <member name="P:IdApp.Navigation.Contracts.PetitionContractNavigationArgs.RequestorIdentity">
             <summary>
             The identity of the requestor.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.RequestorFullJid">
+        <member name="P:IdApp.Navigation.Contracts.PetitionContractNavigationArgs.RequestorFullJid">
             <summary>
             The identity of the requestor.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.RequestedContract">
+        <member name="P:IdApp.Navigation.Contracts.PetitionContractNavigationArgs.RequestedContract">
             <summary>
             The identity of the requestor.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.PetitionId">
+        <member name="P:IdApp.Navigation.Contracts.PetitionContractNavigationArgs.PetitionId">
             <summary>
             The petition id.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionContractNavigationArgs.Purpose">
+        <member name="P:IdApp.Navigation.Contracts.PetitionContractNavigationArgs.Purpose">
             <summary>
             The purpose of the petition.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.ViewContractNavigationArgs">
+        <member name="T:IdApp.Navigation.Contracts.ServerSignatureNavigationArgs">
             <summary>
-            Holds navigation parameters specific to views displaying a contract.
+            Holds navigation parameters specific to views displaying a server signature.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.ViewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+        <member name="M:IdApp.Navigation.Contracts.ServerSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.ViewContractNavigationArgs"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Contracts.ServerSignatureNavigationArgs"/> class.
             </summary>
             <param name="contract">The contract to display.</param>
-            <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
         </member>
-        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.Contract">
+        <member name="P:IdApp.Navigation.Contracts.ServerSignatureNavigationArgs.Contract">
             <summary>
             The contract to display.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.ViewContractNavigationArgs.IsReadOnly">
+        <member name="T:IdApp.Navigation.Contracts.ViewContractNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.Contracts.ViewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.Contracts.ViewContractNavigationArgs"/> class.
+            </summary>
+            <param name="contract">The contract to display.</param>
+            <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
+        </member>
+        <member name="P:IdApp.Navigation.Contracts.ViewContractNavigationArgs.Contract">
+            <summary>
+            The contract to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.Contracts.ViewContractNavigationArgs.IsReadOnly">
             <summary>
             <c>true</c> if the contract is readonly, <c>false</c> otherwise.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.PetitionIdentityNavigationArgs">
+        <member name="T:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a petition of a legal identity.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.PetitionIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.String,System.String)">
+        <member name="M:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.String,System.String)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.PetitionIdentityNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs"/> class.
             </summary>
             <param name="requestorIdentity">The identity of the requestor.</param>
             <param name="requestorFullJid">The full Jid of the requestor.</param>
@@ -1997,75 +2013,97 @@
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose of the petition.</param>
         </member>
-        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.RequestorIdentity">
+        <member name="P:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs.RequestorIdentity">
             <summary>
             The identity of the requestor.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.RequestorFullJid">
+        <member name="P:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs.RequestorFullJid">
             <summary>
             The full Jid of the requestor.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.RequestedIdentityId">
+        <member name="P:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs.RequestedIdentityId">
             <summary>
             The requested identity id.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.PetitionId">
+        <member name="P:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs.PetitionId">
             <summary>
             The petition id.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionIdentityNavigationArgs.Purpose">
+        <member name="P:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs.Purpose">
             <summary>
             The purpose of the petition.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.PetitionSignatureNavigationArgs">
+        <member name="T:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a petition of a signature.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.PetitionSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.Byte[],System.String,System.String)">
+        <member name="M:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String,System.Byte[],System.String,System.String)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Navigation.PetitionSignatureNavigationArgs"/> class.
+            Creates an instance of the <see cref="T:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs"/> class.
             </summary>
             <param name="requestorIdentity">The identity of the requestor.</param>
             <param name="requestorFullJid">The full Jid of the requestor.</param>
-            <param name="signatoryIdentityId">Legal ID requested to sign <see cref="P:IdApp.Navigation.PetitionSignatureNavigationArgs.ContentToSign"/>.</param>
+            <param name="signatoryIdentityId">Legal ID requested to sign <see cref="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.ContentToSign"/>.</param>
             <param name="contentToSign">Digital content to sign.</param>
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose of the petition.</param>
         </member>
-        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.RequestorIdentity">
+        <member name="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.RequestorIdentity">
             <summary>
             The identity of the requestor.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.RequestorFullJid">
+        <member name="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.RequestorFullJid">
             <summary>
             The full Jid of the requestor.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.SignatoryIdentityId">
+        <member name="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.SignatoryIdentityId">
             <summary>
-            Legal ID requested to sign <see cref="P:IdApp.Navigation.PetitionSignatureNavigationArgs.ContentToSign"/>.
+            Legal ID requested to sign <see cref="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.ContentToSign"/>.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.ContentToSign">
+        <member name="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.ContentToSign">
             <summary>
             Digital content to sign.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.PetitionId">
+        <member name="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.PetitionId">
             <summary>
             The petition id.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.PetitionSignatureNavigationArgs.Purpose">
+        <member name="P:IdApp.Navigation.Identity.PetitionSignatureNavigationArgs.Purpose">
             <summary>
             The purpose of the petition.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.Identity.ViewIdentityNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a legal identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.Identity.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Identity.ViewIdentityNavigationArgs"/> class.
+            </summary>
+            <param name="identity">The identity.</param>
+            <param name="identityToReview">An identity to review, or <c>null</c>.</param>
+        </member>
+        <member name="P:IdApp.Navigation.Identity.ViewIdentityNavigationArgs.Identity">
+            <summary>
+            The identity to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.Identity.ViewIdentityNavigationArgs.IdentityToReview">
+            <summary>
+            The identity to review, if any.
             </summary>
         </member>
         <member name="T:IdApp.Navigation.ScanQrCodeNavigationArgs">
@@ -2084,100 +2122,62 @@
             The command name (localized) to display.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.ServerSignatureNavigationArgs">
-            <summary>
-            Holds navigation parameters specific to views displaying a server signature.
-            </summary>
-        </member>
-        <member name="M:IdApp.Navigation.ServerSignatureNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.ServerSignatureNavigationArgs"/> class.
-            </summary>
-            <param name="contract">The contract to display.</param>
-        </member>
-        <member name="P:IdApp.Navigation.ServerSignatureNavigationArgs.Contract">
-            <summary>
-            The contract to display.
-            </summary>
-        </member>
-        <member name="T:IdApp.Navigation.ViewClaimThingNavigationArgs">
+        <member name="T:IdApp.Navigation.Things.ViewClaimThingNavigationArgs">
             <summary>
             Holds navigation parameters specific to claiming things.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.ViewClaimThingNavigationArgs.#ctor(System.String)">
+        <member name="M:IdApp.Navigation.Things.ViewClaimThingNavigationArgs.#ctor(System.String)">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.ViewClaimThingNavigationArgs"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Things.ViewClaimThingNavigationArgs"/> class.
             </summary>
             <param name="Uri">iotdisco URI contining the claim parameters.</param>
         </member>
-        <member name="P:IdApp.Navigation.ViewClaimThingNavigationArgs.Uri">
+        <member name="P:IdApp.Navigation.Things.ViewClaimThingNavigationArgs.Uri">
             <summary>
             The iotdisco claim URI
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.ViewIdentityNavigationArgs">
-            <summary>
-            Holds navigation parameters specific to views displaying a legal identity.
-            </summary>
-        </member>
-        <member name="M:IdApp.Navigation.ViewIdentityNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.SignaturePetitionEventArgs)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.ViewIdentityNavigationArgs"/> class.
-            </summary>
-            <param name="identity">The identity.</param>
-            <param name="identityToReview">An identity to review, or <c>null</c>.</param>
-        </member>
-        <member name="P:IdApp.Navigation.ViewIdentityNavigationArgs.Identity">
-            <summary>
-            The identity to display.
-            </summary>
-        </member>
-        <member name="P:IdApp.Navigation.ViewIdentityNavigationArgs.IdentityToReview">
-            <summary>
-            The identity to review, if any.
-            </summary>
-        </member>
-        <member name="T:IdApp.Navigation.EDalerBalanceNavigationArgs">
+        <member name="T:IdApp.Navigation.Wallet.EDalerBalanceNavigationArgs">
             <summary>
             Holds navigation parameters specific to an eDaler balance event.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.EDalerBalanceNavigationArgs.#ctor(EDaler.Balance)">
+        <member name="M:IdApp.Navigation.Wallet.EDalerBalanceNavigationArgs.#ctor(EDaler.Balance)">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerBalanceNavigationArgs"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Wallet.EDalerBalanceNavigationArgs"/> class.
             </summary>
             <param name="Balance">Balance information.</param>
         </member>
-        <member name="P:IdApp.Navigation.EDalerBalanceNavigationArgs.Balance">
+        <member name="P:IdApp.Navigation.Wallet.EDalerBalanceNavigationArgs.Balance">
             <summary>
             eDaler balance object.
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.EDalerUriNavigationArgs">
+        <member name="T:IdApp.Navigation.Wallet.EDalerUriNavigationArgs">
             <summary>
             Holds navigation parameters specific to eDaler URIs.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri)">
+        <member name="M:IdApp.Navigation.Wallet.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri)">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerUriNavigationArgs"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Wallet.EDalerUriNavigationArgs"/> class.
             </summary>
             <param name="Uri">Parsed edaler URI.</param>
         </member>
-        <member name="P:IdApp.Navigation.EDalerUriNavigationArgs.Uri">
+        <member name="P:IdApp.Navigation.Wallet.EDalerUriNavigationArgs.Uri">
             <summary>
             The edaler URI
             </summary>
         </member>
-        <member name="T:IdApp.Navigation.WalletNavigationArgs">
+        <member name="T:IdApp.Navigation.Wallet.WalletNavigationArgs">
             <summary>
             Holds navigation parameters specific to the eDaler wallet.
             </summary>
         </member>
-        <member name="M:IdApp.Navigation.WalletNavigationArgs.#ctor(EDaler.Balance,System.Decimal,System.String,EDaler.PendingPayment[],EDaler.AccountEvent[],System.Boolean)">
+        <member name="M:IdApp.Navigation.Wallet.WalletNavigationArgs.#ctor(EDaler.Balance,System.Decimal,System.String,EDaler.PendingPayment[],EDaler.AccountEvent[],System.Boolean)">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Navigation.WalletNavigationArgs"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Wallet.WalletNavigationArgs"/> class.
             </summary>
             <param name="Balance">Balance information.</param>
             <param name="PendingAmount">Total amount of pending payments.</param>
@@ -2186,32 +2186,32 @@
             <param name="Events">Wallet events.</param>
             <param name="More">If more events are available.</param>
         </member>
-        <member name="P:IdApp.Navigation.WalletNavigationArgs.Balance">
+        <member name="P:IdApp.Navigation.Wallet.WalletNavigationArgs.Balance">
             <summary>
             Balance information.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.WalletNavigationArgs.PendingAmount">
+        <member name="P:IdApp.Navigation.Wallet.WalletNavigationArgs.PendingAmount">
             <summary>
             Total amount of pending payments.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.WalletNavigationArgs.PendingCurrency">
+        <member name="P:IdApp.Navigation.Wallet.WalletNavigationArgs.PendingCurrency">
             <summary>
             Currency of pending payments.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.WalletNavigationArgs.PendingPayments">
+        <member name="P:IdApp.Navigation.Wallet.WalletNavigationArgs.PendingPayments">
             <summary>
             Details about pending payments.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.WalletNavigationArgs.Events">
+        <member name="P:IdApp.Navigation.Wallet.WalletNavigationArgs.Events">
             <summary>
             Wallet events.
             </summary>
         </member>
-        <member name="P:IdApp.Navigation.WalletNavigationArgs.More">
+        <member name="P:IdApp.Navigation.Wallet.WalletNavigationArgs.More">
             <summary>
             If more events are available.
             </summary>
@@ -6549,7 +6549,7 @@
             The view model to bind to for displaying information about an incoming balance change.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Wallet.EDalerReceivedViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.EDalerUriViewModel"/> class.
             </summary>

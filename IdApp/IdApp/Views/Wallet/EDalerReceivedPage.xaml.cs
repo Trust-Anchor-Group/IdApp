@@ -24,9 +24,7 @@ namespace IdApp.Views.Wallet
                 DependencyService.Resolve<ITagProfile>(),
                 DependencyService.Resolve<IUiDispatcher>(),
                 DependencyService.Resolve<INeuronService>(),
-                this.navigationService,
-                DependencyService.Resolve<INetworkService>(),
-                DependencyService.Resolve<ILogService>());
+                this.navigationService);
 
             InitializeComponent();
         }

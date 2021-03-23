@@ -4,11 +4,9 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
-using IdApp.Navigation;
+using IdApp.Navigation.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Networking.XMPP;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Wallet
@@ -19,9 +17,7 @@ namespace IdApp.ViewModels.Wallet
 	public class EDalerReceivedViewModel : NeuronViewModel
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
-		private readonly INetworkService networkService;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -30,15 +26,11 @@ namespace IdApp.ViewModels.Wallet
 			ITagProfile tagProfile,
 			IUiDispatcher uiDispatcher,
 			INeuronService neuronService,
-			INavigationService navigationService,
-			INetworkService networkService,
-			ILogService logService)
+			INavigationService navigationService)
 		: base(neuronService, uiDispatcher)
 		{
 			this.tagProfile = tagProfile;
-			this.logService = logService;
 			this.navigationService = navigationService;
-			this.networkService = networkService;
 
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
 		}

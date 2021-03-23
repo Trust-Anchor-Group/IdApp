@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
-using IdApp.Navigation;
+using IdApp.Navigation.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Networking.XMPP;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Wallet

@@ -1,4 +1,4 @@
-﻿using IdApp.Navigation;
+﻿using IdApp.Navigation.Things;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

@@ -1,7 +1,7 @@
 ﻿using Tag.Neuron.Xamarin.Services;
 using EDaler.Uris;
 
-namespace IdApp.Navigation
+namespace IdApp.Navigation.Wallet
 {
     /// <summary>
     /// Holds navigation parameters specific to eDaler URIs.

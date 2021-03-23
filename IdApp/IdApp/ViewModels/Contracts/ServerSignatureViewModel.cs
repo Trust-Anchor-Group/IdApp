@@ -1,4 +1,4 @@
-﻿using IdApp.Navigation;
+﻿using IdApp.Navigation.Contracts;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;

@@ -1,7 +1,7 @@
 ﻿using Tag.Neuron.Xamarin.Services;
 using EDaler;
 
-namespace IdApp.Navigation
+namespace IdApp.Navigation.Wallet
 {
     /// <summary>
     /// Holds navigation parameters specific to an eDaler balance event.
