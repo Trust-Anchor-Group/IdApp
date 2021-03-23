@@ -42,6 +42,51 @@
                         </Label>
                     </Grid>
                 </Frame>
+
+                <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}" Orientation="Vertical"
+                             BindableLayout.ItemsSource="{Binding Path=PendingPayments}" VerticalOptions="StartAndExpand"
+                             Margin="{StaticResource DefaultMargin}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Path=To}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
+                                <Label LineBreakMode="WordWrap" TextColor="{StaticResource PendingColor}">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="(-"/>
+                                            <Span Text="{Binding Path=Amount}" FontAttributes="Bold"/>
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding Path=Currency}"/>
+                                            <Span Text=")"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
+                <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=HasEvents}" Orientation="Vertical"
+                             BindableLayout.ItemsSource="{Binding Path=Events}" VerticalOptions="StartAndExpand"
+                             Margin="{StaticResource DefaultMargin}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Path=Remote}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
+                                <Label LineBreakMode="WordWrap">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding Path=Change}" FontAttributes="Bold"/>
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding Path=Currency}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+
             </StackLayout>
         </ScrollView>
     </Grid>

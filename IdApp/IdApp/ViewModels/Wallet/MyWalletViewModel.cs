@@ -1,14 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Text;
-using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using EDaler;
 using IdApp.Navigation;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Networking.XMPP;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Wallet
@@ -39,6 +36,9 @@ namespace IdApp.ViewModels.Wallet
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
+
+			this.PendingPayments = new ObservableCollection<PendingPayment>();
+			this.Events = new ObservableCollection<AccountEvent>();
 		}
 
 		/// <inheritdoc/>
@@ -82,6 +82,22 @@ namespace IdApp.ViewModels.Wallet
 			this.PendingAmount = PendingAmount;
 			this.PendingCurrency = PendingCurrency;
 			this.HasPending = (PendingPayments?.Length ?? 0) > 0;
+			this.HasEvents = (Events?.Length ?? 0) > 0;
+			this.HasMore = More;
+
+			this.PendingPayments.Clear();
+			if (!(PendingPayments is null))
+			{
+				foreach (PendingPayment Payment in PendingPayments)
+					this.PendingPayments.Add(Payment);
+			}
+
+			this.Events.Clear();
+			if (!(Events is null))
+			{
+				foreach (AccountEvent Event in Events)
+					this.Events.Add(Event);
+			}
 		}
 
 		private void EvaluateAllCommands()
@@ -227,6 +243,45 @@ namespace IdApp.ViewModels.Wallet
 			set { SetValue(EDalerGlyphProperty, value); }
 		}
 
+		/// <summary>
+		/// See <see cref="HasEvents"/>
+		/// </summary>
+		public static readonly BindableProperty HasEventsProperty =
+			BindableProperty.Create("HasEvents", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// HasEvents of eDaler to process
+		/// </summary>
+		public bool HasEvents
+		{
+			get { return (bool)GetValue(HasEventsProperty); }
+			set { SetValue(HasEventsProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="HasMore"/>
+		/// </summary>
+		public static readonly BindableProperty HasMoreProperty =
+			BindableProperty.Create("HasMore", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If there are more account events available.
+		/// </summary>
+		public bool HasMore
+		{
+			get { return (bool)GetValue(HasMoreProperty); }
+			set { SetValue(HasMoreProperty, value); }
+		}
+
+		/// <summary>
+		/// Holds a list of pending payments
+		/// </summary>
+		public ObservableCollection<PendingPayment> PendingPayments { get; }
+
+		/// <summary>
+		/// Holds a list of account events
+		/// </summary>
+		public ObservableCollection<AccountEvent> Events { get; }
 
 		#endregion
 

@@ -6889,6 +6889,36 @@
             eDaler glyph URL
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.HasEventsProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.HasEvents"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.HasEvents">
+            <summary>
+            HasEvents of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.HasMoreProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.HasMore"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.HasMore">
+            <summary>
+            If there are more account events available.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.PendingPayments">
+            <summary>
+            Holds a list of pending payments
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Events">
+            <summary>
+            Holds a list of account events
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
             A View model that represents the current XMPP Communication.
