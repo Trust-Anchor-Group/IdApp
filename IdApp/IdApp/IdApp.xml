@@ -6529,6 +6529,16 @@
             Message of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessage">
+            <summary>
+            HasMessage of eDaler to process
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AcceptCommand">
             <summary>
             The command to bind to for claiming a thing
@@ -6559,9 +6569,19 @@
             Gets or sets the PIN code for the identity.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ClickCommand">
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.EDalerGlyphProperty">
             <summary>
-            Command to bind to for detecting when a tag value has been clicked on.
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.EDalerGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.EDalerGlyph">
+            <summary>
+            eDaler glyph URL
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromClickCommand">
+            <summary>
+            Command to bind to for detecting when a from label has been clicked on.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
