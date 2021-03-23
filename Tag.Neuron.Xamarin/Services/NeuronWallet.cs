@@ -83,7 +83,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <returns>Transaction object containing information about the processed URI.</returns>
 		public Task<Transaction> SendUri(string Uri)
 		{
-			return this.eDalerClient.SendEDalerUriAsync(Uri);
+			return this.EDalerClient.SendEDalerUriAsync(Uri);
 		}
 
 	}
