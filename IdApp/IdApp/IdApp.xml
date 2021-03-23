@@ -399,6 +399,16 @@
               Looks up a localized string similar to Duration.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.EDalerNote">
+            <summary>
+              Looks up a localized string similar to eDaler Note.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.EDalerNoteDescription">
+            <summary>
+              Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified on the note..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.EnterAnOperatorName">
             <summary>
               Looks up a localized string similar to Enter an operator.
@@ -407,6 +417,11 @@
         <member name="P:IdApp.AppResources.ErrorTitle">
             <summary>
               Looks up a localized string similar to An error has occurred.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ExpiredEDalerUri">
+            <summary>
+              Looks up a localized string similar to This eDaler code has expired..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.FailedToLoadPhoto">
@@ -517,6 +532,11 @@
         <member name="P:IdApp.AppResources.Inspect">
             <summary>
               Looks up a localized string similar to Inspect communication.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.InvalidEDalerUri">
+            <summary>
+              Looks up a localized string similar to Invalid eDaler URI..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.InvalidIoTDiscoveryCode">
@@ -979,6 +999,11 @@
               Looks up a localized string similar to Random password.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ReceiveEDaler">
+            <summary>
+              Looks up a localized string similar to Receive eDaler.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Region">
             <summary>
               Looks up a localized string similar to Region or State.
@@ -1272,6 +1297,16 @@
         <member name="P:IdApp.AppResources.UnableToConnectTo">
             <summary>
               Looks up a localized string similar to Unable to connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnableToProcessEDalerUri">
+            <summary>
+              Looks up a localized string similar to Unable to process eDaler code..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnrecognizedEDalerURI">
+            <summary>
+              Looks up a localized string similar to Unrecognized eDaler URI..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnsupportedUriScheme">
@@ -1849,6 +1884,22 @@
             The legal identity to display.
             </summary>
         </member>
+        <member name="T:IdApp.Navigation.EDalerUriNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to eDaler URIs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.EDalerUriNavigationArgs"/> class.
+            </summary>
+            <param name="Uri">Parsed edaler URI.</param>
+        </member>
+        <member name="P:IdApp.Navigation.EDalerUriNavigationArgs.Uri">
+            <summary>
+            The edaler URI
+            </summary>
+        </member>
         <member name="T:IdApp.Navigation.NewContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a new contract.
@@ -2142,7 +2193,7 @@
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
         </member>
-        <member name="M:IdApp.QrCode.ScanQrCodeAndHandleResult(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
+        <member name="M:IdApp.QrCode.ScanQrCodeAndHandleResult(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,IdApp.Services.IEDalerOrchestratorService)">
             <summary>
             Scans a QR Code, and depending on the actual result, takes different actions. This typically means navigating to an appropriate page.
             </summary>
@@ -2152,9 +2203,7 @@
             <param name="uiDispatcher">The ui dispatcher for main thread access.</param>
             <param name="contractOrchestratorService">The contract orchestrator service.</param>
             <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
-            <param name="commandName">The command name to display on the button when scanning.</param>
-            <param name="action">An optional callback that will be called after scan, but before page navigation.</param>
-            <returns></returns>
+            <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
         </member>
         <member name="M:IdApp.QrCode.ScanQrCode(Tag.Neuron.Xamarin.Services.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
             <summary>
@@ -2213,6 +2262,12 @@
             </summary>
             <param name="request">Request string.</param>
         </member>
+        <member name="M:IdApp.Services.EDalerOrchestratorService.OpenEDalerUri(System.String)">
+            <summary>
+            eDaler URI scanned.
+            </summary>
+            <param name="uri">eDaler URI.</param>
+        </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
             Orchestrates operations on contracts upon receiving certain events, like approving or rejecting other peers' review requests.
@@ -2240,6 +2295,17 @@
             TAG Signature request scanned.
             </summary>
             <param name="request">Request string.</param>
+        </member>
+        <member name="T:IdApp.Services.IEDalerOrchestratorService">
+            <summary>
+            Orchestrates eDaler operations.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IEDalerOrchestratorService.OpenEDalerUri(System.String)">
+            <summary>
+            eDaler URI scanned.
+            </summary>
+            <param name="uri">eDaler URI.</param>
         </member>
         <member name="T:IdApp.Services.IImageCacheService">
             <summary>
@@ -2710,12 +2776,12 @@
             Determines whether the signature is transferable or not.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJIdProperty">
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJidProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJId"/>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJid"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJId">
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJid">
             <summary>
             Gets or sets the Bare Jid of the signature.
             </summary>
@@ -4161,12 +4227,12 @@
             The full legal identity of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJIdProperty">
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJidProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJId"/>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJid"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJId">
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJid">
             <summary>
             Bare Jid of the identity
             </summary>
@@ -4766,7 +4832,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService)">
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,IdApp.Services.IEDalerOrchestratorService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             For unit tests.
@@ -5909,12 +5975,12 @@
             Gets or sets the legal identity.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJIdProperty">
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJidProperty">
             <summary>
-            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJId"/>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJid"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJId">
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJid">
             <summary>
             Gets or sets the Bare Jid registered with the Neuron server.
             </summary>
@@ -6322,6 +6388,200 @@
         <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClickCommand">
             <summary>
             Command to bind to for detecting when a tag value has been clicked on.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Wallet.EDalerUriViewModel">
+            <summary>
+            The view model to bind to for when displaying thing claim information.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.EDalerUriViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.UriProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Uri"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Uri">
+            <summary>
+            edaler URI to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount">
+            <summary>
+            Amount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Currency">
+            <summary>
+            Currency of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CreatedProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Created"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Created">
+            <summary>
+            When code was created.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ExpiresProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Expires"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Expires">
+            <summary>
+            When code expires
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.IdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Id"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Id">
+            <summary>
+            Globally unique identifier of code
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.From"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.From">
+            <summary>
+            From who eDaler is to be transferred
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromType">
+            <summary>
+            Type of identity specified in <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.From"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.To"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.To">
+            <summary>
+            To whom eDaler is to be transferred
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToType">
+            <summary>
+            Type of identity specified in <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.To"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CompleteProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Complete"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Complete">
+            <summary>
+            If the URI is complete or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.MessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Message"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Message">
+            <summary>
+            Message of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessage">
+            <summary>
+            HasMessage of eDaler to process
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AcceptCommand">
+            <summary>
+            The command to bind to for claiming a thing
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAcceptProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept">
+            <summary>
+            Gets or sets whether a user can accept the URI or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.UsePin">
+            <summary>
+            If PIN should be used.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.PinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Pin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Pin">
+            <summary>
+            Gets or sets the PIN code for the identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.EDalerGlyphProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.EDalerGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.EDalerGlyph">
+            <summary>
+            eDaler glyph URL
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromClickCommand">
+            <summary>
+            Command to bind to for detecting when a from label has been clicked on.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
@@ -6962,6 +7222,22 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Views.ViewIdentityPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Wallet.IssueEDalerPage">
+            <summary>
+            A page that displays a specific claim thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.IssueEDalerPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.IssueEDalerPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.IssueEDalerPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

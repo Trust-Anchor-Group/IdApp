@@ -321,11 +321,20 @@
   <data name="Duration" xml:space="preserve">
     <value>Varaktighet</value>
   </data>
+  <data name="EDalerNote" xml:space="preserve">
+    <value>eDaler-sedel</value>
+  </data>
+  <data name="EDalerNoteDescription" xml:space="preserve">
+    <value>Koden representerar en eDaler-sedel. Du kan acceptera den genom att trycka på Acceptera-knappen nedan. Om den inte har accepterats innan, kommer din plånbok att ta emot det antal eDaler som står på sedeln.</value>
+  </data>
   <data name="EnterAnOperatorName" xml:space="preserve">
     <value>Ange en operatör</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
+  </data>
+  <data name="ExpiredEDalerUri" xml:space="preserve">
+    <value>Den här eDaler-koden har upphört att gälla.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
@@ -389,6 +398,9 @@
   </data>
   <data name="Inspect" xml:space="preserve">
     <value>Inspektera kommunikationen</value>
+  </data>
+  <data name="InvalidEDalerUri" xml:space="preserve">
+    <value>Ogiltig eDaler-URI.</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
     <value>Ogiltig kod för IoT-sökning</value>
@@ -666,6 +678,9 @@
   <data name="RandomPassword" xml:space="preserve">
     <value>Slumpmässigt lösenord</value>
   </data>
+  <data name="ReceiveEDaler" xml:space="preserve">
+    <value>Ta emot eDaler</value>
+  </data>
   <data name="Region" xml:space="preserve">
     <value>Region eller stat</value>
   </data>
@@ -842,6 +857,12 @@
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>
+  </data>
+  <data name="UnableToProcessEDalerUri" xml:space="preserve">
+    <value>Kunde inte behandla eDaler-koden.</value>
+  </data>
+  <data name="UnrecognizedEDalerURI" xml:space="preserve">
+    <value>Okänd eDaler-URI.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
     <value>Texten överensstämmer inte med någon av de URI-scheman som stöds.</value>

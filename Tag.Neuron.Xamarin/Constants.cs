@@ -71,6 +71,11 @@ namespace Tag.Neuron.Xamarin
             public const string UriSchemeTagSign = "tagsign";
 
             /// <summary>
+            /// eDaler URI Scheme (edaler)
+            /// </summary>
+            public const string UriSchemeEDaler = "edaler";
+
+            /// <summary>
             /// Gets the predefined scheme from an IoT Code
             /// </summary>
             /// <param name="code">The code to parse.</param>
@@ -92,6 +97,7 @@ namespace Tag.Neuron.Xamarin
                     case UriSchemeIotDisco:
                     case UriSchemeIotSc:
                     case UriSchemeTagSign:
+                    case UriSchemeEDaler:
                         return code;
 
                     default:
@@ -224,7 +230,7 @@ namespace Tag.Neuron.Xamarin
             /// <summary>
             /// Jabber ID
             /// </summary>
-            public const string JId = "JID";
+            public const string Jid = "JID";
         }
 
         /// <summary>

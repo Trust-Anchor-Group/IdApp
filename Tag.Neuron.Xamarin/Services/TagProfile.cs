@@ -39,6 +39,7 @@ namespace Tag.Neuron.Xamarin.Services
         private string httpFileUploadJid;
         private string logJid;
         private string mucJid;
+        private string eDalerJid;
         private string pinHash;
         private long? httpFileUploadMaxSize;
         private bool usePin;
@@ -99,6 +100,7 @@ namespace Tag.Neuron.Xamarin.Services
                 HttpFileUploadMaxSize = this.HttpFileUploadMaxSize,
                 LogJid = this.LogJid,
                 MucJid = this.MucJid,
+                EDalerJid = this.EDalerJid,
                 PinHash = this.PinHash,
                 UsePin = this.UsePin,
                 LegalIdentity = this.LegalIdentity,
@@ -128,6 +130,7 @@ namespace Tag.Neuron.Xamarin.Services
                 this.HttpFileUploadMaxSize = configuration.HttpFileUploadMaxSize;
                 this.LogJid = configuration.LogJid;
                 this.MucJid = configuration.MucJid;
+                this.EDalerJid = configuration.EDalerJid;
                 this.PinHash = configuration.PinHash;
                 this.UsePin = configuration.UsePin;
                 this.LegalIdentity = configuration.LegalIdentity;
@@ -148,7 +151,8 @@ namespace Tag.Neuron.Xamarin.Services
                    string.IsNullOrWhiteSpace(this.ProvisioningJid) ||
                    string.IsNullOrWhiteSpace(this.HttpFileUploadJid) ||
                    string.IsNullOrWhiteSpace(this.LogJid) ||
-                   string.IsNullOrWhiteSpace(this.MucJid);
+                   string.IsNullOrWhiteSpace(this.MucJid) ||
+                   string.IsNullOrWhiteSpace(this.EDalerJid);
         }
 
         /// <inheritdoc/>
@@ -321,6 +325,20 @@ namespace Tag.Neuron.Xamarin.Services
                 {
                     this.mucJid = value;
                     this.FlagAsDirty(nameof(MucJid));
+                }
+            }
+        }
+
+        /// <inheritdoc/>
+        public string EDalerJid
+        {
+            get => this.eDalerJid;
+            private set
+            {
+                if (!string.Equals(this.eDalerJid, value))
+                {
+                    this.eDalerJid = value;
+                    this.FlagAsDirty(nameof(EDalerJid));
                 }
             }
         }
@@ -607,40 +625,46 @@ namespace Tag.Neuron.Xamarin.Services
         }
 
         /// <inheritdoc/>
-        public void SetLegalJId(string legalJId)
+        public void SetLegalJid(string legalJid)
         {
-            this.LegalJid = legalJId;
+            this.LegalJid = legalJid;
         }
 
         /// <inheritdoc/>
-        public void SetProvisioningJId(string provisioningJId)
+        public void SetProvisioningJid(string provisioningJid)
         {
-            this.ProvisioningJid = provisioningJId;
+            this.ProvisioningJid = provisioningJid;
         }
 
         /// <inheritdoc/>
-        public void SetRegistryJId(string registryJId)
+        public void SetRegistryJid(string registryJid)
         {
-            this.RegistryJid = registryJId;
+            this.RegistryJid = registryJid;
         }
 
         /// <inheritdoc/>
-        public void SetFileUploadParameters(string httpFileUploadJId, long? maxSize)
+        public void SetFileUploadParameters(string httpFileUploadJid, long? maxSize)
         {
-            this.HttpFileUploadJid = httpFileUploadJId;
+            this.HttpFileUploadJid = httpFileUploadJid;
             this.HttpFileUploadMaxSize = maxSize;
         }
 
         /// <inheritdoc/>
-        public void SetLogJId(string logJId)
+        public void SetLogJid(string logJid)
         {
-            this.LogJid = logJId;
+            this.LogJid = logJid;
         }
 
         /// <inheritdoc/>
-        public void SetMucJId(string mucJId)
+        public void SetMucJid(string mucJid)
         {
-            this.MucJid = mucJId;
+            this.MucJid = mucJid;
+        }
+
+        /// <inheritdoc/>
+        public void SetEDalerJid(string eDalerJid)
+        {
+            this.EDalerJid = eDalerJid;
         }
 
         #endregion
@@ -757,7 +781,7 @@ namespace Tag.Neuron.Xamarin.Services
         public string LegalJid { get; set; }
 
         /// <summary>
-        /// Registry Jabber Id
+        /// The Thing Registry JID
         /// </summary>
         [DefaultValueStringEmpty]
         public string RegistryJid { get; set; }
@@ -781,16 +805,22 @@ namespace Tag.Neuron.Xamarin.Services
         public long? HttpFileUploadMaxSize { get; set; }
 
         /// <summary>
-        /// Log Jabber Id
+        /// Log Jabber JID
         /// </summary>
         [DefaultValueStringEmpty]
         public string LogJid { get; set; }
 
         /// <summary>
-        /// Multi user chat Jabber Id
+        /// Multi user chat Jabber JID
         /// </summary>
         [DefaultValueStringEmpty]
         public string MucJid { get; set; }
+
+        /// <summary>
+        /// eDaler Service JID
+        /// </summary>
+        [DefaultValueStringEmpty]
+        public string EDalerJid { get; set; }
 
         /// <summary>
         /// The hash of the user's pin.

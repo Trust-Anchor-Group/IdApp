@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using EDaler;
 using Waher.Networking.XMPP;
 using Waher.Runtime.Inventory;
 
@@ -102,7 +103,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// The Bare Jid of the current connection, or <c>null</c>.
         /// </summary>
-        string BareJId { get; }
+        string BareJid { get; }
         
         /// <summary>
         /// The latest generic xmpp error, if any.
@@ -128,6 +129,11 @@ namespace Tag.Neuron.Xamarin.Services
         /// Provides access to chat functionality.
         /// </summary>
         INeuronThingRegistry ThingRegistry { get; }
+
+        /// <summary>
+        /// Provides access to the eDaler wallet.
+        /// </summary>
+        INeuronWallet Wallet { get; }
 
         /// <summary>
         /// Run this method to discover services for any given Neuron server.

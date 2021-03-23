@@ -383,18 +383,18 @@ namespace IdApp.ViewModels.Contracts
         }
 
         /// <summary>
-        /// See <see cref="BareJId"/>
+        /// See <see cref="BareJid"/>
         /// </summary>
-        public static readonly BindableProperty BareJIdProperty =
-            BindableProperty.Create("BareJId", typeof(string), typeof(ClientSignatureViewModel), default(string));
+        public static readonly BindableProperty BareJidProperty =
+            BindableProperty.Create("BareJid", typeof(string), typeof(ClientSignatureViewModel), default(string));
 
         /// <summary>
         /// Gets or sets the Bare Jid of the signature.
         /// </summary>
-        public string BareJId
+        public string BareJid
         {
-            get { return (string) GetValue(BareJIdProperty); }
-            set { SetValue(BareJIdProperty, value); }
+            get { return (string) GetValue(BareJidProperty); }
+            set { SetValue(BareJidProperty, value); }
         }
 
         /// <summary>
@@ -437,7 +437,7 @@ namespace IdApp.ViewModels.Contracts
                 this.CountryCode = identity[Constants.XmppProperties.Country];
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
                 this.IsApproved = identity.State == IdentityState.Approved;
-                this.BareJId = identity.GetJId(Constants.NotAvailableValue);
+                this.BareJid = identity.GetJid(Constants.NotAvailableValue);
             }
             else
             {
@@ -460,14 +460,14 @@ namespace IdApp.ViewModels.Contracts
                 this.CountryCode = Constants.NotAvailableValue;
                 this.Country = Constants.NotAvailableValue;
                 this.IsApproved = false;
-                this.BareJId = Constants.NotAvailableValue;
+                this.BareJid = Constants.NotAvailableValue;
             }
             if (!(signature is null))
             {
                 this.Role = signature.Role;
                 this.Timestamp = signature.Timestamp.ToString(CultureInfo.CurrentUICulture);
                 this.IsTransferable = signature.Transferable ? AppResources.Yes : AppResources.No;
-                this.BareJId = signature.BareJid;
+                this.BareJid = signature.BareJid;
                 this.Signature = Convert.ToBase64String(signature.DigitalSignature);
             }
             else

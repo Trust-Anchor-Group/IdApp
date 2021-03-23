@@ -19,6 +19,11 @@ namespace Tag.Neuron.Xamarin.Services
         #region General
 
         /// <summary>
+        /// Contracts client
+        /// </summary>
+        ContractsClient ContractsClient { get; }
+
+        /// <summary>
         /// Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
         /// </summary>
         bool FileUploadIsSupported { get; }

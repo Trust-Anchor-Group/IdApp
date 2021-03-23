@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waher.Events;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
@@ -154,6 +155,7 @@ namespace Tag.Neuron.Xamarin.Services
             }
             catch (Exception e)
             {
+                e = Log.UnnestException(e);
                 this.logService.LogException(e);
                 string extraInfo = $"{Environment.NewLine}{e.Message}";
                 await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));

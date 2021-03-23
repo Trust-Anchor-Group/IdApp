@@ -50,6 +50,7 @@ namespace IdApp
         private readonly IImageCacheService imageCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
+        private readonly IEDalerOrchestratorService eDalerOrchestratorService;
         private Profiler startupProfiler;
 
         ///<inheritdoc/>
@@ -105,6 +106,8 @@ namespace IdApp
                 this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
                 this.thingRegistryOrchestratorService = new ThingRegistryOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
                 this.sdk.RegisterSingleton<IThingRegistryOrchestratorService, ThingRegistryOrchestratorService>(this.thingRegistryOrchestratorService);
+                this.eDalerOrchestratorService = new EDalerOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+                this.sdk.RegisterSingleton<IEDalerOrchestratorService, EDalerOrchestratorService>(this.eDalerOrchestratorService);
 
                 // Set resolver
                 DependencyResolver.ResolveUsing(type =>

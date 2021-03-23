@@ -1,18 +1,9 @@
-﻿using IdApp.Views.Registration;
-using System;
-using System.Reflection;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using IdApp.Navigation;
-using IdApp.Views;
 using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Content.Xml;
-using Waher.Networking.XMPP;
-using Waher.Networking.XMPP.Contracts;
-using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services
@@ -46,18 +37,15 @@ namespace IdApp.Services
 		public override Task Load(bool isResuming)
 		{
 			if (this.BeginLoad())
-			{
 				this.EndLoad(true);
-			}
+			
 			return Task.CompletedTask;
 		}
 
 		public override Task Unload()
 		{
 			if (this.BeginUnload())
-			{
 				this.EndUnload();
-			}
 
 			return Task.CompletedTask;
 		}

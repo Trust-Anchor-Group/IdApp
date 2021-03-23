@@ -201,7 +201,6 @@ namespace IdApp.ViewModels.Things
 						break;
 
 					case "PURL":
-
 						if (System.Uri.TryCreate(Value, UriKind.Absolute, out Uri) && await Launcher.TryOpenAsync(Uri))
 							return;
 						break;

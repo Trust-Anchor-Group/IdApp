@@ -673,6 +673,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to eDaler Note.
+        /// </summary>
+        internal static string EDalerNote {
+            get {
+                return ResourceManager.GetString("EDalerNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified on the note..
+        /// </summary>
+        internal static string EDalerNoteDescription {
+            get {
+                return ResourceManager.GetString("EDalerNoteDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter an operator.
         /// </summary>
         internal static string EnterAnOperatorName {
@@ -687,6 +705,15 @@ namespace IdApp {
         internal static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This eDaler code has expired..
+        /// </summary>
+        internal static string ExpiredEDalerUri {
+            get {
+                return ResourceManager.GetString("ExpiredEDalerUri", resourceCulture);
             }
         }
         
@@ -885,6 +912,15 @@ namespace IdApp {
         internal static string Inspect {
             get {
                 return ResourceManager.GetString("Inspect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid eDaler URI..
+        /// </summary>
+        internal static string InvalidEDalerUri {
+            get {
+                return ResourceManager.GetString("InvalidEDalerUri", resourceCulture);
             }
         }
         
@@ -1717,6 +1753,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Receive eDaler.
+        /// </summary>
+        internal static string ReceiveEDaler {
+            get {
+                return ResourceManager.GetString("ReceiveEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Region or State.
         /// </summary>
         internal static string Region {
@@ -2244,6 +2289,24 @@ namespace IdApp {
         internal static string UnableToConnectTo {
             get {
                 return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to process eDaler code..
+        /// </summary>
+        internal static string UnableToProcessEDalerUri {
+            get {
+                return ResourceManager.GetString("UnableToProcessEDalerUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized eDaler URI..
+        /// </summary>
+        internal static string UnrecognizedEDalerURI {
+            get {
+                return ResourceManager.GetString("UnrecognizedEDalerURI", resourceCulture);
             }
         }
         

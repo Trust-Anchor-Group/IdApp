@@ -60,7 +60,7 @@ namespace Tag.Neuron.Xamarin.Models
         /// <summary>
         /// Jabber Id
         /// </summary>
-        public string JId { get; set; }
+        public string Jid { get; set; }
 
         /// <summary>
         /// Converts the <see cref="RegisterIdentityModel"/> to an array of <inheritdoc cref="Property"/>.
@@ -108,7 +108,7 @@ namespace Tag.Neuron.Xamarin.Models
             if (!string.IsNullOrWhiteSpace(s = this.DeviceId?.Trim()))
                 properties.Add(new Property(Constants.XmppProperties.DeviceId, s));
 
-            properties.Add(new Property(Constants.XmppProperties.JId, neuronService.BareJId));
+            properties.Add(new Property(Constants.XmppProperties.Jid, neuronService.BareJid));
 
             return properties.ToArray();
 

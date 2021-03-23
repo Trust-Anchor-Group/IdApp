@@ -38,12 +38,12 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <param name="legalIdentity">The legal identity whose JID to get.</param>
         /// <param name="defaultValueIfNotFound">The default value to use if JID isn't found.</param>
         /// <returns></returns>
-        public static string GetJId(this LegalIdentity legalIdentity, string defaultValueIfNotFound = "")
+        public static string GetJid(this LegalIdentity legalIdentity, string defaultValueIfNotFound = "")
         {
             string jid = null;
             if (!(legalIdentity is null) && legalIdentity.Properties?.Length > 0)
             { 
-                jid = legalIdentity.Properties.FirstOrDefault(x => x.Name == Constants.XmppProperties.JId)?.Value;
+                jid = legalIdentity.Properties.FirstOrDefault(x => x.Name == Constants.XmppProperties.Jid)?.Value;
             }
 
             return !string.IsNullOrWhiteSpace(jid) ? jid : defaultValueIfNotFound;

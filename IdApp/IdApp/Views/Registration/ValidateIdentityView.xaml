@@ -83,7 +83,7 @@
                     <Label Grid.Row="14" Grid.Column="1" Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <Label Grid.Row="15" Grid.Column="0" Text="{x:Static local:AppResources.Network}" />
-                    <Label Grid.Row="15" Grid.Column="1" Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Row="15" Grid.Column="1" Text="{Binding Path=BareJid}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <Label Grid.Row="16" Grid.Column="0" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
                     <ScrollView Grid.Row="16" Grid.Column="1" Orientation="Horizontal" HeightRequest="68">

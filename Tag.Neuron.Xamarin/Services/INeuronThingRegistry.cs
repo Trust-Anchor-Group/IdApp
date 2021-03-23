@@ -8,7 +8,7 @@ using Waher.Networking.XMPP.Provisioning.SearchOperators;
 namespace Tag.Neuron.Xamarin.Services
 {
     /// <summary>
-    /// Adds support for Xmpp Chat functionality.
+    /// Adds support for XMPP Thing Registries
     /// </summary>
     [DefaultImplementation(typeof(NeuronThingRegistry))]
     public interface INeuronThingRegistry

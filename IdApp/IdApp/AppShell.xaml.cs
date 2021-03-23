@@ -7,6 +7,7 @@ using IdApp.Views;
 using IdApp.Views.Contracts;
 using IdApp.Views.Registration;
 using IdApp.Views.Things;
+using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.IoTGateway.Setup;
@@ -27,6 +28,7 @@ namespace IdApp
 		private readonly IUiDispatcher uiDispatcher;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
+		private readonly IEDalerOrchestratorService eDalerOrchestratorService;
 		private static AppShell _instance;
 		internal static AppShell Instance => _instance ?? (_instance = new AppShell());
 
@@ -43,6 +45,7 @@ namespace IdApp
 			this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
 			this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
 			this.thingRegistryOrchestratorService = DependencyService.Resolve<IThingRegistryOrchestratorService>();
+			this.eDalerOrchestratorService = DependencyService.Resolve<IEDalerOrchestratorService>();
 			InitializeComponent();
 			SetTabBarIsVisible(this, false);
 			RegisterRoutes();
@@ -77,6 +80,7 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(PetitionSignaturePage), typeof(PetitionSignaturePage));
 			Routing.RegisterRoute(nameof(XmppCommunicationPage), typeof(XmppCommunicationPage));
 			Routing.RegisterRoute(nameof(ViewClaimThingPage), typeof(ViewClaimThingPage));
+			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));
 		}
 
 		private async Task GoToPage(string route)
@@ -109,7 +113,7 @@ namespace IdApp
 
             await QrCode.ScanQrCodeAndHandleResult(this.logService, this.neuronService, this.navigationService,
                 this.uiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
-                AppResources.Open);
+				this.eDalerOrchestratorService);
 		}
 
 		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)

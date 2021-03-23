@@ -46,7 +46,7 @@ namespace Tag.Neuron.Xamarin.Tests.Extensions
         [Test]
         public void GetJid_ReturnsDefaultValue_IfIdentityIsNull()
         {
-            Assert.AreEqual(DefaultValue, ((LegalIdentity)null).GetJId(DefaultValue));
+            Assert.AreEqual(DefaultValue, ((LegalIdentity)null).GetJid(DefaultValue));
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Tag.Neuron.Xamarin.Tests.Extensions
                 State = IdentityState.Approved
             };
 
-            Assert.AreEqual(DefaultValue, identity.GetJId(DefaultValue));
+            Assert.AreEqual(DefaultValue, identity.GetJid(DefaultValue));
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace Tag.Neuron.Xamarin.Tests.Extensions
                 }
             };
 
-            Assert.AreEqual(DefaultValue, identity.GetJId(DefaultValue));
+            Assert.AreEqual(DefaultValue, identity.GetJid(DefaultValue));
         }
 
         [Test]
@@ -86,11 +86,11 @@ namespace Tag.Neuron.Xamarin.Tests.Extensions
                 State = IdentityState.Approved,
                 Properties = new []
                 {
-                    new Property(Constants.XmppProperties.JId, "42")
+                    new Property(Constants.XmppProperties.Jid, "42")
                 }
             };
 
-            Assert.AreEqual("42", identity.GetJId(DefaultValue));
+            Assert.AreEqual("42", identity.GetJid(DefaultValue));
         }
     }
 }

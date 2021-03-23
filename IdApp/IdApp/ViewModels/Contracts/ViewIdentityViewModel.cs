@@ -127,15 +127,15 @@ namespace IdApp.ViewModels.Contracts
             LegalId = this.LegalIdentity?.Id;
             if (!(this.identityToReview?.RequestorIdentity is null))
             {
-                BareJId = this.identityToReview.RequestorIdentity.GetJId(Constants.NotAvailableValue);
+                BareJid = this.identityToReview.RequestorIdentity.GetJid(Constants.NotAvailableValue);
             }
             else if (!(this.LegalIdentity is null))
             {
-                BareJId = this.LegalIdentity.GetJId(Constants.NotAvailableValue);
+                BareJid = this.LegalIdentity.GetJid(Constants.NotAvailableValue);
             }
             else
             {
-                BareJId = Constants.NotAvailableValue;
+                BareJid = Constants.NotAvailableValue;
             }
             if (!(this.LegalIdentity?.ClientPubKey is null))
             {
@@ -342,18 +342,18 @@ namespace IdApp.ViewModels.Contracts
         public LegalIdentity LegalIdentity { get; private set; }
 
         /// <summary>
-        /// See <see cref="BareJId"/>
+        /// See <see cref="BareJid"/>
         /// </summary>
-        public static readonly BindableProperty BareJIdProperty =
-            BindableProperty.Create("BareJId", typeof(string), typeof(ViewIdentityViewModel), default(string));
+        public static readonly BindableProperty BareJidProperty =
+            BindableProperty.Create("BareJid", typeof(string), typeof(ViewIdentityViewModel), default(string));
 
         /// <summary>
         /// Bare Jid of the identity
         /// </summary>
-        public string BareJId
+        public string BareJid
         {
-            get { return (string)GetValue(BareJIdProperty); }
-            set { SetValue(BareJIdProperty, value); }
+            get { return (string)GetValue(BareJidProperty); }
+            set { SetValue(BareJidProperty, value); }
         }
 
         /// <summary>
