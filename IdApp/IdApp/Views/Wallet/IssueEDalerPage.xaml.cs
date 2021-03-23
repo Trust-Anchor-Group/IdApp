@@ -27,8 +27,9 @@ namespace IdApp.Views.Wallet
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
                 DependencyService.Resolve<ILogService>());
+
             InitializeComponent();
-		}
+        }
 
         /// <summary>
         /// Overrides the back button behavior to handle navigation internally instead.

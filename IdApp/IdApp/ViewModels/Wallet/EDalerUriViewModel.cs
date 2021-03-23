@@ -1,12 +1,14 @@
-﻿using EDaler;
-using System;
+﻿using System;
+using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using EDaler;
 using IdApp.Navigation;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Wallet
@@ -40,7 +42,7 @@ namespace IdApp.ViewModels.Wallet
 
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
 
-			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
+			this.FromClickCommand = new Command(async x => await this.FromLabelClicked());
 		}
 
 		/// <inheritdoc/>
@@ -62,15 +64,25 @@ namespace IdApp.ViewModels.Wallet
 				this.ToType = args.Uri.ToType;
 				this.Complete = args.Uri.Complete;
 
+				StringBuilder Url = new StringBuilder();
+
+				Url.Append("https://");
+				Url.Append(this.From);
+				Url.Append("/Images/eDalerFront200.png");
+
+				this.EDalerGlyph = Url.ToString();
+
 				if (!(args.Uri.EncryptedMessage is null))
 				{
 					if (args.Uri.EncryptionPublicKey is null)
-						this.Message = System.Text.Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
+						this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
 					else
 					{
 						this.Message = await this.NeuronService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
 							args.Uri.EncryptionPublicKey, args.Uri.From);
 					}
+
+					this.HasMessage = !string.IsNullOrEmpty(this.Message);
 				}
 			}
 
@@ -294,6 +306,21 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		/// <summary>
+		/// See <see cref="HasMessage"/>
+		/// </summary>
+		public static readonly BindableProperty HasMessageProperty =
+			BindableProperty.Create("HasMessage", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// HasMessage of eDaler to process
+		/// </summary>
+		public bool HasMessage
+		{
+			get { return (bool)GetValue(HasMessageProperty); }
+			set { SetValue(HasMessageProperty, value); }
+		}
+
+		/// <summary>
 		/// The command to bind to for claiming a thing
 		/// </summary>
 		public ICommand AcceptCommand { get; }
@@ -332,16 +359,52 @@ namespace IdApp.ViewModels.Wallet
 			set { SetValue(PinProperty, value); }
 		}
 
+		/// <summary>
+		/// See <see cref="EDalerGlyph"/>
+		/// </summary>
+		public static readonly BindableProperty EDalerGlyphProperty =
+			BindableProperty.Create("EDalerGlyph", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// eDaler glyph URL
+		/// </summary>
+		public string EDalerGlyph
+		{
+			get { return (string)GetValue(EDalerGlyphProperty); }
+			set { SetValue(EDalerGlyphProperty, value); }
+		}
+
 		#endregion
 
 		/// <summary>
-		/// Command to bind to for detecting when a tag value has been clicked on.
+		/// Command to bind to for detecting when a from label has been clicked on.
 		/// </summary>
-		public ICommand ClickCommand { get; }
+		public ICommand FromClickCommand { get; }
 
-		private Task LabelClicked(object _)
+		private async Task FromLabelClicked()
 		{
-			return Task.CompletedTask;  // TODO
+			try
+			{
+				string Value = this.From;
+
+				if ((Value.StartsWith("http://", StringComparison.CurrentCultureIgnoreCase) ||
+					Value.StartsWith("https://", StringComparison.CurrentCultureIgnoreCase)) &&
+					System.Uri.TryCreate(Value, UriKind.Absolute, out Uri Uri) && await Launcher.TryOpenAsync(Uri))
+				{
+					return;
+				}
+
+				if (System.Uri.TryCreate("https://" + Value, UriKind.Absolute, out Uri) && await Launcher.TryOpenAsync(Uri))
+					return;
+
+				await Clipboard.SetTextAsync(Value);
+				await UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+			}
+			catch (Exception ex)
+			{
+				logService.LogException(ex);
+				await UiDispatcher.DisplayAlert(ex);
+			}
 		}
 
 		private async Task Accept()
