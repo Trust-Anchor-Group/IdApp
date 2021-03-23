@@ -1,8 +1,8 @@
 ﻿using System;
-using IdApp.Navigation;
-using IdApp.Views;
 using System.Threading.Tasks;
+using IdApp.Navigation;
 using IdApp.Services;
+using IdApp.Views;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Essentials;
