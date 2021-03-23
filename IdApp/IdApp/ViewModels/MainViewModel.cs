@@ -504,7 +504,7 @@ namespace IdApp.ViewModels
 
         private async Task ViewWallet()
         {
-            await this.navigationService.GoToAsync(nameof(MyWalletPage));
+            await this.eDalerOrchestratorService.OpenWallet();
         }
 
         private async Task ScanQrCode()

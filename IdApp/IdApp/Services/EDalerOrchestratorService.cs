@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using EDaler;
 using EDaler.Uris;
 using EDaler.Uris.Incomplete;
 using IdApp.Navigation;
@@ -70,13 +71,34 @@ namespace IdApp.Services
 				if ((e.Balance.Event?.Change ?? 0) > 0)
 					await this.navigationService.GoToAsync(nameof(EDalerReceivedPage), new EDalerBalanceNavigationArgs(e.Balance));
 				else
-					await this.navigationService.GoToAsync(nameof(MyWalletPage));
+					await this.OpenWallet();
 			});
 
 			return Task.CompletedTask;
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Opens the wallet
+		/// </summary>
+		public async Task OpenWallet()
+		{
+			try
+			{
+				Balance Balance = await this.neuronService.Wallet.GetBalanceAsync();
+				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.neuronService.Wallet.GetPendingPayments();
+				(AccountEvent[] Events, bool More) = await this.neuronService.Wallet.GetAccountEventsAsync(50);
+
+				WalletNavigationArgs e = new WalletNavigationArgs(Balance, PendingAmount, PendingCurrency, PendingPayments, Events, More);
+
+				await this.navigationService.GoToAsync(nameof(MyWalletPage), e);
+			}
+			catch (Exception ex)
+			{
+				await this.uiDispatcher.DisplayAlert(ex);
+			}
+		}
 
 		/// <summary>
 		/// eDaler URI scanned.

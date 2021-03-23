@@ -2150,6 +2150,52 @@
             The identity to review, if any.
             </summary>
         </member>
+        <member name="T:IdApp.Navigation.WalletNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to the eDaler wallet.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.WalletNavigationArgs.#ctor(EDaler.Balance,System.Decimal,System.String,EDaler.PendingPayment[],EDaler.AccountEvent[],System.Boolean)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.WalletNavigationArgs"/> class.
+            </summary>
+            <param name="Balance">Balance information.</param>
+            <param name="PendingAmount">Total amount of pending payments.</param>
+            <param name="PendingCurrency">Currency of pending payments.</param>
+            <param name="PendingPayments">Details about pending payments.</param>
+            <param name="Events">Wallet events.</param>
+            <param name="More">If more events are available.</param>
+        </member>
+        <member name="P:IdApp.Navigation.WalletNavigationArgs.Balance">
+            <summary>
+            Balance information.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.WalletNavigationArgs.PendingAmount">
+            <summary>
+            Total amount of pending payments.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.WalletNavigationArgs.PendingCurrency">
+            <summary>
+            Currency of pending payments.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.WalletNavigationArgs.PendingPayments">
+            <summary>
+            Details about pending payments.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.WalletNavigationArgs.Events">
+            <summary>
+            Wallet events.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.WalletNavigationArgs.More">
+            <summary>
+            If more events are available.
+            </summary>
+        </member>
         <member name="T:IdApp.PhotosLoader">
             <summary>
             This is a helper class for downloading photos via http requests.
@@ -2278,6 +2324,11 @@
             </summary>
             <param name="request">Request string.</param>
         </member>
+        <member name="M:IdApp.Services.EDalerOrchestratorService.OpenWallet">
+            <summary>
+            Opens the wallet
+            </summary>
+        </member>
         <member name="M:IdApp.Services.EDalerOrchestratorService.OpenEDalerUri(System.String)">
             <summary>
             eDaler URI scanned.
@@ -2315,6 +2366,11 @@
         <member name="T:IdApp.Services.IEDalerOrchestratorService">
             <summary>
             Orchestrates eDaler operations.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IEDalerOrchestratorService.OpenWallet">
+            <summary>
+            Opens the wallet
             </summary>
         </member>
         <member name="M:IdApp.Services.IEDalerOrchestratorService.OpenEDalerUri(System.String)">
@@ -6763,6 +6819,76 @@
         <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.AmountProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Amount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Amount">
+            <summary>
+            Amount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Currency">
+            <summary>
+            Currency of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.HasPendingProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.HasPending"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.HasPending">
+            <summary>
+            HasPending of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.PendingAmountProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.PendingAmount"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.PendingAmount">
+            <summary>
+            PendingAmount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.PendingCurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.PendingCurrency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.PendingCurrency">
+            <summary>
+            PendingCurrency of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.TimestampProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Timestamp"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Timestamp">
+            <summary>
+            When code was created.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.EDalerGlyphProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.EDalerGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.EDalerGlyph">
+            <summary>
+            eDaler glyph URL
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">
             <summary>
             A View model that represents the current XMPP Communication.
@@ -7445,7 +7571,7 @@
         </member>
         <member name="M:IdApp.Views.Wallet.MyWalletPage.#ctor">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.IssueEDalerPage"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.MyWalletPage"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Views.Wallet.MyWalletPage.OnBackButtonPressed">

@@ -15,12 +15,12 @@ namespace IdApp.Views.Wallet
         private readonly INavigationService navigationService;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="IssueEDalerPage"/> class.
+        /// Creates a new instance of the <see cref="MyWalletPage"/> class.
         /// </summary>
 		public MyWalletPage()
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.ViewModel = new EDalerUriViewModel(
+            this.ViewModel = new MyWalletViewModel(
                 DependencyService.Resolve<ITagProfile>(),
                 DependencyService.Resolve<IUiDispatcher>(),
                 DependencyService.Resolve<INeuronService>(),

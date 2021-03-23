@@ -12,6 +12,11 @@ namespace IdApp.Services
     public interface IEDalerOrchestratorService : ILoadableService
     {
         /// <summary>
+        /// Opens the wallet
+        /// </summary>
+        Task OpenWallet();
+
+        /// <summary>
         /// eDaler URI scanned.
         /// </summary>
         /// <param name="uri">eDaler URI.</param>
