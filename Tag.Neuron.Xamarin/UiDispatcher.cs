@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading.Tasks;
+using Waher.Events;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
@@ -75,6 +76,8 @@ namespace Tag.Neuron.Xamarin
         /// <inheritdoc/>
         public async Task DisplayAlert(string title, string message, Exception exception)
         {
+            exception = Log.UnnestException(exception);
+
             StringBuilder sb = new StringBuilder();
             if (!(exception is null))
             {
