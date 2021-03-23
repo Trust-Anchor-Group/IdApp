@@ -767,6 +767,9 @@ namespace Tag.Neuron.Xamarin.Services
 			if (string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
 				return false;
 
+			if (string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
+				return false;
+
 			return true;
 		}
 
