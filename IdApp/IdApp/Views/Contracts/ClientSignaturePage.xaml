@@ -98,7 +98,7 @@
                 <Label Grid.Row="18" Grid.Column="1" Text="{Binding Path=IsTransferable}" Style="{StaticResource ValueLabel}"/>
                 <!-- -->
                 <Label Grid.Row="19" Grid.Column="0" Text="{x:Static local:AppResources.Network}" Style="{StaticResource KeyLabel}" />
-                <Label Grid.Row="19" Grid.Column="1" Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>
+                <Label Grid.Row="19" Grid.Column="1" Text="{Binding Path=BareJid}" Style="{StaticResource ValueLabel}"/>
                 <!-- -->
                 <Label Grid.Row="20" Grid.Column="0" Text="{x:Static local:AppResources.Signature}" Style="{StaticResource KeyLabel}" />
                 <Label Grid.Row="20" Grid.Column="1" Text="{Binding Path=Signature}" Style="{StaticResource ValueLabel}"/>

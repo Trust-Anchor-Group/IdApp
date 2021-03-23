@@ -103,7 +103,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// The Bare Jid of the current connection, or <c>null</c>.
         /// </summary>
-        string BareJId { get; }
+        string BareJid { get; }
         
         /// <summary>
         /// The latest generic xmpp error, if any.

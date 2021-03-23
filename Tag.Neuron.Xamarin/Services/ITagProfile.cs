@@ -251,45 +251,45 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Used during Xmpp service discovery. Sets the legal id.
         /// </summary>
-        /// <param name="legalJId">The legal id.</param>
-        void SetLegalJId(string legalJId);
+        /// <param name="legalJid">The legal id.</param>
+        void SetLegalJid(string legalJid);
         
         /// <summary>
         /// Used during Xmpp service discovery. Sets the provisioning id.
         /// </summary>
-        /// <param name="provisioningJId"></param>
-        void SetProvisioningJId(string provisioningJId);
+        /// <param name="provisioningJid"></param>
+        void SetProvisioningJid(string provisioningJid);
         
         /// <summary>
         /// Used during Xmpp service discovery. Sets the registry id.
         /// </summary>
-        /// <param name="registryJId"></param>
-        void SetRegistryJId(string registryJId);
+        /// <param name="registryJid"></param>
+        void SetRegistryJid(string registryJid);
         
         /// <summary>
         /// Used during Xmpp service discovery. Sets the file upload parameters.
         /// </summary>
-        /// <param name="httpFileUploadJId">The http file upload id.</param>
+        /// <param name="httpFileUploadJid">The http file upload id.</param>
         /// <param name="maxSize">The max size allowed.</param>
-        void SetFileUploadParameters(string httpFileUploadJId, long? maxSize);
+        void SetFileUploadParameters(string httpFileUploadJid, long? maxSize);
         
         /// <summary>
         /// Used during Xmpp service discovery. Sets the log id.
         /// </summary>
-        /// <param name="logJId">The log id.</param>
-        void SetLogJId(string logJId);
+        /// <param name="logJid">The log id.</param>
+        void SetLogJid(string logJid);
         
         /// <summary>
         /// Used during Xmpp service discovery. Sets the multi-user chat id.
         /// </summary>
-        /// <param name="mucJId">The multi-user chat id.</param>
-        void SetMucJId(string mucJId);
+        /// <param name="mucJid">The multi-user chat id.</param>
+        void SetMucJid(string mucJid);
 
         /// <summary>
         /// Used during Xmpp service discovery. Sets the eDaler service JID.
         /// </summary>
-        /// <param name="eDalerJId">The eDaler service JID.</param>
-        void SetEDalerJid(string eDalerJId);
+        /// <param name="eDalerJid">The eDaler service JID.</param>
+        void SetEDalerJid(string eDalerJid);
 
         /// <summary>
         /// Computes a hash of the specified PIN.

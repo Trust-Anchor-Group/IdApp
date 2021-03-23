@@ -401,7 +401,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public string LatestConnectionError { get; private set; }
 
-		public string BareJId => xmppClient?.BareJID ?? string.Empty;
+		public string BareJid => xmppClient?.BareJID ?? string.Empty;
 
 		#endregion
 
@@ -727,16 +727,16 @@ namespace Tag.Neuron.Xamarin.Services
 				ServiceDiscoveryEventArgs itemResponse = await client.ServiceDiscoveryAsync(null, item.JID, item.Node);
 
 				if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
-					this.tagProfile.SetLegalJId(item.JID);
+					this.tagProfile.SetLegalJid(item.JID);
 
 				if (itemResponse.HasFeature(ThingRegistryClient.NamespaceDiscovery))
-					this.tagProfile.SetRegistryJId(item.JID);
+					this.tagProfile.SetRegistryJid(item.JID);
 
 				if (itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
 					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
 					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningToken))
 				{
-					this.tagProfile.SetProvisioningJId(item.JID);
+					this.tagProfile.SetProvisioningJid(item.JID);
 				}
 
 				if (itemResponse.HasFeature(HttpFileUploadClient.Namespace))
@@ -746,10 +746,10 @@ namespace Tag.Neuron.Xamarin.Services
 				}
 
 				if (itemResponse.HasFeature(XmppEventSink.NamespaceEventLogging))
-					this.tagProfile.SetLogJId(item.JID);
+					this.tagProfile.SetLogJid(item.JID);
 
 				if (itemResponse.HasFeature(MultiUserChatClient.NamespaceMuc))
-					this.tagProfile.SetMucJId(item.JID);
+					this.tagProfile.SetMucJid(item.JID);
 
 				if (itemResponse.HasFeature(EDalerClient.NamespaceEDaler))
 					this.tagProfile.SetEDalerJid(item.JID);

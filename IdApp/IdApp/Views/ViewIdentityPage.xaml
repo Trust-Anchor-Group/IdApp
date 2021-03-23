@@ -111,7 +111,7 @@
                     </Label>
                     <!-- - -->
                     <Label Grid.Row="15" Grid.Column="1" Text="{x:Static local:AppResources.Network}" Style="{StaticResource KeyLabel}" />
-                    <Label Grid.Row="15" Grid.Column="2" Text="{Binding Path=BareJId}" Style="{StaticResource ValueLabel}"/>
+                    <Label Grid.Row="15" Grid.Column="2" Text="{Binding Path=BareJid}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <Label Grid.Row="16" Grid.Column="1" Text="{x:Static local:AppResources.PublicKey}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="16" Grid.Column="2" Text="{Binding Path=PublicKey}" Style="{StaticResource ValueLabel}"/>

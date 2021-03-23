@@ -143,18 +143,18 @@ namespace IdApp.ViewModels.Registration
         public LegalIdentity LegalIdentity { get; private set; }
 
         /// <summary>
-        /// The <see cref="BareJId"/>
+        /// The <see cref="BareJid"/>
         /// </summary>
-        public static readonly BindableProperty BareJIdProperty =
-            BindableProperty.Create("BareJId", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+        public static readonly BindableProperty BareJidProperty =
+            BindableProperty.Create("BareJid", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// Gets or sets the Bare Jid registered with the Neuron server.
         /// </summary>
-        public string BareJId
+        public string BareJid
         {
-            get { return (string)GetValue(BareJIdProperty); }
-            set { SetValue(BareJIdProperty, value); }
+            get { return (string)GetValue(BareJidProperty); }
+            set { SetValue(BareJidProperty, value); }
         }
 
         /// <summary>
@@ -450,7 +450,7 @@ namespace IdApp.ViewModels.Registration
             Updated = this.TagProfile.LegalIdentity?.Updated.GetDateOrNullIfMinValue();
             LegalId = this.TagProfile.LegalIdentity?.Id;
             LegalIdentity = this.TagProfile.LegalIdentity;
-            AssignBareJId();
+            AssignBareJid();
             State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
             From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
             To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
@@ -497,9 +497,9 @@ namespace IdApp.ViewModels.Registration
             }
         }
 
-        private void AssignBareJId()
+        private void AssignBareJid()
         {
-            BareJId = this.NeuronService?.BareJId ?? string.Empty;
+            BareJid = this.NeuronService?.BareJid ?? string.Empty;
         }
 
         private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
@@ -510,7 +510,7 @@ namespace IdApp.ViewModels.Registration
             }
             else
             {
-                UiDispatcher.BeginInvokeOnMainThread(AssignBareJId);
+                UiDispatcher.BeginInvokeOnMainThread(AssignBareJid);
             }
         }
 
@@ -518,7 +518,7 @@ namespace IdApp.ViewModels.Registration
         {
             this.UiDispatcher.BeginInvokeOnMainThread(async () =>
             {
-                this.AssignBareJId();
+                this.AssignBareJid();
                 this.SetConnectionStateAndText(e.State);
                 this.InviteReviewerCommand.ChangeCanExecute();
                 if (this.IsConnected)

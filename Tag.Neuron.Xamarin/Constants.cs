@@ -230,7 +230,7 @@ namespace Tag.Neuron.Xamarin
             /// <summary>
             /// Jabber ID
             /// </summary>
-            public const string JId = "JID";
+            public const string Jid = "JID";
         }
 
         /// <summary>

@@ -2776,12 +2776,12 @@
             Determines whether the signature is transferable or not.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJIdProperty">
+        <member name="F:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJidProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJId"/>
+            See <see cref="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJid"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJId">
+        <member name="P:IdApp.ViewModels.Contracts.ClientSignatureViewModel.BareJid">
             <summary>
             Gets or sets the Bare Jid of the signature.
             </summary>
@@ -4227,12 +4227,12 @@
             The full legal identity of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJIdProperty">
+        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJidProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJId"/>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJid"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJId">
+        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJid">
             <summary>
             Bare Jid of the identity
             </summary>
@@ -5975,12 +5975,12 @@
             Gets or sets the legal identity.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJIdProperty">
+        <member name="F:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJidProperty">
             <summary>
-            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJId"/>
+            The <see cref="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJid"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJId">
+        <member name="P:IdApp.ViewModels.Registration.ValidateIdentityViewModel.BareJid">
             <summary>
             Gets or sets the Bare Jid registered with the Neuron server.
             </summary>

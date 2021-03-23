@@ -69,7 +69,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             {
                 Properties = new[]
                 {
-                    new Property(Constants.XmppProperties.JId, "42")
+                    new Property(Constants.XmppProperties.Jid, "42")
                 }
             };
             ViewIdentityNavigationArgs args = new ViewIdentityNavigationArgs(null, null);
@@ -88,7 +88,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             {
                 Properties = new[]
                 {
-                    new Property(Constants.XmppProperties.JId, "42")
+                    new Property(Constants.XmppProperties.Jid, "42")
                 }
             };
             ViewIdentityNavigationArgs args = new ViewIdentityNavigationArgs(legalIdentityArgs, null);
@@ -101,13 +101,13 @@ namespace IdApp.Tests.ViewModels.Contracts
         }
 
         [Test]
-        public void AssignsBareJId_FromLegalIdentity_WhenIdentityToReviewIsNull()
+        public void AssignsBareJid_FromLegalIdentity_WhenIdentityToReviewIsNull()
         {
             LegalIdentity legalIdentity = new LegalIdentity
             {
                 Properties = new[]
                 {
-                    new Property(Constants.XmppProperties.JId, "42")
+                    new Property(Constants.XmppProperties.Jid, "42")
                 }
             };
             ViewIdentityNavigationArgs args = new ViewIdentityNavigationArgs(legalIdentity, null);
@@ -115,24 +115,24 @@ namespace IdApp.Tests.ViewModels.Contracts
 
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
-                .ThenAssert(vm => vm.BareJId == "42");
+                .ThenAssert(vm => vm.BareJid == "42");
         }
 
         [Test]
-        public void AssignsBareJId_FromIdentityToReview_WhenItExists()
+        public void AssignsBareJid_FromIdentityToReview_WhenItExists()
         {
             LegalIdentity legalIdentity = new LegalIdentity
             {
                 Properties = new[]
                 {
-                    new Property(Constants.XmppProperties.JId, "42")
+                    new Property(Constants.XmppProperties.Jid, "42")
                 }
             };
             LegalIdentity identityToReview = new LegalIdentity
             {
                 Properties = new[]
                 {
-                    new Property(Constants.XmppProperties.JId, "43")
+                    new Property(Constants.XmppProperties.Jid, "43")
                 }
             };
             XmppClient client = new XmppClient("host", 4000, "user", "pass", string.Empty, GetType().Assembly);
@@ -145,7 +145,7 @@ namespace IdApp.Tests.ViewModels.Contracts
 
             Given(AViewModel)
                 .And(async vm => await vm.Bind())
-                .ThenAssert(vm => vm.BareJId == "43");
+                .ThenAssert(vm => vm.BareJid == "43");
         }
 
         [Test]
