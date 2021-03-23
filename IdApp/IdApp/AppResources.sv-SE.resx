@@ -330,6 +330,9 @@
   <data name="EDalerNoteDescription" xml:space="preserve">
     <value>Koden representerar en eDaler-sedel. Du kan acceptera den genom att trycka på Acceptera-knappen nedan. Om den inte har accepterats innan, kommer din plånbok att ta emot det antal eDaler som står på sedeln.</value>
   </data>
+  <data name="EncryptMessage" xml:space="preserve">
+    <value>Kryptera meddelandet</value>
+  </data>
   <data name="EnterAnOperatorName" xml:space="preserve">
     <value>Ange en operatör</value>
   </data>
@@ -353,6 +356,9 @@
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
     <value>Nedan visas lite allmän information om kontraktet.</value>
+  </data>
+  <data name="GenerateQrCode" xml:space="preserve">
+    <value>Generera QR-kod</value>
   </data>
   <data name="HashFunction" xml:space="preserve">
     <value>Hash-funktion</value>

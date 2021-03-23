@@ -700,6 +700,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Encrypt message.
+        /// </summary>
+        internal static string EncryptMessage {
+            get {
+                return ResourceManager.GetString("EncryptMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter an operator.
         /// </summary>
         internal static string EnterAnOperatorName {
@@ -777,6 +786,15 @@ namespace IdApp {
         internal static string GeneralInformationInfoText {
             get {
                 return ResourceManager.GetString("GeneralInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate QR Code.
+        /// </summary>
+        internal static string GenerateQrCode {
+            get {
+                return ResourceManager.GetString("GenerateQrCode", resourceCulture);
             }
         }
         

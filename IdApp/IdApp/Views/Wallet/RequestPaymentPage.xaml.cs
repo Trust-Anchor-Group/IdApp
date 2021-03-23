@@ -1,4 +1,5 @@
-﻿using IdApp.ViewModels.Wallet;
+﻿using System.Threading.Tasks;
+using IdApp.ViewModels.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
@@ -26,7 +27,8 @@ namespace IdApp.Views.Wallet
                 DependencyService.Resolve<INeuronService>(),
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
-                DependencyService.Resolve<ILogService>());
+                DependencyService.Resolve<ILogService>(),
+                this);
 
             InitializeComponent();
         }
@@ -40,5 +42,13 @@ namespace IdApp.Views.Wallet
             this.navigationService.GoBackAsync();
             return true;
         }
+
+        /// <summary>
+        /// Scrolls to display the QR-code.
+        /// </summary>
+        public async Task ShowQrCode()
+		{
+            await this.ScrollView.ScrollToAsync(this.QrCode, ScrollToPosition.MakeVisible, true);
+		}
 	}
 }

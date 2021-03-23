@@ -330,6 +330,9 @@
   <data name="EDalerNoteDescription" xml:space="preserve">
     <value>The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified on the note.</value>
   </data>
+  <data name="EncryptMessage" xml:space="preserve">
+    <value>Encrypt message</value>
+  </data>
   <data name="EnterAnOperatorName" xml:space="preserve">
     <value>Enter an operator</value>
   </data>
@@ -356,6 +359,9 @@
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
     <value>Following is some general information about the contract.</value>
+  </data>
+  <data name="GenerateQrCode" xml:space="preserve">
+    <value>Generate QR Code</value>
   </data>
   <data name="HashFunction" xml:space="preserve">
     <value>Hash Function</value>

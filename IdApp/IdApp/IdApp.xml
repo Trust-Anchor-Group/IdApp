@@ -414,6 +414,11 @@
               Looks up a localized string similar to The code represents an eDaler note. You can accept it by pressing the Accept button below. If it has not been accepted before, your wallet will receive the amount of eDaler specified on the note..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.EncryptMessage">
+            <summary>
+              Looks up a localized string similar to Encrypt message.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.EnterAnOperatorName">
             <summary>
               Looks up a localized string similar to Enter an operator.
@@ -457,6 +462,11 @@
         <member name="P:IdApp.AppResources.GeneralInformationInfoText">
             <summary>
               Looks up a localized string similar to Following is some general information about the contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.GenerateQrCode">
+            <summary>
+              Looks up a localized string similar to Generate QR Code.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.HashFunction">
@@ -7052,7 +7062,7 @@
             The view model to bind to for requesting a payment.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Views.Wallet.RequestPaymentPage)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.RequestPaymentViewModel"/> class.
             </summary>
@@ -7076,6 +7086,36 @@
             Amount of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountOkProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountOk"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountOk">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Amount"/> is OK.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountColorProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountColor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountColor">
+            <summary>
+            Color of <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Amount"/> field.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountText">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Amount"/> as text.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.CurrencyProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Currency"/>
@@ -7083,7 +7123,7 @@
         </member>
         <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Currency">
             <summary>
-            Currency of eDaler to process
+            Currency of <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Amount"/>.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.MessageProperty">
@@ -7093,7 +7133,57 @@
         </member>
         <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Message">
             <summary>
-            Message of eDaler to process
+            Message to embed in payment.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.EncryptMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.EncryptMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.EncryptMessage">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Message"/> should be encrypted in payment.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCode">
+            <summary>
+            Gets or sets the current user's identity as a QR code image.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.HasQrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.HasQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.HasQrCode">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCode"/> exists for the current user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeWidth">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCode"/> exists for the current user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeHeight">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCode"/> exists for the current user.
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.GenerateQrCodeCommand">
@@ -7807,6 +7897,11 @@
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:IdApp.Views.Wallet.RequestPaymentPage.ShowQrCode">
+            <summary>
+            Scrolls to display the QR-code.
+            </summary>
         </member>
         <member name="T:IdApp.Views.XmppCommunicationPage">
             <summary>

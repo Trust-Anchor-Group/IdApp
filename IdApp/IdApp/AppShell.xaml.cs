@@ -83,6 +83,7 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));
 			Routing.RegisterRoute(nameof(EDalerReceivedPage), typeof(EDalerReceivedPage));
 			Routing.RegisterRoute(nameof(MyWalletPage), typeof(MyWalletPage));
+			Routing.RegisterRoute(nameof(RequestPaymentPage), typeof(RequestPaymentPage));
 		}
 
 		private async Task GoToPage(string route)

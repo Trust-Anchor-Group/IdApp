@@ -118,7 +118,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="Amount"/>
 		/// </summary>
 		public static readonly BindableProperty AmountProperty =
-			BindableProperty.Create("Amount", typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
+			BindableProperty.Create("Amount", typeof(decimal), typeof(EDalerReceivedViewModel), default(decimal));
 
 		/// <summary>
 		/// Amount of eDaler to process
@@ -133,7 +133,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="Change"/>
 		/// </summary>
 		public static readonly BindableProperty ChangeProperty =
-			BindableProperty.Create("Change", typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
+			BindableProperty.Create("Change", typeof(decimal), typeof(EDalerReceivedViewModel), default(decimal));
 
 		/// <summary>
 		/// Change in balance represented by current event.
@@ -148,7 +148,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="HasChange"/>
 		/// </summary>
 		public static readonly BindableProperty HasChangeProperty =
-			BindableProperty.Create("HasChange", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create("HasChange", typeof(bool), typeof(EDalerReceivedViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Change"/> is defined.
@@ -163,7 +163,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="Currency"/>
 		/// </summary>
 		public static readonly BindableProperty CurrencyProperty =
-			BindableProperty.Create("Currency", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create("Currency", typeof(string), typeof(EDalerReceivedViewModel), default(string));
 
 		/// <summary>
 		/// Currency of eDaler to process
@@ -178,7 +178,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="Timestamp"/>
 		/// </summary>
 		public static readonly BindableProperty TimestampProperty =
-			BindableProperty.Create("Timestamp", typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
+			BindableProperty.Create("Timestamp", typeof(DateTime), typeof(EDalerReceivedViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code was created.
@@ -193,7 +193,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="Id"/>
 		/// </summary>
 		public static readonly BindableProperty IdProperty =
-			BindableProperty.Create("Id", typeof(Guid), typeof(EDalerUriViewModel), default(Guid));
+			BindableProperty.Create("Id", typeof(Guid), typeof(EDalerReceivedViewModel), default(Guid));
 
 		/// <summary>
 		/// Globally unique identifier of code
@@ -208,7 +208,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="HasId"/>
 		/// </summary>
 		public static readonly BindableProperty HasIdProperty =
-			BindableProperty.Create("HasId", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create("HasId", typeof(bool), typeof(EDalerReceivedViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Id"/> is defined.
@@ -223,7 +223,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="From"/>
 		/// </summary>
 		public static readonly BindableProperty FromProperty =
-			BindableProperty.Create("From", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create("From", typeof(string), typeof(EDalerReceivedViewModel), default(string));
 
 		/// <summary>
 		/// From who eDaler is to be transferred
@@ -238,7 +238,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="HasFrom"/>
 		/// </summary>
 		public static readonly BindableProperty HasFromProperty =
-			BindableProperty.Create("HasFrom", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create("HasFrom", typeof(bool), typeof(EDalerReceivedViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="From"/> is defined.
@@ -253,7 +253,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="Message"/>
 		/// </summary>
 		public static readonly BindableProperty MessageProperty =
-			BindableProperty.Create("Message", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create("Message", typeof(string), typeof(EDalerReceivedViewModel), default(string));
 
 		/// <summary>
 		/// Message of eDaler to process
@@ -268,7 +268,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="HasMessage"/>
 		/// </summary>
 		public static readonly BindableProperty HasMessageProperty =
-			BindableProperty.Create("HasMessage", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create("HasMessage", typeof(bool), typeof(EDalerReceivedViewModel), default(bool));
 
 		/// <summary>
 		/// HasMessage of eDaler to process
@@ -288,7 +288,7 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="EDalerGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerGlyphProperty =
-			BindableProperty.Create("EDalerGlyph", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create("EDalerGlyph", typeof(string), typeof(EDalerReceivedViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
