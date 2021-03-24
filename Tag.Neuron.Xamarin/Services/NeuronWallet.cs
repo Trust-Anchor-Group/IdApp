@@ -180,7 +180,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <returns>Signed payment URI.</returns>
 		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, string Currency, int ValidNrDays)
 		{
-			return this.EDalerClient.CreateFullPaymentUri(To, Amount, Currency, ValidNrDays, string.Empty);	// TODO: );
+			return this.EDalerClient.CreateFullPaymentUri(To, Amount, Currency, ValidNrDays);
 		}
 
 		/// <summary>
