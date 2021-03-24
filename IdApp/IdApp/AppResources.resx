@@ -720,6 +720,9 @@
   <data name="RequestPaymentDescription" xml:space="preserve">
     <value>To request payment from someone, fill in the details about the payment below, and click the Generate QR Code button. The generated code can be used by the other party, to generate a payment to your account.</value>
   </data>
+  <data name="RequestPaymentMessage" xml:space="preserve">
+    <value>Requesting payment of {0} {1}.</value>
+  </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>The request timed out</value>
   </data>
@@ -785,6 +788,9 @@
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
     <value>The integrity of the contract is protected by the server signature shown below.</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Sign after</value>

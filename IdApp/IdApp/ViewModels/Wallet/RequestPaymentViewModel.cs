@@ -46,6 +46,7 @@ namespace IdApp.ViewModels.Wallet
 			this.page = page;
 
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
+			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
 		}
 
 		/// <inheritdoc/>
@@ -80,7 +81,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.GenerateQrCodeCommand);
+			this.EvaluateCommands(this.GenerateQrCodeCommand, this.ShareCommand);
 		}
 
 		/// <inheritdoc/>
@@ -258,6 +259,21 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		/// <summary>
+		/// See <see cref="QrCodePng"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodePngProperty =
+			BindableProperty.Create("QrCodePng", typeof(byte[]), typeof(RequestPaymentViewModel), default(byte[]));
+
+		/// <summary>
+		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
+		/// </summary>
+		public byte[] QrCodePng
+		{
+			get { return (byte[])GetValue(QrCodePngProperty); }
+			set { SetValue(QrCodePngProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="QrCodeWidth"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeWidthProperty =
@@ -288,9 +304,14 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		/// <summary>
-		/// The command to bind to for claiming a thing
+		/// The command to bind to for generating a QR code
 		/// </summary>
 		public ICommand GenerateQrCodeCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for sharing the QR code
+		/// </summary>
+		public ICommand ShareCommand { get; }
 
 		#endregion
 
@@ -321,6 +342,7 @@ namespace IdApp.ViewModels.Wallet
 			}
 
 			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri.ToString(), 300, 300);
+			this.QrCodePng = Bin;
 
 			if (this.IsBound)
 			{
@@ -331,13 +353,33 @@ namespace IdApp.ViewModels.Wallet
 					this.QrCodeHeight = 300;
 					this.HasQrCode = true;
 
+					this.EvaluateCommands(this.ShareCommand);
+
 					await this.page.ShowQrCode();
 				});
 			}
 
-			return Task.CompletedTask;	// TODO
+			return Task.CompletedTask;
 		}
 
 		private bool CanGenerateQrCode() => this.AmountOk;
+		private bool CanShare() => this.HasQrCode;
+
+		private async Task Share()
+		{
+			try
+			{
+				IShareContent shareContent = DependencyService.Get<IShareContent>();
+
+				shareContent.ShareImage(this.QrCodePng, string.Format(AppResources.RequestPaymentMessage, this.Amount, this.Currency), 
+					AppResources.Share, "RequestPayment.png");
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
+		}
+
 	}
 }

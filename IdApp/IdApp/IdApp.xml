@@ -1064,6 +1064,11 @@
               Looks up a localized string similar to To request payment from someone, fill in the details about the payment below, and click the Generate QR Code button. The generated code can be used by the other party, to generate a payment to your account..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.RequestPaymentMessage">
+            <summary>
+              Looks up a localized string similar to Requesting payment of {0} {1}..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.RequestTimedOut">
             <summary>
               Looks up a localized string similar to The request timed out.
@@ -1172,6 +1177,11 @@
         <member name="P:IdApp.AppResources.ServerSignaturesInfoText">
             <summary>
               Looks up a localized string similar to The integrity of the contract is protected by the server signature shown below..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Share">
+            <summary>
+              Looks up a localized string similar to Share.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SignAfter">
@@ -7166,6 +7176,16 @@
             Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCode"/> exists for the current user.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodePngProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodePng"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodePng">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCode"/> exists for the current user.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeWidthProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.QrCodeWidth"/>
@@ -7188,7 +7208,12 @@
         </member>
         <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.GenerateQrCodeCommand">
             <summary>
-            The command to bind to for claiming a thing
+            The command to bind to for generating a QR code
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.ShareCommand">
+            <summary>
+            The command to bind to for sharing the QR code
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.XmppCommunicationViewModel">

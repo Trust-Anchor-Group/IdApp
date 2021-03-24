@@ -717,6 +717,9 @@
   <data name="RequestPaymentDescription" xml:space="preserve">
     <value>För att efterfråga en betalning från någon, fyll i detaljerna om betalningen nedan, och klicka knappen för att en Generera QR-kod. Den genererade koden kan användas av den andra parten för att generera en betalning till ditt konto.</value>
   </data>
+  <data name="RequestPaymentMessage" xml:space="preserve">
+    <value>Efterfrågar betalning om {0} {1}.</value>
+  </data>
   <data name="RequestTimedOut" xml:space="preserve">
     <value>Begäran tog för lång tid</value>
   </data>
@@ -782,6 +785,9 @@
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
     <value>Kontraktets integritet skyddas av server-signaturerna som visas nedan.</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Dela</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Signera efter</value>

@@ -1870,6 +1870,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Requesting payment of {0} {1}..
+        /// </summary>
+        internal static string RequestPaymentMessage {
+            get {
+                return ResourceManager.GetString("RequestPaymentMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The request timed out.
         /// </summary>
         internal static string RequestTimedOut {
@@ -2064,6 +2073,15 @@ namespace IdApp {
         internal static string ServerSignaturesInfoText {
             get {
                 return ResourceManager.GetString("ServerSignaturesInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share.
+        /// </summary>
+        internal static string Share {
+            get {
+                return ResourceManager.GetString("Share", resourceCulture);
             }
         }
         

@@ -48,7 +48,7 @@ namespace IdApp.Views.Wallet
         /// </summary>
         public async Task ShowQrCode()
 		{
-            await this.ScrollView.ScrollToAsync(this.QrCode, ScrollToPosition.MakeVisible, true);
+            await this.ScrollView.ScrollToAsync(this.ShareButton, ScrollToPosition.MakeVisible, true);
 		}
 	}
 }

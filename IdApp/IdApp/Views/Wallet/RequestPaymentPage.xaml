@@ -25,6 +25,8 @@
                        IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth}" 
                        HeightRequest="{Binding Path=QrCodeHeight}" HorizontalOptions="Center" VerticalOptions="Start" 
                        Margin="0" />
+                <Button x:Name="ShareButton" Text="{x:Static local:AppResources.Share}" Command="{Binding Path=ShareCommand}" 
+                        IsVisible="{Binding Path=HasQrCode}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

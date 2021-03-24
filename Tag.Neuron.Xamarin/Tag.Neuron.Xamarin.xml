@@ -582,6 +582,20 @@
             Gets the ID of the device.
             </summary>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.IShareContent">
+            <summary>
+            Dependency interface for sharing content with other applications.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.IShareContent.ShareImage(System.Byte[],System.String,System.String,System.String)">
+            <summary>
+            Shares an image in PNG format.
+            </summary>
+            <param name="PngFile">Binary representation (PNG format) of image.</param>
+            <param name="Message">Message to send with image.</param>
+            <param name="Title">Title for operation.</param>
+            <param name="FileName">Filename of image file.</param>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.ISO_3166_1">
             <summary>
             Conversion between Country Names and ISO-3166-1 2-letter country codes.
