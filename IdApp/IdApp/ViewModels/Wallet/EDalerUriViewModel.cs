@@ -79,7 +79,7 @@ namespace IdApp.ViewModels.Wallet
 					else
 					{
 						this.Message = await this.NeuronService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
-							args.Uri.EncryptionPublicKey, args.Uri.From);
+							args.Uri.EncryptionPublicKey, args.Uri.Id, args.Uri.From);
 					}
 
 					this.HasMessage = !string.IsNullOrEmpty(this.Message);

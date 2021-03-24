@@ -79,13 +79,14 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="EncryptedMessage">Encrypted message.</param>
 		/// <param name="PublicKey">Public key used.</param>
+		/// <param name="TransactionId">ID of transaction containing the encrypted message.</param>
 		/// <param name="RemoteEndpoint">Remote endpoint</param>
 		/// <returns>Decrypted string, if successful, or null, if not.</returns>
-		public async Task<string> TryDecryptMessage(byte[] EncryptedMessage, byte[] PublicKey, string RemoteEndpoint)
+		public async Task<string> TryDecryptMessage(byte[] EncryptedMessage, byte[] PublicKey, Guid TransactionId, string RemoteEndpoint)
 		{
 			try
 			{
-				return await this.eDalerClient.DecryptMessage(EncryptedMessage, PublicKey, RemoteEndpoint);
+				return await this.eDalerClient.DecryptMessage(EncryptedMessage, PublicKey, TransactionId, RemoteEndpoint);
 			}
 			catch (Exception ex)
 			{
@@ -195,6 +196,33 @@ namespace Tag.Neuron.Xamarin.Services
 		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, string Currency, int ValidNrDays, string PrivateMessage)
 		{
 			return this.EDalerClient.CreateFullPaymentUri(To, Amount, Currency, ValidNrDays, PrivateMessage);
+		}
+
+		/// <summary>
+		/// Creates an incomplete PayMe-URI.
+		/// </summary>
+		/// <param name="BareJid">To whom the payment is to be made.</param>
+		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="Currency">Currency to pay.</param>
+		/// <param name="Message">Message to be sent to recipient (not encrypted).</param>
+		/// <returns>Incomplete PayMe-URI.</returns>
+		public string CreateIncompletePayMeUri(string BareJid, decimal Amount, string Currency, string Message)
+		{
+			return this.eDalerClient.CreateIncompletePayMeUri(BareJid, Amount, Currency, Message);
+		}
+
+		/// <summary>
+		/// Creates an incomplete PayMe-URI.
+		/// </summary>
+		/// <param name="To">To whom the payment is to be made.</param>
+		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="Currency">Currency to pay.</param>
+		/// <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
+		/// But the message will be unencrypted in the incomplete PeyMe URI.</param>
+		/// <returns>Incomplete PayMe-URI.</returns>
+		public string CreateIncompletePayMeUri(LegalIdentity To, decimal Amount, string Currency, string PrivateMessage)
+		{
+			return this.eDalerClient.CreateIncompletePayMeUri(To, Amount, Currency, PrivateMessage);
 		}
 
 	}

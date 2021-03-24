@@ -26,9 +26,10 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="EncryptedMessage">Encrypted message.</param>
 		/// <param name="PublicKey">Public key used.</param>
+		/// <param name="TransactionId">ID of transaction containing the encrypted message.</param>
 		/// <param name="RemoteEndpoint">Remote endpoint</param>
 		/// <returns>Decrypted string, if successful, or null, if not.</returns>
-		Task<string> TryDecryptMessage(byte[] EncryptedMessage, byte[] PublicKey, string RemoteEndpoint);
+		Task<string> TryDecryptMessage(byte[] EncryptedMessage, byte[] PublicKey, Guid TransactionId, string RemoteEndpoint);
 
 		/// <summary>
 		/// Sends an eDaler URI to the eDaler service.
@@ -110,5 +111,26 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
 		/// <returns>Signed payment URI.</returns>
 		Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, string Currency, int ValidNrDays, string PrivateMessage);
+
+		/// <summary>
+		/// Creates an incomplete PayMe-URI.
+		/// </summary>
+		/// <param name="BareJid">To whom the payment is to be made.</param>
+		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="Currency">Currency to pay.</param>
+		/// <param name="Message">Message to be sent to recipient (not encrypted).</param>
+		/// <returns>Incomplete PayMe-URI.</returns>
+		string CreateIncompletePayMeUri(string BareJid, decimal Amount, string Currency, string Message);
+
+		/// <summary>
+		/// Creates an incomplete PayMe-URI.
+		/// </summary>
+		/// <param name="To">To whom the payment is to be made.</param>
+		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="Currency">Currency to pay.</param>
+		/// <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
+		/// But the message will be unencrypted in the incomplete PeyMe URI.</param>
+		/// <returns>Incomplete PayMe-URI.</returns>
+		string CreateIncompletePayMeUri(LegalIdentity To, decimal Amount, string Currency, string PrivateMessage);
 	}
 }

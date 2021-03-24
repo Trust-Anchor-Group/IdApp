@@ -317,31 +317,14 @@ namespace IdApp.ViewModels.Wallet
 
 		private Task GenerateQrCode()
 		{
-			StringBuilder Uri = new StringBuilder();
-
-			Uri.Append("edaler:am=");
-			Uri.Append(CommonTypes.Encode(this.Amount));
-			Uri.Append(";cu=");
-			Uri.Append(this.Currency);
+			string Uri;
 
 			if (this.EncryptMessage)
-			{
-				Uri.Append(";ti=");
-				Uri.Append(this.tagProfile.LegalIdentity.Id);
-			}
+				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.tagProfile.LegalIdentity, this.Amount, this.Currency, this.Message);
 			else
-			{
-				Uri.Append(";t=");
-				Uri.Append(this.NeuronService.Xmpp.BareJID);
-			}
+				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.NeuronService.Xmpp.BareJID, this.Amount, this.Currency, this.Message);
 
-			if (!string.IsNullOrEmpty(this.Message))
-			{
-				Uri.Append(";m=");
-				Uri.Append(Convert.ToBase64String(Encoding.UTF8.GetBytes(this.Message)));
-			}
-
-			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri.ToString(), 300, 300);
+			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri, 300, 300);
 			this.QrCodePng = Bin;
 
 			if (this.IsBound)
