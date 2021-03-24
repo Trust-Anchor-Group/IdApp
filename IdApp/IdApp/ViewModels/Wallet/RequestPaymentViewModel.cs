@@ -338,7 +338,7 @@ namespace IdApp.ViewModels.Wallet
 			if (!string.IsNullOrEmpty(this.Message))
 			{
 				Uri.Append(";m=");
-				Uri.Append(this.Message);
+				Uri.Append(Convert.ToBase64String(Encoding.UTF8.GetBytes(this.Message)));
 			}
 
 			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri.ToString(), 300, 300);

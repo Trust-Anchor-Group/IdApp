@@ -79,6 +79,7 @@ namespace IdApp.ViewModels.Wallet
 		private void AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments,
 			AccountEvent[] Events, bool More)
 		{
+			this.Balance = Balance;
 			this.Amount = Balance.Amount;
 			this.Currency = Balance.Currency;
 			this.Timestamp = Balance.Timestamp;
@@ -142,6 +143,21 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// See <see cref="Balance"/>
+		/// </summary>
+		public static readonly BindableProperty BalanceProperty =
+			BindableProperty.Create("Balance", typeof(Balance), typeof(MyWalletViewModel), default(Balance));
+
+		/// <summary>
+		/// Balance of eDaler to process
+		/// </summary>
+		public Balance Balance
+		{
+			get { return (Balance)GetValue(BalanceProperty); }
+			set { SetValue(BalanceProperty, value); }
+		}
 
 		/// <summary>
 		/// See <see cref="Amount"/>
@@ -297,7 +313,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private async Task RequestPayment()
 		{
-			await this.navigationService.GoToAsync(nameof(RequestPaymentPage));
+			await this.navigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
 		}
 
 	}

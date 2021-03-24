@@ -6921,6 +6921,16 @@
         <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.BalanceProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Balance"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Balance">
+            <summary>
+            Balance of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Wallet.MyWalletViewModel.AmountProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Wallet.MyWalletViewModel.Amount"/>
