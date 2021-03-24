@@ -434,6 +434,11 @@
               Looks up a localized string similar to This eDaler code has expired..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ExpiresAt">
+            <summary>
+              Looks up a localized string similar to (Expires {0}).
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.FailedToLoadPhoto">
             <summary>
               Looks up a localized string similar to Failed to load photo.
@@ -462,6 +467,11 @@
         <member name="P:IdApp.AppResources.GeneralInformationInfoText">
             <summary>
               Looks up a localized string similar to Following is some general information about the contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.GeneratePayment">
+            <summary>
+              Looks up a localized string similar to Generate Payment.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.GenerateQrCode">
@@ -812,6 +822,21 @@
         <member name="P:IdApp.AppResources.PasswordsDoNotMatch">
             <summary>
               Looks up a localized string similar to Passwords do not match.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PayEDaler">
+            <summary>
+              Looks up a localized string similar to Pay eDaler.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Payment">
+            <summary>
+              Looks up a localized string similar to Payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PaymentDescription">
+            <summary>
+              Looks up a localized string similar to Enter the amount of eDaler to pay to the recipient below. Once done, you generate the payment by clicking the Generate button..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PeerReview">
@@ -6713,7 +6738,7 @@
             The view model to bind to for when displaying the contents of an eDaler URI.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Views.Wallet.PaymentPage)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -6745,6 +6770,46 @@
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount">
             <summary>
             Amount of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountOkProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountOk"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountOk">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/> is OK.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountColorProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountColor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountColor">
+            <summary>
+            Color of <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/> field.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountText">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountPresetProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountPreset"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountPreset">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/> is preset.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CurrencyProperty">
@@ -6817,6 +6882,16 @@
             To whom eDaler is to be transferred
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToPresetProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToPreset"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToPreset">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.To"/> is preset
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToTypeProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ToType"/>
@@ -6844,7 +6919,17 @@
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Message">
             <summary>
-            Message of eDaler to process
+            Message to recipient
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.EncryptMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.EncryptMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.EncryptMessage">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Message"/> should be encrypted in payment.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessageProperty">
@@ -6854,12 +6939,77 @@
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasMessage">
             <summary>
-            HasMessage of eDaler to process
+            If a message is defined
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.MessagePresetProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.MessagePreset"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.MessagePreset">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Message"/> is preset.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCode">
+            <summary>
+            Gets or sets the current user's identity as a QR code image.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasQrCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasQrCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.HasQrCode">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodePngProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodePng"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodePng">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodeWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodeWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodeWidth">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodeHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodeHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCodeHeight">
+            <summary>
+            Gets or sets if a <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.QrCode"/> exists for the current user.
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AcceptCommand">
             <summary>
-            The command to bind to for claiming a thing
+            The command to bind to for accepting the URI
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept">
+            <summary>
+            Gets or sets whether a user can accept the URI or not.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAcceptProperty">
@@ -6867,9 +7017,14 @@
             See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept">
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.GenerateQrCodeCommand">
             <summary>
-            Gets or sets whether a user can accept the URI or not.
+            The command to bind to for generating a QR code
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ShareCommand">
+            <summary>
+            The command to bind to for sharing the QR code
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.UsePin">
@@ -7055,6 +7210,11 @@
         <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Expires">
             <summary>
             When pending payment expires
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.ExpiresStr">
+            <summary>
+            String representation of <see cref="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Expires"/>
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Currency">
@@ -7916,6 +8076,27 @@
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
             <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Wallet.PaymentPage">
+            <summary>
+            A page that allows the user to realize payments.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PaymentPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.PaymentPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PaymentPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PaymentPage.ShowQrCode">
+            <summary>
+            Scrolls to display the QR-code.
+            </summary>
         </member>
         <member name="T:IdApp.Views.Wallet.RequestPaymentPage">
             <summary>

@@ -1,4 +1,5 @@
-﻿using IdApp.ViewModels.Wallet;
+﻿using System.Threading.Tasks;
+using IdApp.ViewModels.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Forms;
@@ -7,17 +8,17 @@ using Xamarin.Forms.Xaml;
 namespace IdApp.Views.Wallet
 {
     /// <summary>
-    /// A page that allows the user to receive newly issued eDaler.
+    /// A page that allows the user to realize payments.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class IssueEDalerPage
+	public partial class PaymentPage
     {
         private readonly INavigationService navigationService;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="IssueEDalerPage"/> class.
+        /// Creates a new instance of the <see cref="PaymentPage"/> class.
         /// </summary>
-		public IssueEDalerPage()
+		public PaymentPage()
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.ViewModel = new EDalerUriViewModel(
@@ -27,7 +28,7 @@ namespace IdApp.Views.Wallet
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
                 DependencyService.Resolve<ILogService>(),
-                null);
+                this);
 
             InitializeComponent();
         }
@@ -41,5 +42,13 @@ namespace IdApp.Views.Wallet
             this.navigationService.GoBackAsync();
             return true;
         }
-	}
+
+        /// <summary>
+        /// Scrolls to display the QR-code.
+        /// </summary>
+        public async Task ShowQrCode()
+        {
+            await this.ScrollView.ScrollToAsync(this.ShareButton, ScrollToPosition.MakeVisible, true);
+        }
+    }
 }

@@ -115,6 +115,7 @@
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
             <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="Margin" Value="0,5,0,10"/>
         </Style>
         <Style TargetType="Entry"
                ApplyToDerivedTypes="True"

@@ -342,6 +342,9 @@
   <data name="ExpiredEDalerUri" xml:space="preserve">
     <value>Den här eDaler-koden har upphört att gälla.</value>
   </data>
+  <data name="ExpiresAt" xml:space="preserve">
+    <value>(Går ut {0})</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>
@@ -356,6 +359,9 @@
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
     <value>Nedan visas lite allmän information om kontraktet.</value>
+  </data>
+  <data name="GeneratePayment" xml:space="preserve">
+    <value>Generera betalning</value>
   </data>
   <data name="GenerateQrCode" xml:space="preserve">
     <value>Generera QR-kod</value>
@@ -566,6 +572,15 @@
   </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Lösenorden matchar inte</value>
+  </data>
+  <data name="PayEDaler" xml:space="preserve">
+    <value>Betala eDaler</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Betalning</value>
+  </data>
+  <data name="PaymentDescription" xml:space="preserve">
+    <value>Ange antalet eDaler som ska betalas till mottagaren nedan. När du är klar, genererar du betalningen genom att klicka på Generera-knappen.</value>
   </data>
   <data name="PeerReview" xml:space="preserve">
     <value>Granskning av jämbördig</value>

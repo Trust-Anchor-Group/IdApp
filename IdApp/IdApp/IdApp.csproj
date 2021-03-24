@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EDaler" Version="1.0.5" />
+    <PackageReference Include="EDaler" Version="1.0.6" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="Waher.Content" Version="1.0.30" />
     <PackageReference Include="Waher.Content.Xml" Version="1.0.12" />
@@ -129,6 +129,9 @@
     </Compile>
     <Compile Update="Views\Things\ViewClaimThingPage.xaml.cs">
       <DependentUpon>ViewClaimThingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\Wallet\PaymentPage.xaml.cs">
+      <DependentUpon>PaymentPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\Wallet\RequestPaymentPage.xaml.cs">
       <DependentUpon>RequestPaymentPage.xaml</DependentUpon>

@@ -1,12 +1,15 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
 using IdApp.Navigation.Wallet;
+using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Tag.Neuron.Xamarin.UI;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -22,6 +25,7 @@ namespace IdApp.ViewModels.Wallet
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
+		private readonly PaymentPage page;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -32,15 +36,19 @@ namespace IdApp.ViewModels.Wallet
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
-			ILogService logService)
+			ILogService logService,
+			PaymentPage Page)
 		: base(neuronService, uiDispatcher)
 		{
 			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
+			this.page = Page;
 
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
+			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
+			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
 
 			this.FromClickCommand = new Command(async x => await this.FromLabelClicked());
 		}
@@ -62,7 +70,13 @@ namespace IdApp.ViewModels.Wallet
 				this.FromType = args.Uri.FromType;
 				this.To = args.Uri.To;
 				this.ToType = args.Uri.ToType;
+				this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
 				this.Complete = args.Uri.Complete;
+
+				this.AmountText = this.Amount <= 0 ? string.Empty : this.Amount.ToString();
+				this.AmountOk = decimal.TryParse(this.AmountText, out decimal d) && d > 0;
+				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
+				this.HasQrCode = false;
 
 				StringBuilder Url = new StringBuilder();
 
@@ -84,6 +98,9 @@ namespace IdApp.ViewModels.Wallet
 
 					this.HasMessage = !string.IsNullOrEmpty(this.Message);
 				}
+			
+				this.MessagePreset = !string.IsNullOrEmpty(this.Message);
+				this.EncryptMessage = args.Uri.ToType == EntityType.LegalId;
 			}
 
 			AssignProperties();
@@ -105,7 +122,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.AcceptCommand);
+			this.EvaluateCommands(this.AcceptCommand, this.GenerateQrCodeCommand, this.ShareCommand);
 		}
 
 		/// <inheritdoc/>
@@ -153,6 +170,83 @@ namespace IdApp.ViewModels.Wallet
 		{
 			get { return (decimal)GetValue(AmountProperty); }
 			set { SetValue(AmountProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountOk"/>
+		/// </summary>
+		public static readonly BindableProperty AmountOkProperty =
+			BindableProperty.Create("AmountOk", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="Amount"/> is OK.
+		/// </summary>
+		public bool AmountOk
+		{
+			get { return (bool)GetValue(AmountOkProperty); }
+			set { SetValue(AmountOkProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountColor"/>
+		/// </summary>
+		public static readonly BindableProperty AmountColorProperty =
+			BindableProperty.Create("AmountColor", typeof(Color), typeof(EDalerUriViewModel), default(Color));
+
+		/// <summary>
+		/// Color of <see cref="Amount"/> field.
+		/// </summary>
+		public Color AmountColor
+		{
+			get { return (Color)GetValue(AmountColorProperty); }
+			set { SetValue(AmountColorProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountText"/>
+		/// </summary>
+		public static readonly BindableProperty AmountTextProperty =
+			BindableProperty.Create("AmountText", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// <see cref="Amount"/> as text.
+		/// </summary>
+		public string AmountText
+		{
+			get { return (string)GetValue(AmountTextProperty); }
+			set
+			{
+				SetValue(AmountTextProperty, value);
+
+				if (decimal.TryParse(value, out decimal d) && d > 0)
+				{
+					this.Amount = d;
+					this.AmountOk = true;
+					this.AmountColor = Color.Default;
+				}
+				else
+				{
+					this.AmountOk = false;
+					this.AmountColor = Color.Salmon;
+				}
+
+				this.EvaluateCommands(this.GenerateQrCodeCommand);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AmountPreset"/>
+		/// </summary>
+		public static readonly BindableProperty AmountPresetProperty =
+			BindableProperty.Create("AmountPreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="Amount"/> is preset.
+		/// </summary>
+		public bool AmountPreset
+		{
+			get { return (bool)GetValue(AmountPresetProperty); }
+			set { SetValue(AmountPresetProperty, value); }
 		}
 
 		/// <summary>
@@ -261,6 +355,21 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		/// <summary>
+		/// See <see cref="ToPreset"/>
+		/// </summary>
+		public static readonly BindableProperty ToPresetProperty =
+			BindableProperty.Create("ToPreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="To"/> is preset
+		/// </summary>
+		public bool ToPreset
+		{
+			get { return (bool)GetValue(ToPresetProperty); }
+			set { SetValue(ToPresetProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="ToType"/>
 		/// </summary>
 		public static readonly BindableProperty ToTypeProperty =
@@ -297,12 +406,27 @@ namespace IdApp.ViewModels.Wallet
 			BindableProperty.Create("Message", typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
-		/// Message of eDaler to process
+		/// Message to recipient
 		/// </summary>
 		public string Message
 		{
 			get { return (string)GetValue(MessageProperty); }
 			set { SetValue(MessageProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="EncryptMessage"/>
+		/// </summary>
+		public static readonly BindableProperty EncryptMessageProperty =
+			BindableProperty.Create("EncryptMessage", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="Message"/> should be encrypted in payment.
+		/// </summary>
+		public bool EncryptMessage
+		{
+			get { return (bool)GetValue(EncryptMessageProperty); }
+			set { SetValue(EncryptMessageProperty, value); }
 		}
 
 		/// <summary>
@@ -312,7 +436,7 @@ namespace IdApp.ViewModels.Wallet
 			BindableProperty.Create("HasMessage", typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
-		/// HasMessage of eDaler to process
+		/// If a message is defined
 		/// </summary>
 		public bool HasMessage
 		{
@@ -321,15 +445,104 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		/// <summary>
-		/// The command to bind to for claiming a thing
+		/// See <see cref="MessagePreset"/>
 		/// </summary>
-		public ICommand AcceptCommand { get; }
+		public static readonly BindableProperty MessagePresetProperty =
+			BindableProperty.Create("MessagePreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
-		/// See <see cref="CanAccept"/>
+		/// If <see cref="Message"/> is preset.
 		/// </summary>
-		public static readonly BindableProperty CanAcceptProperty =
-			BindableProperty.Create("CanAccept", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+		public bool MessagePreset
+		{
+			get { return (bool)GetValue(MessagePresetProperty); }
+			set { SetValue(MessagePresetProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="QrCode"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodeProperty =
+			BindableProperty.Create("QrCode", typeof(ImageSource), typeof(EDalerUriViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			{
+				EDalerUriViewModel viewModel = (EDalerUriViewModel)b;
+				viewModel.HasQrCode = !(newValue is null);
+			});
+
+
+		/// <summary>
+		/// Gets or sets the current user's identity as a QR code image.
+		/// </summary>
+		public ImageSource QrCode
+		{
+			get { return (ImageSource)GetValue(QrCodeProperty); }
+			set { SetValue(QrCodeProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="HasQrCode"/>
+		/// </summary>
+		public static readonly BindableProperty HasQrCodeProperty =
+			BindableProperty.Create("HasQrCode", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
+		/// </summary>
+		public bool HasQrCode
+		{
+			get { return (bool)GetValue(HasQrCodeProperty); }
+			set { SetValue(HasQrCodeProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="QrCodePng"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodePngProperty =
+			BindableProperty.Create("QrCodePng", typeof(byte[]), typeof(EDalerUriViewModel), default(byte[]));
+
+		/// <summary>
+		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
+		/// </summary>
+		public byte[] QrCodePng
+		{
+			get { return (byte[])GetValue(QrCodePngProperty); }
+			set { SetValue(QrCodePngProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="QrCodeWidth"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodeWidthProperty =
+			BindableProperty.Create("QrCodeWidth", typeof(int), typeof(EDalerUriViewModel), default(int));
+
+		/// <summary>
+		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
+		/// </summary>
+		public int QrCodeWidth
+		{
+			get { return (int)GetValue(QrCodeWidthProperty); }
+			set { SetValue(QrCodeWidthProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="QrCodeHeight"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodeHeightProperty =
+			BindableProperty.Create("QrCodeHeight", typeof(int), typeof(EDalerUriViewModel), default(int));
+
+		/// <summary>
+		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
+		/// </summary>
+		public int QrCodeHeight
+		{
+			get { return (int)GetValue(QrCodeHeightProperty); }
+			set { SetValue(QrCodeHeightProperty, value); }
+		}
+
+		/// <summary>
+		/// The command to bind to for accepting the URI
+		/// </summary>
+		public ICommand AcceptCommand { get; }
 
 		/// <summary>
 		/// Gets or sets whether a user can accept the URI or not.
@@ -338,6 +551,22 @@ namespace IdApp.ViewModels.Wallet
 		{
 			get { return this.NeuronService.State == XmppState.Connected; }
 		}
+
+		/// <summary>
+		/// See <see cref="CanAccept"/>
+		/// </summary>
+		public static readonly BindableProperty CanAcceptProperty =
+			BindableProperty.Create("CanAccept", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// The command to bind to for generating a QR code
+		/// </summary>
+		public ICommand GenerateQrCodeCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for sharing the QR code
+		/// </summary>
+		public ICommand ShareCommand { get; }
 
 		/// <summary>
 		/// If PIN should be used.
@@ -429,5 +658,63 @@ namespace IdApp.ViewModels.Wallet
 				await this.UiDispatcher.DisplayAlert(ex);
 			}
 		}
+
+		private async Task GenerateQrCode()
+		{
+			string Uri;
+
+			if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+			{
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				return;
+			}
+
+			if (this.EncryptMessage)
+				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.Currency, 3, this.Message);
+			else
+				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.Currency, 3, this.Message);
+
+			// TODO: Validate To is a Bare JID or proper Legal Identity
+			// TODO: Offline options: Expiry days
+
+			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri, 300, 300);
+			this.QrCodePng = Bin;
+
+			if (this.IsBound)
+			{
+				this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+				{
+					this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
+					this.QrCodeWidth = 300;
+					this.QrCodeHeight = 300;
+					this.HasQrCode = true;
+
+					this.EvaluateCommands(this.ShareCommand);
+
+					if (!(this.page is null))
+						await this.page.ShowQrCode();
+				});
+			}
+		}
+
+		private bool CanGenerateQrCode() => this.AmountOk;	// TODO: Add To field OK
+		private bool CanShare() => this.HasQrCode;
+
+		private async Task Share()
+		{
+			try
+			{
+				IShareContent shareContent = DependencyService.Get<IShareContent>();
+
+				shareContent.ShareImage(this.QrCodePng, string.Format(AppResources.RequestPaymentMessage, this.Amount, this.Currency),
+					AppResources.Share, "RequestPayment.png");
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
+		}
+
 	}
 }

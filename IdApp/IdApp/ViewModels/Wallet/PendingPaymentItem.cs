@@ -30,6 +30,11 @@ namespace IdApp.ViewModels.Wallet
 		public DateTime Expires => this.pendingPayment.Expires;
 
 		/// <summary>
+		/// String representation of <see cref="Expires"/>
+		/// </summary>
+		public string ExpiresStr => string.Format(AppResources.ExpiresAt, this.Expires.ToShortDateString());
+
+		/// <summary>
 		/// Currency of pending payment
 		/// </summary>
 		public string Currency => this.pendingPayment.Currency.Value;

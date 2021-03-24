@@ -8,7 +8,8 @@
     <Grid>
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
-                <Frame HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" BackgroundColor="{StaticResource HeadingBackground}">
+                <Frame HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" Margin="0,0,0,10"
+                       BackgroundColor="{StaticResource HeadingBackground}">
                     <Grid HeightRequest="150" WidthRequest="10000">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -44,31 +45,38 @@
                 </Frame>
 
                 <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}" Orientation="Vertical"
-                             BindableLayout.ItemsSource="{Binding Path=PendingPayments}" VerticalOptions="StartAndExpand"
-                             Margin="{StaticResource DefaultMargin}">
+                             BindableLayout.ItemsSource="{Binding Path=PendingPayments}" VerticalOptions="Start">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=To}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
-                                <Label LineBreakMode="WordWrap" TextColor="{StaticResource PendingColor}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=To}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=ExpiresStr}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Italic"/>
+                                <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="WordWrap" TextColor="{StaticResource PendingColor}" HorizontalTextAlignment="End">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="(-"/>
-                                            <Span Text="{Binding Path=Amount}" FontAttributes="Bold"/>
+                                            <Span Text="-" FontSize="30" FontAttributes="Bold"/>
+                                            <Span Text="{Binding Path=Amount}" FontSize="30" FontAttributes="Bold"/>
                                             <Span Text=" "/>
-                                            <Span Text="{Binding Path=Currency}"/>
-                                            <Span Text=")"/>
+                                            <Span Text="{Binding Path=Currency}" FontSize="20"/>
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                            </StackLayout>
+                                <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="WordWrap"/>
+                            </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
 
                 <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=HasEvents}" Orientation="Vertical"
-                             BindableLayout.ItemsSource="{Binding Path=Events}" VerticalOptions="StartAndExpand"
-                             Margin="{StaticResource DefaultMargin}">
+                             BindableLayout.ItemsSource="{Binding Path=Events}" VerticalOptions="StartAndExpand">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <Grid>

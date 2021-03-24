@@ -736,6 +736,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Expires {0}).
+        /// </summary>
+        internal static string ExpiresAt {
+            get {
+                return ResourceManager.GetString("ExpiresAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load photo.
         /// </summary>
         internal static string FailedToLoadPhoto {
@@ -786,6 +795,15 @@ namespace IdApp {
         internal static string GeneralInformationInfoText {
             get {
                 return ResourceManager.GetString("GeneralInformationInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generate Payment.
+        /// </summary>
+        internal static string GeneratePayment {
+            get {
+                return ResourceManager.GetString("GeneratePayment", resourceCulture);
             }
         }
         
@@ -1416,6 +1434,33 @@ namespace IdApp {
         internal static string PasswordsDoNotMatch {
             get {
                 return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay eDaler.
+        /// </summary>
+        internal static string PayEDaler {
+            get {
+                return ResourceManager.GetString("PayEDaler", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment.
+        /// </summary>
+        internal static string Payment {
+            get {
+                return ResourceManager.GetString("Payment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the amount of eDaler to pay to the recipient below. Once done, you generate the payment by clicking the Generate button..
+        /// </summary>
+        internal static string PaymentDescription {
+            get {
+                return ResourceManager.GetString("PaymentDescription", resourceCulture);
             }
         }
         

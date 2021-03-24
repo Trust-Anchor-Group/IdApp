@@ -133,9 +133,12 @@ namespace IdApp.Services
 			{
 				// TODO
 			}
-			else if (Parsed is EDalerIncompletePaymeUri)	// Incomplete URI
+			else if (Parsed is EDalerIncompletePaymeUri)
 			{
-				// TODO
+				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				{
+					await this.navigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed));
+				});
 			}
 			else
 			{
