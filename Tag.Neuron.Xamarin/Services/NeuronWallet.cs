@@ -85,16 +85,7 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			try
 			{
-				// TODO: Replace with method overload from EDaler v1.0.3:
-				if (!string.IsNullOrEmpty(RemoteEndpoint) && !(PublicKey is null))
-				{
-					string RemotePublicKey = await RuntimeSettings.GetAsync("EDaler.Remote.Key." + RemoteEndpoint, string.Empty);
-
-					if (!string.IsNullOrEmpty(RemotePublicKey))
-						PublicKey = Convert.FromBase64String(RemotePublicKey);
-				}
-
-				return await this.eDalerClient.DecryptMessage(EncryptedMessage, PublicKey);
+				return await this.eDalerClient.DecryptMessage(EncryptedMessage, PublicKey, RemoteEndpoint);
 			}
 			catch (Exception ex)
 			{
@@ -176,7 +167,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <returns>Signed payment URI.</returns>
 		public Task<string> CreateFullPaymentUri(string ToBareJid, decimal Amount, string Currency, int ValidNrDays, string Message)
 		{
-			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, Currency, ValidNrDays);	// TODO: , Message);
+			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, Currency, ValidNrDays, Message);
 		}
 
 		/// <summary>
