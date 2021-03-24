@@ -168,7 +168,7 @@ namespace IdApp.ViewModels
         {
             this.uiDispatcher.BeginInvokeOnMainThread(() =>
             {
-                this.ConnectionStateText = e.State.ToDisplayText(this.tagProfile.Domain);
+                this.ConnectionStateText = e.State.ToDisplayText(this.tagProfile);
                 this.IsConnected = e.State == XmppState.Connected;
                 this.UserIsLoggedOut = this.neuronService.IsLoggedOut;
                 this.UpdateLogInLogOutMenuItem();

@@ -570,7 +570,7 @@ namespace IdApp.ViewModels
             
             // Neuron server
             this.IsConnected = state == XmppState.Connected;
-            this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);
+            this.ConnectionStateText = state.ToDisplayText(this.tagProfile);
             
             // Neuron Contracts
             this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;

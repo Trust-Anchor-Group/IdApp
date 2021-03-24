@@ -1,4 +1,5 @@
-﻿using Waher.Networking.XMPP;
+﻿using Tag.Neuron.Xamarin.Services;
+using Waher.Networking.XMPP;
 
 namespace IdApp.Extensions
 {
@@ -11,9 +12,9 @@ namespace IdApp.Extensions
         /// Converts the state to a localized string.
         /// </summary>
         /// <param name="state">The state to convert.</param>
-        /// <param name="domain">The domain, if any.</param>
+        /// <param name="TagProfile">TAG profile reference.</param>
         /// <returns></returns>
-        public static string ToDisplayText(this XmppState state, string domain)
+        public static string ToDisplayText(this XmppState state, ITagProfile TagProfile)
         {
             switch (state)
             {
@@ -24,9 +25,7 @@ namespace IdApp.Extensions
                     return AppResources.XmppState_Binding;
 
                 case XmppState.Connected:
-                    return !string.IsNullOrWhiteSpace(domain)
-                        ? string.Format(AppResources.XmppState_ConnectedTo, domain)
-                        : AppResources.XmppState_Connected;
+                    return TagProfile is null ? AppResources.XmppState_Connected : TagProfile.Account + "@" + TagProfile.Domain;
 
                 case XmppState.Connecting:
                     return AppResources.XmppState_Connecting;

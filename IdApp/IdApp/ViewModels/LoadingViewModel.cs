@@ -84,7 +84,7 @@ namespace IdApp.ViewModels
         /// <inheritdoc/>
         protected override void SetConnectionStateAndText(XmppState state)
         {
-            this.ConnectionStateText = state.ToDisplayText(this.tagProfile.Domain);
+            this.ConnectionStateText = state.ToDisplayText(this.tagProfile);
             this.IsConnected = state == XmppState.Connected;
         }
 

@@ -1665,12 +1665,12 @@
             Extensions for the <see cref="T:Waher.Networking.XMPP.XmppState"/> enum.
             </summary>
         </member>
-        <member name="M:IdApp.Extensions.XmppStateExtensions.ToDisplayText(Waher.Networking.XMPP.XmppState,System.String)">
+        <member name="M:IdApp.Extensions.XmppStateExtensions.ToDisplayText(Waher.Networking.XMPP.XmppState,Tag.Neuron.Xamarin.Services.ITagProfile)">
             <summary>
             Converts the state to a localized string.
             </summary>
             <param name="state">The state to convert.</param>
-            <param name="domain">The domain, if any.</param>
+            <param name="TagProfile">TAG profile reference.</param>
             <returns></returns>
         </member>
         <member name="T:IdApp.Icons">
