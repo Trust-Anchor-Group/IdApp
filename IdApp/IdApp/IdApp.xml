@@ -474,11 +474,6 @@
               Looks up a localized string similar to Following is some general information about the contract..
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.GeneratePayment">
-            <summary>
-              Looks up a localized string similar to Generate Payment.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.GenerateQrCode">
             <summary>
               Looks up a localized string similar to Generate QR Code.
@@ -841,7 +836,17 @@
         </member>
         <member name="P:IdApp.AppResources.PaymentDescription">
             <summary>
-              Looks up a localized string similar to Enter the amount of eDaler to pay to the recipient below. Once done, you generate the payment by clicking the Generate button..
+              Looks up a localized string similar to Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PayOffline">
+            <summary>
+              Looks up a localized string similar to Pay offline.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PayOnline">
+            <summary>
+              Looks up a localized string similar to Pay online.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PeerReview">
@@ -7070,6 +7075,11 @@
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAcceptProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.CanAccept"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.PayOnlineCommand">
+            <summary>
+            The command to bind to for paying online
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.GenerateQrCodeCommand">

@@ -366,9 +366,6 @@
   <data name="GeneralInformationInfoText" xml:space="preserve">
     <value>Following is some general information about the contract.</value>
   </data>
-  <data name="GeneratePayment" xml:space="preserve">
-    <value>Generate Payment</value>
-  </data>
   <data name="GenerateQrCode" xml:space="preserve">
     <value>Generate QR Code</value>
   </data>
@@ -586,7 +583,13 @@
     <value>Payment</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Enter the amount of eDaler to pay to the recipient below. Once done, you generate the payment by clicking the Generate button.</value>
+    <value>Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button.</value>
+  </data>
+  <data name="PayOffline" xml:space="preserve">
+    <value>Pay offline</value>
+  </data>
+  <data name="PayOnline" xml:space="preserve">
+    <value>Pay online</value>
   </data>
   <data name="PeerReview" xml:space="preserve">
     <value>Peer Review</value>

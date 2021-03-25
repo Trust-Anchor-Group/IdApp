@@ -808,15 +808,6 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Generate Payment.
-        /// </summary>
-        internal static string GeneratePayment {
-            get {
-                return ResourceManager.GetString("GeneratePayment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Generate QR Code.
         /// </summary>
         internal static string GenerateQrCode {
@@ -1465,11 +1456,29 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the amount of eDaler to pay to the recipient below. Once done, you generate the payment by clicking the Generate button..
+        ///   Looks up a localized string similar to Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button..
         /// </summary>
         internal static string PaymentDescription {
             get {
                 return ResourceManager.GetString("PaymentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay offline.
+        /// </summary>
+        internal static string PayOffline {
+            get {
+                return ResourceManager.GetString("PayOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay online.
+        /// </summary>
+        internal static string PayOnline {
+            get {
+                return ResourceManager.GetString("PayOnline", resourceCulture);
             }
         }
         

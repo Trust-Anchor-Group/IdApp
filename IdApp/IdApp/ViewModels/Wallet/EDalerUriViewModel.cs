@@ -49,6 +49,7 @@ namespace IdApp.ViewModels.Wallet
 
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
+			this.PayOnlineCommand = new Command(async _ => await this.PayOnline(), _ => this.CanPayOnline());
 			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
 
 			this.FromClickCommand = new Command(async x => await this.FromLabelClicked());
@@ -128,7 +129,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.AcceptCommand, this.GenerateQrCodeCommand, this.ShareCommand);
+			this.EvaluateCommands(this.AcceptCommand, this.PayOnlineCommand, this.GenerateQrCodeCommand, this.ShareCommand);
 		}
 
 		/// <inheritdoc/>
@@ -236,7 +237,7 @@ namespace IdApp.ViewModels.Wallet
 					this.AmountColor = Color.Salmon;
 				}
 
-				this.EvaluateCommands(this.GenerateQrCodeCommand);
+				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand);
 			}
 		}
 
@@ -334,7 +335,7 @@ namespace IdApp.ViewModels.Wallet
 					this.AmountExtraColor = Color.Salmon;
 				}
 
-				this.EvaluateCommands(this.GenerateQrCodeCommand);
+				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand);
 			}
 		}
 
@@ -663,6 +664,11 @@ namespace IdApp.ViewModels.Wallet
 			BindableProperty.Create("CanAccept", typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
+		/// The command to bind to for paying online
+		/// </summary>
+		public ICommand PayOnlineCommand { get; }
+
+		/// <summary>
 		/// The command to bind to for generating a QR code
 		/// </summary>
 		public ICommand GenerateQrCodeCommand { get; }
@@ -763,51 +769,99 @@ namespace IdApp.ViewModels.Wallet
 			}
 		}
 
+		private async Task PayOnline()
+		{
+			try
+			{
+				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+				{
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					return;
+				}
+
+				string Uri;
+
+				if (this.EncryptMessage)
+				{
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+						this.Currency, 3, this.Message);
+				}
+				else
+				{
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+						this.Currency, 3, this.Message);
+				}
+
+				// TODO: Validate To is a Bare JID or proper Legal Identity
+				// TODO: Offline options: Expiry days
+
+				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(Uri));
+				if (succeeded)
+					await this.navigationService.GoBackAsync();
+				else
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
+		}
+
 		private async Task GenerateQrCode()
 		{
-			string Uri;
-
 			if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
 			{
 				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 				return;
 			}
 
-			if (this.EncryptMessage)
+			try
 			{
-				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
-					this.Currency, 3, this.Message);
-			}
-			else
-			{
-				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
-					this.Currency, 3, this.Message);
-			}
+				string Uri;
 
-			// TODO: Validate To is a Bare JID or proper Legal Identity
-			// TODO: Offline options: Expiry days
-
-			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri, 300, 300);
-			this.QrCodePng = Bin;
-
-			if (this.IsBound)
-			{
-				this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+				if (this.EncryptMessage)
 				{
-					this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
-					this.QrCodeWidth = 300;
-					this.QrCodeHeight = 300;
-					this.HasQrCode = true;
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+						this.Currency, 3, this.Message);
+				}
+				else
+				{
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+						this.Currency, 3, this.Message);
+				}
 
-					this.EvaluateCommands(this.ShareCommand);
+				// TODO: Validate To is a Bare JID or proper Legal Identity
+				// TODO: Offline options: Expiry days
 
-					if (!(this.page is null))
-						await this.page.ShowQrCode();
-				});
+				byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri, 300, 300);
+				this.QrCodePng = Bin;
+
+				if (this.IsBound)
+				{
+					this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+					{
+						this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
+						this.QrCodeWidth = 300;
+						this.QrCodeHeight = 300;
+						this.HasQrCode = true;
+
+						this.EvaluateCommands(this.ShareCommand);
+
+						if (!(this.page is null))
+							await this.page.ShowQrCode();
+					});
+				}
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
 			}
 		}
 
-		private bool CanGenerateQrCode() => this.AmountOk;	// TODO: Add To field OK
+		private bool CanPayOnline() => this.AmountOk && this.AmountExtraOk && !this.HasQrCode && this.IsConnected; // TODO: Add To field OK
+		private bool CanGenerateQrCode() => this.AmountOk && this.AmountExtraOk && !this.HasQrCode;	// TODO: Add To field OK
 		private bool CanShare() => this.HasQrCode;
 
 		private async Task Share()
