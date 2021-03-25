@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using EDaler;
 using IdApp.Navigation.Wallet;
 using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
@@ -167,7 +165,7 @@ namespace IdApp.ViewModels.Wallet
 			{
 				SetValue(AmountTextProperty, value);
 
-				if (decimal.TryParse(value, out decimal d) && d > 0)
+				if (CommonTypes.TryParse(value, out decimal d) && d > 0)
 				{
 					this.Amount = d;
 					this.AmountOk = true;
@@ -250,7 +248,7 @@ namespace IdApp.ViewModels.Wallet
 					this.AmountExtraOk = true;
 					this.AmountExtraColor = Color.Default;
 				}
-				else if (decimal.TryParse(value, out decimal d) && d >= 0)
+				else if (CommonTypes.TryParse(value, out decimal d) && d >= 0)
 				{
 					this.AmountExtra = d;
 					this.AmountExtraOk = true;

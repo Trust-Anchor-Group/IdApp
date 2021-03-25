@@ -13,6 +13,8 @@
                 <!-- Note -->
                 <Label Text="{x:Static local:AppResources.Amount}"/>
                 <Entry Text="{Binding Path=AmountText}" BackgroundColor="{Binding Path=AmountColor}" Placeholder="{Binding Path=Currency}"/>
+                <Label Text="{x:Static local:AppResources.AmountExtra}"/>
+                <Entry Text="{Binding Path=AmountExtraText}" BackgroundColor="{Binding Path=AmountExtraColor}" Placeholder="{Binding Path=Currency}"/>
                 <Label Text="{x:Static local:AppResources.Message}"/>
                 <Entry Text="{Binding Path=Message}"/>
                 <StackLayout Orientation="Horizontal" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">

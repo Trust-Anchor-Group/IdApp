@@ -10,6 +10,7 @@ using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
+using Waher.Content;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -76,7 +77,7 @@ namespace IdApp.ViewModels.Wallet
 				this.HasQrCode = false;
 
 				this.AmountText = this.Amount <= 0 ? string.Empty : this.Amount.ToString();
-				this.AmountOk = decimal.TryParse(this.AmountText, out decimal d) && d > 0;
+				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
 				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
 
 				this.AmountExtraText = this.AmountExtra.HasValue ? this.AmountExtra.Value.ToString() : string.Empty;
@@ -223,7 +224,7 @@ namespace IdApp.ViewModels.Wallet
 			{
 				SetValue(AmountTextProperty, value);
 
-				if (decimal.TryParse(value, out decimal d) && d > 0)
+				if (CommonTypes.TryParse(value, out decimal d) && d > 0)
 				{
 					this.Amount = d;
 					this.AmountOk = true;
@@ -321,7 +322,7 @@ namespace IdApp.ViewModels.Wallet
 					this.AmountExtraOk = true;
 					this.AmountExtraColor = Color.Default;
 				}
-				else if (decimal.TryParse(value, out decimal d) && d >= 0)
+				else if (CommonTypes.TryParse(value, out decimal d) && d >= 0)
 				{
 					this.AmountExtra = d;
 					this.AmountExtraOk = true;

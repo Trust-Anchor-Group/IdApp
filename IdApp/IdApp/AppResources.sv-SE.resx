@@ -150,6 +150,9 @@
   <data name="Amount" xml:space="preserve">
     <value>Belopp:</value>
   </data>
+  <data name="AmountExtra" xml:space="preserve">
+    <value>Belopp extra: (valfritt, förslag)</value>
+  </data>
   <data name="AnErrorHasOccurred" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>

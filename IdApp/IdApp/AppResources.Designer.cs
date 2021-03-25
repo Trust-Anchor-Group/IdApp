@@ -160,6 +160,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount Extra: (optional, suggestion).
+        /// </summary>
+        internal static string AmountExtra {
+            get {
+                return ResourceManager.GetString("AmountExtra", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred.
         /// </summary>
         internal static string AnErrorHasOccurred {

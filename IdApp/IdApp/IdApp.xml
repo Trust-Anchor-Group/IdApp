@@ -114,6 +114,11 @@
               Looks up a localized string similar to Amount:.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.AmountExtra">
+            <summary>
+              Looks up a localized string similar to Amount Extra: (optional, suggestion).
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.AnErrorHasOccurred">
             <summary>
               Looks up a localized string similar to An error has occurred.
