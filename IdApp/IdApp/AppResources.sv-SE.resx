@@ -492,6 +492,9 @@
   <data name="MyCreatedContracts" xml:space="preserve">
     <value>Mina skapade kontrakt</value>
   </data>
+  <data name="MyIdentity" xml:space="preserve">
+    <value>Min identitet</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Namn</value>
   </data>

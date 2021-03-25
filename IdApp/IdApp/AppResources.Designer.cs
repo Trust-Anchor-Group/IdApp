@@ -1186,6 +1186,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to My Identity.
+        /// </summary>
+        internal static string MyIdentity {
+            get {
+                return ResourceManager.GetString("MyIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string Name {

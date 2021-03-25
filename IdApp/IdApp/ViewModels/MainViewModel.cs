@@ -69,7 +69,7 @@ namespace IdApp.ViewModels
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
             this.ViewMyContractsCommand = new Command(async () => await ViewMyContracts(), () => this.IsConnected);
-            this.ScanQrCodeCommand = new Command(async () => await ScanQrCode(), () => this.IsConnected);
+            this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
             this.ViewWalletCommand = new Command(async () => await ViewWallet(), () => this.IsConnected);
         }
 

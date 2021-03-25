@@ -684,6 +684,11 @@
               Looks up a localized string similar to My Created Contracts.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.MyIdentity">
+            <summary>
+              Looks up a localized string similar to My Identity.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Name">
             <summary>
               Looks up a localized string similar to Name.
