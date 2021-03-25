@@ -1,4 +1,4 @@
-﻿using IdApp.ViewModels.Contracts;
+﻿using IdApp.ViewModels.Identity;
 using IdApp.Views.Registration;
 using Moq;
 using NUnit.Framework;
@@ -26,6 +26,7 @@ namespace IdApp.Tests.ViewModels.Contracts
         private readonly Mock<INeuronContracts> neuronContracts;
         private readonly Mock<INavigationService> navigationService;
         private readonly Mock<INetworkService> networkService;
+        private readonly Mock<IEDalerOrchestratorService> eDalerService;
         private readonly Mock<IImageCacheService> imageCacheService;
 
         public ViewIdentityViewModelTests()
@@ -37,6 +38,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             this.neuronContracts = new Mock<INeuronContracts>();
             this.navigationService = new Mock<INavigationService>();
             this.networkService = new Mock<INetworkService>();
+            this.eDalerService = new Mock<IEDalerOrchestratorService>();
             this.imageCacheService = new Mock<IImageCacheService>();
             this.neuronService.Setup(x => x.Contracts).Returns(this.neuronContracts.Object);
             MockForms.Init();
@@ -44,7 +46,9 @@ namespace IdApp.Tests.ViewModels.Contracts
 
         protected override ViewIdentityViewModel AViewModel()
         {
-            return new ViewIdentityViewModel(this.tagProfile.Object, this.uiDispatcher.Object, this.neuronService.Object, this.navigationService.Object, this.networkService.Object, this.logService.Object, this.imageCacheService.Object);
+            return new ViewIdentityViewModel(this.tagProfile.Object, this.uiDispatcher.Object, this.neuronService.Object, 
+                this.navigationService.Object, this.networkService.Object, this.logService.Object, this.eDalerService.Object,
+                this.imageCacheService.Object);
         }
 
         [SetUp]

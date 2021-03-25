@@ -21,7 +21,6 @@ namespace IdApp.ViewModels.Wallet
 		private readonly ITagProfile tagProfile;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
-		private readonly INetworkService networkService;
 		private readonly RequestPaymentPage page;
 
 		/// <summary>
@@ -32,7 +31,6 @@ namespace IdApp.ViewModels.Wallet
 			IUiDispatcher uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
-			INetworkService networkService,
 			ILogService logService,
 			RequestPaymentPage page)
 		: base(neuronService, uiDispatcher)
@@ -40,7 +38,6 @@ namespace IdApp.ViewModels.Wallet
 			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
-			this.networkService = networkService;
 			this.page = page;
 
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());

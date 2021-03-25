@@ -2,12 +2,13 @@
 using IdApp.ViewModels.Contracts;
 using System.ComponentModel;
 using IdApp.Services;
+using IdApp.ViewModels.Identity;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
-namespace IdApp.Views
+namespace IdApp.Views.Identity
 {
     /// <summary>
     /// A page to display when the user wants to view an identity.
@@ -30,6 +31,7 @@ namespace IdApp.Views
                 this.navigationService,
                 DependencyService.Resolve<INetworkService>(),
                 DependencyService.Resolve<ILogService>(),
+                DependencyService.Resolve<IEDalerOrchestratorService>(),
                 DependencyService.Resolve<IImageCacheService>());
             InitializeComponent();
         }

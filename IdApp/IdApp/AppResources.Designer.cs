@@ -115,6 +115,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Contact.
+        /// </summary>
+        internal static string AddContact {
+            get {
+                return ResourceManager.GetString("AddContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add part.
         /// </summary>
         internal static string AddPart {
@@ -1897,6 +1906,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Contact.
+        /// </summary>
+        internal static string RemoveContact {
+            get {
+                return ResourceManager.GetString("RemoveContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report as Compromised.
         /// </summary>
         internal static string ReportAsCompromized {
@@ -2100,6 +2118,15 @@ namespace IdApp {
         internal static string SelectYourRoleInThisContract {
             get {
                 return ResourceManager.GetString("SelectYourRoleInThisContract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send Payment.
+        /// </summary>
+        internal static string SendPaymentTo {
+            get {
+                return ResourceManager.GetString("SendPaymentTo", resourceCulture);
             }
         }
         

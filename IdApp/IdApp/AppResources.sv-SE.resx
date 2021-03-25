@@ -135,6 +135,9 @@
   <data name="Add" xml:space="preserve">
     <value>Lägg till</value>
   </data>
+  <data name="AddContact" xml:space="preserve">
+    <value>Lägg till kontakt</value>
+  </data>
   <data name="AddPart" xml:space="preserve">
     <value>Lägg till del</value>
   </data>
@@ -729,6 +732,9 @@
   <data name="RejectInformation" xml:space="preserve">
     <value>Neka</value>
   </data>
+  <data name="RemoveContact" xml:space="preserve">
+    <value>Ta bort kontakt</value>
+  </data>
   <data name="ReportAsCompromized" xml:space="preserve">
     <value>Rapportera som komprometterad</value>
   </data>
@@ -797,6 +803,9 @@
   </data>
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
     <value>Välj din roll för kontraktet.</value>
+  </data>
+  <data name="SendPaymentTo" xml:space="preserve">
+    <value>Skicka betalning</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
     <value>Serienummer</value>

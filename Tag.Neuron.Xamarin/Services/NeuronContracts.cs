@@ -247,10 +247,15 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.HasPrivateKey(legalIdentityId);
         }
 
-        public Task<LegalIdentity> GetLegalIdentity(string legalIdentityId)
+        public async Task<LegalIdentity> GetLegalIdentity(string legalIdentityId)
         {
             AssertContractsIsAvailable();
-            return contractsClient.GetLegalIdentityAsync(legalIdentityId);
+
+            ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
+            if (!(Info is null) && !(Info.LegalIdentity is null))
+                return Info.LegalIdentity;
+
+            return await contractsClient.GetLegalIdentityAsync(legalIdentityId);
         }
 
         public Task PetitionIdentity(string legalId, string petitionId, string purpose)

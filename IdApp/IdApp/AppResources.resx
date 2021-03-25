@@ -135,6 +135,9 @@
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="AddContact" xml:space="preserve">
+    <value>Add Contact</value>
+  </data>
   <data name="AddPart" xml:space="preserve">
     <value>Add part</value>
   </data>
@@ -729,6 +732,9 @@
   <data name="RejectInformation" xml:space="preserve">
     <value>Reject Information</value>
   </data>
+  <data name="RemoveContact" xml:space="preserve">
+    <value>Remove Contact</value>
+  </data>
   <data name="ReportAsCompromized" xml:space="preserve">
     <value>Report as Compromised</value>
   </data>
@@ -797,6 +803,9 @@
   </data>
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
     <value>Select your role in this contract.</value>
+  </data>
+  <data name="SendPaymentTo" xml:space="preserve">
+    <value>Send Payment</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
     <value>Serial Number</value>

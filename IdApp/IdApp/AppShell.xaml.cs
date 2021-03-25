@@ -5,6 +5,7 @@ using IdApp.Services;
 using IdApp.ViewModels;
 using IdApp.Views;
 using IdApp.Views.Contracts;
+using IdApp.Views.Identity;
 using IdApp.Views.Registration;
 using IdApp.Views.Things;
 using IdApp.Views.Wallet;

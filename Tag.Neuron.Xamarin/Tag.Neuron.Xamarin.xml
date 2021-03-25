@@ -1001,6 +1001,70 @@
             Gets whether the user manually initiated a logout (or login).
             </summary>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.ContactInfo">
+            <summary>
+            Contains information about a contact.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.#ctor">
+            <summary>
+            Contains information about a contact.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.ObjectId">
+            <summary>
+            Object ID
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.BareJid">
+            <summary>
+            Bare JID of contact.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.LegalId">
+            <summary>
+            Legal ID of contact.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.LegalIdentity">
+            <summary>
+            Legal Identity object.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.FriendlyName">
+            <summary>
+            Friendly name.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.SubcribeTo">
+            <summary>
+            Subscribe to this contact
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.AllowSubscriptionFrom">
+            <summary>
+            Allow subscriptions from this contact
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.IsThing">
+            <summary>
+            The contact is a thing
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.FindByBareJid(System.String)">
+            <summary>
+            Finds information about a contact, given its Bare JID.
+            </summary>
+            <param name="BareJid">Bare JID</param>
+            <returns>Contact information, if found.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.FindByLegalId(System.String)">
+            <summary>
+            Finds information about a contact, given its Legal ID.
+            </summary>
+            <param name="LegalId">Legal ID</param>
+            <returns>Contact information, if found.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ICryptoService">
             <summary>
             Cryptographic service that helps create passwords and other security related tasks.

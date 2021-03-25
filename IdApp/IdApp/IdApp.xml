@@ -89,6 +89,11 @@
               Looks up a localized string similar to Add.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.AddContact">
+            <summary>
+              Looks up a localized string similar to Add Contact.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.AddPart">
             <summary>
               Looks up a localized string similar to Add part.
@@ -1079,6 +1084,11 @@
               Looks up a localized string similar to Reject Information.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.RemoveContact">
+            <summary>
+              Looks up a localized string similar to Remove Contact.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ReportAsCompromized">
             <summary>
               Looks up a localized string similar to Report as Compromised.
@@ -1192,6 +1202,11 @@
         <member name="P:IdApp.AppResources.SelectYourRoleInThisContract">
             <summary>
               Looks up a localized string similar to Select your role in this contract..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SendPaymentTo">
+            <summary>
+              Looks up a localized string similar to Send Payment.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SerialNumber">
@@ -4290,613 +4305,658 @@
             Gets or sets whether a user can delete or obsolete a contract.
             </summary>
         </member>
-        <member name="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel">
+        <member name="T:IdApp.ViewModels.Identity.ViewIdentityViewModel">
             <summary>
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Identity.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IEDalerOrchestratorService,IdApp.Services.IImageCacheService)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewIdentityViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Identity.ViewIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.DoBind">
+        <member name="M:IdApp.ViewModels.Identity.ViewIdentityViewModel.DoBind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.DoUnbind">
+        <member name="M:IdApp.ViewModels.Identity.ViewIdentityViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Photos">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Photos">
             <summary>
             Holds a list of photos associated with this identity.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApproveCommand">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ApproveCommand">
             <summary>
             The command to bind to for approving an identity
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RejectCommand">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.RejectCommand">
             <summary>
             The command to bind to for rejecting an identity
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CompromiseCommand">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CompromiseCommand">
             <summary>
             The command to bind to for flagging an identity as compromised.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RevokeCommand">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.RevokeCommand">
             <summary>
             The command to bind to for revoking an identity
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyCommand">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CopyCommand">
             <summary>
             The command for copying data to clipboard.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CopyHtmlToClipboard">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.AddContactCommand">
+            <summary>
+            The command for adding the identity to the list of contacts.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.RemoveContactCommand">
+            <summary>
+            The command for removing the identity from the list of contacts.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.SendPaymentToCommand">
+            <summary>
+            The command for sending a payment to entity.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Identity.ViewIdentityViewModel.CopyHtmlToClipboard">
             <summary>
             Copies ID to clipboard
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.ViewModels.Identity.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CreatedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.CreatedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Created"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Created"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Created">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Created">
             <summary>
             Created time stamp of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.UpdatedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.UpdatedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Updated"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Updated"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Updated">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Updated">
             <summary>
             Updated time stamp of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalIdProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.LegalIdProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalId"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LegalId"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalId">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LegalId">
             <summary>
             Legal id of the identity
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LegalIdentity">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LegalIdentity">
             <summary>
             The full legal identity of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJidProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.BareJidProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJid"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.BareJid"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.BareJid">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.BareJid">
             <summary>
             Bare Jid of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PublicKeyProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.PublicKeyProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PublicKey"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PublicKey"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PublicKey">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PublicKey">
             <summary>
             Public key of the identity's signature.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.StateProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.StateProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.State"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.State"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.State">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.State">
             <summary>
             Current state of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FromProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.FromProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.From"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.From"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.From">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.From">
             <summary>
             From date (validity range) of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ToProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.ToProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.To"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.To"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.To">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.To">
             <summary>
             To date (validity range) of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstNameProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstName"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstName">
             <summary>
             First name of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNamesProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNames"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNames">
             <summary>
             Middle name(s) of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNamesProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNames"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNames">
             <summary>
             Last name(s) of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumberProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumber"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumber">
             <summary>
             Personal number of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.AddressProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address">
             <summary>
             Address of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2Property">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address2Property">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address2"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address2">
             <summary>
             Address (line 2) of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCodeProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCode"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCode">
             <summary>
             Zip code of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.AreaProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Area"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Area">
             <summary>
             Area of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.CityProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.City"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.City">
             <summary>
             City of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.RegionProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Region"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Region">
             <summary>
             Region of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Country"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Country"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Country">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Country">
             <summary>
             Country of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryCodeProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCode"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryCode"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCode">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryCode">
             <summary>
             Country code of the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsApprovedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsApprovedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsApproved"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsApproved"/>
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeProperty">
             <summary>
-            See <see cref="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeProperty"/>
+            See <see cref="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeProperty"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCode">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCode">
             <summary>
             Generated QR code image for the identity
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.HasQrCodeProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.HasQrCodeProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.HasQrCode"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.HasQrCode"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.HasQrCode">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.HasQrCode">
             <summary>
-            Determines whether there's a generated <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCode"/> image for this identity.
+            Determines whether there's a generated <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCode"/> image for this identity.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeWidthProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeWidthProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeWidth"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeWidth"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeWidth">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeWidth">
             <summary>
             Gets or sets the width, in pixels, of the QR Code image to generate.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeHeightProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeHeightProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeHeight"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeHeight"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.QrCodeHeight">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.QrCodeHeight">
             <summary>
             Gets or sets the height, in pixels, of the QR Code image to generate.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsApproved">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsApproved">
             <summary>
             Gets or sets whether the identity is approved or not.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsCreatedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsCreatedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsCreated"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsCreated"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsCreated">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsCreated">
             <summary>
             Gets or sets created state of the identity, i.e. if it has been created or not.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReview"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReview"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReview">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReview">
             <summary>
-            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReview"/>.
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsNotForReview"/>.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReviewProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsNotForReviewProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReview"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsNotForReview"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsNotForReview">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsNotForReview">
             <summary>
-            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReview"/>.
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReview"/>.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsPersonalProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdPartyProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsPersonal"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdParty"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsPersonal">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdParty">
+            <summary>
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReview"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdPartyInContactsProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdPartyInContacts"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdPartyInContacts">
+            <summary>
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReview"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdPartyNotInContactsProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdPartyNotInContacts"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ThirdPartyNotInContacts">
+            <summary>
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReview"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsPersonalProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsPersonal"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsPersonal">
             <summary>
             Gets or sets whether the identity is a personal identity.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PinProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.PinProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Pin"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Pin">
             <summary>
             Gets or sets the PIN code for the identity.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstNameIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstNameIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstNameIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstNameIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstName"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNamesIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNamesIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNamesIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNamesIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNames"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNamesIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNamesIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNamesIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNamesIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNames"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumberIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumberIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumberIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumberIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumber"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.AddressIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.AddressIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.AddressIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2IsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address2IsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AddressIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.AddressIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2IsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address2IsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address2"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCodeIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCodeIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCodeIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCodeIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCode"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.AreaIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.AreaIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.AreaIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.AreaIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Area"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.CityIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CityIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CityIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CityIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.City"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.RegionIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.RegionIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.RegionIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.RegionIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Region"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryCodeIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryCodeIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCodeIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryCodeIsChecked">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CountryCode"/> property is checked (when being reviewed)
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CountryCode"/> property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CarefulReviewIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.CarefulReviewIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CarefulReviewIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CarefulReviewIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.CarefulReviewIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.CarefulReviewIsChecked">
             <summary>
             Gets or sets whether the Careful Review property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApprovePiiIsCheckedProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.ApprovePiiIsCheckedProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApprovePiiIsChecked"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ApprovePiiIsChecked"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ApprovePiiIsChecked">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ApprovePiiIsChecked">
             <summary>
             Gets or sets whether the ApprovePii property is checked (when being reviewed)
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewFirstNameProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewFirstNameProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewFirstName"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewFirstName"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewFirstName">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewFirstName">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.FirstName"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.FirstName"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewMiddleNamesProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewMiddleNamesProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewMiddleNames"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewMiddleNames"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewMiddleNames">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewMiddleNames">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.MiddleNames"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.MiddleNames"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewLastNamesProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewLastNamesProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewLastNames"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewLastNames"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewLastNames">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewLastNames">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.LastNames"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.LastNames"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewPersonalNumberProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewPersonalNumberProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewPersonalNumber"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewPersonalNumber"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewPersonalNumber">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewPersonalNumber">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.PersonalNumber"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.PersonalNumber"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddressProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAddressProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAddress"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAddress">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress2Property">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAddress2Property">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress2"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAddress2"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAddress2">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAddress2">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Address2"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Address2"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCityProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewCityProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCity"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewCity"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCity">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewCity">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.City"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.City"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewZipCodeProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewZipCodeProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewZipCode"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewZipCode"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewZipCode">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewZipCode">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.ZipCode"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.ZipCode"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAreaProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAreaProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewArea"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewArea"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewArea">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewArea">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Area"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Area"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewRegionProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewRegionProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewRegion"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewRegion"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewRegion">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewRegion">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Region"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Region"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCountryProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewCountryProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCountry"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewCountry"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewCountry">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewCountry">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Country"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Country"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAndPinProperty">
+        <member name="F:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAndPinProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAndPin"/>
+            See <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAndPin"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.IsForReviewAndPin">
+        <member name="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.IsForReviewAndPin">
             <summary>
-            Gets or sets whether the <see cref="P:IdApp.ViewModels.Contracts.ViewIdentityViewModel.Pin"/> property is for review.
+            Gets or sets whether the <see cref="P:IdApp.ViewModels.Identity.ViewIdentityViewModel.Pin"/> property is for review.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.ImageViewModel">
@@ -7312,7 +7372,7 @@
             The view model to bind to for requesting a payment.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Views.Wallet.RequestPaymentPage)">
+        <member name="M:IdApp.ViewModels.Wallet.RequestPaymentViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Views.Wallet.RequestPaymentPage)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.RequestPaymentViewModel"/> class.
             </summary>
@@ -7770,6 +7830,25 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:IdApp.Views.Identity.ViewIdentityPage">
+            <summary>
+            A page to display when the user wants to view an identity.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Identity.ViewIdentityPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Identity.ViewIdentityPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Identity.ViewIdentityPage.OnDisappearing">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Views.Identity.ViewIdentityPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:IdApp.Views.ImageView">
             <summary>
              A generic UI component to display an image.
@@ -8115,25 +8194,6 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.Things.ViewClaimThingPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:IdApp.Views.ViewIdentityPage">
-            <summary>
-            A page to display when the user wants to view an identity.
-            </summary>
-        </member>
-        <member name="M:IdApp.Views.ViewIdentityPage.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Views.ViewIdentityPage"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Views.ViewIdentityPage.OnDisappearing">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Views.ViewIdentityPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

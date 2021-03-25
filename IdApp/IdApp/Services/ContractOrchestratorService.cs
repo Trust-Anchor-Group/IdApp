@@ -1,6 +1,6 @@
 ﻿using IdApp.Navigation.Contracts;
 using IdApp.Navigation.Identity;
-using IdApp.Views;
+using IdApp.Views.Identity;
 using IdApp.Views.Contracts;
 using IdApp.Views.Registration;
 using System;
