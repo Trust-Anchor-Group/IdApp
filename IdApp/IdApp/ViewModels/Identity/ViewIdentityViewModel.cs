@@ -90,7 +90,20 @@ namespace IdApp.ViewModels.Identity
 
 			if (this.ThirdParty)
 			{
-				ContactInfo Info = await ContactInfo.FindByLegalId(this.LegalId);
+				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
+
+				if (!(Info is null) && 
+					Info.LegalId != this.LegalId && 
+					Info.LegalIdentity.Created < this.LegalIdentity.Created &&
+					this.LegalIdentity.State == IdentityState.Approved)
+				{
+					Info.LegalId = this.LegalId;
+					Info.LegalIdentity = this.LegalIdentity;
+					Info.FriendlyName = this.GetFriendlyName();
+
+					await Database.Update(Info);
+				}
+
 				this.ThirdPartyNotInContacts = Info is null;
 				this.ThirdPartyInContacts = !this.ThirdPartyNotInContacts;
 			}
@@ -1350,36 +1363,41 @@ namespace IdApp.ViewModels.Identity
 			}
 		}
 
+		private string GetFriendlyName()
+		{
+			StringBuilder Name = new StringBuilder();
+			string s;
+
+			Name.Append(this.FirstName);
+
+			s = this.MiddleNames;
+			if (!string.IsNullOrEmpty(s))
+			{
+				Name.Append(' ');
+				Name.Append(s);
+			}
+
+			s = this.LastNames;
+			if (!string.IsNullOrEmpty(s))
+			{
+				Name.Append(' ');
+				Name.Append(s);
+			}
+
+			return Name.ToString();
+		}
+
 		private async Task AddContact()
 		{
 			try
 			{
-				StringBuilder Name = new StringBuilder();
-				string s;
-
-				Name.Append(this.FirstName);
-
-				s = this.MiddleNames;
-				if (!string.IsNullOrEmpty(s))
-				{
-					Name.Append(' ');
-					Name.Append(s);
-				}
-
-				s = this.LastNames;
-				if (!string.IsNullOrEmpty(s))
-				{
-					Name.Append(' ');
-					Name.Append(s);
-				}
-
-				string FriendlyName = Name.ToString();
+				string FriendlyName = this.GetFriendlyName();
 
 				RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
 				if (Item is null)
 					this.NeuronService.Xmpp.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
 
-				ContactInfo Info = await ContactInfo.FindByLegalId(this.LegalId);
+				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 				if (Info is null)
 				{
 					Info = new ContactInfo()
@@ -1395,7 +1413,7 @@ namespace IdApp.ViewModels.Identity
 				}
 				else
 				{
-					Info.BareJid = this.BareJid;
+					Info.LegalId = this.LegalId;
 					Info.LegalIdentity = this.LegalIdentity;
 					Info.FriendlyName = FriendlyName;
 
@@ -1417,7 +1435,7 @@ namespace IdApp.ViewModels.Identity
 		{
 			try
 			{
-				ContactInfo Info = await ContactInfo.FindByLegalId(this.LegalId);
+				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 				if (!(Info is null))
 					await Database.Delete(Info);
 

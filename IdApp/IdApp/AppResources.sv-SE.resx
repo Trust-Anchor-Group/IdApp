@@ -591,6 +591,9 @@
   <data name="PaymentDescription" xml:space="preserve">
     <value>Ange belopped att betala till motagaren nedan. När du är klar, kan du välja att betala antingen online (om ansluten) eller offline, genom att klicka på motsvarande knapp.</value>
   </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>Betalningen framgångsrikt genomförd.</value>
+  </data>
   <data name="PayOffline" xml:space="preserve">
     <value>Betala offline</value>
   </data>

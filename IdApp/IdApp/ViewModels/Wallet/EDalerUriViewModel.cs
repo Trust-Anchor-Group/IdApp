@@ -12,6 +12,7 @@ using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
 using Waher.Content;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -781,9 +782,10 @@ namespace IdApp.ViewModels.Wallet
 
 				string Uri;
 
-				if (this.EncryptMessage)
+				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.NeuronService.Contracts.GetLegalIdentity(this.To);
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
@@ -797,7 +799,10 @@ namespace IdApp.ViewModels.Wallet
 
 				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(Uri));
 				if (succeeded)
+				{
 					await this.navigationService.GoBackAsync();
+					await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+				}
 				else
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
 			}
@@ -820,9 +825,10 @@ namespace IdApp.ViewModels.Wallet
 			{
 				string Uri;
 
-				if (this.EncryptMessage)
+				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.NeuronService.Contracts.GetLegalIdentity(this.To);
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else

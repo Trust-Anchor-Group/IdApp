@@ -849,6 +849,11 @@
               Looks up a localized string similar to Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.PaymentSuccess">
+            <summary>
+              Looks up a localized string similar to Payment successfully realized..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.PayOffline">
             <summary>
               Looks up a localized string similar to Pay offline.

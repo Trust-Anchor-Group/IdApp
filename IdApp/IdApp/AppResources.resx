@@ -591,6 +591,9 @@
   <data name="PaymentDescription" xml:space="preserve">
     <value>Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button.</value>
   </data>
+  <data name="PaymentSuccess" xml:space="preserve">
+    <value>Payment successfully realized.</value>
+  </data>
   <data name="PayOffline" xml:space="preserve">
     <value>Pay offline</value>
   </data>
