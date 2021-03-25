@@ -60,6 +60,11 @@ namespace IdApp.ViewModels.Wallet
 			this.Amount = 0;
 			this.AmountText = string.Empty;
 			this.AmountOk = false;
+
+			this.AmountExtra = 0;
+			this.AmountExtraText = string.Empty;
+			this.AmountExtraOk = false;
+			
 			this.HasQrCode = false;
 
 			AssignProperties();
@@ -172,6 +177,89 @@ namespace IdApp.ViewModels.Wallet
 				{
 					this.AmountOk = false;
 					this.AmountColor = Color.Salmon;
+				}
+
+				this.EvaluateCommands(this.GenerateQrCodeCommand);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtra"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraProperty =
+			BindableProperty.Create("AmountExtra", typeof(decimal?), typeof(EDalerUriViewModel), default(decimal?));
+
+		/// <summary>
+		/// AmountExtra of eDaler to process
+		/// </summary>
+		public decimal? AmountExtra
+		{
+			get { return (decimal?)GetValue(AmountExtraProperty); }
+			set { SetValue(AmountExtraProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraOk"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraOkProperty =
+			BindableProperty.Create("AmountExtraOk", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="AmountExtra"/> is OK.
+		/// </summary>
+		public bool AmountExtraOk
+		{
+			get { return (bool)GetValue(AmountExtraOkProperty); }
+			set { SetValue(AmountExtraOkProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraColor"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraColorProperty =
+			BindableProperty.Create("AmountExtraColor", typeof(Color), typeof(EDalerUriViewModel), default(Color));
+
+		/// <summary>
+		/// Color of <see cref="AmountExtra"/> field.
+		/// </summary>
+		public Color AmountExtraColor
+		{
+			get { return (Color)GetValue(AmountExtraColorProperty); }
+			set { SetValue(AmountExtraColorProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraText"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraTextProperty =
+			BindableProperty.Create("AmountExtraText", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// <see cref="AmountExtra"/> as text.
+		/// </summary>
+		public string AmountExtraText
+		{
+			get { return (string)GetValue(AmountExtraTextProperty); }
+			set
+			{
+				SetValue(AmountExtraTextProperty, value);
+
+				if (string.IsNullOrEmpty(value))
+				{
+					this.AmountExtra = null;
+					this.AmountExtraOk = true;
+					this.AmountExtraColor = Color.Default;
+				}
+				else if (decimal.TryParse(value, out decimal d) && d >= 0)
+				{
+					this.AmountExtra = d;
+					this.AmountExtraOk = true;
+					this.AmountExtraColor = Color.Default;
+				}
+				else
+				{
+					this.AmountExtraOk = false;
+					this.AmountExtraColor = Color.Salmon;
 				}
 
 				this.EvaluateCommands(this.GenerateQrCodeCommand);
@@ -320,9 +408,15 @@ namespace IdApp.ViewModels.Wallet
 			string Uri;
 
 			if (this.EncryptMessage)
-				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.tagProfile.LegalIdentity, this.Amount, this.Currency, this.Message);
+			{
+				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+					this.Currency, this.Message);
+			}
 			else
-				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.NeuronService.Xmpp.BareJID, this.Amount, this.Currency, this.Message);
+			{
+				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.NeuronService.Xmpp.BareJID, this.Amount, this.AmountExtra,
+					this.Currency, this.Message);
+			}
 
 			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri, 300, 300);
 			this.QrCodePng = Bin;

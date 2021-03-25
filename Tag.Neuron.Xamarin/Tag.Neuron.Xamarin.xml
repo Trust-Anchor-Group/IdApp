@@ -1740,64 +1740,70 @@
             </summary>
             <returns>(Total amount, currency, items)</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="ToBareJid">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="ToBareJid">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <param name="Message">Unencrypted message to send to recipient.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="To">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="To">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(System.String,System.Decimal,System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
             <param name="BareJid">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="Message">Message to be sent to recipient (not encrypted).</param>
             <returns>Incomplete PayMe-URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
             <param name="To">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
             But the message will be unencrypted in the incomplete PeyMe URI.</param>
@@ -2553,64 +2559,70 @@
             </summary>
             <returns>(Total amount, currency, items)</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="ToBareJid">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.String,System.Int32,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="ToBareJid">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <param name="Message">Unencrypted message to send to recipient.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="To">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.Int32,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
             <summary>
             Creates a full payment URI.
             </summary>
             <param name="To">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(System.String,System.Decimal,System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
             <param name="BareJid">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="Message">Message to be sent to recipient (not encrypted).</param>
             <returns>Incomplete PayMe-URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
             <param name="To">To whom the payment is to be made.</param>
             <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
             <param name="Currency">Currency to pay.</param>
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
             But the message will be unencrypted in the incomplete PeyMe URI.</param>

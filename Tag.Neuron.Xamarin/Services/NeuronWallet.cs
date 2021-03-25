@@ -149,12 +149,13 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="ToBareJid">To whom the payment is to be made.</param>
 		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
 		/// <param name="Currency">Currency to pay.</param>
 		/// <param name="ValidNrDays">For how many days the URI should be valid.</param>
 		/// <returns>Signed payment URI.</returns>
-		public Task<string> CreateFullPaymentUri(string ToBareJid, decimal Amount, string Currency, int ValidNrDays)
+		public Task<string> CreateFullPaymentUri(string ToBareJid, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays)
 		{
-			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, Currency, ValidNrDays);
+			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, AmountExtra, Currency, ValidNrDays);
 		}
 
 		/// <summary>
@@ -162,13 +163,14 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="ToBareJid">To whom the payment is to be made.</param>
 		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
 		/// <param name="Currency">Currency to pay.</param>
 		/// <param name="ValidNrDays">For how many days the URI should be valid.</param>
 		/// <param name="Message">Unencrypted message to send to recipient.</param>
 		/// <returns>Signed payment URI.</returns>
-		public Task<string> CreateFullPaymentUri(string ToBareJid, decimal Amount, string Currency, int ValidNrDays, string Message)
+		public Task<string> CreateFullPaymentUri(string ToBareJid, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays, string Message)
 		{
-			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, Currency, ValidNrDays, Message);
+			return this.EDalerClient.CreateFullPaymentUri(ToBareJid, Amount, AmountExtra, Currency, ValidNrDays, Message);
 		}
 
 		/// <summary>
@@ -176,12 +178,13 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="To">To whom the payment is to be made.</param>
 		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
 		/// <param name="Currency">Currency to pay.</param>
 		/// <param name="ValidNrDays">For how many days the URI should be valid.</param>
 		/// <returns>Signed payment URI.</returns>
-		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, string Currency, int ValidNrDays)
+		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays)
 		{
-			return this.EDalerClient.CreateFullPaymentUri(To, Amount, Currency, ValidNrDays);
+			return this.EDalerClient.CreateFullPaymentUri(To, Amount, AmountExtra, Currency, ValidNrDays);
 		}
 
 		/// <summary>
@@ -189,13 +192,14 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="To">To whom the payment is to be made.</param>
 		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
 		/// <param name="Currency">Currency to pay.</param>
 		/// <param name="ValidNrDays">For how many days the URI should be valid.</param>
 		/// <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
 		/// <returns>Signed payment URI.</returns>
-		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, string Currency, int ValidNrDays, string PrivateMessage)
+		public Task<string> CreateFullPaymentUri(LegalIdentity To, decimal Amount, decimal? AmountExtra, string Currency, int ValidNrDays, string PrivateMessage)
 		{
-			return this.EDalerClient.CreateFullPaymentUri(To, Amount, Currency, ValidNrDays, PrivateMessage);
+			return this.EDalerClient.CreateFullPaymentUri(To, Amount, AmountExtra, Currency, ValidNrDays, PrivateMessage);
 		}
 
 		/// <summary>
@@ -203,12 +207,13 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="BareJid">To whom the payment is to be made.</param>
 		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
 		/// <param name="Currency">Currency to pay.</param>
 		/// <param name="Message">Message to be sent to recipient (not encrypted).</param>
 		/// <returns>Incomplete PayMe-URI.</returns>
-		public string CreateIncompletePayMeUri(string BareJid, decimal Amount, string Currency, string Message)
+		public string CreateIncompletePayMeUri(string BareJid, decimal Amount, decimal? AmountExtra, string Currency, string Message)
 		{
-			return this.eDalerClient.CreateIncompletePayMeUri(BareJid, Amount, Currency, Message);
+			return this.eDalerClient.CreateIncompletePayMeUri(BareJid, Amount, AmountExtra, Currency, Message);
 		}
 
 		/// <summary>
@@ -216,13 +221,14 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="To">To whom the payment is to be made.</param>
 		/// <param name="Amount">Amount of eDaler to pay.</param>
+		/// <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
 		/// <param name="Currency">Currency to pay.</param>
 		/// <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
 		/// But the message will be unencrypted in the incomplete PeyMe URI.</param>
 		/// <returns>Incomplete PayMe-URI.</returns>
-		public string CreateIncompletePayMeUri(LegalIdentity To, decimal Amount, string Currency, string PrivateMessage)
+		public string CreateIncompletePayMeUri(LegalIdentity To, decimal Amount, decimal? AmountExtra, string Currency, string PrivateMessage)
 		{
-			return this.eDalerClient.CreateIncompletePayMeUri(To, Amount, Currency, PrivateMessage);
+			return this.eDalerClient.CreateIncompletePayMeUri(To, Amount, AmountExtra, Currency, PrivateMessage);
 		}
 
 	}

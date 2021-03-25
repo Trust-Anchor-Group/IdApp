@@ -345,6 +345,9 @@
   <data name="ExpiresAt" xml:space="preserve">
     <value>(Går ut {0})</value>
   </data>
+  <data name="FailedToLoadPhoto" xml:space="preserve">
+    <value>Misslyckades med att ladda foto</value>
+  </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>
   </data>

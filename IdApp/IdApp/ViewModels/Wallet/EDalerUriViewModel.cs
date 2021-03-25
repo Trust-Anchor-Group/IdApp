@@ -63,6 +63,7 @@ namespace IdApp.ViewModels.Wallet
 				this.Uri = args.Uri.UriString;
 				this.Id = args.Uri.Id;
 				this.Amount = args.Uri.Amount;
+				this.AmountExtra = args.Uri.AmountExtra;
 				this.Currency = args.Uri.Currency;
 				this.Created = args.Uri.Created;
 				this.Expires = args.Uri.Expires;
@@ -72,11 +73,15 @@ namespace IdApp.ViewModels.Wallet
 				this.ToType = args.Uri.ToType;
 				this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
 				this.Complete = args.Uri.Complete;
+				this.HasQrCode = false;
 
 				this.AmountText = this.Amount <= 0 ? string.Empty : this.Amount.ToString();
 				this.AmountOk = decimal.TryParse(this.AmountText, out decimal d) && d > 0;
 				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
-				this.HasQrCode = false;
+
+				this.AmountExtraText = this.AmountExtra.HasValue ? this.AmountExtra.Value.ToString() : string.Empty;
+				this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
+				this.AmountExtraPreset = this.AmountExtra.HasValue;
 
 				StringBuilder Url = new StringBuilder();
 
@@ -247,6 +252,104 @@ namespace IdApp.ViewModels.Wallet
 		{
 			get { return (bool)GetValue(AmountPresetProperty); }
 			set { SetValue(AmountPresetProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtra"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraProperty =
+			BindableProperty.Create("AmountExtra", typeof(decimal?), typeof(EDalerUriViewModel), default(decimal?));
+
+		/// <summary>
+		/// AmountExtra of eDaler to process
+		/// </summary>
+		public decimal? AmountExtra
+		{
+			get { return (decimal?)GetValue(AmountExtraProperty); }
+			set { SetValue(AmountExtraProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraOk"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraOkProperty =
+			BindableProperty.Create("AmountExtraOk", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="AmountExtra"/> is OK.
+		/// </summary>
+		public bool AmountExtraOk
+		{
+			get { return (bool)GetValue(AmountExtraOkProperty); }
+			set { SetValue(AmountExtraOkProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraColor"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraColorProperty =
+			BindableProperty.Create("AmountExtraColor", typeof(Color), typeof(EDalerUriViewModel), default(Color));
+
+		/// <summary>
+		/// Color of <see cref="AmountExtra"/> field.
+		/// </summary>
+		public Color AmountExtraColor
+		{
+			get { return (Color)GetValue(AmountExtraColorProperty); }
+			set { SetValue(AmountExtraColorProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraText"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraTextProperty =
+			BindableProperty.Create("AmountExtraText", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// <see cref="AmountExtra"/> as text.
+		/// </summary>
+		public string AmountExtraText
+		{
+			get { return (string)GetValue(AmountExtraTextProperty); }
+			set
+			{
+				SetValue(AmountExtraTextProperty, value);
+
+				if (string.IsNullOrEmpty(value))
+				{
+					this.AmountExtra = null;
+					this.AmountExtraOk = true;
+					this.AmountExtraColor = Color.Default;
+				}
+				else if (decimal.TryParse(value, out decimal d) && d >= 0)
+				{
+					this.AmountExtra = d;
+					this.AmountExtraOk = true;
+					this.AmountExtraColor = Color.Default;
+				}
+				else
+				{
+					this.AmountExtraOk = false;
+					this.AmountExtraColor = Color.Salmon;
+				}
+
+				this.EvaluateCommands(this.GenerateQrCodeCommand);
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraPreset"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraPresetProperty =
+			BindableProperty.Create("AmountExtraPreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If <see cref="AmountExtra"/> is preset.
+		/// </summary>
+		public bool AmountExtraPreset
+		{
+			get { return (bool)GetValue(AmountExtraPresetProperty); }
+			set { SetValue(AmountExtraPresetProperty, value); }
 		}
 
 		/// <summary>
@@ -670,9 +773,15 @@ namespace IdApp.ViewModels.Wallet
 			}
 
 			if (this.EncryptMessage)
-				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.Currency, 3, this.Message);
+			{
+				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+					this.Currency, 3, this.Message);
+			}
 			else
-				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.Currency, 3, this.Message);
+			{
+				Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					this.Currency, 3, this.Message);
+			}
 
 			// TODO: Validate To is a Bare JID or proper Legal Identity
 			// TODO: Offline options: Expiry days

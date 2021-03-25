@@ -6812,6 +6812,56 @@
             If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/> is preset.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtra"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtra">
+            <summary>
+            AmountExtra of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraOkProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraOk"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraOk">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtra"/> is OK.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraColorProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraColor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraColor">
+            <summary>
+            Color of <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtra"/> field.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraText">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtra"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraPresetProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraPreset"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraPreset">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtra"/> is preset.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.CurrencyProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Currency"/>
@@ -7294,6 +7344,46 @@
         <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountText">
             <summary>
             <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.Amount"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtra"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtra">
+            <summary>
+            AmountExtra of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraOkProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraOk"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraOk">
+            <summary>
+            If <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtra"/> is OK.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraColorProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraColor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraColor">
+            <summary>
+            Color of <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtra"/> field.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtraText">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.RequestPaymentViewModel.AmountExtra"/> as text.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Wallet.RequestPaymentViewModel.CurrencyProperty">
