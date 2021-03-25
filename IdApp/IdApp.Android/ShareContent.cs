@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using Android.App;
 using Android.Content;
-using Android.OS;
 using Tag.Neuron.Xamarin;
+using Xamarin.Essentials;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.ShareContent))]
 namespace IdApp.Android
@@ -18,22 +18,27 @@ namespace IdApp.Android
         /// <param name="FileName">Filename of image file.</param>
         public void ShareImage(byte[] PngFile, string Message, string Title, string FileName)
         {
-#pragma warning disable CS0618 // Type or member is obsolete
-            Java.IO.File Path = Environment.GetExternalStoragePublicDirectory("Temp");
-#pragma warning restore CS0618 // Type or member is obsolete
+            Java.IO.File dir = Application.Context.GetExternalFilesDir("");
 
-            if (!File.Exists(Path.Path))
-                Directory.CreateDirectory(Path.Path);
+            if (!Directory.Exists(dir.Path))
+                Directory.CreateDirectory(dir.Path);
 
-            string FilePath = Path.Path + FileName;
-            File.WriteAllBytes(FilePath, PngFile);
+            Java.IO.File fileDir = new Java.IO.File(dir.AbsolutePath + (Java.IO.File.Separator + FileName));
+
+            File.WriteAllBytes(fileDir.Path, PngFile);
 
             Intent Intent = new Intent(Intent.ActionSend);
             Intent.PutExtra(Intent.ExtraText, Message);
             Intent.SetType("image/png");
-            Intent.PutExtra(Intent.ExtraStream, global::Android.Net.Uri.Parse("file://" + FilePath));
 
-            Application.Context.StartActivity(Intent.CreateChooser(Intent, Title));
+            Intent.AddFlags(ActivityFlags.GrantReadUriPermission);
+            Intent.AddFlags(ActivityFlags.GrantWriteUriPermission);
+            Intent.PutExtra(Intent.ExtraStream, FileProvider.GetUriForFile(Application.Context, "com.tag.IdApp.fileprovider", fileDir));
+
+            var myIntent = Intent.CreateChooser(Intent, Title);
+            myIntent.AddFlags(ActivityFlags.NewTask);
+
+            Application.Context.StartActivity(myIntent);
         }
     }
 }
