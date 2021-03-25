@@ -1441,15 +1441,14 @@ namespace IdApp.ViewModels.Identity
 			try
 			{
 				Balance Balance = await this.NeuronService.Wallet.GetBalanceAsync();
+				string Uri;
 
-				StringBuilder Uri = new StringBuilder();
+				if (this.LegalIdentity is null)
+					Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.BareJid, null, null, Balance.Currency, string.Empty);
+				else
+					Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
 
-				Uri.Append("edaler:cu=");
-				Uri.Append(Balance.Currency);
-				Uri.Append(";ti=");
-				Uri.Append(this.LegalId);
-
-				await this.eDalerService.OpenEDalerUri(Uri.ToString());
+				await this.eDalerService.OpenEDalerUri(Uri);
 			}
 			catch (Exception ex)
 			{

@@ -1850,7 +1850,7 @@
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
@@ -1861,7 +1861,7 @@
             <param name="Message">Message to be sent to recipient (not encrypted).</param>
             <returns>Incomplete PayMe-URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
@@ -2669,7 +2669,7 @@
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
@@ -2680,7 +2680,7 @@
             <param name="Message">Message to be sent to recipient (not encrypted).</param>
             <returns>Incomplete PayMe-URI.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>

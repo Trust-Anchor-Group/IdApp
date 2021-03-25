@@ -125,7 +125,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <param name="Currency">Currency to pay.</param>
 		/// <param name="Message">Message to be sent to recipient (not encrypted).</param>
 		/// <returns>Incomplete PayMe-URI.</returns>
-		string CreateIncompletePayMeUri(string BareJid, decimal Amount, decimal? AmountExtra, string Currency, string Message);
+		string CreateIncompletePayMeUri(string BareJid, decimal? Amount, decimal? AmountExtra, string Currency, string Message);
 
 		/// <summary>
 		/// Creates an incomplete PayMe-URI.
@@ -137,6 +137,6 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
 		/// But the message will be unencrypted in the incomplete PeyMe URI.</param>
 		/// <returns>Incomplete PayMe-URI.</returns>
-		string CreateIncompletePayMeUri(LegalIdentity To, decimal Amount, decimal? AmountExtra, string Currency, string PrivateMessage);
+		string CreateIncompletePayMeUri(LegalIdentity To, decimal? Amount, decimal? AmountExtra, string Currency, string PrivateMessage);
 	}
 }
