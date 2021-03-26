@@ -112,6 +112,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\Contacts\MyContactsPage.xaml.cs">
+      <DependentUpon>MyContactsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Contracts\PetitionSignaturePage.xaml.cs">
       <DependentUpon>PetitionSignaturePage.xaml</DependentUpon>
     </Compile>

@@ -294,6 +294,16 @@
               Looks up a localized string similar to Connection.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Contacts">
+            <summary>
+              Looks up a localized string similar to Contacts.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ContactsDescription">
+            <summary>
+              Looks up a localized string similar to Below are all contacts in your contact book. Click on any to interact with that contact..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Continue">
             <summary>
               Looks up a localized string similar to Continue.
@@ -747,6 +757,11 @@
         <member name="P:IdApp.AppResources.No">
             <summary>
               Looks up a localized string similar to No.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.NoContactsFound">
+            <summary>
+              Looks up a localized string similar to No Contacts Found..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.NoContractsFound">
@@ -1888,6 +1903,11 @@
             The wallet icon
             </summary>
         </member>
+        <member name="F:IdApp.SolidIcons.Contacts">
+            <summary>
+            The contacts icon
+            </summary>
+        </member>
         <member name="T:IdApp.Models.ContractModel">
             <summary>
             The data model for a contract.
@@ -2787,6 +2807,57 @@
         <member name="P:IdApp.ViewModels.AppShellViewModel.LogInOutText">
             <summary>
             The text to use for the log in/log out menu item.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contacts.MyContactsViewModel">
+            <summary>
+            The view model to bind to when displaying the list of contacts.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contacts.MyContactsViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contacts.MyContactsViewModel"/> class.
+            For unit tests.
+            </summary>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="navigationService">The navigation service.</param>
+            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Contacts.MyContactsViewModel.ShowContactsMissingProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contacts.MyContactsViewModel.ShowContactsMissing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contacts.MyContactsViewModel.ShowContactsMissing">
+            <summary>
+            Gets or sets whether to show a contacts missing alert or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contacts.MyContactsViewModel.Contacts">
+            <summary>
+            Holds the list of contacts to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contacts.MyContactsViewModel.SelectedContactProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contacts.MyContactsViewModel.SelectedContact"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contacts.MyContactsViewModel.SelectedContact">
+            <summary>
+            The currently selected contact, if any.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Contracts.ClientSignatureViewModel">
@@ -7973,6 +8044,22 @@
             <summary>
             The scanned QR code
             </summary>
+        </member>
+        <member name="T:IdApp.Views.Contacts.MyContactsPage">
+            <summary>
+            A page that displays a list of the current user's contacts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contacts.MyContactsPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Contacts.MyContactsPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Contacts.MyContactsPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:IdApp.Views.Contracts.ClientSignaturePage">
             <summary>

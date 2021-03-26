@@ -77,9 +77,9 @@
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.User}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem Text="{x:Static local:AppResources.ScanQRCode}" Clicked="ScanQrCodeMenuItem_Clicked">
+    <MenuItem Text="{x:Static local:AppResources.Contacts}" Clicked="ContactsMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.ScanQr}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Contacts}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">

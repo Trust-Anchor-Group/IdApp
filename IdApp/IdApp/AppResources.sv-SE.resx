@@ -258,6 +258,12 @@
   <data name="Connection" xml:space="preserve">
     <value>Anslutning</value>
   </data>
+  <data name="Contacts" xml:space="preserve">
+    <value>Kontakter</value>
+  </data>
+  <data name="ContactsDescription" xml:space="preserve">
+    <value>Nedan är alla kontakter i din kontaktbok. Klicka på valfri kontakt för att interagera med den kontakten.</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Fortsätt</value>
   </data>
@@ -530,6 +536,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>Nej</value>
+  </data>
+  <data name="NoContactsFound" xml:space="preserve">
+    <value>Inga kontakter hittades.</value>
   </data>
   <data name="NoContractsFound" xml:space="preserve">
     <value>Hittade inga kontrakt.</value>

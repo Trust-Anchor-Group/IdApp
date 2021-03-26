@@ -6,6 +6,7 @@ using IdApp.ViewModels;
 using IdApp.Views;
 using IdApp.Views.Contracts;
 using IdApp.Views.Identity;
+using IdApp.Views.Contacts;
 using IdApp.Views.Registration;
 using IdApp.Views.Things;
 using IdApp.Views.Wallet;
@@ -77,6 +78,9 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(ViewIdentityPage), typeof(ViewIdentityPage));
 			Routing.RegisterRoute(nameof(PetitionIdentityPage), typeof(PetitionIdentityPage));
 			Routing.RegisterRoute(nameof(PetitionSignaturePage), typeof(PetitionSignaturePage));
+
+			// Contacts:
+			Routing.RegisterRoute(nameof(MyContactsPage), typeof(MyContactsPage));
 
 			// Contracts:
 			Routing.RegisterRoute(nameof(MyContractsPage), typeof(MyContractsPage));
@@ -196,5 +200,11 @@ namespace IdApp
 				await this.uiDispatcher.DisplayAlert(AppResources.About, sb.ToString());
 			});
 		}
+
+		internal async void ContactsMenuItem_Clicked(object sender, EventArgs e)
+		{
+			await this.GoToPage(nameof(MyContactsPage));
+		}
+
 	}
 }

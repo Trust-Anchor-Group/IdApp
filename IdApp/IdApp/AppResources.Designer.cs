@@ -484,6 +484,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Contacts.
+        /// </summary>
+        internal static string Contacts {
+            get {
+                return ResourceManager.GetString("Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below are all contacts in your contact book. Click on any to interact with that contact..
+        /// </summary>
+        internal static string ContactsDescription {
+            get {
+                return ResourceManager.GetString("ContactsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         internal static string Continue {
@@ -1299,6 +1317,15 @@ namespace IdApp {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Contacts Found..
+        /// </summary>
+        internal static string NoContactsFound {
+            get {
+                return ResourceManager.GetString("NoContactsFound", resourceCulture);
             }
         }
         
