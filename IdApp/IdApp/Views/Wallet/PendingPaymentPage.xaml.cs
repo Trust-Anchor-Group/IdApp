@@ -8,17 +8,17 @@ using Xamarin.Forms.Xaml;
 namespace IdApp.Views.Wallet
 {
     /// <summary>
-    /// A page that allows the user to realize payments.
+    /// A page that allows the user to view information about a pending payment.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class PaymentPage : IShareQrCode
+	public partial class PendingPaymentPage : IShareQrCode
     {
         private readonly INavigationService navigationService;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="PaymentPage"/> class.
+        /// Creates a new instance of the <see cref="PendingPaymentPage"/> class.
         /// </summary>
-		public PaymentPage()
+		public PendingPaymentPage()
 		{
             this.navigationService = DependencyService.Resolve<INavigationService>();
             this.ViewModel = new EDalerUriViewModel(

@@ -889,6 +889,16 @@
               Looks up a localized string similar to Peer review rejected.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.PendingPayment">
+            <summary>
+              Looks up a localized string similar to Pending Payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PendingPaymentDescription">
+            <summary>
+              Looks up a localized string similar to Below you can see information about a payment that has been generated, but has not been fully processed yet..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.PersonalLegalInformation">
             <summary>
               Looks up a localized string similar to Personal/legal information.
@@ -1254,6 +1264,11 @@
               Looks up a localized string similar to Share.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ShowCode">
+            <summary>
+              Looks up a localized string similar to Show Code.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.SignAfter">
             <summary>
               Looks up a localized string similar to Sign after.
@@ -1322,6 +1337,11 @@
         <member name="P:IdApp.AppResources.StreetNumber">
             <summary>
               Looks up a localized string similar to Street Number.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Submit">
+            <summary>
+              Looks up a localized string similar to Submit.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SuccessTitle">
@@ -6833,7 +6853,7 @@
             The view model to bind to for when displaying the contents of an eDaler URI.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Views.Wallet.PaymentPage)">
+        <member name="M:IdApp.ViewModels.Wallet.EDalerUriViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.ViewModels.Wallet.IShareQrCode)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -7003,6 +7023,16 @@
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Expires">
+            <summary>
+            When code expires
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.ExpiresStrProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ExpiresStr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ExpiresStr">
             <summary>
             When code expires
             </summary>
@@ -7197,6 +7227,16 @@
             The command to bind to for sharing the QR code
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.SubmitCommand">
+            <summary>
+            The command to bind to for resubmitting a payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.ShowCodeCommand">
+            <summary>
+            The command to bind to for displaying eDaler URI as a QR Code
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.UsePin">
             <summary>
             If PIN should be used.
@@ -7225,6 +7265,16 @@
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.FromClickCommand">
             <summary>
             Command to bind to for detecting when a from label has been clicked on.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Wallet.IShareQrCode">
+            <summary>
+            Interface for pages with a share button.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.IShareQrCode.ShowQrCode">
+            <summary>
+            Scrolls to display the QR-code.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Wallet.MyWalletViewModel">
@@ -7361,6 +7411,11 @@
             The command to bind to for claiming a thing
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.ShowPendingCommand">
+            <summary>
+            The command to bind to for displaying information about a pending payment.
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Wallet.PendingPaymentItem">
             <summary>
             Encapsulates a <see cref="T:EDaler.PendingPayment"/> object.
@@ -7405,6 +7460,11 @@
         <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.To">
             <summary>
             Recipient of payment
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.PendingPaymentItem.Uri">
+            <summary>
+            Corresponding eDaler URI.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Wallet.RequestPaymentViewModel">
@@ -8320,6 +8380,27 @@
             <returns></returns>
         </member>
         <member name="M:IdApp.Views.Wallet.PaymentPage.ShowQrCode">
+            <summary>
+            Scrolls to display the QR-code.
+            </summary>
+        </member>
+        <member name="T:IdApp.Views.Wallet.PendingPaymentPage">
+            <summary>
+            A page that allows the user to view information about a pending payment.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PendingPaymentPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.PendingPaymentPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PendingPaymentPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PendingPaymentPage.ShowQrCode">
             <summary>
             Scrolls to display the QR-code.
             </summary>

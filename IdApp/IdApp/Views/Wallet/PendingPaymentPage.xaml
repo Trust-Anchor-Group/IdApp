@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       x:Class="IdApp.Views.Wallet.PendingPaymentPage"
+                       Title="{x:Static local:AppResources.PendingPayment}">
+    <Grid>
+        <ScrollView x:Name="ScrollView">
+            <StackLayout Margin="{StaticResource DefaultMargin}">
+                <Label Text="{x:Static local:AppResources.PendingPayment}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.PendingPaymentDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <!-- Note -->
+                <Label Text="{x:Static local:AppResources.To}"/>
+                <Entry Text="{Binding Path=To}" IsReadOnly="True"/>
+                <Label Text="{x:Static local:AppResources.Amount}"/>
+                <Entry Text="{Binding Path=AmountAndCurrency}" IsReadOnly="True"/>
+                <Label Text="{x:Static local:AppResources.AmountExtra}" IsVisible="{Binding Path=AmountExtraPreset}"/>
+                <Entry Text="{Binding Path=AmountExtraAndCurrency}" IsVisible="{Binding Path=AmountExtraPreset}" IsReadOnly="True"/>
+                <Label Text="{x:Static local:AppResources.Message}" IsVisible="{Binding Path=MessagePreset}"/>
+                <Entry Text="{Binding Path=Message}" IsReadOnly="True" IsVisible="{Binding Path=MessagePreset}"/>
+                <Label Text="{x:Static local:AppResources.ExpiresAt}"/>
+                <Entry Text="{Binding Path=ExpiresStr}" IsReadOnly="True"/>
+                <!-- PIN -->
+                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
+                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.Submit}" Command="{Binding Path=SubmitCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Button Text="{x:Static local:AppResources.ShowCode}" Command="{Binding Path=ShowCodeCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Image x:Name="QrCode" BackgroundColor="{StaticResource HeadingForeground}" Source="{Binding Path=QrCode}" 
+                       IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth}" 
+                       HeightRequest="{Binding Path=QrCodeHeight}" HorizontalOptions="Center" VerticalOptions="Start" 
+                       Margin="0" />
+                <Button x:Name="ShareButton" Text="{x:Static local:AppResources.Share}" Command="{Binding Path=ShareCommand}" 
+                        IsVisible="{Binding Path=HasQrCode}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</views:ContentBasePage>

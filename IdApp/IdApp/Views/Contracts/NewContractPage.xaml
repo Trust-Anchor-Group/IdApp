@@ -6,7 +6,7 @@
              x:Class="IdApp.Views.Contracts.NewContractPage"
              Title="{x:Static local:AppResources.NewContract}">
     <ScrollView>
-        <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}" x:Name="NewContractStackLayout">
+        <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
             <StackLayout.Resources>
                 <Style TargetType="Label"
                         ApplyToDerivedTypes="True"

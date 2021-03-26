@@ -1555,6 +1555,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pending Payment.
+        /// </summary>
+        internal static string PendingPayment {
+            get {
+                return ResourceManager.GetString("PendingPayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can see information about a payment that has been generated, but has not been fully processed yet..
+        /// </summary>
+        internal static string PendingPaymentDescription {
+            get {
+                return ResourceManager.GetString("PendingPaymentDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Personal/legal information.
         /// </summary>
         internal static string PersonalLegalInformation {
@@ -2212,6 +2230,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Code.
+        /// </summary>
+        internal static string ShowCode {
+            get {
+                return ResourceManager.GetString("ShowCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign after.
         /// </summary>
         internal static string SignAfter {
@@ -2334,6 +2361,15 @@ namespace IdApp {
         internal static string StreetNumber {
             get {
                 return ResourceManager.GetString("StreetNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        internal static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         

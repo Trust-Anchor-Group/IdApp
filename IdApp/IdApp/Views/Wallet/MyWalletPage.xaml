@@ -7,7 +7,7 @@
                        Title="{x:Static local:AppResources.Wallet}">
     <Grid>
         <ScrollView>
-            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+            <StackLayout Margin="{StaticResource DefaultMargin}">
                 <Frame HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" Margin="0,0,0,10"
                        BackgroundColor="{StaticResource HeadingBackground}">
                     <Grid HeightRequest="150" WidthRequest="10000">
@@ -70,6 +70,9 @@
                                     </Label.FormattedText>
                                 </Label>
                                 <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="WordWrap"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowPendingCommand, Source={x:Reference PendingPaymentsLayout}}" CommandParameter="{Binding}" />
+                                </Grid.GestureRecognizers>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

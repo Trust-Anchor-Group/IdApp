@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
 using IdApp.Navigation.Wallet;
-using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
@@ -27,7 +26,7 @@ namespace IdApp.ViewModels.Wallet
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
-		private readonly PaymentPage page;
+		private readonly IShareQrCode shareQrCode;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -39,19 +38,21 @@ namespace IdApp.ViewModels.Wallet
 			INavigationService navigationService,
 			INetworkService networkService,
 			ILogService logService,
-			PaymentPage Page)
+			IShareQrCode ShareQrCode)
 		: base(neuronService, uiDispatcher)
 		{
 			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
-			this.page = Page;
+			this.shareQrCode = ShareQrCode;
 
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
 			this.PayOnlineCommand = new Command(async _ => await this.PayOnline(), _ => this.CanPayOnline());
 			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
+			this.SubmitCommand = new Command(async _ => await this.Submit(), _ => this.IsConnected);
+			this.ShowCodeCommand = new Command(async _ => await this.ShowCode());
 
 			this.FromClickCommand = new Command(async x => await this.FromLabelClicked());
 		}
@@ -70,6 +71,7 @@ namespace IdApp.ViewModels.Wallet
 				this.Currency = args.Uri.Currency;
 				this.Created = args.Uri.Created;
 				this.Expires = args.Uri.Expires;
+				this.ExpiresStr = this.Expires.ToShortDateString();
 				this.From = args.Uri.From;
 				this.FromType = args.Uri.FromType;
 				this.To = args.Uri.To;
@@ -132,7 +134,8 @@ namespace IdApp.ViewModels.Wallet
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.AcceptCommand, this.PayOnlineCommand, this.GenerateQrCodeCommand, this.ShareCommand);
+			this.EvaluateCommands(this.AcceptCommand, this.PayOnlineCommand, this.GenerateQrCodeCommand, this.ShareCommand,
+				this.SubmitCommand, this.ShareCommand);
 		}
 
 		/// <inheritdoc/>
@@ -433,6 +436,21 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		/// <summary>
+		/// See <see cref="ExpiresStr"/>
+		/// </summary>
+		public static readonly BindableProperty ExpiresStrProperty =
+			BindableProperty.Create("ExpiresStr", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// When code expires
+		/// </summary>
+		public string ExpiresStr
+		{
+			get { return (string)GetValue(ExpiresStrProperty); }
+			set { SetValue(ExpiresStrProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="Id"/>
 		/// </summary>
 		public static readonly BindableProperty IdProperty =
@@ -712,6 +730,16 @@ namespace IdApp.ViewModels.Wallet
 		public ICommand ShareCommand { get; }
 
 		/// <summary>
+		/// The command to bind to for resubmitting a payment.
+		/// </summary>
+		public ICommand SubmitCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for displaying eDaler URI as a QR Code
+		/// </summary>
+		public ICommand ShowCodeCommand { get; }
+
+		/// <summary>
 		/// If PIN should be used.
 		/// </summary>
 		public bool UsePin => this.tagProfile?.UsePin ?? false;
@@ -889,8 +917,8 @@ namespace IdApp.ViewModels.Wallet
 
 						this.EvaluateCommands(this.ShareCommand);
 
-						if (!(this.page is null))
-							await this.page.ShowQrCode();
+						if (!(this.shareQrCode is null))
+							await this.shareQrCode.ShowQrCode();
 					});
 				}
 			}
@@ -913,6 +941,68 @@ namespace IdApp.ViewModels.Wallet
 
 				shareContent.ShareImage(this.QrCodePng, string.Format(AppResources.RequestPaymentMessage, this.Amount, this.Currency),
 					AppResources.Share, "RequestPayment.png");
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
+		}
+
+		private async Task Submit()
+		{
+			try
+			{
+				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+				{
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					return;
+				}
+
+				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
+				if (succeeded)
+				{
+					await this.navigationService.GoBackAsync();
+					await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+				}
+				else
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ShowCode()
+		{
+			if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+			{
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				return;
+			}
+
+			try
+			{
+				byte[] Bin = QrCodeImageGenerator.GeneratePng(this.Uri, 300, 300);
+				this.QrCodePng = Bin;
+
+				if (this.IsBound)
+				{
+					this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+					{
+						this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
+						this.QrCodeWidth = 300;
+						this.QrCodeHeight = 300;
+						this.HasQrCode = true;
+
+						this.EvaluateCommands(this.ShareCommand);
+
+						if (!(this.shareQrCode is null))
+							await this.shareQrCode.ShowQrCode();
+					});
+				}
 			}
 			catch (Exception ex)
 			{

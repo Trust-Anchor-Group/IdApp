@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
+using EDaler.Uris;
 using IdApp.Navigation.Wallet;
 using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
@@ -40,6 +41,7 @@ namespace IdApp.ViewModels.Wallet
 			this.networkService = networkService;
 
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => IsConnected);
+			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 
 			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			this.Events = new ObservableCollection<AccountEventItem>();
@@ -309,11 +311,30 @@ namespace IdApp.ViewModels.Wallet
 		/// </summary>
 		public ICommand RequestPaymentCommand { get; }
 
+		/// <summary>
+		/// The command to bind to for displaying information about a pending payment.
+		/// </summary>
+		public ICommand ShowPendingCommand { get; }
+
 		#endregion
 
 		private async Task RequestPayment()
 		{
 			await this.navigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+		}
+
+		private async Task ShowPending(object P)
+		{
+			if (!(P is PendingPaymentItem Item))
+				return;
+
+			if (!this.NeuronService.Wallet.TryParseEDalerUri(Item.Uri, out EDalerUri Uri, out string Reason))
+			{
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
+				return;
+			}
+
+			await this.navigationService.GoToAsync(nameof(PendingPaymentPage), new EDalerUriNavigationArgs(Uri));
 		}
 
 	}

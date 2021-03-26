@@ -7,7 +7,7 @@
                        Title="{x:Static local:AppResources.ReceiveEDaler}">
     <Grid>
         <ScrollView>
-            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="MainStackLayout">
                 <Label Text="{x:Static local:AppResources.EDalerNote}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static local:AppResources.EDalerNoteDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <!-- Note -->
@@ -34,7 +34,7 @@
                         </Label>
                         <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=From}" HorizontalOptions="Start" Style="{StaticResource ClickableValueLabel}" TextColor="{StaticResource HeadingForeground}">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Path=BindingContext.FromClickCommand, Source={x:Reference ContractStackLayout}}" />
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.FromClickCommand, Source={x:Reference MainStackLayout}}" />
                             </Label.GestureRecognizers>
                         </Label>
                     </Grid>

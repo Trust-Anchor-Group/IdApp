@@ -54,5 +54,10 @@ namespace IdApp.ViewModels.Wallet
 		/// </summary>
 		public string To => this.pendingPayment.To;
 
+		/// <summary>
+		/// Corresponding eDaler URI.
+		/// </summary>
+		public string Uri => this.pendingPayment.Uri;
+
 	}
 }

@@ -615,6 +615,12 @@
   <data name="PeerReviewRejected" xml:space="preserve">
     <value>Referentgranskning avvisad</value>
   </data>
+  <data name="PendingPayment" xml:space="preserve">
+    <value>Väntande betalning</value>
+  </data>
+  <data name="PendingPaymentDescription" xml:space="preserve">
+    <value>Nedan kan du se information om en betalning som har genererats, men som inte har behandlats fullt ut ännu.</value>
+  </data>
   <data name="PersonalLegalInformation" xml:space="preserve">
     <value>Personlig/juridisk information</value>
   </data>
@@ -834,6 +840,9 @@
   <data name="Share" xml:space="preserve">
     <value>Dela</value>
   </data>
+  <data name="ShowCode" xml:space="preserve">
+    <value>Visa kod</value>
+  </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Signera efter</value>
   </data>
@@ -875,6 +884,9 @@
   </data>
   <data name="StreetNumber" xml:space="preserve">
     <value>Gatnummer</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Skicka in</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Operationen lyckades</value>

@@ -7,7 +7,7 @@
                        Title="{x:Static local:AppResources.RequestPayment}">
     <Grid>
         <ScrollView x:Name="ScrollView">
-            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+            <StackLayout Margin="{StaticResource DefaultMargin}">
                 <Label Text="{x:Static local:AppResources.RequestPayment}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static local:AppResources.RequestPaymentDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <!-- Note -->

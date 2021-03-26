@@ -7,7 +7,7 @@
              Title="{x:Static local:AppResources.ClaimThing}">
     <Grid>
         <ScrollView>
-            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContractStackLayout">
+            <StackLayout Margin="{StaticResource DefaultMargin}">
                 <!-- TAGS -->
                 <Label Text="{x:Static local:AppResources.InformationAboutThing}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
                 <Label Text="{x:Static local:AppResources.InformationAboutThingText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>

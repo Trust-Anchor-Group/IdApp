@@ -615,6 +615,12 @@
   <data name="PeerReviewRejected" xml:space="preserve">
     <value>Peer review rejected</value>
   </data>
+  <data name="PendingPayment" xml:space="preserve">
+    <value>Pending Payment</value>
+  </data>
+  <data name="PendingPaymentDescription" xml:space="preserve">
+    <value>Below you can see information about a payment that has been generated, but has not been fully processed yet.</value>
+  </data>
   <data name="PersonalLegalInformation" xml:space="preserve">
     <value>Personal/legal information</value>
   </data>
@@ -834,6 +840,9 @@
   <data name="Share" xml:space="preserve">
     <value>Share</value>
   </data>
+  <data name="ShowCode" xml:space="preserve">
+    <value>Show Code</value>
+  </data>
   <data name="SignAfter" xml:space="preserve">
     <value>Sign after</value>
   </data>
@@ -875,6 +884,9 @@
   </data>
   <data name="StreetNumber" xml:space="preserve">
     <value>Street Number</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Success</value>
