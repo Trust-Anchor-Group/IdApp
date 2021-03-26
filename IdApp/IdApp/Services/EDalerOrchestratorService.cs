@@ -106,9 +106,9 @@ namespace IdApp.Services
 		/// <param name="uri">eDaler URI.</param>
 		public async Task OpenEDalerUri(string uri)
 		{
-			if (!this.neuronService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed))
+			if (!this.neuronService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed, out string Reason))
 			{
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidEDalerUri);
+				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
 				return;
 			}
 

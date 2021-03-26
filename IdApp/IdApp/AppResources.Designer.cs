@@ -970,7 +970,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid eDaler URI..
+        ///   Looks up a localized string similar to Invalid eDaler URI: {0}.
         /// </summary>
         internal static string InvalidEDalerUri {
             get {

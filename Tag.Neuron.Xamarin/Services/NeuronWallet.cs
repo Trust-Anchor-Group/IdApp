@@ -68,10 +68,11 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="Uri">URI string.</param>
 		/// <param name="Parsed">Parsed eDaler URI, if successful.</param>
+		/// <param name="Reason">Error message, if not able to parse URI.</param>
 		/// <returns>If URI string could be parsed.</returns>
-		public bool TryParseEDalerUri(string Uri, out EDalerUri Parsed)
+		public bool TryParseEDalerUri(string Uri, out EDalerUri Parsed, out string Reason)
 		{
-			return EDalerUri.TryParse(Uri, out Parsed);
+			return EDalerUri.TryParse(Uri, out Parsed, out Reason);
 		}
 
 		/// <summary>

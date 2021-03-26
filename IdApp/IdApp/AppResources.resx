@@ -421,7 +421,7 @@
     <value>Inspect communication</value>
   </data>
   <data name="InvalidEDalerUri" xml:space="preserve">
-    <value>Invalid eDaler URI.</value>
+    <value>Invalid eDaler URI: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
     <value>Invalid IoT Discovery Code</value>

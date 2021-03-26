@@ -421,7 +421,7 @@
     <value>Inspektera kommunikationen</value>
   </data>
   <data name="InvalidEDalerUri" xml:space="preserve">
-    <value>Ogiltig eDaler-URI.</value>
+    <value>Ogiltig eDaler-URI: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
     <value>Ogiltig kod för IoT-sökning</value>

@@ -566,7 +566,7 @@
         </member>
         <member name="P:IdApp.AppResources.InvalidEDalerUri">
             <summary>
-              Looks up a localized string similar to Invalid eDaler URI..
+              Looks up a localized string similar to Invalid eDaler URI: {0}.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.InvalidIoTDiscoveryCode">
