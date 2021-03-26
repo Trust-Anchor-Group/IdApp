@@ -5213,12 +5213,12 @@
         <member name="M:IdApp.ViewModels.MainViewModel.DoUnbind">
             <inheritdoc />
         </member>
-        <member name="F:IdApp.ViewModels.MainViewModel.ViewMyContractsCommandProperty">
+        <member name="F:IdApp.ViewModels.MainViewModel.ViewMyContactsCommandProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.MainViewModel.ViewMyContractsCommand"/>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ViewMyContactsCommand"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.MainViewModel.ViewMyContractsCommand">
+        <member name="P:IdApp.ViewModels.MainViewModel.ViewMyContactsCommand">
             <summary>
             The command to bind to for viewing the user's own contracts.
             </summary>

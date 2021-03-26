@@ -5,8 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Views.Contracts;
-using IdApp.Views.Wallet;
+using IdApp.Views.Contacts;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -68,7 +67,7 @@ namespace IdApp.ViewModels
             this.eDalerOrchestratorService = eDalerOrchestratorService ?? DependencyService.Resolve<IEDalerOrchestratorService>();
             this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
             this.UpdateLoggedOutText(true);
-            this.ViewMyContractsCommand = new Command(async () => await ViewMyContracts(), () => this.IsConnected);
+            this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
             this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
             this.ViewWalletCommand = new Command(async () => await ViewWallet(), () => this.IsConnected);
         }
@@ -179,18 +178,18 @@ namespace IdApp.ViewModels
         #region Properties
 
         /// <summary>
-        /// See <see cref="ViewMyContractsCommand"/>
+        /// See <see cref="ViewMyContactsCommand"/>
         /// </summary>
-        public static readonly BindableProperty ViewMyContractsCommandProperty =
-            BindableProperty.Create("ViewMyContractsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+        public static readonly BindableProperty ViewMyContactsCommandProperty =
+            BindableProperty.Create("ViewMyContactsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
         /// <summary>
         /// The command to bind to for viewing the user's own contracts.
         /// </summary>
-        public ICommand ViewMyContractsCommand
+        public ICommand ViewMyContactsCommand
         {
-            get { return (ICommand)GetValue(ViewMyContractsCommandProperty); }
-            set { SetValue(ViewMyContractsCommandProperty, value); }
+            get { return (ICommand)GetValue(ViewMyContactsCommandProperty); }
+            set { SetValue(ViewMyContactsCommandProperty, value); }
         }
 
         /// <summary>
@@ -497,9 +496,9 @@ namespace IdApp.ViewModels
 
         #endregion
 
-        private async Task ViewMyContracts()
+        private async Task ViewMyContacts()
         {
-            await this.navigationService.GoToAsync(nameof(MyContractsPage));
+            await this.navigationService.GoToAsync(nameof(MyContactsPage));
         }
 
         private async Task ViewWallet()
@@ -599,7 +598,7 @@ namespace IdApp.ViewModels
                 this.ConnectionErrorsText = string.Empty;
             }
             this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
-            this.EvaluateCommands(this.ViewMyContractsCommand, this.ScanQrCodeCommand, this.ViewWalletCommand);
+            this.EvaluateCommands(this.ViewMyContactsCommand, this.ScanQrCodeCommand, this.ViewWalletCommand);
         }
     }
 }
