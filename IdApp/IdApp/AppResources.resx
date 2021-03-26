@@ -126,6 +126,12 @@
   <data name="Account" xml:space="preserve">
     <value>Account</value>
   </data>
+  <data name="AccountEvent" xml:space="preserve">
+    <value>Account Event</value>
+  </data>
+  <data name="AccountEventDescription" xml:space="preserve">
+    <value>Below you can see information about a single account event.</value>
+  </data>
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
     <value>Account name {0} is already taken. Choose another.</value>
   </data>
@@ -198,6 +204,9 @@
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
     <value>Are you sure you want to revoke your legal identity from the application?</value>
   </data>
+  <data name="Balance" xml:space="preserve">
+    <value>Balance:</value>
+  </data>
   <data name="Building" xml:space="preserve">
     <value>Building</value>
   </data>
@@ -209,6 +218,9 @@
   </data>
   <data name="CantConnectTo" xml:space="preserve">
     <value>Can't connect to {0}</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change:</value>
   </data>
   <data name="ChooseAccount" xml:space="preserve">
     <value>Choose account</value>
@@ -747,6 +759,9 @@
   <data name="RejectInformation" xml:space="preserve">
     <value>Reject Information</value>
   </data>
+  <data name="RemoteParty" xml:space="preserve">
+    <value>Remote Party:</value>
+  </data>
   <data name="RemoveContact" xml:space="preserve">
     <value>Remove Contact</value>
   </data>
@@ -929,6 +944,9 @@
   </data>
   <data name="TransactionAccepted" xml:space="preserve">
     <value>Transaction has been accepted and processed.</value>
+  </data>
+  <data name="TransactionId" xml:space="preserve">
+    <value>Transaction ID:</value>
   </data>
   <data name="Transferable" xml:space="preserve">
     <value>Transferable</value>

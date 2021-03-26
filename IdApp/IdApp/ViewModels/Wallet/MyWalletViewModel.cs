@@ -42,6 +42,7 @@ namespace IdApp.ViewModels.Wallet
 
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => IsConnected);
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
+			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
 
 			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			this.Events = new ObservableCollection<AccountEventItem>();
@@ -316,6 +317,11 @@ namespace IdApp.ViewModels.Wallet
 		/// </summary>
 		public ICommand ShowPendingCommand { get; }
 
+		/// <summary>
+		/// The command to bind to for displaying information about an account event.
+		/// </summary>
+		public ICommand ShowEventCommand { get; }
+
 		#endregion
 
 		private async Task RequestPayment()
@@ -335,6 +341,14 @@ namespace IdApp.ViewModels.Wallet
 			}
 
 			await this.navigationService.GoToAsync(nameof(PendingPaymentPage), new EDalerUriNavigationArgs(Uri));
+		}
+
+		private async Task ShowEvent(object P)
+		{
+			if (!(P is AccountEventItem Item))
+				return;
+
+			await this.navigationService.GoToAsync(nameof(AccountEventPage), new AccountEventNavigationArgs(Item));
 		}
 
 	}

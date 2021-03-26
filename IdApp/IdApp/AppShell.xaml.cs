@@ -99,6 +99,7 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(PaymentPage), typeof(PaymentPage));
 			Routing.RegisterRoute(nameof(PaymentAcceptancePage), typeof(PaymentAcceptancePage));
 			Routing.RegisterRoute(nameof(PendingPaymentPage), typeof(PendingPaymentPage));
+			Routing.RegisterRoute(nameof(AccountEventPage), typeof(AccountEventPage));
 		}
 
 		private async Task GoToPage(string route)

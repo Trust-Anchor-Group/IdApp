@@ -74,6 +74,16 @@
               Looks up a localized string similar to Account.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.AccountEvent">
+            <summary>
+              Looks up a localized string similar to Account Event.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.AccountEventDescription">
+            <summary>
+              Looks up a localized string similar to Below you can see information about a single account event..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.AccountNameAlreadyTaken">
             <summary>
               Looks up a localized string similar to Account name {0} is already taken. Choose another..
@@ -194,6 +204,11 @@
               Looks up a localized string similar to Are you sure you want to revoke your legal identity from the application?.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Balance">
+            <summary>
+              Looks up a localized string similar to Balance:.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Building">
             <summary>
               Looks up a localized string similar to Building.
@@ -212,6 +227,11 @@
         <member name="P:IdApp.AppResources.CantConnectTo">
             <summary>
               Looks up a localized string similar to Can&apos;t connect to {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Change">
+            <summary>
+              Looks up a localized string similar to Change:.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ChooseAccount">
@@ -1109,6 +1129,11 @@
               Looks up a localized string similar to Reject Information.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.RemoteParty">
+            <summary>
+              Looks up a localized string similar to Remote Party:.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.RemoveContact">
             <summary>
               Looks up a localized string similar to Remove Contact.
@@ -1412,6 +1437,11 @@
         <member name="P:IdApp.AppResources.TransactionAccepted">
             <summary>
               Looks up a localized string similar to Transaction has been accepted and processed..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TransactionId">
+            <summary>
+              Looks up a localized string similar to Transaction ID:.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Transferable">
@@ -2251,6 +2281,22 @@
         <member name="P:IdApp.Navigation.Things.ViewClaimThingNavigationArgs.Uri">
             <summary>
             The iotdisco claim URI
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.Wallet.AccountEventNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to eDaler URIs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.Wallet.AccountEventNavigationArgs.#ctor(IdApp.ViewModels.Wallet.AccountEventItem)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Wallet.AccountEventNavigationArgs"/> class.
+            </summary>
+            <param name="Event">Information about an account event.</param>
+        </member>
+        <member name="P:IdApp.Navigation.Wallet.AccountEventNavigationArgs.Event">
+            <summary>
+            Account event
             </summary>
         </member>
         <member name="T:IdApp.Navigation.Wallet.EDalerBalanceNavigationArgs">
@@ -6704,6 +6750,165 @@
             String representation of timestamp
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.Wallet.AccountEventViewModel">
+            <summary>
+            The view model to bind to for when displaying the contents of an account event.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.AccountEventViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.EDalerUriViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.AccountEventViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.AccountEventViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Wallet.AccountEventViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Change"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Change">
+            <summary>
+            Change of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeColorProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeColor"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeColor">
+            <summary>
+            Color of <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Change"/> field.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeText">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Change"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeAndCurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeAndCurrency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeAndCurrency">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.ChangeText"/> and <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Currency"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Balance"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Balance">
+            <summary>
+            Balance of eDaler
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceText">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Balance"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceAndCurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceAndCurrency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceAndCurrency">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.BalanceText"/> and <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Currency"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.CurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Currency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Currency">
+            <summary>
+            Currency of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.TimestampProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Timestamp"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Timestamp">
+            <summary>
+            When code was created.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.TimestampStrProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.TimestampStr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.TimestampStr">
+            <summary>
+            When code expires
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.IdProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Id"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Id">
+            <summary>
+            Globally unique identifier of code
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.RemoteProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Remote"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Remote">
+            <summary>
+            Remote who eDaler is to be transferred
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.MessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Message"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.Message">
+            <summary>
+            Message to recipient
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.AccountEventViewModel.HasMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.AccountEventViewModel.HasMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventViewModel.HasMessage">
+            <summary>
+            If a message is defined
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Wallet.EDalerReceivedViewModel">
             <summary>
             The view model to bind to for displaying information about an incoming balance change.
@@ -7414,6 +7619,11 @@
         <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.ShowPendingCommand">
             <summary>
             The command to bind to for displaying information about a pending payment.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.ShowEventCommand">
+            <summary>
+            The command to bind to for displaying information about an account event.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Wallet.PendingPaymentItem">
@@ -8294,6 +8504,22 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.Things.ViewClaimThingPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Wallet.AccountEventPage">
+            <summary>
+            A page that allows the user to view information about an account event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.AccountEventPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.AccountEventPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.AccountEventPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

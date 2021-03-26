@@ -133,6 +133,9 @@
     <Compile Update="Views\Wallet\PaymentAcceptancePage.xaml.cs">
       <DependentUpon>PaymentAcceptancePage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Wallet\AccountEventPage.xaml.cs">
+      <DependentUpon>AccountEventPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Wallet\PendingPaymentPage.xaml.cs">
       <DependentUpon>PendingPaymentPage.xaml</DependentUpon>
     </Compile>

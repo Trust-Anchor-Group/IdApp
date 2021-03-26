@@ -104,6 +104,9 @@
                                     </Label.FormattedText>
                                 </Label>
                                 <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="WordWrap"/>
+                                <Grid.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowEventCommand, Source={x:Reference AccountEventsLayout}}" CommandParameter="{Binding}" />
+                                </Grid.GestureRecognizers>
                             </Grid>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>

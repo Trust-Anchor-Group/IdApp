@@ -88,6 +88,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Event.
+        /// </summary>
+        internal static string AccountEvent {
+            get {
+                return ResourceManager.GetString("AccountEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can see information about a single account event..
+        /// </summary>
+        internal static string AccountEventDescription {
+            get {
+                return ResourceManager.GetString("AccountEventDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account name {0} is already taken. Choose another..
         /// </summary>
         internal static string AccountNameAlreadyTaken {
@@ -304,6 +322,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Balance:.
+        /// </summary>
+        internal static string Balance {
+            get {
+                return ResourceManager.GetString("Balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Building.
         /// </summary>
         internal static string Building {
@@ -336,6 +363,15 @@ namespace IdApp {
         internal static string CantConnectTo {
             get {
                 return ResourceManager.GetString("CantConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change:.
+        /// </summary>
+        internal static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
             }
         }
         
@@ -1951,6 +1987,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remote Party:.
+        /// </summary>
+        internal static string RemoteParty {
+            get {
+                return ResourceManager.GetString("RemoteParty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove Contact.
         /// </summary>
         internal static string RemoveContact {
@@ -2496,6 +2541,15 @@ namespace IdApp {
         internal static string TransactionAccepted {
             get {
                 return ResourceManager.GetString("TransactionAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction ID:.
+        /// </summary>
+        internal static string TransactionId {
+            get {
+                return ResourceManager.GetString("TransactionId", resourceCulture);
             }
         }
         
