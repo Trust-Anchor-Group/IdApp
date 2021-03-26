@@ -131,7 +131,10 @@ namespace IdApp.Services
 			}
 			else if (Parsed is EDalerPaymentUri)
 			{
-				// TODO
+				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				{
+					await this.navigationService.GoToAsync(nameof(PaymentAcceptancePage), new EDalerUriNavigationArgs(Parsed));
+				});
 			}
 			else if (Parsed is EDalerIncompletePaymeUri)
 			{

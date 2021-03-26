@@ -66,9 +66,19 @@ namespace IdApp
 
 		private void RegisterRoutes()
 		{
+			// Onboarding:
 			Routing.RegisterRoute(nameof(RegistrationPage), typeof(RegistrationPage));
-			Routing.RegisterRoute(nameof(ViewIdentityPage), typeof(ViewIdentityPage));
+			Routing.RegisterRoute(nameof(XmppCommunicationPage), typeof(XmppCommunicationPage));
+
+			// General:
 			Routing.RegisterRoute(nameof(ScanQrCodePage), typeof(ScanQrCodePage));
+
+			// Identity:
+			Routing.RegisterRoute(nameof(ViewIdentityPage), typeof(ViewIdentityPage));
+			Routing.RegisterRoute(nameof(PetitionIdentityPage), typeof(PetitionIdentityPage));
+			Routing.RegisterRoute(nameof(PetitionSignaturePage), typeof(PetitionSignaturePage));
+
+			// Contracts:
 			Routing.RegisterRoute(nameof(MyContractsPage), typeof(MyContractsPage));
 			Routing.RegisterRoute(nameof(SignedContractsPage), typeof(SignedContractsPage));
 			Routing.RegisterRoute(nameof(ContractTemplatesPage), typeof(ContractTemplatesPage));
@@ -77,15 +87,17 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(ClientSignaturePage), typeof(ClientSignaturePage));
 			Routing.RegisterRoute(nameof(ServerSignaturePage), typeof(ServerSignaturePage));
 			Routing.RegisterRoute(nameof(PetitionContractPage), typeof(PetitionContractPage));
-			Routing.RegisterRoute(nameof(PetitionIdentityPage), typeof(PetitionIdentityPage));
-			Routing.RegisterRoute(nameof(PetitionSignaturePage), typeof(PetitionSignaturePage));
-			Routing.RegisterRoute(nameof(XmppCommunicationPage), typeof(XmppCommunicationPage));
+			
+			// Things
 			Routing.RegisterRoute(nameof(ViewClaimThingPage), typeof(ViewClaimThingPage));
+
+			// Wallet
 			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));
 			Routing.RegisterRoute(nameof(EDalerReceivedPage), typeof(EDalerReceivedPage));
 			Routing.RegisterRoute(nameof(MyWalletPage), typeof(MyWalletPage));
 			Routing.RegisterRoute(nameof(RequestPaymentPage), typeof(RequestPaymentPage));
 			Routing.RegisterRoute(nameof(PaymentPage), typeof(PaymentPage));
+			Routing.RegisterRoute(nameof(PaymentAcceptancePage), typeof(PaymentAcceptancePage));
 		}
 
 		private async Task GoToPage(string route)

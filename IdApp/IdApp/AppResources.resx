@@ -588,6 +588,12 @@
   <data name="Payment" xml:space="preserve">
     <value>Payment</value>
   </data>
+  <data name="PaymentAcceptance" xml:space="preserve">
+    <value>Payment Acceptance</value>
+  </data>
+  <data name="PaymentAcceptanceDescription" xml:space="preserve">
+    <value>Below you can see the details of the offline payment. If acceptable, you can choose to accept to send the payment to the Neuron for processing.</value>
+  </data>
   <data name="PaymentDescription" xml:space="preserve">
     <value>Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button.</value>
   </data>
@@ -908,6 +914,9 @@
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>To connect to {0}, you need an account. Do you want to create one, or use an existing account?</value>
+  </data>
+  <data name="TransactionAccepted" xml:space="preserve">
+    <value>Transaction has been accepted and processed.</value>
   </data>
   <data name="Transferable" xml:space="preserve">
     <value>Transferable</value>

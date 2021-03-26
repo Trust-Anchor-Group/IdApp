@@ -130,6 +130,9 @@
     <Compile Update="Views\Things\ViewClaimThingPage.xaml.cs">
       <DependentUpon>ViewClaimThingPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\Wallet\PaymentAcceptancePage.xaml.cs">
+      <DependentUpon>PaymentAcceptancePage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\Wallet\PaymentPage.xaml.cs">
       <DependentUpon>PaymentPage.xaml</DependentUpon>
     </Compile>

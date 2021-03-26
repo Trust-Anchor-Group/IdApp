@@ -1474,6 +1474,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment Acceptance.
+        /// </summary>
+        internal static string PaymentAcceptance {
+            get {
+                return ResourceManager.GetString("PaymentAcceptance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below you can see the details of the offline payment. If acceptable, you can choose to accept to send the payment to the Neuron for processing..
+        /// </summary>
+        internal static string PaymentAcceptanceDescription {
+            get {
+                return ResourceManager.GetString("PaymentAcceptanceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button..
         /// </summary>
         internal static string PaymentDescription {
@@ -2433,6 +2451,15 @@ namespace IdApp {
         internal static string ToConnectToDomainYouNeedAnAccount {
             get {
                 return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction has been accepted and processed..
+        /// </summary>
+        internal static string TransactionAccepted {
+            get {
+                return ResourceManager.GetString("TransactionAccepted", resourceCulture);
             }
         }
         

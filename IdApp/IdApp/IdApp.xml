@@ -844,6 +844,16 @@
               Looks up a localized string similar to Payment.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.PaymentAcceptance">
+            <summary>
+              Looks up a localized string similar to Payment Acceptance.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PaymentAcceptanceDescription">
+            <summary>
+              Looks up a localized string similar to Below you can see the details of the offline payment. If acceptable, you can choose to accept to send the payment to the Neuron for processing..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.PaymentDescription">
             <summary>
               Looks up a localized string similar to Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button..
@@ -1377,6 +1387,11 @@
         <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount">
             <summary>
               Looks up a localized string similar to To connect to {0}, you need an account. Do you want to create one, or use an existing account?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TransactionAccepted">
+            <summary>
+              Looks up a localized string similar to Transaction has been accepted and processed..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Transferable">
@@ -6882,6 +6897,16 @@
             <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Amount"/> as text.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountAndCurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountAndCurrency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountAndCurrency">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountText"/> and <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Currency"/>.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountPresetProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountPreset"/>
@@ -6930,6 +6955,16 @@
         <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraText">
             <summary>
             <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtra"/> as text.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraAndCurrencyProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraAndCurrency"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraAndCurrency">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraText"/> and <see cref="P:IdApp.ViewModels.Wallet.EDalerUriViewModel.Currency"/>.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Wallet.EDalerUriViewModel.AmountExtraPresetProperty">
@@ -8247,6 +8282,22 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.Wallet.MyWalletPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Wallet.PaymentAcceptancePage">
+            <summary>
+            A page that allows the user to accept an offline payment.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PaymentAcceptancePage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Wallet.PaymentAcceptancePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Wallet.PaymentAcceptancePage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

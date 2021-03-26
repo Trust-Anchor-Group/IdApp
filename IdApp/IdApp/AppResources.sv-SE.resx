@@ -588,6 +588,12 @@
   <data name="Payment" xml:space="preserve">
     <value>Betalning</value>
   </data>
+  <data name="PaymentAcceptance" xml:space="preserve">
+    <value>Acceptera betalning</value>
+  </data>
+  <data name="PaymentAcceptanceDescription" xml:space="preserve">
+    <value>Nedan kan du se detaljerna över offline-betalningen. Om acceptabla, kan du välja att acceptera att de skickas in till neuronen för behandling.</value>
+  </data>
   <data name="PaymentDescription" xml:space="preserve">
     <value>Ange belopped att betala till motagaren nedan. När du är klar, kan du välja att betala antingen online (om ansluten) eller offline, genom att klicka på motsvarande knapp.</value>
   </data>
@@ -908,6 +914,9 @@
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
     <value>För att ansluta till {0} behövs ett konto. Vill du skapa ett, eller välja ett existerande?</value>
+  </data>
+  <data name="TransactionAccepted" xml:space="preserve">
+    <value>Transaktionen har accepterats och behandlats.</value>
   </data>
   <data name="Transferable" xml:space="preserve">
     <value>Överlåtelsebar</value>

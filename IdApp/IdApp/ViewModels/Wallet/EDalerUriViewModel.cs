@@ -81,10 +81,12 @@ namespace IdApp.ViewModels.Wallet
 				this.AmountText = this.Amount <= 0 ? string.Empty : this.Amount.ToString();
 				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
 				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
+				this.AmountAndCurrency = this.AmountText + " " + this.Currency;
 
 				this.AmountExtraText = this.AmountExtra.HasValue ? this.AmountExtra.Value.ToString() : string.Empty;
 				this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
 				this.AmountExtraPreset = this.AmountExtra.HasValue;
+				this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
 
 				StringBuilder Url = new StringBuilder();
 
@@ -243,6 +245,21 @@ namespace IdApp.ViewModels.Wallet
 		}
 
 		/// <summary>
+		/// See <see cref="AmountAndCurrency"/>
+		/// </summary>
+		public static readonly BindableProperty AmountAndCurrencyProperty =
+			BindableProperty.Create("AmountAndCurrency", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// <see cref="AmountText"/> and <see cref="Currency"/>.
+		/// </summary>
+		public string AmountAndCurrency
+		{
+			get { return (string)GetValue(AmountAndCurrencyProperty); }
+			set { SetValue(AmountAndCurrencyProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="AmountPreset"/>
 		/// </summary>
 		public static readonly BindableProperty AmountPresetProperty =
@@ -338,6 +355,21 @@ namespace IdApp.ViewModels.Wallet
 
 				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand);
 			}
+		}
+
+		/// <summary>
+		/// See <see cref="AmountExtraAndCurrency"/>
+		/// </summary>
+		public static readonly BindableProperty AmountExtraAndCurrencyProperty =
+			BindableProperty.Create("AmountExtraAndCurrency", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// <see cref="AmountExtraText"/> and <see cref="Currency"/>.
+		/// </summary>
+		public string AmountExtraAndCurrency
+		{
+			get { return (string)GetValue(AmountExtraAndCurrencyProperty); }
+			set { SetValue(AmountExtraAndCurrencyProperty, value); }
 		}
 
 		/// <summary>
@@ -759,7 +791,10 @@ namespace IdApp.ViewModels.Wallet
 
 				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
 				if (succeeded)
+				{
 					await this.navigationService.GoBackAsync();
+					await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.TransactionAccepted);
+				}
 				else
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
 			}
