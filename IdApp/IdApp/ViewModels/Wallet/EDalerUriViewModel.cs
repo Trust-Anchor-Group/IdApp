@@ -938,8 +938,12 @@ namespace IdApp.ViewModels.Wallet
 			try
 			{
 				IShareContent shareContent = DependencyService.Get<IShareContent>();
+				string Message = this.Message;
 
-				shareContent.ShareImage(this.QrCodePng, string.Format(AppResources.RequestPaymentMessage, this.Amount, this.Currency),
+				if (string.IsNullOrEmpty(Message))
+					Message = this.AmountAndCurrency;
+
+				shareContent.ShareImage(this.QrCodePng, string.Format(Message, this.Amount, this.Currency),
 					AppResources.Share, "RequestPayment.png");
 			}
 			catch (Exception ex)
