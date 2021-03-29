@@ -1,0 +1,51 @@
+AnalyzeIdAppDB([FileName]):=
+(
+	Result:=true;
+	DB:=LoadFile(FileName);
+
+	IdStates:=select 
+		./CIS[@n='BareJid']/@v BareJid, 
+		./CIS[@n='LegalId']/@v LegalId, 
+		./Bin[@n='PublicKey']/@v PublicKey, 
+		./S[@n='State']/@v State, 
+		./DT[@n='Timestamp']/@v Timestamp 
+	from DB
+	where /Database/Collection[@name='LegalIdentityStates']/Obj;
+	Approved:=[x in IdStates:x[3]="Approved"];
+
+	N:=count(Approved);
+	if N=0 then (print("No approved ID available.");Result:=false)
+	else if N>1 then (print("More than one approved IDs available (" + N + ").");Result:=false);
+
+	Settings:=select
+		./S[@n='Key']/@v Key,
+		./*[@n='Value']/@v Value
+	from DB
+	where /Database/Collection[@name='Settings']/Obj;
+
+	ed448Priv:=[x in Settings:x[0]="Waher.Networking.XMPP.Contracts.ContractsClient.ed448"][0][1];
+	C:=Ed448(ed448Priv);
+	ed448Pub:=Base64Encode(C.PublicKey);
+	WorkingEd448:=[x in IdStates:x[2]=ed448Pub];
+
+	x448Priv:=[x in Settings:x[0]="Waher.Networking.XMPP.Contracts.ContractsClient.x448"][0][1];
+	C:=x448(x448Priv);
+	x448Pub:=Base64Encode(C.PublicKey);
+	WorkingX448:=[x in IdStates:x[2]=x448Pub];
+
+	p384Priv:=[x in Settings:x[0]="Waher.Networking.XMPP.Contracts.ContractsClient.p384"][0][1];
+	C:=p384(p384Priv);
+	p384Pub:=Base64Encode(C.PublicKey);
+	Workingp384:=[x in IdStates:x[2]=p384Pub];
+
+	p521Priv:=[x in Settings:x[0]="Waher.Networking.XMPP.Contracts.ContractsClient.p521"][0][1];
+	C:=p521(p521Priv);
+	p521Pub:=Base64Encode(C.PublicKey);
+	Workingp521:=[x in IdStates:x[2]=p521Pub];
+
+	N:=count(WorkingEd448)+count(WorkingX448)+count(Workingp384)+count(Workingp521);
+	if N=0 then (print("No approved ID corresponds to the current private keys.");Result:=false)
+	else if N>1 then (print("More than one approved IDs corresponds to the current private keys (" + N + ").");Result:=false);
+
+	Result
+);
