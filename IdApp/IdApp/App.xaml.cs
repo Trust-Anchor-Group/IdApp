@@ -15,6 +15,7 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Content;
+using Waher.Content.Images;
 using Waher.Content.Xml;
 using Waher.Content.Markdown;
 using Waher.IoTGateway.Setup;
@@ -82,6 +83,7 @@ namespace IdApp
                         typeof(FilesProvider).Assembly,             // Indexes special serializers
                         typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
                         typeof(InternetContent).Assembly,           // Common Content-Types
+                        typeof(ImageCodec).Assembly,                // Common Image Content-Types
                         typeof(XML).Assembly,                       // XML Content-Type
                         typeof(MarkdownDocument).Assembly,          // Markdown support
                         typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
@@ -100,7 +102,7 @@ namespace IdApp
                 this.startupProfiler?.NewState("SDK");
                 // Create Services
                 this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
-                this.imageCacheService = new ImageCacheService(this.sdk.SettingsService, this.sdk.LogService);
+                this.imageCacheService = new ImageCacheService(this.sdk.LogService);
                 this.sdk.RegisterSingleton<IImageCacheService, ImageCacheService>(this.imageCacheService);
                 this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
                 this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);

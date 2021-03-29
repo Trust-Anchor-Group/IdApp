@@ -112,27 +112,25 @@ namespace IdApp
         /// </summary>
         /// <param name="attachment">The attachment to download.</param>
         /// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
-        /// <returns></returns>
-        public async Task<MemoryStream> LoadOnePhoto(Attachment attachment, SignWith signWith)
+        /// <returns>Binary content (or null), and Content-Type</returns>
+        public async Task<(byte[], string)> LoadOnePhoto(Attachment attachment, SignWith signWith)
         {
             try
             {
                 if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
-                    return null;
+                    return (null, string.Empty);
 
                 if (attachment is null)
-                    return null;
+                    return (null, string.Empty);
 
-                MemoryStream stream = await GetPhoto(attachment, signWith, DateTime.UtcNow);
-                stream?.Reset();
-                return stream;
+                return await GetPhoto(attachment, signWith, DateTime.UtcNow);
             }
             catch (Exception ex)
             {
                 this.logService.LogException(ex);
             }
 
-            return null;
+            return (null, string.Empty);
         }
 
         private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now, Action whenDoneAction)
@@ -168,14 +166,12 @@ namespace IdApp
                     if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
                         continue;
 
-                    MemoryStream stream = await GetPhoto(attachment, signWith, now);
-                    if (!(stream is null))
+                    (byte[] Bin, string ContentType) = await GetPhoto(attachment, signWith, now);
+                    if (!(Bin is null))
                     {
-                        byte[] bytes = stream.ToArray();
-                        stream.Dispose();
                         this.uiDispatcher.BeginInvokeOnMainThread(() =>
                         {
-                            photos.Add(ImageSource.FromStream(() => new MemoryStream(bytes)));
+                            photos.Add(ImageSource.FromStream(() => new MemoryStream(Bin)));
                         });
                     }
                 }
@@ -188,33 +184,32 @@ namespace IdApp
             whenDoneAction?.Invoke();
         }
 
-        private async Task<MemoryStream> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
+        private async Task<(byte[], string)> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
         {
-            // 1. Found in cache?
-            if (this.imageCacheService.TryGet(attachment.Url, out MemoryStream stream))
-            {
-                return stream;
-            }
+            (byte[] Bin, string ContentType) = await this.imageCacheService.TryGet(attachment.Url);
+            if (!(Bin is null))
+                return (Bin, ContentType);
 
-            // 2. Needs download
             KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
-            // If download has been cancelled any time _during_ download, stop here.
-            if (this.loadPhotosTimestamp > now)
-            {
-                pair.Value.Dispose();
-                return null;
-            }
 
             using (TemporaryFile file = pair.Value)
             {
+                if (this.loadPhotosTimestamp > now)     // If download has been cancelled any time _during_ download, stop here.
+                    return (null, string.Empty);
+
+                if (pair.Value.Length > int.MaxValue)   // Too large
+                    return (null, string.Empty);
+
                 file.Reset();
-                MemoryStream ms = new MemoryStream();
-                await file.CopyToAsync(ms);
-                // 3. Save to cache
-                ms.Reset();
-                await this.imageCacheService.Add(attachment.Url, ms);
-                ms.Reset();
-                return ms;
+
+                ContentType = pair.Key;
+                Bin = new byte[file.Length];
+                if (file.Length != await file.ReadAsync(Bin, 0, (int)file.Length))
+                    return (null, string.Empty);
+
+                await this.imageCacheService.Add(attachment.Url, Bin, ContentType);
+                
+                return (Bin, ContentType);
             }
         }
     }

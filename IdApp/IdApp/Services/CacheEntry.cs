@@ -1,4 +1,5 @@
 ﻿using System;
+using Waher.Persistence;
 using Waher.Persistence.Attributes;
 
 namespace IdApp.Services
@@ -6,11 +7,17 @@ namespace IdApp.Services
 	/// <summary>
 	/// Contains information about a file in the local cache.
 	/// </summary>
+	[CollectionName("ImageCache")]
 	[TypeName(TypeNameSerialization.FullName)]
+	[Index("TimeStamp")]
+	[Index("Url")]
 	public class CacheEntry
 	{
+		private string objectId = null;
+		private CaseInsensitiveString localFileName = string.Empty;
+		private CaseInsensitiveString url = string.Empty;
+		private CaseInsensitiveString contentType = string.Empty;
 		private DateTime timeStamp = DateTime.MinValue;
-		private string localFileName = string.Empty;
 
 		/// <summary>
 		/// Contains information about a file in the local cache.
@@ -20,9 +27,18 @@ namespace IdApp.Services
 		}
 
 		/// <summary>
+		/// Object ID
+		/// </summary>
+		[ObjectId]
+		public string ObjectId
+		{
+			get => this.objectId;
+			set => this.objectId = value;
+		}
+
+		/// <summary>
 		/// Timestamp of entry
 		/// </summary>
-		[DefaultValueDateTimeMinValue]
 		public DateTime TimeStamp 
 		{
 			get => this.timeStamp;
@@ -33,10 +49,28 @@ namespace IdApp.Services
 		/// Local file name.
 		/// </summary>
 		[DefaultValueStringEmpty]
-		public string LocalFileName 
+		public CaseInsensitiveString LocalFileName 
 		{
 			get => this.localFileName;
 			set => this.localFileName = value;
+		}
+
+		/// <summary>
+		/// Local file name.
+		/// </summary>
+		public CaseInsensitiveString Url
+		{
+			get => this.url;
+			set => this.url = value;
+		}
+
+		/// <summary>
+		/// Content-Type
+		/// </summary>
+		public CaseInsensitiveString ContentType
+		{
+			get => this.contentType;
+			set => this.contentType = value;
 		}
 	}
 }

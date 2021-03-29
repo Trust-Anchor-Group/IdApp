@@ -153,18 +153,15 @@ namespace IdApp.ViewModels
                 if (!connected)
                     return;
 
-                MemoryStream ms = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
+                (byte[] Bin, string ContentType) = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
 
-                if (ms != null)
+                if (Bin != null)
                 {
-                    byte[] bytes = ms.ToArray();
-                    ms.Dispose();
-
                     this.UiDispatcher.BeginInvokeOnMainThread(() =>
                     {
                         if (this.IsBound)
                         {
-                            Image = ImageSource.FromStream(() => new MemoryStream(bytes));
+                            Image = ImageSource.FromStream(() => new MemoryStream(Bin));
                         }
                     });
                 }

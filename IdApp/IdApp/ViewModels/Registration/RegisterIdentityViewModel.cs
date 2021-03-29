@@ -11,6 +11,7 @@ using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.PersonalNumbers;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Extensions;
+using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
@@ -469,20 +470,18 @@ namespace IdApp.ViewModels.Registration
         /// <summary>
         /// Adds a photo from the specified path to use as a profile photo.
         /// </summary>
-        /// <param name="ms">The file stream.</param>
+        /// <param name="Bin">Binary content</param>
+        /// <param name="ContentType">Content-Type</param>
         /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
         /// <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
         /// <returns></returns>
-        protected internal async Task AddPhoto(MemoryStream ms, bool saveLocalCopy, bool showAlert)
+        protected internal async Task AddPhoto(byte[] Bin, string ContentType, bool saveLocalCopy, bool showAlert)
         {
-            byte[] bytes = ms.ToArray();
-            ms.Dispose();
-            if (bytes.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
+            if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
                 if (showAlert)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
-                }
+
                 return;
             }
 
@@ -492,15 +491,17 @@ namespace IdApp.ViewModels.Registration
             {
                 try
                 {
-                    File.WriteAllBytes(localPhotoFileName, bytes);
+                    File.WriteAllBytes(localPhotoFileName, Bin);
                 }
                 catch (Exception e)
                 {
                     this.LogService.LogException(e);
                 }
             }
-            this.photo = new LegalIdentityAttachment(localPhotoFileName, Constants.MimeTypes.Jpeg, bytes);
-            Image = ImageSource.FromStream(() => new MemoryStream(bytes));
+
+            this.photo = new LegalIdentityAttachment(localPhotoFileName, ContentType, Bin);
+            Image = ImageSource.FromStream(() => new MemoryStream(Bin));
+
             RegisterCommand.ChangeCanExecute();
         }
 
@@ -512,23 +513,20 @@ namespace IdApp.ViewModels.Registration
         /// <returns></returns>
         protected internal async Task AddPhoto(string filePath, bool saveLocalCopy)
         {
-            MemoryStream ms = new MemoryStream();
             try
             {
-                using (Stream f = File.OpenRead(filePath))
-                {
-                    await f.CopyToAsync(ms);
-                }
-                ms.Reset();
+                byte[] Bin = File.ReadAllBytes(filePath);
+                if (!InternetContent.TryGetContentType(filePath, out string ContentType))
+                    ContentType = "application/octet-stream";
+         
+                await AddPhoto(Bin, ContentType, saveLocalCopy, true);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToLoadPhoto);
-                this.LogService.LogException(e);
+                this.LogService.LogException(ex);
                 return;
             }
-
-            await AddPhoto(ms, saveLocalCopy, true);
         }
 
         private void RemovePhoto(bool removeFileOnDisc)
@@ -811,31 +809,28 @@ namespace IdApp.ViewModels.Registration
                 this.Area = identity[Constants.XmppProperties.Area];
                 this.City = identity[Constants.XmppProperties.City];
                 this.Region = identity[Constants.XmppProperties.Region];
-                string countryCode = identity[Constants.XmppProperties.Country];
-                if (!string.IsNullOrWhiteSpace(countryCode) && ISO_3166_1.TryGetCountry(countryCode, out string country))
-                {
-                    this.SelectedCountry = country;
-                }
+                string CountryCode = identity[Constants.XmppProperties.Country];
+                
+                if (!string.IsNullOrWhiteSpace(CountryCode) && ISO_3166_1.TryGetCountry(CountryCode, out string Country))
+                    this.SelectedCountry = Country;
 
-                Attachment firstAttachment = identity.Attachments?.GetFirstImageAttachment();
-                if (!(firstAttachment is null))
+                Attachment FirstAttachment = identity.Attachments?.GetFirstImageAttachment();
+                if (!(FirstAttachment is null))
                 {
                     // Don't await this one, just let it run asynchronously.
                     this.photosLoader
-                        .LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys)
+                        .LoadOnePhoto(FirstAttachment, SignWith.LatestApprovedIdOrCurrentKeys)
                         .ContinueWith(task =>
                         {
-                            MemoryStream stream = task.Result;
-                            if (!(stream is null))
+                            (byte[] Bin, string ContentType) = task.Result;
+                            if (!(Bin is null))
                             {
                                 if (!this.IsBound) // Page no longer on screen when download is done?
-                                {
-                                    stream.Dispose();
                                     return;
-                                }
+
                                 this.UiDispatcher.BeginInvokeOnMainThread(async () =>
                                 {
-                                    await this.AddPhoto(stream, true, false);
+                                    await this.AddPhoto(Bin, ContentType, true, false);
                                 });
                             }
                         }, TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.NotOnCanceled);

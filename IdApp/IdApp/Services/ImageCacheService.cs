@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using Waher.Persistence;
+using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
-using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 
 namespace IdApp.Services
@@ -15,20 +14,14 @@ namespace IdApp.Services
 	{
 		private static readonly TimeSpan Expiry = TimeSpan.FromHours(24);
 		private const string CacheFolderName = "ImageCache";
-		private const string KeyPrefix = "ImageCache_";
-		private readonly Dictionary<string, CacheEntry> entries;
-		private readonly ISettingsService settingsService;
 		private readonly ILogService logService;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ImageCacheService"/> class.
 		/// </summary>
-		/// <param name="settingsService">The settings service to use.</param>
 		/// <param name="logService">The log service to use.</param>
-		public ImageCacheService(ISettingsService settingsService, ILogService logService)
+		public ImageCacheService(ILogService logService)
 		{
-			this.entries = new Dictionary<string, CacheEntry>();
-			this.settingsService = settingsService;
 			this.logService = logService;
 		}
 
@@ -42,14 +35,7 @@ namespace IdApp.Services
 					CreateCacheFolderIfNeeded();
 
 					if (!isResuming)
-					{
-						List<(string, CacheEntry)> cacheEntries = (await this.settingsService.RestoreStateWhereKeyStartsWith<CacheEntry>(KeyPrefix)).ToList();
-
-						foreach ((string key, CacheEntry entry) in cacheEntries)
-							this.entries[key] = entry;
-
-						EvictOldEntries();
-					}
+						await EvictOldEntries();
 
 					this.EndLoad(true);
 				}
@@ -61,160 +47,126 @@ namespace IdApp.Services
 			}
 		}
 
-		///<inheritdoc/>
-		public override async Task Unload()
-		{
-			if (this.BeginUnload())
-			{
-				try
-				{
-					// Wipe any old settings, so we have a clean slate.
-					await this.settingsService.RemoveStateWhereKeyStartsWith(KeyPrefix);
-
-					foreach (KeyValuePair<string, CacheEntry> entry in entries)
-					{
-						string key = $"{KeyPrefix}{entry.Key}";
-						await this.settingsService.SaveState(key, entry.Value);
-					}
-				}
-				catch (Exception e)
-				{
-					this.logService.LogException(e);
-				}
-
-				this.EndUnload();
-			}
-		}
-
-		///<inheritdoc/>
-		public bool TryGet(string url, out MemoryStream stream)
-		{
-			stream = null;
-
-			EvictOldEntries();
-
-			if (!string.IsNullOrWhiteSpace(url) && Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
-			{
-				if (this.entries.TryGetValue(url, out CacheEntry entry))
-				{
-					try
-					{
-						TimeSpan age = DateTime.UtcNow - entry.TimeStamp;
-						if (File.Exists(entry.LocalFileName) && age < Expiry)
-						{
-							stream = new MemoryStream();
-							using (FileStream fileStream = File.OpenRead(entry.LocalFileName))
-							{
-								fileStream.CopyTo(stream);
-								stream.Reset();
-							}
-							System.Diagnostics.Debug.WriteLine($"ImageCacheService.TryGet '{url}', MS = {stream.GetHashCode()}, Length = {stream.Length}");
-							return true;
-						}
-					}
-					catch (Exception e)
-					{
-						this.logService.LogException(e);
-					}
-				}
-			}
-
-			return false;
-		}
-
-		///<inheritdoc/>
-		public async Task Add(string url, Stream stream)
-		{
-			if (!string.IsNullOrWhiteSpace(url) &&
-				Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute) &&
-				!(stream is null) &&
-				stream.CanRead)
-			{
-				string cacheFolder = CreateCacheFolderIfNeeded();
-				stream.Reset();
-				string localFileName = Path.Combine(cacheFolder, $"Image_{Guid.NewGuid()}.jpg");
-				using (FileStream outputStream = File.OpenWrite(localFileName))
-				{
-					await stream.CopyToAsync(outputStream);
-				}
-				this.entries[url] = new CacheEntry { TimeStamp = DateTime.UtcNow, LocalFileName = localFileName };
-			}
-		}
-
-		///<inheritdoc/>
-		public void Invalidate(string url)
-		{
-			if (!string.IsNullOrWhiteSpace(url) &&
-				Uri.IsWellFormedUriString(url, UriKind.RelativeOrAbsolute))
-			{
-				CreateCacheFolderIfNeeded();
-				if (this.entries.TryGetValue(url, out CacheEntry entry))
-				{
-					string fileName = entry.LocalFileName;
-					if (File.Exists(fileName))
-					{
-						try
-						{
-							File.Delete(fileName);
-						}
-						catch (Exception e)
-						{
-							this.logService.LogException(e);
-						}
-					}
-
-					this.entries.Remove(url);
-				}
-			}
-		}
-
-		private string CreateCacheFolderIfNeeded()
-		{
-			string cacheFolder = GetCacheFolder();
-			if (!Directory.Exists(cacheFolder))
-			{
-				Directory.CreateDirectory(cacheFolder);
-			}
-
-			return cacheFolder;
-		}
-
-		private void EvictOldEntries()
+		/// <summary>
+		/// Tries to get a cached image given the specified url.
+		/// </summary>
+		/// <param name="Url">The url of the image to get.</param>
+		/// <returns>If entry was found in the cache, the binary data of the image together with the Content-Type of the data.</returns>
+		public async Task<(byte[], string)> TryGet(string Url)
 		{
 			try
 			{
-				string cacheFolder = CreateCacheFolderIfNeeded();
+				await EvictOldEntries();
 
-				// 1. Purge entries that are too old.
-				Dictionary<string, CacheEntry> clone = entries.ToDictionary(x => x.Key, x => x.Value);
-				foreach (KeyValuePair<string, CacheEntry> entry in clone)
+				if (string.IsNullOrWhiteSpace(Url) || !Uri.IsWellFormedUriString(Url, UriKind.RelativeOrAbsolute))
+					return (null, string.Empty);
+
+				CacheEntry Entry = await Database.FindFirstDeleteRest<CacheEntry>(new FilterFieldEqualTo("Url", Url));
+				if (Entry is null)
+					return (null, string.Empty);
+
+				TimeSpan Age = DateTime.UtcNow - Entry.TimeStamp;
+				bool Exists = File.Exists(Entry.LocalFileName);
+
+				if (Age >= Expiry || !Exists)
 				{
-					if ((DateTime.UtcNow - entry.Value.TimeStamp) >= Expiry)
-					{
-						// Too old, evict from cache.
-						this.entries.Remove(entry.Key);
-					}
+					if (Exists)
+						File.Delete(Entry.LocalFileName);
+
+					await Database.Delete(Entry);
+
+					return (null, string.Empty);
 				}
 
-				// 2. Now delete the actual files.
-				List<string> fileNames = clone.Select(x => x.Value.LocalFileName).ToList();
-				List<string> filesOnDisc = Directory.GetFiles(cacheFolder).ToList();
-
-				var filesToBeDeleted = filesOnDisc.Except(fileNames).ToList();
-				foreach (string file in filesToBeDeleted)
-				{
-					File.Delete(file);
-				}
+				return (File.ReadAllBytes(Entry.LocalFileName), Entry.ContentType);
 			}
 			catch (Exception e)
 			{
 				this.logService.LogException(e);
+				return (null, string.Empty);
 			}
+		}
+
+		/// <summary>
+		/// Adds an image to the cache.
+		/// </summary>
+		/// <param name="Url">The url, which is the key for accessing it later.</param>
+		/// <param name="Data">Binary data of image</param>
+		/// <param name="ContentType">Content-Type of data.</param>
+		public async Task Add(string Url, byte[] Data, string ContentType)
+		{
+			if (string.IsNullOrWhiteSpace(Url) ||
+				!Uri.IsWellFormedUriString(Url, UriKind.RelativeOrAbsolute) ||
+				Data is null ||
+				string.IsNullOrWhiteSpace(ContentType))
+			{
+				return;
+			}
+
+			string CacheFolder = CreateCacheFolderIfNeeded();
+
+			CacheEntry Entry = await Database.FindFirstDeleteRest<CacheEntry>(new FilterFieldEqualTo("Url", Url));
+
+			if (Entry is null)
+			{
+				Entry = new CacheEntry()
+				{
+					TimeStamp = DateTime.UtcNow,
+					LocalFileName = Path.Combine(CacheFolder, Guid.NewGuid().ToString() + ".bin"),
+					Url = Url,
+					ContentType = ContentType
+				};
+
+				await Database.Insert(Entry);
+			}
+			else
+			{
+				Entry.TimeStamp = DateTime.UtcNow;
+				Entry.ContentType = ContentType;
+
+				await Database.Update(Entry);
+			}
+
+			File.WriteAllBytes(Entry.LocalFileName, Data);
+		}
+
+		private string CreateCacheFolderIfNeeded()
+		{
+			string CacheFolder = GetCacheFolder();
+
+			if (!Directory.Exists(CacheFolder))
+				Directory.CreateDirectory(CacheFolder);
+
+			return CacheFolder;
 		}
 
 		private static string GetCacheFolder()
 		{
 			return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), CacheFolderName);
+		}
+
+		private async Task EvictOldEntries()
+		{
+			try
+			{
+				foreach (CacheEntry Entry in await Database.FindDelete<CacheEntry>(
+					new FilterFieldLesserOrEqualTo("TimeStamp", DateTime.UtcNow.Subtract(Expiry))))
+				{
+					try
+					{
+						if (File.Exists(Entry.LocalFileName))
+							File.Delete(Entry.LocalFileName);
+					}
+					catch (Exception ex)
+					{
+						this.logService.LogException(ex);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+			}
 		}
 	}
 }

@@ -2449,7 +2449,7 @@
             </summary>
             <param name="attachment">The attachment to download.</param>
             <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <returns></returns>
+            <returns>Binary content (or null), and Content-Type</returns>
         </member>
         <member name="T:IdApp.QrCode">
             <summary>
@@ -2509,6 +2509,11 @@
             Contains information about a file in the local cache.
             </summary>
         </member>
+        <member name="P:IdApp.Services.CacheEntry.ObjectId">
+            <summary>
+            Object ID
+            </summary>
+        </member>
         <member name="P:IdApp.Services.CacheEntry.TimeStamp">
             <summary>
             Timestamp of entry
@@ -2517,6 +2522,16 @@
         <member name="P:IdApp.Services.CacheEntry.LocalFileName">
             <summary>
             Local file name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.CacheEntry.Url">
+            <summary>
+            Local file name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.CacheEntry.ContentType">
+            <summary>
+            Content-Type
             </summary>
         </member>
         <member name="M:IdApp.Services.ContractOrchestratorService.TagSignature(System.String)">
@@ -2586,53 +2601,47 @@
             They are stored for a certain duration.
             </summary>
         </member>
-        <member name="M:IdApp.Services.IImageCacheService.TryGet(System.String,System.IO.MemoryStream@)">
+        <member name="M:IdApp.Services.IImageCacheService.TryGet(System.String)">
             <summary>
             Tries to get a cached image given the specified url.
             </summary>
-            <param name="url">The url of the image to get.</param>
-            <param name="stream">The stream pointing to the cached image if it is available.</param>
-            <returns></returns>
+            <param name="Url">The url of the image to get.</param>
+            <returns>If entry was found in the cache, the binary data of the image together with the Content-Type of the data.</returns>
         </member>
-        <member name="M:IdApp.Services.IImageCacheService.Add(System.String,System.IO.Stream)">
+        <member name="M:IdApp.Services.IImageCacheService.Add(System.String,System.Byte[],System.String)">
             <summary>
             Adds an image to the cache.
             </summary>
-            <param name="url">The url, which is the key for accessing it later.</param>
-            <param name="stream">The image stream to store.</param>
-            <returns></returns>
-        </member>
-        <member name="M:IdApp.Services.IImageCacheService.Invalidate(System.String)">
-            <summary>
-            Explicitly invalidates the cache for a certain image, even though the expiry time hasn't passed.
-            </summary>
-            <param name="url">The url of the image.</param>
-            <returns></returns>
+            <param name="Url">The url, which is the key for accessing it later.</param>
+            <param name="Data">Binary data of image</param>
+            <param name="ContentType">Content-Type of data.</param>
         </member>
         <member name="T:IdApp.Services.ImageCacheService">
             <inheritdoc cref="T:IdApp.Services.IImageCacheService"/>
         </member>
-        <member name="M:IdApp.Services.ImageCacheService.#ctor(Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.Services.ImageCacheService.#ctor(Tag.Neuron.Xamarin.Services.ILogService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.ImageCacheService"/> class.
             </summary>
-            <param name="settingsService">The settings service to use.</param>
             <param name="logService">The log service to use.</param>
         </member>
         <member name="M:IdApp.Services.ImageCacheService.Load(System.Boolean)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.ImageCacheService.Unload">
-            <inheritdoc/>
+        <member name="M:IdApp.Services.ImageCacheService.TryGet(System.String)">
+            <summary>
+            Tries to get a cached image given the specified url.
+            </summary>
+            <param name="Url">The url of the image to get.</param>
+            <returns>If entry was found in the cache, the binary data of the image together with the Content-Type of the data.</returns>
         </member>
-        <member name="M:IdApp.Services.ImageCacheService.TryGet(System.String,System.IO.MemoryStream@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Services.ImageCacheService.Add(System.String,System.IO.Stream)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Services.ImageCacheService.Invalidate(System.String)">
-            <inheritdoc/>
+        <member name="M:IdApp.Services.ImageCacheService.Add(System.String,System.Byte[],System.String)">
+            <summary>
+            Adds an image to the cache.
+            </summary>
+            <param name="Url">The url, which is the key for accessing it later.</param>
+            <param name="Data">Binary data of image</param>
+            <param name="ContentType">Content-Type of data.</param>
         </member>
         <member name="T:IdApp.Services.IThingRegistryOrchestratorService">
             <summary>
@@ -6049,11 +6058,12 @@
             The user friendly connection state text to display to the user.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AddPhoto(System.IO.MemoryStream,System.Boolean,System.Boolean)">
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AddPhoto(System.Byte[],System.String,System.Boolean,System.Boolean)">
             <summary>
             Adds a photo from the specified path to use as a profile photo.
             </summary>
-            <param name="ms">The file stream.</param>
+            <param name="Bin">Binary content</param>
+            <param name="ContentType">Content-Type</param>
             <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
             <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
             <returns></returns>
