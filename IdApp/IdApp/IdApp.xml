@@ -1883,6 +1883,11 @@
             The inspect icon
             </summary>
         </member>
+        <member name="F:IdApp.SolidIcons.Share">
+            <summary>
+            The share icon
+            </summary>
+        </member>
         <member name="F:IdApp.SolidIcons.SignOut">
             <summary>
             The sign out icon
@@ -5250,6 +5255,26 @@
         <member name="P:IdApp.ViewModels.MainViewModel.ViewWalletCommand">
             <summary>
             The command to bind to for viewing a user's wallet.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.SharePhotoCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.SharePhotoCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.SharePhotoCommand">
+            <summary>
+            The command to bind to for viewing the user's own contracts.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ShareQRCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ShareQRCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ShareQRCommand">
+            <summary>
+            The command to bind to for viewing the user's own contracts.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.MainViewModel.HasPhotoProperty">

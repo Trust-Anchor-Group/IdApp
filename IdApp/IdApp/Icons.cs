@@ -69,7 +69,12 @@
         /// The inspect icon
         /// </summary>
         public const string Inspect = "\uf002";
-        
+
+        /// <summary>
+        /// The share icon
+        /// </summary>
+        public const string Share = "\uf1e0";
+
         /// <summary>
         /// The sign out icon
         /// </summary>
