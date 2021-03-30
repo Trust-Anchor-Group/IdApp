@@ -1300,7 +1300,14 @@
             Gets a specific legal identity.
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
-            <returns></returns>
+            <returns>Legal identity object</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.IsContact(System.String)">
+            <summary>
+            Checks if a legal identity is in the contacts list.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+            <returns>If the legal identity is in the contacts list.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.HasPrivateKey(System.String)">
             <summary>
@@ -2571,6 +2578,20 @@
             </summary>
             <param name="legalIdentityId">The id of the legal identity.</param>
             <returns>If private keys are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.GetLegalIdentity(System.String)">
+            <summary>
+            Gets a specific legal identity.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+            <returns>Legal identity object</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.IsContact(System.String)">
+            <summary>
+            Checks if a legal identity is in the contacts list.
+            </summary>
+            <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+            <returns>If the legal identity is in the contacts list.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
             <summary>

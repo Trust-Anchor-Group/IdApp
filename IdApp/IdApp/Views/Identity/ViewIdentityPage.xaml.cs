@@ -32,7 +32,7 @@ namespace IdApp.Views.Identity
                 DependencyService.Resolve<INetworkService>(),
                 DependencyService.Resolve<ILogService>(),
                 DependencyService.Resolve<IEDalerOrchestratorService>(),
-                DependencyService.Resolve<IImageCacheService>());
+                DependencyService.Resolve<IAttachmentCacheService>());
             InitializeComponent();
         }
 

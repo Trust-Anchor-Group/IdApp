@@ -53,7 +53,7 @@ namespace IdApp.ViewModels
 			ITagProfile tagProfile,
 			INavigationService navigationService,
 			INetworkService networkService,
-			IImageCacheService imageCacheService,
+			IAttachmentCacheService attachmentCacheService,
 			IContractOrchestratorService contractOrchestratorService,
 			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
 			IEDalerOrchestratorService eDalerOrchestratorService)
@@ -63,11 +63,11 @@ namespace IdApp.ViewModels
 			this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
 			this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
 			this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-			imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
 			this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
 			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? DependencyService.Resolve<IThingRegistryOrchestratorService>();
 			this.eDalerOrchestratorService = eDalerOrchestratorService ?? DependencyService.Resolve<IEDalerOrchestratorService>();
-			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService);
+			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, 
+				attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>());
 			this.UpdateLoggedOutText(true);
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());

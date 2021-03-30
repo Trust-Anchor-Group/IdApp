@@ -247,6 +247,11 @@ namespace Tag.Neuron.Xamarin.Services
             return contractsClient.HasPrivateKey(legalIdentityId);
         }
 
+        /// <summary>
+        /// Gets a specific legal identity.
+        /// </summary>
+        /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+        /// <returns>Legal identity object</returns>
         public async Task<LegalIdentity> GetLegalIdentity(string legalIdentityId)
         {
             AssertContractsIsAvailable();
@@ -257,6 +262,20 @@ namespace Tag.Neuron.Xamarin.Services
 
             return await contractsClient.GetLegalIdentityAsync(legalIdentityId);
         }
+
+        /// <summary>
+        /// Checks if a legal identity is in the contacts list.
+        /// </summary>
+        /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+        /// <returns>If the legal identity is in the contacts list.</returns>
+        public async Task<bool> IsContact(string legalIdentityId)
+        {
+            AssertContractsIsAvailable();
+
+            ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
+            return (!(Info is null) && !(Info.LegalIdentity is null));
+        }
+
 
         public Task PetitionIdentity(string legalId, string petitionId, string purpose)
         {

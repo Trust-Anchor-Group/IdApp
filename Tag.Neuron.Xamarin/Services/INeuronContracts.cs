@@ -61,8 +61,15 @@ namespace Tag.Neuron.Xamarin.Services
         /// Gets a specific legal identity.
         /// </summary>
         /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
-        /// <returns></returns>
+        /// <returns>Legal identity object</returns>
         Task<LegalIdentity> GetLegalIdentity(string legalIdentityId);
+
+        /// <summary>
+        /// Checks if a legal identity is in the contacts list.
+        /// </summary>
+        /// <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
+        /// <returns>If the legal identity is in the contacts list.</returns>
+        Task<bool> IsContact(string legalIdentityId);
 
         /// <summary>
         /// Checks if the client has access to the private keys of the specified legal identity.

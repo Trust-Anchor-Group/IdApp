@@ -18,7 +18,7 @@ namespace IdApp
     /// This is a helper class for downloading photos via http requests.
     /// It loads photos in the background, typically photo attachments connected to a
     /// digital identity. When the photos are loaded, they are added to an <see cref="ObservableCollection{T}"/> on the main thread.
-    /// This class also handles errors when trying to load photos, and internally it uses a <see cref="IImageCacheService"/>.
+    /// This class also handles errors when trying to load photos, and internally it uses a <see cref="IAttachmentCacheService"/>.
     /// </summary>
     public class PhotosLoader
     {
@@ -26,7 +26,7 @@ namespace IdApp
         private readonly INetworkService networkService;
         private readonly INeuronService neuronService;
         private readonly IUiDispatcher uiDispatcher;
-        private readonly IImageCacheService imageCacheService;
+        private readonly IAttachmentCacheService attachmentCacheService;
         private readonly ObservableCollection<ImageSource> photos;
         private readonly List<string> attachmentIds;
         private DateTime loadPhotosTimestamp;
@@ -39,14 +39,14 @@ namespace IdApp
         /// <param name="networkService">The network service to use for checking connectivity.</param>
         /// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
         /// <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
-        /// <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+        /// <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
         public PhotosLoader(
             ILogService logService,
             INetworkService networkService,
             INeuronService neuronService,
             IUiDispatcher uiDispatcher,
-            IImageCacheService imageCacheService)
-            : this(logService, networkService, neuronService, uiDispatcher, imageCacheService, new ObservableCollection<ImageSource>())
+            IAttachmentCacheService attachmentCacheService)
+            : this(logService, networkService, neuronService, uiDispatcher, attachmentCacheService, new ObservableCollection<ImageSource>())
         {
         }
 
@@ -58,21 +58,21 @@ namespace IdApp
         /// <param name="networkService">The network service to use for checking connectivity.</param>
         /// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
         /// <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
-        /// <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+        /// <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
         /// <param name="photos">The collection the photos should be added to when downloaded.</param>
         public PhotosLoader(
             ILogService logService, 
             INetworkService networkService, 
             INeuronService neuronService,
             IUiDispatcher uiDispatcher,
-            IImageCacheService imageCacheService,
+            IAttachmentCacheService attachmentCacheService,
             ObservableCollection<ImageSource> photos)
         {
             this.logService = logService;
             this.networkService = networkService;
             this.neuronService = neuronService;
             this.uiDispatcher = uiDispatcher;
-            this.imageCacheService = imageCacheService;
+            this.attachmentCacheService = attachmentCacheService;
             this.photos = photos;
             this.attachmentIds = new List<string>();
         }
@@ -186,7 +186,7 @@ namespace IdApp
 
         private async Task<(byte[], string)> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
         {
-            (byte[] Bin, string ContentType) = await this.imageCacheService.TryGet(attachment.Url);
+            (byte[] Bin, string ContentType) = await this.attachmentCacheService.TryGet(attachment.Url);
             if (!(Bin is null))
                 return (Bin, ContentType);
 
@@ -207,7 +207,9 @@ namespace IdApp
                 if (file.Length != await file.ReadAsync(Bin, 0, (int)file.Length))
                     return (null, string.Empty);
 
-                await this.imageCacheService.Add(attachment.Url, Bin, ContentType);
+                bool IsContact = await this.neuronService.Contracts.IsContact(attachment.LegalId);
+
+                await this.attachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
                 
                 return (Bin, ContentType);
             }

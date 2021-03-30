@@ -27,7 +27,7 @@ namespace IdApp.Tests.ViewModels.Contracts
         private readonly Mock<INavigationService> navigationService;
         private readonly Mock<INetworkService> networkService;
         private readonly Mock<IEDalerOrchestratorService> eDalerService;
-        private readonly Mock<IImageCacheService> imageCacheService;
+        private readonly Mock<IAttachmentCacheService> attachmentCacheService;
 
         public ViewIdentityViewModelTests()
         {
@@ -39,7 +39,7 @@ namespace IdApp.Tests.ViewModels.Contracts
             this.navigationService = new Mock<INavigationService>();
             this.networkService = new Mock<INetworkService>();
             this.eDalerService = new Mock<IEDalerOrchestratorService>();
-            this.imageCacheService = new Mock<IImageCacheService>();
+            this.attachmentCacheService = new Mock<IAttachmentCacheService>();
             this.neuronService.Setup(x => x.Contracts).Returns(this.neuronContracts.Object);
             MockForms.Init();
         }
@@ -48,7 +48,7 @@ namespace IdApp.Tests.ViewModels.Contracts
         {
             return new ViewIdentityViewModel(this.tagProfile.Object, this.uiDispatcher.Object, this.neuronService.Object, 
                 this.navigationService.Object, this.networkService.Object, this.logService.Object, this.eDalerService.Object,
-                this.imageCacheService.Object);
+                this.attachmentCacheService.Object);
         }
 
         [SetUp]

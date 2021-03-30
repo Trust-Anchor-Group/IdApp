@@ -41,7 +41,7 @@ namespace IdApp.ViewModels.Registration
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="networkService">The network and connectivity service.</param>
         /// <param name="logService">The log service.</param>
-        /// <param name="imageCacheService">The image cache to use.</param>
+        /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// </summary>
         protected internal RegistrationViewModel(
             ITagProfile tagProfile,
@@ -52,7 +52,7 @@ namespace IdApp.ViewModels.Registration
             INavigationService navigationService,
             INetworkService networkService, 
             ILogService logService,
-            IImageCacheService imageCacheService)
+            IAttachmentCacheService attachmentCacheService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
             uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
@@ -62,16 +62,18 @@ namespace IdApp.ViewModels.Registration
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             logService = logService ?? DependencyService.Resolve<ILogService>();
-            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
+            
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
+            
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
                 this.AddChildViewModel(new ChooseOperatorViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new ChooseAccountViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, cryptoService, networkService, logService)),
-                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService, imageCacheService)),
-                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService, imageCacheService)),
+                this.AddChildViewModel(new RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService, attachmentCacheService)),
+                this.AddChildViewModel(new ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService, attachmentCacheService)),
                 this.AddChildViewModel(new DefinePinViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, logService))
             };
+            
             SyncTagProfileStep();
             UpdateStepTitle();
         }

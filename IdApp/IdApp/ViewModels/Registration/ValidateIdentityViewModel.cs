@@ -32,7 +32,7 @@ namespace IdApp.ViewModels.Registration
         /// <param name="settingsService">The settings service for persisting UI state.</param>
         /// <param name="networkService">The network service for network access.</param>
         /// <param name="logService">The log service.</param>
-        /// <param name="imageCacheService">The image cache to use.</param>
+        /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// </summary>
         public ValidateIdentityViewModel(
             ITagProfile tagProfile,
@@ -42,7 +42,7 @@ namespace IdApp.ViewModels.Registration
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService,
-            IImageCacheService imageCacheService)
+            IAttachmentCacheService attachmentCacheService)
             : base(RegistrationStep.ValidateIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
@@ -50,8 +50,8 @@ namespace IdApp.ViewModels.Registration
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
-            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, imageCacheService, this.Photos);
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
+                attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>(), this.Photos);
         }
 
         /// <inheritdoc />

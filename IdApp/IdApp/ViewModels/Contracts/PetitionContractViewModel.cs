@@ -43,7 +43,7 @@ namespace IdApp.ViewModels.Contracts
         /// <param name="logService">The log service.</param>
         /// <param name="networkService">The network and connectivity service.</param>
         /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
-        /// <param name="imageCacheService">The image cache to use.</param>
+        /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// </summary>
         protected internal PetitionContractViewModel(
             INeuronService neuronService,
@@ -51,19 +51,19 @@ namespace IdApp.ViewModels.Contracts
             ILogService logService,
             INetworkService networkService,
             IUiDispatcher uiDispatcher,
-            IImageCacheService imageCacheService)
+            IAttachmentCacheService attachmentCacheService)
         {
             this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             logService = logService ?? DependencyService.Resolve<ILogService>();
             this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
             uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
-            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
+            attachmentCacheService = attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>();
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiDispatcher, imageCacheService, this.Photos);
+            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiDispatcher, attachmentCacheService, this.Photos);
         }
 
         /// <inheritdoc/>

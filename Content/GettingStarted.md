@@ -26,15 +26,15 @@ two attributes:
 
 **Example:**
 ```
-[DefaultImplementation(typeof(ImageCacheService))]
-public interface IImageCacheService : ILoadableService
+[DefaultImplementation(typeof(AttachmentCacheService))]
+public interface IAttachmentCacheService : ILoadableService
 ```
 2. SingletonAttribute - specifies that there should only be one shared instance of this implementation.
 
 **Example:**
 ``` 
 [Singleton]
-internal sealed class ImageCacheService : LoadableService, IImageCacheService
+internal sealed class AttachmentCacheService : LoadableService, IAttachmentCacheService
 ```
 
 The two attributes can be used in combination on an interface and its implementation.

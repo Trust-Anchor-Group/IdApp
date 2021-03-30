@@ -21,7 +21,7 @@ namespace IdApp.Tests
         private readonly Mock<INeuronService> neuronService;
         private readonly Mock<INeuronContracts> neuronContracts;
         private readonly Mock<IUiDispatcher> uiDispatcher;
-        private readonly Mock<IImageCacheService> imageCacheService;
+        private readonly Mock<IAttachmentCacheService> attachmentCacheService;
         private readonly ObservableCollection<ImageSource> photos;
         private readonly PhotosLoader sut;
 
@@ -35,14 +35,14 @@ namespace IdApp.Tests
             this.neuronService.SetupGet(x => x.Contracts).Returns(this.neuronContracts.Object);
             this.networkService.SetupGet(x => x.IsOnline).Returns(true);
             this.uiDispatcher = new Mock<IUiDispatcher>();
-            this.imageCacheService = new Mock<IImageCacheService>();
+            this.attachmentCacheService = new Mock<IAttachmentCacheService>();
             this.photos = new ObservableCollection<ImageSource>();
             this.sut = new PhotosLoader(
                 this.logService.Object,
                 this.networkService.Object,
                 this.neuronService.Object,
                 this.uiDispatcher.Object,
-                this.imageCacheService.Object,
+                this.attachmentCacheService.Object,
                 this.photos);
             // Short circuit the begin invoke calls, so they're executed synchronously.
             this.uiDispatcher.Setup(x => x.BeginInvokeOnMainThread(It.IsAny<Action>())).Callback<Action>(x => x());
@@ -53,7 +53,7 @@ namespace IdApp.Tests
         {
             this.neuronContracts.Reset();
             this.networkService.Reset();
-            this.imageCacheService.Reset();
+            this.attachmentCacheService.Reset();
             this.sut.CancelLoadPhotos();
         }
 
@@ -65,7 +65,7 @@ namespace IdApp.Tests
             (byte[] Bin, string ContentType) = await sut.LoadOnePhoto(null, SignWith.LatestApprovedIdOrCurrentKeys);
             Assert.IsNull(stream);
             MemoryStream cachedStream;
-            this.imageCacheService.Verify(x => x.TryGet(It.IsAny<string>(), out cachedStream), Times.Never);
+            this.attachmentCacheService.Verify(x => x.TryGet(It.IsAny<string>(), out cachedStream), Times.Never);
             this.neuronContracts.Verify(x => x.GetAttachment(It.IsAny<string>(), It.IsAny<SignWith>(), It.IsAny<TimeSpan>()), Times.Never);
         }
 
@@ -98,7 +98,7 @@ namespace IdApp.Tests
             this.networkService.SetupGet(x => x.IsOnline).Returns(true);
             this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
             MemoryStream cachedStream = new MemoryStream();
-            this.imageCacheService.Setup(x => x.TryGet(url, out cachedStream)).Returns(true);
+            this.attachmentCacheService.Setup(x => x.TryGet(url, out cachedStream)).Returns(true);
             // When
             (byte[] Bin, string ContentType) = await sut.LoadOnePhoto(att, SignWith.LatestApprovedIdOrCurrentKeys);
             // Then
@@ -115,7 +115,7 @@ namespace IdApp.Tests
             this.networkService.SetupGet(x => x.IsOnline).Returns(true);
             this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
             MemoryStream cachedStream = new MemoryStream();
-            this.imageCacheService.Setup(x => x.TryGet(url, out cachedStream)).Returns(false);
+            this.attachmentCacheService.Setup(x => x.TryGet(url, out cachedStream)).Returns(false);
             MemoryStream serverStream = new MemoryStream();
             KeyValuePair<string, TemporaryFile> file = new KeyValuePair<string, TemporaryFile>(url, new TemporaryFile());
             this.neuronContracts.Setup(x => x.GetAttachment(url, It.IsAny<SignWith>(), It.IsAny<TimeSpan>())).ReturnsAsync(file);
@@ -124,11 +124,11 @@ namespace IdApp.Tests
             // Then
             Assert.NotNull(stream);
             // Verify cache miss
-            this.imageCacheService.Verify(x => x.TryGet(url, out cachedStream), Times.Once);
+            this.attachmentCacheService.Verify(x => x.TryGet(url, out cachedStream), Times.Once);
             // Verify request
             this.neuronContracts.Verify(x => x.GetAttachment(url, It.IsAny<SignWith>(), It.IsAny<TimeSpan>()), Times.Once);
             // Verify added to cache
-            this.imageCacheService.Verify(x => x.Add(url, It.IsAny<Stream>()), Times.Once);
+            this.attachmentCacheService.Verify(x => x.Add(url, It.IsAny<Stream>()), Times.Once);
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace IdApp.Tests
             await sut.LoadPhotos(null, SignWith.LatestApprovedIdOrCurrentKeys);
             // Then
             Assert.AreEqual(0, this.photos.Count);
-            this.imageCacheService.Verify(x => x.TryGet(It.IsAny<string>()), Times.Never);
+            this.attachmentCacheService.Verify(x => x.TryGet(It.IsAny<string>()), Times.Never);
             this.neuronContracts.Verify(x => x.GetAttachment(It.IsAny<string>(), It.IsAny<SignWith>(), It.IsAny<TimeSpan>()), Times.Never);
         }
 
@@ -157,7 +157,7 @@ namespace IdApp.Tests
             await sut.LoadPhotos(new Attachment[0], SignWith.LatestApprovedIdOrCurrentKeys);
             // Then
             Assert.AreEqual(0, this.photos.Count);
-            this.imageCacheService.Verify(x => x.TryGet(It.IsAny<string>()), Times.Never);
+            this.attachmentCacheService.Verify(x => x.TryGet(It.IsAny<string>()), Times.Never);
             this.neuronContracts.Verify(x => x.GetAttachment(It.IsAny<string>(), It.IsAny<SignWith>(), It.IsAny<TimeSpan>()), Times.Never);
         }
 
@@ -216,8 +216,8 @@ namespace IdApp.Tests
             this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
             MemoryStream cachedStream1 = new MemoryStream();
             MemoryStream cachedStream2 = new MemoryStream();
-            this.imageCacheService.Setup(x => x.TryGet(url1, out cachedStream1)).Returns(true);
-            this.imageCacheService.Setup(x => x.TryGet(url2, out cachedStream2)).Returns(true);
+            this.attachmentCacheService.Setup(x => x.TryGet(url1, out cachedStream1)).Returns(true);
+            this.attachmentCacheService.Setup(x => x.TryGet(url2, out cachedStream2)).Returns(true);
             Assert.AreEqual(0, this.photos.Count);
             // When
             await sut.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys);
@@ -239,8 +239,8 @@ namespace IdApp.Tests
             };
             this.networkService.SetupGet(x => x.IsOnline).Returns(true);
             this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
-            this.imageCacheService.Setup(async x => (await x.TryGet(url1)).Item1).Returns(null);
-            this.imageCacheService.Setup(async x => (await x.TryGet(url2)).Item1).Returns(null);
+            this.attachmentCacheService.Setup(async x => (await x.TryGet(url1)).Item1).Returns(null);
+            this.attachmentCacheService.Setup(async x => (await x.TryGet(url2)).Item1).Returns(null);
             KeyValuePair<string, TemporaryFile> file1 = new KeyValuePair<string, TemporaryFile>(url1, new TemporaryFile());
             this.neuronContracts.Setup(x => x.GetAttachment(url1, It.IsAny<SignWith>(), It.IsAny<TimeSpan>())).ReturnsAsync(file1);
             KeyValuePair<string, TemporaryFile> file2 = new KeyValuePair<string, TemporaryFile>(url1, new TemporaryFile());
@@ -251,14 +251,14 @@ namespace IdApp.Tests
             // Then
             Assert.AreEqual(2, this.photos.Count);
             // Verify cache miss
-            this.imageCacheService.Verify(x => x.TryGet(url1), Times.Once);
-            this.imageCacheService.Verify(x => x.TryGet(url2), Times.Once);
+            this.attachmentCacheService.Verify(x => x.TryGet(url1), Times.Once);
+            this.attachmentCacheService.Verify(x => x.TryGet(url2), Times.Once);
             // Verify request
             this.neuronContracts.Verify(x => x.GetAttachment(url1, It.IsAny<SignWith>(), It.IsAny<TimeSpan>()), Times.Once);
             this.neuronContracts.Verify(x => x.GetAttachment(url2, It.IsAny<SignWith>(), It.IsAny<TimeSpan>()), Times.Once);
             // Verify added to cache
-            this.imageCacheService.Verify(x => x.Add(url1, It.IsAny<byte[]>(), It.IsAny<string>()), Times.Once);
-            this.imageCacheService.Verify(x => x.Add(url2, It.IsAny<byte[]>(), It.IsAny<string>()), Times.Once);
+            this.attachmentCacheService.Verify(x => x.Add(url1, It.IsAny<byte[]>(), It.IsAny<string>()), Times.Once);
+            this.attachmentCacheService.Verify(x => x.Add(url2, It.IsAny<byte[]>(), It.IsAny<string>()), Times.Once);
         }
     }*/
 }

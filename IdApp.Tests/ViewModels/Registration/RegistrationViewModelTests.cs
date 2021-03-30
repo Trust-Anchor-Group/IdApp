@@ -24,7 +24,7 @@ namespace IdApp.Tests.ViewModels.Registration
         private readonly Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         private readonly Mock<INetworkService> networkService = new Mock<INetworkService>();
         private readonly Mock<ILogService> logService = new Mock<ILogService>();
-        private readonly Mock<IImageCacheService> imageCacheService = new Mock<IImageCacheService>();
+        private readonly Mock<IAttachmentCacheService> attachmentCacheService = new Mock<IAttachmentCacheService>();
 
         public RegistrationViewModelTests()
         {
@@ -34,7 +34,7 @@ namespace IdApp.Tests.ViewModels.Registration
 
         protected override RegistrationViewModel AViewModel()
         {
-            return new RegistrationViewModel(tagProfile.Object, dispatcher.Object, this.settingsService.Object, neuronService.Object, cryptoService.Object, navigationService.Object, this.networkService.Object, this.logService.Object, this.imageCacheService.Object);
+            return new RegistrationViewModel(tagProfile.Object, dispatcher.Object, this.settingsService.Object, neuronService.Object, cryptoService.Object, navigationService.Object, this.networkService.Object, this.logService.Object, this.attachmentCacheService.Object);
         }
 
         [Test]

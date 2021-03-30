@@ -25,7 +25,7 @@ namespace IdApp.Tests.ViewModels.Registration
         private readonly Mock<ISettingsService> settingsService = new Mock<ISettingsService>();
         private readonly Mock<INetworkService> networkService = new Mock<INetworkService>();
         private readonly Mock<ILogService> logService = new Mock<ILogService>();
-        private readonly Mock<IImageCacheService> imageCacheService = new Mock<IImageCacheService>();
+        private readonly Mock<IAttachmentCacheService> attachmentCacheService = new Mock<IAttachmentCacheService>();
 
         public RegisterIdentityViewModelTests()
         {
@@ -35,7 +35,7 @@ namespace IdApp.Tests.ViewModels.Registration
 
         protected override RegisterIdentityViewModel AViewModel()
         {
-            return new RegisterIdentityViewModel(tagProfile.Object, dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object, this.imageCacheService.Object);
+            return new RegisterIdentityViewModel(tagProfile.Object, dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object, this.attachmentCacheService.Object);
         }
 
         const string Folder = "images";
@@ -54,10 +54,7 @@ namespace IdApp.Tests.ViewModels.Registration
             using (var data = bitmap.Encode(SKEncodedImageFormat.Jpeg, 100))
             {
                 byte[] bytes = data.ToArray();
-                using (FileStream fs = System.IO.File.OpenWrite(fullPath))
-                {
-                    fs.Write(bytes);
-                }
+                System.IO.File.WriteAllBytes(fullPath, bytes);
             }
 
             this.neuronService.SetupGet(x => x.IsOnline).Returns(true);

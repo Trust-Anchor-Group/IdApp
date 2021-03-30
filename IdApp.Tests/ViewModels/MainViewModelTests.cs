@@ -14,7 +14,7 @@ namespace IdApp.Tests.ViewModels
     public class MainViewModelTests : ViewModelTests<MainViewModel>
     {
         private readonly Mock<ILogService> logService;
-        private readonly Mock<IImageCacheService> imageCacheService;
+        private readonly Mock<IAttachmentCacheService> attachmentCacheService;
         private readonly Mock<INeuronService> neuronService;
         private readonly Mock<INeuronContracts> neuronContracts;
         private readonly Mock<IUiDispatcher> uiDispatcher;
@@ -28,7 +28,7 @@ namespace IdApp.Tests.ViewModels
         public MainViewModelTests()
         {
             this.logService = new Mock<ILogService>();
-            this.imageCacheService = new Mock<IImageCacheService>();
+            this.attachmentCacheService = new Mock<IAttachmentCacheService>();
             this.neuronService = new Mock<INeuronService>();
             this.neuronContracts = new Mock<INeuronContracts>();
             this.uiDispatcher = new Mock<IUiDispatcher>();
@@ -55,7 +55,7 @@ namespace IdApp.Tests.ViewModels
         protected override MainViewModel AViewModel()
         {
             return new MainViewModel(this.logService.Object, this.neuronService.Object, this.uiDispatcher.Object, this.tagProfile.Object, 
-                this.navigationService.Object, this.networkService.Object, this.imageCacheService.Object, 
+                this.navigationService.Object, this.networkService.Object, this.attachmentCacheService.Object, 
                 this.contractOrchestratorService.Object, this.thingRegistryOrchestratorService.Object,
                 this.eDalerOrchestratorService.Object);
         }

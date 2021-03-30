@@ -7,17 +7,19 @@ namespace IdApp.Services
 	/// <summary>
 	/// Contains information about a file in the local cache.
 	/// </summary>
-	[CollectionName("ImageCache")]
+	[CollectionName("AttachmentCache")]
 	[TypeName(TypeNameSerialization.FullName)]
-	[Index("TimeStamp")]
+	[Index("Expires")]
 	[Index("Url")]
+	[Index("ParentId")]
 	public class CacheEntry
 	{
 		private string objectId = null;
+		private CaseInsensitiveString parentId = string.Empty;
 		private CaseInsensitiveString localFileName = string.Empty;
 		private CaseInsensitiveString url = string.Empty;
 		private CaseInsensitiveString contentType = string.Empty;
-		private DateTime timeStamp = DateTime.MinValue;
+		private DateTime expires = DateTime.MinValue;
 
 		/// <summary>
 		/// Contains information about a file in the local cache.
@@ -39,10 +41,20 @@ namespace IdApp.Services
 		/// <summary>
 		/// Timestamp of entry
 		/// </summary>
-		public DateTime TimeStamp 
+		public DateTime Expires
 		{
-			get => this.timeStamp;
-			set => this.timeStamp = value;
+			get => this.expires;
+			set => this.expires = value;
+		}
+
+		/// <summary>
+		/// Associated Legal or Contract ID (Parent ID)
+		/// </summary>
+		[DefaultValueStringEmpty]
+		public CaseInsensitiveString ParentId
+		{
+			get => this.parentId;
+			set => this.parentId = value;
 		}
 
 		/// <summary>

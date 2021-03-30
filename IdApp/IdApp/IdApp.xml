@@ -2407,10 +2407,10 @@
             This is a helper class for downloading photos via http requests.
             It loads photos in the background, typically photo attachments connected to a
             digital identity. When the photos are loaded, they are added to an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> on the main thread.
-            This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.IImageCacheService"/>.
+            This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.IAttachmentCacheService"/>.
             </summary>
         </member>
-        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
             Use this constructor for when you want to load a a <b>single photo</b>.
@@ -2419,9 +2419,9 @@
             <param name="networkService">The network service to use for checking connectivity.</param>
             <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
             <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
         </member>
-        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
+        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
             Use this constructor for when you want to load a <b>list of photos</b>.
@@ -2430,7 +2430,7 @@
             <param name="networkService">The network service to use for checking connectivity.</param>
             <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
             <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="imageCacheService">The image cache service to use for optimizing requests.</param>
+            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
             <param name="photos">The collection the photos should be added to when downloaded.</param>
         </member>
         <member name="M:IdApp.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith,System.Action)">
@@ -2504,6 +2504,47 @@
             <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
             <param name="code">The code to set.</param>
         </member>
+        <member name="T:IdApp.Services.AttachmentCacheService">
+            <inheritdoc cref="T:IdApp.Services.IAttachmentCacheService"/>
+        </member>
+        <member name="M:IdApp.Services.AttachmentCacheService.#ctor(Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Services.AttachmentCacheService"/> class.
+            </summary>
+            <param name="logService">The log service to use.</param>
+        </member>
+        <member name="M:IdApp.Services.AttachmentCacheService.Load(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.AttachmentCacheService.TryGet(System.String)">
+            <summary>
+            Tries to get a cached image given the specified url.
+            </summary>
+            <param name="Url">The url of the image to get.</param>
+            <returns>If entry was found in the cache, the binary data of the image together with the Content-Type of the data.</returns>
+        </member>
+        <member name="M:IdApp.Services.AttachmentCacheService.Add(System.String,System.String,System.Boolean,System.Byte[],System.String)">
+            <summary>
+            Adds an image to the cache.
+            </summary>
+            <param name="Url">The url, which is the key for accessing it later.</param>
+            <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+            <param name="Permanent">If attachment is permanent or temporary.</param>
+            <param name="Data">Binary data of image</param>
+            <param name="ContentType">Content-Type of data.</param>
+        </member>
+        <member name="M:IdApp.Services.AttachmentCacheService.MakeTemporary(System.String)">
+            <summary>
+            Makes items in the cache, belonging to a given parent object, temporary.
+            </summary>
+            <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+        </member>
+        <member name="M:IdApp.Services.AttachmentCacheService.MakePermanent(System.String)">
+            <summary>
+            Makes items in the cache, belonging to a given parent object, permanent.
+            </summary>
+            <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+        </member>
         <member name="T:IdApp.Services.CacheEntry">
             <summary>
             Contains information about a file in the local cache.
@@ -2519,9 +2560,14 @@
             Object ID
             </summary>
         </member>
-        <member name="P:IdApp.Services.CacheEntry.TimeStamp">
+        <member name="P:IdApp.Services.CacheEntry.Expires">
             <summary>
             Timestamp of entry
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.CacheEntry.ParentId">
+            <summary>
+            Associated Legal or Contract ID (Parent ID)
             </summary>
         </member>
         <member name="P:IdApp.Services.CacheEntry.LocalFileName">
@@ -2555,6 +2601,41 @@
             eDaler URI scanned.
             </summary>
             <param name="uri">eDaler URI.</param>
+        </member>
+        <member name="T:IdApp.Services.IAttachmentCacheService">
+            <summary>
+            Represents a service that caches images downloaded via http calls.
+            They are stored for a certain duration.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.IAttachmentCacheService.TryGet(System.String)">
+            <summary>
+            Tries to get a cached image given the specified url.
+            </summary>
+            <param name="Url">The url of the image to get.</param>
+            <returns>If entry was found in the cache, the binary data of the image together with the Content-Type of the data.</returns>
+        </member>
+        <member name="M:IdApp.Services.IAttachmentCacheService.Add(System.String,System.String,System.Boolean,System.Byte[],System.String)">
+            <summary>
+            Adds an image to the cache.
+            </summary>
+            <param name="Url">The url, which is the key for accessing it later.</param>
+            <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+            <param name="Permanent">If attachment is permanent or temporary.</param>
+            <param name="Data">Binary data of image</param>
+            <param name="ContentType">Content-Type of data.</param>
+        </member>
+        <member name="M:IdApp.Services.IAttachmentCacheService.MakeTemporary(System.String)">
+            <summary>
+            Makes items in the cache, belonging to a given parent object, temporary.
+            </summary>
+            <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+        </member>
+        <member name="M:IdApp.Services.IAttachmentCacheService.MakePermanent(System.String)">
+            <summary>
+            Makes items in the cache, belonging to a given parent object, permanent.
+            </summary>
+            <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
         </member>
         <member name="T:IdApp.Services.IContractOrchestratorService">
             <summary>
@@ -2599,54 +2680,6 @@
             eDaler URI scanned.
             </summary>
             <param name="uri">eDaler URI.</param>
-        </member>
-        <member name="T:IdApp.Services.IImageCacheService">
-            <summary>
-            Represents a service that caches images downloaded via http calls.
-            They are stored for a certain duration.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.IImageCacheService.TryGet(System.String)">
-            <summary>
-            Tries to get a cached image given the specified url.
-            </summary>
-            <param name="Url">The url of the image to get.</param>
-            <returns>If entry was found in the cache, the binary data of the image together with the Content-Type of the data.</returns>
-        </member>
-        <member name="M:IdApp.Services.IImageCacheService.Add(System.String,System.Byte[],System.String)">
-            <summary>
-            Adds an image to the cache.
-            </summary>
-            <param name="Url">The url, which is the key for accessing it later.</param>
-            <param name="Data">Binary data of image</param>
-            <param name="ContentType">Content-Type of data.</param>
-        </member>
-        <member name="T:IdApp.Services.ImageCacheService">
-            <inheritdoc cref="T:IdApp.Services.IImageCacheService"/>
-        </member>
-        <member name="M:IdApp.Services.ImageCacheService.#ctor(Tag.Neuron.Xamarin.Services.ILogService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Services.ImageCacheService"/> class.
-            </summary>
-            <param name="logService">The log service to use.</param>
-        </member>
-        <member name="M:IdApp.Services.ImageCacheService.Load(System.Boolean)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Services.ImageCacheService.TryGet(System.String)">
-            <summary>
-            Tries to get a cached image given the specified url.
-            </summary>
-            <param name="Url">The url of the image to get.</param>
-            <returns>If entry was found in the cache, the binary data of the image together with the Content-Type of the data.</returns>
-        </member>
-        <member name="M:IdApp.Services.ImageCacheService.Add(System.String,System.Byte[],System.String)">
-            <summary>
-            Adds an image to the cache.
-            </summary>
-            <param name="Url">The url, which is the key for accessing it later.</param>
-            <param name="Data">Binary data of image</param>
-            <param name="ContentType">Content-Type of data.</param>
         </member>
         <member name="T:IdApp.Services.IThingRegistryOrchestratorService">
             <summary>
@@ -3422,7 +3455,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionContractViewModel"/> class.
             For unit tests.
@@ -3431,7 +3464,7 @@
             <param name="logService">The log service.</param>
             <param name="networkService">The network and connectivity service.</param>
             <param name="uiDispatcher">The UI dispatcher for alerts.</param>
-            <param name="imageCacheService">The image cache to use.</param>
+            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.PetitionContractViewModel.DoBind">
@@ -3675,7 +3708,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionIdentityViewModel"/> class.
             For unit tests.
@@ -3684,7 +3717,7 @@
             <param name="logService">The log service.</param>
             <param name="networkService">The network and connectivity service.</param>
             <param name="uiDispatcher">The UI dispatcher for alerts.</param>
-            <param name="imageCacheService">The image cache to use.</param>
+            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.PetitionIdentityViewModel.DoBind">
@@ -3928,7 +3961,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionSignatureViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Contracts.PetitionSignatureViewModel"/> class.
             For unit tests.
@@ -3937,7 +3970,7 @@
             <param name="logService">The log service.</param>
             <param name="networkService">The network and connectivity service.</param>
             <param name="uiDispatcher">The UI dispatcher for alerts.</param>
-            <param name="imageCacheService">The image cache to use.</param>
+            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Contracts.PetitionSignatureViewModel.DoBind">
@@ -4231,7 +4264,7 @@
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService)">
+        <member name="M:IdApp.ViewModels.Contracts.ViewContractViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IAttachmentCacheService,IdApp.Services.IContractOrchestratorService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ViewContractViewModel"/> class.
             For unit tests.
@@ -4241,7 +4274,7 @@
             <param name="uiDispatcher">The UI dispatcher for alerts.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="networkService">The network and connectivity service.</param>
-            <param name="imageCacheService">The image cache to use.</param>
+            <param name="attachmentCacheService">The attachment cache to use.</param>
             <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
             </summary>
         </member>
@@ -4481,7 +4514,7 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Identity.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IEDalerOrchestratorService,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Identity.ViewIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IEDalerOrchestratorService,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Identity.ViewIdentityViewModel"/> class.
             </summary>
@@ -5215,7 +5248,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IImageCacheService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,IdApp.Services.IEDalerOrchestratorService)">
+        <member name="M:IdApp.ViewModels.MainViewModel.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,IdApp.Services.IAttachmentCacheService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,IdApp.Services.IEDalerOrchestratorService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.MainViewModel"/> class.
             For unit tests.
@@ -5904,7 +5937,7 @@
             The view model to bind to when showing Step 3 of the registration flow: registering an identity.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:Tag.Neuron.Xamarin.Models.RegisterIdentityModel"/> class.
             <param name="tagProfile">The tag profile to work with.</param>
@@ -5914,7 +5947,7 @@
             <param name="settingsService">The settings service for persisting UI state.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="logService">The log service.</param>
-            <param name="imageCacheService">The image cache to use.</param>
+            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.DoBind">
@@ -6265,7 +6298,7 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.RegistrationViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.ICryptoService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.RegistrationViewModel"/> class.
             For unit tests.
@@ -6277,7 +6310,7 @@
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="networkService">The network and connectivity service.</param>
             <param name="logService">The log service.</param>
-            <param name="imageCacheService">The image cache to use.</param>
+            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Registration.RegistrationViewModel.DoBind">
@@ -6350,7 +6383,7 @@
             The view model to bind to when showing Step 4 of the registration flow: validating an identity.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IImageCacheService)">
+        <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.ViewModels.Registration.ValidateIdentityViewModel"/> class.
             <param name="tagProfile">The tag profile to work with.</param>
@@ -6360,7 +6393,7 @@
             <param name="settingsService">The settings service for persisting UI state.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="logService">The log service.</param>
-            <param name="imageCacheService">The image cache to use.</param>
+            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.Registration.ValidateIdentityViewModel.DoBind">

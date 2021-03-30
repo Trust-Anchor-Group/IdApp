@@ -32,6 +32,7 @@ namespace IdApp.ViewModels.Identity
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
 		private readonly IEDalerOrchestratorService eDalerService;
+		private readonly IAttachmentCacheService attachmentCacheService;
 		private readonly PhotosLoader photosLoader;
 
 		/// <summary>
@@ -45,19 +46,18 @@ namespace IdApp.ViewModels.Identity
 			INetworkService networkService,
 			ILogService logService,
 			IEDalerOrchestratorService EDalerService,
-			IImageCacheService imageCacheService)
+			IAttachmentCacheService attachmentCacheService)
 		: base(neuronService, uiDispatcher)
 		{
-			imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
-
 			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
 			this.eDalerService = EDalerService;
-
+			this.attachmentCacheService = attachmentCacheService;
 			this.Photos = new ObservableCollection<ImageSource>();
-			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, imageCacheService, this.Photos);
+			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
+				attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>(), this.Photos);
 
 			this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
 			this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);
@@ -1420,6 +1420,8 @@ namespace IdApp.ViewModels.Identity
 					await Database.Update(Info);
 				}
 
+				await this.attachmentCacheService.MakePermanent(this.LegalId);
+
 				this.ThirdPartyInContacts = true;
 				this.ThirdPartyNotInContacts = false;
 
@@ -1437,7 +1439,10 @@ namespace IdApp.ViewModels.Identity
 			{
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 				if (!(Info is null))
+				{
 					await Database.Delete(Info);
+					await this.attachmentCacheService.MakeTemporary(Info.LegalId);
+				}
 
 				RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
 				if (!(Item is null))

@@ -48,7 +48,7 @@ namespace IdApp
     {
         private Timer autoSaveTimer;
         private readonly ITagIdSdk sdk;
-        private readonly IImageCacheService imageCacheService;
+        private readonly IAttachmentCacheService attachmentCacheService;
         private readonly IContractOrchestratorService contractOrchestratorService;
         private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
         private readonly IEDalerOrchestratorService eDalerOrchestratorService;
@@ -102,8 +102,8 @@ namespace IdApp
                 this.startupProfiler?.NewState("SDK");
                 // Create Services
                 this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
-                this.imageCacheService = new ImageCacheService(this.sdk.LogService);
-                this.sdk.RegisterSingleton<IImageCacheService, ImageCacheService>(this.imageCacheService);
+                this.attachmentCacheService = new AttachmentCacheService(this.sdk.LogService);
+                this.sdk.RegisterSingleton<IAttachmentCacheService, AttachmentCacheService>(this.attachmentCacheService);
                 this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
                 this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
                 this.thingRegistryOrchestratorService = new ThingRegistryOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
@@ -222,7 +222,7 @@ namespace IdApp
                 await this.sdk.NavigationService.Load(isResuming);
 
                 thread?.NewState("Cache");
-                await this.imageCacheService.Load(isResuming);
+                await this.attachmentCacheService.Load(isResuming);
 
                 thread?.NewState("Orchestrators");
                 await this.contractOrchestratorService.Load(isResuming);
@@ -281,8 +281,8 @@ namespace IdApp
                 if (!(this.sdk.NetworkService is null))
                     await this.sdk.NetworkService.Unload();
                 
-                if (!(this.imageCacheService is null))
-                    await this.imageCacheService.Unload();
+                if (!(this.attachmentCacheService is null))
+                    await this.attachmentCacheService.Unload();
             }
 
             if (!(this.sdk.StorageService is null))

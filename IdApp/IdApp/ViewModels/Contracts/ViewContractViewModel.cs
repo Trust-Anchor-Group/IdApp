@@ -54,7 +54,7 @@ namespace IdApp.ViewModels.Contracts
         /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="networkService">The network and connectivity service.</param>
-        /// <param name="imageCacheService">The image cache to use.</param>
+        /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
         /// </summary>
         protected internal ViewContractViewModel(
@@ -64,7 +64,7 @@ namespace IdApp.ViewModels.Contracts
             IUiDispatcher uiDispatcher,
             INavigationService navigationService,
             INetworkService networkService,
-            IImageCacheService imageCacheService,
+            IAttachmentCacheService attachmentCacheService,
             IContractOrchestratorService contractOrchestratorService)
         {
             this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
@@ -73,11 +73,11 @@ namespace IdApp.ViewModels.Contracts
             this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
             networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
             this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
 
             this.Photos = new ObservableCollection<ImageSource>();
-            this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiDispatcher, imageCacheService, this.Photos);
+            this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiDispatcher,
+                attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>(), this.Photos);
             this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
             this.DeleteContractCommand = new Command(async _ => await DeleteContract());
             this.GeneralInformation = new ObservableCollection<PartModel>();

@@ -39,7 +39,7 @@ namespace IdApp.ViewModels.Registration
         /// <param name="settingsService">The settings service for persisting UI state.</param>
         /// <param name="networkService">The network service for network access.</param>
         /// <param name="logService">The log service.</param>
-        /// <param name="imageCacheService">The image cache to use.</param>
+        /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// </summary>
         public RegisterIdentityViewModel(
             ITagProfile tagProfile,
@@ -49,25 +49,30 @@ namespace IdApp.ViewModels.Registration
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService,
-            IImageCacheService imageCacheService)
+            IAttachmentCacheService attachmentCacheService)
          : base(RegistrationStep.RegisterIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
+            
             IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
             this.DeviceId = deviceInfo?.GetDeviceId();
+            
             this.Countries = new ObservableCollection<string>();
             foreach (string country in ISO_3166_1.Countries)
                 this.Countries.Add(country);
+            
             this.SelectedCountry = null;
             this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
             this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
             this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
             this.RemovePhotoCommand = new Command(_ => RemovePhoto(true));
+            
             this.Title = AppResources.PersonalLegalInformation;
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
+            
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
-            imageCacheService = imageCacheService ?? DependencyService.Resolve<IImageCacheService>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher, imageCacheService);
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
+                attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>());
         }
 
         /// <inheritdoc />

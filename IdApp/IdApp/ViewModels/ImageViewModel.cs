@@ -28,7 +28,7 @@ namespace IdApp.ViewModels
                 DependencyService.Resolve<INetworkService>(),
                 DependencyService.Resolve<INeuronService>(),
                 DependencyService.Resolve<IUiDispatcher>(),
-                DependencyService.Resolve<IImageCacheService>(),
+                DependencyService.Resolve<IAttachmentCacheService>(),
                 this.Photos);
         }
 

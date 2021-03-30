@@ -8,19 +8,19 @@ using Tag.Neuron.Xamarin.Services;
 
 namespace IdApp.Services
 {
-	///<inheritdoc cref="IImageCacheService"/>
+	///<inheritdoc cref="IAttachmentCacheService"/>
 	[Singleton]
-	internal sealed partial class ImageCacheService : LoadableService, IImageCacheService
+	internal sealed partial class AttachmentCacheService : LoadableService, IAttachmentCacheService
 	{
-		private static readonly TimeSpan Expiry = TimeSpan.FromHours(24);
-		private const string CacheFolderName = "ImageCache";
+		private static readonly TimeSpan ExpiryTemporary = TimeSpan.FromHours(24);
+		private const string CacheFolderName = "Attachments";
 		private readonly ILogService logService;
 
 		/// <summary>
-		/// Creates a new instance of the <see cref="ImageCacheService"/> class.
+		/// Creates a new instance of the <see cref="AttachmentCacheService"/> class.
 		/// </summary>
 		/// <param name="logService">The log service to use.</param>
-		public ImageCacheService(ILogService logService)
+		public AttachmentCacheService(ILogService logService)
 		{
 			this.logService = logService;
 		}
@@ -56,8 +56,6 @@ namespace IdApp.Services
 		{
 			try
 			{
-				await EvictOldEntries();
-
 				if (string.IsNullOrWhiteSpace(Url) || !Uri.IsWellFormedUriString(Url, UriKind.RelativeOrAbsolute))
 					return (null, string.Empty);
 
@@ -65,10 +63,9 @@ namespace IdApp.Services
 				if (Entry is null)
 					return (null, string.Empty);
 
-				TimeSpan Age = DateTime.UtcNow - Entry.TimeStamp;
 				bool Exists = File.Exists(Entry.LocalFileName);
 
-				if (Age >= Expiry || !Exists)
+				if (DateTime.UtcNow >= Entry.Expires || !Exists)
 				{
 					if (Exists)
 						File.Delete(Entry.LocalFileName);
@@ -91,9 +88,11 @@ namespace IdApp.Services
 		/// Adds an image to the cache.
 		/// </summary>
 		/// <param name="Url">The url, which is the key for accessing it later.</param>
+		/// <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+		/// <param name="Permanent">If attachment is permanent or temporary.</param>
 		/// <param name="Data">Binary data of image</param>
 		/// <param name="ContentType">Content-Type of data.</param>
-		public async Task Add(string Url, byte[] Data, string ContentType)
+		public async Task Add(string Url, string ParentId, bool Permanent, byte[] Data, string ContentType)
 		{
 			if (string.IsNullOrWhiteSpace(Url) ||
 				!Uri.IsWellFormedUriString(Url, UriKind.RelativeOrAbsolute) ||
@@ -106,12 +105,14 @@ namespace IdApp.Services
 			string CacheFolder = CreateCacheFolderIfNeeded();
 
 			CacheEntry Entry = await Database.FindFirstDeleteRest<CacheEntry>(new FilterFieldEqualTo("Url", Url));
+			DateTime Expires = Permanent ? DateTime.MaxValue : (DateTime.UtcNow + ExpiryTemporary);
 
 			if (Entry is null)
 			{
 				Entry = new CacheEntry()
 				{
-					TimeStamp = DateTime.UtcNow,
+					Expires = Expires,
+					ParentId = ParentId,
 					LocalFileName = Path.Combine(CacheFolder, Guid.NewGuid().ToString() + ".bin"),
 					Url = Url,
 					ContentType = ContentType
@@ -121,13 +122,46 @@ namespace IdApp.Services
 			}
 			else
 			{
-				Entry.TimeStamp = DateTime.UtcNow;
+				Entry.Expires = Expires;
+				Entry.ParentId = ParentId;
 				Entry.ContentType = ContentType;
 
 				await Database.Update(Entry);
 			}
 
 			File.WriteAllBytes(Entry.LocalFileName, Data);
+		}
+
+		/// <summary>
+		/// Makes items in the cache, belonging to a given parent object, temporary.
+		/// </summary>
+		/// <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+		public async Task MakeTemporary(string ParentId)
+		{
+			foreach (CacheEntry Entry in await Database.Find<CacheEntry>(new FilterFieldEqualTo("ParentId", ParentId)))
+			{
+				if (Entry.Expires == DateTime.MaxValue)
+				{
+					Entry.Expires = DateTime.UtcNow + ExpiryTemporary;
+					await Database.Update(Entry);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Makes items in the cache, belonging to a given parent object, permanent.
+		/// </summary>
+		/// <param name="ParentId">Associated Legal or Contract ID (Parent ID)</param>
+		public async Task MakePermanent(string ParentId)
+		{
+			foreach (CacheEntry Entry in await Database.Find<CacheEntry>(new FilterFieldEqualTo("ParentId", ParentId)))
+			{
+				if (Entry.Expires != DateTime.MaxValue)
+				{
+					Entry.Expires = DateTime.MaxValue;
+					await Database.Update(Entry);
+				}
+			}
 		}
 
 		private string CreateCacheFolderIfNeeded()
@@ -149,8 +183,7 @@ namespace IdApp.Services
 		{
 			try
 			{
-				foreach (CacheEntry Entry in await Database.FindDelete<CacheEntry>(
-					new FilterFieldLesserOrEqualTo("TimeStamp", DateTime.UtcNow.Subtract(Expiry))))
+				foreach (CacheEntry Entry in await Database.FindDelete<CacheEntry>(new FilterFieldLesserOrEqualTo("Expires", DateTime.UtcNow)))
 				{
 					try
 					{
