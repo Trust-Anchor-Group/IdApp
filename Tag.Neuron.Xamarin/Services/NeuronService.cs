@@ -91,9 +91,8 @@ namespace Tag.Neuron.Xamarin.Services
 				isCreatingClient = true;
 
 				if (!(this.xmppClient is null))
-				{
-					DestroyXmppClient();
-				}
+					this.DestroyXmppClient();
+				
 				if (this.xmppClient is null ||
 					this.domainName != this.tagProfile.Domain ||
 					this.accountName != this.tagProfile.Account ||
@@ -165,13 +164,17 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			this.reconnectTimer?.Dispose();
 			this.reconnectTimer = null;
+
 			this.contracts.DestroyClients();
+			
 			if (!(this.xmppClient is null))
 			{
 				this.xmppClient.OnError -= XmppClient_Error;
 				this.xmppClient.OnConnectionError -= XmppClient_ConnectionError;
 				this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
+				
 				this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline, this.userInitiatedLogInOrOut));
+				
 				if (!(this.xmppEventSink is null))
 				{
 					this.logService.RemoveListener(this.xmppEventSink);
@@ -180,8 +183,8 @@ namespace Tag.Neuron.Xamarin.Services
 				}
 
 				this.xmppClient.Dispose();
+				this.xmppClient = null;
 			}
-			this.xmppClient = null;
 		}
 
 		private bool ShouldCreateClient()
@@ -213,13 +216,9 @@ namespace Tag.Neuron.Xamarin.Services
 				return;
 
 			if (ShouldCreateClient())
-			{
 				await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity);
-			}
 			else if (ShouldDestroyClient())
-			{
 				this.DestroyXmppClient();
-			}
 		}
 
 		private Task XmppClient_Error(object sender, Exception e)
@@ -363,9 +362,7 @@ namespace Tag.Neuron.Xamarin.Services
                     this.tagProfile.StepChanged -= TagProfile_StepChanged;
 
 					if (!(this.xmppClient is null) && !fast)
-					{
 						await this.xmppClient.SetPresenceAsync(Availability.Offline);
-					}
 
 					this.DestroyXmppClient();
 				}
@@ -437,6 +434,7 @@ namespace Tag.Neuron.Xamarin.Services
 					this.userInitiatedLogInOrOut = false;
 				}
 			}
+
 			return Task.CompletedTask;
 		}
 

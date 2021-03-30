@@ -252,13 +252,12 @@ namespace IdApp
             await this.Shutdown(false);
         }
 
-        private async Task Shutdown(bool inPanic)
+		private async Task Shutdown(bool inPanic)
         {
             StopAutoSaveTimer();
+
             if (!(this.sdk.UiDispatcher is null))
-            {
                 this.sdk.UiDispatcher.IsRunningInTheBackground = !inPanic;
-            }
 
             if (inPanic)
             {
@@ -287,9 +286,8 @@ namespace IdApp
             }
 
             if (!(this.sdk.StorageService is null))
-            {
                 await this.sdk.StorageService.Shutdown();
-            }
+            
             await Types.StopAllModules();
             Waher.Events.Log.Terminate();
         }
@@ -381,19 +379,13 @@ namespace IdApp
         private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
         {
             if (!(ex is null))
-            {
                 this.sdk.LogService.SaveExceptionDump(title, ex.ToString());
-            }
 
             if (!(ex is null))
-            {
                 this.sdk.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
-            }
 
             if (shutdown)
-            {
-                await this.Shutdown(true);
-            }
+                await this.Shutdown(false);
 
 #if DEBUG
             if (!shutdown)
