@@ -42,7 +42,8 @@ namespace Tag.Neuron.Xamarin.Services
 		private string accountName;
 		private string passwordHash;
 		private string passwordHashMethod;
-		private bool xmppSettingsOk;
+		private bool xmppConnected = false;
+		private DateTime xmppLastStateChange = DateTime.MinValue;
 		private readonly InMemorySniffer sniffer;
 		private bool isCreatingClient;
 		private XmppEventSink xmppEventSink;
@@ -106,6 +107,9 @@ namespace Tag.Neuron.Xamarin.Services
 
 					(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
 
+					this.xmppLastStateChange = DateTime.Now;
+					this.xmppConnected = false;
+
 					this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer)
 					{
 						TrustServer = !isIpAddress,
@@ -124,34 +128,23 @@ namespace Tag.Neuron.Xamarin.Services
                     this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
 
                     if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
-                    {
                         await this.contracts.CreateClients(CanCreateKeys);
-                    }
 
 					this.IsLoggedOut = false;
 					this.xmppClient.Connect(isIpAddress ? string.Empty : domainName);
+					this.RecreateReconnectTimer();
 
-                    bool connectSucceeded = false;
 					// Await connected state during registration or user initiated log in, but not otherwise.
 					if (!this.tagProfile.IsCompleteOrWaitingForValidation() || this.userInitiatedLogInOrOut)
 					{
-						connectSucceeded = await this.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+						if (!await this.WaitForConnectedState(Constants.Timeouts.XmppConnect))
+						{
+							this.logService.LogWarning("Connect to XMPP server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
+								this.domainName,
+								this.accountName,
+								(int)Constants.Timeouts.XmppConnect.TotalMilliseconds);
+						}
 					}
-					// This saves startup time for registered users with a complete profile
-					if (this.tagProfile.IsComplete())
-					{
-						connectSucceeded = true;
-					}
-
-					if (!connectSucceeded)
-                    {
-						this.logService.LogWarning("Connect to XMPP server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
-							this.domainName,
-							this.accountName,
-							(int)Constants.Timeouts.XmppConnect.TotalMilliseconds);
-					}
-
-					this.RecreateReconnectTimer();
 				}
 			}
 			finally
@@ -235,6 +228,8 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private async Task XmppClient_StateChanged(object sender, XmppState newState)
 		{
+			this.xmppLastStateChange = DateTime.Now;
+
 			this.xmppThread?.NewState(newState.ToString());
 
 			switch (newState)
@@ -243,16 +238,16 @@ namespace Tag.Neuron.Xamarin.Services
 					this.LatestError = string.Empty;
 					this.LatestConnectionError = string.Empty;
 
-					this.xmppSettingsOk = true;
+					this.xmppConnected = true;
 
 					this.RecreateReconnectTimer();
 
                     string legalJidBefore = this.tagProfile.LegalJid;
+					
 					if (this.tagProfile.NeedsUpdating())
-					{
 						await this.DiscoverServices();
-					}
-                    string legalJidAfter = this.tagProfile.LegalJid;
+                    
+					string legalJidAfter = this.tagProfile.LegalJid;
 
                     bool legalJidWasCleared = !string.IsNullOrWhiteSpace(legalJidBefore) && string.IsNullOrWhiteSpace(legalJidAfter);
                     bool legalJidIsValid = !string.IsNullOrWhiteSpace(legalJidAfter);
@@ -260,9 +255,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 					// If LegalJid was cleared, or is different
 					if (legalJidWasCleared || legalJidHasChangedAndIsValid)
-                    {
                         this.contracts.DestroyClients();
-                    }
 
 					// If we have a valid Jid, and contracts isn't created yet.
 					if (legalJidHasChangedAndIsValid || (legalJidIsValid && !this.contracts.IsOnline))
@@ -284,10 +277,11 @@ namespace Tag.Neuron.Xamarin.Services
 					this.startupProfiler = null;
 					break;
 
+				case XmppState.Offline:
 				case XmppState.Error:
-					if (this.xmppSettingsOk)
+					if (this.xmppConnected)
 					{
-						this.xmppSettingsOk = false;
+						this.xmppConnected = false;
 						this.xmppClient?.Reconnect();
 					}
 
@@ -323,9 +317,8 @@ namespace Tag.Neuron.Xamarin.Services
                     this.tagProfile.StepChanged += TagProfile_StepChanged;
 
 					if (ShouldCreateClient())
-					{
 						await this.CreateXmppClient(false);
-					}
+					
 					if (!(this.xmppClient is null) &&
 						this.xmppClient.State == XmppState.Connected &&
 						this.tagProfile.IsCompleteOrWaitingForValidation())
@@ -333,6 +326,7 @@ namespace Tag.Neuron.Xamarin.Services
 						// Don't await this one, just fire and forget, to improve startup time.
 						_ = this.xmppClient.SetPresenceAsync(Availability.Online);
 					}
+					
 					this.EndLoad(true);
 				}
 				catch (Exception ex)
@@ -776,11 +770,18 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private void ReconnectTimer_Tick(object _)
 		{
-			if (!(xmppClient is null) &&
-				(xmppClient.State == XmppState.Error || xmppClient.State == XmppState.Offline) &&
-				this.networkService.IsOnline)
+			if (this.xmppClient is null)
+				return;
+
+			if (!this.networkService.IsOnline)
+				return;
+
+			if (this.xmppClient.State == XmppState.Error ||
+				this.xmppClient.State == XmppState.Offline ||
+				(this.xmppClient.State != XmppState.Connected && (DateTime.Now - this.xmppLastStateChange).TotalSeconds > 10))
 			{
-				xmppClient.Reconnect();
+				this.xmppLastStateChange = DateTime.Now;
+				this.xmppClient.Reconnect();
 			}
 		}
 
