@@ -10,8 +10,10 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
+using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -129,15 +131,21 @@ namespace IdApp.ViewModels
 			{
 				_ = Task.Run(() =>
 				{
-					byte[] bytes = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+					this.QrCodeBin = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+					this.QrCodeContentType = "image/png";
+
 					if (this.IsBound)
 					{
-						this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
+						this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin)));
 					}
 				});
 			}
 			else
+			{
 				this.QrCode = null;
+				this.QrCodeBin = null;
+				this.QrCodeContentType = string.Empty;
+			}
 
 			Attachment firstAttachment = this.tagProfile?.LegalIdentity?.Attachments?.GetFirstImageAttachment();
 			if (!(firstAttachment is null))
@@ -156,6 +164,9 @@ namespace IdApp.ViewModels
 					return;
 
 				(byte[] Bin, string ContentType) = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
+
+				this.ImageBin = Bin;
+				this.ImageContentType = ContentType;
 
 				if (Bin != null)
 				{
@@ -283,6 +294,36 @@ namespace IdApp.ViewModels
 		{
 			get { return (ImageSource)GetValue(ImageProperty); }
 			set { SetValue(ImageProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="ImageBin"/>
+		/// </summary>
+		public static readonly BindableProperty ImageBinProperty =
+			BindableProperty.Create("ImageBin", typeof(byte[]), typeof(MainViewModel), default(byte[]));
+
+		/// <summary>
+		/// Binary encoding of photo
+		/// </summary>
+		public byte[] ImageBin
+		{
+			get { return (byte[])GetValue(ImageBinProperty); }
+			set { SetValue(ImageBinProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="ImageContentType"/>
+		/// </summary>
+		public static readonly BindableProperty ImageContentTypeProperty =
+			BindableProperty.Create("ImageContentType", typeof(string), typeof(MainViewModel), default(string));
+
+		/// <summary>
+		/// Content-Type of photo
+		/// </summary>
+		public string ImageContentType
+		{
+			get { return (string)GetValue(ImageContentTypeProperty); }
+			set { SetValue(ImageContentTypeProperty, value); }
 		}
 
 		/// <summary>
@@ -416,6 +457,36 @@ namespace IdApp.ViewModels
 		{
 			get { return (int)GetValue(QrCodeHeightProperty); }
 			set { SetValue(QrCodeHeightProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="QrCodeBin"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodeBinProperty =
+			BindableProperty.Create("QrCodeBin", typeof(byte[]), typeof(MainViewModel), default(byte[]));
+
+		/// <summary>
+		/// Binary encoding of QR Code
+		/// </summary>
+		public byte[] QrCodeBin
+		{
+			get { return (byte[])GetValue(QrCodeBinProperty); }
+			set { SetValue(QrCodeBinProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="QrCodeContentType"/>
+		/// </summary>
+		public static readonly BindableProperty QrCodeContentTypeProperty =
+			BindableProperty.Create("QrCodeContentType", typeof(string), typeof(MainViewModel), default(string));
+
+		/// <summary>
+		/// Content-Type of QR Code
+		/// </summary>
+		public string QrCodeContentType
+		{
+			get { return (string)GetValue(QrCodeContentTypeProperty); }
+			set { SetValue(QrCodeContentTypeProperty, value); }
 		}
 
 		/// <summary>
@@ -632,10 +703,40 @@ namespace IdApp.ViewModels
 
 		internal async Task SharePhoto()
 		{
+			try
+			{
+				if (this.ImageBin is null)
+					return;
+
+				IShareContent shareContent = DependencyService.Get<IShareContent>();
+				string FileName = "Photo." + InternetContent.GetFileExtension(this.ImageContentType);
+
+				shareContent.ShareImage(this.ImageBin, this.FullName, AppResources.Share, FileName);
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
 		}
 
 		internal async Task ShareQR()
 		{
+			try
+			{
+				if (this.QrCodeBin is null)
+					return;
+
+				IShareContent shareContent = DependencyService.Get<IShareContent>();
+				string FileName = "QR." + InternetContent.GetFileExtension(this.QrCodeContentType);
+
+				shareContent.ShareImage(this.QrCodeBin, this.FullName, AppResources.Share, FileName);
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
 		}
 	}
 }

@@ -5297,6 +5297,26 @@
             Gets or sets the current user's photo.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ImageBinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ImageBin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ImageBin">
+            <summary>
+            Binary encoding of photo
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ImageContentTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ImageContentType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ImageContentType">
+            <summary>
+            Content-Type of photo
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.MainViewModel.FullNameProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.MainViewModel.FullName"/>
@@ -5375,6 +5395,26 @@
         <member name="P:IdApp.ViewModels.MainViewModel.QrCodeHeight">
             <summary>
             Gets or sets the height, in pixels, of the <see cref="P:IdApp.ViewModels.MainViewModel.QrCode"/> being generated.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.QrCodeBinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.QrCodeBin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.QrCodeBin">
+            <summary>
+            Binary encoding of QR Code
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.QrCodeContentTypeProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.QrCodeContentType"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.QrCodeContentType">
+            <summary>
+            Content-Type of QR Code
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.MainViewModel.IsOnlineProperty">

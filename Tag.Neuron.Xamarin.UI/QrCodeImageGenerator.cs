@@ -1,5 +1,7 @@
-﻿using SkiaSharp;
-using SkiaSharp.QrCode;
+﻿using System.IO;
+using SkiaSharp;
+using Waher.Content.QR;
+using Waher.Content.QR.Encoding;
 
 namespace Tag.Neuron.Xamarin.UI
 {
@@ -8,6 +10,8 @@ namespace Tag.Neuron.Xamarin.UI
     /// </summary>
     public static class QrCodeImageGenerator
     {
+        private static readonly QrEncoder encoder = new QrEncoder();
+
         /// <summary>
         /// Generates a QR Code png image with the specified width and height.
         /// </summary>
@@ -32,19 +36,18 @@ namespace Tag.Neuron.Xamarin.UI
             return Generate(text, width, height, SKEncodedImageFormat.Jpeg);
         }
 
-        private static byte[] Generate(string text, int width, int height, SKEncodedImageFormat format)
+        private static byte[] Generate(string Text, int Width, int Height, SKEncodedImageFormat Format)
         {
-            using (QRCodeGenerator generator = new QRCodeGenerator())
-            {
-                QRCodeData qr = generator.CreateQrCode(text, ECCLevel.H);
-                using (var surface = SKSurface.Create(new SKImageInfo(width, height)))
-                {
-                    surface.Canvas.Render(qr, SKRect.Create(0.0f, 0.0f, width, height), SKColors.White, SKColors.Black);
+            QrMatrix M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+            byte[] Rgba = M.ToRGBA(Width, Height);
 
-                    using (var image = surface.Snapshot())
-                    using (var data = image.Encode(format, 100))
+            using (SKData Unencoded = SKData.Create(new MemoryStream(Rgba)))
+            {
+                using (SKImage Bitmap = SKImage.FromPixels(new SKImageInfo(Width, Height, SKColorType.Rgba8888), Unencoded, Width * 4))
+                {
+                    using (SKData Encoded = Bitmap.Encode(Format, 100))
                     {
-                        return data.ToArray();
+                        return Encoded.ToArray();
                     }
                 }
             }

@@ -19,9 +19,9 @@
 
 <ItemGroup>
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
-    <PackageReference Include="SkiaSharp.QrCode" Version="0.4.1" />
-    <PackageReference Include="Waher.Content" Version="1.0.30" />
-    <PackageReference Include="Waher.Content.Xml" Version="1.0.12" />
+    <PackageReference Include="Waher.Content" Version="1.1.0" />
+    <PackageReference Include="Waher.Content.QR" Version="1.0.1" />
+    <PackageReference Include="Waher.Content.Xml" Version="1.1.0" />
     <PackageReference Include="Waher.Events.XMPP" Version="1.1.0" />
     <PackageReference Include="Waher.Networking" Version="1.0.21" />
     <PackageReference Include="Waher.Networking.DNS" Version="1.0.12" />
@@ -29,7 +29,7 @@
     <PackageReference Include="Waher.Networking.UPnP" Version="1.0.5" />
     <PackageReference Include="Waher.Networking.XMPP" Version="1.1.11" />
     <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="1.1.1" />
-    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="1.2.9" />
+    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="1.2.10" />
     <PackageReference Include="Waher.Networking.XMPP.Control" Version="1.1.1" />
     <PackageReference Include="Waher.Networking.XMPP.P2P" Version="1.1.8" />
     <PackageReference Include="Waher.Networking.XMPP.PEP" Version="1.1.2" />
@@ -44,7 +44,7 @@
     <PackageReference Include="Waher.Runtime.Settings" Version="1.0.9" />
     <PackageReference Include="Waher.Runtime.Temporary" Version="1.0.0" />
     <PackageReference Include="Waher.Runtime.Timing" Version="1.0.4" />
-    <PackageReference Include="Waher.Script" Version="1.0.52" />
+    <PackageReference Include="Waher.Script" Version="1.0.53" />
     <PackageReference Include="Waher.Security" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
