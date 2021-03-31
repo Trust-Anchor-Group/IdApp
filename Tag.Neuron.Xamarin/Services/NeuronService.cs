@@ -48,7 +48,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool isCreatingClient;
 		private XmppEventSink xmppEventSink;
 		private bool userInitiatedLogInOrOut;
-		private readonly string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Tx {color: #ffffff; background-color: #008000;display: block;} </style>";
+		private readonly string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Rx {color: #ffffff; background-color: #008000;display: block;} ping:empty:before { content: 'ping ';} iq:empty:before { content: attr(type) ' ' attr(to);} c:empty:before { content: attr(node);} session:empty:before, stream:empty:before, starttls:empty:before, proceed:empty:before { content: attr(xmlns);}</style>";
 		private string sentHtml;
 		private string sentTextData;
 		private string historyTextData;
@@ -809,14 +809,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 			try
 			{
-				var xslt = new XslCompiledTransform();
-				using (Stream xsltStream = this.GetType().Assembly.GetManifestResourceStream($"{typeof(Constants).Namespace}.SnifferXmlToHtml.xslt"))
-				using (XmlReader reader = new XmlTextReader(xsltStream))
-				{
-					xslt.Load(reader);
-				}
-
-				string xml = this.sniffer.SnifferToXml();
+				string xml = sniffer.SnifferToXml();
 
 				sentHtml = xml;
 				sentTextData = sniffer.SnifferToText();
@@ -833,7 +826,7 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 			catch (Exception e)
 			{
-				this.logService.LogException(e);
+				logService.LogException(e);
 			}
 
 			return html;
