@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin.UI.Extensions;
 using Tag.Neuron.Xamarin.UI.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.UI.ViewModels
@@ -39,11 +40,13 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         {
             if (!IsBound)
             {
+                DeviceDisplay.KeepScreenOn = true;
+
                 await DoBind();
+                
                 foreach (BaseViewModel childViewModel in childViewModels)
-                {
                     await childViewModel.Bind();
-                }
+                
                 IsBound = true;
             }
         }
