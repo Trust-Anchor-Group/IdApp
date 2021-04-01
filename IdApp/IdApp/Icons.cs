@@ -99,5 +99,10 @@
         /// The contacts icon
         /// </summary>
         public const string Contacts = "\uf02d";
+
+        /// <summary>
+        /// The things icon
+        /// </summary>
+        public const string Things = "\uf0eb";
     }
 }

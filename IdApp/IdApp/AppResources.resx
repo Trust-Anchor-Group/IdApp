@@ -549,6 +549,9 @@
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Not connected to the operator</value>
   </data>
+  <data name="NoThingsFound" xml:space="preserve">
+    <value>No Things Found.</value>
+  </data>
   <data name="ObsoleteContract" xml:space="preserve">
     <value>Obsolete contract</value>
   </data>
@@ -942,6 +945,15 @@
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>The specified code is not a legal identity</value>
   </data>
+  <data name="Thing" xml:space="preserve">
+    <value>Thing</value>
+  </data>
+  <data name="Things" xml:space="preserve">
+    <value>Things</value>
+  </data>
+  <data name="ThingsDescription" xml:space="preserve">
+    <value>Below are all your things, and things in your contact book. Click on any to interact with that thing.</value>
+  </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Time stamp</value>
   </data>
@@ -962,6 +974,9 @@
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Unable to authenticate with {0}</value>
+  </data>
+  <data name="UnableToClaimThing" xml:space="preserve">
+    <value>Unable to claim thing</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>

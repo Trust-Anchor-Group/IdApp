@@ -1357,6 +1357,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Things Found..
+        /// </summary>
+        internal static string NoThingsFound {
+            get {
+                return ResourceManager.GetString("NoThingsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Obsolete contract.
         /// </summary>
         internal static string ObsoleteContract {
@@ -2536,6 +2545,33 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thing.
+        /// </summary>
+        internal static string Thing {
+            get {
+                return ResourceManager.GetString("Thing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Things.
+        /// </summary>
+        internal static string Things {
+            get {
+                return ResourceManager.GetString("Things", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Below are all your things, and things in your contact book. Click on any to interact with that thing..
+        /// </summary>
+        internal static string ThingsDescription {
+            get {
+                return ResourceManager.GetString("ThingsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time stamp.
         /// </summary>
         internal static string Timestamp {
@@ -2595,6 +2631,15 @@ namespace IdApp {
         internal static string UnableToAuthenticateWith {
             get {
                 return ResourceManager.GetString("UnableToAuthenticateWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to claim thing.
+        /// </summary>
+        internal static string UnableToClaimThing {
+            get {
+                return ResourceManager.GetString("UnableToClaimThing", resourceCulture);
             }
         }
         

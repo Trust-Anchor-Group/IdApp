@@ -51,7 +51,7 @@ namespace IdApp.Services
 		{
 			if (this.BeginLoad())
 			{
-				this.neuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
+				this.neuronService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
 				this.neuronService.Contracts.PetitionForPeerReviewIdReceived += Contracts_PetitionForPeerReviewIdReceived;
 				this.neuronService.Contracts.PetitionForIdentityReceived += Contracts_PetitionForIdentityReceived;
 				this.neuronService.Contracts.PetitionForSignatureReceived += Contracts_PetitionForSignatureReceived;
@@ -68,7 +68,7 @@ namespace IdApp.Services
 		{
 			if (this.BeginUnload())
 			{
-				this.neuronService.Contracts.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
+				this.neuronService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
 				this.neuronService.Contracts.PetitionForPeerReviewIdReceived -= Contracts_PetitionForPeerReviewIdReceived;
 				this.neuronService.Contracts.PetitionForIdentityReceived -= Contracts_PetitionForIdentityReceived;
 				this.neuronService.Contracts.PetitionForSignatureReceived -= Contracts_PetitionForSignatureReceived;
@@ -287,7 +287,7 @@ namespace IdApp.Services
 
 		private async void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			if (this.neuronService.IsOnline && this.neuronService.Contracts.IsOnline && e.State == XmppState.Connected)
+			if (this.neuronService.IsOnline && this.neuronService.IsOnline)
 			{
 				if (!(this.tagProfile.LegalIdentity is null) && this.tagProfile.IsCompleteOrWaitingForValidation())
 				{
@@ -308,9 +308,10 @@ namespace IdApp.Services
 
 		protected async Task DownloadLegalIdentity(string legalId)
         {
-            bool isConnected = !(this.neuronService is null) &&
-                               await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect)
-                               && this.neuronService.Contracts.IsOnline;
+            bool isConnected = 
+				!(this.neuronService is null) &&
+                await this.neuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect) && 
+				this.neuronService.IsOnline;
 
             if (!isConnected)
 				return;

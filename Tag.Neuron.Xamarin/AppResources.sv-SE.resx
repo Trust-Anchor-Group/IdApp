@@ -147,6 +147,9 @@
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
     <value>{0} är inte en giltig operatör</value>
   </data>
+  <data name="EDalerServiceNotFound" xml:space="preserve">
+    <value>Ingen eDaler-tjänst hittades på brokern.</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
@@ -156,17 +159,26 @@
   <data name="FailedToNavigateToPage" xml:space="preserve">
     <value>Kunde inte navigera till sidan {0} {1}</value>
   </data>
+  <data name="FileUploadServiceNotFound" xml:space="preserve">
+    <value>Ingen tjänst för filuppladdning hittades på brokern.</value>
+  </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
     <value>Not a valid iotdisco claim URI.</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
   </data>
+  <data name="LegalServiceNotFound" xml:space="preserve">
+    <value>Ingen juridisk tjänst hittades på brokern.</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>Operatören {0} stödjer inte registrering av nya konton</value>
+  </data>
+  <data name="ProvisioningServiceNotFound" xml:space="preserve">
+    <value>Ingen provisioneringstjänst hittades på brokern.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Reparera och fortsätt</value>
@@ -180,11 +192,11 @@
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>Nätverk saknas</value>
   </data>
+  <data name="ThingRegistryServiceNotFound" xml:space="preserve">
+    <value>Inget sakregister hittades på brokern.</value>
+  </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
-  </data>
-  <data name="UnableToClaimThing" xml:space="preserve">
-    <value>Kunde inte göra anspråk på saken.</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>

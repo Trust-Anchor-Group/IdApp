@@ -1,42 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Xsl;
 using Tag.Neuron.Xamarin.Extensions;
 using EDaler;
 using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.MUC;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Networking.XMPP.Sensor;
 using Waher.Networking.XMPP.ServiceDiscovery;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 
 namespace Tag.Neuron.Xamarin.Services
 {
-    [Singleton]
-	internal sealed class NeuronService : LoadableService, IInternalNeuronService
+	[Singleton]
+	internal sealed class NeuronService : LoadableService, INeuronService
 	{
 		private readonly Assembly appAssembly;
 		private readonly INetworkService networkService;
 		private readonly ILogService logService;
 		private readonly ITagProfile tagProfile;
 		private readonly ISettingsService settingsService;
-		private Timer reconnectTimer;
-		private XmppClient xmppClient;
 		private Profiler startupProfiler;
 		private ProfilerThread xmppThread;
+		private XmppClient xmppClient;
+		private ContractsClient contractsClient;
+		private HttpFileUploadClient fileUploadClient;
+		private MultiUserChatClient mucClient;
+		private ThingRegistryClient thingRegistryClient;
+		private ProvisioningClient provisioningClient;
+		private ControlClient controlClient;
+		private SensorClient sensorClient;
+		private ConcentratorClient concentratorClient;
+		private EDalerClient eDalerClient;
+		private Timer reconnectTimer;
 		private readonly NeuronContracts contracts;
 		private readonly NeuronMultiUserChat muc;
 		private readonly NeuronThingRegistry thingRegistry;
+		private readonly NeuronProvisioningService provisioning;
 		private readonly NeuronWallet wallet;
 		private string domainName;
 		private string accountName;
@@ -62,15 +72,16 @@ namespace Tag.Neuron.Xamarin.Services
 			ILogService logService,
 			ISettingsService settingsService,
 			Profiler startupProfiler)
-        {
-            this.appAssembly = appAssembly;
+		{
+			this.appAssembly = appAssembly;
 			this.networkService = networkService;
 			this.logService = logService;
 			this.tagProfile = tagProfile;
 			this.settingsService = settingsService;
 			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService, this.settingsService);
-			this.muc = new NeuronMultiUserChat(this.tagProfile, this);
+			this.muc = new NeuronMultiUserChat(this);
 			this.thingRegistry = new NeuronThingRegistry(this);
+			this.provisioning = new NeuronProvisioningService(this);
 			this.wallet = new NeuronWallet(this, this.logService);
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = startupProfiler;
@@ -80,26 +91,22 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private async Task CreateXmppClient(bool CanCreateKeys)
 		{
+			if (isCreatingClient)
+				return;
+
 			this.xmppThread = this.startupProfiler?.CreateThread("XMPP", ProfilerThreadType.StateMachine);
 			this.xmppThread?.Start();
 			this.xmppThread?.Idle();
-
-			if (isCreatingClient)
-				return;
 
 			try
 			{
 				isCreatingClient = true;
 
-				if (!(this.xmppClient is null))
-					this.DestroyXmppClient();
-				
-				if (this.xmppClient is null ||
-					this.domainName != this.tagProfile.Domain ||
-					this.accountName != this.tagProfile.Account ||
-					this.passwordHash != this.tagProfile.PasswordHash ||
-					this.passwordHashMethod != this.tagProfile.PasswordHashMethod)
+				if (!this.XmppParametersCurrent() || this.XmppStale())
 				{
+					if (!(this.xmppClient is null))
+						this.DestroyXmppClient();
+
 					this.domainName = this.tagProfile.Domain;
 					this.accountName = this.tagProfile.Account;
 					this.passwordHash = this.tagProfile.PasswordHash;
@@ -125,10 +132,46 @@ namespace Tag.Neuron.Xamarin.Services
 					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
-                    this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
+					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
 
-                    if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
-                        await this.contracts.CreateClients(CanCreateKeys);
+					// Add extensions before connecting
+
+					if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+					{
+						this.contractsClient = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
+
+						if (!await this.contractsClient.LoadKeys(false))
+						{
+							if (!CanCreateKeys)
+							{
+								Log.Alert("Regeneration of keys not permitted at this time.",
+									string.Empty, string.Empty, string.Empty, EventLevel.Major, string.Empty, string.Empty, Environment.StackTrace);
+
+								throw new Exception("Regeneration of keys not permitted at this time.");
+							}
+
+							await this.contractsClient.GenerateNewKeys();
+						}
+					}
+
+					if (!string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
+						this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize);
+
+					if (!string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
+						this.mucClient = new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid);
+
+					if (!string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+						this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
+
+					if (!string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+						this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid);
+
+					if (!string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
+						this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
+
+					this.sensorClient = new SensorClient(this.xmppClient);
+					this.controlClient = new ControlClient(this.xmppClient);
+					this.concentratorClient = new ConcentratorClient(this.xmppClient);
 
 					this.IsLoggedOut = false;
 					this.xmppClient.Connect(isIpAddress ? string.Empty : domainName);
@@ -158,48 +201,79 @@ namespace Tag.Neuron.Xamarin.Services
 			this.reconnectTimer?.Dispose();
 			this.reconnectTimer = null;
 
-			this.contracts.DestroyClients();
-			
-			if (!(this.xmppClient is null))
-			{
-				this.xmppClient.OnError -= XmppClient_Error;
-				this.xmppClient.OnConnectionError -= XmppClient_ConnectionError;
-				this.xmppClient.OnStateChanged -= XmppClient_StateChanged;
-				
-				this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline, this.userInitiatedLogInOrOut));
-				
-				if (!(this.xmppEventSink is null))
-				{
-					this.logService.RemoveListener(this.xmppEventSink);
-					this.xmppEventSink.Dispose();
-					this.xmppEventSink = null;
-				}
+			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline, this.userInitiatedLogInOrOut));
 
-				this.xmppClient.Dispose();
-				this.xmppClient = null;
+			if (!(this.xmppEventSink is null))
+			{
+				this.logService.RemoveListener(this.xmppEventSink);
+				this.xmppEventSink.Dispose();
+				this.xmppEventSink = null;
 			}
+
+			this.contractsClient?.Dispose();
+			this.contractsClient = null;
+
+			this.fileUploadClient?.Dispose();
+			this.fileUploadClient = null;
+
+			this.mucClient?.Dispose();
+			this.mucClient = null;
+
+			this.thingRegistryClient?.Dispose();
+			this.thingRegistryClient = null;
+
+			this.provisioningClient?.Dispose();
+			this.provisioningClient = null;
+
+			this.eDalerClient?.Dispose();
+			this.eDalerClient = null;
+
+			this.sensorClient?.Dispose();
+			this.sensorClient = null;
+
+			this.controlClient?.Dispose();
+			this.controlClient = null;
+
+			this.concentratorClient?.Dispose();
+			this.concentratorClient = null;
+
+			this.xmppClient?.Dispose();
+			this.xmppClient = null;
+		}
+
+		private bool XmppStale()
+		{
+			return this.xmppClient is null ||
+				this.xmppClient.State == XmppState.Offline ||
+				this.xmppClient.State == XmppState.Error ||
+				(this.xmppClient.State != XmppState.Connected && (DateTime.Now - this.xmppLastStateChange).TotalSeconds > 10);
+		}
+
+		private bool XmppParametersCurrent()
+		{
+			return !(this.xmppClient is null) &&
+				this.domainName == this.tagProfile.Domain &&
+				this.accountName == this.tagProfile.Account &&
+				this.passwordHash == this.tagProfile.PasswordHash &&
+				this.passwordHashMethod == this.tagProfile.PasswordHashMethod &&
+				this.contractsClient?.ComponentAddress == this.tagProfile.LegalJid &&
+				this.fileUploadClient?.FileUploadJid == this.tagProfile.HttpFileUploadJid &&
+				this.mucClient?.ComponentAddress == this.tagProfile.MucJid &&
+				this.thingRegistryClient?.ThingRegistryAddress == this.tagProfile.RegistryJid &&
+				this.provisioningClient?.ProvisioningServerAddress == this.tagProfile.ProvisioningJid &&
+				this.contractsClient?.ComponentAddress == this.tagProfile.EDalerJid;
 		}
 
 		private bool ShouldCreateClient()
 		{
-			return this.tagProfile.Step > RegistrationStep.Account &&
-				   (this.xmppClient is null ||
-					this.domainName != this.tagProfile.Domain ||
-					this.accountName != this.tagProfile.Account ||
-					this.passwordHash != this.tagProfile.PasswordHash ||
-					this.passwordHashMethod != this.tagProfile.PasswordHashMethod);
-		}
-
-		private bool ShouldDestroyClient()
-		{
-			return this.tagProfile.Step <= RegistrationStep.Account && !(this.xmppClient is null);
+			return this.tagProfile.Step > RegistrationStep.Account && !this.XmppParametersCurrent();
 		}
 
 		private void RecreateReconnectTimer()
-        {
+		{
 			this.reconnectTimer?.Dispose();
-            this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
-        }
+			this.reconnectTimer = new Timer(ReconnectTimer_Tick, null, Constants.Intervals.Reconnect, Constants.Intervals.Reconnect);
+		}
 
 		#endregion
 
@@ -210,7 +284,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 			if (ShouldCreateClient())
 				await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity);
-			else if (ShouldDestroyClient())
+			else if (this.tagProfile.Step <= RegistrationStep.Account)
 				this.DestroyXmppClient();
 		}
 
@@ -242,33 +316,34 @@ namespace Tag.Neuron.Xamarin.Services
 
 					this.RecreateReconnectTimer();
 
-                    string legalJidBefore = this.tagProfile.LegalJid;
-					
-					if (this.tagProfile.NeedsUpdating())
-						await this.DiscoverServices();
-                    
-					string legalJidAfter = this.tagProfile.LegalJid;
+					if (this.tagProfile.NeedsUpdating() && await this.DiscoverServices())
+					{
+						if (this.contractsClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+						{
+							this.contractsClient = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
 
-                    bool legalJidWasCleared = !string.IsNullOrWhiteSpace(legalJidBefore) && string.IsNullOrWhiteSpace(legalJidAfter);
-                    bool legalJidIsValid = !string.IsNullOrWhiteSpace(legalJidAfter);
-					bool legalJidHasChangedAndIsValid = legalJidIsValid && !string.Equals(legalJidBefore, legalJidAfter);
+							if (!await this.contractsClient.LoadKeys(false))
+							{
+								this.contractsClient.Dispose();
+								this.contractsClient = null;
+							}
+						}
 
-					// If LegalJid was cleared, or is different
-					if (legalJidWasCleared || legalJidHasChangedAndIsValid)
-                        this.contracts.DestroyClients();
+						if (this.fileUploadClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
+							this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize);
 
-					// If we have a valid Jid, and contracts isn't created yet.
-					if (legalJidHasChangedAndIsValid || (legalJidIsValid && !this.contracts.IsOnline))
-                    {
-                        try
-                        {
-                            await this.contracts.CreateClients(false);
-                        }
-                        catch (Exception e)
-                        {
-                            this.logService.LogException(e);
-                        }
-                    }
+						if (this.mucClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
+							this.mucClient = new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid);
+
+						if (this.thingRegistryClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+							this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
+
+						if (this.provisioningClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+							this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid);
+
+						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
+							this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
+					}
 
 					this.logService.AddListener(this.xmppEventSink);
 
@@ -314,11 +389,11 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				try
 				{
-                    this.tagProfile.StepChanged += TagProfile_StepChanged;
+					this.tagProfile.StepChanged += TagProfile_StepChanged;
 
 					if (ShouldCreateClient())
 						await this.CreateXmppClient(false);
-					
+
 					if (!(this.xmppClient is null) &&
 						this.xmppClient.State == XmppState.Connected &&
 						this.tagProfile.IsCompleteOrWaitingForValidation())
@@ -326,7 +401,7 @@ namespace Tag.Neuron.Xamarin.Services
 						// Don't await this one, just fire and forget, to improve startup time.
 						_ = this.xmppClient.SetPresenceAsync(Availability.Online);
 					}
-					
+
 					this.EndLoad(true);
 				}
 				catch (Exception ex)
@@ -353,7 +428,7 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				try
 				{
-                    this.tagProfile.StepChanged -= TagProfile_StepChanged;
+					this.tagProfile.StepChanged -= TagProfile_StepChanged;
 
 					if (!(this.xmppClient is null) && !fast)
 						await this.xmppClient.SetPresenceAsync(Availability.Offline);
@@ -369,7 +444,7 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
+		public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
 
 		private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
 		{
@@ -381,24 +456,30 @@ namespace Tag.Neuron.Xamarin.Services
 		#region State
 
 		public bool IsLoggedOut { get; private set; }
-
 		public bool IsOnline => !(this.xmppClient is null) && this.xmppClient.State == XmppState.Connected;
-
 		public XmppState State => this.xmppClient?.State ?? XmppState.Offline;
-
-		public XmppClient Xmpp => this.xmppClient;
+		public string BareJid => xmppClient?.BareJID ?? string.Empty;
 
 		public string LatestError { get; private set; }
-
 		public string LatestConnectionError { get; private set; }
 
-		public string BareJid => xmppClient?.BareJID ?? string.Empty;
+		public XmppClient Xmpp => this.xmppClient;
+		public ContractsClient ContractsClient => this.contractsClient;
+		public HttpFileUploadClient FileUploadClient => this.fileUploadClient;
+		public MultiUserChatClient MucClient => this.mucClient;
+		public ThingRegistryClient ThingRegistryClient => this.thingRegistryClient;
+		public ProvisioningClient ProvisioningClient => this.provisioningClient;
+		public ControlClient ControlClient => this.controlClient;
+		public SensorClient SensorClient => this.sensorClient;
+		public ConcentratorClient ConcentratorClient => this.concentratorClient;
+		public EDalerClient EDalerClient => this.eDalerClient;
 
 		#endregion
 
 		public INeuronContracts Contracts => this.contracts;
 		public INeuronMultiUserChat MultiUserChat => this.muc;
 		public INeuronThingRegistry ThingRegistry => this.thingRegistry;
+		public INeuronProvisioningService Provisioning => this.provisioning;
 		public INeuronWallet Wallet => this.wallet;
 
 		private enum ConnectOperation
@@ -454,15 +535,15 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-		public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber, 
+		public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber,
 			string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, string.Empty, string.Empty, languageCode, 
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, string.Empty, string.Empty, languageCode,
 				applicationAssembly, connectedFunc, ConnectOperation.Connect);
 		}
 
-		public Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName, 
-			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly, 
+		public Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName,
+			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly,
 			Func<XmppClient, Task> connectedFunc)
 		{
 			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode, applicationAssembly,
@@ -470,15 +551,15 @@ namespace Tag.Neuron.Xamarin.Services
 		}
 
 		public Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly, 
+			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly,
 			Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode, applicationAssembly, 
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode, applicationAssembly,
 				connectedFunc, ConnectOperation.ConnectAndConnectToAccount);
 		}
 
 		private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly, 
+			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly,
 			Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
 		{
 			TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
@@ -606,13 +687,9 @@ namespace Tag.Neuron.Xamarin.Services
 				else if (!registering)
 				{
 					if (!string.IsNullOrWhiteSpace(connectionError))
-					{
 						errorMessage = connectionError;
-					}
 					else
-					{
 						errorMessage = string.Format(AppResources.OperatorDoesNotSupportRegisteringNewAccounts, domain);
-					}
 				}
 				else if (operation == ConnectOperation.ConnectAndCreateAccount)
 					errorMessage = string.Format(AppResources.AccountNameAlreadyTaken, accountName);
@@ -623,79 +700,6 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 
 			return (succeeded, errorMessage);
-		}
-
-		public async Task<ContractsClient> CreateContractsClientAsync(bool CanCreateKeys)
-		{
-			if (this.xmppClient is null)
-				throw new InvalidOperationException("XmppClient is not connected");
-			
-			if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
-				throw new InvalidOperationException("LegalJid is not defined");
-
-			ContractsClient Result = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
-
-			if (!await Result.LoadKeys(false))
-			{
-				if (!CanCreateKeys)
-				{
-					Log.Alert("Regeneration of keys not permitted at this time.",
-						string.Empty, string.Empty, string.Empty, EventLevel.Major, string.Empty, string.Empty, Environment.StackTrace);
-
-					throw new Exception("Regeneration of keys not permitted at this time.");
-				}
-
-				await Result.GenerateNewKeys();	
-			}
-
-			return Result;
-		}
-
-		public HttpFileUploadClient CreateFileUploadClient()
-		{
-			if (this.xmppClient is null)
-				throw new InvalidOperationException("The XMPP Client is not connected");
-
-			if (string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid))
-				throw new InvalidOperationException("No HTTP File Upload Service defined");
-
-			if (!this.tagProfile.HttpFileUploadMaxSize.HasValue)
-				throw new InvalidOperationException("HttpFileUploadMaxSize is not defined");
-
-			return new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize);
-		}
-
-		public MultiUserChatClient CreateMultiUserChatClient()
-		{
-			if (this.xmppClient is null)
-				throw new InvalidOperationException("The XMPP Client is not connected");
-			
-			if (string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
-				throw new InvalidOperationException("There is no Multi-User Chat Service defined.");
-
-			return new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid);
-		}
-
-		public ThingRegistryClient CreateThingRegistryClient()
-		{
-			if (this.xmppClient is null)
-				throw new InvalidOperationException("The XMPP Client is not connected");
-
-			if (string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
-				throw new InvalidOperationException("There is no Thing Registry Service defined.");
-
-			return new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
-		}
-
-		public EDalerClient CreateEDalerClient()
-		{
-			if (this.xmppClient is null)
-				throw new InvalidOperationException("The XMPP Client is not connected");
-
-			if (string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
-				throw new InvalidOperationException("There is no eDaler Service defined.");
-
-			return new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
 		}
 
 		public async Task<bool> DiscoverServices(XmppClient client = null)
@@ -776,9 +780,7 @@ namespace Tag.Neuron.Xamarin.Services
 			if (!this.networkService.IsOnline)
 				return;
 
-			if (this.xmppClient.State == XmppState.Error ||
-				this.xmppClient.State == XmppState.Offline ||
-				(this.xmppClient.State != XmppState.Connected && (DateTime.Now - this.xmppLastStateChange).TotalSeconds > 10))
+			if (this.XmppStale())
 			{
 				this.xmppLastStateChange = DateTime.Now;
 				this.xmppClient.Reconnect();

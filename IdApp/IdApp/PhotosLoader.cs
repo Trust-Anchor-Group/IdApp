@@ -117,7 +117,7 @@ namespace IdApp
         {
             try
             {
-                if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
+                if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
                     return (null, string.Empty);
 
                 if (attachment is null)
@@ -163,7 +163,7 @@ namespace IdApp
 
                 try
                 {
-                    if (!this.networkService.IsOnline || !this.neuronService.Contracts.IsOnline)
+                    if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
                         continue;
 
                     (byte[] Bin, string ContentType) = await GetPhoto(attachment, signWith, now);

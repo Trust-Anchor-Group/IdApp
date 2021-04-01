@@ -779,6 +779,11 @@
               Looks up a localized string similar to Not connected to the operator.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.NoThingsFound">
+            <summary>
+              Looks up a localized string similar to No Things Found..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ObsoleteContract">
             <summary>
               Looks up a localized string similar to Obsolete contract.
@@ -1434,6 +1439,21 @@
               Looks up a localized string similar to The specified code is not a legal identity.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Thing">
+            <summary>
+              Looks up a localized string similar to Thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Things">
+            <summary>
+              Looks up a localized string similar to Things.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ThingsDescription">
+            <summary>
+              Looks up a localized string similar to Below are all your things, and things in your contact book. Click on any to interact with that thing..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Timestamp">
             <summary>
               Looks up a localized string similar to Time stamp.
@@ -1467,6 +1487,11 @@
         <member name="P:IdApp.AppResources.UnableToAuthenticateWith">
             <summary>
               Looks up a localized string similar to Unable to authenticate with {0}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnableToClaimThing">
+            <summary>
+              Looks up a localized string similar to Unable to claim thing.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnableToConnectTo">
@@ -1913,6 +1938,11 @@
             The contacts icon
             </summary>
         </member>
+        <member name="F:IdApp.SolidIcons.Things">
+            <summary>
+            The things icon
+            </summary>
+        </member>
         <member name="T:IdApp.Models.ContractModel">
             <summary>
             The data model for a contract.
@@ -2306,6 +2336,22 @@
         <member name="P:IdApp.Navigation.Things.ViewClaimThingNavigationArgs.Uri">
             <summary>
             The iotdisco claim URI
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.Things.ViewThingNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to viewing things.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.Things.ViewThingNavigationArgs.#ctor(Tag.Neuron.Xamarin.Services.ContactInfo)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Navigation.Things.ViewThingNavigationArgs"/> class.
+            </summary>
+            <param name="Thing">Thing information.</param>
+        </member>
+        <member name="P:IdApp.Navigation.Things.ViewThingNavigationArgs.Thing">
+            <summary>
+            Thing information.
             </summary>
         </member>
         <member name="T:IdApp.Navigation.Wallet.AccountEventNavigationArgs">
@@ -5470,26 +5516,6 @@
             Gets or sets the user friendly network state text for display.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.MainViewModel.ContractsIsOnlineProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.MainViewModel.ContractsIsOnline"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.MainViewModel.ContractsIsOnline">
-            <summary>
-            Gets or sets whether the contracts features of the Neuron server is online.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.MainViewModel.ContractsStateTextProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.MainViewModel.ContractsStateText"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.MainViewModel.ContractsStateText">
-            <summary>
-            Gets or sets the user friendly contracts connection state text for display.
-            </summary>
-        </member>
         <member name="F:IdApp.ViewModels.MainViewModel.HasConnectionErrorsProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.MainViewModel.HasConnectionErrors"/>
@@ -6788,6 +6814,83 @@
             String value of tag.
             </summary>
         </member>
+        <member name="T:IdApp.ViewModels.Things.MyThingsViewModel">
+            <summary>
+            The view model to bind to when displaying the list of things.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.MyThingsViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Things.MyThingsViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.MyThingsViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Things.MyThingsViewModel"/> class.
+            For unit tests.
+            </summary>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="navigationService">The navigation service.</param>
+            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.MyThingsViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.MyThingsViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.MyThingsViewModel.ShowThingsMissingProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.MyThingsViewModel.ShowThingsMissing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.MyThingsViewModel.ShowThingsMissing">
+            <summary>
+            Gets or sets whether to show a contacts missing alert or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.MyThingsViewModel.Things">
+            <summary>
+            Holds the list of contacts to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.MyThingsViewModel.SelectedThingProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.MyThingsViewModel.SelectedThing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.MyThingsViewModel.SelectedThing">
+            <summary>
+            The currently selected contact, if any.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Things.ThingViewModel">
+            <summary>
+            The view model to bind to when displaying a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ThingViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Things.ThingViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ThingViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Things.ThingViewModel"/> class.
+            For unit tests.
+            </summary>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="navigationService">The navigation service.</param>
+            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ThingViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ThingViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.ViewModels.Things.ViewClaimThingViewModel">
             <summary>
             The view model to bind to for when displaying thing claim information.
@@ -6865,6 +6968,11 @@
         <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClickCommand">
             <summary>
             Command to bind to for detecting when a tag value has been clicked on.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.GetFriendlyName(System.Collections.Generic.IEnumerable{IdApp.ViewModels.Things.HumanReadableTag})">
+            <summary>
+            Get Friendly name of thing
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Wallet.AccountEventItem">
@@ -8688,6 +8796,22 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:IdApp.Views.Things.MyThingsPage">
+            <summary>
+            A page that displays a list of the current user's things.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Things.MyThingsPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Things.MyThingsPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Things.MyThingsPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:IdApp.Views.Things.ViewClaimThingPage">
             <summary>
             A page that displays a specific claim thing.
@@ -8699,6 +8823,22 @@
             </summary>
         </member>
         <member name="M:IdApp.Views.Things.ViewClaimThingPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.Views.Things.ViewThingPage">
+            <summary>
+            A page that displays information about a thing and allows the user to interact with it.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Things.ViewThingPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Views.Things.ViewThingPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Views.Things.ViewThingPage.OnBackButtonPressed">
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>

@@ -549,6 +549,9 @@
   <data name="NotConnectedToTheOperator" xml:space="preserve">
     <value>Inte ansluten till operatören</value>
   </data>
+  <data name="NoThingsFound" xml:space="preserve">
+    <value>Inga saker hittades.</value>
+  </data>
   <data name="ObsoleteContract" xml:space="preserve">
     <value>Ogiltigförklara kontrakt</value>
   </data>
@@ -942,6 +945,15 @@
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>Den angivna koden är inte en giltig identitet</value>
   </data>
+  <data name="Thing" xml:space="preserve">
+    <value>Sak</value>
+  </data>
+  <data name="Things" xml:space="preserve">
+    <value>Saker</value>
+  </data>
+  <data name="ThingsDescription" xml:space="preserve">
+    <value>Nedan är alla dina saker, och saker du har i din kontaktbok. Klicka på valfri sak för att interagera med den saken.</value>
+  </data>
   <data name="Timestamp" xml:space="preserve">
     <value>Tidsstämpel</value>
   </data>
@@ -962,6 +974,9 @@
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
+  </data>
+  <data name="UnableToClaimThing" xml:space="preserve">
+    <value>Kunde inte göra anspråk på saken.</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>

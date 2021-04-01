@@ -91,9 +91,10 @@ namespace IdApp
 			Routing.RegisterRoute(nameof(ClientSignaturePage), typeof(ClientSignaturePage));
 			Routing.RegisterRoute(nameof(ServerSignaturePage), typeof(ServerSignaturePage));
 			Routing.RegisterRoute(nameof(PetitionContractPage), typeof(PetitionContractPage));
-			
+
 			// Things
 			Routing.RegisterRoute(nameof(ViewClaimThingPage), typeof(ViewClaimThingPage));
+			Routing.RegisterRoute(nameof(MyThingsPage), typeof(MyThingsPage));
 
 			// Wallet
 			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));
@@ -204,6 +205,11 @@ namespace IdApp
 		internal async void ContactsMenuItem_Clicked(object sender, EventArgs e)
 		{
 			await this.GoToPage(nameof(MyContactsPage));
+		}
+
+		internal async void ThingsMenuItem_Clicked(object sender, EventArgs e)
+		{
+			await this.GoToPage(nameof(MyThingsPage));
 		}
 
 	}

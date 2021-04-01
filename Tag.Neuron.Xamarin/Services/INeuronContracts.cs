@@ -28,16 +28,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         bool FileUploadIsSupported { get; }
 
-        /// <summary>
-        /// Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
-        /// </summary>
-        bool IsOnline { get; }
-
-        /// <summary>
-        /// An event to monitor a Neuron service's Contracts for connectivity.
-        /// </summary>
-        event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
-
         #endregion
 
         #region Legal Identities

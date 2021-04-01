@@ -70,6 +70,11 @@
               Looks up a localized string similar to {0} is not a valid operator.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.EDalerServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No eDaler service found on broker..
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.ErrorTitle">
             <summary>
               Looks up a localized string similar to An error occurred.
@@ -85,6 +90,11 @@
               Looks up a localized string similar to Failed to navigate to page {0}  {1}.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.FileUploadServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No file upload service found on broker..
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.InvalidIoTDiscoClaimUri">
             <summary>
               Looks up a localized string similar to Not a valid iotdisco claim URI..
@@ -95,6 +105,11 @@
               Looks up a localized string similar to Invalid username or password.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.LegalServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No legal service found on broker..
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.Ok">
             <summary>
               Looks up a localized string similar to OK.
@@ -103,6 +118,11 @@
         <member name="P:Tag.Neuron.Xamarin.AppResources.OperatorDoesNotSupportRegisteringNewAccounts">
             <summary>
               Looks up a localized string similar to The operator {0} does not support registration of new accounts.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.ProvisioningServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No provisioning service found on broker..
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.RepairAndContinue">
@@ -125,14 +145,14 @@
               Looks up a localized string similar to There is no network.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.ThingRegistryServiceNotFound">
+            <summary>
+              Looks up a localized string similar to No thing registry service found on broker..
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToAuthenticateWith">
             <summary>
               Looks up a localized string similar to Unable to authenticate with {0}.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToClaimThing">
-            <summary>
-              Looks up a localized string similar to Unable to claim thing.
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToConnectTo">
@@ -1036,6 +1056,26 @@
             Friendly name.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.SourceId">
+            <summary>
+            Source ID
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.Partition">
+            <summary>
+            Partition
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.NodeId">
+            <summary>
+            Node ID
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.RegistryJid">
+            <summary>
+            Registry JID
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.SubcribeTo">
             <summary>
             Subscribe to this contact
@@ -1056,6 +1096,16 @@
             Finds information about a contact, given its Bare JID.
             </summary>
             <param name="BareJid">Bare JID</param>
+            <returns>Contact information, if found.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.FindByBareJid(System.String,System.String,System.String,System.String)">
+            <summary>
+            Finds information about a contact, given its Bare JID.
+            </summary>
+            <param name="BareJid">Bare JID</param>
+            <param name="SourceId">Source ID</param>
+            <param name="Partition">Partition</param>
+            <param name="NodeId">Node ID</param>
             <returns>Contact information, if found.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.FindByLegalId(System.String)">
@@ -1268,16 +1318,6 @@
         <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.FileUploadIsSupported">
             <summary>
             Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.INeuronContracts.IsOnline">
-            <summary>
-            Returns <c>true</c> if contracts is online, <c>false</c> otherwise.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.ConnectionStateChanged">
-            <summary>
-            An event to monitor a Neuron service's Contracts for connectivity.
             </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.AddLegalIdentity(Tag.Neuron.Xamarin.Models.RegisterIdentityModel,Tag.Neuron.Xamarin.Services.LegalIdentityAttachment[])">
@@ -1548,6 +1588,11 @@
             Returns <c>true</c> if Chats is online, <c>false</c> otherwise.
             </summary>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.INeuronProvisioningService">
+            <summary>
+            Adds support for XMPP Provisioning
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronService">
             <summary>
             Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
@@ -1667,7 +1712,12 @@
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.ThingRegistry">
             <summary>
-            Provides access to chat functionality.
+            Provides access to thing registries.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.Provisioning">
+            <summary>
+            Provides access to provisioning and decision support.
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.INeuronService.Wallet">
@@ -1746,8 +1796,18 @@
             </summary>
             <param name="DiscoUri">IoTDisco URI</param>
             <param name="MakePublic">If the device should be public in the thing registry.</param>
-            <returns>If OK, null is returned. If the thing could not be claimed, an error message from the neuron
-            describing why is returned. Other types of errors, raise exceptions.</returns>
+            <returns>Information about the thing, or error if unable.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.Disown(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Disowns a thing
+            </summary>
+            <param name="RegistryJid">Registry JID</param>
+            <param name="ThingJid">Thing JID</param>
+            <param name="SourceId">Source ID</param>
+            <param name="Partition">Partition</param>
+            <param name="NodeId">Node ID</param>
+            <returns>If the thing was disowned</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronWallet">
             <summary>
@@ -2564,6 +2624,11 @@
         <member name="P:Tag.Neuron.Xamarin.Services.NeuronContracts.ContractsClient">
             <summary>
             Contracts client
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.NeuronContracts.FileUploadClient">
+            <summary>
+            HTTP File Upload client
             </summary>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.GetContractTemplateIds">

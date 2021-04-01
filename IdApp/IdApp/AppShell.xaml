@@ -82,6 +82,11 @@
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Contacts}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
+    <MenuItem Text="{x:Static local:AppResources.Things}" Clicked="ThingsMenuItem_Clicked">
+        <MenuItem.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Things}" Color="{StaticResource HeadingBackground}"/>
+        </MenuItem.IconImageSource>
+    </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Contract}" Color="{StaticResource HeadingBackground}"/>

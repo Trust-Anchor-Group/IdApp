@@ -151,6 +151,15 @@ namespace Tag.Neuron.Xamarin {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No eDaler service found on broker..
+        /// </summary>
+        internal static string EDalerServiceNotFound {
+            get {
+                return ResourceManager.GetString("EDalerServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred.
         /// </summary>
         internal static string ErrorTitle {
@@ -178,6 +187,15 @@ namespace Tag.Neuron.Xamarin {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No file upload service found on broker..
+        /// </summary>
+        internal static string FileUploadServiceNotFound {
+            get {
+                return ResourceManager.GetString("FileUploadServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not a valid iotdisco claim URI..
         /// </summary>
         internal static string InvalidIoTDiscoClaimUri {
@@ -196,6 +214,15 @@ namespace Tag.Neuron.Xamarin {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No legal service found on broker..
+        /// </summary>
+        internal static string LegalServiceNotFound {
+            get {
+                return ResourceManager.GetString("LegalServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string Ok {
@@ -210,6 +237,15 @@ namespace Tag.Neuron.Xamarin {
         internal static string OperatorDoesNotSupportRegisteringNewAccounts {
             get {
                 return ResourceManager.GetString("OperatorDoesNotSupportRegisteringNewAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No provisioning service found on broker..
+        /// </summary>
+        internal static string ProvisioningServiceNotFound {
+            get {
+                return ResourceManager.GetString("ProvisioningServiceNotFound", resourceCulture);
             }
         }
         
@@ -250,20 +286,20 @@ namespace Tag.Neuron.Xamarin {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No thing registry service found on broker..
+        /// </summary>
+        internal static string ThingRegistryServiceNotFound {
+            get {
+                return ResourceManager.GetString("ThingRegistryServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to authenticate with {0}.
         /// </summary>
         internal static string UnableToAuthenticateWith {
             get {
                 return ResourceManager.GetString("UnableToAuthenticateWith", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to claim thing.
-        /// </summary>
-        internal static string UnableToClaimThing {
-            get {
-                return ResourceManager.GetString("UnableToClaimThing", resourceCulture);
             }
         }
         

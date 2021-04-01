@@ -427,10 +427,10 @@ namespace IdApp.ViewModels.Registration
                 {
                     this.PasswordHash = client.PasswordHash;
                     this.PasswordHashMethod = client.PasswordHashMethod;
+                    
                     if (this.TagProfile.NeedsUpdating())
-                    {
                         await this.NeuronService.DiscoverServices(client);
-                    }
+                    
                     this.TagProfile.SetAccount(this.CreateNewAccountName, client.PasswordHash, client.PasswordHashMethod);
                 }
 
@@ -481,14 +481,11 @@ namespace IdApp.ViewModels.Registration
                     LegalIdentity approvedIdentity = null;
 
                     bool serviceDiscoverySucceeded;
+                    
                     if (this.TagProfile.NeedsUpdating())
-                    {
                         serviceDiscoverySucceeded = await this.NeuronService.DiscoverServices(client);
-                    }
                     else
-                    {
                         serviceDiscoverySucceeded = true;
-                    }
 
                     if (serviceDiscoverySucceeded)
                     {

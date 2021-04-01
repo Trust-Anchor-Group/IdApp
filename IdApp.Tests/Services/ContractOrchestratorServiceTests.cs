@@ -81,8 +81,6 @@ namespace IdApp.Tests.Services
 			this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
 			this.tagProfile.SetupGet(x => x.LegalIdentity).Returns(new LegalIdentity { Id = guid.ToString() });
 			this.tagProfile.Setup(x => x.IsCompleteOrWaitingForValidation()).Returns(true);
-			this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
-			this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected, false));
 			await Task.Delay(TimeSpan.FromSeconds(2));
 			Assert.AreEqual(1, this.sut.DownloadCount);
 		}
@@ -92,8 +90,6 @@ namespace IdApp.Tests.Services
 		{
 			this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
 			this.tagProfile.Setup(x => x.IsCompleteOrWaitingForValidation()).Returns(true);
-			this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
-			this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected, false));
 			Assert.AreEqual(0, this.sut.DownloadCount);
 		}
 
@@ -104,7 +100,6 @@ namespace IdApp.Tests.Services
 			Guid guid = Guid.NewGuid();
 			this.tagProfile.SetupGet(x => x.LegalIdentity).Returns(new LegalIdentity { Id = guid.ToString() });
 			this.tagProfile.Setup(x => x.IsCompleteOrWaitingForValidation()).Returns(false);
-			this.neuronContracts.Raise(x => x.ConnectionStateChanged += null, new ConnectionStateChangedEventArgs(XmppState.Connected, false));
 			Assert.AreEqual(0, this.sut.DownloadCount);
 		}
 
@@ -121,7 +116,6 @@ namespace IdApp.Tests.Services
 			this.networkService.Setup(x => x.TryRequest(It.IsAny<Func<Task<LegalIdentity>>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>()))
 				.Returns(Task.FromResult((true, compromisedIdentity)));
 			this.neuronService.Setup(x => x.WaitForConnectedState(It.IsAny<TimeSpan>())).Returns(Task.FromResult(true));
-			this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
 			this.neuronContracts.Setup(x => x.GetLegalIdentity(It.IsAny<string>())).Returns(Task.FromResult(compromisedIdentity));
 			this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
 			// When
@@ -144,7 +138,6 @@ namespace IdApp.Tests.Services
 			this.networkService.Setup(x => x.TryRequest(It.IsAny<Func<Task<LegalIdentity>>>(), It.IsAny<bool>(), It.IsAny<bool>(), It.IsAny<string>()))
 				.Returns(Task.FromResult((true, compromisedIdentity)));
 			this.neuronService.Setup(x => x.WaitForConnectedState(It.IsAny<TimeSpan>())).Returns(Task.FromResult(true));
-			this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
 			this.neuronContracts.Setup(x => x.GetLegalIdentity(It.IsAny<string>())).Returns(Task.FromResult(compromisedIdentity));
 			this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
 			// When
@@ -170,7 +163,6 @@ namespace IdApp.Tests.Services
 			this.neuronContracts.Setup(x => x.GetLegalIdentity(It.IsAny<string>())).Returns(Task.FromResult(identity));
 			this.neuronContracts.Setup(x => x.HasPrivateKey(It.IsAny<string>())).ReturnsAsync(false);
 			this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
-			this.neuronContracts.SetupGet(x => x.IsOnline).Returns(true);
 			this.neuronContracts.Setup(x => x.ObsoleteLegalIdentity(guid.ToString())).ReturnsAsync(compromisedIdentity);
 			// When
 			await this.sut.PerformDownloadOfLegalIdentity(guid.ToString());

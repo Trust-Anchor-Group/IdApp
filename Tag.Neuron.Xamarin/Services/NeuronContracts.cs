@@ -17,13 +17,13 @@ namespace Tag.Neuron.Xamarin.Services
     {
         private readonly ITagProfile tagProfile;
         private readonly IUiDispatcher uiDispatcher;
-        private readonly IInternalNeuronService neuronService;
+        private readonly INeuronService neuronService;
         private readonly ILogService logService;
         private readonly ISettingsService settingsService;
         private ContractsClient contractsClient;
         private HttpFileUploadClient fileUploadClient;
 
-        internal NeuronContracts(ITagProfile tagProfile, IUiDispatcher uiDispatcher, IInternalNeuronService neuronService, 
+        internal NeuronContracts(ITagProfile tagProfile, IUiDispatcher uiDispatcher, INeuronService neuronService, 
             ILogService logService, ISettingsService settingsService)
         {
             this.tagProfile = tagProfile;
@@ -36,114 +36,80 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Contracts client
         /// </summary>
-        public ContractsClient ContractsClient => contractsClient;
-
-        internal async Task CreateClients(bool CanCreateKeys)
+        public ContractsClient ContractsClient
         {
-            CreateFileUploadClient();
-            await CreateContractsClient(CanCreateKeys);
-        }
-
-        internal void DestroyClients()
-        {
-            DestroyFileUploadClient();
-            DestroyContractsClient();
-        }
-
-        private async Task CreateContractsClient(bool CanCreateKeys)
-        {
-            if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+            get
             {
-                DestroyContractsClient();
-                XmppState stateBefore = GetState();
-                this.contractsClient = await this.neuronService.CreateContractsClientAsync(CanCreateKeys);
-                this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
-                this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
-                this.contractsClient.PetitionedIdentityResponseReceived += ContractsClient_PetitionedIdentityResponseReceived;
-                this.contractsClient.PetitionForContractReceived += ContractsClient_PetitionForContractReceived;
-                this.contractsClient.PetitionedContractResponseReceived += ContractsClient_PetitionedContractResponseReceived;
-                this.contractsClient.PetitionForSignatureReceived += ContractsClient_PetitionForSignatureReceived;
-                this.contractsClient.PetitionedSignatureResponseReceived += ContractsClient_PetitionedSignatureResponseReceived;
-                this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
-                this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
-                XmppState stateAfter = GetState();
-                if (stateBefore != stateAfter)
+                if (this.contractsClient is null || this.contractsClient.Client != this.neuronService.Xmpp)
                 {
-                    this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(stateAfter, false));
+                    if (!(this.contractsClient is null))
+                    {
+                        this.contractsClient.IdentityUpdated -= ContractsClient_IdentityUpdated;
+                        this.contractsClient.PetitionForIdentityReceived -= ContractsClient_PetitionForIdentityReceived;
+                        this.contractsClient.PetitionedIdentityResponseReceived -= ContractsClient_PetitionedIdentityResponseReceived;
+                        this.contractsClient.PetitionForContractReceived -= ContractsClient_PetitionForContractReceived;
+                        this.contractsClient.PetitionedContractResponseReceived -= ContractsClient_PetitionedContractResponseReceived;
+                        this.contractsClient.PetitionForSignatureReceived -= ContractsClient_PetitionForSignatureReceived;
+                        this.contractsClient.PetitionedSignatureResponseReceived -= ContractsClient_PetitionedSignatureResponseReceived;
+                        this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
+                        this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
+                    }
+
+                    this.contractsClient = (this.neuronService as NeuronService)?.ContractsClient;
+                    if (this.contractsClient is null)
+                        throw new InvalidOperationException(AppResources.LegalServiceNotFound);
+
+                    this.contractsClient.IdentityUpdated += ContractsClient_IdentityUpdated;
+                    this.contractsClient.PetitionForIdentityReceived += ContractsClient_PetitionForIdentityReceived;
+                    this.contractsClient.PetitionedIdentityResponseReceived += ContractsClient_PetitionedIdentityResponseReceived;
+                    this.contractsClient.PetitionForContractReceived += ContractsClient_PetitionForContractReceived;
+                    this.contractsClient.PetitionedContractResponseReceived += ContractsClient_PetitionedContractResponseReceived;
+                    this.contractsClient.PetitionForSignatureReceived += ContractsClient_PetitionForSignatureReceived;
+                    this.contractsClient.PetitionedSignatureResponseReceived += ContractsClient_PetitionedSignatureResponseReceived;
+                    this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
+                    this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
                 }
+
+                return this.contractsClient;
             }
         }
 
-        private void DestroyContractsClient()
+        /// <summary>
+        /// HTTP File Upload client
+        /// </summary>
+        public HttpFileUploadClient FileUploadClient
         {
-            XmppState stateBefore = GetState();
-            if (!(this.contractsClient is null))
+            get
             {
-                this.contractsClient.IdentityUpdated -= ContractsClient_IdentityUpdated;
-                this.contractsClient.PetitionForIdentityReceived -= ContractsClient_PetitionForIdentityReceived;
-                this.contractsClient.PetitionedIdentityResponseReceived -= ContractsClient_PetitionedIdentityResponseReceived;
-                this.contractsClient.PetitionForContractReceived -= ContractsClient_PetitionForContractReceived;
-                this.contractsClient.PetitionedContractResponseReceived -= ContractsClient_PetitionedContractResponseReceived;
-                this.contractsClient.PetitionForSignatureReceived -= ContractsClient_PetitionForSignatureReceived;
-                this.contractsClient.PetitionedSignatureResponseReceived -= ContractsClient_PetitionedSignatureResponseReceived;
-                this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
-                this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
-                this.contractsClient.Dispose();
-                this.contractsClient = null;
+                if (this.fileUploadClient is null || this.fileUploadClient.Client != this.neuronService.Xmpp)
+                {
+                    this.fileUploadClient = (this.neuronService as NeuronService)?.FileUploadClient;
+                    if (this.fileUploadClient is null)
+                        throw new InvalidOperationException(AppResources.FileUploadServiceNotFound);
+                }
+
+                return this.fileUploadClient;
             }
-            XmppState stateAfter = GetState();
-            if (stateBefore != stateAfter)
-            {
-                this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(stateAfter, false));
-            }
-        }
-
-        private void CreateFileUploadClient()
-        {
-            if (!string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
-                this.fileUploadClient = this.neuronService.CreateFileUploadClient();
-        }
-
-        private void DestroyFileUploadClient()
-        {
-            fileUploadClient?.Dispose();
-            fileUploadClient = null;
-        }
-
-        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
-
-        private XmppState GetState()
-        {
-            return !(this.contractsClient is null) ? XmppState.Connected : XmppState.Offline;
-        }
-
-        private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
-        {
-            ConnectionStateChanged?.Invoke(this, e);
         }
 
         public Task PetitionContract(string contractId, string petitionId, string purpose)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionContractAsync(contractId, petitionId, purpose);
+            return this.ContractsClient.PetitionContractAsync(contractId, petitionId, purpose);
         }
 
         public Task<Contract> GetContract(string contractId)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.GetContractAsync(contractId);
+            return this.ContractsClient.GetContractAsync(contractId);
         }
 
         public Task<KeyValuePair<string, TemporaryFile>> GetContractAttachmentAsync(string url)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId);
+            return this.ContractsClient.GetAttachmentAsync(url, SignWith.LatestApprovedId);
         }
 
         public Task<KeyValuePair<string, TemporaryFile>> GetAttachment(string url, SignWith signWith, TimeSpan timeout)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.GetAttachmentAsync(url, signWith, (int)timeout.TotalMilliseconds);
+            return this.ContractsClient.GetAttachmentAsync(url, signWith, (int)timeout.TotalMilliseconds);
         }
 
         public Task<Contract> CreateContract(
@@ -159,26 +125,22 @@ namespace Tag.Neuron.Xamarin.Services
             DateTime? signBefore,
             bool canActAsTemplate)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.CreateContractAsync(templateId, parts, parameters, visibility, partsMode, duration, archiveRequired, archiveOptional, signAfter, signBefore, canActAsTemplate);
+            return this.ContractsClient.CreateContractAsync(templateId, parts, parameters, visibility, partsMode, duration, archiveRequired, archiveOptional, signAfter, signBefore, canActAsTemplate);
         }
 
         public Task<Contract> DeleteContract(string contractId)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.DeleteContractAsync(contractId);
+            return this.ContractsClient.DeleteContractAsync(contractId);
         }
 
         public Task<string[]> GetCreatedContractIds()
         {
-            AssertContractsIsAvailable();
-            return contractsClient.GetCreatedContractsAsync();
+            return this.ContractsClient.GetCreatedContractsAsync();
         }
 
         public Task<string[]> GetSignedContractIds()
         {
-            AssertContractsIsAvailable();
-            return contractsClient.GetSignedContractsAsync();
+            return this.ContractsClient.GetSignedContractsAsync();
         }
 
         /// <summary>
@@ -199,38 +161,31 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public Task<Contract> SignContract(Contract contract, string role, bool transferable)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.SignContractAsync(contract, role, transferable);
+            return this.ContractsClient.SignContractAsync(contract, role, transferable);
         }
 
         public Task<Contract> ObsoleteContract(string contractId)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.ObsoleteContractAsync(contractId);
+            return this.ContractsClient.ObsoleteContractAsync(contractId);
         }
 
         public async Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments)
         {
-            AssertContractsIsAvailable();
-            AssertFileUploadIsAvailable();
+            await this.ContractsClient.GenerateNewKeys();
 
-            await contractsClient.GenerateNewKeys();
-
-            LegalIdentity identity = await contractsClient.ApplyAsync(model.ToProperties(this.neuronService));
+            LegalIdentity identity = await this.ContractsClient.ApplyAsync(model.ToProperties(this.neuronService));
 
             foreach (var a in attachments)
             {
-                HttpFileUploadEventArgs e2 = await fileUploadClient.RequestUploadSlotAsync(Path.GetFileName(a.Filename), a.ContentType, a.ContentLength);
+                HttpFileUploadEventArgs e2 = await this.FileUploadClient.RequestUploadSlotAsync(Path.GetFileName(a.Filename), a.ContentType, a.ContentLength);
                 if (!e2.Ok)
-                {
-                    throw new Exception(e2.ErrorText);
-                }
+                    throw e2.StanzaError ?? new Exception(e2.ErrorText);
 
                 await e2.PUT(a.Data, a.ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
 
-                byte[] signature = await contractsClient.SignAsync(a.Data, SignWith.CurrentKeys);
+                byte[] signature = await this.ContractsClient.SignAsync(a.Data, SignWith.CurrentKeys);
 
-                identity = await contractsClient.AddLegalIdAttachmentAsync(identity.Id, e2.GetUrl, signature);
+                identity = await this.ContractsClient.AddLegalIdAttachmentAsync(identity.Id, e2.GetUrl, signature);
             }
 
             return identity;
@@ -243,8 +198,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <returns>If private keys are available.</returns>
         public Task<bool> HasPrivateKey(string legalIdentityId)
 		{
-            AssertContractsIsAvailable();
-            return contractsClient.HasPrivateKey(legalIdentityId);
+            return this.ContractsClient.HasPrivateKey(legalIdentityId);
         }
 
         /// <summary>
@@ -254,13 +208,11 @@ namespace Tag.Neuron.Xamarin.Services
         /// <returns>Legal identity object</returns>
         public async Task<LegalIdentity> GetLegalIdentity(string legalIdentityId)
         {
-            AssertContractsIsAvailable();
-
             ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
             if (!(Info is null) && !(Info.LegalIdentity is null))
                 return Info.LegalIdentity;
 
-            return await contractsClient.GetLegalIdentityAsync(legalIdentityId);
+            return await this.ContractsClient.GetLegalIdentityAsync(legalIdentityId);
         }
 
         /// <summary>
@@ -270,8 +222,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <returns>If the legal identity is in the contacts list.</returns>
         public async Task<bool> IsContact(string legalIdentityId)
         {
-            AssertContractsIsAvailable();
-
             ContactInfo Info = await ContactInfo.FindByLegalId(legalIdentityId);
             return (!(Info is null) && !(Info.LegalIdentity is null));
         }
@@ -279,56 +229,47 @@ namespace Tag.Neuron.Xamarin.Services
 
         public Task PetitionIdentity(string legalId, string petitionId, string purpose)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionIdentityAsync(legalId, petitionId, purpose);
+            return this.ContractsClient.PetitionIdentityAsync(legalId, petitionId, purpose);
         }
 
         public Task SendPetitionIdentityResponse(string legalId, string petitionId, string requestorFullJid, bool response)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionIdentityResponseAsync(legalId, petitionId, requestorFullJid, response);
+            return this.ContractsClient.PetitionIdentityResponseAsync(legalId, petitionId, requestorFullJid, response);
         }
 
         public Task SendPetitionContractResponse(string contractId, string petitionId, string requestorFullJid, bool response)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
+            return this.ContractsClient.PetitionContractResponseAsync(contractId, petitionId, requestorFullJid, response);
         }
 
         public Task SendPetitionSignatureResponse(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
+            return this.ContractsClient.PetitionSignatureResponseAsync(legalId, content, signature, petitionId, requestorFullJid, response);
         }
 
         public Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.AddPeerReviewIDAttachment(identity, reviewerLegalIdentity, peerSignature);
+            return this.ContractsClient.AddPeerReviewIDAttachment(identity, reviewerLegalIdentity, peerSignature);
         }
 
         public Task PetitionPeerReviewId(string legalId, LegalIdentity identity, string petitionId, string purpose)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
+            return this.ContractsClient.PetitionPeerReviewIDAsync(legalId, identity, petitionId, purpose);
         }
 
         public Task<byte[]> Sign(byte[] data, SignWith signWith)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.SignAsync(data, signWith);
+            return this.ContractsClient.SignAsync(data, signWith);
         }
 
         public async Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null)
         {
             if(client is null)
             {
-                AssertContractsIsAvailable();
-                return await contractsClient.GetLegalIdentitiesAsync();
+                return await this.ContractsClient.GetLegalIdentitiesAsync();
             }
             else
             {
-                AssertContractsIsAvailable(false);
                 using (ContractsClient cc = new ContractsClient(client, this.tagProfile.LegalJid))  // No need to load keys for this operation.
                 {
                     return await cc.GetLegalIdentitiesAsync();
@@ -338,49 +279,17 @@ namespace Tag.Neuron.Xamarin.Services
 
         public bool? ValidateSignature(LegalIdentity legalIdentity, byte[] data, byte[] signature)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.ValidateSignature(legalIdentity, data, signature);
+            return this.ContractsClient.ValidateSignature(legalIdentity, data, signature);
         }
 
         public Task<LegalIdentity> ObsoleteLegalIdentity(string legalIdentityId)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.ObsoleteLegalIdentityAsync(legalIdentityId);
+            return this.ContractsClient.ObsoleteLegalIdentityAsync(legalIdentityId);
         }
 
         public Task<LegalIdentity> CompromiseLegalIdentity(string legalIdentityId)
         {
-            AssertContractsIsAvailable();
-            return contractsClient.CompromisedLegalIdentityAsync(legalIdentityId);
-        }
-
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
-        private void AssertContractsIsAvailable(bool checkClient = true)
-        {
-            if (!ContractsIsAvailable(checkClient))
-            {
-                throw new XmppFeatureNotSupportedException("ContractsClient is not initialized");
-            }
-        }
-
-        private bool ContractsIsAvailable(bool checkClient = true)
-        {
-            bool clientIsOk = (checkClient && !(contractsClient is null)) || !checkClient;
-
-            return clientIsOk && !string.IsNullOrWhiteSpace(this.tagProfile.LegalJid);
-        }
-
-        private void AssertFileUploadIsAvailable()
-        {
-            if (!FileUploadIsAvailable())
-            {
-                throw new XmppFeatureNotSupportedException("FileUploadClient is not initialized");
-            }
-        }
-
-        private bool FileUploadIsAvailable()
-        {
-            return !(fileUploadClient is null) && this.tagProfile.FileUploadIsSupported;
+            return this.ContractsClient.CompromisedLegalIdentityAsync(legalIdentityId);
         }
 
         #region Events
@@ -576,10 +485,7 @@ namespace Tag.Neuron.Xamarin.Services
 
         #endregion
 
-        public bool IsOnline => !(this.contractsClient is null);
-
-        public bool FileUploadIsSupported =>
-            tagProfile.FileUploadIsSupported &&
-            !(fileUploadClient is null) && fileUploadClient.HasSupport;
+        public bool IsOnline => !(this.ContractsClient is null) && this.ContractsClient.Client.State == XmppState.Connected;
+        public bool FileUploadIsSupported => tagProfile.FileUploadIsSupported && !(this.FileUploadClient is null) && this.FileUploadClient.HasSupport;
     }
 }

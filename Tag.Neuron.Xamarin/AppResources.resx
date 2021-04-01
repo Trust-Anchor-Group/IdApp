@@ -147,6 +147,9 @@
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
     <value>{0} is not a valid operator</value>
   </data>
+  <data name="EDalerServiceNotFound" xml:space="preserve">
+    <value>No eDaler service found on broker.</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>An error occurred</value>
   </data>
@@ -156,17 +159,26 @@
   <data name="FailedToNavigateToPage" xml:space="preserve">
     <value>Failed to navigate to page {0}  {1}</value>
   </data>
+  <data name="FileUploadServiceNotFound" xml:space="preserve">
+    <value>No file upload service found on broker.</value>
+  </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
     <value>Not a valid iotdisco claim URI.</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
     <value>Invalid username or password</value>
   </data>
+  <data name="LegalServiceNotFound" xml:space="preserve">
+    <value>No legal service found on broker.</value>
+  </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
     <value>The operator {0} does not support registration of new accounts</value>
+  </data>
+  <data name="ProvisioningServiceNotFound" xml:space="preserve">
+    <value>No provisioning service found on broker.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Repair and continue</value>
@@ -180,11 +192,11 @@
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>There is no network</value>
   </data>
+  <data name="ThingRegistryServiceNotFound" xml:space="preserve">
+    <value>No thing registry service found on broker.</value>
+  </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Unable to authenticate with {0}</value>
-  </data>
-  <data name="UnableToClaimThing" xml:space="preserve">
-    <value>Unable to claim thing</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>

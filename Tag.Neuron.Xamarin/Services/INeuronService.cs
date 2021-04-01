@@ -119,16 +119,21 @@ namespace Tag.Neuron.Xamarin.Services
         /// Provides access to legal identities and contracts.
         /// </summary>
         INeuronContracts Contracts { get; }
-        
+
         /// <summary>
         /// Provides access to chat functionality.
         /// </summary>
         INeuronMultiUserChat MultiUserChat { get; }
 
         /// <summary>
-        /// Provides access to chat functionality.
+        /// Provides access to thing registries.
         /// </summary>
         INeuronThingRegistry ThingRegistry { get; }
+
+        /// <summary>
+        /// Provides access to provisioning and decision support.
+        /// </summary>
+        INeuronProvisioningService Provisioning { get; }
 
         /// <summary>
         /// Provides access to the eDaler wallet.

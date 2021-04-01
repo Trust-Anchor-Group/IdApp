@@ -12,7 +12,7 @@ namespace Tag.Neuron.Xamarin.Services
 	/// </summary>
 	[CollectionName("ContactInformation")]
 	[TypeName(TypeNameSerialization.None)]
-	[Index("BareJid")]
+	[Index("BareJid", "SourceId", "Partition", "NodeId")]
 	[Index("LegalId")]
 	public class ContactInfo
 	{
@@ -21,6 +21,10 @@ namespace Tag.Neuron.Xamarin.Services
 		private CaseInsensitiveString legalId = CaseInsensitiveString.Empty;
 		private LegalIdentity legalIdentity = null;
 		private string friendlyName = string.Empty;
+		private string sourceId = string.Empty;
+		private string partition = string.Empty;
+		private string nodeId = string.Empty;
+		private string registryJid = string.Empty;
 		private bool? subcribeTo = null;
 		private bool? allowSubscriptionFrom = null;
 		private bool? isThing = null;
@@ -81,6 +85,42 @@ namespace Tag.Neuron.Xamarin.Services
 		}
 
 		/// <summary>
+		/// Source ID
+		/// </summary>
+		public string SourceId
+		{
+			get => this.sourceId;
+			set => this.sourceId = value;
+		}
+
+		/// <summary>
+		/// Partition
+		/// </summary>
+		public string Partition
+		{
+			get => this.partition;
+			set => this.partition = value;
+		}
+
+		/// <summary>
+		/// Node ID
+		/// </summary>
+		public string NodeId
+		{
+			get => this.nodeId;
+			set => this.nodeId = value;
+		}
+
+		/// <summary>
+		/// Registry JID
+		/// </summary>
+		public string RegistryJid
+		{
+			get => this.registryJid;
+			set => this.registryJid = value;
+		}
+
+		/// <summary>
 		/// Subscribe to this contact
 		/// </summary>
 		public bool? SubcribeTo
@@ -115,6 +155,23 @@ namespace Tag.Neuron.Xamarin.Services
 		public static Task<ContactInfo> FindByBareJid(string BareJid)
 		{
 			return Database.FindFirstIgnoreRest<ContactInfo>(new FilterFieldEqualTo("BareJid", BareJid));
+		}
+
+		/// <summary>
+		/// Finds information about a contact, given its Bare JID.
+		/// </summary>
+		/// <param name="BareJid">Bare JID</param>
+		/// <param name="SourceId">Source ID</param>
+		/// <param name="Partition">Partition</param>
+		/// <param name="NodeId">Node ID</param>
+		/// <returns>Contact information, if found.</returns>
+		public static Task<ContactInfo> FindByBareJid(string BareJid, string SourceId, string Partition, string NodeId)
+		{
+			return Database.FindFirstIgnoreRest<ContactInfo>(new FilterAnd(
+				new FilterFieldEqualTo("BareJid", BareJid),
+				new FilterFieldEqualTo("SourceId", SourceId),
+				new FilterFieldEqualTo("Partition", Partition),
+				new FilterFieldEqualTo("NodeId", NodeId)));
 		}
 
 		/// <summary>

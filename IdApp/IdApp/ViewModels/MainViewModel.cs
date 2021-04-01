@@ -82,7 +82,7 @@ namespace IdApp.ViewModels
 			await base.DoBind();
 			this.AssignProperties();
 			this.SetConnectionStateAndText(this.NeuronService.State);
-			this.NeuronService.Contracts.ConnectionStateChanged += Contracts_ConnectionStateChanged;
+			this.NeuronService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
 			this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
 		}
 
@@ -90,7 +90,7 @@ namespace IdApp.ViewModels
 		protected override Task DoUnbind()
 		{
 			this.photosLoader.CancelLoadPhotos();
-			this.NeuronService.Contracts.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
+			this.NeuronService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
 			this.networkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
 			return base.DoUnbind();
 		}
@@ -520,36 +520,6 @@ namespace IdApp.ViewModels
 		}
 
 		/// <summary>
-		/// See <see cref="ContractsIsOnline"/>
-		/// </summary>
-		public static readonly BindableProperty ContractsIsOnlineProperty =
-			BindableProperty.Create("ContractsIsOnline", typeof(bool), typeof(MainViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets whether the contracts features of the Neuron server is online.
-		/// </summary>
-		public bool ContractsIsOnline
-		{
-			get { return (bool)GetValue(ContractsIsOnlineProperty); }
-			set { SetValue(ContractsIsOnlineProperty, value); }
-		}
-
-		/// <summary>
-		/// See <see cref="ContractsStateText"/>
-		/// </summary>
-		public static readonly BindableProperty ContractsStateTextProperty =
-			BindableProperty.Create("ContractsStateText", typeof(string), typeof(MainViewModel), default(string));
-
-		/// <summary>
-		/// Gets or sets the user friendly contracts connection state text for display.
-		/// </summary>
-		public string ContractsStateText
-		{
-			get { return (string)GetValue(ContractsStateTextProperty); }
-			set { SetValue(ContractsStateTextProperty, value); }
-		}
-
-		/// <summary>
 		/// See <see cref="HasConnectionErrors"/>
 		/// </summary>
 		public static readonly BindableProperty HasConnectionErrorsProperty =
@@ -670,10 +640,6 @@ namespace IdApp.ViewModels
 			// Neuron server
 			this.IsConnected = state == XmppState.Connected;
 			this.ConnectionStateText = state.ToDisplayText(this.tagProfile);
-
-			// Neuron Contracts
-			this.ContractsIsOnline = this.NeuronService.IsOnline && this.NeuronService.Contracts.IsOnline;
-			this.ContractsStateText = this.ContractsIsOnline ? AppResources.Online : AppResources.Offline;
 
 			// Any connection errors or general errors that should be displayed?
 			string latestError = this.NeuronService.LatestError;

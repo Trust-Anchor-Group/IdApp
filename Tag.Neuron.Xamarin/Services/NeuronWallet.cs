@@ -12,11 +12,11 @@ namespace Tag.Neuron.Xamarin.Services
 	[Singleton]
 	internal sealed class NeuronWallet : INeuronWallet
 	{
-		private readonly IInternalNeuronService neuronService;
+		private readonly INeuronService neuronService;
 		private readonly ILogService logService;
 		private EDalerClient eDalerClient;
 
-		internal NeuronWallet(IInternalNeuronService neuronService, ILogService logService)
+		internal NeuronWallet(INeuronService neuronService, ILogService logService)
 		{
 			this.neuronService = neuronService;
 			this.logService = logService;
@@ -28,10 +28,13 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				if (this.eDalerClient is null || this.eDalerClient.Client != this.neuronService.Xmpp)
 				{
-					this.eDalerClient?.Dispose();
-					this.eDalerClient = null;
+					if (!(this.eDalerClient is null))
+						this.eDalerClient.BalanceUpdated -= EDalerClient_BalanceUpdated;
 
-					this.eDalerClient = this.neuronService.CreateEDalerClient();
+					this.eDalerClient = (this.neuronService as NeuronService)?.EDalerClient;
+					if (this.eDalerClient is null)
+						throw new InvalidOperationException(AppResources.EDalerServiceNotFound);
+
 					this.eDalerClient.BalanceUpdated += EDalerClient_BalanceUpdated;
 				}
 
@@ -57,12 +60,6 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public event BalanceEventHandler BalanceUpdated;
 
-		internal void DestroyClient()
-		{
-			this.eDalerClient?.Dispose();
-			this.eDalerClient = null;
-		}
-
 		/// <summary>
 		/// Tries to parse an eDaler URI.
 		/// </summary>
@@ -87,7 +84,7 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			try
 			{
-				return await this.eDalerClient.DecryptMessage(EncryptedMessage, PublicKey, TransactionId, RemoteEndpoint);
+				return await this.EDalerClient.DecryptMessage(EncryptedMessage, PublicKey, TransactionId, RemoteEndpoint);
 			}
 			catch (Exception ex)
 			{
@@ -214,7 +211,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <returns>Incomplete PayMe-URI.</returns>
 		public string CreateIncompletePayMeUri(string BareJid, decimal? Amount, decimal? AmountExtra, string Currency, string Message)
 		{
-			return this.eDalerClient.CreateIncompletePayMeUri(BareJid, Amount, AmountExtra, Currency, Message);
+			return this.EDalerClient.CreateIncompletePayMeUri(BareJid, Amount, AmountExtra, Currency, Message);
 		}
 
 		/// <summary>
@@ -229,7 +226,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <returns>Incomplete PayMe-URI.</returns>
 		public string CreateIncompletePayMeUri(LegalIdentity To, decimal? Amount, decimal? AmountExtra, string Currency, string PrivateMessage)
 		{
-			return this.eDalerClient.CreateIncompletePayMeUri(To, Amount, AmountExtra, Currency, PrivateMessage);
+			return this.EDalerClient.CreateIncompletePayMeUri(To, Amount, AmountExtra, Currency, PrivateMessage);
 		}
 
 	}

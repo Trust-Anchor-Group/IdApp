@@ -1,15 +1,18 @@
-﻿using IdApp.Navigation.Things;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Navigation.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Persistence;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -45,7 +48,7 @@ namespace IdApp.ViewModels.Things
 			this.ClaimThingCommand = new Command(async _ => await ClaimThing(), _ => IsConnected);
 			this.Tags = new ObservableCollection<HumanReadableTag>();
 
-            this.ClickCommand = new Command(async x => await this.LabelClicked(x));
+			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 		}
 
 		/// <inheritdoc/>
@@ -179,17 +182,17 @@ namespace IdApp.ViewModels.Things
 
 		#endregion
 
-        /// <summary>
-        /// Command to bind to for detecting when a tag value has been clicked on.
-        /// </summary>
+		/// <summary>
+		/// Command to bind to for detecting when a tag value has been clicked on.
+		/// </summary>
 		public ICommand ClickCommand { get; }
 
 		private async Task LabelClicked(object obj)
-        {
-            HumanReadableTag Tag = (HumanReadableTag)obj;
+		{
+			HumanReadableTag Tag = (HumanReadableTag)obj;
 
-            try
-            {
+			try
+			{
 				string Name = Tag.Tag.Name;
 				string Value = Tag.Tag.StringValue;
 
@@ -241,6 +244,97 @@ namespace IdApp.ViewModels.Things
 			}
 		}
 
+		/// <summary>
+		/// Get Friendly name of thing
+		/// </summary>
+		public static string GetFriendlyName(IEnumerable<HumanReadableTag> Tags)
+		{
+			string APT = null;
+			string AREA = null;
+			string BLD = null;
+			string CITY = null;
+			string CLASS = null;
+			string COUNTRY = null;
+			string MAN = null;
+			string MLOC = null;
+			string MNR = null;
+			string MODEL = null;
+			string NAME = null;
+			string REGION = null;
+			string ROOM = null;
+			string SN = null;
+			string STREET = null;
+			string STREETNR = null;
+			string V = null;
+
+			foreach (HumanReadableTag Tag in Tags)
+			{
+				switch (Tag.Name)
+				{
+					case "APT": APT = Tag.StringValue; break;
+					case "AREA": AREA = Tag.StringValue; break;
+					case "BLD": BLD = Tag.StringValue; break;
+					case "CITY": CITY = Tag.StringValue; break;
+					case "CLASS": CLASS = Tag.StringValue; break;
+					case "COUNTRY": COUNTRY = Tag.StringValue; break;
+					case "MAN": MAN = Tag.StringValue; break;
+					case "MLOC": MLOC = Tag.StringValue; break;
+					case "MNR": MNR = Tag.StringValue; break;
+					case "MODEL": MODEL = Tag.StringValue; break;
+					case "NAME": NAME = Tag.StringValue; break;
+					case "REGION": REGION = Tag.StringValue; break;
+					case "ROOM": ROOM = Tag.StringValue; break;
+					case "SN": SN = Tag.StringValue; break;
+					case "STREET": STREET = Tag.StringValue; break;
+					case "STREETNR": STREETNR = Tag.StringValue; break;
+					case "V": V = Tag.StringValue; break;
+				}
+			}
+
+			StringBuilder sb = new StringBuilder();
+			bool First = true;
+
+			if (!string.IsNullOrEmpty(STREETNR))
+			{
+				if (string.IsNullOrEmpty(STREET))
+					STREET = STREETNR;
+				else
+					STREET += " " + STREETNR;
+			}
+
+			Append(sb, ref First, NAME);
+			Append(sb, ref First, CLASS);
+			Append(sb, ref First, MAN);
+			Append(sb, ref First, MODEL);
+			Append(sb, ref First, V);
+			Append(sb, ref First, SN);
+			Append(sb, ref First, MLOC);
+			Append(sb, ref First, MNR);
+			Append(sb, ref First, ROOM);
+			Append(sb, ref First, APT);
+			Append(sb, ref First, BLD);
+			Append(sb, ref First, STREET);
+			Append(sb, ref First, AREA);
+			Append(sb, ref First, REGION);
+			Append(sb, ref First, CITY);
+			Append(sb, ref First, COUNTRY);
+
+			return sb.ToString();
+		}
+
+		private static void Append(StringBuilder sb, ref bool First, string Value)
+		{
+			if (!string.IsNullOrEmpty(Value))
+			{
+				if (First)
+					First = false;
+				else
+					sb.Append(", ");
+
+				sb.Append(Value);
+			}
+		}
+
 		private async Task ClaimThing()
 		{
 			try
@@ -251,11 +345,52 @@ namespace IdApp.ViewModels.Things
 					return;
 				}
 
-				(bool succeeded, string Error) = await this.networkService.TryRequest(() => this.NeuronService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
-				if (string.IsNullOrEmpty(Error))
+				(bool Succeeded, NodeResultEventArgs e) = await this.networkService.TryRequest(() => this.NeuronService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
+				if (!Succeeded)
+					return;
+
+				if (e.Ok)
+				{
+					string FriendlyName = GetFriendlyName(this.Tags);
+					RosterItem Item = this.NeuronService.Xmpp[e.JID];
+					if (Item is null)
+						this.NeuronService.Xmpp.AddRosterItem(new RosterItem(e.JID, FriendlyName));
+
+					ContactInfo Info = await ContactInfo.FindByBareJid(e.JID, e.Node.SourceId, e.Node.Partition, e.Node.NodeId);
+					if (Info is null)
+					{
+						Info = new ContactInfo()
+						{
+							BareJid = e.JID,
+							LegalId = string.Empty,
+							LegalIdentity = null,
+							FriendlyName = FriendlyName,
+							IsThing = true,
+							SourceId = e.Node.SourceId,
+							Partition = e.Node.Partition,
+							NodeId = e.Node.NodeId,
+							RegistryJid = e.From
+						};
+
+						await Database.Insert(Info);
+					}
+					else
+					{
+						Info.FriendlyName = FriendlyName;
+
+						await Database.Update(Info);
+					}
+
 					await this.navigationService.GoBackAsync();
+				}
 				else
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, Error);
+				{
+					string Msg = e.ErrorText;
+					if (string.IsNullOrEmpty(Msg))
+						Msg = AppResources.UnableToClaimThing;
+
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, Msg);
+				}
 			}
 			catch (Exception ex)
 			{
