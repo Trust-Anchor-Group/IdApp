@@ -828,7 +828,7 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 			catch (Exception e)
 			{
-				logService.LogException(e);
+				this.logService.LogException(e);
 			}
 
 			return html;
