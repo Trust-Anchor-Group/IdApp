@@ -249,6 +249,19 @@ namespace IdApp.ViewModels.Things
 		/// </summary>
 		public static string GetFriendlyName(IEnumerable<HumanReadableTag> Tags)
 		{
+			LinkedList<MetaDataTag> Tags2 = new LinkedList<MetaDataTag>();
+
+			foreach (HumanReadableTag Tag in Tags)
+				Tags2.AddLast(Tag.Tag);
+
+			return GetFriendlyName(Tags2);
+		}
+
+		/// <summary>
+		/// Get Friendly name of thing
+		/// </summary>
+		public static string GetFriendlyName(IEnumerable<MetaDataTag> Tags)
+		{
 			string APT = null;
 			string AREA = null;
 			string BLD = null;
@@ -267,7 +280,7 @@ namespace IdApp.ViewModels.Things
 			string STREETNR = null;
 			string V = null;
 
-			foreach (HumanReadableTag Tag in Tags)
+			foreach (MetaDataTag Tag in Tags)
 			{
 				switch (Tag.Name)
 				{

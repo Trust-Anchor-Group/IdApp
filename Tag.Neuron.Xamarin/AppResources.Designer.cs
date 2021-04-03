@@ -311,5 +311,14 @@ namespace Tag.Neuron.Xamarin {
                 return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get list of my devices..
+        /// </summary>
+        internal static string UnableToGetListOfMyDevices {
+            get {
+                return ResourceManager.GetString("UnableToGetListOfMyDevices", resourceCulture);
+            }
+        }
     }
 }

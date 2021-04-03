@@ -6975,6 +6975,11 @@
             Get Friendly name of thing
             </summary>
         </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.GetFriendlyName(System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Provisioning.MetaDataTag})">
+            <summary>
+            Get Friendly name of thing
+            </summary>
+        </member>
         <member name="T:IdApp.ViewModels.Wallet.AccountEventItem">
             <summary>
             Encapsulates a <see cref="T:EDaler.AccountEvent"/> object.

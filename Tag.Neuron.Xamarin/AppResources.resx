@@ -201,4 +201,7 @@
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>
   </data>
+  <data name="UnableToGetListOfMyDevices" xml:space="preserve">
+    <value>Unable to get list of my devices.</value>
+  </data>
 </root>

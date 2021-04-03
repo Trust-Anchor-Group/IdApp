@@ -201,4 +201,7 @@
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>
   </data>
+  <data name="UnableToGetListOfMyDevices" xml:space="preserve">
+    <value>Kunde inte hämta listan över mina enheter.</value>
+  </data>
 </root>

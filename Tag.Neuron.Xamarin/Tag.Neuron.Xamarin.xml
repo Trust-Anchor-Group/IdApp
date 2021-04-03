@@ -160,6 +160,11 @@
               Looks up a localized string similar to Unable to connect to {0}.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.AppResources.UnableToGetListOfMyDevices">
+            <summary>
+              Looks up a localized string similar to Unable to get list of my devices..
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Constants">
             <summary>
             A set of never changing property constants and helpful values.
@@ -1593,6 +1598,25 @@
             Adds support for XMPP Provisioning
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.INeuronProvisioningService.ServiceJid">
+            <summary>
+            JID of provisioning service.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronProvisioningService.GetMyDevices(System.Int32,System.Int32)">
+            <summary>
+            Gets a (partial) list of my devices.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <returns>Found devices, and if there are more devices available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronProvisioningService.GetAllMyDevices">
+            <summary>
+            Gets the full list of my devices.
+            </summary>
+            <returns>Complete list of my devices.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronService">
             <summary>
             Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
@@ -2657,6 +2681,25 @@
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>If the legal identity is in the contacts list.</returns>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.NeuronProvisioningService.ServiceJid">
+            <summary>
+            JID of provisioning service.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronProvisioningService.GetMyDevices(System.Int32,System.Int32)">
+            <summary>
+            Gets a (partial) list of my devices.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <returns>Found devices, and if there are more devices available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronProvisioningService.GetAllMyDevices">
+            <summary>
+            Gets the full list of my devices.
+            </summary>
+            <returns>Complete list of my devices.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
             <summary>

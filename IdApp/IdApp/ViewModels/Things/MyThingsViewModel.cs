@@ -7,6 +7,7 @@ using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Xamarin.Forms;
@@ -53,15 +54,17 @@ namespace IdApp.ViewModels.Things
 		{
 			await base.DoBind();
 
-			SortedDictionary<string, ContactInfo> Sorted = new SortedDictionary<string, ContactInfo>();
+			SortedDictionary<string, ContactInfo> SortedByName = new SortedDictionary<string, ContactInfo>();
+			SortedDictionary<string, ContactInfo> SortedByAddress = new SortedDictionary<string, ContactInfo>();
 			string Name;
 			string Suffix;
+			string Key;
 			int i;
 
 			foreach (ContactInfo Info in await Database.Find<ContactInfo>(new FilterFieldEqualTo("IsThing", true)))
 			{
 				Name = Info.FriendlyName;
-				if (Sorted.ContainsKey(Name))
+				if (SortedByName.ContainsKey(Name))
 				{
 					i = 1;
 
@@ -69,19 +72,63 @@ namespace IdApp.ViewModels.Things
 					{
 						Suffix = " " + (++i).ToString();
 					}
-					while (Sorted.ContainsKey(Name + Suffix));
+					while (SortedByName.ContainsKey(Name + Suffix));
 
-					Sorted[Name + Suffix] = Info;
+					SortedByName[Name + Suffix] = Info;
 				}
 				else
-					Sorted[Name] = Info;
+					SortedByName[Name] = Info;
+
+				Key = Info.BareJid + ", " + Info.SourceId + ", " + Info.Partition + ", " + Info.NodeId;
+				SortedByAddress[Key] = Info;
+			}
+
+			SearchResultThing[] MyDevices = await this.neuronService.Provisioning.GetAllMyDevices();
+			foreach (SearchResultThing Thing in MyDevices)
+			{
+				Key = Thing.Jid + ", " + Thing.Node.SourceId + ", " + Thing.Node.Partition + ", " + Thing.Node.NodeId;
+				if (SortedByAddress.ContainsKey(Key))
+					continue;
+
+				ContactInfo Info = new ContactInfo()
+				{
+					BareJid = Thing.Jid,
+					LegalId = string.Empty,
+					LegalIdentity = null,
+					FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Thing.Tags),
+					IsThing = true,
+					SourceId = Thing.Node.SourceId,
+					Partition = Thing.Node.Partition,
+					NodeId = Thing.Node.NodeId,
+					RegistryJid = this.neuronService.Provisioning.ServiceJid
+				};
+
+				await Database.Insert(Info);
+
+				Name = Info.FriendlyName;
+				if (SortedByName.ContainsKey(Name))
+				{
+					i = 1;
+
+					do
+					{
+						Suffix = " " + (++i).ToString();
+					}
+					while (SortedByName.ContainsKey(Name + Suffix));
+
+					SortedByName[Name + Suffix] = Info;
+				}
+				else
+					SortedByName[Name] = Info;
+
+				SortedByAddress[Key] = Info;
 			}
 
 			this.Things.Clear();
-			foreach (ContactInfo Info in Sorted.Values)
+			foreach (ContactInfo Info in SortedByName.Values)
 				this.Things.Add(Info);
 
-			this.ShowThingsMissing = Sorted.Count == 0;
+			this.ShowThingsMissing = SortedByName.Count == 0;
 		}
 
 		/// <inheritdoc/>

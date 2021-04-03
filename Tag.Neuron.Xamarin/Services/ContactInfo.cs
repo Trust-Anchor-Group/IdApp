@@ -13,6 +13,7 @@ namespace Tag.Neuron.Xamarin.Services
 	[CollectionName("ContactInformation")]
 	[TypeName(TypeNameSerialization.None)]
 	[Index("BareJid", "SourceId", "Partition", "NodeId")]
+	[Index("IsThing", "BareJid", "SourceId", "Partition", "NodeId")]
 	[Index("LegalId")]
 	public class ContactInfo
 	{

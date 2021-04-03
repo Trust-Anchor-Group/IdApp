@@ -95,6 +95,7 @@ namespace IdApp
 			// Things
 			Routing.RegisterRoute(nameof(ViewClaimThingPage), typeof(ViewClaimThingPage));
 			Routing.RegisterRoute(nameof(MyThingsPage), typeof(MyThingsPage));
+			Routing.RegisterRoute(nameof(ViewThingPage), typeof(ViewThingPage));
 
 			// Wallet
 			Routing.RegisterRoute(nameof(IssueEDalerPage), typeof(IssueEDalerPage));
