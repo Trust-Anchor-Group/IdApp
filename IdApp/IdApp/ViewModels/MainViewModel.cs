@@ -1,11 +1,12 @@
-﻿using IdApp.Extensions;
-using IdApp.Services;
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Extensions;
+using IdApp.Services;
 using IdApp.Views.Contacts;
+using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -70,6 +71,7 @@ namespace IdApp.ViewModels
 				attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>());
 			this.UpdateLoggedOutText(true);
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
+			this.ViewMyThingsCommand = new Command(async () => await ViewMyThings(), () => this.IsConnected);
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
 			this.ViewWalletCommand = new Command(async () => await ViewWallet(), () => this.IsConnected);
 			this.SharePhotoCommand = new Command(async () => await SharePhoto());
@@ -200,6 +202,21 @@ namespace IdApp.ViewModels
 		{
 			get { return (ICommand)GetValue(ViewMyContactsCommandProperty); }
 			set { SetValue(ViewMyContactsCommandProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="ViewMyThingsCommand"/>
+		/// </summary>
+		public static readonly BindableProperty ViewMyThingsCommandProperty =
+			BindableProperty.Create("ViewMyThingsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+		/// <summary>
+		/// The command to bind to for viewing the user's own contracts.
+		/// </summary>
+		public ICommand ViewMyThingsCommand
+		{
+			get { return (ICommand)GetValue(ViewMyThingsCommandProperty); }
+			set { SetValue(ViewMyThingsCommandProperty, value); }
 		}
 
 		/// <summary>
@@ -571,6 +588,11 @@ namespace IdApp.ViewModels
 			await this.navigationService.GoToAsync(nameof(MyContactsPage));
 		}
 
+		private async Task ViewMyThings()
+		{
+			await this.navigationService.GoToAsync(nameof(MyThingsPage));
+		}
+
 		private async Task ViewWallet()
 		{
 			await this.eDalerOrchestratorService.OpenWallet();
@@ -664,7 +686,7 @@ namespace IdApp.ViewModels
 				this.ConnectionErrorsText = string.Empty;
 			}
 			this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
-			this.EvaluateCommands(this.ViewMyContactsCommand, this.ScanQrCodeCommand, this.ViewWalletCommand);
+			this.EvaluateCommands(this.ViewMyContactsCommand, this.ViewMyThingsCommand, this.ScanQrCodeCommand, this.ViewWalletCommand);
 		}
 
 		internal async Task SharePhoto()

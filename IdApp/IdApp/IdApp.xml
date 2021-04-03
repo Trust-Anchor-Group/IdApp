@@ -5316,6 +5316,16 @@
             The command to bind to for viewing the user's own contracts.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ViewMyThingsCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ViewMyThingsCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ViewMyThingsCommand">
+            <summary>
+            The command to bind to for viewing the user's own contracts.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.MainViewModel.ScanQrCodeCommandProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.MainViewModel.ScanQrCodeCommand"/>
@@ -8536,92 +8546,122 @@
             Creates a new instance of the <see cref="T:IdApp.Views.MainTabBarView"/> class.
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button1CommandProperty">
+        <member name="F:IdApp.Views.MainTabBarView.LeftButton1CommandProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button1Command"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.LeftButton1Command"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button1Command">
+        <member name="P:IdApp.Views.MainTabBarView.LeftButton1Command">
             <summary>
             The command to bind to for the first button.
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button2CommandProperty">
+        <member name="F:IdApp.Views.MainTabBarView.LeftButton2CommandProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button2Command"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.LeftButton2Command"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button2Command">
+        <member name="P:IdApp.Views.MainTabBarView.LeftButton2Command">
+            <summary>
+            The command to bind to for the first button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.CenterButtonCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.CenterButtonCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.CenterButtonCommand">
             <summary>
             The command to bind to for the second button.
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button3CommandProperty">
+        <member name="F:IdApp.Views.MainTabBarView.RightButtonCommandProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button3Command"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButtonCommand"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button3Command">
+        <member name="P:IdApp.Views.MainTabBarView.RightButtonCommand">
             <summary>
             The command to bind to for the third button.
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button1FontFamilyProperty">
+        <member name="F:IdApp.Views.MainTabBarView.LeftButton1FontFamilyProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button1FontFamily"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.LeftButton1FontFamily"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button1FontFamily">
+        <member name="P:IdApp.Views.MainTabBarView.LeftButton1FontFamily">
             <summary>
             The font family to use for text on the first button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button2FontFamilyProperty">
+        <member name="F:IdApp.Views.MainTabBarView.LeftButton2FontFamilyProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button2FontFamily"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.LeftButton2FontFamily"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button2FontFamily">
+        <member name="P:IdApp.Views.MainTabBarView.LeftButton2FontFamily">
+            <summary>
+            The font family to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.CenterButtonFontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.CenterButtonFontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.CenterButtonFontFamily">
             <summary>
             The font family to use for text on the second button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button3FontFamilyProperty">
+        <member name="F:IdApp.Views.MainTabBarView.RightButtonFontFamilyProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button3FontFamily"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButtonFontFamily"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button3FontFamily">
+        <member name="P:IdApp.Views.MainTabBarView.RightButtonFontFamily">
             <summary>
             The font family to use for text on the third button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button1TextProperty">
+        <member name="F:IdApp.Views.MainTabBarView.LeftButton1TextProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button1Text"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.LeftButton1Text"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button1Text">
+        <member name="P:IdApp.Views.MainTabBarView.LeftButton1Text">
             <summary>
             The text to use for text on the first button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button2TextProperty">
+        <member name="F:IdApp.Views.MainTabBarView.LeftButton2TextProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button2Text"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.LeftButton2Text"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button2Text">
+        <member name="P:IdApp.Views.MainTabBarView.LeftButton2Text">
+            <summary>
+            The text to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.CenterButtonTextProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.CenterButtonText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.CenterButtonText">
             <summary>
             The text to use for text on the second button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.Button3TextProperty">
+        <member name="F:IdApp.Views.MainTabBarView.RightButtonTextProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.Button3Text"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButtonText"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.Button3Text">
+        <member name="P:IdApp.Views.MainTabBarView.RightButtonText">
             <summary>
             The text to use for text on the third button
             </summary>

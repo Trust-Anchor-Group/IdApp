@@ -121,12 +121,14 @@
             </ScrollView>
             <appViews:MainTabBarView x:Name="MainTabBar"
                                      Grid.Row="1" 
-                                     Button1Text="{x:Static local:SolidIcons.Contacts}" 
-                                     Button2Text="{x:Static local:SolidIcons.ScanQr}" 
-                                     Button3Text="{x:Static local:SolidIcons.Wallet}" 
-                                     Button1Command="{Binding Path=ViewMyContactsCommand}"
-                                     Button2Command="{Binding Path=ScanQrCodeCommand}"
-                                     Button3Command="{Binding Path=ViewWalletCommand}"/>
+                                     LeftButton1Text="{x:Static local:SolidIcons.Contacts}" 
+                                     LeftButton2Text="{x:Static local:SolidIcons.Things}" 
+                                     CenterButtonText="{x:Static local:SolidIcons.ScanQr}" 
+                                     RightButtonText="{x:Static local:SolidIcons.Wallet}" 
+                                     LeftButton1Command="{Binding Path=ViewMyContactsCommand}"
+                                     LeftButton2Command="{Binding Path=ViewMyThingsCommand}"
+                                     CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
+                                     RightButtonCommand="{Binding Path=ViewWalletCommand}"/>
 
             <!-- The logout screen, hiding main page. -->
             <Grid Grid.Row="0" Grid.RowSpan="2"

@@ -4,7 +4,7 @@
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        x:Class="IdApp.Views.Things.MyThingsPage"
-                       Title="{x:Static local:AppResources.Contacts}">
+                       Title="{x:Static local:AppResources.Things}">
     <StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{x:Static local:AppResources.Things}" Style="{StaticResource Heading}"/>
         <Label Text="{x:Static local:AppResources.ThingsDescription}" HorizontalOptions="Center" VerticalOptions="Start"/>

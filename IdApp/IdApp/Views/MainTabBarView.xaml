@@ -35,18 +35,20 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
                 </Grid.ColumnDefinitions>
-                <!-- Left button -->
-                <Button x:Name="Button1" Grid.Row="0" Grid.Column="0" FontSize="Medium" Style="{StaticResource TabBarButton}" />
+                <!-- Left buttons -->
+                <Button x:Name="LeftButton1" Grid.Row="0" Grid.Column="0" FontSize="Medium" Style="{StaticResource TabBarButton}" />
+                <Button x:Name="LeftButton2" Grid.Row="0" Grid.Column="1" FontSize="Medium" Style="{StaticResource TabBarButton}" />
                 <!-- Right button -->
-                <Button x:Name="Button3" Grid.Row="0" Grid.Column="2" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
+                <Button x:Name="RightButton" Grid.Row="0" Grid.Column="3" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
                 <!-- BEGIN round button backdrop -->
                 <!-- solid background -->
-                <BoxView Grid.Row="0" Grid.Column="1" VerticalOptions="End" HorizontalOptions="Fill" HeightRequest="48" BackgroundColor="{StaticResource HeadingBackground}"/>
+                <BoxView Grid.Row="0" Grid.Column="2" VerticalOptions="End" HorizontalOptions="Fill" HeightRequest="48" BackgroundColor="{StaticResource HeadingBackground}"/>
                 <!-- bottom half circle -->
-                <Path Grid.Row="0" Grid.Column="1" WidthRequest="72" HeightRequest="72" Margin="0,0,0,8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Path Grid.Row="0" Grid.Column="2" WidthRequest="72" HeightRequest="72" Margin="0,0,0,8" HorizontalOptions="Center" VerticalOptions="Center">
                     <Path.Fill>
                         <SolidColorBrush Color="{StaticResource HeadingForeground}"/>
                     </Path.Fill>
@@ -73,11 +75,11 @@
                     </Path.Data>
                 </Path>
                 <!-- vertical 'bar' -->
-                <BoxView Grid.Row="0" Grid.Column="1" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="4" HeightRequest="48" BackgroundColor="{StaticResource HeadingForeground}"/>
+                <BoxView Grid.Row="0" Grid.Column="2" VerticalOptions="End" HorizontalOptions="Center" WidthRequest="4" HeightRequest="48" BackgroundColor="{StaticResource HeadingForeground}"/>
                 <!-- END round button backdrop -->
 
                 <!-- The center button -->
-                <Button x:Name="Button2" Grid.Row="0" Grid.Column="1" Style="{StaticResource TabBarButton}" Margin="0,0,0,16" CornerRadius="32" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
+                <Button x:Name="CenterButton" Grid.Row="0" Grid.Column="2" Style="{StaticResource TabBarButton}" Margin="0,0,0,16" CornerRadius="32" WidthRequest="64" HeightRequest="64" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Large"/>
             </Grid>
         </Grid>
     </ContentView.Content>

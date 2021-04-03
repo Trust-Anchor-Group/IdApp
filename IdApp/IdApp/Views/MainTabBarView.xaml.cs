@@ -25,160 +25,209 @@ namespace IdApp.Views
             this.logService = DependencyService.Resolve<ILogService>();
             // Set default values here.
             OnPlatform<string> fontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"];
-            this.Button1FontFamily = fontFamily;
-            this.Button2FontFamily = fontFamily;
-            this.Button3FontFamily = fontFamily;
+            this.LeftButton1FontFamily = fontFamily;
+            this.LeftButton2FontFamily = fontFamily;
+            this.CenterButtonFontFamily = fontFamily;
+            this.RightButtonFontFamily = fontFamily;
 
             InitializeComponent();
 
-            Button1.SetBinding(Button.CommandProperty, new Binding(nameof(Button1Command), source: this));
-            Button2.SetBinding(Button.CommandProperty, new Binding(nameof(Button2Command), source: this));
-            Button3.SetBinding(Button.CommandProperty, new Binding(nameof(Button3Command), source: this));
+            LeftButton1.SetBinding(Button.CommandProperty, new Binding(nameof(LeftButton1Command), source: this));
+            LeftButton2.SetBinding(Button.CommandProperty, new Binding(nameof(LeftButton2Command), source: this));
+            CenterButton.SetBinding(Button.CommandProperty, new Binding(nameof(CenterButtonCommand), source: this));
+            RightButton.SetBinding(Button.CommandProperty, new Binding(nameof(RightButtonCommand), source: this));
 
-            Button1.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button1FontFamily), source: this));
-            Button2.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button2FontFamily), source: this));
-            Button3.SetBinding(Button.FontFamilyProperty, new Binding(nameof(Button3FontFamily), source: this));
+            LeftButton1.SetBinding(Button.FontFamilyProperty, new Binding(nameof(LeftButton1FontFamily), source: this));
+            LeftButton2.SetBinding(Button.FontFamilyProperty, new Binding(nameof(LeftButton2FontFamily), source: this));
+            CenterButton.SetBinding(Button.FontFamilyProperty, new Binding(nameof(CenterButtonFontFamily), source: this));
+            RightButton.SetBinding(Button.FontFamilyProperty, new Binding(nameof(RightButtonFontFamily), source: this));
 
-            Button1.SetBinding(Button.TextProperty, new Binding(nameof(Button1Text), source: this));
-            Button2.SetBinding(Button.TextProperty, new Binding(nameof(Button2Text), source: this));
-            Button3.SetBinding(Button.TextProperty, new Binding(nameof(Button3Text), source: this));
+            LeftButton1.SetBinding(Button.TextProperty, new Binding(nameof(LeftButton1Text), source: this));
+            LeftButton2.SetBinding(Button.TextProperty, new Binding(nameof(LeftButton2Text), source: this));
+            CenterButton.SetBinding(Button.TextProperty, new Binding(nameof(CenterButtonText), source: this));
+            RightButton.SetBinding(Button.TextProperty, new Binding(nameof(RightButtonText), source: this));
         }
 
         #region Properties
 
         /// <summary>
-        /// See <see cref="Button1Command"/>
+        /// See <see cref="LeftButton1Command"/>
         /// </summary>
-        public static readonly BindableProperty Button1CommandProperty =
-            BindableProperty.Create("Button1Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+        public static readonly BindableProperty LeftButton1CommandProperty =
+            BindableProperty.Create("LeftButton1Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
         /// <summary>
         /// The command to bind to for the first button.
         /// </summary>
-        public ICommand Button1Command
+        public ICommand LeftButton1Command
         {
-            get { return (ICommand)GetValue(Button1CommandProperty); }
-            set { SetValue(Button1CommandProperty, value); }
+            get { return (ICommand)GetValue(LeftButton1CommandProperty); }
+            set { SetValue(LeftButton1CommandProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button2Command"/>
+        /// See <see cref="LeftButton2Command"/>
         /// </summary>
-        public static readonly BindableProperty Button2CommandProperty =
-            BindableProperty.Create("Button2Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+        public static readonly BindableProperty LeftButton2CommandProperty =
+            BindableProperty.Create("LeftButton2Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+
+        /// <summary>
+        /// The command to bind to for the first button.
+        /// </summary>
+        public ICommand LeftButton2Command
+        {
+            get { return (ICommand)GetValue(LeftButton2CommandProperty); }
+            set { SetValue(LeftButton2CommandProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="CenterButtonCommand"/>
+        /// </summary>
+        public static readonly BindableProperty CenterButtonCommandProperty =
+            BindableProperty.Create("CenterButtonCommand", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
         /// <summary>
         /// The command to bind to for the second button.
         /// </summary>
-        public ICommand Button2Command
+        public ICommand CenterButtonCommand
         {
-            get { return (ICommand)GetValue(Button2CommandProperty); }
-            set { SetValue(Button2CommandProperty, value); }
+            get { return (ICommand)GetValue(CenterButtonCommandProperty); }
+            set { SetValue(CenterButtonCommandProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button3Command"/>
+        /// See <see cref="RightButtonCommand"/>
         /// </summary>
-        public static readonly BindableProperty Button3CommandProperty =
-            BindableProperty.Create("Button3Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+        public static readonly BindableProperty RightButtonCommandProperty =
+            BindableProperty.Create("RightButtonCommand", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
         /// <summary>
         /// The command to bind to for the third button.
         /// </summary>
-        public ICommand Button3Command
+        public ICommand RightButtonCommand
         {
-            get { return (ICommand)GetValue(Button3CommandProperty); }
-            set { SetValue(Button3CommandProperty, value); }
+            get { return (ICommand)GetValue(RightButtonCommandProperty); }
+            set { SetValue(RightButtonCommandProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button1FontFamily"/>
+        /// See <see cref="LeftButton1FontFamily"/>
         /// </summary>
-        public static readonly BindableProperty Button1FontFamilyProperty =
-            BindableProperty.Create("Button1FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+        public static readonly BindableProperty LeftButton1FontFamilyProperty =
+            BindableProperty.Create("LeftButton1FontFamily", typeof(string), typeof(MainTabBarView), default(string));
 
         /// <summary>
         /// The font family to use for text on the first button
         /// </summary>
-        public string Button1FontFamily
+        public string LeftButton1FontFamily
         {
-            get { return (string)GetValue(Button1FontFamilyProperty); }
-            set { SetValue(Button1FontFamilyProperty, value); }
+            get { return (string)GetValue(LeftButton1FontFamilyProperty); }
+            set { SetValue(LeftButton1FontFamilyProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button2FontFamily"/>
+        /// See <see cref="LeftButton2FontFamily"/>
         /// </summary>
-        public static readonly BindableProperty Button2FontFamilyProperty =
-            BindableProperty.Create("Button2FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+        public static readonly BindableProperty LeftButton2FontFamilyProperty =
+            BindableProperty.Create("LeftButton2FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+
+        /// <summary>
+        /// The font family to use for text on the first button
+        /// </summary>
+        public string LeftButton2FontFamily
+        {
+            get { return (string)GetValue(LeftButton2FontFamilyProperty); }
+            set { SetValue(LeftButton2FontFamilyProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="CenterButtonFontFamily"/>
+        /// </summary>
+        public static readonly BindableProperty CenterButtonFontFamilyProperty =
+            BindableProperty.Create("CenterButtonFontFamily", typeof(string), typeof(MainTabBarView), default(string));
 
         /// <summary>
         /// The font family to use for text on the second button
         /// </summary>
-        public string Button2FontFamily
+        public string CenterButtonFontFamily
         {
-            get { return (string)GetValue(Button2FontFamilyProperty); }
-            set { SetValue(Button2FontFamilyProperty, value); }
+            get { return (string)GetValue(CenterButtonFontFamilyProperty); }
+            set { SetValue(CenterButtonFontFamilyProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button3FontFamily"/>
+        /// See <see cref="RightButtonFontFamily"/>
         /// </summary>
-        public static readonly BindableProperty Button3FontFamilyProperty =
-            BindableProperty.Create("Button3FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+        public static readonly BindableProperty RightButtonFontFamilyProperty =
+            BindableProperty.Create("RightButtonFontFamily", typeof(string), typeof(MainTabBarView), default(string));
 
         /// <summary>
         /// The font family to use for text on the third button
         /// </summary>
-        public string Button3FontFamily
+        public string RightButtonFontFamily
         {
-            get { return (string)GetValue(Button3FontFamilyProperty); }
-            set { SetValue(Button3FontFamilyProperty, value); }
+            get { return (string)GetValue(RightButtonFontFamilyProperty); }
+            set { SetValue(RightButtonFontFamilyProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button1Text"/>
+        /// See <see cref="LeftButton1Text"/>
         /// </summary>
-        public static readonly BindableProperty Button1TextProperty =
-            BindableProperty.Create("Button1Text", typeof(string), typeof(MainTabBarView), default(string));
+        public static readonly BindableProperty LeftButton1TextProperty =
+            BindableProperty.Create("LeftButton1Text", typeof(string), typeof(MainTabBarView), default(string));
 
         /// <summary>
         /// The text to use for text on the first button
         /// </summary>
-        public string Button1Text
+        public string LeftButton1Text
         {
-            get { return (string)GetValue(Button1TextProperty); }
-            set { SetValue(Button1TextProperty, value); }
+            get { return (string)GetValue(LeftButton1TextProperty); }
+            set { SetValue(LeftButton1TextProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button2Text"/>
+        /// See <see cref="LeftButton2Text"/>
         /// </summary>
-        public static readonly BindableProperty Button2TextProperty =
-            BindableProperty.Create("Button2Text", typeof(string), typeof(MainTabBarView), default(string));
+        public static readonly BindableProperty LeftButton2TextProperty =
+            BindableProperty.Create("LeftButton2Text", typeof(string), typeof(MainTabBarView), default(string));
+
+        /// <summary>
+        /// The text to use for text on the first button
+        /// </summary>
+        public string LeftButton2Text
+        {
+            get { return (string)GetValue(LeftButton2TextProperty); }
+            set { SetValue(LeftButton2TextProperty, value); }
+        }
+
+        /// <summary>
+        /// See <see cref="CenterButtonText"/>
+        /// </summary>
+        public static readonly BindableProperty CenterButtonTextProperty =
+            BindableProperty.Create("CenterButtonText", typeof(string), typeof(MainTabBarView), default(string));
 
         /// <summary>
         /// The text to use for text on the second button
         /// </summary>
-        public string Button2Text
+        public string CenterButtonText
         {
-            get { return (string)GetValue(Button2TextProperty); }
-            set { SetValue(Button2TextProperty, value); }
+            get { return (string)GetValue(CenterButtonTextProperty); }
+            set { SetValue(CenterButtonTextProperty, value); }
         }
 
         /// <summary>
-        /// See <see cref="Button3Text"/>
+        /// See <see cref="RightButtonText"/>
         /// </summary>
-        public static readonly BindableProperty Button3TextProperty =
-            BindableProperty.Create("Button3Text", typeof(string), typeof(MainTabBarView), default(string));
+        public static readonly BindableProperty RightButtonTextProperty =
+            BindableProperty.Create("RightButtonText", typeof(string), typeof(MainTabBarView), default(string));
 
         /// <summary>
         /// The text to use for text on the third button
         /// </summary>
-        public string Button3Text
+        public string RightButtonText
         {
-            get { return (string)GetValue(Button3TextProperty); }
-            set { SetValue(Button3TextProperty, value); }
+            get { return (string)GetValue(RightButtonTextProperty); }
+            set { SetValue(RightButtonTextProperty, value); }
         }
 
         #endregion
@@ -192,10 +241,10 @@ namespace IdApp.Views
             if (!this.isShowing)
             {
                 this.ToolBarContent.CancelAnimations();
-                this.Button2.CancelAnimations();
+                this.CenterButton.CancelAnimations();
                 this.isShowing = true;
                 Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, 0, DurationInMs, Easing.SinIn);
-                Task translateMiddleButtonTask = this.Button2.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
+                Task translateMiddleButtonTask = this.CenterButton.TranslateTo(0, 0, DurationInMs * 2, Easing.SinIn);
                 try
                 {
                     await Task.WhenAll(translateMiddleButtonTask, translateToolBarTask);
@@ -220,9 +269,9 @@ namespace IdApp.Views
             if (this.isShowing)
             {
                 this.isShowing = false;
-                this.Button2.CancelAnimations();
+                this.CenterButton.CancelAnimations();
                 this.ToolBarContent.CancelAnimations();
-                Task translateMiddleButtonTask = this.Button2.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
+                Task translateMiddleButtonTask = this.CenterButton.TranslateTo(0, 30, DurationInMs, Easing.SinOut);
                 Task translateToolBarTask = this.ToolBarContent.TranslateTo(0, this.MainToolBar.Height, DurationInMs, Easing.SinOut);
                 try
                 {
