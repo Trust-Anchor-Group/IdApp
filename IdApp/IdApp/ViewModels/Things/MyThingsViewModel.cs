@@ -7,6 +7,7 @@ using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
@@ -86,11 +87,24 @@ namespace IdApp.ViewModels.Things
 			SearchResultThing[] MyDevices = await this.neuronService.Provisioning.GetAllMyDevices();
 			foreach (SearchResultThing Thing in MyDevices)
 			{
-				Key = Thing.Jid + ", " + Thing.Node.SourceId + ", " + Thing.Node.Partition + ", " + Thing.Node.NodeId;
-				if (SortedByAddress.ContainsKey(Key))
-					continue;
+				Property[] MetaData = ViewClaimThingViewModel.ToProperties(Thing.Tags);
 
-				ContactInfo Info = new ContactInfo()
+				Key = Thing.Jid + ", " + Thing.Node.SourceId + ", " + Thing.Node.Partition + ", " + Thing.Node.NodeId;
+				if (SortedByAddress.TryGetValue(Key, out ContactInfo Info))
+				{
+					if (!Info.Owner.HasValue || !Info.Owner.Value || !AreSame(Info.MetaData, MetaData))
+					{
+						Info.Owner = true;
+						Info.MetaData = MetaData;
+						Info.FriendlyName = ViewClaimThingViewModel.GetFriendlyName(MetaData);
+
+						await Database.Update(Info);
+					}
+
+					continue;
+				}
+
+				Info = new ContactInfo()
 				{
 					BareJid = Thing.Jid,
 					LegalId = string.Empty,
@@ -100,6 +114,8 @@ namespace IdApp.ViewModels.Things
 					SourceId = Thing.Node.SourceId,
 					Partition = Thing.Node.Partition,
 					NodeId = Thing.Node.NodeId,
+					Owner = true,
+					MetaData = MetaData,
 					RegistryJid = this.neuronService.Provisioning.ServiceJid
 				};
 
@@ -137,6 +153,33 @@ namespace IdApp.ViewModels.Things
 			this.ShowThingsMissing = false;
 			this.Things.Clear();
 			await base.DoUnbind();
+		}
+
+		/// <summary>
+		/// Checks to sets of meta-data about a thing, to see if they match.
+		/// </summary>
+		/// <param name="MetaData1">First set of meta-data.</param>
+		/// <param name="MetaData2">Second set of meta-data.</param>
+		/// <returns>If they are the same.</returns>
+		public static bool AreSame(Property[] MetaData1, Property[] MetaData2)
+		{
+			if ((MetaData1 is null) ^ (MetaData2 is null))
+				return false;
+
+			if (MetaData1 is null)
+				return true;
+
+			int i, c = MetaData1.Length;
+			if (MetaData2.Length != c)
+				return false;
+
+			for (i = 0; i < c; i++)
+			{
+				if ((MetaData1[i].Name != MetaData2[i].Name) || (MetaData1[i].Value != MetaData2[i].Value))
+					return false;
+			}
+
+			return true;
 		}
 
 		/// <summary>

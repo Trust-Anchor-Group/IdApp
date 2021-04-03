@@ -424,6 +424,11 @@
               Looks up a localized string similar to Digest.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.DisownThing">
+            <summary>
+              Looks up a localized string similar to Disown Thing.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.DomainDoesNotFollowEncryptionPolicy">
             <summary>
               Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
@@ -574,6 +579,11 @@
               Looks up a localized string similar to Incomplete.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.InformationAboutClaimedThingText">
+            <summary>
+              Looks up a localized string similar to The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.InformationAboutThing">
             <summary>
               Looks up a localized string similar to Information about thing.
@@ -581,7 +591,7 @@
         </member>
         <member name="P:IdApp.AppResources.InformationAboutThingText">
             <summary>
-              Looks up a localized string similar to The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry..
+              Looks up a localized string similar to The following information is made available about the thing. You can also see current sensor-data you are authorized to see. If the thing is an actuator, and you have rights to control the thing, control parameters will be shown also..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.InformationIsMissingOrInvalid">
@@ -1442,6 +1452,11 @@
         <member name="P:IdApp.AppResources.Thing">
             <summary>
               Looks up a localized string similar to Thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ThingDisowned">
+            <summary>
+              Looks up a localized string similar to This has been successfully disowned. It can now be claimed by a new owner..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Things">
@@ -6804,12 +6819,23 @@
             </summary>
             <param name="Tag">Meta-data tag.</param>
         </member>
-        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Tag">
+        <member name="M:IdApp.ViewModels.Things.HumanReadableTag.#ctor(Waher.Networking.XMPP.Contracts.Property)">
             <summary>
-            Original meta-data tag.
+            Classed used to present a meta-data tag in a human interface.
             </summary>
+            <param name="Tag">Meta-data tag.</param>
         </member>
         <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Name">
+            <summary>
+            Tag name.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.Value">
+            <summary>
+            Tag value.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.LocalizedName">
             <summary>
             Human-readable tag name
             </summary>
@@ -6819,7 +6845,7 @@
             Unit associated with the tag.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.StringValue">
+        <member name="P:IdApp.ViewModels.Things.HumanReadableTag.LocalizedValue">
             <summary>
             String value of tag.
             </summary>
@@ -6849,6 +6875,14 @@
         </member>
         <member name="M:IdApp.ViewModels.Things.MyThingsViewModel.DoUnbind">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.MyThingsViewModel.AreSame(Waher.Networking.XMPP.Contracts.Property[],Waher.Networking.XMPP.Contracts.Property[])">
+            <summary>
+            Checks to sets of meta-data about a thing, to see if they match.
+            </summary>
+            <param name="MetaData1">First set of meta-data.</param>
+            <param name="MetaData2">Second set of meta-data.</param>
+            <returns>If they are the same.</returns>
         </member>
         <member name="F:IdApp.ViewModels.Things.MyThingsViewModel.ShowThingsMissingProperty">
             <summary>
@@ -6885,21 +6919,76 @@
             Creates an instance of the <see cref="T:IdApp.ViewModels.Things.ThingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Things.ThingViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
+        <member name="M:IdApp.ViewModels.Things.ThingViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ILogService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Things.ThingViewModel"/> class.
             For unit tests.
             </summary>
+            <param name="tagProfile">TAG Profile.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="navigationService">The navigation service.</param>
             <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+            <param name="logService">Log service.</param>
         </member>
         <member name="M:IdApp.ViewModels.Things.ThingViewModel.DoBind">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.ViewModels.Things.ThingViewModel.DoUnbind">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ThingViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ThingViewModel.Tags">
+            <summary>
+            Holds a list of meta-data tags associated with a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ThingViewModel.DisownThingCommand">
+            <summary>
+            The command to bind to for claiming a thing
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.ThingViewModel.CanDisownThingProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.ThingViewModel.CanDisownThing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ThingViewModel.CanDisownThing">
+            <summary>
+            Gets or sets whether a user can claim a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ThingViewModel.UsePin">
+            <summary>
+            If PIN should be used.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.ThingViewModel.PinProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.ThingViewModel.Pin"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ThingViewModel.Pin">
+            <summary>
+            Gets or sets the PIN code for the identity.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ThingViewModel.ClickCommand">
+            <summary>
+            Command to bind to for detecting when a tag value has been clicked on.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Things.ThingViewModel.IsOwnerProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Things.ThingViewModel.IsOwner"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ThingViewModel.IsOwner">
+            <summary>
+            If the user is owner of the thing.
+            </summary>
         </member>
         <member name="T:IdApp.ViewModels.Things.ViewClaimThingViewModel">
             <summary>
@@ -6919,6 +7008,11 @@
         </member>
         <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClickCommand">
+            <summary>
+            Command to bind to for detecting when a tag value has been clicked on.
+            </summary>
         </member>
         <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.UriProperty">
             <summary>
@@ -6950,11 +7044,6 @@
             Gets or sets whether a user can claim a thing.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.UsePin">
-            <summary>
-            If PIN should be used.
-            </summary>
-        </member>
         <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.MakePublicProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.MakePublic"/>
@@ -6963,6 +7052,11 @@
         <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.MakePublic">
             <summary>
             Gets or sets whether a user can claim a thing.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.UsePin">
+            <summary>
+            If PIN should be used.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Things.ViewClaimThingViewModel.PinProperty">
@@ -6975,10 +7069,15 @@
             Gets or sets the PIN code for the identity.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Things.ViewClaimThingViewModel.ClickCommand">
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ILogService)">
             <summary>
-            Command to bind to for detecting when a tag value has been clicked on.
+            Processes the click of a localized meta-data label.
             </summary>
+            <param name="Name">Tag name</param>
+            <param name="Value">Tag value</param>
+            <param name="LocalizedValue">Localized tag value</param>
+            <param name="uiDispatcher">UI Dispatcher service</param>
+            <param name="logService">Log service</param>
         </member>
         <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.GetFriendlyName(System.Collections.Generic.IEnumerable{IdApp.ViewModels.Things.HumanReadableTag})">
             <summary>
@@ -6989,6 +7088,25 @@
             <summary>
             Get Friendly name of thing
             </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.GetFriendlyName(System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Contracts.Property})">
+            <summary>
+            Get Friendly name of thing
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.ToProperties(System.Collections.Generic.IEnumerable{IdApp.ViewModels.Things.HumanReadableTag})">
+            <summary>
+            Converts an enumerable set of <see cref="T:IdApp.ViewModels.Things.HumanReadableTag"/> to an enumerable set of <see cref="T:Waher.Networking.XMPP.Contracts.Property"/>.
+            </summary>
+            <param name="Tags">Enumerable set of <see cref="T:IdApp.ViewModels.Things.HumanReadableTag"/></param>
+            <returns>Enumerable set of <see cref="T:Waher.Networking.XMPP.Contracts.Property"/></returns>
+        </member>
+        <member name="M:IdApp.ViewModels.Things.ViewClaimThingViewModel.ToProperties(System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Provisioning.MetaDataTag})">
+            <summary>
+            Converts an enumerable set of <see cref="T:Waher.Networking.XMPP.Provisioning.MetaDataTag"/> to an enumerable set of <see cref="T:Waher.Networking.XMPP.Contracts.Property"/>.
+            </summary>
+            <param name="Tags">Enumerable set of <see cref="T:Waher.Networking.XMPP.Provisioning.MetaDataTag"/></param>
+            <returns>Enumerable set of <see cref="T:Waher.Networking.XMPP.Contracts.Property"/></returns>
         </member>
         <member name="T:IdApp.ViewModels.Wallet.AccountEventItem">
             <summary>

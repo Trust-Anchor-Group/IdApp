@@ -718,6 +718,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disown Thing.
+        /// </summary>
+        internal static string DisownThing {
+            get {
+                return ResourceManager.GetString("DisownThing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
         /// </summary>
         internal static string DomainDoesNotFollowEncryptionPolicy {
@@ -988,6 +997,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry..
+        /// </summary>
+        internal static string InformationAboutClaimedThingText {
+            get {
+                return ResourceManager.GetString("InformationAboutClaimedThingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information about thing.
         /// </summary>
         internal static string InformationAboutThing {
@@ -997,7 +1015,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following information is made available about the thing whose code you scanned. Choose if you want to attempt to claim this thing as yours, and also if you want to make it publicly searchable in the Thing Registry..
+        ///   Looks up a localized string similar to The following information is made available about the thing. You can also see current sensor-data you are authorized to see. If the thing is an actuator, and you have rights to control the thing, control parameters will be shown also..
         /// </summary>
         internal static string InformationAboutThingText {
             get {
@@ -2550,6 +2568,15 @@ namespace IdApp {
         internal static string Thing {
             get {
                 return ResourceManager.GetString("Thing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This has been successfully disowned. It can now be claimed by a new owner..
+        /// </summary>
+        internal static string ThingDisowned {
+            get {
+                return ResourceManager.GetString("ThingDisowned", resourceCulture);
             }
         }
         

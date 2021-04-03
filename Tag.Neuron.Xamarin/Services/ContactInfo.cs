@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
 using Waher.Persistence.Filters;
@@ -21,6 +22,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private CaseInsensitiveString bareJid = CaseInsensitiveString.Empty;
 		private CaseInsensitiveString legalId = CaseInsensitiveString.Empty;
 		private LegalIdentity legalIdentity = null;
+		private Property[] metaData = null;
 		private string friendlyName = string.Empty;
 		private string sourceId = string.Empty;
 		private string partition = string.Empty;
@@ -29,6 +31,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private bool? subcribeTo = null;
 		private bool? allowSubscriptionFrom = null;
 		private bool? isThing = null;
+		private bool? owner = null;
 
 		/// <summary>
 		/// Contains information about a contact.
@@ -146,6 +149,26 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			get => this.isThing;
 			set => this.isThing = value;
+		}
+
+		/// <summary>
+		/// If the account is registered as the owner of the thing.
+		/// </summary>
+		[DefaultValueNull]
+		public bool? Owner
+		{
+			get => this.owner;
+			set => this.owner = value;
+		}
+
+		/// <summary>
+		/// Meta-data related to a thing.
+		/// </summary>
+		[DefaultValueNull]
+		public Property[] MetaData
+		{
+			get => this.metaData;
+			set => this.metaData = value;
 		}
 
 		/// <summary>

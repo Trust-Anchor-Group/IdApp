@@ -20,8 +20,8 @@ namespace IdApp.ViewModels
         /// <param name="uiDispatcher"></param>
         protected NeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher)
         {
-            this.NeuronService = neuronService;
-            this.UiDispatcher = uiDispatcher;
+            this.NeuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
+            this.UiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
         }
 

@@ -336,6 +336,9 @@
   <data name="Digest" xml:space="preserve">
     <value>Hash-värde</value>
   </data>
+  <data name="DisownThing" xml:space="preserve">
+    <value>Säg upp ägarskap</value>
+  </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
   </data>
@@ -426,11 +429,14 @@
   <data name="Incomplete" xml:space="preserve">
     <value>Ej komplett</value>
   </data>
+  <data name="InformationAboutClaimedThingText" xml:space="preserve">
+    <value>Följande information har gjorts tillgänglig om saken vars kod du skannade. Välj om du vill göra anspråk på denna sak som din, och också om du vill göra den publikt sökbar i sakregistret.</value>
+  </data>
   <data name="InformationAboutThing" xml:space="preserve">
     <value>Information om sak</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>Följande information har gjorts tillgänglig om saken vars kod du skannade. Välj om du vill göra anspråk på denna sak som din, och också om du vill göra den publikt sökbar i sakregistret.</value>
+    <value>Följande information har gjorts tillgänglig om saken. Du kan också se aktuell sensor-data du är auktoriserad att se. Om saken kan styras, och du har rätt att styra den, kommer kontrollparametrar också att visas.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
     <value>Information saknas eller är ogiltig</value>
@@ -947,6 +953,9 @@
   </data>
   <data name="Thing" xml:space="preserve">
     <value>Sak</value>
+  </data>
+  <data name="ThingDisowned" xml:space="preserve">
+    <value>Du har framgångsrikt sagt upp ägarskapet för saken. Den kan nu ägas av en ny ägare.</value>
   </data>
   <data name="Things" xml:space="preserve">
     <value>Saker</value>

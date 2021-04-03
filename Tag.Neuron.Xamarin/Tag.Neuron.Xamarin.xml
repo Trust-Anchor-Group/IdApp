@@ -1096,6 +1096,16 @@
             The contact is a thing
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.Owner">
+            <summary>
+            If the account is registered as the owner of the thing.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ContactInfo.MetaData">
+            <summary>
+            Meta-data related to a thing.
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.FindByBareJid(System.String)">
             <summary>
             Finds information about a contact, given its Bare JID.

@@ -5,6 +5,32 @@
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        x:Class="IdApp.Views.Things.ViewThingPage"
                        Title="{x:Static local:AppResources.Thing}">
-    <StackLayout Margin="{StaticResource DefaultMargin}">
-    </StackLayout>
+    <Grid>
+        <ScrollView>
+            <StackLayout Margin="{StaticResource DefaultMargin}">
+                <!-- TAGS -->
+                <Label Text="{x:Static local:AppResources.InformationAboutThing}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.InformationAboutThingText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <StackLayout x:Name="TagLayout" Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Tags}" VerticalOptions="StartAndExpand" Margin="{StaticResource DefaultMargin}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="{Binding Path=LocalizedName}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
+                                <Label LineBreakMode="WordWrap" Text="{Binding Path=LocalizedValue}" Style="{StaticResource ClickableValueLabel}">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.ClickCommand, Source={x:Reference TagLayout}}" CommandParameter="{Binding}" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+                <!-- PIN -->
+                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
+                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.DisownThing}" Command="{Binding Path=DisownCommand}" IsEnabled="{Binding Path=CanDisownThing}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </views:ContentBasePage>

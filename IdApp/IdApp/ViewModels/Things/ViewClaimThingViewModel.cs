@@ -11,6 +11,7 @@ using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Xamarin.Essentials;
@@ -38,17 +39,16 @@ namespace IdApp.ViewModels.Things
 			INavigationService navigationService,
 			INetworkService networkService,
 			ILogService logService)
-		: base(neuronService, uiDispatcher)
+			: base(neuronService, uiDispatcher)
 		{
 			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
 
-			this.ClaimThingCommand = new Command(async _ => await ClaimThing(), _ => IsConnected);
-			this.Tags = new ObservableCollection<HumanReadableTag>();
-
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
+			this.ClaimThingCommand = new Command(async _ => await ClaimThing(), _ => this.CanClaimThing);
+			this.Tags = new ObservableCollection<HumanReadableTag>();
 		}
 
 		/// <inheritdoc/>
@@ -107,6 +107,11 @@ namespace IdApp.ViewModels.Things
 		#region Properties
 
 		/// <summary>
+		/// Command to bind to for detecting when a tag value has been clicked on.
+		/// </summary>
+		public ICommand ClickCommand { get; }
+
+		/// <summary>
 		/// See <see cref="Uri"/>
 		/// </summary>
 		public static readonly BindableProperty UriProperty =
@@ -142,13 +147,8 @@ namespace IdApp.ViewModels.Things
 		/// </summary>
 		public bool CanClaimThing
 		{
-			get { return this.NeuronService.State == XmppState.Connected; }
+			get { return this.IsConnected && this.NeuronService.IsOnline; }
 		}
-
-		/// <summary>
-		/// If PIN should be used.
-		/// </summary>
-		public bool UsePin => this.tagProfile?.UsePin ?? false;
 
 		/// <summary>
 		/// See <see cref="MakePublic"/>
@@ -164,6 +164,11 @@ namespace IdApp.ViewModels.Things
 			get { return (bool)GetValue(MakePublicProperty); }
 			set { SetValue(MakePublicProperty, value); }
 		}
+
+		/// <summary>
+		/// If PIN should be used.
+		/// </summary>
+		public bool UsePin => this.tagProfile?.UsePin ?? false;
 
 		/// <summary>
 		/// See <see cref="Pin"/>
@@ -182,20 +187,26 @@ namespace IdApp.ViewModels.Things
 
 		#endregion
 
-		/// <summary>
-		/// Command to bind to for detecting when a tag value has been clicked on.
-		/// </summary>
-		public ICommand ClickCommand { get; }
-
-		private async Task LabelClicked(object obj)
+		private Task LabelClicked(object obj)
 		{
-			HumanReadableTag Tag = (HumanReadableTag)obj;
+			if (obj is HumanReadableTag Tag)
+				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiDispatcher, this.logService);
+			else
+				return Task.CompletedTask;
+		}
 
+		/// <summary>
+		/// Processes the click of a localized meta-data label.
+		/// </summary>
+		/// <param name="Name">Tag name</param>
+		/// <param name="Value">Tag value</param>
+		/// <param name="LocalizedValue">Localized tag value</param>
+		/// <param name="uiDispatcher">UI Dispatcher service</param>
+		/// <param name="logService">Log service</param>
+		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IUiDispatcher uiDispatcher, ILogService logService)
+		{ 
 			try
 			{
-				string Name = Tag.Tag.Name;
-				string Value = Tag.Tag.StringValue;
-
 				switch (Name)
 				{
 					case "MAN":
@@ -234,13 +245,13 @@ namespace IdApp.ViewModels.Things
 						break;
 				}
 
-				await Clipboard.SetTextAsync(Tag.StringValue);
-				await UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await Clipboard.SetTextAsync(LocalizedValue);
+				await uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
 			}
 			catch (Exception ex)
 			{
 				logService.LogException(ex);
-				await UiDispatcher.DisplayAlert(ex);
+				await uiDispatcher.DisplayAlert(ex);
 			}
 		}
 
@@ -249,18 +260,21 @@ namespace IdApp.ViewModels.Things
 		/// </summary>
 		public static string GetFriendlyName(IEnumerable<HumanReadableTag> Tags)
 		{
-			LinkedList<MetaDataTag> Tags2 = new LinkedList<MetaDataTag>();
-
-			foreach (HumanReadableTag Tag in Tags)
-				Tags2.AddLast(Tag.Tag);
-
-			return GetFriendlyName(Tags2);
+			return GetFriendlyName(ToProperties(Tags));
 		}
 
 		/// <summary>
 		/// Get Friendly name of thing
 		/// </summary>
 		public static string GetFriendlyName(IEnumerable<MetaDataTag> Tags)
+		{
+			return GetFriendlyName(ToProperties(Tags));
+		}
+
+		/// <summary>
+		/// Get Friendly name of thing
+		/// </summary>
+		public static string GetFriendlyName(IEnumerable<Property> Tags)
 		{
 			string APT = null;
 			string AREA = null;
@@ -280,27 +294,27 @@ namespace IdApp.ViewModels.Things
 			string STREETNR = null;
 			string V = null;
 
-			foreach (MetaDataTag Tag in Tags)
+			foreach (Property Tag in Tags)
 			{
 				switch (Tag.Name)
 				{
-					case "APT": APT = Tag.StringValue; break;
-					case "AREA": AREA = Tag.StringValue; break;
-					case "BLD": BLD = Tag.StringValue; break;
-					case "CITY": CITY = Tag.StringValue; break;
-					case "CLASS": CLASS = Tag.StringValue; break;
-					case "COUNTRY": COUNTRY = Tag.StringValue; break;
-					case "MAN": MAN = Tag.StringValue; break;
-					case "MLOC": MLOC = Tag.StringValue; break;
-					case "MNR": MNR = Tag.StringValue; break;
-					case "MODEL": MODEL = Tag.StringValue; break;
-					case "NAME": NAME = Tag.StringValue; break;
-					case "REGION": REGION = Tag.StringValue; break;
-					case "ROOM": ROOM = Tag.StringValue; break;
-					case "SN": SN = Tag.StringValue; break;
-					case "STREET": STREET = Tag.StringValue; break;
-					case "STREETNR": STREETNR = Tag.StringValue; break;
-					case "V": V = Tag.StringValue; break;
+					case "APT": APT = Tag.Value; break;
+					case "AREA": AREA = Tag.Value; break;
+					case "BLD": BLD = Tag.Value; break;
+					case "CITY": CITY = Tag.Value; break;
+					case "CLASS": CLASS = Tag.Value; break;
+					case "COUNTRY": COUNTRY = Tag.Value; break;
+					case "MAN": MAN = Tag.Value; break;
+					case "MLOC": MLOC = Tag.Value; break;
+					case "MNR": MNR = Tag.Value; break;
+					case "MODEL": MODEL = Tag.Value; break;
+					case "NAME": NAME = Tag.Value; break;
+					case "REGION": REGION = Tag.Value; break;
+					case "ROOM": ROOM = Tag.Value; break;
+					case "SN": SN = Tag.Value; break;
+					case "STREET": STREET = Tag.Value; break;
+					case "STREETNR": STREETNR = Tag.Value; break;
+					case "V": V = Tag.Value; break;
 				}
 			}
 
@@ -382,6 +396,7 @@ namespace IdApp.ViewModels.Things
 							SourceId = e.Node.SourceId,
 							Partition = e.Node.Partition,
 							NodeId = e.Node.NodeId,
+							MetaData = ToProperties(this.Tags),
 							RegistryJid = e.From
 						};
 
@@ -411,5 +426,36 @@ namespace IdApp.ViewModels.Things
 				await this.UiDispatcher.DisplayAlert(ex);
 			}
 		}
+
+		/// <summary>
+		/// Converts an enumerable set of <see cref="HumanReadableTag"/> to an enumerable set of <see cref="Property"/>.
+		/// </summary>
+		/// <param name="Tags">Enumerable set of <see cref="HumanReadableTag"/></param>
+		/// <returns>Enumerable set of <see cref="Property"/></returns>
+		public static Property[] ToProperties(IEnumerable<HumanReadableTag> Tags)
+		{
+			List<Property> Result = new List<Property>();
+
+			foreach (HumanReadableTag Tag in Tags)
+				Result.Add(new Property(Tag.Name, Tag.Value));
+
+			return Result.ToArray();
+		}
+
+		/// <summary>
+		/// Converts an enumerable set of <see cref="MetaDataTag"/> to an enumerable set of <see cref="Property"/>.
+		/// </summary>
+		/// <param name="Tags">Enumerable set of <see cref="MetaDataTag"/></param>
+		/// <returns>Enumerable set of <see cref="Property"/></returns>
+		public static Property[] ToProperties(IEnumerable<MetaDataTag> Tags)
+		{
+			List<Property> Result = new List<Property>();
+
+			foreach (MetaDataTag Tag in Tags)
+				Result.Add(new Property(Tag.Name, Tag.StringValue));
+
+			return Result.ToArray();
+		}
+
 	}
 }

@@ -1,4 +1,5 @@
-﻿using Waher.Networking.XMPP.Provisioning;
+﻿using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Provisioning;
 
 namespace IdApp.ViewModels.Things
 {
@@ -7,7 +8,8 @@ namespace IdApp.ViewModels.Things
 	/// </summary>
 	public class HumanReadableTag
 	{
-		private readonly MetaDataTag tag;
+		private readonly string name;
+		private readonly string value;
 
 		/// <summary>
 		/// Classed used to present a meta-data tag in a human interface.
@@ -15,22 +17,38 @@ namespace IdApp.ViewModels.Things
 		/// <param name="Tag">Meta-data tag.</param>
 		public HumanReadableTag(MetaDataTag Tag)
 		{
-			this.tag = Tag;
+			this.name = Tag.Name;
+			this.value = Tag.StringValue;
 		}
 
 		/// <summary>
-		/// Original meta-data tag.
+		/// Classed used to present a meta-data tag in a human interface.
 		/// </summary>
-		public MetaDataTag Tag => this.tag;
+		/// <param name="Tag">Meta-data tag.</param>
+		public HumanReadableTag(Property Tag)
+		{
+			this.name = Tag.Name;
+			this.value = Tag.Value;
+		}
+
+		/// <summary>
+		/// Tag name.
+		/// </summary>
+		public string Name => this.name;
+
+		/// <summary>
+		/// Tag value.
+		/// </summary>
+		public string Value => this.value;
 
 		/// <summary>
 		/// Human-readable tag name
 		/// </summary>
-		public string Name
+		public string LocalizedName
 		{
 			get
 			{
-				switch (this.tag.Name)
+				switch (this.name)
 				{
 					case "ALT": return AppResources.Altitude;
 					case "APT": return AppResources.Apartment;
@@ -55,7 +73,7 @@ namespace IdApp.ViewModels.Things
 					case "STREET": return AppResources.StreetName;
 					case "STREETNR": return AppResources.StreetNumber;
 					case "V": return AppResources.Version;
-					default: return this.tag.Name;
+					default: return this.name;
 				}
 			}
 		}
@@ -67,7 +85,7 @@ namespace IdApp.ViewModels.Things
 		{
 			get
 			{
-				switch (this.tag.Name)
+				switch (this.name)
 				{
 					case "ALT": return "m";
 					case "LAT": return "°";
@@ -80,16 +98,16 @@ namespace IdApp.ViewModels.Things
 		/// <summary>
 		/// String value of tag.
 		/// </summary>
-		public string StringValue
+		public string LocalizedValue
 		{
 			get
 			{
 				string s = this.Unit;
 
 				if (string.IsNullOrEmpty(s))
-					return this.tag.StringValue;
+					return this.value;
 				else
-					return this.tag.StringValue + " " + s;
+					return this.value + " " + s;
 			}
 		}
 	}
