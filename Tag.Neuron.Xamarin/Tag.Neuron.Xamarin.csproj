@@ -32,9 +32,9 @@
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="Waher.Content" Version="1.1.0" />
     <PackageReference Include="Waher.Content.Xml" Version="1.1.0" />
-    <PackageReference Include="Waher.Events.XMPP" Version="1.1.0" />
+    <PackageReference Include="Waher.Events.XMPP" Version="1.1.1" />
     <PackageReference Include="Waher.Networking" Version="1.0.21" />
-    <PackageReference Include="Waher.Networking.DNS" Version="1.0.12" />
+    <PackageReference Include="Waher.Networking.DNS" Version="1.0.13" />
     <PackageReference Include="Waher.Networking.PeerToPeer" Version="1.1.4" />
     <PackageReference Include="Waher.Networking.UPnP" Version="1.0.5" />
     <PackageReference Include="Waher.Networking.XMPP" Version="1.1.11" />
