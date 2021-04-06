@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 using Waher.Networking.XMPP.Provisioning;
@@ -40,8 +39,9 @@ namespace Tag.Neuron.Xamarin.Services
 		/// </summary>
 		/// <param name="DiscoUri">IoTDisco URI</param>
 		/// <param name="Operators">Search operators.</param>
+		/// <param name="RegistryJid">Registry Service JID</param>
 		/// <returns>If the URI could be parsed.</returns>
-		bool TryDecodeIoTDiscoSearchURI(string DiscoUri, out IEnumerable<SearchOperator> Operators);
+		bool TryDecodeIoTDiscoSearchURI(string DiscoUri, out SearchOperator[] Operators, out string RegistryJid);
 
 		/// <summary>
 		/// Claims a think in accordance with parameters defined in a iotdisco claim URI.
@@ -61,6 +61,41 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <param name="NodeId">Node ID</param>
 		/// <returns>If the thing was disowned</returns>
 		Task<bool> Disown(string RegistryJid, string ThingJid, string SourceId, string Partition, string NodeId);
+
+
+		/// <summary>
+		/// Searches for devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <param name="DiscoUri">iotdisco URI.</param>
+		/// <returns>Devices found, Registry JID, and if more devices are available.</returns>
+		Task<(SearchResultThing[], string, bool)> Search(int Offset, int MaxCount, string DiscoUri);
+
+		/// <summary>
+		/// Searches for devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <param name="RegistryJid">Registry Service JID</param>
+		/// <param name="Operators">Search operators.</param>
+		/// <returns>Devices found, and if more devices are available.</returns>
+		Task<(SearchResultThing[], bool)> Search(int Offset, int MaxCount, string RegistryJid, params SearchOperator[] Operators);
+
+		/// <summary>
+		/// Searches for all devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="DiscoUri">iotdisco URI.</param>
+		/// <returns>Complete list of devices in registry matching the search operators, and the JID of the registry service.</returns>
+		Task<(SearchResultThing[], string)> SearchAll(string DiscoUri);
+
+		/// <summary>
+		/// Searches for all devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="RegistryJid">Registry Service JID</param>
+		/// <param name="Operators">Search operators.</param>
+		/// <returns>Complete list of devices in registry matching the search operators.</returns>
+		Task<SearchResultThing[]> SearchAll(string RegistryJid, params SearchOperator[] Operators);
 
 	}
 }

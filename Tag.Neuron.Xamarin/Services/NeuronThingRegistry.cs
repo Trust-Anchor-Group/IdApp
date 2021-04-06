@@ -48,9 +48,33 @@ namespace Tag.Neuron.Xamarin.Services
 			return ThingRegistryClient.TryDecodeIoTDiscoClaimURI(DiscoUri, out Tags);
 		}
 
-		public bool TryDecodeIoTDiscoSearchURI(string DiscoUri, out IEnumerable<SearchOperator> Operators)
+		public bool TryDecodeIoTDiscoSearchURI(string DiscoUri, out SearchOperator[] Operators, out string RegistryJid)
 		{
-			return ThingRegistryClient.TryDecodeIoTDiscoURI(DiscoUri, out Operators);
+			RegistryJid = null;
+			Operators = null;
+			if (!ThingRegistryClient.TryDecodeIoTDiscoURI(DiscoUri, out IEnumerable<SearchOperator> Operators2))
+				return false;
+
+			List<SearchOperator> List = new List<SearchOperator>();
+
+			foreach (SearchOperator Operator in Operators2)
+			{
+				if (Operator.Name.ToUpper() == "R")
+				{
+					if (!string.IsNullOrEmpty(RegistryJid))
+						return false;
+
+					if (!(Operator is StringTagEqualTo StrEqOp))
+						return false;
+
+					RegistryJid = StrEqOp.Value;
+				}
+				else
+					List.Add(Operator);
+			}
+
+			Operators = List.ToArray();
+			return true;
 		}
 
 		public Task<NodeResultEventArgs> ClaimThing(string DiscoUri, bool MakePublic)
@@ -81,5 +105,90 @@ namespace Tag.Neuron.Xamarin.Services
 
 			return Result.Task;
 		}
+
+		/// <summary>
+		/// Searches for devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <param name="DiscoUri">iotdisco URI.</param>
+		/// <returns>Devices found, Registry JID, and if more devices are available.</returns>
+		public async Task<(SearchResultThing[], string, bool)> Search(int Offset, int MaxCount, string DiscoUri)
+		{
+			if (!this.TryDecodeIoTDiscoSearchURI(DiscoUri, out SearchOperator[] Operators, out string RegistryJid))
+				return (new SearchResultThing[0], RegistryJid, false);
+
+			(SearchResultThing[] Things, bool More) = await this.Search(Offset, MaxCount, RegistryJid, Operators);
+
+			return (Things, RegistryJid, More);
+		}
+
+		/// <summary>
+		/// Searches for devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="Offset">Start offset of list</param>
+		/// <param name="MaxCount">Maximum number of items in response.</param>
+		/// <param name="RegistryJid">Registry Service JID</param>
+		/// <param name="Operators">Search operators.</param>
+		/// <returns>Devices found, and if more devices are available.</returns>
+		public Task<(SearchResultThing[], bool)> Search(int Offset, int MaxCount, string RegistryJid, params SearchOperator[] Operators)
+		{
+			TaskCompletionSource<(SearchResultThing[], bool)> Result = new TaskCompletionSource<(SearchResultThing[], bool)>();
+
+			this.RegistryClient.Search(RegistryJid, Offset, MaxCount, Operators, (sender, e) =>
+			{
+				if (e.Ok)
+					Result.TrySetResult((e.Things, e.More));
+				else
+					Result.TrySetException(e.StanzaError ?? new Exception("Unable to perform search."));
+
+				return Task.CompletedTask;
+			}, null);
+
+			return Result.Task;
+		}
+
+		/// <summary>
+		/// Searches for all devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="DiscoUri">iotdisco URI.</param>
+		/// <returns>Complete list of devices in registry matching the search operators, and the JID of the registry service.</returns>
+		public async Task<(SearchResultThing[], string)> SearchAll(string DiscoUri)
+		{
+			if (!this.TryDecodeIoTDiscoSearchURI(DiscoUri, out SearchOperator[] Operators, out string RegistryJid))
+				return (new SearchResultThing[0], RegistryJid);
+
+			SearchResultThing[] Things = await this.SearchAll(RegistryJid, Operators);
+
+			return (Things, RegistryJid);
+		}
+
+		/// <summary>
+		/// Searches for all devices in accordance with settings in a iotdisco-URI.
+		/// </summary>
+		/// <param name="RegistryJid">Registry Service JID</param>
+		/// <param name="Operators">Search operators.</param>
+		/// <returns>Complete list of devices in registry matching the search operators.</returns>
+		public async Task<SearchResultThing[]> SearchAll(string RegistryJid, params SearchOperator[] Operators)
+		{
+			(SearchResultThing[] Things, bool More) = await this.Search(0, 100, RegistryJid, Operators);
+			if (!More)
+				return Things;
+
+			List<SearchResultThing> Result = new List<SearchResultThing>();
+			int Offset = Things.Length;
+
+			Result.AddRange(Things);
+
+			while (More)
+			{
+				(Things, More) = await this.Search(Offset, 100, RegistryJid, Operators);
+				Result.AddRange(Things);
+				Offset += Things.Length;
+			}
+
+			return Result.ToArray();
+		}
+
 	}
 }

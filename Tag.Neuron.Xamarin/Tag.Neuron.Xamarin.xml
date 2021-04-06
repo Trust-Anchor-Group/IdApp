@@ -1816,12 +1816,13 @@
             <param name="Tags">Decoded meta data tags.</param>
             <returns>If DiscoUri was successfully decoded.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.TryDecodeIoTDiscoSearchURI(System.String,System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator}@)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.TryDecodeIoTDiscoSearchURI(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[]@,System.String@)">
             <summary>
             Decodes an IoTDisco URI.
             </summary>
             <param name="DiscoUri">IoTDisco URI</param>
             <param name="Operators">Search operators.</param>
+            <param name="RegistryJid">Registry Service JID</param>
             <returns>If the URI could be parsed.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.ClaimThing(System.String,System.Boolean)">
@@ -1842,6 +1843,40 @@
             <param name="Partition">Partition</param>
             <param name="NodeId">Node ID</param>
             <returns>If the thing was disowned</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.Search(System.Int32,System.Int32,System.String)">
+            <summary>
+            Searches for devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <param name="DiscoUri">iotdisco URI.</param>
+            <returns>Devices found, Registry JID, and if more devices are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.Search(System.Int32,System.Int32,System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+            <summary>
+            Searches for devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <param name="RegistryJid">Registry Service JID</param>
+            <param name="Operators">Search operators.</param>
+            <returns>Devices found, and if more devices are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.SearchAll(System.String)">
+            <summary>
+            Searches for all devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="DiscoUri">iotdisco URI.</param>
+            <returns>Complete list of devices in registry matching the search operators, and the JID of the registry service.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronThingRegistry.SearchAll(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+            <summary>
+            Searches for all devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="RegistryJid">Registry Service JID</param>
+            <param name="Operators">Search operators.</param>
+            <returns>Complete list of devices in registry matching the search operators.</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.INeuronWallet">
             <summary>
@@ -2710,6 +2745,40 @@
             Gets the full list of my devices.
             </summary>
             <returns>Complete list of my devices.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronThingRegistry.Search(System.Int32,System.Int32,System.String)">
+            <summary>
+            Searches for devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <param name="DiscoUri">iotdisco URI.</param>
+            <returns>Devices found, Registry JID, and if more devices are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronThingRegistry.Search(System.Int32,System.Int32,System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+            <summary>
+            Searches for devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <param name="RegistryJid">Registry Service JID</param>
+            <param name="Operators">Search operators.</param>
+            <returns>Devices found, and if more devices are available.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronThingRegistry.SearchAll(System.String)">
+            <summary>
+            Searches for all devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="DiscoUri">iotdisco URI.</param>
+            <returns>Complete list of devices in registry matching the search operators, and the JID of the registry service.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronThingRegistry.SearchAll(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+            <summary>
+            Searches for all devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="RegistryJid">Registry Service JID</param>
+            <param name="Operators">Search operators.</param>
+            <returns>Complete list of devices in registry matching the search operators.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
             <summary>

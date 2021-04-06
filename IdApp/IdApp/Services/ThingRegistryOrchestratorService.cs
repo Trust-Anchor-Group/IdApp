@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using IdApp.Navigation.Things;
+using IdApp.ViewModels.Things;
 using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services
@@ -38,7 +41,7 @@ namespace IdApp.Services
 		{
 			if (this.BeginLoad())
 				this.EndLoad(true);
-			
+
 			return Task.CompletedTask;
 		}
 
@@ -64,9 +67,56 @@ namespace IdApp.Services
 			return Task.CompletedTask;
 		}
 
-		public Task OpenSearchDevices(string Uri)
+		public async Task OpenSearchDevices(string Uri)
 		{
-			return Task.CompletedTask;
+			try
+			{
+				(SearchResultThing[] Things, string RegistryJid) = await this.neuronService.ThingRegistry.SearchAll(Uri);
+
+				// TODO: Extract JID, NodeID, SourceID & Partition from URI, if available. If contains these properties, the result should
+				// not be a search, but a view thing direct.
+
+				switch (Things.Length)
+				{
+					case 0:
+						await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NoThingsFound);
+						break;
+
+					case 1:
+						SearchResultThing Thing = Things[0];
+
+						this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+						{
+							Property[] Properties = ViewClaimThingViewModel.ToProperties(Thing.Tags);
+
+							await this.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(new ContactInfo()
+							{
+								AllowSubscriptionFrom = false,
+								BareJid = Thing.Jid,
+								IsThing = true,
+								LegalId = string.Empty,
+								LegalIdentity = null,
+								FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties),
+								MetaData = Properties,
+								SourceId = Thing.Node.SourceId,
+								Partition = Thing.Node.Partition,
+								NodeId = Thing.Node.NodeId,
+								Owner = false,
+								RegistryJid = RegistryJid,
+								SubcribeTo = null
+							}));
+						});
+						break;
+
+					default:
+						// TODO: Search result list view
+						break;
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.uiDispatcher.DisplayAlert(ex);
+			}
 		}
 
 	}

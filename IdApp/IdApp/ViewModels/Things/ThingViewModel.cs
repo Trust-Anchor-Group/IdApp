@@ -203,7 +203,9 @@ namespace IdApp.ViewModels.Things
 				if (!Succeeded)
 					return;
 
-				await Database.Delete(this.thing);
+				if (!string.IsNullOrEmpty(this.thing.ObjectId))
+					await Database.Delete(this.thing);
+
 				await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ThingDisowned);
 				await this.navigationService.GoBackAsync();
 			}
