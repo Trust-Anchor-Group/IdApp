@@ -38,7 +38,6 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidKeyStore>false</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\Henrik\Documents\TAG\IdApp\TagDemo Cert\TagDemo Cert.keystore</AndroidSigningKeyStore>
     <AndroidSigningStorePass>Password</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>TagDemo Cert</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Password</AndroidSigningKeyPass>
@@ -61,8 +60,7 @@
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\Henrik\AppData\Local\Xamarin\Mono for Android\Keystore\TagDemo Cert\TagDemo Cert.keystore</AndroidSigningKeyStore>
+    <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidSigningStorePass>Password</AndroidSigningStorePass>
     <AndroidSigningKeyAlias>TAGDemo Cert</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Password</AndroidSigningKeyPass>
