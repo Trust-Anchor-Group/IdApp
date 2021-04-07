@@ -65,7 +65,7 @@
     <AndroidSigningKeyAlias>TAGDemo Cert</AndroidSigningKeyAlias>
     <AndroidSigningKeyPass>Password</AndroidSigningKeyPass>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
