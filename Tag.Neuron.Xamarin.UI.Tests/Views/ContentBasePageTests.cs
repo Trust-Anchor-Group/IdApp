@@ -35,7 +35,7 @@ namespace Tag.Neuron.Xamarin.UI.Tests.Views
         {
             await this.viewModel.Bind();
             this.viewModel.Reset();
-            this.settingsService.Setup(x => x.WaitForReadyState()).Returns(Task.FromResult(settingsAreAvailable));
+            this.settingsService.Setup(x => x.WaitInitDone()).Returns(Task.FromResult(settingsAreAvailable));
             this.sut.Appear();
             Assert.AreEqual(expectedRestoreStateCount, this.viewModel.RestoreStateCounter);
             await this.viewModel.Unbind();
@@ -48,7 +48,7 @@ namespace Tag.Neuron.Xamarin.UI.Tests.Views
         {
             await this.viewModel.Bind();
             this.viewModel.Reset();
-            this.settingsService.Setup(x => x.WaitForReadyState()).Returns(Task.FromResult(settingsAreAvailable));
+            this.settingsService.Setup(x => x.WaitInitDone()).Returns(Task.FromResult(settingsAreAvailable));
             this.sut.Disappear();
             Assert.AreEqual(expectedSaveStateCount, this.viewModel.SaveStateCounter);
             await this.viewModel.Unbind();

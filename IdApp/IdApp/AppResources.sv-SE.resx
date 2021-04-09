@@ -990,6 +990,9 @@
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>
   </data>
+  <data name="UnableToInitializeDatabase" xml:space="preserve">
+    <value>Kunde inte initiera databasen.</value>
+  </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
     <value>Kunde inte behandla eDaler-koden.</value>
   </data>

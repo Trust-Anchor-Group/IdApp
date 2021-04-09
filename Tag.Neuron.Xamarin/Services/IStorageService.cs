@@ -1,6 +1,4 @@
-﻿using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Threading.Tasks;
 using Waher.Persistence;
 using Waher.Persistence.Serialization;
 using Waher.Runtime.Inventory;
@@ -21,17 +19,13 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="Thread"></param>
         void Init(ProfilerThread Thread);
+
         /// <summary>
-        /// Returns a task so the persistent storage's ready state can be awaited.
+        /// Waits for initialization of the storage service to be completed.
         /// </summary>
-        /// <returns></returns>
-        Task<StorageState> WaitForReadyState();
-        /// <summary>
-        /// Tries to repair the database if something went wrong. Alerts the user if needed.
-        /// </summary>
-        /// <param name="Thread"></param>
-        /// <returns></returns>
-        Task TryRepairDatabase(ProfilerThread Thread);
+        /// <returns>If storage service is OK, or failed to initialize.</returns>
+        Task<bool> WaitInitDone();
+
         /// <summary>
         /// Shuts down this persistent storage instance.
         /// </summary>
@@ -71,29 +65,4 @@ namespace Tag.Neuron.Xamarin.Services
         Task Export(IDatabaseExport exportOutput);
     }
 
-    /// <summary>
-    /// Represents the different states persistent storage can be in.
-    /// </summary>
-    public enum StorageState
-    {
-        /// <summary>
-        /// Persistent storage has not yet been initialized.
-        /// </summary>
-        NotInitialized,
-
-        /// <summary>
-        /// Persistent storage is currently being initialized.
-        /// </summary>
-        Initializing,
-
-        /// <summary>
-        /// Persistent storage is ready.
-        /// </summary>
-        Ready,
-        
-        /// <summary>
-        /// Persistent storage is experiencing failures, and needs repair.
-        /// </summary>
-        NeedsRepair
-    }
 }

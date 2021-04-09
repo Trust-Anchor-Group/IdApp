@@ -310,15 +310,9 @@ namespace Tag.Neuron.Xamarin.Services
             }
         }
 
-        public async Task<bool> WaitForReadyState()
-        {
-            StorageState state = await this.storageService.WaitForReadyState();
-            if (state == StorageState.Ready)
-            {
-                return true;
-            }
-
-            return false;
-        }
+        public Task<bool> WaitInitDone()
+		{
+            return this.storageService.WaitInitDone();
+		}
     }
 }

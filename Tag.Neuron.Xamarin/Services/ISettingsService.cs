@@ -153,9 +153,9 @@ namespace Tag.Neuron.Xamarin.Services
         Task RemoveStateWhereKeyStartsWith(string keyPrefix);
 
         /// <summary>
-        /// Lets you await the settings so they're initialized and ready for reading/writing.
+        /// Waits for initialization of the storage service to be completed.
         /// </summary>
-        /// <returns><c>true</c> if ready to use, <c>false</c> otherwise.</returns>
-        Task<bool> WaitForReadyState();
+        /// <returns>If storage service is OK, or failed to initialize.</returns>
+        Task<bool> WaitInitDone();
     }
 }

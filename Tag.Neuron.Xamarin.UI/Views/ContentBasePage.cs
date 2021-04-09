@@ -95,10 +95,8 @@ namespace Tag.Neuron.Xamarin.UI.Views
 
                 try
                 {
-                    if (await this.settingsService.WaitForReadyState())
-                    {
+                    if (await this.settingsService.WaitInitDone())
                         await ViewModel.RestoreState();
-                    }
                 }
                 catch (Exception e)
                 {
@@ -119,10 +117,8 @@ namespace Tag.Neuron.Xamarin.UI.Views
                 {
                     try
                     {
-                        if (await this.settingsService.WaitForReadyState())
-                        {
+                        if (await this.settingsService.WaitInitDone())
                             await ViewModel.SaveState();
-                        }
                     }
                     catch (Exception e)
                     {

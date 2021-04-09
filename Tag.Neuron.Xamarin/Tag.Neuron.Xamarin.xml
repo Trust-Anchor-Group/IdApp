@@ -2155,11 +2155,11 @@
             </summary>
             <param name="keyPrefix">The string value the key should start with, like "Foo". Do not include wildcards.</param>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.WaitForReadyState">
+        <member name="M:Tag.Neuron.Xamarin.Services.ISettingsService.WaitInitDone">
             <summary>
-            Lets you await the settings so they're initialized and ready for reading/writing.
+            Waits for initialization of the storage service to be completed.
             </summary>
-            <returns><c>true</c> if ready to use, <c>false</c> otherwise.</returns>
+            <returns>If storage service is OK, or failed to initialize.</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.IStorageService">
             <summary>
@@ -2172,18 +2172,11 @@
             </summary>
             <param name="Thread"></param>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.WaitForReadyState">
+        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.WaitInitDone">
             <summary>
-            Returns a task so the persistent storage's ready state can be awaited.
+            Waits for initialization of the storage service to be completed.
             </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.TryRepairDatabase(Waher.Runtime.Profiling.ProfilerThread)">
-            <summary>
-            Tries to repair the database if something went wrong. Alerts the user if needed.
-            </summary>
-            <param name="Thread"></param>
-            <returns></returns>
+            <returns>If storage service is OK, or failed to initialize.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.IStorageService.Shutdown">
             <summary>
@@ -2220,31 +2213,6 @@
             Exports the contents of the database to <paramref name="exportOutput"/>.
             </summary>
             <param name="exportOutput">Receives the contents of the database.</param>
-        </member>
-        <member name="T:Tag.Neuron.Xamarin.Services.StorageState">
-            <summary>
-            Represents the different states persistent storage can be in.
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.StorageState.NotInitialized">
-            <summary>
-            Persistent storage has not yet been initialized.
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.StorageState.Initializing">
-            <summary>
-            Persistent storage is currently being initialized.
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.StorageState.Ready">
-            <summary>
-            Persistent storage is ready.
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.StorageState.NeedsRepair">
-            <summary>
-            Persistent storage is experiencing failures, and needs repair.
-            </summary>
         </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ITagProfile">
             <summary>
@@ -2912,10 +2880,7 @@
         <member name="M:Tag.Neuron.Xamarin.Services.StorageService.Init(Waher.Runtime.Profiling.ProfilerThread)">
             <inheritdoc />
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.WaitForReadyState">
-            <inheritdoc />
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.TryRepairDatabase(Waher.Runtime.Profiling.ProfilerThread)">
+        <member name="M:Tag.Neuron.Xamarin.Services.StorageService.WaitInitDone">
             <inheritdoc />
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.StorageService.Shutdown">

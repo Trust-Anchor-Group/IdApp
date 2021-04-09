@@ -57,7 +57,7 @@ namespace IdApp
         ///<inheritdoc/>
         public App()
         {
-            this.startupProfiler = new Profiler("Startup", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
+            this.startupProfiler = new Profiler("App.ctor", ProfilerThreadType.Sequential);  // Comment out to remove startup profiling.
             this.startupProfiler?.Start();
             this.startupProfiler?.NewState("Init");
 
@@ -176,7 +176,7 @@ namespace IdApp
 
         private async Task PerformStartup(bool isResuming)
         {
-            ProfilerThread thread = this.startupProfiler?.MainThread.CreateSubThread("AppStartup", ProfilerThreadType.Sequential);
+            ProfilerThread thread = this.startupProfiler?.MainThread.CreateSubThread(isResuming ? "OnResume" : "OnStart", ProfilerThreadType.Sequential);
             thread?.Start();
 
             try
@@ -185,38 +185,33 @@ namespace IdApp
                 await this.SendErrorReportFromPreviousRun();
 
                 thread?.NewState("Startup");
-                ProfilerThread sdkStartupThread = this.startupProfiler?.CreateThread("SdkStartup", ProfilerThreadType.Sequential);
-                sdkStartupThread?.Start();
-                sdkStartupThread?.NewState("DB");
-
                 this.sdk.UiDispatcher.IsRunningInTheBackground = false;
+
+                thread?.NewState("WaitDB");
 
                 // Start the db.
                 // This is for soft restarts.
                 // If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
-                this.sdk.StorageService.Init(sdkStartupThread);
-                StorageState dbState = await this.sdk.StorageService.WaitForReadyState();
-                if (dbState == StorageState.NeedsRepair)
-                {
-                    await this.sdk.StorageService.TryRepairDatabase(sdkStartupThread);
-                }
+                this.sdk.StorageService.Init(thread);
+
+                if (!await this.sdk.StorageService.WaitInitDone())
+                    throw new Exception(AppResources.UnableToInitializeDatabase);
 
                 if (!isResuming)
                 {
+                    thread?.NewState("Config");
                     await this.CreateOrRestoreConfiguration();
                 }
 
-                sdkStartupThread?.NewState("Network");
+                thread?.NewState("Network");
                 await this.sdk.NetworkService.Load(isResuming);
 
-                sdkStartupThread?.NewState("Neuron");
+                thread?.NewState("Neuron");
                 await this.sdk.NeuronService.Load(isResuming);
 
-                sdkStartupThread?.NewState("Timer");
+                thread?.NewState("Timer");
                 TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
                 this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
-
-                sdkStartupThread?.Stop();
 
                 thread?.NewState("Navigation");
                 await this.sdk.NavigationService.Load(isResuming);

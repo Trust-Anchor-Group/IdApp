@@ -2680,6 +2680,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to Initialize Database..
+        /// </summary>
+        internal static string UnableToInitializeDatabase {
+            get {
+                return ResourceManager.GetString("UnableToInitializeDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to process eDaler code..
         /// </summary>
         internal static string UnableToProcessEDalerUri {
