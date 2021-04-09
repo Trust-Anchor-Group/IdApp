@@ -209,7 +209,7 @@ namespace IdApp
                 sdkStartupThread?.NewState("Network");
                 await this.sdk.NetworkService.Load(isResuming);
 
-                sdkStartupThread?.NewState("Load");
+                sdkStartupThread?.NewState("Neuron");
                 await this.sdk.NeuronService.Load(isResuming);
 
                 sdkStartupThread?.NewState("Timer");

@@ -1158,7 +1158,6 @@
             Loads the specified service.
             </summary>
             <param name="isResuming">Set to <c>true</c> to indicate the app is resuming as opposed to starting cold.</param>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ILoadableService.Unload">
             <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 
 namespace Tag.Neuron.Xamarin.Services
 {
@@ -14,13 +15,14 @@ namespace Tag.Neuron.Xamarin.Services
         /// Loads the specified service.
         /// </summary>
         /// <param name="isResuming">Set to <c>true</c> to indicate the app is resuming as opposed to starting cold.</param>
-        /// <returns></returns>
         Task Load(bool isResuming);
+
         /// <summary>
         /// Unloads the specified service.
         /// </summary>
         /// <returns></returns>
         Task Unload();
+
         /// <summary>
         /// Fires whenever the loading state of the service changes.
         /// </summary>
