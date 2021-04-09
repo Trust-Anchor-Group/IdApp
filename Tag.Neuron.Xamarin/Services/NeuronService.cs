@@ -149,7 +149,7 @@ namespace Tag.Neuron.Xamarin.Services
 						this.contractsClient = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
 
 						Thread?.NewState("Keys");
-						if (!await this.contractsClient.LoadKeys(false))
+						if (!await this.contractsClient.LoadKeys(false, Thread))
 						{
 							if (!CanCreateKeys)
 							{
@@ -430,7 +430,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 						if (ShouldCreateClient())
 						{
-							Thread?.NewState("Xmpp");
+							Thread?.NewState("XMPP");
 
 							ProfilerThread ClientsThread = Thread?.CreateSubThread("Clients", ProfilerThreadType.Sequential);
 							ClientsThread.Start();

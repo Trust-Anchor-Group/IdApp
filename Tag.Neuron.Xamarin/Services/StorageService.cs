@@ -60,7 +60,7 @@ namespace Tag.Neuron.Xamarin.Services
 					this.databaseProvider = Database.Provider as FilesProvider;
 
 				if (this.databaseProvider is null)
-					this.databaseProvider = await CreateDatabaseFile();
+					this.databaseProvider = await CreateDatabaseFile(Thread);
 
 				Thread?.NewState("CheckDB");
 				await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
@@ -102,7 +102,7 @@ namespace Tag.Neuron.Xamarin.Services
 						Directory.Delete(dataFolder, true);
 
 						Thread?.NewState("Recreate");
-						this.databaseProvider = await CreateDatabaseFile();
+						this.databaseProvider = await CreateDatabaseFile(Thread);
 
 						Thread?.NewState("Repair");
 						await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
@@ -187,10 +187,20 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-		private Task<FilesProvider> CreateDatabaseFile()
+		private Task<FilesProvider> CreateDatabaseFile(ProfilerThread Thread)
 		{
-			return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 
-				(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey);
+			Thread = Thread?.CreateSubThread("Files", ProfilerThreadType.Sequential);
+			try
+			{
+				Thread?.Start();
+
+				return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
+					(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey, Thread);
+			}
+			finally
+			{
+				Thread?.Stop();
+			}
 		}
 
 		#endregion
