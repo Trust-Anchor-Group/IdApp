@@ -486,6 +486,21 @@ namespace Tag.Neuron.Xamarin.Services
         #endregion
 
         public bool IsOnline => !(this.ContractsClient is null) && this.ContractsClient.Client.State == XmppState.Connected;
-        public bool FileUploadIsSupported => tagProfile.FileUploadIsSupported && !(this.FileUploadClient is null) && this.FileUploadClient.HasSupport;
+        
+        public bool FileUploadIsSupported
+        {
+            get
+            {
+                try
+                {
+                    return tagProfile.FileUploadIsSupported && !(this.FileUploadClient is null) && this.FileUploadClient.HasSupport;
+                }
+                catch (Exception ex)
+				{
+                    this.logService?.LogException(ex);
+                    return false;
+				}
+            }
+        }
     }
 }
