@@ -189,7 +189,8 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private Task<FilesProvider> CreateDatabaseFile()
 		{
-			return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, (int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey);
+			return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8, 
+				(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey);
 		}
 
 		#endregion

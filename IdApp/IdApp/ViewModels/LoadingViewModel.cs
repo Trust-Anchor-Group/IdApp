@@ -97,13 +97,9 @@ namespace IdApp.ViewModels
                 this.UiDispatcher.BeginInvokeOnMainThread(async () =>
                 {
                     if (this.tagProfile.IsComplete())
-                    {
                         await this.navigationService.GoToAsync($"///{nameof(MainPage)}");
-                    }
                     else
-                    {
                         await this.navigationService.GoToAsync($"/{nameof(RegistrationPage)}");
-                    }
                 });
             }
         }

@@ -16,6 +16,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="fileName">The filename to get a key for.</param>
         /// <returns>A cryptographic key.</returns>
         Task<KeyValuePair<byte[], byte[]>> GetCustomKey(string fileName);
+
         /// <summary>
         /// Generates a random password to use.
         /// </summary>

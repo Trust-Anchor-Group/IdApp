@@ -8,6 +8,7 @@ using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 
 namespace IdApp.Services
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Waher.Runtime.Profiling;
 
 namespace Tag.Neuron.Xamarin.Services
 {
@@ -10,10 +11,12 @@ namespace Tag.Neuron.Xamarin.Services
 		/// Gets whether the service is unloading or not.
 		/// </summary>
 		public bool IsUnloading { get; protected set; }
+
 		/// <summary>
 		/// Gets whether the service is loading or not.
 		/// </summary>
 		public bool IsLoading { get; protected set; }
+
 		/// <summary>
 		/// Gets whether the service is loaded.
 		/// </summary>

@@ -8,6 +8,7 @@ using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 
 namespace IdApp.Services
 {

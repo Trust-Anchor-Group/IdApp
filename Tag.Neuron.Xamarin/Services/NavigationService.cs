@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Events;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 using Xamarin.Forms;
 
 namespace Tag.Neuron.Xamarin.Services

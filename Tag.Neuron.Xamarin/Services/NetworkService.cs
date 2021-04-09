@@ -8,6 +8,7 @@ using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Profiling;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

@@ -89,7 +89,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		#region Create/Destroy
 
-		private async Task CreateXmppClient(bool CanCreateKeys)
+		private async Task CreateXmppClient(bool CanCreateKeys, ProfilerThread Thread)
 		{
 			if (isCreatingClient)
 				return;
@@ -105,18 +105,23 @@ namespace Tag.Neuron.Xamarin.Services
 				if (!this.XmppParametersCurrent() || this.XmppStale())
 				{
 					if (!(this.xmppClient is null))
+					{
+						Thread?.NewState("Destroy");
 						this.DestroyXmppClient();
+					}
 
 					this.domainName = this.tagProfile.Domain;
 					this.accountName = this.tagProfile.Account;
 					this.passwordHash = this.tagProfile.PasswordHash;
 					this.passwordHashMethod = this.tagProfile.PasswordHashMethod;
 
+					Thread?.NewState("DNS");
 					(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
 
 					this.xmppLastStateChange = DateTime.Now;
 					this.xmppConnected = false;
 
+					Thread?.NewState("Client");
 					this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer)
 					{
 						TrustServer = !isIpAddress,
@@ -132,14 +137,18 @@ namespace Tag.Neuron.Xamarin.Services
 					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
+
+					Thread?.NewState("Sink");
 					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
 
 					// Add extensions before connecting
 
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
 					{
+						Thread?.NewState("Legal");
 						this.contractsClient = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
 
+						Thread?.NewState("Keys");
 						if (!await this.contractsClient.LoadKeys(false))
 						{
 							if (!CanCreateKeys)
@@ -150,29 +159,51 @@ namespace Tag.Neuron.Xamarin.Services
 								throw new Exception("Regeneration of keys not permitted at this time.");
 							}
 
+							Thread?.NewState("Gen");
 							await this.contractsClient.GenerateNewKeys();
 						}
 					}
 
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
+					{
+						Thread?.NewState("Upload");
 						this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize);
+					}
 
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
+					{
+						Thread?.NewState("MUC");
 						this.mucClient = new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid);
+					}
 
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+					{
+						Thread?.NewState("Reg");
 						this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
+					}
 
-					if (!string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+					if (!string.IsNullOrWhiteSpace(this.tagProfile.ProvisioningJid))
+					{
+						Thread?.NewState("Prov");
 						this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid);
+					}
 
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
+					{
+						Thread?.NewState("eDaler");
 						this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
+					}
 
+					Thread?.NewState("Sensor");
 					this.sensorClient = new SensorClient(this.xmppClient);
+
+					Thread?.NewState("Control");
 					this.controlClient = new ControlClient(this.xmppClient);
+
+					Thread?.NewState("Concentrator");
 					this.concentratorClient = new ConcentratorClient(this.xmppClient);
 
+					Thread?.NewState("Connect");
 					this.IsLoggedOut = false;
 					this.xmppClient.Connect(isIpAddress ? string.Empty : domainName);
 					this.RecreateReconnectTimer();
@@ -180,6 +211,7 @@ namespace Tag.Neuron.Xamarin.Services
 					// Await connected state during registration or user initiated log in, but not otherwise.
 					if (!this.tagProfile.IsCompleteOrWaitingForValidation() || this.userInitiatedLogInOrOut)
 					{
+						Thread?.NewState("Wait");
 						if (!await this.WaitForConnectedState(Constants.Timeouts.XmppConnect))
 						{
 							this.logService.LogWarning("Connect to XMPP server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
@@ -283,7 +315,7 @@ namespace Tag.Neuron.Xamarin.Services
 				return;
 
 			if (ShouldCreateClient())
-				await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity);
+				await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity, null);
 			else if (this.tagProfile.Step <= RegistrationStep.Account)
 				this.DestroyXmppClient();
 		}
@@ -385,30 +417,57 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public override async Task Load(bool isResuming)
 		{
-			if (this.BeginLoad())
+			ProfilerThread Thread = this.startupProfiler?.CreateThread("Neuron", ProfilerThreadType.Sequential);
+			Thread?.Start();
+			try
 			{
-				try
+				if (this.BeginLoad())
 				{
-					this.tagProfile.StepChanged += TagProfile_StepChanged;
-
-					if (ShouldCreateClient())
-						await this.CreateXmppClient(false);
-
-					if (!(this.xmppClient is null) &&
-						this.xmppClient.State == XmppState.Connected &&
-						this.tagProfile.IsCompleteOrWaitingForValidation())
+					Thread?.NewState("Load");
+					try
 					{
-						// Don't await this one, just fire and forget, to improve startup time.
-						_ = this.xmppClient.SetPresenceAsync(Availability.Online);
-					}
+						this.tagProfile.StepChanged += TagProfile_StepChanged;
 
-					this.EndLoad(true);
+						if (ShouldCreateClient())
+						{
+							Thread?.NewState("Xmpp");
+
+							ProfilerThread ClientsThread = Thread?.CreateSubThread("Clients", ProfilerThreadType.Sequential);
+							ClientsThread.Start();
+							try
+							{
+								await this.CreateXmppClient(false, ClientsThread);
+							}
+							finally
+							{
+								ClientsThread.Stop();
+							}
+						}
+
+						if (!(this.xmppClient is null) &&
+							this.xmppClient.State == XmppState.Connected &&
+							this.tagProfile.IsCompleteOrWaitingForValidation())
+						{
+							Thread?.NewState("Presence");
+							// Don't await this one, just fire and forget, to improve startup time.
+							_ = this.xmppClient.SetPresenceAsync(Availability.Online);
+						}
+
+						Thread?.NewState("End");
+						this.EndLoad(true);
+					}
+					catch (Exception ex)
+					{
+						ex = Log.UnnestException(ex);
+						Thread?.Exception(ex);
+						this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+						this.EndLoad(false);
+					}
 				}
-				catch (Exception ex)
-				{
-					this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-					this.EndLoad(false);
-				}
+			}
+			finally
+			{
+				Thread?.Stop();
 			}
 		}
 
@@ -521,7 +580,7 @@ namespace Tag.Neuron.Xamarin.Services
 				try
 				{
 					this.IsLoggedOut = false;
-					await this.CreateXmppClient(false);
+					await this.CreateXmppClient(false, null);
 				}
 				catch (Exception e)
 				{
