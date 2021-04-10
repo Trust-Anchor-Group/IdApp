@@ -187,14 +187,14 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-		private Task<FilesProvider> CreateDatabaseFile(ProfilerThread Thread)
+		private async Task<FilesProvider> CreateDatabaseFile(ProfilerThread Thread)
 		{
 			Thread = Thread?.CreateSubThread("Files", ProfilerThreadType.Sequential);
 			try
 			{
 				Thread?.Start();
 
-				return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
+				return await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
 					(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey, Thread);
 			}
 			finally
