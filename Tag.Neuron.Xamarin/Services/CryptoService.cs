@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Waher.Events;
 using Waher.Runtime.Inventory;
-using Waher.Runtime.Profiling;
 using Waher.Security;
 using Xamarin.Essentials;
 
@@ -16,14 +14,11 @@ namespace Tag.Neuron.Xamarin.Services
 	{
 		private readonly ILogService logService;
 		private readonly RandomNumberGenerator rnd;
-		private ProfilerThread profilerThread;
 
-		public CryptoService(ILogService logService, Profiler startupProfiler)
+		public CryptoService(ILogService logService)
 		{
 			this.logService = logService;
 			this.rnd = RandomNumberGenerator.Create();
-			this.profilerThread = startupProfiler?.CreateThread("Keys", ProfilerThreadType.StateMachine);
-			this.profilerThread?.NewState("Idle");
 		}
 
 		public async Task<KeyValuePair<byte[], byte[]>> GetCustomKey(string fileName)
@@ -35,16 +30,10 @@ namespace Tag.Neuron.Xamarin.Services
 
 			try
 			{
-				if (this.profilerThread?.Profiler?.MainThread?.StoppedAt.HasValue ?? true)
-					this.profilerThread = null;
-
-				this.profilerThread?.NewState("Get");
-
 				s = await SecureStorage.GetAsync(fileName);
 			}
 			catch (TypeInitializationException ex)
 			{
-				this.profilerThread?.Exception(ex);
 				this.logService.LogException(ex);
 				// No secure storage available.
 
@@ -71,13 +60,9 @@ namespace Tag.Neuron.Xamarin.Services
 					rnd.GetBytes(iv);
 				}
 
-				this.profilerThread?.NewState("New");
-
 				s = Hashes.BinaryToString(key) + "," + Hashes.BinaryToString(iv);
 				await SecureStorage.SetAsync(fileName, s);
 			}
-
-			this.profilerThread?.NewState("Idle");
 
 			return new KeyValuePair<byte[], byte[]>(key, iv);
 		}

@@ -23,7 +23,7 @@ namespace Tag.Neuron.Xamarin
 			this.singletons.Add(typeof(ILogService), this.LogService);
 			this.UiDispatcher = new UiDispatcher();
 			this.singletons.Add(typeof(IUiDispatcher), this.UiDispatcher);
-			this.CryptoService = new CryptoService(this.LogService, startupProfiler);
+			this.CryptoService = new CryptoService(this.LogService);
 			this.singletons.Add(typeof(ICryptoService), this.CryptoService);
 			this.NetworkService = new NetworkService(this.LogService, this.UiDispatcher);
 			this.singletons.Add(typeof(INetworkService), this.NetworkService);
