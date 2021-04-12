@@ -149,7 +149,7 @@ namespace Tag.Neuron.Xamarin.Services
 						this.contractsClient = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
 
 						Thread?.NewState("Keys");
-						if (!await this.contractsClient.LoadKeys(false, Thread))
+						if (!await this.contractsClient.LoadKeys(false))
 						{
 							if (!CanCreateKeys)
 							{

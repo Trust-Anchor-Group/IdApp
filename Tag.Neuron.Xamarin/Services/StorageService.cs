@@ -189,18 +189,10 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private async Task<FilesProvider> CreateDatabaseFile(ProfilerThread Thread)
 		{
-			Thread = Thread?.CreateSubThread("Files", ProfilerThreadType.Sequential);
-			try
-			{
-				Thread?.Start();
+			FilesProvider.AsyncFileIo = false;	// Asynchronous file I/O induces a long delay during startup on mobile platforms. Why??
 
-				return await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
-					(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey, Thread);
-			}
-			finally
-			{
-				Thread?.Stop();
-			}
+			return await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
+				(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey, Thread);
 		}
 
 		#endregion

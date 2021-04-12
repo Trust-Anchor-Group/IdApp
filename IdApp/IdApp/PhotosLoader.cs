@@ -204,7 +204,7 @@ namespace IdApp
 
                 ContentType = pair.Key;
                 Bin = new byte[file.Length];
-                if (file.Length != await file.ReadAsync(Bin, 0, (int)file.Length))
+                if (file.Length != file.Read(Bin, 0, (int)file.Length))
                     return (null, string.Empty);
 
                 bool IsContact = await this.neuronService.Contracts.IsContact(attachment.LegalId);
