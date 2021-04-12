@@ -23,11 +23,11 @@
     <PackageReference Include="Waher.Content.QR" Version="1.0.1" />
     <PackageReference Include="Waher.Content.Xml" Version="1.1.0" />
     <PackageReference Include="Waher.Events.XMPP" Version="1.1.1" />
-    <PackageReference Include="Waher.Networking" Version="1.0.21" />
+    <PackageReference Include="Waher.Networking" Version="1.0.22" />
     <PackageReference Include="Waher.Networking.DNS" Version="1.0.13" />
     <PackageReference Include="Waher.Networking.PeerToPeer" Version="1.1.4" />
     <PackageReference Include="Waher.Networking.UPnP" Version="1.0.5" />
-    <PackageReference Include="Waher.Networking.XMPP" Version="1.1.12" />
+    <PackageReference Include="Waher.Networking.XMPP" Version="1.1.13" />
     <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="1.1.1" />
     <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="1.2.12" />
     <PackageReference Include="Waher.Networking.XMPP.Control" Version="1.1.1" />
@@ -37,7 +37,7 @@
     <PackageReference Include="Waher.Networking.XMPP.PubSub" Version="1.1.2" />
     <PackageReference Include="Waher.Networking.XMPP.Sensor" Version="1.1.1" />
     <PackageReference Include="Waher.Persistence" Version="1.2.5" />
-    <PackageReference Include="Waher.Persistence.FilesLW" Version="1.2.11" />
+    <PackageReference Include="Waher.Persistence.FilesLW" Version="1.2.12" />
     <PackageReference Include="Waher.Runtime.Inventory" Version="1.0.23" />
     <PackageReference Include="Waher.Runtime.Language" Version="1.0.4" />
     <PackageReference Include="Waher.Runtime.Queue" Version="1.0.0" />
