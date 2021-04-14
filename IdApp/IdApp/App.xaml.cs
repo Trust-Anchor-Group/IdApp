@@ -50,6 +50,7 @@ namespace IdApp
 	public partial class App
 	{
 		private static TaskCompletionSource<bool> servicesSetup;
+		private static TaskCompletionSource<bool> configLoaded;
 		private Timer autoSaveTimer;
 		private ITagIdSdk sdk;
 		private IAttachmentCacheService attachmentCacheService;
@@ -71,6 +72,7 @@ namespace IdApp
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
 			servicesSetup = new TaskCompletionSource<bool>();
+			configLoaded = new TaskCompletionSource<bool>();
 			this.initCompleted = this.Init();
 
 			InitializeComponent();
@@ -178,9 +180,19 @@ namespace IdApp
 
 						Thread?.NewState("DB");
 						await this.sdk.StorageService.Init(Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential));
+
+						Thread?.NewState("Config");
+						await this.CreateOrRestoreConfiguration();
+
+						configLoaded.TrySetResult(true);
+
+						Thread?.NewState("Startup");
+						await this.PerformStartup(false);
 					}
 					catch (Exception ex)
 					{
+						servicesSetup.TrySetResult(false);
+						configLoaded.TrySetResult(false);
 						this.HandleStartupException(ex);
 						return;
 					}
@@ -216,18 +228,23 @@ namespace IdApp
 			await servicesSetup.Task;
 		}
 
+		internal static async Task WaitForConfigLoaded()
+		{
+			await configLoaded.Task;
+		}
+
 		#region Startup/Shutdown
 
 		///<inheritdoc/>
 		protected override async void OnStart()
 		{
-			await this.PerformStartup(false);
+			await this.initCompleted;
+			this.StartupCompleted("StartupProfile.uml", false);
 		}
 
 		///<inheritdoc/>
 		protected override async void OnResume()
 		{
-			this.initCompleted = Task.FromResult<bool>(true);
 			await this.PerformStartup(true);
 		}
 
@@ -244,28 +261,21 @@ namespace IdApp
 				thread?.NewState("Startup");
 				this.sdk.UiDispatcher.IsRunningInTheBackground = false;
 
-				thread?.NewState("Wait");
-
-				if (!await this.initCompleted)
-					return;
-
 				// Start the db.
 				// This is for soft restarts.
 				// If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
 
+				thread?.NewState("DB");
 				await this.sdk.StorageService.Init(thread);			// TODO: Review
 
 				if (!await this.sdk.StorageService.WaitInitDone())	// TODO: Remove
 					throw new Exception(AppResources.UnableToInitializeDatabase);
 
-				if (!isResuming)
-				{
-					thread?.NewState("Config");
-					await this.CreateOrRestoreConfiguration();		// TODO: Review
-				}
-
 				thread?.NewState("Network");
 				await this.sdk.NetworkService.Load(isResuming);
+
+				if (!isResuming)
+					await WaitForConfigLoaded();
 
 				thread?.NewState("Neuron");
 				await this.sdk.NeuronService.Load(isResuming);
@@ -292,7 +302,6 @@ namespace IdApp
 			}
 
 			thread?.Stop();
-			this.StartupCompleted("StartupProfile.uml", false);
 		}
 
 		///<inheritdoc/>
