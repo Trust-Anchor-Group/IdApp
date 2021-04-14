@@ -70,10 +70,10 @@ namespace IdApp
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
-			InitializeComponent();
-
 			servicesSetup = new TaskCompletionSource<bool>();
 			this.initCompleted = this.Init();
+
+			InitializeComponent();
 
 			// Start page
 			try
