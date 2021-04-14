@@ -42,7 +42,7 @@ namespace Tag.Neuron.Xamarin.Services
 		#region LifeCycle management
 
 		/// <inheritdoc />
-		public async void Init(ProfilerThread Thread)
+		public async Task Init(ProfilerThread Thread)
 		{
 			lock (this.tasksWaiting)
 			{

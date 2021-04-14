@@ -23,14 +23,6 @@ namespace IdApp
 	/// </summary>
 	public partial class AppShell
 	{
-		private readonly INeuronService neuronService;
-		private readonly INetworkService networkService;
-		private readonly INavigationService navigationService;
-		private readonly ILogService logService;
-		private readonly IUiDispatcher uiDispatcher;
-		private readonly IContractOrchestratorService contractOrchestratorService;
-		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
-		private readonly IEDalerOrchestratorService eDalerOrchestratorService;
 		private static AppShell _instance;
 		internal static AppShell Instance => _instance ?? (_instance = new AppShell());
 
@@ -40,29 +32,61 @@ namespace IdApp
 		public AppShell()
 		{
 			this.ViewModel = new AppShellViewModel();
-			this.neuronService = DependencyService.Resolve<INeuronService>();
-			this.networkService = DependencyService.Resolve<INetworkService>();
-			this.navigationService = DependencyService.Resolve<INavigationService>();
-			this.logService = DependencyService.Resolve<ILogService>();
-			this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
-			this.contractOrchestratorService = DependencyService.Resolve<IContractOrchestratorService>();
-			this.thingRegistryOrchestratorService = DependencyService.Resolve<IThingRegistryOrchestratorService>();
-			this.eDalerOrchestratorService = DependencyService.Resolve<IEDalerOrchestratorService>();
 			InitializeComponent();
 			SetTabBarIsVisible(this, false);
 			RegisterRoutes();
 		}
 
+		/// <summary>
+		/// Current Neuron Service
+		/// </summary>
+		public INeuronService NeuronService => DependencyService.Resolve<INeuronService>();
+
+		/// <summary>
+		/// Current Network Service
+		/// </summary>
+		public INetworkService NetworkService => DependencyService.Resolve<INetworkService>();
+
+		/// <summary>
+		/// Current Navigation Service
+		/// </summary>
+		public INavigationService NavigationService => DependencyService.Resolve<INavigationService>();
+
+		/// <summary>
+		/// Current Log Service
+		/// </summary>
+		public ILogService LogService => DependencyService.Resolve<ILogService>();
+
+		/// <summary>
+		/// Current UI Dispatcher Service
+		/// </summary>
+		public IUiDispatcher UiDispatcher => DependencyService.Resolve<IUiDispatcher>();
+
+		/// <summary>
+		/// Current Contract Orchestrator Service
+		/// </summary>
+		public IContractOrchestratorService ContractOrchestratorService => DependencyService.Resolve<IContractOrchestratorService>();
+
+		/// <summary>
+		/// Current Thing Registry Orchestrator Service
+		/// </summary>
+		public IThingRegistryOrchestratorService ThingRegistryOrchestratorService => DependencyService.Resolve<IThingRegistryOrchestratorService>();
+
+		/// <summary>
+		/// Current eDaler Orchestrator Service
+		/// </summary>
+		public IEDalerOrchestratorService EDalerOrchestratorService => DependencyService.Resolve<IEDalerOrchestratorService>();
+
 		/// <inheritdoc/>
 		protected override void OnNavigated(ShellNavigatedEventArgs e)
 		{
 			base.OnNavigated(e);
+
 			// Once MainPage is shown, hide the "Loading..." Flyout, as the user shouldn't be
 			// able to navigate to that page.
+
 			if (e.Current.Location.ToString().Contains(nameof(MainPage)))
-			{
 				this.LoadingFlyout.IsVisible = false;
-			}
 		}
 
 		private void RegisterRoutes()
@@ -118,7 +142,7 @@ namespace IdApp
 			// So we do a manual check here.
 			if (this.GetViewModel<AppShellViewModel>().IsConnected)
 			{
-				await this.navigationService.GoToAsync(route);
+				await this.NavigationService?.GoToAsync(route);
 			}
 		}
 
@@ -129,9 +153,9 @@ namespace IdApp
 
 		internal async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
 		{
-            await QrCode.ScanQrCodeAndHandleResult(this.logService, this.neuronService, this.navigationService,
-                this.uiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
-				this.eDalerOrchestratorService);
+            await QrCode.ScanQrCodeAndHandleResult(this.LogService, this.NeuronService, this.NavigationService,
+                this.UiDispatcher, this.ContractOrchestratorService, this.ThingRegistryOrchestratorService,
+				this.EDalerOrchestratorService);
 		}
 
 		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)
@@ -157,7 +181,7 @@ namespace IdApp
 			}
 			catch (Exception ex)
 			{
-				logService.LogException(ex);
+				this.LogService.LogException(ex);
 			}
 
 			await this.GoToPage(nameof(XmppCommunicationPage));
@@ -167,21 +191,21 @@ namespace IdApp
 		{
 			Current.FlyoutIsPresented = false;
 			// Break the call chain by 'posting' to the main thread, allowing the fly out menu to hide before initiating the login/out.
-			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.UiDispatcher.BeginInvokeOnMainThread(async () =>
 			{
-				if (!this.networkService.IsOnline)
+				if (!this.NetworkService.IsOnline)
 				{
-					await this.uiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, AppResources.NetworkSeemsToBeMissing);
+					await this.UiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, AppResources.NetworkSeemsToBeMissing);
 					return;
 				}
 
-				if (this.neuronService.IsLoggedOut)
+				if (this.NeuronService.IsLoggedOut)
 				{
-					await this.neuronService.LogIn();
+					await this.NeuronService.LogIn();
 				}
 				else
 				{
-					await this.neuronService.LogOut();
+					await this.NeuronService.LogOut();
 				}
 			});
 		}
@@ -189,7 +213,7 @@ namespace IdApp
 		private void AboutMenuItem_Clicked(object sender, EventArgs e)
 		{
 			Current.FlyoutIsPresented = false;
-			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.UiDispatcher.BeginInvokeOnMainThread(async () =>
 			{
 				StringBuilder sb = new StringBuilder();
 				sb.AppendLine($"Name: {AppInfo.Name}");
@@ -199,7 +223,7 @@ namespace IdApp
 				sb.AppendLine($"Platform: {Device.RuntimePlatform}");
 				sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
 				sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
-				await this.uiDispatcher.DisplayAlert(AppResources.About, sb.ToString());
+				await this.UiDispatcher.DisplayAlert(AppResources.About, sb.ToString());
 			});
 		}
 

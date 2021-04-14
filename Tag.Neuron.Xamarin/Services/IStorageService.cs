@@ -18,7 +18,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// Initializes the persistent storage on a background task. This call is asynchronous.
         /// </summary>
         /// <param name="Thread"></param>
-        void Init(ProfilerThread Thread);
+        Task Init(ProfilerThread Thread);
 
         /// <summary>
         /// Waits for initialization of the storage service to be completed.

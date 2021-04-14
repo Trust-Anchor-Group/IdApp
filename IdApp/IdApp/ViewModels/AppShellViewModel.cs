@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using IdApp.Extensions;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
@@ -16,35 +17,56 @@ namespace IdApp.ViewModels
     /// </summary>
     public class AppShellViewModel : BaseViewModel
     {
-        private readonly ITagProfile tagProfile;
-        private readonly INeuronService neuronService;
-        private readonly INetworkService networkService;
-        private readonly IUiDispatcher uiDispatcher;
-
         /// <summary>
         /// Creates a new instance of the <see cref="AppShellViewModel"/> class.
         /// </summary>
-        public AppShellViewModel()
-            : this(null, null, null, null)
+        protected internal AppShellViewModel()
         {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="AppShellViewModel"/> class.
-        /// For unit tests.
-        /// </summary>
-        protected internal AppShellViewModel(ITagProfile tagProfile, INeuronService neuronService, INetworkService networkService, IUiDispatcher uiDispatcher)
-        {
-            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
-            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
             this.ConnectionStateText = AppResources.XmppState_Offline;
-            this.IsOnline = this.networkService.IsOnline;
-            this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
-            this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
             this.UpdateLogInLogOutMenuItem();
         }
+
+        /// <inheritdoc/>
+		protected override async Task DoBind()
+		{
+			await base.DoBind();
+
+            await App.WaitForServiceSetup();
+
+            this.IsOnline = this.NetworkService.IsOnline;
+
+            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+            this.NetworkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
+        }
+
+        /// <inheritdoc/>
+        protected override async Task DoUnbind()
+		{
+            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
+            
+            await base.DoUnbind();
+		}
+
+		/// <summary>
+		/// Current TAG Profile
+		/// </summary>
+		public ITagProfile TagProfile => DependencyService.Resolve<ITagProfile>();
+
+        /// <summary>
+        /// Current Neuron Service
+        /// </summary>
+        public INeuronService NeuronService => DependencyService.Resolve<INeuronService>();
+
+        /// <summary>
+        /// Current Network Service
+        /// </summary>
+        public INetworkService NetworkService => DependencyService.Resolve<INetworkService>();
+
+        /// <summary>
+        /// Current UI Dispatcher Service
+        /// </summary>
+        public IUiDispatcher UiDispatcher => DependencyService.Resolve<IUiDispatcher>();
 
         #region Properties
 
@@ -166,18 +188,18 @@ namespace IdApp.ViewModels
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.uiDispatcher.BeginInvokeOnMainThread(() =>
+            this.UiDispatcher.BeginInvokeOnMainThread(() =>
             {
-                this.ConnectionStateText = e.State.ToDisplayText(this.tagProfile);
+                this.ConnectionStateText = e.State.ToDisplayText(this.TagProfile);
                 this.IsConnected = e.State == XmppState.Connected;
-                this.UserIsLoggedOut = this.neuronService.IsLoggedOut;
+                this.UserIsLoggedOut = this.NeuronService.IsLoggedOut;
                 this.UpdateLogInLogOutMenuItem();
             });
         }
 
         private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
-            this.uiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.networkService.IsOnline);
+            this.UiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.NetworkService.IsOnline);
         }
     }
 }

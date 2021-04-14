@@ -18,6 +18,7 @@ using Waher.Content;
 using Waher.Content.Images;
 using Waher.Content.Xml;
 using Waher.Content.Markdown;
+using Waher.Events;
 using Waher.IoTGateway.Setup;
 using Waher.Networking.DNS;
 using Waher.Networking.XMPP;
@@ -48,13 +49,15 @@ namespace IdApp
 	/// </summary>
 	public partial class App
 	{
+		private static TaskCompletionSource<bool> servicesSetup;
 		private Timer autoSaveTimer;
-		private readonly ITagIdSdk sdk;
-		private readonly IAttachmentCacheService attachmentCacheService;
-		private readonly IContractOrchestratorService contractOrchestratorService;
-		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
-		private readonly IEDalerOrchestratorService eDalerOrchestratorService;
+		private ITagIdSdk sdk;
+		private IAttachmentCacheService attachmentCacheService;
+		private IContractOrchestratorService contractOrchestratorService;
+		private IThingRegistryOrchestratorService thingRegistryOrchestratorService;
+		private IEDalerOrchestratorService eDalerOrchestratorService;
 		private Profiler startupProfiler;
+		private Task<bool> initCompleted;
 
 		///<inheritdoc/>
 		public App()
@@ -69,82 +72,8 @@ namespace IdApp
 
 			InitializeComponent();
 
-			try
-			{
-				this.startupProfiler?.NewState("Types");
-
-				Assembly appAssembly = this.GetType().Assembly;
-
-				if (!Types.IsInitialized)
-				{
-					// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
-					Types.Initialize(
-						appAssembly,                                // Allows for objects defined in this assembly, to be instantiated and persisted.
-						typeof(Database).Assembly,                  // Indexes default attributes
-						typeof(ObjectSerializer).Assembly,          // Indexes general serializers
-						typeof(FilesProvider).Assembly,             // Indexes special serializers
-						typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
-						typeof(InternetContent).Assembly,           // Common Content-Types
-						typeof(ImageCodec).Assembly,                // Common Image Content-Types
-						typeof(XML).Assembly,                       // XML Content-Type
-						typeof(MarkdownDocument).Assembly,          // Markdown support
-						typeof(DnsResolver).Assembly,               // Serialization of DNS-related objects
-						typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
-						typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
-						typeof(ProvisioningClient).Assembly,        // Serialization of XMPP objects related to thing registries, provisioning and decision support.
-						typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
-						typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
-						typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
-						typeof(Expression).Assembly,                // Indexes basic script functions
-						typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
-						typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
-						typeof(TagConfiguration).Assembly,          // Indexes persistable objects
-						typeof(RegistrationStep).Assembly);         // Indexes persistable objects
-				}
-
-				EndpointSecurity.SetCiphers(new Type[]
-				{
-					typeof(Edwards448Endpoint),
-					typeof(Edwards25519Endpoint),
-					typeof(Curve448Endpoint),
-					typeof(Curve25519Endpoint)
-				}, false);
-
-				this.startupProfiler?.NewState("SDK");
-				// Create Services
-				this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
-				this.attachmentCacheService = new AttachmentCacheService(this.sdk.LogService);
-				this.sdk.RegisterSingleton<IAttachmentCacheService, AttachmentCacheService>(this.attachmentCacheService);
-				this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
-				this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
-				this.thingRegistryOrchestratorService = new ThingRegistryOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
-				this.sdk.RegisterSingleton<IThingRegistryOrchestratorService, ThingRegistryOrchestratorService>(this.thingRegistryOrchestratorService);
-				this.eDalerOrchestratorService = new EDalerOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
-				this.sdk.RegisterSingleton<IEDalerOrchestratorService, EDalerOrchestratorService>(this.eDalerOrchestratorService);
-
-				// Set resolver
-				DependencyResolver.ResolveUsing(type =>
-				{
-					object obj = this.sdk.Resolve(type);
-					if (!(obj is null))
-						return obj;
-
-					if (Types.GetType(type.FullName) is null)
-						return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
-
-					return Types.Instantiate(true, type);
-				});
-
-				// Get the db started right away to save startup time.
-				this.sdk.StorageService.Init(this.startupProfiler?.CreateThread("Database", ProfilerThreadType.Sequential));
-			}
-			catch (Exception e)
-			{
-				e = Waher.Events.Log.UnnestException(e);
-				this.startupProfiler?.Exception(e);
-				DisplayBootstrapErrorPage(e.Message, e.StackTrace);
-				return;
-			}
+			servicesSetup = new TaskCompletionSource<bool>();
+			this.initCompleted = this.Init();
 
 			// Start page
 			try
@@ -153,14 +82,137 @@ namespace IdApp
 
 				this.MainPage = new AppShell();
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				e = Waher.Events.Log.UnnestException(e);
-				this.startupProfiler?.Exception(e);
-				this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
+				this.HandleStartupException(ex);
 			}
 
 			this.startupProfiler?.MainThread?.Idle();
+		}
+
+		private Task<bool> Init()
+		{
+			TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+
+			Task.Run(async () =>
+			{
+				ProfilerThread Thread = this.startupProfiler?.CreateThread("Init", ProfilerThreadType.Sequential);
+
+				try
+				{
+					try
+					{
+						Thread?.Start();
+						Thread?.NewState("Types");
+
+						Assembly appAssembly = this.GetType().Assembly;
+
+						if (!Types.IsInitialized)
+						{
+							// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
+							Types.Initialize(
+								appAssembly,                                // Allows for objects defined in this assembly, to be instantiated and persisted.
+								typeof(Database).Assembly,                  // Indexes default attributes
+								typeof(ObjectSerializer).Assembly,          // Indexes general serializers
+								typeof(FilesProvider).Assembly,             // Indexes special serializers
+								typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
+								typeof(InternetContent).Assembly,           // Common Content-Types
+								typeof(ImageCodec).Assembly,                // Common Image Content-Types
+								typeof(XML).Assembly,                       // XML Content-Type
+								typeof(MarkdownDocument).Assembly,          // Markdown support
+								typeof(DnsResolver).Assembly,               // Serialization of DNS-related objects
+								typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
+								typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
+								typeof(ProvisioningClient).Assembly,        // Serialization of XMPP objects related to thing registries, provisioning and decision support.
+								typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
+								typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
+								typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
+								typeof(Expression).Assembly,                // Indexes basic script functions
+								typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
+								typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
+								typeof(TagConfiguration).Assembly,          // Indexes persistable objects
+								typeof(RegistrationStep).Assembly);         // Indexes persistable objects
+						}
+
+						EndpointSecurity.SetCiphers(new Type[]
+						{
+							typeof(Edwards448Endpoint),
+							typeof(Edwards25519Endpoint),
+							typeof(Curve448Endpoint),
+							typeof(Curve25519Endpoint)
+						}, false);
+
+						Thread?.NewState("SDK");
+
+						// Create Services
+
+						this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
+
+						this.attachmentCacheService = new AttachmentCacheService(this.sdk.LogService);
+						this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+						this.thingRegistryOrchestratorService = new ThingRegistryOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
+						this.eDalerOrchestratorService = new EDalerOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+
+						this.sdk.RegisterSingleton<IAttachmentCacheService, AttachmentCacheService>(this.attachmentCacheService);
+						this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
+						this.sdk.RegisterSingleton<IThingRegistryOrchestratorService, ThingRegistryOrchestratorService>(this.thingRegistryOrchestratorService);
+						this.sdk.RegisterSingleton<IEDalerOrchestratorService, EDalerOrchestratorService>(this.eDalerOrchestratorService);
+
+						// Set resolver
+
+						DependencyResolver.ResolveUsing(type =>
+						{
+							object obj = this.sdk.Resolve(type);
+							if (!(obj is null))
+								return obj;
+
+							if (Types.GetType(type.FullName) is null)
+								return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
+
+							return Types.Instantiate(true, type);
+						});
+
+						servicesSetup.TrySetResult(true);
+
+						// Get the db started right away to save startup time.
+
+						await this.sdk.StorageService.Init(Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential));
+					}
+					catch (Exception ex)
+					{
+						this.HandleStartupException(ex);
+						return;
+					}
+				}
+				catch (Exception ex)
+				{
+					ex = Waher.Events.Log.UnnestException(ex);
+					Thread?.Exception(ex);
+					this.HandleStartupException(ex);
+					Result.TrySetResult(false);
+				}
+				finally
+				{
+					Thread?.Stop();
+					Result.TrySetResult(true);
+				}
+			});
+
+			return Result.Task;
+		}
+
+		private void HandleStartupException(Exception ex)
+		{
+			ex = Waher.Events.Log.UnnestException(ex);
+			this.startupProfiler?.Exception(ex);
+			this.sdk.LogService.SaveExceptionDump("StartPage", ex.ToString());
+			DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
+			return;
+		}
+
+		internal static async Task WaitForServiceSetup()
+		{
+			await servicesSetup.Task;
 		}
 
 		#region Startup/Shutdown
@@ -174,6 +226,7 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override async void OnResume()
 		{
+			this.initCompleted = Task.FromResult<bool>(true);
 			await this.PerformStartup(true);
 		}
 
@@ -190,20 +243,24 @@ namespace IdApp
 				thread?.NewState("Startup");
 				this.sdk.UiDispatcher.IsRunningInTheBackground = false;
 
-				thread?.NewState("WaitDB");
+				thread?.NewState("Wait");
+
+				if (!await this.initCompleted)
+					return;
 
 				// Start the db.
 				// This is for soft restarts.
 				// If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
-				this.sdk.StorageService.Init(thread);
 
-				if (!await this.sdk.StorageService.WaitInitDone())
+				await this.sdk.StorageService.Init(thread);			// TODO: Review
+
+				if (!await this.sdk.StorageService.WaitInitDone())	// TODO: Remove
 					throw new Exception(AppResources.UnableToInitializeDatabase);
 
 				if (!isResuming)
 				{
 					thread?.NewState("Config");
-					await this.CreateOrRestoreConfiguration();
+					await this.CreateOrRestoreConfiguration();		// TODO: Review
 				}
 
 				thread?.NewState("Network");
@@ -226,11 +283,11 @@ namespace IdApp
 				await this.contractOrchestratorService.Load(isResuming);
 				await this.thingRegistryOrchestratorService.Load(isResuming);
 			}
-			catch (Exception e)
+			catch (Exception ex)
 			{
-				e = Waher.Events.Log.UnnestException(e);
-				thread?.Exception(e);
-				this.DisplayBootstrapErrorPage(e.Message, e.StackTrace);
+				ex = Waher.Events.Log.UnnestException(ex);
+				thread?.Exception(ex);
+				this.DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			}
 
 			thread?.Stop();
@@ -285,8 +342,8 @@ namespace IdApp
 			if (!(this.sdk.StorageService is null))
 				await this.sdk.StorageService.Shutdown();
 
-			await Types.StopAllModules();
-			Waher.Events.Log.Terminate();
+			await Types.StopAllModules();	// TODO: Review
+			Waher.Events.Log.Terminate();	// TODO: Review
 		}
 
 		#endregion
@@ -406,33 +463,41 @@ namespace IdApp
 
 		private void DisplayBootstrapErrorPage(string title, string stackTrace)
 		{
-			this.sdk?.LogService?.SaveExceptionDump(title, stackTrace);
+			Dispatcher.BeginInvokeOnMainThread(() =>
+			{
+				this.sdk?.LogService?.SaveExceptionDump(title, stackTrace);
 
-			ScrollView sv = new ScrollView();
-			StackLayout sl = new StackLayout
-			{
-				Orientation = StackOrientation.Vertical,
-			};
-			sl.Children.Add(new Label
-			{
-				Text = title,
-				FontSize = 24,
-				HorizontalOptions = LayoutOptions.FillAndExpand,
+				ScrollView sv = new ScrollView();
+				StackLayout sl = new StackLayout
+				{
+					Orientation = StackOrientation.Vertical,
+				};
+
+				sl.Children.Add(new Label
+				{
+					Text = title,
+					FontSize = 24,
+					HorizontalOptions = LayoutOptions.FillAndExpand,
+				});
+
+				sl.Children.Add(new Label
+				{
+					Text = stackTrace,
+					HorizontalOptions = LayoutOptions.FillAndExpand,
+					VerticalOptions = LayoutOptions.FillAndExpand
+				});
+
+				Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
+				b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
+				sl.Children.Add(b);
+
+				sv.Content = sl;
+
+				this.MainPage = new ContentPage
+				{
+					Content = sv
+				};
 			});
-			sl.Children.Add(new Label
-			{
-				Text = stackTrace,
-				HorizontalOptions = LayoutOptions.FillAndExpand,
-				VerticalOptions = LayoutOptions.FillAndExpand
-			});
-			Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
-			b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
-			sl.Children.Add(b);
-			sv.Content = sl;
-			this.MainPage = new ContentPage
-			{
-				Content = sv
-			};
 		}
 
 		private async Task SendErrorReportFromPreviousRun()

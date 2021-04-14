@@ -1755,6 +1755,46 @@
             Create a new instance of the <see cref="T:IdApp.AppShell"/> class.
             </summary>
         </member>
+        <member name="P:IdApp.AppShell.NeuronService">
+            <summary>
+            Current Neuron Service
+            </summary>
+        </member>
+        <member name="P:IdApp.AppShell.NetworkService">
+            <summary>
+            Current Network Service
+            </summary>
+        </member>
+        <member name="P:IdApp.AppShell.NavigationService">
+            <summary>
+            Current Navigation Service
+            </summary>
+        </member>
+        <member name="P:IdApp.AppShell.LogService">
+            <summary>
+            Current Log Service
+            </summary>
+        </member>
+        <member name="P:IdApp.AppShell.UiDispatcher">
+            <summary>
+            Current UI Dispatcher Service
+            </summary>
+        </member>
+        <member name="P:IdApp.AppShell.ContractOrchestratorService">
+            <summary>
+            Current Contract Orchestrator Service
+            </summary>
+        </member>
+        <member name="P:IdApp.AppShell.ThingRegistryOrchestratorService">
+            <summary>
+            Current Thing Registry Orchestrator Service
+            </summary>
+        </member>
+        <member name="P:IdApp.AppShell.EDalerOrchestratorService">
+            <summary>
+            Current eDaler Orchestrator Service
+            </summary>
+        </member>
         <member name="M:IdApp.AppShell.OnNavigated(Xamarin.Forms.ShellNavigatedEventArgs)">
             <inheritdoc/>
         </member>
@@ -2842,10 +2882,30 @@
             Creates a new instance of the <see cref="T:IdApp.ViewModels.AppShellViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.AppShellViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.IUiDispatcher)">
+        <member name="M:IdApp.ViewModels.AppShellViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.ViewModels.AppShellViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.TagProfile">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.ViewModels.AppShellViewModel"/> class.
-            For unit tests.
+            Current TAG Profile
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.NeuronService">
+            <summary>
+            Current Neuron Service
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.NetworkService">
+            <summary>
+            Current Network Service
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.AppShellViewModel.UiDispatcher">
+            <summary>
+            Current UI Dispatcher Service
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.AppShellViewModel.ConnectionStateTextProperty">
