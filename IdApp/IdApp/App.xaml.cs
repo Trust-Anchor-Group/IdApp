@@ -58,7 +58,7 @@ namespace IdApp
 		private IThingRegistryOrchestratorService thingRegistryOrchestratorService;
 		private IEDalerOrchestratorService eDalerOrchestratorService;
 		private Profiler startupProfiler;
-		private Task<bool> initCompleted;
+		private readonly Task<bool> initCompleted;
 
 		///<inheritdoc/>
 		public App()
