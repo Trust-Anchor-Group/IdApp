@@ -137,9 +137,6 @@ namespace IdApp
 
 				// Get the db started right away to save startup time.
 				this.sdk.StorageService.Init(this.startupProfiler?.CreateThread("Database", ProfilerThreadType.Sequential));
-
-				// Register log listener (optional)
-				this.sdk.LogService.AddListener(new AppCenterEventSink(this.sdk.LogService));
 			}
 			catch (Exception e)
 			{
@@ -171,11 +168,6 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override async void OnStart()
 		{
-			//AppCenter.Start(
-			//    "android={Your Android App secret here};uwp={Your UWP App secret here};ios={Your iOS App secret here}",
-			//    typeof(Analytics),
-			//    typeof(Crashes));
-
 			await this.PerformStartup(false);
 		}
 
@@ -250,10 +242,9 @@ namespace IdApp
 		{
 			// Done manually here, as the Disappearing event won't trigger when exiting the app,
 			// and we want to make sure state is persisted and teardown is done correctly to avoid memory leaks.
+
 			if (MainPage?.BindingContext is BaseViewModel vm)
-			{
 				await vm.Shutdown();
-			}
 
 			await this.Shutdown(false);
 		}

@@ -29,20 +29,6 @@
             <param name="IncludeUnchanged">If unchanged material should be included.</param>
             <param name="SendAsAlert">If an alert is to be sent.</param>
         </member>
-        <member name="T:IdApp.AppCenterEventSink">
-            <summary>
-            An event sink for reporting events to Microsoft App Center Analytics and Crashes.
-            </summary>
-        </member>
-        <member name="M:IdApp.AppCenterEventSink.#ctor(Tag.Neuron.Xamarin.Services.ILogService)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.AppCenterEventSink"/> class.
-            </summary>
-            <param name="logService">The log service to use.</param>
-        </member>
-        <member name="M:IdApp.AppCenterEventSink.Queue(Waher.Events.Event)">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.AppResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
