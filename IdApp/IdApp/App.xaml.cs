@@ -163,7 +163,7 @@ namespace IdApp
 				this.sdk.LogService.SaveExceptionDump("StartPage", e.ToString());
 			}
 
-			this.startupProfiler?.MainThread.Idle();
+			this.startupProfiler?.MainThread?.Idle();
 		}
 
 		#region Startup/Shutdown
@@ -187,7 +187,7 @@ namespace IdApp
 
 		private async Task PerformStartup(bool isResuming)
 		{
-			ProfilerThread thread = this.startupProfiler?.MainThread.CreateSubThread(isResuming ? "OnResume" : "OnStart", ProfilerThreadType.Sequential);
+			ProfilerThread thread = this.startupProfiler?.MainThread?.CreateSubThread(isResuming ? "OnResume" : "OnStart", ProfilerThreadType.Sequential);
 			thread?.Start();
 
 			try

@@ -433,14 +433,14 @@ namespace Tag.Neuron.Xamarin.Services
 							Thread?.NewState("XMPP");
 
 							ProfilerThread ClientsThread = Thread?.CreateSubThread("Clients", ProfilerThreadType.Sequential);
-							ClientsThread.Start();
+							ClientsThread?.Start();
 							try
 							{
 								await this.CreateXmppClient(false, ClientsThread);
 							}
 							finally
 							{
-								ClientsThread.Stop();
+								ClientsThread?.Stop();
 							}
 						}
 
