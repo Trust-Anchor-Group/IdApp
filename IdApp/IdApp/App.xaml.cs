@@ -186,8 +186,7 @@ namespace IdApp
 
 						configLoaded.TrySetResult(true);
 
-						Thread?.NewState("Startup");
-						await this.PerformStartup(false);
+						await this.PerformStartup(false, Thread);
 					}
 					catch (Exception ex)
 					{
@@ -245,63 +244,60 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override async void OnResume()
 		{
-			await this.PerformStartup(true);
+			await this.PerformStartup(true, null);
 		}
 
-		private async Task PerformStartup(bool isResuming)
+		private async Task PerformStartup(bool isResuming, ProfilerThread Thread)
 		{
-			ProfilerThread thread = this.startupProfiler?.MainThread?.CreateSubThread(isResuming ? "OnResume" : "OnStart", ProfilerThreadType.Sequential);
-			thread?.Start();
-
 			try
 			{
-				thread?.NewState("Report");
+				Thread?.NewState("Report");
 				await this.SendErrorReportFromPreviousRun();
 
-				thread?.NewState("Startup");
+				Thread?.NewState("Startup");
 				this.sdk.UiDispatcher.IsRunningInTheBackground = false;
 
 				// Start the db.
 				// This is for soft restarts.
 				// If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
 
-				thread?.NewState("DB");
-				await this.sdk.StorageService.Init(thread);			// TODO: Review
+				Thread?.NewState("DB");
+				await this.sdk.StorageService.Init(Thread);			// TODO: Review
 
 				if (!await this.sdk.StorageService.WaitInitDone())	// TODO: Remove
 					throw new Exception(AppResources.UnableToInitializeDatabase);
 
-				thread?.NewState("Network");
+				Thread?.NewState("Network");
 				await this.sdk.NetworkService.Load(isResuming);
 
 				if (!isResuming)
 					await WaitForConfigLoaded();
 
-				thread?.NewState("Neuron");
+				Thread?.NewState("Neuron");
 				await this.sdk.NeuronService.Load(isResuming);
 
-				thread?.NewState("Timer");
+				Thread?.NewState("Timer");
 				TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
 				this.autoSaveTimer = new Timer(async _ => await AutoSave(), null, initialAutoSaveDelay, Constants.Intervals.AutoSave);
 
-				thread?.NewState("Navigation");
+				Thread?.NewState("Navigation");
 				await this.sdk.NavigationService.Load(isResuming);
 
-				thread?.NewState("Cache");
+				Thread?.NewState("Cache");
 				await this.attachmentCacheService.Load(isResuming);
 
-				thread?.NewState("Orchestrators");
+				Thread?.NewState("Orchestrators");
 				await this.contractOrchestratorService.Load(isResuming);
 				await this.thingRegistryOrchestratorService.Load(isResuming);
 			}
 			catch (Exception ex)
 			{
 				ex = Waher.Events.Log.UnnestException(ex);
-				thread?.Exception(ex);
+				Thread?.Exception(ex);
 				this.DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			}
 
-			thread?.Stop();
+			Thread?.Stop();
 		}
 
 		///<inheritdoc/>
