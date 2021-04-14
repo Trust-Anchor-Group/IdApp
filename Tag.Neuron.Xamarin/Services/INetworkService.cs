@@ -23,7 +23,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// Performs a DNS lookup for the specified domain name.
         /// </summary>
         /// <param name="domainName">The domain name whose name to resolve.</param>
-        /// <returns></returns>
+        /// <returns>Host Name, TCP Port number, and if the host is an IP Address or not.</returns>
         Task<(string hostName, int port, bool isIpAddress)> LookupXmppHostnameAndPort(string domainName);
         
         /// <summary>

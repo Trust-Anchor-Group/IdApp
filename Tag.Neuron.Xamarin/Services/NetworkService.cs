@@ -8,7 +8,6 @@ using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
 using Waher.Runtime.Inventory;
-using Waher.Runtime.Profiling;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -70,9 +69,7 @@ namespace Tag.Neuron.Xamarin.Services
         public async Task<(string hostName, int port, bool isIpAddress)> LookupXmppHostnameAndPort(string domainName)
         {
             if (IPAddress.TryParse(domainName, out IPAddress _))
-            {
                 return (domainName, DefaultXmppPortNumber, true);
-            }
 
             try
             {
@@ -95,6 +92,7 @@ namespace Tag.Neuron.Xamarin.Services
                 await func();
                 return true;
             }, memberName, rethrowException, displayAlert);
+
             return succeeded;
         }
 

@@ -201,24 +201,32 @@ namespace IdApp.ViewModels
                 {
                     var configPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     var filesList = Directory.GetFiles(configPath);
+                    string contentType;
+                    string message;
+                    string extension;
 
                     foreach (var file in filesList)
                     {
-                        string extension = Path.GetExtension(file);
-
-                        string contentType;
-                        string message;
+                        extension = Path.GetExtension(file);
 
                         if (extension == ".uml")
-                        {
-                            contentType = "text/markdown";
-                            message = $"```uml\n{File.ReadAllText(file)}```";
-                        }
-                        else
-                        {
-                            contentType = Waher.Content.InternetContent.GetContentType(extension);
-                            message = File.ReadAllText(file);
-                        }
+                            continue;
+
+                        contentType = Waher.Content.InternetContent.GetContentType(extension);
+                        message = File.ReadAllText(file);
+
+                        await App.SendAlert(message, contentType);
+                    }
+
+                    foreach (var file in filesList)
+                    {
+                        extension = Path.GetExtension(file);
+
+                        if (extension != ".uml")
+                            continue;
+
+                        contentType = "text/markdown";
+                        message = $"```uml\n{File.ReadAllText(file)}```";
 
                         await App.SendAlert(message, contentType);
                     }

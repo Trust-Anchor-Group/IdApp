@@ -19,6 +19,7 @@ using Waher.Content.Images;
 using Waher.Content.Xml;
 using Waher.Content.Markdown;
 using Waher.IoTGateway.Setup;
+using Waher.Networking.DNS;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
@@ -87,6 +88,7 @@ namespace IdApp
 						typeof(ImageCodec).Assembly,                // Common Image Content-Types
 						typeof(XML).Assembly,                       // XML Content-Type
 						typeof(MarkdownDocument).Assembly,          // Markdown support
+						typeof(DnsResolver).Assembly,               // Serialization of DNS-related objects
 						typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
 						typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
 						typeof(ProvisioningClient).Assembly,        // Serialization of XMPP objects related to thing registries, provisioning and decision support.
@@ -521,21 +523,11 @@ namespace IdApp
 		/// <param name="SendAsAlert">If an alert is to be sent.</param>
 		public static async Task EvaluateDatabaseDiff(string FileName, bool IncludeUnchanged, bool SendAsAlert)
 		{
-			Dictionary<string, bool> CollectionNames = new Dictionary<string, bool>();
-
-			foreach (string CollectionName in await Database.GetCollections())
-				CollectionNames[CollectionName] = true;
-
-			CollectionNames.Remove("DnsCache");
-
-			string[] Selection = new string[CollectionNames.Count];
-			CollectionNames.Keys.CopyTo(Selection, 0);
-
 			StringBuilder Xml = new StringBuilder();
 
 			using (XmlDatabaseExport Output = new XmlDatabaseExport(Xml, true, 256))
 			{
-				await Database.Export(Output, Selection);
+				await Database.Export(Output);
 			}
 
 			string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
