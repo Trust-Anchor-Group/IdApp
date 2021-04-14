@@ -176,6 +176,7 @@ namespace IdApp
 
 						// Get the db started right away to save startup time.
 
+						Thread?.NewState("DB");
 						await this.sdk.StorageService.Init(Thread?.CreateSubThread("Database", ProfilerThreadType.Sequential));
 					}
 					catch (Exception ex)
