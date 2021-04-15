@@ -152,7 +152,9 @@ namespace IdApp.ViewModels.Registration
 
 					if (succeeded)
 					{
-						this.TagProfile.SetDomain(this.GetOperator());
+						bool DefaultConnectivity = hostName == domainName && portNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
+
+						this.TagProfile.SetDomain(domainName, DefaultConnectivity);
 						this.OnStepCompleted(EventArgs.Empty);
 					}
 					else

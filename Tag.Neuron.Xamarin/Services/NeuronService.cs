@@ -115,16 +115,32 @@ namespace Tag.Neuron.Xamarin.Services
 					this.passwordHash = this.tagProfile.PasswordHash;
 					this.passwordHashMethod = this.tagProfile.PasswordHashMethod;
 
-					Thread?.NewState("DNS");
-					(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
+					string HostName;
+					int PortNumber;
+					bool IsIpAddress;
+
+					if (this.tagProfile.DefaultXmppConnectivity)
+					{
+						HostName = this.domainName;
+						PortNumber = XmppCredentials.DefaultPort;
+						IsIpAddress = false;
+					}
+					else
+					{
+						Thread?.NewState("DNS");
+						(HostName, PortNumber, IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
+
+						if (HostName == domainName && PortNumber == XmppCredentials.DefaultPort)
+							this.tagProfile.SetDomain(domainName, true);
+					}
 
 					this.xmppLastStateChange = DateTime.Now;
 					this.xmppConnected = false;
 
 					Thread?.NewState("Client");
-					this.xmppClient = new XmppClient(hostName, portNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer)
+					this.xmppClient = new XmppClient(HostName, PortNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer)
 					{
-						TrustServer = !isIpAddress,
+						TrustServer = !IsIpAddress,
 						AllowCramMD5 = false,
 						AllowDigestMD5 = false,
 						AllowPlain = false,
@@ -205,7 +221,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 					Thread?.NewState("Connect");
 					this.IsLoggedOut = false;
-					this.xmppClient.Connect(isIpAddress ? string.Empty : domainName);
+					this.xmppClient.Connect(IsIpAddress ? string.Empty : domainName);
 					this.RecreateReconnectTimer();
 
 					// Await connected state during registration or user initiated log in, but not otherwise.

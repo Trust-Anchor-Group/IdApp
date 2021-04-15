@@ -372,9 +372,13 @@ namespace IdApp
 				try
 				{
 					TagConfiguration tc = this.sdk.TagProfile.ToConfiguration();
+
 					try
 					{
-						await this.sdk.StorageService.Update(tc);
+						if (string.IsNullOrEmpty(tc.ObjectId))
+							await this.sdk.StorageService.Insert(tc);
+						else
+							await this.sdk.StorageService.Update(tc);
 					}
 					catch (KeyNotFoundException)
 					{
@@ -405,6 +409,7 @@ namespace IdApp
 			if (configuration is null)
 			{
 				configuration = new TagConfiguration();
+
 				try
 				{
 					await this.sdk.StorageService.Insert(configuration);

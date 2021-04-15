@@ -21,10 +21,12 @@
         /// The domain name to use.
         /// </summary>
         public string Name { get; }
+        
         /// <summary>
         /// A key for the domain.
         /// </summary>
         public string Key { get; }
+        
         /// <summary>
         /// The domain secret.
         /// </summary>

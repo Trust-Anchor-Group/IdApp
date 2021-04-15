@@ -2237,6 +2237,11 @@
             The domain this profile is connected to.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.DefaultXmppConnectivity">
+            <summary>
+            If connecting to the domain can be done using default parameters (host=domain, default c2s port).
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.Account">
             <summary>
             The account name for this profile
@@ -2378,11 +2383,12 @@
             Resets the <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.IsDirty"/> flag, can be used after persisting values to <see cref="T:Tag.Neuron.Xamarin.Services.IStorageService"/>.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetDomain(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetDomain(System.String,System.Boolean)">
             <summary>
             Step 1 - set the domain name to connect to.
             </summary>
             <param name="domainName">The domain name.</param>
+            <param name="defaultXmppConnectivity">If connecting to the domain can be done using default parameters (host=domain, default c2s port).</param>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ClearDomain">
             <summary>
@@ -2886,228 +2892,6 @@
         <member name="M:Tag.Neuron.Xamarin.Services.StorageService.Shutdown">
             <inheritdoc />
         </member>
-        <member name="T:Tag.Neuron.Xamarin.Services.TagProfile">
-            <inheritdoc/>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.TagProfile.StepChanged">
-            <summary>
-            An event that fires every time the <see cref="P:Tag.Neuron.Xamarin.Services.TagProfile.Step"/> property changes.
-            </summary>
-        </member>
-        <member name="E:Tag.Neuron.Xamarin.Services.TagProfile.Changed">
-            <summary>
-            An event that fires every time any property changes.
-            </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.#ctor(Tag.Neuron.Xamarin.Models.DomainModel[])">
-            <summary>
-            Creates an instance of a <see cref="T:Tag.Neuron.Xamarin.Services.TagProfile"/>.
-            </summary>
-            <param name="domainModels">A list of domains the user should be able to connect to.</param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.OnStepChanged(System.EventArgs)">
-            <summary>
-            Invoked whenever the current <see cref="P:Tag.Neuron.Xamarin.Services.TagProfile.Step"/> changes, to fire the <see cref="E:Tag.Neuron.Xamarin.Services.TagProfile.StepChanged"/> event.
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.OnChanged(System.ComponentModel.PropertyChangedEventArgs)">
-            <summary>
-            Invoked whenever any property changes, to fire the <see cref="E:Tag.Neuron.Xamarin.Services.TagProfile.Changed"/> event.
-            </summary>
-            <param name="e"></param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ToConfiguration">
-            <summary>
-            Converts the current instance into a <see cref="T:Tag.Neuron.Xamarin.Services.TagConfiguration"/> object for serialization.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.FromConfiguration(Tag.Neuron.Xamarin.Services.TagConfiguration)">
-            <summary>
-            Parses an instance of a <see cref="T:Tag.Neuron.Xamarin.Services.TagConfiguration"/> object to update this instance's properties.
-            </summary>
-            <param name="configuration"></param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.NeedsUpdating">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.LegalIdentityNeedsUpdating">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.IsCompleteOrWaitingForValidation">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.IsComplete">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Domain">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Account">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PasswordHash">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PasswordHashMethod">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LegalJid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.RegistryJid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.ProvisioningJid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.HttpFileUploadJid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.HttpFileUploadMaxSize">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LogJid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.MucJid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.EDalerJid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Step">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PinIsValid">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.FileUploadIsSupported">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Pin">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PinHash">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.UsePin">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LegalIdentity">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Domains">
-            <inheritdoc/>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.IsDirty">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ResetIsDirty">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetDomain(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearDomain">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetAccount(System.String,System.String,System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetAccountAndLegalIdentity(System.String,System.String,System.String,Waher.Networking.XMPP.Contracts.LegalIdentity)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearAccount">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearLegalIdentity">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.RevokeLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.CompromiseLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetIsValidated">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearIsValidated">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetPin(System.String,System.Boolean)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearPin">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLegalJid(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetProvisioningJid(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetRegistryJid(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetFileUploadParameters(System.String,System.Nullable{System.Int64})">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLogJid(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetMucJid(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetEDalerJid(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ComputePinHash(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.TryGetKeys(System.String,System.String@,System.String@)">
-            <inheritdoc/>
-        </member>
-        <member name="T:Tag.Neuron.Xamarin.Services.RegistrationStep">
-            <summary>
-            The different steps of a TAG Profile registration journey.
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Operator">
-            <summary>
-            Choose Operator
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Account">
-            <summary>
-            Create or connect to an account
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.RegisterIdentity">
-            <summary>
-            Register an identity
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.ValidateIdentity">
-            <summary>
-            Have the identity validated.
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Pin">
-            <summary>
-            Create a PIN code
-            </summary>
-        </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Complete">
-            <summary>
-            Profile is completed.
-            </summary>
-        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.TagConfiguration">
             <summary>
             A simple POCO object for serializing and deserializing configuration properties.
@@ -3121,6 +2905,11 @@
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.Domain">
             <summary>
             Current domain
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.DefaultXmppConnectivity">
+            <summary>
+            If connecting to the domain can be done using default parameters (host=domain, default c2s port).
             </summary>
         </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.Account">
@@ -3197,6 +2986,231 @@
             <summary>
             Current step in the registration process.
             </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.RegistrationStep">
+            <summary>
+            The different steps of a TAG Profile registration journey.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Operator">
+            <summary>
+            Choose Operator
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Account">
+            <summary>
+            Create or connect to an account
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.RegisterIdentity">
+            <summary>
+            Register an identity
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.ValidateIdentity">
+            <summary>
+            Have the identity validated.
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Pin">
+            <summary>
+            Create a PIN code
+            </summary>
+        </member>
+        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Complete">
+            <summary>
+            Profile is completed.
+            </summary>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.Services.TagProfile">
+            <inheritdoc/>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.TagProfile.StepChanged">
+            <summary>
+            An event that fires every time the <see cref="P:Tag.Neuron.Xamarin.Services.TagProfile.Step"/> property changes.
+            </summary>
+        </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.TagProfile.Changed">
+            <summary>
+            An event that fires every time any property changes.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.#ctor(Tag.Neuron.Xamarin.Models.DomainModel[])">
+            <summary>
+            Creates an instance of a <see cref="T:Tag.Neuron.Xamarin.Services.TagProfile"/>.
+            </summary>
+            <param name="domainModels">A list of domains the user should be able to connect to.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.OnStepChanged(System.EventArgs)">
+            <summary>
+            Invoked whenever the current <see cref="P:Tag.Neuron.Xamarin.Services.TagProfile.Step"/> changes, to fire the <see cref="E:Tag.Neuron.Xamarin.Services.TagProfile.StepChanged"/> event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.OnChanged(System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Invoked whenever any property changes, to fire the <see cref="E:Tag.Neuron.Xamarin.Services.TagProfile.Changed"/> event.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ToConfiguration">
+            <summary>
+            Converts the current instance into a <see cref="T:Tag.Neuron.Xamarin.Services.TagConfiguration"/> object for serialization.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.FromConfiguration(Tag.Neuron.Xamarin.Services.TagConfiguration)">
+            <summary>
+            Parses an instance of a <see cref="T:Tag.Neuron.Xamarin.Services.TagConfiguration"/> object to update this instance's properties.
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.NeedsUpdating">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.LegalIdentityNeedsUpdating">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.IsCompleteOrWaitingForValidation">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.IsComplete">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.DefaultXmppConnectivity">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Domain">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Account">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PasswordHash">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PasswordHashMethod">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LegalJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.RegistryJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.ProvisioningJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.HttpFileUploadJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.HttpFileUploadMaxSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LogJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.MucJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.EDalerJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Step">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PinIsValid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.FileUploadIsSupported">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Pin">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PinHash">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.UsePin">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.LegalIdentity">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Domains">
+            <inheritdoc/>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.IsDirty">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ResetIsDirty">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetDomain(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearDomain">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetAccount(System.String,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetAccountAndLegalIdentity(System.String,System.String,System.String,Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearAccount">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearLegalIdentity">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.RevokeLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.CompromiseLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetIsValidated">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearIsValidated">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetPin(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearPin">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLegalJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetProvisioningJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetRegistryJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetFileUploadParameters(System.String,System.Nullable{System.Int64})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetLogJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetMucJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetEDalerJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ComputePinHash(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.TryGetKeys(System.String,System.String@,System.String@)">
+            <inheritdoc/>
         </member>
         <member name="T:Tag.Neuron.Xamarin.TagIdSdk">
             <inheritdoc/>

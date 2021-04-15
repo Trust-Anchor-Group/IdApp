@@ -61,8 +61,9 @@ namespace Tag.Neuron.Xamarin.Services
             this.ConnectivityChanged?.Invoke(this, e);
         }
 
-        public virtual bool IsOnline => Connectivity.NetworkAccess == NetworkAccess.Internet ||
-                                Connectivity.NetworkAccess == NetworkAccess.ConstrainedInternet;
+        public virtual bool IsOnline => 
+            Connectivity.NetworkAccess == NetworkAccess.Internet ||
+            Connectivity.NetworkAccess == NetworkAccess.ConstrainedInternet;
 
         public async Task<(string hostName, int port, bool isIpAddress)> LookupXmppHostnameAndPort(string domainName)
         {
