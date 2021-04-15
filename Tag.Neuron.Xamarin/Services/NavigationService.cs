@@ -33,6 +33,8 @@ namespace Tag.Neuron.Xamarin.Services
                 try
                 {
                     Shell.Current.Navigating += Shell_Navigating;
+
+                    this.EndLoad(true);
                 }
                 catch (Exception e)
                 {
@@ -60,6 +62,7 @@ namespace Tag.Neuron.Xamarin.Services
 
                 this.EndUnload();
             }
+        
             return Task.CompletedTask;
         }
 

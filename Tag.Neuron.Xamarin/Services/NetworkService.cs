@@ -34,9 +34,8 @@ namespace Tag.Neuron.Xamarin.Services
             if (this.BeginLoad())
             {
                 if (DeviceInfo.Platform != DevicePlatform.Unknown && !DesignMode.IsDesignModeEnabled) // Need to check this, as Xamarin.Essentials doesn't work in unit tests. It has no effect when running on a real phone.
-                {
                     Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
-                }
+                
                 this.EndLoad(true);
             }
 
@@ -49,9 +48,8 @@ namespace Tag.Neuron.Xamarin.Services
             if (this.BeginUnload())
             {
                 if (DeviceInfo.Platform != DevicePlatform.Unknown)
-                {
                     Connectivity.ConnectivityChanged -= Connectivity_ConnectivityChanged;
-                }
+                
                 this.EndUnload();
             }
 

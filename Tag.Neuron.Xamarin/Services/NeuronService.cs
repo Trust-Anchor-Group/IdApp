@@ -490,7 +490,16 @@ namespace Tag.Neuron.Xamarin.Services
 					this.tagProfile.StepChanged -= TagProfile_StepChanged;
 
 					if (!(this.xmppClient is null) && !fast)
-						await this.xmppClient.SetPresenceAsync(Availability.Offline);
+					{
+						try
+						{
+							await this.xmppClient.SetPresenceAsync(Availability.Offline);
+						}
+						catch (Exception)
+						{
+							// Ignore
+						}
+					}
 
 					this.DestroyXmppClient();
 				}
