@@ -2,7 +2,7 @@
 using IdApp.ViewModels.Contracts;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Contracts
@@ -20,7 +20,7 @@ namespace IdApp.Views.Contracts
 		/// </summary>
 		public ViewContractPage()
 		{
-			this.navigationService = DependencyService.Resolve<INavigationService>();
+			this.navigationService = Types.Instantiate<INavigationService>(false);
 			this.ViewModel = new ViewContractViewModel();
 			InitializeComponent();
 		}

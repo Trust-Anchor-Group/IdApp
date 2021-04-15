@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
@@ -35,9 +36,9 @@ namespace Tag.Neuron.Xamarin.UI.Views
         /// </summary>
         protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiDispatcher uiDispatcher)
         {
-            this.logService = logService ?? DependencyService.Resolve<ILogService>();
-            this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
-            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
+            this.logService = logService ?? Types.Instantiate<ILogService>(false);
+            this.settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
+            this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
             PropertyChanged += OnPropertyChanged;
         }
 

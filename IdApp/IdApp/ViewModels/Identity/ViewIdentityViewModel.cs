@@ -16,6 +16,7 @@ using Tag.Neuron.Xamarin.UI;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -57,7 +58,7 @@ namespace IdApp.ViewModels.Identity
 			this.attachmentCacheService = attachmentCacheService;
 			this.Photos = new ObservableCollection<ImageSource>();
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
-				attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>(), this.Photos);
+				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
 
 			this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
 			this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);

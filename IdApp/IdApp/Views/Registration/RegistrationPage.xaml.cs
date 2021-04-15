@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,7 +23,7 @@ namespace IdApp.Views.Registration
         public RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
+            this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
             ViewModel = new RegistrationViewModel();
             InitializeComponent();
         }

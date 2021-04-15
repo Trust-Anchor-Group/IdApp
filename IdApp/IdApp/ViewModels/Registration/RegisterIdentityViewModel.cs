@@ -14,6 +14,7 @@ using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -72,7 +73,7 @@ namespace IdApp.ViewModels.Registration
             
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
             this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
-                attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>());
+                attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false));
         }
 
         /// <inheritdoc />

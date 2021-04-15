@@ -1,5 +1,6 @@
 ﻿using System;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Xamarin.Forms;
 
@@ -12,6 +13,7 @@ namespace Tag.Neuron.Xamarin
     /// It is imperative that you integrate this class into your <see cref="Application"/>
     /// <see cref="Application.OnStart"/> and <see cref="Application.OnResume"/> methods.
     /// </summary>
+    [DefaultImplementation(typeof(TagIdSdk))]
     public interface ITagIdSdk
     {
         /// <summary>
@@ -63,22 +65,5 @@ namespace Tag.Neuron.Xamarin
         /// Profiler of startup process, if any.
         /// </summary>
         Profiler StartupProfiler { get; }
-
-        /// <summary>
-        /// Registers a singleton implementation instance for later resolve.
-        /// </summary>
-        /// <typeparam name="TFrom">The interface it implements.</typeparam>
-        /// <typeparam name="TTo">The implementation class.</typeparam>
-        /// <param name="singleton">The singleton instance to register.</param>
-        void RegisterSingleton<TFrom, TTo>(TFrom singleton)
-            where TTo : TFrom
-            where TFrom : class;
-
-        /// <summary>
-        /// Resolves the type <b>t</b> using an IoC pattern.
-        /// </summary>
-        /// <param name="t">The type to resolve.</param>
-        /// <returns>The resolved type, or <c>null</c>.</returns>
-        object Resolve(Type t);
     }
 }

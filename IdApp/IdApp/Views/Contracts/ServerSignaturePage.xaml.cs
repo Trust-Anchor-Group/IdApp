@@ -1,7 +1,7 @@
 ﻿using IdApp.ViewModels.Contracts;
 using System.ComponentModel;
 using Tag.Neuron.Xamarin.Services;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 
 namespace IdApp.Views.Contracts
 {
@@ -18,7 +18,7 @@ namespace IdApp.Views.Contracts
         /// </summary>
 		public ServerSignaturePage()
 		{
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.navigationService = Types.Instantiate<INavigationService>(false);
             ViewModel = new ServerSignatureViewModel();
 			InitializeComponent();
 		}

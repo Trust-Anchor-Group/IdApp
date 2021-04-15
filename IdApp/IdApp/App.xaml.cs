@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using EDaler;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
+using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Content;
@@ -49,6 +50,7 @@ namespace IdApp
 	/// </summary>
 	public partial class App
 	{
+		private static readonly DomainModel[] domains = XmppConfiguration.ToArray();
 		private static TaskCompletionSource<bool> servicesSetup;
 		private static TaskCompletionSource<bool> configLoaded;
 		private Timer autoSaveTimer;
@@ -144,29 +146,21 @@ namespace IdApp
 
 						// Create Services
 
-						this.sdk = TagIdSdk.Create(appAssembly, this.startupProfiler, new XmppConfiguration().ToArray());
+						this.sdk = Types.InstantiateDefault<ITagIdSdk>(false, appAssembly, this.startupProfiler, domains);
 
-						this.attachmentCacheService = new AttachmentCacheService(this.sdk.LogService);
-						this.contractOrchestratorService = new ContractOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
-						this.thingRegistryOrchestratorService = new ThingRegistryOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
-						this.eDalerOrchestratorService = new EDalerOrchestratorService(this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
-
-						this.sdk.RegisterSingleton<IAttachmentCacheService, AttachmentCacheService>(this.attachmentCacheService);
-						this.sdk.RegisterSingleton<IContractOrchestratorService, ContractOrchestratorService>(this.contractOrchestratorService);
-						this.sdk.RegisterSingleton<IThingRegistryOrchestratorService, ThingRegistryOrchestratorService>(this.thingRegistryOrchestratorService);
-						this.sdk.RegisterSingleton<IEDalerOrchestratorService, EDalerOrchestratorService>(this.eDalerOrchestratorService);
+						this.attachmentCacheService = Types.InstantiateDefault<IAttachmentCacheService>(false, this.sdk.LogService);
+						this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+						this.thingRegistryOrchestratorService = Types.InstantiateDefault<IThingRegistryOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
+						this.eDalerOrchestratorService = Types.InstantiateDefault<IEDalerOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
 
 						// Set resolver
 
 						DependencyResolver.ResolveUsing(type =>
 						{
-							object obj = this.sdk.Resolve(type);
-							if (!(obj is null))
-								return obj;
-
 							if (Types.GetType(type.FullName) is null)
 								return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
+							bool IsReg = SingletonAttribute.IsRegistered(type);
 							return Types.Instantiate(true, type);
 						});
 
@@ -258,10 +252,7 @@ namespace IdApp
 				// If this is a cold start, this call is made already in the App ctor, and this is then a no-op.
 
 				Thread?.NewState("DB");
-				await this.sdk.StorageService.Init(Thread);			// TODO: Review
-
-				if (!await this.sdk.StorageService.WaitInitDone())	// TODO: Remove
-					throw new Exception(AppResources.UnableToInitializeDatabase);
+				await this.sdk.StorageService.Init(Thread);
 
 				Thread?.NewState("Network");
 				await this.sdk.NetworkService.Load(isResuming);

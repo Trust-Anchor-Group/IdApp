@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels
@@ -34,10 +35,11 @@ namespace IdApp.ViewModels
             IUiDispatcher uiDispatcher,
             ITagProfile tagProfile, 
             INavigationService navigationService)
-            : base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
+            : base(neuronService ?? Types.Instantiate<INeuronService>(false), 
+                  uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false))
         {
-            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
-            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
+            this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
         }
 
         /// <inheritdoc />

@@ -1,6 +1,6 @@
 ﻿using IdApp.ViewModels.Things;
 using Tag.Neuron.Xamarin.Services;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Things
@@ -18,7 +18,7 @@ namespace IdApp.Views.Things
 		/// </summary>
 		public ViewThingPage()
 		{
-			this.navigationService = DependencyService.Resolve<INavigationService>();
+			this.navigationService = Types.Instantiate<INavigationService>(false);
 			this.ViewModel = new ThingViewModel();
 			
 			InitializeComponent();

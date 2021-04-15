@@ -13,6 +13,7 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -65,13 +66,13 @@ namespace IdApp.ViewModels.Contracts
             ISettingsService settingsService,
             IContractOrchestratorService contractOrchestratorService)
         {
-            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
-            this.logService = logService ?? DependencyService.Resolve<ILogService>();
-            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
-            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            this.settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
-            this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
+            this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+            this.logService = logService ?? Types.Instantiate<ILogService>(false);
+            this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
+            this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+            this.settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
+            this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
 
             this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
             this.AvailableRoles = new ObservableCollection<string>();

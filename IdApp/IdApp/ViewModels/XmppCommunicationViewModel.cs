@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -41,8 +42,8 @@ namespace IdApp.ViewModels
         /// </summary>
         protected internal XmppCommunicationViewModel(INeuronService neuronService, ILogService logService)
         {
-            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.logService = logService ?? DependencyService.Resolve<ILogService>();
+            this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
+            this.logService = logService ?? Types.Instantiate<ILogService>(false);
 
             ClearCommand = new Command(_ => this.ClearHtmlContent());
             CopyCommand = new Command(_ => this.CopyHtmlToClipboard());

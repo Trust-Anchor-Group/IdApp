@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,7 +26,7 @@ namespace IdApp.Views
 		{
 			InitializeComponent();
 			ViewModel = new MainViewModel();
-			this.neuronService = DependencyService.Resolve<INeuronService>();
+			this.neuronService = Types.Instantiate<INeuronService>(false);
 		}
 
 		/// <inheritdoc />

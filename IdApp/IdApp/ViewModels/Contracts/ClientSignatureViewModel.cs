@@ -7,6 +7,7 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
@@ -35,7 +36,7 @@ namespace IdApp.ViewModels.Contracts
         /// </summary>
         protected internal ClientSignatureViewModel(INavigationService navigationService)
         {
-            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
+            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
         }
 
         /// <inheritdoc/>

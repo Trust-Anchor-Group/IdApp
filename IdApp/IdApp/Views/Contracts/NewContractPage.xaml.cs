@@ -1,6 +1,6 @@
 ﻿using IdApp.ViewModels.Contracts;
 using Tag.Neuron.Xamarin.Services;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Contracts
@@ -18,7 +18,7 @@ namespace IdApp.Views.Contracts
         /// </summary>
 		public NewContractPage()
         {
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.navigationService = Types.Instantiate<INavigationService>(false);
             this.ViewModel = new NewContractViewModel();
             InitializeComponent();
         }

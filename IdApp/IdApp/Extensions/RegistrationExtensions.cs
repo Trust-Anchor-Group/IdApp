@@ -12,7 +12,7 @@ namespace Waher.IoTGateway.Setup
         /// Converts the list of properties on this instance to an array of <see cref="DomainModel"/>s.
         /// </summary>
         /// <returns></returns>
-        public DomainModel[] ToArray()
+        public static DomainModel[] ToArray()
         {
             return clp.Select(x => new DomainModel(x.Key, x.Value.Key, x.Value.Value)).ToArray();
         }

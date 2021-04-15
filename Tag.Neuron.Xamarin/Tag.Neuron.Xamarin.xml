@@ -725,21 +725,6 @@
             Profiler of startup process, if any.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.RegisterSingleton``2(``0)">
-            <summary>
-            Registers a singleton implementation instance for later resolve.
-            </summary>
-            <typeparam name="TFrom">The interface it implements.</typeparam>
-            <typeparam name="TTo">The implementation class.</typeparam>
-            <param name="singleton">The singleton instance to register.</param>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.ITagIdSdk.Resolve(System.Type)">
-            <summary>
-            Resolves the type <b>t</b> using an IoC pattern.
-            </summary>
-            <param name="t">The type to resolve.</param>
-            <returns>The resolved type, or <c>null</c>.</returns>
-        </member>
         <member name="T:Tag.Neuron.Xamarin.IUiDispatcher">
             <summary>
             A wafer-thin wrapper around the UI (main) thread.
@@ -3213,16 +3198,25 @@
             <inheritdoc/>
         </member>
         <member name="T:Tag.Neuron.Xamarin.TagIdSdk">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Create(System.Reflection.Assembly,Waher.Runtime.Profiling.Profiler,Tag.Neuron.Xamarin.Models.DomainModel[])">
             <summary>
-            Creates an instance of the <see cref="T:Tag.Neuron.Xamarin.ITagIdSdk"/>. This is a factory method.
+            The TagIdSdk is the 'root' of the Neuron library.
+            Use this to access Neuron specific features and services, and to control startup/shutdown.
+            <br/>
+            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
+            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.#ctor(System.Reflection.Assembly,Waher.Runtime.Profiling.Profiler,Tag.Neuron.Xamarin.Models.DomainModel[])">
+            <summary>
+            The TagIdSdk is the 'root' of the Neuron library.
+            Use this to access Neuron specific features and services, and to control startup/shutdown.
+            <br/>
+            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
+            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
             </summary>
             <param name="appAssembly">The assembly containing the main App class.</param>
             <param name="startupProfiler">Optional Startup profiler. May be null.</param>
             <param name="domains">Featured domains.</param>
-            <returns>Tag ID SDK instance reference.</returns>
         </member>
         <member name="P:Tag.Neuron.Xamarin.TagIdSdk.TagProfile">
             <inheritdoc/>
@@ -3255,16 +3249,6 @@
             <summary>
             Profiler of startup process, if any.
             </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.RegisterSingleton``2(``0)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.TagIdSdk.Resolve(System.Type)">
-            <summary>
-            A wafer-thin IoC implementation for the services provided by the <see cref="T:Tag.Neuron.Xamarin.ITagIdSdk"/>.
-            </summary>
-            <param name="t">The type to resolve.</param>
-            <returns>The resolved type, if found, or <c>null</c>.</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UiDispatcher">
             <inheritdoc/>

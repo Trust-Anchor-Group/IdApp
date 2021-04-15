@@ -2,7 +2,7 @@
 using System;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 using ZXing;
 
@@ -33,8 +33,8 @@ namespace IdApp.Views
         protected internal ScanQrCodePage(ScanQrCodeViewModel viewModel)
         {
             this.ViewModel = viewModel ?? new ScanQrCodeViewModel();
-            this.navigationService = DependencyService.Resolve<INavigationService>();
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
+            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
             InitializeComponent();
         }
 

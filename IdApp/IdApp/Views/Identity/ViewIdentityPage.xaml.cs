@@ -1,12 +1,11 @@
 ﻿using System;
-using IdApp.ViewModels.Contracts;
 using System.ComponentModel;
 using IdApp.Services;
 using IdApp.ViewModels.Identity;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 
 namespace IdApp.Views.Identity
 {
@@ -23,16 +22,16 @@ namespace IdApp.Views.Identity
         /// </summary>
         public ViewIdentityPage()
         {
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.navigationService = Types.Instantiate<INavigationService>(false);
             this.ViewModel = new ViewIdentityViewModel(
-                DependencyService.Resolve<ITagProfile>(),
-                DependencyService.Resolve<IUiDispatcher>(),
-                DependencyService.Resolve<INeuronService>(),
-                this.navigationService,
-                DependencyService.Resolve<INetworkService>(),
-                DependencyService.Resolve<ILogService>(),
-                DependencyService.Resolve<IEDalerOrchestratorService>(),
-                DependencyService.Resolve<IAttachmentCacheService>());
+                Types.Instantiate<ITagProfile>(false),
+                Types.Instantiate<IUiDispatcher>(false),
+                Types.Instantiate<INeuronService>(false),
+                this.navigationService ?? Types.Instantiate<INavigationService>(false),
+                Types.Instantiate<INetworkService>(false),
+                Types.Instantiate<ILogService>(false),
+                Types.Instantiate<IEDalerOrchestratorService>(false),
+                Types.Instantiate<IAttachmentCacheService>(false));
             InitializeComponent();
         }
 

@@ -9,6 +9,7 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
@@ -53,15 +54,17 @@ namespace IdApp.ViewModels.Contracts
             IUiDispatcher uiDispatcher,
             IAttachmentCacheService attachmentCacheService)
         {
-            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            logService = logService ?? DependencyService.Resolve<ILogService>();
-            this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-            uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
-            attachmentCacheService = attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>();
+            this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
+            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+            logService = logService ?? Types.Instantiate<ILogService>(false);
+            this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
+            uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+            attachmentCacheService = attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false);
+
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
+            
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiDispatcher, attachmentCacheService, this.Photos);
         }

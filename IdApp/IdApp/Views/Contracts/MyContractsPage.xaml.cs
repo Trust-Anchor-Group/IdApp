@@ -1,6 +1,6 @@
 ﻿using IdApp.ViewModels.Contracts;
 using Tag.Neuron.Xamarin.Services;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Contracts
@@ -27,7 +27,7 @@ namespace IdApp.Views.Contracts
 		/// <param name="ContractsListMode">What list of contracts to display.</param>
 		protected MyContractsPage(ContractsListMode ContractsListMode)
 		{
-			this.navigationService = DependencyService.Resolve<INavigationService>();
+			this.navigationService = Types.Instantiate<INavigationService>(false);
 
 			MyContractsViewModel ViewModel = new MyContractsViewModel(ContractsListMode);
 			this.Title = ViewModel.Title;

@@ -58,18 +58,21 @@ namespace IdApp.ViewModels
 			IContractOrchestratorService contractOrchestratorService,
 			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
 			IEDalerOrchestratorService eDalerOrchestratorService)
-			: base(neuronService ?? DependencyService.Resolve<INeuronService>(), uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>())
+			: base(neuronService ?? Types.Instantiate<INeuronService>(false), 
+				  uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false))
 		{
-			this.logService = logService ?? DependencyService.Resolve<ILogService>();
-			this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
-			this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-			this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-			this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
-			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? DependencyService.Resolve<IThingRegistryOrchestratorService>();
-			this.eDalerOrchestratorService = eDalerOrchestratorService ?? DependencyService.Resolve<IEDalerOrchestratorService>();
+			this.logService = logService ?? Types.Instantiate<ILogService>(false);
+			this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
+			this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
+			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? Types.Instantiate<IThingRegistryOrchestratorService>(false);
+			this.eDalerOrchestratorService = eDalerOrchestratorService ?? Types.Instantiate<IEDalerOrchestratorService>(false);
+
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, 
-				attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>());
+				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false));
 			this.UpdateLoggedOutText(true);
+
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
 			this.ViewMyThingsCommand = new Command(async () => await ViewMyThings(), () => this.IsConnected);
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());

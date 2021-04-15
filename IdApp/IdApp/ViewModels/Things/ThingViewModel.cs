@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -9,6 +8,7 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Things
@@ -51,13 +51,14 @@ namespace IdApp.ViewModels.Things
 			ILogService logService)
 			: base(neuronService, uiDispatcher)
 		{
-			this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
-			this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-			this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-			this.logService = logService ?? DependencyService.Resolve<ILogService>();
+			this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
+			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+			this.logService = logService ?? Types.Instantiate<ILogService>(false);
 
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 			this.DisownThingCommand = new Command(async _ => await DisownThing(), _ => this.CanDisownThing);
+
 			this.Tags = new ObservableCollection<HumanReadableTag>();
 		}
 

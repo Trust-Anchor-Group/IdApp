@@ -1,10 +1,10 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using IdApp.Extensions;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -51,22 +51,22 @@ namespace IdApp.ViewModels
 		/// <summary>
 		/// Current TAG Profile
 		/// </summary>
-		public ITagProfile TagProfile => DependencyService.Resolve<ITagProfile>();
+		public ITagProfile TagProfile => Types.Instantiate<ITagProfile>(false);
 
         /// <summary>
         /// Current Neuron Service
         /// </summary>
-        public INeuronService NeuronService => DependencyService.Resolve<INeuronService>();
+        public INeuronService NeuronService => Types.Instantiate<INeuronService>(false);
 
         /// <summary>
         /// Current Network Service
         /// </summary>
-        public INetworkService NetworkService => DependencyService.Resolve<INetworkService>();
+        public INetworkService NetworkService => Types.Instantiate<INetworkService>(false);
 
         /// <summary>
         /// Current UI Dispatcher Service
         /// </summary>
-        public IUiDispatcher UiDispatcher => DependencyService.Resolve<IUiDispatcher>();
+        public IUiDispatcher UiDispatcher => Types.Instantiate<IUiDispatcher>(false);
 
         #region Properties
 

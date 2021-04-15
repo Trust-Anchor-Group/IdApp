@@ -4,6 +4,7 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels
@@ -20,8 +21,8 @@ namespace IdApp.ViewModels
         /// <param name="uiDispatcher"></param>
         protected NeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher)
         {
-            this.NeuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.UiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
+            this.NeuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
+            this.UiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
             this.ConnectionStateText = AppResources.XmppState_Offline;
         }
 

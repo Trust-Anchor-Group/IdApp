@@ -990,9 +990,6 @@
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Unable to connect to {0}</value>
   </data>
-  <data name="UnableToInitializeDatabase" xml:space="preserve">
-    <value>Unable to Initialize Database.</value>
-  </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
     <value>Unable to process eDaler code.</value>
   </data>

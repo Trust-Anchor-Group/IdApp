@@ -7,6 +7,7 @@ using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Command = Xamarin.Forms.Command;
@@ -54,14 +55,14 @@ namespace IdApp.ViewModels.Registration
             ILogService logService,
             IAttachmentCacheService attachmentCacheService)
         {
-            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
-            uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
-            settingsService = settingsService ?? DependencyService.Resolve<ISettingsService>();
-            neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            cryptoService = cryptoService ?? DependencyService.Resolve<ICryptoService>();
-            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-            logService = logService ?? DependencyService.Resolve<ILogService>();
+            this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+            uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+            settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
+            neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
+            cryptoService = cryptoService ?? Types.Instantiate<ICryptoService>(false);
+            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+            networkService = networkService ?? Types.Instantiate<INetworkService>(false);
+            logService = logService ?? Types.Instantiate<ILogService>(false);
             
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
             

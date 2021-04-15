@@ -1,6 +1,6 @@
 ﻿using IdApp.ViewModels.Contacts;
 using Tag.Neuron.Xamarin.Services;
-using Xamarin.Forms;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Contacts
@@ -18,7 +18,7 @@ namespace IdApp.Views.Contacts
 		/// </summary>
 		public MyContactsPage()
 		{
-			this.navigationService = DependencyService.Resolve<INavigationService>();
+			this.navigationService = Types.Instantiate<INavigationService>(false);
 			this.ViewModel = new MyContactsViewModel();
 			
 			InitializeComponent();

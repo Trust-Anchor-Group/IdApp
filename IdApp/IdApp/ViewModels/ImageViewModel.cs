@@ -4,6 +4,7 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels
@@ -21,14 +22,14 @@ namespace IdApp.ViewModels
         /// </summary>
         public ImageViewModel()
         {
-            this.uiDispatcher = DependencyService.Resolve<IUiDispatcher>();
+            this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(
-                DependencyService.Resolve<ILogService>(),
-                DependencyService.Resolve<INetworkService>(),
-                DependencyService.Resolve<INeuronService>(),
-                DependencyService.Resolve<IUiDispatcher>(),
-                DependencyService.Resolve<IAttachmentCacheService>(),
+                Types.Instantiate<ILogService>(false),
+                Types.Instantiate<INetworkService>(false),
+                Types.Instantiate<INeuronService>(false),
+                Types.Instantiate<IUiDispatcher>(false),
+                Types.Instantiate<IAttachmentCacheService>(false),
                 this.Photos);
         }
 

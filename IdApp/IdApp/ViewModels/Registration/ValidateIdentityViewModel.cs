@@ -11,6 +11,7 @@ using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Registration
@@ -51,7 +52,7 @@ namespace IdApp.ViewModels.Registration
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
-                attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>(), this.Photos);
+                attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
         }
 
         /// <inheritdoc />

@@ -9,6 +9,7 @@ using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Contracts
@@ -71,10 +72,10 @@ namespace IdApp.ViewModels.Contracts
 		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
 		protected internal MyContractsViewModel(ContractsListMode ContractsListMode, INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher)
 		{
-			this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-			this.networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-			this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-			this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
+			this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
+			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
+			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+			this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
 			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();
 			this.Contracts = new ObservableCollection<ContractModel>();

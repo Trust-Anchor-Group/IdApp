@@ -16,10 +16,12 @@ namespace Tag.Neuron.Xamarin
         /// </summary>
         /// <param name="action">The action to execute asynchronously.</param>
         void BeginInvokeOnMainThread(Action action);
+
         /// <summary>
         /// Determines whether the app is running in the background.
         /// </summary>
         bool IsRunningInTheBackground { get; set; }
+
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>
@@ -29,6 +31,7 @@ namespace Tag.Neuron.Xamarin
         /// <param name="cancel">The cancel button text.</param>
         /// <returns></returns>
         Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
+        
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>
@@ -37,6 +40,7 @@ namespace Tag.Neuron.Xamarin
         /// <param name="accept">The accept/ok button text.</param>
         /// <returns></returns>
         Task DisplayAlert(string title, string message, string accept);
+        
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>
@@ -44,6 +48,7 @@ namespace Tag.Neuron.Xamarin
         /// <param name="message">The message to display.</param>
         /// <returns></returns>
         Task DisplayAlert(string title, string message);
+        
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>
@@ -52,6 +57,7 @@ namespace Tag.Neuron.Xamarin
         /// <param name="exception">The exception to display.</param>
         /// <returns></returns>
         Task DisplayAlert(string title, string message, Exception exception);
+        
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>
@@ -59,6 +65,7 @@ namespace Tag.Neuron.Xamarin
         /// <param name="exception">The exception to display.</param>
         /// <returns></returns>
         Task DisplayAlert(string title, Exception exception);
+        
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>

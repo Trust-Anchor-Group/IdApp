@@ -13,6 +13,7 @@ using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.IoTGateway.Setup;
+using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -23,9 +24,6 @@ namespace IdApp
 	/// </summary>
 	public partial class AppShell
 	{
-		private static AppShell _instance;
-		internal static AppShell Instance => _instance ?? (_instance = new AppShell());
-
 		/// <summary>
 		/// Create a new instance of the <see cref="AppShell"/> class.
 		/// </summary>
@@ -40,42 +38,42 @@ namespace IdApp
 		/// <summary>
 		/// Current Neuron Service
 		/// </summary>
-		public INeuronService NeuronService => DependencyService.Resolve<INeuronService>();
+		public INeuronService NeuronService => Types.Instantiate<INeuronService>(false);
 
 		/// <summary>
 		/// Current Network Service
 		/// </summary>
-		public INetworkService NetworkService => DependencyService.Resolve<INetworkService>();
+		public INetworkService NetworkService => Types.Instantiate<INetworkService>(false);
 
 		/// <summary>
 		/// Current Navigation Service
 		/// </summary>
-		public INavigationService NavigationService => DependencyService.Resolve<INavigationService>();
+		public INavigationService NavigationService => Types.Instantiate<INavigationService>(false);
 
 		/// <summary>
 		/// Current Log Service
 		/// </summary>
-		public ILogService LogService => DependencyService.Resolve<ILogService>();
+		public ILogService LogService => Types.Instantiate<ILogService>(false);
 
 		/// <summary>
 		/// Current UI Dispatcher Service
 		/// </summary>
-		public IUiDispatcher UiDispatcher => DependencyService.Resolve<IUiDispatcher>();
+		public IUiDispatcher UiDispatcher => Types.Instantiate<IUiDispatcher>(false);
 
 		/// <summary>
 		/// Current Contract Orchestrator Service
 		/// </summary>
-		public IContractOrchestratorService ContractOrchestratorService => DependencyService.Resolve<IContractOrchestratorService>();
+		public IContractOrchestratorService ContractOrchestratorService => Types.Instantiate<IContractOrchestratorService>(false);
 
 		/// <summary>
 		/// Current Thing Registry Orchestrator Service
 		/// </summary>
-		public IThingRegistryOrchestratorService ThingRegistryOrchestratorService => DependencyService.Resolve<IThingRegistryOrchestratorService>();
+		public IThingRegistryOrchestratorService ThingRegistryOrchestratorService => Types.Instantiate<IThingRegistryOrchestratorService>(false);
 
 		/// <summary>
 		/// Current eDaler Orchestrator Service
 		/// </summary>
-		public IEDalerOrchestratorService EDalerOrchestratorService => DependencyService.Resolve<IEDalerOrchestratorService>();
+		public IEDalerOrchestratorService EDalerOrchestratorService => Types.Instantiate<IEDalerOrchestratorService>(false);
 
 		/// <inheritdoc/>
 		protected override void OnNavigated(ShellNavigatedEventArgs e)

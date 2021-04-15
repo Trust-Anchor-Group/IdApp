@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,7 +23,7 @@ namespace IdApp.Views
         /// </summary>
         public MainTabBarView()
         {
-            this.logService = DependencyService.Resolve<ILogService>();
+            this.logService = Types.Instantiate<ILogService>(false);
             // Set default values here.
             OnPlatform<string> fontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"];
             this.LeftButton1FontFamily = fontFamily;

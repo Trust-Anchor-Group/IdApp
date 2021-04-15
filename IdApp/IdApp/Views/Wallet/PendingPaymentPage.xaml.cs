@@ -2,6 +2,7 @@
 using IdApp.ViewModels.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,14 +21,14 @@ namespace IdApp.Views.Wallet
         /// </summary>
 		public PendingPaymentPage()
 		{
-            this.navigationService = DependencyService.Resolve<INavigationService>();
+            this.navigationService = Types.Instantiate<INavigationService>(false);
             this.ViewModel = new EDalerUriViewModel(
-                DependencyService.Resolve<ITagProfile>(),
-                DependencyService.Resolve<IUiDispatcher>(),
-                DependencyService.Resolve<INeuronService>(),
-                this.navigationService,
-                DependencyService.Resolve<INetworkService>(),
-                DependencyService.Resolve<ILogService>(),
+                Types.Instantiate<ITagProfile>(false),
+                Types.Instantiate<IUiDispatcher>(false),
+                Types.Instantiate<INeuronService>(false),
+                this.navigationService ?? Types.Instantiate<INavigationService>(false),
+                Types.Instantiate<INetworkService>(false),
+                Types.Instantiate<ILogService>(false),
                 this);
 
             InitializeComponent();

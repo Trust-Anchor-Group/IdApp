@@ -18,6 +18,7 @@ using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -67,17 +68,18 @@ namespace IdApp.ViewModels.Contracts
             IAttachmentCacheService attachmentCacheService,
             IContractOrchestratorService contractOrchestratorService)
         {
-            this.tagProfile = tagProfile ?? DependencyService.Resolve<ITagProfile>();
-            this.neuronService = neuronService ?? DependencyService.Resolve<INeuronService>();
-            this.logService = logService ?? DependencyService.Resolve<ILogService>();
-            this.uiDispatcher = uiDispatcher ?? DependencyService.Resolve<IUiDispatcher>();
-            this.navigationService = navigationService ?? DependencyService.Resolve<INavigationService>();
-            networkService = networkService ?? DependencyService.Resolve<INetworkService>();
-            this.contractOrchestratorService = contractOrchestratorService ?? DependencyService.Resolve<IContractOrchestratorService>();
+            this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+            this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
+            this.logService = logService ?? Types.Instantiate<ILogService>(false);
+            this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+            networkService = networkService ?? Types.Instantiate<INetworkService>(false);
+            this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
 
             this.Photos = new ObservableCollection<ImageSource>();
             this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiDispatcher,
-                attachmentCacheService ?? DependencyService.Resolve<IAttachmentCacheService>(), this.Photos);
+                attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
+
             this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
             this.DeleteContractCommand = new Command(async _ => await DeleteContract());
             this.GeneralInformation = new ObservableCollection<PartModel>();
