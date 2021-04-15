@@ -138,10 +138,7 @@ namespace IdApp
 
 						EndpointSecurity.SetCiphers(new Type[]
 						{
-							typeof(Edwards448Endpoint),
-							typeof(Edwards25519Endpoint),
-							typeof(Curve448Endpoint),
-							typeof(Curve25519Endpoint)
+							typeof(Edwards448Endpoint)
 						}, false);
 
 						Thread?.NewState("SDK");
