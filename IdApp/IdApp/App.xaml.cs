@@ -132,8 +132,7 @@ namespace IdApp
 								typeof(Expression).Assembly,                // Indexes basic script functions
 								typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
 								typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
-								typeof(TagConfiguration).Assembly,          // Indexes persistable objects
-								typeof(RegistrationStep).Assembly);         // Indexes persistable objects
+								typeof(TagConfiguration).Assembly);         // Indexes persistable objects
 						}
 
 						EndpointSecurity.SetCiphers(new Type[]
