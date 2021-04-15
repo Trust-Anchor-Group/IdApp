@@ -263,6 +263,9 @@ namespace IdApp.ViewModels.Contracts
 
 		private static KeyValuePair<DateTime, string>[] AnnotateWithMinDateTime(string[] IDs)
 		{
+			if (IDs is null)
+				return new KeyValuePair<DateTime, string>[0];
+
 			KeyValuePair<DateTime, string>[] Result = new KeyValuePair<DateTime, string>[IDs.Length];
 			int i = 0;
 
