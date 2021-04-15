@@ -345,11 +345,11 @@ namespace IdApp
 					await this.attachmentCacheService.Unload();
 			}
 
+			foreach (IEventSink Sink in Waher.Events.Log.Sinks)
+				Waher.Events.Log.Unregister(Sink);
+
 			if (!(this.sdk.StorageService is null))
 				await this.sdk.StorageService.Shutdown();
-
-			await Types.StopAllModules();	// TODO: Review
-			Waher.Events.Log.Terminate();	// TODO: Review
 		}
 
 		#endregion

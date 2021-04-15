@@ -60,10 +60,14 @@ namespace Tag.Neuron.Xamarin.Services
 					this.databaseProvider = Database.Provider as FilesProvider;
 
 				if (this.databaseProvider is null)
+				{
 					this.databaseProvider = await CreateDatabaseFile(Thread);
 
-				Thread?.NewState("CheckDB");
-				await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
+					Thread?.NewState("CheckDB");
+					await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
+
+					await this.databaseProvider.Start();
+				}
 			}
 			catch (Exception e1)
 			{
@@ -106,6 +110,8 @@ namespace Tag.Neuron.Xamarin.Services
 
 						Thread?.NewState("Repair");
 						await this.databaseProvider.RepairIfInproperShutdown(string.Empty);
+
+						await this.databaseProvider.Start();
 
 						if (!Database.HasProvider)
 						{
@@ -176,8 +182,9 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				if (!(this.databaseProvider is null))
 				{
+					Database.Register(new NullDatabaseProvider(), false);
 					await this.databaseProvider.Flush();
-					this.databaseProvider.Dispose();
+					await this.databaseProvider.Stop();
 					this.databaseProvider = null;
 				}
 			}
@@ -187,11 +194,11 @@ namespace Tag.Neuron.Xamarin.Services
 			}
 		}
 
-		private async Task<FilesProvider> CreateDatabaseFile(ProfilerThread Thread)
+		private Task<FilesProvider> CreateDatabaseFile(ProfilerThread Thread)
 		{
-			FilesProvider.AsyncFileIo = false;	// Asynchronous file I/O induces a long delay during startup on mobile platforms. Why??
+			FilesProvider.AsyncFileIo = false;  // Asynchronous file I/O induces a long delay during startup on mobile platforms. Why??
 
-			return await FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
+			return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
 				(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey, Thread);
 		}
 
