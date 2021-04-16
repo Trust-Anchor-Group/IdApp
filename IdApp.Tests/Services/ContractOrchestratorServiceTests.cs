@@ -161,7 +161,7 @@ namespace IdApp.Tests.Services
 				.Returns(Task.FromResult((true, identity)));
 			this.neuronService.Setup(x => x.WaitForConnectedState(It.IsAny<TimeSpan>())).Returns(Task.FromResult(true));
 			this.neuronContracts.Setup(x => x.GetLegalIdentity(It.IsAny<string>())).Returns(Task.FromResult(identity));
-			this.neuronContracts.Setup(x => x.HasPrivateKey(It.IsAny<string>())).ReturnsAsync(false);
+			this.neuronContracts.Setup(x => x.HasPrivateKey(It.IsAny<string>(), null)).ReturnsAsync(false);
 			this.neuronService.SetupGet(x => x.IsOnline).Returns(true);
 			this.neuronContracts.Setup(x => x.ObsoleteLegalIdentity(guid.ToString())).ReturnsAsync(compromisedIdentity);
 			// When
@@ -169,7 +169,7 @@ namespace IdApp.Tests.Services
 			// Then
 			this.tagProfile.Verify(x => x.RevokeLegalIdentity(It.IsAny<LegalIdentity>()), Times.Once);
 			this.navigationService.Verify(x => x.GoToAsync(nameof(RegistrationPage)), Times.Once);
-			this.neuronContracts.Verify(x => x.HasPrivateKey(guid.ToString()), Times.Once);
+			this.neuronContracts.Verify(x => x.HasPrivateKey(guid.ToString(), null), Times.Once);
 			this.neuronContracts.Verify(x => x.ObsoleteLegalIdentity(guid.ToString()), Times.Once);
 		}
 	}
