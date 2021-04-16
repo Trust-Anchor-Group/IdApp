@@ -31,6 +31,7 @@ namespace Tag.Neuron.Xamarin
 		public TagIdSdk(Assembly appAssembly, Profiler startupProfiler, params DomainModel[] domains)
 		{
 			this.StartupProfiler = startupProfiler;
+
 			this.TagProfile = Types.InstantiateDefault<ITagProfile>(false, new object[] { domains });
 			this.LogService = Types.InstantiateDefault<ILogService>(false);
 			this.UiDispatcher = Types.InstantiateDefault<IUiDispatcher>(false);
