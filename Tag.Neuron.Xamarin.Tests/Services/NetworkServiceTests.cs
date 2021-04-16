@@ -39,9 +39,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
             Task<bool> TestFuncThatThrows()
             {
                 if (!(e is null))
-                {
                     throw e;
-                }
 
                 return Task.FromResult(true);
             }
@@ -55,10 +53,9 @@ namespace Tag.Neuron.Xamarin.Tests.Services
             {
                 typeOfExceptionCaught = ex;
             }
+
             if (rethrowException)
-            {
                 Assert.IsInstanceOf<TExceptionRethrown>(typeOfExceptionCaught);
-            }
 
             this.logService.Verify(x => x.LogException(It.IsAny<TException>(), It.IsAny<KeyValuePair<string, string>[]>()), Times.Once);
             this.logService.Reset();
