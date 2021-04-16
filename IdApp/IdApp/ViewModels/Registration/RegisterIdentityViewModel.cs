@@ -520,7 +520,7 @@ namespace IdApp.ViewModels.Registration
             try
             {
                 byte[] Bin = File.ReadAllBytes(filePath);
-                if (!InternetContent.TryGetContentType(filePath, out string ContentType))
+                if (!InternetContent.TryGetContentType(Path.GetExtension(filePath), out string ContentType))
                     ContentType = "application/octet-stream";
          
                 await AddPhoto(Bin, ContentType, saveLocalCopy, true);
@@ -601,7 +601,7 @@ namespace IdApp.ViewModels.Registration
             try
             {
                 RegisterIdentityModel model = CreateRegisterModel();
-                LegalIdentityAttachment[] photos = { photo };
+                LegalIdentityAttachment[] photos = { this.photo };
                 (bool succeeded, LegalIdentity addedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.AddLegalIdentity(model, photos));
                 if (succeeded)
                 {

@@ -110,7 +110,8 @@
                         </Entry>
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
-                    <Entry x:Name="RegionEntry" Placeholder="{x:Static resources:AppResources.Region}" Text="{Binding Path=Region}" IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}">
+                    <Entry x:Name="RegionEntry" Placeholder="{x:Static resources:AppResources.Region}" Text="{Binding Path=Region}" 
+                           IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}">
                         <Entry.Behaviors>
                             <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>
