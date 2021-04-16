@@ -452,7 +452,7 @@ namespace Tag.Neuron.Xamarin.Services
 							ClientsThread?.Start();
 							try
 							{
-								await this.CreateXmppClient(false, ClientsThread);
+								await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity, ClientsThread);
 							}
 							finally
 							{
@@ -605,7 +605,7 @@ namespace Tag.Neuron.Xamarin.Services
 				try
 				{
 					this.IsLoggedOut = false;
-					await this.CreateXmppClient(false, null);
+					await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity, null);
 				}
 				catch (Exception e)
 				{

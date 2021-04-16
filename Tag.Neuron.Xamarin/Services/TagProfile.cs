@@ -492,9 +492,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private void DecrementConfigurationStep(RegistrationStep? stepToRevertTo = null)
 		{
 			if (stepToRevertTo.HasValue)
-			{
 				this.Step = stepToRevertTo.Value;
-			}
 			else
 			{
 				switch (this.Step)
@@ -502,15 +500,19 @@ namespace Tag.Neuron.Xamarin.Services
 					case RegistrationStep.Operator:
 						// Do nothing
 						break;
+					
 					case RegistrationStep.Account:
 						this.Step = RegistrationStep.Operator;
 						break;
+					
 					case RegistrationStep.RegisterIdentity:
 						this.Step = RegistrationStep.Account;
 						break;
+					
 					case RegistrationStep.ValidateIdentity:
 						this.Step = RegistrationStep.RegisterIdentity;
 						break;
+					
 					case RegistrationStep.Pin:
 						this.Step = RegistrationStep.ValidateIdentity;
 						break;
@@ -521,9 +523,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private void IncrementConfigurationStep(RegistrationStep? stepToGoTo = null)
 		{
 			if (stepToGoTo.HasValue)
-			{
 				this.Step = stepToGoTo.Value;
-			}
 			else
 			{
 				switch (this.Step)
@@ -531,15 +531,19 @@ namespace Tag.Neuron.Xamarin.Services
 					case RegistrationStep.Operator:
 						this.Step = RegistrationStep.Account;
 						break;
+			
 					case RegistrationStep.Account:
 						this.Step = RegistrationStep.RegisterIdentity;
 						break;
+					
 					case RegistrationStep.RegisterIdentity:
 						this.Step = RegistrationStep.ValidateIdentity;
 						break;
+					
 					case RegistrationStep.ValidateIdentity:
 						this.Step = RegistrationStep.Pin;
 						break;
+					
 					case RegistrationStep.Pin:
 						this.Step = RegistrationStep.Complete;
 						break;

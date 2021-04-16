@@ -496,37 +496,29 @@ namespace IdApp.ViewModels.Registration
                                 identity.From <= now &&
                                 identity.To >= now &&
                                 (identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
-                                identity.ValidateClientSignature())
+                                identity.ValidateClientSignature() &&
+                                await this.NeuronService.Contracts.HasPrivateKey(identity.Id))
                             {
                                 if (identity.State == IdentityState.Approved)
                                 {
                                     approvedIdentity = identity;
                                     break;
                                 }
+
                                 if (createdIdentity is null)
-                                {
                                     createdIdentity = identity;
-                                }
                             }
                         }
 
                         if (!(approvedIdentity is null))
-                        {
                             this.LegalIdentity = approvedIdentity;
-                        }
                         else if (!(createdIdentity is null))
-                        {
                             this.LegalIdentity = createdIdentity;
-                        }
 
                         if (!(this.LegalIdentity is null))
-                        {
                             this.TagProfile.SetAccountAndLegalIdentity(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
-                        }
                         else
-                        {
                             this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
-                        }
                     }
                 }
 
