@@ -299,17 +299,40 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private bool XmppParametersCurrent()
 		{
-			return !(this.xmppClient is null) &&
-				this.domainName == this.tagProfile.Domain &&
-				this.accountName == this.tagProfile.Account &&
-				this.passwordHash == this.tagProfile.PasswordHash &&
-				this.passwordHashMethod == this.tagProfile.PasswordHashMethod &&
-				this.contractsClient?.ComponentAddress == this.tagProfile.LegalJid &&
-				this.fileUploadClient?.FileUploadJid == this.tagProfile.HttpFileUploadJid &&
-				this.mucClient?.ComponentAddress == this.tagProfile.MucJid &&
-				this.thingRegistryClient?.ThingRegistryAddress == this.tagProfile.RegistryJid &&
-				this.provisioningClient?.ProvisioningServerAddress == this.tagProfile.ProvisioningJid &&
-				this.contractsClient?.ComponentAddress == this.tagProfile.EDalerJid;
+			if (this.xmppClient is null)
+				return false;
+
+			if (this.domainName != this.tagProfile.Domain) 
+				return false;
+
+			if (this.accountName != this.tagProfile.Account) 
+				return false;
+
+			if (this.passwordHash != this.tagProfile.PasswordHash) 
+				return false;
+
+			if (this.passwordHashMethod != this.tagProfile.PasswordHashMethod) 
+				return false;
+
+			if (this.contractsClient?.ComponentAddress != this.tagProfile.LegalJid) 
+				return false;
+
+			if (this.fileUploadClient?.FileUploadJid != this.tagProfile.HttpFileUploadJid) 
+				return false;
+
+			if (this.mucClient?.ComponentAddress != this.tagProfile.MucJid) 
+				return false;
+
+			if (this.thingRegistryClient?.ThingRegistryAddress != this.tagProfile.RegistryJid)
+				return false;
+
+			if (this.provisioningClient?.ProvisioningServerAddress != this.tagProfile.ProvisioningJid)
+				return false;
+
+			if (this.eDalerClient?.ComponentAddress != this.tagProfile.EDalerJid)
+				return false;
+
+			return true;
 		}
 
 		private bool ShouldCreateClient()
@@ -880,6 +903,7 @@ namespace Tag.Neuron.Xamarin.Services
 		public string CommsDumpAsText(string state)
 		{
 			string response;
+
 			if (historyTextData is null || state != "History")
 				response = sniffer.SnifferToText();
 			else

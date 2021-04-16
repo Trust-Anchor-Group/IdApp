@@ -468,9 +468,7 @@ namespace IdApp.ViewModels.Registration
 
             FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
             if (!(pickedPhoto is null))
-            {
                 await AddPhoto(pickedPhoto.FullPath, true);
-            }
         }
 
         /// <summary>
@@ -541,10 +539,9 @@ namespace IdApp.ViewModels.Registration
             {
                 this.photo = null;
                 Image = null;
+            
                 if (removeFileOnDisc && File.Exists(this.localPhotoFileName))
-                {
                     File.Delete(this.localPhotoFileName);
-                }
             }
             catch (Exception e)
             {
@@ -555,9 +552,7 @@ namespace IdApp.ViewModels.Registration
         private async Task Register()
         {
             if (!(await this.ValidateInput(true)))
-            {
                 return;
-            }
 
             string countryCode = ISO_3166_1.ToCode(this.SelectedCountry);
             string pnr = PersonalNumber.Trim();
@@ -570,12 +565,12 @@ namespace IdApp.ViewModels.Registration
                     await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
                 else
                     await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
+            
                 return;
             }
+            
             if (pnr != pnrBeforeValidation)
-            {
                 this.PersonalNumber = pnr;
-            }
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {
@@ -681,36 +676,32 @@ namespace IdApp.ViewModels.Registration
             if (string.IsNullOrWhiteSpace(this.FirstName?.Trim()))
             {
                 if (alertUser)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAFirstName);
-                }
+                
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(this.LastNames?.Trim()))
             {
                 if (alertUser)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideALastName);
-                }
+                
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
             {
                 if (alertUser)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPersonalNumber);
-                }
+                
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(this.SelectedCountry))
             {
                 if (alertUser)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideACountry);
-                }
+                
                 return false;
             }
 
@@ -758,14 +749,13 @@ namespace IdApp.ViewModels.Registration
             try
             {
                 if (this.TagProfile.Step > RegistrationStep.Account && File.Exists(this.localPhotoFileName))
-                {
                     await this.AddPhoto(this.localPhotoFileName, false);
-                }
             }
             catch (Exception e)
             {
                 this.LogService.LogException(e);
             }
+            
             await base.DoRestoreState();
         }
 
