@@ -497,7 +497,7 @@ namespace IdApp.ViewModels.Registration
                                 identity.To >= now &&
                                 (identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
                                 identity.ValidateClientSignature() &&
-                                await this.NeuronService.Contracts.HasPrivateKey(identity.Id))
+                                await this.NeuronService.Contracts.HasPrivateKey(identity.Id, client))
                             {
                                 if (identity.State == IdentityState.Approved)
                                 {

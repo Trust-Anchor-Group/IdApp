@@ -65,8 +65,9 @@ namespace Tag.Neuron.Xamarin.Services
         /// Checks if the client has access to the private keys of the specified legal identity.
         /// </summary>
         /// <param name="legalIdentityId">The id of the legal identity.</param>
+        /// <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
         /// <returns>If private keys are available.</returns>
-        Task<bool> HasPrivateKey(string legalIdentityId);
+        Task<bool> HasPrivateKey(string legalIdentityId, XmppClient client = null);
 
         /// <summary>
         /// Marks the legal identity as obsolete.

@@ -71,22 +71,27 @@ namespace IdApp.ViewModels.Registration
         /// The <see cref="IUiDispatcher"/> instance.
         /// </summary>
         protected IUiDispatcher UiDispatcher { get; }
+
         /// <summary>
         /// The <see cref="ITagProfile"/> instance to edit.
         /// </summary>
         protected ITagProfile TagProfile { get; }
+
         /// <summary>
         /// The <see cref="INeuronService"/> instance.
         /// </summary>
         protected INeuronService NeuronService { get; }
+
         /// <summary>
         /// The <see cref="INavigationService"/> instance.
         /// </summary>
         protected INavigationService NavigationService { get; }
+
         /// <summary>
         /// The <see cref="ISettingsService"/> instance.
         /// </summary>
         protected ISettingsService SettingsService { get; }
+
         /// <summary>
         /// The <see cref="ILogService"/> instance.
         /// </summary>

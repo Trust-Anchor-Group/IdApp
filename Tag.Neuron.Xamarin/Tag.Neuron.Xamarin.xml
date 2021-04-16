@@ -1348,11 +1348,12 @@
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>If the legal identity is in the contacts list.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.HasPrivateKey(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
             <summary>
             Checks if the client has access to the private keys of the specified legal identity.
             </summary>
             <param name="legalIdentityId">The id of the legal identity.</param>
+            <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>If private keys are available.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.ObsoleteLegalIdentity(System.String)">
@@ -2664,11 +2665,12 @@
             </summary>
             <returns>Id's of contract templates, together with the last time they were used.</returns>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.HasPrivateKey(System.String)">
+        <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
             <summary>
             Checks if the client has access to the private keys of the specified legal identity.
             </summary>
             <param name="legalIdentityId">The id of the legal identity.</param>
+            <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>If private keys are available.</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.NeuronContracts.GetLegalIdentity(System.String)">
