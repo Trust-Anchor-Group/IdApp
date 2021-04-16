@@ -111,7 +111,7 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <Entry x:Name="RegionEntry" Placeholder="{x:Static resources:AppResources.Region}" Text="{Binding Path=Region}" 
-                           IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}">
+                           IsEnabled="{Binding Path=IsBusy, Converter={converters:BooleanConverter}}" Focused="RegionEntry_Focused">
                         <Entry.Behaviors>
                             <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>

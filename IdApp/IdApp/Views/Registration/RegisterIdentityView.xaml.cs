@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Registration
 {
@@ -15,5 +16,10 @@ namespace IdApp.Views.Registration
         {
             InitializeComponent();
         }
-    }
+
+		private void RegionEntry_Focused(object sender, FocusEventArgs e)
+		{
+            this.RegistrationLayout.ScrollToAsync(this.RegisterButton, ScrollToPosition.MakeVisible, true);
+        }
+	}
 }
