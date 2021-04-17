@@ -303,17 +303,17 @@ namespace IdApp
 		{
 			StopAutoSaveTimer();
 
-			if (!(this.sdk.UiDispatcher is null))
+			if (!(this.sdk?.UiDispatcher is null))
 				this.sdk.UiDispatcher.IsRunningInTheBackground = !inPanic;
 
 			if (inPanic)
 			{
-				if (!(this.sdk.NeuronService is null))
+				if (!(this.sdk?.NeuronService is null))
 					await this.sdk.NeuronService.UnloadFast();
 			}
 			else
 			{
-				if (!(this.sdk.NavigationService is null))
+				if (!(this.sdk?.NavigationService is null))
 					await this.sdk.NavigationService.Unload();
 
 				if (!(this.contractOrchestratorService is null))
@@ -322,10 +322,10 @@ namespace IdApp
 				if (!(this.thingRegistryOrchestratorService is null))
 					await this.thingRegistryOrchestratorService.Unload();
 
-				if (!(this.sdk.NeuronService is null))
+				if (!(this.sdk?.NeuronService is null))
 					await this.sdk.NeuronService.Unload();
 
-				if (!(this.sdk.NetworkService is null))
+				if (!(this.sdk?.NetworkService is null))
 					await this.sdk.NetworkService.Unload();
 
 				if (!(this.attachmentCacheService is null))
@@ -335,7 +335,7 @@ namespace IdApp
 			foreach (IEventSink Sink in Waher.Events.Log.Sinks)
 				Waher.Events.Log.Unregister(Sink);
 
-			if (!(this.sdk.StorageService is null))
+			if (!(this.sdk?.StorageService is null))
 				await this.sdk.StorageService.Shutdown();
 		}
 
