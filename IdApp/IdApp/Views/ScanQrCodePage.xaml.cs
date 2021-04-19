@@ -1,10 +1,12 @@
-﻿using IdApp.ViewModels;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using IdApp.ViewModels;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 using ZXing;
+using ZXing.Mobile;
 
 namespace IdApp.Views
 {
@@ -109,6 +111,54 @@ namespace IdApp.Views
         {
             QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, string.Empty);
             return true;
+        }
+
+		private void ContentBasePage_SizeChanged(object sender, EventArgs e)
+		{
+            // cf. https://github.com/Redth/ZXing.Net.Mobile/issues/808
+
+            this.Scanner.IsEnabled = false;
+            this.Scanner.Options.CameraResolutionSelector = this.SelectLowestResolutionMatchingDisplayAspectRatio;
+            this.Scanner.IsEnabled = true;
+        }
+
+        private CameraResolution SelectLowestResolutionMatchingDisplayAspectRatio(List<CameraResolution> AvailableResolutions)
+        {
+            CameraResolution Result = null;
+            double AspectTolerance = 0.1;
+
+            var DisplayOrientationHeight = this.Scanner.Width;
+            var DisplayOrientationWidth = this.Scanner.Height;
+
+            var TargetRatio = DisplayOrientationHeight / DisplayOrientationWidth;
+            var TargetHeight = DisplayOrientationHeight;
+            var MinDiff = double.MaxValue;
+
+            foreach (CameraResolution Resolution in AvailableResolutions)
+            {
+                if (Math.Abs(((double)Resolution.Width / Resolution.Height) - TargetRatio) >= AspectTolerance)
+                    continue;
+
+                if (Math.Abs(Resolution.Height - TargetHeight) < MinDiff)
+                {
+                    MinDiff = Math.Abs(Resolution.Height - TargetHeight);
+                    Result = Resolution;
+                }
+            }
+
+            if (Result is null)
+            {
+                foreach (CameraResolution Resolution in AvailableResolutions)
+                {
+                    if (Math.Abs(Resolution.Height - TargetHeight) < MinDiff)
+                    {
+                        MinDiff = Math.Abs(Resolution.Height - TargetHeight);
+                        Result = Resolution;
+                    }
+                }
+            }
+
+            return Result;
         }
     }
 }

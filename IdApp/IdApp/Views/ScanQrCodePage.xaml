@@ -1,22 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
-             xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
-             x:Class="IdApp.Views.ScanQrCodePage"
-             Title="{x:Static local:AppResources.ScanQRCode}"
-             Shell.FlyoutBehavior="Disabled">
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       x:Class="IdApp.Views.ScanQrCodePage"
+                       Title="{x:Static local:AppResources.ScanQRCode}"
+                       Shell.FlyoutBehavior="Disabled" 
+                       SizeChanged="ContentBasePage_SizeChanged">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
             <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
-                <forms:ZXingScannerView 
-                x:Name="Scanner"
-                OnScanResult="Scanner_OnScanResult"
-                IsScanning="True"
-                HeightRequest="400"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"/>
+                <forms:ZXingScannerView x:Name="Scanner"
+                                        OnScanResult="Scanner_OnScanResult"
+                                        IsScanning="True"
+                                        HeightRequest="400"
+                                        VerticalOptions="CenterAndExpand"
+                                        HorizontalOptions="CenterAndExpand"/>
                 <forms:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlay}"/>
             </Grid>
             <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
