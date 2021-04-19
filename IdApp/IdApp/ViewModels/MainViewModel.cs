@@ -12,6 +12,8 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
 using Waher.Content;
+using Waher.Content.Images;
+using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
@@ -58,7 +60,7 @@ namespace IdApp.ViewModels
 			IContractOrchestratorService contractOrchestratorService,
 			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
 			IEDalerOrchestratorService eDalerOrchestratorService)
-			: base(neuronService ?? Types.Instantiate<INeuronService>(false), 
+			: base(neuronService ?? Types.Instantiate<INeuronService>(false),
 				  uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false))
 		{
 			this.logService = logService ?? Types.Instantiate<ILogService>(false);
@@ -69,7 +71,7 @@ namespace IdApp.ViewModels
 			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? Types.Instantiate<IThingRegistryOrchestratorService>(false);
 			this.eDalerOrchestratorService = eDalerOrchestratorService ?? Types.Instantiate<IEDalerOrchestratorService>(false);
 
-			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher, 
+			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
 				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false));
 			this.UpdateLoggedOutText(true);
 
@@ -179,7 +181,8 @@ namespace IdApp.ViewModels
 					{
 						if (this.IsBound)
 						{
-							Image = ImageSource.FromStream(() => new MemoryStream(Bin));
+							this.ImageRotation = GetImageRotation(Bin);
+							this.Image = ImageSource.FromStream(() => new MemoryStream(Bin));
 						}
 					});
 				}
@@ -188,6 +191,44 @@ namespace IdApp.ViewModels
 			{
 				this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 			}
+		}
+
+		/// <summary>
+		/// Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
+		/// </summary>
+		/// <param name="JpegImage">Binary representation of JPEG image.</param>
+		/// <returns>Rotation angle (degrees).</returns>
+		public static int GetImageRotation(byte[] JpegImage)
+		{
+			if (JpegImage is null)
+				return 0;
+
+			if (!EXIF.TryExtractFromJPeg(JpegImage, out ExifTag[] Tags))
+				return 0;
+
+			foreach (ExifTag Tag in Tags)
+			{
+				if (Tag.Name == ExifTagName.Orientation)
+				{
+					if (Tag.Value is ushort Orientation)
+					{
+						switch (Orientation)
+						{
+							case 1: return 0;		// Top left. Default orientation.
+							case 2: return 0;		// Top right. Horizontally reversed.
+							case 3: return 180;		// Bottom right. Rotated by 180 degrees.
+							case 4: return 180;		// Bottom left. Rotated by 180 degrees and then horizontally reversed.
+							case 5: return -90;		// Left top. Rotated by 90 degrees counterclockwise and then horizontally reversed.
+							case 6: return 90;		// Right top. Rotated by 90 degrees clockwise.
+							case 7: return 90;		// Right bottom. Rotated by 90 degrees clockwise and then horizontally reversed.
+							case 8: return -90;		// Left bottom. Rotated by 90 degrees counterclockwise.
+							default: return 0;
+						}
+					}
+				}
+			}
+
+			return 0;
 		}
 
 		#region Properties
@@ -314,6 +355,21 @@ namespace IdApp.ViewModels
 		{
 			get { return (ImageSource)GetValue(ImageProperty); }
 			set { SetValue(ImageProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="ImageRotation"/>
+		/// </summary>
+		public static readonly BindableProperty ImageRotationProperty =
+			BindableProperty.Create("ImageRotation", typeof(int), typeof(MainViewModel), default(int));
+
+		/// <summary>
+		/// Gets or sets whether the current user has a photo associated with the account.
+		/// </summary>
+		public int ImageRotation
+		{
+			get { return (int)GetValue(ImageRotationProperty); }
+			set { SetValue(ImageRotationProperty, value); }
 		}
 
 		/// <summary>

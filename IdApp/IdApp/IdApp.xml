@@ -5367,6 +5367,13 @@
         <member name="M:IdApp.ViewModels.MainViewModel.DoUnbind">
             <inheritdoc />
         </member>
+        <member name="M:IdApp.ViewModels.MainViewModel.GetImageRotation(System.Byte[])">
+            <summary>
+            Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
+            </summary>
+            <param name="JpegImage">Binary representation of JPEG image.</param>
+            <returns>Rotation angle (degrees).</returns>
+        </member>
         <member name="F:IdApp.ViewModels.MainViewModel.ViewMyContactsCommandProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.MainViewModel.ViewMyContactsCommand"/>
@@ -5445,6 +5452,16 @@
         <member name="P:IdApp.ViewModels.MainViewModel.Image">
             <summary>
             Gets or sets the current user's photo.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ImageRotationProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ImageRotation"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ImageRotation">
+            <summary>
+            Gets or sets whether the current user has a photo associated with the account.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.MainViewModel.ImageBinProperty">

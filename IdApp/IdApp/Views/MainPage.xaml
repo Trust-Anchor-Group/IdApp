@@ -78,7 +78,8 @@
                                         <Image BackgroundColor="{StaticResource HeadingBackground}"
                                                Aspect="AspectFill" 
                                                Source="{Binding Path=Image}" 
-                                               IsVisible="{Binding Path=HasPhoto}"/>
+                                               IsVisible="{Binding Path=HasPhoto}" 
+                                               Rotation="{Binding Path=ImageRotation}"/>
                                         <Label HorizontalOptions="CenterAndExpand"
                                                VerticalOptions="CenterAndExpand" FontSize="42" 
                                                TextColor="{StaticResource HeadingForeground}"
