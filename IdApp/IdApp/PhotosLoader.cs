@@ -1,13 +1,15 @@
-﻿using IdApp.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Content.Images;
+using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using Xamarin.Forms;
@@ -112,16 +114,16 @@ namespace IdApp
         /// </summary>
         /// <param name="attachment">The attachment to download.</param>
         /// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
-        /// <returns>Binary content (or null), and Content-Type</returns>
-        public async Task<(byte[], string)> LoadOnePhoto(Attachment attachment, SignWith signWith)
+        /// <returns>Binary content (or null), Content-Type, Rotation</returns>
+        public async Task<(byte[], string, int)> LoadOnePhoto(Attachment attachment, SignWith signWith)
         {
             try
             {
                 if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
-                    return (null, string.Empty);
+                    return (null, string.Empty, 0);
 
                 if (attachment is null)
-                    return (null, string.Empty);
+                    return (null, string.Empty, 0);
 
                 return await GetPhoto(attachment, signWith, DateTime.UtcNow);
             }
@@ -130,7 +132,7 @@ namespace IdApp
                 this.logService.LogException(ex);
             }
 
-            return (null, string.Empty);
+            return (null, string.Empty, 0);
         }
 
         private async Task LoadPhotos(Attachment[] attachments, SignWith signWith, DateTime now, Action whenDoneAction)
@@ -166,12 +168,12 @@ namespace IdApp
                     if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
                         continue;
 
-                    (byte[] Bin, string ContentType) = await GetPhoto(attachment, signWith, now);
+                    (byte[] Bin, string ContentType, int Rotation) = await GetPhoto(attachment, signWith, now);
                     if (!(Bin is null))
                     {
                         this.uiDispatcher.BeginInvokeOnMainThread(() =>
                         {
-                            photos.Add(ImageSource.FromStream(() => new MemoryStream(Bin)));
+                            photos.Add(ImageSource.FromStream(() => new MemoryStream(Bin)));    // TODO: Rotation
                         });
                     }
                 }
@@ -184,35 +186,74 @@ namespace IdApp
             whenDoneAction?.Invoke();
         }
 
-        private async Task<(byte[], string)> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
+        private async Task<(byte[], string, int)> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
         {
             (byte[] Bin, string ContentType) = await this.attachmentCacheService.TryGet(attachment.Url);
             if (!(Bin is null))
-                return (Bin, ContentType);
+                return (Bin, ContentType, GetImageRotation(Bin));
 
             KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
 
             using (TemporaryFile file = pair.Value)
             {
                 if (this.loadPhotosTimestamp > now)     // If download has been cancelled any time _during_ download, stop here.
-                    return (null, string.Empty);
+                    return (null, string.Empty, 0);
 
                 if (pair.Value.Length > int.MaxValue)   // Too large
-                    return (null, string.Empty);
+                    return (null, string.Empty, 0);
 
                 file.Reset();
 
                 ContentType = pair.Key;
                 Bin = new byte[file.Length];
                 if (file.Length != file.Read(Bin, 0, (int)file.Length))
-                    return (null, string.Empty);
+                    return (null, string.Empty, 0);
 
                 bool IsContact = await this.neuronService.Contracts.IsContact(attachment.LegalId);
 
                 await this.attachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
                 
-                return (Bin, ContentType);
+                return (Bin, ContentType, GetImageRotation(Bin));
             }
         }
+
+        /// <summary>
+        /// Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
+        /// </summary>
+        /// <param name="JpegImage">Binary representation of JPEG image.</param>
+        /// <returns>Rotation angle (degrees).</returns>
+        public static int GetImageRotation(byte[] JpegImage)
+        {
+            if (JpegImage is null)
+                return 0;
+
+            if (!EXIF.TryExtractFromJPeg(JpegImage, out ExifTag[] Tags))
+                return 0;
+
+            foreach (ExifTag Tag in Tags)
+            {
+                if (Tag.Name == ExifTagName.Orientation)
+                {
+                    if (Tag.Value is ushort Orientation)
+                    {
+                        switch (Orientation)
+                        {
+                            case 1: return 0;       // Top left. Default orientation.
+                            case 2: return 0;       // Top right. Horizontally reversed.
+                            case 3: return 180;     // Bottom right. Rotated by 180 degrees.
+                            case 4: return 180;     // Bottom left. Rotated by 180 degrees and then horizontally reversed.
+                            case 5: return -90;     // Left top. Rotated by 90 degrees counterclockwise and then horizontally reversed.
+                            case 6: return 90;      // Right top. Rotated by 90 degrees clockwise.
+                            case 7: return 90;      // Right bottom. Rotated by 90 degrees clockwise and then horizontally reversed.
+                            case 8: return -90;     // Left bottom. Rotated by 90 degrees counterclockwise.
+                            default: return 0;
+                        }
+                    }
+                }
+            }
+
+            return 0;
+        }
+
     }
 }

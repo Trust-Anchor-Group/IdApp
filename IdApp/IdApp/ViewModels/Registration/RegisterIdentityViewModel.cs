@@ -146,6 +146,21 @@ namespace IdApp.ViewModels.Registration
         }
 
         /// <summary>
+        /// See <see cref="ImageRotation"/>
+        /// </summary>
+        public static readonly BindableProperty ImageRotationProperty =
+            BindableProperty.Create("ImageRotation", typeof(int), typeof(MainViewModel), default(int));
+
+        /// <summary>
+        /// Gets or sets whether the current user has a photo associated with the account.
+        /// </summary>
+        public int ImageRotation
+        {
+            get { return (int)GetValue(ImageRotationProperty); }
+            set { SetValue(ImageRotationProperty, value); }
+        }
+
+        /// <summary>
         /// The list of all available countries a user can select from.
         /// </summary>
         public ObservableCollection<string> Countries { get; }
@@ -476,10 +491,11 @@ namespace IdApp.ViewModels.Registration
         /// </summary>
         /// <param name="Bin">Binary content</param>
         /// <param name="ContentType">Content-Type</param>
+        /// <param name="Rotation">Rotation to use, to display the image correctly.</param>
         /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
         /// <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
         /// <returns></returns>
-        protected internal async Task AddPhoto(byte[] Bin, string ContentType, bool saveLocalCopy, bool showAlert)
+        protected internal async Task AddPhoto(byte[] Bin, string ContentType, int Rotation, bool saveLocalCopy, bool showAlert)
         {
             if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
@@ -504,7 +520,8 @@ namespace IdApp.ViewModels.Registration
             }
 
             this.photo = new LegalIdentityAttachment(localPhotoFileName, ContentType, Bin);
-            Image = ImageSource.FromStream(() => new MemoryStream(Bin));
+            this.ImageRotation = Rotation;
+            this.Image = ImageSource.FromStream(() => new MemoryStream(Bin));
 
             RegisterCommand.ChangeCanExecute();
         }
@@ -523,7 +540,7 @@ namespace IdApp.ViewModels.Registration
                 if (!InternetContent.TryGetContentType(Path.GetExtension(filePath), out string ContentType))
                     ContentType = "application/octet-stream";
          
-                await AddPhoto(Bin, ContentType, saveLocalCopy, true);
+                await AddPhoto(Bin, ContentType, PhotosLoader.GetImageRotation(Bin), saveLocalCopy, true);
             }
             catch (Exception ex)
             {
@@ -818,7 +835,7 @@ namespace IdApp.ViewModels.Registration
                         .LoadOnePhoto(FirstAttachment, SignWith.LatestApprovedIdOrCurrentKeys)
                         .ContinueWith(task =>
                         {
-                            (byte[] Bin, string ContentType) = task.Result;
+                            (byte[] Bin, string ContentType, int Rotation) = task.Result;
                             if (!(Bin is null))
                             {
                                 if (!this.IsBound) // Page no longer on screen when download is done?
@@ -826,7 +843,7 @@ namespace IdApp.ViewModels.Registration
 
                                 this.UiDispatcher.BeginInvokeOnMainThread(async () =>
                                 {
-                                    await this.AddPhoto(Bin, ContentType, true, false);
+                                    await this.AddPhoto(Bin, ContentType, Rotation, true, false);
                                 });
                             }
                         }, TaskContinuationOptions.NotOnFaulted | TaskContinuationOptions.NotOnCanceled);

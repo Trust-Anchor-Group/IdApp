@@ -26,7 +26,8 @@
                     <Label Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Margin="{StaticResource DefaultRightOnlyMargin}" Text="{x:Static resources:AppResources.PersonalLegalInfoText}" VerticalOptions="StartAndExpand" />
                     <Frame Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="1" CornerRadius="2" IsClippedToBounds="True" HasShadow="False">
                         <Grid>
-                            <Image BackgroundColor="White" Aspect="AspectFill" Source="{Binding Path=Image}" IsVisible="{Binding Path=HasPhoto}"/>
+                            <Image BackgroundColor="White" Aspect="AspectFill" Source="{Binding Path=Image}"
+                                   IsVisible="{Binding Path=HasPhoto}" Rotation="{Binding Path=ImageRotation}"/>
                             <Label HorizontalOptions="Center" VerticalOptions="Center" FontSize="42" 
                                    TextColor="{StaticResource HeadingBackground}"
                                    Text="{x:Static resources:SolidIcons.User}"

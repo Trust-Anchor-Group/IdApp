@@ -2541,7 +2541,14 @@
             </summary>
             <param name="attachment">The attachment to download.</param>
             <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <returns>Binary content (or null), and Content-Type</returns>
+            <returns>Binary content (or null), Content-Type, Rotation</returns>
+        </member>
+        <member name="M:IdApp.PhotosLoader.GetImageRotation(System.Byte[])">
+            <summary>
+            Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
+            </summary>
+            <param name="JpegImage">Binary representation of JPEG image.</param>
+            <returns>Rotation angle (degrees).</returns>
         </member>
         <member name="T:IdApp.QrCode">
             <summary>
@@ -5367,13 +5374,6 @@
         <member name="M:IdApp.ViewModels.MainViewModel.DoUnbind">
             <inheritdoc />
         </member>
-        <member name="M:IdApp.ViewModels.MainViewModel.GetImageRotation(System.Byte[])">
-            <summary>
-            Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
-            </summary>
-            <param name="JpegImage">Binary representation of JPEG image.</param>
-            <returns>Rotation angle (degrees).</returns>
-        </member>
         <member name="F:IdApp.ViewModels.MainViewModel.ViewMyContactsCommandProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.MainViewModel.ViewMyContactsCommand"/>
@@ -6110,6 +6110,16 @@
             The image source, i.e. the file representing the selected photo.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ImageRotationProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ImageRotation"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.ImageRotation">
+            <summary>
+            Gets or sets whether the current user has a photo associated with the account.
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Registration.RegisterIdentityViewModel.Countries">
             <summary>
             The list of all available countries a user can select from.
@@ -6270,12 +6280,13 @@
             The user friendly connection state text to display to the user.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AddPhoto(System.Byte[],System.String,System.Boolean,System.Boolean)">
+        <member name="M:IdApp.ViewModels.Registration.RegisterIdentityViewModel.AddPhoto(System.Byte[],System.String,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Adds a photo from the specified path to use as a profile photo.
             </summary>
             <param name="Bin">Binary content</param>
             <param name="ContentType">Content-Type</param>
+            <param name="Rotation">Rotation to use, to display the image correctly.</param>
             <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
             <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
             <returns></returns>

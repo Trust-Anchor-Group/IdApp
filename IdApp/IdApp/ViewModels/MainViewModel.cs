@@ -12,8 +12,6 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI;
 using Waher.Content;
-using Waher.Content.Images;
-using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
@@ -170,7 +168,7 @@ namespace IdApp.ViewModels
 				if (!connected)
 					return;
 
-				(byte[] Bin, string ContentType) = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
+				(byte[] Bin, string ContentType, int Rotation) = await this.photosLoader.LoadOnePhoto(firstAttachment, SignWith.LatestApprovedIdOrCurrentKeys);
 
 				this.ImageBin = Bin;
 				this.ImageContentType = ContentType;
@@ -181,7 +179,7 @@ namespace IdApp.ViewModels
 					{
 						if (this.IsBound)
 						{
-							this.ImageRotation = GetImageRotation(Bin);
+							this.ImageRotation = Rotation;
 							this.Image = ImageSource.FromStream(() => new MemoryStream(Bin));
 						}
 					});
@@ -191,44 +189,6 @@ namespace IdApp.ViewModels
 			{
 				this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 			}
-		}
-
-		/// <summary>
-		/// Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
-		/// </summary>
-		/// <param name="JpegImage">Binary representation of JPEG image.</param>
-		/// <returns>Rotation angle (degrees).</returns>
-		public static int GetImageRotation(byte[] JpegImage)
-		{
-			if (JpegImage is null)
-				return 0;
-
-			if (!EXIF.TryExtractFromJPeg(JpegImage, out ExifTag[] Tags))
-				return 0;
-
-			foreach (ExifTag Tag in Tags)
-			{
-				if (Tag.Name == ExifTagName.Orientation)
-				{
-					if (Tag.Value is ushort Orientation)
-					{
-						switch (Orientation)
-						{
-							case 1: return 0;		// Top left. Default orientation.
-							case 2: return 0;		// Top right. Horizontally reversed.
-							case 3: return 180;		// Bottom right. Rotated by 180 degrees.
-							case 4: return 180;		// Bottom left. Rotated by 180 degrees and then horizontally reversed.
-							case 5: return -90;		// Left top. Rotated by 90 degrees counterclockwise and then horizontally reversed.
-							case 6: return 90;		// Right top. Rotated by 90 degrees clockwise.
-							case 7: return 90;		// Right bottom. Rotated by 90 degrees clockwise and then horizontally reversed.
-							case 8: return -90;		// Left bottom. Rotated by 90 degrees counterclockwise.
-							default: return 0;
-						}
-					}
-				}
-			}
-
-			return 0;
 		}
 
 		#region Properties
