@@ -128,7 +128,7 @@
                             BindableLayout.ItemsSource="{Binding Path=Photos}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
-                                    <Image Source="{Binding}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" Margin="2">
+                                    <Image Source="{Binding Path=Source}" Rotation="{Binding Path=Rotation}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" Margin="2">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="Image_Tapped"/>
                                         </Image.GestureRecognizers>

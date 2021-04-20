@@ -56,7 +56,7 @@ namespace IdApp.ViewModels.Identity
 			this.networkService = networkService;
 			this.eDalerService = EDalerService;
 			this.attachmentCacheService = attachmentCacheService;
-			this.Photos = new ObservableCollection<ImageSource>();
+			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
 				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
 
@@ -138,7 +138,7 @@ namespace IdApp.ViewModels.Identity
 		/// <summary>
 		/// Holds a list of photos associated with this identity.
 		/// </summary>
-		public ObservableCollection<ImageSource> Photos { get; }
+		public ObservableCollection<Photo> Photos { get; }
 
 		/// <summary>
 		/// The command to bind to for approving an identity

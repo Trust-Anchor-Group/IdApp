@@ -23,7 +23,7 @@ namespace IdApp.ViewModels
         public ImageViewModel()
         {
             this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
-            this.Photos = new ObservableCollection<ImageSource>();
+            this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(
                 Types.Instantiate<ILogService>(false),
                 Types.Instantiate<INetworkService>(false),
@@ -36,7 +36,7 @@ namespace IdApp.ViewModels
         /// <summary>
         /// Holds the list of photos to display.
         /// </summary>
-        public ObservableCollection<ImageSource> Photos { get; }
+        public ObservableCollection<Photo> Photos { get; }
 
         /// <summary>
         /// See <see cref="IsSwipeEnabled"/>

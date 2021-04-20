@@ -65,7 +65,7 @@ namespace IdApp.ViewModels.Contracts
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             
-            this.Photos = new ObservableCollection<ImageSource>();
+            this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiDispatcher, attachmentCacheService, this.Photos);
         }
 
@@ -111,7 +111,7 @@ namespace IdApp.ViewModels.Contracts
         /// <summary>
         /// The list of photos related to the contract being petitioned.
         /// </summary>
-        public ObservableCollection<ImageSource> Photos { get; }
+        public ObservableCollection<Photo> Photos { get; }
 
         /// <summary>
         /// The contract to display.

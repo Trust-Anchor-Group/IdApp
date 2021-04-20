@@ -50,7 +50,7 @@ namespace IdApp.ViewModels.Registration
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.NeuronService.IsOnline);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
-            this.Photos = new ObservableCollection<ImageSource>();
+            this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
                 attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
         }
@@ -81,7 +81,7 @@ namespace IdApp.ViewModels.Registration
         /// <summary>
         /// The list of photos associated with this legal identity.
         /// </summary>
-        public ObservableCollection<ImageSource> Photos { get; }
+        public ObservableCollection<Photo> Photos { get; }
 
         /// <summary>
         /// The command to bind to for inviting a reviewer to approve the user's identity.

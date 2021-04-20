@@ -76,7 +76,7 @@ namespace IdApp.ViewModels.Contracts
             networkService = networkService ?? Types.Instantiate<INetworkService>(false);
             this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
 
-            this.Photos = new ObservableCollection<ImageSource>();
+            this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiDispatcher,
                 attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
 
@@ -237,7 +237,7 @@ namespace IdApp.ViewModels.Contracts
         /// <summary>
         /// Gets the list of photos associated with the contract.
         /// </summary>
-        public ObservableCollection<ImageSource> Photos { get; }
+        public ObservableCollection<Photo> Photos { get; }
 
         /// <summary>
         /// The contract to display.

@@ -2508,7 +2508,7 @@
             <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
             <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
         </member>
-        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{Xamarin.Forms.ImageSource})">
+        <member name="M:IdApp.PhotosLoader.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,IdApp.Services.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{IdApp.ViewModels.Photo})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
             Use this constructor for when you want to load a <b>list of photos</b>.
@@ -5700,6 +5700,41 @@
             </summary>
             <param name="sender">The neuron service instance.</param>
             <param name="e">The event args.</param>
+        </member>
+        <member name="T:IdApp.ViewModels.Photo">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Photo.#ctor(System.Byte[])">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+            <param name="Source">Image source</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Photo.#ctor(System.Byte[],System.Int32)">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+            <param name="Source">Image source</param>
+            <param name="Rotation">Rotation</param>
+        </member>
+        <member name="M:IdApp.ViewModels.Photo.#ctor(Xamarin.Forms.ImageSource,System.Int32)">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+            <param name="Source">Image source</param>
+            <param name="Rotation">Rotation</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Photo.Source">
+            <summary>
+            Image source
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Photo.Rotation">
+            <summary>
+            Rotation
+            </summary>
         </member>
         <member name="T:IdApp.ViewModels.Registration.ChooseAccountViewModel">
             <summary>
