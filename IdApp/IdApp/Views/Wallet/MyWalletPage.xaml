@@ -6,44 +6,52 @@
                        x:Class="IdApp.Views.Wallet.MyWalletPage"
                        Title="{x:Static local:AppResources.Wallet}">
     <Grid>
-        <ScrollView>
-            <StackLayout Margin="{StaticResource DefaultMargin}">
-                <Frame HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" Margin="0,0,0,10"
-                       BackgroundColor="{StaticResource HeadingBackground}">
-                    <Grid HeightRequest="150" WidthRequest="10000">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="100"/>
-                            <RowDefinition Height="25"/>
-                        </Grid.RowDefinitions>
-                        <Image x:Name="Img" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerGlyph}" Opacity="0.5"/>
-                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Timestamp}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
-                        <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource HeadingForeground}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="{Binding Path=Amount}" FontSize="50" FontAttributes="Bold"/>
-                                    <Span Text=" "/>
-                                    <Span Text="{Binding Path=Currency}" FontSize="30"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label Grid.Column="0" Grid.Row="2" IsVisible="{Binding Path=HasPending}" HorizontalOptions="Start" TextColor="{StaticResource PendingColor}">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="(-"/>
-                                    <Span Text="{Binding Path=PendingAmount}" FontAttributes="Bold"/>
-                                    <Span Text=" "/>
-                                    <Span Text="{Binding Path=PendingCurrency}"/>
-                                    <Span Text=")"/>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </Grid>
-                </Frame>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Frame Grid.Column="0" Grid.Row="0" HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" Margin="5"
+               BackgroundColor="{StaticResource HeadingBackground}">
+            <Grid HeightRequest="150" WidthRequest="10000">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="25"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="Img" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerGlyph}" Opacity="0.5"/>
+                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Timestamp}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
+                <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource HeadingForeground}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Path=Amount}" FontSize="50" FontAttributes="Bold"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Path=Currency}" FontSize="30"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label Grid.Column="0" Grid.Row="2" IsVisible="{Binding Path=HasPending}" HorizontalOptions="Start" TextColor="{StaticResource PendingColor}">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="(-"/>
+                            <Span Text="{Binding Path=PendingAmount}" FontAttributes="Bold"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Path=PendingCurrency}"/>
+                            <Span Text=")"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Grid>
+        </Frame>
 
+        <ScrollView Grid.Column="0" Grid.Row="1">
+            <StackLayout Margin="{StaticResource DefaultMargin}">
                 <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}" Orientation="Vertical"
                              BindableLayout.ItemsSource="{Binding Path=PendingPayments}" VerticalOptions="Start">
                     <BindableLayout.ItemTemplate>
@@ -111,11 +119,13 @@
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
-
-                <!-- BUTTONS -->
-                <Button Text="{x:Static local:AppResources.RequestPayment}" Command="{Binding Path=RequestPaymentCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-
             </StackLayout>
         </ScrollView>
+
+        <StackLayout Grid.Column="0" Grid.Row="2">
+            <!-- BUTTONS -->
+            <Button Text="{x:Static local:AppResources.RequestPayment}" Command="{Binding Path=RequestPaymentCommand}" 
+                    Margin="0" Padding="0" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
     </Grid>
 </views:ContentBasePage>
