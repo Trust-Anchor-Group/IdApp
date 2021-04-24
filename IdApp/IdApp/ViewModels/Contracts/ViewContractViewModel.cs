@@ -89,6 +89,7 @@ namespace IdApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
+
             if (this.navigationService.TryPopArgs(out ViewContractNavigationArgs args))
             {
                 this.Contract = args.Contract;
@@ -99,10 +100,9 @@ namespace IdApp.ViewModels.Contracts
                 this.Contract = null;
                 this.isReadOnly = true;
             }
+
             if (this.Contract != null)
-            {
                 await LoadContract();
-            }
         }
 
         /// <inheritdoc/>
@@ -110,6 +110,16 @@ namespace IdApp.ViewModels.Contracts
         {
             this.ClearContract();
             await base.DoUnbind();
+        }
+
+        private async Task ContractUpdated(Contract Contract)
+		{
+            this.ClearContract();
+
+            this.Contract = Contract;
+
+            if (this.Contract != null)
+                await LoadContract();
         }
 
         #region Properties
@@ -730,10 +740,8 @@ namespace IdApp.ViewModels.Contracts
                 {
                     Contract contract = await this.neuronService.Contracts.SignContract(this.Contract, button.StyleId, false);
                     await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
-                    this.uiDispatcher.BeginInvokeOnMainThread(() =>
-                    {
-                        this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
-                    });
+
+                    await this.ContractUpdated(contract);
                 }
             }
             catch (Exception ex)
@@ -769,6 +777,7 @@ namespace IdApp.ViewModels.Contracts
                     {
                         string legalId = signature.LegalId;
                         LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentity(legalId);
+
                         await this.navigationService.GoToAsync(nameof(ClientSignaturePage), new ClientSignatureNavigationArgs(signature, identity));
                     }
                 }
@@ -802,7 +811,7 @@ namespace IdApp.ViewModels.Contracts
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
-                await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(obsoletedContract, false));
+                await this.ContractUpdated(obsoletedContract);
             }
             catch (Exception ex)
             {
@@ -819,7 +828,7 @@ namespace IdApp.ViewModels.Contracts
 
                 await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 
-                await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(deletedContract, false));
+                await this.ContractUpdated(deletedContract);
             }
             catch (Exception ex)
             {
