@@ -1897,6 +1897,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Proposal.
+        /// </summary>
+        internal static string Proposal {
+            get {
+                return ResourceManager.GetString("Proposal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Propose.
         /// </summary>
         internal static string Propose {
@@ -2982,6 +2991,15 @@ namespace IdApp {
         internal static string YouHaveNowBeenSignedOut {
             get {
                 return ResourceManager.GetString("YouHaveNowBeenSignedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have received a proposal..
+        /// </summary>
+        internal static string YouHaveReceivedAProposal {
+            get {
+                return ResourceManager.GetString("YouHaveReceivedAProposal", resourceCulture);
             }
         }
         

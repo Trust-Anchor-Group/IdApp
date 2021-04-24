@@ -9,6 +9,10 @@
     <Grid>
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}">
+                <!-- Proposal -->
+                <Label Text="{x:Static local:AppResources.Proposal}" Style="{StaticResource Heading}" 
+                       Margin="{StaticResource DefaultTopOnlyMargin}" IsVisible="{Binding Path=IsProposal}" />
+                <Label Text="{Binding Path=Proposal}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=IsProposal}" />
                 <!-- GENERAL -->
                 <Label Text="{x:Static local:AppResources.GeneralInformation}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" />
                 <Label Text="{x:Static local:AppResources.GeneralInformationInfoText}" Style="{StaticResource InfoText}" />

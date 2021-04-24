@@ -1065,6 +1065,11 @@
               Looks up a localized string similar to Product Information.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Proposal">
+            <summary>
+              Looks up a localized string similar to Proposal.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Propose">
             <summary>
               Looks up a localized string similar to Propose.
@@ -1670,6 +1675,11 @@
               Looks up a localized string similar to You have now been signed out. To sign in again, use the menu in the top left corner..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.YouHaveReceivedAProposal">
+            <summary>
+              Looks up a localized string similar to You have received a proposal..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.YouNeedToApproveToAssociate">
             <summary>
               Looks up a localized string similar to You need to approve to associate your personal information with the identity you review. When third parties review the information in the identity, they will have access to the identity of the reviewers, for transparency..
@@ -2229,6 +2239,15 @@
             <param name="contract">The contract to display.</param>
             <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
         </member>
+        <member name="M:IdApp.Navigation.Contracts.ViewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.Contracts.ViewContractNavigationArgs"/> class.
+            </summary>
+            <param name="contract">The contract to display.</param>
+            <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
+            <param name="isProposal">If contract is a proposal.</param>
+            <param name="Proposal">Proposal text.</param>
+        </member>
         <member name="P:IdApp.Navigation.Contracts.ViewContractNavigationArgs.Contract">
             <summary>
             The contract to display.
@@ -2237,6 +2256,16 @@
         <member name="P:IdApp.Navigation.Contracts.ViewContractNavigationArgs.IsReadOnly">
             <summary>
             <c>true</c> if the contract is readonly, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.Contracts.ViewContractNavigationArgs.IsProposal">
+            <summary>
+            <c>true</c> if the contract is a proposal, <c>false</c> otherwise.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.Contracts.ViewContractNavigationArgs.Proposal">
+            <summary>
+            Proposal text.
             </summary>
         </member>
         <member name="T:IdApp.Navigation.Identity.PetitionIdentityNavigationArgs">
@@ -4406,6 +4435,26 @@
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.DeleteContractCommand">
             <summary>
             The command to bind to when deleting a contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.IsProposalProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.IsProposal"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.IsProposal">
+            <summary>
+            If the contract is a proposal
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.ProposalProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Proposal"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.Proposal">
+            <summary>
+            If the contract is a proposal
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.GeneralInformation">

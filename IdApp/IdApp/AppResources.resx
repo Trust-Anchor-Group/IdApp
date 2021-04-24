@@ -729,6 +729,9 @@
   <data name="ProductInformation" xml:space="preserve">
     <value>Product Information</value>
   </data>
+  <data name="Proposal" xml:space="preserve">
+    <value>Proposal</value>
+  </data>
   <data name="Propose" xml:space="preserve">
     <value>Propose</value>
   </data>
@@ -1091,6 +1094,9 @@
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>You have now been signed out. To sign in again, use the menu in the top left corner.</value>
+  </data>
+  <data name="YouHaveReceivedAProposal" xml:space="preserve">
+    <value>You have received a proposal.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
     <value>You need to approve to associate your personal information with the identity you review. When third parties review the information in the identity, they will have access to the identity of the reviewers, for transparency.</value>

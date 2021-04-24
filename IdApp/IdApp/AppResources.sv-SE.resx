@@ -729,6 +729,9 @@
   <data name="ProductInformation" xml:space="preserve">
     <value>Produktinformation</value>
   </data>
+  <data name="Proposal" xml:space="preserve">
+    <value>Proposal</value>
+  </data>
   <data name="Propose" xml:space="preserve">
     <value>Föreslå</value>
   </data>
@@ -1091,6 +1094,9 @@
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
     <value>Du är nu utloggad. För att logga in igen, använd menyn i hörnet uppe till vänster.</value>
+  </data>
+  <data name="YouHaveReceivedAProposal" xml:space="preserve">
+    <value>Du har tagit emot ett erbjudande.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
     <value>Du behöver godkänna att din personliga information associeras med identiteten du granskar. När tredje part granskar information kopplat till identiteten får de tillgång till granskarnas identitet, för transparensens skull.</value>

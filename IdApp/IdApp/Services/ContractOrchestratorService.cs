@@ -297,7 +297,8 @@ namespace IdApp.Services
 			{
 				if (this.tagProfile.IsCompleteOrWaitingForValidation())
 				{
-					await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
+					await this.navigationService.GoToAsync(nameof(ViewContractPage), 
+						new ViewContractNavigationArgs(contract, false, true, e.MessageText));
 				}
 			});
 		}
