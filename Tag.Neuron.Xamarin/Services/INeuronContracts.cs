@@ -272,6 +272,11 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         event EventHandler<SignaturePetitionResponseEventArgs> PetitionedPeerReviewIdResponseReceived;
 
+        /// <summary>
+        /// Event raised when a contract proposal has been received.
+        /// </summary>
+        event EventHandler<ContractProposalEventArgs> ContractProposalReceived;
+
         #endregion
 
         #region Signatures

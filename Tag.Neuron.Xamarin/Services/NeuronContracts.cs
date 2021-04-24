@@ -53,6 +53,7 @@ namespace Tag.Neuron.Xamarin.Services
 						this.contractsClient.PetitionedSignatureResponseReceived -= ContractsClient_PetitionedSignatureResponseReceived;
 						this.contractsClient.PetitionForPeerReviewIDReceived -= ContractsClient_PetitionForPeerReviewIdReceived;
 						this.contractsClient.PetitionedPeerReviewIDResponseReceived -= ContractsClient_PetitionedPeerReviewIdResponseReceived;
+						this.contractsClient.ContractProposalReceived -= ContractsClient_ContractProposalReceived;
 					}
 
 					this.contractsClient = (this.neuronService as NeuronService)?.ContractsClient;
@@ -68,6 +69,7 @@ namespace Tag.Neuron.Xamarin.Services
 					this.contractsClient.PetitionedSignatureResponseReceived += ContractsClient_PetitionedSignatureResponseReceived;
 					this.contractsClient.PetitionForPeerReviewIDReceived += ContractsClient_PetitionForPeerReviewIdReceived;
 					this.contractsClient.PetitionedPeerReviewIDResponseReceived += ContractsClient_PetitionedPeerReviewIdResponseReceived;
+					this.contractsClient.ContractProposalReceived += ContractsClient_ContractProposalReceived;
 				}
 
 				return this.contractsClient;
@@ -367,6 +369,13 @@ namespace Tag.Neuron.Xamarin.Services
 			SignaturePetitionResponseReceived?.Invoke(this, e);
 		}
 
+		public event EventHandler<ContractProposalEventArgs> ContractProposalReceived;
+
+		private void OnContractProposalReceived(ContractProposalEventArgs e)
+		{
+			ContractProposalReceived?.Invoke(this, e);
+		}
+
 		#endregion
 
 		#region Event Handlers
@@ -490,6 +499,19 @@ namespace Tag.Neuron.Xamarin.Services
 					this.logService.LogException(ex);
 					await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 				}
+			}
+		}
+
+		private async Task ContractsClient_ContractProposalReceived(object Sender, ContractProposalEventArgs e)
+		{
+			try
+			{
+				this.OnContractProposalReceived(e);
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 

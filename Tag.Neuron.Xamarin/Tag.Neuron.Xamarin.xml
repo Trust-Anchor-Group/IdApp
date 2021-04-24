@@ -1536,6 +1536,11 @@
             An event that fires when a petitioned peer review response is received.
             </summary>
         </member>
+        <member name="E:Tag.Neuron.Xamarin.Services.INeuronContracts.ContractProposalReceived">
+            <summary>
+            Event raised when a contract proposal has been received.
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INeuronContracts.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
             <summary>
             Signs binary data with the corresponding private key.
