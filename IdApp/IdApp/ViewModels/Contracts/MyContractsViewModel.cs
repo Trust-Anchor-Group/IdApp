@@ -238,7 +238,16 @@ namespace IdApp.ViewModels.Contracts
 			{
 				DateTime Timestamp = P.Key;
 				string ContractId = P.Value;
-				Contract contract = await this.neuronService.Contracts.GetContract(ContractId);
+				Contract contract;
+
+				try
+				{
+					contract = await this.neuronService.Contracts.GetContract(ContractId);
+				}
+				catch (Waher.Networking.XMPP.StanzaErrors.ItemNotFoundException)
+				{
+					continue;	// Contract not available for some reason. Ignore, and display the rest.
+				}
 
 				if (this.loadContractsTimestamp > now)
 					return;
