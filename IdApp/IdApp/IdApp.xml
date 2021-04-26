@@ -4662,12 +4662,22 @@
             Gets or sets the height in pixels of the generated QR code image.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteOrObsoleteContractProperty">
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteContractProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteOrObsoleteContract"/>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteContract"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteOrObsoleteContract">
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanDeleteContract">
+            <summary>
+            Gets or sets whether a user can delete or obsolete a contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ViewContractViewModel.CanObsoleteContractProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanObsoleteContract"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ViewContractViewModel.CanObsoleteContract">
             <summary>
             Gets or sets whether a user can delete or obsolete a contract.
             </summary>

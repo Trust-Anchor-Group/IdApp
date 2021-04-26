@@ -472,18 +472,33 @@ namespace IdApp.ViewModels.Contracts
 		}
 
 		/// <summary>
-		/// See <see cref="CanDeleteOrObsoleteContract"/>
+		/// See <see cref="CanDeleteContract"/>
 		/// </summary>
-		public static readonly BindableProperty CanDeleteOrObsoleteContractProperty =
-			BindableProperty.Create("CanDeleteOrObsoleteContract", typeof(bool), typeof(ViewContractViewModel), default(bool));
+		public static readonly BindableProperty CanDeleteContractProperty =
+			BindableProperty.Create("CanDeleteContract", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether a user can delete or obsolete a contract.
 		/// </summary>
-		public bool CanDeleteOrObsoleteContract
+		public bool CanDeleteContract
 		{
-			get { return (bool)GetValue(CanDeleteOrObsoleteContractProperty); }
-			set { SetValue(CanDeleteOrObsoleteContractProperty, value); }
+			get { return (bool)GetValue(CanDeleteContractProperty); }
+			set { SetValue(CanDeleteContractProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="CanObsoleteContract"/>
+		/// </summary>
+		public static readonly BindableProperty CanObsoleteContractProperty =
+			BindableProperty.Create("CanObsoleteContract", typeof(bool), typeof(ViewContractViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether a user can delete or obsolete a contract.
+		/// </summary>
+		public bool CanObsoleteContract
+		{
+			get { return (bool)GetValue(CanObsoleteContractProperty); }
+			set { SetValue(CanObsoleteContractProperty, value); }
 		}
 
 		#endregion
@@ -510,7 +525,8 @@ namespace IdApp.ViewModels.Contracts
 			this.HasMachineReadableText = false;
 			this.HasClientSignatures = false;
 			this.HasServerSignatures = false;
-			this.CanDeleteOrObsoleteContract = false;
+			this.CanDeleteContract = false;
+			this.CanObsoleteContract = false;
 		}
 
 		private async Task LoadContract()
@@ -523,6 +539,7 @@ namespace IdApp.ViewModels.Contracts
 					(!Contract.SignAfter.HasValue || Contract.SignAfter.Value < DateTime.Now) &&
 					(!Contract.SignBefore.HasValue || Contract.SignBefore.Value > DateTime.Now);
 				Dictionary<string, int> nrSignatures = new Dictionary<string, int>();
+				bool canObsolete = false;
 
 				if (!(Contract.ClientSignatures is null))
 				{
@@ -535,6 +552,28 @@ namespace IdApp.ViewModels.Contracts
 							count = 0;
 
 						nrSignatures[signature.Role] = count + 1;
+
+						if (string.Compare(signature.BareJid, this.neuronService.BareJid, true) == 0)
+						{
+							if (!(Contract.Roles is null))
+							{
+								foreach (Role Role in Contract.Roles)
+								{
+									if (Role.Name == signature.Role)
+									{
+										if (Role.CanRevoke)
+										{
+											canObsolete =
+												Contract.State == ContractState.Approved ||
+												Contract.State == ContractState.BeingSigned ||
+												Contract.State == ContractState.Signed;
+										}
+
+										break;
+									}
+								}
+							}
+						}
 					}
 				}
 
@@ -687,7 +726,8 @@ namespace IdApp.ViewModels.Contracts
 					this.ServerSignatures = serverSignaturesLayout;
 				}
 
-				this.CanDeleteOrObsoleteContract = !this.isReadOnly && !Contract.IsLegallyBinding(true);
+				this.CanDeleteContract = !this.isReadOnly && !Contract.IsLegallyBinding(true);
+				this.CanObsoleteContract = this.CanDeleteContract || canObsolete;
 
 				this.HasRoles = this.Roles?.Children.Count > 0;
 				this.HasParts = this.Parts?.Children.Count > 0;

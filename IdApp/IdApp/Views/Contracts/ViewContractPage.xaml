@@ -78,8 +78,8 @@
                 <Label Text="{x:Static local:AppResources.ServerSignaturesInfoText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=HasServerSignatures}" VerticalOptions="StartAndExpand" />
                 <ContentView Content="{Binding Path=ServerSignatures}" VerticalOptions="StartAndExpand"/>
                 <!-- BUTTONS -->
-                <Button Text="{x:Static local:AppResources.ObsoleteContract}" Command="{Binding Path=ObsoleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
-                <Button Text="{x:Static local:AppResources.DeleteContract}" Command="{Binding Path=DeleteContractCommand}" IsVisible="{Binding Path=CanDeleteOrObsoleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Button Text="{x:Static local:AppResources.ObsoleteContract}" Command="{Binding Path=ObsoleteContractCommand}" IsVisible="{Binding Path=CanObsoleteContract}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
+                <Button Text="{x:Static local:AppResources.DeleteContract}" Command="{Binding Path=DeleteContractCommand}" IsVisible="{Binding Path=CanDeleteContract}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>
         <appViews:ImageView x:Name="PhotoViewer" IsVisible="False"/>
