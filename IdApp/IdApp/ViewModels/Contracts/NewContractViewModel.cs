@@ -500,9 +500,7 @@ namespace IdApp.ViewModels.Contracts
 			Contract contractToUse = this.template ?? this.stateTemplateWhileScanning;
 
 			if ((contractToUse is null) || (this.Roles is null))
-			{
 				return;
-			}
 
 			foreach (Role R in contractToUse.Roles)
 			{
