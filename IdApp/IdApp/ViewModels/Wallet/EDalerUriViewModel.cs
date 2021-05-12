@@ -79,6 +79,7 @@ namespace IdApp.ViewModels.Wallet
 				this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
 				this.Complete = args.Uri.Complete;
 				this.HasQrCode = false;
+				this.NotPaid = true;
 
 				this.AmountText = this.Amount <= 0 ? string.Empty : this.Amount.ToString();
 				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
@@ -715,6 +716,21 @@ namespace IdApp.ViewModels.Wallet
 			BindableProperty.Create("CanAccept", typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
+		/// See <see cref="NotPaid"/>
+		/// </summary>
+		public static readonly BindableProperty NotPaidProperty =
+			BindableProperty.Create("NotPaid", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+
+		/// <summary>
+		/// If the URI is complete or not.
+		/// </summary>
+		public bool NotPaid
+		{
+			get { return (bool)GetValue(NotPaidProperty); }
+			set { SetValue(NotPaidProperty, value); }
+		}
+
+		/// <summary>
 		/// The command to bind to for paying online
 		/// </summary>
 		public ICommand PayOnlineCommand { get; }
@@ -837,6 +853,12 @@ namespace IdApp.ViewModels.Wallet
 		{
 			try
 			{
+				if (!this.NotPaid)
+				{
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+					return;
+				}
+
 				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
 				{
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
@@ -860,6 +882,9 @@ namespace IdApp.ViewModels.Wallet
 				// TODO: Validate To is a Bare JID or proper Legal Identity
 				// TODO: Offline options: Expiry days
 
+				this.NotPaid = false;
+				this.EvaluateCommands(this.PayOnlineCommand);
+
 				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(Uri));
 				if (succeeded)
 				{
@@ -867,12 +892,18 @@ namespace IdApp.ViewModels.Wallet
 					await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
 				}
 				else
+				{
+					this.NotPaid = true;
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					this.EvaluateCommands(this.PayOnlineCommand);
+				}
 			}
 			catch (Exception ex)
 			{
+				this.NotPaid = true;
 				this.logService.LogException(ex);
 				await this.UiDispatcher.DisplayAlert(ex);
+				this.EvaluateCommands(this.PayOnlineCommand);
 			}
 		}
 

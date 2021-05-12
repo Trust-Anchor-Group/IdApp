@@ -1582,6 +1582,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment instruction has already been sent. You can resend pending payments from the pending payment view..
+        /// </summary>
+        internal static string PaymentAlreadySent {
+            get {
+                return ResourceManager.GetString("PaymentAlreadySent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button..
         /// </summary>
         internal static string PaymentDescription {

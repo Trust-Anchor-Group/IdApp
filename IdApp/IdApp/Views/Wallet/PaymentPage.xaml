@@ -29,7 +29,8 @@
                 <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
                 <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
                 <!-- BUTTONS -->
-                <Button Text="{x:Static local:AppResources.PayOnline}" Command="{Binding Path=PayOnlineCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Button Text="{x:Static local:AppResources.PayOnline}" Command="{Binding Path=PayOnlineCommand}" 
+                        IsEnabled="{Binding Path=NotPaid}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                 <Button Text="{x:Static local:AppResources.PayOffline}" Command="{Binding Path=GenerateQrCodeCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                 <Image x:Name="QrCode" BackgroundColor="{StaticResource HeadingForeground}" Source="{Binding Path=QrCode}" 
                        IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth}" 

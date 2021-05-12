@@ -207,7 +207,7 @@ namespace IdApp
 		{
 			ex = Waher.Events.Log.UnnestException(ex);
 			this.startupProfiler?.Exception(ex);
-			this.sdk.LogService.SaveExceptionDump("StartPage", ex.ToString());
+			this.sdk?.LogService?.SaveExceptionDump("StartPage", ex.ToString());
 			DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			return;
 		}
@@ -415,11 +415,10 @@ namespace IdApp
 		private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
 		{
 			Exception ex = e.Exception;
-			if (!(e.Exception?.InnerException is null)) // Unwrap the AggregateException
-			{
-				ex = e.Exception.InnerException;
-			}
 			e.SetObserved();
+			
+			ex = Waher.Events.Log.UnnestException(ex);
+
 			await Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);
 		}
 
@@ -431,10 +430,10 @@ namespace IdApp
 		private async Task Handle_UnhandledException(Exception ex, string title, bool shutdown)
 		{
 			if (!(ex is null))
-				this.sdk.LogService.SaveExceptionDump(title, ex.ToString());
+				this.sdk?.LogService?.SaveExceptionDump(title, ex.ToString());
 
 			if (!(ex is null))
-				this.sdk.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
+				this.sdk?.LogService?.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod(), title));
 
 			if (shutdown)
 				await this.Shutdown(false);

@@ -624,6 +624,9 @@
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
     <value>Nedan kan du se detaljerna över offline-betalningen. Om acceptabla, kan du välja att acceptera att de skickas in till neuronen för behandling.</value>
   </data>
+  <data name="PaymentAlreadySent" xml:space="preserve">
+    <value>Betalningsinstruktionerna har redan skicakts. Du kan skicka om dessa instruktioner från vyn över väntande betalningar om du vill.</value>
+  </data>
   <data name="PaymentDescription" xml:space="preserve">
     <value>Ange belopped att betala till motagaren nedan. När du är klar, kan du välja att betala antingen online (om ansluten) eller offline, genom att klicka på motsvarande knapp.</value>
   </data>

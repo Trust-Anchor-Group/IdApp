@@ -624,6 +624,9 @@
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
     <value>Below you can see the details of the offline payment. If acceptable, you can choose to accept to send the payment to the Neuron for processing.</value>
   </data>
+  <data name="PaymentAlreadySent" xml:space="preserve">
+    <value>Payment instruction has already been sent. You can resend pending payments from the pending payment view.</value>
+  </data>
   <data name="PaymentDescription" xml:space="preserve">
     <value>Enter the amount to pay to the recipient below. Once done, you can choose to either pay online (if connected) or offline, by clicking on the corresponding button.</value>
   </data>
