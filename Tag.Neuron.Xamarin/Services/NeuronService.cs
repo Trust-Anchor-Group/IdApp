@@ -57,7 +57,6 @@ namespace Tag.Neuron.Xamarin.Services
 		private readonly InMemorySniffer sniffer;
 		private bool isCreatingClient;
 		private XmppEventSink xmppEventSink;
-		private bool userInitiatedLogInOrOut;
 		private readonly string cssColoring = "<style type='text/css'>* {word-wrap: break-word } info { color: #ffffff; background-color: #000080; display: block;} warning { background-color: #F8DE7E; display: block;} error {background-color: #FF0000;display: block; } Rx {color: #ffffff; background-color: #008000;display: block;} ping:empty:before { content: 'ping ';} iq:empty:before { content: attr(type) ' ' attr(to);} c:empty:before { content: attr(node);} session:empty:before, stream:empty:before, starttls:empty:before, proceed:empty:before { content: attr(xmlns);}</style>";
 		private string sentHtml;
 		private string sentTextData;
@@ -225,7 +224,7 @@ namespace Tag.Neuron.Xamarin.Services
 					this.RecreateReconnectTimer();
 
 					// Await connected state during registration or user initiated log in, but not otherwise.
-					if (!this.tagProfile.IsCompleteOrWaitingForValidation() || this.userInitiatedLogInOrOut)
+					if (!this.tagProfile.IsCompleteOrWaitingForValidation())
 					{
 						Thread?.NewState("Wait");
 						if (!await this.WaitForConnectedState(Constants.Timeouts.XmppConnect))
@@ -249,7 +248,7 @@ namespace Tag.Neuron.Xamarin.Services
 			this.reconnectTimer?.Dispose();
 			this.reconnectTimer = null;
 
-			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline, this.userInitiatedLogInOrOut));
+			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(XmppState.Offline));
 
 			if (!(this.xmppEventSink is null))
 			{
@@ -437,7 +436,7 @@ namespace Tag.Neuron.Xamarin.Services
 					break;
 			}
 
-			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(newState, this.userInitiatedLogInOrOut));
+			this.OnConnectionStateChanged(new ConnectionStateChangedEventArgs(newState));
 		}
 
 		#region Lifecycle
@@ -594,52 +593,6 @@ namespace Tag.Neuron.Xamarin.Services
 			Connect,
 			ConnectAndCreateAccount,
 			ConnectAndConnectToAccount
-		}
-
-		public Task LogOut()
-		{
-			if (!this.IsLoggedOut)
-			{
-				this.userInitiatedLogInOrOut = true;
-				try
-				{
-					this.IsLoggedOut = true;
-					this.DestroyXmppClient();
-				}
-				catch (Exception e)
-				{
-					this.IsLoggedOut = false;
-					this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				}
-				finally
-				{
-					this.userInitiatedLogInOrOut = false;
-				}
-			}
-
-			return Task.CompletedTask;
-		}
-
-		public async Task LogIn()
-		{
-			if (this.IsLoggedOut && this.ShouldCreateClient())
-			{
-				this.userInitiatedLogInOrOut = true;
-				try
-				{
-					this.IsLoggedOut = false;
-					await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity, null);
-				}
-				catch (Exception e)
-				{
-					this.IsLoggedOut = true;
-					this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				}
-				finally
-				{
-					this.userInitiatedLogInOrOut = false;
-				}
-			}
 		}
 
 		public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber,

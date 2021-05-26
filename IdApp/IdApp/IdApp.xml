@@ -465,6 +465,11 @@
               Looks up a localized string similar to An error has occurred.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Exit">
+            <summary>
+              Looks up a localized string similar to Exit.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ExpiredEDalerUri">
             <summary>
               Looks up a localized string similar to This eDaler code has expired..
@@ -1360,21 +1365,6 @@
               Looks up a localized string similar to Below is a list of contracts that you have signed. Click on a contract for more information about it..
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.SignIn">
-            <summary>
-              Looks up a localized string similar to Log in.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.SigningIn">
-            <summary>
-              Looks up a localized string similar to Logging in....
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.SignOut">
-            <summary>
-              Looks up a localized string similar to Log out.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.Skip">
             <summary>
               Looks up a localized string similar to Skip.
@@ -1974,14 +1964,9 @@
             The share icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.SignOut">
+        <member name="F:IdApp.SolidIcons.Exit">
             <summary>
-            The sign out icon
-            </summary>
-        </member>
-        <member name="F:IdApp.SolidIcons.SignIn">
-            <summary>
-            The sign in icon
+            The exit icon
             </summary>
         </member>
         <member name="F:IdApp.SolidIcons.QuestionCircle">
@@ -2977,36 +2962,6 @@
         <member name="P:IdApp.ViewModels.AppShellViewModel.IsOnline">
             <summary>
             Gets or sets whether the application is online, i.e. has network access.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.AppShellViewModel.UserIsLoggedOutProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.AppShellViewModel.UserIsLoggedOut"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.AppShellViewModel.UserIsLoggedOut">
-            <summary>
-            Gets or sets whether the user is logged in or out.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.AppShellViewModel.LogInOutGlyphProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.AppShellViewModel.LogInOutGlyph"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.AppShellViewModel.LogInOutGlyph">
-            <summary>
-            The icon to use for the log in/log out menu item.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.AppShellViewModel.LogInOutTextProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.AppShellViewModel.LogInOutText"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.AppShellViewModel.LogInOutText">
-            <summary>
-            The text to use for the log in/log out menu item.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Contacts.MyContactsViewModel">
@@ -5691,16 +5646,6 @@
         <member name="P:IdApp.ViewModels.MainViewModel.ConnectionErrorsText">
             <summary>
             Gets or sets the user friendly connection errors text for display. Can be null.
-            </summary>
-        </member>
-        <member name="F:IdApp.ViewModels.MainViewModel.YouAreNowLoggedOutTextProperty">
-            <summary>
-            See <see cref="P:IdApp.ViewModels.MainViewModel.YouAreNowLoggedOutText"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.ViewModels.MainViewModel.YouAreNowLoggedOutText">
-            <summary>
-            The text to display in the UI, on the logout panel, depending on whether the user has manually logged out or in.
             </summary>
         </member>
         <member name="M:IdApp.ViewModels.MainViewModel.NeuronService_ConnectionStateChanged(System.Object,Tag.Neuron.Xamarin.Services.ConnectionStateChangedEventArgs)">

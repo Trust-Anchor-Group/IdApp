@@ -76,14 +76,9 @@
         public const string Share = "\uf1e0";
 
         /// <summary>
-        /// The sign out icon
+        /// The exit icon
         /// </summary>
-        public const string SignOut = "\uf2f5";
-        
-        /// <summary>
-        /// The sign in icon
-        /// </summary>
-        public const string SignIn = "\uf2f6";
+        public const string Exit = "\uf2f5";
         
         /// <summary>
         /// The question mark in a circle icon

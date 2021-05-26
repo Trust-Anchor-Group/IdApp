@@ -71,7 +71,6 @@ namespace IdApp.ViewModels
 
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
 				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false));
-			this.UpdateLoggedOutText(true);
 
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
 			this.ViewMyThingsCommand = new Command(async () => await ViewMyThings(), () => this.IsConnected);
@@ -585,21 +584,6 @@ namespace IdApp.ViewModels
 			set { SetValue(ConnectionErrorsTextProperty, value); }
 		}
 
-		/// <summary>
-		/// See <see cref="YouAreNowLoggedOutText"/>
-		/// </summary>
-		public static readonly BindableProperty YouAreNowLoggedOutTextProperty =
-			BindableProperty.Create("YouAreNowLoggedOutText", typeof(string), typeof(MainViewModel), default(string));
-
-		/// <summary>
-		/// The text to display in the UI, on the logout panel, depending on whether the user has manually logged out or in.
-		/// </summary>
-		public string YouAreNowLoggedOutText
-		{
-			get { return (string)GetValue(YouAreNowLoggedOutTextProperty); }
-			set { SetValue(YouAreNowLoggedOutTextProperty, value); }
-		}
-
 		#endregion
 
 		private async Task ViewMyContacts()
@@ -624,11 +608,6 @@ namespace IdApp.ViewModels
 				this.eDalerOrchestratorService);
 		}
 
-		private void UpdateLoggedOutText(bool isLoggedOut)
-		{
-			this.YouAreNowLoggedOutText = isLoggedOut ? AppResources.YouHaveNowBeenSignedOut : AppResources.SigningIn;
-		}
-
 		private void SetLocation()
 		{
 			if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
@@ -651,10 +630,6 @@ namespace IdApp.ViewModels
 			this.UiDispatcher.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(e.State);
-				if (e.IsUserInitiated)
-				{
-					this.UpdateLoggedOutText(e.State == XmppState.Offline);
-				}
 			});
 		}
 

@@ -53,6 +53,7 @@ namespace IdApp
 		private static readonly DomainModel[] domains = XmppConfiguration.ToArray();
 		private static TaskCompletionSource<bool> servicesSetup;
 		private static TaskCompletionSource<bool> configLoaded;
+		private static App instance;
 		private Timer autoSaveTimer;
 		private ITagIdSdk sdk;
 		private IAttachmentCacheService attachmentCacheService;
@@ -241,6 +242,8 @@ namespace IdApp
 		{
 			try
 			{
+				instance = this;
+
 				Thread?.NewState("Report");
 				await this.SendErrorReportFromPreviousRun();
 
@@ -299,6 +302,21 @@ namespace IdApp
 			await this.Shutdown(false);
 		}
 
+		internal static async Task Stop()
+		{
+			if (!(instance is null))
+			{
+				await instance.Shutdown(false);
+				instance = null;
+			}
+
+			ICloseApplication closeApp = DependencyService.Get<ICloseApplication>();
+			if (!(closeApp is null))
+				await closeApp.Close();
+			else
+				Environment.Exit(0);
+		}
+
 		private async Task Shutdown(bool inPanic)
 		{
 			StopAutoSaveTimer();
@@ -337,6 +355,8 @@ namespace IdApp
 
 			if (!(this.sdk?.StorageService is null))
 				await this.sdk.StorageService.Shutdown();
+
+			Waher.Events.Log.Terminate();
 		}
 
 		#endregion
@@ -416,7 +436,7 @@ namespace IdApp
 		{
 			Exception ex = e.Exception;
 			e.SetObserved();
-			
+
 			ex = Waher.Events.Log.UnnestException(ex);
 
 			await Handle_UnhandledException(ex, nameof(TaskScheduler_UnobservedTaskException), false);

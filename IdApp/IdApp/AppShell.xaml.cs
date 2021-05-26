@@ -185,26 +185,13 @@ namespace IdApp
 			await this.GoToPage(nameof(XmppCommunicationPage));
 		}
 
-		private void SignInOutMenuItem_Clicked(object sender, EventArgs e)
+		private void ExitMenuItem_Clicked(object sender, EventArgs e)
 		{
 			Current.FlyoutIsPresented = false;
 			// Break the call chain by 'posting' to the main thread, allowing the fly out menu to hide before initiating the login/out.
 			this.UiDispatcher.BeginInvokeOnMainThread(async () =>
 			{
-				if (!this.NetworkService.IsOnline)
-				{
-					await this.UiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, AppResources.NetworkSeemsToBeMissing);
-					return;
-				}
-
-				if (this.NeuronService.IsLoggedOut)
-				{
-					await this.NeuronService.LogIn();
-				}
-				else
-				{
-					await this.NeuronService.LogOut();
-				}
+				await App.Stop();
 			});
 		}
 

@@ -369,6 +369,9 @@
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Stäng</value>
+  </data>
   <data name="ExpiredEDalerUri" xml:space="preserve">
     <value>Den här eDaler-koden har upphört att gälla.</value>
   </data>

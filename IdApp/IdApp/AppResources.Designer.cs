@@ -817,6 +817,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        internal static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This eDaler code has expired..
         /// </summary>
         internal static string ExpiredEDalerUri {
@@ -2424,33 +2433,6 @@ namespace IdApp {
         internal static string SignedContractsInfoText {
             get {
                 return ResourceManager.GetString("SignedContractsInfoText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in.
-        /// </summary>
-        internal static string SignIn {
-            get {
-                return ResourceManager.GetString("SignIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Logging in....
-        /// </summary>
-        internal static string SigningIn {
-            get {
-                return ResourceManager.GetString("SigningIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log out.
-        /// </summary>
-        internal static string SignOut {
-            get {
-                return ResourceManager.GetString("SignOut", resourceCulture);
             }
         }
         

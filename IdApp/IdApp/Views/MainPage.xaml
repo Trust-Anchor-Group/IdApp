@@ -130,24 +130,6 @@
                                      LeftButton2Command="{Binding Path=ViewMyThingsCommand}"
                                      CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
                                      RightButtonCommand="{Binding Path=ViewWalletCommand}"/>
-
-            <!-- The logout screen, hiding main page. -->
-            <Grid Grid.Row="0" Grid.RowSpan="2"
-                x:Name="LogoutPanel" 
-                Padding="{StaticResource DefaultMargin}"
-                TranslationY="{Binding Path=Height, Source={x:Reference LogoutPanel}}">
-                <Grid.Background>
-                    <LinearGradientBrush StartPoint="0,0"
-                                         EndPoint="0.3,1">
-                        <GradientStop Color="{StaticResource HeadingBackground}"
-                                      Offset="0.4"/>
-                        <GradientStop Color="{StaticResource HeadingBackgroundLight}"
-                                      Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <Label HorizontalOptions="Center" Margin="{StaticResource LargeMargin}" VerticalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}" Text="{Binding Path=YouAreNowLoggedOutText}"/>
-            </Grid>
-
         </Grid>
     </ContentPage.Content>
 </views:ContentBasePage>

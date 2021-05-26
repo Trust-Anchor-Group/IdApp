@@ -17,7 +17,6 @@ namespace IdApp.Views
 	public partial class MainPage
 	{
 		private readonly INeuronService neuronService;
-		private bool logoutPanelIsShown;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="MainPage"/> class.
@@ -33,7 +32,6 @@ namespace IdApp.Views
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
-			this.neuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
 			_ = this.MainTabBar.Show();
 		}
 
@@ -41,36 +39,7 @@ namespace IdApp.Views
 		protected override async void OnDisappearing()
 		{
 			await this.MainTabBar.Hide();
-			this.neuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
 			base.OnDisappearing();
-		}
-
-		private async void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
-		{
-			const uint durationInMs = 300;
-			if (e.IsUserInitiated)
-			{
-				if (this.neuronService.IsLoggedOut && e.State == XmppState.Offline)
-				{
-					// Show (slide down) logout panel
-					await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
-					this.logoutPanelIsShown = true;
-					this.LogoutPanel.TranslationY = -Height;
-					await this.LogoutPanel.TranslateTo(0, 0, durationInMs, Easing.SinIn);
-				}
-				else if (!this.neuronService.IsLoggedOut && this.logoutPanelIsShown)
-				{
-					this.logoutPanelIsShown = false;
-					// Hide (slide up) logout panel
-					await Task.Delay(TimeSpan.FromMilliseconds(durationInMs));
-					await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
-				}
-			}
-			else if (logoutPanelIsShown)
-			{
-				this.logoutPanelIsShown = false;
-				await this.LogoutPanel.TranslateTo(0, -Height, durationInMs, Easing.SinOut);
-			}
 		}
 
 		private void IdCard_Tapped(object sender, EventArgs e)

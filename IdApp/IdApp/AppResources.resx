@@ -369,6 +369,9 @@
   <data name="ErrorTitle" xml:space="preserve">
     <value>An error has occurred</value>
   </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
   <data name="ExpiredEDalerUri" xml:space="preserve">
     <value>This eDaler code has expired.</value>
   </data>
@@ -905,15 +908,6 @@
   </data>
   <data name="SignedContractsInfoText" xml:space="preserve">
     <value>Below is a list of contracts that you have signed. Click on a contract for more information about it.</value>
-  </data>
-  <data name="SignIn" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="SigningIn" xml:space="preserve">
-    <value>Logging in...</value>
-  </data>
-  <data name="SignOut" xml:space="preserve">
-    <value>Log out</value>
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Skip</value>
