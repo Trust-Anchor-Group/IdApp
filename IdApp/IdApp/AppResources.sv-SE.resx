@@ -198,6 +198,9 @@
   <data name="Area" xml:space="preserve">
     <value>Område</value>
   </data>
+  <data name="AreYouSureYouWantToRemoveContact" xml:space="preserve">
+    <value>Är du säker på att du vill ta bort denna kontakt från din kontaktbok?</value>
+  </data>
   <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
     <value>Är du säker på att du vill rapportera din juridiska identitet som komprometterad, stulen eller hackad?</value>
   </data>

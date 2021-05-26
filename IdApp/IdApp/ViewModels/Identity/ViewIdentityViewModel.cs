@@ -1438,6 +1438,9 @@ namespace IdApp.ViewModels.Identity
 		{
 			try
 			{
+				if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
+					return;
+
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 				if (!(Info is null))
 				{

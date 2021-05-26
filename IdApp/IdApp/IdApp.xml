@@ -180,6 +180,11 @@
               Looks up a localized string similar to Area.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.AreYouSureYouWantToRemoveContact">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to remove this contact from your list of contacts?.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized">
             <summary>
               Looks up a localized string similar to Are you sure you want to report your legal identity as compromised, stolen or hacked?.

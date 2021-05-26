@@ -304,6 +304,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this contact from your list of contacts?.
+        /// </summary>
+        internal static string AreYouSureYouWantToRemoveContact {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToRemoveContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to report your legal identity as compromised, stolen or hacked?.
         /// </summary>
         internal static string AreYouSureYouWantToReportYourLegalIdentityAsCompromized {

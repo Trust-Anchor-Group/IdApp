@@ -198,6 +198,9 @@
   <data name="Area" xml:space="preserve">
     <value>Area</value>
   </data>
+  <data name="AreYouSureYouWantToRemoveContact" xml:space="preserve">
+    <value>Are you sure you want to remove this contact from your list of contacts?</value>
+  </data>
   <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
     <value>Are you sure you want to report your legal identity as compromised, stolen or hacked?</value>
   </data>
