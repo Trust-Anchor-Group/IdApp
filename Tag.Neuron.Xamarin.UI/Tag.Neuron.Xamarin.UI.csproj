@@ -71,6 +71,9 @@
 </ItemGroup>
 
 <ItemGroup>
+  <EmbeddedResource Update="AppResources.pt-BR.resx">
+    <Generator>ResXFileCodeGenerator</Generator>
+  </EmbeddedResource>
   <EmbeddedResource Update="AppResources.resx">
     <Generator>ResXFileCodeGenerator</Generator>
     <LastGenOutput>AppResources.Designer.cs</LastGenOutput>

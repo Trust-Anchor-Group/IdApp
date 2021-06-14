@@ -1,0 +1,1 @@
+\Program\7-ZIp\7z.exe a -tzip ResourceFiles.zip ..\*.resx -r
