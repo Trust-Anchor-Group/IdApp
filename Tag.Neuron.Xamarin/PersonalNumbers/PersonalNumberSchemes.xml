@@ -2,7 +2,7 @@
 <Entries>
 	<Entry country="BR" displayString="NNN.NNN.NNN-NN">
 		<Pattern variable="CPF"><![CDATA[CPF like "(?'N1'\\d{3})[.]?(?'N2'\\d{3})[.]?(?'N3'\\d{3})-?(?'N4'\\d{2})"]]></Pattern>
-		<Normalize><![CDATA[N1_STR+"."+N2_STR+"."+N3_STR+"."+N4_STR]]></Normalize>
+		<Normalize><![CDATA[N1_STR+"."+N2_STR+"."+N3_STR+"-"+N4_STR]]></Normalize>
 	</Entry>
 	<Entry country="CL" displayString="NN.NNN.NNN-N">
 		<Pattern variable="RUN"><![CDATA[RUN like "(?'N1'\\d{2})[.]?(?'N2'\\d{3})[.]?(?'N3'\\d{3})-?(?'N4'[\\dK])"]]></Pattern>
