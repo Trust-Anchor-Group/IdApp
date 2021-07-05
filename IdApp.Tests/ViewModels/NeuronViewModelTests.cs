@@ -14,11 +14,12 @@ namespace IdApp.Tests.ViewModels
     {
         private readonly Mock<INeuronService> neuronService;
         private readonly Mock<IUiDispatcher> uiDispatcher;
+        private readonly Mock<ITagProfile> tagProfile;
 
         public class TestNeuronViewModel : NeuronViewModel
         {
-            public TestNeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher)
-                : base(neuronService, uiDispatcher)
+            public TestNeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile)
+                : base(neuronService, uiDispatcher, tagProfile)
             {
             }
         }
@@ -27,11 +28,12 @@ namespace IdApp.Tests.ViewModels
         {
             this.neuronService = new Mock<INeuronService>();
             this.uiDispatcher = new Mock<IUiDispatcher>();
+            this.tagProfile = new Mock<ITagProfile>();
         }
 
         protected override TestNeuronViewModel AViewModel()
         {
-            return new TestNeuronViewModel(this.neuronService.Object, this.uiDispatcher.Object);
+            return new TestNeuronViewModel(this.neuronService.Object, this.uiDispatcher.Object, this.tagProfile.Object);
         }
 
         [Test]

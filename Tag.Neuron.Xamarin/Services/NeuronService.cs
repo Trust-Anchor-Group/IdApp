@@ -378,6 +378,11 @@ namespace Tag.Neuron.Xamarin.Services
 
 			switch (newState)
 			{
+				case XmppState.Connecting:
+					this.LatestError = string.Empty;
+					this.LatestConnectionError = string.Empty;
+					break;
+
 				case XmppState.Connected:
 					this.LatestError = string.Empty;
 					this.LatestConnectionError = string.Empty;

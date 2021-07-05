@@ -119,7 +119,7 @@ namespace IdApp.ViewModels
 		{
 			this.UiDispatcher.BeginInvokeOnMainThread(() =>
 			{
-				this.ConnectionStateText = e.State.ToDisplayText(this.TagProfile);
+				this.ConnectionStateText = e.State.ToDisplayText();
 				this.IsConnected = e.State == XmppState.Connected;
 			});
 		}

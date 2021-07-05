@@ -28,7 +28,6 @@ namespace IdApp.ViewModels.Identity
 	public class ViewIdentityViewModel : NeuronViewModel
 	{
 		private SignaturePetitionEventArgs identityToReview;
-		private readonly ITagProfile tagProfile;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
@@ -48,9 +47,8 @@ namespace IdApp.ViewModels.Identity
 			ILogService logService,
 			IEDalerOrchestratorService EDalerService,
 			IAttachmentCacheService attachmentCacheService)
-		: base(neuronService, uiDispatcher)
+		: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
@@ -77,13 +75,13 @@ namespace IdApp.ViewModels.Identity
 
 			if (this.navigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
 			{
-				this.LegalIdentity = args.Identity ?? tagProfile.LegalIdentity;
+				this.LegalIdentity = args.Identity ?? this.TagProfile.LegalIdentity;
 				this.identityToReview = args.IdentityToReview;
 			}
 
 			if (this.LegalIdentity is null)
 			{
-				this.LegalIdentity = tagProfile.LegalIdentity;
+				this.LegalIdentity = this.TagProfile.LegalIdentity;
 				this.identityToReview = null;
 			}
 
@@ -116,7 +114,7 @@ namespace IdApp.ViewModels.Identity
 
 			EvaluateAllCommands();
 
-			this.tagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += TagProfile_Changed;
 			this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
 		}
 
@@ -125,7 +123,7 @@ namespace IdApp.ViewModels.Identity
 		{
 			this.photosLoader.CancelLoadPhotos();
 
-			this.tagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= TagProfile_Changed;
 			this.NeuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
 
 			this.LegalIdentity = null;
@@ -237,7 +235,7 @@ namespace IdApp.ViewModels.Identity
 			this.IsApproved = this.LegalIdentity?.State == IdentityState.Approved;
 			this.IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
-			this.IsPersonal = this.tagProfile.LegalIdentity?.Id == this.LegalIdentity?.Id;
+			this.IsPersonal = this.TagProfile.LegalIdentity?.Id == this.LegalIdentity?.Id;
 			this.IsForReview = !(this.identityToReview is null);
 			this.IsNotForReview = !IsForReview;
 			this.ThirdParty = !(this.LegalIdentity is null) && !this.IsPersonal;
@@ -253,7 +251,7 @@ namespace IdApp.ViewModels.Identity
 			this.IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
 			this.IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
 			this.IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
-			this.IsForReviewAndPin = !(this.identityToReview is null) && this.tagProfile.UsePin;
+			this.IsForReviewAndPin = !(this.identityToReview is null) && this.TagProfile.UsePin;
 
 			// QR
 			if (!(this.LegalIdentity is null))
@@ -1266,7 +1264,7 @@ namespace IdApp.ViewModels.Identity
 					return;
 				}
 
-				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
@@ -1327,7 +1325,7 @@ namespace IdApp.ViewModels.Identity
 				if (succeeded)
 				{
 					this.LegalIdentity = revokedIdentity;
-					this.tagProfile.RevokeLegalIdentity(revokedIdentity);
+					this.TagProfile.RevokeLegalIdentity(revokedIdentity);
 					await this.navigationService.GoToAsync($"{nameof(RegistrationPage)}");
 				}
 			}
@@ -1353,7 +1351,7 @@ namespace IdApp.ViewModels.Identity
 				if (succeeded)
 				{
 					this.LegalIdentity = compromisedIdentity;
-					this.tagProfile.RevokeLegalIdentity(compromisedIdentity);
+					this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
 					await this.navigationService.GoToAsync($"{nameof(RegistrationPage)}");
 				}
 			}

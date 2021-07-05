@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using EDaler;
 using IdApp.Navigation.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Content;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Wallet
@@ -16,7 +13,6 @@ namespace IdApp.ViewModels.Wallet
 	/// </summary>
 	public class AccountEventViewModel : NeuronViewModel
 	{
-		private readonly ITagProfile tagProfile;
 		private readonly INavigationService navigationService;
 
 		/// <summary>
@@ -27,9 +23,8 @@ namespace IdApp.ViewModels.Wallet
 			IUiDispatcher uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService)
-		: base(neuronService, uiDispatcher)
+		: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.tagProfile = tagProfile;
 			this.navigationService = navigationService;
 		}
 
@@ -61,13 +56,13 @@ namespace IdApp.ViewModels.Wallet
 			AssignProperties();
 			EvaluateAllCommands();
 
-			this.tagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.tagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= TagProfile_Changed;
 			await base.DoUnbind();
 		}
 

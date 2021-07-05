@@ -426,6 +426,21 @@
   <data name="IdentityInformationInfoText" xml:space="preserve">
     <value>Nedan följer personlig information rörande den person som signerat kontraktet.</value>
   </data>
+  <data name="IdentityState_Approved" xml:space="preserve">
+    <value>Godkänd</value>
+  </data>
+  <data name="IdentityState_Compromized" xml:space="preserve">
+    <value>Äventyrad</value>
+  </data>
+  <data name="IdentityState_Created" xml:space="preserve">
+    <value>Skapad</value>
+  </data>
+  <data name="IdentityState_Obsoleted" xml:space="preserve">
+    <value>Föråldrad</value>
+  </data>
+  <data name="IdentityState_Rejected" xml:space="preserve">
+    <value>Avvisad</value>
+  </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignorera</value>
   </data>
@@ -490,7 +505,7 @@
     <value>Maskinläsbar information</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>TAG</value>
+    <value>Mitt digitala ID</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
     <value>Gör saken publik</value>

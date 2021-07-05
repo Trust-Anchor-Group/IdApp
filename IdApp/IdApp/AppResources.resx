@@ -426,6 +426,21 @@
   <data name="IdentityInformationInfoText" xml:space="preserve">
     <value>The following is personal information registered for the party who signed the contract.</value>
   </data>
+  <data name="IdentityState_Approved" xml:space="preserve">
+    <value>Approved</value>
+  </data>
+  <data name="IdentityState_Compromized" xml:space="preserve">
+    <value>Compromized</value>
+  </data>
+  <data name="IdentityState_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="IdentityState_Obsoleted" xml:space="preserve">
+    <value>Obsoleted</value>
+  </data>
+  <data name="IdentityState_Rejected" xml:space="preserve">
+    <value>Rejected</value>
+  </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignore</value>
   </data>
@@ -490,7 +505,7 @@
     <value>Machine readable information</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>TAG</value>
+    <value>My Digital ID</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
     <value>Make thing public</value>

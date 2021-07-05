@@ -19,11 +19,16 @@ namespace IdApp.ViewModels
         /// </summary>
         /// <param name="neuronService"></param>
         /// <param name="uiDispatcher"></param>
-        protected NeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher)
+        /// <param name="tagProfile"></param>
+        protected NeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile)
         {
             this.NeuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
             this.UiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+            this.TagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+            this.StateSummaryText = AppResources.XmppState_Offline;
             this.ConnectionStateText = AppResources.XmppState_Offline;
+            this.ConnectionStateColor = new SolidColorBrush(Color.Red);
+            this.StateSummaryText = string.Empty;
         }
 
         /// <inheritdoc/>
@@ -47,10 +52,16 @@ namespace IdApp.ViewModels
         /// Gets the current <see cref="IUiDispatcher"/>.
         /// </summary>
         protected IUiDispatcher UiDispatcher { get; }
+
         /// <summary>
         /// Gets the current <see cref="INeuronService"/>.
         /// </summary>
         protected INeuronService NeuronService { get; }
+
+        /// <summary>
+        /// Gets the current <see cref="ITagProfile"/>.
+        /// </summary>
+        protected ITagProfile TagProfile { get; }
 
         /// <summary>
         /// 
@@ -65,6 +76,36 @@ namespace IdApp.ViewModels
         {
             get { return (string)GetValue(ConnectionStateTextProperty); }
             set { SetValue(ConnectionStateTextProperty, value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly BindableProperty ConnectionStateColorProperty =
+            BindableProperty.Create("ConnectionStateColor", typeof(Brush), typeof(NeuronViewModel), new SolidColorBrush(Color.Default));
+
+        /// <summary>
+        /// Gets the current connection state as a color.
+        /// </summary>
+        public Brush ConnectionStateColor
+        {
+            get { return (Brush)GetValue(ConnectionStateColorProperty); }
+            set { SetValue(ConnectionStateColorProperty, value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly BindableProperty StateSummaryTextProperty =
+            BindableProperty.Create("StateSummaryText", typeof(string), typeof(NeuronViewModel), default(string));
+
+        /// <summary>
+        /// Gets the current state summary as a user friendly localized string.
+        /// </summary>
+        public string StateSummaryText
+        {
+            get { return (string)GetValue(StateSummaryTextProperty); }
+            set { SetValue(StateSummaryTextProperty, value); }
         }
 
         /// <summary>
@@ -90,8 +131,10 @@ namespace IdApp.ViewModels
         /// <param name="state">The current state.</param>
         protected virtual void SetConnectionStateAndText(XmppState state)
         {
-            this.ConnectionStateText = state.ToDisplayText(null);
+            this.ConnectionStateText = state.ToDisplayText();
+            this.ConnectionStateColor = new SolidColorBrush(state.ToColor());
             this.IsConnected = state == XmppState.Connected;
+			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
         }
 
         /// <summary>

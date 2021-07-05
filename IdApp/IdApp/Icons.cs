@@ -99,5 +99,10 @@
         /// The things icon
         /// </summary>
         public const string Things = "\uf0eb";
+
+        /// <summary>
+        /// network-wired
+        /// </summary>
+        public const string Network = "\uf6ff";
     }
 }

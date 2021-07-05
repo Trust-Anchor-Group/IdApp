@@ -26,7 +26,6 @@ namespace IdApp.ViewModels
 	/// </summary>
 	public class MainViewModel : NeuronViewModel
 	{
-		private readonly ITagProfile tagProfile;
 		private readonly ILogService logService;
 		private readonly INetworkService networkService;
 		private readonly INavigationService navigationService;
@@ -58,11 +57,9 @@ namespace IdApp.ViewModels
 			IContractOrchestratorService contractOrchestratorService,
 			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
 			IEDalerOrchestratorService eDalerOrchestratorService)
-			: base(neuronService ?? Types.Instantiate<INeuronService>(false),
-				  uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false))
+			: base(neuronService, uiDispatcher, tagProfile)
 		{
 			this.logService = logService ?? Types.Instantiate<ILogService>(false);
-			this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
 			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
 			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
 			this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
@@ -101,10 +98,10 @@ namespace IdApp.ViewModels
 
 		private void AssignProperties()
 		{
-			if (!(this.tagProfile?.LegalIdentity is null))
+			if (!(this.TagProfile?.LegalIdentity is null))
 			{
-				string firstName = this.tagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
-				string lastNames = this.tagProfile.LegalIdentity[Constants.XmppProperties.LastName];
+				string firstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
+				string lastNames = this.TagProfile.LegalIdentity[Constants.XmppProperties.LastName];
 
 				if (!string.IsNullOrWhiteSpace(firstName) && !string.IsNullOrWhiteSpace(lastNames))
 					this.FullName = $"{firstName} {lastNames}";
@@ -115,8 +112,8 @@ namespace IdApp.ViewModels
 				else
 					this.FullName = string.Empty;
 
-				this.City = this.tagProfile.LegalIdentity[Constants.XmppProperties.City];
-				string countryCode = this.tagProfile.LegalIdentity[Constants.XmppProperties.Country];
+				this.City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
+				string countryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
 
 				if (ISO_3166_1.TryGetCountry(countryCode, out string country))
 					this.Country = country;
@@ -131,11 +128,11 @@ namespace IdApp.ViewModels
 			}
 
 			// QR
-			if (!(this.tagProfile?.LegalIdentity is null))
+			if (!(this.TagProfile?.LegalIdentity is null))
 			{
 				_ = Task.Run(() =>
 				{
-					this.QrCodeBin = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.tagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+					this.QrCodeBin = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
 					this.QrCodeContentType = "image/png";
 
 					if (this.IsBound)
@@ -151,7 +148,7 @@ namespace IdApp.ViewModels
 				this.QrCodeContentType = string.Empty;
 			}
 
-			Attachment firstAttachment = this.tagProfile?.LegalIdentity?.Attachments?.GetFirstImageAttachment();
+			Attachment firstAttachment = this.TagProfile?.LegalIdentity?.Attachments?.GetFirstImageAttachment();
 			if (!(firstAttachment is null))
 			{
 				// Don't await this one, just let it run asynchronously.
@@ -555,6 +552,21 @@ namespace IdApp.ViewModels
 		}
 
 		/// <summary>
+		/// See <see cref="IdentityStateText"/>
+		/// </summary>
+		public static readonly BindableProperty IdentityStateTextProperty =
+			BindableProperty.Create("IdentityStateText", typeof(string), typeof(MainViewModel), default(string));
+
+		/// <summary>
+		/// Gets or sets the user friendly network state text for display.
+		/// </summary>
+		public string IdentityStateText
+		{
+			get { return (string)GetValue(IdentityStateTextProperty); }
+			set { SetValue(IdentityStateTextProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="HasConnectionErrors"/>
 		/// </summary>
 		public static readonly BindableProperty HasConnectionErrorsProperty =
@@ -652,10 +664,13 @@ namespace IdApp.ViewModels
 			// Network
 			this.IsOnline = this.networkService.IsOnline;
 			this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
+			this.IdentityStateText = this.TagProfile.LegalIdentity.State.ToDisplayText();
 
 			// Neuron server
 			this.IsConnected = state == XmppState.Connected;
-			this.ConnectionStateText = state.ToDisplayText(this.tagProfile);
+			this.ConnectionStateText = state.ToDisplayText();
+			this.ConnectionStateColor = new SolidColorBrush(state.ToColor());
+			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 
 			// Any connection errors or general errors that should be displayed?
 			string latestError = this.NeuronService.LatestError;

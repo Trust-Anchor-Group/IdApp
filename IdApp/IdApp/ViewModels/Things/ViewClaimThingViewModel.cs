@@ -24,7 +24,6 @@ namespace IdApp.ViewModels.Things
 	/// </summary>
 	public class ViewClaimThingViewModel : NeuronViewModel
 	{
-		private readonly ITagProfile tagProfile;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
@@ -39,9 +38,8 @@ namespace IdApp.ViewModels.Things
 			INavigationService navigationService,
 			INetworkService networkService,
 			ILogService logService)
-			: base(neuronService, uiDispatcher)
+			: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
@@ -70,13 +68,13 @@ namespace IdApp.ViewModels.Things
 			AssignProperties();
 			EvaluateAllCommands();
 
-			this.tagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.tagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= TagProfile_Changed;
 			await base.DoUnbind();
 		}
 
@@ -168,7 +166,7 @@ namespace IdApp.ViewModels.Things
 		/// <summary>
 		/// If PIN should be used.
 		/// </summary>
-		public bool UsePin => this.tagProfile?.UsePin ?? false;
+		public bool UsePin => this.TagProfile?.UsePin ?? false;
 
 		/// <summary>
 		/// See <see cref="Pin"/>
@@ -366,7 +364,7 @@ namespace IdApp.ViewModels.Things
 		{
 			try
 			{
-				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;

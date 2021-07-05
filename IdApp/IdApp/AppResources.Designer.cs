@@ -988,6 +988,51 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approved.
+        /// </summary>
+        internal static string IdentityState_Approved {
+            get {
+                return ResourceManager.GetString("IdentityState_Approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compromized.
+        /// </summary>
+        internal static string IdentityState_Compromized {
+            get {
+                return ResourceManager.GetString("IdentityState_Compromized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        internal static string IdentityState_Created {
+            get {
+                return ResourceManager.GetString("IdentityState_Created", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obsoleted.
+        /// </summary>
+        internal static string IdentityState_Obsoleted {
+            get {
+                return ResourceManager.GetString("IdentityState_Obsoleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rejected.
+        /// </summary>
+        internal static string IdentityState_Rejected {
+            get {
+                return ResourceManager.GetString("IdentityState_Rejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ignore.
         /// </summary>
         internal static string Ignore {
@@ -1177,7 +1222,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TAG.
+        ///   Looks up a localized string similar to My Digital ID.
         /// </summary>
         internal static string MainPageTitle {
             get {

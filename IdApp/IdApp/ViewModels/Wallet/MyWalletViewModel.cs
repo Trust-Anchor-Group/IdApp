@@ -18,7 +18,6 @@ namespace IdApp.ViewModels.Wallet
 	/// </summary>
 	public class MyWalletViewModel : NeuronViewModel
 	{
-		private readonly ITagProfile tagProfile;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
@@ -33,9 +32,8 @@ namespace IdApp.ViewModels.Wallet
 			INavigationService navigationService,
 			INetworkService networkService,
 			ILogService logService)
-		: base(neuronService, uiDispatcher)
+		: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;

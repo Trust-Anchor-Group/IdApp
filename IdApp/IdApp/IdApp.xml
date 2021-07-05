@@ -560,6 +560,31 @@
               Looks up a localized string similar to The following is personal information registered for the party who signed the contract..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.IdentityState_Approved">
+            <summary>
+              Looks up a localized string similar to Approved.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IdentityState_Compromized">
+            <summary>
+              Looks up a localized string similar to Compromized.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IdentityState_Created">
+            <summary>
+              Looks up a localized string similar to Created.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IdentityState_Obsoleted">
+            <summary>
+              Looks up a localized string similar to Obsoleted.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.IdentityState_Rejected">
+            <summary>
+              Looks up a localized string similar to Rejected.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Ignore">
             <summary>
               Looks up a localized string similar to Ignore.
@@ -667,7 +692,7 @@
         </member>
         <member name="P:IdApp.AppResources.MainPageTitle">
             <summary>
-              Looks up a localized string similar to TAG.
+              Looks up a localized string similar to My Digital ID.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.MakeThingPublic">
@@ -1881,12 +1906,34 @@
             Extensions for the <see cref="T:Waher.Networking.XMPP.XmppState"/> enum.
             </summary>
         </member>
-        <member name="M:IdApp.Extensions.XmppStateExtensions.ToDisplayText(Waher.Networking.XMPP.XmppState,Tag.Neuron.Xamarin.Services.ITagProfile)">
+        <member name="M:IdApp.Extensions.XmppStateExtensions.ToColor(Waher.Networking.XMPP.XmppState)">
+            <summary>
+            Returns a color matching the current connection state.
+            </summary>
+            <param name="State">Connection state.</param>
+            <returns>Color</returns>
+        </member>
+        <member name="M:IdApp.Extensions.XmppStateExtensions.Blend(Xamarin.Forms.Color,Xamarin.Forms.Color,System.Double)">
+            <summary>
+            Blends two colors.
+            </summary>
+            <param name="Color1">Color 1</param>
+            <param name="Color2">Color 2</param>
+            <param name="p">Blending coefficient (0-1).</param>
+            <returns>Blended color.</returns>
+        </member>
+        <member name="M:IdApp.Extensions.XmppStateExtensions.ToDisplayText(Waher.Networking.XMPP.XmppState)">
             <summary>
             Converts the state to a localized string.
             </summary>
-            <param name="state">The state to convert.</param>
-            <param name="TagProfile">TAG profile reference.</param>
+            <param name="State">The state to convert.</param>
+            <returns>Textual representation of an XMPP connection state.</returns>
+        </member>
+        <member name="M:IdApp.Extensions.XmppStateExtensions.ToDisplayText(Waher.Networking.XMPP.Contracts.IdentityState)">
+            <summary>
+            Converts the state to a localized string.
+            </summary>
+            <param name="State">The state to convert.</param>
             <returns></returns>
         </member>
         <member name="T:IdApp.Icons">
@@ -1987,6 +2034,11 @@
         <member name="F:IdApp.SolidIcons.Things">
             <summary>
             The things icon
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.Network">
+            <summary>
+            network-wired
             </summary>
         </member>
         <member name="T:IdApp.Models.ContractModel">
@@ -5628,6 +5680,16 @@
             Gets or sets the user friendly network state text for display.
             </summary>
         </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.IdentityStateTextProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.IdentityStateText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.IdentityStateText">
+            <summary>
+            Gets or sets the user friendly network state text for display.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.MainViewModel.HasConnectionErrorsProperty">
             <summary>
             See <see cref="P:IdApp.ViewModels.MainViewModel.HasConnectionErrors"/>
@@ -5659,12 +5721,13 @@
             A view model that holds Neuron state.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.NeuronViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher)">
+        <member name="M:IdApp.ViewModels.NeuronViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.ITagProfile)">
             <summary>
             Creates an instance of a <see cref="T:IdApp.ViewModels.NeuronViewModel"/>.
             </summary>
             <param name="neuronService"></param>
             <param name="uiDispatcher"></param>
+            <param name="tagProfile"></param>
         </member>
         <member name="M:IdApp.ViewModels.NeuronViewModel.DoBind">
             <inheritdoc/>
@@ -5682,6 +5745,11 @@
             Gets the current <see cref="T:Tag.Neuron.Xamarin.Services.INeuronService"/>.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.NeuronViewModel.TagProfile">
+            <summary>
+            Gets the current <see cref="T:Tag.Neuron.Xamarin.Services.ITagProfile"/>.
+            </summary>
+        </member>
         <member name="F:IdApp.ViewModels.NeuronViewModel.ConnectionStateTextProperty">
             <summary>
             
@@ -5690,6 +5758,26 @@
         <member name="P:IdApp.ViewModels.NeuronViewModel.ConnectionStateText">
             <summary>
             Gets the current connection state as a user friendly localized string.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.NeuronViewModel.ConnectionStateColorProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.NeuronViewModel.ConnectionStateColor">
+            <summary>
+            Gets the current connection state as a color.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.NeuronViewModel.StateSummaryTextProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.NeuronViewModel.StateSummaryText">
+            <summary>
+            Gets the current state summary as a user friendly localized string.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.NeuronViewModel.IsConnectedProperty">
@@ -8827,12 +8915,22 @@
             The command to bind to for the second button.
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.RightButtonCommandProperty">
+        <member name="F:IdApp.Views.MainTabBarView.RightButton1CommandProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.RightButtonCommand"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButton1Command"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.RightButtonCommand">
+        <member name="P:IdApp.Views.MainTabBarView.RightButton1Command">
+            <summary>
+            The command to bind to for the third button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.RightButton2CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButton2Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.RightButton2Command">
             <summary>
             The command to bind to for the third button.
             </summary>
@@ -8867,12 +8965,22 @@
             The font family to use for text on the second button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.RightButtonFontFamilyProperty">
+        <member name="F:IdApp.Views.MainTabBarView.RightButton1FontFamilyProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.RightButtonFontFamily"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButton1FontFamily"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.RightButtonFontFamily">
+        <member name="P:IdApp.Views.MainTabBarView.RightButton1FontFamily">
+            <summary>
+            The font family to use for text on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.RightButton2FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButton2FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.RightButton2FontFamily">
             <summary>
             The font family to use for text on the third button
             </summary>
@@ -8907,12 +9015,22 @@
             The text to use for text on the second button
             </summary>
         </member>
-        <member name="F:IdApp.Views.MainTabBarView.RightButtonTextProperty">
+        <member name="F:IdApp.Views.MainTabBarView.RightButton1TextProperty">
             <summary>
-            See <see cref="P:IdApp.Views.MainTabBarView.RightButtonText"/>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButton1Text"/>
             </summary>
         </member>
-        <member name="P:IdApp.Views.MainTabBarView.RightButtonText">
+        <member name="P:IdApp.Views.MainTabBarView.RightButton1Text">
+            <summary>
+            The text to use for text on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Views.MainTabBarView.RightButton2TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Views.MainTabBarView.RightButton2Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Views.MainTabBarView.RightButton2Text">
             <summary>
             The text to use for text on the third button
             </summary>

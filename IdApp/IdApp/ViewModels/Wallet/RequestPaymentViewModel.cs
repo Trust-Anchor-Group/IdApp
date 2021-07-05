@@ -18,7 +18,6 @@ namespace IdApp.ViewModels.Wallet
 	/// </summary>
 	public class RequestPaymentViewModel : NeuronViewModel
 	{
-		private readonly ITagProfile tagProfile;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly RequestPaymentPage page;
@@ -33,9 +32,8 @@ namespace IdApp.ViewModels.Wallet
 			INavigationService navigationService,
 			ILogService logService,
 			RequestPaymentPage page)
-		: base(neuronService, uiDispatcher)
+		: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.page = page;
@@ -65,13 +63,13 @@ namespace IdApp.ViewModels.Wallet
 			AssignProperties();
 			EvaluateAllCommands();
 
-			this.tagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.tagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= TagProfile_Changed;
 			await base.DoUnbind();
 		}
 
@@ -404,7 +402,7 @@ namespace IdApp.ViewModels.Wallet
 
 			if (this.EncryptMessage)
 			{
-				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.tagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.TagProfile.LegalIdentity, this.Amount, this.AmountExtra,
 					this.Currency, this.Message);
 			}
 			else

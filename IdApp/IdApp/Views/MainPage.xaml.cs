@@ -16,8 +16,6 @@ namespace IdApp.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MainPage
 	{
-		private readonly INeuronService neuronService;
-
 		/// <summary>
 		/// Creates a new instance of the <see cref="MainPage"/> class.
 		/// </summary>
@@ -25,7 +23,6 @@ namespace IdApp.Views
 		{
 			InitializeComponent();
 			ViewModel = new MainViewModel();
-			this.neuronService = Types.Instantiate<INeuronService>(false);
 		}
 
 		/// <inheritdoc />

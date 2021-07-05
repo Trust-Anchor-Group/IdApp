@@ -228,7 +228,7 @@ namespace IdApp.ViewModels.Registration
         private void SetConnectionStateAndText(XmppState state)
         {
             IsConnected = state == XmppState.Connected;
-            this.ConnectionStateText = state.ToDisplayText(this.TagProfile);
+            this.ConnectionStateText = state.ToDisplayText();
         }
 
         private void Skip()

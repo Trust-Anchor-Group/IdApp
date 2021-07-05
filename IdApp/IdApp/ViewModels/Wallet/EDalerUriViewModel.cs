@@ -22,7 +22,6 @@ namespace IdApp.ViewModels.Wallet
 	/// </summary>
 	public class EDalerUriViewModel : NeuronViewModel
 	{
-		private readonly ITagProfile tagProfile;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
@@ -39,9 +38,8 @@ namespace IdApp.ViewModels.Wallet
 			INetworkService networkService,
 			ILogService logService,
 			IShareQrCode ShareQrCode)
-		: base(neuronService, uiDispatcher)
+		: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.tagProfile = tagProfile;
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
@@ -119,13 +117,13 @@ namespace IdApp.ViewModels.Wallet
 			AssignProperties();
 			EvaluateAllCommands();
 
-			this.tagProfile.Changed += TagProfile_Changed;
+			this.TagProfile.Changed += TagProfile_Changed;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.tagProfile.Changed -= TagProfile_Changed;
+			this.TagProfile.Changed -= TagProfile_Changed;
 			await base.DoUnbind();
 		}
 
@@ -758,7 +756,7 @@ namespace IdApp.ViewModels.Wallet
 		/// <summary>
 		/// If PIN should be used.
 		/// </summary>
-		public bool UsePin => this.tagProfile?.UsePin ?? false;
+		public bool UsePin => this.TagProfile?.UsePin ?? false;
 
 		/// <summary>
 		/// See <see cref="Pin"/>
@@ -827,7 +825,7 @@ namespace IdApp.ViewModels.Wallet
 		{
 			try
 			{
-				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
@@ -859,7 +857,7 @@ namespace IdApp.ViewModels.Wallet
 					return;
 				}
 
-				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
@@ -909,7 +907,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private async Task GenerateQrCode()
 		{
-			if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+			if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 			{
 				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 				return;
@@ -988,7 +986,7 @@ namespace IdApp.ViewModels.Wallet
 		{
 			try
 			{
-				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
 					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
@@ -1012,7 +1010,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private async Task ShowCode()
 		{
-			if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
+			if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 			{
 				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 				return;

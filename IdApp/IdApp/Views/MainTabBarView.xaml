@@ -37,13 +37,15 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="4*"/>
-                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
                 <!-- Left buttons -->
                 <Button x:Name="LeftButton1" Grid.Row="0" Grid.Column="0" FontSize="Medium" Style="{StaticResource TabBarButton}" />
                 <Button x:Name="LeftButton2" Grid.Row="0" Grid.Column="1" FontSize="Medium" Style="{StaticResource TabBarButton}" />
                 <!-- Right button -->
-                <Button x:Name="RightButton" Grid.Row="0" Grid.Column="3" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
+                <Button x:Name="RightButton1" Grid.Row="0" Grid.Column="3" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
+                <Button x:Name="RightButton2" Grid.Row="0" Grid.Column="4" FontSize="Medium" Style="{StaticResource TabBarButton}"/>
                 <!-- BEGIN round button backdrop -->
                 <!-- solid background -->
                 <BoxView Grid.Row="0" Grid.Column="2" VerticalOptions="End" HorizontalOptions="Fill" HeightRequest="48" BackgroundColor="{StaticResource HeadingBackground}"/>
