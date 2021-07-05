@@ -1119,6 +1119,28 @@
             <param name="LegalId">Legal ID</param>
             <returns>Contact information, if found.</returns>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.GetFriendlyName(System.String,Waher.Networking.XMPP.XmppClient)">
+            <summary>
+            Gets the friendly name of a remote identity (Legal ID or Bare JID).
+            </summary>
+            <param name="RemoteId">Remote Identity</param>
+            <param name="Client">XMPP Client</param>
+            <returns>Friendly name.</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.GetFriendlyName(System.Collections.Generic.IEnumerable{Waher.Networking.XMPP.Contracts.Property})">
+            <summary>
+            Gets the friendly name from a set of meta-data tags.
+            </summary>
+            <param name="MetaData">Meta-data tags.</param>
+            <returns>Friendly name</returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ContactInfo.GetFriendlyName(Waher.Networking.XMPP.Contracts.LegalIdentity)">
+            <summary>
+            Gets the friendly name of a legal identity.
+            </summary>
+            <param name="Identity">Legal Identity</param>
+            <returns>Friendly name</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Services.ICryptoService">
             <summary>
             Cryptographic service that helps create passwords and other security related tasks.

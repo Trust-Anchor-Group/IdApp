@@ -11,16 +11,19 @@ namespace IdApp.ViewModels.Wallet
 	{
 		private readonly AccountEvent accountEvent;
 		private readonly MyWalletViewModel viewModel;
+		private readonly string friendlyName;
 
 		/// <summary>
 		/// Encapsulates a <see cref="AccountEvent"/> object.
 		/// </summary>
 		/// <param name="AccountEvent">Account event.</param>
 		/// <param name="ViewModel">Current view model</param>
-		public AccountEventItem(AccountEvent AccountEvent, MyWalletViewModel ViewModel)
+		/// <param name="FriendlyName">Friendly name of remote entity.</param>
+		public AccountEventItem(AccountEvent AccountEvent, MyWalletViewModel ViewModel, string FriendlyName)
 		{
 			this.accountEvent = AccountEvent;
 			this.viewModel = ViewModel;
+			this.friendlyName = FriendlyName;
 		}
 
 		/// <summary>
@@ -47,6 +50,11 @@ namespace IdApp.ViewModels.Wallet
 		/// Remote endpoint in transaction.
 		/// </summary>
 		public string Remote => this.accountEvent.Remote;
+
+		/// <summary>
+		/// Friendly name of remote entity.
+		/// </summary>
+		public string FriendlyName => this.friendlyName;
 
 		/// <summary>
 		/// Any message associated with event.

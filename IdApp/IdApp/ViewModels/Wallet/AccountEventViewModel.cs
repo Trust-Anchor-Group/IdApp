@@ -43,7 +43,7 @@ namespace IdApp.ViewModels.Wallet
 				this.Balance = args.Event.Balance;
 				this.Message = args.Event.Message;
 				this.HasMessage = args.Event.HasMessage;
-				this.Id = args.Event.TransactionId;
+				this.Id = args.Event.TransactionId.ToString();
 				this.Currency = args.Event.Currency;
 
 				this.ChangeText = this.Change.ToString();
@@ -245,14 +245,14 @@ namespace IdApp.ViewModels.Wallet
 		/// See <see cref="Id"/>
 		/// </summary>
 		public static readonly BindableProperty IdProperty =
-			BindableProperty.Create("Id", typeof(Guid), typeof(EDalerUriViewModel), default(Guid));
+			BindableProperty.Create("Id", typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Globally unique identifier of code
 		/// </summary>
-		public Guid Id
+		public string Id
 		{
-			get { return (Guid)GetValue(IdProperty); }
+			get { return (string)GetValue(IdProperty); }
 			set { SetValue(IdProperty, value); }
 		}
 

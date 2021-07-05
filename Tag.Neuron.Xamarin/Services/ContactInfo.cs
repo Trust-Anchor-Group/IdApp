@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
 using Waher.Persistence.Filters;
@@ -72,7 +74,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// Legal Identity object.
 		/// </summary>
 		[DefaultValueNull]
-		public LegalIdentity LegalIdentity 
+		public LegalIdentity LegalIdentity
 		{
 			get => this.legalIdentity;
 			set => this.legalIdentity = value;
@@ -207,5 +209,246 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			return Database.FindFirstIgnoreRest<ContactInfo>(new FilterFieldEqualTo("LegalId", LegalId));
 		}
+
+		/// <summary>
+		/// Gets the friendly name of a remote identity (Legal ID or Bare JID).
+		/// </summary>
+		/// <param name="RemoteId">Remote Identity</param>
+		/// <param name="Client">XMPP Client</param>
+		/// <returns>Friendly name.</returns>
+		public static async Task<string> GetFriendlyName(string RemoteId, XmppClient Client)
+		{
+			int i = RemoteId.IndexOf('@');
+			if (i < 0)
+				return RemoteId;
+
+			string Account = RemoteId.Substring(0, i);
+			ContactInfo Info;
+
+			if (Guid.TryParse(Account, out Guid _))
+			{
+				Info = await FindByLegalId(RemoteId);
+				if (!string.IsNullOrEmpty(Info?.FriendlyName))
+					return Info.FriendlyName;
+
+				if (!(Info?.LegalIdentity is null))
+					return GetFriendlyName(Info.LegalIdentity);
+			}
+
+			Info = await FindByBareJid(RemoteId);
+			if (!(Info is null))
+			{
+				if (!string.IsNullOrEmpty(Info?.FriendlyName))
+					return Info.FriendlyName;
+
+				if (!(Info.LegalIdentity is null))
+					return GetFriendlyName(Info.LegalIdentity);
+
+				if (!(Info.MetaData is null))
+				{
+					string s = GetFriendlyName(Info.MetaData);
+					if (!string.IsNullOrEmpty(s))
+						return s;
+				}
+			}
+
+			RosterItem Item = Client?.GetRosterItem(RemoteId);
+			if (!(Item is null))
+				return Item.NameOrBareJid;
+
+			return RemoteId;
+		}
+
+		/// <summary>
+		/// Gets the friendly name from a set of meta-data tags.
+		/// </summary>
+		/// <param name="MetaData">Meta-data tags.</param>
+		/// <returns>Friendly name</returns>
+		public static string GetFriendlyName(IEnumerable<Property> MetaData)
+		{
+			string Apartment = null;
+			string Area = null;
+			string Building = null;
+			string City = null;
+			string Class = null;
+			string Country = null;
+			string Manufacturer = null;
+			string MeterLocation = null;
+			string MeterNumber = null;
+			string Model = null;
+			string Name = null;
+			string Region = null;
+			string Room = null;
+			string SerialNumber = null;
+			string Street = null;
+			string StreetNumber = null;
+			string Version = null;
+
+			foreach (Property P in MetaData)
+			{
+				switch (P.Name.ToUpper())
+				{
+					case "APT":
+						Apartment = P.Value;
+						break;
+
+					case "AREA":
+						Area = P.Value;
+						break;
+
+					case "BLD":
+						Building = P.Value;
+						break;
+
+					case "CITY":
+						City = P.Value;
+						break;
+
+					case "COUNTRY":
+						Country = P.Value;
+						break;
+
+					case "REGION":
+						Region = P.Value;
+						break;
+
+					case "ROOM":
+						Room = P.Value;
+						break;
+
+					case "STREET":
+						Street = P.Value;
+						break;
+
+					case "STREETNR":
+						StreetNumber = P.Value;
+						break;
+
+					case "CLASS":
+						Class = P.Value;
+						break;
+
+					case "MAN":
+						Manufacturer = P.Value;
+						break;
+
+					case "MLOC":
+						MeterLocation = P.Value;
+						break;
+
+					case "MNR":
+						MeterNumber = P.Value;
+						break;
+
+					case "MODEL":
+						Model = P.Value;
+						break;
+
+					case "NAME":
+						Name = P.Value;
+						break;
+
+					case "SN":
+						SerialNumber = P.Value;
+						break;
+
+					case "V":
+						Version = P.Value;
+						break;
+				}
+			}
+
+			StringBuilder sb = null;
+
+			AppendName(ref sb, Class);
+			AppendName(ref sb, Model);
+			AppendName(ref sb, Version);
+			AppendName(ref sb, Room);
+			AppendName(ref sb, Name);
+			AppendName(ref sb, Apartment);
+			AppendName(ref sb, Building);
+			AppendName(ref sb, Street);
+			AppendName(ref sb, StreetNumber);
+			AppendName(ref sb, Area);
+			AppendName(ref sb, City);
+			AppendName(ref sb, Region);
+			AppendName(ref sb, Country);
+			AppendName(ref sb, MeterNumber);
+			AppendName(ref sb, MeterLocation);
+			AppendName(ref sb, Manufacturer);
+			AppendName(ref sb, SerialNumber);
+
+			return sb?.ToString();
+		}
+
+		/// <summary>
+		/// Gets the friendly name of a legal identity.
+		/// </summary>
+		/// <param name="Identity">Legal Identity</param>
+		/// <returns>Friendly name</returns>
+		public static string GetFriendlyName(LegalIdentity Identity)
+		{
+			string FirstName = null;
+			string MiddleName = null;
+			string LastName = null;
+			string PersonalNumber = null;
+			bool HasName = false;
+
+			foreach (Property P in Identity.Properties)
+			{
+				switch (P.Name.ToUpper())
+				{
+					case "FIRST":
+						FirstName = P.Value;
+						HasName = true;
+						break;
+
+					case "MIDDLE":
+						MiddleName = P.Value;
+						HasName = true;
+						break;
+
+					case "LAST":
+						LastName = P.Value;
+						HasName = true;
+						break;
+
+					case "PNR":
+						PersonalNumber = P.Value;
+						break;
+				}
+			}
+
+			if (HasName)
+			{
+				StringBuilder sb = null;
+
+				AppendName(ref sb, FirstName);
+				AppendName(ref sb, MiddleName);
+				AppendName(ref sb, LastName);
+
+				if (!(sb is null))
+					return sb.ToString();
+			}
+
+			if (!string.IsNullOrEmpty(PersonalNumber))
+				return PersonalNumber;
+
+			return Identity.Id;
+		}
+
+		private static void AppendName(ref StringBuilder sb, string Value)
+		{
+			if (!string.IsNullOrEmpty(Value))
+			{
+				if (sb is null)
+					sb = new StringBuilder();
+				else
+					sb.Append(' ');
+
+				sb.Append(Value);
+			}
+		}
+
 	}
 }

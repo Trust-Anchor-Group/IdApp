@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace IdApp.ViewModels.Wallet
 
 			if (this.navigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
-				AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, args.More);
+				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, args.More);
 
 				StringBuilder Url = new StringBuilder();
 
@@ -77,7 +78,7 @@ namespace IdApp.ViewModels.Wallet
 			await base.DoUnbind();
 		}
 
-		private void AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments,
+		private async Task AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments,
 			AccountEvent[] Events, bool More)
 		{
 			this.Balance = Balance;
@@ -101,8 +102,18 @@ namespace IdApp.ViewModels.Wallet
 			this.Events.Clear();
 			if (!(Events is null))
 			{
+				Dictionary<string, string> FriendlyNames = new Dictionary<string, string>();
+
 				foreach (AccountEvent Event in Events)
-					this.Events.Add(new AccountEventItem(Event, this));
+				{
+					if (!FriendlyNames.TryGetValue(Event.Remote, out string FriendlyName))
+					{
+						FriendlyName = await ContactInfo.GetFriendlyName(Event.Remote, this.NeuronService.Xmpp);
+						FriendlyNames[Event.Remote] = FriendlyName;
+					}
+
+					this.Events.Add(new AccountEventItem(Event, this, FriendlyName));
+				}
 			}
 		}
 
@@ -124,8 +135,8 @@ namespace IdApp.ViewModels.Wallet
 				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.NeuronService.Wallet.GetPendingPayments();
 				(AccountEvent[] Events, bool More) = await this.NeuronService.Wallet.GetAccountEventsAsync(50);
 
-				this.UiDispatcher.BeginInvokeOnMainThread(() => AssignProperties(Balance, PendingAmount, PendingCurrency, PendingPayments,
-					Events, More));
+				this.UiDispatcher.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency, 
+					PendingPayments, Events, More));
 			}
 			catch (Exception ex)
 			{

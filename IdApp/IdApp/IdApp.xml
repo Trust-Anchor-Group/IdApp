@@ -7324,12 +7324,13 @@
             Encapsulates a <see cref="T:EDaler.AccountEvent"/> object.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Wallet.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.ViewModels.Wallet.MyWalletViewModel)">
+        <member name="M:IdApp.ViewModels.Wallet.AccountEventItem.#ctor(EDaler.AccountEvent,IdApp.ViewModels.Wallet.MyWalletViewModel,System.String)">
             <summary>
             Encapsulates a <see cref="T:EDaler.AccountEvent"/> object.
             </summary>
             <param name="AccountEvent">Account event.</param>
             <param name="ViewModel">Current view model</param>
+            <param name="FriendlyName">Friendly name of remote entity.</param>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Balance">
             <summary>
@@ -7354,6 +7355,11 @@
         <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Remote">
             <summary>
             Remote endpoint in transaction.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.FriendlyName">
+            <summary>
+            Friendly name of remote entity.
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.AccountEventItem.Message">

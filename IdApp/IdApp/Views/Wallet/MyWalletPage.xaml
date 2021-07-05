@@ -100,14 +100,25 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Remote}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
                                 <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap"/>
-                                <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="WordWrap" TextColor="{Binding Path=TextColor}" HorizontalTextAlignment="End">
+                                <Label Grid.Column="1" Grid.Row="0" LineBreakMode="WordWrap" HorizontalTextAlignment="End">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding Path=Change}" FontSize="30" FontAttributes="Bold"/>
+                                            <Span Text="{Binding Path=Change}" FontSize="18" FontAttributes="Bold" TextColor="{Binding Path=TextColor}"/>
                                             <Span Text=" "/>
-                                            <Span Text="{Binding Path=Currency}" FontSize="20"/>
+                                            <Span Text="{Binding Path=Currency}" FontSize="16" TextColor="{Binding Path=TextColor}"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Grid.Column="1" Grid.Row="1" LineBreakMode="WordWrap" HorizontalTextAlignment="End">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text=" ("/>
+                                            <Span Text="{Binding Path=Balance}" FontSize="14"/>
+                                            <Span Text=" "/>
+                                            <Span Text="{Binding Path=Currency}" FontSize="12"/>
+                                            <Span Text=" ) "/>
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
