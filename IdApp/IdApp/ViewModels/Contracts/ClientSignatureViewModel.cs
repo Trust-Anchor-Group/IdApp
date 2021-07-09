@@ -43,11 +43,13 @@ namespace IdApp.ViewModels.Contracts
         protected override async Task DoBind()
         {
             await base.DoBind();
+
             if (this.navigationService.TryPopArgs(out ClientSignatureNavigationArgs args))
             {
                 this.signature = args.Signature;
                 this.identity = args.Identity;
             }
+            
             AssignProperties();
         }
 

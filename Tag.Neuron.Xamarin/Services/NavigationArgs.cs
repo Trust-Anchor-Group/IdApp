@@ -5,7 +5,6 @@
     /// </summary>
     public abstract class NavigationArgs
     {
-
         /// <summary>
         /// The route to use when going back, if any.
         /// </summary>
