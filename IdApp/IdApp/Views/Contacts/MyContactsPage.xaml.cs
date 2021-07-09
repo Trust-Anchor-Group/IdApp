@@ -19,7 +19,7 @@ namespace IdApp.Views.Contacts
 		public MyContactsPage()
 		{
 			this.navigationService = Types.Instantiate<INavigationService>(false);
-			this.ViewModel = new MyContactsViewModel();
+			this.ViewModel = new ContactListViewModel();
 			
 			InitializeComponent();
 		}

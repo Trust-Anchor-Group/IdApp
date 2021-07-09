@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
 using EDaler.Uris;
+using IdApp.Navigation.Contacts;
 using IdApp.Navigation.Wallet;
 using IdApp.Services;
+using IdApp.Views.Contacts;
 using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
@@ -381,7 +383,8 @@ namespace IdApp.ViewModels.Wallet
 
 		private async Task MakePayment()
 		{
-			await this.navigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(null));
+			await this.navigationService.GoToAsync(nameof(MyContactsPage), 
+				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment));
 		}
 
 		private async Task ShowPending(object P)

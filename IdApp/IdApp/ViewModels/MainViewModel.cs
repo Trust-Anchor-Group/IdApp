@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
 using IdApp.Services;
+using IdApp.Navigation.Contacts;
 using IdApp.Views.Contacts;
 using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
@@ -600,7 +601,8 @@ namespace IdApp.ViewModels
 
 		private async Task ViewMyContacts()
 		{
-			await this.navigationService.GoToAsync(nameof(MyContactsPage));
+			await this.navigationService.GoToAsync(nameof(MyContactsPage), 
+				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
 		}
 
 		private async Task ViewMyThings()

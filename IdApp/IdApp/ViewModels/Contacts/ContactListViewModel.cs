@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Threading.Tasks;
+using EDaler.Uris;
+using IdApp.Navigation.Contacts;
 using IdApp.Navigation.Identity;
+using IdApp.Navigation.Wallet;
 using IdApp.Views.Identity;
+using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
@@ -17,7 +22,7 @@ namespace IdApp.ViewModels.Contacts
 	/// <summary>
 	/// The view model to bind to when displaying the list of contacts.
 	/// </summary>
-	public class MyContactsViewModel : BaseViewModel
+	public class ContactListViewModel : BaseViewModel
 	{
 		private readonly INeuronService neuronService;
 		private readonly INetworkService networkService;
@@ -25,22 +30,22 @@ namespace IdApp.ViewModels.Contacts
 		private readonly IUiDispatcher uiDispatcher;
 
 		/// <summary>
-		/// Creates an instance of the <see cref="MyContactsViewModel"/> class.
+		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
 		/// </summary>
-		public MyContactsViewModel()
+		public ContactListViewModel()
 			: this(null, null, null, null)
 		{
 		}
 
 		/// <summary>
-		/// Creates an instance of the <see cref="MyContactsViewModel"/> class.
+		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
 		/// For unit tests.
 		/// </summary>
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="navigationService">The navigation service.</param>
 		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
-		protected internal MyContactsViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher)
+		protected internal ContactListViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher)
 		{
 			this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
 			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
@@ -53,6 +58,17 @@ namespace IdApp.ViewModels.Contacts
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
+
+			if (this.navigationService.TryPopArgs(out ContactListNavigationArgs args))
+			{
+				this.Description = args.Description;
+				this.Action = args.Action;
+			}
+			else
+			{
+				this.Description = AppResources.ContactsDescription;
+				this.Action = SelectContactAction.ViewIdentity;
+			}
 
 			SortedDictionary<string, ContactInfo> Sorted = new SortedDictionary<string, ContactInfo>();
 			string Name;
@@ -97,7 +113,7 @@ namespace IdApp.ViewModels.Contacts
 		/// See <see cref="ShowContactsMissing"/>
 		/// </summary>
 		public static readonly BindableProperty ShowContactsMissingProperty =
-			BindableProperty.Create("ShowContactsMissing", typeof(bool), typeof(MyContactsViewModel), default(bool));
+			BindableProperty.Create("ShowContactsMissing", typeof(bool), typeof(ContactListViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether to show a contacts missing alert or not.
@@ -109,6 +125,36 @@ namespace IdApp.ViewModels.Contacts
 		}
 
 		/// <summary>
+		/// <see cref="Description"/>
+		/// </summary>
+		public static readonly BindableProperty DescriptionProperty =
+			BindableProperty.Create("Description", typeof(string), typeof(ContactListViewModel), default(string));
+
+		/// <summary>
+		/// The description to present to the user.
+		/// </summary>
+		public string Description
+		{
+			get { return (string)GetValue(DescriptionProperty); }
+			set { SetValue(DescriptionProperty, value); }
+		}
+
+		/// <summary>
+		/// <see cref="Action"/>
+		/// </summary>
+		public static readonly BindableProperty ActionProperty =
+			BindableProperty.Create("Action", typeof(SelectContactAction), typeof(ContactListViewModel), default(SelectContactAction));
+
+		/// <summary>
+		/// The action to take when contact has been selected.
+		/// </summary>
+		public SelectContactAction Action
+		{
+			get { return (SelectContactAction)GetValue(ActionProperty); }
+			set { SetValue(ActionProperty, value); }
+		}
+
+		/// <summary>
 		/// Holds the list of contacts to display.
 		/// </summary>
 		public ObservableCollection<ContactInfo> Contacts { get; }
@@ -117,17 +163,51 @@ namespace IdApp.ViewModels.Contacts
 		/// See <see cref="SelectedContact"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContactProperty =
-			BindableProperty.Create("SelectedContact", typeof(ContactInfo), typeof(MyContactsViewModel), default(ContactInfo), propertyChanged: (b, oldValue, newValue) =>
-			{
-				if (b is MyContactsViewModel viewModel &&
-					newValue is ContactInfo Contact)
+			BindableProperty.Create("SelectedContact", typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo), 
+				propertyChanged: (b, oldValue, newValue) =>
 				{
-					viewModel.uiDispatcher.BeginInvokeOnMainThread(async () =>
+					if (b is ContactListViewModel viewModel &&
+						newValue is ContactInfo Contact)
 					{
-						await viewModel.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
-					});
-				}
-			});
+						viewModel.uiDispatcher.BeginInvokeOnMainThread(async () =>
+						{
+							switch (viewModel.Action)
+							{
+								case SelectContactAction.MakePayment:
+									StringBuilder sb = new StringBuilder();
+
+									sb.Append("edaler:");
+
+									if (!string.IsNullOrEmpty(Contact.LegalId))
+									{
+										sb.Append("ti=");
+										sb.Append(Contact.LegalId);
+									}
+									else if (!string.IsNullOrEmpty(Contact.BareJid))
+									{
+										sb.Append("t=");
+										sb.Append(Contact.BareJid);
+									}
+									else
+										break;
+
+									if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
+										break;
+
+									await viewModel.navigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
+									{
+										ReturnRoute = "../.."
+									});
+									break;
+
+								case SelectContactAction.ViewIdentity:
+								default:
+									await viewModel.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
+									break;
+							}
+						});
+					}
+				});
 
 		/// <summary>
 		/// The currently selected contact, if any.

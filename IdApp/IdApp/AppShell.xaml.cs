@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using IdApp.Navigation.Contacts;
 using IdApp.Services;
 using IdApp.ViewModels;
 using IdApp.Views;
@@ -214,7 +215,8 @@ namespace IdApp
 
 		internal async void ContactsMenuItem_Clicked(object sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(MyContactsPage));
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), 
+				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
 		}
 
 		internal async void ThingsMenuItem_Clicked(object sender, EventArgs e)

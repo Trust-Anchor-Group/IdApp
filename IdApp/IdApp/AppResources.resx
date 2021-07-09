@@ -1155,4 +1155,7 @@
   <data name="ZipCode" xml:space="preserve">
     <value>Zip or Postal Code</value>
   </data>
+  <data name="SelectContactToPay" xml:space="preserve">
+    <value>Below are all contacts in your contact book. Select the contact to whom you want to make the payment.</value>
+  </data>
 </root>

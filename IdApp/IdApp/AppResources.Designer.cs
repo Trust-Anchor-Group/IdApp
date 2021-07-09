@@ -2302,6 +2302,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Below are all contacts in your contact book. Select the contact to whom you want to make the payment..
+        /// </summary>
+        internal static string SelectContactToPay {
+            get {
+                return ResourceManager.GetString("SelectContactToPay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selecting a photo is not supported on this device.
         /// </summary>
         internal static string SelectingAPhotoIsNotSupported {

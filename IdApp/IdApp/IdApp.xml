@@ -1290,6 +1290,11 @@
               Looks up a localized string similar to Scan QR Code.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.SelectContactToPay">
+            <summary>
+              Looks up a localized string similar to Below are all contacts in your contact book. Select the contact to whom you want to make the payment..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.SelectingAPhotoIsNotSupported">
             <summary>
               Looks up a localized string similar to Selecting a photo is not supported on this device.
@@ -2195,6 +2200,43 @@
             Gets or sets whether the format of the contract part is html or not.
             </summary>
         </member>
+        <member name="T:IdApp.Navigation.Contacts.SelectContactAction">
+            <summary>
+            Actions to take when a contact has been selected.
+            </summary>
+        </member>
+        <member name="F:IdApp.Navigation.Contacts.SelectContactAction.MakePayment">
+            <summary>
+            Make a payment to contact.
+            </summary>
+        </member>
+        <member name="F:IdApp.Navigation.Contacts.SelectContactAction.ViewIdentity">
+            <summary>
+            View the identity.
+            </summary>
+        </member>
+        <member name="T:IdApp.Navigation.Contacts.ContactListNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a list of contacts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Navigation.Contacts.ContactListNavigationArgs.#ctor(System.String,IdApp.Navigation.Contacts.SelectContactAction)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Navigation.Contacts.ContactListNavigationArgs"/> class.
+            </summary>
+            <param name="Description">Description presented to user.</param>
+            <param name="Action">Action to take when a contact has been selected.</param>
+        </member>
+        <member name="P:IdApp.Navigation.Contacts.ContactListNavigationArgs.Description">
+            <summary>
+            Description presented to user.
+            </summary>
+        </member>
+        <member name="P:IdApp.Navigation.Contacts.ContactListNavigationArgs.Action">
+            <summary>
+            Action to take when a contact has been selected.
+            </summary>
+        </member>
         <member name="T:IdApp.Navigation.Contracts.ClientSignatureNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a client signature.
@@ -3031,19 +3073,19 @@
             Gets or sets whether the application is online, i.e. has network access.
             </summary>
         </member>
-        <member name="T:IdApp.ViewModels.Contacts.MyContactsViewModel">
+        <member name="T:IdApp.ViewModels.Contacts.ContactListViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.#ctor">
+        <member name="M:IdApp.ViewModels.Contacts.ContactListViewModel.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.ViewModels.Contacts.MyContactsViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contacts.ContactListViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
+        <member name="M:IdApp.ViewModels.Contacts.ContactListViewModel.#ctor(Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.ViewModels.Contacts.MyContactsViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contacts.ContactListViewModel"/> class.
             For unit tests.
             </summary>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
@@ -3051,33 +3093,53 @@
             <param name="navigationService">The navigation service.</param>
             <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
         </member>
-        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.DoBind">
+        <member name="M:IdApp.ViewModels.Contacts.ContactListViewModel.DoBind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.ViewModels.Contacts.MyContactsViewModel.DoUnbind">
+        <member name="M:IdApp.ViewModels.Contacts.ContactListViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="F:IdApp.ViewModels.Contacts.MyContactsViewModel.ShowContactsMissingProperty">
+        <member name="F:IdApp.ViewModels.Contacts.ContactListViewModel.ShowContactsMissingProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contacts.MyContactsViewModel.ShowContactsMissing"/>
+            See <see cref="P:IdApp.ViewModels.Contacts.ContactListViewModel.ShowContactsMissing"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contacts.MyContactsViewModel.ShowContactsMissing">
+        <member name="P:IdApp.ViewModels.Contacts.ContactListViewModel.ShowContactsMissing">
             <summary>
             Gets or sets whether to show a contacts missing alert or not.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contacts.MyContactsViewModel.Contacts">
+        <member name="F:IdApp.ViewModels.Contacts.ContactListViewModel.DescriptionProperty">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Contacts.ContactListViewModel.Description"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contacts.ContactListViewModel.Description">
+            <summary>
+            The description to present to the user.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contacts.ContactListViewModel.ActionProperty">
+            <summary>
+            <see cref="P:IdApp.ViewModels.Contacts.ContactListViewModel.Action"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contacts.ContactListViewModel.Action">
+            <summary>
+            The action to take when contact has been selected.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contacts.ContactListViewModel.Contacts">
             <summary>
             Holds the list of contacts to display.
             </summary>
         </member>
-        <member name="F:IdApp.ViewModels.Contacts.MyContactsViewModel.SelectedContactProperty">
+        <member name="F:IdApp.ViewModels.Contacts.ContactListViewModel.SelectedContactProperty">
             <summary>
-            See <see cref="P:IdApp.ViewModels.Contacts.MyContactsViewModel.SelectedContact"/>
+            See <see cref="P:IdApp.ViewModels.Contacts.ContactListViewModel.SelectedContact"/>
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contacts.MyContactsViewModel.SelectedContact">
+        <member name="P:IdApp.ViewModels.Contacts.ContactListViewModel.SelectedContact">
             <summary>
             The currently selected contact, if any.
             </summary>

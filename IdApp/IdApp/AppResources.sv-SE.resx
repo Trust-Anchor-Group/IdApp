@@ -864,6 +864,9 @@
   <data name="ScanQRCode" xml:space="preserve">
     <value>Scanna QR-kod</value>
   </data>
+  <data name="SelectContactToPay" xml:space="preserve">
+    <value>Nedan är alla kontakter i din kontaktbok. Välj kontakten du vill göra betalningen till.</value>
+  </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att välja en bild stöds inte på den här enheten</value>
   </data>

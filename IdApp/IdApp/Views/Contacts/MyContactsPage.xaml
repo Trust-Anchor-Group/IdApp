@@ -7,7 +7,7 @@
                        Title="{x:Static local:AppResources.Contacts}">
     <StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{x:Static local:AppResources.Contacts}" Style="{StaticResource Heading}"/>
-        <Label Text="{x:Static local:AppResources.ContactsDescription}" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContactsMissing}" Text="{x:Static local:AppResources.NoContactsFound}" />
         <ListView x:Name="Contacts" HasUnevenRows="True" ItemsSource="{Binding Path=Contacts}" SelectedItem="{Binding Path=SelectedContact, Mode=TwoWay}" VerticalOptions="StartAndExpand">
             <ListView.ItemTemplate>

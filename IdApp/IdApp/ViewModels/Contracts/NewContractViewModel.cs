@@ -785,7 +785,12 @@ namespace IdApp.ViewModels.Contracts
 			finally
 			{
 				if (!(Created is null))
-					await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false) { ReturnRoute = $"///{nameof(MainPage)}" });
+				{
+					await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(Created, false)
+					{
+						ReturnRoute = $"///{nameof(MainPage)}"
+					});
+				}
 			}
 		}
 

@@ -30,8 +30,13 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Returns to the previous page/route.
         /// </summary>
-        /// <returns></returns>
         Task GoBackAsync();
+
+        /// <summary>
+        /// Returns to the previous page/route.
+        /// </summary>
+        /// <param name="Animate">If animation should be used.</param>
+        Task GoBackAsync(bool Animate);
 
         /// <summary>
         /// Tries to pop/read page arguments from the (one-level) deep navigation stack.

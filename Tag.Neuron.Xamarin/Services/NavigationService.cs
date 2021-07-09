@@ -131,12 +131,19 @@ namespace Tag.Neuron.Xamarin.Services
             return !(args is null);
         }
 
-        public async Task GoBackAsync()
+        public Task GoBackAsync()
+        {
+            return this.GoBackAsync(true);
+        }
+
+        public async Task GoBackAsync(bool Animate)
         {
             try
             {
-                string route = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
-                await Shell.Current.GoToAsync(route, true);
+                string route = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
+                    this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+
+                await Shell.Current.GoToAsync(route, Animate);
             }
             catch (Exception e)
             {

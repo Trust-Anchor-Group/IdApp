@@ -1276,7 +1276,12 @@
             <summary>
             Returns to the previous page/route.
             </summary>
-            <returns></returns>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.GoBackAsync(System.Boolean)">
+            <summary>
+            Returns to the previous page/route.
+            </summary>
+            <param name="Animate">If animation should be used.</param>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.INavigationService.TryPopArgs``1(``0@)">
             <summary>
