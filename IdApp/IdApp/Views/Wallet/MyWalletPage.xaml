@@ -3,6 +3,7 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:appViews="clr-namespace:IdApp.Views;assembly=IdApp"
                        x:Class="IdApp.Views.Wallet.MyWalletPage"
                        Title="{x:Static local:AppResources.Wallet}">
     <Grid>
@@ -12,7 +13,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Frame Grid.Column="0" Grid.Row="0" HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" Margin="5"
                BackgroundColor="{StaticResource HeadingBackground}">
@@ -133,10 +134,15 @@
             </StackLayout>
         </ScrollView>
 
-        <StackLayout Grid.Column="0" Grid.Row="2">
-            <!-- BUTTONS -->
-            <Button Text="{x:Static local:AppResources.RequestPayment}" Command="{Binding Path=RequestPaymentCommand}" 
-                    Margin="0" Padding="0" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand"/>
-        </StackLayout>
+        <appViews:MainTabBarView x:Name="WalletTabBar"
+                                 Grid.Column="0" Grid.Row="2" 
+                                 LeftButton1Text="{x:Static local:SolidIcons.ArrowLeft}"
+                                 CenterButtonText="{x:Static local:SolidIcons.ScanQr}" 
+                                 RightButton1Text="{x:Static local:SolidIcons.HandHolding}" 
+                                 RightButton2Text="{x:Static local:SolidIcons.MoneyBill}" 
+                                 LeftButton1Command="{Binding Path=BackCommand}" 
+                                 CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
+                                 RightButton1Command="{Binding Path=RequestPaymentCommand}"
+                                 RightButton2Command="{Binding Path=MakePaymentCommand}"/>
     </Grid>
 </views:ContentBasePage>

@@ -2041,6 +2041,21 @@
             network-wired
             </summary>
         </member>
+        <member name="F:IdApp.SolidIcons.HandHolding">
+            <summary>
+            hand-holding
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.MoneyBill">
+            <summary>
+            money-bill
+            </summary>
+        </member>
+        <member name="F:IdApp.SolidIcons.ArrowLeft">
+            <summary>
+            arrow-left
+            </summary>
+        </member>
         <member name="T:IdApp.Models.ContractModel">
             <summary>
             The data model for a contract.
@@ -8134,7 +8149,7 @@
             The view model to bind to for when displaying the wallet.
             </summary>
         </member>
-        <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+        <member name="M:IdApp.ViewModels.Wallet.MyWalletViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService,IdApp.Services.IContractOrchestratorService,IdApp.Services.IThingRegistryOrchestratorService,IdApp.Services.IEDalerOrchestratorService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.ViewModels.Wallet.MyWalletViewModel"/> class.
             </summary>
@@ -8258,9 +8273,24 @@
             Holds a list of account events
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.BackCommand">
+            <summary>
+            The command to bind to for returning to previous view.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.ScanQrCodeCommand">
+            <summary>
+            The command to bind to for allowing users to scan QR codes.
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.RequestPaymentCommand">
             <summary>
-            The command to bind to for claiming a thing
+            The command to bind to for requesting a payment
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.MakePaymentCommand">
+            <summary>
+            The command to bind to for making a payment
             </summary>
         </member>
         <member name="P:IdApp.ViewModels.Wallet.MyWalletViewModel.ShowPendingCommand">
@@ -9327,6 +9357,12 @@
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:IdApp.Views.Wallet.MyWalletPage.OnAppearing">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.Views.Wallet.MyWalletPage.OnDisappearing">
+            <inheritdoc />
         </member>
         <member name="T:IdApp.Views.Wallet.PaymentAcceptancePage">
             <summary>

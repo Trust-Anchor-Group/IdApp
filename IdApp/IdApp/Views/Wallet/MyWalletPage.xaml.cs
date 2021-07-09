@@ -1,4 +1,5 @@
-﻿using IdApp.ViewModels.Wallet;
+﻿using IdApp.Services;
+using IdApp.ViewModels.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Runtime.Inventory;
@@ -26,7 +27,10 @@ namespace IdApp.Views.Wallet
                 Types.Instantiate<INeuronService>(false),
                 this.navigationService ?? Types.Instantiate<INavigationService>(false),
                 Types.Instantiate<INetworkService>(false),
-                Types.Instantiate<ILogService>(false));
+                Types.Instantiate<ILogService>(false),
+                Types.Instantiate<IContractOrchestratorService>(false),
+                Types.Instantiate<IThingRegistryOrchestratorService>(false),
+                Types.Instantiate<IEDalerOrchestratorService>(false));
 
             InitializeComponent();
         }
@@ -40,5 +44,19 @@ namespace IdApp.Views.Wallet
             this.navigationService.GoBackAsync();
             return true;
         }
-	}
+
+        /// <inheritdoc />
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _ = this.WalletTabBar.Show();
+        }
+
+        /// <inheritdoc />
+        protected override async void OnDisappearing()
+        {
+            await this.WalletTabBar.Hide();
+            base.OnDisappearing();
+        }
+    }
 }

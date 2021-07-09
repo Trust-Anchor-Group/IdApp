@@ -7,9 +7,11 @@ using System.Windows.Input;
 using EDaler;
 using EDaler.Uris;
 using IdApp.Navigation.Wallet;
+using IdApp.Services;
 using IdApp.Views.Wallet;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.ViewModels.Wallet
@@ -22,6 +24,9 @@ namespace IdApp.ViewModels.Wallet
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
+		private readonly IContractOrchestratorService contractOrchestratorService;
+		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
+		private readonly IEDalerOrchestratorService eDalerOrchestratorService;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyWalletViewModel"/> class.
@@ -32,14 +37,23 @@ namespace IdApp.ViewModels.Wallet
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
-			ILogService logService)
+			ILogService logService,
+			IContractOrchestratorService contractOrchestratorService,
+			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
+			IEDalerOrchestratorService eDalerOrchestratorService)
 		: base(neuronService, uiDispatcher, tagProfile)
 		{
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
+			this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
+			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? Types.Instantiate<IThingRegistryOrchestratorService>(false);
+			this.eDalerOrchestratorService = eDalerOrchestratorService ?? Types.Instantiate<IEDalerOrchestratorService>(false);
 
+			this.BackCommand = new Command(async _ => await GoBack());
+			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => IsConnected);
+			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => IsConnected);
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
 
@@ -119,7 +133,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.RequestPaymentCommand);
+			this.EvaluateCommands(this.RequestPaymentCommand, this.MakePaymentCommand);
 		}
 
 		private Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
@@ -317,9 +331,24 @@ namespace IdApp.ViewModels.Wallet
 		public ObservableCollection<AccountEventItem> Events { get; }
 
 		/// <summary>
-		/// The command to bind to for claiming a thing
+		/// The command to bind to for returning to previous view.
+		/// </summary>
+		public ICommand BackCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for allowing users to scan QR codes.
+		/// </summary>
+		public ICommand ScanQrCodeCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for requesting a payment
 		/// </summary>
 		public ICommand RequestPaymentCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for making a payment
+		/// </summary>
+		public ICommand MakePaymentCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for displaying information about a pending payment.
@@ -333,9 +362,26 @@ namespace IdApp.ViewModels.Wallet
 
 		#endregion
 
+		private async Task GoBack()
+		{
+			await this.navigationService.GoBackAsync();
+		}
+
+		private async Task ScanQrCode()
+		{
+			await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
+				this.UiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
+				this.eDalerOrchestratorService);
+		}
+
 		private async Task RequestPayment()
 		{
 			await this.navigationService.GoToAsync(nameof(RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+		}
+
+		private async Task MakePayment()
+		{
+			// TODO: await this.navigationService.GoToAsync(nameof(MakePaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
 		}
 
 		private async Task ShowPending(object P)

@@ -104,5 +104,20 @@
         /// network-wired
         /// </summary>
         public const string Network = "\uf6ff";
+
+        /// <summary>
+        /// hand-holding
+        /// </summary>
+        public const string HandHolding = "\uf4bd";
+
+        /// <summary>
+        /// money-bill
+        /// </summary>
+        public const string MoneyBill = "\uf0d6";
+
+        /// <summary>
+        /// arrow-left
+        /// </summary>
+        public const string ArrowLeft = "\uf060";
     }
 }
