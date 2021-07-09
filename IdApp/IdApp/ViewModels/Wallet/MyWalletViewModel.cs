@@ -381,7 +381,7 @@ namespace IdApp.ViewModels.Wallet
 
 		private async Task MakePayment()
 		{
-			// TODO: await this.navigationService.GoToAsync(nameof(MakePaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+			await this.navigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(null));
 		}
 
 		private async Task ShowPending(object P)

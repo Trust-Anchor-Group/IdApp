@@ -62,20 +62,24 @@ namespace IdApp.ViewModels.Wallet
 
 			if (this.navigationService.TryPopArgs(out EDalerUriNavigationArgs args))
 			{
-				this.Uri = args.Uri.UriString;
-				this.Id = args.Uri.Id;
-				this.Amount = args.Uri.Amount;
-				this.AmountExtra = args.Uri.AmountExtra;
-				this.Currency = args.Uri.Currency;
-				this.Created = args.Uri.Created;
-				this.Expires = args.Uri.Expires;
-				this.ExpiresStr = this.Expires.ToShortDateString();
-				this.From = args.Uri.From;
-				this.FromType = args.Uri.FromType;
-				this.To = args.Uri.To;
-				this.ToType = args.Uri.ToType;
-				this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
-				this.Complete = args.Uri.Complete;
+				if (!(args.Uri is null))
+				{
+					this.Uri = args.Uri.UriString;
+					this.Id = args.Uri.Id;
+					this.Amount = args.Uri.Amount;
+					this.AmountExtra = args.Uri.AmountExtra;
+					this.Currency = args.Uri.Currency;
+					this.Created = args.Uri.Created;
+					this.Expires = args.Uri.Expires;
+					this.ExpiresStr = this.Expires.ToShortDateString();
+					this.From = args.Uri.From;
+					this.FromType = args.Uri.FromType;
+					this.To = args.Uri.To;
+					this.ToType = args.Uri.ToType;
+					this.ToPreset = !string.IsNullOrEmpty(args.Uri.To);
+					this.Complete = args.Uri.Complete;
+				}
+
 				this.HasQrCode = false;
 				this.NotPaid = true;
 
@@ -97,7 +101,7 @@ namespace IdApp.ViewModels.Wallet
 
 				this.EDalerGlyph = Url.ToString();
 
-				if (!(args.Uri.EncryptedMessage is null))
+				if (!(args.Uri?.EncryptedMessage is null))
 				{
 					if (args.Uri.EncryptionPublicKey is null)
 						this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
@@ -111,7 +115,7 @@ namespace IdApp.ViewModels.Wallet
 				}
 			
 				this.MessagePreset = !string.IsNullOrEmpty(this.Message);
-				this.EncryptMessage = args.Uri.ToType == EntityType.LegalId;
+				this.EncryptMessage = args.Uri?.ToType == EntityType.LegalId;
 			}
 
 			AssignProperties();

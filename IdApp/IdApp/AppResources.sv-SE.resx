@@ -507,6 +507,9 @@
   <data name="MainPageTitle" xml:space="preserve">
     <value>Mitt digitala ID</value>
   </data>
+  <data name="MakePayment" xml:space="preserve">
+    <value>Gör betalning</value>
+  </data>
   <data name="MakeThingPublic" xml:space="preserve">
     <value>Gör saken publik</value>
   </data>
@@ -632,9 +635,6 @@
   </data>
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Lösenorden matchar inte</value>
-  </data>
-  <data name="PayEDaler" xml:space="preserve">
-    <value>Betala eDaler</value>
   </data>
   <data name="Payment" xml:space="preserve">
     <value>Betalning</value>

@@ -4,7 +4,7 @@
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        x:Class="IdApp.Views.Wallet.PaymentPage"
-                       Title="{x:Static local:AppResources.PayEDaler}">
+                       Title="{x:Static local:AppResources.MakePayment}">
     <Grid>
         <ScrollView x:Name="ScrollView">
             <StackLayout Margin="{StaticResource DefaultMargin}">

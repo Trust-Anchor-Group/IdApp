@@ -695,6 +695,11 @@
               Looks up a localized string similar to My Digital ID.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.MakePayment">
+            <summary>
+              Looks up a localized string similar to Make Payment.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.MakeThingPublic">
             <summary>
               Looks up a localized string similar to Make thing public.
@@ -903,11 +908,6 @@
         <member name="P:IdApp.AppResources.PasswordsDoNotMatch">
             <summary>
               Looks up a localized string similar to Passwords do not match.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.PayEDaler">
-            <summary>
-              Looks up a localized string similar to Pay eDaler.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Payment">

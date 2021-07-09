@@ -1231,6 +1231,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make Payment.
+        /// </summary>
+        internal static string MakePayment {
+            get {
+                return ResourceManager.GetString("MakePayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Make thing public.
         /// </summary>
         internal static string MakeThingPublic {
@@ -1605,15 +1614,6 @@ namespace IdApp {
         internal static string PasswordsDoNotMatch {
             get {
                 return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pay eDaler.
-        /// </summary>
-        internal static string PayEDaler {
-            get {
-                return ResourceManager.GetString("PayEDaler", resourceCulture);
             }
         }
         

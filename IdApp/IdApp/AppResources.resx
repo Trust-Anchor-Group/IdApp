@@ -633,8 +633,8 @@
   <data name="PasswordsDoNotMatch" xml:space="preserve">
     <value>Passwords do not match</value>
   </data>
-  <data name="PayEDaler" xml:space="preserve">
-    <value>Pay eDaler</value>
+  <data name="MakePayment" xml:space="preserve">
+    <value>Make Payment</value>
   </data>
   <data name="Payment" xml:space="preserve">
     <value>Payment</value>
