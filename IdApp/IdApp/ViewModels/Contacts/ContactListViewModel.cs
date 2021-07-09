@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
+using EDaler;
 using EDaler.Uris;
 using IdApp.Navigation.Contacts;
 using IdApp.Navigation.Identity;
@@ -190,6 +191,11 @@ namespace IdApp.ViewModels.Contacts
 									}
 									else
 										break;
+
+									Balance Balance = await viewModel.neuronService.Wallet.GetBalanceAsync();
+									
+									sb.Append(";cu=");
+									sb.Append(Balance.Currency);
 
 									if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
 										break;
