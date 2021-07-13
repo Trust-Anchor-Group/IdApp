@@ -1943,7 +1943,7 @@
         </member>
         <member name="T:IdApp.FontAwesome">
             <summary>
-            A list of Unicode constants for the FontAwesome Icons:
+            A list of Unicode constants for the FontAwesome Solid Icons:
             https://fontawesome.com/v5/cheatsheet/free/solid
             </summary>
         </member>
@@ -2055,6 +2055,11 @@
         <member name="F:IdApp.FontAwesome.ArrowLeft">
             <summary>
             arrow-left
+            </summary>
+        </member>
+        <member name="F:IdApp.FontAwesome.Paragraph">
+            <summary>
+            paragraph
             </summary>
         </member>
         <member name="T:IdApp.Models.ContractModel">
@@ -5551,6 +5556,16 @@
         <member name="P:IdApp.ViewModels.MainViewModel.ScanQrCodeCommand">
             <summary>
             The command to bind to for scanning a QR code.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.MainViewModel.ViewSignedContractsCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.ViewModels.MainViewModel.ViewSignedContractsCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.MainViewModel.ViewSignedContractsCommand">
+            <summary>
+            The command to bind to for viewing a user's wallet.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.MainViewModel.ViewWalletCommandProperty">

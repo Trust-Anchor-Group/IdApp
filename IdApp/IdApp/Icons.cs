@@ -1,7 +1,7 @@
 ﻿namespace IdApp
 {
     /// <summary>
-    /// A list of Unicode constants for the FontAwesome Icons:
+    /// A list of Unicode constants for the FontAwesome Solid Icons:
     /// https://fontawesome.com/v5/cheatsheet/free/solid
     /// </summary>
     public static class FontAwesome
@@ -115,5 +115,10 @@
         /// arrow-left
         /// </summary>
         public const string ArrowLeft = "\uf060";
+
+        /// <summary>
+        /// paragraph
+        /// </summary>
+        public const string Paragraph = "\uf1dd";
     }
 }

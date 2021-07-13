@@ -19,10 +19,12 @@
                                      LeftButton1Text="{x:Static local:FontAwesome.Contacts}" 
                                      LeftButton2Text="{x:Static local:FontAwesome.Things}" 
                                      CenterButtonText="{x:Static local:FontAwesome.ScanQr}" 
+                                     RightButton1Text="{x:Static local:FontAwesome.Paragraph}"
                                      RightButton2Text="{x:Static local:FontAwesome.Wallet}" 
                                      LeftButton1Command="{Binding Path=ViewMyContactsCommand}"
                                      LeftButton2Command="{Binding Path=ViewMyThingsCommand}"
                                      CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
+                                     RightButton1Command="{Binding Path=ViewSignedContractsCommand}"
                                      RightButton2Command="{Binding Path=ViewWalletCommand}"/>
             <Grid Grid.Row="0" Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
                 <Grid.RowDefinitions>

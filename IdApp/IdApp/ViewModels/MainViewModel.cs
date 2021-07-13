@@ -7,6 +7,7 @@ using IdApp.Extensions;
 using IdApp.Services;
 using IdApp.Navigation.Contacts;
 using IdApp.Views.Contacts;
+using IdApp.Views.Contracts;
 using IdApp.Views.Things;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
@@ -73,6 +74,7 @@ namespace IdApp.ViewModels
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
 			this.ViewMyThingsCommand = new Command(async () => await ViewMyThings(), () => this.IsConnected);
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
+			this.ViewSignedContractsCommand = new Command(async () => await ViewSignedContracts(), () => this.IsConnected);
 			this.ViewWalletCommand = new Command(async () => await ViewWallet(), () => this.IsConnected);
 			this.SharePhotoCommand = new Command(async () => await SharePhoto());
 			this.ShareQRCommand = new Command(async () => await ShareQR());
@@ -233,6 +235,21 @@ namespace IdApp.ViewModels
 		{
 			get { return (ICommand)GetValue(ScanQrCodeCommandProperty); }
 			set { SetValue(ScanQrCodeCommandProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="ViewSignedContractsCommand"/>
+		/// </summary>
+		public static readonly BindableProperty ViewSignedContractsCommandProperty =
+			BindableProperty.Create("ViewSignedContractsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+		/// <summary>
+		/// The command to bind to for viewing a user's wallet.
+		/// </summary>
+		public ICommand ViewSignedContractsCommand
+		{
+			get { return (ICommand)GetValue(ViewSignedContractsCommandProperty); }
+			set { SetValue(ViewSignedContractsCommandProperty, value); }
 		}
 
 		/// <summary>
@@ -610,6 +627,11 @@ namespace IdApp.ViewModels
 			await this.navigationService.GoToAsync(nameof(MyThingsPage));
 		}
 
+		private async Task ViewSignedContracts()
+		{
+			await this.navigationService.GoToAsync(nameof(SignedContractsPage));
+		}
+
 		private async Task ViewWallet()
 		{
 			await this.eDalerOrchestratorService.OpenWallet();
@@ -697,7 +719,8 @@ namespace IdApp.ViewModels
 				this.ConnectionErrorsText = string.Empty;
 			}
 			this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
-			this.EvaluateCommands(this.ViewMyContactsCommand, this.ViewMyThingsCommand, this.ScanQrCodeCommand, this.ViewWalletCommand);
+			this.EvaluateCommands(this.ViewMyContactsCommand, this.ViewMyThingsCommand, this.ScanQrCodeCommand, 
+				this.ViewSignedContractsCommand, this.ViewWalletCommand);
 		}
 
 		internal async Task SharePhoto()
