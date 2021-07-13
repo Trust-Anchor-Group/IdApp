@@ -1,25 +1,21 @@
 ﻿namespace IdApp
 {
     /// <summary>
-    /// A list of Unicode constants for the FontAwesome Regular Icons.
+    /// A list of Unicode constants for the FontAwesome Icons:
+    /// https://fontawesome.com/v5/cheatsheet/free/solid
     /// </summary>
-    public static class Icons
+    public static class FontAwesome
     {
         /// <summary>
         /// The images icon
         /// </summary>
         public const string Images = "\uf302";
+
         /// <summary>
         /// The trash can icon
         /// </summary>
         public const string TrashAlt = "\uf2ed";
-    }
 
-    /// <summary>
-    /// A list of Unicode constants for the FontAwesome Solod Icons.
-    /// </summary>
-    public static class SolidIcons
-    {
         /// <summary>
         /// A left arrow with a circle around it
         /// </summary>

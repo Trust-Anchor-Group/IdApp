@@ -47,7 +47,7 @@
                             <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
                         </Ellipse.Stroke>
                     </Ellipse>
-                    <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static idApp:SolidIcons.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static idApp:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Grid>
             </Grid>
         </Frame>

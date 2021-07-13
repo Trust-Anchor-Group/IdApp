@@ -1941,122 +1941,118 @@
             <param name="State">The state to convert.</param>
             <returns></returns>
         </member>
-        <member name="T:IdApp.Icons">
+        <member name="T:IdApp.FontAwesome">
             <summary>
-            A list of Unicode constants for the FontAwesome Regular Icons.
+            A list of Unicode constants for the FontAwesome Icons:
+            https://fontawesome.com/v5/cheatsheet/free/solid
             </summary>
         </member>
-        <member name="F:IdApp.Icons.Images">
+        <member name="F:IdApp.FontAwesome.Images">
             <summary>
             The images icon
             </summary>
         </member>
-        <member name="F:IdApp.Icons.TrashAlt">
+        <member name="F:IdApp.FontAwesome.TrashAlt">
             <summary>
             The trash can icon
             </summary>
         </member>
-        <member name="T:IdApp.SolidIcons">
-            <summary>
-            A list of Unicode constants for the FontAwesome Solod Icons.
-            </summary>
-        </member>
-        <member name="F:IdApp.SolidIcons.ArrowACircleLeft">
+        <member name="F:IdApp.FontAwesome.ArrowACircleLeft">
             <summary>
             A left arrow with a circle around it
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Camera">
+        <member name="F:IdApp.FontAwesome.Camera">
             <summary>
             The camer icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.User">
+        <member name="F:IdApp.FontAwesome.User">
             <summary>
             The user icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Home">
+        <member name="F:IdApp.FontAwesome.Home">
             <summary>
             The home (house) icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.ScanQr">
+        <member name="F:IdApp.FontAwesome.ScanQr">
             <summary>
             The Scan QR icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Contract">
+        <member name="F:IdApp.FontAwesome.Contract">
             <summary>
             The contract icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.SignedContract">
+        <member name="F:IdApp.FontAwesome.SignedContract">
             <summary>
             The signed contract icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.NewContract">
+        <member name="F:IdApp.FontAwesome.NewContract">
             <summary>
             The new contract icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Times">
+        <member name="F:IdApp.FontAwesome.Times">
             <summary>
             The times ('x') icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Inspect">
+        <member name="F:IdApp.FontAwesome.Inspect">
             <summary>
             The inspect icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Share">
+        <member name="F:IdApp.FontAwesome.Share">
             <summary>
             The share icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Exit">
+        <member name="F:IdApp.FontAwesome.Exit">
             <summary>
             The exit icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.QuestionCircle">
+        <member name="F:IdApp.FontAwesome.QuestionCircle">
             <summary>
             The question mark in a circle icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Wallet">
+        <member name="F:IdApp.FontAwesome.Wallet">
             <summary>
             The wallet icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Contacts">
+        <member name="F:IdApp.FontAwesome.Contacts">
             <summary>
             The contacts icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Things">
+        <member name="F:IdApp.FontAwesome.Things">
             <summary>
             The things icon
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.Network">
+        <member name="F:IdApp.FontAwesome.Network">
             <summary>
             network-wired
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.HandHolding">
+        <member name="F:IdApp.FontAwesome.HandHolding">
             <summary>
             hand-holding
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.MoneyBill">
+        <member name="F:IdApp.FontAwesome.MoneyBill">
             <summary>
             money-bill
             </summary>
         </member>
-        <member name="F:IdApp.SolidIcons.ArrowLeft">
+        <member name="F:IdApp.FontAwesome.ArrowLeft">
             <summary>
             arrow-left
             </summary>

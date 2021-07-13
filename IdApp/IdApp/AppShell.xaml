@@ -67,54 +67,54 @@
     <FlyoutItem FlyoutDisplayOptions="AsSingleItem" Title="{x:Static local:AppResources.Home}">
         <ShellContent Route="MainPage" ContentTemplate="{DataTemplate views:MainPage}">
             <ShellContent.Icon>
-                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Home}" Color="{StaticResource HeadingBackground}"/>
+                <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Home}" Color="{StaticResource HeadingBackground}"/>
             </ShellContent.Icon>
         </ShellContent>
     </FlyoutItem>
 
     <MenuItem Text="{x:Static local:AppResources.MyIdentity}" Clicked="ViewIdentityMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.User}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.User}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.Contacts}" Clicked="ContactsMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Contacts}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Contacts}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.Things}" Clicked="ThingsMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Things}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Things}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.MyContracts}" Clicked="MyContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Contract}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Contract}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.SignedContracts}" Clicked="SignedContractsMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.SignedContract}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.SignedContract}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.NewContract}" Clicked="NewContractMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.NewContract}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.NewContract}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem x:Name="DebugMenuItem" Text="{x:Static local:AppResources.Inspect}" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Inspect}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Inspect}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem x:Name="ExitMenuItem" Text="{x:Static local:AppResources.Exit}" Clicked="ExitMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.Exit}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Exit}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
     <MenuItem Text="{x:Static local:AppResources.About}" Clicked="AboutMenuItem_Clicked">
         <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:SolidIcons.QuestionCircle}" Color="{StaticResource HeadingBackground}"/>
+            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.QuestionCircle}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
 
