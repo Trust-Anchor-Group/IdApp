@@ -2062,145 +2062,6 @@
             paragraph
             </summary>
         </member>
-        <member name="T:IdApp.Models.ContractModel">
-            <summary>
-            The data model for a contract.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.ContractModel.#ctor(System.String,System.DateTime,System.String)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Models.ContractModel"/> class.
-            </summary>
-            <param name="contractId">The contract id.</param>
-            <param name="timestamp">The timestamp to show with the contract reference.</param>
-            <param name="name">The name of the contract.</param>
-        </member>
-        <member name="P:IdApp.Models.ContractModel.ContractId">
-            <summary>
-            The contract id.
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.ContractModel.Timestamp">
-            <summary>
-            The created timestamp of the contract.
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.ContractModel.Name">
-            <summary>
-            The name of the contract.
-            </summary>
-        </member>
-        <member name="T:IdApp.Models.ContractVisibilityModel">
-            <summary>
-            The data model for contract visibility.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.ContractVisibilityModel.#ctor(Waher.Networking.XMPP.Contracts.ContractVisibility,System.String)">
-            <summary>
-            Create an instance of the <see cref="T:IdApp.Models.ContractVisibilityModel"/> class.
-            </summary>
-            <param name="visibility">The contract visibility.</param>
-            <param name="name">The contract name.</param>
-        </member>
-        <member name="P:IdApp.Models.ContractVisibilityModel.Visibility">
-            <summary>
-            The contract visibility.
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.ContractVisibilityModel.Name">
-            <summary>
-            The contract name.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.ContractVisibilityModel.ToString">
-            <summary>
-            Returns the string representation, i.e. name, of this <see cref="T:IdApp.Models.ContractVisibilityModel"/>.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:IdApp.Models.PartModel">
-            <summary>
-            The data model for a contract part.
-            </summary>
-        </member>
-        <member name="M:IdApp.Models.PartModel.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Models.PartModel"/> class.
-            </summary>
-            <param name="key">A unique contract part key.</param>
-            <param name="value">The contract part value.</param>
-            <param name="legalId">A legal id (optional).</param>
-        </member>
-        <member name="F:IdApp.Models.PartModel.KeyProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.PartModel.Key">
-            <summary>
-            A unique contract part key.
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.PartModel.ValueProperty">
-            <summary>
-            The contract part value.
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.PartModel.Value">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.PartModel.LegalIdProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.PartModel.LegalId">
-            <summary>
-            A legal id (optional).
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.PartModel.CanSignProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.PartModel.CanSign">
-            <summary>
-            Gets or sets whether the contract part can sign a contract.
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.PartModel.SignAsRoleProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.PartModel.SignAsRole">
-            <summary>
-            The role to use when signing.
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.PartModel.SignAsRoleTextProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.PartModel.SignAsRoleText">
-            <summary>
-            The free text value of the 'sign as role'
-            </summary>
-        </member>
-        <member name="F:IdApp.Models.PartModel.IsHtmlProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Models.PartModel.IsHtml">
-            <summary>
-            Gets or sets whether the format of the contract part is html or not.
-            </summary>
-        </member>
         <member name="T:IdApp.Navigation.Contacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.
@@ -3488,9 +3349,9 @@
             Gets or sets whether to show a contracts missing alert or not.
             </summary>
         </member>
-        <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Contracts">
+        <member name="P:IdApp.ViewModels.Contracts.MyContractsViewModel.Categories">
             <summary>
-            Holds the list of contracts to display.
+            Holds the list of contracts to display, ordered by category.
             </summary>
         </member>
         <member name="F:IdApp.ViewModels.Contracts.MyContractsViewModel.SelectedContractProperty">
@@ -3681,6 +3542,172 @@
         <member name="P:IdApp.ViewModels.Contracts.NewContractViewModel.CanAddParts">
             <summary>
             Gets or sets whether a user can add parts to a contract.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel">
+            <summary>
+            The data model for a contract category containing a set of contracts of the same category.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel.#ctor(System.String,IdApp.ViewModels.Contracts.ObjectModel.ContractModel[])">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel"/> class.
+            </summary>
+            <param name="Category">Contract category</param>
+            <param name="Contracts">Contracts in category.</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel.Category">
+            <summary>
+            Displayable category for the contracts.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.ObjectModel.ContractModel">
+            <summary>
+            The data model for a contract.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ObjectModel.ContractModel.#ctor(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ObjectModel.ContractModel"/> class.
+            </summary>
+            <param name="ContractId">The contract id.</param>
+            <param name="Timestamp">The timestamp to show with the contract reference.</param>
+            <param name="Contract">Contract</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractModel.ContractId">
+            <summary>
+            The contract id.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractModel.Timestamp">
+            <summary>
+            The created timestamp of the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractModel.Contract">
+            <summary>
+            A reference to the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractModel.Name">
+            <summary>
+            Displayable name for the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractModel.Category">
+            <summary>
+            Displayable category for the contract.
+            </summary>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.ObjectModel.ContractVisibilityModel">
+            <summary>
+            The data model for contract visibility.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ObjectModel.ContractVisibilityModel.#ctor(Waher.Networking.XMPP.Contracts.ContractVisibility,System.String)">
+            <summary>
+            Create an instance of the <see cref="T:IdApp.ViewModels.Contracts.ObjectModel.ContractVisibilityModel"/> class.
+            </summary>
+            <param name="visibility">The contract visibility.</param>
+            <param name="name">The contract name.</param>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractVisibilityModel.Visibility">
+            <summary>
+            The contract visibility.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractVisibilityModel.Name">
+            <summary>
+            The contract name.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ObjectModel.ContractVisibilityModel.ToString">
+            <summary>
+            Returns the string representation, i.e. name, of this <see cref="T:IdApp.ViewModels.Contracts.ObjectModel.ContractVisibilityModel"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:IdApp.ViewModels.Contracts.ObjectModel.PartModel">
+            <summary>
+            The data model for a contract part.
+            </summary>
+        </member>
+        <member name="M:IdApp.ViewModels.Contracts.ObjectModel.PartModel.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.ViewModels.Contracts.ObjectModel.PartModel"/> class.
+            </summary>
+            <param name="key">A unique contract part key.</param>
+            <param name="value">The contract part value.</param>
+            <param name="legalId">A legal id (optional).</param>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ObjectModel.PartModel.KeyProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.PartModel.Key">
+            <summary>
+            A unique contract part key.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ObjectModel.PartModel.ValueProperty">
+            <summary>
+            The contract part value.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.PartModel.Value">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ObjectModel.PartModel.LegalIdProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.PartModel.LegalId">
+            <summary>
+            A legal id (optional).
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ObjectModel.PartModel.CanSignProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.PartModel.CanSign">
+            <summary>
+            Gets or sets whether the contract part can sign a contract.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ObjectModel.PartModel.SignAsRoleProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.PartModel.SignAsRole">
+            <summary>
+            The role to use when signing.
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ObjectModel.PartModel.SignAsRoleTextProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.PartModel.SignAsRoleText">
+            <summary>
+            The free text value of the 'sign as role'
+            </summary>
+        </member>
+        <member name="F:IdApp.ViewModels.Contracts.ObjectModel.PartModel.IsHtmlProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.PartModel.IsHtml">
+            <summary>
+            Gets or sets whether the format of the contract part is html or not.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Contracts.PetitionContractViewModel">

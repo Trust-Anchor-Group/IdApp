@@ -1,6 +1,6 @@
 ﻿using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Models
+namespace IdApp.ViewModels.Contracts.ObjectModel
 {
     /// <summary>
     /// The data model for contract visibility.

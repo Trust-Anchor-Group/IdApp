@@ -1,7 +1,7 @@
 ﻿using IdApp.Extensions;
-using IdApp.Models;
 using IdApp.Navigation.Contracts;
 using IdApp.Services;
+using IdApp.ViewModels.Contracts.ObjectModel;
 using IdApp.Views.Contracts;
 using System;
 using System.Collections.Generic;

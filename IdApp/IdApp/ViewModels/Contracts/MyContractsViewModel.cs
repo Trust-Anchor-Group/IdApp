@@ -1,10 +1,10 @@
-﻿using IdApp.Models;
-using IdApp.Navigation.Contracts;
-using IdApp.Views.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using IdApp.Navigation.Contracts;
+using IdApp.ViewModels.Contracts.ObjectModel;
+using IdApp.Views.Contracts;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
@@ -40,16 +40,17 @@ namespace IdApp.ViewModels.Contracts
 	/// </summary>
 	public class MyContractsViewModel : BaseViewModel
 	{
-		private readonly Dictionary<string, Contract> contractsMap;
+		internal readonly Dictionary<string, Contract> contractsMap;
+
 		/// <summary>
 		/// Show created contracts or signed contracts?
 		/// </summary>
-		private readonly ContractsListMode contractsListMode;
+		internal readonly ContractsListMode contractsListMode;
 
 		private readonly INeuronService neuronService;
 		private readonly INetworkService networkService;
-		private readonly INavigationService navigationService;
-		private readonly IUiDispatcher uiDispatcher;
+		internal readonly INavigationService navigationService;
+		internal readonly IUiDispatcher uiDispatcher;
 		private DateTime loadContractsTimestamp;
 
 		/// <summary>
@@ -78,7 +79,7 @@ namespace IdApp.ViewModels.Contracts
 			this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
 			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();
-			this.Contracts = new ObservableCollection<ContractModel>();
+			this.Categories = new ObservableCollection<ContractCategoryModel>();
 
 			switch (ContractsListMode)
 			{
@@ -113,7 +114,7 @@ namespace IdApp.ViewModels.Contracts
 		{
 			this.ShowContractsMissing = false;
 			this.loadContractsTimestamp = DateTime.UtcNow;
-			this.Contracts.Clear();
+			this.Categories.Clear();
 			this.contractsMap.Clear();
 			await base.DoUnbind();
 		}
@@ -164,9 +165,9 @@ namespace IdApp.ViewModels.Contracts
 		}
 
 		/// <summary>
-		/// Holds the list of contracts to display.
+		/// Holds the list of contracts to display, ordered by category.
 		/// </summary>
-		public ObservableCollection<ContractModel> Contracts { get; }
+		public ObservableCollection<ContractCategoryModel> Categories { get; }
 
 		/// <summary>
 		/// See <see cref="SelectedContract"/>
@@ -190,8 +191,8 @@ namespace IdApp.ViewModels.Contracts
 		/// </summary>
 		public ContractModel SelectedContract
 		{
-			get { return (ContractModel)GetValue(SelectedContractProperty); }
-			set { SetValue(SelectedContractProperty, value); }
+			get { return (ContractModel)this.GetValue(SelectedContractProperty); }
+			set { this.SetValue(SelectedContractProperty, value); }
 		}
 
 		private async Task LoadContracts(DateTime now)
@@ -232,7 +233,9 @@ namespace IdApp.ViewModels.Contracts
 				return;
 			}
 
-			List<ContractModel> Models = new List<ContractModel>();
+			List<ContractCategoryModel> Categories = new List<ContractCategoryModel>();
+			List<ContractModel> Contracts = new List<ContractModel>();
+			string LastCategory = null;
 
 			foreach (KeyValuePair<DateTime, string> P in timestampsAndcontractIds)
 			{
@@ -256,18 +259,43 @@ namespace IdApp.ViewModels.Contracts
 					Timestamp = contract.Created;
 				
 				this.contractsMap[ContractId] = contract;
-				Models.Add(new ContractModel(ContractId, Timestamp, $"{contract.ContractId} ({contract.ForMachinesNamespace}#{contract.ForMachinesLocalName})"));
+
+				ContractModel Item = new ContractModel(ContractId, Timestamp, contract);
+				string Category = Item.Category;
+
+				if (LastCategory is null)
+					LastCategory = Category;
+				else if (LastCategory != Category)
+				{
+					Contracts.Sort(new DateTimeDesc());
+					Categories.Add(new ContractCategoryModel(LastCategory, Contracts.ToArray()));
+					LastCategory = Category;
+					Contracts.Clear();
+				}
+
+				Contracts.Add(Item);
 			}
 
-			Models.Sort(new DateTimeDesc());
+			if (Contracts.Count > 0)
+			{
+				Contracts.Sort(new DateTimeDesc());
+				Categories.Add(new ContractCategoryModel(LastCategory, Contracts.ToArray()));
+			}
 
-			foreach (ContractModel Model in Models)
-				this.Contracts.Add(Model);
+			Categories.Sort(new CategoryAsc());
+
+			foreach (ContractCategoryModel Model in Categories)
+				this.Categories.Add(Model);
 		}
 
 		private class DateTimeDesc : IComparer<ContractModel>
 		{
 			public int Compare(ContractModel x, ContractModel y) => y.Timestamp.CompareTo(x.Timestamp);
+		}
+
+		private class CategoryAsc : IComparer<ContractCategoryModel>
+		{
+			public int Compare(ContractCategoryModel x, ContractCategoryModel y) => x.Category.CompareTo(y.Category);
 		}
 
 		private static KeyValuePair<DateTime, string>[] AnnotateWithMinDateTime(string[] IDs)

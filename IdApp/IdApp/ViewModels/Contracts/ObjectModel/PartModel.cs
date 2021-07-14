@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace IdApp.Models
+namespace IdApp.ViewModels.Contracts.ObjectModel
 {
     /// <summary>
     /// The data model for a contract part.
