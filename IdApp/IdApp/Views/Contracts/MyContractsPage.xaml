@@ -18,7 +18,16 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="5,5,5,5" BackgroundColor="{StaticResource HeadingBackground}">
-                            <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Category}" TextColor="{StaticResource HeadingForeground}"/>
+                            <Label LineBreakMode="CharacterWrap" TextType="Text">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Path=Category}" TextColor="{StaticResource HeadingForeground}"/>
+                                        <Span Text=" (" TextColor="{StaticResource PendingColor}"/>
+                                        <Span Text="{Binding Path=NrContracts}" TextColor="{StaticResource PendingColor}"/>
+                                        <Span Text=")" TextColor="{StaticResource PendingColor}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
                             <Label TextType="Text" Text="{Binding Path=Symbol}" FontFamily="{StaticResource FontAwesomeSolid}" 
                                    FontSize="Medium" Margin="1,1,1,1" TextColor="{StaticResource HeadingForeground}" 
                                    HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>

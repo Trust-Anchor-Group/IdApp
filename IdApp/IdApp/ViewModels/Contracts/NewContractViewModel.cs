@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Views;
 using Tag.Neuron.Xamarin;
+using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
@@ -831,7 +832,7 @@ namespace IdApp.ViewModels.Contracts
 					StyleId = Role.Name
 				});
 
-				Populate(rolesLayout, Role.ToXamarinForms(this.template.DefaultLanguage, this.template));
+				Populate(rolesLayout, Role.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
 				if (Role.MinCount > 0)
 				{
@@ -875,14 +876,14 @@ namespace IdApp.ViewModels.Contracts
 					};
 
 					Layout.Children.Add(CheckBox);
-					Populate(Layout, Parameter.ToXamarinForms(this.template.DefaultLanguage, this.template));
+					Populate(Layout, Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 					parametersLayout.Children.Add(Layout);
 
 					CheckBox.CheckedChanged += Parameter_CheckedChanged;
 				}
 				else
 				{
-					Populate(parametersLayout, Parameter.ToXamarinForms(this.template.DefaultLanguage, this.template));
+					Populate(parametersLayout, Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
 					Entry Entry = new Entry()
 					{
@@ -911,7 +912,7 @@ namespace IdApp.ViewModels.Contracts
 			StackLayout humanReadableTextLayout = new StackLayout();
 
 			if (!(this.template is null))
-				Populate(humanReadableTextLayout, this.template.ToXamarinForms(this.template.DefaultLanguage));
+				Populate(humanReadableTextLayout, this.template.ToXamarinForms(this.template.DeviceLanguage()));
 
 			this.HumanReadableText = humanReadableTextLayout;
 			this.HasHumanReadableText = humanReadableTextLayout.Children.Count > 0;

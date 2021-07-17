@@ -104,6 +104,7 @@ namespace IdApp.ViewModels.Contracts
 		/// <inheritdoc/>
 		protected override async Task DoBind()
 		{
+			this.IsBusy = true;
 			this.ShowContractsMissing = false;
 			this.loadContractsTimestamp = DateTime.UtcNow;
 

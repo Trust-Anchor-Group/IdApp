@@ -3571,6 +3571,11 @@
             Displayable category for the contracts.
             </summary>
         </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel.NrContracts">
+            <summary>
+            Number of contracts in category.
+            </summary>
+        </member>
         <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel.Expanded">
             <summary>
             If the group is expanded or not.

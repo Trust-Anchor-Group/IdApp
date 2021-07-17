@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Globalization;
+using System.Text;
+using Tag.Neuron.Xamarin.Extensions;
+using Waher.Content.Markdown;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.Contracts.HumanReadable;
+using Waher.Networking.XMPP.Contracts.HumanReadable.BlockElements;
+using Waher.Networking.XMPP.Contracts.HumanReadable.InlineElements;
 
 namespace IdApp.ViewModels.Contracts.ObjectModel
 {
@@ -26,9 +32,38 @@ namespace IdApp.ViewModels.Contracts.ObjectModel
             this.contract = Contract;
             this.contractId = ContractId;
             this.timestamp = Timestamp.ToString(CultureInfo.CurrentUICulture);
-            this.category = Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
+            this.category = GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
             this.name = Contract.ContractId;
         }
+
+        private static string GetCategory(Contract Contract)
+        {
+            HumanReadableText[] Localizations = Contract.ForHumans;
+            string Language = Contract.DeviceLanguage();
+
+            foreach (HumanReadableText Localization in Localizations)
+			{
+                if (string.Compare(Localization.Language, Language, true) != 0)
+                    continue;
+
+                foreach (BlockElement Block in Localization.Body)
+                {
+                    if (Block is Section Section)
+                    {
+                        StringBuilder Markdown = new StringBuilder();
+
+                        foreach (InlineElement Item in Section.Header)
+                            Item.GenerateMarkdown(Markdown, 1, Contract);
+
+                        MarkdownDocument Doc = new MarkdownDocument(Markdown.ToString());
+
+                        return Doc.GeneratePlainText().Trim();
+                    }
+                }
+			}
+
+            return null;
+		}
 
         /// <summary>
         /// The contract id.

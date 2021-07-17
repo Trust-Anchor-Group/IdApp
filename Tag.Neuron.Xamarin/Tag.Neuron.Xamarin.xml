@@ -419,6 +419,18 @@
             <param name="attachments">The attachments to iterate.</param>
             <returns>The first image attachment, or <c>null</c>.</returns>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.Extensions.ContractExtensions">
+            <summary>
+            Extensions for the <see cref="T:Waher.Networking.XMPP.Contracts.Contract"/> class.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Extensions.ContractExtensions.DeviceLanguage(Waher.Networking.XMPP.Contracts.Contract)">
+            <summary>
+            Returns the language to use when displaying a contract on the device
+            </summary>
+            <param name="Contract">Contract</param>
+            <returns>Language to use when displaying contract.</returns>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.Extensions.DateTimeExtensions">
             <summary>
             Extensions for the <see cref="T:System.DateTime"/> class.

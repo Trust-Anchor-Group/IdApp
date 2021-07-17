@@ -30,6 +30,11 @@ namespace IdApp.ViewModels.Contracts.ObjectModel
         public string Category => this.category;
 
         /// <summary>
+        /// Number of contracts in category.
+        /// </summary>
+        public int NrContracts => this.contracts.Length;
+
+        /// <summary>
         /// If the group is expanded or not.
         /// </summary>
         public bool Expanded
