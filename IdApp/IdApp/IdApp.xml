@@ -2062,6 +2062,16 @@
             paragraph
             </summary>
         </member>
+        <member name="F:IdApp.FontAwesome.Folder">
+            <summary>
+            folder
+            </summary>
+        </member>
+        <member name="F:IdApp.FontAwesome.FolderOpen">
+            <summary>
+            folder-open
+            </summary>
+        </member>
         <member name="T:IdApp.Navigation.Contacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.
@@ -3559,6 +3569,16 @@
         <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel.Category">
             <summary>
             Displayable category for the contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel.Expanded">
+            <summary>
+            If the group is expanded or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.ViewModels.Contracts.ObjectModel.ContractCategoryModel.Symbol">
+            <summary>
+            Symbol used for the category.
             </summary>
         </member>
         <member name="T:IdApp.ViewModels.Contracts.ObjectModel.ContractModel">

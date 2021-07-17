@@ -120,5 +120,15 @@
         /// paragraph
         /// </summary>
         public const string Paragraph = "\uf1dd";
+
+        /// <summary>
+        /// folder
+        /// </summary>
+        public const string Folder = "\uf07b";
+
+        /// <summary>
+        /// folder-open
+        /// </summary>
+        public const string FolderOpen = "\uf07c";
     }
 }

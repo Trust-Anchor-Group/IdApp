@@ -1,6 +1,9 @@
-﻿using IdApp.ViewModels.Contracts;
+﻿using System;
+using IdApp.ViewModels.Contracts;
+using IdApp.ViewModels.Contracts.ObjectModel;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Runtime.Inventory;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Views.Contracts
@@ -43,6 +46,12 @@ namespace IdApp.Views.Contracts
 		{
 			this.navigationService.GoBackAsync();
 			return true;
+		}
+
+		private void ToggleCategoryClicked(object Sender, EventArgs e)
+		{
+			if (e is TappedEventArgs e2 && e2.Parameter is ContractCategoryModel Category)
+				Category.Expanded = !Category.Expanded;
 		}
 	}
 }

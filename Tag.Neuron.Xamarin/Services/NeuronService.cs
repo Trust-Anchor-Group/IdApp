@@ -559,7 +559,14 @@ namespace Tag.Neuron.Xamarin.Services
 
 		private void OnConnectionStateChanged(ConnectionStateChangedEventArgs e)
 		{
-			this.ConnectionStateChanged?.Invoke(this, e);
+			try
+			{
+				this.ConnectionStateChanged?.Invoke(this, e);
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 		}
 
 		#endregion

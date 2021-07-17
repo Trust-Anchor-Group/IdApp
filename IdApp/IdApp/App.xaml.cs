@@ -73,7 +73,7 @@ namespace IdApp
 			AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-
+			
 			servicesSetup = new TaskCompletionSource<bool>();
 			configLoaded = new TaskCompletionSource<bool>();
 			this.initCompleted = this.Init();

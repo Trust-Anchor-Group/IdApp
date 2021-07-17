@@ -250,6 +250,16 @@
             A helper property to set/get when the ViewModel is busy doing work.
             </summary>
         </member>
+        <member name="F:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsIdleProperty">
+            <summary>
+            <see cref="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsIdle"/>
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsIdle">
+            <summary>
+            A helper property to set/get when the ViewModel is idle.
+            </summary>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Views.ContentBasePage">
             <summary>
             A base class for all pages. This class works in close conjunction with the <see cref="T:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel"/> for binding and unbinding data

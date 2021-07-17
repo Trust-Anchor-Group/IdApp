@@ -35,15 +35,17 @@ namespace IdApp.Extensions
                 case XmppState.FetchingRoster:
                 case XmppState.RequestingSession:
                 case XmppState.SettingPresence:
-                    return Blend(Color.Yellow, Color.LightGreen, 0.5);
+                    return Blend(Color.Yellow, ConnectedColor, 0.5);
 
                 case XmppState.Connected:
-                    return Color.LightGreen;
+                    return ConnectedColor;
 
                 default:
                     return Color.Gray;
             }
         }
+
+        private static readonly Color ConnectedColor = Color.FromRgb(146, 208, 80);
 
         /// <summary>
         /// Blends two colors.

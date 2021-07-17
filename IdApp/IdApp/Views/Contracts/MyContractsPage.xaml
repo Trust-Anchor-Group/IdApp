@@ -8,7 +8,10 @@
         <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
         <Label Text="{Binding Path=Description, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
-        <ListView x:Name="Contracts" HasUnevenRows="True" VerticalOptions="StartAndExpand"
+        <ActivityIndicator x:Name="Loading" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" 
+                           HorizontalOptions="Center" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" 
+                           Color="{StaticResource AccentColor}"/>
+        <ListView x:Name="Contracts" HasUnevenRows="True" IsVisible="{Binding Path=IsIdle}" VerticalOptions="StartAndExpand"
                   ItemsSource="{Binding Path=Categories}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}"
                   IsGroupingEnabled="True">
             <ListView.GroupHeaderTemplate>
@@ -16,6 +19,12 @@
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="5,5,5,5" BackgroundColor="{StaticResource HeadingBackground}">
                             <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Category}" TextColor="{StaticResource HeadingForeground}"/>
+                            <Label TextType="Text" Text="{Binding Path=Symbol}" FontFamily="{StaticResource FontAwesomeSolid}" 
+                                   FontSize="Medium" Margin="1,1,1,1" TextColor="{StaticResource HeadingForeground}" 
+                                   HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ToggleCategoryClicked" CommandParameter="{Binding .}"/>
+                            </StackLayout.GestureRecognizers>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

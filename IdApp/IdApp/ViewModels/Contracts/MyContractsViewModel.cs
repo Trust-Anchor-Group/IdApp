@@ -80,6 +80,7 @@ namespace IdApp.ViewModels.Contracts
 			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();
 			this.Categories = new ObservableCollection<ContractCategoryModel>();
+			this.IsBusy = true;
 
 			switch (ContractsListMode)
 			{
@@ -103,10 +104,12 @@ namespace IdApp.ViewModels.Contracts
 		/// <inheritdoc/>
 		protected override async Task DoBind()
 		{
-			await base.DoBind();
 			this.ShowContractsMissing = false;
 			this.loadContractsTimestamp = DateTime.UtcNow;
-			_ = LoadContracts(this.loadContractsTimestamp);
+
+			await base.DoBind();
+
+			uiDispatcher.BeginInvokeOnMainThread(async () => await LoadContracts(this.loadContractsTimestamp));
 		}
 
 		/// <inheritdoc/>
@@ -116,6 +119,7 @@ namespace IdApp.ViewModels.Contracts
 			this.loadContractsTimestamp = DateTime.UtcNow;
 			this.Categories.Clear();
 			this.contractsMap.Clear();
+
 			await base.DoUnbind();
 		}
 
@@ -197,95 +201,102 @@ namespace IdApp.ViewModels.Contracts
 
 		private async Task LoadContracts(DateTime now)
 		{
-			bool succeeded;
-			string[] contractIds;
-			KeyValuePair<DateTime, string>[] timestampsAndcontractIds;
-
-			switch (this.contractsListMode)
+			try
 			{
-				case ContractsListMode.MyContracts:
-					(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetCreatedContractIds);
-					timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
-					break;
+				bool succeeded;
+				string[] contractIds;
+				KeyValuePair<DateTime, string>[] timestampsAndcontractIds;
 
-				case ContractsListMode.SignedContracts:
-					(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetSignedContractIds);
-					timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
-					break;
+				switch (this.contractsListMode)
+				{
+					case ContractsListMode.MyContracts:
+						(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetCreatedContractIds);
+						timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
+						break;
 
-				case ContractsListMode.ContractTemplates:
-					(succeeded, timestampsAndcontractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractTemplateIds);
-					break;
+					case ContractsListMode.SignedContracts:
+						(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetSignedContractIds);
+						timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
+						break;
 
-				default:
+					case ContractsListMode.ContractTemplates:
+						(succeeded, timestampsAndcontractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractTemplateIds);
+						break;
+
+					default:
+						return;
+				}
+
+				if (!succeeded)
 					return;
-			}
-
-			if (!succeeded)
-				return;
-
-			if (this.loadContractsTimestamp > now)
-				return;
-
-			if (timestampsAndcontractIds.Length <= 0)
-			{
-				this.uiDispatcher.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
-				return;
-			}
-
-			List<ContractCategoryModel> Categories = new List<ContractCategoryModel>();
-			List<ContractModel> Contracts = new List<ContractModel>();
-			string LastCategory = null;
-
-			foreach (KeyValuePair<DateTime, string> P in timestampsAndcontractIds)
-			{
-				DateTime Timestamp = P.Key;
-				string ContractId = P.Value;
-				Contract contract;
-
-				try
-				{
-					contract = await this.neuronService.Contracts.GetContract(ContractId);
-				}
-				catch (Waher.Networking.XMPP.StanzaErrors.ItemNotFoundException)
-				{
-					continue;	// Contract not available for some reason. Ignore, and display the rest.
-				}
 
 				if (this.loadContractsTimestamp > now)
 					return;
 
-				if (Timestamp == DateTime.MinValue)
-					Timestamp = contract.Created;
-				
-				this.contractsMap[ContractId] = contract;
+				if (timestampsAndcontractIds.Length <= 0)
+				{
+					this.uiDispatcher.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
+					return;
+				}
 
-				ContractModel Item = new ContractModel(ContractId, Timestamp, contract);
-				string Category = Item.Category;
+				List<ContractCategoryModel> Categories = new List<ContractCategoryModel>();
+				List<ContractModel> Contracts = new List<ContractModel>();
+				string LastCategory = null;
 
-				if (LastCategory is null)
-					LastCategory = Category;
-				else if (LastCategory != Category)
+				foreach (KeyValuePair<DateTime, string> P in timestampsAndcontractIds)
+				{
+					DateTime Timestamp = P.Key;
+					string ContractId = P.Value;
+					Contract contract;
+
+					try
+					{
+						contract = await this.neuronService.Contracts.GetContract(ContractId);
+					}
+					catch (Waher.Networking.XMPP.StanzaErrors.ItemNotFoundException)
+					{
+						continue;   // Contract not available for some reason. Ignore, and display the rest.
+					}
+
+					if (this.loadContractsTimestamp > now)
+						return;
+
+					if (Timestamp == DateTime.MinValue)
+						Timestamp = contract.Created;
+
+					this.contractsMap[ContractId] = contract;
+
+					ContractModel Item = new ContractModel(ContractId, Timestamp, contract);
+					string Category = Item.Category;
+
+					if (LastCategory is null)
+						LastCategory = Category;
+					else if (LastCategory != Category)
+					{
+						Contracts.Sort(new DateTimeDesc());
+						Categories.Add(new ContractCategoryModel(LastCategory, Contracts.ToArray()));
+						LastCategory = Category;
+						Contracts.Clear();
+					}
+
+					Contracts.Add(Item);
+				}
+
+				if (Contracts.Count > 0)
 				{
 					Contracts.Sort(new DateTimeDesc());
 					Categories.Add(new ContractCategoryModel(LastCategory, Contracts.ToArray()));
-					LastCategory = Category;
-					Contracts.Clear();
 				}
 
-				Contracts.Add(Item);
-			}
+				Categories.Sort(new CategoryAsc());
 
-			if (Contracts.Count > 0)
+				foreach (ContractCategoryModel Model in Categories)
+					this.Categories.Add(Model);
+			}
+			finally
 			{
-				Contracts.Sort(new DateTimeDesc());
-				Categories.Add(new ContractCategoryModel(LastCategory, Contracts.ToArray()));
+				this.IsBusy = false;
 			}
-
-			Categories.Sort(new CategoryAsc());
-
-			foreach (ContractCategoryModel Model in Categories)
-				this.Categories.Add(Model);
 		}
 
 		private class DateTimeDesc : IComparer<ContractModel>

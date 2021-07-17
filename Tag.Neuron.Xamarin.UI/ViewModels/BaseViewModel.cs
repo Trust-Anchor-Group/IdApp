@@ -204,7 +204,30 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         public bool IsBusy
         {
             get { return (bool)GetValue(IsBusyProperty); }
-            set { SetValue(IsBusyProperty, value); }
+            set 
+            {
+                SetValue(IsBusyProperty, value);
+                SetValue(IsIdleProperty, !value);
+            }
+        }
+
+        /// <summary>
+        /// <see cref="IsIdle"/>
+        /// </summary>
+        public static readonly BindableProperty IsIdleProperty =
+            BindableProperty.Create("IsIdle", typeof(bool), typeof(BaseViewModel), default(bool));
+
+        /// <summary>
+        /// A helper property to set/get when the ViewModel is idle.
+        /// </summary>
+        public bool IsIdle
+        {
+            get { return (bool)GetValue(IsIdleProperty); }
+            set 
+            {
+                SetValue(IsIdleProperty, value);
+                SetValue(IsBusyProperty, !value);
+            }
         }
     }
 }
