@@ -51,6 +51,7 @@ namespace IdApp.ViewModels.Contracts
 		private readonly INetworkService networkService;
 		internal readonly INavigationService navigationService;
 		internal readonly IUiDispatcher uiDispatcher;
+		internal readonly ITagProfile tagProfile;
 		private DateTime loadContractsTimestamp;
 
 		/// <summary>
@@ -58,7 +59,7 @@ namespace IdApp.ViewModels.Contracts
 		/// </summary>
 		/// <param name="ContractsListMode">What list of contracts to display.</param>
 		public MyContractsViewModel(ContractsListMode ContractsListMode)
-			: this(ContractsListMode, null, null, null, null)
+			: this(ContractsListMode, null, null, null, null, null)
 		{
 		}
 
@@ -71,12 +72,16 @@ namespace IdApp.ViewModels.Contracts
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="navigationService">The navigation service.</param>
 		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
-		protected internal MyContractsViewModel(ContractsListMode ContractsListMode, INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher)
+		/// <param name="TagProfile">TAG Profile</param>
+		protected internal MyContractsViewModel(ContractsListMode ContractsListMode, INeuronService neuronService, 
+			INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher,
+			ITagProfile TagProfile)
 		{
 			this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
 			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
 			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
 			this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+			this.tagProfile = TagProfile ?? Types.Instantiate<ITagProfile>(false);
 			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();
 			this.Categories = new ObservableCollection<ContractCategoryModel>();
@@ -178,18 +183,19 @@ namespace IdApp.ViewModels.Contracts
 		/// See <see cref="SelectedContract"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContractProperty =
-			BindableProperty.Create("SelectedContract", typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel), propertyChanged: (b, oldValue, newValue) =>
-			{
-				MyContractsViewModel viewModel = (MyContractsViewModel)b;
-				ContractModel model = (ContractModel)newValue;
-				if (!(model is null) && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
+			BindableProperty.Create("SelectedContract", typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel), 
+				propertyChanged: (b, oldValue, newValue) =>
 				{
-					if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
-						viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract)));
-					else
-						viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
-				}
-			});
+					MyContractsViewModel viewModel = (MyContractsViewModel)b;
+					ContractModel model = (ContractModel)newValue;
+					if (!(model is null) && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
+					{
+						if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
+							viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract)));
+						else
+							viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
+					}
+				});
 
 		/// <summary>
 		/// The currently selected contract, if any.
@@ -267,7 +273,7 @@ namespace IdApp.ViewModels.Contracts
 
 					this.contractsMap[ContractId] = contract;
 
-					ContractModel Item = new ContractModel(ContractId, Timestamp, contract);
+					ContractModel Item = await ContractModel.Create(ContractId, Timestamp, contract, this.tagProfile, this.neuronService);
 					string Category = Item.Category;
 
 					if (LastCategory is null)

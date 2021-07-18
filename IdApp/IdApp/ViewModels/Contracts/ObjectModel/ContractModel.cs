@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Threading.Tasks;
 using Tag.Neuron.Xamarin.Extensions;
+using Tag.Neuron.Xamarin.Services;
 using Waher.Content.Markdown;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Contracts.HumanReadable;
@@ -20,6 +23,20 @@ namespace IdApp.ViewModels.Contracts.ObjectModel
         private readonly string category;
         private readonly string name;
         private readonly Contract contract;
+        private readonly ITagProfile tagProfile;
+        private readonly INeuronService neuronService;
+
+        private ContractModel(string ContractId, DateTime Timestamp, Contract Contract, ITagProfile TagProfile,
+            INeuronService NeuronService, string Category, string Name)
+        {
+            this.tagProfile = TagProfile;
+            this.neuronService = NeuronService;
+            this.contract = Contract;
+            this.contractId = ContractId;
+            this.timestamp = Timestamp.ToString(CultureInfo.CurrentUICulture);
+            this.category = Category;
+            this.name = Name;
+        }
 
         /// <summary>
         /// Creates an instance of the <see cref="ContractModel"/> class.
@@ -27,13 +44,52 @@ namespace IdApp.ViewModels.Contracts.ObjectModel
         /// <param name="ContractId">The contract id.</param>
         /// <param name="Timestamp">The timestamp to show with the contract reference.</param>
         /// <param name="Contract">Contract</param>
-        public ContractModel(string ContractId, DateTime Timestamp, Contract Contract)
+        /// <param name="TagProfile">TAG profile</param>
+        /// <param name="NeuronService">Neuron service.</param>
+        public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ITagProfile TagProfile,
+            INeuronService NeuronService)
         {
-            this.contract = Contract;
-            this.contractId = ContractId;
-            this.timestamp = Timestamp.ToString(CultureInfo.CurrentUICulture);
-            this.category = GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
-            this.name = Contract.ContractId;
+            string Category = GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
+            string Name = await GetName(Contract, TagProfile, NeuronService) ?? Contract.ContractId;
+
+            return new ContractModel(ContractId, Timestamp, Contract, TagProfile, NeuronService, Category, Name);
+        }
+
+        private static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, INeuronService NeuronService)
+		{
+            if (Contract.Parts is null)
+                return null;
+
+            Dictionary<string, ClientSignature> Signatures = new Dictionary<string, ClientSignature>();
+            StringBuilder sb = null;
+
+            if (!(Contract.ClientSignatures is null))
+            {
+                foreach (ClientSignature Signature in Contract.ClientSignatures)
+                    Signatures[Signature.LegalId] = Signature;
+            }
+
+            foreach (Part Part in Contract.Parts)
+			{
+                if (Part.LegalId == TagProfile.LegalJid ||
+                    (Signatures.TryGetValue(Part.LegalId, out ClientSignature PartSignature) &&
+                    string.Compare(PartSignature.BareJid, NeuronService.BareJid, true) == 0))
+                {
+                    continue;   // Self
+                }
+
+                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, NeuronService.Xmpp);
+
+                if (sb is null)
+                    sb = new StringBuilder(FriendlyName);
+                else
+				{
+                    sb.Append(", ");
+                    sb.Append(FriendlyName);
+				}
+			}
+
+            return sb?.ToString();
         }
 
         private static string GetCategory(Contract Contract)
