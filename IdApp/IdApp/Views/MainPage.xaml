@@ -73,7 +73,8 @@
                         <TapGestureRecognizer Tapped="IdCard_Tapped" />
                     </views:FlipView.GestureRecognizers>
                     <views:FlipView.FrontView>
-                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" CornerRadius="6" IsClippedToBounds="True">
+                        <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" 
+                               CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -82,14 +83,18 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Row="0" Text="{x:Static local:AppResources.Qrcode}" TextColor="{StaticResource HeadingBackground}"
-                                        HorizontalOptions="Center" VerticalOptions="Center" FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}">
+                                <Label Grid.Row="0" 
+                                       Text="{x:Static local:AppResources.Qrcode}" TextColor="{StaticResource HeadingBackground}"
+                                       HorizontalOptions="Center" VerticalOptions="Center" 
+                                       FontSize="Medium" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" 
+                                       VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.User}" Color="{StaticResource HeadingBackground}"/>
                                     </Image.Source>
                                 </Image>
-                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" VerticalOptions="Start" HorizontalOptions="Start" Margin="{StaticResource DefaultMargin}">
+                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" 
+                                       VerticalOptions="Start" HorizontalOptions="Start" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Share}" Color="{StaticResource HeadingBackground}"/>
                                     </Image.Source>
@@ -97,14 +102,17 @@
                                         <TapGestureRecognizer Tapped="ShareQR_Tapped"/>
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <Image x:Name="QrCode" Grid.Row="1" BackgroundColor="{StaticResource HeadingForeground}" 
-                                       Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" Aspect="AspectFit" 
-                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20" />
+                                <Image x:Name="QrCode" Grid.Row="1" 
+                                       BackgroundColor="{StaticResource HeadingForeground}" 
+                                       Source="{Binding Path=QrCode}" 
+                                       IsVisible="{Binding Path=HasQrCode}" 
+                                       Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20" />
                             </Grid>
                         </Frame>
                     </views:FlipView.FrontView>
                     <views:FlipView.BackView>
-                        <Frame Margin="6" BackgroundColor="{StaticResource HeadingBackground}" CornerRadius="6" HasShadow="True">
+                        <Frame Margin="2" Padding="2" BackgroundColor="{StaticResource HeadingBackground}" 
+                               CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
@@ -114,13 +122,14 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Row="0" Grid.Column="0" WidthRequest="20" HeightRequest="20"
-                                       VerticalOptions="Start" HorizontalOptions="End">
+                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
+                                       VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.ScanQr}" Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
                                 </Image>
-                                <Image Grid.Row="0" Grid.Column="0" WidthRequest="20" HeightRequest="20" VerticalOptions="Start" HorizontalOptions="Start">
+                                <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" 
+                                       VerticalOptions="Start" HorizontalOptions="Start" Margin="{StaticResource DefaultMargin}">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Share}" Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
@@ -128,7 +137,7 @@
                                         <TapGestureRecognizer Tapped="SharePhoto_Tapped"/>
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <Image Grid.Row="1" Grid.Column="0"
+                                <Image Grid.Row="1"
                                        HorizontalOptions="FillAndExpand"
                                        VerticalOptions="FillAndExpand" Margin="5"
                                        BackgroundColor="{StaticResource HeadingBackground}"
@@ -136,14 +145,14 @@
                                        Source="{Binding Path=Image}" 
                                        IsVisible="{Binding Path=HasPhoto}" 
                                        Rotation="{Binding Path=ImageRotation}"/>
-                                <Label Grid.Row="1" Grid.Column="0"
+                                <Label Grid.Row="1"
                                        HorizontalOptions="CenterAndExpand"
                                        VerticalOptions="CenterAndExpand" FontSize="42" 
                                        TextColor="{StaticResource HeadingForeground}"
                                        Text="{x:Static local:FontAwesome.User}"
                                        FontFamily="{StaticResource FontAwesomeSolid}"
                                        IsVisible="{Binding Path=HasPhoto, Converter={converters:LogicalNot}}"/>
-                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding Path=FullName}" 
+                                <Label Grid.Row="2" Text="{Binding Path=FullName}" 
                                        TextColor="{StaticResource HeadingForeground}" Margin="{StaticResource DefaultTopOnlyMargin}" 
                                        HorizontalOptions="Center" FontSize="Medium"/>
                             </Grid>
