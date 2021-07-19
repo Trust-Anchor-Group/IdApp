@@ -1063,7 +1063,7 @@
     <value>Plånbok</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
-    <value>Välkommen till TAGs Xamarin-app!</value>
+    <value>Välkommen till TAGs digitala ID-app!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
     <value>Välj en operatör för att ansluta till TAG-nätverket. Välj en från listan nedan.</value>

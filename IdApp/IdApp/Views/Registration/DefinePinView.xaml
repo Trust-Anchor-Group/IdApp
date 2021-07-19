@@ -23,7 +23,7 @@
             </Entry>
             <Label Text="{x:Static local:AppResources.PinsDoNotMatch}" IsVisible="{Binding Path=PinsDoNotMatch}" TextColor="{StaticResource AlertColor}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
             <Label Text="{Binding Path=PinIsTooShortMessage, Mode=OneTime}" IsVisible="{Binding Path=PinIsTooShort}" TextColor="{StaticResource AlertColor}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
-            <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:BooleanConverter}}"/>
+            <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
             <Button x:Name="OkButton" Text="{x:Static local:AppResources.Ok}" Command="{Binding Path=ContinueCommand}" Margin="{StaticResource DefaultTopOnlyMargin}" />
             <Button x:Name="SkipButton" Text="{x:Static local:AppResources.Skip}" Command="{Binding Path=SkipCommand}" />
         </StackLayout>

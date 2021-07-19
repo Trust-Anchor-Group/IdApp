@@ -2869,7 +2869,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to TAG Xamarin App!.
+        ///   Looks up a localized string similar to Welcome to TAG Digital ID App!.
         /// </summary>
         internal static string WelcomeToTagHeading {
             get {

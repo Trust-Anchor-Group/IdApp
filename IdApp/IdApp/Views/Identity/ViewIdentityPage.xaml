@@ -149,7 +149,7 @@
                     <Label Grid.Row="21" Grid.Column="0" Text="{x:Static local:AppResources.PinOrPassword}" VerticalOptions="Center" IsVisible="{Binding Path=IsForReviewAndPin}"/>
                     <Entry Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2" IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}" VerticalOptions="Center" WidthRequest="300" MinimumWidthRequest="150" IsVisible="{Binding Path=IsForReviewAndPin}"/>
                     <!-- - -->
-                    <Label Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:BooleanConverter}}"/>
+                    <Label Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
                     <Button Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.ApproveInformation}" Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                     <!-- - -->
                     <Button Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RejectInformation}" Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>

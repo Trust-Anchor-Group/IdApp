@@ -39,7 +39,7 @@
                         </Frame>
                         <StackLayout Orientation="Vertical" x:Name="DomainPanel">
                             <Picker x:Name="OperatorPicker" Title="{x:Static resources:AppResources.SelectOperator}" ItemsSource="{Binding Path=Operators, Mode=OneWay}" SelectedItem="{Binding Path=SelectedOperator, Mode=TwoWay}" />
-                            <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:BooleanConverter}}" Placeholder="{x:Static resources:AppResources.EnterAnOperatorName}" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False">
+                            <Entry x:Name="ManualDomainEntry" IsVisible="{Binding Path=ChooseOperatorFromList, Converter={converters:LogicalNot}}" Placeholder="{x:Static resources:AppResources.EnterAnOperatorName}" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False">
                                 <Entry.Behaviors>
                                     <behaviors:TextChangedBehavior TextChangedCommand="{Binding BindingContext.ManualOperatorCommand, Source={x:Reference ManualDomainEntry}}" TextChangedCommandParameter="{Binding Path=Text, Source={x:Reference ManualDomainEntry}}" />
                                 </Entry.Behaviors>

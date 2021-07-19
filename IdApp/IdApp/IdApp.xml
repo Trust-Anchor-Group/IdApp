@@ -1607,7 +1607,7 @@
         </member>
         <member name="P:IdApp.AppResources.WelcomeToTagHeading">
             <summary>
-              Looks up a localized string similar to Welcome to TAG Xamarin App!.
+              Looks up a localized string similar to Welcome to TAG Digital ID App!.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.WelcomeToTagSubheading">
@@ -1833,20 +1833,6 @@
         <member name="M:IdApp.AppShell.OnNavigated(Xamarin.Forms.ShellNavigatedEventArgs)">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Converters.BooleanConverter">
-            <summary>
-            Converts, or flips, a boolean value to it's inverse value. I.e. turns <c>true</c> to <c>false</c>, or the other way around.
-            </summary>
-        </member>
-        <member name="M:IdApp.Converters.BooleanConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Converters.BooleanConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Converters.BooleanConverter.ProvideValue(System.IServiceProvider)">
-            <inheritdoc/>
-        </member>
         <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
             <summary>
             Converts a boolean value to a bold font (if true), or regular font (if false).
@@ -1892,6 +1878,20 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.LogicalNot">
+            <summary>
+            Converts, or flips, a boolean value to it's inverse value. I.e. turns <c>true</c> to <c>false</c>, or the other way around.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.LogicalNot.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.LogicalNot.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.LogicalNot.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Extensions.BooleanExtensions">

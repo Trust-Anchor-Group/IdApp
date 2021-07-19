@@ -5,7 +5,7 @@
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <Authors>Peter Waher</Authors>
     <Company>Trust Anchor Group</Company>
-    <Description>TAG white-label Xamarin App. Provides authentication of legal identity, and features for wallets, smart contracts and interaction with smart devices.</Description>
+    <Description>TAG white-label Digital ID App. Provides authentication of legal identity, and features for wallets, smart contracts and interaction with smart devices.</Description>
     <Copyright>Copyright © Trust Anchor Group 2019-2020. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/Trust-Anchor-Group/XamarinApp</RepositoryUrl>
   </PropertyGroup>

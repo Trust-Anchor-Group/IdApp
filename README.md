@@ -41,8 +41,8 @@ in a Xamarin app:
 
 You should carefully read the following terms and conditions before using this software. Your use of this software indicates your acceptance of this 
 license agreement and warranty. If you do not agree with the terms of this license, or if the terms of this license contradict with your local laws, 
-you must remove any files from the TAG Xamarin App from your storage devices and cease to use it. The terms of this license are subjects of changes 
-in future versions of the TAG Xamarin App.
+you must remove any files from the TAG Digital ID App from your storage devices and cease to use it. The terms of this license are subjects of changes 
+in future versions of the TAG Digital ID App.
 
 You may not use, copy, emulate, clone, rent, lease, sell, modify, decompile, disassemble, otherwise reverse engineer, or transfer the licensed program, 
 or any subset of the licensed program, except as provided for in this agreement. Any such unauthorised use shall result in immediate and automatic 
@@ -64,11 +64,11 @@ with *ethical hacking* guidelines. By informing us at least forty-five (45) days
 any vulnerabilities you have found. Such contributions are much appreciated and will be acknowledged. (Note that informing us about vulnerabilities in public fora,
 such as issues here on GitHub, counts as publishing, and not private.)
 
-* For **Commercial use**. Use of the white-label TAG Xamarin App for commercial use is permitted. Replication and re-publication of source code is permitted with
+* For **Commercial use**. Use of the white-label TAG Digital ID App for commercial use is permitted. Replication and re-publication of source code is permitted with
 attribution to the [original source code repository](https://github.com/Trust-Anchor-Group/XamarinApp), as well as a license agreement including provisions equivalent 
 to this license agreement.
 
-**Note**: All rights to the source code are reserved and exclusively owned by Trust Anchor Group AB. Any contributions made to the TAG Xamarin App repository 
+**Note**: All rights to the source code are reserved and exclusively owned by Trust Anchor Group AB. Any contributions made to the TAG Digital ID App repository 
 become the intellectual property of Trust Anchor Group AB.
 
 This software is provided by the copyright holder and contributors "as is" and any express or implied warranties, including, but not limited to, the implied 
@@ -77,7 +77,7 @@ direct, indirect, incidental, special, exemplary, or consequential damages (incl
 of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including 
 negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
 
-The TAG Xamarin App is © Trust Anchor Group AB 2019-2021. All rights reserved.
+The TAG Digital ID App is © Trust Anchor Group AB 2019-2021. All rights reserved.
 
 ## Contact
 

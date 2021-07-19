@@ -1051,7 +1051,7 @@
     <value>Wallet</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
-    <value>Welcome to TAG Xamarin App!</value>
+    <value>Welcome to TAG Digital ID App!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
     <value>To connect to the TAG network, you need to select an operator. Please select one from the list below.</value>

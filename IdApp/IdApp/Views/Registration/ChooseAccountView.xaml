@@ -40,7 +40,7 @@
 
                 <!-- TAB 2 -->
                 <Label Text="{x:Static resources:AppResources.UseExisting}" Grid.Column="1" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource InvertedBooleanToBoldFont}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
+                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNew, Converter={converters:LogicalNot}}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
                 <ContentView BackgroundColor="Transparent" Grid.Column="1" VerticalOptions="Fill">
                     <ContentView.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
@@ -60,19 +60,19 @@
                     <Label Text="{x:Static resources:AppResources.RandomPassword}" VerticalOptions="CenterAndExpand"/>
                     <Switch IsToggled="{Binding Path=CreateRandomPassword}" HorizontalOptions="EndAndExpand" />
                 </StackLayout>
-                <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" />
-                <Entry x:Name="PasswordEntry" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" IsPassword="True" Text="{Binding Path=Password}">
+                <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}" />
+                <Entry x:Name="PasswordEntry" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}" IsPassword="True" Text="{Binding Path=Password}">
                     <Entry.Behaviors>
                         <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RetypePassword" BindingContext="{Binding BindingContext, Source={x:Reference CreateNewTab}}"/>
                     </Entry.Behaviors>
                 </Entry>
-                <Label Text="{x:Static resources:AppResources.RetypePassword}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}"/>
-                <Entry x:Name="RetypePassword" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:BooleanConverter}}" IsPassword="True" Text="{Binding Path=RetypedPassword}" />
+                <Label Text="{x:Static resources:AppResources.RetypePassword}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}"/>
+                <Entry x:Name="RetypePassword" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}" IsPassword="True" Text="{Binding Path=RetypedPassword}" />
                 <Label Text="{x:Static resources:AppResources.PasswordsDoNotMatch}" IsVisible="{Binding Path=PasswordsDoNotMatch}" TextColor="{StaticResource AlertColor}" />
             </StackLayout>
 
             <!-- TAB 2 Contents -->
-            <StackLayout Grid.Row="2" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:BooleanConverter}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
+            <StackLayout Grid.Row="2" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:LogicalNot}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resources:AppResources.Account}"/>
                 <Entry Text="{Binding Path=ConnectToExistingAccountName}" />
                 <Label Text="{x:Static resources:AppResources.Password}" />

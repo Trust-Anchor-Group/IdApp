@@ -97,7 +97,9 @@
                                         <TapGestureRecognizer Tapped="ShareQR_Tapped"/>
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <Image x:Name="QrCode" Grid.Row="1" BackgroundColor="{StaticResource HeadingForeground}" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start" Margin="0" />
+                                <Image x:Name="QrCode" Grid.Row="1" BackgroundColor="{StaticResource HeadingForeground}" 
+                                       Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" Aspect="AspectFit" 
+                                       HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20" />
                             </Grid>
                         </Frame>
                     </views:FlipView.FrontView>
@@ -111,9 +113,9 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Row="0" Grid.Column="1" WidthRequest="20" HeightRequest="20" VerticalOptions="Start" HorizontalOptions="Start">
+                                <Image Grid.Row="0" Grid.Column="0" WidthRequest="20" HeightRequest="20"
+                                       VerticalOptions="Start" HorizontalOptions="End">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.ScanQr}" Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
@@ -126,20 +128,24 @@
                                         <TapGestureRecognizer Tapped="SharePhoto_Tapped"/>
                                     </Image.GestureRecognizers>
                                 </Image>
-                                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                                    <Image BackgroundColor="{StaticResource HeadingBackground}"
-                                            Aspect="AspectFill" 
-                                            Source="{Binding Path=Image}" 
-                                            IsVisible="{Binding Path=HasPhoto}" 
-                                            Rotation="{Binding Path=ImageRotation}"/>
-                                    <Label HorizontalOptions="CenterAndExpand"
-                                            VerticalOptions="CenterAndExpand" FontSize="42" 
-                                            TextColor="{StaticResource HeadingForeground}"
-                                            Text="{x:Static local:FontAwesome.User}"
-                                            FontFamily="{StaticResource FontAwesomeSolid}"
-                                            IsVisible="{Binding Path=HasPhoto, Converter={converters:BooleanConverter}}"/>
-                                </Grid>
-                                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Path=FullName}" TextColor="{StaticResource HeadingForeground}" Margin="{StaticResource DefaultTopOnlyMargin}" HorizontalOptions="Center" FontSize="Medium"/>
+                                <Image Grid.Row="1" Grid.Column="0"
+                                       HorizontalOptions="FillAndExpand"
+                                       VerticalOptions="FillAndExpand" Margin="5"
+                                       BackgroundColor="{StaticResource HeadingBackground}"
+                                       Aspect="AspectFit"
+                                       Source="{Binding Path=Image}" 
+                                       IsVisible="{Binding Path=HasPhoto}" 
+                                       Rotation="{Binding Path=ImageRotation}"/>
+                                <Label Grid.Row="1" Grid.Column="0"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand" FontSize="42" 
+                                       TextColor="{StaticResource HeadingForeground}"
+                                       Text="{x:Static local:FontAwesome.User}"
+                                       FontFamily="{StaticResource FontAwesomeSolid}"
+                                       IsVisible="{Binding Path=HasPhoto, Converter={converters:LogicalNot}}"/>
+                                <Label Grid.Row="2" Grid.Column="0" Text="{Binding Path=FullName}" 
+                                       TextColor="{StaticResource HeadingForeground}" Margin="{StaticResource DefaultTopOnlyMargin}" 
+                                       HorizontalOptions="Center" FontSize="Medium"/>
                             </Grid>
                         </Frame>
                     </views:FlipView.BackView>

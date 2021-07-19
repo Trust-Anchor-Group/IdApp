@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 	<Authors>Peter Waher</Authors>
     <Company>Trust Anchor Group</Company>
-    <Description>TAG Xamarin App UI.</Description>
+    <Description>TAG Digital ID App UI.</Description>
     <Copyright>Copyright © Trust Anchor Group 2019-2020. All rights reserved.</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>  
   </PropertyGroup>
