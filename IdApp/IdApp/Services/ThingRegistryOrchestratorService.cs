@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using IdApp.Navigation.Things;
-using IdApp.ViewModels.Things;
-using IdApp.Views.Things;
+using IdApp.Pages.Things.ViewClaimThing;
+using IdApp.Pages.Things.ViewThing;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;
-using Waher.Runtime.Profiling;
 
 namespace IdApp.Services
 {

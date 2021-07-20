@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using IdApp.Navigation;
+using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services;
-using IdApp.Views;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Xamarin.Essentials;

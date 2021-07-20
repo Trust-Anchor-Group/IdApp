@@ -74,40 +74,40 @@
     <EmbeddedResource Update="AppResources.sv-SE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppShell.xaml">
+    <EmbeddedResource Update="Pages\Main\Shell\AppShell.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MainPage.xaml">
+    <EmbeddedResource Update="Pages\Main\Main\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\MainTabBarView.xaml">
+    <EmbeddedResource Update="Pages\Main\MainTabBar\MainTabBarView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\ChooseAccountView.xaml">
+    <EmbeddedResource Update="Pages\Registration\ChooseAccount\ChooseAccountView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\ChooseOperatorView.xaml">
+    <EmbeddedResource Update="Pages\Registration\ChooseOperator\ChooseOperatorView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\LoadingPage.xaml">
+    <EmbeddedResource Update="Pages\Main\Loading\LoadingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\DefinePinView.xaml">
+    <EmbeddedResource Update="Pages\Registration\DefinePin\DefinePinView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\RegisterIdentityView.xaml">
+    <EmbeddedResource Update="Pages\Registration\RegisterIdentity\RegisterIdentityView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\RegistrationPage.xaml">
+    <EmbeddedResource Update="Pages\Registration\Registration\RegistrationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\Registration\ValidateIdentityView.xaml">
+    <EmbeddedResource Update="Pages\Registration\ValidateIdentity\ValidateIdentityView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\ScanQrCodePage.xaml">
+    <EmbeddedResource Update="Pages\Main\ScanQrCode\ScanQrCodePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\XmppCommunicationPage.xaml">
+    <EmbeddedResource Update="Pages\Main\XmppCommunication\XmppCommunicationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -118,55 +118,55 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\Contacts\MyContactsPage.xaml.cs">
+    <Compile Update="Pages\Contacts\MyContacts\MyContactsPage.xaml.cs">
       <DependentUpon>MyContactsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Contracts\PetitionSignaturePage.xaml.cs">
+    <Compile Update="Pages\Contracts\PetitionSignature\PetitionSignaturePage.xaml.cs">
       <DependentUpon>PetitionSignaturePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\ImageView.xaml.cs">
+    <Compile Update="Pages\Main\Image\ImageView.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
-    <Compile Update="Views\LoadingPage.xaml.cs">
+    <Compile Update="Pages\Main\Loading\LoadingPage.xaml.cs">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Registration\ChooseAccountView.xaml.cs">
+    <Compile Update="Pages\Registration\ChooseAccount\ChooseAccountView.xaml.cs">
       <DependentUpon>ChooseAccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Registration\ChooseOperatorView.xaml.cs">
+    <Compile Update="Pages\Registration\ChooseOperator\ChooseOperatorView.xaml.cs">
       <DependentUpon>ChooseOperatorView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Things\ViewThingPage.xaml.cs">
+    <Compile Update="Pages\Things\ViewThing\ViewThingPage.xaml.cs">
       <DependentUpon>ViewThingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Things\MyThingsPage.xaml.cs">
+    <Compile Update="Pages\Things\MyThings\MyThingsPage.xaml.cs">
       <DependentUpon>MyThingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Things\ViewClaimThingPage.xaml.cs">
+    <Compile Update="Pages\Things\ViewClaimThing\ViewClaimThingPage.xaml.cs">
       <DependentUpon>ViewClaimThingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\PaymentAcceptancePage.xaml.cs">
+    <Compile Update="Pages\Wallet\PaymentAcceptance\PaymentAcceptancePage.xaml.cs">
       <DependentUpon>PaymentAcceptancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\AccountEventPage.xaml.cs">
+    <Compile Update="Pages\Wallet\AccoutEvent\AccountEventPage.xaml.cs">
       <DependentUpon>AccountEventPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\PendingPaymentPage.xaml.cs">
+    <Compile Update="Pages\Wallet\PendingPayment\PendingPaymentPage.xaml.cs">
       <DependentUpon>PendingPaymentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\PaymentPage.xaml.cs">
+    <Compile Update="Pages\Wallet\Payment\PaymentPage.xaml.cs">
       <DependentUpon>PaymentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\RequestPaymentPage.xaml.cs">
+    <Compile Update="Pages\Wallet\RequestPayment\RequestPaymentPage.xaml.cs">
       <DependentUpon>RequestPaymentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\EDalerReceivedPage.xaml.cs">
+    <Compile Update="Pages\Wallet\EDalerReceived\EDalerReceivedPage.xaml.cs">
       <DependentUpon>EDalerReceivedPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\MyWalletPage.xaml.cs">
+    <Compile Update="Pages\Wallet\MyWallet\MyWalletPage.xaml.cs">
       <DependentUpon>MyWalletPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Views\Wallet\IssueEDalerPage.xaml.cs">
+    <Compile Update="Pages\Wallet\IssueEDaler\IssueEDalerPage.xaml.cs">
       <DependentUpon>IssueEDalerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>

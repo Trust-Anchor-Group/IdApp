@@ -3,12 +3,15 @@ using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
 using EDaler.Uris.Incomplete;
-using IdApp.Navigation.Wallet;
-using IdApp.Views.Wallet;
+using IdApp.Pages.Wallet;
+using IdApp.Pages.Wallet.EDalerReceived;
+using IdApp.Pages.Wallet.IssueEDaler;
+using IdApp.Pages.Wallet.MyWallet;
+using IdApp.Pages.Wallet.Payment;
+using IdApp.Pages.Wallet.PaymentAcceptance;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Waher.Runtime.Inventory;
-using Waher.Runtime.Profiling;
 
 namespace IdApp.Services
 {

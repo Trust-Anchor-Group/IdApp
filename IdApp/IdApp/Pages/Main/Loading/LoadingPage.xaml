@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       x:Class="IdApp.Pages.Main.Loading.LoadingPage"
+                       Shell.FlyoutBehavior="Disabled" 
+                       Shell.NavBarIsVisible="false">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Grid.RowSpan="4" Source="tag_bg.jpg" Aspect="AspectFill"/>
+            <StackLayout Grid.Row="1" Opacity="0" x:Name="LabelLayout" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center" Margin="12,-12,12,12">
+                <Label Text="NEW" TextColor="White" FontSize="16" VerticalTextAlignment="Center" />
+                <Label Text="WAYS" TextColor="White" FontSize="24" VerticalTextAlignment="Center" />
+                <Label Text="OF" TextColor="White"  FontSize="16" VerticalTextAlignment="Center"/>
+                <Label Text="WORLDMAKING" TextColor="White"  FontSize="24"  VerticalTextAlignment="Center"/>
+            </StackLayout>
+            <ActivityIndicator Grid.Row="2" IsVisible="true" IsRunning="true" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
+            <Frame Grid.Row="3" IsVisible="{Binding Path=DisplayConnectionText}" CornerRadius="5" BackgroundColor="#99ffffff">
+                <Label Text="{Binding Path=ConnectionStateText}" HorizontalOptions="CenterAndExpand" LineBreakMode="WordWrap" Margin="{StaticResource DefaultBottomOnlyMargin}" FontSize="Medium" TextColor="Black"/>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</views:ContentBasePage>

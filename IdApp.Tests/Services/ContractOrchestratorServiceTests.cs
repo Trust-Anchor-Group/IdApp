@@ -1,12 +1,11 @@
-﻿using IdApp.Services;
+﻿using System;
+using System.Threading.Tasks;
+using IdApp.Pages.Registration.Registration;
+using IdApp.Services;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
-using IdApp.Views.Registration;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Tests.Services

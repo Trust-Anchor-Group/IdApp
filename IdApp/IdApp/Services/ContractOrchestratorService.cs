@@ -1,12 +1,14 @@
-﻿using IdApp.Navigation.Contracts;
-using IdApp.Navigation.Identity;
-using IdApp.Views.Identity;
-using IdApp.Views.Contracts;
-using IdApp.Views.Registration;
-using System;
+﻿using System;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using IdApp.Pages.Contracts.NewContract;
+using IdApp.Pages.Contracts.PetitionContract;
+using IdApp.Pages.Contracts.PetitionSignature;
+using IdApp.Pages.Contracts.ViewContract;
+using IdApp.Pages.Identity.PetitionIdentity;
+using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Pages.Registration.Registration;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -186,7 +188,10 @@ namespace IdApp.Services
 				if (!e.Response || e.RequestedContract is null)
 					await this.uiDispatcher.DisplayAlert(AppResources.Message, AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
 				else
-					await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(e.RequestedContract, false));
+				{
+					await this.navigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage),
+						  new ViewContractNavigationArgs(e.RequestedContract, false));
+				}
 			});
 		}
 
@@ -203,7 +208,8 @@ namespace IdApp.Services
 			{
 				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
 				{
-					await this.navigationService.GoToAsync(nameof(PetitionContractPage), new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
+					await this.navigationService.GoToAsync(nameof(Pages.Contracts.PetitionContract.PetitionContractPage), 
+						new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
 				});
 			}
 		}
@@ -297,7 +303,7 @@ namespace IdApp.Services
 			{
 				if (this.tagProfile.IsCompleteOrWaitingForValidation())
 				{
-					await this.navigationService.GoToAsync(nameof(ViewContractPage), 
+					await this.navigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage), 
 						new ViewContractNavigationArgs(contract, false, true, e.MessageText));
 				}
 			});
@@ -423,10 +429,14 @@ namespace IdApp.Services
 					if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
 					{
 						await this.settingsService.SaveState(Constants.KeyPrefixes.ContractTemplatePrefix + contract.ContractId, DateTime.Now);
-						await this.navigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(contract));
+						await this.navigationService.GoToAsync(nameof(Pages.Contracts.NewContract.NewContractPage),
+							new NewContractNavigationArgs(contract));
 					}
 					else
-						await this.navigationService.GoToAsync(nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false));
+					{
+						await this.navigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage),
+							  new ViewContractNavigationArgs(contract, false));
+					}
 				});
 			}
 			catch (ForbiddenException)

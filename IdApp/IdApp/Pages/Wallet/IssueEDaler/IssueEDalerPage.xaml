@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       x:Class="IdApp.Pages.Wallet.IssueEDaler.IssueEDalerPage"
+                       Title="{x:Static local:AppResources.ReceiveEDaler}">
+    <Grid>
+        <ScrollView>
+            <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="MainStackLayout">
+                <Label Text="{x:Static local:AppResources.EDalerNote}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.EDalerNoteDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <!-- Note -->
+                <Frame HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" BackgroundColor="{StaticResource HeadingBackground}">
+                    <Grid HeightRequest="150" WidthRequest="10000">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="100"/>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+                        <Image x:Name="Img" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerGlyph}" Opacity="0.5"/>
+                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Created}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
+                        <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource HeadingForeground}">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Path=Amount}" FontSize="50" FontAttributes="Bold"/>
+                                    <Span Text=" "/>
+                                    <Span Text="{Binding Path=Currency}" FontSize="30"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=From}" HorizontalOptions="Start" Style="{StaticResource ClickableValueLabel}" TextColor="{StaticResource HeadingForeground}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Path=BindingContext.FromClickCommand, Source={x:Reference MainStackLayout}}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame>
+                <Label Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <!-- PIN -->
+                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
+                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" IsEnabled="{Binding Path=CanAccept}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</views:ContentBasePage>

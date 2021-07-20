@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using IdApp.Pages.Registration.RegisterIdentity;
 using IdApp.Services;
-using IdApp.ViewModels.Registration;
 using Moq;
 using NUnit.Framework;
 using SkiaSharp;

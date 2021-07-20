@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       x:Class="IdApp.Pages.Things.MyThings.MyThingsPage"
+                       Title="{x:Static local:AppResources.Things}">
+    <StackLayout Margin="{StaticResource DefaultMargin}">
+        <Label Text="{x:Static local:AppResources.Things}" Style="{StaticResource Heading}"/>
+        <Label Text="{x:Static local:AppResources.ThingsDescription}" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowThingsMissing}" Text="{x:Static local:AppResources.NoThingsFound}" />
+        <ListView x:Name="Things" HasUnevenRows="True" ItemsSource="{Binding Path=Things}" SelectedItem="{Binding Path=SelectedThing, Mode=TwoWay}" VerticalOptions="StartAndExpand">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Margin="0,10,0,10">
+                            <Label LineBreakMode="NoWrap" Text="{Binding Path=Timestamp}" MinimumWidthRequest="100"/>
+                            <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=FriendlyName}" Style="{StaticResource ClickableValueLabel}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</views:ContentBasePage>

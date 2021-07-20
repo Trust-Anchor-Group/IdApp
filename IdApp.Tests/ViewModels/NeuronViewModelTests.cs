@@ -1,5 +1,5 @@
 ﻿using System;
-using IdApp.ViewModels;
+using IdApp.Pages;
 using Moq;
 using NUnit.Framework;
 using Tag.Neuron.Xamarin;

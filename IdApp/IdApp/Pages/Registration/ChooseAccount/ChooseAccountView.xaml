@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms" 
+                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                      xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
+                      xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
+                      xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                      xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
+                      x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
+    <ContentView.Content>
+
+        <Grid Margin="{StaticResource DefaultMargin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <converters:BooleanToBoldFontConverter x:Key="BooleanToBoldFont"/>
+                <converters:BooleanToBoldFontConverter x:Key="InvertedBooleanToBoldFont" Invert="True"/>
+            </Grid.Resources>
+
+            <Label Grid.Row="0" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" />
+
+            <!-- Tabs -->
+            <Grid Grid.Row="1" Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <!-- TAB 1 -->
+                <Label Text="{x:Static resources:AppResources.CreateNew}" Grid.Column="0" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource BooleanToBoldFont}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <BoxView Grid.Column="0" IsVisible="{Binding Path=CreateNew}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
+                <ContentView BackgroundColor="Transparent" Grid.Column="0" VerticalOptions="Fill">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+
+                <!-- TAB 2 -->
+                <Label Text="{x:Static resources:AppResources.UseExisting}" Grid.Column="1" VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" FontAttributes="{Binding Path=CreateNew, Converter={StaticResource InvertedBooleanToBoldFont}}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNew, Converter={converters:LogicalNot}}" Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
+                <ContentView BackgroundColor="Transparent" Grid.Column="1" VerticalOptions="Fill">
+                    <ContentView.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
+                    </ContentView.GestureRecognizers>
+                </ContentView>
+            </Grid>
+
+            <!-- TAB 1 Contents -->
+            <StackLayout Grid.Row="2" x:Name="CreateNewTab" IsVisible="{Binding Path=CreateNew}" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
+                <Label Text="{x:Static resources:AppResources.Account}"/>
+                <Entry Text="{Binding Path=CreateNewAccountName}">
+                    <Entry.Behaviors>
+                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PasswordEntry" BindingContext="{Binding BindingContext, Source={x:Reference CreateNewTab}}"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="{x:Static resources:AppResources.RandomPassword}" VerticalOptions="CenterAndExpand"/>
+                    <Switch IsToggled="{Binding Path=CreateRandomPassword}" HorizontalOptions="EndAndExpand" />
+                </StackLayout>
+                <Label Text="{x:Static resources:AppResources.Password}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}" />
+                <Entry x:Name="PasswordEntry" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}" IsPassword="True" Text="{Binding Path=Password}">
+                    <Entry.Behaviors>
+                        <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RetypePassword" BindingContext="{Binding BindingContext, Source={x:Reference CreateNewTab}}"/>
+                    </Entry.Behaviors>
+                </Entry>
+                <Label Text="{x:Static resources:AppResources.RetypePassword}" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}"/>
+                <Entry x:Name="RetypePassword" IsVisible="{Binding Path=CreateRandomPassword, Converter={converters:LogicalNot}}" IsPassword="True" Text="{Binding Path=RetypedPassword}" />
+                <Label Text="{x:Static resources:AppResources.PasswordsDoNotMatch}" IsVisible="{Binding Path=PasswordsDoNotMatch}" TextColor="{StaticResource AlertColor}" />
+            </StackLayout>
+
+            <!-- TAB 2 Contents -->
+            <StackLayout Grid.Row="2" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:LogicalNot}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
+                <Label Text="{x:Static resources:AppResources.Account}"/>
+                <Entry Text="{Binding Path=ConnectToExistingAccountName}" />
+                <Label Text="{x:Static resources:AppResources.Password}" />
+                <Entry IsPassword="True" Text="{Binding Path=Password}"/>
+            </StackLayout>
+
+            <StackLayout Grid.Row="3" Orientation="Vertical" VerticalOptions="End">
+                <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
+                <Button Text="{Binding Path=ActionButtonText}" Command="{Binding Path=PerformActionCommand}" Margin="{StaticResource DefaultMargin}" />
+            </StackLayout>
+
+        </Grid>
+
+    </ContentView.Content>
+</registration:RegistrationStepView>

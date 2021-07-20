@@ -1,4 +1,4 @@
-﻿using IdApp.ViewModels.Registration;
+﻿using IdApp.Pages.Registration.ChooseOperator;
 using Moq;
 using NUnit.Framework;
 using Tag.Neuron.Xamarin;

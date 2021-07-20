@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       x:Class="IdApp.Pages.Wallet.AccountEvent.AccountEventPage"
+                       Title="{x:Static local:AppResources.AccountEvent}">
+    <Grid>
+        <ScrollView x:Name="ScrollView">
+            <StackLayout Margin="{StaticResource DefaultMargin}">
+                <Label Text="{x:Static local:AppResources.AccountEvent}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.AccountEventDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <!-- Note -->
+                <Label Text="{x:Static local:AppResources.RemoteParty}"/>
+                <Entry Text="{Binding Path=Remote}" IsReadOnly="True"/>
+                <Label Text="{x:Static local:AppResources.Timestamp}"/>
+                <Entry Text="{Binding Path=TimestampStr}" IsReadOnly="True"/>
+                <Label Text="{x:Static local:AppResources.Change}"/>
+                <Entry Text="{Binding Path=ChangeAndCurrency}" IsReadOnly="True" TextColor="{Binding Path=ChangeColor}"/>
+                <Label Text="{x:Static local:AppResources.Balance}"/>
+                <Entry Text="{Binding Path=BalanceAndCurrency}" IsReadOnly="True"/>
+                <Label Text="{x:Static local:AppResources.Message}" IsVisible="{Binding Path=HasMessage}"/>
+                <Entry Text="{Binding Path=Message}" IsReadOnly="True" IsVisible="{Binding Path=HasMessage}"/>
+                <Label Text="{x:Static local:AppResources.TransactionId}"/>
+                <Entry Text="{Binding Path=Id}" IsReadOnly="True"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</views:ContentBasePage>

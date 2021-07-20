@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+             x:Class="IdApp.Pages.Contracts.MyContracts.MyContractsPage">
+    <StackLayout Margin="{StaticResource DefaultMargin}">
+        <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
+        <Label Text="{Binding Path=Description, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContractsMissing}" Text="{x:Static local:AppResources.NoContractsFound}" />
+        <ActivityIndicator x:Name="Loading" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" 
+                           HorizontalOptions="Center" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" 
+                           Color="{StaticResource AccentColor}"/>
+        <ListView x:Name="Contracts" HasUnevenRows="True" IsVisible="{Binding Path=IsIdle}" VerticalOptions="StartAndExpand"
+                  ItemsSource="{Binding Path=Categories}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}"
+                  IsGroupingEnabled="True">
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="5,5,5,5" BackgroundColor="{StaticResource HeadingBackground}">
+                            <Label LineBreakMode="CharacterWrap" TextType="Text">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding Path=Category}" TextColor="{StaticResource HeadingForeground}"/>
+                                        <Span Text=" (" TextColor="{StaticResource PendingColor}"/>
+                                        <Span Text="{Binding Path=NrContracts}" TextColor="{StaticResource PendingColor}"/>
+                                        <Span Text=")" TextColor="{StaticResource PendingColor}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label TextType="Text" Text="{Binding Path=Symbol}" FontFamily="{StaticResource FontAwesomeSolid}" 
+                                   FontSize="Medium" Margin="1,1,1,1" TextColor="{StaticResource HeadingForeground}" 
+                                   HorizontalOptions="EndAndExpand" VerticalOptions="Center"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="ToggleCategoryClicked" CommandParameter="{Binding .}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
+                            <Label LineBreakMode="NoWrap" Text="{Binding Path=Timestamp}" MinimumWidthRequest="100"/>
+                            <Label LineBreakMode="CharacterWrap" TextType="Text" Text="{Binding Path=Name}" Style="{StaticResource ClickableValueLabel}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</views:ContentBasePage>

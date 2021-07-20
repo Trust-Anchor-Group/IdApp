@@ -1,12 +1,11 @@
-﻿using IdApp.ViewModels.Identity;
-using IdApp.Views.Registration;
-using Moq;
-using NUnit.Framework;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Xml;
-using IdApp.Navigation.Identity;
+using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Pages.Registration.Registration;
 using IdApp.Services;
+using Moq;
+using NUnit.Framework;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Tests;

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       x:Class="IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
+    <ContentView.Content>
+        <ScrollView>
+            <StackLayout Margin="{StaticResource DefaultMargin}">
+                <Label Text="{x:Static local:AppResources.ValidateIdentityInfo1Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                <Label Text="{x:Static local:AppResources.ValidateIdentityInfo2Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                <Label Text="{x:Static local:AppResources.ValidateIdentityInfo3Text}" HorizontalOptions="Start" VerticalOptions="CenterAndExpand" />
+                <Grid Margin="{StaticResource DefaultTopOnlyMargin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Text="{x:Static local:AppResources.Created}"/>
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding Path=Created}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="1" Grid.Column="0" Text="{x:Static local:AppResources.Updated}"/>
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="2" Grid.Column="0" Text="{x:Static local:AppResources.State}"/>
+                    <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="3" Grid.Column="0" Text="{x:Static local:AppResources.FirstName}"/>
+                    <Label Grid.Row="3" Grid.Column="1" Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="4" Grid.Column="0" Text="{x:Static local:AppResources.MiddleNames}" />
+                    <Label Grid.Row="4" Grid.Column="1" Text="{Binding Path=MiddleNames}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="5" Grid.Column="0" Text="{x:Static local:AppResources.LastNames}" />
+                    <Label Grid.Row="5" Grid.Column="1" Text="{Binding Path=LastNames}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="6" Grid.Column="0" Text="{x:Static local:AppResources.PersonalNumber}" />
+                    <Label Grid.Row="6" Grid.Column="1" Text="{Binding Path=PersonalNumber}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="7" Grid.Column="0" Text="{x:Static local:AppResources.Address}" />
+                    <Label Grid.Row="7" Grid.Column="1" Text="{Binding Path=Address}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="8" Grid.Column="0" Text="{x:Static local:AppResources.Address2}" />
+                    <Label Grid.Row="8" Grid.Column="1" Text="{Binding Path=Address2}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="9" Grid.Column="0" Text="{x:Static local:AppResources.ZipCode}" />
+                    <Label Grid.Row="9" Grid.Column="1" Text="{Binding Path=ZipCode}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="10" Grid.Column="0" Text="{x:Static local:AppResources.Area}" />
+                    <Label Grid.Row="10" Grid.Column="1" Text="{Binding Path=Area}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="11" Grid.Column="0" Text="{x:Static local:AppResources.City}" />
+                    <Label Grid.Row="11" Grid.Column="1" Text="{Binding Path=City}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="12" Grid.Column="0" Text="{x:Static local:AppResources.Region}" />
+                    <Label Grid.Row="12" Grid.Column="1" Text="{Binding Path=Region}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="13" Grid.Column="0" Text="{x:Static local:AppResources.Country}" />
+                    <Label Grid.Row="13" Grid.Column="1" Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="14" Grid.Column="0" Text="{x:Static local:AppResources.ID}" />
+                    <Label Grid.Row="14" Grid.Column="1" Text="{Binding Path=LegalId}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="15" Grid.Column="0" Text="{x:Static local:AppResources.Network}" />
+                    <Label Grid.Row="15" Grid.Column="1" Text="{Binding Path=BareJid}" Style="{StaticResource ValueLabel}"/>
+                    <!-- - -->
+                    <Label Grid.Row="16" Grid.Column="0" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
+                    <ScrollView Grid.Row="16" Grid.Column="1" Orientation="Horizontal" HeightRequest="68">
+                        <FlexLayout x:Name="PhotosLayout"
+                                    AlignContent="Center"
+                                    AlignItems="Center" 
+                                    Direction="Row" 
+                                    JustifyContent="Start" 
+                                    BindableLayout.ItemsSource="{Binding Path=Photos}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Path=Source}" Rotation="{Binding Path=Rotation}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" Margin="2"/>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </FlexLayout>
+                    </ScrollView>
+                    <!-- - -->
+                    <StackLayout Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Vertical" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
+                        <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
+                        <Button x:Name="InviteReviewerButton" Text="{x:Static local:AppResources.InvitePeerToReview}" Command="{Binding Path=InviteReviewerCommand}" IsVisible="{Binding Path=IsCreated}"/>
+                        <Button x:Name="ContinueButton" Text="{x:Static local:AppResources.Continue}" Command="{Binding Path=ContinueCommand}"/>
+                    </StackLayout>
+                </Grid>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+</views:ContentBaseView>

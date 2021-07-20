@@ -1,6 +1,7 @@
 ﻿using System;
+using IdApp.Pages.Registration.RegisterIdentity;
+using IdApp.Pages.Registration.Registration;
 using IdApp.Services;
-using IdApp.ViewModels.Registration;
 using Moq;
 using NUnit.Framework;
 using Tag.Neuron.Xamarin;

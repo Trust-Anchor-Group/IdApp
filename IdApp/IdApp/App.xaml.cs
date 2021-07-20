@@ -1,5 +1,4 @@
-﻿using IdApp.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -10,6 +9,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EDaler;
+using IdApp.Pages.Main.Shell;
+using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;

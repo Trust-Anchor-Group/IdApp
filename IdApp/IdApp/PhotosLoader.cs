@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using IdApp.Pages;
 using IdApp.Services;
-using IdApp.ViewModels;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
@@ -13,7 +12,6 @@ using Waher.Content.Images;
 using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
-using Xamarin.Forms;
 
 namespace IdApp
 {
