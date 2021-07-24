@@ -115,7 +115,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <summary>
 		/// Current step in the registration process.
 		/// </summary>
-		[DefaultValue(RegistrationStep.Operator)]
+		[DefaultValue(RegistrationStep.ValidatePhoneNr)]
 		public RegistrationStep Step { get; set; }
 	}
 }

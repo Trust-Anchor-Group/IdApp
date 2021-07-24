@@ -63,11 +63,11 @@ namespace IdApp.Pages.Registration.Registration
             networkService = networkService ?? Types.Instantiate<INetworkService>(false);
             logService = logService ?? Types.Instantiate<ILogService>(false);
             
-            GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.Operator);
+            GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.ValidatePhoneNr);
             
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
-                this.AddChildViewModel(new ChooseOperator.ChooseOperatorViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
+                this.AddChildViewModel(new ValidatePhoneNr.ValidatePhoneNrViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
                 this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, cryptoService, networkService, logService)),
                 this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService, attachmentCacheService)),
                 this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService, attachmentCacheService)),

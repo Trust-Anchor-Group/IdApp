@@ -9,12 +9,12 @@ using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.Extensions;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Registration.ChooseOperator
+namespace IdApp.Pages.Registration.ValidatePhoneNr
 {
     /// <summary>
     /// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
     /// </summary>
-    public class ChooseOperatorViewModel : RegistrationStepViewModel
+    public class ValidatePhoneNrViewModel : RegistrationStepViewModel
 	{
 		private readonly INetworkService networkService;
 		private string hostName;
@@ -22,7 +22,7 @@ namespace IdApp.Pages.Registration.ChooseOperator
 		private bool isIpAddress;
 
 		/// <summary>
-		/// Creates a new instance of the <see cref="ChooseOperatorViewModel"/> class.
+		/// Creates a new instance of the <see cref="ValidatePhoneNrViewModel"/> class.
 		/// </summary>
 		/// <param name="tagProfile">The tag profile to work with.</param>
 		/// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
@@ -31,7 +31,7 @@ namespace IdApp.Pages.Registration.ChooseOperator
 		/// <param name="settingsService">The settings service for persisting UI state.</param>
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="logService">The log service.</param>
-		public ChooseOperatorViewModel(
+		public ValidatePhoneNrViewModel(
 			ITagProfile tagProfile,
 			IUiDispatcher uiDispatcher,
 			INeuronService neuronService,
@@ -39,7 +39,7 @@ namespace IdApp.Pages.Registration.ChooseOperator
 			ISettingsService settingsService,
 			INetworkService networkService,
 			ILogService logService)
-			: base(RegistrationStep.Operator, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
+			: base(RegistrationStep.ValidatePhoneNr, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
 		{
 			this.networkService = networkService;
 			this.Operators = new ObservableCollection<string>();
@@ -60,9 +60,9 @@ namespace IdApp.Pages.Registration.ChooseOperator
 		/// See <see cref="SelectedOperator"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedOperatorProperty =
-			BindableProperty.Create("SelectedOperator", typeof(string), typeof(ChooseOperatorViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create("SelectedOperator", typeof(string), typeof(ValidatePhoneNrViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
-				ChooseOperatorViewModel viewModel = (ChooseOperatorViewModel)b;
+				ValidatePhoneNrViewModel viewModel = (ValidatePhoneNrViewModel)b;
 				string selectedOperator = (string)newValue;
 				viewModel.ChooseOperatorFromList = (viewModel.Operators.Count > 0) && (selectedOperator != AppResources.OperatorDomainOther);
 				viewModel.ConnectCommand.ChangeCanExecute();
@@ -81,9 +81,9 @@ namespace IdApp.Pages.Registration.ChooseOperator
 		/// See <see cref="ManualOperator"/>
 		/// </summary>
 		public static readonly BindableProperty ManualOperatorProperty =
-			BindableProperty.Create("ManualOperator", typeof(string), typeof(ChooseOperatorViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create("ManualOperator", typeof(string), typeof(ValidatePhoneNrViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
-				ChooseOperatorViewModel viewModel = (ChooseOperatorViewModel)b;
+				ValidatePhoneNrViewModel viewModel = (ValidatePhoneNrViewModel)b;
 				System.Diagnostics.Debug.WriteLine($"ManualOperator changed from '{oldValue}' to '{newValue}'");
 				viewModel.ConnectCommand.ChangeCanExecute();
 			});
@@ -101,7 +101,7 @@ namespace IdApp.Pages.Registration.ChooseOperator
 		/// <see cref="ChooseOperatorFromList"/>
 		/// </summary>
 		public static readonly BindableProperty ChooseOperatorFromListProperty =
-			BindableProperty.Create("ChooseOperatorFromList", typeof(bool), typeof(ChooseOperatorViewModel), default(bool));
+			BindableProperty.Create("ChooseOperatorFromList", typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
 
 		/// <summary>
 		/// <see cref="ChooseOperatorFromListProperty"/>
@@ -244,38 +244,31 @@ namespace IdApp.Pages.Registration.ChooseOperator
 		{
 			int selectedIndex = -1;
 			int i = 0;
+
 			foreach (string domain in this.TagProfile.Domains)
 			{
 				this.Operators.Add(domain);
 
 				if (domain == this.TagProfile.Domain)
-				{
 					selectedIndex = i;
-				}
+				
 				i++;
 			}
+
 			this.Operators.Add(AppResources.OperatorDomainOther);
 
 			if (selectedIndex >= 0)
 			{
 				this.SelectedOperator = this.Operators[selectedIndex];
+				this.ChooseOperatorFromList = false;
 			}
-
-			if (!string.IsNullOrWhiteSpace(this.TagProfile.Domain))
+			else if (!string.IsNullOrEmpty(this.TagProfile.Domain))
 			{
-				if (selectedIndex >= 0)
-				{
-					this.SelectedOperator = this.Operators[selectedIndex];
-				}
-				else
-				{
-					this.ManualOperator = this.TagProfile.Domain;
-				}
+				this.ChooseOperatorFromList = true;
+				this.ManualOperator = this.TagProfile.Domain;
 			}
 			else
-			{
-				SelectedOperator = string.Empty;
-			}
+				this.SelectedOperator = string.Empty;
 		}
 	}
 }

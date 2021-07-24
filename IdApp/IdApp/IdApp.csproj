@@ -86,7 +86,7 @@
     <EmbeddedResource Update="Pages\Registration\ChooseAccount\ChooseAccountView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Registration\ChooseOperator\ChooseOperatorView.xaml">
+    <EmbeddedResource Update="Pages\Registration\ValidatePhoneNr\ValidatePhoneNrView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Main\Loading\LoadingPage.xaml">
@@ -133,8 +133,8 @@
     <Compile Update="Pages\Registration\ChooseAccount\ChooseAccountView.xaml.cs">
       <DependentUpon>ChooseAccountView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Registration\ChooseOperator\ChooseOperatorView.xaml.cs">
-      <DependentUpon>ChooseOperatorView.xaml</DependentUpon>
+    <Compile Update="Pages\Registration\ValidatePhoneNr\ValidatePhoneNrView.xaml.cs">
+      <DependentUpon>ValidatePhoneNrView.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Things\ViewThing\ViewThingPage.xaml.cs">
       <DependentUpon>ViewThingPage.xaml</DependentUpon>

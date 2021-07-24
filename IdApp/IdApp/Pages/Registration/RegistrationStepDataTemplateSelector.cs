@@ -11,7 +11,7 @@ namespace IdApp.Pages.Registration
         /// <summary>
         /// The choose operator template.
         /// </summary>
-        public DataTemplate ChooseOperator { get; set; }
+        public DataTemplate ValidatePhoneNr { get; set; }
         
         /// <summary>
         /// The choose account template.
@@ -54,7 +54,7 @@ namespace IdApp.Pages.Registration
                 case RegistrationStep.Pin:
                     return DefinePin;
                 default:
-                    return ChooseOperator;
+                    return ValidatePhoneNr;
             }
         }
     }

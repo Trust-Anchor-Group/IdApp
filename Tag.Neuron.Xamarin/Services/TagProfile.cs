@@ -16,9 +16,9 @@ namespace Tag.Neuron.Xamarin.Services
 	public enum RegistrationStep
 	{
 		/// <summary>
-		/// Choose Operator
+		/// Validate Phone Number
 		/// </summary>
-		Operator = 0,
+		ValidatePhoneNr = 0,
 
 		/// <summary>
 		/// Create or connect to an account
@@ -77,7 +77,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private string pinHash;
 		private long? httpFileUploadMaxSize;
 		private bool usePin;
-		private RegistrationStep step = RegistrationStep.Operator;
+		private RegistrationStep step = RegistrationStep.ValidatePhoneNr;
 		private bool suppressPropertyChangedEvents;
 		private bool defaultXmppConnectivity;
 
@@ -497,12 +497,12 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				switch (this.Step)
 				{
-					case RegistrationStep.Operator:
+					case RegistrationStep.ValidatePhoneNr:
 						// Do nothing
 						break;
 					
 					case RegistrationStep.Account:
-						this.Step = RegistrationStep.Operator;
+						this.Step = RegistrationStep.ValidatePhoneNr;
 						break;
 					
 					case RegistrationStep.RegisterIdentity:
@@ -528,7 +528,7 @@ namespace Tag.Neuron.Xamarin.Services
 			{
 				switch (this.Step)
 				{
-					case RegistrationStep.Operator:
+					case RegistrationStep.ValidatePhoneNr:
 						this.Step = RegistrationStep.Account;
 						break;
 			
@@ -557,7 +557,7 @@ namespace Tag.Neuron.Xamarin.Services
 			this.Domain = domainName;
 			this.DefaultXmppConnectivity = defaultXmppConnectivity;
 
-			if (!string.IsNullOrWhiteSpace(Domain) && Step == RegistrationStep.Operator)
+			if (!string.IsNullOrWhiteSpace(Domain) && Step == RegistrationStep.ValidatePhoneNr)
 				this.IncrementConfigurationStep();
 		}
 
@@ -565,7 +565,7 @@ namespace Tag.Neuron.Xamarin.Services
 		public void ClearDomain()
 		{
 			this.Domain = string.Empty;
-			this.DecrementConfigurationStep(RegistrationStep.Operator);
+			this.DecrementConfigurationStep(RegistrationStep.ValidatePhoneNr);
 		}
 
 		/// <inheritdoc/>
@@ -604,7 +604,7 @@ namespace Tag.Neuron.Xamarin.Services
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
 			
-			this.DecrementConfigurationStep(RegistrationStep.Operator); // prev
+			this.DecrementConfigurationStep(RegistrationStep.ValidatePhoneNr); // prev
 		}
 
 		/// <inheritdoc/>

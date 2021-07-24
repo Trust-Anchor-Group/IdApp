@@ -62,7 +62,7 @@ namespace IdApp.Tests.ViewModels.Registration
                 .When(vm =>
                 {
                     // Move forward two steps
-                    object sender = vm.RegistrationSteps[(int)RegistrationStep.Operator];
+                    object sender = vm.RegistrationSteps[(int)RegistrationStep.ValidatePhoneNr];
                     // Operator->Account
                     this.tagProfile.SetupGet(x => x.Step).Returns(RegistrationStep.Account);
                     vm.RegistrationStep_Completed(sender, EventArgs.Empty);

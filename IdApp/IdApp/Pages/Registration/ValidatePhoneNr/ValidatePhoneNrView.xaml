@@ -6,7 +6,7 @@
                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                       xmlns:system="clr-namespace:System;assembly=netstandard"
                       xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
-                      x:Class="IdApp.Pages.Registration.ChooseOperator.ChooseOperatorView">
+                      x:Class="IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView">
     <ContentView.Content>
         <Grid Margin="0,0,0,0">
             <Image Source="tag_bg2.jpg" Aspect="AspectFill">

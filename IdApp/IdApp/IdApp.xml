@@ -6343,78 +6343,6 @@
             Connect to an existing account.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorView">
-            <summary>
-            A view to display the 'choose operator' during the registration process.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorView.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorView"/> class.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel">
-            <summary>
-            The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel"/> class.
-            </summary>
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="logService">The log service.</param>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.Operators">
-            <summary>
-            The list of operators a user can choose from.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.SelectedOperatorProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.SelectedOperator"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.SelectedOperator">
-            <summary>
-            The selected operator from the list of <see cref="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.Operators"/>, if any.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ManualOperatorProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ManualOperator"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ManualOperator">
-            <summary>
-            The manually entered operator, if one isn't chosen from the list of <see cref="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.Operators"/>.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ChooseOperatorFromListProperty">
-            <summary>
-            <see cref="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ChooseOperatorFromList"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ChooseOperatorFromList">
-            <summary>
-            <see cref="F:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ChooseOperatorFromListProperty"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ConnectCommand">
-            <summary>
-            The command to bind to for connecting to the <see cref="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.SelectedOperator"/>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseOperator.ChooseOperatorViewModel.ManualOperatorCommand">
-            <summary>
-            The command to bind to when editing the manual operator text in the UI.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Registration.DefinePin.DefinePinView">
             <summary>
             A view to display the 'choose pin' during the registration process.
@@ -6822,7 +6750,7 @@
             A data template selector for displaying various types of registration steps.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ChooseOperator">
+        <member name="P:IdApp.Pages.Registration.RegistrationStepDataTemplateSelector.ValidatePhoneNr">
             <summary>
             The choose operator template.
             </summary>
@@ -7369,6 +7297,78 @@
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.ConnectionStateText">
             <summary>
             The user friendly connection state text to display to the user.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView">
+            <summary>
+            A view to display the 'choose operator' during the registration process.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView"/> class.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel">
+            <summary>
+            The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.#ctor(Tag.Neuron.Xamarin.Services.ITagProfile,Tag.Neuron.Xamarin.IUiDispatcher,Tag.Neuron.Xamarin.Services.INeuronService,Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.Services.INetworkService,Tag.Neuron.Xamarin.Services.ILogService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel"/> class.
+            </summary>
+            <param name="tagProfile">The tag profile to work with.</param>
+            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="navigationService">The navigation service to use for app navigation</param>
+            <param name="settingsService">The settings service for persisting UI state.</param>
+            <param name="networkService">The network service for network access.</param>
+            <param name="logService">The log service.</param>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Operators">
+            <summary>
+            The list of operators a user can choose from.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperatorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperator">
+            <summary>
+            The selected operator from the list of <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Operators"/>, if any.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperatorProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperator"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperator">
+            <summary>
+            The manually entered operator, if one isn't chosen from the list of <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Operators"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromListProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromList"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromList">
+            <summary>
+            <see cref="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromListProperty"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ConnectCommand">
+            <summary>
+            The command to bind to for connecting to the <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperator"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperatorCommand">
+            <summary>
+            The command to bind to when editing the manual operator text in the UI.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.HumanReadableTag">

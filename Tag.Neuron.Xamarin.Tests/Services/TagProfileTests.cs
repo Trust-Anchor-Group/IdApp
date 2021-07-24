@@ -26,7 +26,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetDomain_ToAValidValue_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
         }
@@ -35,27 +35,27 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetDomain_ToAnInvalidValue_DoesNotIncrementStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("", false);
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
         }
 
         [Test]
         public void ClearDomain_DecrementsStepToOperator()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.ClearDomain();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
         }
 
         [Test]
         public void SetAccount_ToAValidValue_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -66,16 +66,16 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetAccount_ToAValidValue_WhenNotOnAccountStep_DoesNotIncrementStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
         }
 
         [Test]
         public void SetAccount_ToAnInvalidValue_DoesNotIncrementStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("", "hash", "hashMethod");
@@ -86,14 +86,14 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void ClearAccount_DecrementsStepToOperator()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             tagProfile.SetLegalJid("jid");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
             tagProfile.ClearAccount();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             Assert.IsNull(tagProfile.LegalJid);
         }
 
@@ -101,7 +101,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetAccountAndLegalIdentity_ToAValidValue_WhereIdentityIsCreated_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Created };
@@ -113,7 +113,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetAccountAndLegalIdentity_ToAValidValue_WhereIdentityIsApproved_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Approved };
@@ -125,7 +125,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetAccountAndLegalIdentity_ToAValidValue_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Compromised };
@@ -137,7 +137,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetAccountAndLegalIdentity_ToAnInvalidValue1_DoesNotIncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccountAndLegalIdentity("account", "hash", "hashMethod", null);
@@ -148,7 +148,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetAccountAndLegalIdentity_ToAnInvalidValue2_DoesNotIncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Compromised };
@@ -160,7 +160,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetLegalIdentity_ToAValidValue1_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -174,7 +174,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetLegalIdentity_ToAValidValue2_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -188,7 +188,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetLegalIdentity_ToAnInvalidValue_DoesNotIncrementStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -209,7 +209,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void ClearLegalIdentity_DecrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -222,7 +222,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void RevokeLegalIdentity_DecrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -238,7 +238,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void CompromiseLegalIdentity_DecrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -254,7 +254,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetIsValidated_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -270,7 +270,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetIsValidated_WhenNotValidated_DoesNotIncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -283,7 +283,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void ClearIsValidated_DecrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -302,7 +302,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetPin_IncrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -320,7 +320,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void SetPin_IfNotOnPinStep_DoesNotIncrementStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -333,7 +333,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void ClearPin_WhenNotComplete_DecrementsStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
@@ -351,7 +351,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         public void ClearPin_WhenComplete_DoesNotDecrementStep()
         {
             TagProfile tagProfile = new TagProfile();
-            Assert.AreEqual(RegistrationStep.Operator, tagProfile.Step);
+            Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
             tagProfile.SetDomain("domain", false);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");

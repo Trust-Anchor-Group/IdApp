@@ -1,17 +1,17 @@
 ﻿using Xamarin.Forms.Xaml;
 
-namespace IdApp.Pages.Registration.ChooseOperator
+namespace IdApp.Pages.Registration.ValidatePhoneNr
 {
     /// <summary>
     /// A view to display the 'choose operator' during the registration process.
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ChooseOperatorView
+    public partial class ValidatePhoneNrView
     {
         /// <summary>
-        /// Creates a new instance of the <see cref="ChooseOperatorView"/> class.
+        /// Creates a new instance of the <see cref="ValidatePhoneNrView"/> class.
         /// </summary>
-        public ChooseOperatorView()
+        public ValidatePhoneNrView()
         {
             InitializeComponent();
         }

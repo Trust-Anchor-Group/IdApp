@@ -3010,9 +3010,9 @@
             The different steps of a TAG Profile registration journey.
             </summary>
         </member>
-        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Operator">
+        <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.ValidatePhoneNr">
             <summary>
-            Choose Operator
+            Validate Phone Number
             </summary>
         </member>
         <member name="F:Tag.Neuron.Xamarin.Services.RegistrationStep.Account">

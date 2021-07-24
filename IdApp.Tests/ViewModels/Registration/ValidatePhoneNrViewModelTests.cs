@@ -1,4 +1,4 @@
-﻿using IdApp.Pages.Registration.ChooseOperator;
+﻿using IdApp.Pages.Registration.ValidatePhoneNr;
 using Moq;
 using NUnit.Framework;
 using Tag.Neuron.Xamarin;
@@ -8,7 +8,7 @@ using Tag.Neuron.Xamarin.UI.Tests.ViewModels;
 
 namespace IdApp.Tests.ViewModels.Registration
 {
-    public class ChooseOperatorViewModelTests : ViewModelTests<ChooseOperatorViewModel>
+    public class ValidatePhoneNrViewModelTests : ViewModelTests<ValidatePhoneNrViewModel>
     {
         private readonly Mock<IUiDispatcher> dispatcher = new Mock<IUiDispatcher>();
         private readonly Mock<INeuronService> neuronService = new Mock<INeuronService>();
@@ -18,14 +18,14 @@ namespace IdApp.Tests.ViewModels.Registration
         private readonly Mock<INetworkService> networkService = new Mock<INetworkService>();
         private readonly Mock<ILogService> logService = new Mock<ILogService>();
         
-        public ChooseOperatorViewModelTests()
+        public ValidatePhoneNrViewModelTests()
         {
             this.neuronService.Setup(x => x.Contracts).Returns(contracts.Object);
         }
 
-        protected override ChooseOperatorViewModel AViewModel()
+        protected override ValidatePhoneNrViewModel AViewModel()
         {
-            return new ChooseOperatorViewModel(new TagProfile(), dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object);
+            return new ValidatePhoneNrViewModel(new TagProfile(), dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, this.networkService.Object, this.logService.Object);
         }
 
         [Test]
