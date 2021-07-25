@@ -363,8 +363,8 @@
   <data name="EncryptMessage" xml:space="preserve">
     <value>Kryptera meddelandet</value>
   </data>
-  <data name="EnterAnOperatorName" xml:space="preserve">
-    <value>Ange en operatör</value>
+  <data name="EnterPhoneNumber" xml:space="preserve">
+    <value>Telefonnummer</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
@@ -870,9 +870,6 @@
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att välja en bild stöds inte på den här enheten</value>
   </data>
-  <data name="SelectOperator" xml:space="preserve">
-    <value>Välj operatör</value>
-  </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
     <value>Välj vem som ska ha tillgång till det här kontraktet.</value>
   </data>
@@ -1066,7 +1063,7 @@
     <value>Välkommen till TAGs digitala ID-app!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Välj en operatör för att ansluta till TAG-nätverket. Välj en från listan nedan.</value>
+    <value>Innan du kan ansluta till nätverket för TAG ID, behöver vi validera ditt mobila telefonnummer. Var god och skriv in ditt mobiltelefonnummer nedan, genom att använda det internationella telefonnummerformatet, utan mellanslag.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Autentiserar nätverksidentitet</value>

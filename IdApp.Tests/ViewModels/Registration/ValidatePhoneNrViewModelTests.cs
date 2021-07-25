@@ -8,7 +8,7 @@ using Tag.Neuron.Xamarin.UI.Tests.ViewModels;
 
 namespace IdApp.Tests.ViewModels.Registration
 {
-    public class ValidatePhoneNrViewModelTests : ViewModelTests<ValidatePhoneNrViewModel>
+    /*public class ValidatePhoneNrViewModelTests : ViewModelTests<ValidatePhoneNrViewModel>
     {
         private readonly Mock<IUiDispatcher> dispatcher = new Mock<IUiDispatcher>();
         private readonly Mock<INeuronService> neuronService = new Mock<INeuronService>();
@@ -109,5 +109,5 @@ namespace IdApp.Tests.ViewModels.Registration
                 .And(vm => vm.ManualOperator = "bar")
                 .ThenAssert(vm => vm.ConnectCommand.IsEnabled());
         }
-    }
+    }*/
 }

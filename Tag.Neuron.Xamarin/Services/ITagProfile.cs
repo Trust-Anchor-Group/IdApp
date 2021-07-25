@@ -30,6 +30,16 @@ namespace Tag.Neuron.Xamarin.Services
 		string Domain { get; }
 
 		/// <summary>
+		/// API Key, for creating new account.
+		/// </summary>
+		string ApiKey { get; }
+
+		/// <summary>
+		/// API Secret, for creating new account.
+		/// </summary>
+		string ApiSecret { get; }
+
+		/// <summary>
 		/// If connecting to the domain can be done using default parameters (host=domain, default c2s port).
 		/// </summary>
 		bool DefaultXmppConnectivity { get; }
@@ -125,11 +135,6 @@ namespace Tag.Neuron.Xamarin.Services
 		LegalIdentity LegalIdentity { get; }
 
 		/// <summary>
-		/// Domains this user can connect to.
-		/// </summary>
-		string[] Domains { get; }
-
-		/// <summary>
 		/// Returns <c>true</c> if the current <see cref="ITagProfile"/> has changed values and need saving, <c>false</c> otherwise.
 		/// </summary>
 		bool IsDirty { get; }
@@ -137,7 +142,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <summary>
 		/// Converts the current <see cref="ITagProfile"/> to a <see cref="TagConfiguration"/> object that can be persisted to the <see cref="IStorageService"/>.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Configuration object</returns>
 		TagConfiguration ToConfiguration();
 
 		/// <summary>
@@ -149,25 +154,25 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <summary>
 		/// Returns <c>true</c> if the current <see cref="ITagProfile"/> needs to have its values updated, <c>false</c> otherwise.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>If values need updating</returns>
 		bool NeedsUpdating();
 
 		/// <summary>
 		/// Returns <c>true</c> if the current <see cref="ITagProfile"/> needs to have its legal identity updated, <c>false</c> otherwise.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>If legal identity need updating</returns>
 		bool LegalIdentityNeedsUpdating();
 
 		/// <summary>
 		/// Returns <c>true</c> if the registration process for this <see cref="ITagProfile"/> is either fully complete or is just awaiting validation, <c>false</c> otherwise.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns><c>true</c> if the registration process for this <see cref="ITagProfile"/> is either fully complete or is just awaiting validation, <c>false</c> otherwise.</returns>
 		bool IsCompleteOrWaitingForValidation();
 
 		/// <summary>
 		/// Returns <c>true</c> if the registration process for this <see cref="ITagProfile"/> is either fully complete, <c>false</c> otherwise.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns><c>true</c> if the registration process for this <see cref="ITagProfile"/> is either fully complete, <c>false</c> otherwise.</returns>
 		bool IsComplete();
 
 		/// <summary>
@@ -301,16 +306,7 @@ namespace Tag.Neuron.Xamarin.Services
 		/// Computes a hash of the specified PIN.
 		/// </summary>
 		/// <param name="pin">The PIN whose hash to compute.</param>
-		/// <returns></returns>
+		/// <returns>Hash Digest</returns>
 		string ComputePinHash(string pin);
-
-		/// <summary>
-		/// Tries to get the cryptographic keys for the specified domain. Used for connecting to a Neuron server.
-		/// </summary>
-		/// <param name="domainName">The domain name whose keys to look up.</param>
-		/// <param name="apiKey">The API key.</param>
-		/// <param name="secret">The API secret.</param>
-		/// <returns></returns>
-		bool TryGetKeys(string domainName, out string apiKey, out string secret);
 	}
 }

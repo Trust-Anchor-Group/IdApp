@@ -455,9 +455,9 @@
               Looks up a localized string similar to Encrypt message.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.EnterAnOperatorName">
+        <member name="P:IdApp.AppResources.EnterPhoneNumber">
             <summary>
-              Looks up a localized string similar to Enter an operator.
+              Looks up a localized string similar to Phone Number.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ErrorTitle">
@@ -1300,11 +1300,6 @@
               Looks up a localized string similar to Selecting a photo is not supported on this device.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.SelectOperator">
-            <summary>
-              Looks up a localized string similar to Select Operator.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.SelectWhoShouldHaveAccessToThisContract">
             <summary>
               Looks up a localized string similar to Select who should have access to this contract..
@@ -1612,7 +1607,7 @@
         </member>
         <member name="P:IdApp.AppResources.WelcomeToTagSubheading">
             <summary>
-              Looks up a localized string similar to To connect to the TAG network, you need to select an operator. Please select one from the list below..
+              Looks up a localized string similar to Before connecting to the TAG ID network, we need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.XmppState_Authenticating">
@@ -1851,7 +1846,7 @@
             Converts a boolean value to the localized string 'Yes' if <c>true</c>, or 'No' if <c>false</c>.
             </summary>
             <param name="b"></param>
-            <returns></returns>
+            <returns>String representation</returns>
         </member>
         <member name="T:IdApp.Extensions.XmppStateExtensions">
             <summary>
@@ -1886,7 +1881,7 @@
             Converts the state to a localized string.
             </summary>
             <param name="State">The state to convert.</param>
-            <returns></returns>
+            <returns>String representation</returns>
         </member>
         <member name="T:IdApp.FontAwesome">
             <summary>
@@ -2141,7 +2136,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureNavigationArgs">
             <summary>
@@ -2179,7 +2174,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel">
             <summary>
@@ -2471,7 +2466,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ContractsListMode">
             <summary>
@@ -2674,7 +2669,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel">
             <summary>
@@ -2882,7 +2877,7 @@
             <summary>
             Returns the string representation, i.e. name, of this <see cref="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel"/>.
             </summary>
-            <returns></returns>
+            <returns>String representation</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractNavigationArgs">
             <summary>
@@ -2941,7 +2936,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel">
             <summary>
@@ -3259,7 +3254,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel">
             <summary>
@@ -3544,7 +3539,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel">
             <summary>
@@ -3747,7 +3742,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel">
             <summary>
@@ -4091,7 +4086,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel">
             <summary>
@@ -4385,7 +4380,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel">
             <summary>
@@ -5066,7 +5061,7 @@
             <summary>
             Gets if photos are showing or not.
             </summary>
-            <returns></returns>
+            <returns>If photos are showing</returns>
         </member>
         <member name="T:IdApp.Pages.Main.Image.ImageViewModel">
             <summary>
@@ -5321,13 +5316,11 @@
             <summary>
             Call this method to show the toolbar content.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:IdApp.Pages.Main.MainTabBar.MainTabBarView.Hide">
             <summary>
             Call this method to hide the toolbar content.
             </summary>
-            <returns></returns>
         </member>
         <member name="T:IdApp.Pages.Main.Main.MainPage">
             <summary>
@@ -5708,7 +5701,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel">
             <summary>
@@ -5949,7 +5942,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Main.XmppCommunication.XmppCommunicationViewModel">
             <summary>
@@ -6721,7 +6714,6 @@
             <param name="Rotation">Rotation to use, to display the image correctly.</param>
             <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
             <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
-            <returns></returns>
         </member>
         <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.AddPhoto(System.String,System.Boolean)">
             <summary>
@@ -6729,7 +6721,6 @@
             </summary>
             <param name="filePath">The full path to the file.</param>
             <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
-            <returns></returns>
         </member>
         <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.DoSaveState">
             <inheritdoc />
@@ -6781,7 +6772,7 @@
             </summary>
             <param name="item">The step to display.</param>
             <param name="container"></param>
-            <returns></returns>
+            <returns>Selected template</returns>
         </member>
         <member name="T:IdApp.Pages.Registration.RegistrationStepView">
             <summary>
@@ -6923,7 +6914,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Registration.Registration.RegistrationViewModel">
             <summary>
@@ -7326,49 +7317,29 @@
             <param name="networkService">The network service for network access.</param>
             <param name="logService">The log service.</param>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Operators">
+        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.DoBind">
             <summary>
-            The list of operators a user can choose from.
+            Override this method to do view model specific setup when it's parent page/view appears on screen.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperatorProperty">
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperator"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperator">
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber">
             <summary>
-            The selected operator from the list of <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Operators"/>, if any.
+            Phone number
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperatorProperty">
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ValidateCommand">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperator"/>
+            The command to bind to for validating the phone number.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperator">
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberCommand">
             <summary>
-            The manually entered operator, if one isn't chosen from the list of <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Operators"/>.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromListProperty">
-            <summary>
-            <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromList"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromList">
-            <summary>
-            <see cref="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ChooseOperatorFromListProperty"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ConnectCommand">
-            <summary>
-            The command to bind to for connecting to the <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SelectedOperator"/>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ManualOperatorCommand">
-            <summary>
-            The command to bind to when editing the manual operator text in the UI.
+            The command to bind to when editing the phone number text in the UI.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.HumanReadableTag">
@@ -7427,7 +7398,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Things.MyThings.MyThingsViewModel">
             <summary>
@@ -7518,7 +7489,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel">
             <summary>
@@ -7749,7 +7720,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.AccountEventItem">
             <summary>
@@ -7849,7 +7820,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel">
             <summary>
@@ -8040,7 +8011,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel">
             <summary>
@@ -8655,7 +8626,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletPage">
             <summary>
@@ -8671,7 +8642,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.OnAppearing">
             <inheritdoc />
@@ -8949,7 +8920,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Pages.Wallet.Payment.PaymentPage">
             <summary>
@@ -8965,7 +8936,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.Payment.PaymentPage.ShowQrCode">
             <summary>
@@ -8986,7 +8957,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage.ShowQrCode">
             <summary>
@@ -9007,7 +8978,7 @@
             <summary>
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
-            <returns></returns>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage.ShowQrCode">
             <summary>
@@ -9241,7 +9212,6 @@
             <param name="attachments">The attachments whose files to download.</param>
             <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
-            <returns></returns>
         </member>
         <member name="M:IdApp.PhotosLoader.CancelLoadPhotos">
             <summary>
@@ -9302,7 +9272,7 @@
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="commandName">The localized name of the command to display when scanning.</param>
             <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
-            <returns></returns>
+            <returns>Decoded string</returns>
         </member>
         <member name="M:IdApp.QrCode.TrySetResultAndClosePage(Tag.Neuron.Xamarin.Services.INavigationService,Tag.Neuron.Xamarin.IUiDispatcher,System.String)">
             <summary>
@@ -9457,7 +9427,6 @@
             </summary>
             <param name="legalId">The id of the legal identity to show.</param>
             <param name="purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
-            <returns></returns>
         </member>
         <member name="M:IdApp.Services.IContractOrchestratorService.OpenContract(System.String,System.String)">
             <summary>
@@ -9465,7 +9434,6 @@
             </summary>
             <param name="contractId">The id of the contract to show.</param>
             <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
-            <returns></returns>
         </member>
         <member name="M:IdApp.Services.IContractOrchestratorService.TagSignature(System.String)">
             <summary>
@@ -9585,27 +9553,6 @@
         <member name="F:IdApp.UiConstants.QrCode.DefaultImageHeight">
             <summary>
             The default height to use when generating QR Code images.
-            </summary>
-        </member>
-        <member name="T:Waher.IoTGateway.Setup.XmppConfiguration">
-            <summary>
-            Represents a user's Xmpp connection and profile properties.
-            </summary>
-        </member>
-        <member name="M:Waher.IoTGateway.Setup.XmppConfiguration.ToArray">
-            <summary>
-            Converts the list of properties on this instance to an array of <see cref="T:Tag.Neuron.Xamarin.Models.DomainModel"/>s.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="F:Waher.IoTGateway.Setup.XmppConfiguration.BuildDate">
-            <summary>
-            Date when solution was built.
-            </summary>
-        </member>
-        <member name="F:Waher.IoTGateway.Setup.XmppConfiguration.BuildTime">
-            <summary>
-            Time when solution was built.
             </summary>
         </member>
     </members>

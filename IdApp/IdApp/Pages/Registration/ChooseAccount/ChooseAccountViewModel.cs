@@ -434,7 +434,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
                     this.TagProfile.SetAccount(this.CreateNewAccountName, client.PasswordHash, client.PasswordHashMethod);
                 }
 
-                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain, isIpAddress, hostName, portNumber, this.CreateNewAccountName, passwordToUse, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain,
+                    isIpAddress, hostName, portNumber, this.CreateNewAccountName, passwordToUse, this.TagProfile.ApiKey,
+                    this.TagProfile.ApiSecret, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (succeeded)
                 {

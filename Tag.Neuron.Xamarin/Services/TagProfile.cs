@@ -50,8 +50,6 @@ namespace Tag.Neuron.Xamarin.Services
 	[Singleton]
 	public class TagProfile : ITagProfile
 	{
-		private readonly Dictionary<string, KeyValuePair<string, string>> domains;
-
 		/// <summary>
 		/// An event that fires every time the <see cref="Step"/> property changes.
 		/// </summary>
@@ -64,6 +62,8 @@ namespace Tag.Neuron.Xamarin.Services
 		private LegalIdentity legalIdentity;
 		private string objectId;
 		private string domain;
+		private string apiKey;
+		private string apiSecret;
 		private string account;
 		private string passwordHash;
 		private string passwordHashMethod;
@@ -84,16 +84,8 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <summary>
 		/// Creates an instance of a <see cref="TagProfile"/>.
 		/// </summary>
-		/// <param name="domainModels">A list of domains the user should be able to connect to.</param>
-		public TagProfile(params DomainModel[] domainModels)
+		public TagProfile()
 		{
-			this.domains = new Dictionary<string, KeyValuePair<string, string>>(StringComparer.CurrentCultureIgnoreCase);
-
-			if (!(domainModels is null) && domainModels.Length > 0)
-			{
-				foreach (DomainModel domainModel in domainModels)
-					this.domains[domainModel.Name] = new KeyValuePair<string, string>(domainModel.Key, domainModel.Secret);
-			}
 		}
 
 		/// <summary>
@@ -117,13 +109,15 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <summary>
 		/// Converts the current instance into a <see cref="TagConfiguration"/> object for serialization.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Configuration object</returns>
 		public TagConfiguration ToConfiguration()
 		{
 			TagConfiguration clone = new TagConfiguration
 			{
 				ObjectId = this.objectId,
 				Domain = this.Domain,
+				ApiKey = this.ApiKey,
+				ApiSecret = this.ApiSecret,
 				DefaultXmppConnectivity = this.DefaultXmppConnectivity,
 				Account = this.Account,
 				PasswordHash = this.PasswordHash,
@@ -157,6 +151,8 @@ namespace Tag.Neuron.Xamarin.Services
 
 				this.objectId = configuration.ObjectId;
 				this.Domain = configuration.Domain;
+				this.ApiKey = configuration.ApiKey;
+				this.ApiSecret = configuration.ApiSecret;
 				this.DefaultXmppConnectivity = configuration.DefaultXmppConnectivity;
 				this.Account = configuration.Account;
 				this.PasswordHash = configuration.PasswordHash;
@@ -238,6 +234,34 @@ namespace Tag.Neuron.Xamarin.Services
 				{
 					this.domain = value;
 					this.FlagAsDirty(nameof(Domain));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
+		public string ApiKey
+		{
+			get => this.apiKey;
+			private set
+			{
+				if (!string.Equals(this.apiKey, value))
+				{
+					this.apiKey = value;
+					this.FlagAsDirty(nameof(ApiKey));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
+		public string ApiSecret
+		{
+			get => this.apiSecret;
+			private set
+			{
+				if (!string.Equals(this.apiSecret, value))
+				{
+					this.apiSecret = value;
+					this.FlagAsDirty(nameof(ApiSecret));
 				}
 			}
 		}
@@ -464,9 +488,6 @@ namespace Tag.Neuron.Xamarin.Services
 				}
 			}
 		}
-
-		/// <inheritdoc/>
-		public string[] Domains => this.domains.Keys.ToArray();
 
 		/// <inheritdoc/>
 		public bool IsDirty { get; private set; }
@@ -740,22 +761,6 @@ namespace Tag.Neuron.Xamarin.Services
 			byte[] data = Encoding.UTF8.GetBytes(sb.ToString());
 
 			return Hashes.ComputeSHA384HashString(data);
-		}
-
-		/// <inheritdoc/>
-		public bool TryGetKeys(string domainName, out string apiKey, out string secret)
-		{
-			if (domains.TryGetValue(domainName, out KeyValuePair<string, string> entry))
-			{
-				apiKey = entry.Key;
-				secret = entry.Value;
-				return true;
-			}
-			else
-			{
-				apiKey = secret = null;
-				return false;
-			}
 		}
 	}
 }

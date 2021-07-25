@@ -799,11 +799,11 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter an operator.
+        ///   Looks up a localized string similar to Phone Number.
         /// </summary>
-        internal static string EnterAnOperatorName {
+        internal static string EnterPhoneNumber {
             get {
-                return ResourceManager.GetString("EnterAnOperatorName", resourceCulture);
+                return ResourceManager.GetString("EnterPhoneNumber", resourceCulture);
             }
         }
         
@@ -2320,15 +2320,6 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Operator.
-        /// </summary>
-        internal static string SelectOperator {
-            get {
-                return ResourceManager.GetString("SelectOperator", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Select who should have access to this contract..
         /// </summary>
         internal static string SelectWhoShouldHaveAccessToThisContract {
@@ -2878,7 +2869,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To connect to the TAG network, you need to select an operator. Please select one from the list below..
+        ///   Looks up a localized string similar to Before connecting to the TAG ID network, we need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
         /// </summary>
         internal static string WelcomeToTagSubheading {
             get {

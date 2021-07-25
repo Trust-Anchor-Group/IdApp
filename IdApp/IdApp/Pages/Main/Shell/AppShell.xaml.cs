@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Waher.IoTGateway.Setup;
 using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -195,8 +194,6 @@ namespace IdApp.Pages.Main.Shell
 				StringBuilder sb = new StringBuilder();
 				sb.AppendLine($"Name: {AppInfo.Name}");
 				sb.AppendLine($"Version: {AppInfo.VersionString}");
-				sb.AppendLine($"Build date: {XmppConfiguration.BuildDate}");
-				sb.AppendLine($"Build time: {XmppConfiguration.BuildTime}");
 				sb.AppendLine($"Platform: {Device.RuntimePlatform}");
 				sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
 				sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");

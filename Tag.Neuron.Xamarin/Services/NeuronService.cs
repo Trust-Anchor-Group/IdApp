@@ -604,35 +604,35 @@ namespace Tag.Neuron.Xamarin.Services
 		{
 			Connect,
 			ConnectAndCreateAccount,
-			ConnectAndConnectToAccount
+			ConnectToAccount
 		}
 
 		public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber,
 			string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
 			return TryConnectInner(domain, isIpAddress, hostName, portNumber, string.Empty, string.Empty, languageCode,
-				applicationAssembly, connectedFunc, ConnectOperation.Connect);
+				string.Empty, string.Empty, applicationAssembly, connectedFunc, ConnectOperation.Connect);
 		}
 
 		public Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly,
-			Func<XmppClient, Task> connectedFunc)
+			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret, 
+			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode, applicationAssembly,
-				connectedFunc, ConnectOperation.ConnectAndCreateAccount);
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode, 
+				ApiKey, ApiSecret, applicationAssembly, connectedFunc, ConnectOperation.ConnectAndCreateAccount);
 		}
 
 		public Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, bool isIpAddress, string hostName,
 			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly,
 			Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode, applicationAssembly,
-				connectedFunc, ConnectOperation.ConnectAndConnectToAccount);
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode,
+				string.Empty, string.Empty, applicationAssembly, connectedFunc, ConnectOperation.ConnectToAccount);
 		}
 
 		private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly,
-			Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
+			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret, 
+			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
 		{
 			TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
 			bool succeeded;
@@ -701,8 +701,8 @@ namespace Tag.Neuron.Xamarin.Services
 				{
 					if (operation == ConnectOperation.ConnectAndCreateAccount)
 					{
-						if (this.tagProfile.TryGetKeys(domain, out string key, out string secret))
-							client.AllowRegistration(key, secret);
+						if (!string.IsNullOrEmpty(ApiKey) && !string.IsNullOrEmpty(ApiSecret))
+							client.AllowRegistration(ApiKey, ApiSecret);
 						else
 							client.AllowRegistration();
 					}
@@ -765,7 +765,7 @@ namespace Tag.Neuron.Xamarin.Services
 				}
 				else if (operation == ConnectOperation.ConnectAndCreateAccount)
 					errorMessage = string.Format(AppResources.AccountNameAlreadyTaken, accountName);
-				else if (operation == ConnectOperation.ConnectAndConnectToAccount)
+				else if (operation == ConnectOperation.ConnectToAccount)
 					errorMessage = string.Format(AppResources.InvalidUsernameOrPassword, accountName);
 				else
 					errorMessage = string.Format(AppResources.UnableToConnectTo, domain);

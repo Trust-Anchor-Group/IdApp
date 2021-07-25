@@ -45,7 +45,6 @@ namespace IdApp.Tests.Services
 		public ContractOrchestratorServiceTests()
 		{
 			this.tagProfile = new Mock<ITagProfile>();
-			this.tagProfile.Setup(x => x.Domains).Returns(new[] { "Foo" });
 			this.neuronService = new Mock<INeuronService>();
 			this.neuronContracts = new Mock<INeuronContracts>();
 			this.networkService = new Mock<INetworkService>();

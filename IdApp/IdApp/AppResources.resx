@@ -363,8 +363,8 @@
   <data name="EncryptMessage" xml:space="preserve">
     <value>Encrypt message</value>
   </data>
-  <data name="EnterAnOperatorName" xml:space="preserve">
-    <value>Enter an operator</value>
+  <data name="EnterPhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>An error has occurred</value>
@@ -867,9 +867,6 @@
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Selecting a photo is not supported on this device</value>
   </data>
-  <data name="SelectOperator" xml:space="preserve">
-    <value>Select Operator</value>
-  </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
     <value>Select who should have access to this contract.</value>
   </data>
@@ -1054,7 +1051,7 @@
     <value>Welcome to TAG Digital ID App!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>To connect to the TAG network, you need to select an operator. Please select one from the list below.</value>
+    <value>Before connecting to the TAG ID network, we need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Authenticating network identity</value>

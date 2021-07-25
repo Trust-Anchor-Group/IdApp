@@ -27,12 +27,11 @@ namespace Tag.Neuron.Xamarin
 		/// </summary>
 		/// <param name="appAssembly">The assembly containing the main App class.</param>
 		/// <param name="startupProfiler">Optional Startup profiler. May be null.</param>
-		/// <param name="domains">Featured domains.</param>
-		public TagIdSdk(Assembly appAssembly, Profiler startupProfiler, params DomainModel[] domains)
+		public TagIdSdk(Assembly appAssembly, Profiler startupProfiler)
 		{
 			this.StartupProfiler = startupProfiler;
 
-			this.TagProfile = Types.InstantiateDefault<ITagProfile>(false, new object[] { domains });
+			this.TagProfile = Types.InstantiateDefault<ITagProfile>(false);
 			this.LogService = Types.InstantiateDefault<ILogService>(false);
 			this.UiDispatcher = Types.InstantiateDefault<IUiDispatcher>(false);
 			this.CryptoService = Types.InstantiateDefault<ICryptoService>(false, this.LogService);

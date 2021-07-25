@@ -181,12 +181,4 @@
   <ProjectReference Include="..\..\Tag.Neuron.Xamarin.UI\Tag.Neuron.Xamarin.UI.csproj" />
   <ProjectReference Include="..\..\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.csproj" />
 </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="if not exist &quot;$(SolutionDir)\..\Registration.cs.bak&quot; copy &quot;$(ProjectDir)Services\Registration.cs&quot; &quot;$(SolutionDir)\..\Registration.cs.bak&quot;&#xD;&#xA;if exist &quot;$(SolutionDir)\..\Registration.cs&quot; copy &quot;$(SolutionDir)\..\Registration.cs&quot; &quot;$(ProjectDir)&quot;Services\Registration.cs&#xD;&#xA;" />
-  </Target>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if exist &quot;$(SolutionDir)\..\Registration.cs.bak&quot; copy &quot;$(SolutionDir)\..\Registration.cs.bak&quot; &quot;$(ProjectDir)Services\Registration.cs&quot;" />
-  </Target>
 </Project>

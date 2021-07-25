@@ -23,6 +23,18 @@ namespace Tag.Neuron.Xamarin.Services
 		public string Domain { get; set; }
 
 		/// <summary>
+		/// API Key
+		/// </summary>
+		[DefaultValueStringEmpty]
+		public string ApiKey { get; set; }
+
+		/// <summary>
+		/// API Secret
+		/// </summary>
+		[DefaultValueStringEmpty]
+		public string ApiSecret { get; set; }
+
+		/// <summary>
 		/// If connecting to the domain can be done using default parameters (host=domain, default c2s port).
 		/// </summary>
 		[DefaultValue(false)]

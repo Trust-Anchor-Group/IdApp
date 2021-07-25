@@ -21,7 +21,6 @@ using Waher.Content.Images;
 using Waher.Content.Xml;
 using Waher.Content.Markdown;
 using Waher.Events;
-using Waher.IoTGateway.Setup;
 using Waher.Networking.DNS;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Concentrator;
@@ -51,7 +50,6 @@ namespace IdApp
 	/// </summary>
 	public partial class App
 	{
-		private static readonly DomainModel[] domains = XmppConfiguration.ToArray();
 		private static TaskCompletionSource<bool> servicesSetup;
 		private static TaskCompletionSource<bool> configLoaded;
 		private static App instance;
@@ -148,7 +146,7 @@ namespace IdApp
 
 						// Create Services
 
-						this.sdk = Types.InstantiateDefault<ITagIdSdk>(false, appAssembly, this.startupProfiler, domains);
+						this.sdk = Types.InstantiateDefault<ITagIdSdk>(false, appAssembly, this.startupProfiler);
 
 						this.attachmentCacheService = Types.InstantiateDefault<IAttachmentCacheService>(false, this.sdk.LogService);
 						this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
