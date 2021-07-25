@@ -71,14 +71,14 @@
 </ItemGroup>
 
 <ItemGroup>
-  <EmbeddedResource Update="AppResources.pt-BR.resx">
+  <EmbeddedResource Update="AppResources.pt.resx">
     <Generator>ResXFileCodeGenerator</Generator>
   </EmbeddedResource>
   <EmbeddedResource Update="AppResources.resx">
     <Generator>ResXFileCodeGenerator</Generator>
     <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
   </EmbeddedResource>
-  <EmbeddedResource Update="AppResources.sv-SE.resx">
+  <EmbeddedResource Update="AppResources.sv.resx">
     <Generator>ResXFileCodeGenerator</Generator>
   </EmbeddedResource>
 </ItemGroup>

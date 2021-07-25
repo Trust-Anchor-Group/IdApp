@@ -34,9 +34,8 @@
 	<string>This app needs access to the photo gallery.</string>
 	<key>CFBundleLocalizations</key>
 	<array>
-		<string>sv-SE</string>
-		<string>pt-BR</string>
-		<string>en</string>
+		<string>pt</string>
+		<string>sv</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
