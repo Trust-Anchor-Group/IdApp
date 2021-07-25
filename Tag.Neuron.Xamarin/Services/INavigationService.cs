@@ -16,7 +16,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// Navigates the AppShell to the specified route.
         /// </summary>
         /// <param name="route">The route whose matching page to navigate to.</param>
-        /// <returns></returns>
         Task GoToAsync(string route);
 
         /// <summary>
@@ -24,7 +23,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="route">The route whose matching page to navigate to.</param>
         /// <param name="args">The specific args to pass to the page.</param>
-        /// <returns></returns>
         Task GoToAsync<TArgs>(string route, TArgs args) where TArgs : NavigationArgs;
 
         /// <summary>

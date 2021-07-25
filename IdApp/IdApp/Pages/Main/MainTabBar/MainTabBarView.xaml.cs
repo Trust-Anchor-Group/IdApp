@@ -285,7 +285,6 @@ namespace IdApp.Pages.Main.MainTabBar
 		/// <summary>
 		/// Call this method to show the toolbar content.
 		/// </summary>
-		/// <returns></returns>
 		public async Task Show()
 		{
 			if (!this.isShowing)
@@ -313,7 +312,6 @@ namespace IdApp.Pages.Main.MainTabBar
 		/// <summary>
 		/// Call this method to hide the toolbar content.
 		/// </summary>
-		/// <returns></returns>
 		public async Task Hide()
 		{
 			if (this.isShowing)

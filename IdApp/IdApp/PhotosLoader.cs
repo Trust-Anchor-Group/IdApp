@@ -84,7 +84,6 @@ namespace IdApp
 		/// <param name="attachments">The attachments whose files to download.</param>
 		/// <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="SignWith.LatestApprovedId"/> should be used.</param>
 		/// <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
-		/// <returns></returns>
 		public Task LoadPhotos(Attachment[] attachments, SignWith signWith, Action whenDoneAction = null)
 		{
 			return LoadPhotos(attachments, signWith, DateTime.UtcNow, whenDoneAction);

@@ -63,7 +63,7 @@ namespace IdApp.Pages.Main.Image
         /// <summary>
         /// Gets if photos are showing or not.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>If photos are showing</returns>
         public bool PhotosAreShowing()
         {
             return this.PhotoViewer.Opacity > 0 && this.IsVisible;

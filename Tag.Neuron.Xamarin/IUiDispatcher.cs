@@ -29,7 +29,7 @@ namespace Tag.Neuron.Xamarin
         /// <param name="message">The message to display.</param>
         /// <param name="accept">The accept/ok button text.</param>
         /// <param name="cancel">The cancel button text.</param>
-        /// <returns></returns>
+        /// <returns>If Accept or Cancel was pressed</returns>
         Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
         
         /// <summary>
@@ -38,7 +38,6 @@ namespace Tag.Neuron.Xamarin
         /// <param name="title">The title to display.</param>
         /// <param name="message">The message to display.</param>
         /// <param name="accept">The accept/ok button text.</param>
-        /// <returns></returns>
         Task DisplayAlert(string title, string message, string accept);
         
         /// <summary>
@@ -46,7 +45,6 @@ namespace Tag.Neuron.Xamarin
         /// </summary>
         /// <param name="title">The title to display.</param>
         /// <param name="message">The message to display.</param>
-        /// <returns></returns>
         Task DisplayAlert(string title, string message);
         
         /// <summary>
@@ -55,7 +53,6 @@ namespace Tag.Neuron.Xamarin
         /// <param name="title">The title to display.</param>
         /// <param name="message">The message to display.</param>
         /// <param name="exception">The exception to display.</param>
-        /// <returns></returns>
         Task DisplayAlert(string title, string message, Exception exception);
         
         /// <summary>
@@ -63,14 +60,12 @@ namespace Tag.Neuron.Xamarin
         /// </summary>
         /// <param name="title">The title to display.</param>
         /// <param name="exception">The exception to display.</param>
-        /// <returns></returns>
         Task DisplayAlert(string title, Exception exception);
         
         /// <summary>
         /// Displays an alert/message box to the user.
         /// </summary>
         /// <param name="exception">The exception to display.</param>
-        /// <returns></returns>
         Task DisplayAlert(Exception exception);
     }
 }

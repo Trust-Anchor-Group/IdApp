@@ -35,7 +35,6 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// <summary>
         /// Called by the parent page when it appears on screen.
         /// </summary>
-        /// <returns></returns>
         public async Task Bind()
         {
             if (!IsBound)
@@ -54,7 +53,6 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// <summary>
         /// Called by the parent page when it disappears from screen.
         /// </summary>
-        /// <returns></returns>
         public async Task Unbind()
         {
             if (IsBound)
@@ -78,7 +76,7 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// </summary>
         /// <typeparam name="T">The viewmodel type.</typeparam>
         /// <param name="childViewModel">The child viewmodel to add.</param>
-        /// <returns></returns>
+        /// <returns>Child view model</returns>
         protected T AddChildViewModel<T>(T childViewModel) where T : BaseViewModel
         {
             this.childViewModels.Add(childViewModel);
@@ -90,7 +88,7 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// </summary>
         /// <typeparam name="T">The viewmodel type.</typeparam>
         /// <param name="childViewModel">The child viewmodel to remove.</param>
-        /// <returns></returns>
+        /// <returns>Child view model</returns>
         protected T RemoveChildViewModel<T>(T childViewModel) where T : BaseViewModel
         {
             this.childViewModels.Remove(childViewModel);
@@ -100,7 +98,6 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// <summary>
         /// Override this method to do view model specific setup when it's parent page/view appears on screen.
         /// </summary>
-        /// <returns></returns>
         protected virtual Task DoBind()
         {
             return Task.CompletedTask;
@@ -109,7 +106,6 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// <summary>
         /// Override this method to do view model specific teardown when it's parent page/view disappears from screen.
         /// </summary>
-        /// <returns></returns>
         protected virtual Task DoUnbind()
         {
             return Task.CompletedTask;
@@ -118,33 +114,28 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// <summary>
         /// Called by the parent page when it appears on screen, <em>after</em> the <see cref="Bind"/> method is called.
         /// </summary>
-        /// <returns></returns>
         public async Task RestoreState()
         {
             foreach (BaseViewModel childViewModel in childViewModels)
-            {
                 await childViewModel.DoRestoreState();
-            }
+        
             await DoRestoreState();
         }
 
         /// <summary>
         /// Called by the parent page when it disappears on screen, <em>before</em> the <see cref="Unbind"/> method is called.
         /// </summary>
-        /// <returns></returns>
         public async Task SaveState()
         {
             foreach (BaseViewModel childViewModel in childViewModels)
-            {
                 await childViewModel.DoSaveState();
-            }
+        
             await DoSaveState();
         }
 
         /// <summary>
         /// Convenience method that calls <see cref="SaveState"/> and then <see cref="Unbind"/>.
         /// </summary>
-        /// <returns></returns>
         public async Task Shutdown()
         {
             await this.SaveState();
@@ -154,7 +145,6 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// <summary>
         /// Override this method to do view model specific restoring of state when it's parent page/view appears on screen.
         /// </summary>
-        /// <returns></returns>
         protected virtual Task DoRestoreState()
         {
             return Task.CompletedTask;
@@ -163,7 +153,6 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// <summary>
         /// Override this method to do view model specific saving of state when it's parent page/view disappears from screen.
         /// </summary>
-        /// <returns></returns>
         protected virtual Task DoSaveState()
         {
             return Task.CompletedTask;
@@ -173,7 +162,7 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
         /// Helper method for getting a unique settings key for a given property.
         /// </summary>
         /// <param name="propertyName">The property name to convert into a settings key.</param>
-        /// <returns></returns>
+        /// <returns>Key name</returns>
         protected string GetSettingsKey(string propertyName)
         {
             return $"{this.GetType().FullName}.{propertyName}";

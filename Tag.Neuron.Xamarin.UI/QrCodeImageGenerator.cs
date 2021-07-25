@@ -18,7 +18,7 @@ namespace Tag.Neuron.Xamarin.UI
         /// <param name="text">The QR Code</param>
         /// <param name="width">Required image width.</param>
         /// <param name="height">Required image height.</param>
-        /// <returns></returns>
+        /// <returns>Binary encoding of PNG</returns>
         public static byte[] GeneratePng(string text, int width, int height)
         {
             return Generate(text, width, height, SKEncodedImageFormat.Png);
@@ -30,7 +30,7 @@ namespace Tag.Neuron.Xamarin.UI
         /// <param name="text">The QR Code</param>
         /// <param name="width">Required image width.</param>
         /// <param name="height">Required image height.</param>
-        /// <returns></returns>
+        /// <returns>Binary encoding of JPG</returns>
         public static byte[] GenerateJpg(string text, int width, int height)
         {
             return Generate(text, width, height, SKEncodedImageFormat.Jpeg);

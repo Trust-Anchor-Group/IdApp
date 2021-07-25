@@ -30,7 +30,7 @@ namespace IdApp.Pages.Contracts.NewContract.ObjectModel
         /// <summary>
         /// Returns the string representation, i.e. name, of this <see cref="ContractVisibilityModel"/>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>String representation</returns>
         public override string ToString()
         {
             return Name;

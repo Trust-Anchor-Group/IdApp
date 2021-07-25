@@ -67,7 +67,7 @@ namespace Tag.Neuron.Xamarin.UI.Views
         /// Returns the viewmodel, type cast to the proper type.
         /// </summary>
         /// <typeparam name="T">The viewmodel type.</typeparam>
-        /// <returns></returns>
+        /// <returns>View model</returns>
         protected T GetViewModel<T>() where T : BaseViewModel
         {
             return (T)ViewModel;

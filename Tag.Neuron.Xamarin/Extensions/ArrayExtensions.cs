@@ -14,7 +14,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// Returns all the attachments whose content type starts with "image".
         /// </summary>
         /// <param name="attachments">The attachments to iterate.</param>
-        /// <returns></returns>
+        /// <returns>Attachments</returns>
         public static IEnumerable<Attachment> GetImageAttachments(this Attachment[] attachments)
         {
             if (attachments is null)

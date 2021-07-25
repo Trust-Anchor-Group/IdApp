@@ -37,14 +37,14 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="model">The model holding all the values needed.</param>
         /// <param name="attachments">The physical attachments to upload.</param>
-        /// <returns></returns>
+        /// <returns>Legal Identity</returns>
         Task<LegalIdentity> AddLegalIdentity(RegisterIdentityModel model, params LegalIdentityAttachment[] attachments);
 
         /// <summary>
         /// Returns a list of legal identities.
         /// </summary>
         /// <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
-        /// <returns></returns>
+        /// <returns>Legal Identities</returns>
         Task<LegalIdentity[]> GetLegalIdentities(XmppClient client = null);
 
         /// <summary>
@@ -73,14 +73,14 @@ namespace Tag.Neuron.Xamarin.Services
         /// Marks the legal identity as obsolete.
         /// </summary>
         /// <param name="legalIdentityId">The id to mark as obsolete.</param>
-        /// <returns></returns>
+        /// <returns>Legal Identity</returns>
         Task<LegalIdentity> ObsoleteLegalIdentity(string legalIdentityId);
 
         /// <summary>
         /// Marks the legal identity as compromised.
         /// </summary>
         /// <param name="legalIdentityId">The legal id to mark as compromised.</param>
-        /// <returns></returns>
+        /// <returns>Legal Identity</returns>
         Task<LegalIdentity> CompromiseLegalIdentity(string legalIdentityId);
 
         /// <summary>
@@ -89,7 +89,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="legalId">The id of the legal identity.</param>
         /// <param name="petitionId">The petition id.</param>
         /// <param name="purpose">The purpose of the petitioning.</param>
-        /// <returns></returns>
         Task PetitionIdentity(string legalId, string petitionId, string purpose);
 
         /// <summary>
@@ -99,7 +98,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="petitionId">The petition id.</param>
         /// <param name="requestorFullJid">The full Jid of the requestor.</param>
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        /// <returns></returns>
         Task SendPetitionIdentityResponse(string legalId, string petitionId, string requestorFullJid, bool response);
 
         /// <summary>
@@ -125,7 +123,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// Gets the contract with the specified id.
         /// </summary>
         /// <param name="contractId">The contract id.</param>
-        /// <returns></returns>
+        /// <returns>Smart Contract</returns>
         Task<Contract> GetContract(string contractId);
         
         /// <summary>
@@ -152,16 +150,16 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="contract">The contract to sign.</param>
         /// <param name="role">The role of the signer.</param>
         /// <param name="transferable">Whether the contract is transferable or not.</param>
-        /// <returns></returns>
+        /// <returns>Smart Contract</returns>
         Task<Contract> SignContract(Contract contract, string role, bool transferable);
-        
+
         /// <summary>
         /// Obsoletes a contract.
         /// </summary>
         /// <param name="contractId">The id of the contract to obsolete.</param>
-        /// <returns></returns>
+        /// <returns>Smart Contract</returns>
         Task<Contract> ObsoleteContract(string contractId);
-        
+
         /// <summary>
         /// Creates a new contract.
         /// </summary>
@@ -176,7 +174,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="signAfter">Timestamp of when the contract can be signed at the earliest.</param>
         /// <param name="signBefore">Timestamp of when the contract can be signed at the latest.</param>
         /// <param name="canActAsTemplate">Can this contract act as a template itself?</param>
-        /// <returns></returns>
+        /// <returns>Smart Contract</returns>
         Task<Contract> CreateContract(
             string templateId,
             Part[] parts,
@@ -189,12 +187,12 @@ namespace Tag.Neuron.Xamarin.Services
             DateTime? signAfter,
             DateTime? signBefore,
             bool canActAsTemplate);
-        
+
         /// <summary>
         /// Deletes a contract.
         /// </summary>
         /// <param name="contractId">The id of the contract to delete.</param>
-        /// <returns></returns>
+        /// <returns>Smart Contract</returns>
         Task<Contract> DeleteContract(string contractId);
 
         /// <summary>
@@ -203,7 +201,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="contractId">The contract id.</param>
         /// <param name="petitionId">The petition id.</param>
         /// <param name="purpose">The purpose.</param>
-        /// <returns></returns>
         Task PetitionContract(string contractId, string petitionId, string purpose);
 
         /// <summary>
@@ -213,7 +210,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="petitionId">The petition id.</param>
         /// <param name="requestorFullJid">The full Jid of the requestor.</param>
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        /// <returns></returns>
         Task SendPetitionContractResponse(string contractId, string petitionId, string requestorFullJid, bool response);
 
         /// <summary>
@@ -250,7 +246,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="identity">The legal id to peer review.</param>
         /// <param name="petitionId">The petition id.</param>
         /// <param name="purpose">The purpose.</param>
-        /// <returns></returns>
         Task PetitionPeerReviewId(string legalId, LegalIdentity identity, string petitionId, string purpose);
 
         /// <summary>
@@ -259,7 +254,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="identity">The identity to which the attachment should be added.</param>
         /// <param name="reviewerLegalIdentity">The identity of the reviewer.</param>
         /// <param name="peerSignature">The raw signature data.</param>
-        /// <returns></returns>
+        /// <returns>Legal Identity</returns>
         Task<LegalIdentity> AddPeerReviewIdAttachment(LegalIdentity identity, LegalIdentity reviewerLegalIdentity, byte[] peerSignature);
 
         /// <summary>
@@ -286,7 +281,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// </summary>
         /// <param name="data">The data to sign.</param>
         /// <param name="signWith">What keys that can be used to sign the data.</param>
-        /// <returns></returns>
+        /// <returns>Signature</returns>
         Task<byte[]> Sign(byte[] data, SignWith signWith);
 
         /// <summary>Validates a signature of binary data.</summary>
@@ -310,7 +305,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// to identify the petition request.</param>
         /// <param name="requestorFullJid">Full JID of requestor.</param>
         /// <param name="response">If the petition is accepted (true) or rejected (false).</param>
-        /// <returns></returns>
         Task SendPetitionSignatureResponse(string legalId, byte[] content, byte[] signature, string petitionId, string requestorFullJid, bool response);
 
         /// <summary>

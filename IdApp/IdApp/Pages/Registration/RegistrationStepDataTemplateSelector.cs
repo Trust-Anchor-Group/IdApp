@@ -38,7 +38,7 @@ namespace IdApp.Pages.Registration
         /// </summary>
         /// <param name="item">The step to display.</param>
         /// <param name="container"></param>
-        /// <returns></returns>
+        /// <returns>Selected template</returns>
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
             RegistrationStepViewModel viewModel = (RegistrationStepViewModel)item;

@@ -73,7 +73,7 @@ namespace IdApp.Pages.Registration.Registration
         /// <summary>
         /// Overrides the back button behavior to handle navigation internally instead.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
             RegistrationViewModel viewModel = GetViewModel<RegistrationViewModel>();

@@ -9,7 +9,7 @@
         /// Converts a boolean value to the localized string 'Yes' if <c>true</c>, or 'No' if <c>false</c>.
         /// </summary>
         /// <param name="b"></param>
-        /// <returns></returns>
+        /// <returns>String representation</returns>
         public static string ToYesNo(this bool b)
         {
             return b ? AppResources.Yes : AppResources.No;

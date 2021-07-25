@@ -20,7 +20,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Generates a random password to use.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Random password</returns>
         string CreateRandomPassword();
     }
 }

@@ -105,7 +105,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// <summary>
         /// Overrides the back button behavior to handle navigation internally instead.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
             QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, string.Empty);

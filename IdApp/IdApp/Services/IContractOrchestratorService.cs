@@ -17,7 +17,6 @@ namespace IdApp.Services
         /// </summary>
         /// <param name="legalId">The id of the legal identity to show.</param>
         /// <param name="purpose">The purpose to state if the identity can't be downloaded and needs to be petitioned instead.</param>
-        /// <returns></returns>
         Task OpenLegalIdentity(string legalId, string purpose);
 
         /// <summary>
@@ -25,7 +24,6 @@ namespace IdApp.Services
         /// </summary>
         /// <param name="contractId">The id of the contract to show.</param>
         /// <param name="purpose">The purpose to state if the contract can't be downloaded and needs to be petitioned instead.</param>
-        /// <returns></returns>
         Task OpenContract(string contractId, string purpose);
 
         /// <summary>

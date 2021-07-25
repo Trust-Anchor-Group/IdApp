@@ -72,7 +72,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Gets a list of extra parameters that are useful when logging: Platform, RuntimeVersion, AppVersion.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Parameters</returns>
         IList<KeyValuePair<string, string>> GetParameters();
     }
 }

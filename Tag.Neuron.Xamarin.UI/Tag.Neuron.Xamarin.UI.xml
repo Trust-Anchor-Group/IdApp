@@ -121,7 +121,7 @@
             <param name="text">The QR Code</param>
             <param name="width">Required image width.</param>
             <param name="height">Required image height.</param>
-            <returns></returns>
+            <returns>Binary encoding of PNG</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.QrCodeImageGenerator.GenerateJpg(System.String,System.Int32,System.Int32)">
             <summary>
@@ -130,7 +130,7 @@
             <param name="text">The QR Code</param>
             <param name="width">Required image width.</param>
             <param name="height">Required image height.</param>
-            <returns></returns>
+            <returns>Binary encoding of JPG</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel">
             <summary>
@@ -155,13 +155,11 @@
             <summary>
             Called by the parent page when it appears on screen.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Unbind">
             <summary>
             Called by the parent page when it disappears from screen.
             </summary>
-            <returns></returns>
         </member>
         <member name="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Children">
             <summary>
@@ -174,7 +172,7 @@
             </summary>
             <typeparam name="T">The viewmodel type.</typeparam>
             <param name="childViewModel">The child viewmodel to add.</param>
-            <returns></returns>
+            <returns>Child view model</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.RemoveChildViewModel``1(``0)">
             <summary>
@@ -182,56 +180,49 @@
             </summary>
             <typeparam name="T">The viewmodel type.</typeparam>
             <param name="childViewModel">The child viewmodel to remove.</param>
-            <returns></returns>
+            <returns>Child view model</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoBind">
             <summary>
             Override this method to do view model specific setup when it's parent page/view appears on screen.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoUnbind">
             <summary>
             Override this method to do view model specific teardown when it's parent page/view disappears from screen.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.RestoreState">
             <summary>
             Called by the parent page when it appears on screen, <em>after</em> the <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Bind"/> method is called.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.SaveState">
             <summary>
             Called by the parent page when it disappears on screen, <em>before</em> the <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Unbind"/> method is called.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Shutdown">
             <summary>
             Convenience method that calls <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.SaveState"/> and then <see cref="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.Unbind"/>.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoRestoreState">
             <summary>
             Override this method to do view model specific restoring of state when it's parent page/view appears on screen.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.DoSaveState">
             <summary>
             Override this method to do view model specific saving of state when it's parent page/view disappears from screen.
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.GetSettingsKey(System.String)">
             <summary>
             Helper method for getting a unique settings key for a given property.
             </summary>
             <param name="propertyName">The property name to convert into a settings key.</param>
-            <returns></returns>
+            <returns>Key name</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.EvaluateCommands(System.Windows.Input.ICommand[])">
             <summary>
@@ -288,7 +279,7 @@
             Returns the viewmodel, type cast to the proper type.
             </summary>
             <typeparam name="T">The viewmodel type.</typeparam>
-            <returns></returns>
+            <returns>View model</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.Views.ContentBasePage.OnAppearing">
             <inheritdoc/>
@@ -318,7 +309,7 @@
             Returns the viewmodel, type cast to the proper type.
             </summary>
             <typeparam name="T">The viewmodel type.</typeparam>
-            <returns></returns>
+            <returns>View model</returns>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Views.FlipView">
             <summary>
@@ -377,7 +368,7 @@
             Returns the viewmodel, type cast to the proper type.
             </summary>
             <typeparam name="T">The viewmodel type.</typeparam>
-            <returns></returns>
+            <returns>View model</returns>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.Views.ShellBasePage.OnAppearing">
             Due to a bug in Xamarin Forms (https://github.com/xamarin/xamarin.forms/issues/6486)

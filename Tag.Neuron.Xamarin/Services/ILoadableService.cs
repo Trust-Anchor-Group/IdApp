@@ -20,7 +20,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Unloads the specified service.
         /// </summary>
-        /// <returns></returns>
         Task Unload();
 
         /// <summary>

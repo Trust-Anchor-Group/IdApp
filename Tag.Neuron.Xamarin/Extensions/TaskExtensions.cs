@@ -15,7 +15,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// <typeparam name="TResult">The task's result.</typeparam>
         /// <param name="task">The task to await.</param>
         /// <param name="timeout">The maximum time to wait for the task.</param>
-        /// <returns></returns>
+        /// <returns>Task waiting for the original task to complete, or a timeout to occur.</returns>
         public static async Task<TResult> TimeoutAfter<TResult>(this Task<TResult> task, TimeSpan timeout)
         {
             using (CancellationTokenSource tcs = new CancellationTokenSource())

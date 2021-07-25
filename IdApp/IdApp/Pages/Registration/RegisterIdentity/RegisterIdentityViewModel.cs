@@ -497,7 +497,6 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         /// <param name="Rotation">Rotation to use, to display the image correctly.</param>
         /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
         /// <param name="showAlert">Set to <c>true</c> to show an alert if photo is too large; <c>false</c> otherwise.</param>
-        /// <returns></returns>
         protected internal async Task AddPhoto(byte[] Bin, string ContentType, int Rotation, bool saveLocalCopy, bool showAlert)
         {
             if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
@@ -534,7 +533,6 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         /// </summary>
         /// <param name="filePath">The full path to the file.</param>
         /// <param name="saveLocalCopy">Set to <c>true</c> to save a local copy, <c>false</c> otherwise.</param>
-        /// <returns></returns>
         protected internal async Task AddPhoto(string filePath, bool saveLocalCopy)
         {
             try

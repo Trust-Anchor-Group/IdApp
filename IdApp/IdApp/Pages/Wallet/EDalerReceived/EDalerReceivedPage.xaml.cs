@@ -31,7 +31,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
         /// <summary>
         /// Overrides the back button behavior to handle navigation internally instead.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
             this.navigationService.GoBackAsync();

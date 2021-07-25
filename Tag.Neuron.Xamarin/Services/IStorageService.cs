@@ -29,7 +29,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Shuts down this persistent storage instance.
         /// </summary>
-        /// <returns></returns>
         Task Shutdown();
 
         #endregion

@@ -79,7 +79,7 @@ namespace Tag.Neuron.Xamarin
             /// Gets the predefined scheme from an IoT Code
             /// </summary>
             /// <param name="code">The code to parse.</param>
-            /// <returns></returns>
+            /// <returns>URI Scheme</returns>
             public static string GetScheme(string code)
             {
                 if (string.IsNullOrWhiteSpace(code))
@@ -109,7 +109,7 @@ namespace Tag.Neuron.Xamarin
             /// Checks if the specified code starts with the IoT ID scheme.
             /// </summary>
             /// <param name="code">The code to parse.</param>
-            /// <returns></returns>
+            /// <returns>If URI is an ID scheme</returns>
             public static bool StartsWithIdScheme(string code)
             {
                 return !string.IsNullOrWhiteSpace(code) &&
@@ -120,7 +120,7 @@ namespace Tag.Neuron.Xamarin
             /// Generates a IoT Scan Uri form the specified id.
             /// </summary>
             /// <param name="id">The Id to use when generating the Uri.</param>
-            /// <returns></returns>
+            /// <returns>Smart Contract URI</returns>
             public static string CreateSmartContractUri(string id)
             {
                 return $"{UriSchemeIotSc}:{id}";
@@ -130,7 +130,7 @@ namespace Tag.Neuron.Xamarin
             /// Generates a IoT ID Uri form the specified id.
             /// </summary>
             /// <param name="id">The Id to use when generating the Uri.</param>
-            /// <returns></returns>
+            /// <returns>Identity URI</returns>
             public static string CreateIdUri(string id)
             {
                 return $"{UriSchemeIotId}:{id}";
@@ -140,7 +140,7 @@ namespace Tag.Neuron.Xamarin
             /// Returns the raw code, minus the scheme.
             /// </summary>
             /// <param name="code">The code to parse and extract id from.</param>
-            /// <returns></returns>
+            /// <returns>Code of an URI</returns>
             public static string GetCode(string code)
             {
                 string Scheme = GetScheme(code);

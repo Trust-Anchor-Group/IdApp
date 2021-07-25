@@ -17,7 +17,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="XmppState.Connected"/>.
         /// </summary>
         /// <param name="timeout">Maximum timeout before giving up.</param>
-        /// <returns></returns>
+        /// <returns>If connected</returns>
         Task<bool> WaitForConnectedState(TimeSpan timeout);
         
         /// <summary>
@@ -35,9 +35,9 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="languageCode">Language code to use for communication.</param>
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
-        /// <returns></returns>
+        /// <returns>If connected. If not, any error message.</returns>
         Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
-        
+
         /// <summary>
         /// To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
         /// </summary>
@@ -48,11 +48,15 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="userName">The user name of the account to create.</param>
         /// <param name="password">The password to use.</param>
         /// <param name="languageCode">Language code to use for communication.</param>
+        /// <param name="ApiKey">API Key used when creating account.</param>
+        /// <param name="ApiSecret">API Secret used when creating account.</param>
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
-        /// <returns></returns>
-        Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
-        
+        /// <returns>If connected. If not, any error message.</returns>
+        Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName, 
+            int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret, Assembly appAssembly, 
+            Func<XmppClient, Task> connectedFunc);
+
         /// <summary>
         /// To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
         /// </summary>
@@ -65,7 +69,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// <param name="languageCode">Language code to use for communication.</param>
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
-        /// <returns></returns>
+        /// <returns>If connected. If not, any error message.</returns>
         Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, bool isIpAddress, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
@@ -127,7 +131,7 @@ namespace Tag.Neuron.Xamarin.Services
         /// Run this method to discover services for any given Neuron server.
         /// </summary>
         /// <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
-        /// <returns></returns>
+        /// <returns>If TAG services were found.</returns>
         Task<bool> DiscoverServices(XmppClient client = null);
 
         /// <summary>
@@ -150,7 +154,6 @@ namespace Tag.Neuron.Xamarin.Services
         /// <summary>
         /// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
         /// </summary>
-        /// <returns></returns>
         Task UnloadFast();
     }
 }

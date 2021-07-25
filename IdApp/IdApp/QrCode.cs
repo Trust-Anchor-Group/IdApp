@@ -112,7 +112,7 @@ namespace IdApp
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
         /// <param name="commandName">The localized name of the command to display when scanning.</param>
         /// <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
-        /// <returns></returns>
+        /// <returns>Decoded string</returns>
         public static Task<string> ScanQrCode(INavigationService navigationService, string commandName, Func<string, Task> action = null)
         {
             callback = action;

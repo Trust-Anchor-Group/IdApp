@@ -119,7 +119,7 @@ namespace IdApp.Extensions
         /// Converts the state to a localized string.
         /// </summary>
         /// <param name="State">The state to convert.</param>
-        /// <returns></returns>
+        /// <returns>String representation</returns>
         public static string ToDisplayText(this IdentityState State)
         {
             switch (State)

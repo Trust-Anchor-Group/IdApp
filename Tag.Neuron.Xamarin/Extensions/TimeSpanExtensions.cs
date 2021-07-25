@@ -12,7 +12,7 @@ namespace Tag.Neuron.Xamarin.Extensions
         /// </summary>
         /// <param name="ts">The <see cref="TimeSpan"/> to multiply.</param>
         /// <param name="multiplier">The multiplie to use.</param>
-        /// <returns></returns>
+        /// <returns>Scalar multiplication of a timespan.</returns>
         public static TimeSpan Multiply(this TimeSpan ts, int multiplier)
         {
             return TimeSpan.FromTicks(ts.Ticks * multiplier);
