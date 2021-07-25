@@ -1315,6 +1315,11 @@
               Looks up a localized string similar to Select your role in this contract..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.SendCode">
+            <summary>
+              Looks up a localized string similar to Send Code.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.SendPaymentTo">
             <summary>
               Looks up a localized string similar to Send Payment.
@@ -7332,14 +7337,19 @@
             Phone number
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ValidateCommand">
             <summary>
             The command to bind to for validating the phone number.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberCommand">
-            <summary>
-            The command to bind to when editing the phone number text in the UI.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.HumanReadableTag">

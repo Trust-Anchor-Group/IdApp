@@ -2347,6 +2347,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send Code.
+        /// </summary>
+        internal static string SendCode {
+            get {
+                return ResourceManager.GetString("SendCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send Payment.
         /// </summary>
         internal static string SendPaymentTo {

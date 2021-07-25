@@ -1155,4 +1155,7 @@
   <data name="SelectContactToPay" xml:space="preserve">
     <value>Below are all contacts in your contact book. Select the contact to whom you want to make the payment.</value>
   </data>
+  <data name="SendCode" xml:space="preserve">
+    <value>Send Code</value>
+  </data>
 </root>

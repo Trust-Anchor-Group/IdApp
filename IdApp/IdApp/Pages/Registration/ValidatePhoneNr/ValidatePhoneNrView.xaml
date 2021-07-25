@@ -38,16 +38,16 @@
                             </Frame.IsVisible>
                         </Frame>
                         <StackLayout Orientation="Vertical" x:Name="DomainPanel">
-                            <Entry x:Name="PhoneNumberEntry" Placeholder="{x:Static resources:AppResources.EnterPhoneNumber}" ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False">
-                                <Entry.Behaviors>
-                                    <behaviors:TextChangedBehavior TextChangedCommand="{Binding BindingContext.ManualOperatorCommand, Source={x:Reference PhoneNumberEntry}}" TextChangedCommandParameter="{Binding Path=Text, Source={x:Reference PhoneNumberEntry}}" />
-                                </Entry.Behaviors>
+                            <Entry x:Name="PhoneNumberEntry" Placeholder="{x:Static resources:AppResources.EnterPhoneNumber}" 
+                                   ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" Text="{Binding Path=PhoneNumber, Mode=TwoWay}">
                             </Entry>
                         </StackLayout>
                     </Grid>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
                 </StackLayout>
-                <Button Grid.Row="3" x:Name="ConnectButton" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.Connect}" Command="{Binding Path=ConnectCommand}"/>
+                <Button Grid.Row="3" x:Name="ValidateButton" Margin="{StaticResource DefaultMargin}" 
+                        Text="{x:Static resources:AppResources.SendCode}" Command="{Binding Path=ValidateCommand}"
+                        IsEnabled="{Binding Path=PhoneNumberValid}"/>
             </Grid>
         </Grid>
     </ContentView.Content>

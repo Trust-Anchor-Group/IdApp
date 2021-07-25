@@ -1032,6 +1032,9 @@
   <data name="UseExisting" xml:space="preserve">
     <value>Använd existerande</value>
   </data>
+  <data name="Validate" xml:space="preserve">
+    <value>Skicka kod</value>
+  </data>
   <data name="ValidateIdentityInfo1Text" xml:space="preserve">
     <value>Din identitet behöver valideras innan den kan godkännas. Det kan göras av operatören eller av en jämbördig.</value>
   </data>
