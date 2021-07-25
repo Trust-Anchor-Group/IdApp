@@ -27,7 +27,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
         }
 
@@ -36,7 +36,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("", false);
+            tagProfile.SetDomain("", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
         }
 
@@ -45,7 +45,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.ClearDomain();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
@@ -56,7 +56,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -76,7 +76,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
@@ -87,7 +87,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             tagProfile.SetLegalJid("jid");
@@ -102,7 +102,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Created };
             tagProfile.SetAccountAndLegalIdentity("account", "hash", "hashMethod", identity);
@@ -114,7 +114,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Approved };
             tagProfile.SetAccountAndLegalIdentity("account", "hash", "hashMethod", identity);
@@ -126,7 +126,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Compromised };
             tagProfile.SetAccountAndLegalIdentity("account", "hash", "hashMethod", identity);
@@ -138,7 +138,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccountAndLegalIdentity("account", "hash", "hashMethod", null);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
@@ -149,7 +149,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             LegalIdentity identity = new LegalIdentity { State = IdentityState.Compromised };
             tagProfile.SetAccountAndLegalIdentity("", "hash", "hashMethod", identity);
@@ -161,7 +161,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -175,7 +175,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -189,7 +189,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -210,7 +210,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -223,7 +223,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -239,7 +239,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -255,7 +255,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -271,7 +271,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -284,7 +284,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             tagProfile.SetLegalJid("jid");
@@ -303,7 +303,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -321,7 +321,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -334,7 +334,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);
@@ -352,7 +352,7 @@ namespace Tag.Neuron.Xamarin.Tests.Services
         {
             TagProfile tagProfile = new TagProfile();
             Assert.AreEqual(RegistrationStep.ValidatePhoneNr, tagProfile.Step);
-            tagProfile.SetDomain("domain", false);
+            tagProfile.SetDomain("domain", false, string.Empty, string.Empty);
             Assert.AreEqual(RegistrationStep.Account, tagProfile.Step);
             tagProfile.SetAccount("account", "hash", "hashMethod");
             Assert.AreEqual(RegistrationStep.RegisterIdentity, tagProfile.Step);

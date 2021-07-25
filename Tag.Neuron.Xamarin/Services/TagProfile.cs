@@ -64,6 +64,7 @@ namespace Tag.Neuron.Xamarin.Services
 		private string domain;
 		private string apiKey;
 		private string apiSecret;
+		private string phoneNumber;
 		private string account;
 		private string passwordHash;
 		private string passwordHashMethod;
@@ -118,6 +119,7 @@ namespace Tag.Neuron.Xamarin.Services
 				Domain = this.Domain,
 				ApiKey = this.ApiKey,
 				ApiSecret = this.ApiSecret,
+				PhoneNumber = this.PhoneNumber,
 				DefaultXmppConnectivity = this.DefaultXmppConnectivity,
 				Account = this.Account,
 				PasswordHash = this.PasswordHash,
@@ -153,6 +155,7 @@ namespace Tag.Neuron.Xamarin.Services
 				this.Domain = configuration.Domain;
 				this.ApiKey = configuration.ApiKey;
 				this.ApiSecret = configuration.ApiSecret;
+				this.PhoneNumber = configuration.PhoneNumber;
 				this.DefaultXmppConnectivity = configuration.DefaultXmppConnectivity;
 				this.Account = configuration.Account;
 				this.PasswordHash = configuration.PasswordHash;
@@ -262,6 +265,20 @@ namespace Tag.Neuron.Xamarin.Services
 				{
 					this.apiSecret = value;
 					this.FlagAsDirty(nameof(ApiSecret));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
+		public string PhoneNumber
+		{
+			get => this.phoneNumber;
+			private set
+			{
+				if (!string.Equals(this.phoneNumber, value))
+				{
+					this.phoneNumber = value;
+					this.FlagAsDirty(nameof(PhoneNumber));
 				}
 			}
 		}
@@ -573,10 +590,18 @@ namespace Tag.Neuron.Xamarin.Services
 		}
 
 		/// <inheritdoc/>
-		public void SetDomain(string domainName, bool defaultXmppConnectivity)
+		public void SetPhone(string PhoneNumber)
+		{
+			this.PhoneNumber = PhoneNumber;
+		}
+
+		/// <inheritdoc/>
+		public void SetDomain(string domainName, bool defaultXmppConnectivity, string Key, string Secret)
 		{
 			this.Domain = domainName;
 			this.DefaultXmppConnectivity = defaultXmppConnectivity;
+			this.ApiKey = Key;
+			this.ApiSecret = Secret;
 
 			if (!string.IsNullOrWhiteSpace(Domain) && Step == RegistrationStep.ValidatePhoneNr)
 				this.IncrementConfigurationStep();

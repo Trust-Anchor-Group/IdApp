@@ -2250,6 +2250,11 @@
             API Secret, for creating new account.
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.PhoneNumber">
+            <summary>
+            Verified phone number.
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.Services.ITagProfile.DefaultXmppConnectivity">
             <summary>
             If connecting to the domain can be done using default parameters (host=domain, default c2s port).
@@ -2391,12 +2396,20 @@
             Resets the <see cref="P:Tag.Neuron.Xamarin.Services.ITagProfile.IsDirty"/> flag, can be used after persisting values to <see cref="T:Tag.Neuron.Xamarin.Services.IStorageService"/>.
             </summary>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetDomain(System.String,System.Boolean)">
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetPhone(System.String)">
+            <summary>
+            Step 1 - set the domain name to connect to.
+            </summary>
+            <param name="PhoneNumber">Verified phone number.</param>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.SetDomain(System.String,System.Boolean,System.String,System.String)">
             <summary>
             Step 1 - set the domain name to connect to.
             </summary>
             <param name="domainName">The domain name.</param>
             <param name="defaultXmppConnectivity">If connecting to the domain can be done using default parameters (host=domain, default c2s port).</param>
+            <param name="Key">Key to use, if an account is to be created.</param>
+            <param name="Secret">Secret to use, if an account is to be created.</param>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.ITagProfile.ClearDomain">
             <summary>
@@ -2917,6 +2930,11 @@
             API Secret
             </summary>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.PhoneNumber">
+            <summary>
+            Verified Phone Number
+            </summary>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagConfiguration.DefaultXmppConnectivity">
             <summary>
             If connecting to the domain can be done using default parameters (host=domain, default c2s port).
@@ -3098,6 +3116,9 @@
         <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.ApiSecret">
             <inheritdoc/>
         </member>
+        <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.PhoneNumber">
+            <inheritdoc/>
+        </member>
         <member name="P:Tag.Neuron.Xamarin.Services.TagProfile.Account">
             <inheritdoc/>
         </member>
@@ -3158,7 +3179,10 @@
         <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ResetIsDirty">
             <inheritdoc/>
         </member>
-        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetDomain(System.String,System.Boolean)">
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetPhone(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.SetDomain(System.String,System.Boolean,System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:Tag.Neuron.Xamarin.Services.TagProfile.ClearDomain">

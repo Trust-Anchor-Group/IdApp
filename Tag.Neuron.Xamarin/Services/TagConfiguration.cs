@@ -35,6 +35,12 @@ namespace Tag.Neuron.Xamarin.Services
 		public string ApiSecret { get; set; }
 
 		/// <summary>
+		/// Verified Phone Number
+		/// </summary>
+		[DefaultValueStringEmpty]
+		public string PhoneNumber { get; set; }
+
+		/// <summary>
 		/// If connecting to the domain can be done using default parameters (host=domain, default c2s port).
 		/// </summary>
 		[DefaultValue(false)]

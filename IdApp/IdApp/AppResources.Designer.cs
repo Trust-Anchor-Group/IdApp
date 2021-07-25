@@ -2752,6 +2752,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The code was not correct..
+        /// </summary>
+        internal static string UnableToVerifyCode {
+            get {
+                return ResourceManager.GetString("UnableToVerifyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unrecognized eDaler URI..
         /// </summary>
         internal static string UnrecognizedEDalerURI {
@@ -2824,6 +2833,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verification Code.
+        /// </summary>
+        internal static string VerificationCode {
+            get {
+                return ResourceManager.GetString("VerificationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify Code.
+        /// </summary>
+        internal static string VerifyCode {
+            get {
+                return ResourceManager.GetString("VerifyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Version.
         /// </summary>
         internal static string Version {
@@ -2865,6 +2892,15 @@ namespace IdApp {
         internal static string Wallet {
             get {
                 return ResourceManager.GetString("Wallet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
+        /// </summary>
+        internal static string WelcomeToTagCodeSent {
+            get {
+                return ResourceManager.GetString("WelcomeToTagCodeSent", resourceCulture);
             }
         }
         

@@ -1540,6 +1540,11 @@
               Looks up a localized string similar to Unable to process eDaler code..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.UnableToVerifyCode">
+            <summary>
+              Looks up a localized string similar to The code was not correct..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.UnrecognizedEDalerURI">
             <summary>
               Looks up a localized string similar to Unrecognized eDaler URI..
@@ -1580,6 +1585,16 @@
               Looks up a localized string similar to Validating information.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.VerificationCode">
+            <summary>
+              Looks up a localized string similar to Verification Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.VerifyCode">
+            <summary>
+              Looks up a localized string similar to Verify Code.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Version">
             <summary>
               Looks up a localized string similar to Version.
@@ -1603,6 +1618,11 @@
         <member name="P:IdApp.AppResources.Wallet">
             <summary>
               Looks up a localized string similar to Wallet.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.WelcomeToTagCodeSent">
+            <summary>
+              Looks up a localized string similar to A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.WelcomeToTagHeading">
@@ -7339,7 +7359,7 @@
         </member>
         <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValidProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumber"/>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValid"/>
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberValid">
@@ -7347,9 +7367,44 @@
             If Phone number is valid or not
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.ValidateCommand">
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSentProperty">
             <summary>
-            The command to bind to for validating the phone number.
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSent"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.CodeSent">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCode"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCode">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValidProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerificationCodeValid">
+            <summary>
+            If Phone number is valid or not
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.SendCodeCommand">
+            <summary>
+            The command to bind to for sending a code to the provided phone number.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.VerifyCodeCommand">
+            <summary>
+            The command to bind to for sending a code verification request.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Things.HumanReadableTag">

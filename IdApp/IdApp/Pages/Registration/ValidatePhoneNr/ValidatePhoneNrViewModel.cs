@@ -17,10 +17,6 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 	public class ValidatePhoneNrViewModel : RegistrationStepViewModel
 	{
 		private readonly INetworkService networkService;
-		private string hostName;
-		private string apiKey;
-		private string apiSecret;
-		private int portNumber;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidatePhoneNrViewModel"/> class.
@@ -43,7 +39,8 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			: base(RegistrationStep.ValidatePhoneNr, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
 		{
 			this.networkService = networkService;
-			this.ValidateCommand = new Command(async () => await this.Validate(), ValidateCanExecute);
+			this.SendCodeCommand = new Command(async () => await this.SendCode(), this.SendCodeCanExecute);
+			this.VerifyCodeCommand = new Command(async () => await this.VerifyCode(), this.VerifyCodeCanExecute);
 			this.Title = AppResources.EnterPhoneNumber;
 		}
 
@@ -54,32 +51,37 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		{
 			await base.DoBind();
 
-			try
+			if (string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
 			{
-				object Result = await InternetContent.PostAsync(
-					new Uri("https://id.tagroot.io/ID/CountryCode.ws"), string.Empty,
-					new KeyValuePair<string, string>("Accept", "application/json"));
-
-				if (Result is Dictionary<string, object> Response &&
-					Response.TryGetValue("PhoneCode", out object Obj) && Obj is string PhoneCode)
+				try
 				{
-					this.PhoneNumber = PhoneCode;
+					object Result = await InternetContent.PostAsync(
+						new Uri("https://id.tagroot.io/ID/CountryCode.ws"), string.Empty,
+						new KeyValuePair<string, string>("Accept", "application/json"));
+
+					if (Result is Dictionary<string, object> Response &&
+						Response.TryGetValue("PhoneCode", out object Obj) && Obj is string PhoneCode)
+					{
+						this.PhoneNumber = PhoneCode;
+					}
+					else
+						this.PhoneNumber = "+";
 				}
-				else
+				catch (Exception ex)
+				{
 					this.PhoneNumber = "+";
+					this.LogService.LogException(ex);
+				}
 			}
-			catch (Exception ex)
-			{
-				this.PhoneNumber = "+";
-				this.LogService.LogException(ex);
-			}
+			else
+				this.PhoneNumber = this.TagProfile.PhoneNumber;
 
 			this.EvaluateAllCommands();
 		}
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.ValidateCommand);
+			this.EvaluateCommands(this.SendCodeCommand);
 		}
 
 		#region Properties
@@ -88,12 +90,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// See <see cref="PhoneNumber"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNumberProperty =
-			BindableProperty.Create("PhoneNumber", typeof(string), typeof(ValidatePhoneNrViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-			{
-				ValidatePhoneNrViewModel viewModel = (ValidatePhoneNrViewModel)b;
-				System.Diagnostics.Debug.WriteLine($"PhoneNumber changed from '{oldValue}' to '{newValue}'");
-				viewModel.ValidateCommand.ChangeCanExecute();
-			});
+			BindableProperty.Create("PhoneNumber", typeof(string), typeof(ValidatePhoneNrViewModel), default(string));
 
 		/// <summary>
 		/// Phone number
@@ -104,20 +101,15 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			set
 			{
 				SetValue(PhoneNumberProperty, value);
-				SetValue(PhoneNumberValidProperty, this.ValidatePhoneNr(value));
+				SetValue(PhoneNumberValidProperty, this.IsInternationalPhoneNumberFormat(value));
 			}
 		}
 
 		/// <summary>
-		/// See <see cref="PhoneNumber"/>
+		/// See <see cref="PhoneNumberValid"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNumberValidProperty =
-			BindableProperty.Create("PhoneNumberValid", typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
-			{
-				ValidatePhoneNrViewModel viewModel = (ValidatePhoneNrViewModel)b;
-				System.Diagnostics.Debug.WriteLine($"PhoneNumberValid changed from '{oldValue}' to '{newValue}'");
-				viewModel.ValidateCommand.ChangeCanExecute();
-			});
+			BindableProperty.Create("PhoneNumberValid", typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
 
 		/// <summary>
 		/// If Phone number is valid or not
@@ -129,13 +121,67 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		}
 
 		/// <summary>
-		/// The command to bind to for validating the phone number.
+		/// See <see cref="CodeSent"/>
 		/// </summary>
-		public ICommand ValidateCommand { get; }
+		public static readonly BindableProperty CodeSentProperty =
+			BindableProperty.Create("CodeSent", typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
+
+		/// <summary>
+		/// If Phone number is valid or not
+		/// </summary>
+		public bool CodeSent
+		{
+			get { return (bool)GetValue(CodeSentProperty); }
+			set { SetValue(CodeSentProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="VerificationCode"/>
+		/// </summary>
+		public static readonly BindableProperty VerificationCodeProperty =
+			BindableProperty.Create("VerificationCode", typeof(string), typeof(ValidatePhoneNrViewModel), default(string));
+
+		/// <summary>
+		/// Phone number
+		/// </summary>
+		public string VerificationCode
+		{
+			get { return (string)GetValue(VerificationCodeProperty); }
+			set
+			{
+				SetValue(VerificationCodeProperty, value);
+				SetValue(VerificationCodeValidProperty, this.IsVerificationCode(value));
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="VerificationCodeValid"/>
+		/// </summary>
+		public static readonly BindableProperty VerificationCodeValidProperty =
+			BindableProperty.Create("VerificationCodeValid", typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
+
+		/// <summary>
+		/// If Phone number is valid or not
+		/// </summary>
+		public bool VerificationCodeValid
+		{
+			get { return (bool)GetValue(VerificationCodeValidProperty); }
+			set { SetValue(VerificationCodeValidProperty, value); }
+		}
+
+		/// <summary>
+		/// The command to bind to for sending a code to the provided phone number.
+		/// </summary>
+		public ICommand SendCodeCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for sending a code verification request.
+		/// </summary>
+		public ICommand VerifyCodeCommand { get; }
 
 		#endregion
 
-		private async Task Validate()
+		private async Task SendCode()
 		{
 			if (!this.networkService.IsOnline)
 			{
@@ -143,7 +189,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				return;
 			}
 
-			SetIsBusy(ValidateCommand);
+			SetIsBusy(SendCodeCommand);
 
 			try
 			{
@@ -157,33 +203,9 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 					Response.TryGetValue("Status", out object Obj) && Obj is bool Status &&
 					Status)
 				{
+					this.VerificationCode = string.Empty;
+					this.CodeSent = true;
 				}
-				else
-				{
-				}
-
-				//string domainName = GetOperator();
-				//(this.hostName, this.portNumber, this.isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
-				//
-				//(bool succeeded, string errorMessage) = await this.NeuronService.TryConnect(domainName, this.isIpAddress, hostName, portNumber, Constants.LanguageCodes.Default, typeof(App).Assembly, null);
-				//
-				//UiDispatcher.BeginInvokeOnMainThread(async () =>
-				//{
-				//	this.SetIsDone(ValidateCommand);
-				//
-				//	if (succeeded)
-				//	{
-				//		bool DefaultConnectivity = hostName == domainName && portNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
-				//
-				//		this.TagProfile.SetDomain(domainName, DefaultConnectivity);
-				//		this.OnStepCompleted(EventArgs.Empty);
-				//	}
-				//	else
-				//	{
-				//		this.LogService.LogException(new InvalidOperationException(), new KeyValuePair<string, string>("Connect", "Failed to connect"));
-				//		await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
-				//	}
-				//});
 			}
 			catch (Exception ex)
 			{
@@ -192,23 +214,103 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			}
 			finally
 			{
-				this.BeginInvokeSetIsDone(ValidateCommand);
+				this.BeginInvokeSetIsDone(SendCodeCommand);
 			}
 		}
 
-		private bool ValidateCanExecute()
+		private bool SendCodeCanExecute()
 		{
 			if (IsBusy) // is connecting
 				return false;
 
-			return this.ValidatePhoneNr(this.PhoneNumber);
+			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
 		}
 
-		private bool ValidatePhoneNr(string PhoneNr)
+		private async Task VerifyCode()
+		{
+			if (!this.networkService.IsOnline)
+			{
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				return;
+			}
+
+			SetIsBusy(VerifyCodeCommand);
+
+			try
+			{
+				object Result = await InternetContent.PostAsync(new Uri("https://id.tagroot.io/ID/VerifyNumber.ws"),
+					new Dictionary<string, object>()
+					{
+						{ "Nr", this.PhoneNumber },
+						{ "Code", int.Parse(this.VerificationCode) }
+					}, new KeyValuePair<string, string>("Accept", "application/json"));
+
+				if (Result is Dictionary<string, object> Response &&
+					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status &&
+					Response.TryGetValue("Domain", out Obj) && Obj is string Domain &&
+					Response.TryGetValue("Key", out Obj) && Obj is string Key &&
+					Response.TryGetValue("Secret", out Obj) && Obj is string Secret)
+				{
+					bool DefaultConnectivity;
+
+					this.TagProfile.SetPhone(this.PhoneNumber);
+
+					try
+					{
+						(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
+						DefaultConnectivity = HostName == Domain && PortNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
+					}
+					catch (Exception)
+					{
+						DefaultConnectivity = false;
+					}
+
+					UiDispatcher.BeginInvokeOnMainThread(() =>
+					{
+						this.SetIsDone(VerifyCodeCommand);
+
+						this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
+						this.OnStepCompleted(EventArgs.Empty);
+					});
+				}
+				else
+				{
+					this.CodeSent = false;
+					this.VerificationCode = string.Empty;
+
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
+				}
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+			}
+			finally
+			{
+				this.BeginInvokeSetIsDone(VerifyCodeCommand);
+			}
+		}
+
+		private bool VerifyCodeCanExecute()
+		{
+			if (IsBusy) // is connecting
+				return false;
+
+			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
+		}
+
+		private bool IsInternationalPhoneNumberFormat(string PhoneNr)
 		{
 			return !string.IsNullOrEmpty(PhoneNr) && internationalPhoneNr.IsMatch(PhoneNr);
 		}
 
+		private bool IsVerificationCode(string Code)
+		{
+			return !string.IsNullOrEmpty(Code) && verificationCode.IsMatch(Code);
+		}
+
 		private static readonly Regex internationalPhoneNr = new Regex(@"^\+[1-9]\d{4,}$", RegexOptions.Singleline);
+		private static readonly Regex verificationCode = new Regex(@"^[1-9]\d{5}$", RegexOptions.Singleline);
 	}
 }

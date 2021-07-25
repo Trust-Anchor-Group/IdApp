@@ -3,9 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                       xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
                       xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
-                      xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                       xmlns:system="clr-namespace:System;assembly=netstandard"
-                      xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
                       x:Class="IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView">
     <ContentView.Content>
         <Grid Margin="0,0,0,0">
@@ -16,39 +14,44 @@
                     </OnPlatform>
                 </Image.Margin>
             </Image>
-            <Grid Margin="{StaticResource DefaultLeftRightMargin}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <Label Grid.Row="0" Margin="20" Text="{x:Static resources:AppResources.WelcomeToTagHeading}" HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
-                <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagSubheading}" VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
-
-                <StackLayout Grid.Row="2" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
+            <ScrollView Margin="{StaticResource DefaultLeftRightMargin}">
+                <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
                     <Grid>
-                        <Frame CornerRadius="5" BackgroundColor="#99ffffff">
-                            <Frame.IsVisible>
-                                <OnPlatform x:TypeArguments="system:Boolean">
-                                    <On Platform="Android" Value="true"/>
-                                    <On Platform="iOS" Value="false"/>
-                                </OnPlatform>
-                            </Frame.IsVisible>
-                        </Frame>
-                        <StackLayout Orientation="Vertical" x:Name="DomainPanel">
-                            <Entry x:Name="PhoneNumberEntry" Placeholder="{x:Static resources:AppResources.EnterPhoneNumber}" 
-                                   ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" Text="{Binding Path=PhoneNumber, Mode=TwoWay}">
-                            </Entry>
-                        </StackLayout>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#e0ffffff"/>
+                        <Label Grid.Row="0" Margin="20" Text="{x:Static resources:AppResources.WelcomeToTagHeading}" 
+                           HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
+                        <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagSubheading}" 
+                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
+                        <Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resources:AppResources.EnterPhoneNumber}" 
+                                ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" 
+                                Text="{Binding Path=PhoneNumber, Mode=TwoWay}"/>
                     </Grid>
+                    <Button x:Name="SendCodeButton" Margin="{StaticResource DefaultMargin}" 
+                        Text="{x:Static resources:AppResources.SendCode}" Command="{Binding Path=SendCodeCommand}"
+                        IsEnabled="{Binding Path=PhoneNumberValid}"/>
+                    <Grid IsVisible="{Binding Path=CodeSent}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#e0ffffff"/>
+                        <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagCodeSent}" FontSize="Body"
+                           VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=CodeSent}" />
+                        <Entry Grid.Row="1" x:Name="VerificationCodeEntry" Placeholder="{x:Static resources:AppResources.VerificationCode}" 
+                                ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" 
+                                Text="{Binding Path=VerificationCode, Mode=TwoWay}"/>
+                    </Grid>
+                    <Button x:Name="VerifyCodeButton" Margin="{StaticResource DefaultMargin}" 
+                        Text="{x:Static resources:AppResources.VerifyCode}" Command="{Binding Path=VerifyCodeCommand}"
+                        IsEnabled="{Binding Path=VerificationCodeValid}" IsVisible="{Binding Path=CodeSent}"/>
                     <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
                 </StackLayout>
-                <Button Grid.Row="3" x:Name="ValidateButton" Margin="{StaticResource DefaultMargin}" 
-                        Text="{x:Static resources:AppResources.SendCode}" Command="{Binding Path=ValidateCommand}"
-                        IsEnabled="{Binding Path=PhoneNumberValid}"/>
-            </Grid>
+            </ScrollView>
         </Grid>
     </ContentView.Content>
 </registration:RegistrationStepView>

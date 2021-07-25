@@ -38,6 +38,11 @@ namespace Tag.Neuron.Xamarin.Services
 		/// API Secret, for creating new account.
 		/// </summary>
 		string ApiSecret { get; }
+		
+		/// <summary>
+		/// Verified phone number.
+		/// </summary>
+		string PhoneNumber { get; }
 
 		/// <summary>
 		/// If connecting to the domain can be done using default parameters (host=domain, default c2s port).
@@ -183,9 +188,17 @@ namespace Tag.Neuron.Xamarin.Services
 		/// <summary>
 		/// Step 1 - set the domain name to connect to.
 		/// </summary>
+		/// <param name="PhoneNumber">Verified phone number.</param>
+		void SetPhone(string PhoneNumber);
+
+		/// <summary>
+		/// Step 1 - set the domain name to connect to.
+		/// </summary>
 		/// <param name="domainName">The domain name.</param>
 		/// <param name="defaultXmppConnectivity">If connecting to the domain can be done using default parameters (host=domain, default c2s port).</param>
-		void SetDomain(string domainName, bool defaultXmppConnectivity);
+		/// <param name="Key">Key to use, if an account is to be created.</param>
+		/// <param name="Secret">Secret to use, if an account is to be created.</param>
+		void SetDomain(string domainName, bool defaultXmppConnectivity, string Key, string Secret);
 
 		/// <summary>
 		/// Revert Step 1.

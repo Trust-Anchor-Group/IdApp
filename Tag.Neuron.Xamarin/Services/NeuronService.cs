@@ -130,7 +130,7 @@ namespace Tag.Neuron.Xamarin.Services
 						(HostName, PortNumber, IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
 
 						if (HostName == domainName && PortNumber == XmppCredentials.DefaultPort)
-							this.tagProfile.SetDomain(domainName, true);
+							this.tagProfile.SetDomain(domainName, true, this.tagProfile.ApiKey, this.tagProfile.ApiSecret);
 					}
 
 					this.xmppLastStateChange = DateTime.Now;

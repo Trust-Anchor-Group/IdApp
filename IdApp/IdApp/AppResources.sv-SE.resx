@@ -1020,6 +1020,9 @@
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
     <value>Kunde inte behandla eDaler-koden.</value>
   </data>
+  <data name="UnableToVerifyCode" xml:space="preserve">
+    <value>Koden var inte korrekt.</value>
+  </data>
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
     <value>Okänd eDaler-URI.</value>
   </data>
@@ -1047,6 +1050,12 @@
   <data name="ValidatingInformation" xml:space="preserve">
     <value>Validerar information</value>
   </data>
+  <data name="VerificationCode" xml:space="preserve">
+    <value>Verifieringskod</value>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>Verifiera koden</value>
+  </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
@@ -1061,6 +1070,9 @@
   </data>
   <data name="Wallet" xml:space="preserve">
     <value>Plånbok</value>
+  </data>
+  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+    <value>En kod har skickats till numret angivet ovan. När du tar emot det, var god skriv ner verifieringskoden nedan for att fortsätta.</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Välkommen till TAGs digitala ID-app!</value>

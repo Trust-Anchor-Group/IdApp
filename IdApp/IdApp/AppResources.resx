@@ -1158,4 +1158,16 @@
   <data name="SendCode" xml:space="preserve">
     <value>Send Code</value>
   </data>
+  <data name="UnableToVerifyCode" xml:space="preserve">
+    <value>The code was not correct.</value>
+  </data>
+  <data name="VerificationCode" xml:space="preserve">
+    <value>Verification Code</value>
+  </data>
+  <data name="VerifyCode" xml:space="preserve">
+    <value>Verify Code</value>
+  </data>
+  <data name="WelcomeToTagCodeSent" xml:space="preserve">
+    <value>A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue.</value>
+  </data>
 </root>
