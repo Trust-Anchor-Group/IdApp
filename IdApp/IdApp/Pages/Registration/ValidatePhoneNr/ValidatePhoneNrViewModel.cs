@@ -185,11 +185,6 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				//	}
 				//});
 			}
-			catch (Waher.Content.Getters.WebException ex)
-			{
-				this.LogService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
-			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
