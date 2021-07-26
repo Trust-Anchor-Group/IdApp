@@ -1130,6 +1130,26 @@
               Looks up a localized string similar to Purpose.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.PurposeEducationalOrExperimental">
+            <summary>
+              Looks up a localized string similar to For educational or experimental use..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PurposeWorkEducationalOrExperimental">
+            <summary>
+              Looks up a localized string similar to This option allows you to use Tag ID for educational, experimental or test purposes. There are no costs incurred when using this option. The account may be removed when no longer used. There is no guarantee the educational or experimental service provider selected will continue operation for extended periods of time..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PurposeWorkOrPersonal">
+            <summary>
+              Looks up a localized string similar to For work or personal use..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PurposeWorkOrPersonalDescription">
+            <summary>
+              Looks up a localized string similar to This option allows you to use Tag ID for work or personal purposes. You can use the app for three months at no cost. After this time period, certain operations may incur costs..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Qrcode">
             <summary>
               Looks up a localized string similar to QR Code.
@@ -1298,6 +1318,11 @@
         <member name="P:IdApp.AppResources.SelectingAPhotoIsNotSupported">
             <summary>
               Looks up a localized string similar to Selecting a photo is not supported on this device.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SelectPurpose">
+            <summary>
+              Looks up a localized string similar to Select Purpose.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SelectWhoShouldHaveAccessToThisContract">
@@ -1630,9 +1655,14 @@
               Looks up a localized string similar to Welcome to TAG Digital ID App!.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.WelcomeToTagPurposeSelected">
+            <summary>
+              Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.WelcomeToTagSubheading">
             <summary>
-              Looks up a localized string similar to Before connecting to the TAG ID network, we need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+              Looks up a localized string similar to Before connecting to the TAG ID network, we need to select a service provider for you. To do this, we need to know the purpose for using the app. Select the most appropriate option below..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.XmppState_Authenticating">
@@ -1845,6 +1875,34 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.EqualsOne">
+            <summary>
+            Is true if an integer property is equal to one.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsOne.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.EqualsOne.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.EqualsOne.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Converters.EqualsZero">
+            <summary>
+            Is true if an integer property is equal to zero.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.EqualsZero.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.EqualsZero.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.EqualsZero.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Converters.LogicalNot">
@@ -7325,6 +7383,26 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView"/> class.
             </summary>
         </member>
+        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView.ScrollDown">
+            <summary>
+            Scrolls down to the bottom of the view.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse">
+            <summary>
+            For what purpose the app will be used
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse.WorkOrPersonal">
+            <summary>
+            For work or personal use
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.PurposeUse.EducationalOrExperimental">
+            <summary>
+            For educational or experimental use
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel">
             <summary>
             The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
@@ -7345,6 +7423,31 @@
         <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.DoBind">
             <summary>
             Override this method to do view model specific setup when it's parent page/view appears on screen.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purposes">
+            <summary>
+            Holds the list of purposes to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purpose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.Purpose">
+            <summary>
+            Phone number
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelectedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelected"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PurposeSelected">
+            <summary>
+            If Phone number is valid or not
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.PhoneNumberProperty">

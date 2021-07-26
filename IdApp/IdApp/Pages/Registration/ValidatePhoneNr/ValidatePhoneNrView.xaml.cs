@@ -1,4 +1,6 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.ValidatePhoneNr
 {
@@ -15,5 +17,13 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
         {
             InitializeComponent();
         }
-    }
+
+        /// <summary>
+        /// Scrolls down to the bottom of the view.
+        /// </summary>
+        public async void ScrollDown()
+		{
+            await this.ScrollView.ScrollToAsync(0, this.ScrollView.Height, true);
+		}
+	}
 }

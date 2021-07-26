@@ -1,16 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Pages.Main.Main;
+using IdApp.Pages.Registration.Registration;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Content;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration.ValidatePhoneNr
 {
+	/// <summary>
+	/// For what purpose the app will be used
+	/// </summary>
+	public enum PurposeUse
+	{
+		/// <summary>
+		/// For work or personal use
+		/// </summary>
+		WorkOrPersonal = 0,
+
+		/// <summary>
+		/// For educational or experimental use
+		/// </summary>
+		EducationalOrExperimental = 1
+	}
+
 	/// <summary>
 	/// The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
 	/// </summary>
@@ -42,6 +60,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			this.SendCodeCommand = new Command(async () => await this.SendCode(), this.SendCodeCanExecute);
 			this.VerifyCodeCommand = new Command(async () => await this.VerifyCode(), this.VerifyCodeCanExecute);
 			this.Title = AppResources.EnterPhoneNumber;
+			this.Purposes = new ObservableCollection<string>();
 		}
 
 		/// <summary>
@@ -50,6 +69,10 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
+
+			this.Purposes.Clear();
+			this.Purposes.Add(AppResources.PurposeWorkOrPersonal);
+			this.Purposes.Add(AppResources.PurposeEducationalOrExperimental);
 
 			if (string.IsNullOrEmpty(this.TagProfile.PhoneNumber))
 			{
@@ -81,10 +104,49 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.SendCodeCommand);
+			this.EvaluateCommands(this.SendCodeCommand, this.VerifyCodeCommand);
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// Holds the list of purposes to display.
+		/// </summary>
+		public ObservableCollection<string> Purposes { get; }
+
+		/// <summary>
+		/// See <see cref="Purpose"/>
+		/// </summary>
+		public static readonly BindableProperty PurposeProperty =
+			BindableProperty.Create("Purpose", typeof(int), typeof(ValidatePhoneNrViewModel), -1);
+
+		/// <summary>
+		/// Phone number
+		/// </summary>
+		public int Purpose
+		{
+			get { return (int)GetValue(PurposeProperty); }
+			set
+			{
+				SetValue(PurposeProperty, value);
+				this.PurposeSelected = true;
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="PurposeSelected"/>
+		/// </summary>
+		public static readonly BindableProperty PurposeSelectedProperty =
+			BindableProperty.Create("PurposeSelected", typeof(bool), typeof(ValidatePhoneNrViewModel), default(bool));
+
+		/// <summary>
+		/// If Phone number is valid or not
+		/// </summary>
+		public bool PurposeSelected
+		{
+			get { return (bool)GetValue(PurposeSelectedProperty); }
+			set { SetValue(PurposeSelectedProperty, value); }
+		}
 
 		/// <summary>
 		/// See <see cref="PhoneNumber"/>
@@ -189,7 +251,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				return;
 			}
 
-			SetIsBusy(SendCodeCommand);
+			this.SetIsBusy(SendCodeCommand);
 
 			try
 			{
@@ -234,7 +296,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				return;
 			}
 
-			SetIsBusy(VerifyCodeCommand);
+			this.SetIsBusy(VerifyCodeCommand);
 
 			try
 			{
@@ -242,7 +304,8 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 					new Dictionary<string, object>()
 					{
 						{ "Nr", this.PhoneNumber },
-						{ "Code", int.Parse(this.VerificationCode) }
+						{ "Code", int.Parse(this.VerificationCode) },
+						{ "Test", this.Purpose == (int)PurposeUse.EducationalOrExperimental }
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
 
 				if (Result is Dictionary<string, object> Response &&

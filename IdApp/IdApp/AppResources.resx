@@ -1051,7 +1051,7 @@
     <value>Welcome to TAG Digital ID App!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Before connecting to the TAG ID network, we need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces.</value>
+    <value>Before connecting to the TAG ID network, we need to select a service provider for you. To do this, we need to know the purpose for using the app. Select the most appropriate option below.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Authenticating network identity</value>
@@ -1166,6 +1166,24 @@
   </data>
   <data name="VerifyCode" xml:space="preserve">
     <value>Verify Code</value>
+  </data>
+  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+    <value>We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces.</value>
+  </data>
+  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
+    <value>For educational or experimental use.</value>
+  </data>
+  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
+    <value>This option allows you to use Tag ID for educational, experimental or test purposes. There are no costs incurred when using this option. The account may be removed when no longer used. There is no guarantee the educational or experimental service provider selected will continue operation for extended periods of time.</value>
+  </data>
+  <data name="PurposeWorkOrPersonal" xml:space="preserve">
+    <value>For work or personal use.</value>
+  </data>
+  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
+    <value>This option allows you to use Tag ID for work or personal purposes. You can use the app for three months at no cost. After this time period, certain operations may incur costs.</value>
+  </data>
+  <data name="SelectPurpose" xml:space="preserve">
+    <value>Select Purpose</value>
   </data>
   <data name="WelcomeToTagCodeSent" xml:space="preserve">
     <value>A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue.</value>

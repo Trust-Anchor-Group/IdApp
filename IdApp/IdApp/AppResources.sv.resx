@@ -768,6 +768,18 @@
   <data name="Purpose" xml:space="preserve">
     <value>Syfte</value>
   </data>
+  <data name="PurposeEducationalOrExperimental" xml:space="preserve">
+    <value>För utbildning eller experimentell användning.</value>
+  </data>
+  <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
+    <value>Detta val tillåter dig att använda Tag ID för utbildnings eller experimentella syften. När man använder detta val medförs inga kostnader. Kontot kan tas bort när det inte längre används. Det finns heller ingen garanti att den utvalda tjänsteleverantören kommer att fortsätta driften under en längre tid.</value>
+  </data>
+  <data name="PurposeWorkOrPersonal" xml:space="preserve">
+    <value>För arbete eller personlig användning.</value>
+  </data>
+  <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
+    <value>Detta val tillåter dig att använda Tag ID för arbete eller personligt bruk. Du kan använda appen i tre månader utan kostnad. Efter denna tidsperiod kan vissa funktioner medföra kostnader.</value>
+  </data>
   <data name="Qrcode" xml:space="preserve">
     <value>QR-kod</value>
   </data>
@@ -869,6 +881,9 @@
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
     <value>Att välja en bild stöds inte på den här enheten</value>
+  </data>
+  <data name="SelectPurpose" xml:space="preserve">
+    <value>Välj ändamål</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
     <value>Välj vem som ska ha tillgång till det här kontraktet.</value>
@@ -1077,8 +1092,11 @@
   <data name="WelcomeToTagHeading" xml:space="preserve">
     <value>Välkommen till TAGs digitala ID-app!</value>
   </data>
+  <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
+    <value>Vi behöver också valdera ditt mobilnummer. Var god och skriv in ditt mobiltelefonnummer nedan, genom att använda det internationella telefonnummerformatet, utan mellanslag.</value>
+  </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Innan du kan ansluta till nätverket för TAG ID, behöver vi validera ditt mobila telefonnummer. Var god och skriv in ditt mobiltelefonnummer nedan, genom att använda det internationella telefonnummerformatet, utan mellanslag.</value>
+    <value>Innan du kan ansluta till nätverket för TAG ID, behöver vi välja en tjänsteleverantör åt dig. För att kunna göra detta behöver vi veta för vilket ändamål du använder appen. Välj det mest lämpliga alternativet nedan.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
     <value>Autentiserar nätverksidentitet</value>

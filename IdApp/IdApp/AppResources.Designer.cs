@@ -2014,6 +2014,42 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to For educational or experimental use..
+        /// </summary>
+        internal static string PurposeEducationalOrExperimental {
+            get {
+                return ResourceManager.GetString("PurposeEducationalOrExperimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for educational, experimental or test purposes. There are no costs incurred when using this option. The account may be removed when no longer used. There is no guarantee the educational or experimental service provider selected will continue operation for extended periods of time..
+        /// </summary>
+        internal static string PurposeWorkEducationalOrExperimental {
+            get {
+                return ResourceManager.GetString("PurposeWorkEducationalOrExperimental", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For work or personal use..
+        /// </summary>
+        internal static string PurposeWorkOrPersonal {
+            get {
+                return ResourceManager.GetString("PurposeWorkOrPersonal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows you to use Tag ID for work or personal purposes. You can use the app for three months at no cost. After this time period, certain operations may incur costs..
+        /// </summary>
+        internal static string PurposeWorkOrPersonalDescription {
+            get {
+                return ResourceManager.GetString("PurposeWorkOrPersonalDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to QR Code.
         /// </summary>
         internal static string Qrcode {
@@ -2316,6 +2352,15 @@ namespace IdApp {
         internal static string SelectingAPhotoIsNotSupported {
             get {
                 return ResourceManager.GetString("SelectingAPhotoIsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Purpose.
+        /// </summary>
+        internal static string SelectPurpose {
+            get {
+                return ResourceManager.GetString("SelectPurpose", resourceCulture);
             }
         }
         
@@ -2914,7 +2959,16 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Before connecting to the TAG ID network, we need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+        ///   Looks up a localized string similar to We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces..
+        /// </summary>
+        internal static string WelcomeToTagPurposeSelected {
+            get {
+                return ResourceManager.GetString("WelcomeToTagPurposeSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Before connecting to the TAG ID network, we need to select a service provider for you. To do this, we need to know the purpose for using the app. Select the most appropriate option below..
         /// </summary>
         internal static string WelcomeToTagSubheading {
             get {
