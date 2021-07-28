@@ -69,7 +69,7 @@ namespace Tag.Neuron.Xamarin.Services
 
 		public string CreateRandomPassword()
 		{
-			return Hashes.BinaryToString(GetBytes(16));
+			return Hashes.BinaryToString(GetBytes(32));
 		}
 
 		private byte[] GetBytes(int nrBytes)
