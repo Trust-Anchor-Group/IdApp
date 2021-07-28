@@ -48,7 +48,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
             this.ActionButtonText = AppResources.CreateNew;
             this.CreateNew = true;
             this.Mode = AccountMode.Create;
-            this.CreateRandomPassword = true;
             this.SwitchModeCommand = new Command(_ => CreateNew = !CreateNew, _ => !IsBusy);
             this.Title = AppResources.ChooseAccount;
         }
@@ -108,7 +107,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
                 viewModel.Mode = createNew ? AccountMode.Create : AccountMode.Connect;
                 viewModel.ActionButtonText = createNew ? AppResources.CreateNew : AppResources.UseExisting;
                 viewModel.PerformActionCommand.ChangeCanExecute();
-                viewModel.UpdatePasswordState();
             });
 
         /// <summary>
@@ -118,31 +116,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
         {
             get { return (bool)GetValue(CreateNewProperty); }
             set { SetValue(CreateNewProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="CreateRandomPassword"/>
-        /// </summary>
-        public static readonly BindableProperty CreateRandomPasswordProperty =
-            BindableProperty.Create("CreateRandomPassword", typeof(bool), typeof(ChooseAccountViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
-            {
-                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                // When switching random password to 'off', wipe password field if it has contents.
-                if (!(bool)newValue && !string.IsNullOrWhiteSpace(viewModel.Password))
-                {
-                    viewModel.Password = string.Empty;
-                }
-                viewModel.PerformActionCommand.ChangeCanExecute();
-                viewModel.UpdatePasswordState();
-            });
-
-        /// <summary>
-        /// Gets or sets whether a random password should be created or not.
-        /// </summary>
-        public bool CreateRandomPassword
-        {
-            get { return (bool)GetValue(CreateRandomPasswordProperty); }
-            set { SetValue(CreateRandomPasswordProperty, value); }
         }
 
         /// <summary>
@@ -190,7 +163,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
             BindableProperty.Create("Password", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.UpdatePasswordState();
                 viewModel.PerformActionCommand.ChangeCanExecute();
             });
 
@@ -201,46 +173,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
         {
             get { return (string)GetValue(PasswordProperty); }
             set { SetValue(PasswordProperty, value); }
-        }
-
-        /// <summary>
-        /// See <see cref="RetypedPassword"/>
-        /// </summary>
-        public static readonly BindableProperty RetypedPasswordProperty =
-            BindableProperty.Create("RetypedPassword", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.UpdatePasswordState();
-                viewModel.PerformActionCommand.ChangeCanExecute();
-            });
-
-        /// <summary>
-        /// Gets or sets the second password entry, used for validation.
-        /// </summary>
-        public string RetypedPassword
-        {
-            get { return (string)GetValue(RetypedPasswordProperty); }
-            set { SetValue(RetypedPasswordProperty, value); }
-        }
-
-        private void UpdatePasswordState()
-        {
-            PasswordsDoNotMatch = (Password != RetypedPassword) && CreateNew && !CreateRandomPassword;
-        }
-
-        /// <summary>
-        /// See <see cref="PasswordsDoNotMatch"/>
-        /// </summary>
-        public static readonly BindableProperty PasswordsDoNotMatchProperty =
-            BindableProperty.Create("PasswordsDoNotMatch", typeof(bool), typeof(ChooseAccountViewModel), default(bool));
-
-        /// <summary>
-        /// Gets or sets whether the <see cref="Password"/> matches the <see cref="RetypedPassword"/> or not.
-        /// </summary>
-        public bool PasswordsDoNotMatch
-        {
-            get { return (bool)GetValue(PasswordsDoNotMatchProperty); }
-            set { SetValue(PasswordsDoNotMatchProperty, value); }
         }
 
         /// <summary>
@@ -291,12 +223,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
             this.ConnectToExistingAccountName = string.Empty;
             this.CreateNewAccountName = string.Empty;
             this.Password = string.Empty;
-            this.RetypedPassword = string.Empty;
-            this.CreateRandomPassword = true;
             this.CreateNew = true;
             this.SettingsService.RemoveState(GetSettingsKey(nameof(CreateNewAccountName)));
             this.SettingsService.RemoveState(GetSettingsKey(nameof(ConnectToExistingAccountName)));
-            this.SettingsService.RemoveState(GetSettingsKey(nameof(CreateRandomPassword)));
         }
 
         private async Task PerformAction()
@@ -310,24 +239,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
             SetIsBusy(PerformActionCommand, SwitchModeCommand);
             try
             {
-                bool succeeded;
-                if (CreateNew)
-                {
-                    succeeded = await CreateAccount();
-                }
-                else
-                {
-                    succeeded = await ConnectToAccount();
-                }
+                bool succeeded = CreateNew ? await CreateAccount() : await ConnectToAccount();
 
                 UiDispatcher.BeginInvokeOnMainThread(() =>
                 {
                     SetIsDone(PerformActionCommand, SwitchModeCommand);
 
                     if (succeeded)
-                    {
                         OnStepCompleted(EventArgs.Empty);
-                    }
                 });
             }
             catch (Exception ex)
@@ -354,24 +273,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
                 if (string.IsNullOrWhiteSpace(CreateNewAccountName))
                 {
                     if (alertUser)
-                    {
                         await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.AccountNameIsInvalid, AppResources.Ok);
-                    }
 
-                    return false;
-                }
-
-                if (CreateRandomPassword)
-                {
-                    return true;
-                }
-
-                if (Password != RetypedPassword)
-                {
-                    if (alertUser)
-                    {
-                        await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.PasswordsDoNotMatch, AppResources.Ok);
-                    }
                     return false;
                 }
 
@@ -383,27 +286,24 @@ namespace IdApp.Pages.Registration.ChooseAccount
             if (string.IsNullOrWhiteSpace(this.TagProfile.Domain))
             {
                 if (alertUser)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.DomainNameIsInvalid, AppResources.Ok);
-                }
+                
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(ConnectToExistingAccountName))
             {
                 if (alertUser)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.AccountNameIsInvalid, AppResources.Ok);
-                }
+                
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(Password))
             {
                 if (alertUser)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.PasswordIsInvalid, AppResources.Ok);
-                }
+                
                 return false;
             }
 
@@ -419,7 +319,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
         {
             try
             {
-                string passwordToUse = CreateRandomPassword ? this.cryptoService.CreateRandomPassword() : Password;
+                string passwordToUse = this.cryptoService.CreateRandomPassword();
 
                 (string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
@@ -441,13 +341,10 @@ namespace IdApp.Pages.Registration.ChooseAccount
                 if (succeeded)
                 {
 #if DEBUG
-                    if (this.CreateRandomPassword)
-                    {
-                        await Clipboard.SetTextAsync("Password: " + passwordToUse);
-                        await this.UiDispatcher.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
-                        System.Diagnostics.Debug.WriteLine("Username: " + this.CreateNewAccountName);
-                        System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
-                    }
+                    await Clipboard.SetTextAsync("Password: " + passwordToUse);
+                    await this.UiDispatcher.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
+                    System.Diagnostics.Debug.WriteLine("Username: " + this.CreateNewAccountName);
+                    System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
 #endif
                     return true;
                 }
@@ -527,9 +424,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
                 (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain, isIpAddress, hostName, portNumber, this.ConnectToExistingAccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
                 if (!succeeded)
-                {
                     await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
-                }
 
                 return succeeded;
             }
@@ -548,7 +443,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
             await base.DoSaveState();
             await this.SettingsService.SaveState(GetSettingsKey(nameof(CreateNewAccountName)), this.CreateNewAccountName);
             await this.SettingsService.SaveState(GetSettingsKey(nameof(ConnectToExistingAccountName)), this.ConnectToExistingAccountName);
-            await this.SettingsService.SaveState(GetSettingsKey(nameof(CreateRandomPassword)), this.CreateRandomPassword);
         }
 
         /// <inheritdoc />
@@ -556,7 +450,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
         {
             this.CreateNewAccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(CreateNewAccountName)));
             this.ConnectToExistingAccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(ConnectToExistingAccountName)));
-            this.CreateRandomPassword = await this.SettingsService.RestoreBoolState(GetSettingsKey(nameof(CreateRandomPassword)), true);
             await base.DoRestoreState();
         }
     }

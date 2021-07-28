@@ -1609,15 +1609,6 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Passwords do not match.
-        /// </summary>
-        internal static string PasswordsDoNotMatch {
-            get {
-                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Payment.
         /// </summary>
         internal static string Payment {
@@ -2104,15 +2095,6 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Random password.
-        /// </summary>
-        internal static string RandomPassword {
-            get {
-                return ResourceManager.GetString("RandomPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Receive eDaler.
         /// </summary>
         internal static string ReceiveEDaler {
@@ -2244,15 +2226,6 @@ namespace IdApp {
         internal static string RequestWasCancelled {
             get {
                 return ResourceManager.GetString("RequestWasCancelled", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Retype password.
-        /// </summary>
-        internal static string RetypePassword {
-            get {
-                return ResourceManager.GetString("RetypePassword", resourceCulture);
             }
         }
         

@@ -905,11 +905,6 @@
               Looks up a localized string similar to Password is invalid.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.PasswordsDoNotMatch">
-            <summary>
-              Looks up a localized string similar to Passwords do not match.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.Payment">
             <summary>
               Looks up a localized string similar to Payment.
@@ -1180,11 +1175,6 @@
               Looks up a localized string similar to URI:.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.RandomPassword">
-            <summary>
-              Looks up a localized string similar to Random password.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.ReceiveEDaler">
             <summary>
               Looks up a localized string similar to Receive eDaler.
@@ -1258,11 +1248,6 @@
         <member name="P:IdApp.AppResources.RequestWasCancelled">
             <summary>
               Looks up a localized string similar to The request was cancelled.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.RetypePassword">
-            <summary>
-              Looks up a localized string similar to Retype password.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.RetypePinOrPassword">
@@ -6300,16 +6285,6 @@
             Gets or sets whether the user wants to create a new account (as opposed to connect to existing).
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateRandomPasswordProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateRandomPassword"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateRandomPassword">
-            <summary>
-            Gets or sets whether a random password should be created or not.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNewAccountNameProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNewAccountName"/>
@@ -6338,26 +6313,6 @@
         <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.Password">
             <summary>
             Gets or sets the password to use.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.RetypedPasswordProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.RetypedPassword"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.RetypedPassword">
-            <summary>
-            Gets or sets the second password entry, used for validation.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordsDoNotMatchProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordsDoNotMatch"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordsDoNotMatch">
-            <summary>
-            Gets or sets whether the <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.Password"/> matches the <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.RetypedPassword"/> or not.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ActionButtonTextProperty">

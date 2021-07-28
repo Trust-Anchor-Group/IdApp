@@ -633,9 +633,6 @@
   <data name="PasswordIsInvalid" xml:space="preserve">
     <value>Lösenordet är ogiltigt</value>
   </data>
-  <data name="PasswordsDoNotMatch" xml:space="preserve">
-    <value>Lösenorden matchar inte</value>
-  </data>
   <data name="Payment" xml:space="preserve">
     <value>Betalning</value>
   </data>
@@ -798,9 +795,6 @@
   <data name="QrScanUri" xml:space="preserve">
     <value>URI:</value>
   </data>
-  <data name="RandomPassword" xml:space="preserve">
-    <value>Slumpmässigt lösenord</value>
-  </data>
   <data name="ReceiveEDaler" xml:space="preserve">
     <value>Ta emot eDaler</value>
   </data>
@@ -845,9 +839,6 @@
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
     <value>Begäran avbröts</value>
-  </data>
-  <data name="RetypePassword" xml:space="preserve">
-    <value>Ange lösenord igen</value>
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
     <value>Ange PIN eller lösenord igen</value>

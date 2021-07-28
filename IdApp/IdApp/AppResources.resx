@@ -630,9 +630,6 @@
   <data name="PasswordIsInvalid" xml:space="preserve">
     <value>Password is invalid</value>
   </data>
-  <data name="PasswordsDoNotMatch" xml:space="preserve">
-    <value>Passwords do not match</value>
-  </data>
   <data name="MakePayment" xml:space="preserve">
     <value>Make Payment</value>
   </data>
@@ -786,9 +783,6 @@
   <data name="QrScanUri" xml:space="preserve">
     <value>URI:</value>
   </data>
-  <data name="RandomPassword" xml:space="preserve">
-    <value>Random password</value>
-  </data>
   <data name="ReceiveEDaler" xml:space="preserve">
     <value>Receive eDaler</value>
   </data>
@@ -833,9 +827,6 @@
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
     <value>The request was cancelled</value>
-  </data>
-  <data name="RetypePassword" xml:space="preserve">
-    <value>Retype password</value>
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
     <value>Retype PIN or password</value>
