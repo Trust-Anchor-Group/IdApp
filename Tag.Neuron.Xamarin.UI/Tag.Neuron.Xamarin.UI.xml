@@ -45,6 +45,70 @@
               Looks up a localized string similar to Failed to unbind viewmodel {0} for page {1}.
             </summary>
         </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToClickedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when a button has been clicked.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToClickedBehavior.ScrollTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToCompletedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when the Enter/Return key has been hit.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToCompletedBehavior.ScrollTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToCompletedBehavior.OnAttachedTo(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToCompletedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToSelectedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when an item has been selected.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToSelectedBehavior.ScrollTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToSelectedBehavior.OnAttachedTo(Xamarin.Forms.Picker)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToSelectedBehavior.OnDetachingFrom(Xamarin.Forms.Picker)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnClickedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when a button has been clicked.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnClickedBehavior.SetFocusTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnCompletedBehavior">
             <summary>
             Used for moving focus to the next UI component when the Enter/Return key has been hit.
@@ -59,6 +123,22 @@
             <inheritdoc/>
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnCompletedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnSelectedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when an item has been selected.
+            </summary>
+        </member>
+        <member name="P:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnSelectedBehavior.SetFocusTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnSelectedBehavior.OnAttachedTo(Xamarin.Forms.Picker)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnSelectedBehavior.OnDetachingFrom(Xamarin.Forms.Picker)">
             <inheritdoc/>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.TextChangedBehavior">
