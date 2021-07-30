@@ -1188,7 +1188,13 @@
   <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
     <value>This code represents a Tag ID invitation, and cannot be claimed at this time.</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
   <data name="InvalidInvitationCode" xml:space="preserve">
     <value>Invalid invitation code.</value>
+  </data>
+  <data name="ScanInvitation" xml:space="preserve">
+    <value>Scan Invitation</value>
   </data>
 </root>

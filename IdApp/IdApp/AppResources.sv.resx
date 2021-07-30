@@ -321,6 +321,9 @@
   <data name="Create" xml:space="preserve">
     <value>Skapa</value>
   </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Skapa konto</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Skapad</value>
   </data>
@@ -872,6 +875,9 @@
   </data>
   <data name="Room" xml:space="preserve">
     <value>Rum</value>
+  </data>
+  <data name="ScanInvitation" xml:space="preserve">
+    <value>Skanna inbjudan</value>
   </data>
   <data name="ScannedQrCode" xml:space="preserve">
     <value>Skannad QR-kod</value>

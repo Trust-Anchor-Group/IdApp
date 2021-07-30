@@ -385,6 +385,11 @@
               Looks up a localized string similar to Create.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.CreateAccount">
+            <summary>
+              Looks up a localized string similar to Create Account.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Created">
             <summary>
               Looks up a localized string similar to Created.
@@ -1303,6 +1308,11 @@
         <member name="P:IdApp.AppResources.Room">
             <summary>
               Looks up a localized string similar to Room.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ScanInvitation">
+            <summary>
+              Looks up a localized string similar to Scan Invitation.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ScannedQrCode">

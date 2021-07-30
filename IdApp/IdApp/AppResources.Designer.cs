@@ -673,6 +673,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create Account.
+        /// </summary>
+        internal static string CreateAccount {
+            get {
+                return ResourceManager.GetString("CreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Created.
         /// </summary>
         internal static string Created {
@@ -2325,6 +2334,15 @@ namespace IdApp {
         internal static string Room {
             get {
                 return ResourceManager.GetString("Room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan Invitation.
+        /// </summary>
+        internal static string ScanInvitation {
+            get {
+                return ResourceManager.GetString("ScanInvitation", resourceCulture);
             }
         }
         
