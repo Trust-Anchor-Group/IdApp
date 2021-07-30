@@ -343,20 +343,15 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				if (string.IsNullOrEmpty(Account) || string.IsNullOrEmpty(Password))
 					return true;
 
-				if (!(PrivateKeys is null))
-				{
-					// TODO
-				}
-
 				this.AccountName = AccountName;
-				if (!await this.ConnectToAccount(Password, IdRef))
+				if (!await this.ConnectToAccount(Password, IdRef, PrivateKeys?.ToArray()))
 					return false;
 			}
 
 			return true;
 		}
 
-		private async Task<bool> ConnectToAccount(string Password, string LegalIdentityJid)
+		private async Task<bool> ConnectToAccount(string Password, string LegalIdentityJid, KeyValuePair<string,byte[]>[] PrivateKeys)
 		{
 			try
 			{
@@ -378,6 +373,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					if (serviceDiscoverySucceeded)
 					{
+						if (!(PrivateKeys is null))
+							await this.NeuronService.Contracts.ContractsClient.ImportKeys(PrivateKeys);
+
 						foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentities(client))
 						{
 							if ((string.IsNullOrEmpty(LegalIdentityJid) || string.Compare(LegalIdentityJid, identity.Id, true) == 0) &&
