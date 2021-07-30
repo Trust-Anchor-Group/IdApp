@@ -216,8 +216,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				}
 
 				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain,
-					isIpAddress, hostName, portNumber, this.AccountName, passwordToUse, this.TagProfile.ApiKey,
-					this.TagProfile.ApiSecret, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+					isIpAddress, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default, 
+					this.TagProfile.ApiKey, this.TagProfile.ApiSecret, typeof(App).Assembly, OnConnected);
 
 				if (succeeded)
 				{
