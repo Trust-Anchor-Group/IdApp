@@ -686,7 +686,7 @@ namespace IdApp.Pages.Main.Main
 			// Network
 			this.IsOnline = this.networkService.IsOnline;
 			this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
-			this.IdentityStateText = this.TagProfile.LegalIdentity.State.ToDisplayText();
+			this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
 
 			// Neuron server
 			this.IsConnected = state == XmppState.Connected;
