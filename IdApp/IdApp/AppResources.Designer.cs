@@ -403,6 +403,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Claim Invitation.
+        /// </summary>
+        internal static string ClaimInvitation {
+            get {
+                return ResourceManager.GetString("ClaimInvitation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Claim Thing.
         /// </summary>
         internal static string ClaimThing {
@@ -1114,6 +1123,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid invitation code..
+        /// </summary>
+        internal static string InvalidInvitationCode {
+            get {
+                return ResourceManager.GetString("InvalidInvitationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid IoT Discovery Code.
         /// </summary>
         internal static string InvalidIoTDiscoveryCode {
@@ -1128,6 +1146,15 @@ namespace IdApp {
         internal static string InvalidUsernameOrPassword {
             get {
                 return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invitation.
+        /// </summary>
+        internal static string Invitation {
+            get {
+                return ResourceManager.GetString("Invitation", resourceCulture);
             }
         }
         
@@ -1425,6 +1452,15 @@ namespace IdApp {
         internal static string NoContractsFound {
             get {
                 return ResourceManager.GetString("NoContractsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not an invitation code..
+        /// </summary>
+        internal static string NotAnInvitationCode {
+            get {
+                return ResourceManager.GetString("NotAnInvitationCode", resourceCulture);
             }
         }
         
@@ -2680,6 +2716,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This code represents a Tag ID invitation, and cannot be claimed at this time..
+        /// </summary>
+        internal static string ThisCodeCannotBeClaimedAtThisTime {
+            get {
+                return ResourceManager.GetString("ThisCodeCannotBeClaimedAtThisTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time stamp.
         /// </summary>
         internal static string Timestamp {
@@ -2698,7 +2743,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To connect to {0}, you need an account. Do you want to create one, or use an existing account?.
+        ///   Looks up a localized string similar to Your service provider has been selected to be {0}. You can either choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Invitation button to scan an invitation code..
         /// </summary>
         internal static string ToConnectToDomainYouNeedAnAccount {
             get {
@@ -2802,15 +2847,6 @@ namespace IdApp {
         internal static string Updated {
             get {
                 return ResourceManager.GetString("Updated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use existing.
-        /// </summary>
-        internal static string UseExisting {
-            get {
-                return ResourceManager.GetString("UseExisting", resourceCulture);
             }
         }
         

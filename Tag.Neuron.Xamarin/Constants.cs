@@ -76,6 +76,11 @@ namespace Tag.Neuron.Xamarin
             public const string UriSchemeEDaler = "edaler";
 
             /// <summary>
+            /// Tag ID URI Scheme (tagid)
+            /// </summary>
+            public const string UriSchemeTagId = "tagid";
+
+            /// <summary>
             /// Gets the predefined scheme from an IoT Code
             /// </summary>
             /// <param name="code">The code to parse.</param>

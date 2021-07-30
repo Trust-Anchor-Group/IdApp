@@ -620,7 +620,9 @@ namespace Tag.Neuron.Xamarin.Services
 			this.Account = accountName;
 			this.PasswordHash = clientPasswordHash;
 			this.PasswordHashMethod = clientPasswordHashMethod;
-		
+			this.ApiKey = string.Empty;
+			this.ApiSecret = string.Empty;
+
 			if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account)
 				this.IncrementConfigurationStep();
 		}
@@ -632,7 +634,9 @@ namespace Tag.Neuron.Xamarin.Services
 			this.PasswordHash = clientPasswordHash;
 			this.PasswordHashMethod = clientPasswordHashMethod;
 			this.LegalIdentity = identity;
-		
+			this.ApiKey = string.Empty;
+			this.ApiSecret = string.Empty;
+
 			if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account && !(this.LegalIdentity is null))
 			{
 				if (this.LegalIdentity.IsCreatedOrApproved())

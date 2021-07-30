@@ -35,7 +35,7 @@ namespace IdApp
             IThingRegistryOrchestratorService thingRegistryOrchestratorService,
             IEDalerOrchestratorService eDalerOrchestratorService)
         {
-            string decodedText = await IdApp.QrCode.ScanQrCode(navigationService, AppResources.Open);
+            string decodedText = await QrCode.ScanQrCode(navigationService, AppResources.Open);
 
             if (string.IsNullOrWhiteSpace(decodedText))
                 return;
@@ -76,6 +76,10 @@ namespace IdApp
 
                     case Constants.UriSchemes.UriSchemeEDaler:
                         await eDalerOrchestratorService.OpenEDalerUri(decodedText);
+                        break;
+
+                    case Constants.UriSchemes.UriSchemeTagId:
+                        await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
                         break;
 
                     default:

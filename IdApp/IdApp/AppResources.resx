@@ -976,7 +976,7 @@
     <value>To</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
-    <value>To connect to {0}, you need an account. Do you want to create one, or use an existing account?</value>
+    <value>Your service provider has been selected to be {0}. You can either choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Invitation button to scan an invitation code.</value>
   </data>
   <data name="TransactionAccepted" xml:space="preserve">
     <value>Transaction has been accepted and processed.</value>
@@ -1007,9 +1007,6 @@
   </data>
   <data name="Updated" xml:space="preserve">
     <value>Updated</value>
-  </data>
-  <data name="UseExisting" xml:space="preserve">
-    <value>Use existing</value>
   </data>
   <data name="ValidateIdentityInfo1Text" xml:space="preserve">
     <value>Your identity information has to be validated before it can be approved. This can be done manually by your operator. It can also be done by peers.</value>
@@ -1178,5 +1175,20 @@
   </data>
   <data name="WelcomeToTagCodeSent" xml:space="preserve">
     <value>A code has been sent to the number indicated above. When you receive it, please enter the verification code below to continue.</value>
+  </data>
+  <data name="ClaimInvitation" xml:space="preserve">
+    <value>Claim Invitation</value>
+  </data>
+  <data name="Invitation" xml:space="preserve">
+    <value>Invitation</value>
+  </data>
+  <data name="NotAnInvitationCode" xml:space="preserve">
+    <value>Not an invitation code.</value>
+  </data>
+  <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
+    <value>This code represents a Tag ID invitation, and cannot be claimed at this time.</value>
+  </data>
+  <data name="InvalidInvitationCode" xml:space="preserve">
+    <value>Invalid invitation code.</value>
   </data>
 </root>

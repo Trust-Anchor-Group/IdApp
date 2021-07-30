@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
@@ -12,461 +12,438 @@ using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration.ChooseAccount
 {
-    /// <summary>
-    /// The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
-    /// </summary>
-    public class ChooseAccountViewModel : RegistrationStepViewModel
-    {
-        private readonly ICryptoService cryptoService;
-        private readonly INetworkService networkService;
+	/// <summary>
+	/// The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
+	/// </summary>
+	public class ChooseAccountViewModel : RegistrationStepViewModel
+	{
+		private delegate Task<bool> ConnectMethod();
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="ChooseAccountViewModel"/> class.
-        /// </summary>
-        /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="navigationService">The navigation service to use for app navigation</param>
-        /// <param name="settingsService">The settings service for persisting UI state.</param>
-        /// <param name="cryptoService">The crypto service to use for password generation.</param>
-        /// <param name="networkService">The network service for network access.</param>
-        /// <param name="logService">The log service.</param>
-        public ChooseAccountViewModel(
-            ITagProfile tagProfile,
-            IUiDispatcher uiDispatcher,
-            INeuronService neuronService,
-            INavigationService navigationService,
-            ISettingsService settingsService,
-            ICryptoService cryptoService,
-            INetworkService networkService,
-            ILogService logService)
-            : base(RegistrationStep.Account, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
-        {
-            this.cryptoService = cryptoService;
-            this.networkService = networkService;
-            this.PerformActionCommand = new Command(async _ => await PerformAction(), _ => CanPerformAction());
-            this.ActionButtonText = AppResources.CreateNew;
-            this.CreateNew = true;
-            this.Mode = AccountMode.Create;
-            this.SwitchModeCommand = new Command(_ => CreateNew = !CreateNew, _ => !IsBusy);
-            this.Title = AppResources.ChooseAccount;
-        }
+		private readonly ICryptoService cryptoService;
+		private readonly INetworkService networkService;
 
-        /// <inheritdoc />
-        protected override async Task DoBind()
-        {
-            await base.DoBind();
-            this.TagProfile.Changed += TagProfile_Changed;
-        }
+		/// <summary>
+		/// Creates a new instance of the <see cref="ChooseAccountViewModel"/> class.
+		/// </summary>
+		/// <param name="tagProfile">The tag profile to work with.</param>
+		/// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
+		/// <param name="navigationService">The navigation service to use for app navigation</param>
+		/// <param name="settingsService">The settings service for persisting UI state.</param>
+		/// <param name="cryptoService">The crypto service to use for password generation.</param>
+		/// <param name="networkService">The network service for network access.</param>
+		/// <param name="logService">The log service.</param>
+		public ChooseAccountViewModel(
+			ITagProfile tagProfile,
+			IUiDispatcher uiDispatcher,
+			INeuronService neuronService,
+			INavigationService navigationService,
+			ISettingsService settingsService,
+			ICryptoService cryptoService,
+			INetworkService networkService,
+			ILogService logService)
+			: base(RegistrationStep.Account, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
+		{
+			this.cryptoService = cryptoService;
+			this.networkService = networkService;
+			this.CreateNewCommand = new Command(async _ => await PerformAction(this.CreateAccount), _ => CanCreateAccount());
+			this.ScanQrCodeCommand = new Command(async _ => await PerformAction(this.ScanQrCode), _ => CanScanQrCode());
+			this.Title = AppResources.ChooseAccount;
+		}
 
-        /// <inheritdoc />
-        protected override async Task DoUnbind()
-        {
-            this.TagProfile.Changed -= TagProfile_Changed;
-            await base.DoUnbind();
-        }
+		/// <inheritdoc />
+		protected override async Task DoBind()
+		{
+			await base.DoBind();
+			this.TagProfile.Changed += TagProfile_Changed;
+		}
 
-        private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
-        {
-            UiDispatcher.BeginInvokeOnMainThread(() =>
-            {
-                IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
-            });
-        }
+		/// <inheritdoc />
+		protected override async Task DoUnbind()
+		{
+			this.TagProfile.Changed -= TagProfile_Changed;
+			await base.DoUnbind();
+		}
 
-        #region Properties
+		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
+		{
+			UiDispatcher.BeginInvokeOnMainThread(() =>
+			{
+				IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
+			});
+		}
 
-        /// <summary>
-        /// The current mode this view model is in. Create new account, or connect to existing?
-        /// </summary>
-        public AccountMode Mode { get; private set; }
+		#region Properties
 
-        /// <summary>
-        /// See <see cref="IntroText"/>
-        /// </summary>
-        public static readonly BindableProperty IntroTextProperty =
-            BindableProperty.Create("IntroText", typeof(string), typeof(ChooseAccountViewModel), default(string));
+		/// <summary>
+		/// See <see cref="IntroText"/>
+		/// </summary>
+		public static readonly BindableProperty IntroTextProperty =
+			BindableProperty.Create("IntroText", typeof(string), typeof(ChooseAccountViewModel), default(string));
 
-        /// <summary>
-        /// The localized intro text to display to the user for explaining what 'choose account' is for.
-        /// </summary>
-        public string IntroText
-        {
-            get { return (string)GetValue(IntroTextProperty); }
-            set { SetValue(IntroTextProperty, value); }
-        }
+		/// <summary>
+		/// The localized intro text to display to the user for explaining what 'choose account' is for.
+		/// </summary>
+		public string IntroText
+		{
+			get { return (string)GetValue(IntroTextProperty); }
+			set { SetValue(IntroTextProperty, value); }
+		}
 
-        /// <summary>
-        /// See <see cref="CreateNew"/>
-        /// </summary>
-        public static readonly BindableProperty CreateNewProperty =
-            BindableProperty.Create("CreateNew", typeof(bool), typeof(ChooseAccountViewModel), default(bool), propertyChanged: (b, oldValue, newValue) =>
-            {
-                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                bool createNew = (bool)newValue;
-                viewModel.Mode = createNew ? AccountMode.Create : AccountMode.Connect;
-                viewModel.ActionButtonText = createNew ? AppResources.CreateNew : AppResources.UseExisting;
-                viewModel.PerformActionCommand.ChangeCanExecute();
-            });
+		/// <summary>
+		/// See <see cref="AccountName"/>
+		/// </summary>
+		public static readonly BindableProperty AccountNameProperty =
+			BindableProperty.Create("AccountName", typeof(string), typeof(ChooseAccountViewModel), default(string));
 
-        /// <summary>
-        /// Gets or sets whether the user wants to create a new account (as opposed to connect to existing).
-        /// </summary>
-        public bool CreateNew
-        {
-            get { return (bool)GetValue(CreateNewProperty); }
-            set { SetValue(CreateNewProperty, value); }
-        }
+		/// <summary>
+		/// The account name to use when creating a new account.
+		/// </summary>
+		public string AccountName
+		{
+			get { return (string)GetValue(AccountNameProperty); }
+			set { SetValue(AccountNameProperty, value); }
+		}
 
-        /// <summary>
-        /// See <see cref="CreateNewAccountName"/>
-        /// </summary>
-        public static readonly BindableProperty CreateNewAccountNameProperty =
-            BindableProperty.Create("CreateNewAccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.PerformActionCommand.ChangeCanExecute();
-            });
+		/// <summary>
+		/// Gets or sets the hashed password value.
+		/// </summary>
+		public string PasswordHash { get; set; }
 
-        /// <summary>
-        /// The account name to use when creating a new account.
-        /// </summary>
-        public string CreateNewAccountName
-        {
-            get { return (string)GetValue(CreateNewAccountNameProperty); }
-            set { SetValue(CreateNewAccountNameProperty, value); }
-        }
+		/// <summary>
+		/// Gets or sets the hash method used when hashing a password.
+		/// </summary>
+		public string PasswordHashMethod { get; set; }
 
-        /// <summary>
-        /// See <see cref="ConnectToExistingAccountName"/>
-        /// </summary>
-        public static readonly BindableProperty ConnectToExistingAccountNameProperty =
-            BindableProperty.Create("ConnectToExistingAccountName", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.PerformActionCommand.ChangeCanExecute();
-            });
+		/// <summary>
+		/// The legal identity, if any. Typically set after creating an account or connecting to an existing account.
+		/// </summary>
+		public LegalIdentity LegalIdentity { get; set; }
 
-        /// <summary>
-        /// The account name to use when connecting to an existing account.
-        /// </summary>
-        public string ConnectToExistingAccountName
-        {
-            get { return (string)GetValue(ConnectToExistingAccountNameProperty); }
-            set { SetValue(ConnectToExistingAccountNameProperty, value); }
-        }
+		/// <summary>
+		/// The command to bind to for creating a new account.
+		/// </summary>
+		public ICommand CreateNewCommand { get; }
 
-        /// <summary>
-        /// See <see cref="Password"/>
-        /// </summary>
-        public static readonly BindableProperty PasswordProperty =
-            BindableProperty.Create("Password", typeof(string), typeof(ChooseAccountViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
-            {
-                ChooseAccountViewModel viewModel = (ChooseAccountViewModel)b;
-                viewModel.PerformActionCommand.ChangeCanExecute();
-            });
+		/// <summary>
+		/// The command to bind to for scanning an invitation or transfer code.
+		/// </summary>
+		public ICommand ScanQrCodeCommand { get; }
 
-        /// <summary>
-        /// Gets or sets the password to use.
-        /// </summary>
-        public string Password
-        {
-            get { return (string)GetValue(PasswordProperty); }
-            set { SetValue(PasswordProperty, value); }
-        }
+		#endregion
 
-        /// <summary>
-        /// See <see cref="ActionButtonText"/>
-        /// </summary>
-        public static readonly BindableProperty ActionButtonTextProperty =
-            BindableProperty.Create("ActionButtonText", typeof(string), typeof(ChooseAccountViewModel), default(string));
+		/// <inheritdoc />
+		public override void ClearStepState()
+		{
+			this.AccountName = string.Empty;
+			this.SettingsService.RemoveState(GetSettingsKey(nameof(AccountName)));
+		}
 
-        /// <summary>
-        /// The localized text to display on the action button, typically "Create" or "Connect".
-        /// </summary>
-        public string ActionButtonText
-        {
-            get { return (string)GetValue(ActionButtonTextProperty); }
-            set { SetValue(ActionButtonTextProperty, value); }
-        }
+		private async Task PerformAction(ConnectMethod Method)
+		{
+			if (!this.networkService.IsOnline)
+			{
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				return;
+			}
 
-        /// <summary>
-        /// Gets or sets the hashed password value.
-        /// </summary>
-        public string PasswordHash { get; set; }
+			SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
+			try
+			{
+				bool succeeded = await Method();
 
-        /// <summary>
-        /// Gets or sets the hash method used when hashing a password.
-        /// </summary>
-        public string PasswordHashMethod { get; set; }
+				UiDispatcher.BeginInvokeOnMainThread(() =>
+				{
+					SetIsDone(CreateNewCommand, ScanQrCodeCommand);
 
-        /// <summary>
-        /// The legal identity, if any. Typically set after creating an account or connecting to an existing account.
-        /// </summary>
-        public LegalIdentity LegalIdentity { get; set; }
+					if (succeeded)
+						OnStepCompleted(EventArgs.Empty);
+				});
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
+			finally
+			{
+				BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
+			}
+		}
 
-        /// <summary>
-        /// The command to bind to for switching <see cref="Mode"/>.
-        /// </summary>
-        public ICommand SwitchModeCommand { get; }
+		private bool CanCreateAccount()
+		{
+			if (!this.networkService.IsOnline)
+				return false;
 
-        /// <summary>
-        /// The command to bind to for executing the appropriate action, create or connect.
-        /// </summary>
-        public ICommand PerformActionCommand { get; }
+			if (this.IsBusy)
+				return false;
 
-        #endregion
+			if (string.IsNullOrWhiteSpace(this.AccountName))
+				return false;
 
-        /// <inheritdoc />
-        public override void ClearStepState()
-        {
-            this.ConnectToExistingAccountName = string.Empty;
-            this.CreateNewAccountName = string.Empty;
-            this.Password = string.Empty;
-            this.CreateNew = true;
-            this.SettingsService.RemoveState(GetSettingsKey(nameof(CreateNewAccountName)));
-            this.SettingsService.RemoveState(GetSettingsKey(nameof(ConnectToExistingAccountName)));
-        }
+			return true;
+		}
 
-        private async Task PerformAction()
-        {
-            if (!this.networkService.IsOnline)
-            {
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
-                return;
-            }
+		private async Task<bool> CreateAccount()
+		{
+			try
+			{
+				string passwordToUse = this.cryptoService.CreateRandomPassword();
 
-            SetIsBusy(PerformActionCommand, SwitchModeCommand);
-            try
-            {
-                bool succeeded = CreateNew ? await CreateAccount() : await ConnectToAccount();
+				(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
-                UiDispatcher.BeginInvokeOnMainThread(() =>
-                {
-                    SetIsDone(PerformActionCommand, SwitchModeCommand);
+				async Task OnConnected(XmppClient client)
+				{
+					this.PasswordHash = client.PasswordHash;
+					this.PasswordHashMethod = client.PasswordHashMethod;
 
-                    if (succeeded)
-                        OnStepCompleted(EventArgs.Empty);
-                });
-            }
-            catch (Exception ex)
-            {
-                this.LogService.LogException(ex);
-                await this.UiDispatcher.DisplayAlert(ex);
-            }
-            finally
-            {
-                BeginInvokeSetIsDone(PerformActionCommand, SwitchModeCommand);
-            }
-        }
+					if (this.TagProfile.NeedsUpdating())
+						await this.NeuronService.DiscoverServices(client);
 
-        private bool ValidateInput()
-        {
-            // Ok to 'wait' on, since we're not actually waiting on anything.
-            return ValidateInput(false).GetAwaiter().GetResult();
-        }
+					this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+				}
 
-        private async Task<bool> ValidateInput(bool alertUser)
-        {
-            if (CreateNew)
-            {
-                if (string.IsNullOrWhiteSpace(CreateNewAccountName))
-                {
-                    if (alertUser)
-                        await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.AccountNameIsInvalid, AppResources.Ok);
+				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain,
+					isIpAddress, hostName, portNumber, this.AccountName, passwordToUse, this.TagProfile.ApiKey,
+					this.TagProfile.ApiSecret, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
 
-                    return false;
-                }
-
-                return true;
-            }
-
-            // Use Existing
-
-            if (string.IsNullOrWhiteSpace(this.TagProfile.Domain))
-            {
-                if (alertUser)
-                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.DomainNameIsInvalid, AppResources.Ok);
-                
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(ConnectToExistingAccountName))
-            {
-                if (alertUser)
-                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.AccountNameIsInvalid, AppResources.Ok);
-                
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(Password))
-            {
-                if (alertUser)
-                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.PasswordIsInvalid, AppResources.Ok);
-                
-                return false;
-            }
-
-            return true;
-        }
-
-        private bool CanPerformAction()
-        {
-            return !IsBusy && ValidateInput();
-        }
-
-        private async Task<bool> CreateAccount()
-        {
-            try
-            {
-                string passwordToUse = this.cryptoService.CreateRandomPassword();
-
-                (string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
-
-                async Task OnConnected(XmppClient client)
-                {
-                    this.PasswordHash = client.PasswordHash;
-                    this.PasswordHashMethod = client.PasswordHashMethod;
-                    
-                    if (this.TagProfile.NeedsUpdating())
-                        await this.NeuronService.DiscoverServices(client);
-                    
-                    this.TagProfile.SetAccount(this.CreateNewAccountName, client.PasswordHash, client.PasswordHashMethod);
-                }
-
-                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain,
-                    isIpAddress, hostName, portNumber, this.CreateNewAccountName, passwordToUse, this.TagProfile.ApiKey,
-                    this.TagProfile.ApiSecret, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
-
-                if (succeeded)
-                {
+				if (succeeded)
+				{
 #if DEBUG
-                    await Clipboard.SetTextAsync("Password: " + passwordToUse);
-                    await this.UiDispatcher.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
-                    System.Diagnostics.Debug.WriteLine("Username: " + this.CreateNewAccountName);
-                    System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
+					await Clipboard.SetTextAsync("Password: " + passwordToUse);
+					await this.UiDispatcher.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
+					System.Diagnostics.Debug.WriteLine("Username: " + this.AccountName);
+					System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
 #endif
-                    return true;
-                }
+					return true;
+				}
 
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
-            }
-            catch (Exception ex)
-            {
-                this.LogService.LogException(ex);
-                string userMessage = string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain);
-                string message = $"{userMessage}{Environment.NewLine}({ex.Message})";
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
-            }
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				string userMessage = string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain);
+				string message = $"{userMessage}{Environment.NewLine}({ex.Message})";
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
+			}
 
-            return false;
-        }
+			return false;
+		}
 
-        private async Task<bool> ConnectToAccount()
-        {
-            try
-            {
-                string password = Password;
+		private bool CanScanQrCode()
+		{
+			if (!this.networkService.IsOnline)
+				return false;
 
-                (string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
+			if (this.IsBusy)
+				return false;
 
-                async Task OnConnected(XmppClient client)
-                {
-                    this.PasswordHash = client.PasswordHash;
-                    this.PasswordHashMethod = client.PasswordHashMethod;
+			return true;
+		}
 
-                    DateTime now = DateTime.Now;
-                    LegalIdentity createdIdentity = null;
-                    LegalIdentity approvedIdentity = null;
+		private async Task<bool> ScanQrCode()
+		{
+			string URI = await QrCode.ScanQrCode(this.NavigationService, AppResources.ClaimInvitation);
+			string Scheme = Constants.UriSchemes.GetScheme(URI);
 
-                    bool serviceDiscoverySucceeded;
-                    
-                    if (this.TagProfile.NeedsUpdating())
-                        serviceDiscoverySucceeded = await this.NeuronService.DiscoverServices(client);
-                    else
-                        serviceDiscoverySucceeded = true;
+			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeTagId, true) != 0)
+			{
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NotAnInvitationCode, AppResources.Ok);
+				return false;
+			}
 
-                    if (serviceDiscoverySucceeded)
-                    {
-                        foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentities(client))
-                        {
-                            if (identity.HasClientSignature &&
-                                identity.HasClientPublicKey &&
-                                identity.From <= now &&
-                                identity.To >= now &&
-                                (identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
-                                identity.ValidateClientSignature() &&
-                                await this.NeuronService.Contracts.HasPrivateKey(identity.Id, client))
-                            {
-                                if (identity.State == IdentityState.Approved)
-                                {
-                                    approvedIdentity = identity;
-                                    break;
-                                }
+			List<KeyValuePair<string, byte[]>> PrivateKeys = null;
+			string Data = Constants.UriSchemes.GetCode(URI);
+			string Name, Value;
+			string Domain = null;
+			string ApiKey = null;
+			string ApiSecret = null;
+			string Account = null;
+			string Password = null;
+			string IdRef = null;
+			string Algorithm = null;
+			byte[] PrivateKey = null;
+			int i;
 
-                                if (createdIdentity is null)
-                                    createdIdentity = identity;
-                            }
-                        }
+			foreach (string Part in Data.Split('&'))
+			{
+				i = Part.IndexOf('=');
+				if (i < 0)
+					continue;
 
-                        if (!(approvedIdentity is null))
-                            this.LegalIdentity = approvedIdentity;
-                        else if (!(createdIdentity is null))
-                            this.LegalIdentity = createdIdentity;
+				Name = Part.Substring(0, i);
+				Value = Part.Substring(i + 1);
 
-                        if (!(this.LegalIdentity is null))
-                            this.TagProfile.SetAccountAndLegalIdentity(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
-                        else
-                            this.TagProfile.SetAccount(this.ConnectToExistingAccountName, client.PasswordHash, client.PasswordHashMethod);
-                    }
-                }
+				switch (Name.ToLower())
+				{
+					case "d": Domain = Value; break;
+					case "k": ApiKey = Value; break;
+					case "s": ApiSecret = Value; break;
+					case "a": Account = Value; break;
+					case "w": Password = Value; break;
+					case "i": IdRef = Value; break;
 
-                (bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain, isIpAddress, hostName, portNumber, this.ConnectToExistingAccountName, password, Constants.LanguageCodes.Default, typeof(App).Assembly, OnConnected);
+					case "g":
+						Algorithm = Value;
+						if (PrivateKey is null)
+							break;
 
-                if (!succeeded)
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+						if (PrivateKeys is null)
+							PrivateKeys = new List<KeyValuePair<string, byte[]>>();
 
-                return succeeded;
-            }
-            catch (Exception ex)
-            {
-                this.LogService.LogException(ex);
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
-            }
+						PrivateKeys.Add(new KeyValuePair<string, byte[]>(Algorithm, PrivateKey));
 
-            return false;
-        }
+						Algorithm = null;
+						PrivateKey = null;
+						break;
 
-        /// <inheritdoc />
-        protected override async Task DoSaveState()
-        {
-            await base.DoSaveState();
-            await this.SettingsService.SaveState(GetSettingsKey(nameof(CreateNewAccountName)), this.CreateNewAccountName);
-            await this.SettingsService.SaveState(GetSettingsKey(nameof(ConnectToExistingAccountName)), this.ConnectToExistingAccountName);
-        }
+					case "p":
+						try
+						{
+							PrivateKey = Convert.FromBase64String(Value);
+						}
+						catch (Exception)
+						{
+							await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+							return false;
+						}
 
-        /// <inheritdoc />
-        protected override async Task DoRestoreState()
-        {
-            this.CreateNewAccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(CreateNewAccountName)));
-            this.ConnectToExistingAccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(ConnectToExistingAccountName)));
-            await base.DoRestoreState();
-        }
-    }
+						if (Algorithm is null)
+							break;
 
-    /// <summary>
-    /// Different types of account modes: create or connect.
-    /// </summary>
-    public enum AccountMode
-    {
-        /// <summary>
-        /// Create new account.
-        /// </summary>
-        Create,
- 
-        /// <summary>
-        /// Connect to an existing account.
-        /// </summary>
-        Connect
-    }
+						if (PrivateKeys is null)
+							PrivateKeys = new List<KeyValuePair<string, byte[]>>();
+
+						PrivateKeys.Add(new KeyValuePair<string, byte[]>(Algorithm, PrivateKey));
+
+						Algorithm = null;
+						PrivateKey = null;
+						break;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(Domain))
+			{
+				bool DefaultConnectivity;
+
+				try
+				{
+					(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
+					DefaultConnectivity = HostName == Domain && PortNumber == XmppCredentials.DefaultPort;
+				}
+				catch (Exception)
+				{
+					DefaultConnectivity = false;
+				}
+
+				this.TagProfile.SetDomain(Domain, DefaultConnectivity, ApiKey, ApiSecret);
+
+				if (string.IsNullOrEmpty(Account) || string.IsNullOrEmpty(Password))
+					return true;
+
+				if (!(PrivateKeys is null))
+				{
+					// TODO
+				}
+
+				this.AccountName = AccountName;
+				if (!await this.ConnectToAccount(Password, IdRef))
+					return false;
+			}
+
+			return true;
+		}
+
+		private async Task<bool> ConnectToAccount(string Password, string LegalIdentityJid)
+		{
+			try
+			{
+				async Task OnConnected(XmppClient client)
+				{
+					this.PasswordHash = client.PasswordHash;
+					this.PasswordHashMethod = client.PasswordHashMethod;
+
+					DateTime now = DateTime.Now;
+					LegalIdentity createdIdentity = null;
+					LegalIdentity approvedIdentity = null;
+
+					bool serviceDiscoverySucceeded;
+
+					if (this.TagProfile.NeedsUpdating())
+						serviceDiscoverySucceeded = await this.NeuronService.DiscoverServices(client);
+					else
+						serviceDiscoverySucceeded = true;
+
+					if (serviceDiscoverySucceeded)
+					{
+						foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentities(client))
+						{
+							if ((string.IsNullOrEmpty(LegalIdentityJid) || string.Compare(LegalIdentityJid, identity.Id, true) == 0) &&
+								identity.HasClientSignature &&
+								identity.HasClientPublicKey &&
+								identity.From <= now &&
+								identity.To >= now &&
+								(identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
+								identity.ValidateClientSignature() &&
+								await this.NeuronService.Contracts.HasPrivateKey(identity.Id, client))
+							{
+								if (identity.State == IdentityState.Approved)
+								{
+									approvedIdentity = identity;
+									break;
+								}
+
+								if (createdIdentity is null)
+									createdIdentity = identity;
+							}
+						}
+
+						if (!(approvedIdentity is null))
+							this.LegalIdentity = approvedIdentity;
+						else if (!(createdIdentity is null))
+							this.LegalIdentity = createdIdentity;
+
+						if (!(this.LegalIdentity is null))
+							this.TagProfile.SetAccountAndLegalIdentity(this.AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+						else
+							this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+					}
+				}
+
+				(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
+
+				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain,
+					isIpAddress, hostName, portNumber, this.AccountName, Password, Constants.LanguageCodes.Default,
+					typeof(App).Assembly, OnConnected);
+
+				if (!succeeded)
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+
+				return succeeded;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
+			}
+
+			return false;
+		}
+
+		/// <inheritdoc />
+		protected override async Task DoSaveState()
+		{
+			await base.DoSaveState();
+			await this.SettingsService.SaveState(GetSettingsKey(nameof(AccountName)), this.AccountName);
+		}
+
+		/// <inheritdoc />
+		protected override async Task DoRestoreState()
+		{
+			this.AccountName = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(AccountName)));
+			await base.DoRestoreState();
+		}
+	}
 }
