@@ -46,8 +46,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			this.cryptoService = cryptoService;
 			this.networkService = networkService;
-			this.CreateNewCommand = new Command(async _ => await PerformAction(this.CreateAccount), _ => CanCreateAccount());
-			this.ScanQrCodeCommand = new Command(async _ => await PerformAction(this.ScanQrCode), _ => CanScanQrCode());
+			this.CreateNewCommand = new Command(async _ => await PerformAction(this.CreateAccount, true), _ => CanCreateAccount());
+			this.ScanQrCodeCommand = new Command(async _ => await PerformAction(this.ScanQrCode, false), _ => CanScanQrCode());
 			this.Title = AppResources.ChooseAccount;
 		}
 
@@ -139,7 +139,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			this.SettingsService.RemoveState(GetSettingsKey(nameof(AccountName)));
 		}
 
-		private async Task PerformAction(ConnectMethod Method)
+		private async Task PerformAction(ConnectMethod Method, bool MakeBusy)
 		{
 			if (!this.networkService.IsOnline)
 			{
@@ -147,14 +147,17 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				return;
 			}
 
-			SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
+			if (MakeBusy)
+				SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
+
 			try
 			{
 				bool succeeded = await Method();
 
 				UiDispatcher.BeginInvokeOnMainThread(() =>
 				{
-					SetIsDone(CreateNewCommand, ScanQrCodeCommand);
+					if (MakeBusy)
+						SetIsDone(CreateNewCommand, ScanQrCodeCommand);
 
 					if (succeeded)
 						OnStepCompleted(EventArgs.Empty);
@@ -167,7 +170,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			}
 			finally
 			{
-				BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
+				if (MakeBusy)
+					BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
 			}
 		}
 
@@ -326,32 +330,54 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 			if (!string.IsNullOrEmpty(Domain))
 			{
-				bool DefaultConnectivity;
-
+				SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
 				try
 				{
-					(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
-					DefaultConnectivity = HostName == Domain && PortNumber == XmppCredentials.DefaultPort;
+					bool succeeded = true;
+					bool DefaultConnectivity;
+
+					try
+					{
+						(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
+						DefaultConnectivity = HostName == Domain && PortNumber == XmppCredentials.DefaultPort;
+					}
+					catch (Exception)
+					{
+						DefaultConnectivity = false;
+					}
+
+					this.TagProfile.SetDomain(Domain, DefaultConnectivity, ApiKey, ApiSecret);
+
+					if (!string.IsNullOrEmpty(Account) && !string.IsNullOrEmpty(Password))
+					{
+						this.AccountName = AccountName;
+						if (!await this.ConnectToAccount(Password, IdRef, PrivateKeys?.ToArray()))
+							succeeded = false;
+					}
+
+					UiDispatcher.BeginInvokeOnMainThread(() =>
+					{
+						SetIsDone(CreateNewCommand, ScanQrCodeCommand);
+
+						if (succeeded)
+							OnStepCompleted(EventArgs.Empty);
+					});
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
-					DefaultConnectivity = false;
+					this.LogService.LogException(ex);
+					await this.UiDispatcher.DisplayAlert(ex);
 				}
-
-				this.TagProfile.SetDomain(Domain, DefaultConnectivity, ApiKey, ApiSecret);
-
-				if (string.IsNullOrEmpty(Account) || string.IsNullOrEmpty(Password))
-					return true;
-
-				this.AccountName = AccountName;
-				if (!await this.ConnectToAccount(Password, IdRef, PrivateKeys?.ToArray()))
-					return false;
+				finally
+				{
+					BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
+				}
 			}
 
 			return true;
 		}
 
-		private async Task<bool> ConnectToAccount(string Password, string LegalIdentityJid, KeyValuePair<string,byte[]>[] PrivateKeys)
+		private async Task<bool> ConnectToAccount(string Password, string LegalIdentityJid, KeyValuePair<string, byte[]>[] PrivateKeys)
 		{
 			try
 			{
