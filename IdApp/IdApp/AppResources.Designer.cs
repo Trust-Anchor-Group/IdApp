@@ -2761,11 +2761,20 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your service provider has been selected to be {0}. You can either choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Invitation button to scan an invitation code..
+        ///   Looks up a localized string similar to Your service provider has been selected to be.
         /// </summary>
-        internal static string ToConnectToDomainYouNeedAnAccount {
+        internal static string ToConnectToDomainYouNeedAnAccount1 {
             get {
-                return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount", resourceCulture);
+                return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
+        /// </summary>
+        internal static string ToConnectToDomainYouNeedAnAccount2 {
+            get {
+                return ResourceManager.GetString("ToConnectToDomainYouNeedAnAccount2", resourceCulture);
             }
         }
         

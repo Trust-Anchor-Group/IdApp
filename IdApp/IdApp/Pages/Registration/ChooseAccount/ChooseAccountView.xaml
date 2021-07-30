@@ -13,8 +13,17 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Body"
-                   Margin="{StaticResource DefaultMargin}"/>
+            <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Body" Margin="{StaticResource DefaultMargin}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resources:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
+                        <Span Text=" "/>
+                        <Span Text="{Binding Path=DomainName}" FontAttributes="Bold"/>
+                        <Span Text=". "/>
+                        <Span Text="{x:Static resources:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <StackLayout Grid.Row="1" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resources:AppResources.Account}" FontSize="Body"/>
                 <Entry Text="{Binding Path=AccountName}"/>

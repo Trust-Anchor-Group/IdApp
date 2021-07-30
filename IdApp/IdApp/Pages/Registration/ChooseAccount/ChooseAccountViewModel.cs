@@ -55,8 +55,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
-			
-			this.IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
+
+			this.DomainName = this.TagProfile.Domain;
 			this.TagProfile.Changed += TagProfile_Changed;
 		}
 
@@ -72,25 +72,25 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			UiDispatcher.BeginInvokeOnMainThread(() =>
 			{
-				IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
+				DomainName = this.TagProfile.Domain;
 			});
 		}
 
 		#region Properties
 
 		/// <summary>
-		/// See <see cref="IntroText"/>
+		/// See <see cref="DomainName"/>
 		/// </summary>
-		public static readonly BindableProperty IntroTextProperty =
-			BindableProperty.Create("IntroText", typeof(string), typeof(ChooseAccountViewModel), default(string));
+		public static readonly BindableProperty DomainNameProperty =
+			BindableProperty.Create("DomainName", typeof(string), typeof(ChooseAccountViewModel), default(string));
 
 		/// <summary>
 		/// The localized intro text to display to the user for explaining what 'choose account' is for.
 		/// </summary>
-		public string IntroText
+		public string DomainName
 		{
-			get { return (string)GetValue(IntroTextProperty); }
-			set { SetValue(IntroTextProperty, value); }
+			get { return (string)GetValue(DomainNameProperty); }
+			set { SetValue(DomainNameProperty, value); }
 		}
 
 		/// <summary>

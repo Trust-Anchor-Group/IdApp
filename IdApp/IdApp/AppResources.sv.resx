@@ -1023,8 +1023,11 @@
   <data name="To" xml:space="preserve">
     <value>Till</value>
   </data>
-  <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
-    <value>Den tjänsteleverantör som har valts åt dig är {0}. Du kan antingen välja att skapa ett konto hos denna leverantör. Skriv in namnet på kontot du skulle vilja använda, och tryck på Skapa Nytt-knappen. Du kan också välja att skanna en inbjudan eller överföringskod, för att använda ett konto som har förberetts åt dig, hos en annan tjänsteleverantör. Klicka på inbjudnings-knappen för att scanna en inbjudnings- eller överföringskod.</value>
+  <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
+    <value>Den tjänsteleverantör som har valts åt dig är</value>
+  </data>
+  <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
+    <value>Du kan välja att skapa ett konto hos denna leverantör. Skriv in namnet på kontot du skulle vilja använda, och tryck på Skapa Nytt-knappen. Du kan också välja att skanna en inbjudan eller överföringskod, för att använda ett konto som har förberetts åt dig, hos en annan tjänsteleverantör. Klicka på knappen för att skanna inbjudan, för att scanna en inbjudnings- eller överföringskod.</value>
   </data>
   <data name="TransactionAccepted" xml:space="preserve">
     <value>Transaktionen har accepterats och behandlats.</value>

@@ -1545,9 +1545,14 @@
               Looks up a localized string similar to To.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount">
+        <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount1">
             <summary>
-              Looks up a localized string similar to Your service provider has been selected to be {0}. You can either choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Invitation button to scan an invitation code..
+              Looks up a localized string similar to Your service provider has been selected to be.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount2">
+            <summary>
+              Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.TransactionAccepted">
@@ -6290,12 +6295,12 @@
         <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DoUnbind">
             <inheritdoc />
         </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.IntroTextProperty">
+        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainNameProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.IntroText"/>
+            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainName"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.IntroText">
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainName">
             <summary>
             The localized intro text to display to the user for explaining what 'choose account' is for.
             </summary>

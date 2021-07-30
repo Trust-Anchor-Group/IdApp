@@ -975,9 +975,6 @@
   <data name="To" xml:space="preserve">
     <value>To</value>
   </data>
-  <data name="ToConnectToDomainYouNeedAnAccount" xml:space="preserve">
-    <value>Your service provider has been selected to be {0}. You can either choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Invitation button to scan an invitation code.</value>
-  </data>
   <data name="TransactionAccepted" xml:space="preserve">
     <value>Transaction has been accepted and processed.</value>
   </data>
@@ -1196,5 +1193,11 @@
   </data>
   <data name="ScanInvitation" xml:space="preserve">
     <value>Scan Invitation</value>
+  </data>
+  <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
+    <value>Your service provider has been selected to be</value>
+  </data>
+  <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
+    <value>You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code.</value>
   </data>
 </root>
