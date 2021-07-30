@@ -13,9 +13,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Grid.Row="0" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Body"
+                   Margin="{StaticResource DefaultMargin}"/>
             <StackLayout Grid.Row="1" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
-                <Label Text="{x:Static resources:AppResources.Account}"/>
+                <Label Text="{x:Static resources:AppResources.Account}" FontSize="Body"/>
                 <Entry Text="{Binding Path=AccountName}"/>
             </StackLayout>
             <ActivityIndicator Grid.Row="2" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" 

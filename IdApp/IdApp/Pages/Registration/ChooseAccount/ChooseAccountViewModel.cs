@@ -55,6 +55,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
+			
+			this.IntroText = string.Format(AppResources.ToConnectToDomainYouNeedAnAccount, this.TagProfile.Domain);
 			this.TagProfile.Changed += TagProfile_Changed;
 		}
 
@@ -62,6 +64,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		protected override async Task DoUnbind()
 		{
 			this.TagProfile.Changed -= TagProfile_Changed;
+			
 			await base.DoUnbind();
 		}
 
@@ -102,7 +105,11 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		public string AccountName
 		{
 			get { return (string)GetValue(AccountNameProperty); }
-			set { SetValue(AccountNameProperty, value); }
+			set
+			{
+				this.SetValue(AccountNameProperty, value);
+				this.EvaluateCommands(this.CreateNewCommand);
+			}
 		}
 
 		/// <summary>
