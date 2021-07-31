@@ -686,42 +686,49 @@ namespace IdApp.Pages.Main.Main
 		/// <inheritdoc/>
 		protected override void SetConnectionStateAndText(XmppState state)
 		{
-			// Network
-			this.IsOnline = this.networkService.IsOnline;
-			this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
-			this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
-
-			// Neuron server
-			this.IsConnected = state == XmppState.Connected;
-			this.ConnectionStateText = state.ToDisplayText();
-			this.ConnectionStateColor = new SolidColorBrush(state.ToColor());
-			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
-
-			// Any connection errors or general errors that should be displayed?
-			string latestError = this.NeuronService.LatestError;
-			string latestConnectionError = this.NeuronService.LatestConnectionError;
-			if (!string.IsNullOrWhiteSpace(latestError) && !string.IsNullOrWhiteSpace(latestConnectionError))
+			try
 			{
-				if (latestConnectionError != latestError)
-					this.ConnectionErrorsText = $"{latestConnectionError}{Environment.NewLine}{latestError}";
-				else
+				// Network
+				this.IsOnline = this.networkService.IsOnline;
+				this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
+				this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
+
+				// Neuron server
+				this.IsConnected = state == XmppState.Connected;
+				this.ConnectionStateText = state.ToDisplayText();
+				this.ConnectionStateColor = new SolidColorBrush(state.ToColor());
+				this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
+
+				// Any connection errors or general errors that should be displayed?
+				string latestError = this.NeuronService.LatestError;
+				string latestConnectionError = this.NeuronService.LatestConnectionError;
+				if (!string.IsNullOrWhiteSpace(latestError) && !string.IsNullOrWhiteSpace(latestConnectionError))
+				{
+					if (latestConnectionError != latestError)
+						this.ConnectionErrorsText = $"{latestConnectionError}{Environment.NewLine}{latestError}";
+					else
+						this.ConnectionErrorsText = latestConnectionError;
+				}
+				else if (!string.IsNullOrWhiteSpace(latestConnectionError) && string.IsNullOrWhiteSpace(latestError))
+				{
 					this.ConnectionErrorsText = latestConnectionError;
+				}
+				else if (string.IsNullOrWhiteSpace(latestConnectionError) && !string.IsNullOrWhiteSpace(latestError))
+				{
+					this.ConnectionErrorsText = latestError;
+				}
+				else
+				{
+					this.ConnectionErrorsText = string.Empty;
+				}
+				this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
+				this.EvaluateCommands(this.ViewMyContactsCommand, this.ViewMyThingsCommand, this.ScanQrCodeCommand,
+					this.ViewSignedContractsCommand, this.ViewWalletCommand);
 			}
-			else if (!string.IsNullOrWhiteSpace(latestConnectionError) && string.IsNullOrWhiteSpace(latestError))
+			catch (Exception ex)
 			{
-				this.ConnectionErrorsText = latestConnectionError;
+				this.logService.LogException(ex);
 			}
-			else if (string.IsNullOrWhiteSpace(latestConnectionError) && !string.IsNullOrWhiteSpace(latestError))
-			{
-				this.ConnectionErrorsText = latestError;
-			}
-			else
-			{
-				this.ConnectionErrorsText = string.Empty;
-			}
-			this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
-			this.EvaluateCommands(this.ViewMyContactsCommand, this.ViewMyThingsCommand, this.ScanQrCodeCommand, 
-				this.ViewSignedContractsCommand, this.ViewWalletCommand);
 		}
 
 		internal async Task SharePhoto()

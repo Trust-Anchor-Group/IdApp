@@ -30,9 +30,7 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
 
         private void Picker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            View Element = SetFocusTo;
-            if (!(Element is null) && Element.IsVisible)
-                Element.Focus();
+            SetFocusOnClickedBehavior.FocusOn(SetFocusTo);
         }
     }
 }
