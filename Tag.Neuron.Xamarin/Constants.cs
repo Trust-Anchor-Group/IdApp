@@ -103,6 +103,7 @@ namespace Tag.Neuron.Xamarin
                     case UriSchemeIotSc:
                     case UriSchemeTagSign:
                     case UriSchemeEDaler:
+                    case UriSchemeTagId:
                         return code;
 
                     default:

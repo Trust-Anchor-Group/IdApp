@@ -713,6 +713,7 @@ namespace Tag.Neuron.Xamarin.Services
 					client.AllowPlain = false;
 					client.AllowEncryption = true;
 					client.AllowScramSHA1 = true;
+					client.AllowScramSHA256 = true;
 
 					client.OnConnectionError += OnConnectionError;
 					client.OnStateChanged += OnStateChanged;
@@ -744,7 +745,7 @@ namespace Tag.Neuron.Xamarin.Services
 				errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
 			}
 
-			if (!succeeded)
+			if (!succeeded && string.IsNullOrEmpty(errorMessage))
 			{
 				System.Diagnostics.Debug.WriteLine("Sniffer: ", this.sniffer.SnifferToText());
 

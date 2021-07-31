@@ -34,6 +34,8 @@
                             <Picker.Behaviors>
                                 <behaviors:ScrollToSelectedBehavior ScrollTo="PhoneNumberEntry" 
                                                                     BindingContext="{Binding BindingContext, Source={x:Reference PhoneNumberFrame}}"/>
+                                <behaviors:SetFocusOnSelectedBehavior SetFocusTo="PhoneNumberEntry"
+                                                                      BindingContext="{Binding BindingContext, Source={x:Reference PhoneNumberFrame}}"/>
                             </Picker.Behaviors>
                         </Picker>
                         <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.PurposeWorkOrPersonalDescription}" FontSize="Body"

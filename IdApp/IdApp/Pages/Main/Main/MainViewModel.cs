@@ -120,17 +120,7 @@ namespace IdApp.Pages.Main.Main
 					this.Country = country;
 				else
 					this.Country = string.Empty;
-			}
-			else
-			{
-				this.FullName = string.Empty;
-				this.City = string.Empty;
-				this.Country = string.Empty;
-			}
 
-			// QR
-			if (!(this.TagProfile?.LegalIdentity is null))
-			{
 				_ = Task.Run(() =>
 				{
 					this.QrCodeBin = QrCodeImageGenerator.GeneratePng(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
@@ -141,19 +131,32 @@ namespace IdApp.Pages.Main.Main
 						this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin)));
 					}
 				});
+
+				Attachment firstAttachment = this.TagProfile.LegalIdentity.Attachments?.GetFirstImageAttachment();
+				if (!(firstAttachment is null))
+				{
+					_ = Task.Run(async () =>
+					{
+						try
+						{
+							await this.LoadProfilePhoto(firstAttachment);
+						}
+						catch (Exception ex)
+						{
+							this.logService.LogException(ex);
+							await this.UiDispatcher.DisplayAlert(ex);
+						}
+					});
+				}
 			}
 			else
 			{
+				this.FullName = string.Empty;
+				this.City = string.Empty;
+				this.Country = string.Empty;
 				this.QrCode = null;
 				this.QrCodeBin = null;
 				this.QrCodeContentType = string.Empty;
-			}
-
-			Attachment firstAttachment = this.TagProfile?.LegalIdentity?.Attachments?.GetFirstImageAttachment();
-			if (!(firstAttachment is null))
-			{
-				// Don't await this one, just let it run asynchronously.
-				_ = this.LoadProfilePhoto(firstAttachment);
 			}
 		}
 

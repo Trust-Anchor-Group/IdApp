@@ -6315,16 +6315,6 @@
             The account name to use when creating a new account.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordHash">
-            <summary>
-            Gets or sets the hashed password value.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordHashMethod">
-            <summary>
-            Gets or sets the hash method used when hashing a password.
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LegalIdentity">
             <summary>
             The legal identity, if any. Typically set after creating an account or connecting to an existing account.

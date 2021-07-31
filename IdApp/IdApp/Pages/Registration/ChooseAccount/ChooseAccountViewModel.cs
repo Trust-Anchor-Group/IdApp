@@ -113,16 +113,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		}
 
 		/// <summary>
-		/// Gets or sets the hashed password value.
-		/// </summary>
-		public string PasswordHash { get; set; }
-
-		/// <summary>
-		/// Gets or sets the hash method used when hashing a password.
-		/// </summary>
-		public string PasswordHashMethod { get; set; }
-
-		/// <summary>
 		/// The legal identity, if any. Typically set after creating an account or connecting to an existing account.
 		/// </summary>
 		public LegalIdentity LegalIdentity { get; set; }
@@ -206,9 +196,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 				async Task OnConnected(XmppClient client)
 				{
-					this.PasswordHash = client.PasswordHash;
-					this.PasswordHashMethod = client.PasswordHashMethod;
-
 					if (this.TagProfile.NeedsUpdating())
 						await this.NeuronService.DiscoverServices(client);
 
@@ -357,8 +344,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					if (!string.IsNullOrEmpty(Account) && !string.IsNullOrEmpty(Password))
 					{
-						this.AccountName = AccountName;
-						if (!await this.ConnectToAccount(Password, IdRef, PrivateKeys?.ToArray()))
+						if (!await this.ConnectToAccount(Account, Password, IdRef, PrivateKeys?.ToArray()))
 							succeeded = false;
 					}
 
@@ -384,15 +370,12 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			return true;
 		}
 
-		private async Task<bool> ConnectToAccount(string Password, string LegalIdentityJid, KeyValuePair<string, byte[]>[] PrivateKeys)
+		private async Task<bool> ConnectToAccount(string AccountName, string Password, string LegalIdentityJid, KeyValuePair<string, byte[]>[] PrivateKeys)
 		{
 			try
 			{
 				async Task OnConnected(XmppClient client)
 				{
-					this.PasswordHash = client.PasswordHash;
-					this.PasswordHashMethod = client.PasswordHashMethod;
-
 					DateTime now = DateTime.Now;
 					LegalIdentity createdIdentity = null;
 					LegalIdentity approvedIdentity = null;
@@ -437,16 +420,16 @@ namespace IdApp.Pages.Registration.ChooseAccount
 							this.LegalIdentity = createdIdentity;
 
 						if (!(this.LegalIdentity is null))
-							this.TagProfile.SetAccountAndLegalIdentity(this.AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+							this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
 						else
-							this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
+							this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
 					}
 				}
 
 				(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
 				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain,
-					isIpAddress, hostName, portNumber, this.AccountName, Password, Constants.LanguageCodes.Default,
+					isIpAddress, hostName, portNumber, AccountName, Password, Constants.LanguageCodes.Default,
 					typeof(App).Assembly, OnConnected);
 
 				if (!succeeded)
