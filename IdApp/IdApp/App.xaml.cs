@@ -13,7 +13,6 @@ using IdApp.Pages.Main.Shell;
 using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
-using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.Services;
 using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Content;
@@ -355,7 +354,7 @@ namespace IdApp
 			if (!(this.sdk?.StorageService is null))
 				await this.sdk.StorageService.Shutdown();
 
-			Waher.Events.Log.Terminate();
+			Waher.Events.Log.Terminate();	// Causes list of singleton instances to be cleared.
 		}
 
 		#endregion
@@ -461,13 +460,9 @@ namespace IdApp
 			if (!shutdown)
 			{
 				if (Device.IsInvokeRequired && !(MainPage is null))
-				{
 					Device.BeginInvokeOnMainThread(async () => await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok));
-				}
 				else if (!(MainPage is null))
-				{
 					await MainPage.DisplayAlert(title, ex?.ToString(), AppResources.Ok);
-				}
 			}
 #endif
 		}
@@ -542,6 +537,7 @@ namespace IdApp
 				HttpClient client = new HttpClient();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+				
 				StringContent content = new StringContent(message);
 				content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
 

@@ -301,25 +301,25 @@ namespace Tag.Neuron.Xamarin.Services
 			if (this.xmppClient is null)
 				return false;
 
-			if (this.domainName != this.tagProfile.Domain) 
+			if (this.domainName != this.tagProfile.Domain)
 				return false;
 
-			if (this.accountName != this.tagProfile.Account) 
+			if (this.accountName != this.tagProfile.Account)
 				return false;
 
-			if (this.passwordHash != this.tagProfile.PasswordHash) 
+			if (this.passwordHash != this.tagProfile.PasswordHash)
 				return false;
 
-			if (this.passwordHashMethod != this.tagProfile.PasswordHashMethod) 
+			if (this.passwordHashMethod != this.tagProfile.PasswordHashMethod)
 				return false;
 
-			if (this.contractsClient?.ComponentAddress != this.tagProfile.LegalJid) 
+			if (this.contractsClient?.ComponentAddress != this.tagProfile.LegalJid)
 				return false;
 
-			if (this.fileUploadClient?.FileUploadJid != this.tagProfile.HttpFileUploadJid) 
+			if (this.fileUploadClient?.FileUploadJid != this.tagProfile.HttpFileUploadJid)
 				return false;
 
-			if (this.mucClient?.ComponentAddress != this.tagProfile.MucJid) 
+			if (this.mucClient?.ComponentAddress != this.tagProfile.MucJid)
 				return false;
 
 			if (this.thingRegistryClient?.ThingRegistryAddress != this.tagProfile.RegistryJid)
@@ -615,10 +615,10 @@ namespace Tag.Neuron.Xamarin.Services
 		}
 
 		public Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret, 
+			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret,
 			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode, 
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode,
 				ApiKey, ApiSecret, applicationAssembly, connectedFunc, ConnectOperation.ConnectAndCreateAccount);
 		}
 
@@ -631,7 +631,7 @@ namespace Tag.Neuron.Xamarin.Services
 		}
 
 		private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret, 
+			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret,
 			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
 		{
 			TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
@@ -713,6 +713,7 @@ namespace Tag.Neuron.Xamarin.Services
 					client.AllowPlain = false;
 					client.AllowEncryption = true;
 					client.AllowScramSHA1 = true;
+					client.AllowScramSHA256 = true;
 
 					client.OnConnectionError += OnConnectionError;
 					client.OnStateChanged += OnStateChanged;
@@ -744,7 +745,7 @@ namespace Tag.Neuron.Xamarin.Services
 				errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
 			}
 
-			if (!succeeded)
+			if (!succeeded && string.IsNullOrEmpty(errorMessage))
 			{
 				System.Diagnostics.Debug.WriteLine("Sniffer: ", this.sniffer.SnifferToText());
 

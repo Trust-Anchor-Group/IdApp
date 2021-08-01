@@ -30,12 +30,20 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            View view = ScrollTo;
-            Element Loop = view.Parent;
+            MakeVisible(this.ScrollTo);
+        }
+
+        /// <summary>
+        /// Scrolls to make an element visisble.
+        /// </summary>
+        /// <param name="Element">Element to make visible.</param>
+        public static void MakeVisible(View Element)
+		{
+            Element Loop = Element.Parent;
             while (!(Loop is null) && !(Loop is ScrollView))
                 Loop = Loop.Parent;
 
-            (Loop as ScrollView)?.ScrollToAsync(view, ScrollToPosition.MakeVisible, true);
+            (Loop as ScrollView)?.ScrollToAsync(Element, ScrollToPosition.MakeVisible, true);
         }
     }
 }

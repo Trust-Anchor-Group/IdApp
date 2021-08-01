@@ -30,12 +30,7 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
 
         private void Entry_Completed(object sender, EventArgs e)
         {
-            View view = ScrollTo;
-            Element Loop = view.Parent;
-            while (!(Loop is null) && !(Loop is ScrollView))
-                Loop = Loop.Parent;
-
-            (Loop as ScrollView)?.ScrollToAsync(view, ScrollToPosition.MakeVisible, true);
+            ScrollToClickedBehavior.MakeVisible(this.ScrollTo);
         }
     }
 }

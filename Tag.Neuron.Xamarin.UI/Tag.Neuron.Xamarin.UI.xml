@@ -61,6 +61,12 @@
         <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
             <inheritdoc/>
         </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToClickedBehavior.MakeVisible(Xamarin.Forms.View)">
+            <summary>
+            Scrolls to make an element visisble.
+            </summary>
+            <param name="Element">Element to make visible.</param>
+        </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.ScrollToCompletedBehavior">
             <summary>
             Used for moving focus to the next UI component when the Enter/Return key has been hit.
@@ -108,6 +114,12 @@
         </member>
         <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
             <inheritdoc/>
+        </member>
+        <member name="M:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnClickedBehavior.FocusOn(Xamarin.Forms.View)">
+            <summary>
+            Sets focus on an element.
+            </summary>
+            <param name="Element">Element to focus on.</param>
         </member>
         <member name="T:Tag.Neuron.Xamarin.UI.Behaviors.SetFocusOnCompletedBehavior">
             <summary>

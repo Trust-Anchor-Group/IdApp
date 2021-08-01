@@ -64,9 +64,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         private void ViewModel_ModeChanged(object sender, EventArgs e)
         {
             if (GetViewModel<ScanQrCodeViewModel>().ScanIsManual)
-            {
                 this.LinkEntry.Focus();
-            }
         }
 
         private void Scanner_OnScanResult(Result result)

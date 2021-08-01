@@ -235,6 +235,11 @@
             eDaler URI Scheme (edaler)
             </summary>
         </member>
+        <member name="F:Tag.Neuron.Xamarin.Constants.UriSchemes.UriSchemeTagId">
+            <summary>
+            Tag ID URI Scheme (tagid)
+            </summary>
+        </member>
         <member name="M:Tag.Neuron.Xamarin.Constants.UriSchemes.GetScheme(System.String)">
             <summary>
             Gets the predefined scheme from an IoT Code

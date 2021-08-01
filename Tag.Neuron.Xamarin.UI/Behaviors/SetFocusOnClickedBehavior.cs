@@ -30,9 +30,22 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            View Element = SetFocusTo;
+            FocusOn(SetFocusTo);
+        }
+
+        /// <summary>
+        /// Sets focus on an element.
+        /// </summary>
+        /// <param name="Element">Element to focus on.</param>
+        public static void FocusOn(View Element)
+		{
             if (!(Element is null) && Element.IsVisible)
+            {
                 Element.Focus();
+
+                if (Element is Entry Entry && !(Entry.Text is null))
+                    Entry.CursorPosition = Entry.Text.Length;
+            }
         }
     }
 }

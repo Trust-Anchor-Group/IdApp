@@ -1,78 +1,39 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms" 
-                      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                      xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
-                      xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
-                      xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                      x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
+                                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                   xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
+                                   xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
+                                   x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
     <ContentView.Content>
-
         <Grid Margin="{StaticResource DefaultMargin}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Grid.Resources>
-                <converters:BooleanToBoldFontConverter x:Key="BooleanToBoldFont"/>
-                <converters:BooleanToBoldFontConverter x:Key="InvertedBooleanToBoldFont" Invert="True"/>
-            </Grid.Resources>
-
-            <Label Grid.Row="0" Text="{Binding Path=IntroText}" HorizontalOptions="Center" VerticalOptions="Center" />
-
-            <!-- Tabs -->
-            <Grid Grid.Row="1" Margin="{StaticResource DefaultMargin}" VerticalOptions="StartAndExpand">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <!-- TAB 1 -->
-                <Label Grid.Column="0" Text="{x:Static resources:AppResources.CreateNew}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                       VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center" HorizontalOptions="CenterAndExpand" 
-                       FontAttributes="{Binding Path=CreateNew, Converter={StaticResource BooleanToBoldFont}}"/>
-                <BoxView Grid.Column="0" IsVisible="{Binding Path=CreateNew}" Color="{StaticResource AccentColor}" 
-                         HeightRequest="3" VerticalOptions="End" />
-                <ContentView BackgroundColor="Transparent" Grid.Column="0" VerticalOptions="Fill">
-                    <ContentView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
-                    </ContentView.GestureRecognizers>
-                </ContentView>
-
-                <!-- TAB 2 -->
-                <Label Grid.Column="1" Text="{x:Static resources:AppResources.UseExisting}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                       VerticalOptions="StartAndExpand" HorizontalTextAlignment="Center"  HorizontalOptions="CenterAndExpand" 
-                       FontAttributes="{Binding Path=CreateNew, Converter={StaticResource InvertedBooleanToBoldFont}}"/>
-                <BoxView Grid.Column="1" IsVisible="{Binding Path=CreateNew, Converter={converters:LogicalNot}}" 
-                         Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="End" />
-                <ContentView BackgroundColor="Transparent" Grid.Column="1" VerticalOptions="Fill">
-                    <ContentView.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding Path=SwitchModeCommand}" />
-                    </ContentView.GestureRecognizers>
-                </ContentView>
-            </Grid>
-
-            <!-- TAB 1 Contents -->
-            <StackLayout Grid.Row="2" x:Name="CreateNewTab" IsVisible="{Binding Path=CreateNew}" Orientation="Vertical" 
-                         Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
-                <Label Text="{x:Static resources:AppResources.Account}"/>
-                <Entry Text="{Binding Path=CreateNewAccountName}"/>
+            <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Body" Margin="{StaticResource DefaultMargin}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static resources:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
+                        <Span Text=" "/>
+                        <Span Text="{Binding Path=DomainName}" FontAttributes="Bold"/>
+                        <Span Text=". "/>
+                        <Span Text="{x:Static resources:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <StackLayout Grid.Row="1" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
+                <Label Text="{x:Static resources:AppResources.Account}" FontSize="Body"/>
+                <Entry Text="{Binding Path=AccountName}"/>
             </StackLayout>
-
-            <!-- TAB 2 Contents -->
-            <StackLayout Grid.Row="2" x:Name="UseExistingTab" IsVisible="{Binding Path=CreateNew, Converter={converters:LogicalNot}}" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
-                <Label Text="{x:Static resources:AppResources.Account}"/>
-                <Entry Text="{Binding Path=ConnectToExistingAccountName}" />
-                <Label Text="{x:Static resources:AppResources.Password}" />
-                <Entry IsPassword="True" Text="{Binding Path=Password}"/>
-            </StackLayout>
-
-            <StackLayout Grid.Row="3" Orientation="Vertical" VerticalOptions="End">
-                <ActivityIndicator IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
-                <Button Text="{Binding Path=ActionButtonText}" Command="{Binding Path=PerformActionCommand}" Margin="{StaticResource DefaultMargin}" />
-            </StackLayout>
-
+            <ActivityIndicator Grid.Row="2" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" 
+                               VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
+            <Button Grid.Row="3" Text="{x:Static resources:AppResources.CreateAccount}" Command="{Binding Path=CreateNewCommand}" 
+                    Margin="{StaticResource DefaultMargin}" />
+            <Button Grid.Row="4" Text="{x:Static resources:AppResources.ScanInvitation}" Command="{Binding Path=ScanQrCodeCommand}" 
+                    Margin="{StaticResource DefaultMargin}" />
         </Grid>
 
     </ContentView.Content>

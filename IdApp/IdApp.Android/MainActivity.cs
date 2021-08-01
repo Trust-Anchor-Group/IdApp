@@ -16,7 +16,9 @@ namespace IdApp.Android
 
             base.OnCreate(savedInstanceState);
 
-            this.Window.SetFlags(WindowManagerFlags.KeepScreenOn, WindowManagerFlags.KeepScreenOn);
+            this.Window.SetFlags(
+                WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure,
+                WindowManagerFlags.KeepScreenOn | WindowManagerFlags.Secure);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();

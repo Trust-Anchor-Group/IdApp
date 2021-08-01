@@ -235,6 +235,11 @@
               Looks up a localized string similar to City.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ClaimInvitation">
+            <summary>
+              Looks up a localized string similar to Claim Invitation.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ClaimThing">
             <summary>
               Looks up a localized string similar to Claim Thing.
@@ -378,6 +383,11 @@
         <member name="P:IdApp.AppResources.Create">
             <summary>
               Looks up a localized string similar to Create.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.CreateAccount">
+            <summary>
+              Looks up a localized string similar to Create Account.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Created">
@@ -630,6 +640,11 @@
               Looks up a localized string similar to Invalid eDaler URI: {0}.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.InvalidInvitationCode">
+            <summary>
+              Looks up a localized string similar to Invalid invitation code..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.InvalidIoTDiscoveryCode">
             <summary>
               Looks up a localized string similar to Invalid IoT Discovery Code.
@@ -638,6 +653,11 @@
         <member name="P:IdApp.AppResources.InvalidUsernameOrPassword">
             <summary>
               Looks up a localized string similar to Invalid username or password.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Invitation">
+            <summary>
+              Looks up a localized string similar to Invitation.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.InvitePeerToReview">
@@ -803,6 +823,11 @@
         <member name="P:IdApp.AppResources.NoContractsFound">
             <summary>
               Looks up a localized string similar to No contracts found..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.NotAnInvitationCode">
+            <summary>
+              Looks up a localized string similar to Not an invitation code..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Notary">
@@ -1285,6 +1310,11 @@
               Looks up a localized string similar to Room.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ScanInvitation">
+            <summary>
+              Looks up a localized string similar to Scan Invitation.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ScannedQrCode">
             <summary>
               Looks up a localized string similar to Scanned QR Code.
@@ -1500,6 +1530,11 @@
               Looks up a localized string similar to Below are all your things, and things in your contact book. Click on any to interact with that thing..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ThisCodeCannotBeClaimedAtThisTime">
+            <summary>
+              Looks up a localized string similar to This code represents a Tag ID invitation, and cannot be claimed at this time..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Timestamp">
             <summary>
               Looks up a localized string similar to Time stamp.
@@ -1510,9 +1545,14 @@
               Looks up a localized string similar to To.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount">
+        <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount1">
             <summary>
-              Looks up a localized string similar to To connect to {0}, you need an account. Do you want to create one, or use an existing account?.
+              Looks up a localized string similar to Your service provider has been selected to be.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.ToConnectToDomainYouNeedAnAccount2">
+            <summary>
+              Looks up a localized string similar to You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.TransactionAccepted">
@@ -1568,11 +1608,6 @@
         <member name="P:IdApp.AppResources.Updated">
             <summary>
               Looks up a localized string similar to Updated.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.UseExisting">
-            <summary>
-              Looks up a localized string similar to Use existing.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ValidateIdentityInfo1Text">
@@ -6260,79 +6295,24 @@
         <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DoUnbind">
             <inheritdoc />
         </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.Mode">
+        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainNameProperty">
             <summary>
-            The current mode this view model is in. Create new account, or connect to existing?
+            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainName"/>
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.IntroTextProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.IntroText"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.IntroText">
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DomainName">
             <summary>
             The localized intro text to display to the user for explaining what 'choose account' is for.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNewProperty">
+        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.AccountNameProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNew"/>
+            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.AccountName"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNew">
-            <summary>
-            Gets or sets whether the user wants to create a new account (as opposed to connect to existing).
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNewAccountNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNewAccountName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNewAccountName">
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.AccountName">
             <summary>
             The account name to use when creating a new account.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ConnectToExistingAccountNameProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ConnectToExistingAccountName"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ConnectToExistingAccountName">
-            <summary>
-            The account name to use when connecting to an existing account.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.Password"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.Password">
-            <summary>
-            Gets or sets the password to use.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ActionButtonTextProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ActionButtonText"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ActionButtonText">
-            <summary>
-            The localized text to display on the action button, typically "Create" or "Connect".
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordHash">
-            <summary>
-            Gets or sets the hashed password value.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PasswordHashMethod">
-            <summary>
-            Gets or sets the hash method used when hashing a password.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.LegalIdentity">
@@ -6340,14 +6320,14 @@
             The legal identity, if any. Typically set after creating an account or connecting to an existing account.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.SwitchModeCommand">
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.CreateNewCommand">
             <summary>
-            The command to bind to for switching <see cref="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.Mode"/>.
+            The command to bind to for creating a new account.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.PerformActionCommand">
+        <member name="P:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ScanQrCodeCommand">
             <summary>
-            The command to bind to for executing the appropriate action, create or connect.
+            The command to bind to for scanning an invitation or transfer code.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.ClearStepState">
@@ -6358,21 +6338,6 @@
         </member>
         <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DoRestoreState">
             <inheritdoc />
-        </member>
-        <member name="T:IdApp.Pages.Registration.ChooseAccount.AccountMode">
-            <summary>
-            Different types of account modes: create or connect.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.AccountMode.Create">
-            <summary>
-            Create new account.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Registration.ChooseAccount.AccountMode.Connect">
-            <summary>
-            Connect to an existing account.
-            </summary>
         </member>
         <member name="T:IdApp.Pages.Registration.DefinePin.DefinePinView">
             <summary>

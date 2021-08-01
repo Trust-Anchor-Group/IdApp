@@ -29,28 +29,28 @@ namespace IdApp.Tests.ViewModels.Registration
             return new ChooseAccountViewModel(new TagProfile(), dispatcher.Object, neuronService.Object, navigationService.Object, this.settingsService.Object, authService.Object, this.networkService.Object, this.logService.Object);
         }
 
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase(" ")]
-        public void When_CreateNewAccount_AndAccountNameIsEmpty_ThenButtonIsDisabled(string accountName)
-        {
-            Given(AViewModel)
-                .And(vm => vm.CreateNewAccountName = accountName)
-                .And(vm => vm.CreateNew = true)
-                .ThenAssert(vm => vm.PerformActionCommand.IsDisabled());
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase(" ")]
-        public void When_ConnectToExistingAccount_AndAccountNameIsEmpty_ThenButtonIsDisabled(string accountName)
-        {
-            Given(AViewModel)
-                .And(vm => vm.ConnectToExistingAccountName = accountName)
-                .And(vm => vm.CreateNew = false)
-                .ThenAssert(vm => vm.PerformActionCommand.IsDisabled());
-        }
+        //[Test]
+        //[TestCase(null)]
+        //[TestCase("")]
+        //[TestCase(" ")]
+        //public void When_CreateNewAccount_AndAccountNameIsEmpty_ThenButtonIsDisabled(string accountName)
+        //{
+        //    Given(AViewModel)
+        //        .And(vm => vm.CreateNewAccountName = accountName)
+        //        .And(vm => vm.CreateNew = true)
+        //        .ThenAssert(vm => vm.PerformActionCommand.IsDisabled());
+        //}
+        //
+        //[Test]
+        //[TestCase(null)]
+        //[TestCase("")]
+        //[TestCase(" ")]
+        //public void When_ConnectToExistingAccount_AndAccountNameIsEmpty_ThenButtonIsDisabled(string accountName)
+        //{
+        //    Given(AViewModel)
+        //        .And(vm => vm.ConnectToExistingAccountName = accountName)
+        //        .And(vm => vm.CreateNew = false)
+        //        .ThenAssert(vm => vm.PerformActionCommand.IsDisabled());
+        //}
     }
 }
