@@ -13,12 +13,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>portable</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <DocumentationFile>C:\My Projects\IdApp\IdApp\IdApp\IdApp.xml</DocumentationFile>
+    <DocumentationFile>IdApp.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="C:\Users\Henrik\.nuget\packages\waher.networking.xmpp.concentrator\1.1.1\contentFiles\any\netstandard1.3\Language\Waher.Networking.XMPP.Concentrator.en.lng" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EDaler" Version="1.0.12" />
