@@ -38,7 +38,7 @@
     <PackageReference Include="Waher.Networking.XMPP.Sensor" Version="1.1.2" />
     <PackageReference Include="Waher.Persistence" Version="1.5.0" />
     <PackageReference Include="Waher.Persistence.FilesLW" Version="1.6.0" />
-    <PackageReference Include="Waher.Runtime.Inventory" Version="1.0.24" />
+    <PackageReference Include="Waher.Runtime.Inventory" Version="1.0.25" />
     <PackageReference Include="Waher.Runtime.Language" Version="1.0.4" />
     <PackageReference Include="Waher.Runtime.Queue" Version="1.0.1" />
     <PackageReference Include="Waher.Runtime.Settings" Version="1.0.9" />
