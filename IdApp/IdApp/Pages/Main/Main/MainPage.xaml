@@ -5,6 +5,7 @@
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:mainTabBar="clr-namespace:IdApp.Pages.Main.MainTabBar;assembly=IdApp"
+                       xmlns:main="clr-namespace:IdApp.Pages.Main.Main" x:DataType="main:MainViewModel"
                        x:Class="IdApp.Pages.Main.Main.MainPage"
                        Title="{x:Static local:AppResources.MainPageTitle}"
                        Shell.FlyoutBehavior="Flyout">
@@ -113,23 +114,15 @@
                     <views:FlipView.BackView>
                         <Frame Margin="2" Padding="2" BackgroundColor="{StaticResource HeadingBackground}" 
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            <Grid RowDefinitions="auto,*,auto" ColumnDefinitions="*">
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20"
-                                       VerticalOptions="Start" HorizontalOptions="End" Margin="{StaticResource DefaultMargin}">
+                                       VerticalOptions="Start" HorizontalOptions="End" Margin="12,12,12,4">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.ScanQr}" Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
                                 </Image>
                                 <Image Grid.Row="0" WidthRequest="20" HeightRequest="20" 
-                                       VerticalOptions="Start" HorizontalOptions="Start" Margin="{StaticResource DefaultMargin}">
+                                       VerticalOptions="Start" HorizontalOptions="Start" Margin="12,12,12,4">
                                     <Image.Source>
                                         <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Share}" Color="{StaticResource HeadingForeground}"/>
                                     </Image.Source>
@@ -139,8 +132,7 @@
                                 </Image>
                                 <Image Grid.Row="1"
                                        HorizontalOptions="FillAndExpand"
-                                       VerticalOptions="FillAndExpand" Margin="5"
-                                       BackgroundColor="{StaticResource HeadingBackground}"
+                                       VerticalOptions="FillAndExpand" Margin="12,0,12,0"
                                        Aspect="AspectFit"
                                        Source="{Binding Path=Image}" 
                                        IsVisible="{Binding Path=HasPhoto}" 
@@ -152,8 +144,8 @@
                                        Text="{x:Static local:FontAwesome.User}"
                                        FontFamily="{StaticResource FontAwesomeSolid}"
                                        IsVisible="{Binding Path=HasPhoto, Converter={converters:LogicalNot}}"/>
-                                <Label Grid.Row="2" Text="{Binding Path=FullName}" 
-                                       TextColor="{StaticResource HeadingForeground}" Margin="{StaticResource DefaultTopOnlyMargin}" 
+                                <Label Grid.Row="2" Text="{Binding Path=FullName}"
+                                       TextColor="{StaticResource HeadingForeground}" Margin="0,4,0,4" 
                                        HorizontalOptions="Center" FontSize="Medium"/>
                             </Grid>
                         </Frame>
