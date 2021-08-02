@@ -2,8 +2,12 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:mainTabBar="clr-namespace:IdApp.Pages.Main.MainTabBar;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet.MyWallet;assembly=IdApp"
+                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
+                       x:DataType="model:MyWalletViewModel"
                        x:Class="IdApp.Pages.Wallet.MyWallet.MyWalletPage"
                        Title="{x:Static local:AppResources.Wallet}">
     <Grid>
@@ -27,7 +31,7 @@
                     <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
                 <Image x:Name="Img" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerGlyph}" Opacity="0.5"/>
-                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Timestamp}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
+                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Timestamp, Converter={converters:DateTimeToStringConverter}}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
                 <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource HeadingForeground}">
                     <Label.FormattedText>
                         <FormattedString>
@@ -56,7 +60,7 @@
                 <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}" Orientation="Vertical"
                              BindableLayout.ItemsSource="{Binding Path=PendingPayments}" VerticalOptions="Start">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="model:PendingPaymentItem">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -78,7 +82,6 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="WordWrap"/>
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowPendingCommand, Source={x:Reference PendingPaymentsLayout}}" CommandParameter="{Binding}" />
                                 </Grid.GestureRecognizers>
@@ -90,7 +93,7 @@
                 <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=HasEvents}" Orientation="Vertical"
                              BindableLayout.ItemsSource="{Binding Path=Events}" VerticalOptions="StartAndExpand">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="objectmodel:AccountEventItem">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

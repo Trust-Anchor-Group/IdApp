@@ -5,6 +5,8 @@
                                    xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
                                    xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                                    xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
+                                   xmlns:model="clr-namespace:IdApp.Pages.Registration.ValidatePhoneNr;assembly=IdApp"
+                                   x:DataType="model:ValidatePhoneNrViewModel"
                                    x:Class="IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrView">
     <ContentView.Content>
         <Grid Margin="0,0,0,0">

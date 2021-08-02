@@ -4,6 +4,9 @@
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:pages="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"
+                       x:DataType="model:ValidateIdentityViewModel"
                        x:Class="IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
     <ContentView.Content>
         <ScrollView>
@@ -94,7 +97,7 @@
                                     JustifyContent="Start" 
                                     BindableLayout.ItemsSource="{Binding Path=Photos}">
                             <BindableLayout.ItemTemplate>
-                                <DataTemplate>
+                                <DataTemplate x:DataType="pages:Photo">
                                     <Image Source="{Binding Path=Source}" Rotation="{Binding Path=Rotation}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" Margin="2"/>
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>

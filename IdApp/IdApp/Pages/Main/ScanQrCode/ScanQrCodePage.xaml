@@ -4,6 +4,8 @@
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Main.ScanQrCode;assembly=IdApp"
+                       x:DataType="model:ScanQrCodeViewModel"
                        x:Class="IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"
                        Title="{x:Static local:AppResources.ScanQRCode}"
                        Shell.FlyoutBehavior="Disabled" 

@@ -3,6 +3,8 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet.AccountEvent;assembly=IdApp"
+                       x:DataType="model:AccountEventViewModel"
                        x:Class="IdApp.Pages.Wallet.AccountEvent.AccountEventPage"
                        Title="{x:Static local:AppResources.AccountEvent}">
     <Grid>

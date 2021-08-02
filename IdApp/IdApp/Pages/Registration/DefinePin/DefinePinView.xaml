@@ -5,6 +5,8 @@
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Registration.DefinePin;assembly=IdApp"
+                       x:DataType="model:DefinePinViewModel"
                        x:Class="IdApp.Pages.Registration.DefinePin.DefinePinView">
     <ContentView.Content>
         <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="PinContent">

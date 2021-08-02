@@ -3,6 +3,9 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Things.ViewThing;assembly=IdApp"
+                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Things;assembly=IdApp"
+                       x:DataType="model:ThingViewModel"
                        x:Class="IdApp.Pages.Things.ViewThing.ViewThingPage"
                        Title="{x:Static local:AppResources.Thing}">
     <Grid>
@@ -13,7 +16,7 @@
                 <Label Text="{x:Static local:AppResources.InformationAboutThingText}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <StackLayout x:Name="TagLayout" Orientation="Vertical" BindableLayout.ItemsSource="{Binding Path=Tags}" VerticalOptions="StartAndExpand" Margin="{StaticResource DefaultMargin}">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="objectmodel:HumanReadableTag">
                             <StackLayout Orientation="Horizontal">
                                 <Label Text="{Binding Path=LocalizedName}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" WidthRequest="100"/>
                                 <Label LineBreakMode="WordWrap" Text="{Binding Path=LocalizedValue}" Style="{StaticResource ClickableValueLabel}">

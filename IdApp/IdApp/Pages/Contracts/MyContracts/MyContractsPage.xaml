@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
-             xmlns:local="clr-namespace:IdApp;assembly=IdApp"
-             x:Class="IdApp.Pages.Contracts.MyContracts.MyContractsPage">
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Contracts.MyContracts;assembly=IdApp"
+                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Contracts.MyContracts.ObjectModel;assembly=IdApp"
+                       x:DataType="model:MyContractsViewModel"
+                       x:Class="IdApp.Pages.Contracts.MyContracts.MyContractsPage">
     <StackLayout Margin="{StaticResource DefaultMargin}">
         <Label Text="{Binding Path=Title, Mode=OneTime}" Style="{StaticResource Heading}"/>
         <Label Text="{Binding Path=Description, Mode=OneTime}" HorizontalOptions="Center" VerticalOptions="Start"/>
@@ -15,7 +18,7 @@
                   ItemsSource="{Binding Path=Categories}" SelectedItem="{Binding Path=SelectedContract, Mode=TwoWay}"
                   IsGroupingEnabled="True">
             <ListView.GroupHeaderTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="objectmodel:ContractCategoryModel">
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="5,5,5,5" BackgroundColor="{StaticResource HeadingBackground}">
                             <Label LineBreakMode="CharacterWrap" TextType="Text">
@@ -39,7 +42,7 @@
                 </DataTemplate>
             </ListView.GroupHeaderTemplate>
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="objectmodel:ContractModel">
                     <ViewCell>
                         <StackLayout Orientation="Horizontal" Padding="5,5,5,5">
                             <Label LineBreakMode="NoWrap" Text="{Binding Path=Timestamp}" MinimumWidthRequest="100"/>

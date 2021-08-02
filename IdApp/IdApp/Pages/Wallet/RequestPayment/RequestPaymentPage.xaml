@@ -3,6 +3,8 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet.RequestPayment;assembly=IdApp"
+                       x:DataType="model:RequestPaymentViewModel"
                        x:Class="IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage"
                        Title="{x:Static local:AppResources.RequestPayment}">
     <Grid>

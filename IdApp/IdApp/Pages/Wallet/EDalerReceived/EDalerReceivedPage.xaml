@@ -2,7 +2,10 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet.EDalerReceived;assembly=IdApp"
+                       x:DataType="model:EDalerReceivedViewModel"
                        x:Class="IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedPage"
                        Title="{x:Static local:AppResources.ReceiveEDaler}">
     <Grid>
@@ -22,7 +25,7 @@
                             <RowDefinition Height="25"/>
                         </Grid.RowDefinitions>
                         <Image x:Name="Img" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerGlyph}" Opacity="0.5"/>
-                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Created}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
+                        <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Timestamp, Converter={converters:DateTimeToStringConverter}}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
                         <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource HeadingForeground}">
                             <Label.FormattedText>
                                 <FormattedString>
