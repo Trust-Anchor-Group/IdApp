@@ -1897,6 +1897,21 @@
         <member name="M:IdApp.Converters.BooleanToTextTypeConverter.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.DateTimeToStringConverter">
+            <summary>
+            Converts a <see cref="T:System.DateTime"/> value to a <see cref="T:System.String"/> value. If the value is
+            <see cref="F:System.DateTime.MinValue"/> or <see cref="F:System.DateTime.MaxValue"/>, the empty string is returned.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.DateTimeToStringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DateTimeToStringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.DateTimeToStringConverter.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.EqualsOne">
             <summary>
             Is true if an integer property is equal to one.
