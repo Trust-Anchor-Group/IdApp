@@ -5,7 +5,8 @@
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:mainTabBar="clr-namespace:IdApp.Pages.Main.MainTabBar;assembly=IdApp"
-                       xmlns:main="clr-namespace:IdApp.Pages.Main.Main" x:DataType="main:MainViewModel"
+                       xmlns:model="clr-namespace:IdApp.Pages.Main.Main" 
+                       x:DataType="model:MainViewModel"
                        x:Class="IdApp.Pages.Main.Main.MainPage"
                        Title="{x:Static local:AppResources.MainPageTitle}"
                        Shell.FlyoutBehavior="Flyout">

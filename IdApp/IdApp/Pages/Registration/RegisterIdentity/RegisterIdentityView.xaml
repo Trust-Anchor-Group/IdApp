@@ -5,6 +5,8 @@
                        xmlns:behaviors="clr-namespace:Tag.Neuron.Xamarin.UI.Behaviors;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Registration.RegisterIdentity;assembly=IdApp"
+                       x:DataType="model:RegisterIdentityViewModel"
                        x:Class="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
     <ContentView.Content>
         <ScrollView x:Name="RegistrationLayout" Orientation="Vertical" Margin="{StaticResource DefaultTopOnlyMargin}">

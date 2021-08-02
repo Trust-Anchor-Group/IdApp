@@ -4,6 +4,9 @@
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:mainTabBar="clr-namespace:IdApp.Pages.Main.MainTabBar;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet.MyWallet;assembly=IdApp"
+                       xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
+                       x:DataType="model:MyWalletViewModel"
                        x:Class="IdApp.Pages.Wallet.MyWallet.MyWalletPage"
                        Title="{x:Static local:AppResources.Wallet}">
     <Grid>
@@ -56,7 +59,7 @@
                 <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}" Orientation="Vertical"
                              BindableLayout.ItemsSource="{Binding Path=PendingPayments}" VerticalOptions="Start">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="model:PendingPaymentItem">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -78,7 +81,6 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="WordWrap"/>
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowPendingCommand, Source={x:Reference PendingPaymentsLayout}}" CommandParameter="{Binding}" />
                                 </Grid.GestureRecognizers>
@@ -90,7 +92,7 @@
                 <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=HasEvents}" Orientation="Vertical"
                              BindableLayout.ItemsSource="{Binding Path=Events}" VerticalOptions="StartAndExpand">
                     <BindableLayout.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="objectmodel:AccountEventItem">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>

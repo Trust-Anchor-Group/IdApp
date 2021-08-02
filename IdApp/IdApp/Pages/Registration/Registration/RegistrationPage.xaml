@@ -4,6 +4,8 @@
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Registration.Registration;assembly=IdApp"
+                       x:DataType="model:RegistrationViewModel"
                        x:Class="IdApp.Pages.Registration.Registration.RegistrationPage"
                        Shell.FlyoutBehavior="Disabled" 
                        Shell.NavBarIsVisible="False">

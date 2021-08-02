@@ -3,6 +3,9 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
                        xmlns:idApp="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:pages="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Main.Image;assembly=IdApp"
+                       x:DataType="model:ImageViewModel"
                        x:Class="IdApp.Pages.Main.Image.ImageView">
     <ContentView.Content>
         <Frame x:Name="PhotoViewer" HasShadow="true" BackgroundColor="{DynamicResource HeadingBackgroundTranslucent}" 
@@ -16,7 +19,7 @@
                                   ItemsSource="{Binding Path=Photos}"
                                   IndicatorView="IndicatorView">
                         <CarouselView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="pages:Photo">
                                 <Image Source="{Binding Path=Source}" Rotation="{Binding Path=Rotation}" Aspect="AspectFit"/>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>

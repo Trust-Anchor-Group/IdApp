@@ -3,6 +3,8 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
+                       x:DataType="model:EDalerUriViewModel"
                        x:Class="IdApp.Pages.Wallet.PendingPayment.PendingPaymentPage"
                        Title="{x:Static local:AppResources.PendingPayment}">
     <Grid>

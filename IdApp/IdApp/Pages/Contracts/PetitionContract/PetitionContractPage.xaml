@@ -3,7 +3,10 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:pages="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:image="clr-namespace:IdApp.Pages.Main.Image;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Contracts.PetitionContract;assembly=IdApp"
+                       x:DataType="model:PetitionContractViewModel"
                        x:Class="IdApp.Pages.Contracts.PetitionContract.PetitionContractPage"
                        Title="{x:Static local:AppResources.PetitionContract}">
     <Grid>
@@ -102,7 +105,7 @@
                                     JustifyContent="Start" 
                                     BindableLayout.ItemsSource="{Binding Path=Photos}">
                             <BindableLayout.ItemTemplate>
-                                <DataTemplate>
+                                <DataTemplate x:DataType="pages:Photo">
                                     <Image Source="{Binding Path=Source}" Rotation="{Binding Path=Rotation}" HeightRequest="64" WidthRequest="64" Aspect="AspectFill" Margin="2">
                                         <Image.GestureRecognizers>
                                             <TapGestureRecognizer Tapped="Image_Tapped"/>
