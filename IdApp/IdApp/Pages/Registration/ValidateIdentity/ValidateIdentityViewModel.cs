@@ -506,13 +506,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
-            {
                 UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
-            }
             else
-            {
                 UiDispatcher.BeginInvokeOnMainThread(AssignBareJid);
-            }
         }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
@@ -557,7 +553,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private async Task InviteReviewer()
         {
-            string code = await QrCode.ScanQrCode(this.NavigationService, AppResources.Open);
+            string code = await QrCode.ScanQrCode(this.NavigationService, AppResources.InvitePeerToReview);
 
             if (!Constants.UriSchemes.StartsWithIdScheme(code))
             {
@@ -569,9 +565,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 Constants.UriSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
 
             if (succeeded)
-            {
                 await this.UiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
-            }
         }
 
         private void Continue()
