@@ -556,13 +556,16 @@ namespace IdApp
 			if (!(this.startupProfiler is null))
 			{
 				this.startupProfiler.Stop();
-
-				string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-				ProfileFileName = Path.Combine(AppDataFolder, ProfileFileName);
-
+				
 				string uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
+
 				try
 				{
+					string AppDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+					if (!Directory.Exists(AppDataFolder))
+						Directory.CreateDirectory(AppDataFolder);
+
+					ProfileFileName = Path.Combine(AppDataFolder, ProfileFileName);
 					File.WriteAllText(ProfileFileName, uml);
 				}
 				catch (Exception)
