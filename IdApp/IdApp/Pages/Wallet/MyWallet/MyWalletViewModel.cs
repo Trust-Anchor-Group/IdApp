@@ -66,7 +66,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out WalletNavigationArgs args))
+			if (this.Balance is null && this.navigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
 				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, args.More);
 
@@ -87,7 +87,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.NeuronService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
+			this.NeuronService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
 
 			await base.DoUnbind();
 		}
