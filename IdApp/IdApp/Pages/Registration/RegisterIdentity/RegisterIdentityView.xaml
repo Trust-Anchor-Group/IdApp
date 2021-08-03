@@ -47,7 +47,8 @@
                 <StackLayout Orientation="Vertical">
                     <Label Text="{x:Static resources:AppResources.Country}" />
                     <StackLayout Orientation="Horizontal">
-                        <Picker x:Name="CountryPicker" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountry}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
+                        <Picker x:Name="CountryPicker" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Path=Countries}" 
+                                SelectedItem="{Binding Path=SelectedCountry}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
