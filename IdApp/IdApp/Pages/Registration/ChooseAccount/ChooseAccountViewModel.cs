@@ -207,15 +207,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					this.TagProfile.ApiKey, this.TagProfile.ApiSecret, typeof(App).Assembly, OnConnected);
 
 				if (succeeded)
-				{
-#if DEBUG
-					await Clipboard.SetTextAsync("Password: " + passwordToUse);
-					await this.UiDispatcher.DisplayAlert(AppResources.Password, string.Format(AppResources.ThePasswordForTheConnectionIs, passwordToUse), AppResources.Ok);
-					System.Diagnostics.Debug.WriteLine("Username: " + this.AccountName);
-					System.Diagnostics.Debug.WriteLine("Password: " + passwordToUse);
-#endif
 					return true;
-				}
 
 				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
 			}
