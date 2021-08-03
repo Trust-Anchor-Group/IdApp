@@ -561,11 +561,17 @@ namespace IdApp
 				ProfileFileName = Path.Combine(AppDataFolder, ProfileFileName);
 
 				string uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
-				File.WriteAllText(ProfileFileName, uml);
+				try
+				{
+					File.WriteAllText(ProfileFileName, uml);
+				}
+				catch (Exception)
+				{
+					// Ignore, if not able to save file.
+				}
 
 				if (SendProfilingAsAlert)
 				{
-
 					Task.Run(async () =>
 					{
 						try
