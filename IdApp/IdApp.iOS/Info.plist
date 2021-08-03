@@ -19,7 +19,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>TAG ID</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.tag.IdApp</string>
+	<string>com.trustanchorgroup.neuroid</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
