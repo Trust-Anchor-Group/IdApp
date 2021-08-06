@@ -17,6 +17,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="PersonalNumbers\PersonalNumberSchemes.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="PersonalNumbers\PersonalNumberSchemes.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EDaler" Version="1.0.12" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="Waher.Content" Version="1.1.3" />

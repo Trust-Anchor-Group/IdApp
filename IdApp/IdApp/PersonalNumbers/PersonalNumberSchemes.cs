@@ -5,7 +5,7 @@ using System.Xml;
 using Waher.Content.Xml;
 using Waher.Script;
 
-namespace Tag.Neuron.Xamarin.PersonalNumbers
+namespace IdApp.PersonalNumbers
 {
     /// <summary>
     /// Personal Number Schemes available in different countries.

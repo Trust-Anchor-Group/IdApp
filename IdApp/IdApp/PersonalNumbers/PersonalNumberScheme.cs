@@ -1,7 +1,7 @@
 ﻿using System;
 using Waher.Script;
 
-namespace Tag.Neuron.Xamarin.PersonalNumbers
+namespace IdApp.PersonalNumbers
 {
 	/// <summary>
 	/// Checks personal numbers against a personal number scheme.
