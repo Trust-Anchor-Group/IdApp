@@ -10,11 +10,9 @@ using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Models;
 using Tag.Neuron.Xamarin.PersonalNumbers;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

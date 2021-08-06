@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
-using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

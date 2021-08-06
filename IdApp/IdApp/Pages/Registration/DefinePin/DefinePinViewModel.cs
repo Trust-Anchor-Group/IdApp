@@ -1,10 +1,9 @@
-﻿using IdApp.Extensions;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Extensions;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 

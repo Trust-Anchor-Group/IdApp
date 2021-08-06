@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Tag.Neuron.Xamarin.UI.Behaviors
+namespace IdApp.Behaviors
 {
     /// <summary>
     /// Used for moving focus to the next UI component when an item has been selected.

@@ -4,7 +4,7 @@
                         xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                         xmlns:loading="clr-namespace:IdApp.Pages.Main.Loading;assembly=IdApp"
                         xmlns:main="clr-namespace:IdApp.Pages.Main.Main;assembly=IdApp"
-                        xmlns:sdkViews="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                        xmlns:sdkViews="clr-namespace:IdApp.Pages;assembly=Tag.Neuron.Xamarin.UI"
                         Title="TestIosAppDeploy"
                         x:Class="IdApp.Pages.Main.Shell.AppShell">
 

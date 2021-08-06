@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Tag.Neuron.Xamarin.UI.Extensions
+namespace IdApp.Extensions
 {
     /// <summary>
     /// Helper/convenience methods for the <see cref="ICommand"/>.
@@ -15,9 +15,7 @@ namespace Tag.Neuron.Xamarin.UI.Extensions
         public static void ChangeCanExecute(this ICommand command)
         {
             if (command is Command cmd)
-            {
                 cmd.ChangeCanExecute();
-            }
         }
 
         /// <summary>
@@ -27,9 +25,7 @@ namespace Tag.Neuron.Xamarin.UI.Extensions
         public static void Execute(this ICommand command)
         {
             if (!(command is null) && command.CanExecute(null))
-            {
                 command?.Execute(null);
-            }
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
-namespace Tag.Neuron.Xamarin.UI.Views
+namespace IdApp.Pages
 {
     /// <summary>
     /// A base class for all pages. This class works in close conjunction with the <see cref="BaseViewModel"/> for binding and unbinding data

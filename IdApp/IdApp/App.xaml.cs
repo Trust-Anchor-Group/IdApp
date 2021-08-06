@@ -9,12 +9,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using EDaler;
+using IdApp.Pages;
 using IdApp.Pages.Main.Shell;
 using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Content;
 using Waher.Content.Images;
 using Waher.Content.Xml;
@@ -40,7 +40,6 @@ using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
-using Device = Xamarin.Forms.Device;
 
 namespace IdApp
 {

@@ -862,11 +862,47 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to bind viewmodel {0} for page {1}.
+        /// </summary>
+        internal static string FailedToBindViewModelForPage {
+            get {
+                return ResourceManager.GetString("FailedToBindViewModelForPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load photo.
         /// </summary>
         internal static string FailedToLoadPhoto {
             get {
                 return ResourceManager.GetString("FailedToLoadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to restore state for viewmodel {0} for page {1}.
+        /// </summary>
+        internal static string FailedToRestoreViewModelStateForPage {
+            get {
+                return ResourceManager.GetString("FailedToRestoreViewModelStateForPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to save state for viewmodel {0} for page {1}.
+        /// </summary>
+        internal static string FailedToSaveViewModelStateForPage {
+            get {
+                return ResourceManager.GetString("FailedToSaveViewModelStateForPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to unbind viewmodel {0} for page {1}.
+        /// </summary>
+        internal static string FailedToUnbindViewModelForPage {
+            get {
+                return ResourceManager.GetString("FailedToUnbindViewModelForPage", resourceCulture);
             }
         }
         

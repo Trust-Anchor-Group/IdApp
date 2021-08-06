@@ -5,12 +5,10 @@ using System.Threading.Tasks;
 using IdApp.Pages.Things.ViewThing;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Things.MyThings

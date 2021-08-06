@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Neuron.Xamarin.UI.Extensions;
-using Tag.Neuron.Xamarin.UI.Views;
+using IdApp.Extensions;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace Tag.Neuron.Xamarin.UI.ViewModels
+namespace IdApp.Pages
 {
     /// <summary>
     /// A base class for all view models, inheriting from the <see cref="BindableObject"/>.
@@ -15,7 +14,7 @@ namespace Tag.Neuron.Xamarin.UI.ViewModels
     /// <br/>
     /// NOTE: using this class requires your page/view to inherit from <see cref="ContentBasePage"/>.
     /// </summary>
-    public class BaseViewModel : BindableObject
+    public abstract class BaseViewModel : BindableObject
     {
         private readonly List<BaseViewModel> childViewModels;
 

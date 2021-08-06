@@ -10,10 +10,8 @@ using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contacts

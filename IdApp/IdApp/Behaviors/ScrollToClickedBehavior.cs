@@ -1,18 +1,18 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace Tag.Neuron.Xamarin.UI.Behaviors
+namespace IdApp.Behaviors
 {
     /// <summary>
     /// Used for moving focus to the next UI component when a button has been clicked.
     /// </summary>
-    public class SetFocusOnClickedBehavior : Behavior<Button>
+    public class ScrollToClickedBehavior : Behavior<Button>
     {
         /// <summary>
         /// The view to move focus to.
         /// </summary>
         [TypeConverter(typeof(ReferenceTypeConverter))]
-        public View SetFocusTo { get; set; }
+        public View ScrollTo { get; set; }
 
         /// <inheritdoc/>
         protected override void OnAttachedTo(Button Button)
@@ -30,22 +30,20 @@ namespace Tag.Neuron.Xamarin.UI.Behaviors
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            FocusOn(SetFocusTo);
+            MakeVisible(this.ScrollTo);
         }
 
         /// <summary>
-        /// Sets focus on an element.
+        /// Scrolls to make an element visisble.
         /// </summary>
-        /// <param name="Element">Element to focus on.</param>
-        public static void FocusOn(View Element)
+        /// <param name="Element">Element to make visible.</param>
+        public static void MakeVisible(View Element)
 		{
-            if (!(Element is null) && Element.IsVisible)
-            {
-                Element.Focus();
+            Element Loop = Element.Parent;
+            while (!(Loop is null) && !(Loop is ScrollView))
+                Loop = Loop.Parent;
 
-                if (Element is Entry Entry && !(Entry.Text is null))
-                    Entry.CursorPosition = Entry.Text.Length;
-            }
+            (Loop as ScrollView)?.ScrollToAsync(Element, ScrollToPosition.MakeVisible, true);
         }
     }
 }

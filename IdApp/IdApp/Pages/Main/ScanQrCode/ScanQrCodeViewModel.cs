@@ -2,8 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.ScanQrCode

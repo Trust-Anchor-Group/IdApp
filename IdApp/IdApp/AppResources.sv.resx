@@ -384,8 +384,20 @@
   <data name="ExpiresAt" xml:space="preserve">
     <value>(Går ut {0})</value>
   </data>
+  <data name="FailedToBindViewModelForPage" xml:space="preserve">
+    <value>Misslyckades med att binda vymodellen {0} för sidan {1}</value>
+  </data>
   <data name="FailedToLoadPhoto" xml:space="preserve">
     <value>Misslyckades med att ladda foto</value>
+  </data>
+  <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
+    <value>Misslyckades med att återställa state för vymodellen {0} för sidan {1}</value>
+  </data>
+  <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
+    <value>Misslyckades med att spara state för vymodellen {0} för sidan {1}</value>
+  </data>
+  <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
+    <value>Misslyckades med att avbinda vymodellen {0} för sidan {1}</value>
   </data>
   <data name="FirstName" xml:space="preserve">
     <value>Förnamn</value>

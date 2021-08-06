@@ -1200,4 +1200,16 @@
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
     <value>You can choose to create an account on this provider. Enter the name of the account you wish to create, and press the Create New button. You can also choose to scan an invitation or transfer code, to use an account that has already been prepared for you, on another service provider. Click the Scan Invitation button to scan an invitation code.</value>
   </data>
+  <data name="FailedToBindViewModelForPage" xml:space="preserve">
+    <value>Failed to bind viewmodel {0} for page {1}</value>
+  </data>
+  <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
+    <value>Failed to restore state for viewmodel {0} for page {1}</value>
+  </data>
+  <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
+    <value>Failed to save state for viewmodel {0} for page {1}</value>
+  </data>
+  <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
+    <value>Failed to unbind viewmodel {0} for page {1}</value>
+  </data>
 </root>

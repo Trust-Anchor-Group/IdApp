@@ -11,9 +11,7 @@ using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

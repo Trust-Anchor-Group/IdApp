@@ -8,10 +8,8 @@ using IdApp.Services;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Extensions;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.Extensions;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration.ValidateIdentity

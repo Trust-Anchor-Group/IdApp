@@ -168,7 +168,6 @@
   </ItemGroup>
 
 <ItemGroup>
-  <ProjectReference Include="..\..\Tag.Neuron.Xamarin.UI\Tag.Neuron.Xamarin.UI.csproj" />
   <ProjectReference Include="..\..\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.csproj" />
 </ItemGroup>
 </Project>

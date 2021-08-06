@@ -1,12 +1,11 @@
-﻿using Tag.Neuron.Xamarin.UI.ViewModels;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
-namespace Tag.Neuron.Xamarin.UI.Views
+namespace IdApp.Pages
 {
     /// <summary>
     /// A convenience base class for <see cref="ContentView"/>s which provides typed access to the viewmodel it is bound to.
     /// </summary>
-    public class ContentBaseView : ContentView
+    public abstract class ContentBaseView : ContentView
     {
         /// <summary>
         /// Typed convenience property for accessing the <see cref="BindableObject.BindingContext"/> property as a view model.

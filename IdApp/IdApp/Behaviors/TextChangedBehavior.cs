@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace Tag.Neuron.Xamarin.UI.Behaviors
+namespace IdApp.Behaviors
 {
     /// <summary>
     /// A behavior for being able to bind an <see cref="Entry"/>'s TextChanged event to an <see cref="ICommand"/>.

@@ -1,5 +1,4 @@
 ﻿using System.Windows.Input;
-using Tag.Neuron.Xamarin.UI.Views;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration

@@ -490,9 +490,29 @@
               Looks up a localized string similar to (Expires {0}).
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.FailedToBindViewModelForPage">
+            <summary>
+              Looks up a localized string similar to Failed to bind viewmodel {0} for page {1}.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.FailedToLoadPhoto">
             <summary>
               Looks up a localized string similar to Failed to load photo.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FailedToRestoreViewModelStateForPage">
+            <summary>
+              Looks up a localized string similar to Failed to restore state for viewmodel {0} for page {1}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FailedToSaveViewModelStateForPage">
+            <summary>
+              Looks up a localized string similar to Failed to save state for viewmodel {0} for page {1}.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FailedToUnbindViewModelForPage">
+            <summary>
+              Looks up a localized string similar to Failed to unbind viewmodel {0} for page {1}.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.FirstName">
@@ -1850,6 +1870,145 @@
               Looks up a localized string similar to Zip or Postal Code.
             </summary>
         </member>
+        <member name="T:IdApp.Behaviors.ScrollToClickedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when a button has been clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.ScrollToClickedBehavior.ScrollTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.ScrollToClickedBehavior.MakeVisible(Xamarin.Forms.View)">
+            <summary>
+            Scrolls to make an element visisble.
+            </summary>
+            <param name="Element">Element to make visible.</param>
+        </member>
+        <member name="T:IdApp.Behaviors.ScrollToCompletedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when the Enter/Return key has been hit.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.ScrollToCompletedBehavior.ScrollTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.ScrollToCompletedBehavior.OnAttachedTo(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.ScrollToCompletedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Behaviors.ScrollToSelectedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when an item has been selected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.ScrollToSelectedBehavior.ScrollTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.ScrollToSelectedBehavior.OnAttachedTo(Xamarin.Forms.Picker)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.ScrollToSelectedBehavior.OnDetachingFrom(Xamarin.Forms.Picker)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Behaviors.SetFocusOnClickedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when a button has been clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.SetFocusOnClickedBehavior.SetFocusTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnClickedBehavior.FocusOn(Xamarin.Forms.View)">
+            <summary>
+            Sets focus on an element.
+            </summary>
+            <param name="Element">Element to focus on.</param>
+        </member>
+        <member name="T:IdApp.Behaviors.SetFocusOnCompletedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when the Enter/Return key has been hit.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.SetFocusOnCompletedBehavior.SetFocusTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnCompletedBehavior.OnAttachedTo(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnCompletedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Behaviors.SetFocusOnSelectedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when an item has been selected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.SetFocusOnSelectedBehavior.SetFocusTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnSelectedBehavior.OnAttachedTo(Xamarin.Forms.Picker)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnSelectedBehavior.OnDetachingFrom(Xamarin.Forms.Picker)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Behaviors.TextChangedBehavior">
+            <summary>
+            A behavior for being able to bind an <see cref="T:Xamarin.Forms.Entry"/>'s TextChanged event to an <see cref="T:System.Windows.Input.ICommand"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Behaviors.TextChangedBehavior.TextChangedCommandProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.TextChangedBehavior.TextChangedCommand">
+            <summary>
+            The command to bind to when text changes.
+            </summary>
+        </member>
+        <member name="F:IdApp.Behaviors.TextChangedBehavior.TextChangedCommandParameterProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.TextChangedBehavior.TextChangedCommandParameter">
+            <summary>
+            The command parameter to bind to when text changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.TextChangedBehavior.OnAttachedTo(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.TextChangedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
             <summary>
             Converts a boolean value to a bold font (if true), or regular font (if false).
@@ -1965,6 +2124,23 @@
             </summary>
             <param name="b"></param>
             <returns>String representation</returns>
+        </member>
+        <member name="T:IdApp.Extensions.CommandExtensions">
+            <summary>
+            Helper/convenience methods for the <see cref="T:System.Windows.Input.ICommand"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Extensions.CommandExtensions.ChangeCanExecute(System.Windows.Input.ICommand)">
+            <summary>
+            Calls the <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> method on the given <see cref="T:System.Windows.Input.ICommand"/>, given that it <b>is</b> a <see cref="T:Xamarin.Forms.Command"/>.
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:IdApp.Extensions.CommandExtensions.Execute(System.Windows.Input.ICommand)">
+            <summary>
+            Calls the <see cref="M:System.Windows.Input.ICommand.Execute(System.Object)"/> method with a <c>null</c> argument, given that the command <em>can</em> be executed (<see cref="M:System.Windows.Input.ICommand.CanExecute(System.Object)"/>).
+            </summary>
+            <param name="command"></param>
         </member>
         <member name="T:IdApp.Extensions.XmppStateExtensions">
             <summary>
@@ -2132,6 +2308,125 @@
             folder-open
             </summary>
         </member>
+        <member name="T:IdApp.Pages.BaseViewModel">
+            <summary>
+            A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.
+            This class provides default implementations for the <see cref="M:IdApp.Pages.BaseViewModel.DoBind"/> and <see cref="M:IdApp.Pages.BaseViewModel.DoUnbind"/> methods.
+            Override those to implement setup/teardown when a page/view is appearing and disappearing to/from the screen respectively.
+            <br/>
+            NOTE: using this class requires your page/view to inherit from <see cref="T:IdApp.Pages.ContentBasePage"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.#ctor">
+            <summary>
+            Create an instance of a <see cref="T:IdApp.Pages.BaseViewModel"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.BaseViewModel.IsBound">
+            <summary>
+            Returns <c>true</c> if the viewmodel is bound, i.e. its parent page has appeared on screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.Bind">
+            <summary>
+            Called by the parent page when it appears on screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.Unbind">
+            <summary>
+            Called by the parent page when it disappears from screen.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.BaseViewModel.Children">
+            <summary>
+            Gets the child view models.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.AddChildViewModel``1(``0)">
+            <summary>
+            Use this method when nesting view models. This is the viewmodel equivalent of master/detail pages.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <param name="childViewModel">The child viewmodel to add.</param>
+            <returns>Child view model</returns>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.RemoveChildViewModel``1(``0)">
+            <summary>
+            Use this method when nesting view models. This is the viewmodel equivalent of master/detail pages.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <param name="childViewModel">The child viewmodel to remove.</param>
+            <returns>Child view model</returns>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.DoBind">
+            <summary>
+            Override this method to do view model specific setup when it's parent page/view appears on screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.DoUnbind">
+            <summary>
+            Override this method to do view model specific teardown when it's parent page/view disappears from screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.RestoreState">
+            <summary>
+            Called by the parent page when it appears on screen, <em>after</em> the <see cref="M:IdApp.Pages.BaseViewModel.Bind"/> method is called.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.SaveState">
+            <summary>
+            Called by the parent page when it disappears on screen, <em>before</em> the <see cref="M:IdApp.Pages.BaseViewModel.Unbind"/> method is called.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.Shutdown">
+            <summary>
+            Convenience method that calls <see cref="M:IdApp.Pages.BaseViewModel.SaveState"/> and then <see cref="M:IdApp.Pages.BaseViewModel.Unbind"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.DoRestoreState">
+            <summary>
+            Override this method to do view model specific restoring of state when it's parent page/view appears on screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.DoSaveState">
+            <summary>
+            Override this method to do view model specific saving of state when it's parent page/view disappears from screen.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.GetSettingsKey(System.String)">
+            <summary>
+            Helper method for getting a unique settings key for a given property.
+            </summary>
+            <param name="propertyName">The property name to convert into a settings key.</param>
+            <returns>Key name</returns>
+        </member>
+        <member name="M:IdApp.Pages.BaseViewModel.EvaluateCommands(System.Windows.Input.ICommand[])">
+            <summary>
+            Executes the <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> method on all commands.
+            This is done to update the UI state for those UI components that bind to a command.
+            </summary>
+            <param name="commands">The commands to evaluate.</param>
+        </member>
+        <member name="F:IdApp.Pages.BaseViewModel.IsBusyProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.BaseViewModel.IsBusy"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.BaseViewModel.IsBusy">
+            <summary>
+            A helper property to set/get when the ViewModel is busy doing work.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.BaseViewModel.IsIdleProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.BaseViewModel.IsIdle"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.BaseViewModel.IsIdle">
+            <summary>
+            A helper property to set/get when the ViewModel is idle.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.
@@ -2255,6 +2550,66 @@
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.ContentBasePage">
+            <summary>
+            A base class for all pages. This class works in close conjunction with the <see cref="T:IdApp.Pages.BaseViewModel"/> for binding and unbinding data
+            when the page is shown on screen.
+            </summary>
+            <remarks>It also handles safe area insets for iOS applications, specifically on iPhones with the 'rabbit ear' displays.</remarks>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.ContentBasePage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.#ctor(Tag.Neuron.Xamarin.Services.ILogService,Tag.Neuron.Xamarin.Services.ISettingsService,Tag.Neuron.Xamarin.IUiDispatcher)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.ContentBasePage"/> class.
+            For unit tests.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ContentBasePage.ViewModel">
+            <summary>
+            Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.GetViewModel``1">
+            <summary>
+            Returns the viewmodel, type cast to the proper type.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <returns>View model</returns>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnAppearing">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnDisappearing">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.ForceReRender(Xamarin.Forms.Layout[])">
+            <summary>
+            TODO: remove this, as it shouldn't be needed. It's here because ScrollView's typically don't refresh when their child content changes size.
+            It's a helper method for forcing a layout re-render of the specified components. It will do so asynchronously, by executing a BeginInvoke.
+            </summary>
+            <param name="layouts">The layout components to re-render.</param>
+        </member>
+        <member name="T:IdApp.Pages.ContentBaseView">
+            <summary>
+            A convenience base class for <see cref="T:Xamarin.Forms.ContentView"/>s which provides typed access to the viewmodel it is bound to.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ContentBaseView.ViewModel">
+            <summary>
+            Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ContentBaseView.GetViewModel``1">
+            <summary>
+            Returns the viewmodel, type cast to the proper type.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <returns>View model</returns>
         </member>
         <member name="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureNavigationArgs">
             <summary>
@@ -5154,6 +5509,42 @@
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Pin"/> property is for review.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Main.FlipView.FlipView">
+            <summary>
+            The FlipView is a user control that holds two child controls: a <see cref="P:IdApp.Pages.Main.FlipView.FlipView.FrontView"/> and a <see cref="P:IdApp.Pages.Main.FlipView.FlipView.BackView"/>.
+            It can be flipped like a coin when the user taps on it. In order to flip the view, simply call the <see cref="M:IdApp.Pages.Main.FlipView.FlipView.Flip"/> method.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.FlipView.FlipView.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Main.FlipView.FlipView"/> control.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.FlipView.FlipView.FrontViewProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.FlipView.FlipView.FrontView">
+            <summary>
+            The view displayed on the 'front' side of this user control.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.FlipView.FlipView.BackViewProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.FlipView.FlipView.BackView">
+            <summary>
+            The view displayed on the 'back' side of this user control.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.FlipView.FlipView.Flip">
+            <summary>
+            Makes the user control flip from front to back, or the other way around.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Main.Image.ImageView">
             <summary>
             A generic UI component to display an image.
@@ -6896,7 +7287,7 @@
         </member>
         <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.SetIsBusy(System.Windows.Input.ICommand[])">
             <summary>
-            Sets the <see cref="P:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel.IsBusy"/> flag for this instance. Also calls
+            Sets the <see cref="P:IdApp.Pages.BaseViewModel.IsBusy"/> flag for this instance. Also calls
             <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> on the list of commands passed in.
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
@@ -7444,6 +7835,37 @@
             <summary>
             The command to bind to for sending a code verification request.
             </summary>
+        </member>
+        <member name="T:IdApp.Pages.ShellBasePage">
+            <summary>
+            A base class for <see cref="T:Xamarin.Forms.Shell"/> pages. This class provides easy, typed, access to the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> as a view model.
+            It also handles safe area insets for iOS when the phone has a 'rabbit ear' display.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ShellBasePage.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.ShellBasePage"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.ShellBasePage.ViewModel">
+            <summary>
+            Typed convenience property for accessing the <see cref="P:Xamarin.Forms.BindableObject.BindingContext"/> property as a view model.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.ShellBasePage.GetViewModel``1">
+            <summary>
+            Returns the viewmodel, type cast to the proper type.
+            </summary>
+            <typeparam name="T">The viewmodel type.</typeparam>
+            <returns>View model</returns>
+        </member>
+        <member name="M:IdApp.Pages.ShellBasePage.OnAppearing">
+            Due to a bug in Xamarin Forms (https://github.com/xamarin/xamarin.forms/issues/6486)
+            these two methods aren't called at startup for now. But we're leaving the methods here for the future.
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.ShellBasePage.OnDisappearing">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Things.HumanReadableTag">
             <summary>

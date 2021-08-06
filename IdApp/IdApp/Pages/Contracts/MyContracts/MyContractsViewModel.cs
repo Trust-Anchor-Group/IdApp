@@ -7,9 +7,7 @@ using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contracts.MyContracts

@@ -1,16 +1,15 @@
 ﻿using System.ComponentModel;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Application = Xamarin.Forms.Application;
 
-namespace Tag.Neuron.Xamarin.UI.Views
+namespace IdApp.Pages
 {
     /// <summary>
     /// A base class for <see cref="Shell"/> pages. This class provides easy, typed, access to the <see cref="BindableObject.BindingContext"/> as a view model.
     /// It also handles safe area insets for iOS when the phone has a 'rabbit ear' display.
     /// </summary>
-    public class ShellBasePage : Shell
+    public abstract class ShellBasePage : Shell
     {
         private const string DefaultMargin = "DefaultMargin";
         private const string SafeAreaInsets = "SafeAreaInsets";

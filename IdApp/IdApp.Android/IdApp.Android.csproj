@@ -132,10 +132,6 @@
       <Project>{a03cdd5c-5c92-4a79-8a70-352fad69d4ff}</Project>
       <Name>Tag.Neuron.Xamarin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Tag.Neuron.Xamarin.UI\Tag.Neuron.Xamarin.UI.csproj">
-      <Project>{ea04673f-952d-46a2-831a-0ac2e0bc5c38}</Project>
-      <Name>Tag.Neuron.Xamarin.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IdApp\IdApp.csproj">
       <Project>{8d6d18dd-9739-4f11-808e-252d7a53d032}</Project>
       <Name>IdApp</Name>

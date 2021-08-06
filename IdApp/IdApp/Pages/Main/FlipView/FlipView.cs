@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace Tag.Neuron.Xamarin.UI.Views
+namespace IdApp.Pages.Main.FlipView
 {
     /// <summary>
     /// The FlipView is a user control that holds two child controls: a <see cref="FrontView"/> and a <see cref="BackView"/>.

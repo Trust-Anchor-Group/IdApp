@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+<content:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:Tag.Neuron.Xamarin.UI.Views;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:flipView="clr-namespace:IdApp.Pages.Main.FlipView;assembly=IdApp"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:mainTabBar="clr-namespace:IdApp.Pages.Main.MainTabBar;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Main.Main" 
+                       xmlns:model="clr-namespace:IdApp.Pages.Main.Main;assembly=IdApp" 
+                       xmlns:content="clr-namespace:IdApp.Pages;assembly=IdApp" 
                        x:DataType="model:MainViewModel"
                        x:Class="IdApp.Pages.Main.Main.MainPage"
                        Title="{x:Static local:AppResources.MainPageTitle}"
@@ -70,11 +71,11 @@
                     </Grid>
                     <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
                 </StackLayout>
-                <views:FlipView Grid.Column="1" Grid.Row="1" WidthRequest="340" VerticalOptions="FillAndExpand" x:Name="IdCard" HorizontalOptions="Center">
-                    <views:FlipView.GestureRecognizers>
+                <flipView:FlipView Grid.Column="1" Grid.Row="1" WidthRequest="340" VerticalOptions="FillAndExpand" x:Name="IdCard" HorizontalOptions="Center">
+                    <flipView:FlipView.GestureRecognizers>
                         <TapGestureRecognizer Tapped="IdCard_Tapped" />
-                    </views:FlipView.GestureRecognizers>
-                    <views:FlipView.FrontView>
+                    </flipView:FlipView.GestureRecognizers>
+                    <flipView:FlipView.FrontView>
                         <Frame BorderColor="{StaticResource HeadingBackground}" Margin="2" Padding="2" 
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid>
@@ -111,8 +112,8 @@
                                        Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="20" />
                             </Grid>
                         </Frame>
-                    </views:FlipView.FrontView>
-                    <views:FlipView.BackView>
+                    </flipView:FlipView.FrontView>
+                    <flipView:FlipView.BackView>
                         <Frame Margin="2" Padding="2" BackgroundColor="{StaticResource HeadingBackground}" 
                                CornerRadius="6" IsClippedToBounds="True" HasShadow="True">
                             <Grid RowDefinitions="auto,*,auto" ColumnDefinitions="*">
@@ -150,9 +151,9 @@
                                        HorizontalOptions="Center" FontSize="Medium"/>
                             </Grid>
                         </Frame>
-                    </views:FlipView.BackView>
-                </views:FlipView>
+                    </flipView:FlipView.BackView>
+                </flipView:FlipView>
             </Grid>
         </Grid>
     </ContentPage.Content>
-</views:ContentBasePage>
+</content:ContentBasePage>

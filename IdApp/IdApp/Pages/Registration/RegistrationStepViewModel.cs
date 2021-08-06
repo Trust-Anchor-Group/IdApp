@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI.ViewModels;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration
