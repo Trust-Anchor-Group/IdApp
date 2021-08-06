@@ -201,29 +201,6 @@
             </summary>
             <param name="command"></param>
         </member>
-        <member name="T:Tag.Neuron.Xamarin.UI.QrCodeImageGenerator">
-            <summary>
-            This class can generate QR Code images in two formats: Jpeg and Png.
-            </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.UI.QrCodeImageGenerator.GeneratePng(System.String,System.Int32,System.Int32)">
-            <summary>
-            Generates a QR Code png image with the specified width and height.
-            </summary>
-            <param name="text">The QR Code</param>
-            <param name="width">Required image width.</param>
-            <param name="height">Required image height.</param>
-            <returns>Binary encoding of PNG</returns>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.UI.QrCodeImageGenerator.GenerateJpg(System.String,System.Int32,System.Int32)">
-            <summary>
-            Generates a QR Code jpeg image with the specified width and height.
-            </summary>
-            <param name="text">The QR Code</param>
-            <param name="width">Required image width.</param>
-            <param name="height">Required image height.</param>
-            <returns>Binary encoding of JPG</returns>
-        </member>
         <member name="T:Tag.Neuron.Xamarin.UI.ViewModels.BaseViewModel">
             <summary>
             A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.

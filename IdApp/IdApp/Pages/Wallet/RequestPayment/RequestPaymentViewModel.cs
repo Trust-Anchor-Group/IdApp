@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI;
 using Waher.Content;
 using Xamarin.Forms;
 
@@ -409,7 +408,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 					this.Currency, this.Message);
 			}
 
-			byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri, 300, 300);
+			byte[] Bin = IdApp.QrCode.GeneratePng(Uri, 300, 300);
 			this.QrCodePng = Bin;
 
 			if (this.IsBound)

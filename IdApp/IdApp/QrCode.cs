@@ -1,9 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services;
+using SkiaSharp;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
+using Waher.Content.QR;
+using Waher.Content.QR.Encoding;
 using Xamarin.Essentials;
 
 namespace IdApp
@@ -13,6 +17,7 @@ namespace IdApp
     /// </summary>
     public static class QrCode
     {
+        private static readonly QrEncoder encoder = new QrEncoder();
         private static TaskCompletionSource<string> qrCodeScanned;
         private static Func<string, Task> callback;
 
@@ -131,22 +136,65 @@ namespace IdApp
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
         /// <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
         /// <param name="code">The code to set.</param>
-        public static void TrySetResultAndClosePage(INavigationService navigationService, IUiDispatcher uiDispatcher, string code)
+        internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiDispatcher uiDispatcher, string code)
         {
             uiDispatcher.BeginInvokeOnMainThread(async () =>
             {
-                if (callback != null)
+                if (!(callback is null))
                 {
                     await callback(code);
+                    callback = null;
                 }
-                callback = null;
+                
                 await navigationService.GoBackAsync();
+
                 if (!string.IsNullOrWhiteSpace(code) && !(qrCodeScanned is null))
                 {
                     qrCodeScanned.TrySetResult(code.Trim());
                     qrCodeScanned = null;
                 }
             });
+        }
+
+        /// <summary>
+        /// Generates a QR Code png image with the specified width and height.
+        /// </summary>
+        /// <param name="text">The QR Code</param>
+        /// <param name="width">Required image width.</param>
+        /// <param name="height">Required image height.</param>
+        /// <returns>Binary encoding of PNG</returns>
+        public static byte[] GeneratePng(string text, int width, int height)
+        {
+            return Generate(text, width, height, SKEncodedImageFormat.Png);
+        }
+
+        /// <summary>
+        /// Generates a QR Code jpeg image with the specified width and height.
+        /// </summary>
+        /// <param name="text">The QR Code</param>
+        /// <param name="width">Required image width.</param>
+        /// <param name="height">Required image height.</param>
+        /// <returns>Binary encoding of JPG</returns>
+        public static byte[] GenerateJpg(string text, int width, int height)
+        {
+            return Generate(text, width, height, SKEncodedImageFormat.Jpeg);
+        }
+
+        private static byte[] Generate(string Text, int Width, int Height, SKEncodedImageFormat Format)
+        {
+            QrMatrix M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
+            byte[] Rgba = M.ToRGBA(Width, Height);
+
+            using (SKData Unencoded = SKData.Create(new MemoryStream(Rgba)))
+            {
+                using (SKImage Bitmap = SKImage.FromPixels(new SKImageInfo(Width, Height, SKColorType.Rgba8888), Unencoded, Width * 4))
+                {
+                    using (SKData Encoded = Bitmap.Encode(Format, 100))
+                    {
+                        return Encoded.ToArray();
+                    }
+                }
+            }
         }
     }
 }

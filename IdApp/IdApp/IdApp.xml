@@ -9385,6 +9385,24 @@
             <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
             <param name="code">The code to set.</param>
         </member>
+        <member name="M:IdApp.QrCode.GeneratePng(System.String,System.Int32,System.Int32)">
+            <summary>
+            Generates a QR Code png image with the specified width and height.
+            </summary>
+            <param name="text">The QR Code</param>
+            <param name="width">Required image width.</param>
+            <param name="height">Required image height.</param>
+            <returns>Binary encoding of PNG</returns>
+        </member>
+        <member name="M:IdApp.QrCode.GenerateJpg(System.String,System.Int32,System.Int32)">
+            <summary>
+            Generates a QR Code jpeg image with the specified width and height.
+            </summary>
+            <param name="text">The QR Code</param>
+            <param name="width">Required image width.</param>
+            <param name="height">Required image height.</param>
+            <returns>Binary encoding of JPG</returns>
+        </member>
         <member name="T:IdApp.Services.AttachmentCacheService">
             <inheritdoc cref="T:IdApp.Services.IAttachmentCacheService"/>
         </member>

@@ -7,7 +7,6 @@ using System.Windows.Input;
 using EDaler;
 using Tag.Neuron.Xamarin;
 using Tag.Neuron.Xamarin.Services;
-using Tag.Neuron.Xamarin.UI;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -935,7 +934,7 @@ namespace IdApp.Pages.Wallet
 				// TODO: Validate To is a Bare JID or proper Legal Identity
 				// TODO: Offline options: Expiry days
 
-				byte[] Bin = QrCodeImageGenerator.GeneratePng(Uri, 300, 300);
+				byte[] Bin = IdApp.QrCode.GeneratePng(Uri, 300, 300);
 				this.QrCodePng = Bin;
 
 				if (this.IsBound)
@@ -1021,7 +1020,7 @@ namespace IdApp.Pages.Wallet
 
 			try
 			{
-				byte[] Bin = QrCodeImageGenerator.GeneratePng(this.Uri, 300, 300);
+				byte[] Bin = IdApp.QrCode.GeneratePng(this.Uri, 300, 300);
 				this.QrCodePng = Bin;
 
 				if (this.IsBound)
