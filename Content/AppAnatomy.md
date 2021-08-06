@@ -22,10 +22,10 @@ Here's the overall app and page structure:
 
 ```
 Upon every startup the [`LoadingPage`](../IdApp/IdApp/Views/LoadingPage.xaml.cs) is displayed. During this time the `TAG ID SDK` is initalized.
-The [`ITagProfile`](../Tag.Neuron.Xamarin/Services/ITagProfile.cs) is checked for completeness. Does the user have a valid Digital ID?
+The [`ITagProfile`](../IdApp/Services/ITagProfile.cs) is checked for completeness. Does the user have a valid Digital ID?
 If so, go to the [`MainPage`](../IdApp/IdApp/Views/MainPage.xaml.cs) once a connection to the Neuron server has been established. If not, then show the
 [`RegistrationPage`](../IdApp/IdApp/Views/Registration/RegistrationPage.xaml.cs) instead. It will take the user through the neccessary steps to build and
-validate its [`ITagProfile`](../Tag.Neuron.Xamarin/Services/ITagProfile.cs).
+validate its [`ITagProfile`](../IdApp/Services/ITagProfile.cs).
 
 ## Other Pages ##
 There are various pages in the ID App to display client and server signatures, other users' profiles, digital contracts et.c.

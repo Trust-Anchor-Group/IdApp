@@ -38,12 +38,12 @@ To help implement the MVVM Pattern there are a few very lightweight classes to g
 
 ### Views ###
 
-Any page should inherit from the [`ContentBasePage`](../Tag.Neuron.Xamarin.UI/Views/ContentBasePage.cs).
+Any page should inherit from the [`ContentBasePage`](../IdApp.UI/Views/ContentBasePage.cs).
 By inheriting from this class you get some convenience properties to access the view model it is bound to et.c.
 
 ### ViewModels ###
 
-Any view model should inherit from the [`BaseViewModel`](../Tag.Neuron.Xamarin.UI/ViewModels/BaseViewModel.cs). This base class
+Any view model should inherit from the [`BaseViewModel`](../IdApp.UI/ViewModels/BaseViewModel.cs). This base class
 provides methods to override when its corresponding view appears on screen and disappears from screen respectively.
 
 The relevant methods are:

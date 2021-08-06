@@ -52,19 +52,17 @@ Every Xamarin `Page`  as two events that are of specific interest:
  - Disappearing
 
 Those are fired just before the `Page` is rendered on screen, and just before it disappears from the screen.
-This can be utilized so do deterministic setup/teardown in our viewmodels. This what the [`ContentBasePage`](../Tag.Neuron.Xamarin.UI/Views/ContentBasePage.cs) in the [Tag.Neuron.Xamarin.UI](../Tag.Neuron.Xamarin.UI/Tag.Neuron.Xamarin.UI.csproj) framework is for.
-That class, together with the [`BaseViewModel`](../Tag.Neuron.Xamarin.UI/ViewModels/BaseViewModel.cs) is what everything work automagically.
+This can be utilized so do deterministic setup/teardown in our viewmodels. This what the 
+[`ContentBasePage`](../IdApp.UI/Views/ContentBasePage.cs) is for.
+That class, together with the [`BaseViewModel`](../IdApp.UI/ViewModels/BaseViewModel.cs) is what everything work automagically.
 
 ## Implementing a Page ##
 
 Implementing a new page is easy. You can create arbitrary pages, and arbitrary viewmodels.
-There's no need to follow the design pattern in the `Tag.Neuron.Xamarin.UI` framework.
-
-*But* it is very easy to use, gives you zero overhead, and makes your life easier, so we recommend it.
 
 1. Create a random Xaml `Page`.
-2. Have it subclass the [`ContentBasePage`](../Tag.Neuron.Xamarin.UI/Views/ContentBasePage.cs).
-3. Create a matching `ViewModel`, and let that viewmodel subclass [`BaseViewModel`](../Tag.Neuron.Xamarin.UI/ViewModels/BaseViewModel.cs).
+2. Have it subclass the [`ContentBasePage`](../IdApp.UI/Views/ContentBasePage.cs).
+3. Create a matching `ViewModel`, and let that viewmodel subclass [`BaseViewModel`](../IdApp.UI/ViewModels/BaseViewModel.cs).
 4. Assign the `ViewModel` to the page's binding context in the page constructor like this:
 
 ```
@@ -87,7 +85,7 @@ as well as the `SaveState`/`RestoreState` methods.
 Viewmodels are inherently UI specific. They serve the UI, and they operate mostly in UI land, i.e. on the main thread. For this reason, and to make xaml binding as easy
 and smooth as possible, they inherit from the [`BindableObject`](https://docs.microsoft.com/en-us/dotnet/api/xamarin.forms.bindableobject?view=xamarin-forms).
 This makes it super-easy to create Bindable properties, which is neccessary to get bindings to [Behaviors](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/behaviors/), animations and the [Visual State Manager](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/visual-state-manager) to work.
-Just becaue they are UI centric doesn't mean you can execute code on a background thread. Just make sure you marshal back to the main thread when done. Use the [`IUiDispatcher`](../Tag.Neuron.Xamarin/IUiDispatcher.cs) for this.
+Just becaue they are UI centric doesn't mean you can execute code on a background thread. Just make sure you marshal back to the main thread when done. Use the [`IUiDispatcher`](../IdApp/IUiDispatcher.cs) for this.
 
 ## Adding Business Logic ##
 

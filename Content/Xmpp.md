@@ -27,14 +27,14 @@ first with a result, or an error. The `presence` stanza forms the basis of a sim
 `presence` stanza, and the broker forwards it to anyone with an active and authorized presence subscription. This authorization
 process forms the basis of the authorization by consent mechanism available by design and by default in XMPP.
 
-Accessing a `Neuron` is done via the [`INeuronService`](../Tag.Neuron.Xamarin/Services/INeuronService.cs) instance and methods. Apart from allowing clients to exchange
+Accessing a `Neuron` is done via the [`INeuronService`](../IdApp/Services/INeuronService.cs) instance and methods. Apart from allowing clients to exchange
 stanzas, the `Neuron` provides a series of extensions, features and services, in the form of _components_.
 These can be discovered and browsed dynamically by the client (the `INeuronService.DiscoverServices()` method is used for this).
 Some of the extensions that are made available by the `Neuron` include components that manage _Digital IDs_ and _Smart Contracts_.
 
-A user's Digital ID is managed via the [ITagProfile](../Tag.Neuron.Xamarin/Services/ITagProfile.cs) interface. Smart Contracts
-are handled via the [INeuronContracts](../Tag.Neuron.Xamarin/Services/INeuronContracts.cs) interface, part of the
-[INeuronService](../Tag.Neuron.Xamarin/Services/INeuronService.cs) interface. It exposes various methods and events
+A user's Digital ID is managed via the [ITagProfile](../IdApp/Services/ITagProfile.cs) interface. Smart Contracts
+are handled via the [INeuronContracts](../IdApp/Services/INeuronContracts.cs) interface, part of the
+[INeuronService](../IdApp/Services/INeuronService.cs) interface. It exposes various methods and events
 for viewing, approving, revoking digital contracts and IDs.
 
 ## Next Steps ##

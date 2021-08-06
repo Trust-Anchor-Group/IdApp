@@ -36,7 +36,7 @@ When creating an account your identity must be validated. This can happen in two
 
 Choosing a PIN is an optional step that can be skipped. Creating a PIN adds an extra layer of security.
 
-The TAG Neuron SDK for Xamarin provides this, have a look at the [`ITagProfile`](../Tag.Neuron.Xamarin/Services/ITagProfile.cs) interface.
+The TAG Neuron SDK for Xamarin provides this, have a look at the [`ITagProfile`](../IdApp/Services/ITagProfile.cs) interface.
 You can access it via the `DependencyService` class after registering it during startup. See the [Getting Started](GettingStarted.md#the-tag-neuron-sdk-structure) for details on how to do that.
 The `ITagProfile` class has a `Step` property to indicate where in the registration process the user is.
 It also has `set` and `clear` methods to set and clear each of the five steps.
