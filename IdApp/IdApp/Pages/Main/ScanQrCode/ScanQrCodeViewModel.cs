@@ -37,7 +37,7 @@ namespace IdApp.Pages.Main.ScanQrCode
             SwitchModeCommand = new Command(SwitchMode);
             OpenCommandText = AppResources.Open;
             SetModeText();
-            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
         }
 
         /// <inheritdoc />

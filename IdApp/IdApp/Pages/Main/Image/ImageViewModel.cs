@@ -22,14 +22,14 @@ namespace IdApp.Pages.Main.Image
         /// </summary>
         public ImageViewModel()
         {
-            this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
+            this.uiDispatcher = App.Instantiate<IUiDispatcher>();
             this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(
-                Types.Instantiate<ILogService>(false),
-                Types.Instantiate<INetworkService>(false),
-                Types.Instantiate<INeuronService>(false),
-                Types.Instantiate<IUiDispatcher>(false),
-                Types.Instantiate<IAttachmentCacheService>(false),
+                App.Instantiate<ILogService>(),
+                App.Instantiate<INetworkService>(),
+                App.Instantiate<INeuronService>(),
+                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IAttachmentCacheService>(),
                 this.Photos);
         }
 

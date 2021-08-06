@@ -29,7 +29,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <param name="ContractsListMode">What list of contracts to display.</param>
 		protected MyContractsPage(ContractsListMode ContractsListMode)
 		{
-			this.navigationService = Types.Instantiate<INavigationService>(false);
+			this.navigationService = App.Instantiate<INavigationService>();
 
 			MyContractsViewModel ViewModel = new MyContractsViewModel(ContractsListMode);
 			this.Title = ViewModel.Title;

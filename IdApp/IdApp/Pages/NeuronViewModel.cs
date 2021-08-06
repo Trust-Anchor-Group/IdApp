@@ -22,9 +22,9 @@ namespace IdApp.Pages
         /// <param name="tagProfile"></param>
         protected NeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile)
         {
-            this.NeuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-            this.UiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
-            this.TagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
+            this.NeuronService = neuronService ?? App.Instantiate<INeuronService>();
+            this.UiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+            this.TagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
             this.StateSummaryText = AppResources.XmppState_Offline;
             this.ConnectionStateText = AppResources.XmppState_Offline;
             this.ConnectionStateColor = new SolidColorBrush(Color.Red);

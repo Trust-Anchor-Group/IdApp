@@ -68,17 +68,17 @@ namespace IdApp.Pages.Contracts.ViewContract
 			IAttachmentCacheService attachmentCacheService,
 			IContractOrchestratorService contractOrchestratorService)
 		{
-			this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
-			this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-			this.logService = logService ?? Types.Instantiate<ILogService>(false);
-			this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
-			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-			networkService = networkService ?? Types.Instantiate<INetworkService>(false);
-			this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
+			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
+			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
+			this.logService = logService ?? App.Instantiate<ILogService>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+			networkService = networkService ?? App.Instantiate<INetworkService>();
+			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
 
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiDispatcher,
-				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
+				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
 
 			this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
 			this.DeleteContractCommand = new Command(async _ => await DeleteContract());

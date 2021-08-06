@@ -18,11 +18,11 @@ namespace IdApp.Pages.Wallet.EDalerReceived
         /// </summary>
 		public EDalerReceivedPage()
 		{
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new EDalerReceivedViewModel(
-                Types.Instantiate<ITagProfile>(false),
-                Types.Instantiate<IUiDispatcher>(false),
-                Types.Instantiate<INeuronService>(false),
+                App.Instantiate<ITagProfile>(),
+                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<INeuronService>(),
                 this.navigationService);
 
             InitializeComponent();

@@ -36,7 +36,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         /// </summary>
         protected internal ClientSignatureViewModel(INavigationService navigationService)
         {
-            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
         }
 
         /// <inheritdoc/>

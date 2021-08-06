@@ -34,8 +34,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         protected internal ScanQrCodePage(ScanQrCodeViewModel viewModel)
         {
             this.ViewModel = viewModel ?? new ScanQrCodeViewModel();
-            this.navigationService = Types.Instantiate<INavigationService>(false);
-            this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
+            this.uiDispatcher = App.Instantiate<IUiDispatcher>();
             InitializeComponent();
         }
 

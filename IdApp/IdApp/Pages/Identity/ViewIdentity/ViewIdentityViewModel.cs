@@ -55,7 +55,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.attachmentCacheService = attachmentCacheService;
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
-				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
+				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
 
 			this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
 			this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);

@@ -29,42 +29,42 @@ namespace IdApp.Pages.Main.Shell
 		/// <summary>
 		/// Current Neuron Service
 		/// </summary>
-		public INeuronService NeuronService => Types.Instantiate<INeuronService>(false);
+		public INeuronService NeuronService => App.Instantiate<INeuronService>();
 
 		/// <summary>
 		/// Current Network Service
 		/// </summary>
-		public INetworkService NetworkService => Types.Instantiate<INetworkService>(false);
+		public INetworkService NetworkService => App.Instantiate<INetworkService>();
 
 		/// <summary>
 		/// Current Navigation Service
 		/// </summary>
-		public INavigationService NavigationService => Types.Instantiate<INavigationService>(false);
+		public INavigationService NavigationService => App.Instantiate<INavigationService>();
 
 		/// <summary>
 		/// Current Log Service
 		/// </summary>
-		public ILogService LogService => Types.Instantiate<ILogService>(false);
+		public ILogService LogService => App.Instantiate<ILogService>();
 
 		/// <summary>
 		/// Current UI Dispatcher Service
 		/// </summary>
-		public IUiDispatcher UiDispatcher => Types.Instantiate<IUiDispatcher>(false);
+		public IUiDispatcher UiDispatcher => App.Instantiate<IUiDispatcher>();
 
 		/// <summary>
 		/// Current Contract Orchestrator Service
 		/// </summary>
-		public IContractOrchestratorService ContractOrchestratorService => Types.Instantiate<IContractOrchestratorService>(false);
+		public IContractOrchestratorService ContractOrchestratorService => App.Instantiate<IContractOrchestratorService>();
 
 		/// <summary>
 		/// Current Thing Registry Orchestrator Service
 		/// </summary>
-		public IThingRegistryOrchestratorService ThingRegistryOrchestratorService => Types.Instantiate<IThingRegistryOrchestratorService>(false);
+		public IThingRegistryOrchestratorService ThingRegistryOrchestratorService => App.Instantiate<IThingRegistryOrchestratorService>();
 
 		/// <summary>
 		/// Current eDaler Orchestrator Service
 		/// </summary>
-		public IEDalerOrchestratorService EDalerOrchestratorService => Types.Instantiate<IEDalerOrchestratorService>(false);
+		public IEDalerOrchestratorService EDalerOrchestratorService => App.Instantiate<IEDalerOrchestratorService>();
 
 		/// <inheritdoc/>
 		protected override void OnNavigated(ShellNavigatedEventArgs e)

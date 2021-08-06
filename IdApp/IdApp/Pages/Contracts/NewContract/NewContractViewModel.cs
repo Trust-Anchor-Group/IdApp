@@ -66,13 +66,13 @@ namespace IdApp.Pages.Contracts.NewContract
 			ISettingsService settingsService,
 			IContractOrchestratorService contractOrchestratorService)
 		{
-			this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
-			this.logService = logService ?? Types.Instantiate<ILogService>(false);
-			this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-			this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
-			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-			this.settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
-			this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
+			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
+			this.logService = logService ?? App.Instantiate<ILogService>();
+			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+			this.settingsService = settingsService ?? App.Instantiate<ISettingsService>();
+			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
 
 			this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
 			this.AvailableRoles = new ObservableCollection<string>();

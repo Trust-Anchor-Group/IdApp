@@ -59,15 +59,15 @@ namespace IdApp.Pages.Main.Main
 			IEDalerOrchestratorService eDalerOrchestratorService)
 			: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.logService = logService ?? Types.Instantiate<ILogService>(false);
-			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
-			this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
-			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? Types.Instantiate<IThingRegistryOrchestratorService>(false);
-			this.eDalerOrchestratorService = eDalerOrchestratorService ?? Types.Instantiate<IEDalerOrchestratorService>(false);
+			this.logService = logService ?? App.Instantiate<ILogService>();
+			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+			this.networkService = networkService ?? App.Instantiate<INetworkService>();
+			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
+			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? App.Instantiate<IThingRegistryOrchestratorService>();
+			this.eDalerOrchestratorService = eDalerOrchestratorService ?? App.Instantiate<IEDalerOrchestratorService>();
 
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
-				attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false));
+				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
 
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
 			this.ViewMyThingsCommand = new Command(async () => await ViewMyThings(), () => this.IsConnected);

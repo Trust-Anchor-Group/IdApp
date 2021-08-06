@@ -77,11 +77,11 @@ namespace IdApp.Pages.Contracts.MyContracts
 			INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher,
 			ITagProfile TagProfile)
 		{
-			this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
-			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-			this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
-			this.tagProfile = TagProfile ?? Types.Instantiate<ITagProfile>(false);
+			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
+			this.networkService = networkService ?? App.Instantiate<INetworkService>();
+			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+			this.tagProfile = TagProfile ?? App.Instantiate<ITagProfile>();
 			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();
 			this.Categories = new ObservableCollection<ContractCategoryModel>();

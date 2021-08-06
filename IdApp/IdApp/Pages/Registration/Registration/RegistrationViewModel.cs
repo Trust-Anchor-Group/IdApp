@@ -54,14 +54,14 @@ namespace IdApp.Pages.Registration.Registration
             ILogService logService,
             IAttachmentCacheService attachmentCacheService)
         {
-            this.tagProfile = tagProfile ?? Types.Instantiate<ITagProfile>(false);
-            uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
-            settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
-            neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-            cryptoService = cryptoService ?? Types.Instantiate<ICryptoService>(false);
-            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-            networkService = networkService ?? Types.Instantiate<INetworkService>(false);
-            logService = logService ?? Types.Instantiate<ILogService>(false);
+            this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
+            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+            settingsService = settingsService ?? App.Instantiate<ISettingsService>();
+            neuronService = neuronService ?? App.Instantiate<INeuronService>();
+            cryptoService = cryptoService ?? App.Instantiate<ICryptoService>();
+            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+            networkService = networkService ?? App.Instantiate<INetworkService>();
+            logService = logService ?? App.Instantiate<ILogService>();
             
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.ValidatePhoneNr);
             

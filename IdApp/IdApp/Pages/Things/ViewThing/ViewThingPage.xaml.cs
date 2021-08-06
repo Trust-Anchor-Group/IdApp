@@ -17,7 +17,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// </summary>
 		public ViewThingPage()
 		{
-			this.navigationService = Types.Instantiate<INavigationService>(false);
+			this.navigationService = App.Instantiate<INavigationService>();
 			this.ViewModel = new ThingViewModel();
 			
 			InitializeComponent();

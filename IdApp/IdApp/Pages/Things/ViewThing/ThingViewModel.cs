@@ -49,9 +49,9 @@ namespace IdApp.Pages.Things.ViewThing
 			ILogService logService)
 			: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
-			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-			this.logService = logService ?? Types.Instantiate<ILogService>(false);
+			this.networkService = networkService ?? App.Instantiate<INetworkService>();
+			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+			this.logService = logService ?? App.Instantiate<ILogService>();
 
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 			this.DisownThingCommand = new Command(async _ => await DisownThing(), _ => this.CanDisownThing);

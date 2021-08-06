@@ -19,7 +19,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public PetitionSignaturePage()
         {
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new PetitionSignatureViewModel();
             InitializeComponent();
         }

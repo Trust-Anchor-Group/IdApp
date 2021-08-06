@@ -20,13 +20,13 @@ namespace IdApp.Pages.Wallet.RequestPayment
         /// </summary>
 		public RequestPaymentPage()
 		{
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new RequestPaymentViewModel(
-                Types.Instantiate<ITagProfile>(false),
-                Types.Instantiate<IUiDispatcher>(false),
-                Types.Instantiate<INeuronService>(false),
-                this.navigationService ?? Types.Instantiate<INavigationService>(false),
-                Types.Instantiate<ILogService>(false),
+                App.Instantiate<ITagProfile>(),
+                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<INeuronService>(),
+                this.navigationService ?? App.Instantiate<INavigationService>(),
+                App.Instantiate<ILogService>(),
                 this);
 
             InitializeComponent();

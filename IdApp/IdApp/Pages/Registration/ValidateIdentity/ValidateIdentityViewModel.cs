@@ -52,7 +52,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
-                attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false), this.Photos);
+                attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
         }
 
         /// <inheritdoc />

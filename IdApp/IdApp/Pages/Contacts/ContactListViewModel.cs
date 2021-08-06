@@ -46,10 +46,10 @@ namespace IdApp.Pages.Contacts
 		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
 		protected internal ContactListViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher)
 		{
-			this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-			this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
-			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-			this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
+			this.networkService = networkService ?? App.Instantiate<INetworkService>();
+			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
 			this.Contacts = new ObservableCollection<ContactInfo>();
 		}
 

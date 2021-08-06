@@ -18,7 +18,7 @@ namespace IdApp.Pages.Contacts.MyContacts
 		/// </summary>
 		public MyContactsPage()
 		{
-			this.navigationService = Types.Instantiate<INavigationService>(false);
+			this.navigationService = App.Instantiate<INavigationService>();
 			this.ViewModel = new ContactListViewModel();
 			
 			InitializeComponent();

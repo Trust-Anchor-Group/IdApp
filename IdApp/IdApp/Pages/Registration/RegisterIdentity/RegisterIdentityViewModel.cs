@@ -73,7 +73,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
             this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
-                attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false));
+                attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
         }
 
         /// <inheritdoc />

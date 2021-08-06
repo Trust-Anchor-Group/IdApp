@@ -42,8 +42,8 @@ namespace IdApp.Pages.Main.XmppCommunication
         /// </summary>
         protected internal XmppCommunicationViewModel(INeuronService neuronService, ILogService logService)
         {
-            this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-            this.logService = logService ?? Types.Instantiate<ILogService>(false);
+            this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
+            this.logService = logService ?? App.Instantiate<ILogService>();
 
             ClearCommand = new Command(_ => this.ClearHtmlContent());
             CopyCommand = new Command(_ => this.CopyHtmlToClipboard());

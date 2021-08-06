@@ -49,8 +49,10 @@ namespace IdApp
 	/// </summary>
 	public partial class App
 	{
-		private static TaskCompletionSource<bool> servicesSetup;
-		private static TaskCompletionSource<bool> configLoaded;
+		private static readonly TaskCompletionSource<bool> servicesSetup = new TaskCompletionSource<bool>();
+		private static readonly TaskCompletionSource<bool> configLoaded = new TaskCompletionSource<bool>();
+		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new TaskCompletionSource<bool>();
+		private static bool defaultInstantiated = false;
 		private static App instance;
 		private Timer autoSaveTimer;
 		private ITagIdSdk sdk;
@@ -72,8 +74,6 @@ namespace IdApp
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 			
-			servicesSetup = new TaskCompletionSource<bool>();
-			configLoaded = new TaskCompletionSource<bool>();
 			this.initCompleted = this.Init();
 
 			InitializeComponent();
@@ -152,6 +152,8 @@ namespace IdApp
 						this.thingRegistryOrchestratorService = Types.InstantiateDefault<IThingRegistryOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
 						this.eDalerOrchestratorService = Types.InstantiateDefault<IEDalerOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
 
+						defaultInstantiatedSource.TrySetResult(true);
+
 						// Set resolver
 
 						DependencyResolver.ResolveUsing(type =>
@@ -209,6 +211,14 @@ namespace IdApp
 			this.sdk?.LogService?.SaveExceptionDump("StartPage", ex.ToString());
 			DisplayBootstrapErrorPage(ex.Message, ex.StackTrace);
 			return;
+		}
+
+		internal static T Instantiate<T>()
+		{
+			if (!defaultInstantiated)
+				defaultInstantiated = defaultInstantiatedSource.Task.Result;
+
+			return Types.Instantiate<T>(false);
 		}
 
 		internal static async Task WaitForServiceSetup()

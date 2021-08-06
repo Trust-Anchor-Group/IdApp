@@ -19,7 +19,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// </summary>
         public PetitionIdentityPage()
         {
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new PetitionIdentityViewModel();
             InitializeComponent();
         }

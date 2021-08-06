@@ -17,7 +17,7 @@ namespace IdApp.Pages.Main.XmppCommunication
         public XmppCommunicationPage()
         {
             InitializeComponent();
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new XmppCommunicationViewModel();
         }
 

@@ -22,16 +22,16 @@ namespace IdApp.Pages.Identity.ViewIdentity
         /// </summary>
         public ViewIdentityPage()
         {
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new ViewIdentityViewModel(
-                Types.Instantiate<ITagProfile>(false),
-                Types.Instantiate<IUiDispatcher>(false),
-                Types.Instantiate<INeuronService>(false),
-                this.navigationService ?? Types.Instantiate<INavigationService>(false),
-                Types.Instantiate<INetworkService>(false),
-                Types.Instantiate<ILogService>(false),
-                Types.Instantiate<IEDalerOrchestratorService>(false),
-                Types.Instantiate<IAttachmentCacheService>(false));
+                App.Instantiate<ITagProfile>(),
+                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<INeuronService>(),
+                this.navigationService ?? App.Instantiate<INavigationService>(),
+                App.Instantiate<INetworkService>(),
+                App.Instantiate<ILogService>(),
+                App.Instantiate<IEDalerOrchestratorService>(),
+                App.Instantiate<IAttachmentCacheService>());
             InitializeComponent();
         }
 

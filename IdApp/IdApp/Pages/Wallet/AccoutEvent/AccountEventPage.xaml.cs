@@ -18,11 +18,11 @@ namespace IdApp.Pages.Wallet.AccountEvent
         /// </summary>
 		public AccountEventPage()
 		{
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new AccountEventViewModel(
-                Types.Instantiate<ITagProfile>(false),
-                Types.Instantiate<IUiDispatcher>(false),
-                Types.Instantiate<INeuronService>(false),
+                App.Instantiate<ITagProfile>(),
+                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<INeuronService>(),
                 this.navigationService);
 
             InitializeComponent();

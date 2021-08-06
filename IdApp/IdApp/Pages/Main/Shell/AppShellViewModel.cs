@@ -49,22 +49,22 @@ namespace IdApp.Pages.Main.Shell
 		/// <summary>
 		/// Current TAG Profile
 		/// </summary>
-		public ITagProfile TagProfile => Types.Instantiate<ITagProfile>(false);
+		public ITagProfile TagProfile => App.Instantiate<ITagProfile>();
 
 		/// <summary>
 		/// Current Neuron Service
 		/// </summary>
-		public INeuronService NeuronService => Types.Instantiate<INeuronService>(false);
+		public INeuronService NeuronService => App.Instantiate<INeuronService>();
 
 		/// <summary>
 		/// Current Network Service
 		/// </summary>
-		public INetworkService NetworkService => Types.Instantiate<INetworkService>(false);
+		public INetworkService NetworkService => App.Instantiate<INetworkService>();
 
 		/// <summary>
 		/// Current UI Dispatcher Service
 		/// </summary>
-		public IUiDispatcher UiDispatcher => Types.Instantiate<IUiDispatcher>(false);
+		public IUiDispatcher UiDispatcher => App.Instantiate<IUiDispatcher>();
 
 		#region Properties
 

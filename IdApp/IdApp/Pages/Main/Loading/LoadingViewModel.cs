@@ -34,7 +34,7 @@ namespace IdApp.Pages.Main.Loading
 			INavigationService navigationService)
 			: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
+			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 		}
 
 		/// <inheritdoc />

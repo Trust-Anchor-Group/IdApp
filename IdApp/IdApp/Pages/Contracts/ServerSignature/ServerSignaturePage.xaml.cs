@@ -17,7 +17,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// </summary>
 		public ServerSignaturePage()
 		{
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             ViewModel = new ServerSignatureViewModel();
 			InitializeComponent();
 		}

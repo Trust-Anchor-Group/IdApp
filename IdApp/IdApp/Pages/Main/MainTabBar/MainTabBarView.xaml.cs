@@ -23,7 +23,7 @@ namespace IdApp.Pages.Main.MainTabBar
 		/// </summary>
 		public MainTabBarView()
 		{
-			this.logService = Types.Instantiate<ILogService>(false);
+			this.logService = App.Instantiate<ILogService>();
 			// Set default values here.
 			OnPlatform<string> fontFamily = (OnPlatform<string>)Application.Current.Resources["FontAwesomeSolid"];
 			this.LeftButton1FontFamily = fontFamily;

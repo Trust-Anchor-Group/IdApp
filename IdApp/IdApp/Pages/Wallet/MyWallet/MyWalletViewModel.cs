@@ -46,9 +46,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.logService = logService;
 			this.navigationService = navigationService;
 			this.networkService = networkService;
-			this.contractOrchestratorService = contractOrchestratorService ?? Types.Instantiate<IContractOrchestratorService>(false);
-			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? Types.Instantiate<IThingRegistryOrchestratorService>(false);
-			this.eDalerOrchestratorService = eDalerOrchestratorService ?? Types.Instantiate<IEDalerOrchestratorService>(false);
+			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
+			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? App.Instantiate<IThingRegistryOrchestratorService>();
+			this.eDalerOrchestratorService = eDalerOrchestratorService ?? App.Instantiate<IEDalerOrchestratorService>();
 
 			this.BackCommand = new Command(async _ => await GoBack());
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());

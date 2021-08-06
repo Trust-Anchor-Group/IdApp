@@ -53,12 +53,12 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             IUiDispatcher uiDispatcher,
             IAttachmentCacheService attachmentCacheService)
         {
-            this.neuronService = neuronService ?? Types.Instantiate<INeuronService>(false);
-            this.navigationService = navigationService ?? Types.Instantiate<INavigationService>(false);
-            logService = logService ?? Types.Instantiate<ILogService>(false);
-            this.networkService = networkService ?? Types.Instantiate<INetworkService>(false);
-            uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
-            attachmentCacheService = attachmentCacheService ?? Types.Instantiate<IAttachmentCacheService>(false);
+            this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
+            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
+            logService = logService ?? App.Instantiate<ILogService>();
+            this.networkService = networkService ?? App.Instantiate<INetworkService>();
+            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+            attachmentCacheService = attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>();
 
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());

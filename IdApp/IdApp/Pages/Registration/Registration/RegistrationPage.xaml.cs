@@ -22,7 +22,7 @@ namespace IdApp.Pages.Registration.Registration
         public RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            this.uiDispatcher = Types.Instantiate<IUiDispatcher>(false);
+            this.uiDispatcher = App.Instantiate<IUiDispatcher>();
             ViewModel = new RegistrationViewModel();
             InitializeComponent();
         }

@@ -19,7 +19,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public ViewContractPage()
 		{
-			this.navigationService = Types.Instantiate<INavigationService>(false);
+			this.navigationService = App.Instantiate<INavigationService>();
 			this.ViewModel = new ViewContractViewModel();
 			InitializeComponent();
 		}

@@ -20,14 +20,14 @@ namespace IdApp.Pages.Wallet.PendingPayment
         /// </summary>
 		public PendingPaymentPage()
 		{
-            this.navigationService = Types.Instantiate<INavigationService>(false);
+            this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new EDalerUriViewModel(
-                Types.Instantiate<ITagProfile>(false),
-                Types.Instantiate<IUiDispatcher>(false),
-                Types.Instantiate<INeuronService>(false),
-                this.navigationService ?? Types.Instantiate<INavigationService>(false),
-                Types.Instantiate<INetworkService>(false),
-                Types.Instantiate<ILogService>(false),
+                App.Instantiate<ITagProfile>(),
+                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<INeuronService>(),
+                this.navigationService ?? App.Instantiate<INavigationService>(),
+                App.Instantiate<INetworkService>(),
+                App.Instantiate<ILogService>(),
                 this);
 
             InitializeComponent();
