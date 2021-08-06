@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Tag.Neuron.Xamarin.Services;
+using IdApp.Services;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Pages.Contracts.ClientSignature

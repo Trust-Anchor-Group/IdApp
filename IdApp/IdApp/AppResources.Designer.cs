@@ -115,6 +115,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account name {0} is already taken. Choose another..
+        /// </summary>
+        internal static string AccountNameAlreadyTaken1 {
+            get {
+                return ResourceManager.GetString("AccountNameAlreadyTaken1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account name is invalid.
         /// </summary>
         internal static string AccountNameIsInvalid {
@@ -201,6 +210,15 @@ namespace IdApp {
         internal static string AnErrorHasOccurred {
             get {
                 return ResourceManager.GetString("AnErrorHasOccurred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred.
+        /// </summary>
+        internal static string AnErrorHasOccurred1 {
+            get {
+                return ResourceManager.GetString("AnErrorHasOccurred1", resourceCulture);
             }
         }
         
@@ -367,11 +385,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string Cancel1 {
+            get {
+                return ResourceManager.GetString("Cancel1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t connect to {0}.
         /// </summary>
         internal static string CantConnectTo {
             get {
                 return ResourceManager.GetString("CantConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t connect to {0}.
+        /// </summary>
+        internal static string CantConnectTo1 {
+            get {
+                return ResourceManager.GetString("CantConnectTo1", resourceCulture);
             }
         }
         
@@ -525,6 +561,15 @@ namespace IdApp {
         internal static string Continue {
             get {
                 return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue anyway.
+        /// </summary>
+        internal static string ContinueAnyway {
+            get {
+                return ResourceManager.GetString("ContinueAnyway", resourceCulture);
             }
         }
         
@@ -700,6 +745,33 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to It seems like the database hasn&apos;t been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?.
+        /// </summary>
+        internal static string DatabaseCorruptInfoText {
+            get {
+                return ResourceManager.GetString("DatabaseCorruptInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database issue.
+        /// </summary>
+        internal static string DatabaseIssue {
+            get {
+                return ResourceManager.GetString("DatabaseIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database repair failed. We&apos;re out of options now, so continue at your own risk..
+        /// </summary>
+        internal static string DatabaseRepairFailedInfoText {
+            get {
+                return ResourceManager.GetString("DatabaseRepairFailedInfoText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decline.
         /// </summary>
         internal static string Decline {
@@ -763,11 +835,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
+        /// </summary>
+        internal static string DomainDoesNotFollowEncryptionPolicy1 {
+            get {
+                return ResourceManager.GetString("DomainDoesNotFollowEncryptionPolicy1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is not a valid operator.
         /// </summary>
         internal static string DomainIsNotAValidOperator {
             get {
                 return ResourceManager.GetString("DomainIsNotAValidOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is not a valid operator.
+        /// </summary>
+        internal static string DomainIsNotAValidOperator1 {
+            get {
+                return ResourceManager.GetString("DomainIsNotAValidOperator1", resourceCulture);
             }
         }
         
@@ -808,6 +898,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No eDaler service found on broker..
+        /// </summary>
+        internal static string EDalerServiceNotFound {
+            get {
+                return ResourceManager.GetString("EDalerServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encrypt message.
         /// </summary>
         internal static string EncryptMessage {
@@ -831,6 +930,15 @@ namespace IdApp {
         internal static string ErrorTitle {
             get {
                 return ResourceManager.GetString("ErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred.
+        /// </summary>
+        internal static string ErrorTitle1 {
+            get {
+                return ResourceManager.GetString("ErrorTitle1", resourceCulture);
             }
         }
         
@@ -871,11 +979,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to close page.
+        /// </summary>
+        internal static string FailedToClosePage {
+            get {
+                return ResourceManager.GetString("FailedToClosePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to load photo.
         /// </summary>
         internal static string FailedToLoadPhoto {
             get {
                 return ResourceManager.GetString("FailedToLoadPhoto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to navigate to page {0}  {1}.
+        /// </summary>
+        internal static string FailedToNavigateToPage {
+            get {
+                return ResourceManager.GetString("FailedToNavigateToPage", resourceCulture);
             }
         }
         
@@ -903,6 +1029,15 @@ namespace IdApp {
         internal static string FailedToUnbindViewModelForPage {
             get {
                 return ResourceManager.GetString("FailedToUnbindViewModelForPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No file upload service found on broker..
+        /// </summary>
+        internal static string FileUploadServiceNotFound {
+            get {
+                return ResourceManager.GetString("FileUploadServiceNotFound", resourceCulture);
             }
         }
         
@@ -1177,6 +1312,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not a valid iotdisco claim URI..
+        /// </summary>
+        internal static string InvalidIoTDiscoClaimUri {
+            get {
+                return ResourceManager.GetString("InvalidIoTDiscoClaimUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid IoT Discovery Code.
         /// </summary>
         internal static string InvalidIoTDiscoveryCode {
@@ -1191,6 +1335,15 @@ namespace IdApp {
         internal static string InvalidUsernameOrPassword {
             get {
                 return ResourceManager.GetString("InvalidUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid username or password.
+        /// </summary>
+        internal static string InvalidUsernameOrPassword1 {
+            get {
+                return ResourceManager.GetString("InvalidUsernameOrPassword1", resourceCulture);
             }
         }
         
@@ -1245,6 +1398,15 @@ namespace IdApp {
         internal static string LegalId {
             get {
                 return ResourceManager.GetString("LegalId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No legal service found on broker..
+        /// </summary>
+        internal static string LegalServiceNotFound {
+            get {
+                return ResourceManager.GetString("LegalServiceNotFound", resourceCulture);
             }
         }
         
@@ -1564,6 +1726,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string Ok1 {
+            get {
+                return ResourceManager.GetString("Ok1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Online.
         /// </summary>
         internal static string Online {
@@ -1605,6 +1776,15 @@ namespace IdApp {
         internal static string OperatorDoesNotSupportRegisteringNewAccounts {
             get {
                 return ResourceManager.GetString("OperatorDoesNotSupportRegisteringNewAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The operator {0} does not support registration of new accounts.
+        /// </summary>
+        internal static string OperatorDoesNotSupportRegisteringNewAccounts1 {
+            get {
+                return ResourceManager.GetString("OperatorDoesNotSupportRegisteringNewAccounts1", resourceCulture);
             }
         }
         
@@ -2068,6 +2248,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No provisioning service found on broker..
+        /// </summary>
+        internal static string ProvisioningServiceNotFound {
+            get {
+                return ResourceManager.GetString("ProvisioningServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Public key.
         /// </summary>
         internal static string PublicKey {
@@ -2239,6 +2428,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Repair and continue.
+        /// </summary>
+        internal static string RepairAndContinue {
+            get {
+                return ResourceManager.GetString("RepairAndContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report as Compromised.
         /// </summary>
         internal static string ReportAsCompromized {
@@ -2302,11 +2500,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The request timed out.
+        /// </summary>
+        internal static string RequestTimedOut1 {
+            get {
+                return ResourceManager.GetString("RequestTimedOut1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The request was cancelled.
         /// </summary>
         internal static string RequestWasCancelled {
             get {
                 return ResourceManager.GetString("RequestWasCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The request was cancelled.
+        /// </summary>
+        internal static string RequestWasCancelled1 {
+            get {
+                return ResourceManager.GetString("RequestWasCancelled1", resourceCulture);
             }
         }
         
@@ -2725,6 +2941,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no network.
+        /// </summary>
+        internal static string ThereIsNoNetwork1 {
+            get {
+                return ResourceManager.GetString("ThereIsNoNetwork1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The specified code is not a legal identity.
         /// </summary>
         internal static string TheSpecifiedCodeIsNotALegalIdentity {
@@ -2748,6 +2973,15 @@ namespace IdApp {
         internal static string ThingDisowned {
             get {
                 return ResourceManager.GetString("ThingDisowned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No thing registry service found on broker..
+        /// </summary>
+        internal static string ThingRegistryServiceNotFound {
+            get {
+                return ResourceManager.GetString("ThingRegistryServiceNotFound", resourceCulture);
             }
         }
         
@@ -2851,6 +3085,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to authenticate with {0}.
+        /// </summary>
+        internal static string UnableToAuthenticateWith1 {
+            get {
+                return ResourceManager.GetString("UnableToAuthenticateWith1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to claim thing.
         /// </summary>
         internal static string UnableToClaimThing {
@@ -2865,6 +3108,24 @@ namespace IdApp {
         internal static string UnableToConnectTo {
             get {
                 return ResourceManager.GetString("UnableToConnectTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to connect to {0}.
+        /// </summary>
+        internal static string UnableToConnectTo1 {
+            get {
+                return ResourceManager.GetString("UnableToConnectTo1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to get list of my devices..
+        /// </summary>
+        internal static string UnableToGetListOfMyDevices {
+            get {
+                return ResourceManager.GetString("UnableToGetListOfMyDevices", resourceCulture);
             }
         }
         

@@ -3,8 +3,8 @@ using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
+using IdApp;
+using IdApp.Services;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.EDalerReceived

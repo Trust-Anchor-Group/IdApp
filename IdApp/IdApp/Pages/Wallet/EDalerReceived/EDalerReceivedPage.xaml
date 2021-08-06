@@ -3,7 +3,7 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp.UI"
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.EDalerReceived;assembly=IdApp"
                        x:DataType="model:EDalerReceivedViewModel"
                        x:Class="IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedPage"

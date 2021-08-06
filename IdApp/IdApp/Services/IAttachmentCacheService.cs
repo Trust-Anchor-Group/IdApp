@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
-using Tag.Neuron.Xamarin.Services;
+using IdApp.Services;
 
 namespace IdApp.Services
 {

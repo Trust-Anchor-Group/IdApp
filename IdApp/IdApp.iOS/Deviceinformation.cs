@@ -1,6 +1,5 @@
-﻿using Tag.Neuron.Xamarin;
+﻿using UIKit;
 using Xamarin.Forms;
-using UIKit;
 
 [assembly: Dependency(typeof(IdApp.iOS.DeviceInformation))]
 namespace IdApp.iOS

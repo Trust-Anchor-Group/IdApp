@@ -2,10 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Extensions;
 using IdApp.Services;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Extensions;
-using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 

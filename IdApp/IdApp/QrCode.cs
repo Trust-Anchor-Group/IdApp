@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services;
 using SkiaSharp;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
 using Xamarin.Essentials;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Neuron.Xamarin.Services;
+using IdApp.Services;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

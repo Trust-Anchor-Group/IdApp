@@ -1,7 +1,4 @@
 ﻿using IdApp.Services;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.MyWallet

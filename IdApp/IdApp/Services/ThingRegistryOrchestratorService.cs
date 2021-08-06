@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
+using IdApp;
+using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;

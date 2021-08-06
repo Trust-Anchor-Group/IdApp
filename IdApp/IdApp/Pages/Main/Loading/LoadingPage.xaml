@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp.UI"
                        xmlns:model="clr-namespace:IdApp.Pages.Main.Loading;assembly=IdApp"
                        x:DataType="model:LoadingViewModel"
                        x:Class="IdApp.Pages.Main.Loading.LoadingPage"

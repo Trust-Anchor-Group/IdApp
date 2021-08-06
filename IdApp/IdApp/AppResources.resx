@@ -1212,4 +1212,91 @@
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
     <value>Failed to unbind viewmodel {0} for page {1}</value>
   </data>
+  <data name="AccountNameAlreadyTaken1" xml:space="preserve">
+    <value>Account name {0} is already taken. Choose another.</value>
+  </data>
+  <data name="AnErrorHasOccurred1" xml:space="preserve">
+    <value>An error has occurred</value>
+  </data>
+  <data name="Cancel1" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CantConnectTo1" xml:space="preserve">
+    <value>Can't connect to {0}</value>
+  </data>
+  <data name="ContinueAnyway" xml:space="preserve">
+    <value>Continue anyway</value>
+  </data>
+  <data name="DatabaseCorruptInfoText" xml:space="preserve">
+    <value>It seems like the database hasn't been closed correctly, and may therefore be damaged. An attempt can be made to repair the database by first wiping it. How would you like to proceed?</value>
+  </data>
+  <data name="DatabaseIssue" xml:space="preserve">
+    <value>Database issue</value>
+  </data>
+  <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
+    <value>Database repair failed. We're out of options now, so continue at your own risk.</value>
+  </data>
+  <data name="DomainDoesNotFollowEncryptionPolicy1" xml:space="preserve">
+    <value>{0} does not follow the ubiquitous encryption policy</value>
+  </data>
+  <data name="DomainIsNotAValidOperator1" xml:space="preserve">
+    <value>{0} is not a valid operator</value>
+  </data>
+  <data name="EDalerServiceNotFound" xml:space="preserve">
+    <value>No eDaler service found on broker.</value>
+  </data>
+  <data name="ErrorTitle1" xml:space="preserve">
+    <value>An error occurred</value>
+  </data>
+  <data name="FailedToClosePage" xml:space="preserve">
+    <value>Failed to close page</value>
+  </data>
+  <data name="FailedToNavigateToPage" xml:space="preserve">
+    <value>Failed to navigate to page {0}  {1}</value>
+  </data>
+  <data name="FileUploadServiceNotFound" xml:space="preserve">
+    <value>No file upload service found on broker.</value>
+  </data>
+  <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
+    <value>Not a valid iotdisco claim URI.</value>
+  </data>
+  <data name="InvalidUsernameOrPassword1" xml:space="preserve">
+    <value>Invalid username or password</value>
+  </data>
+  <data name="LegalServiceNotFound" xml:space="preserve">
+    <value>No legal service found on broker.</value>
+  </data>
+  <data name="Ok1" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OperatorDoesNotSupportRegisteringNewAccounts1" xml:space="preserve">
+    <value>The operator {0} does not support registration of new accounts</value>
+  </data>
+  <data name="ProvisioningServiceNotFound" xml:space="preserve">
+    <value>No provisioning service found on broker.</value>
+  </data>
+  <data name="RepairAndContinue" xml:space="preserve">
+    <value>Repair and continue</value>
+  </data>
+  <data name="RequestTimedOut1" xml:space="preserve">
+    <value>The request timed out</value>
+  </data>
+  <data name="RequestWasCancelled1" xml:space="preserve">
+    <value>The request was cancelled</value>
+  </data>
+  <data name="ThereIsNoNetwork1" xml:space="preserve">
+    <value>There is no network</value>
+  </data>
+  <data name="ThingRegistryServiceNotFound" xml:space="preserve">
+    <value>No thing registry service found on broker.</value>
+  </data>
+  <data name="UnableToAuthenticateWith1" xml:space="preserve">
+    <value>Unable to authenticate with {0}</value>
+  </data>
+  <data name="UnableToConnectTo1" xml:space="preserve">
+    <value>Unable to connect to {0}</value>
+  </data>
+  <data name="UnableToGetListOfMyDevices" xml:space="preserve">
+    <value>Unable to get list of my devices.</value>
+  </data>
 </root>

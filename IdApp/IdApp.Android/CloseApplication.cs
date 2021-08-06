@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using System.Threading.Tasks;
-using Tag.Neuron.Xamarin;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.CloseApplication))]
 namespace IdApp.Android

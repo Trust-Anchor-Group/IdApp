@@ -1,7 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using IdApp.Services;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 

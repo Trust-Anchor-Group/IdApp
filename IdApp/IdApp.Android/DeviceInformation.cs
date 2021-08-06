@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using Android.Provider;
-using Tag.Neuron.Xamarin;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.DeviceInformation))]
 namespace IdApp.Android

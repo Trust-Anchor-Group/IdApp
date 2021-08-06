@@ -2,7 +2,7 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
-                       xmlns:views="clr-namespace:IdApp.Pages;assembly=Tag.Neuron.Xamarin.UI"
+                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp.UI"
                        xmlns:model="clr-namespace:IdApp.Pages.Things.ViewClaimThing;assembly=IdApp"
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Things;assembly=IdApp"
                        x:DataType="model:ViewClaimThingViewModel"

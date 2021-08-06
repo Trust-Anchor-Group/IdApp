@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using IdApp.Pages.Identity.PetitionIdentity;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Extensions;
-using Tag.Neuron.Xamarin.Services;
+using IdApp;
+using IdApp.Extensions;
+using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 

@@ -9,9 +9,6 @@ using EDaler.Uris;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Services;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet

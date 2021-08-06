@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using Foundation;
-using Tag.Neuron.Xamarin;
 using UIKit;
 using Xamarin.Forms;
 

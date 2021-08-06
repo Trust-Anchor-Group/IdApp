@@ -4,8 +4,8 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Tag.Neuron.Xamarin.Extensions;
-using Tag.Neuron.Xamarin.Services;
+using IdApp.Extensions;
+using IdApp.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

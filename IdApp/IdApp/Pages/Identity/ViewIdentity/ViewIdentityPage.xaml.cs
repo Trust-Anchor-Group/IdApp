@@ -1,11 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Services;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Inventory;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {

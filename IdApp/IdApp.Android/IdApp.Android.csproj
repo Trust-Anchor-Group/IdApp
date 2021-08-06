@@ -128,10 +128,6 @@
     <AndroidResource Include="Resources\drawable\tag_bg2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.csproj">
-      <Project>{a03cdd5c-5c92-4a79-8a70-352fad69d4ff}</Project>
-      <Name>Tag.Neuron.Xamarin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IdApp\IdApp.csproj">
       <Project>{8d6d18dd-9739-4f11-808e-252d7a53d032}</Project>
       <Name>IdApp</Name>

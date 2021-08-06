@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Tag.Neuron.Xamarin.Extensions;
+using IdApp.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Waher.Networking.XMPP.Contracts;

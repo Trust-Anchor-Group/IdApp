@@ -1,4 +1,4 @@
-﻿using Tag.Neuron.Xamarin.Services;
+﻿using IdApp.Services;
 using Xamarin.Forms;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;

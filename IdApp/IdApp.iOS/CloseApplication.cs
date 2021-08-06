@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Tag.Neuron.Xamarin;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(IdApp.iOS.CloseApplication))]

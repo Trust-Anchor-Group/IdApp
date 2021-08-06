@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Tag.Neuron.Xamarin.Services;
+using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using IdApp.Pages.Contracts.MyContracts.ObjectModel;
-using Tag.Neuron.Xamarin.Services;
+using IdApp.Services;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

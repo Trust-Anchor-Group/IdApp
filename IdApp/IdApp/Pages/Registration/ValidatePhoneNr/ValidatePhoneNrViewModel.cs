@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Pages.Main.Main;
 using IdApp.Pages.Registration.Registration;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
+using IdApp;
+using IdApp.Services;
 using Waher.Content;
 using Xamarin.Forms;
 

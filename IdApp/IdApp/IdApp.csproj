@@ -40,6 +40,7 @@
     <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="1.1.1" />
     <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="1.2.19" />
     <PackageReference Include="Waher.Networking.XMPP.Control" Version="1.1.1" />
+    <PackageReference Include="Waher.Networking.XMPP.MUC" Version="1.0.4" />
     <PackageReference Include="Waher.Networking.XMPP.P2P" Version="1.1.14" />
     <PackageReference Include="Waher.Networking.XMPP.PEP" Version="1.1.3" />
     <PackageReference Include="Waher.Networking.XMPP.Provisioning" Version="1.1.9" />
@@ -174,8 +175,4 @@
       <DependentUpon>IssueEDalerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-
-<ItemGroup>
-  <ProjectReference Include="..\..\Tag.Neuron.Xamarin\Tag.Neuron.Xamarin.csproj" />
-</ItemGroup>
 </Project>

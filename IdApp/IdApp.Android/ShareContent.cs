@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using Android.App;
 using Android.Content;
-using Tag.Neuron.Xamarin;
 using Xamarin.Essentials;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.ShareContent))]

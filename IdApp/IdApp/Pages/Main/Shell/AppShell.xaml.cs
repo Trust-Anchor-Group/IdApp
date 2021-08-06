@@ -2,9 +2,6 @@
 using System.Text;
 using System.Threading.Tasks;
 using IdApp.Services;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
-using Waher.Runtime.Inventory;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

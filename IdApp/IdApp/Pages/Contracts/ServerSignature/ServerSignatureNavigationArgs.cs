@@ -1,4 +1,4 @@
-﻿using Tag.Neuron.Xamarin.Services;
+﻿using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Contracts.ServerSignature

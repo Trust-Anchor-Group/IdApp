@@ -9,8 +9,8 @@ using IdApp.Pages.Wallet.IssueEDaler;
 using IdApp.Pages.Wallet.MyWallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
+using IdApp;
+using IdApp.Services;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services

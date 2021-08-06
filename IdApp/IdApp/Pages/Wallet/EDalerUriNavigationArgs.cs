@@ -1,4 +1,4 @@
-﻿using Tag.Neuron.Xamarin.Services;
+﻿using IdApp.Services;
 using EDaler.Uris;
 
 namespace IdApp.Pages.Wallet

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tag.Neuron.Xamarin;
-using Tag.Neuron.Xamarin.Services;
+using IdApp;
+using IdApp.Services;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 using ZXing;
