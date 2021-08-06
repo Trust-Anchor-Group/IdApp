@@ -838,34 +838,6 @@
             <param name="message">The message.</param>
             <param name="innerException">The inner exception.</param>
         </member>
-        <member name="T:Tag.Neuron.Xamarin.Models.DomainModel">
-            <summary>
-            The data model for Neuron domains.
-            </summary>
-        </member>
-        <member name="M:Tag.Neuron.Xamarin.Models.DomainModel.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Creates a new instance of the <see cref="T:Tag.Neuron.Xamarin.Models.DomainModel"/> class.
-            </summary>
-            <param name="domainName">The domain name to use.</param>
-            <param name="key">A key for the domain.</param>
-            <param name="secret">The domain secret.</param>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Models.DomainModel.Name">
-            <summary>
-            The domain name to use.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Models.DomainModel.Key">
-            <summary>
-            A key for the domain.
-            </summary>
-        </member>
-        <member name="P:Tag.Neuron.Xamarin.Models.DomainModel.Secret">
-            <summary>
-            The domain secret.
-            </summary>
-        </member>
         <member name="T:Tag.Neuron.Xamarin.Models.RegisterIdentityModel">
             <summary>
             The data model for registering an identity.
