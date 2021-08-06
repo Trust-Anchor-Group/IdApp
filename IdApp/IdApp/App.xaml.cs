@@ -153,6 +153,7 @@ namespace IdApp
 						this.eDalerOrchestratorService = Types.InstantiateDefault<IEDalerOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
 
 						defaultInstantiatedSource.TrySetResult(true);
+						defaultInstantiated = true;
 
 						// Set resolver
 
