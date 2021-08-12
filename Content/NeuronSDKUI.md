@@ -53,16 +53,16 @@ Every Xamarin `Page`  as two events that are of specific interest:
 
 Those are fired just before the `Page` is rendered on screen, and just before it disappears from the screen.
 This can be utilized so do deterministic setup/teardown in our viewmodels. This what the 
-[`ContentBasePage`](../IdApp.UI/Views/ContentBasePage.cs) is for.
-That class, together with the [`BaseViewModel`](../IdApp.UI/ViewModels/BaseViewModel.cs) is what everything work automagically.
+[`ContentBasePage`](../IdApp/Pages/ContentBasePage.cs) is for.
+That class, together with the [`BaseViewModel`](../IdApp/Pages/BaseViewModel.cs) is what everything work automagically.
 
 ## Implementing a Page ##
 
 Implementing a new page is easy. You can create arbitrary pages, and arbitrary viewmodels.
 
 1. Create a random Xaml `Page`.
-2. Have it subclass the [`ContentBasePage`](../IdApp.UI/Views/ContentBasePage.cs).
-3. Create a matching `ViewModel`, and let that viewmodel subclass [`BaseViewModel`](../IdApp.UI/ViewModels/BaseViewModel.cs).
+2. Have it subclass the [`ContentBasePage`](../IdApp/Pages/ContentBasePage.cs).
+3. Create a matching `ViewModel`, and let that viewmodel subclass [`BaseViewModel`](../IdApp/Pages/BaseViewModel.cs).
 4. Assign the `ViewModel` to the page's binding context in the page constructor like this:
 
 ```

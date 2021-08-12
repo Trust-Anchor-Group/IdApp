@@ -99,7 +99,7 @@ This will be the primary key for the object in the database. No need to set it, 
 
 The [SettingsService](../IdApp/Services/ISettingsService.cs) is for storing user specific settings, like what they last typed into an 
 `Entry` field or similar. It is typically used for loading and saving UI state in the view models. The 
-[BaseViewModel](../IdApp.UI/ViewModels/BaseViewModel.cs) class has a helper method for this callled `GetSettingsKey`:
+[BaseViewModel](../IdApp/Pages/BaseViewModel.cs) class has a helper method for this callled `GetSettingsKey`:
 
 ```
 this.SettingsService.SaveState(GetSettingsKey(nameof(FirstName)), this.FirstName);
