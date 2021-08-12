@@ -92,81 +92,21 @@ namespace IdApp
 
 		private Task<bool> Init()
 		{
+			ProfilerThread Thread = this.startupProfiler?.CreateThread("Init", ProfilerThreadType.Sequential);
+			Thread?.Start();
+
 			TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
-			Task.Run(async () => await this.InitInParallel(Result));
+			Task.Run(async () => await this.InitInParallel(Thread, Result));
 			return Result.Task;
 		}
 
-		private async Task InitInParallel(TaskCompletionSource<bool> Result)
+		private async Task InitInParallel(ProfilerThread Thread, TaskCompletionSource<bool> Result)
 		{
-			ProfilerThread Thread = this.startupProfiler?.CreateThread("Init", ProfilerThreadType.Sequential);
-
 			try
 			{
 				try
 				{
-					Thread?.Start();
-					Thread?.NewState("Types");
-
-					Assembly appAssembly = this.GetType().Assembly;
-
-					if (!Types.IsInitialized)
-					{
-						// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
-						Types.Initialize(
-							appAssembly,                                // Allows for objects defined in this assembly, to be instantiated and persisted.
-							typeof(Database).Assembly,                  // Indexes default attributes
-							typeof(ObjectSerializer).Assembly,          // Indexes general serializers
-							typeof(FilesProvider).Assembly,             // Indexes special serializers
-							typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
-							typeof(InternetContent).Assembly,           // Common Content-Types
-							typeof(ImageCodec).Assembly,                // Common Image Content-Types
-							typeof(XML).Assembly,                       // XML Content-Type
-							typeof(MarkdownDocument).Assembly,          // Markdown support
-							typeof(DnsResolver).Assembly,               // Serialization of DNS-related objects
-							typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
-							typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
-							typeof(ProvisioningClient).Assembly,        // Serialization of XMPP objects related to thing registries, provisioning and decision support.
-							typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
-							typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
-							typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
-							typeof(Expression).Assembly,                // Indexes basic script functions
-							typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
-							typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
-							typeof(TagConfiguration).Assembly);         // Indexes persistable objects
-					}
-
-					EndpointSecurity.SetCiphers(new Type[]
-					{
-							typeof(Edwards448Endpoint)
-					}, false);
-
-					Thread?.NewState("SDK");
-
-					// Create Services
-
-					this.sdk = Types.InstantiateDefault<ITagIdSdk>(false, appAssembly, this.startupProfiler);
-
-					this.attachmentCacheService = Types.InstantiateDefault<IAttachmentCacheService>(false, this.sdk.LogService);
-					this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
-					this.thingRegistryOrchestratorService = Types.InstantiateDefault<IThingRegistryOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
-					this.eDalerOrchestratorService = Types.InstantiateDefault<IEDalerOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
-
-					defaultInstantiatedSource.TrySetResult(true);
-					defaultInstantiated = true;
-
-					// Set resolver
-
-					DependencyResolver.ResolveUsing(type =>
-					{
-						if (Types.GetType(type.FullName) is null)
-							return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
-
-						bool IsReg = SingletonAttribute.IsRegistered(type);
-						return Types.Instantiate(true, type);
-					});
-
-					servicesSetup.TrySetResult(true);
+					InitInstances(Thread);
 
 					// Get the db started right away to save startup time.
 
@@ -200,6 +140,71 @@ namespace IdApp
 				Thread?.Stop();
 				Result.TrySetResult(true);
 			}
+		}
+
+		private void InitInstances(ProfilerThread Thread)
+		{
+			Thread?.NewState("Types");
+
+			Assembly appAssembly = this.GetType().Assembly;
+
+			if (!Types.IsInitialized)
+			{
+				// Define the scope and reach of Runtime.Inventory (Script, Serialization, Persistence, IoC, etc.):
+				Types.Initialize(
+					appAssembly,                                // Allows for objects defined in this assembly, to be instantiated and persisted.
+					typeof(Database).Assembly,                  // Indexes default attributes
+					typeof(ObjectSerializer).Assembly,          // Indexes general serializers
+					typeof(FilesProvider).Assembly,             // Indexes special serializers
+					typeof(RuntimeSettings).Assembly,           // Allows for persistence of settings in the object database
+					typeof(InternetContent).Assembly,           // Common Content-Types
+					typeof(ImageCodec).Assembly,                // Common Image Content-Types
+					typeof(XML).Assembly,                       // XML Content-Type
+					typeof(MarkdownDocument).Assembly,          // Markdown support
+					typeof(DnsResolver).Assembly,               // Serialization of DNS-related objects
+					typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
+					typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
+					typeof(ProvisioningClient).Assembly,        // Serialization of XMPP objects related to thing registries, provisioning and decision support.
+					typeof(SensorClient).Assembly,              // Serialization of XMPP objects related to sensors
+					typeof(ControlClient).Assembly,             // Serialization of XMPP objects related to actuators
+					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
+					typeof(Expression).Assembly,                // Indexes basic script functions
+					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
+					typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
+					typeof(TagConfiguration).Assembly);         // Indexes persistable objects
+			}
+
+			EndpointSecurity.SetCiphers(new Type[]
+			{
+						typeof(Edwards448Endpoint)
+			}, false);
+
+			Thread?.NewState("SDK");
+
+			// Create Services
+
+			this.sdk = Types.InstantiateDefault<ITagIdSdk>(false, appAssembly, this.startupProfiler);
+
+			this.attachmentCacheService = Types.InstantiateDefault<IAttachmentCacheService>(false, this.sdk.LogService);
+			this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+			this.thingRegistryOrchestratorService = Types.InstantiateDefault<IThingRegistryOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
+			this.eDalerOrchestratorService = Types.InstantiateDefault<IEDalerOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+
+			defaultInstantiatedSource.TrySetResult(true);
+			defaultInstantiated = true;
+
+			// Set resolver
+
+			DependencyResolver.ResolveUsing(type =>
+			{
+				if (Types.GetType(type.FullName) is null)
+					return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
+
+				bool IsReg = SingletonAttribute.IsRegistered(type);
+				return Types.Instantiate(true, type);
+			});
+
+			servicesSetup.TrySetResult(true);
 		}
 
 		private void HandleStartupException(Exception ex)
