@@ -170,8 +170,7 @@ namespace IdApp
 					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
 					typeof(Expression).Assembly,                // Indexes basic script functions
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
-					typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
-					typeof(TagConfiguration).Assembly);         // Indexes persistable objects
+					typeof(XmppServerlessMessaging).Assembly);  // Indexes End-to-End encryption mechanisms
 			}
 
 			EndpointSecurity.SetCiphers(new Type[]
@@ -237,9 +236,9 @@ namespace IdApp
 		#region Startup/Shutdown
 
 		///<inheritdoc/>
-		protected override async void OnStart()
+		protected override void OnStart()
 		{
-			await this.initCompleted;
+			this.initCompleted.Wait();
 			this.StartupCompleted("StartupProfile.uml", false);
 		}
 
