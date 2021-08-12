@@ -238,7 +238,9 @@ namespace IdApp
 		///<inheritdoc/>
 		protected override void OnStart()
 		{
-			this.initCompleted.Wait();
+			if (!this.initCompleted.Wait(60000))
+				throw new Exception("Initialization did not complete in time.");
+
 			this.StartupCompleted("StartupProfile.uml", false);
 		}
 
