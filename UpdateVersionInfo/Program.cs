@@ -26,7 +26,10 @@ namespace UpdateVersionInfo
                         commandLine.Major,
                         commandLine.Minor,
                         commandLine.Build.Value,
-                        commandLine.Revision.HasValue ? commandLine.Revision.Value : 0);
+                        /*!!!
+                        commandLine.Revision.HasValue ? commandLine.Revision.Value : 
+                        */
+                        0);
 
                     UpdateCSVersionInfo(commandLine.VersionCsPath, version);
 
@@ -67,22 +70,63 @@ namespace UpdateVersionInfo
 
         private static void UpdateAndroidVersionInfo(string path, Version version)
         {
-            const string androidNS = "http://schemas.android.com/apk/res/android";
-            XName versionCodeAttributeName = XName.Get("versionCode", androidNS);
-            XName versionNameAttributeName = XName.Get("versionName", androidNS);
-            XDocument doc = XDocument.Load(path);
-            doc.Root.SetAttributeValue(versionCodeAttributeName, version.Build);
-            doc.Root.SetAttributeValue(versionNameAttributeName, version);
-            doc.Save(path);
+            String versionBuildExpression = "android:versionCode=\"[.0-9]+\"";
+            String versionNameExpression = "android:versionName=\"[.0-9]+\"";
+
+            Regex versionBuildRegEx = new Regex(versionBuildExpression, RegexOptions.Compiled);
+            Regex versionNameRegEx = new Regex(versionNameExpression, RegexOptions.Compiled);
+
+            String contents;
+            using (var reader = new StreamReader(path))
+            {
+                contents = reader.ReadToEnd();
+            }
+
+            var versionName = $"{version.Major}.{version.Minor}";
+
+            contents = versionBuildRegEx.Replace(contents, "android:versionCode=\"" + version.Build + "\"");
+            contents = versionNameRegEx.Replace(contents, "android:versionName=\"" + versionName + "\"");
+
+            using (StreamWriter writer = new StreamWriter(path, false))
+            {
+                writer.Write(contents);
+            }
         }
 
         private static void UpdateTouchVersionInfo(string path, Version version)
         {
-            XDocument doc = XDocument.Load(path);
-            var shortVersionElement = doc.XPathSelectElement("plist/dict/key[string()='CFBundleShortVersionString']");
-            var versionElement = shortVersionElement.NextNode as XElement;
-            versionElement.Value = version.ToString();
-            doc.Save(path);
+            String versionBuildExpression = "^\\s*<key>CFBundleShortVersionString</key>\\s*<string>[.0-9]+</string>\\s*$";
+            String versionNameExpression = "^\\s*<key>CFBundleVersion</key>\\s*<string>[.0-9]+</string>\\s*$";
+
+            Regex versionBuildRegEx = new Regex(versionBuildExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+            Regex versionNameRegEx = new Regex(versionNameExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+
+            String contents;
+            using (var reader = new StreamReader(path))
+            {
+                contents = reader.ReadToEnd();
+            }
+
+            var versionName = $"{version.Major}.{version.Minor}";
+
+            var match1 = versionBuildRegEx.Match(contents);
+
+            if (versionBuildRegEx.IsMatch(contents))
+            {
+                contents = versionBuildRegEx.Replace(contents, "\t<key>CFBundleShortVersionString</key>\r\n\t<string>" + versionName + "</string>\r");
+            }
+
+            var match2 = versionNameRegEx.Match(contents);
+
+            if (versionNameRegEx.IsMatch(contents))
+            {
+                contents = versionNameRegEx.Replace(contents, "\t<key>CFBundleVersion</key>\r\n\t<string>" + version.Build + "</string>\r");
+            }
+
+            using (StreamWriter writer = new StreamWriter(path, false))
+            {
+                writer.Write(contents);
+            }
         }
 
 
