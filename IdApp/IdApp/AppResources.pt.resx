@@ -736,7 +736,7 @@
     <value>Personlig/juridisk information</value>
   </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
-    <value>För att skaffa en plåbok, genomföra transaktioner och signera smarta kontrakt behöver du en verifierad personlig eller juridisk identitet kopplad till ditt konto.</value>
+    <value>För att skaffa en plånbok, genomföra transaktioner och signera smarta kontrakt behöver du en verifierad personlig eller juridisk identitet kopplad till ditt konto.</value>
   </data>
   <data name="PersonalNumber" xml:space="preserve">
     <value>Personnummer</value>
