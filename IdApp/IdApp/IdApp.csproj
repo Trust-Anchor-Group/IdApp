@@ -8,7 +8,10 @@
     <Description>TAG white-label Digital ID App. Provides authentication of legal identity, and features for wallets, smart contracts and interaction with smart devices.</Description>
     <Copyright>Copyright © Trust Anchor Group 2019-2021. All rights reserved.</Copyright>
     <RepositoryUrl>https://github.com/Trust-Anchor-Group/XamarinApp</RepositoryUrl>
-    <Version>1.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -63,6 +66,10 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="3.1.0-beta2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Version\Version.cs" />
   </ItemGroup>
 
   <ItemGroup>
