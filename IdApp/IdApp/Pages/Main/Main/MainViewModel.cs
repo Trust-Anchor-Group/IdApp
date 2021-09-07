@@ -684,7 +684,7 @@ namespace IdApp.Pages.Main.Main
 			try
 			{
 				// Network
-				this.IsOnline = this.networkService.IsOnline;
+				this.IsOnline = this.networkService?.IsOnline ?? false;
 				this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
 				this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
 
@@ -692,11 +692,12 @@ namespace IdApp.Pages.Main.Main
 				this.IsConnected = state == XmppState.Connected;
 				this.ConnectionStateText = state.ToDisplayText();
 				this.ConnectionStateColor = new SolidColorBrush(state.ToColor());
-				this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
+				this.StateSummaryText = (this.TagProfile?.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 
 				// Any connection errors or general errors that should be displayed?
-				string latestError = this.NeuronService.LatestError;
-				string latestConnectionError = this.NeuronService.LatestConnectionError;
+				string latestError = this.NeuronService?.LatestError ?? string.Empty;
+				string latestConnectionError = this.NeuronService?.LatestConnectionError ?? string.Empty;
+
 				if (!string.IsNullOrWhiteSpace(latestError) && !string.IsNullOrWhiteSpace(latestConnectionError))
 				{
 					if (latestConnectionError != latestError)
@@ -705,24 +706,19 @@ namespace IdApp.Pages.Main.Main
 						this.ConnectionErrorsText = latestConnectionError;
 				}
 				else if (!string.IsNullOrWhiteSpace(latestConnectionError) && string.IsNullOrWhiteSpace(latestError))
-				{
 					this.ConnectionErrorsText = latestConnectionError;
-				}
 				else if (string.IsNullOrWhiteSpace(latestConnectionError) && !string.IsNullOrWhiteSpace(latestError))
-				{
 					this.ConnectionErrorsText = latestError;
-				}
 				else
-				{
 					this.ConnectionErrorsText = string.Empty;
-				}
+				
 				this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
 				this.EvaluateCommands(this.ViewMyContactsCommand, this.ViewMyThingsCommand, this.ScanQrCodeCommand,
 					this.ViewSignedContractsCommand, this.ViewWalletCommand);
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.logService?.LogException(ex);
 			}
 		}
 
