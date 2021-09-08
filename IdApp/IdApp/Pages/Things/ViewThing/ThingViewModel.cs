@@ -202,7 +202,10 @@ namespace IdApp.Pages.Things.ViewThing
 					return;
 
 				if (!string.IsNullOrEmpty(this.thing.ObjectId))
+				{
 					await Database.Delete(this.thing);
+					await Database.Provider.Flush();
+				}
 
 				await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ThingDisowned);
 				await this.navigationService.GoBackAsync();

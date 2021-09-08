@@ -322,6 +322,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 						await Database.Update(Info);
 					}
 
+					await Database.Provider.Flush();
 					await this.navigationService.GoBackAsync();
 				}
 				else

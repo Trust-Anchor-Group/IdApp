@@ -204,14 +204,16 @@ namespace IdApp.Services
 
 		#endregion
 
-		public Task Insert(object obj)
+		public async Task Insert(object obj)
 		{
-			return Database.Insert(obj);
+			await Database.Insert(obj);
+			await Database.Provider.Flush();
 		}
 
-		public Task Update(object obj)
+		public async Task Update(object obj)
 		{
-			return Database.Update(obj);
+			await Database.Update(obj);
+			await Database.Provider.Flush();
 		}
 
 		public Task<T> FindFirstDeleteRest<T>() where T : class

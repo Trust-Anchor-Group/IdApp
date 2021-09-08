@@ -72,6 +72,7 @@ namespace IdApp.Services
 						File.Delete(Entry.LocalFileName);
 
 					await Database.Delete(Entry);
+					await Database.Provider.Flush();
 
 					return (null, string.Empty);
 				}
@@ -131,6 +132,8 @@ namespace IdApp.Services
 			}
 
 			File.WriteAllBytes(Entry.LocalFileName, Data);
+
+			await Database.Provider.Flush();
 		}
 
 		/// <summary>
@@ -147,6 +150,8 @@ namespace IdApp.Services
 					await Database.Update(Entry);
 				}
 			}
+
+			await Database.Provider.Flush();
 		}
 
 		/// <summary>
@@ -163,6 +168,8 @@ namespace IdApp.Services
 					await Database.Update(Entry);
 				}
 			}
+
+			await Database.Provider.Flush();
 		}
 
 		private string CreateCacheFolderIfNeeded()

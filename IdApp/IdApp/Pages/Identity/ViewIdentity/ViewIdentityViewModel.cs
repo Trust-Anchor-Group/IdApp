@@ -96,6 +96,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					Info.FriendlyName = this.GetFriendlyName();
 
 					await Database.Update(Info);
+					await Database.Provider.Flush();
 				}
 
 				this.ThirdPartyNotInContacts = Info is null;
@@ -1432,6 +1433,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				}
 
 				await this.attachmentCacheService.MakePermanent(this.LegalId);
+				await Database.Provider.Flush();
 
 				this.ThirdPartyInContacts = true;
 				this.ThirdPartyNotInContacts = false;
@@ -1456,6 +1458,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				{
 					await Database.Delete(Info);
 					await this.attachmentCacheService.MakeTemporary(Info.LegalId);
+					await Database.Provider.Flush();
 				}
 
 				RosterItem Item = this.NeuronService.Xmpp[this.BareJid];

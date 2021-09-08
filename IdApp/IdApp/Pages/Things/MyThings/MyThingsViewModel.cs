@@ -144,6 +144,8 @@ namespace IdApp.Pages.Things.MyThings
 				this.Things.Add(Info);
 
 			this.ShowThingsMissing = SortedByName.Count == 0;
+		
+			await Database.Provider.Flush();
 		}
 
 		/// <inheritdoc/>
