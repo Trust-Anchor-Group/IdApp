@@ -680,6 +680,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             if (!string.IsNullOrWhiteSpace(s = this.SelectedCountry?.Trim()))
                 model.Country = s;
 
+            if (!string.IsNullOrWhiteSpace(s = this.TagProfile?.PhoneNumber?.Trim()))
+                model.PhoneNr = s;
+
             return model;
         }
 
@@ -758,6 +761,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             this.City = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(City)));
             this.ZipCode = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(ZipCode)));
             this.Region = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(Region)));
+            
             try
             {
                 if (this.TagProfile.Step > RegistrationStep.Account && File.Exists(this.localPhotoFileName))
@@ -775,6 +779,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         public override void ClearStepState()
         {
             RemovePhoto(true);
+            
             this.SelectedCountry = null;
             this.FirstName = string.Empty;
             this.MiddleNames = string.Empty;
@@ -786,6 +791,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             this.City = string.Empty;
             this.ZipCode = string.Empty;
             this.Region = string.Empty;
+
             this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedCountry)));
             this.SettingsService.RemoveState(GetSettingsKey(nameof(FirstName)));
             this.SettingsService.RemoveState(GetSettingsKey(nameof(MiddleNames)));
@@ -818,7 +824,8 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                 this.City = identity[Constants.XmppProperties.City];
                 this.Region = identity[Constants.XmppProperties.Region];
                 string CountryCode = identity[Constants.XmppProperties.Country];
-                
+                string PhoneNr = this.TagProfile.PhoneNumber ?? identity[Constants.XmppProperties.Phone];
+
                 if (!string.IsNullOrWhiteSpace(CountryCode) && ISO_3166_1.TryGetCountry(CountryCode, out string Country))
                     this.SelectedCountry = Country;
 

@@ -379,6 +379,21 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         }
 
         /// <summary>
+        /// The <see cref="PhoneNr"/>
+        /// </summary>
+        public static readonly BindableProperty PhoneNrProperty =
+            BindableProperty.Create("PhoneNr", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+
+        /// <summary>
+        /// Gets or sets the user's country.
+        /// </summary>
+        public string PhoneNr
+        {
+            get { return (string)GetValue(PhoneNrProperty); }
+            set { SetValue(PhoneNrProperty, value); }
+        }
+
+        /// <summary>
         /// The <see cref="IsApproved"/>
         /// </summary>
         public static readonly BindableProperty IsApprovedProperty =
@@ -450,6 +465,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             State = this.TagProfile.LegalIdentity?.State ?? IdentityState.Rejected;
             From = this.TagProfile.LegalIdentity?.From.GetDateOrNullIfMinValue();
             To = this.TagProfile.LegalIdentity?.To.GetDateOrNullIfMinValue();
+
             if (!(this.TagProfile.LegalIdentity is null))
             {
                 FirstName = this.TagProfile.LegalIdentity[Constants.XmppProperties.FirstName];
@@ -463,6 +479,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 City = this.TagProfile.LegalIdentity[Constants.XmppProperties.City];
                 Region = this.TagProfile.LegalIdentity[Constants.XmppProperties.Region];
                 CountryCode = this.TagProfile.LegalIdentity[Constants.XmppProperties.Country];
+                PhoneNr = this.TagProfile.LegalIdentity[Constants.XmppProperties.Phone];
             }
             else
             {
@@ -477,7 +494,9 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 City = string.Empty;
                 Region = string.Empty;
                 CountryCode = string.Empty;
+                PhoneNr = string.Empty;
             }
+
             Country = ISO_3166_1.ToName(this.CountryCode);
             IsApproved = this.TagProfile.LegalIdentity?.State == IdentityState.Approved;
             IsCreated = this.TagProfile.LegalIdentity?.State == IdentityState.Created;
@@ -488,9 +507,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             SetConnectionStateAndText(this.NeuronService.State);
 
             if (this.IsConnected)
-            {
                 this.ReloadPhotos();
-            }
         }
 
         private void AssignBareJid()

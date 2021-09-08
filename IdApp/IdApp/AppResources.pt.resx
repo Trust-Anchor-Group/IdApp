@@ -780,6 +780,9 @@
   <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
     <value>Begäran att få se den juridiska identiteten avslogs.</value>
   </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Telefon</value>
+  </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
     <value>Bilden är för stor</value>
   </data>

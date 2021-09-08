@@ -57,6 +57,7 @@ namespace IdApp.Pages.Things
 					case "CITY": return AppResources.City;
 					case "CLASS": return AppResources.Class;
 					case "COUNTRY": return AppResources.Country;
+					case "PHONE": return AppResources.Phone;
 					case "KEY": return AppResources.Key;
 					case "LAT": return AppResources.Latitude;
 					case "LON": return AppResources.Longitude;

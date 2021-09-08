@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using IdApp.Pages.Identity.PetitionIdentity;
-using IdApp;
 using IdApp.Extensions;
 using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
@@ -399,6 +398,21 @@ namespace IdApp.Pages.Contracts.ClientSignature
         }
 
         /// <summary>
+        /// See <see cref="PhoneNr"/>
+        /// </summary>
+        public static readonly BindableProperty PhoneNrProperty =
+            BindableProperty.Create("PhoneNr", typeof(string), typeof(ClientSignatureViewModel), default(string));
+
+        /// <summary>
+        /// Gets or sets the Bare Jid of the signature.
+        /// </summary>
+        public string PhoneNr
+        {
+            get { return (string)GetValue(PhoneNrProperty); }
+            set { SetValue(PhoneNrProperty, value); }
+        }
+
+        /// <summary>
         /// See <see cref="Signature"/>
         /// </summary>
         public static readonly BindableProperty SignatureProperty =
@@ -439,6 +453,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
                 this.IsApproved = identity.State == IdentityState.Approved;
                 this.BareJid = identity.GetJid(Constants.NotAvailableValue);
+                this.PhoneNr = identity[Constants.XmppProperties.Phone];
             }
             else
             {
@@ -462,6 +477,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
                 this.Country = Constants.NotAvailableValue;
                 this.IsApproved = false;
                 this.BareJid = Constants.NotAvailableValue;
+                this.PhoneNr = Constants.NotAvailableValue;
             }
             if (!(signature is null))
             {

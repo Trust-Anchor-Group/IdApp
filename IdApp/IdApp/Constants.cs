@@ -237,6 +237,11 @@ namespace IdApp
             /// Jabber ID
             /// </summary>
             public const string Jid = "JID";
+
+            /// <summary>
+            /// Jabber ID
+            /// </summary>
+            public const string Phone = "PHONE";
         }
 
         /// <summary>

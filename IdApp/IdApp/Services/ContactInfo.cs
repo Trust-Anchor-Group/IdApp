@@ -283,6 +283,7 @@ namespace IdApp.Services
 			string Street = null;
 			string StreetNumber = null;
 			string Version = null;
+			string Phone = null;
 
 			foreach (Property P in MetaData)
 			{
@@ -355,6 +356,10 @@ namespace IdApp.Services
 					case "V":
 						Version = P.Value;
 						break;
+
+					case "PHONE":
+						Phone = P.Value;
+						break;
 				}
 			}
 
@@ -377,6 +382,7 @@ namespace IdApp.Services
 			AppendName(ref sb, MeterLocation);
 			AppendName(ref sb, Manufacturer);
 			AppendName(ref sb, SerialNumber);
+			AppendName(ref sb, Phone);
 
 			return sb?.ToString();
 		}

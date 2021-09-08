@@ -409,6 +409,21 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         }
 
         /// <summary>
+        /// See <see cref="PhoneNr"/>
+        /// </summary>
+        public static readonly BindableProperty PhoneNrProperty =
+            BindableProperty.Create("PhoneNr", typeof(string), typeof(PetitionIdentityViewModel), default(string));
+
+        /// <summary>
+        /// PhoneNr of the identity
+        /// </summary>
+        public string PhoneNr
+        {
+            get { return (string)GetValue(PhoneNrProperty); }
+            set { SetValue(PhoneNrProperty, value); }
+        }
+
+        /// <summary>
         /// See <see cref="IsApproved"/>
         /// </summary>
         public static readonly BindableProperty IsApprovedProperty =
@@ -462,6 +477,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.Region = this.RequestorIdentity[Constants.XmppProperties.Region];
                 this.CountryCode = this.RequestorIdentity[Constants.XmppProperties.Country];
                 this.Country = ISO_3166_1.ToName(this.CountryCode);
+                this.PhoneNr = this.RequestorIdentity[Constants.XmppProperties.Phone];
                 this.IsApproved = this.RequestorIdentity.State == IdentityState.Approved;
             }
             else
@@ -484,6 +500,7 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.Region = Constants.NotAvailableValue;
                 this.CountryCode = Constants.NotAvailableValue;
                 this.Country = Constants.NotAvailableValue;
+                this.PhoneNr = Constants.NotAvailableValue;
                 this.IsApproved = false;
             }
             this.Purpose = this.purpose;

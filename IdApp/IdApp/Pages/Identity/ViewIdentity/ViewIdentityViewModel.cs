@@ -210,6 +210,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.City = this.LegalIdentity[Constants.XmppProperties.City];
 				this.Region = this.LegalIdentity[Constants.XmppProperties.Region];
 				this.CountryCode = this.LegalIdentity[Constants.XmppProperties.Country];
+				this.PhoneNr = this.LegalIdentity[Constants.XmppProperties.Phone];
 			}
 			else
 			{
@@ -224,6 +225,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.City = string.Empty;
 				this.Region = string.Empty;
 				this.CountryCode = string.Empty;
+				this.PhoneNr = string.Empty;
 			}
 
 			this.Country = ISO_3166_1.ToName(this.CountryCode);
@@ -646,6 +648,21 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			get { return (string)GetValue(CountryCodeProperty); }
 			set { SetValue(CountryCodeProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="PhoneNr"/>
+		/// </summary>
+		public static readonly BindableProperty PhoneNrProperty =
+			BindableProperty.Create("PhoneNr", typeof(string), typeof(ViewIdentityViewModel), default(string));
+
+		/// <summary>
+		/// Country code of the identity
+		/// </summary>
+		public string PhoneNr
+		{
+			get { return (string)GetValue(PhoneNrProperty); }
+			set { SetValue(PhoneNrProperty, value); }
 		}
 
 		/// <summary>
