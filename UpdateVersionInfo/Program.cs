@@ -8,11 +8,11 @@ namespace UpdateVersionInfo
 {
     class Program
     {
-        static String AssemblyVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
-        static String AssemblyFileVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyFileVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
+        static readonly String AssemblyVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
+        static readonly String AssemblyFileVersionExpression = @"^\s*\[assembly:\s*(?<attribute>(?:System\.)?(?:Reflection\.)?AssemblyFileVersion(?:Attribute)?\s*\(\s*""(?<version>[^""]+)""\s*\)\s*)\s*\]\s*$";
 
-        static readonly Regex assemblyVersionRegEx = new Regex(AssemblyVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
-        static readonly Regex assemblyFileVersionRegEx = new Regex(AssemblyFileVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+        static readonly Regex assemblyVersionRegEx = new(AssemblyVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+        static readonly Regex assemblyFileVersionRegEx = new(AssemblyFileVersionExpression, RegexOptions.Multiline | RegexOptions.Compiled);
 
         static void Main(string[] args)
         {
@@ -22,7 +22,7 @@ namespace UpdateVersionInfo
                 if (ValidateCommandLine(commandLine))
                 {
 
-                    Version version = new Version(
+                    Version version = new(
                         commandLine.Major,
                         commandLine.Minor,
                         commandLine.Build.Value,
@@ -62,19 +62,17 @@ namespace UpdateVersionInfo
             {
                 contents = assemblyFileVersionRegEx.Replace(contents, "[assembly: System.Reflection.AssemblyFileVersion(\"" + version.ToString() + "\")]");
             }
-            using (StreamWriter writer = new StreamWriter(path, false))
-            {
-                writer.Write(contents);
-            }
-        }
+			using StreamWriter writer = new(path, false);
+			writer.Write(contents);
+		}
 
         private static void UpdateAndroidVersionInfo(string path, Version version)
         {
             String versionBuildExpression = "android:versionCode=\"[.0-9]+\"";
             String versionNameExpression = "android:versionName=\"[.0-9]+\"";
 
-            Regex versionBuildRegEx = new Regex(versionBuildExpression, RegexOptions.Compiled);
-            Regex versionNameRegEx = new Regex(versionNameExpression, RegexOptions.Compiled);
+            Regex versionBuildRegEx = new(versionBuildExpression, RegexOptions.Compiled);
+            Regex versionNameRegEx = new(versionNameExpression, RegexOptions.Compiled);
 
             String contents;
             using (var reader = new StreamReader(path))
@@ -87,19 +85,17 @@ namespace UpdateVersionInfo
             contents = versionBuildRegEx.Replace(contents, "android:versionCode=\"" + version.Build + "\"");
             contents = versionNameRegEx.Replace(contents, "android:versionName=\"" + versionName + "\"");
 
-            using (StreamWriter writer = new StreamWriter(path, false))
-            {
-                writer.Write(contents);
-            }
-        }
+			using StreamWriter writer = new(path, false);
+			writer.Write(contents);
+		}
 
         private static void UpdateTouchVersionInfo(string path, Version version)
         {
             String versionBuildExpression = "^\\s*<key>CFBundleShortVersionString</key>\\s*<string>[.0-9]+</string>\\s*$";
             String versionNameExpression = "^\\s*<key>CFBundleVersion</key>\\s*<string>[.0-9]+</string>\\s*$";
 
-            Regex versionBuildRegEx = new Regex(versionBuildExpression, RegexOptions.Multiline | RegexOptions.Compiled);
-            Regex versionNameRegEx = new Regex(versionNameExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+            Regex versionBuildRegEx = new(versionBuildExpression, RegexOptions.Multiline | RegexOptions.Compiled);
+            Regex versionNameRegEx = new(versionNameExpression, RegexOptions.Multiline | RegexOptions.Compiled);
 
             String contents;
             using (var reader = new StreamReader(path))
@@ -111,23 +107,17 @@ namespace UpdateVersionInfo
 
             var match1 = versionBuildRegEx.Match(contents);
 
-            if (versionBuildRegEx.IsMatch(contents))
-            {
+            if (match1.Success)
                 contents = versionBuildRegEx.Replace(contents, "\t<key>CFBundleShortVersionString</key>\r\n\t<string>" + versionName + "</string>\r");
-            }
 
             var match2 = versionNameRegEx.Match(contents);
 
-            if (versionNameRegEx.IsMatch(contents))
-            {
+            if (match2.Success)
                 contents = versionNameRegEx.Replace(contents, "\t<key>CFBundleVersion</key>\r\n\t<string>" + version.Build + "</string>\r");
-            }
 
-            using (StreamWriter writer = new StreamWriter(path, false))
-            {
-                writer.Write(contents);
-            }
-        }
+			using StreamWriter writer = new(path, false);
+			writer.Write(contents);
+		}
 
 
         private static bool ValidateCommandLine(CommandLineArguments commandLine)
@@ -214,9 +204,8 @@ namespace UpdateVersionInfo
             {
                 // <manifest ...
                 XDocument doc = XDocument.Load(path);
-                var rootElement = doc.Root as XElement;
-                if (rootElement != null && rootElement.Name == "manifest") return true;
-            }
+				if (doc.Root is XElement rootElement && rootElement.Name == "manifest") return true;
+			}
             catch (Exception e)
             {
                 System.Diagnostics.Trace.TraceError(e.Message);
@@ -238,9 +227,8 @@ namespace UpdateVersionInfo
                     var shortVersionElement = doc.XPathSelectElement("plist/dict/key[string()='CFBundleShortVersionString']");
                     if (shortVersionElement != null)
                     {
-                        var valueElement = shortVersionElement.NextNode as XElement;
-                        if (valueElement != null && valueElement.Name == "string") return true;
-                    }
+						if (shortVersionElement.NextNode is XElement valueElement && valueElement.Name == "string") return true;
+					}
                 }
             }
             catch (Exception e)
