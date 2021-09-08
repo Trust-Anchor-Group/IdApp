@@ -10,6 +10,7 @@ using Waher.Content.Images;
 using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
+using Xamarin.Forms;
 
 namespace IdApp
 {
@@ -217,6 +218,10 @@ namespace IdApp
 		/// <returns>Rotation angle (degrees).</returns>
 		public static int GetImageRotation(byte[] JpegImage)
 		{
+			//!!! This rotation in xamarin is limited to Android
+			if (Device.RuntimePlatform == Device.iOS)
+				return 0;
+
 			if (JpegImage is null)
 				return 0;
 

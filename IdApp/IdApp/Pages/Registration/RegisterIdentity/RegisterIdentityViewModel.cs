@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -443,29 +445,63 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                 return;
             }
 
-            FileResult capturedPhoto;
-
-            try
+            if (Device.RuntimePlatform == Device.iOS)
             {
-                capturedPhoto = await MediaPicker.CapturePhotoAsync();
-                if (capturedPhoto is null)
-                    return;
-            }
-            catch (Exception)
-			{
-                await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
-                return;
-            }
+                MediaFile capturedPhoto;
 
-            if (!(capturedPhoto is null))
-            {
                 try
                 {
-                    await AddPhoto(capturedPhoto.FullPath, true);
+                    capturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
+                    {
+                        CompressionQuality = 80,
+                        RotateImage = false
+                    });
                 }
-                catch (Exception ex)
-				{
-                    await this.UiDispatcher.DisplayAlert(ex);
+                catch (Exception)
+                {
+                    await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+                    return;
+                }
+
+                if (!(capturedPhoto is null))
+                {
+                    try
+                    {
+                        await AddPhoto(capturedPhoto.Path, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.UiDispatcher.DisplayAlert(ex);
+                    }
+                }
+            }
+            else
+            {
+
+                FileResult capturedPhoto;
+
+                try
+                {
+                    capturedPhoto = await MediaPicker.CapturePhotoAsync();
+                    if (capturedPhoto is null)
+                        return;
+                }
+                catch (Exception)
+                {
+                    await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+                    return;
+                }
+
+                if (!(capturedPhoto is null))
+                {
+                    try
+                    {
+                        await AddPhoto(capturedPhoto.FullPath, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        await this.UiDispatcher.DisplayAlert(ex);
+                    }
                 }
             }
         }
@@ -479,6 +515,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             }
 
             FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
+
             if (!(pickedPhoto is null))
                 await AddPhoto(pickedPhoto.FullPath, true);
         }
