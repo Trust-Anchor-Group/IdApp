@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -461,7 +462,45 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             {
                 try
                 {
-                    await AddPhoto(capturedPhoto.FullPath, true);
+                    string FullPath = capturedPhoto.FullPath;
+
+                    if (string.IsNullOrEmpty(Path.GetDirectoryName(FullPath)))  // Bug: Only file name is returned.
+                    {
+                        LinkedList<string> ToCheck = new LinkedList<string>();
+                        string Folder;
+                        string s;
+                        bool Fixed = false;
+
+                        ToCheck.AddLast(FileSystem.CacheDirectory);
+
+                        while (!string.IsNullOrEmpty(Folder = ToCheck.First?.Value))
+                        {
+                            ToCheck.RemoveFirst();
+
+                            try
+							{
+                                s = Path.Combine(Folder, capturedPhoto.FullPath);
+                                if (File.Exists(s))
+								{
+                                    FullPath = s;
+                                    Fixed = true;
+                                    break;
+								}
+
+                                foreach (string SubFolder in Directory.GetDirectories(Folder, "*", SearchOption.TopDirectoryOnly))
+                                    ToCheck.AddLast(SubFolder);
+							}
+                            catch (Exception)
+							{
+                                // Access denied. Ignore folder.
+							}
+                        }
+
+                        if (!Fixed)
+                            throw new NotSupportedException("Unable to find photo.");
+                    }
+
+                    await AddPhoto(FullPath, true);
                 }
                 catch (Exception ex)
 				{
