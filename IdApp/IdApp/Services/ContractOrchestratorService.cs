@@ -11,8 +11,8 @@ using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Registration.Registration;
 using IdApp;
 using IdApp.Extensions;
-using IdApp.Services;
 using Waher.Content.Xml;
+using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
@@ -276,14 +276,21 @@ namespace IdApp.Services
 
 		private async void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			if (this.neuronService.IsOnline && this.neuronService.IsOnline)
+			try
 			{
-				if (!(this.tagProfile.LegalIdentity is null) && this.tagProfile.IsCompleteOrWaitingForValidation())
+				if (this.neuronService.IsOnline && this.neuronService.IsOnline)
 				{
-					string id = this.tagProfile.LegalIdentity.Id;
-					await Task.Delay(Constants.Timeouts.XmppInit);
-					DownloadLegalIdentityInternal(id);
+					if (!(this.tagProfile.LegalIdentity is null) && this.tagProfile.IsCompleteOrWaitingForValidation())
+					{
+						string id = this.tagProfile.LegalIdentity.Id;
+						await Task.Delay(Constants.Timeouts.XmppInit);
+						DownloadLegalIdentityInternal(id);
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
 			}
 		}
 
@@ -311,10 +318,17 @@ namespace IdApp.Services
 
 		#endregion
 
-		protected virtual void DownloadLegalIdentityInternal(string legalId)
+		protected virtual async void DownloadLegalIdentityInternal(string legalId)
 		{
 			// Run asynchronously so we're not blocking startup UI.
-			_ = DownloadLegalIdentity(legalId);
+			try
+			{
+				await DownloadLegalIdentity(legalId);
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 		}
 
 		protected async Task DownloadLegalIdentity(string legalId)

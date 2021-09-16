@@ -477,7 +477,6 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             }
             else
             {
-
                 FileResult capturedPhoto;
 
                 try
