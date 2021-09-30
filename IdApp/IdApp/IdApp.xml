@@ -1195,6 +1195,11 @@
               Looks up a localized string similar to Petition to view legal identity was denied..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Phone">
+            <summary>
+              Looks up a localized string similar to Phone.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.PhotoIsTooLarge">
             <summary>
               Looks up a localized string similar to Photo is too large.
@@ -2340,6 +2345,11 @@
             </summary>
         </member>
         <member name="F:IdApp.Constants.XmppProperties.Jid">
+            <summary>
+            Jabber ID
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.XmppProperties.Phone">
             <summary>
             Jabber ID
             </summary>
@@ -3718,6 +3728,16 @@
             Gets or sets the Bare Jid of the signature.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.PhoneNrProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.PhoneNr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.PhoneNr">
+            <summary>
+            Gets or sets the Bare Jid of the signature.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.SignatureProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.Signature"/>
@@ -4463,6 +4483,16 @@
             Country of the contract
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.PhoneNrProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.PhoneNr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.PhoneNr">
+            <summary>
+            PhoneNr of the contract
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.IsApproved"/>
@@ -4779,6 +4809,16 @@
         <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.Country">
             <summary>
             Country of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.PhoneNrProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.PhoneNr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.PhoneNr">
+            <summary>
+            PhoneNr of the identity
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.IsApprovedProperty">
@@ -5613,6 +5653,16 @@
             Country of the identity
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNrProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.PhoneNr">
+            <summary>
+            PhoneNr of the identity
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApprovedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.IsApproved"/>
@@ -5944,6 +5994,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CountryCode">
+            <summary>
+            Country code of the identity
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PhoneNrProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PhoneNr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PhoneNr">
             <summary>
             Country code of the identity
             </summary>
@@ -7749,6 +7809,11 @@
             Country
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.PhoneNr">
+            <summary>
+            Country
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.DeviceId">
             <summary>
             Device Id
@@ -8551,6 +8616,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.CountryCode">
+            <summary>
+            Gets or sets the user's country.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.PhoneNrProperty">
+            <summary>
+            The <see cref="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.PhoneNr"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.PhoneNr">
             <summary>
             Gets or sets the user's country.
             </summary>
