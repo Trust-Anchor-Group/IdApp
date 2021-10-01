@@ -1131,6 +1131,9 @@
   <data name="Transferable" xml:space="preserve">
     <value>Överlåtelsebar</value>
   </data>
+  <data name="UnableToAccessInvitation" xml:space="preserve">
+    <value>Kunde inte komma åt information om inbjudan. Var god försök senare.</value>
+  </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
   </data>

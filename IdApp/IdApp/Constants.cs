@@ -78,7 +78,7 @@ namespace IdApp
             /// <summary>
             /// Tag ID URI Scheme (tagid)
             /// </summary>
-            public const string UriSchemeTagId = "tagid";
+            public const string UriSchemeOnboarding = "obinfo";
 
             /// <summary>
             /// Gets the predefined scheme from an IoT Code
@@ -103,7 +103,7 @@ namespace IdApp
                     case UriSchemeIotSc:
                     case UriSchemeTagSign:
                     case UriSchemeEDaler:
-                    case UriSchemeTagId:
+                    case UriSchemeOnboarding:
                         return code;
 
                     default:

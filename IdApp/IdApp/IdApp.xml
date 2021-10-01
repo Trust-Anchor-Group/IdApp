@@ -1725,6 +1725,11 @@
               Looks up a localized string similar to Transferable.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.UnableToAccessInvitation">
+            <summary>
+              Looks up a localized string similar to Unable to access invitation information. Please try again later..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.UnableToAuthenticateWith">
             <summary>
               Looks up a localized string similar to Unable to authenticate with {0}.
@@ -2229,7 +2234,7 @@
             eDaler URI Scheme (edaler)
             </summary>
         </member>
-        <member name="F:IdApp.Constants.UriSchemes.UriSchemeTagId">
+        <member name="F:IdApp.Constants.UriSchemes.UriSchemeOnboarding">
             <summary>
             Tag ID URI Scheme (tagid)
             </summary>

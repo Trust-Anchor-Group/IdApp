@@ -81,7 +81,7 @@ namespace IdApp
                         await eDalerOrchestratorService.OpenEDalerUri(decodedText);
                         break;
 
-                    case Constants.UriSchemes.UriSchemeTagId:
+                    case Constants.UriSchemes.UriSchemeOnboarding:
                         await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
                         break;
 

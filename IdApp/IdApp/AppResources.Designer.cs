@@ -3085,6 +3085,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to access invitation information. Please try again later..
+        /// </summary>
+        internal static string UnableToAccessInvitation {
+            get {
+                return ResourceManager.GetString("UnableToAccessInvitation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to authenticate with {0}.
         /// </summary>
         internal static string UnableToAuthenticateWith {

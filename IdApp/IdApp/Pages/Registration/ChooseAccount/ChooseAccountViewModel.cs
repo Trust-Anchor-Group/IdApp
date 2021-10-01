@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp;
+using System.Xml;
 using IdApp.Services;
+using Waher.Content;
+using Waher.Content.Xml;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration.ChooseAccount
@@ -64,7 +67,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		protected override async Task DoUnbind()
 		{
 			this.TagProfile.Changed -= TagProfile_Changed;
-			
+
 			await base.DoUnbind();
 		}
 
@@ -203,7 +206,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				}
 
 				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain,
-					isIpAddress, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default, 
+					isIpAddress, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default,
 					this.TagProfile.ApiKey, this.TagProfile.ApiSecret, typeof(App).Assembly, OnConnected);
 
 				if (succeeded)
@@ -238,131 +241,184 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			string URI = await QrCode.ScanQrCode(this.NavigationService, AppResources.ClaimInvitation);
 			string Scheme = Constants.UriSchemes.GetScheme(URI);
 
-			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeTagId, true) != 0)
+			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeOnboarding, true) != 0)
 			{
 				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NotAnInvitationCode, AppResources.Ok);
 				return false;
 			}
 
-			List<KeyValuePair<string, byte[]>> PrivateKeys = null;
-			string Data = Constants.UriSchemes.GetCode(URI);
-			string Name, Value;
-			string Domain = null;
-			string ApiKey = null;
-			string ApiSecret = null;
-			string Account = null;
-			string Password = null;
-			string IdRef = null;
-			string Algorithm = null;
-			byte[] PrivateKey = null;
-			int i;
-
-			foreach (string Part in Data.Split('&'))
+			string[] Parts = URI.Split(':');
+			if (Parts.Length != 5)
 			{
-				i = Part.IndexOf('=');
-				if (i < 0)
-					continue;
-
-				Name = Part.Substring(0, i);
-				Value = Part.Substring(i + 1);
-
-				switch (Name.ToLower())
-				{
-					case "d": Domain = Value; break;
-					case "k": ApiKey = Value; break;
-					case "s": ApiSecret = Value; break;
-					case "a": Account = Value; break;
-					case "w": Password = Value; break;
-					case "i": IdRef = Value; break;
-
-					case "g":
-						Algorithm = Value;
-						if (PrivateKey is null)
-							break;
-
-						if (PrivateKeys is null)
-							PrivateKeys = new List<KeyValuePair<string, byte[]>>();
-
-						PrivateKeys.Add(new KeyValuePair<string, byte[]>(Algorithm, PrivateKey));
-
-						Algorithm = null;
-						PrivateKey = null;
-						break;
-
-					case "p":
-						try
-						{
-							PrivateKey = Convert.FromBase64String(Value);
-						}
-						catch (Exception)
-						{
-							await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
-							return false;
-						}
-
-						if (Algorithm is null)
-							break;
-
-						if (PrivateKeys is null)
-							PrivateKeys = new List<KeyValuePair<string, byte[]>>();
-
-						PrivateKeys.Add(new KeyValuePair<string, byte[]>(Algorithm, PrivateKey));
-
-						Algorithm = null;
-						PrivateKey = null;
-						break;
-				}
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				return false;
 			}
 
-			if (!string.IsNullOrEmpty(Domain))
+			string Domain = Parts[1];
+			string Code = Parts[2];
+			string KeyStr = Parts[3];
+			string IVStr = Parts[4];
+			string EncryptedStr;
+			Uri Uri;
+
+			try
 			{
-				SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
+				Uri = new Uri("https://" + Domain + "/Onboarding/GetInfo");
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				return false;
+			}
+
+			SetIsBusy(CreateNewCommand, ScanQrCodeCommand);
+			try
+			{
 				try
 				{
-					bool succeeded = true;
-					bool DefaultConnectivity;
+					KeyValuePair<byte[], string> P = await InternetContent.PostAsync(Uri, Encoding.ASCII.GetBytes(Code), "text/plain",
+						new KeyValuePair<string, string>("Accept", "text/plain"));
 
-					try
-					{
-						(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
-						DefaultConnectivity = HostName == Domain && PortNumber == XmppCredentials.DefaultPort;
-					}
-					catch (Exception)
-					{
-						DefaultConnectivity = false;
-					}
-
-					this.TagProfile.SetDomain(Domain, DefaultConnectivity, ApiKey, ApiSecret);
-
-					if (!string.IsNullOrEmpty(Account) && !string.IsNullOrEmpty(Password))
-					{
-						if (!await this.ConnectToAccount(Account, Password, IdRef, PrivateKeys?.ToArray()))
-							succeeded = false;
-					}
-
-					UiDispatcher.BeginInvokeOnMainThread(() =>
-					{
-						SetIsDone(CreateNewCommand, ScanQrCodeCommand);
-
-						if (succeeded)
-							OnStepCompleted(EventArgs.Empty);
-					});
+					EncryptedStr = P.Value;
 				}
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiDispatcher.DisplayAlert(ex);
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToAccessInvitation, AppResources.Ok);
+					return false;
 				}
-				finally
+
+				try
 				{
-					BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
+					byte[] Key = Convert.FromBase64String(KeyStr);
+					byte[] IV = Convert.FromBase64String(IVStr);
+					byte[] Encrypted = Convert.FromBase64String(EncryptedStr);
+					byte[] Decrypted;
+
+					using (Aes Aes = Aes.Create())
+					{
+						Aes.BlockSize = 128;
+						Aes.KeySize = 256;
+						Aes.Mode = CipherMode.CBC;
+						Aes.Padding = PaddingMode.PKCS7;
+
+						using (ICryptoTransform Decryptor = Aes.CreateDecryptor(Key, IV))
+						{
+							Decrypted = Decryptor.TransformFinalBlock(Encrypted, 0, Encrypted.Length);
+						}
+					}
+
+					string Xml = Encoding.UTF8.GetString(Decrypted);
+
+					XmlDocument Doc = new XmlDocument();
+					Doc.LoadXml(Xml);
+
+					if (Doc.DocumentElement is null || Doc.DocumentElement.NamespaceURI != "http://waher.se/schema/Onboarding/v1.xsd")
+						throw new Exception("Invalid Invitation XML");
+
+					LinkedList<XmlElement> ToProcess = new LinkedList<XmlElement>();
+					ToProcess.AddLast(Doc.DocumentElement);
+
+					bool Done = false;
+
+					while (!(ToProcess.First is null))
+					{
+						XmlElement E = ToProcess.First.Value;
+						ToProcess.RemoveFirst();
+
+						switch (E.LocalName)
+						{
+							case "ApiKey":
+								KeyStr = XML.Attribute(E, "key");
+								string Secret = XML.Attribute(E, "secret");
+								Domain = XML.Attribute(E, "domain");
+
+								await this.SelectDomain(Domain, KeyStr, Secret);
+								break;
+
+							case "Account":
+								string UserName = XML.Attribute(E, "userName");
+								string Password = XML.Attribute(E, "password");
+								Domain = XML.Attribute(E, "domain");
+
+								string DomainBak = this.TagProfile.Domain;
+								bool DefaultConnectivityBak = this.TagProfile.DefaultXmppConnectivity;
+								string ApiKeyBak = this.TagProfile.ApiKey;
+								string ApiSecretBak = this.TagProfile.ApiSecret;
+
+								await this.SelectDomain(Domain, string.Empty, string.Empty);
+
+								if (!await this.ConnectToAccount(UserName, Password, string.Empty))
+								{
+									this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
+									throw new Exception("Invalid account.");
+								}
+
+								Done = true;
+								break;
+
+							case "LegalId":
+								await this.NeuronService.Contracts.ContractsClient.ImportKeys(E);
+								break;
+
+							case "Transfer":
+								foreach (XmlNode N in E.ChildNodes)
+								{
+									if (N is XmlElement E2)
+										ToProcess.AddLast(E2);
+								}
+								break;
+
+							default:
+								throw new Exception("Invalid Invitation XML");
+						}
+					}
+
+					if (Done)
+					{
+						UiDispatcher.BeginInvokeOnMainThread(() =>
+						{
+							SetIsDone(CreateNewCommand, ScanQrCodeCommand);
+
+							OnStepCompleted(EventArgs.Empty);
+						});
+					}
 				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+					return false;
+				}
+			}
+			finally
+			{
+				BeginInvokeSetIsDone(CreateNewCommand, ScanQrCodeCommand);
 			}
 
 			return true;
 		}
 
-		private async Task<bool> ConnectToAccount(string AccountName, string Password, string LegalIdentityJid, KeyValuePair<string, byte[]>[] PrivateKeys)
+		private async Task SelectDomain(string Domain, string Key, string Secret)
+		{
+			bool DefaultConnectivity;
+
+			try
+			{
+				(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
+				DefaultConnectivity = HostName == Domain && PortNumber == XmppCredentials.DefaultPort;
+			}
+			catch (Exception ex)
+			{
+				this.LogService.LogException(ex);
+				DefaultConnectivity = false;
+			}
+
+			this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
+		}
+
+		private async Task<bool> ConnectToAccount(string AccountName, string Password, string LegalIdentityJid)
 		{
 			try
 			{
@@ -381,9 +437,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					if (serviceDiscoverySucceeded)
 					{
-						if (!(PrivateKeys is null))
-							await this.NeuronService.Contracts.ContractsClient.ImportKeys(PrivateKeys);
-
 						foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentities(client))
 						{
 							if ((string.IsNullOrEmpty(LegalIdentityJid) || string.Compare(LegalIdentityJid, identity.Id, true) == 0) &&

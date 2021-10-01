@@ -1302,4 +1302,7 @@
   <data name="Phone" xml:space="preserve">
     <value>Phone</value>
   </data>
+  <data name="UnableToAccessInvitation" xml:space="preserve">
+    <value>Unable to access invitation information. Please try again later.</value>
+  </data>
 </root>
