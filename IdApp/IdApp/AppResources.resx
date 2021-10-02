@@ -1305,4 +1305,10 @@
   <data name="UnableToAccessInvitation" xml:space="preserve">
     <value>Unable to access invitation information. Please try again later.</value>
   </data>
+  <data name="InvitationAccepted" xml:space="preserve">
+    <value>Invitation accepted</value>
+  </data>
+  <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
+    <value>You have been invited to create an account on {0}. Press OK, and enter the name of the account you wish to create.</value>
+  </data>
 </root>

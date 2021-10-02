@@ -1357,6 +1357,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invitation accepted.
+        /// </summary>
+        internal static string InvitationAccepted {
+            get {
+                return ResourceManager.GetString("InvitationAccepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been invited to create an account on {0}. Press OK, and enter the name of the account you wish to create..
+        /// </summary>
+        internal static string InvitedToCreateAccountOnDomain {
+            get {
+                return ResourceManager.GetString("InvitedToCreateAccountOnDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invite peer to review.
         /// </summary>
         internal static string InvitePeerToReview {

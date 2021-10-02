@@ -549,6 +549,12 @@
   <data name="Invitation" xml:space="preserve">
     <value>Inbjudan</value>
   </data>
+  <data name="InvitationAccepted" xml:space="preserve">
+    <value>Inbjudan accepterad</value>
+  </data>
+  <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
+    <value>Du har blivit inbjuden att skapa ett konto på {0}. Tryck på OK, och ange namnet på kontot du vill skapa.</value>
+  </data>
   <data name="InvitePeerToReview" xml:space="preserve">
     <value>Bjud in vän att granska</value>
   </data>

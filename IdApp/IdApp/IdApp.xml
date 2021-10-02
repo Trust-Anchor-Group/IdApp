@@ -765,6 +765,16 @@
               Looks up a localized string similar to Invitation.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.InvitationAccepted">
+            <summary>
+              Looks up a localized string similar to Invitation accepted.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.InvitedToCreateAccountOnDomain">
+            <summary>
+              Looks up a localized string similar to You have been invited to create an account on {0}. Press OK, and enter the name of the account you wish to create..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.InvitePeerToReview">
             <summary>
               Looks up a localized string similar to Invite peer to review.

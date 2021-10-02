@@ -337,6 +337,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
 								Domain = XML.Attribute(E, "domain");
 
 								await this.SelectDomain(Domain, KeyStr, Secret);
+								
+								await this.UiDispatcher.DisplayAlert(AppResources.InvitationAccepted, 
+									string.Format(AppResources.InvitedToCreateAccountOnDomain, Domain), AppResources.Ok);
 								break;
 
 							case "Account":
