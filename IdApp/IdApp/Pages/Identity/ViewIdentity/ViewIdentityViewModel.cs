@@ -1569,7 +1569,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 									Output.WriteStartElement("Info", ContractsClient.NamespaceOnboarding);
 									Output.WriteAttributeString("base64", Convert.ToBase64String(Encrypted));
 									Output.WriteAttributeString("once", "true");
-									Output.WriteAttributeString("expires", XML.Encode(DateTime.Now.AddMinutes(1)));
+									Output.WriteAttributeString("expires", XML.Encode(DateTime.UtcNow.AddMinutes(1)));
 									Output.WriteEndElement();
 								}
 
