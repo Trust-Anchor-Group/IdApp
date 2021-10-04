@@ -21,7 +21,7 @@ namespace IdApp.Services.Storage
 		private readonly LinkedList<TaskCompletionSource<bool>> tasksWaiting = new LinkedList<TaskCompletionSource<bool>>();
 		private readonly ILogService logService;
 		private readonly ICryptoService cryptoService;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly string dataFolder;
 		private FilesProvider databaseProvider;
 		private bool? initialized = null;
@@ -33,7 +33,7 @@ namespace IdApp.Services.Storage
 		/// <param name="logService">The log service to use for logging.</param>
 		/// <param name="cryptoService">The crypto service to use.</param>
 		/// <param name="uiDispatcher">The UI Dispatcher, for main thread access and to display alerts.</param>
-		public StorageService(ILogService logService, ICryptoService cryptoService, IUiDispatcher uiDispatcher)
+		public StorageService(ILogService logService, ICryptoService cryptoService, IUiSerializer uiDispatcher)
 		{
 			this.logService = logService;
 			this.cryptoService = cryptoService;

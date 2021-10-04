@@ -39,7 +39,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public MyWalletViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,

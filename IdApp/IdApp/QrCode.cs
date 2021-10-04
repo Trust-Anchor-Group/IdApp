@@ -39,7 +39,7 @@ namespace IdApp
             ILogService logService,
             INeuronService neuronService,
             INavigationService navigationService,
-            IUiDispatcher uiDispatcher,
+            IUiSerializer uiDispatcher,
             IContractOrchestratorService contractOrchestratorService,
             IThingRegistryOrchestratorService thingRegistryOrchestratorService,
             IEDalerOrchestratorService eDalerOrchestratorService)
@@ -140,7 +140,7 @@ namespace IdApp
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
         /// <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
         /// <param name="code">The code to set.</param>
-        internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiDispatcher uiDispatcher, string code)
+        internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiDispatcher, string code)
         {
             uiDispatcher.BeginInvokeOnMainThread(async () =>
             {

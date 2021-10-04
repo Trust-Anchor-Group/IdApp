@@ -23,7 +23,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new TransferIdentityViewModel(
                 App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IUiSerializer>(),
                 App.Instantiate<INeuronService>(),
                 this.navigationService ?? App.Instantiate<INavigationService>());
             InitializeComponent();

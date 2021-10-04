@@ -51,7 +51,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// <param name="logService">The log service.</param>
 		public ValidatePhoneNrViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ISettingsService settingsService,

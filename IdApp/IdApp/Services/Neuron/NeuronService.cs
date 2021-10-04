@@ -75,7 +75,7 @@ namespace IdApp.Services.Neuron
 		public NeuronService(
 			Assembly appAssembly,
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INetworkService networkService,
 			ILogService logService,
 			ISettingsService settingsService,

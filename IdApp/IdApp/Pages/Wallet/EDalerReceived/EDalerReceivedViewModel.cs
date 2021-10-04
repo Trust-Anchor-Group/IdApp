@@ -23,7 +23,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public EDalerReceivedViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService)
 		: base(neuronService, uiDispatcher, tagProfile)

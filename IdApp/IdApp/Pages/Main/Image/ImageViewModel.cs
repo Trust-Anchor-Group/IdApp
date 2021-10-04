@@ -14,7 +14,7 @@ namespace IdApp.Pages.Main.Image
     /// </summary>
     public class ImageViewModel : BaseViewModel
     {
-        private readonly IUiDispatcher uiDispatcher;
+        private readonly IUiSerializer uiDispatcher;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
@@ -22,13 +22,13 @@ namespace IdApp.Pages.Main.Image
         /// </summary>
         public ImageViewModel()
         {
-            this.uiDispatcher = App.Instantiate<IUiDispatcher>();
+            this.uiDispatcher = App.Instantiate<IUiSerializer>();
             this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(
                 App.Instantiate<ILogService>(),
                 App.Instantiate<INetworkService>(),
                 App.Instantiate<INeuronService>(),
-                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IUiSerializer>(),
                 App.Instantiate<IAttachmentCacheService>(),
                 this.Photos);
         }

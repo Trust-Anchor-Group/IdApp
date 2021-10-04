@@ -8,8 +8,8 @@ namespace IdApp.Services.UI
     /// A wafer-thin wrapper around the UI (main) thread.
     /// Provides methods for displaying alerts to the user in a thread-safe way. Queues them up if there's more than one.
     /// </summary>
-    [DefaultImplementation(typeof(UiDispatcher))]
-    public interface IUiDispatcher
+    [DefaultImplementation(typeof(UiSerializer))]
+    public interface IUiSerializer
     {
         /// <summary>
         /// Does a begin-invoke on the main thread of the specified action.

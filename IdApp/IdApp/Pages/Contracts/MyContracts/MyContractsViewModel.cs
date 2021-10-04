@@ -51,7 +51,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		private readonly INeuronService neuronService;
 		private readonly INetworkService networkService;
 		internal readonly INavigationService navigationService;
-		internal readonly IUiDispatcher uiDispatcher;
+		internal readonly IUiSerializer uiDispatcher;
 		internal readonly ITagProfile tagProfile;
 		private DateTime loadContractsTimestamp;
 
@@ -75,13 +75,13 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
 		/// <param name="TagProfile">TAG Profile</param>
 		protected internal MyContractsViewModel(ContractsListMode ContractsListMode, INeuronService neuronService, 
-			INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher,
+			INetworkService networkService, INavigationService navigationService, IUiSerializer uiDispatcher,
 			ITagProfile TagProfile)
 		{
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
 			this.networkService = networkService ?? App.Instantiate<INetworkService>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
 			this.tagProfile = TagProfile ?? App.Instantiate<ITagProfile>();
 			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();

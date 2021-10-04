@@ -24,7 +24,7 @@ namespace IdApp.Pages.Things.MyThings
 		private readonly INeuronService neuronService;
 		private readonly INetworkService networkService;
 		private readonly INavigationService navigationService;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyThingsViewModel"/> class.
@@ -42,12 +42,12 @@ namespace IdApp.Pages.Things.MyThings
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="navigationService">The navigation service.</param>
 		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
-		protected internal MyThingsViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiDispatcher uiDispatcher)
+		protected internal MyThingsViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiSerializer uiDispatcher)
 		{
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
 			this.networkService = networkService ?? App.Instantiate<INetworkService>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
 
 			this.Things = new ObservableCollection<ContactInfo>();
 		}

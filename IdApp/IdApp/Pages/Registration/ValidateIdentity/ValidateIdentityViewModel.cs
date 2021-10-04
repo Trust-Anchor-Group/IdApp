@@ -40,7 +40,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// </summary>
         public ValidateIdentityViewModel(
             ITagProfile tagProfile,
-            IUiDispatcher uiDispatcher,
+            IUiSerializer uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,

@@ -19,10 +19,10 @@ namespace IdApp.Pages
         /// <param name="neuronService"></param>
         /// <param name="uiDispatcher"></param>
         /// <param name="tagProfile"></param>
-        protected NeuronViewModel(INeuronService neuronService, IUiDispatcher uiDispatcher, ITagProfile tagProfile)
+        protected NeuronViewModel(INeuronService neuronService, IUiSerializer uiDispatcher, ITagProfile tagProfile)
         {
             this.NeuronService = neuronService ?? App.Instantiate<INeuronService>();
-            this.UiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+            this.UiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
             this.TagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
             this.StateSummaryText = AppResources.XmppState_Offline;
             this.ConnectionStateText = AppResources.XmppState_Offline;
@@ -48,9 +48,9 @@ namespace IdApp.Pages
         #region Properties
 
         /// <summary>
-        /// Gets the current <see cref="IUiDispatcher"/>.
+        /// Gets the current <see cref="IUiSerializer"/>.
         /// </summary>
-        protected IUiDispatcher UiDispatcher { get; }
+        protected IUiSerializer UiDispatcher { get; }
 
         /// <summary>
         /// Gets the current <see cref="INeuronService"/>.

@@ -36,7 +36,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// </summary>
 		public ViewClaimThingViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
@@ -204,7 +204,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <param name="LocalizedValue">Localized tag value</param>
 		/// <param name="uiDispatcher">UI Dispatcher service</param>
 		/// <param name="logService">Log service</param>
-		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IUiDispatcher uiDispatcher, ILogService logService)
+		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IUiSerializer uiDispatcher, ILogService logService)
 		{ 
 			try
 			{

@@ -27,7 +27,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public RequestPaymentViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,

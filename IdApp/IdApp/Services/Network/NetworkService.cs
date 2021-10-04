@@ -22,11 +22,11 @@ namespace IdApp.Services.Network
 	{
 		private const int DefaultXmppPortNumber = 5222;
 		private readonly ILogService logService;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 
 		public event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged;
 
-		public NetworkService(ILogService logService, IUiDispatcher uiDispatcher)
+		public NetworkService(ILogService logService, IUiSerializer uiDispatcher)
 		{
 			this.uiDispatcher = uiDispatcher;
 			this.logService = logService;

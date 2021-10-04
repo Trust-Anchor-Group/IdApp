@@ -64,7 +64,7 @@ namespace IdApp.Pages.Main.Shell
 		/// <summary>
 		/// Current UI Dispatcher Service
 		/// </summary>
-		public IUiDispatcher UiDispatcher => App.Instantiate<IUiDispatcher>();
+		public IUiSerializer UiDispatcher => App.Instantiate<IUiSerializer>();
 
 		#region Properties
 

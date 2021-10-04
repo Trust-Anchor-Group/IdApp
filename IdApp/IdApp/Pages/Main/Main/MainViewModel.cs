@@ -53,7 +53,7 @@ namespace IdApp.Pages.Main.Main
 		protected internal MainViewModel(
 			ILogService logService,
 			INeuronService neuronService,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			ITagProfile tagProfile,
 			INavigationService navigationService,
 			INetworkService networkService,

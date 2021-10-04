@@ -14,12 +14,12 @@ namespace IdApp.Services.Navigation
     {
         private const string DefaultGoBackRoute = "..";
         private readonly ILogService logService;
-        private readonly IUiDispatcher uiDispatcher;
+        private readonly IUiSerializer uiDispatcher;
         private NavigationArgs currentNavigationArgs;
         private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
         bool isManuallyNavigatingBack = false;
 
-        public NavigationService(ILogService logService, IUiDispatcher uiDispatcher)
+        public NavigationService(ILogService logService, IUiSerializer uiDispatcher)
         {
             this.logService = logService;
             this.uiDispatcher = uiDispatcher;

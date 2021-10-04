@@ -33,7 +33,7 @@ namespace IdApp.Pages.Registration
         public RegistrationStepViewModel(
             RegistrationStep step,
             ITagProfile tagProfile,
-            IUiDispatcher uiDispatcher,
+            IUiSerializer uiDispatcher,
             INeuronService neuronService, 
             INavigationService navigationService,
             ISettingsService settingsService,
@@ -71,9 +71,9 @@ namespace IdApp.Pages.Registration
         public RegistrationStep Step { get; }
 
         /// <summary>
-        /// The <see cref="IUiDispatcher"/> instance.
+        /// The <see cref="IUiSerializer"/> instance.
         /// </summary>
-        protected IUiDispatcher UiDispatcher { get; }
+        protected IUiSerializer UiDispatcher { get; }
 
         /// <summary>
         /// The <see cref="ITagProfile"/> instance to edit.

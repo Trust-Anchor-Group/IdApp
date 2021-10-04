@@ -29,7 +29,7 @@ namespace IdApp
 		private readonly ILogService logService;
 		private readonly INetworkService networkService;
 		private readonly INeuronService neuronService;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly IAttachmentCacheService attachmentCacheService;
 		private readonly ObservableCollection<Photo> photos;
 		private readonly List<string> attachmentIds;
@@ -48,7 +48,7 @@ namespace IdApp
 			ILogService logService,
 			INetworkService networkService,
 			INeuronService neuronService,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			IAttachmentCacheService attachmentCacheService)
 			: this(logService, networkService, neuronService, uiDispatcher, attachmentCacheService, new ObservableCollection<Photo>())
 		{
@@ -68,7 +68,7 @@ namespace IdApp
 			ILogService logService,
 			INetworkService networkService,
 			INeuronService neuronService,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			IAttachmentCacheService attachmentCacheService,
 			ObservableCollection<Photo> photos)
 		{

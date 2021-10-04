@@ -25,7 +25,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new RequestPaymentViewModel(
                 App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IUiSerializer>(),
                 App.Instantiate<INeuronService>(),
                 this.navigationService ?? App.Instantiate<INavigationService>(),
                 App.Instantiate<ILogService>(),

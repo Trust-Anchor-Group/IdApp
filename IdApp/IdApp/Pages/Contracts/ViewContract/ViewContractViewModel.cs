@@ -32,7 +32,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 	public class ViewContractViewModel : BaseViewModel
 	{
 		private bool isReadOnly;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INeuronService neuronService;
@@ -64,7 +64,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			ITagProfile tagProfile,
 			INeuronService neuronService,
 			ILogService logService,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INavigationService navigationService,
 			INetworkService networkService,
 			IAttachmentCacheService attachmentCacheService,
@@ -73,7 +73,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
 			this.logService = logService ?? App.Instantiate<ILogService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 			networkService = networkService ?? App.Instantiate<INetworkService>();
 			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();

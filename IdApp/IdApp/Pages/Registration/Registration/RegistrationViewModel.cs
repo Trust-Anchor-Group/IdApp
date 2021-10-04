@@ -49,7 +49,7 @@ namespace IdApp.Pages.Registration.Registration
         /// </summary>
         protected internal RegistrationViewModel(
             ITagProfile tagProfile,
-            IUiDispatcher uiDispatcher, 
+            IUiSerializer uiDispatcher, 
             ISettingsService settingsService, 
             INeuronService neuronService, 
             ICryptoService cryptoService, 
@@ -59,7 +59,7 @@ namespace IdApp.Pages.Registration.Registration
             IAttachmentCacheService attachmentCacheService)
         {
             this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
-            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
             settingsService = settingsService ?? App.Instantiate<ISettingsService>();
             neuronService = neuronService ?? App.Instantiate<INeuronService>();
             cryptoService = cryptoService ?? App.Instantiate<ICryptoService>();

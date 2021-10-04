@@ -22,7 +22,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new AccountEventViewModel(
                 App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IUiSerializer>(),
                 App.Instantiate<INeuronService>(),
                 this.navigationService);
 

@@ -45,7 +45,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		/// <param name="logService">The log service.</param>
 		public ChooseAccountViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ISettingsService settingsService,

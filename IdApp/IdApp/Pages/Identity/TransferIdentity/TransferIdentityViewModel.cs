@@ -21,7 +21,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// </summary>
 		public TransferIdentityViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService)
 		: base(neuronService, uiDispatcher, tagProfile)

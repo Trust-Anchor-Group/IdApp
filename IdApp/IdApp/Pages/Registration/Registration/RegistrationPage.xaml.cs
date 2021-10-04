@@ -13,7 +13,7 @@ namespace IdApp.Pages.Registration.Registration
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationPage
     {
-        private readonly IUiDispatcher uiDispatcher;
+        private readonly IUiSerializer uiDispatcher;
 
         /// <summary>
         /// Creates a new instance of the <see cref="RegistrationPage"/> class.
@@ -21,7 +21,7 @@ namespace IdApp.Pages.Registration.Registration
         public RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            this.uiDispatcher = App.Instantiate<IUiDispatcher>();
+            this.uiDispatcher = App.Instantiate<IUiSerializer>();
             ViewModel = new RegistrationViewModel();
             InitializeComponent();
         }

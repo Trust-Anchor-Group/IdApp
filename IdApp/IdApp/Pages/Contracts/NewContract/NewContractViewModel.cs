@@ -31,7 +31,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		private readonly ILogService logService;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly ISettingsService settingsService;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly ITagProfile tagProfile;
@@ -63,7 +63,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			ITagProfile tagProfile,
 			ILogService logService,
 			INeuronService neuronService,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INavigationService navigationService,
 			ISettingsService settingsService,
 			IContractOrchestratorService contractOrchestratorService)
@@ -71,7 +71,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
 			this.logService = logService ?? App.Instantiate<ILogService>();
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 			this.settingsService = settingsService ?? App.Instantiate<ISettingsService>();
 			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();

@@ -48,7 +48,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public ViewIdentityViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,

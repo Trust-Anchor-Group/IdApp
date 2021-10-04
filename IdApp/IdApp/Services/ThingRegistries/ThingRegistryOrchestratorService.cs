@@ -18,7 +18,7 @@ namespace IdApp.Services.ThingRegistries
 	internal class ThingRegistryOrchestratorService : LoadableService, IThingRegistryOrchestratorService
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
@@ -26,7 +26,7 @@ namespace IdApp.Services.ThingRegistries
 
 		public ThingRegistryOrchestratorService(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,

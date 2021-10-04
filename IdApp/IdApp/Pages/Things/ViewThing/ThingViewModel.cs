@@ -49,7 +49,7 @@ namespace IdApp.Pages.Things.ViewThing
 			INeuronService neuronService,
 			INetworkService networkService,
 			INavigationService navigationService,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			ILogService logService)
 			: base(neuronService, uiDispatcher, tagProfile)
 		{

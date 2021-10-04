@@ -34,7 +34,7 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public EDalerUriViewModel(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,

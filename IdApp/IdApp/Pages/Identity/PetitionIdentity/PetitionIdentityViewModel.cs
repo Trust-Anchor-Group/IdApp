@@ -51,14 +51,14 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             INavigationService navigationService,
             ILogService logService, 
             INetworkService networkService,
-            IUiDispatcher uiDispatcher,
+            IUiSerializer uiDispatcher,
             IAttachmentCacheService attachmentCacheService)
         {
             this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
             this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
             logService = logService ?? App.Instantiate<ILogService>();
             this.networkService = networkService ?? App.Instantiate<INetworkService>();
-            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiDispatcher>();
+            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
             attachmentCacheService = attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>();
 
             this.AcceptCommand = new Command(async _ => await Accept());

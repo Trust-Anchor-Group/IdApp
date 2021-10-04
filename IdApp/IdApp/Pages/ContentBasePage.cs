@@ -21,7 +21,7 @@ namespace IdApp.Pages
         private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
         private readonly ILogService logService;
         private readonly ISettingsService settingsService;
-        private readonly IUiDispatcher uiDispatcher;
+        private readonly IUiSerializer uiDispatcher;
 
         /// <summary>
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
@@ -35,11 +35,11 @@ namespace IdApp.Pages
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
         /// For unit tests.
         /// </summary>
-        protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiDispatcher uiDispatcher)
+        protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiSerializer uiDispatcher)
         {
             this.logService = logService ?? Types.Instantiate<ILogService>(false);
             this.settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
-            this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiDispatcher>(false);
+            this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiSerializer>(false);
             PropertyChanged += OnPropertyChanged;
         }
 

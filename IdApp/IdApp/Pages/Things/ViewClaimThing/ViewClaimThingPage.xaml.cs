@@ -24,7 +24,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new ViewClaimThingViewModel(
                 App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IUiSerializer>(),
                 App.Instantiate<INeuronService>(),
                 this.navigationService ?? App.Instantiate<INavigationService>(),
                 App.Instantiate<INetworkService>(),

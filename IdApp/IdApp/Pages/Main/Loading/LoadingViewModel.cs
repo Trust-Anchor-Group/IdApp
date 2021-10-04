@@ -31,7 +31,7 @@ namespace IdApp.Pages.Main.Loading
 		/// </summary>
 		protected internal LoadingViewModel(
 			INeuronService neuronService,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			ITagProfile tagProfile,
 			INavigationService navigationService)
 			: base(neuronService, uiDispatcher, tagProfile)

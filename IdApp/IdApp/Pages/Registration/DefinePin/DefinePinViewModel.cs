@@ -29,7 +29,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// <param name="logService">The log service.</param>
         public DefinePinViewModel(
             ITagProfile tagProfile,
-            IUiDispatcher uiDispatcher,
+            IUiSerializer uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,

@@ -26,7 +26,7 @@ namespace IdApp.Pages.Wallet.Payment
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new EDalerUriViewModel(
                 App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IUiSerializer>(),
                 App.Instantiate<INeuronService>(),
                 this.navigationService ?? App.Instantiate<INavigationService>(),
                 App.Instantiate<INetworkService>(),

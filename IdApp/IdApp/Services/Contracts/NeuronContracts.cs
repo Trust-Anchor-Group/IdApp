@@ -21,14 +21,14 @@ namespace IdApp.Services.Contracts
 	internal sealed class NeuronContracts : INeuronContracts
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly INeuronService neuronService;
 		private readonly ILogService logService;
 		private readonly ISettingsService settingsService;
 		private ContractsClient contractsClient;
 		private HttpFileUploadClient fileUploadClient;
 
-		internal NeuronContracts(ITagProfile tagProfile, IUiDispatcher uiDispatcher, INeuronService neuronService,
+		internal NeuronContracts(ITagProfile tagProfile, IUiSerializer uiDispatcher, INeuronService neuronService,
 			ILogService logService, ISettingsService settingsService)
 		{
 			this.tagProfile = tagProfile;

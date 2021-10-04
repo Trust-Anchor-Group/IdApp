@@ -48,7 +48,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         /// </summary>
         public RegisterIdentityViewModel(
             ITagProfile tagProfile,
-            IUiDispatcher uiDispatcher,
+            IUiSerializer uiDispatcher,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,

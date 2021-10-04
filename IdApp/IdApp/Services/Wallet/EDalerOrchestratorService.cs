@@ -24,7 +24,7 @@ namespace IdApp.Services.Wallet
 	internal class EDalerOrchestratorService : LoadableService, IEDalerOrchestratorService
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
@@ -33,7 +33,7 @@ namespace IdApp.Services.Wallet
 
 		public EDalerOrchestratorService(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,

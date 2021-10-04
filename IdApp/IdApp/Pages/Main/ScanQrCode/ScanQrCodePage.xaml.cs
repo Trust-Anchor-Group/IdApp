@@ -14,7 +14,7 @@ namespace IdApp.Pages.Main.ScanQrCode
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScanQrCodePage
     {
-        private readonly IUiDispatcher uiDispatcher;
+        private readonly IUiSerializer uiDispatcher;
         private readonly INavigationService navigationService;
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         {
             this.ViewModel = viewModel ?? new ScanQrCodeViewModel();
             this.navigationService = App.Instantiate<INavigationService>();
-            this.uiDispatcher = App.Instantiate<IUiDispatcher>();
+            this.uiDispatcher = App.Instantiate<IUiSerializer>();
             InitializeComponent();
         }
 

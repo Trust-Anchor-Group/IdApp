@@ -40,7 +40,7 @@ namespace IdApp
 
 			this.TagProfile = Types.InstantiateDefault<ITagProfile>(false);
 			this.LogService = Types.InstantiateDefault<ILogService>(false);
-			this.UiDispatcher = Types.InstantiateDefault<IUiDispatcher>(false);
+			this.UiDispatcher = Types.InstantiateDefault<IUiSerializer>(false);
 			this.CryptoService = Types.InstantiateDefault<ICryptoService>(false, this.LogService);
 			this.NetworkService = Types.InstantiateDefault<INetworkService>(false, this.LogService, this.UiDispatcher);
 			this.StorageService = Types.InstantiateDefault<IStorageService>(false, this.LogService, this.CryptoService, this.UiDispatcher);
@@ -53,7 +53,7 @@ namespace IdApp
 		public ITagProfile TagProfile { get; }
 
 		/// <inheritdoc/>
-		public IUiDispatcher UiDispatcher { get; }
+		public IUiSerializer UiDispatcher { get; }
 
 		/// <inheritdoc/>
 		public ICryptoService CryptoService { get; }

@@ -29,7 +29,7 @@ namespace IdApp.Services.Contracts
 	internal class ContractOrchestratorService : LoadableService, IContractOrchestratorService
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiDispatcher uiDispatcher;
+		private readonly IUiSerializer uiDispatcher;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
@@ -38,7 +38,7 @@ namespace IdApp.Services.Contracts
 
 		public ContractOrchestratorService(
 			ITagProfile tagProfile,
-			IUiDispatcher uiDispatcher,
+			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,

@@ -22,7 +22,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
             this.navigationService = App.Instantiate<INavigationService>();
             this.ViewModel = new EDalerReceivedViewModel(
                 App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiDispatcher>(),
+                App.Instantiate<IUiSerializer>(),
                 App.Instantiate<INeuronService>(),
                 this.navigationService);
 

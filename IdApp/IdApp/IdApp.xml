@@ -3284,7 +3284,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiDispatcher)">
+        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
             For unit tests.
@@ -3373,7 +3373,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.ContentBasePage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.ContentBasePage.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Settings.ISettingsService,IdApp.Services.UI.IUiDispatcher)">
+        <member name="M:IdApp.Pages.ContentBasePage.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Settings.ISettingsService,IdApp.Services.UI.IUiSerializer)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.ContentBasePage"/> class.
             For unit tests.
@@ -3797,7 +3797,7 @@
             </summary>
             <param name="ContractsListMode">What list of contracts to display.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode,IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Tag.ITagProfile)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode,IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel"/> class.
             For unit tests.
@@ -3974,7 +3974,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Contracts.IContractOrchestratorService)">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Contracts.IContractOrchestratorService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel"/> class.
             For unit tests.
@@ -4241,7 +4241,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel"/> class.
             For unit tests.
@@ -4569,7 +4569,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel"/> class.
             For unit tests.
@@ -5067,7 +5067,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService,IdApp.Services.EventLog.ILogService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Contracts.IContractOrchestratorService)">
+        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService,IdApp.Services.EventLog.ILogService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Contracts.IContractOrchestratorService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel"/> class.
             For unit tests.
@@ -5411,7 +5411,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel"/> class.
             For unit tests.
@@ -5701,7 +5701,7 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel"/> class.
             </summary>
@@ -5795,7 +5795,7 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Wallet.IEDalerOrchestratorService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Wallet.IEDalerOrchestratorService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel"/> class.
             </summary>
@@ -6583,7 +6583,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Loading.LoadingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Loading.LoadingViewModel"/> class.
             For unit tests.
@@ -6809,7 +6809,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Main.MainViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Main.MainViewModel"/> class.
             For unit tests.
@@ -7500,7 +7500,7 @@
             A view model that holds Neuron state.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.NeuronViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Tag.ITagProfile)">
+        <member name="M:IdApp.Pages.NeuronViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile)">
             <summary>
             Creates an instance of a <see cref="T:IdApp.Pages.NeuronViewModel"/>.
             </summary>
@@ -7516,7 +7516,7 @@
         </member>
         <member name="P:IdApp.Pages.NeuronViewModel.UiDispatcher">
             <summary>
-            Gets the current <see cref="T:IdApp.Services.UI.IUiDispatcher"/>.
+            Gets the current <see cref="T:IdApp.Services.UI.IUiSerializer"/>.
             </summary>
         </member>
         <member name="P:IdApp.Pages.NeuronViewModel.NeuronService">
@@ -7632,7 +7632,7 @@
             The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel"/> class.
             </summary>
@@ -7710,7 +7710,7 @@
             The view model to bind to when showing Step 5 of the registration flow: defining a PIN.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.DefinePin.DefinePinViewModel"/> class.
             </summary>
@@ -7917,7 +7917,7 @@
             The view model to bind to when showing Step 3 of the registration flow: registering an identity.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel"/> class.
             <param name="tagProfile">The tag profile to work with.</param>
@@ -8240,7 +8240,7 @@
             An event that fires whenever the <see cref="P:IdApp.Pages.Registration.RegistrationStepViewModel.Step"/> property changes.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.#ctor(IdApp.Services.Tag.RegistrationStep,IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.#ctor(IdApp.Services.Tag.RegistrationStep,IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel"/> class.
             </summary>
@@ -8269,7 +8269,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.UiDispatcher">
             <summary>
-            The <see cref="T:IdApp.Services.UI.IUiDispatcher"/> instance.
+            The <see cref="T:IdApp.Services.UI.IUiSerializer"/> instance.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.TagProfile">
@@ -8353,7 +8353,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Settings.ISettingsService,IdApp.Services.Neuron.INeuronService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Settings.ISettingsService,IdApp.Services.Neuron.INeuronService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             For unit tests.
@@ -8448,7 +8448,7 @@
             The view model to bind to when showing Step 4 of the registration flow: validating an identity.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel"/> class.
             <param name="tagProfile">The tag profile to work with.</param>
@@ -8762,7 +8762,7 @@
             The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel"/> class.
             </summary>
@@ -8963,7 +8963,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiDispatcher)">
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsViewModel"/> class.
             For unit tests.
@@ -9049,7 +9049,7 @@
             The view model to bind to for when displaying thing claim information.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel"/> class.
             </summary>
@@ -9123,7 +9123,7 @@
             Gets or sets the PIN code for the identity.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.UI.IUiDispatcher,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.UI.IUiSerializer,IdApp.Services.EventLog.ILogService)">
             <summary>
             Processes the click of a localized meta-data label.
             </summary>
@@ -9172,7 +9172,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ThingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ThingViewModel"/> class.
             For unit tests.
@@ -9380,7 +9380,7 @@
             The view model to bind to for when displaying the contents of an account event.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -9571,7 +9571,7 @@
             The view model to bind to for displaying information about an incoming balance change.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -9731,7 +9731,7 @@
             The view model to bind to for when displaying the contents of an eDaler URI.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Pages.Wallet.IShareQrCode)">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Pages.Wallet.IShareQrCode)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -10208,7 +10208,7 @@
             The view model to bind to for when displaying the wallet.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel"/> class.
             </summary>
@@ -10543,7 +10543,7 @@
             The view model to bind to for requesting a payment.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage)">
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel"/> class.
             </summary>
@@ -10803,7 +10803,7 @@
             This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>.
             </summary>
         </member>
-        <member name="M:IdApp.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
             Use this constructor for when you want to load a a <b>single photo</b>.
@@ -10814,7 +10814,7 @@
             <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
             <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
         </member>
-        <member name="M:IdApp.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.AttachmentCache.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{IdApp.Pages.Photo})">
+        <member name="M:IdApp.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{IdApp.Pages.Photo})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
             Use this constructor for when you want to load a <b>list of photos</b>.
@@ -10860,7 +10860,7 @@
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
         </member>
-        <member name="M:IdApp.QrCode.ScanQrCodeAndHandleResult(IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiDispatcher,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
+        <member name="M:IdApp.QrCode.ScanQrCodeAndHandleResult(IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
             <summary>
             Scans a QR Code, and depending on the actual result, takes different actions. This typically means navigating to an appropriate page.
             </summary>
@@ -10895,7 +10895,7 @@
             <param name="action">The asynchronous action to invoke right after a QR Code has been scanned, but before the Scan Page closes.</param>
             <returns>Decoded string</returns>
         </member>
-        <member name="M:IdApp.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiDispatcher,System.String)">
+        <member name="M:IdApp.QrCode.TrySetResultAndClosePage(IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,System.String)">
             <summary>
             Tries to set the Scan QR Code result and close the scan page.
             </summary>
@@ -12259,7 +12259,7 @@
             </summary>
             <param name="exportOutput">Receives the contents of the database.</param>
         </member>
-        <member name="M:IdApp.Services.Storage.StorageService.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.UI.IUiDispatcher)">
+        <member name="M:IdApp.Services.Storage.StorageService.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.UI.IUiSerializer)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
             </summary>
@@ -13074,24 +13074,24 @@
             <param name="Operators">Search operators.</param>
             <returns>Complete list of devices in registry matching the search operators.</returns>
         </member>
-        <member name="T:IdApp.Services.UI.IUiDispatcher">
+        <member name="T:IdApp.Services.UI.IUiSerializer">
             <summary>
             A wafer-thin wrapper around the UI (main) thread.
             Provides methods for displaying alerts to the user in a thread-safe way. Queues them up if there's more than one.
             </summary>
         </member>
-        <member name="M:IdApp.Services.UI.IUiDispatcher.BeginInvokeOnMainThread(System.Action)">
+        <member name="M:IdApp.Services.UI.IUiSerializer.BeginInvokeOnMainThread(System.Action)">
             <summary>
             Does a begin-invoke on the main thread of the specified action.
             </summary>
             <param name="action">The action to execute asynchronously.</param>
         </member>
-        <member name="P:IdApp.Services.UI.IUiDispatcher.IsRunningInTheBackground">
+        <member name="P:IdApp.Services.UI.IUiSerializer.IsRunningInTheBackground">
             <summary>
             Determines whether the app is running in the background.
             </summary>
         </member>
-        <member name="M:IdApp.Services.UI.IUiDispatcher.DisplayAlert(System.String,System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayAlert(System.String,System.String,System.String,System.String)">
             <summary>
             Displays an alert/message box to the user.
             </summary>
@@ -13101,7 +13101,7 @@
             <param name="cancel">The cancel button text.</param>
             <returns>If Accept or Cancel was pressed</returns>
         </member>
-        <member name="M:IdApp.Services.UI.IUiDispatcher.DisplayAlert(System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayAlert(System.String,System.String,System.String)">
             <summary>
             Displays an alert/message box to the user.
             </summary>
@@ -13109,14 +13109,14 @@
             <param name="message">The message to display.</param>
             <param name="accept">The accept/ok button text.</param>
         </member>
-        <member name="M:IdApp.Services.UI.IUiDispatcher.DisplayAlert(System.String,System.String)">
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayAlert(System.String,System.String)">
             <summary>
             Displays an alert/message box to the user.
             </summary>
             <param name="title">The title to display.</param>
             <param name="message">The message to display.</param>
         </member>
-        <member name="M:IdApp.Services.UI.IUiDispatcher.DisplayAlert(System.String,System.String,System.Exception)">
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayAlert(System.String,System.String,System.Exception)">
             <summary>
             Displays an alert/message box to the user.
             </summary>
@@ -13124,18 +13124,116 @@
             <param name="message">The message to display.</param>
             <param name="exception">The exception to display.</param>
         </member>
-        <member name="M:IdApp.Services.UI.IUiDispatcher.DisplayAlert(System.String,System.Exception)">
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayAlert(System.String,System.Exception)">
             <summary>
             Displays an alert/message box to the user.
             </summary>
             <param name="title">The title to display.</param>
             <param name="exception">The exception to display.</param>
         </member>
-        <member name="M:IdApp.Services.UI.IUiDispatcher.DisplayAlert(System.Exception)">
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayAlert(System.Exception)">
             <summary>
             Displays an alert/message box to the user.
             </summary>
             <param name="exception">The exception to display.</param>
+        </member>
+        <member name="T:IdApp.Services.UI.Tasks.DisplayAlert">
+            <summary>
+            Displays an alert message.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Tasks.DisplayAlert.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Displays an alert message.
+            </summary>
+            <param name="Title">Title string</param>
+            <param name="Message">Message string</param>
+            <param name="Accept">Accept string</param>
+            <param name="Cancel">Cancel string</param>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayAlert.Title">
+            <summary>
+            Title string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayAlert.Message">
+            <summary>
+            Message string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayAlert.Accept">
+            <summary>
+            Accept string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayAlert.Cancel">
+            <summary>
+            Cancel string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayAlert.CompletionSource">
+            <summary>
+            Completion source indicating when task has been completed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Tasks.DisplayAlert.Execute">
+            <summary>
+            Executes the task.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.UI.Tasks.DisplayPrompt">
+            <summary>
+            Prompts the user for input.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Tasks.DisplayPrompt.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Prompts the user for input.
+            </summary>
+            <param name="Title">Title string</param>
+            <param name="Message">Message string</param>
+            <param name="Accept">Accept string</param>
+            <param name="Cancel">Cancel string</param>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayPrompt.Title">
+            <summary>
+            Title string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayPrompt.Message">
+            <summary>
+            Message string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayPrompt.Accept">
+            <summary>
+            Accept string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayPrompt.Cancel">
+            <summary>
+            Cancel string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Tasks.DisplayPrompt.CompletionSource">
+            <summary>
+            Completion source indicating when task has been completed.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Tasks.DisplayPrompt.Execute">
+            <summary>
+            Executes the task.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.UI.Tasks.UiTask">
+            <summary>
+            Abstract base class for UI tasks.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Tasks.UiTask.Execute">
+            <summary>
+            Executes the task.
+            </summary>
         </member>
         <member name="T:IdApp.Services.UI.UiConstants">
             <summary>
@@ -13157,36 +13255,45 @@
             The default height to use when generating QR Code images.
             </summary>
         </member>
-        <member name="T:IdApp.Services.UI.UiDispatcher">
+        <member name="T:IdApp.Services.UI.UiSerializer">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.#ctor">
+        <member name="M:IdApp.Services.UI.UiSerializer.#ctor">
             <summary>
-            Creates a new instance of the <see cref="T:IdApp.Services.UI.UiDispatcher"/> class.
+            Creates a new instance of the <see cref="T:IdApp.Services.UI.UiSerializer"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.BeginInvokeOnMainThread(System.Action)">
+        <member name="M:IdApp.Services.UI.UiSerializer.BeginInvokeOnMainThread(System.Action)">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Services.UI.UiDispatcher.IsRunningInTheBackground">
+        <member name="P:IdApp.Services.UI.UiSerializer.IsRunningInTheBackground">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.DisplayAlert(System.String,System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayAlert(System.String,System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.DisplayAlert(System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayAlert(System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.DisplayAlert(System.String,System.String)">
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayAlert(System.String,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.DisplayAlert(System.String,System.String,System.Exception)">
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayAlert(System.String,System.String,System.Exception)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.DisplayAlert(System.String,System.Exception)">
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayAlert(System.String,System.Exception)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Services.UI.UiDispatcher.DisplayAlert(System.Exception)">
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayAlert(System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayPrompt(System.String,System.String,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayPrompt(System.String,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.UI.UiSerializer.DisplayPrompt(System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Wallet.EDalerOrchestratorService.OpenWallet">
