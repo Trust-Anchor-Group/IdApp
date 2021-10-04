@@ -217,5 +217,27 @@ namespace IdApp.Pages
                 SetValue(IsBusyProperty, !value);
             }
         }
+
+        /// <summary>
+        /// A helper method for synchronously setting this registration step to Done, and also calling
+        /// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
+        /// </summary>
+        /// <param name="commands">The commands to re-evaluate.</param>
+        protected void SetIsDone(params ICommand[] commands)
+        {
+            IsBusy = false;
+            EvaluateCommands(commands);
+        }
+
+        /// <summary>
+        /// Sets the <see cref="BaseViewModel.IsBusy"/> flag for this instance. Also calls
+        /// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
+        /// </summary>
+        /// <param name="commands">The commands to re-evaluate.</param>
+        protected void SetIsBusy(params ICommand[] commands)
+        {
+            IsBusy = true;
+            EvaluateCommands(commands);
+        }
     }
 }

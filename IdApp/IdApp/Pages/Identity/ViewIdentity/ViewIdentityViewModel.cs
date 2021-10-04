@@ -1,19 +1,23 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Security.Cryptography;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml;
 using EDaler;
 using IdApp.Extensions;
 using IdApp.Pages.Registration.Registration;
 using IdApp.Services;
+using Waher.Content.Xml;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Pages.Identity.TransferIdentity;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -56,6 +60,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
 			this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);
 			this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
+			this.TransferCommand = new Command(async _ => await Transfer(), _ => IsConnected);
 			this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
 			this.CopyCommand = new Command(_ => this.CopyHtmlToClipboard());
 			this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => this.ThirdPartyNotInContacts);
@@ -78,7 +83,10 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				this.LegalIdentity = this.TagProfile.LegalIdentity;
 				this.identityToReview = null;
+				this.IsPersonal = true;
 			}
+			else
+				this.IsPersonal = false;
 
 			AssignProperties();
 
@@ -153,6 +161,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// The command to bind to for revoking an identity
 		/// </summary>
 		public ICommand RevokeCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for transferring an identity
+		/// </summary>
+		public ICommand TransferCommand { get; }
 
 		/// <summary>
 		/// The command for copying data to clipboard.
@@ -233,7 +246,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsApproved = this.LegalIdentity?.State == IdentityState.Approved;
 			this.IsCreated = this.LegalIdentity?.State == IdentityState.Created;
 
-			this.IsPersonal = this.TagProfile.LegalIdentity?.Id == this.LegalIdentity?.Id;
 			this.IsForReview = !(this.identityToReview is null);
 			this.IsNotForReview = !IsForReview;
 			this.ThirdParty = !(this.LegalIdentity is null) && !this.IsPersonal;
@@ -293,8 +305,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.CompromiseCommand,
-				this.AddContactCommand, this.RemoveContactCommand, this.SendPaymentToCommand);
+			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.TransferCommand,
+				this.CompromiseCommand, this.AddContactCommand, this.RemoveContactCommand, this.SendPaymentToCommand);
 		}
 
 		/// <inheritdoc/>
@@ -1492,6 +1504,93 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 			catch (Exception ex)
 			{
+				await this.UiDispatcher.DisplayAlert(ex);
+			}
+		}
+
+		private async Task Transfer()
+		{
+			if (!this.IsPersonal)
+				return;
+
+			try
+			{
+				if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToTransferYourLegalIdentity, AppResources.Yes, AppResources.No))
+					return;
+
+				this.IsBusy = true;
+				this.EvaluateAllCommands();
+				try
+				{
+					StringBuilder Xml = new StringBuilder();
+					XmlWriterSettings Settings = XML.WriterSettings(false, true);
+
+					using (XmlWriter Output = XmlWriter.Create(Xml, Settings))
+					{
+						Output.WriteStartElement("Transfer", ContractsClient.NamespaceOnboarding);
+						await this.NeuronService.Contracts.ContractsClient.ExportKeys(Output);
+
+						Output.WriteStartElement("Account", ContractsClient.NamespaceOnboarding);
+						Output.WriteAttributeString("domain", this.TagProfile.Domain);
+						Output.WriteAttributeString("userName", this.TagProfile.Account);
+						Output.WriteAttributeString("password", this.TagProfile.PasswordHash);
+
+						if (!string.IsNullOrEmpty(this.TagProfile.PasswordHashMethod))
+							Output.WriteAttributeString("passwordMethod", this.TagProfile.PasswordHashMethod);
+
+						Output.WriteEndElement();
+						Output.WriteEndElement();
+					}
+
+					using (RandomNumberGenerator Rnd = RandomNumberGenerator.Create())
+					{
+						byte[] Data = Encoding.UTF8.GetBytes(Xml.ToString());
+						byte[] Key = new byte[16];
+						byte[] IV = new byte[16];
+
+						Rnd.GetBytes(Key);
+						Rnd.GetBytes(IV);
+
+						using (Aes Aes = Aes.Create())
+						{
+							Aes.BlockSize = 128;
+							Aes.KeySize = 256;
+							Aes.Mode = CipherMode.CBC;
+							Aes.Padding = PaddingMode.PKCS7;
+
+							using (ICryptoTransform Transform = Aes.CreateEncryptor(Key, IV))
+							{
+								byte[] Encrypted = Transform.TransformFinalBlock(Data, 0, Data.Length);
+
+								Xml.Clear();
+
+								using (XmlWriter Output = XmlWriter.Create(Xml, Settings))
+								{
+									Output.WriteStartElement("Info", ContractsClient.NamespaceOnboarding);
+									Output.WriteAttributeString("base64", Convert.ToBase64String(Encrypted));
+									Output.WriteAttributeString("once", "true");
+									Output.WriteAttributeString("expires", XML.Encode(DateTime.Now.AddMinutes(1)));
+									Output.WriteEndElement();
+								}
+
+								XmlElement Info = await this.NeuronService.Xmpp.IqSetAsync("onboarding.id.tagroot.io", Xml.ToString());
+								string Code = XML.Attribute(Info, "code");
+								string Url= "obinfo:id.tagroot.io:" + Code + ":" + Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
+
+								await this.navigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
+							}
+						}
+					}
+				}
+				finally
+				{
+					this.IsBusy = false;
+					this.EvaluateAllCommands();
+				}
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
 				await this.UiDispatcher.DisplayAlert(ex);
 			}
 		}

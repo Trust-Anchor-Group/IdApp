@@ -349,6 +349,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to transfer your legal identity from the application to another? The identity will be removed from this device once completed. Also make sure no-one else can see your screen during the process..
+        /// </summary>
+        internal static string AreYouSureYouWantToTransferYourLegalIdentity {
+            get {
+                return ResourceManager.GetString("AreYouSureYouWantToTransferYourLegalIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance:.
         /// </summary>
         internal static string Balance {
@@ -3099,6 +3108,24 @@ namespace IdApp {
         internal static string Transferable {
             get {
                 return ResourceManager.GetString("Transferable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer ID.
+        /// </summary>
+        internal static string TransferId {
+            get {
+                return ResourceManager.GetString("TransferId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scan the QR invitation code below from a device that is being initialized, to transfer the Digital Identity on this device to the second device. Once the code is scanned and the identity transferred, it will be removed from this device..
+        /// </summary>
+        internal static string TransferIdentityInformationText {
+            get {
+                return ResourceManager.GetString("TransferIdentityInformationText", resourceCulture);
             }
         }
         

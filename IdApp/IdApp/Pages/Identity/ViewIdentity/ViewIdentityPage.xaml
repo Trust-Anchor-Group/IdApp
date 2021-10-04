@@ -153,17 +153,30 @@
                     <Entry Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2" IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}" VerticalOptions="Center" WidthRequest="300" MinimumWidthRequest="150" IsVisible="{Binding Path=IsForReviewAndPin}"/>
                     <!-- - -->
                     <Label Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
-                    <Button Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.ApproveInformation}" Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                    <!-- - -->
-                    <Button Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RejectInformation}" Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                    <!-- - -->
-                    <Button Grid.Row="25" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.ReportAsCompromized}" Command="{Binding Path=CompromiseCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                    <!-- - -->
-                    <Button Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RevokeInformation}" Command="{Binding Path=RevokeCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                    <!-- BUTTONS -->
-                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.AddContact}" Command="{Binding Path=AddContactCommand}" IsVisible="{Binding Path=ThirdPartyNotInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RemoveContact}" Command="{Binding Path=RemoveContactCommand}" IsVisible="{Binding Path=ThirdPartyInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
-                    <Button Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.SendPaymentTo}" Command="{Binding Path=SendPaymentToCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                    <Button Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.ApproveInformation}"
+                            Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RejectInformation}" 
+                            Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="25" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.ReportAsCompromized}" 
+                            Command="{Binding Path=CompromiseCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RevokeInformation}" 
+                            Command="{Binding Path=RevokeCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.TransferId}" 
+                            Command="{Binding Path=TransferCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.AddContact}" 
+                            Command="{Binding Path=AddContactCommand}" IsVisible="{Binding Path=ThirdPartyNotInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RemoveContact}" 
+                            Command="{Binding Path=RemoveContactCommand}" IsVisible="{Binding Path=ThirdPartyInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                    <Button Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.SendPaymentTo}" 
+                            Command="{Binding Path=SendPaymentToCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
                 </Grid>
             </StackLayout>
         </ScrollView>

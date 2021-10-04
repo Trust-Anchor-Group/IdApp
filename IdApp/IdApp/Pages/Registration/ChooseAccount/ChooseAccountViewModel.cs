@@ -316,7 +316,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					XmlDocument Doc = new XmlDocument();
 					Doc.LoadXml(Xml);
 
-					if (Doc.DocumentElement is null || Doc.DocumentElement.NamespaceURI != "http://waher.se/schema/Onboarding/v1.xsd")
+					if (Doc.DocumentElement is null || Doc.DocumentElement.NamespaceURI != ContractsClient.NamespaceOnboarding)
 						throw new Exception("Invalid Invitation XML");
 
 					LinkedList<XmlElement> ToProcess = new LinkedList<XmlElement>();
@@ -345,6 +345,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 							case "Account":
 								string UserName = XML.Attribute(E, "userName");
 								string Password = XML.Attribute(E, "password");
+								string PasswordMethod = XML.Attribute(E, "passwordMethod");
 								Domain = XML.Attribute(E, "domain");
 
 								string DomainBak = this.TagProfile.Domain;
@@ -354,7 +355,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								await this.SelectDomain(Domain, string.Empty, string.Empty);
 
-								if (!await this.ConnectToAccount(UserName, Password, string.Empty))
+								if (!await this.ConnectToAccount(UserName, Password, PasswordMethod, string.Empty))
 								{
 									this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
 									throw new Exception("Invalid account.");
@@ -423,7 +424,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 		}
 
-		private async Task<bool> ConnectToAccount(string AccountName, string Password, string LegalIdentityJid)
+		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid)
 		{
 			try
 			{
@@ -479,7 +480,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
 				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain,
-					isIpAddress, hostName, portNumber, AccountName, Password, Constants.LanguageCodes.Default,
+					isIpAddress, hostName, portNumber, AccountName, Password, PasswordMethod, Constants.LanguageCodes.Default,
 					typeof(App).Assembly, OnConnected);
 
 				if (!succeeded)

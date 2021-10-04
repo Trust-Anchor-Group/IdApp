@@ -213,6 +213,9 @@
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
     <value>Är du säker på att du vill återkalla din juridiska identitet från applikationen?</value>
   </data>
+  <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
+    <value>Är du säker på att du vill överföra din juridiska identitet from applikationen till en annan? Identiteten kommer att tas bort från denna enhet när processen är klar. Se också till att ingen annan kan se din skärm under processen.</value>
+  </data>
   <data name="Balance" xml:space="preserve">
     <value>Balans:</value>
   </data>
@@ -1136,6 +1139,12 @@
   </data>
   <data name="Transferable" xml:space="preserve">
     <value>Överlåtelsebar</value>
+  </data>
+  <data name="TransferId" xml:space="preserve">
+    <value>Överför ID</value>
+  </data>
+  <data name="TransferIdentityInformationText" xml:space="preserve">
+    <value>Skanna inbjudningskoden i form av QR-koden nedan, från en enhet som håller på att initieras, för att överföra den digitala identiteten från denna enhet till den andra enheten. När koden har skannats och identiteten överförts, kommer den att tas bort från denna enhet.</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
     <value>Kunde inte komma åt information om inbjudan. Var god försök senare.</value>

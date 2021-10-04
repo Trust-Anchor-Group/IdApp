@@ -1311,4 +1311,13 @@
   <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
     <value>You have been invited to create an account on {0}. Press OK, and enter the name of the account you wish to create.</value>
   </data>
+  <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
+    <value>Are you sure you want to transfer your legal identity from the application to another? The identity will be removed from this device once completed. Also make sure no-one else can see your screen during the process.</value>
+  </data>
+  <data name="TransferId" xml:space="preserve">
+    <value>Transfer ID</value>
+  </data>
+  <data name="TransferIdentityInformationText" xml:space="preserve">
+    <value>Scan the QR invitation code below from a device that is being initialized, to transfer the Digital Identity on this device to the second device. Once the code is scanned and the identity transferred, it will be removed from this device.</value>
+  </data>
 </root>

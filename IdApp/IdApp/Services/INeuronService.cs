@@ -36,7 +36,8 @@ namespace IdApp.Services
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
         /// <returns>If connected. If not, any error message.</returns>
-        Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
+        Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber, 
+            string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
         /// To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
@@ -54,8 +55,8 @@ namespace IdApp.Services
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
         /// <returns>If connected. If not, any error message.</returns>
         Task<(bool succeeded, string errorMessage)> TryConnectAndCreateAccount(string domain, bool isIpAddress, string hostName, 
-            int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret, Assembly appAssembly, 
-            Func<XmppClient, Task> connectedFunc);
+            int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret, 
+            Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
         /// To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
@@ -66,11 +67,14 @@ namespace IdApp.Services
         /// <param name="portNumber">The xmpp port.</param>
         /// <param name="userName">The user name of the account to create.</param>
         /// <param name="password">The password to use.</param>
+        /// <param name="passwordMethod">The password hash method to use. Empty string signifies an unhashed password.</param>
         /// <param name="languageCode">Language code to use for communication.</param>
         /// <param name="appAssembly">The current app's main assembly.</param>
         /// <param name="connectedFunc">A callback to use if and when connected.</param>
         /// <returns>If connected. If not, any error message.</returns>
-        Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, bool isIpAddress, string hostName, int portNumber, string userName, string password, string languageCode, Assembly appAssembly, Func<XmppClient, Task> connectedFunc);
+        Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, bool isIpAddress, string hostName, 
+            int portNumber, string userName, string password, string passwordMethod, string languageCode, Assembly appAssembly, 
+            Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
         /// Determines whether the Neuron server is online or not.

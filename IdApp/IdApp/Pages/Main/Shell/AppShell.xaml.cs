@@ -87,6 +87,7 @@ namespace IdApp.Pages.Main.Shell
 			// Identity:
 			Routing.RegisterRoute(nameof(Identity.ViewIdentity.ViewIdentityPage), typeof(Identity.ViewIdentity.ViewIdentityPage));
 			Routing.RegisterRoute(nameof(Identity.PetitionIdentity.PetitionIdentityPage), typeof(Identity.PetitionIdentity.PetitionIdentityPage));
+			Routing.RegisterRoute(nameof(Identity.TransferIdentity.TransferIdentityPage), typeof(Identity.TransferIdentity.TransferIdentityPage));
 
 			// Contacts:
 			Routing.RegisterRoute(nameof(Contacts.MyContacts.MyContactsPage), typeof(Contacts.MyContacts.MyContactsPage));

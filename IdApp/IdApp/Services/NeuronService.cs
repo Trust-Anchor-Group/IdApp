@@ -610,7 +610,7 @@ namespace IdApp.Services
 		public Task<(bool succeeded, string errorMessage)> TryConnect(string domain, bool isIpAddress, string hostName, int portNumber,
 			string languageCode, Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, string.Empty, string.Empty, languageCode,
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, string.Empty, string.Empty, string.Empty, languageCode,
 				string.Empty, string.Empty, applicationAssembly, connectedFunc, ConnectOperation.Connect);
 		}
 
@@ -618,20 +618,20 @@ namespace IdApp.Services
 			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret,
 			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode,
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, string.Empty, languageCode,
 				ApiKey, ApiSecret, applicationAssembly, connectedFunc, ConnectOperation.ConnectAndCreateAccount);
 		}
 
 		public Task<(bool succeeded, string errorMessage)> TryConnectAndConnectToAccount(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, Assembly applicationAssembly,
+			int portNumber, string userName, string password, string passwordMethod, string languageCode, Assembly applicationAssembly,
 			Func<XmppClient, Task> connectedFunc)
 		{
-			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, languageCode,
+			return TryConnectInner(domain, isIpAddress, hostName, portNumber, userName, password, passwordMethod, languageCode,
 				string.Empty, string.Empty, applicationAssembly, connectedFunc, ConnectOperation.ConnectToAccount);
 		}
 
 		private async Task<(bool succeeded, string errorMessage)> TryConnectInner(string domain, bool isIpAddress, string hostName,
-			int portNumber, string userName, string password, string languageCode, string ApiKey, string ApiSecret,
+			int portNumber, string userName, string password, string passwordMethod, string languageCode, string ApiKey, string ApiSecret,
 			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
 		{
 			TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
@@ -695,54 +695,62 @@ namespace IdApp.Services
 				}
 			}
 
+			XmppClient client = null;
 			try
 			{
-				using (XmppClient client = new XmppClient(hostName, portNumber, userName, password, languageCode, applicationAssembly, sniffer))
+				if (string.IsNullOrEmpty(passwordMethod))
+					client = new XmppClient(hostName, portNumber, userName, password, languageCode, applicationAssembly, sniffer);
+				else
+					client = new XmppClient(hostName, portNumber, userName, password, passwordMethod, languageCode, applicationAssembly, sniffer);
+
+				if (operation == ConnectOperation.ConnectAndCreateAccount)
 				{
-					if (operation == ConnectOperation.ConnectAndCreateAccount)
-					{
-						if (!string.IsNullOrEmpty(ApiKey) && !string.IsNullOrEmpty(ApiSecret))
-							client.AllowRegistration(ApiKey, ApiSecret);
-						else
-							client.AllowRegistration();
-					}
-
-					client.TrustServer = !isIpAddress;
-					client.AllowCramMD5 = false;
-					client.AllowDigestMD5 = false;
-					client.AllowPlain = false;
-					client.AllowEncryption = true;
-					client.AllowScramSHA1 = true;
-					client.AllowScramSHA256 = true;
-
-					client.OnConnectionError += OnConnectionError;
-					client.OnStateChanged += OnStateChanged;
-
-					client.Connect(isIpAddress ? string.Empty : domain);
-
-					void TimerCallback(object _)
-					{
-						timeout = true;
-						connected.TrySetResult(false);
-					}
-
-					using (Timer _ = new Timer(TimerCallback, null, (int)Constants.Timeouts.XmppConnect.TotalMilliseconds, Timeout.Infinite))
-					{
-						succeeded = await connected.Task;
-					}
-
-					if (succeeded && !(connectedFunc is null))
-						await connectedFunc(client);
-
-					client.OnStateChanged -= OnStateChanged;
-					client.OnConnectionError -= OnConnectionError;
+					if (!string.IsNullOrEmpty(ApiKey) && !string.IsNullOrEmpty(ApiSecret))
+						client.AllowRegistration(ApiKey, ApiSecret);
+					else
+						client.AllowRegistration();
 				}
+
+				client.TrustServer = !isIpAddress;
+				client.AllowCramMD5 = false;
+				client.AllowDigestMD5 = false;
+				client.AllowPlain = false;
+				client.AllowEncryption = true;
+				client.AllowScramSHA1 = true;
+				client.AllowScramSHA256 = true;
+
+				client.OnConnectionError += OnConnectionError;
+				client.OnStateChanged += OnStateChanged;
+
+				client.Connect(isIpAddress ? string.Empty : domain);
+
+				void TimerCallback(object _)
+				{
+					timeout = true;
+					connected.TrySetResult(false);
+				}
+
+				using (Timer _ = new Timer(TimerCallback, null, (int)Constants.Timeouts.XmppConnect.TotalMilliseconds, Timeout.Infinite))
+				{
+					succeeded = await connected.Task;
+				}
+
+				if (succeeded && !(connectedFunc is null))
+					await connectedFunc(client);
+
+				client.OnStateChanged -= OnStateChanged;
+				client.OnConnectionError -= OnConnectionError;
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), $"{operation}"));
 				succeeded = false;
 				errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
+			}
+			finally
+			{
+				client?.Dispose();
+				client = null;
 			}
 
 			if (!succeeded && string.IsNullOrEmpty(errorMessage))

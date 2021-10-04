@@ -108,6 +108,14 @@ namespace IdApp.Pages.Registration
         }
 
         /// <summary>
+        /// Invoked whenever a registration step needs to be reverted, therefore wiping all persisted UI state.
+        /// Override this to clear any settings for the specific step view model.
+        /// </summary>
+        public virtual void ClearStepState()
+        {
+        }
+
+        /// <summary>
         /// A helper method for asynchronously setting this registration step to Done, and also calling
         /// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
         /// </summary>
@@ -115,36 +123,6 @@ namespace IdApp.Pages.Registration
         protected void BeginInvokeSetIsDone(params ICommand[] commands)
         {
             UiDispatcher.BeginInvokeOnMainThread(() => SetIsDone(commands));
-        }
-
-        /// <summary>
-        /// A helper method for synchronously setting this registration step to Done, and also calling
-        /// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
-        /// </summary>
-        /// <param name="commands">The commands to re-evaluate.</param>
-        protected void SetIsDone(params ICommand[] commands)
-        {
-            IsBusy = false;
-            EvaluateCommands(commands);
-        }
-
-        /// <summary>
-        /// Sets the <see cref="BaseViewModel.IsBusy"/> flag for this instance. Also calls
-        /// <see cref="Command.ChangeCanExecute"/> on the list of commands passed in.
-        /// </summary>
-        /// <param name="commands">The commands to re-evaluate.</param>
-        protected void SetIsBusy(params ICommand[] commands)
-        {
-            IsBusy = true;
-            EvaluateCommands(commands);
-        }
-
-        /// <summary>
-        /// Invoked whenever a registration step needs to be reverted, therefore wiping all persisted UI state.
-        /// Override this to clear any settings for the specific step view model.
-        /// </summary>
-        public virtual void ClearStepState()
-        {
         }
     }
 }
