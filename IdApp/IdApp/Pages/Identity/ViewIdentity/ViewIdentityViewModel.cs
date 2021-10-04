@@ -18,6 +18,14 @@ using Waher.Persistence;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.EventLog;
+using IdApp.Services.Contracts;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
+using IdApp.Services.Wallet;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {

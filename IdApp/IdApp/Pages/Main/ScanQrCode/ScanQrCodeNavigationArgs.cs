@@ -1,4 +1,5 @@
 ﻿using IdApp.Services;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Main.ScanQrCode
 {

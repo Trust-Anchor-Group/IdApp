@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Windows.Input;
-using IdApp;
-using IdApp.Services;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Settings;
+using IdApp.Services.Tag;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration

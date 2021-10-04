@@ -8,11 +8,13 @@ using EDaler.Uris;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
-using IdApp;
 using IdApp.Services;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Xamarin.Forms;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
 
 namespace IdApp.Pages.Contacts
 {

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
 using IdApp.Services;
+using IdApp.Services.EventLog;
+using IdApp.Services.Neuron;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

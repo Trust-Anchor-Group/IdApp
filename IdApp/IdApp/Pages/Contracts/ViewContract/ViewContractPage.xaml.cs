@@ -1,7 +1,6 @@
 ﻿using System;
-using IdApp.Services;
+using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Contracts.ViewContract

@@ -1,5 +1,6 @@
-﻿using IdApp;
-using IdApp.Services;
+﻿using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.EDalerReceived

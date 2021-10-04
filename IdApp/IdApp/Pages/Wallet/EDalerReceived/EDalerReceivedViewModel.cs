@@ -3,9 +3,10 @@ using System.Text;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp;
-using IdApp.Services;
 using Xamarin.Forms;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Wallet.EDalerReceived
 {

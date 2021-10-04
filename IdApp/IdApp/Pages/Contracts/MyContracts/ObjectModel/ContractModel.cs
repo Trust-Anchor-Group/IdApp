@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Services;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 using Waher.Content.Markdown;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Contracts.HumanReadable;

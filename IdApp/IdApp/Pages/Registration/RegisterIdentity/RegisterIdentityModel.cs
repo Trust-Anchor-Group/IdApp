@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using IdApp.Services;
+using IdApp.Services.Neuron;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Registration.RegisterIdentity

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using IdApp;
-using IdApp.Services;
-using Waher.Runtime.Inventory;
+using IdApp.Services.Navigation;
 using Xamarin.Forms.Xaml;
 using ZXing;
 using ZXing.Mobile;

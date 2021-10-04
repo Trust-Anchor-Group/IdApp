@@ -6,12 +6,20 @@ using System.Windows.Input;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contacts;
-using IdApp.Services;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.Contracts;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
+using IdApp.Services.ThingRegistries;
+using IdApp.Services.Wallet;
 
 namespace IdApp.Pages.Main.Main
 {

@@ -1,4 +1,4 @@
-﻿using IdApp.Services;
+﻿using IdApp.Services.Tag;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration

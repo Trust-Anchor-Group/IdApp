@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Services;
-using Waher.Runtime.Inventory;
+using IdApp.Services.EventLog;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using IdApp;
-using IdApp.Services;
+using IdApp.Services.EventLog;
+using IdApp.Services.Settings;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;

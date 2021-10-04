@@ -1,5 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using IdApp.Services;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.EventLog;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 

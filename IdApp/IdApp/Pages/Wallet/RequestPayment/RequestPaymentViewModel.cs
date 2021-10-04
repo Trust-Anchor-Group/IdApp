@@ -3,8 +3,10 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp;
-using IdApp.Services;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 using Waher.Content;
 using Xamarin.Forms;
 

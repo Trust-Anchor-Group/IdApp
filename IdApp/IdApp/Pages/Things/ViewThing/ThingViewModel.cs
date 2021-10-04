@@ -3,11 +3,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp;
 using IdApp.Services;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Things.ViewThing

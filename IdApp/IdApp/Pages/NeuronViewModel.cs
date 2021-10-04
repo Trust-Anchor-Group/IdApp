@@ -1,9 +1,9 @@
 ﻿using IdApp.Extensions;
 using System.Threading.Tasks;
-using IdApp;
-using IdApp.Services;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages
 {

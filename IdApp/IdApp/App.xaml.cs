@@ -38,6 +38,10 @@ using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.Contracts;
+using IdApp.Services.ThingRegistries;
+using IdApp.Services.Wallet;
 
 namespace IdApp
 {

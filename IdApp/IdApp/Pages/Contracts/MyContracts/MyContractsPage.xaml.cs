@@ -1,7 +1,6 @@
 ﻿using System;
 using IdApp.Pages.Contracts.MyContracts.ObjectModel;
-using IdApp.Services;
-using Waher.Runtime.Inventory;
+using IdApp.Services.Navigation;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

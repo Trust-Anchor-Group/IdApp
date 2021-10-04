@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using IdApp.Services;
+﻿using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Contracts.NewContract

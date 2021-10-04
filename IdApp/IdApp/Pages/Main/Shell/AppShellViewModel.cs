@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
 using IdApp.Extensions;
-using IdApp;
-using IdApp.Services;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Main.Shell
 {

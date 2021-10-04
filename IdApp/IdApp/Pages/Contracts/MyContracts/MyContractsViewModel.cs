@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using IdApp.Pages.Contracts.MyContracts.ObjectModel;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
-using IdApp;
-using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Contracts.MyContracts
 {
@@ -191,12 +193,12 @@ namespace IdApp.Pages.Contracts.MyContracts
 						if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
 						{
 							viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
-								nameof(Pages.Contracts.NewContract.NewContractPage), new NewContractNavigationArgs(contract)));
+								nameof(NewContractPage), new NewContractNavigationArgs(contract)));
 						}
 						else
 						{
 							viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
-								nameof(Pages.Contracts.ViewContract.ViewContractPage), new ViewContractNavigationArgs(contract, false)));
+								nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
 						}
 					}
 				});

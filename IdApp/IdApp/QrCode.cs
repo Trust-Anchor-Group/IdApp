@@ -2,7 +2,12 @@
 using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Main.ScanQrCode;
-using IdApp.Services;
+using IdApp.Services.Contracts;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.ThingRegistries;
+using IdApp.Services.Wallet;
 using SkiaSharp;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;

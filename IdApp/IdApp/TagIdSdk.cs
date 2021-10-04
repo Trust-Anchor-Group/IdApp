@@ -1,6 +1,13 @@
 ﻿using System;
 using System.Reflection;
-using IdApp.Services;
+using IdApp.Services.Crypto;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Settings;
+using IdApp.Services.Storage;
+using IdApp.Services.Tag;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Xamarin.Forms;

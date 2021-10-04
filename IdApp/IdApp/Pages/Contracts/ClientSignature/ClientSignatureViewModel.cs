@@ -3,9 +3,9 @@ using System.Globalization;
 using System.Threading.Tasks;
 using IdApp.Pages.Identity.PetitionIdentity;
 using IdApp.Extensions;
-using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Contracts.ClientSignature
 {

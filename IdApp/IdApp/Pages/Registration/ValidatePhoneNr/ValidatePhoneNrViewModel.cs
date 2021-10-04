@@ -4,12 +4,14 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Pages.Main.Main;
-using IdApp.Pages.Registration.Registration;
-using IdApp;
-using IdApp.Services;
 using Waher.Content;
 using Xamarin.Forms;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Settings;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Registration.ValidatePhoneNr
 {

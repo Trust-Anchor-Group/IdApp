@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using IdApp;
-using IdApp.Services;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.AccountEvent

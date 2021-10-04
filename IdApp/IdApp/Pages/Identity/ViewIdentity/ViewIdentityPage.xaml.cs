@@ -1,6 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using IdApp.Services;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
+using IdApp.Services.Wallet;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Identity.ViewIdentity

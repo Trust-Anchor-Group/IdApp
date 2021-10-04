@@ -2,11 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp;
-using IdApp.Services;
 using IdApp.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
 
 namespace IdApp.Pages.Contracts.PetitionContract
 {

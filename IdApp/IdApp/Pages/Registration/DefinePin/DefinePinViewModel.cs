@@ -2,10 +2,13 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
-using IdApp;
-using IdApp.Services;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Settings;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Registration.DefinePin
 {

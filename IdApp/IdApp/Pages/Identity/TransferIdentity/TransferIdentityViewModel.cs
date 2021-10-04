@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using IdApp.Services;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Identity.TransferIdentity
@@ -11,9 +13,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 	/// </summary>
 	public class TransferIdentityViewModel : NeuronViewModel
 	{
-		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
-		private readonly INetworkService networkService;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="TransferIdentityViewModel"/> class.
@@ -22,14 +22,10 @@ namespace IdApp.Pages.Identity.TransferIdentity
 			ITagProfile tagProfile,
 			IUiDispatcher uiDispatcher,
 			INeuronService neuronService,
-			INavigationService navigationService,
-			INetworkService networkService,
-			ILogService logService)
+			INavigationService navigationService)
 		: base(neuronService, uiDispatcher, tagProfile)
 		{
-			this.logService = logService;
 			this.navigationService = navigationService;
-			this.networkService = networkService;
 		}
 
 		/// <inheritdoc/>

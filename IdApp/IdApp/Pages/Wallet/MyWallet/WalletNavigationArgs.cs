@@ -1,5 +1,5 @@
-﻿using IdApp.Services;
-using EDaler;
+﻿using EDaler;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Wallet.MyWallet
 {

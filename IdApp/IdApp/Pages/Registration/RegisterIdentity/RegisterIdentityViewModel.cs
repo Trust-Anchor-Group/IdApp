@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
 using IdApp.PersonalNumbers;
-using IdApp.Services;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.EventLog;
+using IdApp.Services.Contracts;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Settings;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {

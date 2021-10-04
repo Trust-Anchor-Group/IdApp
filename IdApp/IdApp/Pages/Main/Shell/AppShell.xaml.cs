@@ -1,7 +1,13 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-using IdApp.Services;
+using IdApp.Services.Contracts;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.ThingRegistries;
+using IdApp.Services.Wallet;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

@@ -2,7 +2,14 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Services;
+using IdApp.Services.AttachmentCache;
+using IdApp.Services.Crypto;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Settings;
+using IdApp.Services.Tag;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Command = Xamarin.Forms.Command;

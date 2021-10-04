@@ -1,4 +1,11 @@
-﻿using IdApp.Services;
+﻿using IdApp.Services.Contracts;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
+using IdApp.Services.ThingRegistries;
+using IdApp.Services.Wallet;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.MyWallet

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using IdApp.Pages.Things.ViewThing;
-using IdApp;
 using IdApp.Services;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Xamarin.Forms;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
 
 namespace IdApp.Pages.Things.MyThings
 {

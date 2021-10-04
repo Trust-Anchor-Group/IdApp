@@ -1,10 +1,11 @@
 ﻿using IdApp.Extensions;
 using System.Threading.Tasks;
-using IdApp;
 using IdApp.Services;
 using Waher.Networking.XMPP;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Main.Loading
 {

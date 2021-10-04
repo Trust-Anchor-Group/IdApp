@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Services;
+using IdApp.Services.Navigation;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.ScanQrCode

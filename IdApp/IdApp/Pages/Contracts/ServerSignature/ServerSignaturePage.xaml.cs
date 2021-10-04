@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
-using IdApp.Services;
-using Waher.Runtime.Inventory;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Contracts.ServerSignature
 {

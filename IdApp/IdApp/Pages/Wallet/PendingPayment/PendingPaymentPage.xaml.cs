@@ -1,7 +1,9 @@
 ﻿using System.Threading.Tasks;
-using IdApp;
-using IdApp.Services;
-using Waher.Runtime.Inventory;
+using IdApp.Services.EventLog;
+using IdApp.Services.Navigation;
+using IdApp.Services.Network;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

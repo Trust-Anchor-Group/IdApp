@@ -1,8 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
-using IdApp.Services;
+using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
-using Waher.Runtime.Inventory;
 
 namespace IdApp.Pages.Identity.PetitionIdentity
 {

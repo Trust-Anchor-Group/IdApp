@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using IdApp;
-using IdApp.Services;
+using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 

@@ -186,4 +186,8 @@
       <DependentUpon>IssueEDalerPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\Identities\" />
+  </ItemGroup>
 </Project>

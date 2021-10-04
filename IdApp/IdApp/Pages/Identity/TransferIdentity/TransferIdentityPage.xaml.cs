@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using IdApp.Services;
-using Waher.Networking.XMPP.Contracts;
+using IdApp.Services.Navigation;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Identity.TransferIdentity
 {
@@ -23,9 +24,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
                 App.Instantiate<ITagProfile>(),
                 App.Instantiate<IUiDispatcher>(),
                 App.Instantiate<INeuronService>(),
-                this.navigationService ?? App.Instantiate<INavigationService>(),
-                App.Instantiate<INetworkService>(),
-                App.Instantiate<ILogService>());
+                this.navigationService ?? App.Instantiate<INavigationService>());
             InitializeComponent();
         }
 
