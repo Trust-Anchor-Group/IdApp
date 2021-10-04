@@ -1,5 +1,6 @@
 ﻿using IdApp.Services.Crypto;
 using IdApp.Services.EventLog;
+using IdApp.Services.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;

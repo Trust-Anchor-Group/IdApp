@@ -7,6 +7,7 @@ using IdApp.Services.Neuron;
 using IdApp.Services.Settings;
 using IdApp.Services.Storage;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Xamarin.Forms;

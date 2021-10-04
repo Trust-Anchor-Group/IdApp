@@ -11,6 +11,7 @@ using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 
 namespace IdApp.Pages.Contracts.MyContracts
 {

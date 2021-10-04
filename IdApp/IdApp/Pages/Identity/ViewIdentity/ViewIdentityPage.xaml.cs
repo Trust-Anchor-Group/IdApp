@@ -6,6 +6,7 @@ using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using IdApp.Services.Wallet;
 using Waher.Networking.XMPP.Contracts;
 

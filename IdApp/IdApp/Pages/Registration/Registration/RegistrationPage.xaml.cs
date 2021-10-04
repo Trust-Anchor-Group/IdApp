@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

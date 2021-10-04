@@ -4,6 +4,7 @@ using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 
 namespace IdApp.Pages
 {

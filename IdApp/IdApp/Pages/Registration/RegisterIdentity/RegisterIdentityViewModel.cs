@@ -20,6 +20,7 @@ using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.Settings;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {

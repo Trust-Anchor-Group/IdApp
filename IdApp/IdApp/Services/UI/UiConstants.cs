@@ -1,4 +1,4 @@
-﻿namespace IdApp
+﻿namespace IdApp.Services.UI
 {
     /// <summary>
     /// Constant, reusable, immutable values related to the UI.

@@ -13,6 +13,7 @@ using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.Settings;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Waher.Content;
 using Waher.Content.Xml;
 using Waher.Networking.XMPP;

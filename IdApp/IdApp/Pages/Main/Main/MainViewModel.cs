@@ -20,6 +20,7 @@ using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
+using IdApp.Services.UI;
 
 namespace IdApp.Pages.Main.Main
 {

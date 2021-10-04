@@ -7,6 +7,7 @@ using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Waher.Content;
 using Xamarin.Forms;
 

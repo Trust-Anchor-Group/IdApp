@@ -10,6 +10,7 @@ using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.Settings;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Command = Xamarin.Forms.Command;

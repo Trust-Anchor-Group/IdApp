@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using IdApp.Services.Navigation;
+using IdApp.Services.UI;
 using Xamarin.Forms.Xaml;
 using ZXing;
 using ZXing.Mobile;

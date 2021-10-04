@@ -9,6 +9,7 @@ using IdApp.Services.AttachmentCache;
 using IdApp.Services.EventLog;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
+using IdApp.Services.UI;
 using Waher.Content.Images;
 using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP.Contracts;

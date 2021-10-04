@@ -5,6 +5,7 @@ using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Settings;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration

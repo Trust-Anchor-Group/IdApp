@@ -3,6 +3,7 @@ using IdApp.Services.AttachmentCache;
 using IdApp.Services.EventLog;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
+using IdApp.Services.UI;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 

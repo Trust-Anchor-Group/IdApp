@@ -7,6 +7,7 @@ using IdApp.Services.EventLog;
 using IdApp.Services.Neuron;
 using IdApp.Services.Settings;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;

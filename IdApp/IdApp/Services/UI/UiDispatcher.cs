@@ -6,7 +6,7 @@ using Waher.Events;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 
-namespace IdApp
+namespace IdApp.Services.UI
 {
     /// <inheritdoc/>
     [Singleton]

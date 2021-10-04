@@ -27,6 +27,7 @@ using IdApp.Services.Settings;
 using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
+using IdApp.Services.UI;
 
 namespace IdApp.Services.Neuron
 {

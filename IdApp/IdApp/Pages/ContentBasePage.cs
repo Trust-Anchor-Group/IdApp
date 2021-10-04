@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using IdApp.Services.EventLog;
 using IdApp.Services.Settings;
+using IdApp.Services.UI;
 using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;

@@ -1,4 +1,5 @@
 ﻿using IdApp.Services.EventLog;
+using IdApp.Services.UI;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

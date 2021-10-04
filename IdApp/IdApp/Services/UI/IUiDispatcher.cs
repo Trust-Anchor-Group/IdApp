@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 
-namespace IdApp
+namespace IdApp.Services.UI
 {
     /// <summary>
     /// A wafer-thin wrapper around the UI (main) thread.

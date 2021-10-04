@@ -19,6 +19,7 @@ using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
