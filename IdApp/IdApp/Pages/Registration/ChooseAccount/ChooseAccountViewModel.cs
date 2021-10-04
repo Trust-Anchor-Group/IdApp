@@ -80,7 +80,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				DomainName = this.TagProfile.Domain;
 			});
@@ -150,7 +150,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			if (!this.networkService.IsOnline)
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
 				return;
 			}
 
@@ -161,7 +161,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			{
 				bool succeeded = await Method();
 
-				UiDispatcher.BeginInvokeOnMainThread(() =>
+				this.UiSerializer.BeginInvokeOnMainThread(() =>
 				{
 					if (MakeBusy)
 						SetIsDone(CreateNewCommand, ScanQrCodeCommand);
@@ -173,7 +173,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 			finally
 			{
@@ -219,14 +219,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				if (succeeded)
 					return true;
 
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
 				string userMessage = string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain);
 				string message = $"{userMessage}{Environment.NewLine}({ex.Message})";
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, message, AppResources.Ok);
 			}
 
 			return false;
@@ -250,14 +250,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 			if (string.Compare(Scheme, Constants.UriSchemes.UriSchemeOnboarding, true) != 0)
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NotAnInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NotAnInvitationCode, AppResources.Ok);
 				return false;
 			}
 
 			string[] Parts = URI.Split(':');
 			if (Parts.Length != 5)
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
 				return false;
 			}
 
@@ -275,7 +275,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
 				return false;
 			}
 
@@ -294,7 +294,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToAccessInvitation, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToAccessInvitation, AppResources.Ok);
 					return false;
 				}
 
@@ -345,7 +345,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								await this.SelectDomain(Domain, KeyStr, Secret);
 								
-								await this.UiDispatcher.DisplayAlert(AppResources.InvitationAccepted, 
+								await this.UiSerializer.DisplayAlert(AppResources.InvitationAccepted, 
 									string.Format(AppResources.InvitedToCreateAccountOnDomain, Domain), AppResources.Ok);
 								break;
 
@@ -390,7 +390,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					if (Done)
 					{
-						UiDispatcher.BeginInvokeOnMainThread(() =>
+						this.UiSerializer.BeginInvokeOnMainThread(() =>
 						{
 							SetIsDone(CreateNewCommand, ScanQrCodeCommand);
 
@@ -401,7 +401,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				catch (Exception ex)
 				{
 					this.LogService.LogException(ex);
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.InvalidInvitationCode, AppResources.Ok);
 					return false;
 				}
 			}
@@ -491,14 +491,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					typeof(App).Assembly, OnConnected);
 
 				if (!succeeded)
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, errorMessage, AppResources.Ok);
 
 				return succeeded;
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain), AppResources.Ok);
 			}
 
 			return false;

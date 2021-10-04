@@ -77,7 +77,7 @@ namespace IdApp.Pages.Main.Loading
 		/// <inheritdoc/>
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() => SetConnectionStateAndText(e.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(e.State));
 		}
 
 		/// <inheritdoc/>
@@ -95,7 +95,7 @@ namespace IdApp.Pages.Main.Loading
 			{
 				this.IsBusy = false;
 
-				this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					if (this.TagProfile.IsComplete())
 						await this.navigationService.GoToAsync($"///{nameof(Main.MainPage)}");

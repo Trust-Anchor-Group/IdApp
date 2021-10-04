@@ -273,6 +273,9 @@
   <data name="Confirm" xml:space="preserve">
     <value>Bekräfta</value>
   </data>
+  <data name="ConfirmByEnteringYourPin" xml:space="preserve">
+    <value>Bekräfta genom att ange ditt PIN-nummer.</value>
+  </data>
   <data name="Connect" xml:space="preserve">
     <value>Anslut</value>
   </data>

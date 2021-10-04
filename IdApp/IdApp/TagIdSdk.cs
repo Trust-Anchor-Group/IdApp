@@ -40,20 +40,20 @@ namespace IdApp
 
 			this.TagProfile = Types.InstantiateDefault<ITagProfile>(false);
 			this.LogService = Types.InstantiateDefault<ILogService>(false);
-			this.UiDispatcher = Types.InstantiateDefault<IUiSerializer>(false);
+			this.UiSerializer = Types.InstantiateDefault<IUiSerializer>(false);
 			this.CryptoService = Types.InstantiateDefault<ICryptoService>(false, this.LogService);
-			this.NetworkService = Types.InstantiateDefault<INetworkService>(false, this.LogService, this.UiDispatcher);
-			this.StorageService = Types.InstantiateDefault<IStorageService>(false, this.LogService, this.CryptoService, this.UiDispatcher);
+			this.NetworkService = Types.InstantiateDefault<INetworkService>(false, this.LogService, this.UiSerializer);
+			this.StorageService = Types.InstantiateDefault<IStorageService>(false, this.LogService, this.CryptoService, this.UiSerializer);
 			this.SettingsService = Types.InstantiateDefault<ISettingsService>(false, this.StorageService, this.LogService);
-			this.NavigationService = Types.InstantiateDefault<INavigationService>(false, this.LogService, this.UiDispatcher);
-			this.NeuronService = Types.InstantiateDefault<INeuronService>(false, appAssembly, this.TagProfile, this.UiDispatcher, this.NetworkService, this.LogService, this.SettingsService, startupProfiler);
+			this.NavigationService = Types.InstantiateDefault<INavigationService>(false, this.LogService, this.UiSerializer);
+			this.NeuronService = Types.InstantiateDefault<INeuronService>(false, appAssembly, this.TagProfile, this.UiSerializer, this.NetworkService, this.LogService, this.SettingsService, startupProfiler);
 		}
 
 		/// <inheritdoc/>
 		public ITagProfile TagProfile { get; }
 
 		/// <inheritdoc/>
-		public IUiSerializer UiDispatcher { get; }
+		public IUiSerializer UiSerializer { get; }
 
 		/// <inheritdoc/>
 		public ICryptoService CryptoService { get; }

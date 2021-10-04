@@ -215,7 +215,7 @@ namespace IdApp.Pages.Registration.DefinePin
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            UiDispatcher.BeginInvokeOnMainThread(() =>
+            this.UiSerializer.BeginInvokeOnMainThread(() =>
             {
                 AssignProperties(e.State);
             });
@@ -254,12 +254,12 @@ namespace IdApp.Pages.Registration.DefinePin
 
             if (pinToCheck.Length < Constants.Authentication.MinPinLength)
             {
-                this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
+                this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.PinTooShort, Constants.Authentication.MinPinLength));
                 return;
             }
             if (pinToCheck.Trim() != pinToCheck)
             {
-                this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
+                this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinMustNotIncludeWhitespace);
                 return;
             }
 

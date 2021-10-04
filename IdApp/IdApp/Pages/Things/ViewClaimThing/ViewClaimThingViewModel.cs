@@ -93,7 +93,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <inheritdoc/>
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(e.State);
 				this.EvaluateAllCommands();
@@ -102,7 +102,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
 		#region Properties
@@ -191,7 +191,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		private Task LabelClicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiDispatcher, this.logService);
+				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.logService);
 			else
 				return Task.CompletedTask;
 		}
@@ -286,7 +286,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 			{
 				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
 				}
 
@@ -336,13 +336,13 @@ namespace IdApp.Pages.Things.ViewClaimThing
 					if (string.IsNullOrEmpty(Msg))
 						Msg = AppResources.UnableToClaimThing;
 
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, Msg);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, Msg);
 				}
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

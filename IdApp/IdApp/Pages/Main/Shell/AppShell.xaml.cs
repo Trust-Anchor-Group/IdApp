@@ -53,7 +53,7 @@ namespace IdApp.Pages.Main.Shell
 		/// <summary>
 		/// Current UI Dispatcher Service
 		/// </summary>
-		public IUiSerializer UiDispatcher => App.Instantiate<IUiSerializer>();
+		public IUiSerializer UiSerializer => App.Instantiate<IUiSerializer>();
 
 		/// <summary>
 		/// Current Contract Orchestrator Service
@@ -148,7 +148,7 @@ namespace IdApp.Pages.Main.Shell
 		internal async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
 		{
             await QrCode.ScanQrCodeAndHandleResult(this.LogService, this.NeuronService, this.NavigationService,
-                this.UiDispatcher, this.ContractOrchestratorService, this.ThingRegistryOrchestratorService,
+                this.UiSerializer, this.ContractOrchestratorService, this.ThingRegistryOrchestratorService,
 				this.EDalerOrchestratorService);
 		}
 
@@ -185,7 +185,7 @@ namespace IdApp.Pages.Main.Shell
 		{
 			Current.FlyoutIsPresented = false;
 			// Break the call chain by 'posting' to the main thread, allowing the fly out menu to hide before initiating the login/out.
-			this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				await App.Stop();
 			});
@@ -194,7 +194,7 @@ namespace IdApp.Pages.Main.Shell
 		private void AboutMenuItem_Clicked(object sender, EventArgs e)
 		{
 			Current.FlyoutIsPresented = false;
-			this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				StringBuilder sb = new StringBuilder();
 				sb.AppendLine($"Name: {AppInfo.Name}");
@@ -202,7 +202,7 @@ namespace IdApp.Pages.Main.Shell
 				sb.AppendLine($"Platform: {Device.RuntimePlatform}");
 				sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
 				sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
-				await this.UiDispatcher.DisplayAlert(AppResources.About, sb.ToString());
+				await this.UiSerializer.DisplayAlert(AppResources.About, sb.ToString());
 			});
 		}
 

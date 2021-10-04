@@ -529,6 +529,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm by entering your PIN number..
+        /// </summary>
+        internal static string ConfirmByEnteringYourPin {
+            get {
+                return ResourceManager.GetString("ConfirmByEnteringYourPin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connect.
         /// </summary>
         internal static string Connect {

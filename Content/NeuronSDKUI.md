@@ -82,10 +82,14 @@ as well as the `SaveState`/`RestoreState` methods.
 
 ## A Note on ViewModels ##
 
-Viewmodels are inherently UI specific. They serve the UI, and they operate mostly in UI land, i.e. on the main thread. For this reason, and to make xaml binding as easy
-and smooth as possible, they inherit from the [`BindableObject`](https://docs.microsoft.com/en-us/dotnet/api/xamarin.forms.bindableobject?view=xamarin-forms).
-This makes it super-easy to create Bindable properties, which is neccessary to get bindings to [Behaviors](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/behaviors/), animations and the [Visual State Manager](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/visual-state-manager) to work.
-Just becaue they are UI centric doesn't mean you can execute code on a background thread. Just make sure you marshal back to the main thread when done. Use the [`IUiDispatcher`](../IdApp/IUiDispatcher.cs) for this.
+Viewmodels are inherently UI specific. They serve the UI, and they operate mostly in UI land, i.e. on the main thread. For this reason, 
+and to make xaml binding as easy and smooth as possible, they inherit from the 
+[`BindableObject`](https://docs.microsoft.com/en-us/dotnet/api/xamarin.forms.bindableobject?view=xamarin-forms).
+This makes it super-easy to create Bindable properties, which is neccessary to get bindings to 
+[Behaviors](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/behaviors/), animations and the 
+[Visual State Manager](https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/visual-state-manager) to work.
+Just becaue they are UI centric doesn't mean you can execute code on a background thread. Just make sure you marshal back to the main thread 
+when done. Use the [`IUiSerializer`](../IdApp/IUiSerializer.cs) for this.
 
 ## Adding Business Logic ##
 

@@ -36,9 +36,9 @@ The [TagProfile](../IdApp/Services/ITagProfile.cs) is the user profile, which ho
 This is a very central class, and the user profile can be built/completed in several steps, adding more information for each step. This is done during the registration phase,
 [read more about it here](CreatingATAGProfile.md).
 
-### UiDispatcher ###
+### UiSerializer ###
 
-The [UiDispatcher](../IdApp/IUiDispatcher.cs) provides access to the main thread. The `UiDispatcher` is mainly used for two things:
+The [UiSerializer](../IdApp/IUiSerializer.cs) provides access to the main thread. The `UiSerializer` is mainly used for two things:
 
 1. Doing a `BeginInvoke` (i.e. marshalling) on the main thread, and
 2. Displaying alerts to the user.

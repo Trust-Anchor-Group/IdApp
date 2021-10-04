@@ -22,15 +22,17 @@ namespace IdApp.Services.UI
         /// </summary>
         bool IsRunningInTheBackground { get; set; }
 
-        /// <summary>
-        /// Displays an alert/message box to the user.
-        /// </summary>
-        /// <param name="title">The title to display.</param>
-        /// <param name="message">The message to display.</param>
-        /// <param name="accept">The accept/ok button text.</param>
-        /// <param name="cancel">The cancel button text.</param>
-        /// <returns>If Accept or Cancel was pressed</returns>
-        Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
+		#region DisplayAlert
+
+		/// <summary>
+		/// Displays an alert/message box to the user.
+		/// </summary>
+		/// <param name="title">The title to display.</param>
+		/// <param name="message">The message to display.</param>
+		/// <param name="accept">The accept/ok button text.</param>
+		/// <param name="cancel">The cancel button text.</param>
+		/// <returns>If Accept or Cancel was pressed</returns>
+		Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
         
         /// <summary>
         /// Displays an alert/message box to the user.
@@ -67,5 +69,38 @@ namespace IdApp.Services.UI
         /// </summary>
         /// <param name="exception">The exception to display.</param>
         Task DisplayAlert(Exception exception);
+
+        #endregion
+
+        #region DisplayPrompt
+
+        /// <summary>
+        /// Prompts the user for some input.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="message">The message to display.</param>
+        /// <param name="accept">The accept/ok button text.</param>
+        /// <param name="cancel">The cancel button text.</param>
+        /// <returns>User input</returns>
+        Task<string> DisplayPrompt(string title, string message, string accept, string cancel);
+
+        /// <summary>
+        /// Prompts the user for some input.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="message">The message to display.</param>
+        /// <param name="accept">The accept/ok button text.</param>
+        /// <returns>User input</returns>
+        Task<string> DisplayPrompt(string title, string message, string accept);
+
+        /// <summary>
+        /// Prompts the user for some input.
+        /// </summary>
+        /// <param name="title">The title to display.</param>
+        /// <param name="message">The message to display.</param>
+        /// <returns>User input</returns>
+        Task<string> DisplayPrompt(string title, string message);
+
+        #endregion
     }
 }

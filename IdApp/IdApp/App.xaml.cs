@@ -189,9 +189,9 @@ namespace IdApp
 			this.sdk = Types.InstantiateDefault<ITagIdSdk>(false, appAssembly, this.startupProfiler);
 
 			this.attachmentCacheService = Types.InstantiateDefault<IAttachmentCacheService>(false, this.sdk.LogService);
-			this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
-			this.thingRegistryOrchestratorService = Types.InstantiateDefault<IThingRegistryOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
-			this.eDalerOrchestratorService = Types.InstantiateDefault<IEDalerOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiDispatcher, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+			this.contractOrchestratorService = Types.InstantiateDefault<IContractOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiSerializer, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
+			this.thingRegistryOrchestratorService = Types.InstantiateDefault<IThingRegistryOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiSerializer, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService);
+			this.eDalerOrchestratorService = Types.InstantiateDefault<IEDalerOrchestratorService>(false, this.sdk.TagProfile, this.sdk.UiSerializer, this.sdk.NeuronService, this.sdk.NavigationService, this.sdk.LogService, this.sdk.NetworkService, this.sdk.SettingsService);
 
 			defaultInstantiatedSource.TrySetResult(true);
 			defaultInstantiated = true;
@@ -264,7 +264,7 @@ namespace IdApp
 				await this.SendErrorReportFromPreviousRun();
 
 				Thread?.NewState("Startup");
-				this.sdk.UiDispatcher.IsRunningInTheBackground = false;
+				this.sdk.UiSerializer.IsRunningInTheBackground = false;
 
 				// Start the db.
 				// This is for soft restarts.
@@ -337,8 +337,8 @@ namespace IdApp
 		{
 			StopAutoSaveTimer();
 
-			if (!(this.sdk?.UiDispatcher is null))
-				this.sdk.UiDispatcher.IsRunningInTheBackground = !inPanic;
+			if (!(this.sdk?.UiSerializer is null))
+				this.sdk.UiSerializer.IsRunningInTheBackground = !inPanic;
 
 			if (inPanic)
 			{

@@ -1320,4 +1320,7 @@
   <data name="TransferIdentityInformationText" xml:space="preserve">
     <value>Scan the QR invitation code below from a device that is being initialized, to transfer the Digital Identity on this device to the second device. Once the code is scanned and the identity transferred, it will be removed from this device.</value>
   </data>
+  <data name="ConfirmByEnteringYourPin" xml:space="preserve">
+    <value>Confirm by entering your PIN number.</value>
+  </data>
 </root>

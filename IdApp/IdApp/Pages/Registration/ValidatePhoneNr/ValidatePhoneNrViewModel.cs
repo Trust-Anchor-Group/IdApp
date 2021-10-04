@@ -250,7 +250,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		{
 			if (!this.networkService.IsOnline)
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
 				return;
 			}
 
@@ -275,7 +275,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 			finally
 			{
@@ -295,7 +295,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		{
 			if (!this.networkService.IsOnline)
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
 				return;
 			}
 
@@ -331,7 +331,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 						DefaultConnectivity = false;
 					}
 
-					UiDispatcher.BeginInvokeOnMainThread(() =>
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
 						this.SetIsDone(VerifyCodeCommand);
 
@@ -344,13 +344,13 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 					this.CodeSent = false;
 					this.VerificationCode = string.Empty;
 
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToVerifyCode, AppResources.Ok);
 				}
 			}
 			catch (Exception ex)
 			{
 				this.LogService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 			finally
 			{

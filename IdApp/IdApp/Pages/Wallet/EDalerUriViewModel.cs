@@ -146,7 +146,7 @@ namespace IdApp.Pages.Wallet
 		/// <inheritdoc/>
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(e.State);
 				this.EvaluateAllCommands();
@@ -155,7 +155,7 @@ namespace IdApp.Pages.Wallet
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
 		#region Properties
@@ -818,12 +818,12 @@ namespace IdApp.Pages.Wallet
 					return;
 
 				await Clipboard.SetTextAsync(Value);
-				await UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
 			}
 			catch (Exception ex)
 			{
 				logService.LogException(ex);
-				await UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -833,7 +833,7 @@ namespace IdApp.Pages.Wallet
 			{
 				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
 				}
 
@@ -841,15 +841,15 @@ namespace IdApp.Pages.Wallet
 				if (succeeded)
 				{
 					await this.navigationService.GoBackAsync();
-					await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.TransactionAccepted);
+					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TransactionAccepted);
 				}
 				else
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -859,13 +859,13 @@ namespace IdApp.Pages.Wallet
 			{
 				if (!this.NotPaid)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
 					return;
 				}
 
 				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
 				}
 
@@ -893,12 +893,12 @@ namespace IdApp.Pages.Wallet
 				if (succeeded)
 				{
 					await this.navigationService.GoBackAsync();
-					await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
 				}
 				else
 				{
 					this.NotPaid = true;
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
 					this.EvaluateCommands(this.PayOnlineCommand);
 				}
 			}
@@ -906,7 +906,7 @@ namespace IdApp.Pages.Wallet
 			{
 				this.NotPaid = true;
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 				this.EvaluateCommands(this.PayOnlineCommand);
 			}
 		}
@@ -915,7 +915,7 @@ namespace IdApp.Pages.Wallet
 		{
 			if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 				return;
 			}
 
@@ -943,7 +943,7 @@ namespace IdApp.Pages.Wallet
 
 				if (this.IsBound)
 				{
-					this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
 						this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 						this.QrCodeWidth = 300;
@@ -960,7 +960,7 @@ namespace IdApp.Pages.Wallet
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -984,7 +984,7 @@ namespace IdApp.Pages.Wallet
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -994,7 +994,7 @@ namespace IdApp.Pages.Wallet
 			{
 				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
 				}
 
@@ -1002,15 +1002,15 @@ namespace IdApp.Pages.Wallet
 				if (succeeded)
 				{
 					await this.navigationService.GoBackAsync();
-					await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
+					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
 				}
 				else
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -1018,7 +1018,7 @@ namespace IdApp.Pages.Wallet
 		{
 			if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 				return;
 			}
 
@@ -1029,7 +1029,7 @@ namespace IdApp.Pages.Wallet
 
 				if (this.IsBound)
 				{
-					this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+					this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
 						this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 						this.QrCodeWidth = 300;
@@ -1046,7 +1046,7 @@ namespace IdApp.Pages.Wallet
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

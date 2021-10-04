@@ -70,7 +70,7 @@ namespace IdApp.Pages.Main.Main
 			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? App.Instantiate<IThingRegistryOrchestratorService>();
 			this.eDalerOrchestratorService = eDalerOrchestratorService ?? App.Instantiate<IEDalerOrchestratorService>();
 
-			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
+			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiSerializer,
 				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
 
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
@@ -132,7 +132,7 @@ namespace IdApp.Pages.Main.Main
 
 					if (this.IsBound)
 					{
-						this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin)));
+						this.UiSerializer.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin)));
 					}
 				});
 
@@ -148,7 +148,7 @@ namespace IdApp.Pages.Main.Main
 						catch (Exception ex)
 						{
 							this.logService.LogException(ex);
-							await this.UiDispatcher.DisplayAlert(ex);
+							await this.UiSerializer.DisplayAlert(ex);
 						}
 					});
 				}
@@ -179,7 +179,7 @@ namespace IdApp.Pages.Main.Main
 
 				if (Bin != null)
 				{
-					this.UiDispatcher.BeginInvokeOnMainThread(() =>
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
 						if (this.IsBound)
 						{
@@ -645,7 +645,7 @@ namespace IdApp.Pages.Main.Main
 		private async Task ScanQrCode()
 		{
 			await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
-				this.UiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
+				this.UiSerializer, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
 				this.eDalerOrchestratorService);
 		}
 
@@ -668,7 +668,7 @@ namespace IdApp.Pages.Main.Main
 		/// <inheritdoc />
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(e.State);
 			});
@@ -676,7 +676,7 @@ namespace IdApp.Pages.Main.Main
 
 		private void Contracts_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(this.NeuronService.State);
 			});
@@ -684,7 +684,7 @@ namespace IdApp.Pages.Main.Main
 
 		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() => SetConnectionStateAndText(this.NeuronService.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(this.NeuronService.State));
 		}
 
 		/// <inheritdoc/>
@@ -746,7 +746,7 @@ namespace IdApp.Pages.Main.Main
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -765,7 +765,7 @@ namespace IdApp.Pages.Main.Main
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 	}

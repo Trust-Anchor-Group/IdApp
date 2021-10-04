@@ -32,7 +32,7 @@ namespace IdApp
         /// <summary>
         /// A UI dispatcher for accessing the UI thread as well as display alerts to the user.
         /// </summary>
-        IUiSerializer UiDispatcher { get; }
+        IUiSerializer UiSerializer { get; }
 
         /// <summary>
         /// Provides authorization services.

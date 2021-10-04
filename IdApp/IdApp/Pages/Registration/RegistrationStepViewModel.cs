@@ -40,7 +40,7 @@ namespace IdApp.Pages.Registration
             ILogService logService)
         {
             this.Step = step;
-            this.UiDispatcher = uiDispatcher;
+            this.UiSerializer = uiDispatcher;
             this.TagProfile = tagProfile;
             this.NeuronService = neuronService;
             this.NavigationService = navigationService;
@@ -73,7 +73,7 @@ namespace IdApp.Pages.Registration
         /// <summary>
         /// The <see cref="IUiSerializer"/> instance.
         /// </summary>
-        protected IUiSerializer UiDispatcher { get; }
+        protected IUiSerializer UiSerializer { get; }
 
         /// <summary>
         /// The <see cref="ITagProfile"/> instance to edit.
@@ -126,7 +126,7 @@ namespace IdApp.Pages.Registration
         /// <param name="commands">The commands to re-evaluate.</param>
         protected void BeginInvokeSetIsDone(params ICommand[] commands)
         {
-            UiDispatcher.BeginInvokeOnMainThread(() => SetIsDone(commands));
+            this.UiSerializer.BeginInvokeOnMainThread(() => SetIsDone(commands));
         }
     }
 }

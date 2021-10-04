@@ -63,7 +63,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.eDalerService = EDalerService;
 			this.attachmentCacheService = attachmentCacheService;
 			this.Photos = new ObservableCollection<Photo>();
-			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiDispatcher,
+			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiSerializer,
 				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
 
 			this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
@@ -280,7 +280,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					byte[] bytes = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
 					if (this.IsBound)
 					{
-						this.UiDispatcher.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
+						this.UiSerializer.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
 					}
 				});
 			}
@@ -303,12 +303,12 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			try
 			{
 				await Clipboard.SetTextAsync($"iotid:{LegalId}");
-				await UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.IdCopiedSuccessfully);
 			}
 			catch (Exception ex)
 			{
 				logService.LogException(ex);
-				await UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -321,7 +321,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// <inheritdoc/>
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				this.SetConnectionStateAndText(e.State);
 				this.EvaluateAllCommands();
@@ -353,12 +353,12 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
 		private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.LegalIdentity = e.Identity;
 				AssignProperties();
@@ -1282,25 +1282,25 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					(!string.IsNullOrEmpty(this.Region) && !this.RegionIsChecked) ||
 					(!string.IsNullOrEmpty(this.CountryCode) && !this.CountryCodeIsChecked))
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
+					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.PleaseReviewAndCheckAllCheckboxes);
 					return;
 				}
 
 				if (!this.CarefulReviewIsChecked)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
+					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToCheckCarefullyReviewed);
 					return;
 				}
 
 				if (!this.ApprovePiiIsChecked)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
+					await this.UiSerializer.DisplayAlert(AppResources.Incomplete, AppResources.YouNeedToApproveToAssociate);
 					return;
 				}
 
 				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
 				}
 
@@ -1321,7 +1321,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -1341,7 +1341,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -1352,7 +1352,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRevokeYourLegalIdentity, AppResources.Yes, AppResources.No))
+				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToRevokeYourLegalIdentity))
 					return;
 
 				(bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
@@ -1366,8 +1366,30 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private async Task<bool> AreYouSure(string Message)
+		{
+			if (this.TagProfile.UsePin)
+			{
+				Message += " " + AppResources.ConfirmByEnteringYourPin;
+
+				string Input = await this.UiSerializer.DisplayPrompt(AppResources.Confirm, Message, AppResources.Ok);
+				if (string.IsNullOrEmpty(Input))
+					return false;
+
+				if (this.TagProfile.ComputePinHash(Input)!=this.TagProfile.PinHash)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					return false;
+				}
+
+				return true;
+			}
+			else
+				return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);
 		}
 
 		private async Task Compromise()
@@ -1377,7 +1399,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized, AppResources.Yes, AppResources.No))
+				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized))
 					return;
 
 				(bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
@@ -1392,7 +1414,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -1463,7 +1485,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 			catch (Exception ex)
 			{
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -1471,7 +1493,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
+				if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToRemoveContact, AppResources.Yes, AppResources.Cancel))
 					return;
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
@@ -1493,7 +1515,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 			catch (Exception ex)
 			{
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -1513,7 +1535,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 			catch (Exception ex)
 			{
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -1524,7 +1546,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.UiDispatcher.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToTransferYourLegalIdentity, AppResources.Yes, AppResources.No))
+				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToTransferYourLegalIdentity))
 					return;
 
 				this.IsBusy = true;
@@ -1600,7 +1622,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

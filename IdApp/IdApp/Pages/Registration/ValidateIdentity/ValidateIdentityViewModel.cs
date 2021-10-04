@@ -526,14 +526,14 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(this.TagProfile.Step) || e.PropertyName == nameof(this.TagProfile.LegalIdentity))
-                UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
+                this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
             else
-                UiDispatcher.BeginInvokeOnMainThread(AssignBareJid);
+                this.UiSerializer.BeginInvokeOnMainThread(AssignBareJid);
         }
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+            this.UiSerializer.BeginInvokeOnMainThread(async () =>
             {
                 this.AssignBareJid();
                 this.SetConnectionStateAndText(e.State);
@@ -563,7 +563,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
-            UiDispatcher.BeginInvokeOnMainThread(() =>
+            this.UiSerializer.BeginInvokeOnMainThread(() =>
             {
                 this.LegalIdentity = e.Identity;
                 this.TagProfile.SetLegalIdentity(e.Identity);
@@ -577,7 +577,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
             if (!Constants.UriSchemes.StartsWithIdScheme(code))
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
                 return;
             }
 
@@ -585,7 +585,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 Constants.UriSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
 
             if (succeeded)
-                await this.UiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
+                await this.UiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);
         }
 
         private void Continue()

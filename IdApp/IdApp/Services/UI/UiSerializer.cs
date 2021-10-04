@@ -139,7 +139,7 @@ namespace IdApp.Services.UI
         }
 
         /// <inheritdoc/>
-        public Task DisplayPrompt(string title, string message, string accept)
+        public Task<string> DisplayPrompt(string title, string message, string accept)
         {
             DisplayPrompt Task = new DisplayPrompt(title, message, accept, null);
             this.AddTask(Task);
@@ -147,7 +147,7 @@ namespace IdApp.Services.UI
         }
 
         /// <inheritdoc/>
-        public Task DisplayPrompt(string title, string message)
+        public Task<string> DisplayPrompt(string title, string message)
         {
             DisplayPrompt Task = new DisplayPrompt(title, message, null, null);
             this.AddTask(Task);

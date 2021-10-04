@@ -426,7 +426,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
         private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            UiDispatcher.BeginInvokeOnMainThread(() =>
+            this.UiSerializer.BeginInvokeOnMainThread(() =>
             {
                 SetConnectionStateAndText(e.State);
                 RegisterCommand.ChangeCanExecute();
@@ -449,7 +449,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         {
             if (!this.NeuronService.Contracts.FileUploadIsSupported)
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+                await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
                 return;
             }
 
@@ -467,7 +467,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                 }
                 catch (Exception)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+                    await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
                     return;
                 }
 
@@ -479,7 +479,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                     }
                     catch (Exception ex)
                     {
-                        await this.UiDispatcher.DisplayAlert(ex);
+                        await this.UiSerializer.DisplayAlert(ex);
                     }
                 }
             }
@@ -495,7 +495,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                 }
                 catch (Exception)
                 {
-                    await this.UiDispatcher.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+                    await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
                     return;
                 }
 
@@ -507,7 +507,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                     }
                     catch (Exception ex)
                     {
-                        await this.UiDispatcher.DisplayAlert(ex);
+                        await this.UiSerializer.DisplayAlert(ex);
                     }
                 }
             }
@@ -517,7 +517,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         {
             if (!this.NeuronService.Contracts.FileUploadIsSupported)
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
+                await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
                 return;
             }
 
@@ -540,7 +540,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
             {
                 if (showAlert)
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+                    await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
 
                 return;
             }
@@ -583,7 +583,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             }
             catch (Exception ex)
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToLoadPhoto);
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToLoadPhoto);
                 this.LogService.LogException(ex);
                 return;
             }
@@ -618,9 +618,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
             {
                 if (string.IsNullOrWhiteSpace(personalNumberFormat))
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
+                    await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
                 else
-                    await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
+                    await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
             
                 return;
             }
@@ -630,25 +630,25 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportLegalIdentitiesAndSmartContracts);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportThingRegistries);
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportThingRegistries);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.ProvisioningJid))
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportProvisioningAndDecisionSupportForThings);
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.OperatorDoesNotSupportProvisioningAndDecisionSupportForThings);
                 return;
             }
 
             if (!this.NeuronService.IsOnline)
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
                 return;
             }
 
@@ -663,7 +663,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                 {
                     this.LegalIdentity = addedIdentity;
                     this.TagProfile.SetLegalIdentity(this.LegalIdentity);
-                    UiDispatcher.BeginInvokeOnMainThread(() =>
+                    this.UiSerializer.BeginInvokeOnMainThread(() =>
                     {
                         SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
                         OnStepCompleted(EventArgs.Empty);
@@ -673,7 +673,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             catch (Exception ex)
             {
                 this.LogService.LogException(ex);
-                await this.UiDispatcher.DisplayAlert(ex);
+                await this.UiSerializer.DisplayAlert(ex);
             }
             finally
             {
@@ -735,7 +735,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             if (string.IsNullOrWhiteSpace(this.FirstName?.Trim()))
             {
                 if (alertUser)
-                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAFirstName);
+                    await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAFirstName);
                 
                 return false;
             }
@@ -743,7 +743,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             if (string.IsNullOrWhiteSpace(this.LastNames?.Trim()))
             {
                 if (alertUser)
-                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideALastName);
+                    await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideALastName);
                 
                 return false;
             }
@@ -751,7 +751,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             if (string.IsNullOrWhiteSpace(this.PersonalNumber?.Trim()))
             {
                 if (alertUser)
-                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPersonalNumber);
+                    await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPersonalNumber);
                 
                 return false;
             }
@@ -759,14 +759,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             if (string.IsNullOrWhiteSpace(this.SelectedCountry))
             {
                 if (alertUser)
-                    await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideACountry);
+                    await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideACountry);
                 
                 return false;
             }
 
             if (this.photo is null && alertUser)
             {
-                await this.UiDispatcher.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
+                await this.UiSerializer.DisplayAlert(AppResources.InformationIsMissingOrInvalid, AppResources.YouNeedToProvideAPhoto);
 
                 return false;
             }
@@ -887,7 +887,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                                 if (!this.IsBound) // Page no longer on screen when download is done?
                                     return;
 
-                                this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+                                this.UiSerializer.BeginInvokeOnMainThread(async () =>
                                 {
                                     await this.AddPhoto(Bin, ContentType, Rotation, true, false);
                                 });

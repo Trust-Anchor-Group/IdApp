@@ -22,7 +22,7 @@ namespace IdApp.Pages
         protected NeuronViewModel(INeuronService neuronService, IUiSerializer uiDispatcher, ITagProfile tagProfile)
         {
             this.NeuronService = neuronService ?? App.Instantiate<INeuronService>();
-            this.UiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+            this.UiSerializer = uiDispatcher ?? App.Instantiate<IUiSerializer>();
             this.TagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
             this.StateSummaryText = AppResources.XmppState_Offline;
             this.ConnectionStateText = AppResources.XmppState_Offline;
@@ -50,7 +50,7 @@ namespace IdApp.Pages
         /// <summary>
         /// Gets the current <see cref="IUiSerializer"/>.
         /// </summary>
-        protected IUiSerializer UiDispatcher { get; }
+        protected IUiSerializer UiSerializer { get; }
 
         /// <summary>
         /// Gets the current <see cref="INeuronService"/>.
@@ -143,7 +143,7 @@ namespace IdApp.Pages
         /// <param name="e">The event args.</param>
         protected virtual void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
-            this.UiDispatcher.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
+            this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
         }
     }
 }

@@ -101,7 +101,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// <inheritdoc/>
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(e.State);
 				this.EvaluateAllCommands();
@@ -110,7 +110,7 @@ namespace IdApp.Pages.Things.ViewThing
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
 		#region Properties
@@ -184,7 +184,7 @@ namespace IdApp.Pages.Things.ViewThing
 		private Task LabelClicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiDispatcher, this.logService);
+				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.logService);
 			else
 				return Task.CompletedTask;
 		}
@@ -195,7 +195,7 @@ namespace IdApp.Pages.Things.ViewThing
 			{
 				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
-					await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
 				}
 
@@ -211,13 +211,13 @@ namespace IdApp.Pages.Things.ViewThing
 					await Database.Provider.Flush();
 				}
 
-				await this.UiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ThingDisowned);
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ThingDisowned);
 				await this.navigationService.GoBackAsync();
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

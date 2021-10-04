@@ -155,7 +155,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.NeuronService.Wallet.GetPendingPayments();
 				(EDaler.AccountEvent[] Events, bool More) = await this.NeuronService.Wallet.GetAccountEventsAsync(50);
 
-				this.UiDispatcher.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency, 
+				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency, 
 					PendingPayments, Events, More));
 			}
 			catch (Exception ex)
@@ -167,7 +167,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// <inheritdoc/>
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(e.State);
 				this.EvaluateAllCommands();
@@ -376,7 +376,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		private async Task ScanQrCode()
 		{
 			await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
-				this.UiDispatcher, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
+				this.UiSerializer, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
 				this.eDalerOrchestratorService);
 		}
 
@@ -398,7 +398,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 			if (!this.NeuronService.Wallet.TryParseEDalerUri(Item.Uri, out EDalerUri Uri, out string Reason))
 			{
-				await this.UiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
 				return;
 			}
 

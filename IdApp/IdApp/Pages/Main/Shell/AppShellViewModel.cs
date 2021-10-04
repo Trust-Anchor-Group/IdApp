@@ -64,7 +64,7 @@ namespace IdApp.Pages.Main.Shell
 		/// <summary>
 		/// Current UI Dispatcher Service
 		/// </summary>
-		public IUiSerializer UiDispatcher => App.Instantiate<IUiSerializer>();
+		public IUiSerializer UiSerializer => App.Instantiate<IUiSerializer>();
 
 		#region Properties
 
@@ -117,7 +117,7 @@ namespace IdApp.Pages.Main.Shell
 
 		private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.ConnectionStateText = e.State.ToDisplayText();
 				this.IsConnected = e.State == XmppState.Connected;
@@ -126,7 +126,7 @@ namespace IdApp.Pages.Main.Shell
 
 		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() => this.IsOnline = this.NetworkService.IsOnline);
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.IsOnline = this.NetworkService.IsOnline);
 		}
 	}
 }

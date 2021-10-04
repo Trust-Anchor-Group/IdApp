@@ -305,6 +305,11 @@
               Looks up a localized string similar to Confirm.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ConfirmByEnteringYourPin">
+            <summary>
+              Looks up a localized string similar to Confirm by entering your PIN number..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Connect">
             <summary>
               Looks up a localized string similar to Connect.
@@ -3059,7 +3064,7 @@
             The TAG Profile used for authentication/connection.
             </summary>
         </member>
-        <member name="P:IdApp.ITagIdSdk.UiDispatcher">
+        <member name="P:IdApp.ITagIdSdk.UiSerializer">
             <summary>
             A UI dispatcher for accessing the UI thread as well as display alerts to the user.
             </summary>
@@ -7297,7 +7302,7 @@
             Current Log Service
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.Shell.AppShell.UiDispatcher">
+        <member name="P:IdApp.Pages.Main.Shell.AppShell.UiSerializer">
             <summary>
             Current UI Dispatcher Service
             </summary>
@@ -7352,7 +7357,7 @@
             Current Network Service
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.UiDispatcher">
+        <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.UiSerializer">
             <summary>
             Current UI Dispatcher Service
             </summary>
@@ -7514,7 +7519,7 @@
         <member name="M:IdApp.Pages.NeuronViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.UiDispatcher">
+        <member name="P:IdApp.Pages.NeuronViewModel.UiSerializer">
             <summary>
             Gets the current <see cref="T:IdApp.Services.UI.IUiSerializer"/>.
             </summary>
@@ -8267,7 +8272,7 @@
             The current step for this view model instance.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.UiDispatcher">
+        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.UiSerializer">
             <summary>
             The <see cref="T:IdApp.Services.UI.IUiSerializer"/> instance.
             </summary>
@@ -13137,6 +13142,33 @@
             </summary>
             <param name="exception">The exception to display.</param>
         </member>
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayPrompt(System.String,System.String,System.String,System.String)">
+            <summary>
+            Prompts the user for some input.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="message">The message to display.</param>
+            <param name="accept">The accept/ok button text.</param>
+            <param name="cancel">The cancel button text.</param>
+            <returns>User input</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayPrompt(System.String,System.String,System.String)">
+            <summary>
+            Prompts the user for some input.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="message">The message to display.</param>
+            <param name="accept">The accept/ok button text.</param>
+            <returns>User input</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.IUiSerializer.DisplayPrompt(System.String,System.String)">
+            <summary>
+            Prompts the user for some input.
+            </summary>
+            <param name="title">The title to display.</param>
+            <param name="message">The message to display.</param>
+            <returns>User input</returns>
+        </member>
         <member name="T:IdApp.Services.UI.Tasks.DisplayAlert">
             <summary>
             Displays an alert message.
@@ -13659,7 +13691,7 @@
         <member name="P:IdApp.TagIdSdk.TagProfile">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.TagIdSdk.UiDispatcher">
+        <member name="P:IdApp.TagIdSdk.UiSerializer">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.TagIdSdk.CryptoService">

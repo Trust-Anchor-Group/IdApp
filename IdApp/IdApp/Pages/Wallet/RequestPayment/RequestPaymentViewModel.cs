@@ -85,7 +85,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// <inheritdoc/>
 		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(() =>
+			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
 				this.SetConnectionStateAndText(e.State);
 				this.EvaluateAllCommands();
@@ -94,7 +94,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 		private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
 		{
-			this.UiDispatcher.BeginInvokeOnMainThread(AssignProperties);
+			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
 		#region Properties
@@ -416,7 +416,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 			if (this.IsBound)
 			{
-				this.UiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					this.QrCode = ImageSource.FromStream(() => new MemoryStream(Bin));
 					this.QrCodeWidth = 300;
@@ -451,7 +451,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.UiDispatcher.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
