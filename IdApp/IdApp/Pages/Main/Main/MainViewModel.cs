@@ -125,16 +125,9 @@ namespace IdApp.Pages.Main.Main
 				else
 					this.Country = string.Empty;
 
-				_ = Task.Run(() =>
-				{
-					this.QrCodeBin = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
-					this.QrCodeContentType = "image/png";
-
-					if (this.IsBound)
-					{
-						this.UiSerializer.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin)));
-					}
-				});
+				this.QrCodeBin = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+				this.QrCodeContentType = "image/png";
+				this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin));
 
 				Attachment firstAttachment = this.TagProfile.LegalIdentity.Attachments?.GetFirstImageAttachment();
 				if (!(firstAttachment is null))

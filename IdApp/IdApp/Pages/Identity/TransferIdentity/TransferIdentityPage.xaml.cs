@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
@@ -25,7 +26,9 @@ namespace IdApp.Pages.Identity.TransferIdentity
                 App.Instantiate<ITagProfile>(),
                 App.Instantiate<IUiSerializer>(),
                 App.Instantiate<INeuronService>(),
-                this.navigationService ?? App.Instantiate<INavigationService>());
+                this.navigationService ?? App.Instantiate<INavigationService>(),
+                App.Instantiate<ILogService>());
+
             InitializeComponent();
         }
 

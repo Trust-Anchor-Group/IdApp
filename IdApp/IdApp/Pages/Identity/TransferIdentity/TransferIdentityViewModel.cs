@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
+using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
@@ -15,6 +17,8 @@ namespace IdApp.Pages.Identity.TransferIdentity
 	public class TransferIdentityViewModel : NeuronViewModel
 	{
 		private readonly INavigationService navigationService;
+		private readonly ILogService logService;
+		private Timer timer;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="TransferIdentityViewModel"/> class.
@@ -23,10 +27,12 @@ namespace IdApp.Pages.Identity.TransferIdentity
 			ITagProfile tagProfile,
 			IUiSerializer uiDispatcher,
 			INeuronService neuronService,
-			INavigationService navigationService)
+			INavigationService navigationService,
+			ILogService logService)
 		: base(neuronService, uiDispatcher, tagProfile)
 		{
 			this.navigationService = navigationService;
+			this.logService = logService;
 		}
 
 		/// <inheritdoc/>
@@ -42,6 +48,35 @@ namespace IdApp.Pages.Identity.TransferIdentity
 			this.QrCode = ImageSource.FromStream(() => new MemoryStream(Data));
 			this.QrCodeWidth = 400;
 			this.QrCodeHeight = 400;
+
+			this.timer = new Timer(this.Timeout, null, 60000, 60000);
+		}
+
+		private void Timeout(object P)
+		{
+			this.timer?.Dispose();
+			this.timer = null;
+
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				try
+				{
+					await this.navigationService.GoBackAsync();
+				}
+				catch (Exception ex)
+				{
+					this.logService.LogException(ex);
+				}
+			});
+		}
+
+		/// <inheritdoc/>
+		protected override Task DoUnbind()
+		{
+			this.timer?.Dispose();
+			this.timer = null;
+
+			return base.DoUnbind();
 		}
 
 		#region Properties

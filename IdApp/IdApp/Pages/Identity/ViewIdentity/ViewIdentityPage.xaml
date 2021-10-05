@@ -7,6 +7,7 @@
                        xmlns:image="clr-namespace:IdApp.Pages.Main.Image;assembly=IdApp"
                        xmlns:pages="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Identity.ViewIdentity;assembly=IdApp"
+                       xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                        x:DataType="model:ViewIdentityViewModel"
                        x:Class="IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage"
                        Title="{x:Static local:AppResources.Identity}">
@@ -24,7 +25,6 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -141,12 +141,10 @@
                     <!-- - -->
                     <CheckBox Grid.Row="20" Grid.Column="0" x:Name="ApprovePiiCheck" IsChecked="{Binding Path=ApprovePiiIsChecked, Mode=TwoWay}" IsVisible="{Binding Path=IsForReview}"/>
                     <Label Grid.Row="20" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IApproveOfMyPersonalInformationToBeAssociated}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12" />
-                    <!-- - -->
-                    <Label Grid.Row="21" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.PinOrPassword}" VerticalOptions="Center" IsVisible="{Binding Path=ShowPin}"/>
-                    <Entry Grid.Row="21" Grid.Column="2" IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}" VerticalOptions="Center" WidthRequest="300" MinimumWidthRequest="150" IsVisible="{Binding Path=ShowPin}"/>
-                    <!-- - -->
                 </Grid>
                 <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
+                <Label Text="{x:Static local:AppResources.PinOrPassword}" HorizontalOptions="StartAndExpand" IsVisible="{Binding Path=ShowPin}"/>
+                <Entry IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ShowPin}"/>
                 <Button Text="{x:Static local:AppResources.ApproveInformation}"
                             Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
@@ -158,10 +156,10 @@
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
                 <Button Text="{x:Static local:AppResources.RevokeInformation}" 
                             Command="{Binding Path=RevokeCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
                 <Button Text="{x:Static local:AppResources.TransferId}" 
                             Command="{Binding Path=TransferCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
                 <Button Text="{x:Static local:AppResources.AddContact}" 
                             Command="{Binding Path=AddContactCommand}" IsVisible="{Binding Path=ThirdPartyNotInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />

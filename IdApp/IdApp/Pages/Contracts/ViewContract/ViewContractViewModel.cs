@@ -595,17 +595,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, Contract.CanActAsTemplate.ToYesNo()));
 
 				// QR
-				_ = Task.Run(() =>
-				{
-					byte[] bytes = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
-					this.uiDispatcher.BeginInvokeOnMainThread(() =>
-					{
-						if (this.IsBound)
-							this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
-						else
-							this.QrCode = null;
-					});
-				});
+				byte[] bytes = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
+				this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
 
 				// Roles
 				if (!(Contract.Roles is null))

@@ -270,29 +270,19 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
 			this.IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
 			this.IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
-			this.ShowPin = (!(this.identityToReview is null) || this.IsPersonal) && this.TagProfile.UsePin;
+			this.ShowPin = this.TagProfile.UsePin && (this.IsPersonal || !(this.identityToReview is null));
 
 			// QR
-			if (!(this.LegalIdentity is null))
-			{
-				_ = Task.Run(() =>
-				{
-					byte[] bytes = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
-					if (this.IsBound)
-					{
-						this.UiSerializer.BeginInvokeOnMainThread(() => this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes)));
-					}
-				});
-			}
+			if (this.LegalIdentity is null)
+				this.QrCode = null;
 			else
 			{
-				this.QrCode = null;
+				byte[] bytes = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+				this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
 			}
 
 			if (this.IsConnected)
-			{
 				this.ReloadPhotos();
-			}
 		}
 
 		/// <summary>
@@ -360,8 +350,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.LegalIdentity = e.Identity;
-				AssignProperties();
+				if (this.LegalIdentity?.Id == e.Identity.Id)
+				{
+					this.LegalIdentity = e.Identity;
+					AssignProperties();
+				}
 			});
 		}
 
@@ -1250,7 +1243,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="ShowPin"/>
 		/// </summary>
 		public static readonly BindableProperty ShowPinProperty =
-			BindableProperty.Create("ShowPinProperty", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create("ShowPinProperty", typeof(bool), typeof(ViewIdentityViewModel), true);
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Pin"/> property is for review.
