@@ -103,8 +103,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 
-				if (!(Info is null) && 
-					Info.LegalId != this.LegalId && 
+				if (!(Info is null) &&
+					Info.LegalId != this.LegalId &&
 					Info.LegalIdentity.Created < this.LegalIdentity.Created &&
 					this.LegalIdentity.State == IdentityState.Approved)
 				{
@@ -270,7 +270,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
 			this.IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
 			this.IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
-			this.IsForReviewAndPin = !(this.identityToReview is null) && this.TagProfile.UsePin;
+			this.ShowPin = (!(this.identityToReview is null) || this.IsPersonal) && this.TagProfile.UsePin;
 
 			// QR
 			if (!(this.LegalIdentity is null))
@@ -1247,18 +1247,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
-		/// See <see cref="IsForReviewAndPin"/>
+		/// See <see cref="ShowPin"/>
 		/// </summary>
-		public static readonly BindableProperty IsForReviewAndPinProperty =
-			BindableProperty.Create("IsForReviewAndPin", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+		public static readonly BindableProperty ShowPinProperty =
+			BindableProperty.Create("ShowPinProperty", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Pin"/> property is for review.
 		/// </summary>
-		public bool IsForReviewAndPin
+		public bool ShowPin
 		{
-			get { return (bool)GetValue(IsForReviewAndPinProperty); }
-			set { SetValue(IsForReviewAndPinProperty, value); }
+			get { return (bool)GetValue(ShowPinProperty); }
+			set { SetValue(ShowPinProperty, value); }
 		}
 
 		#endregion
@@ -1374,22 +1374,21 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			if (this.TagProfile.UsePin)
 			{
-				Message += " " + AppResources.ConfirmByEnteringYourPin;
-
-				string Input = await this.UiSerializer.DisplayPrompt(AppResources.Confirm, Message, AppResources.Ok);
-				if (string.IsNullOrEmpty(Input))
+				if (!this.ShowPin || string.IsNullOrEmpty(this.Pin))
+				{
+					this.ShowPin = true;
+					await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.ConfirmByEnteringYourPin, AppResources.Ok);
 					return false;
+				}
 
-				if (this.TagProfile.ComputePinHash(Input)!=this.TagProfile.PinHash)
+				if (this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
 				{
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return false;
 				}
-
-				return true;
 			}
-			else
-				return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);
+
+			return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);
 		}
 
 		private async Task Compromise()
@@ -1606,7 +1605,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 								XmlElement Info = await this.NeuronService.Xmpp.IqSetAsync("onboarding.id.tagroot.io", Xml.ToString());
 								string Code = XML.Attribute(Info, "code");
-								string Url= "obinfo:id.tagroot.io:" + Code + ":" + Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
+								string Url = "obinfo:id.tagroot.io:" + Code + ":" + Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
 
 								await this.navigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
 							}

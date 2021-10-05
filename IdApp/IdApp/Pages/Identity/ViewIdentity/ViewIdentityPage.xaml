@@ -46,13 +46,6 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- - -->
                     <Label Grid.Row="0" Grid.Column="1" Text="{x:Static local:AppResources.Created}" Style="{StaticResource KeyLabel}" />
@@ -149,35 +142,35 @@
                     <CheckBox Grid.Row="20" Grid.Column="0" x:Name="ApprovePiiCheck" IsChecked="{Binding Path=ApprovePiiIsChecked, Mode=TwoWay}" IsVisible="{Binding Path=IsForReview}"/>
                     <Label Grid.Row="20" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IApproveOfMyPersonalInformationToBeAssociated}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12" />
                     <!-- - -->
-                    <Label Grid.Row="21" Grid.Column="0" Text="{x:Static local:AppResources.PinOrPassword}" VerticalOptions="Center" IsVisible="{Binding Path=IsForReviewAndPin}"/>
-                    <Entry Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2" IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}" VerticalOptions="Center" WidthRequest="300" MinimumWidthRequest="150" IsVisible="{Binding Path=IsForReviewAndPin}"/>
+                    <Label Grid.Row="21" Grid.Column="0" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.PinOrPassword}" VerticalOptions="Center" IsVisible="{Binding Path=ShowPin}"/>
+                    <Entry Grid.Row="21" Grid.Column="2" IsPassword="True" Text="{Binding Path=Pin, Mode=TwoWay}" VerticalOptions="Center" WidthRequest="300" MinimumWidthRequest="150" IsVisible="{Binding Path=ShowPin}"/>
                     <!-- - -->
-                    <Label Grid.Row="22" Grid.Column="0" Grid.ColumnSpan="3" x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
-                    <Button Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.ApproveInformation}"
+                </Grid>
+                <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
+                <Button Text="{x:Static local:AppResources.ApproveInformation}"
                             Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                    <Button Grid.Row="24" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RejectInformation}" 
+                <Button Text="{x:Static local:AppResources.RejectInformation}" 
                             Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                    <Button Grid.Row="25" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.ReportAsCompromized}" 
+                <Button Text="{x:Static local:AppResources.ReportAsCompromized}" 
                             Command="{Binding Path=CompromiseCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
-                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                    <Button Grid.Row="26" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RevokeInformation}" 
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
+                <Button Text="{x:Static local:AppResources.RevokeInformation}" 
                             Command="{Binding Path=RevokeCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.TransferId}" 
+                <Button Text="{x:Static local:AppResources.TransferId}" 
                             Command="{Binding Path=TransferCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.AddContact}" 
+                <Button Text="{x:Static local:AppResources.AddContact}" 
                             Command="{Binding Path=AddContactCommand}" IsVisible="{Binding Path=ThirdPartyNotInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                    <Button Grid.Row="27" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.RemoveContact}" 
+                <Button Text="{x:Static local:AppResources.RemoveContact}" 
                             Command="{Binding Path=RemoveContactCommand}" IsVisible="{Binding Path=ThirdPartyInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                    <Button Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="3" Text="{x:Static local:AppResources.SendPaymentTo}" 
+                <Button Text="{x:Static local:AppResources.SendPaymentTo}" 
                             Command="{Binding Path=SendPaymentToCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                </Grid>
             </StackLayout>
         </ScrollView>
         <image:ImageView x:Name="PhotoViewer" IsVisible="False"/>

@@ -6454,12 +6454,12 @@
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewAndPinProperty">
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ShowPinProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewAndPin"/>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ShowPin"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewAndPin">
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ShowPin">
             <summary>
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Pin"/> property is for review.
             </summary>
