@@ -75,11 +75,6 @@
               Looks up a localized string similar to Account name {0} is already taken. Choose another..
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.AccountNameAlreadyTaken1">
-            <summary>
-              Looks up a localized string similar to Account name {0} is already taken. Choose another..
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.AccountNameIsInvalid">
             <summary>
               Looks up a localized string similar to Account name is invalid.
@@ -123,16 +118,6 @@
         <member name="P:IdApp.AppResources.AmountExtra">
             <summary>
               Looks up a localized string similar to Amount Extra: (optional, suggestion).
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.AnErrorHasOccurred">
-            <summary>
-              Looks up a localized string similar to An error has occurred.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.AnErrorHasOccurred1">
-            <summary>
-              Looks up a localized string similar to An error has occurred.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Apartment">
@@ -230,17 +215,7 @@
               Looks up a localized string similar to Cancel.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.Cancel1">
-            <summary>
-              Looks up a localized string similar to Cancel.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.CantConnectTo">
-            <summary>
-              Looks up a localized string similar to Can&apos;t connect to {0}.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.CantConnectTo1">
             <summary>
               Looks up a localized string similar to Can&apos;t connect to {0}.
             </summary>
@@ -485,17 +460,7 @@
               Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.DomainDoesNotFollowEncryptionPolicy1">
-            <summary>
-              Looks up a localized string similar to {0} does not follow the ubiquitous encryption policy.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.DomainIsNotAValidOperator">
-            <summary>
-              Looks up a localized string similar to {0} is not a valid operator.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.DomainIsNotAValidOperator1">
             <summary>
               Looks up a localized string similar to {0} is not a valid operator.
             </summary>
@@ -538,11 +503,6 @@
         <member name="P:IdApp.AppResources.ErrorTitle">
             <summary>
               Looks up a localized string similar to An error has occurred.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.ErrorTitle1">
-            <summary>
-              Looks up a localized string similar to An error occurred.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Exit">
@@ -761,11 +721,6 @@
             </summary>
         </member>
         <member name="P:IdApp.AppResources.InvalidUsernameOrPassword">
-            <summary>
-              Looks up a localized string similar to Invalid username or password.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.InvalidUsernameOrPassword1">
             <summary>
               Looks up a localized string similar to Invalid username or password.
             </summary>
@@ -990,11 +945,6 @@
               Looks up a localized string similar to OK.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.Ok1">
-            <summary>
-              Looks up a localized string similar to OK.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.Online">
             <summary>
               Looks up a localized string similar to Online.
@@ -1016,11 +966,6 @@
             </summary>
         </member>
         <member name="P:IdApp.AppResources.OperatorDoesNotSupportRegisteringNewAccounts">
-            <summary>
-              Looks up a localized string similar to The operator {0} does not support registration of new accounts.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.OperatorDoesNotSupportRegisteringNewAccounts1">
             <summary>
               Looks up a localized string similar to The operator {0} does not support registration of new accounts.
             </summary>
@@ -1425,17 +1370,7 @@
               Looks up a localized string similar to The request timed out.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.RequestTimedOut1">
-            <summary>
-              Looks up a localized string similar to The request timed out.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.RequestWasCancelled">
-            <summary>
-              Looks up a localized string similar to The request was cancelled.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.RequestWasCancelled1">
             <summary>
               Looks up a localized string similar to The request was cancelled.
             </summary>
@@ -1670,11 +1605,6 @@
               Looks up a localized string similar to There is no network.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.ThereIsNoNetwork1">
-            <summary>
-              Looks up a localized string similar to There is no network.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.TheSpecifiedCodeIsNotALegalIdentity">
             <summary>
               Looks up a localized string similar to The specified code is not a legal identity.
@@ -1765,22 +1695,12 @@
               Looks up a localized string similar to Unable to authenticate with {0}.
             </summary>
         </member>
-        <member name="P:IdApp.AppResources.UnableToAuthenticateWith1">
-            <summary>
-              Looks up a localized string similar to Unable to authenticate with {0}.
-            </summary>
-        </member>
         <member name="P:IdApp.AppResources.UnableToClaimThing">
             <summary>
               Looks up a localized string similar to Unable to claim thing.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnableToConnectTo">
-            <summary>
-              Looks up a localized string similar to Unable to connect to {0}.
-            </summary>
-        </member>
-        <member name="P:IdApp.AppResources.UnableToConnectTo1">
             <summary>
               Looks up a localized string similar to Unable to connect to {0}.
             </summary>
@@ -2054,6 +1974,22 @@
             <summary>
               Looks up a localized string similar to Zip or Postal Code.
             </summary>
+        </member>
+        <member name="T:IdApp.Behaviors.ReRenderOnClickedBehavior">
+            <summary>
+            Used for Re-rendering a layout, when a button has been clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.ReRenderOnClickedBehavior.Layout">
+            <summary>
+            The layout to re-render.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.ReRenderOnClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.ReRenderOnClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Behaviors.ScrollToClickedBehavior">
             <summary>
@@ -5706,12 +5642,15 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.DoUnbind">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.UriProperty">

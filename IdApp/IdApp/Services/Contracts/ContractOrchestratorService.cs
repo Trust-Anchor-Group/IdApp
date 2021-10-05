@@ -434,7 +434,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				await this.uiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, ex);
+				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex);
 			}
 		}
 
@@ -477,7 +477,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				await this.uiDispatcher.DisplayAlert(AppResources.AnErrorHasOccurred, ex);
+				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex);
 			}
 		}
 

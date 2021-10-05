@@ -135,9 +135,6 @@
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
     <value>Kontonamnet {0} är redan taget. Prova med ett annat.</value>
   </data>
-  <data name="AccountNameAlreadyTaken1" xml:space="preserve">
-    <value>Kontonamnet {0} är redan taget. Prova med ett annat.</value>
-  </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
     <value>Kontonamnet är ogiltigt</value>
   </data>
@@ -164,12 +161,6 @@
   </data>
   <data name="AmountExtra" xml:space="preserve">
     <value>Belopp extra: (valfritt, förslag)</value>
-  </data>
-  <data name="AnErrorHasOccurred" xml:space="preserve">
-    <value>Ett fel har inträffat</value>
-  </data>
-  <data name="AnErrorHasOccurred1" xml:space="preserve">
-    <value>Ett fel har inträffat</value>
   </data>
   <data name="Apartment" xml:space="preserve">
     <value>Lägenhet</value>
@@ -225,13 +216,7 @@
   <data name="Cancel" xml:space="preserve">
     <value>Avbryt</value>
   </data>
-  <data name="Cancel1" xml:space="preserve">
-    <value>Avbryt</value>
-  </data>
   <data name="CantConnectTo" xml:space="preserve">
-    <value>Kan inte ansluta till {0}</value>
-  </data>
-  <data name="CantConnectTo1" xml:space="preserve">
     <value>Kan inte ansluta till {0}</value>
   </data>
   <data name="Change" xml:space="preserve">
@@ -369,13 +354,7 @@
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
     <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
   </data>
-  <data name="DomainDoesNotFollowEncryptionPolicy1" xml:space="preserve">
-    <value>{0} följer inte den allmänt förekommande krypteringspolicyn</value>
-  </data>
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
-    <value>{0} är inte en giltig operatör</value>
-  </data>
-  <data name="DomainIsNotAValidOperator1" xml:space="preserve">
     <value>{0} är inte en giltig operatör</value>
   </data>
   <data name="DomainNameIsInvalid" xml:space="preserve">
@@ -400,9 +379,6 @@
     <value>Ange en operatör</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Ett fel har inträffat</value>
-  </data>
-  <data name="ErrorTitle1" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>
   <data name="Exit" xml:space="preserve">
@@ -517,9 +493,6 @@
     <value>Ogiltig kod för IoT-sökning</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
-    <value>Ogiltigt användarnamn eller lösenord</value>
-  </data>
-  <data name="InvalidUsernameOrPassword1" xml:space="preserve">
     <value>Ogiltigt användarnamn eller lösenord</value>
   </data>
   <data name="InvitePeerToReview" xml:space="preserve">
@@ -642,9 +615,6 @@
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="Ok1" xml:space="preserve">
-    <value>OK</value>
-  </data>
   <data name="Online" xml:space="preserve">
     <value>Ansluten</value>
   </data>
@@ -658,9 +628,6 @@
     <value>Operatören stödjer inte provisionering och beslutsstöd för saker</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
-    <value>Operatören {0} stödjer inte registrering av nya konton</value>
-  </data>
-  <data name="OperatorDoesNotSupportRegisteringNewAccounts1" xml:space="preserve">
     <value>Operatören {0} stödjer inte registrering av nya konton</value>
   </data>
   <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
@@ -897,13 +864,7 @@
   <data name="RequestTimedOut" xml:space="preserve">
     <value>Begäran tog för lång tid</value>
   </data>
-  <data name="RequestTimedOut1" xml:space="preserve">
-    <value>Begäran tog för lång tid</value>
-  </data>
   <data name="RequestWasCancelled" xml:space="preserve">
-    <value>Begäran avbröts</value>
-  </data>
-  <data name="RequestWasCancelled1" xml:space="preserve">
     <value>Begäran avbröts</value>
   </data>
   <data name="RetypePassword" xml:space="preserve">
@@ -1050,9 +1011,6 @@
   <data name="ThereIsNoNetwork" xml:space="preserve">
     <value>Nätverk saknas</value>
   </data>
-  <data name="ThereIsNoNetwork1" xml:space="preserve">
-    <value>Nätverk saknas</value>
-  </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
     <value>Den angivna koden är inte en giltig identitet</value>
   </data>
@@ -1092,16 +1050,10 @@
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
   </data>
-  <data name="UnableToAuthenticateWith1" xml:space="preserve">
-    <value>Kan inte autentisera med {0}</value>
-  </data>
   <data name="UnableToClaimThing" xml:space="preserve">
     <value>Kunde inte göra anspråk på saken.</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Ej möjligt att ansluta till {0}</value>
-  </data>
-  <data name="UnableToConnectTo1" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>
   </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">

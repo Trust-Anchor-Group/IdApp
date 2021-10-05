@@ -109,7 +109,7 @@ namespace IdApp.Services.UI
                     sb.AppendLine(exception.Message);
             }
             else
-                sb.AppendLine(AppResources.AnErrorHasOccurred);
+                sb.AppendLine(AppResources.ErrorTitle);
 
             return this.DisplayAlert(title ?? AppResources.ErrorTitle, sb.ToString(), AppResources.Ok);
         }
