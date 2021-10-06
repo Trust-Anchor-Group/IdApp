@@ -1551,7 +1551,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					using (XmlWriter Output = XmlWriter.Create(Xml, Settings))
 					{
 						Output.WriteStartElement("Transfer", ContractsClient.NamespaceOnboarding);
-						
+
+						await this.NeuronService.Contracts.ContractsClient.ExportKeys(Output);
+
 						Output.WriteStartElement("Account", ContractsClient.NamespaceOnboarding);
 						Output.WriteAttributeString("domain", this.TagProfile.Domain);
 						Output.WriteAttributeString("userName", this.TagProfile.Account);
@@ -1561,8 +1563,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 							Output.WriteAttributeString("passwordMethod", this.TagProfile.PasswordHashMethod);
 
 						Output.WriteEndElement();
-
-						await this.NeuronService.Contracts.ContractsClient.ExportKeys(Output);
 						Output.WriteEndElement();
 					}
 

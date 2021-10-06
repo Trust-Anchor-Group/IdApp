@@ -330,7 +330,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					ToProcess.AddLast(Doc.DocumentElement);
 
 					bool AccountDone = false;
-					bool LegalIdDone = false;
+					XmlElement LegalIdDefinition = null;
 
 					while (!(ToProcess.First is null))
 					{
@@ -345,8 +345,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 								Domain = XML.Attribute(E, "domain");
 
 								await this.SelectDomain(Domain, KeyStr, Secret);
-								
-								await this.UiSerializer.DisplayAlert(AppResources.InvitationAccepted, 
+
+								await this.UiSerializer.DisplayAlert(AppResources.InvitationAccepted,
 									string.Format(AppResources.InvitedToCreateAccountOnDomain, Domain), AppResources.Ok);
 								break;
 
@@ -363,36 +363,19 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								await this.SelectDomain(Domain, string.Empty, string.Empty);
 
-								if (!await this.ConnectToAccount(UserName, Password, PasswordMethod, string.Empty))
+								if (!await this.ConnectToAccount(UserName, Password, PasswordMethod, string.Empty, LegalIdDefinition))
 								{
 									this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
 									throw new Exception("Invalid account.");
 								}
 
+								LegalIdDefinition = null;
 								this.AccountName = UserName;
 								AccountDone = true;
 								break;
 
 							case "LegalId":
-								await this.NeuronService.Contracts.ContractsClient.ImportKeys(E);
-
-								LegalIdentity Best = null;
-								LegalIdentity[] Identities = await this.NeuronService.Contracts.GetLegalIdentities();
-
-								foreach (LegalIdentity Identity in Identities)
-								{
-									if (Identity.State != IdentityState.Approved)
-										continue;
-
-									if (Best is null || Identity.Created > Best.Created)
-										Best = Identity;
-								}
-
-								if (!(Best is null))
-								{
-									this.TagProfile.SetLegalIdentity(Best);
-									LegalIdDone = true;
-								}
+								LegalIdDefinition = E;
 								break;
 
 							case "Transfer":
@@ -408,6 +391,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
 						}
 					}
 
+					if (!(LegalIdDefinition is null))
+						await this.NeuronService.Contracts.ContractsClient.ImportKeys(LegalIdDefinition);
+
 					if (AccountDone)
 					{
 						this.UiSerializer.BeginInvokeOnMainThread(() =>
@@ -415,11 +401,6 @@ namespace IdApp.Pages.Registration.ChooseAccount
 							SetIsDone(CreateNewCommand, ScanQrCodeCommand);
 
 							OnStepCompleted(EventArgs.Empty);
-
-							if (LegalIdDone)
-							{
-								// TODO
-							}
 						});
 					}
 				}
@@ -456,7 +437,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 			this.TagProfile.SetDomain(Domain, DefaultConnectivity, Key, Secret);
 		}
 
-		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid)
+		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid, 
+			XmlElement LegalIdDefinition)
 		{
 			try
 			{
@@ -473,39 +455,61 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					else
 						serviceDiscoverySucceeded = true;
 
-					if (serviceDiscoverySucceeded)
+					if (serviceDiscoverySucceeded && !string.IsNullOrEmpty(this.TagProfile.LegalJid))
 					{
-						foreach (LegalIdentity identity in await this.NeuronService.Contracts.GetLegalIdentities(client))
-						{
-							if ((string.IsNullOrEmpty(LegalIdentityJid) || string.Compare(LegalIdentityJid, identity.Id, true) == 0) &&
-								identity.HasClientSignature &&
-								identity.HasClientPublicKey &&
-								identity.From <= now &&
-								identity.To >= now &&
-								(identity.State == IdentityState.Approved || identity.State == IdentityState.Created) &&
-								identity.ValidateClientSignature() &&
-								await this.NeuronService.Contracts.HasPrivateKey(identity.Id, client))
-							{
-								if (identity.State == IdentityState.Approved)
-								{
-									approvedIdentity = identity;
-									break;
-								}
+						bool DestroyContractsClient = false;
 
-								if (createdIdentity is null)
-									createdIdentity = identity;
-							}
+						if (!client.TryGetExtension(typeof(ContractsClient), out IXmppExtension Extension) ||
+							!(Extension is ContractsClient ContractsClient))
+						{
+							ContractsClient = new ContractsClient(client, this.TagProfile.LegalJid);
+							DestroyContractsClient = true;
 						}
 
-						if (!(approvedIdentity is null))
-							this.LegalIdentity = approvedIdentity;
-						else if (!(createdIdentity is null))
-							this.LegalIdentity = createdIdentity;
+						try
+						{
+							if (!(LegalIdDefinition is null))
+								await ContractsClient.ImportKeys(LegalIdDefinition);
 
-						if (!(this.LegalIdentity is null))
-							this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
-						else
-							this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
+							LegalIdentity[] Identities = await ContractsClient.GetLegalIdentitiesAsync();
+
+							foreach (LegalIdentity Identity in Identities)
+							{
+								if ((string.IsNullOrEmpty(LegalIdentityJid) || string.Compare(LegalIdentityJid, Identity.Id, true) == 0) &&
+									Identity.HasClientSignature &&
+									Identity.HasClientPublicKey &&
+									Identity.From <= now &&
+									Identity.To >= now &&
+									(Identity.State == IdentityState.Approved || Identity.State == IdentityState.Created) &&
+									Identity.ValidateClientSignature() &&
+									await ContractsClient.HasPrivateKey(Identity))
+								{
+									if (Identity.State == IdentityState.Approved)
+									{
+										approvedIdentity = Identity;
+										break;
+									}
+
+									if (createdIdentity is null)
+										createdIdentity = Identity;
+								}
+							}
+
+							if (!(approvedIdentity is null))
+								this.LegalIdentity = approvedIdentity;
+							else if (!(createdIdentity is null))
+								this.LegalIdentity = createdIdentity;
+
+							if (!(this.LegalIdentity is null))
+								this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+							else
+								this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
+						}
+						finally
+						{
+							if (DestroyContractsClient)
+								ContractsClient.Dispose();
+						}
 					}
 				}
 

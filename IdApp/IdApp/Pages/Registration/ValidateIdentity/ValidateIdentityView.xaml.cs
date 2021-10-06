@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Waher.Networking.XMPP.Contracts;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Registration.ValidateIdentity
 {
@@ -14,6 +15,12 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         public ValidateIdentityView()
         {
             InitializeComponent();
+        }
+
+		private void Image_Tapped(object sender, System.EventArgs e)
+		{
+            Attachment[] attachments = this.GetViewModel<ValidateIdentityViewModel>().LegalIdentity?.Attachments;
+            this.PhotoViewer.ShowPhotos(attachments);
         }
     }
 }

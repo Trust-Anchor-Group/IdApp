@@ -591,7 +591,6 @@ namespace IdApp.Services.Neuron
 		public string LatestConnectionError { get; private set; }
 
 		public XmppClient Xmpp => this.xmppClient;
-		public ContractsClient ContractsClient => this.contractsClient;
 		public HttpFileUploadClient FileUploadClient => this.fileUploadClient;
 		public MultiUserChatClient MucClient => this.mucClient;
 		public ThingRegistryClient ThingRegistryClient => this.thingRegistryClient;
@@ -600,6 +599,7 @@ namespace IdApp.Services.Neuron
 		public SensorClient SensorClient => this.sensorClient;
 		public ConcentratorClient ConcentratorClient => this.concentratorClient;
 		public EDalerClient EDalerClient => this.eDalerClient;
+		public ContractsClient ContractsClient => this.contractsClient;
 
 		#endregion
 
@@ -792,17 +792,17 @@ namespace IdApp.Services.Neuron
 			return (succeeded, errorMessage);
 		}
 
-		public async Task<bool> DiscoverServices(XmppClient client = null)
+		public async Task<bool> DiscoverServices(XmppClient Client = null)
 		{
-			client = client ?? xmppClient;
-			if (client is null)
+			Client = Client ?? xmppClient;
+			if (Client is null)
 				return false;
 
 			ServiceItemsDiscoveryEventArgs response;
 
 			try
 			{
-				response = await client.ServiceItemsDiscoveryAsync(null, string.Empty, string.Empty);
+				response = await Client.ServiceItemsDiscoveryAsync(null, string.Empty, string.Empty);
 			}
 			catch (Exception ex)
 			{
@@ -811,38 +811,13 @@ namespace IdApp.Services.Neuron
 				return false;
 			}
 
-			foreach (Item item in response.Items)
-			{
-				ServiceDiscoveryEventArgs itemResponse = await client.ServiceDiscoveryAsync(null, item.JID, item.Node);
+			List<Task> Tasks = new List<Task>();
+			object SynchObject = new object();
 
-				if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
-					this.tagProfile.SetLegalJid(item.JID);
+			foreach (Item Item in response.Items)
+				Tasks.Add(this.CheckComponent(Client, Item, SynchObject));
 
-				if (itemResponse.HasFeature(ThingRegistryClient.NamespaceDiscovery))
-					this.tagProfile.SetRegistryJid(item.JID);
-
-				if (itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
-					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
-					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningToken))
-				{
-					this.tagProfile.SetProvisioningJid(item.JID);
-				}
-
-				if (itemResponse.HasFeature(HttpFileUploadClient.Namespace))
-				{
-					long? maxSize = HttpFileUploadClient.FindMaxFileSize(client, itemResponse);
-					this.tagProfile.SetFileUploadParameters(item.JID, maxSize);
-				}
-
-				if (itemResponse.HasFeature(XmppEventSink.NamespaceEventLogging))
-					this.tagProfile.SetLogJid(item.JID);
-
-				if (itemResponse.HasFeature(MultiUserChatClient.NamespaceMuc))
-					this.tagProfile.SetMucJid(item.JID);
-
-				if (itemResponse.HasFeature(EDalerClient.NamespaceEDaler))
-					this.tagProfile.SetEDalerJid(item.JID);
-			}
+			await Task.WhenAll(Tasks.ToArray());
 
 			if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
 				return false;
@@ -860,6 +835,42 @@ namespace IdApp.Services.Neuron
 				return false;
 
 			return true;
+		}
+
+		private async Task CheckComponent(XmppClient Client, Item Item, object SynchObject)
+		{
+			ServiceDiscoveryEventArgs itemResponse = await Client.ServiceDiscoveryAsync(null, Item.JID, Item.Node);
+
+			lock (SynchObject)
+			{
+				if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
+					this.tagProfile.SetLegalJid(Item.JID);
+
+				if (itemResponse.HasFeature(ThingRegistryClient.NamespaceDiscovery))
+					this.tagProfile.SetRegistryJid(Item.JID);
+
+				if (itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
+					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
+					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningToken))
+				{
+					this.tagProfile.SetProvisioningJid(Item.JID);
+				}
+
+				if (itemResponse.HasFeature(HttpFileUploadClient.Namespace))
+				{
+					long? maxSize = HttpFileUploadClient.FindMaxFileSize(Client, itemResponse);
+					this.tagProfile.SetFileUploadParameters(Item.JID, maxSize);
+				}
+
+				if (itemResponse.HasFeature(XmppEventSink.NamespaceEventLogging))
+					this.tagProfile.SetLogJid(Item.JID);
+
+				if (itemResponse.HasFeature(MultiUserChatClient.NamespaceMuc))
+					this.tagProfile.SetMucJid(Item.JID);
+
+				if (itemResponse.HasFeature(EDalerClient.NamespaceEDaler))
+					this.tagProfile.SetEDalerJid(Item.JID);
+			}
 		}
 
 		private void ReconnectTimer_Tick(object _)
