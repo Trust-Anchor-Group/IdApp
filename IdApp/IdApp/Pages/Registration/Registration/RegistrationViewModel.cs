@@ -38,7 +38,7 @@ namespace IdApp.Pages.Registration.Registration
         /// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
         /// For unit tests.
         /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
         /// <param name="settingsService">The settings service for persisting UI state.</param>
         /// <param name="neuronService">The Neuron service for XMPP communication.</param>
         /// <param name="cryptoService">The service to use for cryptographic operations.</param>
@@ -49,7 +49,7 @@ namespace IdApp.Pages.Registration.Registration
         /// </summary>
         protected internal RegistrationViewModel(
             ITagProfile tagProfile,
-            IUiSerializer uiDispatcher, 
+            IUiSerializer uiSerializer, 
             ISettingsService settingsService, 
             INeuronService neuronService, 
             ICryptoService cryptoService, 
@@ -59,7 +59,7 @@ namespace IdApp.Pages.Registration.Registration
             IAttachmentCacheService attachmentCacheService)
         {
             this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
-            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+            uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
             settingsService = settingsService ?? App.Instantiate<ISettingsService>();
             neuronService = neuronService ?? App.Instantiate<INeuronService>();
             cryptoService = cryptoService ?? App.Instantiate<ICryptoService>();
@@ -71,11 +71,11 @@ namespace IdApp.Pages.Registration.Registration
             
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
-                this.AddChildViewModel(new ValidatePhoneNr.ValidatePhoneNrViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService)),
-                this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, cryptoService, networkService, logService)),
-                this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService,  networkService, logService, attachmentCacheService)),
-                this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, networkService, logService, attachmentCacheService)),
-                this.AddChildViewModel(new DefinePin.DefinePinViewModel(this.tagProfile, uiDispatcher, neuronService, this.navigationService, settingsService, logService))
+                this.AddChildViewModel(new ValidatePhoneNr.ValidatePhoneNrViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, networkService, logService)),
+                this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, cryptoService, networkService, logService)),
+                this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService,  networkService, logService, attachmentCacheService)),
+                this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, networkService, logService, attachmentCacheService)),
+                this.AddChildViewModel(new DefinePin.DefinePinViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, logService))
             };
             
             SyncTagProfileStep();

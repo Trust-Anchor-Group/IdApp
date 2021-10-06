@@ -21,10 +21,10 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public AccountEventViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService)
-		: base(neuronService, uiDispatcher, tagProfile)
+		: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.navigationService = navigationService;
 		}

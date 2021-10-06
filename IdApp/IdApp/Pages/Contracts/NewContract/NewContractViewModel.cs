@@ -31,7 +31,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		private readonly ILogService logService;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly ISettingsService settingsService;
 		private readonly IContractOrchestratorService contractOrchestratorService;
 		private readonly ITagProfile tagProfile;
@@ -54,7 +54,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <param name="tagProfile">The tag profile to work with.</param>
 		/// <param name="logService">The log service.</param>
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
 		/// <param name="navigationService">The navigation service to use for app navigation</param>
 		/// <param name="settingsService">The settings service for persisting UI state.</param>
 		/// <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
@@ -63,7 +63,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			ITagProfile tagProfile,
 			ILogService logService,
 			INeuronService neuronService,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INavigationService navigationService,
 			ISettingsService settingsService,
 			IContractOrchestratorService contractOrchestratorService)
@@ -71,7 +71,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
 			this.logService = logService ?? App.Instantiate<ILogService>();
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 			this.settingsService = settingsService ?? App.Instantiate<ISettingsService>();
 			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
@@ -571,7 +571,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -696,13 +696,13 @@ namespace IdApp.Pages.Contracts.NewContract
 							{
 								if (Nr < Min)
 								{
-									await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
+									await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
 									return;
 								}
 
 								if (Nr > Min)
 								{
-									await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
+									await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
 									return;
 								}
 
@@ -729,7 +729,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					{
 						if (Entry.BackgroundColor == Color.Salmon)
 						{
-							await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
+							await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
 							Entry.Focus();
 							return;
 						}
@@ -757,19 +757,19 @@ namespace IdApp.Pages.Contracts.NewContract
 						break;
 
 					default:
-						await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
+						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
 						return;
 				}
 
 				if ((this.SelectedRole is null))
 				{
-					await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
+					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
 					return;
 				}
 
 				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
 				{
-					await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
 					return;
 				}
 
@@ -782,7 +782,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 			finally
 			{

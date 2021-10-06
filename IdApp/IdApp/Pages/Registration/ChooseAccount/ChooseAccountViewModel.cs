@@ -36,7 +36,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		/// Creates a new instance of the <see cref="ChooseAccountViewModel"/> class.
 		/// </summary>
 		/// <param name="tagProfile">The tag profile to work with.</param>
-		/// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="navigationService">The navigation service to use for app navigation</param>
 		/// <param name="settingsService">The settings service for persisting UI state.</param>
@@ -45,14 +45,14 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		/// <param name="logService">The log service.</param>
 		public ChooseAccountViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ISettingsService settingsService,
 			ICryptoService cryptoService,
 			INetworkService networkService,
 			ILogService logService)
-			: base(RegistrationStep.Account, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
+			: base(RegistrationStep.Account, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
 		{
 			this.cryptoService = cryptoService;
 			this.networkService = networkService;

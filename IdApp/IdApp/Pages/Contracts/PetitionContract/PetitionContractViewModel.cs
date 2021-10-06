@@ -43,7 +43,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="logService">The log service.</param>
         /// <param name="networkService">The network and connectivity service.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
         /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// </summary>
         protected internal PetitionContractViewModel(
@@ -51,14 +51,14 @@ namespace IdApp.Pages.Contracts.PetitionContract
             INavigationService navigationService,
             ILogService logService,
             INetworkService networkService,
-            IUiSerializer uiDispatcher,
+            IUiSerializer uiSerializer,
             IAttachmentCacheService attachmentCacheService)
         {
             this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
             this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
             logService = logService ?? App.Instantiate<ILogService>();
             this.networkService = networkService ?? App.Instantiate<INetworkService>();
-            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+            uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
             attachmentCacheService = attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>();
          
             this.AcceptCommand = new Command(async _ => await Accept());
@@ -66,7 +66,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
             this.IgnoreCommand = new Command(async _ => await Ignore());
             
             this.Photos = new ObservableCollection<Photo>();
-            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiDispatcher, attachmentCacheService, this.Photos);
+            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiSerializer, attachmentCacheService, this.Photos);
         }
 
         /// <inheritdoc/>

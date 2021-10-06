@@ -31,10 +31,10 @@ namespace IdApp.Pages.Main.Loading
 		/// </summary>
 		protected internal LoadingViewModel(
 			INeuronService neuronService,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			ITagProfile tagProfile,
 			INavigationService navigationService)
-			: base(neuronService, uiDispatcher, tagProfile)
+			: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 		}

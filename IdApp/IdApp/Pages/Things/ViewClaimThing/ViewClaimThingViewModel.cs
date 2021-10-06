@@ -36,12 +36,12 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// </summary>
 		public ViewClaimThingViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
 			ILogService logService)
-			: base(neuronService, uiDispatcher, tagProfile)
+			: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.logService = logService;
 			this.navigationService = navigationService;
@@ -202,9 +202,9 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <param name="Name">Tag name</param>
 		/// <param name="Value">Tag value</param>
 		/// <param name="LocalizedValue">Localized tag value</param>
-		/// <param name="uiDispatcher">UI Dispatcher service</param>
+		/// <param name="uiSerializer">UI Dispatcher service</param>
 		/// <param name="logService">Log service</param>
-		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IUiSerializer uiDispatcher, ILogService logService)
+		public static async Task LabelClicked(string Name, string Value, string LocalizedValue, IUiSerializer uiSerializer, ILogService logService)
 		{ 
 			try
 			{
@@ -247,12 +247,12 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				}
 
 				await Clipboard.SetTextAsync(LocalizedValue);
-				await uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+				await uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
 			}
 			catch (Exception ex)
 			{
 				logService.LogException(ex);
-				await uiDispatcher.DisplayAlert(ex);
+				await uiSerializer.DisplayAlert(ex);
 			}
 		}
 

@@ -30,7 +30,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// <summary>
         /// Creates a new instance of the <see cref="ValidateIdentityViewModel"/> class.
         /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
         /// <param name="neuronService">The Neuron service for XMPP communication.</param>
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="settingsService">The settings service for persisting UI state.</param>
@@ -40,21 +40,21 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// </summary>
         public ValidateIdentityViewModel(
             ITagProfile tagProfile,
-            IUiSerializer uiDispatcher,
+            IUiSerializer uiSerializer,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService,
             IAttachmentCacheService attachmentCacheService)
-            : base(RegistrationStep.ValidateIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
+            : base(RegistrationStep.ValidateIdentity, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.NeuronService.IsOnline);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<Photo>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiSerializer,
                 attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
         }
 

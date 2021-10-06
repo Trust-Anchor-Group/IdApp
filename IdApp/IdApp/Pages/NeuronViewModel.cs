@@ -17,12 +17,12 @@ namespace IdApp.Pages
         /// Creates an instance of a <see cref="NeuronViewModel"/>.
         /// </summary>
         /// <param name="neuronService"></param>
-        /// <param name="uiDispatcher"></param>
+        /// <param name="uiSerializer"></param>
         /// <param name="tagProfile"></param>
-        protected NeuronViewModel(INeuronService neuronService, IUiSerializer uiDispatcher, ITagProfile tagProfile)
+        protected NeuronViewModel(INeuronService neuronService, IUiSerializer uiSerializer, ITagProfile tagProfile)
         {
             this.NeuronService = neuronService ?? App.Instantiate<INeuronService>();
-            this.UiSerializer = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+            this.UiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
             this.TagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
             this.StateSummaryText = AppResources.XmppState_Offline;
             this.ConnectionStateText = AppResources.XmppState_Offline;

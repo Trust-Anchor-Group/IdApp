@@ -31,7 +31,7 @@ namespace IdApp
         /// <param name="logService">The log service to use for logging.</param>
         /// <param name="neuronService">The Neuron service for XMPP access</param>
         /// <param name="navigationService">The navigation service for page navigation.</param>
-        /// <param name="uiDispatcher">The ui dispatcher for main thread access.</param>
+        /// <param name="uiSerializer">The ui dispatcher for main thread access.</param>
         /// <param name="contractOrchestratorService">The contract orchestrator service.</param>
         /// <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
         /// <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
@@ -39,7 +39,7 @@ namespace IdApp
             ILogService logService,
             INeuronService neuronService,
             INavigationService navigationService,
-            IUiSerializer uiDispatcher,
+            IUiSerializer uiSerializer,
             IContractOrchestratorService contractOrchestratorService,
             IThingRegistryOrchestratorService thingRegistryOrchestratorService,
             IEDalerOrchestratorService eDalerOrchestratorService)
@@ -53,7 +53,7 @@ namespace IdApp
             {
                 if (!Uri.TryCreate(decodedText, UriKind.Absolute, out Uri uri))
                 {
-                    await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
+                    await uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
                     return;
                 }
 
@@ -75,7 +75,7 @@ namespace IdApp
                         else if (neuronService.ThingRegistry.IsIoTDiscoSearchURI(decodedText))
                             await thingRegistryOrchestratorService.OpenSearchDevices(decodedText);
                         else
-                            await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{decodedText}");
+                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{decodedText}");
                         break;
 
                     case Constants.UriSchemes.UriSchemeTagSign:
@@ -88,19 +88,19 @@ namespace IdApp
                         break;
 
                     case Constants.UriSchemes.UriSchemeOnboarding:
-                        await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
+                        await uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
                         break;
 
                     default:
                         if (!await Launcher.TryOpenAsync(uri))
-                            await uiDispatcher.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{decodedText}");
+                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{decodedText}");
                         break;
                 }
             }
             catch (Exception ex)
             {
                 logService.LogException(ex);
-                await uiDispatcher.DisplayAlert(ex);
+                await uiSerializer.DisplayAlert(ex);
             }
 
         }
@@ -138,11 +138,11 @@ namespace IdApp
         /// Tries to set the Scan QR Code result and close the scan page.
         /// </summary>
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
-        /// <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
+        /// <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
         /// <param name="code">The code to set.</param>
-        internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiDispatcher, string code)
+        internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string code)
         {
-            uiDispatcher.BeginInvokeOnMainThread(async () =>
+            uiSerializer.BeginInvokeOnMainThread(async () =>
             {
                 if (!(callback is null))
                 {

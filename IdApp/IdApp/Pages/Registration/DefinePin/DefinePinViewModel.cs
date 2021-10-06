@@ -22,19 +22,19 @@ namespace IdApp.Pages.Registration.DefinePin
         /// Creates a new instance of the <see cref="DefinePinViewModel"/> class.
         /// </summary>
         /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
         /// <param name="neuronService">The Neuron service for XMPP communication.</param>
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="settingsService">The settings service for persisting UI state.</param>
         /// <param name="logService">The log service.</param>
         public DefinePinViewModel(
             ITagProfile tagProfile,
-            IUiSerializer uiDispatcher,
+            IUiSerializer uiSerializer,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
             ILogService logService)
-            : base(RegistrationStep.Pin, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
+            : base(RegistrationStep.Pin, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
         {
             this.ContinueCommand = new Command(_ => Continue(), _ => CanContinue());
             this.SkipCommand = new Command(_ => Skip(), _ => CanSkip());

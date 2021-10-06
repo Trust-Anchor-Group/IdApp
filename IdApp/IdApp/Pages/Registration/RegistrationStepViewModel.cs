@@ -25,7 +25,7 @@ namespace IdApp.Pages.Registration
         /// </summary>
         /// <param name="step">The current step for this instance.</param>
         /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
         /// <param name="neuronService">The Neuron service for XMPP communication.</param>
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="settingsService">The settings service for persisting UI state.</param>
@@ -33,14 +33,14 @@ namespace IdApp.Pages.Registration
         public RegistrationStepViewModel(
             RegistrationStep step,
             ITagProfile tagProfile,
-            IUiSerializer uiDispatcher,
+            IUiSerializer uiSerializer,
             INeuronService neuronService, 
             INavigationService navigationService,
             ISettingsService settingsService,
             ILogService logService)
         {
             this.Step = step;
-            this.UiSerializer = uiDispatcher;
+            this.UiSerializer = uiSerializer;
             this.TagProfile = tagProfile;
             this.NeuronService = neuronService;
             this.NavigationService = navigationService;

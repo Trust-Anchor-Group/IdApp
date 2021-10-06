@@ -42,16 +42,16 @@ namespace IdApp.Pages.Things.ViewThing
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="navigationService">The navigation service.</param>
-		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
 		/// <param name="logService">Log service.</param>
 		protected internal ThingViewModel(
 			ITagProfile tagProfile,
 			INeuronService neuronService,
 			INetworkService networkService,
 			INavigationService navigationService,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			ILogService logService)
-			: base(neuronService, uiDispatcher, tagProfile)
+			: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.networkService = networkService ?? App.Instantiate<INetworkService>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();

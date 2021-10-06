@@ -21,18 +21,18 @@ namespace IdApp.Services.Contracts
 	internal sealed class NeuronContracts : INeuronContracts
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly INeuronService neuronService;
 		private readonly ILogService logService;
 		private readonly ISettingsService settingsService;
 		private ContractsClient contractsClient;
 		private HttpFileUploadClient fileUploadClient;
 
-		internal NeuronContracts(ITagProfile tagProfile, IUiSerializer uiDispatcher, INeuronService neuronService,
+		internal NeuronContracts(ITagProfile tagProfile, IUiSerializer uiSerializer, INeuronService neuronService,
 			ILogService logService, ISettingsService settingsService)
 		{
 			this.tagProfile = tagProfile;
-			this.uiDispatcher = uiDispatcher;
+			this.uiSerializer = uiSerializer;
 			this.neuronService = neuronService;
 			this.logService = logService;
 			this.settingsService = settingsService;
@@ -394,7 +394,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -407,7 +407,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -420,7 +420,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -433,7 +433,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -446,7 +446,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -459,7 +459,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -472,7 +472,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -485,7 +485,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -502,7 +502,7 @@ namespace IdApp.Services.Contracts
 				catch (Exception ex)
 				{
 					this.logService.LogException(ex);
-					await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 				}
 			}
 		}
@@ -516,7 +516,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 

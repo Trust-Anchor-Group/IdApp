@@ -21,7 +21,7 @@ namespace IdApp.Services.Storage
 		private readonly LinkedList<TaskCompletionSource<bool>> tasksWaiting = new LinkedList<TaskCompletionSource<bool>>();
 		private readonly ILogService logService;
 		private readonly ICryptoService cryptoService;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly string dataFolder;
 		private FilesProvider databaseProvider;
 		private bool? initialized = null;
@@ -32,12 +32,12 @@ namespace IdApp.Services.Storage
 		/// </summary>
 		/// <param name="logService">The log service to use for logging.</param>
 		/// <param name="cryptoService">The crypto service to use.</param>
-		/// <param name="uiDispatcher">The UI Dispatcher, for main thread access and to display alerts.</param>
-		public StorageService(ILogService logService, ICryptoService cryptoService, IUiSerializer uiDispatcher)
+		/// <param name="uiSerializer">The UI Dispatcher, for main thread access and to display alerts.</param>
+		public StorageService(ILogService logService, ICryptoService cryptoService, IUiSerializer uiSerializer)
 		{
 			this.logService = logService;
 			this.cryptoService = cryptoService;
-			this.uiDispatcher = uiDispatcher;
+			this.uiSerializer = uiSerializer;
 			string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			this.dataFolder = Path.Combine(appDataFolder, "Data");
 		}
@@ -101,7 +101,7 @@ namespace IdApp.Services.Storage
 			try
 			{
 				Thread?.NewState("UI");
-				if (await this.uiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
+				if (await this.uiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
 				{
 					try
 					{
@@ -132,7 +132,7 @@ namespace IdApp.Services.Storage
 						this.logService.LogException(e3);
 
 						Thread?.NewState("UI");
-						await this.uiDispatcher.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
+						await this.uiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
 					}
 				}
 

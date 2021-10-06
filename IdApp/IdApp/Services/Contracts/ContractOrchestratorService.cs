@@ -29,7 +29,7 @@ namespace IdApp.Services.Contracts
 	internal class ContractOrchestratorService : LoadableService, IContractOrchestratorService
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
@@ -38,7 +38,7 @@ namespace IdApp.Services.Contracts
 
 		public ContractOrchestratorService(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,
@@ -46,7 +46,7 @@ namespace IdApp.Services.Contracts
 			ISettingsService settingsService)
 		{
 			this.tagProfile = tagProfile;
-			this.uiDispatcher = uiDispatcher;
+			this.uiSerializer = uiSerializer;
 			this.neuronService = neuronService;
 			this.navigationService = navigationService;
 			this.logService = logService;
@@ -97,7 +97,7 @@ namespace IdApp.Services.Contracts
 
 		private void Contracts_PetitionForPeerReviewIdReceived(object sender, SignaturePetitionEventArgs e)
 		{
-			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					if (this.tagProfile.IsCompleteOrWaitingForValidation())
 					{
@@ -141,7 +141,7 @@ namespace IdApp.Services.Contracts
 			}
 			else
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					if (this.tagProfile.IsCompleteOrWaitingForValidation())
 					{
@@ -177,7 +177,7 @@ namespace IdApp.Services.Contracts
 				await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false));
 			else
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					if (this.tagProfile.IsCompleteOrWaitingForValidation())
 					{
@@ -189,10 +189,10 @@ namespace IdApp.Services.Contracts
 
 		private void Contracts_PetitionedNeuronContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
 		{
-			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.uiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if (!e.Response || e.RequestedContract is null)
-					await this.uiDispatcher.DisplayAlert(AppResources.Message, AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
+					await this.uiSerializer.DisplayAlert(AppResources.Message, AppResources.PetitionToViewContractWasDenied, AppResources.Ok);
 				else
 				{
 					await this.navigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage),
@@ -212,7 +212,7 @@ namespace IdApp.Services.Contracts
 				await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
 			else
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.navigationService.GoToAsync(nameof(Pages.Contracts.PetitionContract.PetitionContractPage), 
 						new PetitionContractNavigationArgs(e.RequestorIdentity, e.RequestorFullJid, contract, e.PetitionId, e.Purpose));
@@ -223,10 +223,10 @@ namespace IdApp.Services.Contracts
 		private async void Contracts_PetitionedIdentityResponseReceived(object sender, LegalIdentityPetitionResponseEventArgs e)
 		{
 			if (!e.Response || e.RequestedIdentity is null)
-				await this.uiDispatcher.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
+				await this.uiSerializer.DisplayAlert(AppResources.Message, AppResources.PetitionToViewLegalIdentityWasDenied, AppResources.Ok);
 			else
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(e.RequestedIdentity, null));
 				});
@@ -238,7 +238,7 @@ namespace IdApp.Services.Contracts
 			try
 			{
 				if (!e.Response)
-					await this.uiDispatcher.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
+					await this.uiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
 				else
 				{
 					StringBuilder xml = new StringBuilder();
@@ -252,21 +252,21 @@ namespace IdApp.Services.Contracts
 					}
 					catch (Exception ex)
 					{
-						await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 						return;
 					}
 
-					this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+					this.uiSerializer.BeginInvokeOnMainThread(async () =>
 					{
 						if (!result.HasValue || !result.Value)
-							await this.uiDispatcher.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
+							await this.uiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
 						else
 						{
 							(bool succeeded, LegalIdentity legalIdentity) = await this.networkService.TryRequest(() => this.neuronService.Contracts.AddPeerReviewIdAttachment(tagProfile.LegalIdentity, e.RequestedIdentity, e.Signature));
 			
 							if (succeeded)
 							{
-								await this.uiDispatcher.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
+								await this.uiSerializer.DisplayAlert(AppResources.PeerReviewAccepted, AppResources.APeerReviewYouhaveRequestedHasBeenAccepted, AppResources.Ok);
 							}
 						}
 					});
@@ -275,7 +275,7 @@ namespace IdApp.Services.Contracts
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
 			}
 
 		}
@@ -312,7 +312,7 @@ namespace IdApp.Services.Contracts
 			if (contract.State != ContractState.Approved && contract.State != ContractState.BeingSigned)
 				return;		// Not in a state to be signed.
 
-			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.uiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if (this.tagProfile.IsCompleteOrWaitingForValidation())
 				{
@@ -350,7 +350,7 @@ namespace IdApp.Services.Contracts
 			(bool succeeded, LegalIdentity identity) = await this.networkService.TryRequest(() => this.neuronService.Contracts.GetLegalIdentity(legalId), displayAlert: false);
 			if (succeeded)
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					string userMessage = null;
 					bool gotoRegistrationPage = false;
@@ -396,9 +396,9 @@ namespace IdApp.Services.Contracts
 							// Do a begin invoke here so the page animation has time to finish,
 							// and the view model loads state et.c. before showing the alert.
 							// This gives a better UX experience.
-							this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+							this.uiSerializer.BeginInvokeOnMainThread(async () =>
 							{
-								await this.uiDispatcher.DisplayAlert(AppResources.YourLegalIdentity, userMessage);
+								await this.uiSerializer.DisplayAlert(AppResources.YourLegalIdentity, userMessage);
 							});
 						}
 					}
@@ -411,7 +411,7 @@ namespace IdApp.Services.Contracts
 			try
 			{
 				LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentity(legalId);
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
 				});
@@ -422,19 +422,19 @@ namespace IdApp.Services.Contracts
 				// When this happens, try to send a petition to view it instead.
 				// Normal operation. Should not be logged.
 
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionIdentity(legalId, Guid.NewGuid().ToString(), purpose));
 					if (succeeded)
 					{
-						await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
+						await this.uiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
 					}
 				});
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex);
 			}
 		}
 
@@ -444,7 +444,7 @@ namespace IdApp.Services.Contracts
 			{
 				Contract contract = await this.neuronService.Contracts.GetContract(contractId);
 
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					if (contract.CanActAsTemplate && contract.State == ContractState.Approved)
 					{
@@ -465,19 +465,19 @@ namespace IdApp.Services.Contracts
 				// When this happens, try to send a petition to view it instead.
 				// Normal operation. Should not be logged.
 
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.PetitionContract(contractId, Guid.NewGuid().ToString(), purpose));
 					if (succeeded)
 					{
-						await this.uiDispatcher.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
+						await this.uiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
 					}
 				});
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex);
 			}
 		}
 

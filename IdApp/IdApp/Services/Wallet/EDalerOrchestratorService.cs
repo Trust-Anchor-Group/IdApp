@@ -24,7 +24,7 @@ namespace IdApp.Services.Wallet
 	internal class EDalerOrchestratorService : LoadableService, IEDalerOrchestratorService
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
@@ -33,7 +33,7 @@ namespace IdApp.Services.Wallet
 
 		public EDalerOrchestratorService(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,
@@ -41,7 +41,7 @@ namespace IdApp.Services.Wallet
 			ISettingsService settingsService)
 		{
 			this.tagProfile = tagProfile;
-			this.uiDispatcher = uiDispatcher;
+			this.uiSerializer = uiSerializer;
 			this.neuronService = neuronService;
 			this.navigationService = navigationService;
 			this.logService = logService;
@@ -75,7 +75,7 @@ namespace IdApp.Services.Wallet
 
 		private Task Wallet_BalanceUpdated(object Sender, EDaler.BalanceEventArgs e)
 		{
-			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.uiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if ((e.Balance.Event?.Change ?? 0) > 0)
 					await this.navigationService.GoToAsync(nameof(EDalerReceivedPage), new EDalerBalanceNavigationArgs(e.Balance));
@@ -105,7 +105,7 @@ namespace IdApp.Services.Wallet
 			}
 			catch (Exception ex)
 			{
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -117,19 +117,19 @@ namespace IdApp.Services.Wallet
 		{
 			if (!this.neuronService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed, out string Reason))
 			{
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
 				return;
 			}
 
 			if (Parsed.Expires.AddDays(1) < DateTime.UtcNow)
 			{
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.ExpiredEDalerUri);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ExpiredEDalerUri);
 				return;
 			}
 
 			if (Parsed is EDalerIssuerUri)
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.navigationService.GoToAsync(nameof(IssueEDalerPage), new EDalerUriNavigationArgs(Parsed));
 				});
@@ -140,21 +140,21 @@ namespace IdApp.Services.Wallet
 			}
 			else if (Parsed is EDalerPaymentUri)
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.navigationService.GoToAsync(nameof(PaymentAcceptancePage), new EDalerUriNavigationArgs(Parsed));
 				});
 			}
 			else if (Parsed is EDalerIncompletePaymeUri)
 			{
-				this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.navigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed));
 				});
 			}
 			else
 			{
-				await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnrecognizedEDalerURI);
+				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnrecognizedEDalerURI);
 				return;
 			}
 		}

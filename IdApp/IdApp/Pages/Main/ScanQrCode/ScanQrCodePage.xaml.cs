@@ -14,7 +14,7 @@ namespace IdApp.Pages.Main.ScanQrCode
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScanQrCodePage
     {
-        private readonly IUiSerializer uiDispatcher;
+        private readonly IUiSerializer uiSerializer;
         private readonly INavigationService navigationService;
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         {
             this.ViewModel = viewModel ?? new ScanQrCodeViewModel();
             this.navigationService = App.Instantiate<INavigationService>();
-            this.uiDispatcher = App.Instantiate<IUiSerializer>();
+            this.uiSerializer = App.Instantiate<IUiSerializer>();
             InitializeComponent();
         }
 
@@ -73,7 +73,7 @@ namespace IdApp.Pages.Main.ScanQrCode
                 Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
                 string code = result.Text?.Trim();
                 GetViewModel<ScanQrCodeViewModel>().Code = code;
-                QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, code);
+                QrCode.TrySetResultAndClosePage(this.navigationService, this.uiSerializer, code);
             }
         }
 
@@ -86,17 +86,17 @@ namespace IdApp.Pages.Main.ScanQrCode
 
                 if (string.IsNullOrWhiteSpace(scheme))
                 {
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.UnsupportedUriScheme, AppResources.Ok);
+                    await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnsupportedUriScheme, AppResources.Ok);
                     return;
                 }
             }
             catch (Exception ex)
             {
-                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
+                await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message, AppResources.Ok);
                 return;
             }
 
-            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, code);
+            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiSerializer, code);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
-            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiDispatcher, string.Empty);
+            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiSerializer, string.Empty);
             return true;
         }
 

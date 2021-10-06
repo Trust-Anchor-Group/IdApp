@@ -44,7 +44,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="logService">The log service.</param>
         /// <param name="networkService">The network and connectivity service.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
         /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// </summary>
         protected internal PetitionSignatureViewModel(
@@ -52,21 +52,21 @@ namespace IdApp.Pages.Contracts.PetitionSignature
             INavigationService navigationService,
             ILogService logService,
             INetworkService networkService,
-            IUiSerializer uiDispatcher,
+            IUiSerializer uiSerializer,
             IAttachmentCacheService attachmentCacheService)
         {
             this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
             this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
             logService = logService ?? App.Instantiate<ILogService>();
             this.networkService = networkService ?? App.Instantiate<INetworkService>();
-            uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+            uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             
             this.Photos = new ObservableCollection<Photo>();
-            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiDispatcher,
+            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiSerializer,
                 attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
         }
 

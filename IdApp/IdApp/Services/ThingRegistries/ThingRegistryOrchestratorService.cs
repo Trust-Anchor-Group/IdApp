@@ -18,7 +18,7 @@ namespace IdApp.Services.ThingRegistries
 	internal class ThingRegistryOrchestratorService : LoadableService, IThingRegistryOrchestratorService
 	{
 		private readonly ITagProfile tagProfile;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly INeuronService neuronService;
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
@@ -26,14 +26,14 @@ namespace IdApp.Services.ThingRegistries
 
 		public ThingRegistryOrchestratorService(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,
 			INetworkService networkService)
 		{
 			this.tagProfile = tagProfile;
-			this.uiDispatcher = uiDispatcher;
+			this.uiSerializer = uiSerializer;
 			this.neuronService = neuronService;
 			this.navigationService = navigationService;
 			this.logService = logService;
@@ -62,7 +62,7 @@ namespace IdApp.Services.ThingRegistries
 
 		public Task OpenClaimDevice(string Uri)
 		{
-			this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+			this.uiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				await this.navigationService.GoToAsync(nameof(ViewClaimThingPage), new ViewClaimThingNavigationArgs(Uri));
 			});
@@ -82,13 +82,13 @@ namespace IdApp.Services.ThingRegistries
 				switch (Things.Length)
 				{
 					case 0:
-						await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.NoThingsFound);
+						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NoThingsFound);
 						break;
 
 					case 1:
 						SearchResultThing Thing = Things[0];
 
-						this.uiDispatcher.BeginInvokeOnMainThread(async () =>
+						this.uiSerializer.BeginInvokeOnMainThread(async () =>
 						{
 							Property[] Properties = ViewClaimThingViewModel.ToProperties(Thing.Tags);
 
@@ -118,7 +118,7 @@ namespace IdApp.Services.ThingRegistries
 			}
 			catch (Exception ex)
 			{
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 

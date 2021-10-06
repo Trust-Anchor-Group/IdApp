@@ -1720,6 +1720,11 @@
               Looks up a localized string similar to The code was not correct..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.UnexpectedResponse">
+            <summary>
+              Looks up a localized string similar to An unexpected response was received..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.UnrecognizedEDalerURI">
             <summary>
               Looks up a localized string similar to Unrecognized eDaler URI..
@@ -3233,7 +3238,7 @@
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="navigationService">The navigation service.</param>
-            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.ContactListViewModel.DoBind">
             <inheritdoc/>
@@ -3747,7 +3752,7 @@
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="navigationService">The navigation service.</param>
-            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
             <param name="TagProfile">TAG Profile</param>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.DoBind">
@@ -3922,7 +3927,7 @@
             <param name="tagProfile">The tag profile to work with.</param>
             <param name="logService">The log service.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
             <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
@@ -4190,7 +4195,7 @@
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="logService">The log service.</param>
             <param name="networkService">The network and connectivity service.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
@@ -4518,7 +4523,7 @@
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="logService">The log service.</param>
             <param name="networkService">The network and connectivity service.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
@@ -5015,7 +5020,7 @@
             <param name="tagProfile">The tag profile to work with.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="logService">The log service.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="networkService">The network and connectivity service.</param>
             <param name="attachmentCacheService">The attachment cache to use.</param>
@@ -5360,7 +5365,7 @@
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="logService">The log service.</param>
             <param name="networkService">The network and connectivity service.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
@@ -5652,6 +5657,11 @@
         </member>
         <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.DoUnbind">
             <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.CopyUriToClipboard">
+            <summary>
+            Command to copy URI to clipboard.
+            </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.UriProperty">
             <summary>
@@ -7449,7 +7459,7 @@
             Creates an instance of a <see cref="T:IdApp.Pages.NeuronViewModel"/>.
             </summary>
             <param name="neuronService"></param>
-            <param name="uiDispatcher"></param>
+            <param name="uiSerializer"></param>
             <param name="tagProfile"></param>
         </member>
         <member name="M:IdApp.Pages.NeuronViewModel.DoBind">
@@ -7581,7 +7591,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel"/> class.
             </summary>
             <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
@@ -7659,7 +7669,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.DefinePin.DefinePinViewModel"/> class.
             </summary>
             <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
@@ -7865,7 +7875,7 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel"/> class.
             <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
@@ -8190,7 +8200,7 @@
             </summary>
             <param name="step">The current step for this instance.</param>
             <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
@@ -8302,7 +8312,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
             For unit tests.
             <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="cryptoService">The service to use for cryptographic operations.</param>
@@ -8396,7 +8406,7 @@
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel"/> class.
             <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
@@ -8711,7 +8721,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel"/> class.
             </summary>
             <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+            <param name="uiSerializer">The UI dispatcher for alerts.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="navigationService">The navigation service to use for app navigation</param>
             <param name="settingsService">The settings service for persisting UI state.</param>
@@ -8915,7 +8925,7 @@
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="navigationService">The navigation service.</param>
-            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
         </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.DoBind">
             <inheritdoc/>
@@ -9074,7 +9084,7 @@
             <param name="Name">Tag name</param>
             <param name="Value">Tag value</param>
             <param name="LocalizedValue">Localized tag value</param>
-            <param name="uiDispatcher">UI Dispatcher service</param>
+            <param name="uiSerializer">UI Dispatcher service</param>
             <param name="logService">Log service</param>
         </member>
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.GetFriendlyName(System.Collections.Generic.IEnumerable{IdApp.Pages.Things.HumanReadableTag})">
@@ -9125,7 +9135,7 @@
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="navigationService">The navigation service.</param>
-            <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
             <param name="logService">Log service.</param>
         </member>
         <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.DoBind">
@@ -10755,7 +10765,7 @@
             <param name="logService">The log service to use if and when logging errors.</param>
             <param name="networkService">The network service to use for checking connectivity.</param>
             <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
             <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
         </member>
         <member name="M:IdApp.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{IdApp.Pages.Photo})">
@@ -10766,7 +10776,7 @@
             <param name="logService">The log service to use if and when logging errors.</param>
             <param name="networkService">The network service to use for checking connectivity.</param>
             <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
             <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
             <param name="photos">The collection the photos should be added to when downloaded.</param>
         </member>
@@ -10811,7 +10821,7 @@
             <param name="logService">The log service to use for logging.</param>
             <param name="neuronService">The Neuron service for XMPP access</param>
             <param name="navigationService">The navigation service for page navigation.</param>
-            <param name="uiDispatcher">The ui dispatcher for main thread access.</param>
+            <param name="uiSerializer">The ui dispatcher for main thread access.</param>
             <param name="contractOrchestratorService">The contract orchestrator service.</param>
             <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
             <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
@@ -10844,7 +10854,7 @@
             Tries to set the Scan QR Code result and close the scan page.
             </summary>
             <param name="navigationService">The navigation service to use for page navigation.</param>
-            <param name="uiDispatcher">The current UI Dispatcher to use for marshalling back to the main thread.</param>
+            <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
             <param name="code">The code to set.</param>
         </member>
         <member name="M:IdApp.QrCode.GeneratePng(System.String,System.Int32,System.Int32)">
@@ -12209,7 +12219,7 @@
             </summary>
             <param name="logService">The log service to use for logging.</param>
             <param name="cryptoService">The crypto service to use.</param>
-            <param name="uiDispatcher">The UI Dispatcher, for main thread access and to display alerts.</param>
+            <param name="uiSerializer">The UI Dispatcher, for main thread access and to display alerts.</param>
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.Init(Waher.Runtime.Profiling.ProfilerThread)">
             <inheritdoc />

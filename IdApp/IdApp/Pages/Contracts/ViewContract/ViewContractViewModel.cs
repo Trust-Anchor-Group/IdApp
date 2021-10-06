@@ -32,7 +32,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 	public class ViewContractViewModel : BaseViewModel
 	{
 		private bool isReadOnly;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly ILogService logService;
 		private readonly INavigationService navigationService;
 		private readonly INeuronService neuronService;
@@ -54,7 +54,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// <param name="tagProfile">The tag profile to work with.</param>
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="logService">The log service.</param>
-		/// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
 		/// <param name="navigationService">The navigation service to use for app navigation</param>
 		/// <param name="networkService">The network and connectivity service.</param>
 		/// <param name="attachmentCacheService">The attachment cache to use.</param>
@@ -64,7 +64,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			ITagProfile tagProfile,
 			INeuronService neuronService,
 			ILogService logService,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INavigationService navigationService,
 			INetworkService networkService,
 			IAttachmentCacheService attachmentCacheService,
@@ -73,13 +73,13 @@ namespace IdApp.Pages.Contracts.ViewContract
 			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
 			this.logService = logService ?? App.Instantiate<ILogService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 			networkService = networkService ?? App.Instantiate<INetworkService>();
 			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
 
 			this.Photos = new ObservableCollection<Photo>();
-			this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiDispatcher,
+			this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiSerializer,
 				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
 
 			this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
@@ -734,7 +734,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				{
 					_ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId, () =>
 						{
-							this.uiDispatcher.BeginInvokeOnMainThread(() => HasPhotos = this.Photos.Count > 0);
+							this.uiSerializer.BeginInvokeOnMainThread(() => HasPhotos = this.Photos.Count > 0);
 						});
 				}
 				else
@@ -747,7 +747,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					.ToArray());
 
 				ClearContract();
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -802,7 +802,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (sender is Button button && !string.IsNullOrEmpty(button.StyleId))
 				{
 					Contract contract = await this.neuronService.Contracts.SignContract(this.Contract, button.StyleId, false);
-					await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
+					await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
 					await this.ContractUpdated(contract);
 				}
@@ -810,7 +810,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -824,7 +824,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -849,7 +849,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -866,7 +866,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -876,14 +876,14 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContract(this.Contract.ContractId);
 
-				await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
+				await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
 				await this.ContractUpdated(obsoletedContract);
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -893,14 +893,14 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				Contract deletedContract = await this.neuronService.Contracts.DeleteContract(this.Contract.ContractId);
 
-				await this.uiDispatcher.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
+				await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 
 				await this.ContractUpdated(deletedContract);
 			}
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
-				await this.uiDispatcher.DisplayAlert(ex);
+				await this.uiSerializer.DisplayAlert(ex);
 			}
 		}
 	}

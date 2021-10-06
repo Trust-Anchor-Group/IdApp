@@ -34,13 +34,13 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public EDalerUriViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
 			ILogService logService,
 			IShareQrCode ShareQrCode)
-		: base(neuronService, uiDispatcher, tagProfile)
+		: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.logService = logService;
 			this.navigationService = navigationService;

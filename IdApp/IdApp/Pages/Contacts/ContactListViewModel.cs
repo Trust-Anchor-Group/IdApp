@@ -27,7 +27,7 @@ namespace IdApp.Pages.Contacts
 		private readonly INeuronService neuronService;
 		private readonly INetworkService networkService;
 		private readonly INavigationService navigationService;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
@@ -44,13 +44,13 @@ namespace IdApp.Pages.Contacts
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="navigationService">The navigation service.</param>
-		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
-		protected internal ContactListViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiSerializer uiDispatcher)
+		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
+		protected internal ContactListViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiSerializer uiSerializer)
 		{
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
 			this.networkService = networkService ?? App.Instantiate<INetworkService>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 			this.Contacts = new ObservableCollection<ContactInfo>();
 		}
 
@@ -169,7 +169,7 @@ namespace IdApp.Pages.Contacts
 					if (b is ContactListViewModel viewModel &&
 						newValue is ContactInfo Contact)
 					{
-						viewModel.uiDispatcher.BeginInvokeOnMainThread(async () =>
+						viewModel.uiSerializer.BeginInvokeOnMainThread(async () =>
 						{
 							switch (viewModel.Action)
 							{

@@ -39,7 +39,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public MyWalletViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
@@ -47,7 +47,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			IContractOrchestratorService contractOrchestratorService,
 			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
 			IEDalerOrchestratorService eDalerOrchestratorService)
-		: base(neuronService, uiDispatcher, tagProfile)
+		: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.logService = logService;
 			this.navigationService = navigationService;

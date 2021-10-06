@@ -27,12 +27,12 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public RequestPaymentViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ILogService logService,
 			RequestPaymentPage page)
-		: base(neuronService, uiDispatcher, tagProfile)
+		: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.logService = logService;
 			this.navigationService = navigationService;

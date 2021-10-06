@@ -29,7 +29,7 @@ namespace IdApp
 		private readonly ILogService logService;
 		private readonly INetworkService networkService;
 		private readonly INeuronService neuronService;
-		private readonly IUiSerializer uiDispatcher;
+		private readonly IUiSerializer uiSerializer;
 		private readonly IAttachmentCacheService attachmentCacheService;
 		private readonly ObservableCollection<Photo> photos;
 		private readonly List<string> attachmentIds;
@@ -42,15 +42,15 @@ namespace IdApp
 		/// <param name="logService">The log service to use if and when logging errors.</param>
 		/// <param name="networkService">The network service to use for checking connectivity.</param>
 		/// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-		/// <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+		/// <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
 		/// <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
 		public PhotosLoader(
 			ILogService logService,
 			INetworkService networkService,
 			INeuronService neuronService,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			IAttachmentCacheService attachmentCacheService)
-			: this(logService, networkService, neuronService, uiDispatcher, attachmentCacheService, new ObservableCollection<Photo>())
+			: this(logService, networkService, neuronService, uiSerializer, attachmentCacheService, new ObservableCollection<Photo>())
 		{
 		}
 
@@ -61,21 +61,21 @@ namespace IdApp
 		/// <param name="logService">The log service to use if and when logging errors.</param>
 		/// <param name="networkService">The network service to use for checking connectivity.</param>
 		/// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-		/// <param name="uiDispatcher">The UI dispatcher to use for alerts and context switching.</param>
+		/// <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
 		/// <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
 		/// <param name="photos">The collection the photos should be added to when downloaded.</param>
 		public PhotosLoader(
 			ILogService logService,
 			INetworkService networkService,
 			INeuronService neuronService,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			IAttachmentCacheService attachmentCacheService,
 			ObservableCollection<Photo> photos)
 		{
 			this.logService = logService;
 			this.networkService = networkService;
 			this.neuronService = neuronService;
-			this.uiDispatcher = uiDispatcher;
+			this.uiSerializer = uiSerializer;
 			this.attachmentCacheService = attachmentCacheService;
 			this.photos = photos;
 			this.attachmentIds = new List<string>();
@@ -173,7 +173,7 @@ namespace IdApp
 					Photo Photo = new Photo(Bin, Rotation);
 
 					if (!(Bin is null))
-						this.uiDispatcher.BeginInvokeOnMainThread(() => photos.Add(Photo));
+						this.uiSerializer.BeginInvokeOnMainThread(() => photos.Add(Photo));
 				}
 				catch (Exception ex)
 				{

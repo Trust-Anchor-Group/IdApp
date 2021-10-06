@@ -38,7 +38,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         /// <summary>
         /// Creates a new instance of the <see cref="RegisterIdentityModel"/> class.
         /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
         /// <param name="neuronService">The Neuron service for XMPP communication.</param>
         /// <param name="navigationService">The navigation service to use for app navigation</param>
         /// <param name="settingsService">The settings service for persisting UI state.</param>
@@ -48,14 +48,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
         /// </summary>
         public RegisterIdentityViewModel(
             ITagProfile tagProfile,
-            IUiSerializer uiDispatcher,
+            IUiSerializer uiSerializer,
             INeuronService neuronService,
             INavigationService navigationService,
             ISettingsService settingsService,
             INetworkService networkService,
             ILogService logService,
             IAttachmentCacheService attachmentCacheService)
-         : base(RegistrationStep.RegisterIdentity, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
+         : base(RegistrationStep.RegisterIdentity, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
         {
             this.networkService = networkService;
             
@@ -76,7 +76,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
             
             this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiDispatcher,
+            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiSerializer,
                 attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
         }
 

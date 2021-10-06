@@ -14,7 +14,7 @@ namespace IdApp.Pages.Main.Image
     /// </summary>
     public class ImageViewModel : BaseViewModel
     {
-        private readonly IUiSerializer uiDispatcher;
+        private readonly IUiSerializer uiSerializer;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace IdApp.Pages.Main.Image
         /// </summary>
         public ImageViewModel()
         {
-            this.uiDispatcher = App.Instantiate<IUiSerializer>();
+            this.uiSerializer = App.Instantiate<IUiSerializer>();
             this.Photos = new ObservableCollection<Photo>();
             this.photosLoader = new PhotosLoader(
                 App.Instantiate<ILogService>(),
@@ -64,7 +64,7 @@ namespace IdApp.Pages.Main.Image
 
             _ = this.photosLoader.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys, () =>
             {
-                this.uiDispatcher.BeginInvokeOnMainThread(() => this.IsSwipeEnabled = this.Photos.Count > 1);
+                this.uiSerializer.BeginInvokeOnMainThread(() => this.IsSwipeEnabled = this.Photos.Count > 1);
             });
         }
 

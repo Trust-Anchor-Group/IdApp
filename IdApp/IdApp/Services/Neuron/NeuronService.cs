@@ -75,7 +75,7 @@ namespace IdApp.Services.Neuron
 		public NeuronService(
 			Assembly appAssembly,
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INetworkService networkService,
 			ILogService logService,
 			ISettingsService settingsService,
@@ -86,7 +86,7 @@ namespace IdApp.Services.Neuron
 			this.logService = logService;
 			this.tagProfile = tagProfile;
 			this.settingsService = settingsService;
-			this.contracts = new NeuronContracts(this.tagProfile, uiDispatcher, this, this.logService, this.settingsService);
+			this.contracts = new NeuronContracts(this.tagProfile, uiSerializer, this, this.logService, this.settingsService);
 			this.muc = new NeuronMultiUserChat(this);
 			this.thingRegistry = new NeuronThingRegistry(this);
 			this.provisioning = new NeuronProvisioningService(this);

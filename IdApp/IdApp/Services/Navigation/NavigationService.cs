@@ -14,15 +14,15 @@ namespace IdApp.Services.Navigation
     {
         private const string DefaultGoBackRoute = "..";
         private readonly ILogService logService;
-        private readonly IUiSerializer uiDispatcher;
+        private readonly IUiSerializer uiSerializer;
         private NavigationArgs currentNavigationArgs;
         private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
         bool isManuallyNavigatingBack = false;
 
-        public NavigationService(ILogService logService, IUiSerializer uiDispatcher)
+        public NavigationService(ILogService logService, IUiSerializer uiSerializer)
         {
             this.logService = logService;
-            this.uiDispatcher = uiDispatcher;
+            this.uiSerializer = uiSerializer;
             this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
         }
 
@@ -149,7 +149,7 @@ namespace IdApp.Services.Navigation
             catch (Exception e)
             {
                 this.logService.LogException(e);
-                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
+                await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
             }
         }
 
@@ -170,7 +170,7 @@ namespace IdApp.Services.Navigation
                 e = Log.UnnestException(e);
                 this.logService.LogException(e);
                 string extraInfo = $"{Environment.NewLine}{e.Message}";
-                await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
+                await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
             }
         }
     }

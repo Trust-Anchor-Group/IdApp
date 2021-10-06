@@ -21,7 +21,7 @@ namespace IdApp.Pages
         private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
         private readonly ILogService logService;
         private readonly ISettingsService settingsService;
-        private readonly IUiSerializer uiDispatcher;
+        private readonly IUiSerializer uiSerializer;
 
         /// <summary>
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
@@ -35,11 +35,11 @@ namespace IdApp.Pages
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
         /// For unit tests.
         /// </summary>
-        protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiSerializer uiDispatcher)
+        protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiSerializer uiSerializer)
         {
             this.logService = logService ?? Types.Instantiate<ILogService>(false);
             this.settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
-            this.uiDispatcher = uiDispatcher ?? Types.Instantiate<IUiSerializer>(false);
+            this.uiSerializer = uiSerializer ?? Types.Instantiate<IUiSerializer>(false);
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -91,7 +91,7 @@ namespace IdApp.Pages
                         e = Waher.Events.Log.UnnestException(e);
                         this.logService.LogException(e);
                         string msg = string.Format(AppResources.FailedToBindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                        await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
 
@@ -105,7 +105,7 @@ namespace IdApp.Pages
                     e = Waher.Events.Log.UnnestException(e);
                     this.logService.LogException(e);
                     string msg = string.Format(AppResources.FailedToRestoreViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                    await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
         }
@@ -127,7 +127,7 @@ namespace IdApp.Pages
                         e = Waher.Events.Log.UnnestException(e);
                         this.logService.LogException(e);
                         string msg = string.Format(AppResources.FailedToSaveViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                        await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                        await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
 
@@ -140,7 +140,7 @@ namespace IdApp.Pages
                     e = Waher.Events.Log.UnnestException(e);
                     this.logService.LogException(e);
                     string msg = string.Format(AppResources.FailedToUnbindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                    await this.uiDispatcher.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                    await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
             base.OnDisappearing();
@@ -154,7 +154,7 @@ namespace IdApp.Pages
         protected void ForceReRender(params Layout[] layouts)
         {
             // Important to BeginInvoke here to get the UI to update properly.
-            this.uiDispatcher.BeginInvokeOnMainThread(() =>
+            this.uiSerializer.BeginInvokeOnMainThread(() =>
             {
                 foreach (Layout layout in layouts)
                 {

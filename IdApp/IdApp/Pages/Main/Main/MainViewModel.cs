@@ -53,7 +53,7 @@ namespace IdApp.Pages.Main.Main
 		protected internal MainViewModel(
 			ILogService logService,
 			INeuronService neuronService,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			ITagProfile tagProfile,
 			INavigationService navigationService,
 			INetworkService networkService,
@@ -61,7 +61,7 @@ namespace IdApp.Pages.Main.Main
 			IContractOrchestratorService contractOrchestratorService,
 			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
 			IEDalerOrchestratorService eDalerOrchestratorService)
-			: base(neuronService, uiDispatcher, tagProfile)
+			: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.logService = logService ?? App.Instantiate<ILogService>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();

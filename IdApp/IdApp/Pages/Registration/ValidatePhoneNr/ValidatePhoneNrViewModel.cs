@@ -43,7 +43,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// Creates a new instance of the <see cref="ValidatePhoneNrViewModel"/> class.
 		/// </summary>
 		/// <param name="tagProfile">The tag profile to work with.</param>
-		/// <param name="uiDispatcher">The UI dispatcher for alerts.</param>
+		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="navigationService">The navigation service to use for app navigation</param>
 		/// <param name="settingsService">The settings service for persisting UI state.</param>
@@ -51,13 +51,13 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// <param name="logService">The log service.</param>
 		public ValidatePhoneNrViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			ISettingsService settingsService,
 			INetworkService networkService,
 			ILogService logService)
-			: base(RegistrationStep.ValidatePhoneNr, tagProfile, uiDispatcher, neuronService, navigationService, settingsService, logService)
+			: base(RegistrationStep.ValidatePhoneNr, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
 		{
 			this.networkService = networkService;
 			this.SendCodeCommand = new Command(async () => await this.SendCode(), this.SendCodeCanExecute);

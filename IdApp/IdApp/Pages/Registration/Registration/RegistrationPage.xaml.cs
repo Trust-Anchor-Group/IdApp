@@ -13,7 +13,7 @@ namespace IdApp.Pages.Registration.Registration
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RegistrationPage
     {
-        private readonly IUiSerializer uiDispatcher;
+        private readonly IUiSerializer uiSerializer;
 
         /// <summary>
         /// Creates a new instance of the <see cref="RegistrationPage"/> class.
@@ -21,7 +21,7 @@ namespace IdApp.Pages.Registration.Registration
         public RegistrationPage()
         {
             NavigationPage.SetHasNavigationBar(this, false);
-            this.uiDispatcher = App.Instantiate<IUiSerializer>();
+            this.uiSerializer = App.Instantiate<IUiSerializer>();
             ViewModel = new RegistrationViewModel();
             InitializeComponent();
         }
@@ -45,7 +45,7 @@ namespace IdApp.Pages.Registration.Registration
         /// So here we scroll back and forth one step to get it to be in sync with the viewmodel.
         private void UpdateUiStep()
         {
-            this.uiDispatcher.BeginInvokeOnMainThread(() =>
+            this.uiSerializer.BeginInvokeOnMainThread(() =>
             {
                 RegistrationViewModel vm = GetViewModel<RegistrationViewModel>();
                 int step = vm.CurrentStep;
@@ -64,7 +64,7 @@ namespace IdApp.Pages.Registration.Registration
                     vm.MuteStepSync();
                     this.CarouselView.ScrollTo(otherStep, position: ScrollToPosition.Center, animate: false);
                     this.CarouselView.ScrollTo(step, position: ScrollToPosition.Center, animate: false);
-                    this.uiDispatcher.BeginInvokeOnMainThread(() => vm.UnMuteStepSync());
+                    this.uiSerializer.BeginInvokeOnMainThread(() => vm.UnMuteStepSync());
                 }
             });
         }

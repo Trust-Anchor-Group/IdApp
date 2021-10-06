@@ -51,7 +51,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		private readonly INeuronService neuronService;
 		private readonly INetworkService networkService;
 		internal readonly INavigationService navigationService;
-		internal readonly IUiSerializer uiDispatcher;
+		internal readonly IUiSerializer uiSerializer;
 		internal readonly ITagProfile tagProfile;
 		private DateTime loadContractsTimestamp;
 
@@ -72,16 +72,16 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="navigationService">The navigation service.</param>
-		/// <param name="uiDispatcher"> The dispatcher to use for alerts and accessing the main thread.</param>
+		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
 		/// <param name="TagProfile">TAG Profile</param>
 		protected internal MyContractsViewModel(ContractsListMode ContractsListMode, INeuronService neuronService, 
-			INetworkService networkService, INavigationService navigationService, IUiSerializer uiDispatcher,
+			INetworkService networkService, INavigationService navigationService, IUiSerializer uiSerializer,
 			ITagProfile TagProfile)
 		{
 			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
 			this.networkService = networkService ?? App.Instantiate<INetworkService>();
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.uiDispatcher = uiDispatcher ?? App.Instantiate<IUiSerializer>();
+			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 			this.tagProfile = TagProfile ?? App.Instantiate<ITagProfile>();
 			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();
@@ -116,7 +116,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 			await base.DoBind();
 
-			uiDispatcher.BeginInvokeOnMainThread(async () => await LoadContracts(this.loadContractsTimestamp));
+			uiSerializer.BeginInvokeOnMainThread(async () => await LoadContracts(this.loadContractsTimestamp));
 		}
 
 		/// <inheritdoc/>
@@ -193,12 +193,12 @@ namespace IdApp.Pages.Contracts.MyContracts
 					{
 						if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
 						{
-							viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
+							viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
 								nameof(NewContractPage), new NewContractNavigationArgs(contract)));
 						}
 						else
 						{
-							viewModel.uiDispatcher.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
+							viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
 								nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
 						}
 					}
@@ -249,7 +249,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 				if (timestampsAndcontractIds.Length <= 0)
 				{
-					this.uiDispatcher.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
+					this.uiSerializer.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
 					return;
 				}
 
