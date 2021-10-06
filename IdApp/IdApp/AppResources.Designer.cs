@@ -3013,7 +3013,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to access invitation information. Please try again later..
+        ///   Looks up a localized string similar to Unable to access invitation information..
         /// </summary>
         internal static string UnableToAccessInvitation {
             get {

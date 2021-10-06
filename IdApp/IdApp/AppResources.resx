@@ -1255,7 +1255,7 @@
     <value>Phone</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
-    <value>Unable to access invitation information. Please try again later.</value>
+    <value>Unable to access invitation information.</value>
   </data>
   <data name="InvitationAccepted" xml:space="preserve">
     <value>Invitation accepted</value>

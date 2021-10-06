@@ -329,7 +329,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					LinkedList<XmlElement> ToProcess = new LinkedList<XmlElement>();
 					ToProcess.AddLast(Doc.DocumentElement);
 
-					bool Done = false;
+					bool AccountDone = false;
+					bool LegalIdDone = false;
 
 					while (!(ToProcess.First is null))
 					{
@@ -368,11 +369,30 @@ namespace IdApp.Pages.Registration.ChooseAccount
 									throw new Exception("Invalid account.");
 								}
 
-								Done = true;
+								this.AccountName = UserName;
+								AccountDone = true;
 								break;
 
 							case "LegalId":
 								await this.NeuronService.Contracts.ContractsClient.ImportKeys(E);
+
+								LegalIdentity Best = null;
+								LegalIdentity[] Identities = await this.NeuronService.Contracts.GetLegalIdentities();
+
+								foreach (LegalIdentity Identity in Identities)
+								{
+									if (Identity.State != IdentityState.Approved)
+										continue;
+
+									if (Best is null || Identity.Created > Best.Created)
+										Best = Identity;
+								}
+
+								if (!(Best is null))
+								{
+									this.TagProfile.SetLegalIdentity(Best);
+									LegalIdDone = true;
+								}
 								break;
 
 							case "Transfer":
@@ -388,13 +408,18 @@ namespace IdApp.Pages.Registration.ChooseAccount
 						}
 					}
 
-					if (Done)
+					if (AccountDone)
 					{
 						this.UiSerializer.BeginInvokeOnMainThread(() =>
 						{
 							SetIsDone(CreateNewCommand, ScanQrCodeCommand);
 
 							OnStepCompleted(EventArgs.Empty);
+
+							if (LegalIdDone)
+							{
+								// TODO
+							}
 						});
 					}
 				}

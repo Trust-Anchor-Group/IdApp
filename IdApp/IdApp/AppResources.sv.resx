@@ -1108,7 +1108,7 @@
     <value>Skanna inbjudningskoden i form av QR-koden nedan, från en enhet som håller på att initieras, för att överföra den digitala identiteten från denna enhet till den andra enheten. När koden har skannats och identiteten överförts, kommer den att tas bort från denna enhet.</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
-    <value>Kunde inte komma åt information om inbjudan. Var god försök senare.</value>
+    <value>Kunde inte komma åt information om inbjudan.</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
