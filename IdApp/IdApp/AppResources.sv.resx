@@ -1128,6 +1128,9 @@
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Koden var inte korrekt.</value>
   </data>
+  <data name="UnexpectedResponse" xml:space="preserve">
+    <value>Ett oväntat svar mottogs.</value>
+  </data>
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
     <value>Okänd eDaler-URI.</value>
   </data>

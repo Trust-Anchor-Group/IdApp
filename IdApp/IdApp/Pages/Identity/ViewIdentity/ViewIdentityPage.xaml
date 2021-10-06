@@ -7,7 +7,6 @@
                        xmlns:image="clr-namespace:IdApp.Pages.Main.Image;assembly=IdApp"
                        xmlns:pages="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Identity.ViewIdentity;assembly=IdApp"
-                       xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                        x:DataType="model:ViewIdentityViewModel"
                        x:Class="IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage"
                        Title="{x:Static local:AppResources.Identity}">

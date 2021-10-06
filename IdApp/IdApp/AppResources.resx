@@ -1275,4 +1275,7 @@
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
     <value>Confirm by entering your PIN number.</value>
   </data>
+  <data name="UnexpectedResponse" xml:space="preserve">
+    <value>An unexpected response was received.</value>
+  </data>
 </root>

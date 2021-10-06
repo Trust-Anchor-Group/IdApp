@@ -12,7 +12,12 @@
             <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static local:AppResources.TransferId}" Style="{StaticResource Heading}" />
                 <Label Text="{x:Static local:AppResources.TransferIdentityInformationText}" Style="{StaticResource InfoText}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
-                <Image x:Name="QrCode" Source="{Binding Path=QrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="CenterAndExpand" Margin="0" />
+                <Image x:Name="QrCode" Source="{Binding Path=QrCode}" HorizontalOptions="CenterAndExpand" Margin="0"
+                       WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CopyUriToClipboard}"/>
+                    </Image.GestureRecognizers>
+                </Image>
             </StackLayout>
         </ScrollView>
     </Grid>

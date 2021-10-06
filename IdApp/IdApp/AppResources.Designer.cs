@@ -3076,6 +3076,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unexpected response was received..
+        /// </summary>
+        internal static string UnexpectedResponse {
+            get {
+                return ResourceManager.GetString("UnexpectedResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unrecognized eDaler URI..
         /// </summary>
         internal static string UnrecognizedEDalerURI {

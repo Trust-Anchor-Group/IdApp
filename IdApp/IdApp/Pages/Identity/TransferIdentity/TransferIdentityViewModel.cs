@@ -2,11 +2,13 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Identity.TransferIdentity
@@ -24,15 +26,17 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// Creates an instance of the <see cref="TransferIdentityViewModel"/> class.
 		/// </summary>
 		public TransferIdentityViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			ILogService logService)
-		: base(neuronService, uiDispatcher, tagProfile)
+			ITagProfile TagProfile,
+			IUiSerializer UiSerializer,
+			INeuronService NeuronService,
+			INavigationService NavigationService,
+			ILogService LogService)
+		: base(NeuronService, UiSerializer, TagProfile)
 		{
-			this.navigationService = navigationService;
-			this.logService = logService;
+			this.navigationService = NavigationService;
+			this.logService = LogService;
+
+			this.CopyUriToClipboard = new Command(async () => await this.CopyUriToClipboardClicked());
 		}
 
 		/// <inheritdoc/>
@@ -80,6 +84,14 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// Command to copy URI to clipboard.
+		/// </summary>
+		public ICommand CopyUriToClipboard
+		{
+			get;
+		}
 
 		/// <summary>
 		/// See <see cref="Uri"/>
@@ -143,5 +155,10 @@ namespace IdApp.Pages.Identity.TransferIdentity
 
 		#endregion
 
+		private async Task CopyUriToClipboardClicked()
+		{
+			await Clipboard.SetTextAsync(this.Uri);
+			await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TagValueCopiedToClipboard);
+		}
 	}
 }

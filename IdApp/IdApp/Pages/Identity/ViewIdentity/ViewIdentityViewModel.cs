@@ -48,14 +48,14 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public ViewIdentityViewModel(
 			ITagProfile tagProfile,
-			IUiSerializer uiDispatcher,
+			IUiSerializer uiSerializer,
 			INeuronService neuronService,
 			INavigationService navigationService,
 			INetworkService networkService,
 			ILogService logService,
 			IEDalerOrchestratorService EDalerService,
 			IAttachmentCacheService attachmentCacheService)
-		: base(neuronService, uiDispatcher, tagProfile)
+		: base(neuronService, uiSerializer, tagProfile)
 		{
 			this.logService = logService;
 			this.navigationService = navigationService;
@@ -1596,11 +1596,21 @@ namespace IdApp.Pages.Identity.ViewIdentity
 									Output.WriteEndElement();
 								}
 
-								XmlElement Info = await this.NeuronService.Xmpp.IqSetAsync("onboarding.id.tagroot.io", Xml.ToString());
-								string Code = XML.Attribute(Info, "code");
-								string Url = "obinfo:id.tagroot.io:" + Code + ":" + Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
+								XmlElement Response = await this.NeuronService.Xmpp.IqSetAsync("onboarding.id.tagroot.io", Xml.ToString());
 
-								await this.navigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
+								foreach (XmlNode N in Response.ChildNodes)
+								{
+									if (N is XmlElement Info && Info.LocalName == "Code" && Info.NamespaceURI == ContractsClient.NamespaceOnboarding)
+									{
+										string Code = XML.Attribute(Info, "code");
+										string Url = "obinfo:id.tagroot.io:" + Code + ":" + Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
+
+										await this.navigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
+										return;
+									}
+								}
+
+								await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnexpectedResponse);
 							}
 						}
 					}
