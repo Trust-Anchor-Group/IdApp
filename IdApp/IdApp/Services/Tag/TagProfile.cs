@@ -168,7 +168,7 @@ namespace IdApp.Services.Tag
 				this.PinHash = configuration.PinHash;
 				this.UsePin = configuration.UsePin;
 				this.LegalIdentity = configuration.LegalIdentity;
-				
+
 				// Do this last, as listeners will read the other properties when the event is fired.
 				this.Step = configuration.Step;
 			}
@@ -535,19 +535,19 @@ namespace IdApp.Services.Tag
 					case RegistrationStep.ValidatePhoneNr:
 						// Do nothing
 						break;
-					
+
 					case RegistrationStep.Account:
 						this.Step = RegistrationStep.ValidatePhoneNr;
 						break;
-					
+
 					case RegistrationStep.RegisterIdentity:
 						this.Step = RegistrationStep.Account;
 						break;
-					
+
 					case RegistrationStep.ValidateIdentity:
 						this.Step = RegistrationStep.RegisterIdentity;
 						break;
-					
+
 					case RegistrationStep.Pin:
 						this.Step = RegistrationStep.ValidateIdentity;
 						break;
@@ -566,19 +566,19 @@ namespace IdApp.Services.Tag
 					case RegistrationStep.ValidatePhoneNr:
 						this.Step = RegistrationStep.Account;
 						break;
-			
+
 					case RegistrationStep.Account:
 						this.Step = RegistrationStep.RegisterIdentity;
 						break;
-					
+
 					case RegistrationStep.RegisterIdentity:
 						this.Step = RegistrationStep.ValidateIdentity;
 						break;
-					
+
 					case RegistrationStep.ValidateIdentity:
 						this.Step = RegistrationStep.Pin;
 						break;
-					
+
 					case RegistrationStep.Pin:
 						this.Step = RegistrationStep.Complete;
 						break;
@@ -636,10 +636,23 @@ namespace IdApp.Services.Tag
 
 			if (!string.IsNullOrWhiteSpace(this.Account) && Step == RegistrationStep.Account && !(this.LegalIdentity is null))
 			{
-				if (this.LegalIdentity.IsCreatedOrApproved())
-					this.IncrementConfigurationStep(RegistrationStep.ValidateIdentity);
-				else
-					this.IncrementConfigurationStep();
+				switch (this.LegalIdentity.State)
+				{
+					case IdentityState.Created:
+						this.IncrementConfigurationStep(RegistrationStep.ValidateIdentity);
+						break;
+
+					case IdentityState.Approved:
+						if (this.usePin && !string.IsNullOrWhiteSpace(this.pinHash))
+							this.IncrementConfigurationStep(RegistrationStep.Complete);
+						else
+							this.IncrementConfigurationStep(RegistrationStep.Pin);
+						break;
+
+					default:
+						this.IncrementConfigurationStep();
+						break;
+				}
 			}
 		}
 
@@ -650,17 +663,20 @@ namespace IdApp.Services.Tag
 			this.PasswordHash = string.Empty;
 			this.PasswordHashMethod = string.Empty;
 			this.LegalJid = null;
-			
+
 			this.DecrementConfigurationStep(RegistrationStep.ValidatePhoneNr); // prev
 		}
 
 		/// <inheritdoc/>
-		public void SetLegalIdentity(LegalIdentity identity)
+		public void SetLegalIdentity(LegalIdentity Identity)
 		{
-			this.LegalIdentity = identity;
-			
-			if (this.Step == RegistrationStep.RegisterIdentity && this.LegalIdentity.IsCreatedOrApproved())
+			this.LegalIdentity = Identity;
+
+			if (this.Step == RegistrationStep.RegisterIdentity && !(Identity is null) &&
+				(Identity.State == IdentityState.Created || Identity.State == IdentityState.Approved))
+			{
 				this.IncrementConfigurationStep();
+			}
 		}
 
 		/// <inheritdoc/>
@@ -668,7 +684,7 @@ namespace IdApp.Services.Tag
 		{
 			this.LegalIdentity = null;
 			this.LegalJid = null;
-		
+
 			this.DecrementConfigurationStep(RegistrationStep.Account); // prev
 		}
 
@@ -701,11 +717,11 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
-		public void SetPin(string pin, bool shouldUsePin)
+		public void SetPin(string Pin, bool ShouldUsePin)
 		{
-			this.Pin = pin;
-			this.UsePin = shouldUsePin;
-		
+			this.Pin = Pin;
+			this.UsePin = ShouldUsePin;
+
 			if (this.step == RegistrationStep.Pin)
 				IncrementConfigurationStep();
 		}
@@ -715,7 +731,7 @@ namespace IdApp.Services.Tag
 		{
 			this.Pin = string.Empty;
 			this.UsePin = false;
-		
+
 			if (this.Step == RegistrationStep.Pin)
 				DecrementConfigurationStep(RegistrationStep.ValidateIdentity); // prev
 		}

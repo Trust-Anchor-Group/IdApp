@@ -2634,13 +2634,6 @@
             <param name="legalIdentity">The legal identity whose state to check.</param>
             <returns>If ID needs to be updated</returns>
         </member>
-        <member name="M:IdApp.Extensions.LegalIdentityExtensions.IsCreatedOrApproved(Waher.Networking.XMPP.Contracts.LegalIdentity)">
-            <summary>
-            Returns <c>true</c> if the <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> is in either of the two states <c>Created</c> or <c>Approved</c>.
-            </summary>
-            <param name="legalIdentity">The legal identity whose state to check.</param>
-            <returns>If an identity is in a Created or Approved state</returns>
-        </member>
         <member name="M:IdApp.Extensions.LegalIdentityExtensions.GetJid(Waher.Networking.XMPP.Contracts.LegalIdentity,System.String)">
             <summary>
             Returns the JID if the <see cref="T:Waher.Networking.XMPP.Contracts.LegalIdentity"/> has one, or the empty string otherwise.

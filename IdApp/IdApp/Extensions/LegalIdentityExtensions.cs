@@ -23,16 +23,6 @@ namespace IdApp.Extensions
         }
 
         /// <summary>
-        /// Returns <c>true</c> if the <see cref="LegalIdentity"/> is in either of the two states <c>Created</c> or <c>Approved</c>.
-        /// </summary>
-        /// <param name="legalIdentity">The legal identity whose state to check.</param>
-        /// <returns>If an identity is in a Created or Approved state</returns>
-        public static bool IsCreatedOrApproved(this LegalIdentity legalIdentity)
-        {
-            return !(legalIdentity is null) && (legalIdentity.State == IdentityState.Created || legalIdentity.State == IdentityState.Approved);
-        }
-
-        /// <summary>
         /// Returns the JID if the <see cref="LegalIdentity"/> has one, or the empty string otherwise.
         /// </summary>
         /// <param name="legalIdentity">The legal identity whose JID to get.</param>

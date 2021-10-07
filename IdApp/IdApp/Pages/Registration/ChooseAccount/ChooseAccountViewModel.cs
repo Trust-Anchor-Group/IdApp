@@ -378,6 +378,11 @@ namespace IdApp.Pages.Registration.ChooseAccount
 								LegalIdDefinition = E;
 								break;
 
+							case "Pin":
+								string Pin = XML.Attribute(E, "pin");
+								this.TagProfile.SetPin(Pin, !string.IsNullOrEmpty(Pin));
+								break;
+
 							case "Transfer":
 								foreach (XmlNode N in E.ChildNodes)
 								{

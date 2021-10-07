@@ -266,10 +266,10 @@ namespace IdApp.Pages.Registration.Registration
 
         private void SyncTagProfileStep()
         {
-            if (this.tagProfile.Step != RegistrationStep.Complete)
-            {
+            if (this.tagProfile.Step == RegistrationStep.Complete)
+                this.navigationService.GoToAsync($"///{nameof(Main.Main.MainPage)}");
+            else
                 this.CurrentStep = (int)this.tagProfile.Step;
-            }
         }
     }
 }

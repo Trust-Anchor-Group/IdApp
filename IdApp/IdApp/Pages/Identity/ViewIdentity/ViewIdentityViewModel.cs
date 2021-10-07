@@ -1554,6 +1554,10 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 						await this.NeuronService.Contracts.ContractsClient.ExportKeys(Output);
 
+						Output.WriteStartElement("Pin");
+						Output.WriteAttributeString("pin", this.Pin);
+						Output.WriteEndElement();
+
 						Output.WriteStartElement("Account", ContractsClient.NamespaceOnboarding);
 						Output.WriteAttributeString("domain", this.TagProfile.Domain);
 						Output.WriteAttributeString("userName", this.TagProfile.Account);

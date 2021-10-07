@@ -52,14 +52,11 @@ namespace IdApp.Pages.Registration.Registration
                 if (step < (int)RegistrationStep.Complete)
                 {
                     int otherStep;
+                    
                     if (step > 0)
-                    {
                         otherStep = step - 1;
-                    }
                     else
-                    {
                         otherStep = step + 1;
-                    }
 
                     vm.MuteStepSync();
                     this.CarouselView.ScrollTo(otherStep, position: ScrollToPosition.Center, animate: false);
