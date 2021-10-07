@@ -1610,6 +1610,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 										string Code = XML.Attribute(Info, "code");
 										string Url = "obinfo:id.tagroot.io:" + Code + ":" + Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
 
+										await this.NeuronService.AddTransferCode(Code);
 										await this.navigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
 										return;
 									}

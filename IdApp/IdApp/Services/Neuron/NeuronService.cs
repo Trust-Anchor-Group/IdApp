@@ -28,6 +28,10 @@ using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI;
+using Waher.Content.Xml;
+using Waher.Runtime.Settings;
+using Waher.Content;
+using IdApp.Services.Navigation;
 
 namespace IdApp.Services.Neuron
 {
@@ -73,26 +77,26 @@ namespace IdApp.Services.Neuron
 		private string historyHtml;
 
 		public NeuronService(
-			Assembly appAssembly,
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INetworkService networkService,
-			ILogService logService,
-			ISettingsService settingsService,
-			Profiler startupProfiler)
+			Assembly AppAssembly,
+			ITagProfile TagProfile,
+			IUiSerializer UiSerializer,
+			INetworkService NetworkService,
+			ILogService LogService,
+			ISettingsService SettingsService,
+			Profiler StartupProfiler)
 		{
-			this.appAssembly = appAssembly;
-			this.networkService = networkService;
-			this.logService = logService;
-			this.tagProfile = tagProfile;
-			this.settingsService = settingsService;
-			this.contracts = new NeuronContracts(this.tagProfile, uiSerializer, this, this.logService, this.settingsService);
+			this.appAssembly = AppAssembly;
+			this.networkService = NetworkService;
+			this.logService = LogService;
+			this.tagProfile = TagProfile;
+			this.settingsService = SettingsService;
+			this.contracts = new NeuronContracts(this.tagProfile, UiSerializer, this, this.logService, this.settingsService);
 			this.muc = new NeuronMultiUserChat(this);
 			this.thingRegistry = new NeuronThingRegistry(this);
 			this.provisioning = new NeuronProvisioningService(this);
 			this.wallet = new NeuronWallet(this, this.logService);
 			this.sniffer = new InMemorySniffer(250);
-			this.startupProfiler = startupProfiler;
+			this.startupProfiler = StartupProfiler;
 		}
 
 		#region Create/Destroy
@@ -161,6 +165,8 @@ namespace IdApp.Services.Neuron
 					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
+
+					this.xmppClient.RegisterMessageHandler("Delivered", Constants.UriSchemes.UriSchemeOnboarding, this.TransferIdDelivered, true);
 
 					Thread?.NewState("Sink");
 					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
@@ -940,6 +946,50 @@ namespace IdApp.Services.Neuron
 		private static string FixTags(string xml)
 		{
 			return xml.Replace("&lt;", "<").Replace("&gt;", ">");
+		}
+
+		private async Task TransferIdDelivered(object Sender, MessageEventArgs e)
+		{
+			string Code = XML.Attribute(e.Content, "code");
+			bool Deleted = XML.Attribute(e.Content, "deleted", false);
+
+			if (!Deleted)
+				return;
+
+			string CodesGenerated = await RuntimeSettings.GetAsync("TransferId.CodesSent", string.Empty);
+			string[] Codes = CodesGenerated.Split(CommonTypes.CRLF, StringSplitOptions.RemoveEmptyEntries);
+
+			if (Array.IndexOf<string>(Codes, Code) < 0)
+				return;
+
+			this.DestroyXmppClient();
+
+			this.domainName = string.Empty;
+			this.accountName = string.Empty;
+			this.passwordHash = string.Empty;
+			this.passwordHashMethod = string.Empty;
+			this.xmppConnected = false;
+
+			this.tagProfile.ClearAll();
+			await RuntimeSettings.SetAsync("TransferId.CodesSent", string.Empty);
+
+			//await this.navigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}");
+		}
+
+		/// <summary>
+		/// Registers a Transfer ID Code
+		/// </summary>
+		/// <param name="Code">Transfer Code</param>
+		public async Task AddTransferCode(string Code)
+		{
+			string CodesGenerated = await RuntimeSettings.GetAsync("TransferId.CodesSent", string.Empty);
+
+			if (string.IsNullOrEmpty(CodesGenerated))
+				CodesGenerated = Code;
+			else
+				CodesGenerated += "\r\n" + Code;
+
+			await RuntimeSettings.SetAsync("TransferId.CodesSent", CodesGenerated);
 		}
 	}
 }

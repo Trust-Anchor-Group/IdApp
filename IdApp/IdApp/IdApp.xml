@@ -11959,6 +11959,18 @@
             Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Neuron.INeuronService.AddTransferCode(System.String)">
+            <summary>
+            Registers a Transfer ID Code
+            </summary>
+            <param name="Code">Transfer Code</param>
+        </member>
+        <member name="M:IdApp.Services.Neuron.NeuronService.AddTransferCode(System.String)">
+            <summary>
+            Registers a Transfer ID Code
+            </summary>
+            <param name="Code">Transfer Code</param>
+        </member>
         <member name="T:IdApp.Services.Provisioning.INeuronProvisioningService">
             <summary>
             Adds support for XMPP Provisioning
@@ -12649,6 +12661,11 @@
             <param name="pin">The PIN whose hash to compute.</param>
             <returns>Hash Digest</returns>
         </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.ClearAll">
+            <summary>
+            Clears the entire profile.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Tag.RegistrationStep">
             <summary>
             The different steps of a TAG Profile registration journey.
@@ -12878,6 +12895,11 @@
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ComputePinHash(System.String)">
             <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.ClearAll">
+            <summary>
+            Clears the entire profile.
+            </summary>
         </member>
         <member name="T:IdApp.Services.ThingRegistries.INeuronThingRegistry">
             <summary>

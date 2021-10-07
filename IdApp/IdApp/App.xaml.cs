@@ -179,7 +179,7 @@ namespace IdApp
 
 			EndpointSecurity.SetCiphers(new Type[]
 			{
-						typeof(Edwards448Endpoint)
+				typeof(Edwards448Endpoint)
 			}, false);
 
 			Thread?.NewState("SDK");

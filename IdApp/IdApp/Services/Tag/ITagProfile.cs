@@ -322,5 +322,10 @@ namespace IdApp.Services.Tag
 		/// <param name="pin">The PIN whose hash to compute.</param>
 		/// <returns>Hash Digest</returns>
 		string ComputePinHash(string pin);
+
+		/// <summary>
+		/// Clears the entire profile.
+		/// </summary>
+		void ClearAll();
 	}
 }

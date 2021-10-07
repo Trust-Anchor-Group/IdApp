@@ -331,6 +331,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 					bool AccountDone = false;
 					XmlElement LegalIdDefinition = null;
+					string Pin = null;
 
 					while (!(ToProcess.First is null))
 					{
@@ -363,7 +364,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 								await this.SelectDomain(Domain, string.Empty, string.Empty);
 
-								if (!await this.ConnectToAccount(UserName, Password, PasswordMethod, string.Empty, LegalIdDefinition))
+								if (!await this.ConnectToAccount(UserName, Password, PasswordMethod, string.Empty, LegalIdDefinition, Pin))
 								{
 									this.TagProfile.SetDomain(DomainBak, DefaultConnectivityBak, ApiKeyBak, ApiSecretBak);
 									throw new Exception("Invalid account.");
@@ -379,8 +380,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 								break;
 
 							case "Pin":
-								string Pin = XML.Attribute(E, "pin");
-								this.TagProfile.SetPin(Pin, !string.IsNullOrEmpty(Pin));
+								Pin = XML.Attribute(E, "pin");
 								break;
 
 							case "Transfer":
@@ -443,7 +443,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		}
 
 		private async Task<bool> ConnectToAccount(string AccountName, string Password, string PasswordMethod, string LegalIdentityJid, 
-			XmlElement LegalIdDefinition)
+			XmlElement LegalIdDefinition, string Pin)
 		{
 			try
 			{
@@ -509,6 +509,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
 								this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
 							else
 								this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
+
+							if (!string.IsNullOrEmpty(Pin))
+								this.TagProfile.SetPin(Pin, !string.IsNullOrEmpty(Pin));
 						}
 						finally
 						{

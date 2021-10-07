@@ -800,9 +800,40 @@ namespace IdApp.Services.Tag
 			sb.Append(':');
 			sb.Append(pin);
 
-			byte[] data = Encoding.UTF8.GetBytes(sb.ToString());
+			string s = sb.ToString();
+			byte[] data = Encoding.UTF8.GetBytes(s);
 
 			return Hashes.ComputeSHA384HashString(data);
 		}
+
+		/// <summary>
+		/// Clears the entire profile.
+		/// </summary>
+		public void ClearAll()
+		{
+			this.legalIdentity = null;
+			this.domain = string.Empty;
+			this.apiKey = string.Empty;
+			this.apiSecret = string.Empty;
+			this.phoneNumber = string.Empty;
+			this.account = string.Empty;
+			this.passwordHash = string.Empty;
+			this.passwordHashMethod = string.Empty;
+			this.legalJid = string.Empty;
+			this.registryJid = string.Empty;
+			this.provisioningJid = string.Empty;
+			this.httpFileUploadJid = string.Empty;
+			this.logJid = string.Empty;
+			this.mucJid = string.Empty;
+			this.eDalerJid = string.Empty;
+			this.pinHash = string.Empty;
+			this.httpFileUploadMaxSize = null;
+			this.usePin = false;
+			this.step = RegistrationStep.ValidatePhoneNr;
+			this.defaultXmppConnectivity = false;
+
+			this.IsDirty = true;
+		}
+
 	}
 }

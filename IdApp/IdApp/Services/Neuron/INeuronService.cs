@@ -162,5 +162,11 @@ namespace IdApp.Services.Neuron
         /// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
         /// </summary>
         Task UnloadFast();
+
+        /// <summary>
+        /// Registers a Transfer ID Code
+        /// </summary>
+        /// <param name="Code">Transfer Code</param>
+        Task AddTransferCode(string Code);
     }
 }
