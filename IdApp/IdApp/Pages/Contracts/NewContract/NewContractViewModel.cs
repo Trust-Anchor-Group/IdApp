@@ -130,21 +130,15 @@ namespace IdApp.Pages.Contracts.NewContract
 			await base.DoSaveState();
 
 			if (!(this.SelectedContractVisibilityItem is null))
-			{
 				await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
-			}
 			else
-			{
 				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-			}
+			
 			if (!(SelectedRole is null))
-			{
 				await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedRole)), this.SelectedRole);
-			}
 			else
-			{
 				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
-			}
+			
 			if (this.partsToAdd.Count > 0)
 			{
 				foreach (KeyValuePair<string, string> part in this.partsToAdd)
@@ -154,9 +148,8 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 			}
 			else
-			{
 				await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
-			}
+			
 			this.partsToAdd.Clear();
 		}
 
@@ -174,10 +167,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				string selectedRole = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedRole)));
 				string matchingRole = this.AvailableRoles.FirstOrDefault(x => x.Equals(selectedRole));
+				
 				if (!string.IsNullOrWhiteSpace(matchingRole))
-				{
 					this.SelectedRole = matchingRole;
-				}
 
 				List<(string key, string value)> settings = (await this.settingsService.RestoreStateWhereKeyStartsWith<string>(PartSettingsPrefix)).ToList();
 				if (settings.Count > 0)
@@ -189,16 +181,16 @@ namespace IdApp.Pages.Contracts.NewContract
 						this.partsToAdd[part] = value;
 					}
 				}
+
 				if (this.partsToAdd.Count > 0)
 				{
 					foreach (KeyValuePair<string, string> part in this.partsToAdd)
-					{
 						this.AddRole(part.Key, part.Value);
-					}
 				}
 
 				await this.DeleteState();
 			}
+
 			this.saveStateWhileScanning = false;
 			await base.DoRestoreState();
 		}
@@ -437,9 +429,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		private void ClearTemplate(bool propertiesOnly)
 		{
 			if (!propertiesOnly)
-			{
 				this.template = null;
-			}
 
 			this.SelectedRole = null;
 			this.AvailableRoles.Clear();
@@ -565,9 +555,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			try
 			{
 				if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
-				{
 					await this.contractOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
-				}
 			}
 			catch (Exception ex)
 			{
@@ -813,9 +801,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.ClearTemplate(true);
 
 			if (this.template is null)
-			{
 				return;
-			}
 
 			this.PopulateHumanReadableText();
 

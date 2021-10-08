@@ -3,6 +3,7 @@ using IdApp.Services.Storage;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
 
@@ -40,6 +41,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -52,6 +54,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -64,6 +67,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -76,6 +80,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -88,6 +93,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -100,6 +106,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -112,6 +119,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -124,6 +132,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.SetAsync(key, state);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -289,6 +298,7 @@ namespace IdApp.Services.Settings
             try
             {
                 await RuntimeSettings.DeleteAsync(key);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {
@@ -305,6 +315,7 @@ namespace IdApp.Services.Settings
             {
                 keyPrefix = FormatKey(keyPrefix);
                 await RuntimeSettings.DeleteWhereKeyLikeAsync(keyPrefix, WildCard);
+                await Database.Provider.Flush();
             }
             catch (Exception e)
             {

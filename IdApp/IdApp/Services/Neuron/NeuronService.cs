@@ -32,6 +32,7 @@ using Waher.Content.Xml;
 using Waher.Runtime.Settings;
 using Waher.Content;
 using IdApp.Services.Navigation;
+using Waher.Persistence;
 
 namespace IdApp.Services.Neuron
 {
@@ -977,6 +978,7 @@ namespace IdApp.Services.Neuron
 
 			this.tagProfile.ClearAll();
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", string.Empty);
+			await Database.Provider.Flush();
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
@@ -998,6 +1000,7 @@ namespace IdApp.Services.Neuron
 				CodesGenerated += "\r\n" + Code;
 
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", CodesGenerated);
+			await Database.Provider.Flush();
 		}
 	}
 }
