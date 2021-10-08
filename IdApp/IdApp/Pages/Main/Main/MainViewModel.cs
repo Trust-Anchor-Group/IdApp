@@ -21,6 +21,7 @@ using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI;
+using IdApp.Services.UI.Photos;
 
 namespace IdApp.Pages.Main.Main
 {

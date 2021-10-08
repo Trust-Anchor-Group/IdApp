@@ -4,19 +4,17 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using IdApp.Extensions;
-using IdApp.Pages;
 using IdApp.Services.AttachmentCache;
 using IdApp.Services.EventLog;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.UI;
 using Waher.Content.Images;
 using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using Xamarin.Forms;
 
-namespace IdApp
+namespace IdApp.Services.UI.Photos
 {
 	/// <summary>
 	/// This is a helper class for downloading photos via http requests.

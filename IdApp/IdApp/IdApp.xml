@@ -7436,41 +7436,6 @@
             <param name="sender">The neuron service instance.</param>
             <param name="e">The event args.</param>
         </member>
-        <member name="T:IdApp.Pages.Photo">
-            <summary>
-            Class containing information about a photo.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Photo.#ctor(System.Byte[])">
-            <summary>
-            Class containing information about a photo.
-            </summary>
-            <param name="Source">Image source</param>
-        </member>
-        <member name="M:IdApp.Pages.Photo.#ctor(System.Byte[],System.Int32)">
-            <summary>
-            Class containing information about a photo.
-            </summary>
-            <param name="Source">Image source</param>
-            <param name="Rotation">Rotation</param>
-        </member>
-        <member name="M:IdApp.Pages.Photo.#ctor(Xamarin.Forms.ImageSource,System.Int32)">
-            <summary>
-            Class containing information about a photo.
-            </summary>
-            <param name="Source">Image source</param>
-            <param name="Rotation">Rotation</param>
-        </member>
-        <member name="P:IdApp.Pages.Photo.Source">
-            <summary>
-            Image source
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Photo.Rotation">
-            <summary>
-            Rotation
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
             <summary>
             A view to display the 'create account or connect to existing account' during the registration process.
@@ -10649,66 +10614,6 @@
             <param name="countryCode">ISO 3166-1 Country Codes.</param>
             <returns>A string that can be displayed to a user, informing the user about the approximate format expected.</returns>
         </member>
-        <member name="T:IdApp.PhotosLoader">
-            <summary>
-            This is a helper class for downloading photos via http requests.
-            It loads photos in the background, typically photo attachments connected to a
-            digital identity. When the photos are loaded, they are added to an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> on the main thread.
-            This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>.
-            </summary>
-        </member>
-        <member name="M:IdApp.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
-            Use this constructor for when you want to load a a <b>single photo</b>.
-            </summary>
-            <param name="logService">The log service to use if and when logging errors.</param>
-            <param name="networkService">The network service to use for checking connectivity.</param>
-            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
-        </member>
-        <member name="M:IdApp.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{IdApp.Pages.Photo})">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.PhotosLoader"/> class.
-            Use this constructor for when you want to load a <b>list of photos</b>.
-            </summary>
-            <param name="logService">The log service to use if and when logging errors.</param>
-            <param name="networkService">The network service to use for checking connectivity.</param>
-            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
-            <param name="photos">The collection the photos should be added to when downloaded.</param>
-        </member>
-        <member name="M:IdApp.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith,System.Action)">
-            <summary>
-            Loads photos from the specified list of attachments.
-            </summary>
-            <param name="attachments">The attachments whose files to download.</param>
-            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
-        </member>
-        <member name="M:IdApp.PhotosLoader.CancelLoadPhotos">
-            <summary>
-            Cancels any ongoing download of photos in progress. Also
-            clears the collection of photos from its content.
-            </summary>
-        </member>
-        <member name="M:IdApp.PhotosLoader.LoadOnePhoto(Waher.Networking.XMPP.Contracts.Attachment,Waher.Networking.XMPP.Contracts.SignWith)">
-            <summary>
-            Downloads one photo and stores in cache.
-            </summary>
-            <param name="attachment">The attachment to download.</param>
-            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
-            <returns>Binary content (or null), Content-Type, Rotation</returns>
-        </member>
-        <member name="M:IdApp.PhotosLoader.GetImageRotation(System.Byte[])">
-            <summary>
-            Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
-            </summary>
-            <param name="JpegImage">Binary representation of JPEG image.</param>
-            <returns>Rotation angle (degrees).</returns>
-        </member>
         <member name="T:IdApp.QrCode">
             <summary>
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
@@ -13039,6 +12944,101 @@
             <param name="title">The title to display.</param>
             <param name="message">The message to display.</param>
             <returns>User input</returns>
+        </member>
+        <member name="T:IdApp.Services.UI.Photos.Photo">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.Photo.#ctor(System.Byte[])">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+            <param name="Source">Image source</param>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.Photo.#ctor(System.Byte[],System.Int32)">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+            <param name="Source">Image source</param>
+            <param name="Rotation">Rotation</param>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.Photo.#ctor(Xamarin.Forms.ImageSource,System.Int32)">
+            <summary>
+            Class containing information about a photo.
+            </summary>
+            <param name="Source">Image source</param>
+            <param name="Rotation">Rotation</param>
+        </member>
+        <member name="P:IdApp.Services.UI.Photos.Photo.Source">
+            <summary>
+            Image source
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.UI.Photos.Photo.Rotation">
+            <summary>
+            Rotation
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.UI.Photos.PhotosLoader">
+            <summary>
+            This is a helper class for downloading photos via http requests.
+            It loads photos in the background, typically photo attachments connected to a
+            digital identity. When the photos are loaded, they are added to an <see cref="T:System.Collections.ObjectModel.ObservableCollection`1"/> on the main thread.
+            This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Services.UI.Photos.PhotosLoader"/> class.
+            Use this constructor for when you want to load a a <b>single photo</b>.
+            </summary>
+            <param name="logService">The log service to use if and when logging errors.</param>
+            <param name="networkService">The network service to use for checking connectivity.</param>
+            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
+            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{IdApp.Services.UI.Photos.Photo})">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Services.UI.Photos.PhotosLoader"/> class.
+            Use this constructor for when you want to load a <b>list of photos</b>.
+            </summary>
+            <param name="logService">The log service to use if and when logging errors.</param>
+            <param name="networkService">The network service to use for checking connectivity.</param>
+            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
+            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
+            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
+            <param name="photos">The collection the photos should be added to when downloaded.</param>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith,System.Action)">
+            <summary>
+            Loads photos from the specified list of attachments.
+            </summary>
+            <param name="attachments">The attachments whose files to download.</param>
+            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <param name="whenDoneAction">A callback that is called when the photo load operation is done.</param>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.CancelLoadPhotos">
+            <summary>
+            Cancels any ongoing download of photos in progress. Also
+            clears the collection of photos from its content.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadOnePhoto(Waher.Networking.XMPP.Contracts.Attachment,Waher.Networking.XMPP.Contracts.SignWith)">
+            <summary>
+            Downloads one photo and stores in cache.
+            </summary>
+            <param name="attachment">The attachment to download.</param>
+            <param name="signWith">How the requests are signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
+            <returns>Binary content (or null), Content-Type, Rotation</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.GetImageRotation(System.Byte[])">
+            <summary>
+            Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
+            </summary>
+            <param name="JpegImage">Binary representation of JPEG image.</param>
+            <returns>Rotation angle (degrees).</returns>
         </member>
         <member name="T:IdApp.Services.UI.Tasks.DisplayAlert">
             <summary>

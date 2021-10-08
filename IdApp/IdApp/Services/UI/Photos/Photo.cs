@@ -2,7 +2,7 @@
 using System.IO;
 using Xamarin.Forms;
 
-namespace IdApp.Pages
+namespace IdApp.Services.UI.Photos
 {
 	/// <summary>
 	/// Class containing information about a photo.

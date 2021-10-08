@@ -27,6 +27,7 @@ using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI;
+using IdApp.Services.UI.Photos;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {

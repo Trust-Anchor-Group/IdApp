@@ -3,7 +3,7 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:idApp="clr-namespace:IdApp;assembly=IdApp"
-                       xmlns:pages="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Main.Image;assembly=IdApp"
                        x:DataType="model:ImageViewModel"
                        x:Class="IdApp.Pages.Main.Image.ImageView">
@@ -19,7 +19,7 @@
                                   ItemsSource="{Binding Path=Photos}"
                                   IndicatorView="IndicatorView">
                         <CarouselView.ItemTemplate>
-                            <DataTemplate x:DataType="pages:Photo">
+                            <DataTemplate x:DataType="photos:Photo">
                                 <Image Source="{Binding Path=Source}" Rotation="{Binding Path=Rotation}" Aspect="AspectFit"/>
                             </DataTemplate>
                         </CarouselView.ItemTemplate>
