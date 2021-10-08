@@ -11,7 +11,6 @@ using IdApp.Extensions;
 using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.ServerSignature;
 using IdApp.Pages.Contracts.ViewContract.ObjectModel;
-using IdApp.Services;
 using IdApp.Services.AttachmentCache;
 using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
@@ -596,7 +595,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.GeneralInformation.Add(new PartModel(AppResources.CanActAsTemplate, Contract.CanActAsTemplate.ToYesNo()));
 
 				// QR
-				byte[] bytes = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
+				byte[] bytes = Services.UI.QR.QrCode.GeneratePng(Constants.UriSchemes.CreateSmartContractUri(this.Contract.ContractId), this.QrCodeWidth, this.QrCodeHeight);
 				this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
 
 				// Roles

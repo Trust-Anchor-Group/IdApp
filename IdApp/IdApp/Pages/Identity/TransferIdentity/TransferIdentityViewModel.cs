@@ -47,7 +47,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 			if (this.navigationService.TryPopArgs(out TransferIdentityNavigationArgs args))
 				this.Uri = args.Uri;
 
-			byte[] Data = IdApp.QrCode.GeneratePng(this.Uri, 400, 400);
+			byte[] Data = Services.UI.QR.QrCode.GeneratePng(this.Uri, 400, 400);
 
 			this.QrCode = ImageSource.FromStream(() => new MemoryStream(Data));
 			this.QrCodeWidth = 400;

@@ -411,7 +411,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 					this.Currency, this.Message);
 			}
 
-			byte[] Bin = IdApp.QrCode.GeneratePng(Uri, 300, 300);
+			byte[] Bin = Services.UI.QR.QrCode.GeneratePng(Uri, 300, 300);
 			this.QrCodePng = Bin;
 
 			if (this.IsBound)

@@ -7,14 +7,13 @@ using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.ThingRegistries;
-using IdApp.Services.UI;
 using IdApp.Services.Wallet;
 using SkiaSharp;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
 using Xamarin.Essentials;
 
-namespace IdApp
+namespace IdApp.Services.UI.QR
 {
     /// <summary>
     /// Helper class to perform scanning of QR Codes by displaying the UI and handling async results.

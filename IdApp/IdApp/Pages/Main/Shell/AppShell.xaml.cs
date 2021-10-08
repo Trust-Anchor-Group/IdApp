@@ -8,6 +8,7 @@ using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.UI;
+using IdApp.Services.UI.QR;
 using IdApp.Services.Wallet;
 using Xamarin.Essentials;
 using Xamarin.Forms;

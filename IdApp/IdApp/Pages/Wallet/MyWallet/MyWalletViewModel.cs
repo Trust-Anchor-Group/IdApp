@@ -375,7 +375,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task ScanQrCode()
 		{
-			await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
+			await Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
 				this.UiSerializer, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
 				this.eDalerOrchestratorService);
 		}

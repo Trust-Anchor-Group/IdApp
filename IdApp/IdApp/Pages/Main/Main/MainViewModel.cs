@@ -126,7 +126,7 @@ namespace IdApp.Pages.Main.Main
 				else
 					this.Country = string.Empty;
 
-				this.QrCodeBin = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+				this.QrCodeBin = Services.UI.QR.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.TagProfile.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
 				this.QrCodeContentType = "image/png";
 				this.QrCode = ImageSource.FromStream(() => new MemoryStream(this.QrCodeBin));
 
@@ -638,7 +638,7 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ScanQrCode()
 		{
-			await IdApp.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
+			await Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
 				this.UiSerializer, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
 				this.eDalerOrchestratorService);
 		}

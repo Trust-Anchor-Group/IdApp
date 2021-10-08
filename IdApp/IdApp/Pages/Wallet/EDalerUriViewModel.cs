@@ -938,7 +938,7 @@ namespace IdApp.Pages.Wallet
 				// TODO: Validate To is a Bare JID or proper Legal Identity
 				// TODO: Offline options: Expiry days
 
-				byte[] Bin = IdApp.QrCode.GeneratePng(Uri, 300, 300);
+				byte[] Bin = Services.UI.QR.QrCode.GeneratePng(Uri, 300, 300);
 				this.QrCodePng = Bin;
 
 				if (this.IsBound)
@@ -1024,7 +1024,7 @@ namespace IdApp.Pages.Wallet
 
 			try
 			{
-				byte[] Bin = IdApp.QrCode.GeneratePng(this.Uri, 300, 300);
+				byte[] Bin = Services.UI.QR.QrCode.GeneratePng(this.Uri, 300, 300);
 				this.QrCodePng = Bin;
 
 				if (this.IsBound)

@@ -278,7 +278,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.QrCode = null;
 			else
 			{
-				byte[] bytes = IdApp.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
+				byte[] bytes = Services.UI.QR.QrCode.GeneratePng(Constants.UriSchemes.CreateIdUri(this.LegalIdentity.Id), this.QrCodeWidth, this.QrCodeHeight);
 				this.QrCode = ImageSource.FromStream(() => new MemoryStream(bytes));
 			}
 

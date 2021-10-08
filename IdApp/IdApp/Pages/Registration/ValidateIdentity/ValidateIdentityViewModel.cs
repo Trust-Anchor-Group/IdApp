@@ -14,6 +14,7 @@ using IdApp.Services.Settings;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
+using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
