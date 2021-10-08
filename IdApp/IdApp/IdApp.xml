@@ -10546,74 +10546,6 @@
             The command to bind to for sharing the QR code
             </summary>
         </member>
-        <member name="T:IdApp.PersonalNumbers.PersonalNumberScheme">
-            <summary>
-            Checks personal numbers against a personal number scheme.
-            </summary>
-        </member>
-        <member name="M:IdApp.PersonalNumbers.PersonalNumberScheme.#ctor(System.String,System.String,Waher.Script.Expression,Waher.Script.Expression,Waher.Script.Expression)">
-            <summary>
-            Checks personal numbers against a personal number scheme.
-            </summary>
-            <param name="variableName">Name of variable to use in script for the personal number.</param>
-            <param name="displayString">A string that can be displayed to a user, informing the user about the approximate format expected.</param>
-            <param name="pattern">Expression checking if the scheme applies to a personal number.</param>
-            <param name="check">Optional expression, checking if the contents of the personal number is valid.</param>
-            <param name="normalize">Optional normalization expression.</param>
-        </member>
-        <member name="P:IdApp.PersonalNumbers.PersonalNumberScheme.DisplayString">
-            <summary>
-            A string that can be displayed to a user, informing the user about the approximate format expected.
-            </summary>
-        </member>
-        <member name="M:IdApp.PersonalNumbers.PersonalNumberScheme.IsValid(System.String@)">
-            <summary>
-            Checks if a personal number is valid according to the personal number scheme.
-            </summary>
-            <param name="personalNumber">String representation of the personal number.</param>
-            <returns>
-            true = valid: <paramref name="personalNumber"/> may be normalized.
-            false = invalid
-            null = scheme not applicable
-            </returns>
-        </member>
-        <member name="T:IdApp.PersonalNumbers.PersonalNumberSchemes">
-            <summary>
-            Personal Number Schemes available in different countries.
-            </summary>
-        </member>
-        <member name="M:IdApp.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@)">
-            <summary>
-            Checks if a personal number is valid, in accordance with registered personal number schemes.
-            </summary>
-            <param name="countryCode">ISO 3166-1 Country Codes.</param>
-            <param name="personalNumber">Personal Number</param>
-            <returns>
-            true = valid
-            false = invalid
-            null = no registered schemes for country.
-            </returns>
-        </member>
-        <member name="M:IdApp.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@,System.String@)">
-            <summary>
-            Checks if a personal number is valid, in accordance with registered personal number schemes.
-            </summary>
-            <param name="countryCode">ISO 3166-1 Country Codes.</param>
-            <param name="personalNumber">Personal Number</param>
-            <param name="displayString">A string that can be displayed to a user, informing the user about the approximate format expected.</param>
-            <returns>
-            true = valid: <paramref name="personalNumber"/> may be normalized.
-            false = invalid
-            null = no registered schemes for country.
-            </returns>
-        </member>
-        <member name="M:IdApp.PersonalNumbers.PersonalNumberSchemes.DisplayStringForCountry(System.String)">
-            <summary>
-            Gets the expected personal number format for the given country.
-            </summary>
-            <param name="countryCode">ISO 3166-1 Country Codes.</param>
-            <returns>A string that can be displayed to a user, informing the user about the approximate format expected.</returns>
-        </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
             <inheritdoc cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>
         </member>
@@ -11260,6 +11192,74 @@
             Generates a random password to use.
             </summary>
             <returns>Random password</returns>
+        </member>
+        <member name="T:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme">
+            <summary>
+            Checks personal numbers against a personal number scheme.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme.#ctor(System.String,System.String,Waher.Script.Expression,Waher.Script.Expression,Waher.Script.Expression)">
+            <summary>
+            Checks personal numbers against a personal number scheme.
+            </summary>
+            <param name="variableName">Name of variable to use in script for the personal number.</param>
+            <param name="displayString">A string that can be displayed to a user, informing the user about the approximate format expected.</param>
+            <param name="pattern">Expression checking if the scheme applies to a personal number.</param>
+            <param name="check">Optional expression, checking if the contents of the personal number is valid.</param>
+            <param name="normalize">Optional normalization expression.</param>
+        </member>
+        <member name="P:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme.DisplayString">
+            <summary>
+            A string that can be displayed to a user, informing the user about the approximate format expected.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme.IsValid(System.String@)">
+            <summary>
+            Checks if a personal number is valid according to the personal number scheme.
+            </summary>
+            <param name="personalNumber">String representation of the personal number.</param>
+            <returns>
+            true = valid: <paramref name="personalNumber"/> may be normalized.
+            false = invalid
+            null = scheme not applicable
+            </returns>
+        </member>
+        <member name="T:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes">
+            <summary>
+            Personal Number Schemes available in different countries.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@)">
+            <summary>
+            Checks if a personal number is valid, in accordance with registered personal number schemes.
+            </summary>
+            <param name="countryCode">ISO 3166-1 Country Codes.</param>
+            <param name="personalNumber">Personal Number</param>
+            <returns>
+            true = valid
+            false = invalid
+            null = no registered schemes for country.
+            </returns>
+        </member>
+        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@,System.String@)">
+            <summary>
+            Checks if a personal number is valid, in accordance with registered personal number schemes.
+            </summary>
+            <param name="countryCode">ISO 3166-1 Country Codes.</param>
+            <param name="personalNumber">Personal Number</param>
+            <param name="displayString">A string that can be displayed to a user, informing the user about the approximate format expected.</param>
+            <returns>
+            true = valid: <paramref name="personalNumber"/> may be normalized.
+            false = invalid
+            null = no registered schemes for country.
+            </returns>
+        </member>
+        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes.DisplayStringForCountry(System.String)">
+            <summary>
+            Gets the expected personal number format for the given country.
+            </summary>
+            <param name="countryCode">ISO 3166-1 Country Codes.</param>
+            <returns>A string that can be displayed to a user, informing the user about the approximate format expected.</returns>
         </member>
         <member name="T:IdApp.Services.EventLog.ILogService">
             <summary>

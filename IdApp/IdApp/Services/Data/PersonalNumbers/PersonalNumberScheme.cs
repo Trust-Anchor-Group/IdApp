@@ -1,7 +1,7 @@
 ﻿using System;
 using Waher.Script;
 
-namespace IdApp.PersonalNumbers
+namespace IdApp.Services.Data.PersonalNumbers
 {
 	/// <summary>
 	/// Checks personal numbers against a personal number scheme.

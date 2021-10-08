@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using Waher.Content;
 using Waher.Content.Xml;
 using Waher.Script;
 
-namespace IdApp.PersonalNumbers
+namespace IdApp.Services.Data.PersonalNumbers
 {
     /// <summary>
     /// Personal Number Schemes available in different countries.
@@ -20,7 +21,8 @@ namespace IdApp.PersonalNumbers
 			{
 				XmlDocument doc = new XmlDocument();
 
-				using (MemoryStream ms = new MemoryStream(Waher.Content.Resources.LoadResource($"{typeof(PersonalNumberSchemes).Namespace}.{typeof(PersonalNumberSchemes).Name}.xml")))
+				using (MemoryStream ms = new MemoryStream(Resources.LoadResource(
+					$"{typeof(PersonalNumberSchemes).Namespace}.{typeof(PersonalNumberSchemes).Name}.xml")))
 				{
 					doc.Load(ms);
 				}
