@@ -973,7 +973,9 @@ namespace IdApp.Services.Neuron
 			this.tagProfile.ClearAll();
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", string.Empty);
 
-			//await this.navigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}");
+			INavigationService NavigationService = App.Instantiate<INavigationService>();
+
+			await NavigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}");
 		}
 
 		/// <summary>
