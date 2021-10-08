@@ -28,6 +28,7 @@ using IdApp.Services.Tag;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
+using IdApp.Services.Data.Countries;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {

@@ -22,6 +22,7 @@ using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
+using IdApp.Services.Data.Countries;
 
 namespace IdApp.Pages.Main.Main
 {

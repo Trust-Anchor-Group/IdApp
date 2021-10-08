@@ -6,6 +6,7 @@ using IdApp.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 using IdApp.Services.Navigation;
+using IdApp.Services.Data.Countries;
 
 namespace IdApp.Pages.Contracts.ClientSignature
 {

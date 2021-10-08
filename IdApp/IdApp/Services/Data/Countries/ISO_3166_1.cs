@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace IdApp
+namespace IdApp.Services.Data.Countries
 {
     /// <summary>
     /// Conversion between Country Names and ISO-3166-1 2-letter country codes.

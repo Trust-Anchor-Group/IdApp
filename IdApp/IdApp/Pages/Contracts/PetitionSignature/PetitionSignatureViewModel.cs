@@ -12,6 +12,7 @@ using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
+using IdApp.Services.Data.Countries;
 
 namespace IdApp.Pages.Contracts.PetitionSignature
 {
