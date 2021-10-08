@@ -120,9 +120,6 @@
     <EmbeddedResource Update="Pages\Main\ScanQrCode\ScanQrCodePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Main\XmppCommunication\XmppCommunicationPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

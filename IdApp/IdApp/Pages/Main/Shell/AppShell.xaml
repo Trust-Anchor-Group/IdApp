@@ -103,11 +103,6 @@
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.NewContract}" Color="{StaticResource HeadingBackground}"/>
         </MenuItem.IconImageSource>
     </MenuItem>
-    <MenuItem x:Name="DebugMenuItem" Text="{x:Static local:AppResources.Inspect}" Clicked="DebugMenuItem_Clicked" IsEnabled="{Binding Path=IsConnected}">
-        <MenuItem.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Inspect}" Color="{StaticResource HeadingBackground}"/>
-        </MenuItem.IconImageSource>
-    </MenuItem>
     <MenuItem x:Name="ExitMenuItem" Text="{x:Static local:AppResources.Exit}" Clicked="ExitMenuItem_Clicked">
         <MenuItem.IconImageSource>
             <FontImageSource FontFamily="{StaticResource FontAwesomeSolid}" Glyph="{x:Static local:FontAwesome.Exit}" Color="{StaticResource HeadingBackground}"/>

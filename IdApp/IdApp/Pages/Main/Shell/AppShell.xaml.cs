@@ -89,7 +89,6 @@ namespace IdApp.Pages.Main.Shell
 
 			// General:
 			Routing.RegisterRoute(nameof(ScanQrCode.ScanQrCodePage), typeof(ScanQrCode.ScanQrCodePage));
-			Routing.RegisterRoute(nameof(XmppCommunication.XmppCommunicationPage), typeof(XmppCommunication.XmppCommunicationPage));
 
 			// Identity:
 			Routing.RegisterRoute(nameof(Identity.ViewIdentity.ViewIdentityPage), typeof(Identity.ViewIdentity.ViewIdentityPage));
@@ -130,14 +129,29 @@ namespace IdApp.Pages.Main.Shell
 		{
 			// Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
 			// Therefore we have to close it manually here.
+			
 			Current.FlyoutIsPresented = false;
 
 			// Due to a bug in Xamarin Shell the menu items can still be clicked on, even though we bind the "IsEnabled" property.
 			// So we do a manual check here.
+			
 			if (this.GetViewModel<AppShellViewModel>().IsConnected)
-			{
 				await this.NavigationService?.GoToAsync(route);
-			}
+		}
+
+		private async Task GoToPage<TArgs>(string route, TArgs e)
+			where TArgs : NavigationArgs
+		{
+			// Due to a bug in Xamarin.Forms the Flyout won't hide when you click on a MenuItem (as opposed to a FlyoutItem).
+			// Therefore we have to close it manually here.
+			
+			Current.FlyoutIsPresented = false;
+
+			// Due to a bug in Xamarin Shell the menu items can still be clicked on, even though we bind the "IsEnabled" property.
+			// So we do a manual check here.
+		
+			if (this.GetViewModel<AppShellViewModel>().IsConnected)
+				await this.NavigationService.GoToAsync<TArgs>(route, e);
 		}
 
 		private async void ViewIdentityMenuItem_Clicked(object sender, EventArgs e)
@@ -167,20 +181,6 @@ namespace IdApp.Pages.Main.Shell
 			await this.GoToPage(nameof(Pages.Contracts.ContractTemplates.ContractTemplatesPage));
 		}
 
-		private async void DebugMenuItem_Clicked(object sender, EventArgs e)
-		{
-			try
-			{
-				await App.EvaluateDatabaseDiff("Debug.xml", true, false);
-			}
-			catch (Exception ex)
-			{
-				this.LogService.LogException(ex);
-			}
-
-			await this.GoToPage(nameof(XmppCommunication.XmppCommunicationPage));
-		}
-
 		private void ExitMenuItem_Clicked(object sender, EventArgs e)
 		{
 			Current.FlyoutIsPresented = false;
@@ -194,21 +194,24 @@ namespace IdApp.Pages.Main.Shell
 		private void AboutMenuItem_Clicked(object sender, EventArgs e)
 		{
 			Current.FlyoutIsPresented = false;
+
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				StringBuilder sb = new StringBuilder();
+				
 				sb.AppendLine($"Name: {AppInfo.Name}");
 				sb.AppendLine($"Version: {AppInfo.VersionString}");
 				sb.AppendLine($"Platform: {Device.RuntimePlatform}");
 				sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
 				sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
+
 				await this.UiSerializer.DisplayAlert(AppResources.About, sb.ToString());
 			});
 		}
 
 		internal async void ContactsMenuItem_Clicked(object sender, EventArgs e)
 		{
-			await this.NavigationService.GoToAsync(nameof(Contacts.MyContacts.MyContactsPage), 
+			await this.GoToPage(nameof(Contacts.MyContacts.MyContactsPage), 
 				new Contacts.ContactListNavigationArgs(AppResources.ContactsDescription, Contacts.SelectContactAction.ViewIdentity));
 		}
 
