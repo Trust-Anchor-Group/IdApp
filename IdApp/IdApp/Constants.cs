@@ -169,6 +169,22 @@ namespace IdApp
         }
 
         /// <summary>
+        /// Domain names.
+        /// </summary>
+        public static class Domains
+		{
+            /// <summary>
+            /// TAG ID domain.
+            /// </summary>
+            public const string IdDomain = "id.tagroot.io";
+
+            /// <summary>
+            /// TAG ID onboarding domain.
+            /// </summary>
+            public const string OnboardingDomain = "onboarding.id.tagroot.io";
+        }
+
+        /// <summary>
         /// XMPP Protocol Properties.
         /// </summary>
         public static class XmppProperties

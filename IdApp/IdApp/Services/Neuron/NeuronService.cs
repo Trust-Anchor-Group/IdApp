@@ -43,6 +43,7 @@ namespace IdApp.Services.Neuron
 		private readonly ILogService logService;
 		private readonly ITagProfile tagProfile;
 		private readonly ISettingsService settingsService;
+		private readonly IUiSerializer uiSerializer;
 		private Profiler startupProfiler;
 		private ProfilerThread xmppThread;
 		private XmppClient xmppClient;
@@ -90,6 +91,7 @@ namespace IdApp.Services.Neuron
 			this.logService = LogService;
 			this.tagProfile = TagProfile;
 			this.settingsService = SettingsService;
+			this.uiSerializer = UiSerializer;
 			this.contracts = new NeuronContracts(this.tagProfile, UiSerializer, this, this.logService, this.settingsService);
 			this.muc = new NeuronMultiUserChat(this);
 			this.thingRegistry = new NeuronThingRegistry(this);
@@ -166,7 +168,7 @@ namespace IdApp.Services.Neuron
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
 
-					this.xmppClient.RegisterMessageHandler("Delivered", Constants.UriSchemes.UriSchemeOnboarding, this.TransferIdDelivered, true);
+					this.xmppClient.RegisterMessageHandler("Delivered", ContractsClient.NamespaceOnboarding, this.TransferIdDelivered, true);
 
 					Thread?.NewState("Sink");
 					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
@@ -950,6 +952,9 @@ namespace IdApp.Services.Neuron
 
 		private async Task TransferIdDelivered(object Sender, MessageEventArgs e)
 		{
+			if (e.From != Constants.Domains.OnboardingDomain)
+				return;
+
 			string Code = XML.Attribute(e.Content, "code");
 			bool Deleted = XML.Attribute(e.Content, "deleted", false);
 
@@ -975,7 +980,8 @@ namespace IdApp.Services.Neuron
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
-			await NavigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}");
+			this.uiSerializer.BeginInvokeOnMainThread(async () => 
+				await NavigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}"));
 		}
 
 		/// <summary>

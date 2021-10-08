@@ -1601,14 +1601,15 @@ namespace IdApp.Pages.Identity.ViewIdentity
 									Output.WriteEndElement();
 								}
 
-								XmlElement Response = await this.NeuronService.Xmpp.IqSetAsync("onboarding.id.tagroot.io", Xml.ToString());
+								XmlElement Response = await this.NeuronService.Xmpp.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
 
 								foreach (XmlNode N in Response.ChildNodes)
 								{
 									if (N is XmlElement Info && Info.LocalName == "Code" && Info.NamespaceURI == ContractsClient.NamespaceOnboarding)
 									{
 										string Code = XML.Attribute(Info, "code");
-										string Url = "obinfo:id.tagroot.io:" + Code + ":" + Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
+										string Url = "obinfo:" + Constants.Domains.IdDomain + ":" + Code + ":" + 
+											Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
 
 										await this.NeuronService.AddTransferCode(Code);
 										await this.navigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));

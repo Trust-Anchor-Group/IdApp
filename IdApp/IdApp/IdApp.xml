@@ -2255,6 +2255,21 @@
             The Jpeg mime type.
             </summary>
         </member>
+        <member name="T:IdApp.Constants.Domains">
+            <summary>
+            Domain names.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Domains.IdDomain">
+            <summary>
+            TAG ID domain.
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.Domains.OnboardingDomain">
+            <summary>
+            TAG ID onboarding domain.
+            </summary>
+        </member>
         <member name="T:IdApp.Constants.XmppProperties">
             <summary>
             XMPP Protocol Properties.

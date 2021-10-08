@@ -82,7 +82,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				try
 				{
 					object Result = await InternetContent.PostAsync(
-						new Uri("https://id.tagroot.io/ID/CountryCode.ws"), string.Empty,
+						new Uri("https://" + Constants.Domains.IdDomain + "/ID/CountryCode.ws"), string.Empty,
 						new KeyValuePair<string, string>("Accept", "application/json"));
 
 					if (Result is Dictionary<string, object> Response &&
@@ -258,7 +258,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 			try
 			{
-				object Result = await InternetContent.PostAsync(new Uri("https://id.tagroot.io/ID/SendVerificationMessage.ws"),
+				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
 					new Dictionary<string, object>()
 					{
 						{ "Nr", this.PhoneNumber }
@@ -303,7 +303,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 			try
 			{
-				object Result = await InternetContent.PostAsync(new Uri("https://id.tagroot.io/ID/VerifyNumber.ws"),
+				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
 					new Dictionary<string, object>()
 					{
 						{ "Nr", this.PhoneNumber },
