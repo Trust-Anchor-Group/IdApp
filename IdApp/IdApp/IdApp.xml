@@ -12690,7 +12690,7 @@
             <param name="RegistryJid">Registry Service JID</param>
             <returns>If the URI could be parsed.</returns>
         </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoDirectURI(System.String,System.String@,System.String@,System.String@,System.String@)">
+        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoDirectURI(System.String,System.String@,System.String@,System.String@,System.String@,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
             <summary>
             Tries to decode an IoTDisco Direct Reference URI (subset of all possible IoTDisco URIs).
             </summary>
@@ -12699,6 +12699,7 @@
             <param name="SourceId">Optional Source ID of device, or null if none.</param>
             <param name="NodeId">Optional Node ID of device, or null if none.</param>
             <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
+            <param name="Tags">Decoded meta data tags.</param>
             <returns>If the URI could be parsed.</returns>
         </member>
         <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.ClaimThing(System.String,System.Boolean)">

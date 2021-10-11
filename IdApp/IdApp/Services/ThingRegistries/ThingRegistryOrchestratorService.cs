@@ -123,14 +123,17 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				if (!this.neuronService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId, out string NodeId, out string PartitionId))
+				if (!this.neuronService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
+					out string NodeId, out string PartitionId, out MetaDataTag[] Tags))
+				{
 					throw new InvalidOperationException("Not a direct reference URI.");
+				}
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId, PartitionId, NodeId);
 
 				if (Info is null)
 				{
-					Property[] Properties = new Property[0];	// TODO: Encode tags in Direct reference URI.
+					Property[] Properties = ViewClaimThingViewModel.ToProperties(Tags);
 
 					Info = new ContactInfo()
 					{
@@ -139,7 +142,7 @@ namespace IdApp.Services.ThingRegistries
 						IsThing = true,
 						LegalId = string.Empty,
 						LegalIdentity = null,
-						FriendlyName = Jid,						// TODO: Encode tags in Direct reference URI.
+						FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties) ?? Jid,
 						MetaData = Properties,
 						SourceId = SourceId,
 						Partition = PartitionId,

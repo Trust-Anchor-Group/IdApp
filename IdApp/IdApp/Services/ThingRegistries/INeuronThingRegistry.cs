@@ -58,8 +58,10 @@ namespace IdApp.Services.ThingRegistries
 		/// <param name="SourceId">Optional Source ID of device, or null if none.</param>
 		/// <param name="NodeId">Optional Node ID of device, or null if none.</param>
 		/// <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
+		/// <param name="Tags">Decoded meta data tags.</param>
 		/// <returns>If the URI could be parsed.</returns>
-		bool TryDecodeIoTDiscoDirectURI(string DiscoUri, out string Jid, out string SourceId, out string NodeId, out string PartitionId);
+		bool TryDecodeIoTDiscoDirectURI(string DiscoUri, out string Jid, out string SourceId, out string NodeId, out string PartitionId, 
+			out MetaDataTag[] Tags);
 
 		/// <summary>
 		/// Claims a think in accordance with parameters defined in a iotdisco claim URI.

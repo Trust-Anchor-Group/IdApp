@@ -83,15 +83,21 @@ namespace IdApp.Services.ThingRegistries
 			return true;
 		}
 
-		public bool TryDecodeIoTDiscoDirectURI(string DiscoUri, out string Jid, out string SourceId, out string NodeId, out string PartitionId)
+		public bool TryDecodeIoTDiscoDirectURI(string DiscoUri, out string Jid, out string SourceId, out string NodeId, 
+			out string PartitionId, out MetaDataTag[] Tags)
 		{
 			Jid = null;
 			SourceId = null;
 			NodeId = null;
 			PartitionId = null;
-			
+
 			if (!ThingRegistryClient.TryDecodeIoTDiscoURI(DiscoUri, out IEnumerable<SearchOperator> Operators2))
+			{
+				Tags = null;
 				return false;
+			}
+
+			List<MetaDataTag> TagsFound = new List<MetaDataTag>();
 
 			foreach (SearchOperator Operator in Operators2)
 			{
@@ -116,13 +122,20 @@ namespace IdApp.Services.ThingRegistries
 							break;
 
 						default:
-							return false;
+							TagsFound.Add(new MetaDataStringTag(S.Name, S.Value));
+							break;
 					}
 				}
+				else if (Operator is NumericTagEqualTo N)
+					TagsFound.Add(new MetaDataNumericTag(N.Name, N.Value));
 				else
+				{
+					Tags = null;
 					return false;
+				}
 			}
 
+			Tags = TagsFound.ToArray();
 			return !string.IsNullOrEmpty(Jid);
 		}
 
