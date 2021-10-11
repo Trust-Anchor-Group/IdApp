@@ -24,5 +24,11 @@ namespace IdApp.Services.ThingRegistries
         /// </summary>
         /// <param name="Uri">iotdisco search URI</param>
         Task OpenSearchDevices(string Uri);
+
+        /// <summary>
+        /// Opens the Device View, allowing the user to interact with the device defined in the iotdisco URI provided.
+        /// </summary>
+        /// <param name="Uri">iotdisco direct reference URI</param>
+        Task OpenDeviceReference(string Uri);
     }
 }

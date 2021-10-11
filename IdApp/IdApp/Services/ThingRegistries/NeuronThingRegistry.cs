@@ -44,6 +44,11 @@ namespace IdApp.Services.ThingRegistries
 			return ThingRegistryClient.IsIoTDiscoSearchURI(DiscoUri);
 		}
 
+		public bool IsIoTDiscoDirectURI(string DiscoUri)
+		{
+			return ThingRegistryClient.IsIoTDiscoDirectURI(DiscoUri);
+		}
+
 		public bool TryDecodeIoTDiscoClaimURI(string DiscoUri, out MetaDataTag[] Tags)
 		{
 			return ThingRegistryClient.TryDecodeIoTDiscoClaimURI(DiscoUri, out Tags);
@@ -77,6 +82,50 @@ namespace IdApp.Services.ThingRegistries
 			Operators = List.ToArray();
 			return true;
 		}
+
+		public bool TryDecodeIoTDiscoDirectURI(string DiscoUri, out string Jid, out string SourceId, out string NodeId, out string PartitionId)
+		{
+			Jid = null;
+			SourceId = null;
+			NodeId = null;
+			PartitionId = null;
+			
+			if (!ThingRegistryClient.TryDecodeIoTDiscoURI(DiscoUri, out IEnumerable<SearchOperator> Operators2))
+				return false;
+
+			foreach (SearchOperator Operator in Operators2)
+			{
+				if (Operator is StringTagEqualTo S)
+				{
+					switch (S.Name.ToUpper())
+					{
+						case "JID":
+							Jid = S.Value;
+							break;
+
+						case "SID":
+							SourceId = S.Value;
+							break;
+
+						case "NID":
+							NodeId = S.Value;
+							break;
+
+						case "PT":
+							PartitionId = S.Value;
+							break;
+
+						default:
+							return false;
+					}
+				}
+				else
+					return false;
+			}
+
+			return !string.IsNullOrEmpty(Jid);
+		}
+
 
 		public Task<NodeResultEventArgs> ClaimThing(string DiscoUri, bool MakePublic)
 		{

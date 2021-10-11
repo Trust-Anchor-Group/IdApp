@@ -27,6 +27,13 @@ namespace IdApp.Services.ThingRegistries
 		bool IsIoTDiscoSearchURI(string DiscoUri);
 
 		/// <summary>
+		/// Checks if a URI is a direct reference URI.
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <returns>If <paramref name="DiscoUri"/> is a direct reference URI.</returns>
+		bool IsIoTDiscoDirectURI(string DiscoUri);
+
+		/// <summary>
 		/// Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
 		/// </summary>
 		/// <param name="DiscoUri">IoTDisco URI</param>
@@ -35,13 +42,24 @@ namespace IdApp.Services.ThingRegistries
 		bool TryDecodeIoTDiscoClaimURI(string DiscoUri, out MetaDataTag[] Tags);
 
 		/// <summary>
-		/// Decodes an IoTDisco URI.
+		/// Tries to decode an IoTDisco Search URI (subset of all possible IoTDisco URIs).
 		/// </summary>
 		/// <param name="DiscoUri">IoTDisco URI</param>
 		/// <param name="Operators">Search operators.</param>
 		/// <param name="RegistryJid">Registry Service JID</param>
 		/// <returns>If the URI could be parsed.</returns>
 		bool TryDecodeIoTDiscoSearchURI(string DiscoUri, out SearchOperator[] Operators, out string RegistryJid);
+
+		/// <summary>
+		/// Tries to decode an IoTDisco Direct Reference URI (subset of all possible IoTDisco URIs).
+		/// </summary>
+		/// <param name="DiscoUri">IoTDisco URI</param>
+		/// <param name="Jid">JID of device</param>
+		/// <param name="SourceId">Optional Source ID of device, or null if none.</param>
+		/// <param name="NodeId">Optional Node ID of device, or null if none.</param>
+		/// <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
+		/// <returns>If the URI could be parsed.</returns>
+		bool TryDecodeIoTDiscoDirectURI(string DiscoUri, out string Jid, out string SourceId, out string NodeId, out string PartitionId);
 
 		/// <summary>
 		/// Claims a think in accordance with parameters defined in a iotdisco claim URI.
@@ -61,7 +79,6 @@ namespace IdApp.Services.ThingRegistries
 		/// <param name="NodeId">Node ID</param>
 		/// <returns>If the thing was disowned</returns>
 		Task<bool> Disown(string RegistryJid, string ThingJid, string SourceId, string Partition, string NodeId);
-
 
 		/// <summary>
 		/// Searches for devices in accordance with settings in a iotdisco-URI.

@@ -12666,6 +12666,13 @@
             <param name="DiscoUri">IoTDisco URI</param>
             <returns>If <paramref name="DiscoUri"/> is a search URI.</returns>
         </member>
+        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.IsIoTDiscoDirectURI(System.String)">
+            <summary>
+            Checks if a URI is a direct reference URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <returns>If <paramref name="DiscoUri"/> is a direct reference URI.</returns>
+        </member>
         <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoClaimURI(System.String,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
             <summary>
             Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
@@ -12676,11 +12683,22 @@
         </member>
         <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoSearchURI(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[]@,System.String@)">
             <summary>
-            Decodes an IoTDisco URI.
+            Tries to decode an IoTDisco Search URI (subset of all possible IoTDisco URIs).
             </summary>
             <param name="DiscoUri">IoTDisco URI</param>
             <param name="Operators">Search operators.</param>
             <param name="RegistryJid">Registry Service JID</param>
+            <returns>If the URI could be parsed.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoDirectURI(System.String,System.String@,System.String@,System.String@,System.String@)">
+            <summary>
+            Tries to decode an IoTDisco Direct Reference URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Jid">JID of device</param>
+            <param name="SourceId">Optional Source ID of device, or null if none.</param>
+            <param name="NodeId">Optional Node ID of device, or null if none.</param>
+            <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
             <returns>If the URI could be parsed.</returns>
         </member>
         <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.ClaimThing(System.String,System.Boolean)">
@@ -12754,6 +12772,12 @@
             and start the search for devices.
             </summary>
             <param name="Uri">iotdisco search URI</param>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService.OpenDeviceReference(System.String)">
+            <summary>
+            Opens the Device View, allowing the user to interact with the device defined in the iotdisco URI provided.
+            </summary>
+            <param name="Uri">iotdisco direct reference URI</param>
         </member>
         <member name="M:IdApp.Services.ThingRegistries.NeuronThingRegistry.Search(System.Int32,System.Int32,System.String)">
             <summary>

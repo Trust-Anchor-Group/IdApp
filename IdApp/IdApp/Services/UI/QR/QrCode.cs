@@ -73,6 +73,8 @@ namespace IdApp.Services.UI.QR
                             await thingRegistryOrchestratorService.OpenClaimDevice(decodedText);
                         else if (neuronService.ThingRegistry.IsIoTDiscoSearchURI(decodedText))
                             await thingRegistryOrchestratorService.OpenSearchDevices(decodedText);
+                        else if (neuronService.ThingRegistry.IsIoTDiscoDirectURI(decodedText))
+                            await thingRegistryOrchestratorService.OpenDeviceReference(decodedText);
                         else
                             await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{decodedText}");
                         break;

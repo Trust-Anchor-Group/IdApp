@@ -76,9 +76,6 @@ namespace IdApp.Services.ThingRegistries
 			{
 				(SearchResultThing[] Things, string RegistryJid) = await this.neuronService.ThingRegistry.SearchAll(Uri);
 
-				// TODO: Extract JID, NodeID, SourceID & Partition from URI, if available. If contains these properties, the result should
-				// not be a search, but a view thing direct.
-
 				switch (Things.Length)
 				{
 					case 0:
@@ -112,9 +109,49 @@ namespace IdApp.Services.ThingRegistries
 						break;
 
 					default:
+						throw new NotImplementedException("Multiple devices were returned. Feature not implemented.");
 						// TODO: Search result list view
-						break;
 				}
+			}
+			catch (Exception ex)
+			{
+				await this.uiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		public async Task OpenDeviceReference(string Uri)
+		{
+			try
+			{
+				if (!this.neuronService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId, out string NodeId, out string PartitionId))
+					throw new InvalidOperationException("Not a direct reference URI.");
+
+				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId, PartitionId, NodeId);
+
+				if (Info is null)
+				{
+					Property[] Properties = new Property[0];	// TODO: Encode tags in Direct reference URI.
+
+					Info = new ContactInfo()
+					{
+						AllowSubscriptionFrom = false,
+						BareJid = Jid,
+						IsThing = true,
+						LegalId = string.Empty,
+						LegalIdentity = null,
+						FriendlyName = Jid,						// TODO: Encode tags in Direct reference URI.
+						MetaData = Properties,
+						SourceId = SourceId,
+						Partition = PartitionId,
+						NodeId = NodeId,
+						Owner = false,
+						RegistryJid = string.Empty,
+						SubcribeTo = null
+					};
+				}
+
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
+					await this.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info)));
 			}
 			catch (Exception ex)
 			{
