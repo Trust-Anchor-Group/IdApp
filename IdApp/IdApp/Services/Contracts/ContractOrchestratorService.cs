@@ -316,8 +316,8 @@ namespace IdApp.Services.Contracts
 			{
 				if (this.tagProfile.IsCompleteOrWaitingForValidation())
 				{
-					await this.navigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage), 
-						new ViewContractNavigationArgs(contract, false, true, e.MessageText));
+					await this.navigationService.GoToAsync(nameof(ViewContractPage), 
+						new ViewContractNavigationArgs(contract, false, e.Role, e.MessageText));
 				}
 			});
 		}

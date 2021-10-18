@@ -96,13 +96,15 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				this.Contract = args.Contract;
 				this.isReadOnly = args.IsReadOnly;
-				this.IsProposal = args.IsProposal;
+				this.Role = args.Role;
+				this.IsProposal = !string.IsNullOrEmpty(this.Role);
 				this.Proposal = string.IsNullOrEmpty(args.Proposal) ? AppResources.YouHaveReceivedAProposal : args.Proposal;
 			}
 			else
 			{
 				this.Contract = null;
 				this.isReadOnly = true;
+				this.Role = null;
 				this.IsProposal = false;
 			}
 
@@ -140,13 +142,28 @@ namespace IdApp.Pages.Contracts.ViewContract
 		public ICommand DeleteContractCommand { get; }
 
 		/// <summary>
+		/// See <see cref="Role"/>
+		/// </summary>
+		public static readonly BindableProperty RoleProperty =
+			BindableProperty.Create("Role", typeof(string), typeof(ViewContractViewModel), default(string));
+
+		/// <summary>
+		/// Contains proposed role, if a proposal, null if not a proposal.
+		/// </summary>
+		public string Role
+		{
+			get { return (string)GetValue(RoleProperty); }
+			set { SetValue(RoleProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="IsProposal"/>
 		/// </summary>
 		public static readonly BindableProperty IsProposalProperty =
 			BindableProperty.Create("IsProposal", typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
-		/// If the contract is a proposal
+		/// If the view represents a proposal to sign a contract.
 		/// </summary>
 		public bool IsProposal
 		{
@@ -610,7 +627,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 						AddKeyValueLabelPair(rolesLayout, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
 
 						if (!this.isReadOnly && acceptsSignatures && !hasSigned && this.Contract.PartsMode == ContractParts.Open &&
-							(!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount))
+							(!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount) &&
+							(!this.IsProposal || role.Name == this.Role))
 						{
 							Button button = new Button
 							{

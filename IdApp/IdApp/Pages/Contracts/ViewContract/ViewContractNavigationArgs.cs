@@ -14,7 +14,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// <param name="contract">The contract to display.</param>
 		/// <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
 		public ViewContractNavigationArgs(Contract contract, bool isReadOnly)
-			: this(contract, isReadOnly, false, string.Empty)
+			: this(contract, isReadOnly, null, string.Empty)
 		{
 		}
 
@@ -23,13 +23,13 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		/// <param name="contract">The contract to display.</param>
 		/// <param name="isReadOnly"><c>true</c> if the contract is readonly, <c>false</c> otherwise.</param>
-		/// <param name="isProposal">If contract is a proposal.</param>
+		/// <param name="Role">Contains proposed role, if a proposal, null if not a proposal.</param>
 		/// <param name="Proposal">Proposal text.</param>
-		public ViewContractNavigationArgs(Contract contract, bool isReadOnly, bool isProposal, string Proposal)
+		public ViewContractNavigationArgs(Contract contract, bool isReadOnly, string Role, string Proposal)
 		{
 			this.Contract = contract;
 			this.IsReadOnly = isReadOnly;
-			this.IsProposal = isProposal;
+			this.Role = Role;
 			this.Proposal = Proposal;
 		}
 
@@ -44,9 +44,9 @@ namespace IdApp.Pages.Contracts.ViewContract
 		public bool IsReadOnly { get; }
 
 		/// <summary>
-		/// <c>true</c> if the contract is a proposal, <c>false</c> otherwise.
+		/// Contains proposed role, if a proposal, null if not a proposal.
 		/// </summary>
-		public bool IsProposal { get; }
+		public string Role { get; }
 
 		/// <summary>
 		/// Proposal text.
