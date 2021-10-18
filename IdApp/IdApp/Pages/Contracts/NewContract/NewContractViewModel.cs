@@ -876,7 +876,8 @@ namespace IdApp.Pages.Contracts.NewContract
 					Entry Entry = new Entry()
 					{
 						StyleId = Parameter.Name,
-						Text = Parameter.ObjectValue?.ToString(),
+						Text = Parameter.ObjectValue?.ToString(), 
+						Placeholder = Parameter.Guide,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 					};
 
