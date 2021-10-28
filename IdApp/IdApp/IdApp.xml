@@ -29,6 +29,13 @@
             <param name="IncludeUnchanged">If unchanged material should be included.</param>
             <param name="SendAsAlert">If an alert is to be sent.</param>
         </member>
+        <member name="M:IdApp.App.OpenUrl(System.String)">
+            <summary>
+            Opens an URL in the application.
+            </summary>
+            <param name="Url">URL</param>
+            <returns>If URL is processed or not.</returns>
+        </member>
         <member name="T:IdApp.AppResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -2214,14 +2221,14 @@
             <summary>
             Gets the predefined scheme from an IoT Code
             </summary>
-            <param name="code">The code to parse.</param>
+            <param name="Url">The URL to parse.</param>
             <returns>URI Scheme</returns>
         </member>
         <member name="M:IdApp.Constants.UriSchemes.StartsWithIdScheme(System.String)">
             <summary>
             Checks if the specified code starts with the IoT ID scheme.
             </summary>
-            <param name="code">The code to parse.</param>
+            <param name="Url">The URL to check.</param>
             <returns>If URI is an ID scheme</returns>
         </member>
         <member name="M:IdApp.Constants.UriSchemes.CreateSmartContractUri(System.String)">
@@ -2238,12 +2245,12 @@
             <param name="id">The Id to use when generating the Uri.</param>
             <returns>Identity URI</returns>
         </member>
-        <member name="M:IdApp.Constants.UriSchemes.GetCode(System.String)">
+        <member name="M:IdApp.Constants.UriSchemes.RemoveScheme(System.String)">
             <summary>
-            Returns the raw code, minus the scheme.
+            Removes the URI Schema from an URL.
             </summary>
-            <param name="code">The code to parse and extract id from.</param>
-            <returns>Code of an URI</returns>
+            <param name="Url">The URL to parse and extract the URI schema from.</param>
+            <returns>URI, without schema</returns>
         </member>
         <member name="T:IdApp.Constants.MimeTypes">
             <summary>
@@ -7033,11 +7040,11 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.CodeScannedEventArgs"/> class.
             </summary>
-            <param name="code">The scanned QR code</param>
+            <param name="Url">The URL in a scanned QR code</param>
         </member>
-        <member name="P:IdApp.Pages.Main.ScanQrCode.CodeScannedEventArgs.Code">
+        <member name="P:IdApp.Pages.Main.ScanQrCode.CodeScannedEventArgs.Url">
             <summary>
-            The scanned QR code
+            The scanned QR code URL
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeNavigationArgs">
@@ -7128,14 +7135,14 @@
             The link text, i.e. the full qr code including scheme.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.CodeProperty">
+        <member name="F:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.UrlProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.Code"/>
+            See <see cref="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.Url"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.Code">
+        <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.Url">
             <summary>
-            The raw QR code, minus the scheme.
+            The raw QR code URL.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.OpenCommandTextProperty">
@@ -11177,30 +11184,30 @@
             <summary>
             Tries to get the country name, given its country code.
             </summary>
-            <param name="code">ISO-3166-1 Country code (case insensitive).</param>
-            <param name="country">Country name, if found.</param>
+            <param name="CountryCode">ISO-3166-1 Country code (case insensitive).</param>
+            <param name="Country">Country name, if found.</param>
             <returns>If a country was found matching the country code.</returns>
         </member>
         <member name="M:IdApp.Services.Data.Countries.ISO_3166_1.TryGetCode(System.String,System.String@)">
             <summary>
             Tries to get the ISO-3166-1 country code, given its country name.
             </summary>
-            <param name="country">Country name (case insensitive).</param>
-            <param name="code">ISO-3166-1 Country code, if found.</param>
+            <param name="Country">Country name (case insensitive).</param>
+            <param name="CountryCode">ISO-3166-1 Country code, if found.</param>
             <returns>If a country code was found matching the country name.</returns>
         </member>
         <member name="M:IdApp.Services.Data.Countries.ISO_3166_1.ToName(System.String)">
             <summary>
             Converts the code to a country name (if found). If not found, returns the original code.
             </summary>
-            <param name="code">Country code.</param>
+            <param name="CountryCode">Country code.</param>
             <returns>Country name, or if not found, the original code.</returns>
         </member>
         <member name="M:IdApp.Services.Data.Countries.ISO_3166_1.ToCode(System.String)">
             <summary>
             Converts the name to a country code (if found). If not found, returns the original name.
             </summary>
-            <param name="country">Country name.</param>
+            <param name="Country">Country name.</param>
             <returns>Country code, or if not found, the original name.</returns>
         </member>
         <member name="T:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme">
@@ -13016,7 +13023,8 @@
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
             <summary>
-            Scans a QR Code, and depending on the actual result, takes different actions. This typically means navigating to an appropriate page.
+            Scans a QR Code, and depending on the actual result, takes different actions. 
+            This typically means navigating to an appropriate page.
             </summary>
             <param name="logService">The log service to use for logging.</param>
             <param name="neuronService">The Neuron service for XMPP access</param>
@@ -13025,6 +13033,28 @@
             <param name="contractOrchestratorService">The contract orchestrator service.</param>
             <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
             <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
+        </member>
+        <member name="M:IdApp.Services.UI.QR.QrCode.OpenUrl(System.String)">
+            <summary>
+            Scans a QR Code, and depending on the actual result, takes different actions. 
+            This typically means navigating to an appropriate page.
+            </summary>
+            <param name="Url">URL to open.</param>
+            <returns>If URL was handled.</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.QR.QrCode.OpenUrl(System.String,IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
+            <summary>
+            Scans a QR Code, and depending on the actual result, takes different actions. 
+            This typically means navigating to an appropriate page.
+            </summary>
+            <param name="Url">URL to open.</param>
+            <param name="logService">The log service to use for logging.</param>
+            <param name="neuronService">The Neuron service for XMPP access</param>
+            <param name="uiSerializer">The ui dispatcher for main thread access.</param>
+            <param name="contractOrchestratorService">The contract orchestrator service.</param>
+            <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
+            <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
+            <returns>If URL was handled.</returns>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
             <summary>
@@ -13055,7 +13085,7 @@
             </summary>
             <param name="navigationService">The navigation service to use for page navigation.</param>
             <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
-            <param name="code">The code to set.</param>
+            <param name="Url">The URL to set.</param>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.GeneratePng(System.String,System.Int32,System.Int32)">
             <summary>
