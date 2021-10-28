@@ -25,5 +25,17 @@ namespace IdApp.iOS
 
             return base.FinishedLaunching(app, options);
         }
+
+        /// <summary>
+        /// Method is called when an URL with a registered schema is being opened.
+        /// </summary>
+        /// <param name="app">Application</param>
+        /// <param name="url">URL</param>
+        /// <param name="options">Options</param>
+        /// <returns>If URL is handled.</returns>
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return App.OpenUrl(url.AbsoluteString).Result;
+        }
     }
 }

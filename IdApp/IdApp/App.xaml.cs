@@ -42,6 +42,7 @@ using IdApp.Services.AttachmentCache;
 using IdApp.Services.Contracts;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
+using IdApp.Services.UI.QR;
 
 namespace IdApp
 {
@@ -686,5 +687,16 @@ namespace IdApp
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Opens an URL in the application.
+		/// </summary>
+		/// <param name="Url">URL</param>
+		/// <returns>If URL is processed or not.</returns>
+		public static Task<bool> OpenUrl(string Url)
+		{
+			return QrCode.OpenUrl(Url);
+		}
+
 	}
 }

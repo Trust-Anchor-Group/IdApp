@@ -79,18 +79,18 @@ namespace IdApp.Pages.Main.ScanQrCode
         }
 
         /// <summary>
-        /// See <see cref="Code"/>
+        /// See <see cref="Url"/>
         /// </summary>
-        public static readonly BindableProperty CodeProperty =
-            BindableProperty.Create("Code", typeof(string), typeof(ScanQrCodeViewModel), default(string));
+        public static readonly BindableProperty UrlProperty =
+            BindableProperty.Create("Url", typeof(string), typeof(ScanQrCodeViewModel), default(string));
 
         /// <summary>
-        /// The raw QR code, minus the scheme.
+        /// The raw QR code URL.
         /// </summary>
-        public string Code
+        public string Url
         {
-            get { return (string)GetValue(CodeProperty); }
-            set { SetValue(CodeProperty, value); }
+            get { return (string)GetValue(UrlProperty); }
+            set { SetValue(UrlProperty, value); }
         }
 
         /// <summary>

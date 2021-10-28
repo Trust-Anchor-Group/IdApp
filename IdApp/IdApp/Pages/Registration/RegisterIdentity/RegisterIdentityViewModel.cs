@@ -182,22 +182,17 @@ namespace IdApp.Pages.Registration.RegisterIdentity
             {
                 RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
                 viewModel.RegisterCommand.ChangeCanExecute();
-                if (!string.IsNullOrWhiteSpace(viewModel.SelectedCountry) && ISO_3166_1.TryGetCode(viewModel.SelectedCountry, out string code))
+                if (!string.IsNullOrWhiteSpace(viewModel.SelectedCountry) && 
+                    ISO_3166_1.TryGetCode(viewModel.SelectedCountry, out string CountryCode))
                 {
-                    string format = PersonalNumberSchemes.DisplayStringForCountry(code);
+                    string format = PersonalNumberSchemes.DisplayStringForCountry(CountryCode);
                     if (!string.IsNullOrWhiteSpace(format))
-                    {
                         viewModel.PersonalNumberPlaceholder = string.Format(AppResources.PersonalNumberPlaceholder, format);
-                    }
                     else
-                    {
                         viewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
-                    }
                 }
                 else
-                {
                     viewModel.PersonalNumberPlaceholder = AppResources.PersonalNumber;
-                }
             });
 
         /// <summary>

@@ -10,15 +10,15 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// <summary>
         /// Creates an instance of the <see cref="CodeScannedEventArgs"/> class.
         /// </summary>
-        /// <param name="code">The scanned QR code</param>
-        public CodeScannedEventArgs(string code)
+        /// <param name="Url">The URL in a scanned QR code</param>
+        public CodeScannedEventArgs(string Url)
         {
-            Code = code;
+            this.Url = Url;
         }
 
         /// <summary>
-        /// The scanned QR code
+        /// The scanned QR code URL
         /// </summary>
-        public string Code { get; }
+        public string Url { get; }
     }
 }

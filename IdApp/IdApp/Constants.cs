@@ -83,20 +83,20 @@ namespace IdApp
             /// <summary>
             /// Gets the predefined scheme from an IoT Code
             /// </summary>
-            /// <param name="code">The code to parse.</param>
+            /// <param name="Url">The URL to parse.</param>
             /// <returns>URI Scheme</returns>
-            public static string GetScheme(string code)
+            public static string GetScheme(string Url)
             {
-                if (string.IsNullOrWhiteSpace(code))
+                if (string.IsNullOrWhiteSpace(Url))
                     return null;
 
-                int i = code.IndexOf(':');
+                int i = Url.IndexOf(':');
                 if (i < 0)
                     return null;
 
-                code = code.Substring(0, i).ToLowerInvariant();
+                Url = Url.Substring(0, i).ToLowerInvariant();
 
-                switch (code)
+                switch (Url)
                 {
                     case UriSchemeIotId:
                     case UriSchemeIotDisco:
@@ -104,7 +104,7 @@ namespace IdApp
                     case UriSchemeTagSign:
                     case UriSchemeEDaler:
                     case UriSchemeOnboarding:
-                        return code;
+                        return Url;
 
                     default:
                         return null;
@@ -114,12 +114,12 @@ namespace IdApp
             /// <summary>
             /// Checks if the specified code starts with the IoT ID scheme.
             /// </summary>
-            /// <param name="code">The code to parse.</param>
+            /// <param name="Url">The URL to check.</param>
             /// <returns>If URI is an ID scheme</returns>
-            public static bool StartsWithIdScheme(string code)
+            public static bool StartsWithIdScheme(string Url)
             {
-                return !string.IsNullOrWhiteSpace(code) &&
-                       code.StartsWith(UriSchemeIotId + ":", StringComparison.InvariantCultureIgnoreCase);
+                return !string.IsNullOrWhiteSpace(Url) &&
+                       Url.StartsWith(UriSchemeIotId + ":", StringComparison.InvariantCultureIgnoreCase);
             }
 
             /// <summary>
@@ -143,17 +143,17 @@ namespace IdApp
             }
 
             /// <summary>
-            /// Returns the raw code, minus the scheme.
+            /// Removes the URI Schema from an URL.
             /// </summary>
-            /// <param name="code">The code to parse and extract id from.</param>
-            /// <returns>Code of an URI</returns>
-            public static string GetCode(string code)
+            /// <param name="Url">The URL to parse and extract the URI schema from.</param>
+            /// <returns>URI, without schema</returns>
+            public static string RemoveScheme(string Url)
             {
-                string Scheme = GetScheme(code);
+                string Scheme = GetScheme(Url);
                 if (string.IsNullOrEmpty(Scheme))
                     return null;
 
-                return code.Substring(Scheme.Length + 1);
+                return Url.Substring(Scheme.Length + 1);
             }
         }
 

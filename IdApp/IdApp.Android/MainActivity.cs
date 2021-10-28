@@ -3,6 +3,8 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using System;
+using Waher.Events;
 
 namespace IdApp.Android
 {
@@ -31,5 +33,22 @@ namespace IdApp.Android
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+		public override async void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
+		{
+            try
+            {
+                base.OnCreate(savedInstanceState, persistentState);
+
+                string Url = Intent?.Data?.EncodedAuthority;
+
+                await App.OpenUrl(Url);
+            }
+            catch (Exception ex)
+			{
+                Log.Critical(ex);
+			}
+        }
+
 	}
 }

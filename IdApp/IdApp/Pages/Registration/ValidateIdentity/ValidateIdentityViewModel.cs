@@ -576,16 +576,16 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private async Task InviteReviewer()
         {
-            string code = await QrCode.ScanQrCode(this.NavigationService, AppResources.InvitePeerToReview);
+            string Url = await QrCode.ScanQrCode(this.NavigationService, AppResources.InvitePeerToReview);
 
-            if (!Constants.UriSchemes.StartsWithIdScheme(code))
+            if (!Constants.UriSchemes.StartsWithIdScheme(Url))
             {
                 await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TheSpecifiedCodeIsNotALegalIdentity);
                 return;
             }
 
             bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(
-                Constants.UriSchemes.GetCode(code), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
+                Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
 
             if (succeeded)
                 await this.UiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToYourPeer);

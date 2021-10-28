@@ -72,20 +72,21 @@ namespace IdApp.Pages.Main.ScanQrCode
             if (!string.IsNullOrWhiteSpace(result.Text))
             {
                 Scanner.IsAnalyzing = false; // Stop analysis until we navigate away so we don't keep reading qr codes
-                string code = result.Text?.Trim();
-                GetViewModel<ScanQrCodeViewModel>().Code = code;
-                QrCode.TrySetResultAndClosePage(this.navigationService, this.uiSerializer, code);
+                string Url = result.Text?.Trim();
+
+                GetViewModel<ScanQrCodeViewModel>().Url = Url;
+                QrCode.TrySetResultAndClosePage(this.navigationService, this.uiSerializer, Url);
             }
         }
 
         private async void OpenButton_Click(object sender, EventArgs e)
         {
-            string code = GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
+            string Url = GetViewModel<ScanQrCodeViewModel>().LinkText?.Trim();
             try
             {
-                string scheme = Constants.UriSchemes.GetScheme(code);
+                string Scheme = Constants.UriSchemes.GetScheme(Url);
 
-                if (string.IsNullOrWhiteSpace(scheme))
+                if (string.IsNullOrWhiteSpace(Scheme))
                 {
                     await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnsupportedUriScheme, AppResources.Ok);
                     return;
@@ -97,7 +98,7 @@ namespace IdApp.Pages.Main.ScanQrCode
                 return;
             }
 
-            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiSerializer, code);
+            QrCode.TrySetResultAndClosePage(this.navigationService, this.uiSerializer, Url);
         }
 
         /// <summary>

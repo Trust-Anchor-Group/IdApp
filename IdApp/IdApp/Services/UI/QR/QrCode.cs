@@ -25,7 +25,8 @@ namespace IdApp.Services.UI.QR
         private static Func<string, Task> callback;
 
         /// <summary>
-        /// Scans a QR Code, and depending on the actual result, takes different actions. This typically means navigating to an appropriate page.
+        /// Scans a QR Code, and depending on the actual result, takes different actions. 
+        /// This typically means navigating to an appropriate page.
         /// </summary>
         /// <param name="logService">The log service to use for logging.</param>
         /// <param name="neuronService">The Neuron service for XMPP access</param>
@@ -43,67 +44,115 @@ namespace IdApp.Services.UI.QR
             IThingRegistryOrchestratorService thingRegistryOrchestratorService,
             IEDalerOrchestratorService eDalerOrchestratorService)
         {
-            string decodedText = await QrCode.ScanQrCode(navigationService, AppResources.Open);
-
-            if (string.IsNullOrWhiteSpace(decodedText))
+            string Url = await QrCode.ScanQrCode(navigationService, AppResources.Open);
+            if (string.IsNullOrWhiteSpace(Url))
                 return;
 
+            await OpenUrl(Url, logService, neuronService, uiSerializer, contractOrchestratorService,
+                thingRegistryOrchestratorService, eDalerOrchestratorService);
+        }
+
+
+        /// <summary>
+        /// Scans a QR Code, and depending on the actual result, takes different actions. 
+        /// This typically means navigating to an appropriate page.
+        /// </summary>
+        /// <param name="Url">URL to open.</param>
+        /// <returns>If URL was handled.</returns>
+        public static Task<bool> OpenUrl(string Url)
+        {
+            return OpenUrl(Url,
+                App.Instantiate<ILogService>(),
+                App.Instantiate<INeuronService>(),
+                App.Instantiate<IUiSerializer>(),
+                App.Instantiate<IContractOrchestratorService>(),
+                App.Instantiate<IThingRegistryOrchestratorService>(),
+                App.Instantiate<IEDalerOrchestratorService>());
+        }
+
+        /// <summary>
+        /// Scans a QR Code, and depending on the actual result, takes different actions. 
+        /// This typically means navigating to an appropriate page.
+        /// </summary>
+        /// <param name="Url">URL to open.</param>
+        /// <param name="logService">The log service to use for logging.</param>
+        /// <param name="neuronService">The Neuron service for XMPP access</param>
+        /// <param name="uiSerializer">The ui dispatcher for main thread access.</param>
+        /// <param name="contractOrchestratorService">The contract orchestrator service.</param>
+        /// <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
+        /// <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
+        /// <returns>If URL was handled.</returns>
+        public static async Task<bool> OpenUrl(string Url, 
+            ILogService logService,
+            INeuronService neuronService,
+            IUiSerializer uiSerializer,
+            IContractOrchestratorService contractOrchestratorService,
+            IThingRegistryOrchestratorService thingRegistryOrchestratorService,
+            IEDalerOrchestratorService eDalerOrchestratorService)
+        { 
             try
             {
-                if (!Uri.TryCreate(decodedText, UriKind.Absolute, out Uri uri))
+                if (!Uri.TryCreate(Url, UriKind.Absolute, out Uri uri))
                 {
                     await uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
-                    return;
+                    return false;
                 }
 
                 switch (uri.Scheme.ToLower())
                 {
                     case Constants.UriSchemes.UriSchemeIotId:
-                        string legalId = Constants.UriSchemes.GetCode(decodedText);
+                        string legalId = Constants.UriSchemes.RemoveScheme(Url);
                         await contractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
-                        break;
+                        return true;
 
                     case Constants.UriSchemes.UriSchemeIotSc:
-                        string contractId = Constants.UriSchemes.GetCode(decodedText);
+                        string contractId = Constants.UriSchemes.RemoveScheme(Url);
                         await contractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
-                        break;
-
+                        return true;
+                        
                     case Constants.UriSchemes.UriSchemeIotDisco:
-                        if (neuronService.ThingRegistry.IsIoTDiscoClaimURI(decodedText))
-                            await thingRegistryOrchestratorService.OpenClaimDevice(decodedText);
-                        else if (neuronService.ThingRegistry.IsIoTDiscoSearchURI(decodedText))
-                            await thingRegistryOrchestratorService.OpenSearchDevices(decodedText);
-                        else if (neuronService.ThingRegistry.IsIoTDiscoDirectURI(decodedText))
-                            await thingRegistryOrchestratorService.OpenDeviceReference(decodedText);
+                        if (neuronService.ThingRegistry.IsIoTDiscoClaimURI(Url))
+                            await thingRegistryOrchestratorService.OpenClaimDevice(Url);
+                        else if (neuronService.ThingRegistry.IsIoTDiscoSearchURI(Url))
+                            await thingRegistryOrchestratorService.OpenSearchDevices(Url);
+                        else if (neuronService.ThingRegistry.IsIoTDiscoDirectURI(Url))
+                            await thingRegistryOrchestratorService.OpenDeviceReference(Url);
                         else
-                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{decodedText}");
-                        break;
+                        {
+                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{Url}");
+                            return false;
+                        }
+                        return true;
 
                     case Constants.UriSchemes.UriSchemeTagSign:
-                        string request = Constants.UriSchemes.GetCode(decodedText);
+                        string request = Constants.UriSchemes.RemoveScheme(Url);
                         await contractOrchestratorService.TagSignature(request);
-                        break;
+                        return true;
 
                     case Constants.UriSchemes.UriSchemeEDaler:
-                        await eDalerOrchestratorService.OpenEDalerUri(decodedText);
-                        break;
+                        await eDalerOrchestratorService.OpenEDalerUri(Url);
+                        return true;
 
                     case Constants.UriSchemes.UriSchemeOnboarding:
                         await uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
-                        break;
+                        return false;
 
                     default:
-                        if (!await Launcher.TryOpenAsync(uri))
-                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{decodedText}");
-                        break;
+                        if (await Launcher.TryOpenAsync(uri))
+                            return true;
+                        else
+                        {
+                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{Url}");
+                            return false;
+                        }
                 }
             }
             catch (Exception ex)
             {
                 logService.LogException(ex);
                 await uiSerializer.DisplayAlert(ex);
+                return false;
             }
-
         }
 
         /// <summary>
@@ -140,22 +189,22 @@ namespace IdApp.Services.UI.QR
         /// </summary>
         /// <param name="navigationService">The navigation service to use for page navigation.</param>
         /// <param name="uiSerializer">The current UI Dispatcher to use for marshalling back to the main thread.</param>
-        /// <param name="code">The code to set.</param>
-        internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string code)
+        /// <param name="Url">The URL to set.</param>
+        internal static void TrySetResultAndClosePage(INavigationService navigationService, IUiSerializer uiSerializer, string Url)
         {
             uiSerializer.BeginInvokeOnMainThread(async () =>
             {
                 if (!(callback is null))
                 {
-                    await callback(code);
+                    await callback(Url);
                     callback = null;
                 }
                 
                 await navigationService.GoBackAsync();
 
-                if (!string.IsNullOrWhiteSpace(code) && !(qrCodeScanned is null))
+                if (!string.IsNullOrWhiteSpace(Url) && !(qrCodeScanned is null))
                 {
-                    qrCodeScanned.TrySetResult(code.Trim());
+                    qrCodeScanned.TrySetResult(Url.Trim());
                     qrCodeScanned = null;
                 }
             });

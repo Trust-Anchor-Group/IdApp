@@ -291,47 +291,49 @@ namespace IdApp.Services.Data.Countries
         /// <summary>
         /// Tries to get the country name, given its country code.
         /// </summary>
-        /// <param name="code">ISO-3166-1 Country code (case insensitive).</param>
-        /// <param name="country">Country name, if found.</param>
+        /// <param name="CountryCode">ISO-3166-1 Country code (case insensitive).</param>
+        /// <param name="Country">Country name, if found.</param>
         /// <returns>If a country was found matching the country code.</returns>
-        public static bool TryGetCountry(string code, out string country)
+        public static bool TryGetCountry(string CountryCode, out string Country)
         {
-            return countryByCode.TryGetValue(code, out country);
+            return countryByCode.TryGetValue(CountryCode, out Country);
         }
 
         /// <summary>
         /// Tries to get the ISO-3166-1 country code, given its country name.
         /// </summary>
-        /// <param name="country">Country name (case insensitive).</param>
-        /// <param name="code">ISO-3166-1 Country code, if found.</param>
+        /// <param name="Country">Country name (case insensitive).</param>
+        /// <param name="CountryCode">ISO-3166-1 Country code, if found.</param>
         /// <returns>If a country code was found matching the country name.</returns>
-        public static bool TryGetCode(string country, out string code)
+        public static bool TryGetCode(string Country, out string CountryCode)
         {
-            return codeByCountry.TryGetValue(country, out code);
+            return codeByCountry.TryGetValue(Country, out CountryCode);
         }
 
         /// <summary>
         /// Converts the code to a country name (if found). If not found, returns the original code.
         /// </summary>
-        /// <param name="code">Country code.</param>
+        /// <param name="CountryCode">Country code.</param>
         /// <returns>Country name, or if not found, the original code.</returns>
-        public static string ToName(string code)
+        public static string ToName(string CountryCode)
         {
-            if (TryGetCountry(code, out string country))
-                return country;
-            return code;
+            if (TryGetCountry(CountryCode, out string Country))
+                return Country;
+
+            return CountryCode;
         }
 
         /// <summary>
         /// Converts the name to a country code (if found). If not found, returns the original name.
         /// </summary>
-        /// <param name="country">Country name.</param>
+        /// <param name="Country">Country name.</param>
         /// <returns>Country code, or if not found, the original name.</returns>
-        public static string ToCode(string country)
+        public static string ToCode(string Country)
         {
-            if (TryGetCode(country, out string code))
-                return code;
-            return country;
+            if (TryGetCode(Country, out string CountryCode))
+                return CountryCode;
+
+            return Country;
         }
     }
 }

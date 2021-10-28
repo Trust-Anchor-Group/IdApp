@@ -572,7 +572,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				this.stateTemplateWhileScanning = this.template;
 				await QrCode.ScanQrCode(this.navigationService, AppResources.Add, async code =>
 				{
-					string id = Constants.UriSchemes.GetCode(code);
+					string id = Constants.UriSchemes.RemoveScheme(code);
 					if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
 					{
 						this.partsToAdd[button.StyleId] = id;

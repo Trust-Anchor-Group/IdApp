@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="3" android:versionName="1.0" package="com.tag.IdApp" android:installLocation="preferExternal">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="4" android:versionName="1.0" package="com.tag.IdApp" android:installLocation="preferExternal">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -20,5 +20,18 @@
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true" android:requestLegacyExternalStorage="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
 		</provider>
+		<activity android:icon="@mipmap/icon" android:label="TAG ID" android:name="mobile">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="iotid" />
+				<data android:scheme="iotdisco" />
+				<data android:scheme="iotsc" />
+				<data android:scheme="tagsign" />
+				<data android:scheme="edaler" />
+				<data android:scheme="obinfo" />
+			</intent-filter>
+		</activity>
 	</application>
 </manifest>

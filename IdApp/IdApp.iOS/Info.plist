@@ -50,5 +50,21 @@
 	<string>2</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>TAG ID</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>iotid</string>
+				<string>iotdisco</string>
+				<string>iotsc</string>
+				<string>tagsign</string>
+				<string>edaler</string>
+				<string>obinfo</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
