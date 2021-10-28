@@ -4040,6 +4040,16 @@
             Gets or sets whether the contract has parameters.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.ParametersOkProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.ParametersOk"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.ParametersOk">
+            <summary>
+            Gets or sets whether the contract has parameters.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.HasHumanReadableTextProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.HasHumanReadableText"/>
@@ -4087,6 +4097,28 @@
             Returns the string representation, i.e. name, of this <see cref="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ContractVisibilityModel"/>.
             </summary>
             <returns>String representation</returns>
+        </member>
+        <member name="T:IdApp.Pages.Contracts.NewContract.ObjectModel.ParameterInfo">
+            <summary>
+            Contains information about a parameter.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.NewContract.ObjectModel.ParameterInfo.#ctor(Waher.Networking.XMPP.Contracts.Parameter,Xamarin.Forms.View)">
+            <summary>
+            Contains information about a parameter.
+            </summary>
+            <param name="Parameter">Contract parameter.</param>
+            <param name="Control">Generated control.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.ObjectModel.ParameterInfo.Parameter">
+            <summary>
+            Contract parameter.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.ObjectModel.ParameterInfo.Control">
+            <summary>
+            Generated control.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractNavigationArgs">
             <summary>

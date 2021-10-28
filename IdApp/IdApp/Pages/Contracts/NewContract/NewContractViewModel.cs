@@ -17,6 +17,7 @@ using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Script;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -28,6 +29,8 @@ namespace IdApp.Pages.Contracts.NewContract
 	public class NewContractViewModel : BaseViewModel
 	{
 		private static readonly string PartSettingsPrefix = $"{typeof(NewContractViewModel)}.Part_";
+
+		private readonly Dictionary<string, ParameterInfo> parametersByName = new Dictionary<string, ParameterInfo>();
 		private Contract template;
 		private readonly ILogService logService;
 		private readonly INeuronService neuronService;
@@ -133,12 +136,12 @@ namespace IdApp.Pages.Contracts.NewContract
 				await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
 			else
 				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-			
+
 			if (!(SelectedRole is null))
 				await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedRole)), this.SelectedRole);
 			else
 				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
-			
+
 			if (this.partsToAdd.Count > 0)
 			{
 				foreach (KeyValuePair<string, string> part in this.partsToAdd)
@@ -149,7 +152,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			else
 				await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
-			
+
 			this.partsToAdd.Clear();
 		}
 
@@ -167,7 +170,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				string selectedRole = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedRole)));
 				string matchingRole = this.AvailableRoles.FirstOrDefault(x => x.Equals(selectedRole));
-				
+
 				if (!string.IsNullOrWhiteSpace(matchingRole))
 					this.SelectedRole = matchingRole;
 
@@ -395,6 +398,21 @@ namespace IdApp.Pages.Contracts.NewContract
 		}
 
 		/// <summary>
+		/// See <see cref="ParametersOk"/>
+		/// </summary>
+		public static readonly BindableProperty ParametersOkProperty =
+			BindableProperty.Create("ParametersOk", typeof(bool), typeof(NewContractViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the contract has parameters.
+		/// </summary>
+		public bool ParametersOk
+		{
+			get { return (bool)GetValue(ParametersOkProperty); }
+			set { SetValue(ParametersOkProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="HasHumanReadableText"/>
 		/// </summary>
 		public static readonly BindableProperty HasHumanReadableTextProperty =
@@ -585,64 +603,76 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private void Parameter_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			if (sender is Entry Entry)
-			{
-				foreach (Parameter P in this.template.Parameters)
-				{
-					if (P.Name == Entry.StyleId)
-					{
-						if (P is StringParameter SP)
-							SP.Value = e.NewTextValue;
-						else if (P is NumericalParameter NP)
-						{
-							if (double.TryParse(e.NewTextValue, out double d))
-							{
-								NP.Value = d;
-								Entry.BackgroundColor = Color.Default;
-							}
-							else
-							{
-								Entry.BackgroundColor = Color.Salmon;
-								return;
-							}
-						}
-						else if (P is BooleanParameter BP)
-						{
-							if (bool.TryParse(e.NewTextValue, out bool b))
-							{
-								BP.Value = b;
-								Entry.BackgroundColor = Color.Default;
-							}
-							else
-							{
-								Entry.BackgroundColor = Color.Salmon;
-								return;
-							}
-						}
+			if (!(sender is Entry Entry) || !this.parametersByName.TryGetValue(Entry.StyleId, out ParameterInfo ParameterInfo))
+				return;
 
-						PopulateHumanReadableText();
-						break;
-					}
+			if (ParameterInfo.Parameter is StringParameter SP)
+				SP.Value = e.NewTextValue;
+			else if (ParameterInfo.Parameter is NumericalParameter NP)
+			{
+				if (double.TryParse(e.NewTextValue, out double d))
+				{
+					NP.Value = d;
+					Entry.BackgroundColor = Color.Default;
+				}
+				else
+				{
+					Entry.BackgroundColor = Color.Salmon;
+					return;
 				}
 			}
+			else if (ParameterInfo.Parameter is BooleanParameter BP)
+			{
+				if (bool.TryParse(e.NewTextValue, out bool b))
+				{
+					BP.Value = b;
+					Entry.BackgroundColor = Color.Default;
+				}
+				else
+				{
+					Entry.BackgroundColor = Color.Salmon;
+					return;
+				}
+			}
+
+			this.ValidateParameters();
+			PopulateHumanReadableText();
 		}
 
 		private void Parameter_CheckedChanged(object sender, CheckedChangedEventArgs e)
 		{
-			if (sender is CheckBox CheckBox)
-			{
-				foreach (Parameter P in this.template.Parameters)
-				{
-					if (P.Name == CheckBox.StyleId)
-					{
-						if (P is BooleanParameter BP)
-							BP.Value = e.Value;
+			if (!(sender is CheckBox CheckBox) || !this.parametersByName.TryGetValue(CheckBox.StyleId, out ParameterInfo ParameterInfo))
+				return;
 
-						PopulateHumanReadableText();
-						break;
-					}
+			if (ParameterInfo.Parameter is BooleanParameter BP)
+				BP.Value = e.Value;
+
+			this.ValidateParameters();
+			PopulateHumanReadableText();
+		}
+
+		private void ValidateParameters()
+		{
+			Variables Variables = new Variables();
+			bool Ok = true;
+
+			foreach (ParameterInfo P in this.parametersByName.Values)
+				P.Parameter.Populate(Variables);
+
+			foreach (ParameterInfo P in this.parametersByName.Values)
+			{
+				if (P.Parameter.IsParameterValid(Variables))
+					P.Control.BackgroundColor = Color.Default;
+				else
+				{
+					P.Control.BackgroundColor = Color.Salmon;
+					Ok = false;
 				}
 			}
+
+			this.ParametersOk = Ok;
+
+			this.EvaluateCommands(this.ProposeCommand);
 		}
 
 		private async Task Propose()
@@ -847,6 +877,8 @@ namespace IdApp.Pages.Contracts.NewContract
 				});
 			}
 
+			this.parametersByName.Clear();
+
 			foreach (Parameter Parameter in this.template.Parameters)
 			{
 				if (Parameter is BooleanParameter BP)
@@ -868,6 +900,8 @@ namespace IdApp.Pages.Contracts.NewContract
 					parametersLayout.Children.Add(Layout);
 
 					CheckBox.CheckedChanged += Parameter_CheckedChanged;
+
+					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, CheckBox);
 				}
 				else
 				{
@@ -876,7 +910,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					Entry Entry = new Entry()
 					{
 						StyleId = Parameter.Name,
-						Text = Parameter.ObjectValue?.ToString(), 
+						Text = Parameter.ObjectValue?.ToString(),
 						Placeholder = Parameter.Guide,
 						HorizontalOptions = LayoutOptions.FillAndExpand,
 					};
@@ -884,13 +918,15 @@ namespace IdApp.Pages.Contracts.NewContract
 					parametersLayout.Children.Add(Entry);
 
 					Entry.TextChanged += Parameter_TextChanged;
+
+					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, Entry);
 				}
 			}
 
 			this.Parameters = parametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
 			this.UsePin = this.tagProfile.UsePin;
-			
+
 			this.EvaluateCommands(this.ProposeCommand);
 		}
 
@@ -909,7 +945,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private bool CanPropose()
 		{
-			return !(this.template is null);
+			return !(this.template is null) && this.ParametersOk;
 		}
 	}
 }
