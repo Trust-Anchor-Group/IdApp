@@ -682,8 +682,15 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (!(Contract.Parameters is null))
 				{
 					StackLayout parametersLayout = new StackLayout();
+
 					foreach (Parameter parameter in Contract.Parameters)
-						AddKeyValueLabelPair(parametersLayout, parameter.Name, parameter.ObjectValue?.ToString());
+					{
+						if (parameter.ObjectValue is bool b)
+							AddKeyValueLabelPair(parametersLayout, parameter.Name, b ? "✔" : "✗");
+						else
+							AddKeyValueLabelPair(parametersLayout, parameter.Name, parameter.ObjectValue?.ToString());
+					}
+
 					this.Parameters = parametersLayout;
 				}
 

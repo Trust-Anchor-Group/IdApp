@@ -886,7 +886,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					CheckBox CheckBox = new CheckBox()
 					{
 						StyleId = Parameter.Name,
-						IsChecked = BP.Value,
+						IsChecked = BP.Value.HasValue && BP.Value.Value,
 						VerticalOptions = LayoutOptions.Center
 					};
 
@@ -927,6 +927,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.HasParameters = this.Parameters.Children.Count > 0;
 			this.UsePin = this.tagProfile.UsePin;
 
+			this.ValidateParameters();
 			this.EvaluateCommands(this.ProposeCommand);
 		}
 
