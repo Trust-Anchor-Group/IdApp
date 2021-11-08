@@ -84,6 +84,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				this.EDalerGlyph = Url.ToString();
 			}
+			else if (!(this.Balance is null) && !(this.NeuronService.Wallet.LastBalance is null) &&
+				(this.Balance.Amount != this.NeuronService.Wallet.LastBalance.Amount ||
+				this.Balance.Currency != this.NeuronService.Wallet.LastBalance.Currency ||
+				this.Balance.Timestamp != this.NeuronService.Wallet.LastBalance.Timestamp))
+			{
+				await this.ReloadWallet(this.NeuronService.Wallet.LastBalance);
+			}
 
 			EvaluateAllCommands();
 
@@ -144,11 +151,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
-			this.ReloadWallet(e.Balance);
+			Task.Run(() => this.ReloadWallet(e.Balance));
 			return Task.CompletedTask;
 		}
 
-		private async void ReloadWallet(Balance Balance)
+		private async Task ReloadWallet(Balance Balance)
 		{
 			try
 			{

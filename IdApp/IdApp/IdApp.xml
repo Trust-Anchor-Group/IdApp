@@ -13455,6 +13455,16 @@
             But the message will be unencrypted in the incomplete PeyMe URI.</param>
             <returns>Incomplete PayMe-URI.</returns>
         </member>
+        <member name="P:IdApp.Services.Wallet.INeuronWallet.LastBalance">
+            <summary>
+            Last reported balance
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Wallet.NeuronWallet.LastBalance">
+            <summary>
+            Last reported balance
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Wallet.NeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
             <summary>
             Tries to parse an eDaler URI.

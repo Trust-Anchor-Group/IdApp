@@ -16,6 +16,7 @@ namespace IdApp.Services.Wallet
 		private readonly INeuronService neuronService;
 		private readonly ILogService logService;
 		private EDalerClient eDalerClient;
+		private Balance lastBalance = null;
 
 		internal NeuronWallet(INeuronService neuronService, ILogService logService)
 		{
@@ -45,6 +46,8 @@ namespace IdApp.Services.Wallet
 
 		private async Task EDalerClient_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
+			this.lastBalance = e.Balance;
+
 			BalanceEventHandler h = this.BalanceUpdated;
 			if (!(h is null))
 			{
@@ -60,6 +63,11 @@ namespace IdApp.Services.Wallet
 		}
 
 		public event BalanceEventHandler BalanceUpdated;
+
+		/// <summary>
+		/// Last reported balance
+		/// </summary>
+		public Balance LastBalance  => this.lastBalance;
 
 		/// <summary>
 		/// Tries to parse an eDaler URI.

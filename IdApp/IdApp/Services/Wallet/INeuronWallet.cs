@@ -139,5 +139,13 @@ namespace IdApp.Services.Wallet
 		/// But the message will be unencrypted in the incomplete PeyMe URI.</param>
 		/// <returns>Incomplete PayMe-URI.</returns>
 		string CreateIncompletePayMeUri(LegalIdentity To, decimal? Amount, decimal? AmountExtra, string Currency, string PrivateMessage);
+
+		/// <summary>
+		/// Last reported balance
+		/// </summary>
+		Balance LastBalance
+		{
+			get;
+		}
 	}
 }
