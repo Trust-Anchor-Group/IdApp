@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="EDaler" Version="1.0.12" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="Waher.Content" Version="1.1.5" />
     <PackageReference Include="Waher.Content.Images" Version="1.1.2" />
@@ -182,5 +183,9 @@
     <Compile Update="Pages\Wallet\IssueEDaler\IssueEDalerPage.xaml.cs">
       <DependentUpon>IssueEDalerPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Main\PinPopup\" />
   </ItemGroup>
 </Project>

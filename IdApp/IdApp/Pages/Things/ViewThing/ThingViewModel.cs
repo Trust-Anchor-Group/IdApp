@@ -140,26 +140,6 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <summary>
-		/// If PIN should be used.
-		/// </summary>
-		public bool UsePin => this.TagProfile?.UsePin ?? false;
-
-		/// <summary>
-		/// See <see cref="Pin"/>
-		/// </summary>
-		public static readonly BindableProperty PinProperty =
-			BindableProperty.Create("Pin", typeof(string), typeof(ViewClaimThing.ViewClaimThingViewModel), default(string));
-
-		/// <summary>
-		/// Gets or sets the PIN code for the identity.
-		/// </summary>
-		public string Pin
-		{
-			get { return (string)GetValue(PinProperty); }
-			set { SetValue(PinProperty, value); }
-		}
-
-		/// <summary>
 		/// Command to bind to for detecting when a tag value has been clicked on.
 		/// </summary>
 		public ICommand ClickCommand { get; }
@@ -193,11 +173,8 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			try
 			{
-				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				if (!await App.VerifyPin())
 					return;
-				}
 
 				(bool Succeeded, bool Done) = await this.networkService.TryRequest(() => 
 					this.NeuronService.ThingRegistry.Disown(this.thing.RegistryJid, this.thing.BareJid, this.thing.SourceId, this.thing.Partition, this.thing.NodeId));

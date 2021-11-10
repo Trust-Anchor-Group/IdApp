@@ -390,6 +390,9 @@
   <data name="EnterPhoneNumber" xml:space="preserve">
     <value>Telefonnummer</value>
   </data>
+  <data name="EnterPin" xml:space="preserve">
+    <value>Ange PIN</value>
+  </data>
   <data name="ErrorTitle" xml:space="preserve">
     <value>Ett fel har inträffat</value>
   </data>

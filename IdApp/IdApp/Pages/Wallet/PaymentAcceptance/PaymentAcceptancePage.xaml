@@ -23,9 +23,6 @@
                 <Entry Text="{Binding Path=AmountExtraAndCurrency}" IsVisible="{Binding Path=AmountExtraPreset}" IsReadOnly="True"/>
                 <Label Text="{x:Static local:AppResources.Message}" IsVisible="{Binding Path=MessagePreset}"/>
                 <Entry Text="{Binding Path=Message}" IsVisible="{Binding Path=MessagePreset}" IsReadOnly="True"/>
-                <!-- PIN -->
-                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
-                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
                 <!-- BUTTONS -->
                 <Button Text="{x:Static local:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>

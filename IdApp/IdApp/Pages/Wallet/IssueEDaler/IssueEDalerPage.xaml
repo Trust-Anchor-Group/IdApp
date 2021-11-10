@@ -42,9 +42,6 @@
                     </Grid>
                 </Frame>
                 <Label Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
-                <!-- PIN -->
-                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
-                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
                 <!-- BUTTONS -->
                 <Button Text="{x:Static local:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" IsEnabled="{Binding Path=CanAccept}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>

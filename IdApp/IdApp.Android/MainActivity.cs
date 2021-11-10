@@ -24,6 +24,8 @@ namespace IdApp.Android
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
+            Rg.Plugins.Popup.Popup.Init(this);
+
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }
@@ -48,6 +50,11 @@ namespace IdApp.Android
 			{
                 Log.Critical(ex);
 			}
+        }
+
+		public override void OnBackPressed()
+		{
+            Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
 
 	}

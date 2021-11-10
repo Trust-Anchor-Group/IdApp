@@ -1278,4 +1278,7 @@
   <data name="UnexpectedResponse" xml:space="preserve">
     <value>An unexpected response was received.</value>
   </data>
+  <data name="EnterPin" xml:space="preserve">
+    <value>Enter PIN</value>
+  </data>
 </root>

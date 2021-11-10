@@ -824,6 +824,9 @@ namespace IdApp.Pages.Contracts.ViewContract
 		{
 			try
 			{
+				if (!await App.VerifyPin())
+					return;
+
 				if (sender is Button button && !string.IsNullOrEmpty(button.StyleId))
 				{
 					Contract contract = await this.neuronService.Contracts.SignContract(this.Contract, button.StyleId, false);
@@ -899,6 +902,9 @@ namespace IdApp.Pages.Contracts.ViewContract
 		{
 			try
 			{
+				if (!await App.VerifyPin())
+					return;
+
 				Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContract(this.Contract.ContractId);
 
 				await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
@@ -916,6 +922,9 @@ namespace IdApp.Pages.Contracts.ViewContract
 		{
 			try
 			{
+				if (!await App.VerifyPin())
+					return;
+
 				Contract deletedContract = await this.neuronService.Contracts.DeleteContract(this.Contract.ContractId);
 
 				await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);

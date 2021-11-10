@@ -43,6 +43,9 @@ using IdApp.Services.Contracts;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI.QR;
+using IdApp.Services.Tag;
+using IdApp.Pages.Main.PinPopup;
+using IdApp.Services.UI;
 
 namespace IdApp
 {
@@ -696,6 +699,49 @@ namespace IdApp
 		public static Task<bool> OpenUrl(string Url)
 		{
 			return QrCode.OpenUrl(Url);
+		}
+
+		/// <summary>
+		/// Asks the user to input its PIN. PIN is verified before being returned.
+		/// </summary>
+		/// <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
+		public static async Task<string> InputPin()
+		{
+			ITagProfile Profile = App.Instantiate<ITagProfile>();
+			if (!Profile.UsePin)
+				return string.Empty;
+
+			IUiSerializer Ui = null;
+
+			while (true)
+			{
+				PinPopupPage Page = new PinPopupPage();
+
+				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
+				string Pin = await Page.Result;
+
+				if (Pin is null)
+					return null;
+
+				if (Profile.ComputePinHash(Pin) == Profile.PinHash)
+					return Pin;
+
+				if (Ui is null)
+					Ui = App.Instantiate<IUiSerializer>();
+
+				await Ui.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+
+				// TODO: Limit number of attempts.
+			}
+		}
+
+		/// <summary>
+		/// Asks the user to verify with its PIN.
+		/// </summary>
+		/// <returns>If the user has provided the correct PIN</returns>
+		public static async Task<bool> VerifyPin()
+		{
+			return (!(await InputPin() is null));
 		}
 
 	}

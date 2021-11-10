@@ -129,6 +129,9 @@ namespace IdApp.Pages.Contracts.PetitionSignature
 
         private async Task Accept()
         {
+            if (!await App.VerifyPin())
+                return;
+
             bool succeeded = await this.networkService.TryRequest(async () =>
             {
                 byte[] signature = await this.neuronService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
@@ -137,9 +140,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
             });
 
             if (succeeded)
-            {
                 await this.navigationService.GoBackAsync();
-            }
         }
 
         private async Task Decline()
@@ -148,9 +149,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
                 this.signatoryIdentityId, this.contentToSign, new byte[0], this.petitionId, this.requestorFullJid, false));
 
             if (succeeded)
-            {
                 await this.navigationService.GoBackAsync();
-            }
         }
 
         private async Task Ignore()

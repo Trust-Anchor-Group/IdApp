@@ -272,7 +272,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsForReviewArea = !string.IsNullOrWhiteSpace(this.Area) && this.IsForReview;
 			this.IsForReviewRegion = !string.IsNullOrWhiteSpace(this.Region) && this.IsForReview;
 			this.IsForReviewCountry = !string.IsNullOrWhiteSpace(this.Country) && this.IsForReview;
-			this.ShowPin = this.TagProfile.UsePin && (this.IsPersonal || !(this.identityToReview is null));
 
 			// QR
 			if (this.LegalIdentity is null)
@@ -867,21 +866,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <summary>
-		/// See <see cref="Pin"/>
-		/// </summary>
-		public static readonly BindableProperty PinProperty =
-			BindableProperty.Create("Pin", typeof(string), typeof(ViewIdentityViewModel), default(string));
-
-		/// <summary>
-		/// Gets or sets the PIN code for the identity.
-		/// </summary>
-		public string Pin
-		{
-			get { return (string)GetValue(PinProperty); }
-			set { SetValue(PinProperty, value); }
-		}
-
-		/// <summary>
 		/// See <see cref="FirstNameIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty FirstNameIsCheckedProperty =
@@ -1241,21 +1225,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			set { SetValue(IsForReviewCountryProperty, value); }
 		}
 
-		/// <summary>
-		/// See <see cref="ShowPin"/>
-		/// </summary>
-		public static readonly BindableProperty ShowPinProperty =
-			BindableProperty.Create("ShowPinProperty", typeof(bool), typeof(ViewIdentityViewModel), true);
-
-		/// <summary>
-		/// Gets or sets whether the <see cref="Pin"/> property is for review.
-		/// </summary>
-		public bool ShowPin
-		{
-			get { return (bool)GetValue(ShowPinProperty); }
-			set { SetValue(ShowPinProperty, value); }
-		}
-
 		#endregion
 
 		private async Task Approve()
@@ -1293,11 +1262,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					return;
 				}
 
-				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				if (!await App.VerifyPin())
 					return;
-				}
 
 				(bool succeeded1, byte[] signature) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
 
@@ -1367,21 +1333,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private async Task<bool> AreYouSure(string Message)
 		{
-			if (this.TagProfile.UsePin)
-			{
-				if (!this.ShowPin || string.IsNullOrEmpty(this.Pin))
-				{
-					this.ShowPin = true;
-					await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.ConfirmByEnteringYourPin, AppResources.Ok);
-					return false;
-				}
-
-				if (this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
-					return false;
-				}
-			}
+			if (!await App.VerifyPin())
+				return false;
 
 			return await this.UiSerializer.DisplayAlert(AppResources.Confirm, Message, AppResources.Yes, AppResources.No);
 		}
@@ -1540,7 +1493,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToTransferYourLegalIdentity))
+				string Pin = await App.InputPin();
+				if (Pin is null)
+					return;
+
+				if (!await this.UiSerializer.DisplayAlert(AppResources.Confirm, AppResources.AreYouSureYouWantToTransferYourLegalIdentity, AppResources.Yes, AppResources.No))
 					return;
 
 				this.IsBusy = true;
@@ -1557,7 +1514,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						await this.NeuronService.Contracts.ContractsClient.ExportKeys(Output);
 
 						Output.WriteStartElement("Pin");
-						Output.WriteAttributeString("pin", this.Pin);
+						Output.WriteAttributeString("pin", Pin);
 						Output.WriteEndElement();
 
 						Output.WriteStartElement("Account", ContractsClient.NamespaceOnboarding);

@@ -30,9 +30,6 @@
             <ContentView Content="{Binding Path=Parameters}" />
             <ContentView Content="{Binding Path=HumanReadableText}" />
 
-            <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
-            <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
-
             <Button Text="{x:Static local:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
         </StackLayout>
     </ScrollView>

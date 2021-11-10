@@ -263,21 +263,6 @@ namespace IdApp.Pages.Contracts.NewContract
 		}
 
 		/// <summary>
-		/// See <see cref="Pin"/>
-		/// </summary>
-		public static readonly BindableProperty PinProperty =
-			BindableProperty.Create("Pin", typeof(string), typeof(NewContractViewModel), default(string));
-
-		/// <summary>
-		/// Gets or sets the user selected Pin. Can be null.
-		/// </summary>
-		public string Pin
-		{
-			get { return (string)GetValue(PinProperty); }
-			set { SetValue(PinProperty, value); }
-		}
-
-		/// <summary>
 		/// The different roles available to choose from when creating a contract.
 		/// </summary>
 		public ObservableCollection<string> AvailableRoles { get; }
@@ -350,21 +335,6 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			get { return (StackLayout)GetValue(HumanReadableTextProperty); }
 			set { SetValue(HumanReadableTextProperty, value); }
-		}
-
-		/// <summary>
-		/// See <see cref="UsePin"/>
-		/// </summary>
-		public static readonly BindableProperty UsePinProperty =
-			BindableProperty.Create("UsePin", typeof(bool), typeof(NewContractViewModel), default(bool));
-
-		/// <summary>
-		/// Gets or sets whether a pin should be used for added security.
-		/// </summary>
-		public bool UsePin
-		{
-			get { return (bool)GetValue(UsePinProperty); }
-			set { SetValue(UsePinProperty, value); }
 		}
 
 		/// <summary>
@@ -461,7 +431,6 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.HumanReadableText = null;
 			this.HasHumanReadableText = false;
 
-			this.UsePin = false;
 			this.CanAddParts = false;
 			this.VisibilityIsEnabled = false;
 			this.EvaluateCommands(this.ProposeCommand);
@@ -786,11 +755,8 @@ namespace IdApp.Pages.Contracts.NewContract
 					return;
 				}
 
-				if (this.tagProfile.UsePin && this.tagProfile.ComputePinHash(this.Pin) != this.tagProfile.PinHash)
-				{
-					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				if (!await App.VerifyPin())
 					return;
-				}
 
 				Created = await this.neuronService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
 					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration, this.template.ArchiveRequired,
@@ -925,7 +891,6 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			this.Parameters = parametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
-			this.UsePin = this.tagProfile.UsePin;
 
 			this.ValidateParameters();
 			this.EvaluateCommands(this.ProposeCommand);

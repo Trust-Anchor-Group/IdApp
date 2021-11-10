@@ -101,10 +101,12 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// The command to bind to for accepting the petition
         /// </summary>
         public ICommand AcceptCommand { get; }
+
         /// <summary>
         /// The command to bind to for declining the petition
         /// </summary>
         public ICommand DeclineCommand { get; }
+
         /// <summary>
         /// The command to bind to for ignoring the petition
         /// </summary>
@@ -122,20 +124,19 @@ namespace IdApp.Pages.Contracts.PetitionContract
 
         private async Task Accept()
         {
+            if (!await App.VerifyPin())
+                return;
+
             bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, true));
             if (succeeded)
-            {
                 await this.navigationService.GoBackAsync();
-            }
         }
 
         private async Task Decline()
         {
             bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, false));
             if (succeeded)
-            {
                 await this.navigationService.GoBackAsync();
-            }
         }
 
         private async Task Ignore()

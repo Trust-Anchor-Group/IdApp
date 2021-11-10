@@ -760,26 +760,6 @@ namespace IdApp.Pages.Wallet
 		public ICommand ShowCodeCommand { get; }
 
 		/// <summary>
-		/// If PIN should be used.
-		/// </summary>
-		public bool UsePin => this.TagProfile?.UsePin ?? false;
-
-		/// <summary>
-		/// See <see cref="Pin"/>
-		/// </summary>
-		public static readonly BindableProperty PinProperty =
-			BindableProperty.Create("Pin", typeof(string), typeof(EDalerUriViewModel), default(string));
-
-		/// <summary>
-		/// Gets or sets the PIN code for the identity.
-		/// </summary>
-		public string Pin
-		{
-			get { return (string)GetValue(PinProperty); }
-			set { SetValue(PinProperty, value); }
-		}
-
-		/// <summary>
 		/// See <see cref="EDalerGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerGlyphProperty =
@@ -831,11 +811,8 @@ namespace IdApp.Pages.Wallet
 		{
 			try
 			{
-				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				if (!await App.VerifyPin())
 					return;
-				}
 
 				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
 				if (succeeded)
@@ -863,11 +840,8 @@ namespace IdApp.Pages.Wallet
 					return;
 				}
 
-				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				if (!await App.VerifyPin())
 					return;
-				}
 
 				string Uri;
 
@@ -913,11 +887,8 @@ namespace IdApp.Pages.Wallet
 
 		private async Task GenerateQrCode()
 		{
-			if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+			if (!await App.VerifyPin())
 				return;
-			}
 
 			try
 			{
@@ -992,11 +963,8 @@ namespace IdApp.Pages.Wallet
 		{
 			try
 			{
-				if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-				{
-					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				if (!await App.VerifyPin())
 					return;
-				}
 
 				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
 				if (succeeded)
@@ -1016,11 +984,8 @@ namespace IdApp.Pages.Wallet
 
 		private async Task ShowCode()
 		{
-			if (this.TagProfile.UsePin && this.TagProfile.ComputePinHash(this.Pin) != this.TagProfile.PinHash)
-			{
-				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+			if (!await App.VerifyPin())
 				return;
-			}
 
 			try
 			{

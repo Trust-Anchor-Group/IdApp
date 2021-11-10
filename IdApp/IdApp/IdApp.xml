@@ -36,6 +36,18 @@
             <param name="Url">URL</param>
             <returns>If URL is processed or not.</returns>
         </member>
+        <member name="M:IdApp.App.InputPin">
+            <summary>
+            Asks the user to input its PIN. PIN is verified before being returned.
+            </summary>
+            <returns>PIN, if the user has provided the correct PIN. Empty string, if PIN is not configured, null if operation is cancelled.</returns>
+        </member>
+        <member name="M:IdApp.App.VerifyPin">
+            <summary>
+            Asks the user to verify with its PIN.
+            </summary>
+            <returns>If the user has provided the correct PIN</returns>
+        </member>
         <member name="T:IdApp.AppResources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -505,6 +517,11 @@
         <member name="P:IdApp.AppResources.EnterPhoneNumber">
             <summary>
               Looks up a localized string similar to Phone Number.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.EnterPin">
+            <summary>
+              Looks up a localized string similar to Enter PIN.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ErrorTitle">
@@ -3955,16 +3972,6 @@
             Gets or sets whether the visibility items should be shown to the user or not.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.PinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Pin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.Pin">
-            <summary>
-            Gets or sets the user selected Pin. Can be null.
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.AvailableRoles">
             <summary>
             The different roles available to choose from when creating a contract.
@@ -4008,16 +4015,6 @@
         <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.HumanReadableText">
             <summary>
             Holds Xaml code for visually representing a contract's human readable text section.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.UsePinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.UsePin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractViewModel.UsePin">
-            <summary>
-            Gets or sets whether a pin should be used for added security.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.NewContract.NewContractViewModel.HasRolesProperty">
@@ -6165,16 +6162,6 @@
             Gets or sets whether the identity is a personal identity.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.PinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Pin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Pin">
-            <summary>
-            Gets or sets the PIN code for the identity.
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstNameIsCheckedProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstNameIsChecked"/>
@@ -6413,16 +6400,6 @@
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewCountry">
             <summary>
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ShowPinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ShowPin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ShowPin">
-            <summary>
-            Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Pin"/> property is for review.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.FlipView.FlipView">
@@ -7062,6 +7039,27 @@
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Pages.Main.PinPopup.PinPopupPage">
+            <summary>
+            Prompts the user for its PIN
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.PinPopup.PinPopupPage.#ctor">
+            <summary>
+            Prompts the user for its PIN
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.PinPopup.PinPopupPage.OnAppearing">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Main.PinPopup.PinPopupPage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Main.PinPopup.PinPopupPage.Result">
+            <summary>
+            Task waiting for result. null means dialog was closed without providing a PIN.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Main.ScanQrCode.CodeScannedEventArgs">
             <summary>
@@ -8931,21 +8929,6 @@
             Gets or sets whether a user can claim a thing.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.UsePin">
-            <summary>
-            If PIN should be used.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.PinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.Pin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.Pin">
-            <summary>
-            Gets or sets the PIN code for the identity.
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.LabelClicked(System.String,System.String,System.String,IdApp.Services.UI.IUiSerializer,IdApp.Services.EventLog.ILogService)">
             <summary>
             Processes the click of a localized meta-data label.
@@ -9034,21 +9017,6 @@
         <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.CanDisownThing">
             <summary>
             Gets or sets whether a user can claim a thing.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.UsePin">
-            <summary>
-            If PIN should be used.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Things.ViewThing.ThingViewModel.PinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Things.ViewThing.ThingViewModel.Pin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.Pin">
-            <summary>
-            Gets or sets the PIN code for the identity.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.ClickCommand">
@@ -9946,21 +9914,6 @@
         <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.ShowCodeCommand">
             <summary>
             The command to bind to for displaying eDaler URI as a QR Code
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.UsePin">
-            <summary>
-            If PIN should be used.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.PinProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.Pin"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.Pin">
-            <summary>
-            Gets or sets the PIN code for the identity.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerGlyphProperty">

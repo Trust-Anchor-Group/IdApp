@@ -32,9 +32,6 @@
                     <CheckBox IsChecked="{Binding Path=MakePublic, Mode=TwoWay}" VerticalOptions="Center"/>
                     <Label Text="{x:Static local:AppResources.MakeThingPublic}" VerticalOptions="Center" />
                 </StackLayout>
-                <!-- PIN -->
-                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
-                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
                 <!-- BUTTONS -->
                 <Button Text="{x:Static local:AppResources.ClaimThing}" Command="{Binding Path=ClaimThingCommand}" IsEnabled="{Binding Path=CanClaimThing}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>

@@ -23,9 +23,6 @@
                 <Entry Text="{Binding Path=Message}" IsReadOnly="True" IsVisible="{Binding Path=MessagePreset}"/>
                 <Label Text="{x:Static local:AppResources.ExpiresAt}"/>
                 <Entry Text="{Binding Path=ExpiresStr}" IsReadOnly="True"/>
-                <!-- PIN -->
-                <Label Text="{x:Static local:AppResources.PinOrPassword}" IsVisible="{Binding Path=UsePin}" Margin="{StaticResource DefaultTopOnlyMargin}"/>
-                <Entry Text="{Binding Path=Pin}" IsVisible="{Binding Path=UsePin}" IsPassword="True"/>
                 <!-- BUTTONS -->
                 <Button Text="{x:Static local:AppResources.Submit}" Command="{Binding Path=SubmitCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
                 <Button Text="{x:Static local:AppResources.ShowCode}" Command="{Binding Path=ShowCodeCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
