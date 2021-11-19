@@ -3085,6 +3085,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to change network password..
+        /// </summary>
+        internal static string UnableToChangePassword {
+            get {
+                return ResourceManager.GetString("UnableToChangePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to claim thing.
         /// </summary>
         internal static string UnableToClaimThing {

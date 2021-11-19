@@ -153,16 +153,18 @@ namespace IdApp.Services.Neuron
 					this.xmppConnected = false;
 
 					Thread?.NewState("Client");
-					this.xmppClient = new XmppClient(HostName, PortNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer)
-					{
-						TrustServer = !IsIpAddress,
-						AllowCramMD5 = false,
-						AllowDigestMD5 = false,
-						AllowPlain = false,
-						AllowEncryption = true,
-						AllowScramSHA1 = true,
-						AllowScramSHA256 = true
-					};
+					if (string.IsNullOrEmpty(passwordHashMethod))
+						this.xmppClient = new XmppClient(HostName, PortNumber, accountName, passwordHash, Constants.LanguageCodes.Default, appAssembly, this.sniffer);
+					else
+						this.xmppClient = new XmppClient(HostName, PortNumber, accountName, passwordHash, passwordHashMethod, Constants.LanguageCodes.Default, appAssembly, this.sniffer);
+
+					this.xmppClient.TrustServer = !IsIpAddress;
+					this.xmppClient.AllowCramMD5 = false;
+					this.xmppClient.AllowDigestMD5 = false;
+					this.xmppClient.AllowPlain = false;
+					this.xmppClient.AllowEncryption = true;
+					this.xmppClient.AllowScramSHA1 = true;
+					this.xmppClient.AllowScramSHA256 = true;
 
 					this.xmppClient.RequestRosterOnStartup = false;
 					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
@@ -408,6 +410,9 @@ namespace IdApp.Services.Neuron
 					this.xmppConnected = true;
 
 					this.RecreateReconnectTimer();
+
+					if (string.IsNullOrEmpty(this.tagProfile.PasswordHashMethod))
+						this.tagProfile.SetAccount(this.tagProfile.Account, this.xmppClient.PasswordHash, this.xmppClient.PasswordHashMethod);
 
 					if (this.tagProfile.NeedsUpdating() && await this.DiscoverServices())
 					{

@@ -1744,6 +1744,11 @@
               Looks up a localized string similar to Unable to authenticate with {0}.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.UnableToChangePassword">
+            <summary>
+              Looks up a localized string similar to Unable to change network password..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.UnableToClaimThing">
             <summary>
               Looks up a localized string similar to Unable to claim thing.
@@ -5783,7 +5788,7 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Wallet.IEDalerOrchestratorService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Wallet.IEDalerOrchestratorService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Crypto.ICryptoService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel"/> class.
             </summary>

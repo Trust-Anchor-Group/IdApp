@@ -30,6 +30,7 @@ using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Main.ChangePin;
+using IdApp.Services.Crypto;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -44,30 +45,34 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		private readonly INetworkService networkService;
 		private readonly IEDalerOrchestratorService eDalerService;
 		private readonly IAttachmentCacheService attachmentCacheService;
+		private readonly ICryptoService cryptoService;
 		private readonly PhotosLoader photosLoader;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewIdentityViewModel"/> class.
 		/// </summary>
 		public ViewIdentityViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			INetworkService networkService,
-			ILogService logService,
+			ITagProfile TagProfile,
+			IUiSerializer UiSerializer,
+			INeuronService NeuronService,
+			INavigationService NavigationService,
+			INetworkService NetworkService,
+			ILogService LogService,
 			IEDalerOrchestratorService EDalerService,
-			IAttachmentCacheService attachmentCacheService)
-		: base(neuronService, uiSerializer, tagProfile)
+			IAttachmentCacheService AttachmentCacheService,
+			ICryptoService CryptoService)
+		: base(NeuronService, UiSerializer, TagProfile)
 		{
-			this.logService = logService;
-			this.navigationService = navigationService;
-			this.networkService = networkService;
+			this.logService = LogService;
+			this.navigationService = NavigationService;
+			this.networkService = NetworkService;
 			this.eDalerService = EDalerService;
-			this.attachmentCacheService = attachmentCacheService;
+			this.attachmentCacheService = AttachmentCacheService;
+			this.cryptoService = CryptoService;
+
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiSerializer,
-				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
+				AttachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
 
 			this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
 			this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);
@@ -1621,7 +1626,24 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 					if (this.TagProfile.ComputePinHash(OldPin) == this.TagProfile.PinHash)
 					{
+						TaskCompletionSource<bool> PasswordChanged = new TaskCompletionSource<bool>();
+						string NewPassword = this.cryptoService.CreateRandomPassword();
+
+						this.NeuronService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
+						{
+							PasswordChanged.TrySetResult(e.Ok);
+							return Task.CompletedTask;
+						}, null);
+
+						if (!await PasswordChanged.Task)
+						{
+							await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToChangePassword);
+							return;
+						}
+
 						this.TagProfile.Pin = NewPin;
+						this.TagProfile.SetAccount(this.TagProfile.Account, NewPassword, string.Empty);
+
 						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PinChanged);
 						return;
 					}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using IdApp.Services.AttachmentCache;
+using IdApp.Services.Crypto;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
@@ -34,7 +35,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
                 App.Instantiate<INetworkService>(),
                 App.Instantiate<ILogService>(),
                 App.Instantiate<IEDalerOrchestratorService>(),
-                App.Instantiate<IAttachmentCacheService>());
+                App.Instantiate<IAttachmentCacheService>(),
+                App.Instantiate<ICryptoService>());
+
             InitializeComponent();
         }
 

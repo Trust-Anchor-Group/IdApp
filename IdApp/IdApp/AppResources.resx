@@ -1296,4 +1296,7 @@
   <data name="PinChanged" xml:space="preserve">
     <value>PIN has been successfully changed.</value>
   </data>
+  <data name="UnableToChangePassword" xml:space="preserve">
+    <value>Unable to change network password.</value>
+  </data>
 </root>

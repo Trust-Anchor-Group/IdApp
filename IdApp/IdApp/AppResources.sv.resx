@@ -1131,6 +1131,9 @@
   <data name="UnableToAuthenticateWith" xml:space="preserve">
     <value>Kan inte autentisera med {0}</value>
   </data>
+  <data name="UnableToChangePassword" xml:space="preserve">
+    <value>Kunde inte ändra nätverkslösenord.</value>
+  </data>
   <data name="UnableToClaimThing" xml:space="preserve">
     <value>Kunde inte göra anspråk på saken.</value>
   </data>
