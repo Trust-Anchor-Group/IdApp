@@ -74,7 +74,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 			if (this.Balance is null && this.navigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
-				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, args.More);
+				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, 
+					args.More, this.NeuronService.Wallet.LastEvent);
 
 				StringBuilder Url = new StringBuilder();
 
@@ -84,12 +85,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 				this.EDalerGlyph = Url.ToString();
 			}
-			else if (!(this.Balance is null) && !(this.NeuronService.Wallet.LastBalance is null) &&
+			else if ((!(this.Balance is null) && !(this.NeuronService.Wallet.LastBalance is null) &&
 				(this.Balance.Amount != this.NeuronService.Wallet.LastBalance.Amount ||
 				this.Balance.Currency != this.NeuronService.Wallet.LastBalance.Currency ||
-				this.Balance.Timestamp != this.NeuronService.Wallet.LastBalance.Timestamp))
+				this.Balance.Timestamp != this.NeuronService.Wallet.LastBalance.Timestamp)) ||
+				this.LastEvent != this.NeuronService.Wallet.LastEvent)
 			{
-				await this.ReloadWallet(this.NeuronService.Wallet.LastBalance);
+				await this.ReloadWallet(this.NeuronService.Wallet.LastBalance ?? Balance ?? this.Balance);
 			}
 
 			EvaluateAllCommands();
@@ -106,12 +108,17 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		private async Task AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency, 
-			EDaler.PendingPayment[] PendingPayments, EDaler.AccountEvent[] Events, bool More)
+			EDaler.PendingPayment[] PendingPayments, EDaler.AccountEvent[] Events, bool More, DateTime LastEvent)
 		{
-			this.Balance = Balance;
-			this.Amount = Balance.Amount;
-			this.Currency = Balance.Currency;
-			this.Timestamp = Balance.Timestamp;
+			if (!(Balance is null))
+			{
+				this.Balance = Balance;
+				this.Amount = Balance.Amount;
+				this.Currency = Balance.Currency;
+				this.Timestamp = Balance.Timestamp;
+			}
+
+			this.LastEvent = LastEvent;
 
 			this.PendingAmount = PendingAmount;
 			this.PendingCurrency = PendingCurrency;
@@ -163,7 +170,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				(EDaler.AccountEvent[] Events, bool More) = await this.NeuronService.Wallet.GetAccountEventsAsync(50);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency, 
-					PendingPayments, Events, More));
+					PendingPayments, Events, More, this.NeuronService.Wallet.LastEvent));
 			}
 			catch (Exception ex)
 			{
@@ -286,6 +293,21 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			get { return (DateTime)GetValue(TimestampProperty); }
 			set { SetValue(TimestampProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="LastEvent"/>
+		/// </summary>
+		public static readonly BindableProperty LastEventProperty =
+			BindableProperty.Create("LastEvent", typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
+
+		/// <summary>
+		/// When code was created.
+		/// </summary>
+		public DateTime LastEvent
+		{
+			get { return (DateTime)GetValue(LastEventProperty); }
+			set { SetValue(LastEventProperty, value); }
 		}
 
 		/// <summary>

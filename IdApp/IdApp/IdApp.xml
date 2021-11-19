@@ -10124,6 +10124,16 @@
             When code was created.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEventProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEvent"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LastEvent">
+            <summary>
+            When code was created.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerGlyphProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerGlyph"/>
@@ -13469,9 +13479,19 @@
             Last reported balance
             </summary>
         </member>
+        <member name="P:IdApp.Services.Wallet.INeuronWallet.LastEvent">
+            <summary>
+            Timepoint of last event.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Wallet.NeuronWallet.LastBalance">
             <summary>
             Last reported balance
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Wallet.NeuronWallet.LastEvent">
+            <summary>
+            Timepoint of last event.
             </summary>
         </member>
         <member name="M:IdApp.Services.Wallet.NeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">

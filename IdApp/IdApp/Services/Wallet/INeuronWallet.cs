@@ -147,5 +147,13 @@ namespace IdApp.Services.Wallet
 		{
 			get;
 		}
+
+		/// <summary>
+		/// Timepoint of last event.
+		/// </summary>
+		DateTime LastEvent
+		{
+			get;
+		}
 	}
 }
