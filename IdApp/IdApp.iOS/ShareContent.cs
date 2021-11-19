@@ -24,7 +24,7 @@ namespace IdApp.iOS
             var activityController = new UIActivityViewController(Items, null);
             var topController = UIApplication.SharedApplication.KeyWindow.RootViewController;
 
-            while (topController.PresentedViewController != null)
+            while (!(topController.PresentedViewController is null))
                 topController = topController.PresentedViewController;
 
             topController.PresentViewController(activityController, true, () => { });

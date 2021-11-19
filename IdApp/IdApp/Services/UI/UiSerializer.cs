@@ -105,7 +105,7 @@ namespace IdApp.Services.UI
             {
                 sb.AppendLine(exception.Message);
 
-                while ((exception = exception.InnerException) != null)
+                while (!((exception = exception.InnerException) is null))
                     sb.AppendLine(exception.Message);
             }
             else

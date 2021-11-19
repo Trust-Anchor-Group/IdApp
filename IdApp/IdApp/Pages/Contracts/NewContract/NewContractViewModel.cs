@@ -162,7 +162,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			if (this.saveStateWhileScanning)
 			{
 				Enum e = await this.settingsService.RestoreEnumState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-				if (e != null)
+				if (!(e is null))
 				{
 					ContractVisibility cv = (ContractVisibility)e;
 					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);

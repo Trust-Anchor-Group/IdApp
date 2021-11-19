@@ -108,7 +108,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				this.IsProposal = false;
 			}
 
-			if (this.Contract != null)
+			if (!(this.Contract is null))
 				await LoadContract();
 		}
 
@@ -125,7 +125,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 			this.Contract = Contract;
 
-			if (this.Contract != null)
+			if (!(this.Contract is null))
 				await LoadContract();
 		}
 

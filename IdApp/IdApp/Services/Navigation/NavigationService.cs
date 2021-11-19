@@ -70,7 +70,10 @@ namespace IdApp.Services.Navigation
 
         private async void Shell_Navigating(object sender, ShellNavigatingEventArgs e)
         {
-            string customGoBackRoute = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+            string customGoBackRoute = (!(this.currentNavigationArgs is null) && 
+                !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ? 
+                this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
+
             string path = e.Target.Location.ToString();
             if (path == DefaultGoBackRoute && // user wants to go back
                 customGoBackRoute != DefaultGoBackRoute && // we have a custom back route to use instead of the default one
@@ -102,14 +105,10 @@ namespace IdApp.Services.Navigation
 
             if (this.TryGetPageName(route, out string pageName))
             {
-                if (args != null)
-                {
+                if (!(args is null))
                     this.navigationArgsMap[pageName] = args;
-                }
                 else
-                {
                     this.navigationArgsMap.Remove(pageName);
-                }
             }
         }
 
@@ -141,7 +140,8 @@ namespace IdApp.Services.Navigation
         {
             try
             {
-                string route = (this.currentNavigationArgs != null && !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
+                string route = (!(this.currentNavigationArgs is null) && 
+                    !string.IsNullOrWhiteSpace(this.currentNavigationArgs.ReturnRoute)) ?
                     this.currentNavigationArgs.ReturnRoute : DefaultGoBackRoute;
 
                 await Shell.Current.GoToAsync(route, Animate);

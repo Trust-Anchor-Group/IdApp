@@ -63,7 +63,7 @@ namespace UpdateVersionInfo
 
 		private void AssertValid(int index)
 		{
-			if (c.Option == null)
+			if (c.Option is null)
 				throw new InvalidOperationException("OptionContext.Option is null.");
 
 			if (index >= c.Option.MaxValueCount)
@@ -172,7 +172,7 @@ namespace UpdateVersionInfo
 
 		protected Option(string prototype, string description, int maxValueCount)
 		{
-			if (prototype == null)
+			if (prototype is null)
 				throw new ArgumentNullException(nameof(prototype));
 
 			if (prototype.Length == 0)
@@ -215,7 +215,7 @@ namespace UpdateVersionInfo
 
 		public string[] GetValueSeparators()
 		{
-			if (separators == null)
+			if (separators is null)
 				return Array.Empty<string>();
 			return (string[])separators.Clone();
 		}
@@ -226,7 +226,7 @@ namespace UpdateVersionInfo
 			T t = default;
 			try
 			{
-				if (value != null)
+				if (!(value is null))
 					t = (T)conv.ConvertFromString(value);
 			}
 			catch (Exception e)
@@ -400,9 +400,9 @@ namespace UpdateVersionInfo
 
 		protected override string GetKeyForItem(Option item)
 		{
-			if (item == null)
+			if (item is null)
 				throw new ArgumentNullException(nameof(item));
-			if (item.Names != null && item.Names.Length > 0)
+			if (!(item.Names is null) && item.Names.Length > 0)
 				return item.Names[0];
 			// This should never happen, as it's invalid for Option to be
 			// constructed w/o any names.
@@ -412,7 +412,7 @@ namespace UpdateVersionInfo
 		[Obsolete("Use KeyedCollection.this[string]")]
 		protected Option GetOptionForName(string option)
 		{
-			if (option == null)
+			if (option is null)
 				throw new ArgumentNullException(nameof(option));
 			try
 			{
@@ -450,7 +450,7 @@ namespace UpdateVersionInfo
 
 		private void AddImpl(Option option)
 		{
-			if (option == null)
+			if (option is null)
 				throw new ArgumentNullException(nameof(option));
 			List<string> added = new(option.Names.Length);
 			try
@@ -499,7 +499,7 @@ namespace UpdateVersionInfo
 
 		public OptionSet Add(string prototype, string description, Action<string> action)
 		{
-			if (action == null)
+			if (action is null)
 				throw new ArgumentNullException(nameof(action));
 			Option p = new ActionOption(prototype, description, 1,
 					delegate (OptionValueCollection v) { action(v[0]); });
@@ -514,7 +514,7 @@ namespace UpdateVersionInfo
 
 		public OptionSet Add(string prototype, string description, OptionAction<string, string> action)
 		{
-			if (action == null)
+			if (action is null)
 				throw new ArgumentNullException(nameof(action));
 			Option p = new ActionOption(prototype, description, 2,
 					delegate (OptionValueCollection v) { action(v[0], v[1]); });
@@ -590,22 +590,22 @@ namespace UpdateVersionInfo
 			var def = GetOptionForName ("<>");
 			var unprocessed = 
 				from argument in arguments
-				where ++c.OptionIndex >= 0 && (process || def != null)
+				where ++c.OptionIndex >= 0 && (process || !(def is null))
 					? process
 						? argument == "--" 
 							? (process = false)
 							: !Parse (argument, c)
-								? def != null 
+								? !(def is null)
 									? Unprocessed (null, def, c, argument) 
 									: true
 								: false
-						: def != null 
+						: !(def is null)
 							? Unprocessed (null, def, c, argument)
 							: true
 					: true
 				select argument;
 			List<string> r = unprocessed.ToList ();
-			if (c.Option != null)
+			if (!(c.Option is null))
 				c.Option.Invoke (c);
 			return r;
 		}
@@ -633,7 +633,7 @@ namespace UpdateVersionInfo
 				if (!Parse(argument, c))
 					Unprocessed(unprocessed, def, c, argument);
 			}
-			if (c.Option != null)
+			if (!(c.Option is null))
 				c.Option.Invoke(c);
 			return unprocessed;
 		}
@@ -641,7 +641,7 @@ namespace UpdateVersionInfo
 
 		private static bool Unprocessed(ICollection<string> extra, Option def, OptionContext c, string argument)
 		{
-			if (def == null)
+			if (def is null)
 			{
 				extra.Add(argument);
 				return false;
@@ -657,7 +657,7 @@ namespace UpdateVersionInfo
 
 		protected bool GetOptionParts(string argument, out string flag, out string name, out string sep, out string value)
 		{
-			if (argument == null)
+			if (argument is null)
 				throw new ArgumentNullException(nameof(argument));
 
 			flag = name = sep = value = null;
@@ -678,7 +678,7 @@ namespace UpdateVersionInfo
 
 		protected virtual bool Parse(string argument, OptionContext c)
 		{
-			if (c.Option != null)
+			if (!(c.Option is null))
 			{
 				ParseValue(argument, c);
 				return true;
@@ -718,8 +718,8 @@ namespace UpdateVersionInfo
 
 		private void ParseValue(string option, OptionContext c)
 		{
-			if (option != null)
-				foreach (string o in c.Option.ValueSeparators != null
+			if (!(option is null))
+				foreach (string o in !(c.Option.ValueSeparators is null)
 						? option.Split(c.Option.ValueSeparators, StringSplitOptions.None)
 						: new string[] { option })
 				{
@@ -865,7 +865,7 @@ namespace UpdateVersionInfo
 					Write(o, ref written, localizer("["));
 				}
 				Write(o, ref written, localizer("=" + GetArgumentName(0, p.MaxValueCount, p.Description)));
-				string sep = p.ValueSeparators != null && p.ValueSeparators.Length > 0
+				string sep = !(p.ValueSeparators is null) && p.ValueSeparators.Length > 0
 					? p.ValueSeparators[0]
 					: " ";
 				for (int c = 1; c < p.MaxValueCount; ++c)
@@ -897,7 +897,7 @@ namespace UpdateVersionInfo
 
 		private static string GetArgumentName(int index, int maxIndex, string description)
 		{
-			if (description == null)
+			if (description is null)
 				return maxIndex == 1 ? "VALUE" : "VALUE" + (index + 1);
 			string[] nameStart;
 			if (maxIndex == 1)
@@ -923,7 +923,7 @@ namespace UpdateVersionInfo
 
 		private static string GetDescription(string description)
 		{
-			if (description == null)
+			if (description is null)
 				return string.Empty;
 			StringBuilder sb = new(description.Length);
 			int start = -1;

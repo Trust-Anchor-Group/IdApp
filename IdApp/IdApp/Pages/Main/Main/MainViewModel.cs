@@ -172,7 +172,7 @@ namespace IdApp.Pages.Main.Main
 				this.ImageBin = Bin;
 				this.ImageContentType = ContentType;
 
-				if (Bin != null)
+				if (!(Bin is null))
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{

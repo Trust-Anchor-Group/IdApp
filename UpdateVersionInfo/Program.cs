@@ -225,10 +225,8 @@ namespace UpdateVersionInfo
                 if (doc.DocumentType.Name == "plist")
                 {
                     var shortVersionElement = doc.XPathSelectElement("plist/dict/key[string()='CFBundleShortVersionString']");
-                    if (shortVersionElement != null)
-                    {
+                    if (!(shortVersionElement is null))
 						if (shortVersionElement.NextNode is XElement valueElement && valueElement.Name == "string") return true;
-					}
                 }
             }
             catch (Exception e)
