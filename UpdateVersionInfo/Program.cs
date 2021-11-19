@@ -17,7 +17,7 @@ namespace UpdateVersionInfo
 
         static void Main(string[] args)
         {
-            CommandLineArguments commandLine = new CommandLineArguments(args);
+            CommandLineArguments commandLine = new(args);
 
             try
             {
@@ -51,7 +51,7 @@ namespace UpdateVersionInfo
         private static void UpdateCSVersionInfo(string path, Version version)
         {
             string contents;
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 contents = reader.ReadToEnd();
             }
@@ -73,7 +73,7 @@ namespace UpdateVersionInfo
             Regex versionNameRegEx = new(versionNameExpression, RegexOptions.Compiled);
 
             string contents;
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 contents = reader.ReadToEnd();
             }
@@ -96,7 +96,7 @@ namespace UpdateVersionInfo
             Regex versionNameRegEx = new(versionNameExpression, RegexOptions.Multiline | RegexOptions.Compiled);
 
             string contents;
-            using (StreamReader reader = new StreamReader(path))
+            using (StreamReader reader = new(path))
             {
                 contents = reader.ReadToEnd();
             }
@@ -126,7 +126,7 @@ namespace UpdateVersionInfo
                 return false;
             }
 
-            StringBuilder errors = new StringBuilder();
+            StringBuilder errors = new();
 
             if (commandLine.Major < 0)
                 errors.AppendLine("You must supply a positive major version number.");
@@ -167,7 +167,7 @@ namespace UpdateVersionInfo
             {
                 string contents;
                 
-                using (StreamReader reader = new StreamReader(path))
+                using (StreamReader reader = new(path))
                 {
                     contents = reader.ReadToEnd();
                 }
