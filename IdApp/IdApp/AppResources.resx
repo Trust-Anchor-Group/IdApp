@@ -1281,4 +1281,19 @@
   <data name="EnterPin" xml:space="preserve">
     <value>Enter PIN</value>
   </data>
+  <data name="ChangePin" xml:space="preserve">
+    <value>Change PIN</value>
+  </data>
+  <data name="EnterNewPin" xml:space="preserve">
+    <value>Enter New PIN</value>
+  </data>
+  <data name="RepeatNewPin" xml:space="preserve">
+    <value>Repeat New PIN</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="PinChanged" xml:space="preserve">
+    <value>PIN has been successfully changed.</value>
+  </data>
 </root>

@@ -225,6 +225,9 @@
   <data name="Change" xml:space="preserve">
     <value>Förändring:</value>
   </data>
+  <data name="ChangePin" xml:space="preserve">
+    <value>Ändra PIN</value>
+  </data>
   <data name="ChooseAccount" xml:space="preserve">
     <value>Välj konto</value>
   </data>
@@ -386,6 +389,12 @@
   </data>
   <data name="EncryptMessage" xml:space="preserve">
     <value>Kryptera meddelandet</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Ange</value>
+  </data>
+  <data name="EnterNewPin" xml:space="preserve">
+    <value>Ange ny PIN</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
     <value>Telefonnummer</value>
@@ -801,6 +810,9 @@
   <data name="PickPhoto" xml:space="preserve">
     <value>Välj foto</value>
   </data>
+  <data name="PinChanged" xml:space="preserve">
+    <value>PIN har framgångsrikt ändrats.</value>
+  </data>
   <data name="PinIsInvalid" xml:space="preserve">
     <value>PIN-koden är ogiltig</value>
   </data>
@@ -893,6 +905,9 @@
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Reparera och fortsätt</value>
+  </data>
+  <data name="RepeatNewPin" xml:space="preserve">
+    <value>Repetera ny PIN</value>
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
     <value>Rapportera som komprometterad</value>

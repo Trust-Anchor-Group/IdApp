@@ -385,6 +385,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Change PIN.
+        /// </summary>
+        internal static string ChangePin {
+            get {
+                return ResourceManager.GetString("ChangePin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose account.
         /// </summary>
         internal static string ChooseAccount {
@@ -867,6 +876,24 @@ namespace IdApp {
         internal static string EncryptMessage {
             get {
                 return ResourceManager.GetString("EncryptMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter.
+        /// </summary>
+        internal static string Enter {
+            get {
+                return ResourceManager.GetString("Enter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter New PIN.
+        /// </summary>
+        internal static string EnterNewPin {
+            get {
+                return ResourceManager.GetString("EnterNewPin", resourceCulture);
             }
         }
         
@@ -2113,6 +2140,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PIN has been successfully changed..
+        /// </summary>
+        internal static string PinChanged {
+            get {
+                return ResourceManager.GetString("PinChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PIN is invalid.
         /// </summary>
         internal static string PinIsInvalid {
@@ -2388,6 +2424,15 @@ namespace IdApp {
         internal static string RepairAndContinue {
             get {
                 return ResourceManager.GetString("RepairAndContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Repeat New PIN.
+        /// </summary>
+        internal static string RepeatNewPin {
+            get {
+                return ResourceManager.GetString("RepeatNewPin", resourceCulture);
             }
         }
         

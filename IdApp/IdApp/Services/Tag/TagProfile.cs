@@ -458,7 +458,7 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public string Pin
 		{
-			set => this.pinHash = this.ComputePinHash(value);
+			set => this.PinHash = this.ComputePinHash(value);
 		}
 
 		/// <inheritdoc/>

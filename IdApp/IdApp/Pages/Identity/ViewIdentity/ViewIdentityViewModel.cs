@@ -29,6 +29,7 @@ using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
+using IdApp.Pages.Main.ChangePin;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -73,6 +74,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
 			this.TransferCommand = new Command(async _ => await Transfer(), _ => IsConnected);
 			this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
+			this.ChangePinCommand = new Command(async _ => await ChangePin(), _ => IsConnected);
 			this.CopyCommand = new Command(_ => this.CopyHtmlToClipboard());
 			this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => this.ThirdPartyNotInContacts);
 			this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
@@ -162,6 +164,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// The command to bind to for rejecting an identity
 		/// </summary>
 		public ICommand RejectCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for changing PIN.
+		/// </summary>
+		public ICommand ChangePinCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for flagging an identity as compromised.
@@ -305,8 +312,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.TransferCommand,
-				this.CompromiseCommand, this.AddContactCommand, this.RemoveContactCommand, this.SendPaymentToCommand);
+			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.TransferCommand, 
+				this.ChangePinCommand, this.CompromiseCommand, this.AddContactCommand, this.RemoveContactCommand, 
+				this.SendPaymentToCommand);
 		}
 
 		/// <inheritdoc/>
@@ -1585,6 +1593,42 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				{
 					this.IsBusy = false;
 					this.EvaluateAllCommands();
+				}
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task ChangePin()
+		{
+			if (!this.IsPersonal)
+				return;
+
+			try
+			{
+				while (true)
+				{
+					ChangePinPopupPage Page = new ChangePinPopupPage();
+				
+					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
+					(string OldPin, string NewPin) = await Page.Result;
+				
+					if (OldPin is null || OldPin == NewPin)
+						return;
+
+					if (this.TagProfile.ComputePinHash(OldPin) == this.TagProfile.PinHash)
+					{
+						this.TagProfile.Pin = NewPin;
+						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PinChanged);
+						return;
+					}
+				
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
+				
+					// TODO: Limit number of attempts.
 				}
 			}
 			catch (Exception ex)

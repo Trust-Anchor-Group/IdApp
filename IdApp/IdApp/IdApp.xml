@@ -244,6 +244,11 @@
               Looks up a localized string similar to Change:.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ChangePin">
+            <summary>
+              Looks up a localized string similar to Change PIN.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ChooseAccount">
             <summary>
               Looks up a localized string similar to Choose account.
@@ -512,6 +517,16 @@
         <member name="P:IdApp.AppResources.EncryptMessage">
             <summary>
               Looks up a localized string similar to Encrypt message.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Enter">
+            <summary>
+              Looks up a localized string similar to Enter.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.EnterNewPin">
+            <summary>
+              Looks up a localized string similar to Enter New PIN.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.EnterPhoneNumber">
@@ -1204,6 +1219,11 @@
               Looks up a localized string similar to Pick photo.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.PinChanged">
+            <summary>
+              Looks up a localized string similar to PIN has been successfully changed..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.PinIsInvalid">
             <summary>
               Looks up a localized string similar to PIN is invalid.
@@ -1357,6 +1377,11 @@
         <member name="P:IdApp.AppResources.RepairAndContinue">
             <summary>
               Looks up a localized string similar to Repair and continue.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RepeatNewPin">
+            <summary>
+              Looks up a localized string similar to Repeat New PIN.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ReportAsCompromized">
@@ -5784,6 +5809,11 @@
             The command to bind to for rejecting an identity
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChangePinCommand">
+            <summary>
+            The command to bind to for changing PIN.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CompromiseCommand">
             <summary>
             The command to bind to for flagging an identity as compromised.
@@ -6400,6 +6430,27 @@
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReviewCountry">
             <summary>
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.ChangePin.ChangePinPopupPage">
+            <summary>
+            Prompts the user for its PIN
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.ChangePin.ChangePinPopupPage.#ctor">
+            <summary>
+            Prompts the user for its PIN
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.ChangePin.ChangePinPopupPage.OnAppearing">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Main.ChangePin.ChangePinPopupPage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Main.ChangePin.ChangePinPopupPage.Result">
+            <summary>
+            Task waiting for result. (null, null) means dialog was closed without providing a PIN.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Main.FlipView.FlipView">

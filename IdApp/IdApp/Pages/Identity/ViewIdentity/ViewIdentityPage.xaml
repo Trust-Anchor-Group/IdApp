@@ -148,6 +148,9 @@
                 <Button Text="{x:Static local:AppResources.RejectInformation}" 
                             Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                <Button Text="{x:Static local:AppResources.ChangePin}" 
+                            Command="{Binding Path=ChangePinCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
                 <Button Text="{x:Static local:AppResources.ReportAsCompromized}" 
                             Command="{Binding Path=CompromiseCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>

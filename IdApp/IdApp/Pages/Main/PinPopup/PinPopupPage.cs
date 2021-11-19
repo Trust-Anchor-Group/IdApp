@@ -35,19 +35,19 @@ namespace IdApp.Pages.Main.PinPopup
 
         private void OnCloseButtonTapped(object sender, EventArgs e)
         {
-            CloseAllPopup();
+            Close();
         }
 
         /// <inheritdoc/>
         protected override bool OnBackgroundClicked()
         {
-            CloseAllPopup();
+            Close();
             return false;
         }
 
-        private async void CloseAllPopup()
+        private async void Close()
         {
-            await PopupNavigation.Instance.PopAllAsync();
+            await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(null);
         }
 
