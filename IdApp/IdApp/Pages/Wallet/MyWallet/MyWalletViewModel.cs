@@ -126,21 +126,30 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.HasEvents = (Events?.Length ?? 0) > 0;
 			this.HasMore = More;
 
+			Dictionary<string, string> FriendlyNames = new Dictionary<string, string>();
+			string FriendlyName;
+
 			this.PendingPayments.Clear();
 			if (!(PendingPayments is null))
 			{
 				foreach (EDaler.PendingPayment Payment in PendingPayments)
-					this.PendingPayments.Add(new PendingPaymentItem(Payment));
+				{
+					if (!FriendlyNames.TryGetValue(Payment.To, out FriendlyName))
+					{
+						FriendlyName = await ContactInfo.GetFriendlyName(Payment.To, this.NeuronService.Xmpp);
+						FriendlyNames[Payment.To] = FriendlyName;
+					}
+
+					this.PendingPayments.Add(new PendingPaymentItem(Payment, FriendlyName));
+				}
 			}
 
 			this.Events.Clear();
 			if (!(Events is null))
 			{
-				Dictionary<string, string> FriendlyNames = new Dictionary<string, string>();
-
 				foreach (EDaler.AccountEvent Event in Events)
 				{
-					if (!FriendlyNames.TryGetValue(Event.Remote, out string FriendlyName))
+					if (!FriendlyNames.TryGetValue(Event.Remote, out FriendlyName))
 					{
 						FriendlyName = await ContactInfo.GetFriendlyName(Event.Remote, this.NeuronService.Xmpp);
 						FriendlyNames[Event.Remote] = FriendlyName;
@@ -431,7 +440,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				return;
 			}
 
-			await this.navigationService.GoToAsync(nameof(PendingPayment.PendingPaymentPage), new EDalerUriNavigationArgs(Uri));
+			await this.navigationService.GoToAsync(nameof(PendingPayment.PendingPaymentPage), new EDalerUriNavigationArgs(Uri, Item.FriendlyName));
 		}
 
 		private async Task ShowEvent(object P)

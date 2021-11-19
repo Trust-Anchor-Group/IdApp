@@ -37,6 +37,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 			if (this.navigationService.TryPopArgs(out AccountEventNavigationArgs args))
 			{
 				this.Remote = args.Event.Remote;
+				this.FriendlyName = args.Event.FriendlyName;
 				this.Timestamp = args.Event.Timestamp;
 				this.TimestampStr = args.Event.TimestampStr;
 				this.Change = args.Event.Change;
@@ -270,6 +271,21 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		{
 			get { return (string)GetValue(RemoteProperty); }
 			set { SetValue(RemoteProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="FriendlyName"/>
+		/// </summary>
+		public static readonly BindableProperty FriendlyNameProperty =
+			BindableProperty.Create("FriendlyName", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// FriendlyName who eDaler is to be transferred
+		/// </summary>
+		public string FriendlyName
+		{
+			get { return (string)GetValue(FriendlyNameProperty); }
+			set { SetValue(FriendlyNameProperty, value); }
 		}
 
 		/// <summary>

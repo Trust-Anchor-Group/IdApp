@@ -9361,6 +9361,16 @@
             Remote who eDaler is to be transferred
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.FriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.FriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.FriendlyName">
+            <summary>
+            FriendlyName who eDaler is to be transferred
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.MessageProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.Message"/>
@@ -9568,9 +9578,21 @@
             </summary>
             <param name="Uri">Parsed edaler URI.</param>
         </member>
+        <member name="M:IdApp.Pages.Wallet.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri,System.String)">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriNavigationArgs"/> class.
+            </summary>
+            <param name="Uri">Parsed edaler URI.</param>
+            <param name="FriendlyName">Optional Friendly Name associated with URI</param>
+        </member>
         <member name="P:IdApp.Pages.Wallet.EDalerUriNavigationArgs.Uri">
             <summary>
             The edaler URI
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriNavigationArgs.FriendlyName">
+            <summary>
+            Optional Friendly Name associated with URI
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.EDalerUriViewModel">
@@ -9820,6 +9842,16 @@
         <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.ToType">
             <summary>
             Type of identity specified in <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.To"/>
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.FriendlyNameProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.FriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.FriendlyName">
+            <summary>
+            Optional FriendlyName associated with URI
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.CompleteProperty">
@@ -10209,11 +10241,12 @@
             Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.#ctor(EDaler.PendingPayment)">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.#ctor(EDaler.PendingPayment,System.String)">
             <summary>
             Encapsulates a <see cref="N:IdApp.Pages.Wallet.PendingPayment"/> object.
             </summary>
             <param name="PendingPayment">Pending payment.</param>
+            <param name="FriendlyName">Friendly name.</param>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Id">
             <summary>
@@ -10253,6 +10286,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.Uri">
             <summary>
             Corresponding eDaler URI.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem.FriendlyName">
+            <summary>
+            Friendly name of recipient.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.WalletNavigationArgs">

@@ -70,7 +70,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=To}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
                                 <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=ExpiresStr}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Italic"/>
                                 <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="WordWrap" TextColor="{StaticResource PendingColor}" HorizontalTextAlignment="End">
                                     <Label.FormattedText>

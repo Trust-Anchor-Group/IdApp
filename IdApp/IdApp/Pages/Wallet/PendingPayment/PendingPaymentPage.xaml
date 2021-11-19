@@ -14,7 +14,7 @@
                 <Label Text="{x:Static local:AppResources.PendingPaymentDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <!-- Note -->
                 <Label Text="{x:Static local:AppResources.To}"/>
-                <Entry Text="{Binding Path=To}" IsReadOnly="True"/>
+                <Entry Text="{Binding Path=FriendlyName}" IsReadOnly="True"/>
                 <Label Text="{x:Static local:AppResources.Amount}"/>
                 <Entry Text="{Binding Path=AmountAndCurrency}" IsReadOnly="True"/>
                 <Label Text="{x:Static local:AppResources.AmountExtra}" IsVisible="{Binding Path=AmountExtraPreset}"/>

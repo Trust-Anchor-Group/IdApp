@@ -64,6 +64,8 @@ namespace IdApp.Pages.Wallet
 
 			if (this.navigationService.TryPopArgs(out EDalerUriNavigationArgs args))
 			{
+				this.FriendlyName = args.FriendlyName;
+
 				if (!(args.Uri is null))
 				{
 					this.Uri = args.Uri.UriString;
@@ -543,6 +545,21 @@ namespace IdApp.Pages.Wallet
 		{
 			get { return (EntityType)GetValue(ToTypeProperty); }
 			set { SetValue(ToTypeProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="FriendlyName"/>
+		/// </summary>
+		public static readonly BindableProperty FriendlyNameProperty =
+			BindableProperty.Create("FriendlyName", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// Optional FriendlyName associated with URI
+		/// </summary>
+		public string FriendlyName
+		{
+			get { return (string)GetValue(FriendlyNameProperty); }
+			set { SetValue(FriendlyNameProperty, value); }
 		}
 
 		/// <summary>

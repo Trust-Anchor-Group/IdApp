@@ -8,14 +8,17 @@ namespace IdApp.Pages.Wallet.MyWallet
 	public class PendingPaymentItem
 	{
 		private readonly EDaler.PendingPayment pendingPayment;
+		private readonly string friendlyName;
 
 		/// <summary>
 		/// Encapsulates a <see cref="PendingPayment"/> object.
 		/// </summary>
 		/// <param name="PendingPayment">Pending payment.</param>
-		public PendingPaymentItem(EDaler.PendingPayment PendingPayment)
+		/// <param name="FriendlyName">Friendly name.</param>
+		public PendingPaymentItem(EDaler.PendingPayment PendingPayment, string FriendlyName)
 		{
 			this.pendingPayment = PendingPayment;
+			this.friendlyName = FriendlyName;
 		}
 
 		/// <summary>
@@ -57,6 +60,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// Corresponding eDaler URI.
 		/// </summary>
 		public string Uri => this.pendingPayment.Uri;
+
+		/// <summary>
+		/// Friendly name of recipient.
+		/// </summary>
+		public string FriendlyName => this.friendlyName;
 
 	}
 }

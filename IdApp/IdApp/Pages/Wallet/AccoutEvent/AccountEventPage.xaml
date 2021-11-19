@@ -14,7 +14,7 @@
                 <Label Text="{x:Static local:AppResources.AccountEventDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <!-- Note -->
                 <Label Text="{x:Static local:AppResources.RemoteParty}"/>
-                <Entry Text="{Binding Path=Remote}" IsReadOnly="True"/>
+                <Entry Text="{Binding Path=FriendlyName}" IsReadOnly="True"/>
                 <Label Text="{x:Static local:AppResources.Timestamp}"/>
                 <Entry Text="{Binding Path=TimestampStr}" IsReadOnly="True"/>
                 <Label Text="{x:Static local:AppResources.Change}"/>
