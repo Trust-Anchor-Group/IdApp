@@ -599,8 +599,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 				// General Information
 				this.GeneralInformation.Add(new PartModel(AppResources.Created, Contract.Created.ToString(CultureInfo.CurrentUICulture)));
 
-				if (this.Contract.Updated > DateTime.MinValue)
-					this.GeneralInformation.Add(new PartModel(AppResources.Created, Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
+				if (Contract.Updated > DateTime.MinValue)
+					this.GeneralInformation.Add(new PartModel(AppResources.Updated, Contract.Updated.ToString(CultureInfo.CurrentUICulture)));
 
 				this.GeneralInformation.Add(new PartModel(AppResources.State, Contract.State.ToString()));
 				this.GeneralInformation.Add(new PartModel(AppResources.Visibility, Contract.Visibility.ToString()));
