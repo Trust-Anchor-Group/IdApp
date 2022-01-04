@@ -820,7 +820,7 @@ namespace IdApp.Services.Neuron
 			}
 			catch (Exception ex)
 			{
-				string commsDump = this.sniffer.SnifferToText();
+				string commsDump = await this.sniffer.SnifferToText();
 				this.logService.LogException(ex, new KeyValuePair<string, string>("Sniffer", commsDump));
 				return false;
 			}
@@ -908,29 +908,29 @@ namespace IdApp.Services.Neuron
 			historyTextData = sentTextData;
 		}
 
-		public string CommsDumpAsText(string state)
+		public async Task<string> CommsDumpAsText(string state)
 		{
 			string response;
 
 			if (historyTextData is null || state != "History")
-				response = sniffer.SnifferToText();
+				response = await sniffer.SnifferToText();
 			else
-				response = sniffer.SnifferToText().Replace(historyTextData, "");
+				response = (await sniffer.SnifferToText()).Replace(historyTextData, "");
 
 			return response;
 		}
 
 
-		public string CommsDumpAsHtml(bool history = false)
+		public async Task<string> CommsDumpAsHtml(bool history = false)
 		{
 			string html = string.Empty;
 
 			try
 			{
-				string xml = sniffer.SnifferToXml();
+				string xml = await sniffer.SnifferToXml();
 
 				sentHtml = xml;
-				sentTextData = sniffer.SnifferToText();
+				sentTextData = await sniffer.SnifferToText();
 
 				if (!(historyHtml is null) && !history)
 				{

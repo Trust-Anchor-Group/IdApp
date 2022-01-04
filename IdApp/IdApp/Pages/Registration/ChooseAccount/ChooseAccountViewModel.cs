@@ -288,7 +288,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					KeyValuePair<byte[], string> P = await InternetContent.PostAsync(Uri, Encoding.ASCII.GetBytes(Code), "text/plain",
 						new KeyValuePair<string, string>("Accept", "text/plain"));
 
-					object Decoded = InternetContent.Decode(P.Value, P.Key, Uri);
+					object Decoded = await InternetContent.DecodeAsync(P.Value, P.Key, Uri);
 
 					EncryptedStr = (string)Decoded;
 				}

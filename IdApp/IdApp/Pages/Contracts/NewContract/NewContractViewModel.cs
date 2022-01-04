@@ -16,6 +16,7 @@ using IdApp.Services.Settings;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using IdApp.Services.UI.QR;
+using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Script;
 using Xamarin.Forms;
@@ -108,7 +109,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
-			this.PopulateTemplateForm();
+			await this.PopulateTemplateForm();
 		}
 
 		/// <inheritdoc/>
@@ -570,57 +571,71 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 		}
 
-		private void Parameter_TextChanged(object sender, TextChangedEventArgs e)
+		private async void Parameter_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			if (!(sender is Entry Entry) || !this.parametersByName.TryGetValue(Entry.StyleId, out ParameterInfo ParameterInfo))
-				return;
-
-			if (ParameterInfo.Parameter is StringParameter SP)
-				SP.Value = e.NewTextValue;
-			else if (ParameterInfo.Parameter is NumericalParameter NP)
+			try
 			{
-				if (double.TryParse(e.NewTextValue, out double d))
-				{
-					NP.Value = d;
-					Entry.BackgroundColor = Color.Default;
-				}
-				else
-				{
-					Entry.BackgroundColor = Color.Salmon;
+				if (!(sender is Entry Entry) || !this.parametersByName.TryGetValue(Entry.StyleId, out ParameterInfo ParameterInfo))
 					return;
-				}
-			}
-			else if (ParameterInfo.Parameter is BooleanParameter BP)
-			{
-				if (bool.TryParse(e.NewTextValue, out bool b))
-				{
-					BP.Value = b;
-					Entry.BackgroundColor = Color.Default;
-				}
-				else
-				{
-					Entry.BackgroundColor = Color.Salmon;
-					return;
-				}
-			}
 
-			this.ValidateParameters();
-			PopulateHumanReadableText();
+				if (ParameterInfo.Parameter is StringParameter SP)
+					SP.Value = e.NewTextValue;
+				else if (ParameterInfo.Parameter is NumericalParameter NP)
+				{
+					if (double.TryParse(e.NewTextValue, out double d))
+					{
+						NP.Value = d;
+						Entry.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Entry.BackgroundColor = Color.Salmon;
+						return;
+					}
+				}
+				else if (ParameterInfo.Parameter is BooleanParameter BP)
+				{
+					if (bool.TryParse(e.NewTextValue, out bool b))
+					{
+						BP.Value = b;
+						Entry.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Entry.BackgroundColor = Color.Salmon;
+						return;
+					}
+				}
+
+				await this.ValidateParameters();
+				await PopulateHumanReadableText();
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 		}
 
-		private void Parameter_CheckedChanged(object sender, CheckedChangedEventArgs e)
+		private async void Parameter_CheckedChanged(object sender, CheckedChangedEventArgs e)
 		{
-			if (!(sender is CheckBox CheckBox) || !this.parametersByName.TryGetValue(CheckBox.StyleId, out ParameterInfo ParameterInfo))
-				return;
+			try
+			{
+				if (!(sender is CheckBox CheckBox) || !this.parametersByName.TryGetValue(CheckBox.StyleId, out ParameterInfo ParameterInfo))
+					return;
 
-			if (ParameterInfo.Parameter is BooleanParameter BP)
-				BP.Value = e.Value;
+				if (ParameterInfo.Parameter is BooleanParameter BP)
+					BP.Value = e.Value;
 
-			this.ValidateParameters();
-			PopulateHumanReadableText();
+				await this.ValidateParameters();
+				await PopulateHumanReadableText();
+			}
+			catch (Exception ex)
+			{
+				Log.Critical(ex);
+			}
 		}
 
-		private void ValidateParameters()
+		private async Task ValidateParameters()
 		{
 			Variables Variables = new Variables();
 			bool Ok = true;
@@ -630,7 +645,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			foreach (ParameterInfo P in this.parametersByName.Values)
 			{
-				if (P.Parameter.IsParameterValid(Variables))
+				if (await P.Parameter.IsParameterValid(Variables))
 					P.Control.BackgroundColor = Color.Default;
 				else
 				{
@@ -792,14 +807,14 @@ namespace IdApp.Pages.Contracts.NewContract
 				Layout.Children.Add(Element);
 		}
 
-		private void PopulateTemplateForm()
+		private async Task PopulateTemplateForm()
 		{
 			this.ClearTemplate(true);
 
 			if (this.template is null)
 				return;
 
-			this.PopulateHumanReadableText();
+			await this.PopulateHumanReadableText();
 
 			this.HasRoles = this.template.Roles.Length > 0;
 			this.VisibilityIsEnabled = true;
@@ -816,7 +831,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					StyleId = Role.Name
 				});
 
-				Populate(rolesLayout, Role.ToXamarinForms(this.template.DeviceLanguage(), this.template));
+				Populate(rolesLayout, await Role.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
 				if (Role.MinCount > 0)
 				{
@@ -862,7 +877,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					};
 
 					Layout.Children.Add(CheckBox);
-					Populate(Layout, Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
+					Populate(Layout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 					parametersLayout.Children.Add(Layout);
 
 					CheckBox.CheckedChanged += Parameter_CheckedChanged;
@@ -871,7 +886,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				}
 				else
 				{
-					Populate(parametersLayout, Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
+					Populate(parametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
 					Entry Entry = new Entry()
 					{
@@ -892,18 +907,18 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.Parameters = parametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
 
-			this.ValidateParameters();
+			await this.ValidateParameters();
 			this.EvaluateCommands(this.ProposeCommand);
 		}
 
-		private void PopulateHumanReadableText()
+		private async Task PopulateHumanReadableText()
 		{
 			this.HumanReadableText = null;
 
 			StackLayout humanReadableTextLayout = new StackLayout();
 
 			if (!(this.template is null))
-				Populate(humanReadableTextLayout, this.template.ToXamarinForms(this.template.DeviceLanguage()));
+				Populate(humanReadableTextLayout, await this.template.ToXamarinForms(this.template.DeviceLanguage()));
 
 			this.HumanReadableText = humanReadableTextLayout;
 			this.HasHumanReadableText = humanReadableTextLayout.Children.Count > 0;

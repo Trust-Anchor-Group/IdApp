@@ -145,7 +145,7 @@ namespace IdApp.Services.Neuron
         /// Creates a dump of the latest Xmpp communication as html.
         /// </summary>
         /// <returns>The communication dump as a html formatted string.</returns>
-        string CommsDumpAsHtml(bool history = false);
+        Task<string> CommsDumpAsHtml(bool history = false);
 
         /// <summary>
         /// saves already sent html to history.
@@ -156,7 +156,7 @@ namespace IdApp.Services.Neuron
         /// Creates a dump of the latest Xmpp communication as Text.
         /// </summary>
         /// <returns>The communication dump as a text formatted string.</returns>
-        string CommsDumpAsText(string state);
+        Task<string> CommsDumpAsText(string state);
 
         /// <summary>
         /// Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.

@@ -621,7 +621,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					StackLayout rolesLayout = new StackLayout();
 					foreach (Role role in Contract.Roles)
 					{
-						string html = role.ToHTML(Contract.DeviceLanguage(), Contract);
+						string html = await role.ToHTML(Contract.DeviceLanguage(), Contract);
 						html = Waher.Content.Html.HtmlDocument.GetBody(html);
 
 						AddKeyValueLabelPair(rolesLayout, role.Name, html + GenerateMinMaxCountString(role.MinCount, role.MaxCount), true, string.Empty, null);
@@ -696,7 +696,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				// Human readable text
 				StackLayout humanReadableTextLayout = new StackLayout();
-				string xaml = Contract.ToXamarinForms(Contract.DeviceLanguage());
+				string xaml = await Contract.ToXamarinForms(Contract.DeviceLanguage());
 				StackLayout humanReadableXaml = new StackLayout().LoadFromXaml(xaml);
 				List<View> children = new List<View>();
 				children.AddRange(humanReadableXaml.Children);

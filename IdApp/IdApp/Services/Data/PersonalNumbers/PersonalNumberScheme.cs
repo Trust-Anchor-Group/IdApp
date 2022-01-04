@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Waher.Script;
 
 namespace IdApp.Services.Data.PersonalNumbers
@@ -9,7 +10,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 	public class PersonalNumberScheme
 	{
 		private readonly string variableName;
-        private readonly Expression pattern;
+		private readonly Expression pattern;
 		private readonly Expression check;
 		private readonly Expression normalize;
 
@@ -30,59 +31,72 @@ namespace IdApp.Services.Data.PersonalNumbers
 			this.normalize = normalize;
 		}
 
-        /// <summary>
-        /// A string that can be displayed to a user, informing the user about the approximate format expected.
-        /// </summary>
-        public string DisplayString { get; }
+		/// <summary>
+		/// A string that can be displayed to a user, informing the user about the approximate format expected.
+		/// </summary>
+		public string DisplayString { get; }
 
-        /// <summary>
-        /// Checks if a personal number is valid according to the personal number scheme.
-        /// </summary>
-        /// <param name="personalNumber">String representation of the personal number.</param>
-        /// <returns>
-        /// true = valid: <paramref name="personalNumber"/> may be normalized.
-        /// false = invalid
-        /// null = scheme not applicable
-        /// </returns>
-        public bool? IsValid(ref string personalNumber)
+		/// <summary>
+		/// Checks if a personal number is valid according to the personal number scheme.
+		/// </summary>
+		/// <returns>Validation information about the number.</returns>
+		public async Task<NumberInformation> Validate(string PersonalNumber)
 		{
+			NumberInformation Info = new NumberInformation()
+			{
+				PersonalNumber = PersonalNumber,
+				DisplayString = string.Empty
+			};
+
 			try
 			{
-				Variables variables = new Variables(new Variable(this.variableName, personalNumber));
-				object result = this.pattern.Evaluate(variables);
+				Variables Variables = new Variables(new Variable(this.variableName, PersonalNumber));
+				object EvalResult = await this.pattern.EvaluateAsync(Variables);
 
-				if (result is bool b)
+				if (EvalResult is bool b)
 				{
 					if (!b)
 						return null;
 
 					if (!(this.check is null))
 					{
-						result = this.check.Evaluate(variables);
+						EvalResult = await this.check.EvaluateAsync(Variables);
 
-						if (!(result is bool b2) || !b2)
-							return false;
+						if (!(EvalResult is bool b2) || !b2)
+						{
+							Info.IsValid = false;
+							return Info;
+						}
 					}
 
 					if (!(this.normalize is null))
 					{
-						result = this.normalize.Evaluate(variables);
+						EvalResult = await this.normalize.EvaluateAsync(Variables);
 
-						if (!(result is string normalized))
-							return false;
+						if (!(EvalResult is string Normalized))
+						{
+							Info.IsValid = false;
+							return Info;
+						}
 
-						personalNumber = normalized;
+						Info.PersonalNumber = Normalized;
 					}
 
-					return true;
+					Info.IsValid = true;
+					return Info;
 				}
 				else
-					return null;
+				{
+					Info.IsValid = null;
+					return Info;
+				}
 			}
 			catch (Exception)
 			{
-				return false;
+				Info.IsValid = false;
+				return Info;
 			}
 		}
+
 	}
 }

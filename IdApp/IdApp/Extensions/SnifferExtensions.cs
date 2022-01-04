@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using Waher.Networking.Sniffers;
 
@@ -16,7 +17,7 @@ namespace IdApp.Extensions
         /// </summary>
         /// <param name="sniffer">The sniffer whose contents to get.</param>
         /// <returns>The xmpp communication in plain text.</returns>
-        public static string SnifferToText(this InMemorySniffer sniffer)
+        public static async Task<string> SnifferToText(this InMemorySniffer sniffer)
         {
             if (sniffer is null)
                 return string.Empty;
@@ -26,7 +27,7 @@ namespace IdApp.Extensions
             using (StringWriter writer = new StringWriter(sb))
             using (TextWriterSniffer output = new TextWriterSniffer(writer, BinaryPresentationMethod.ByteCount))
             {
-                sniffer.Replay(output);
+                await sniffer.ReplayAsync(output);
             }
 
             return sb.ToString();
@@ -37,7 +38,7 @@ namespace IdApp.Extensions
         /// </summary>
         /// <param name="sniffer">The sniffer whose contents to get.</param>
         /// <returns>The xmpp communication in xml.</returns>
-        public static string SnifferToXml(this InMemorySniffer sniffer)
+        public static Task<string> SnifferToXml(this InMemorySniffer sniffer)
         {
             XmlWriterSettings settings = new XmlWriterSettings()
             {
@@ -53,7 +54,7 @@ namespace IdApp.Extensions
             return SnifferToXml(sniffer, settings);
         }
 
-        internal static string SnifferToXml(InMemorySniffer sniffer, XmlWriterSettings settings)
+        internal static async Task<string> SnifferToXml(InMemorySniffer sniffer, XmlWriterSettings settings)
         {
             if (sniffer is null)
                 return string.Empty;
@@ -63,33 +64,42 @@ namespace IdApp.Extensions
             using (XmlWriter writer = XmlWriter.Create(sb, settings))
             using (XmlWriterSniffer output = new XmlWriterSniffer(writer, BinaryPresentationMethod.ByteCount))
             {
-                sniffer.Replay(output);
+                await sniffer.ReplayAsync(output);
             }
 
             return sb.ToString();
         }
 
-        internal static void SaveSnifferAsText(InMemorySniffer sniffer, string fileName)
+        internal static async Task SaveSnifferAsText(InMemorySniffer sniffer, string fileName)
         {
+            if (sniffer is null)
+                return;
+
             using (TextFileSniffer output = new TextFileSniffer(fileName, BinaryPresentationMethod.ByteCount))
             {
-                sniffer?.Replay(output);
+                await sniffer.ReplayAsync(output);
             }
         }
 
-        internal static void SaveSnifferAsXml(InMemorySniffer sniffer, string fileName)
+        internal static async Task SaveSnifferAsXml(InMemorySniffer sniffer, string fileName)
         {
+            if (sniffer is null)
+                return;
+
             using (XmlFileSniffer output = new XmlFileSniffer(fileName, BinaryPresentationMethod.ByteCount))
             {
-                sniffer?.Replay(output);
+                await sniffer.ReplayAsync(output);
             }
         }
 
-        internal static void SaveSnifferAsXml(InMemorySniffer sniffer, string fileName, string xslTransform)
+        internal static async Task SaveSnifferAsXml(InMemorySniffer sniffer, string fileName, string xslTransform)
         {
+            if (sniffer is null)
+                return;
+
             using (XmlFileSniffer output = new XmlFileSniffer(fileName, xslTransform, BinaryPresentationMethod.ByteCount))
             {
-                sniffer?.Replay(output);
+                await sniffer.ReplayAsync(output);
             }
         }
     }

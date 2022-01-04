@@ -46,7 +46,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ITagProfile TagProfile,
             INeuronService NeuronService)
         {
-            string Category = GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
+            string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
             string Name = await GetName(Contract, TagProfile, NeuronService) ?? Contract.ContractId;
 
             return new ContractModel(ContractId, Timestamp, Contract, Category, Name);
@@ -89,7 +89,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
             return sb?.ToString();
         }
 
-        private static string GetCategory(Contract Contract)
+        private static async Task<string> GetCategory(Contract Contract)
         {
             HumanReadableText[] Localizations = Contract.ForHumans;
             string Language = Contract.DeviceLanguage();
@@ -106,11 +106,11 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
                         StringBuilder Markdown = new StringBuilder();
 
                         foreach (InlineElement Item in Section.Header)
-                            Item.GenerateMarkdown(Markdown, 1, Contract);
+                            Item.GenerateMarkdown(Markdown, 1, new Waher.Networking.XMPP.Contracts.HumanReadable.MarkdownSettings(Contract, MarkdownType.ForRendering));
 
-                        MarkdownDocument Doc = new MarkdownDocument(Markdown.ToString());
+                        MarkdownDocument Doc = await MarkdownDocument.CreateAsync(Markdown.ToString());
 
-                        return Doc.GeneratePlainText().Trim();
+                        return (await Doc.GeneratePlainText()).Trim();
                     }
                 }
 			}

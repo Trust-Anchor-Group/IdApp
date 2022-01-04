@@ -608,22 +608,21 @@ namespace IdApp.Pages.Registration.RegisterIdentity
                 return;
 
             string countryCode = ISO_3166_1.ToCode(this.SelectedCountry);
-            string pnr = PersonalNumber.Trim();
-            string pnrBeforeValidation = pnr;
-            bool? personalNumberIsValid = PersonalNumberSchemes.IsValid(countryCode, ref pnr, out string personalNumberFormat);
+            string pnrBeforeValidation = PersonalNumber.Trim();
+            NumberInformation NumberInfo = await PersonalNumberSchemes.Validate(countryCode, pnrBeforeValidation);
 
-            if (personalNumberIsValid.HasValue && !personalNumberIsValid.Value)
+            if (NumberInfo.IsValid.HasValue && !NumberInfo.IsValid.Value)
             {
-                if (string.IsNullOrWhiteSpace(personalNumberFormat))
+                if (string.IsNullOrWhiteSpace(NumberInfo.DisplayString))
                     await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry);
                 else
-                    await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + personalNumberFormat);
+                    await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PersonalNumberDoesNotMatchCountry_ExpectedFormat + NumberInfo.DisplayString);
             
                 return;
             }
             
-            if (pnr != pnrBeforeValidation)
-                this.PersonalNumber = pnr;
+            if (NumberInfo.PersonalNumber != pnrBeforeValidation)
+                this.PersonalNumber = NumberInfo.PersonalNumber;
 
             if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
             {

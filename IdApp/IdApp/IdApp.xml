@@ -11299,6 +11299,28 @@
             <param name="Country">Country name.</param>
             <returns>Country code, or if not found, the original name.</returns>
         </member>
+        <member name="T:IdApp.Services.Data.PersonalNumbers.NumberInformation">
+            <summary>
+            Personal number information
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Data.PersonalNumbers.NumberInformation.PersonalNumber">
+            <summary>
+            String representation of the personal number.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Data.PersonalNumbers.NumberInformation.IsValid">
+            <summary>
+            true = valid: PersonalNumber may be normalized.
+            false = invalid
+            null = scheme not applicable, or no registered schemes for country
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Data.PersonalNumbers.NumberInformation.DisplayString">
+            <summary>
+            A string that can be displayed to a user, informing the user about the approximate format expected.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme">
             <summary>
             Checks personal numbers against a personal number scheme.
@@ -11319,46 +11341,24 @@
             A string that can be displayed to a user, informing the user about the approximate format expected.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme.IsValid(System.String@)">
+        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberScheme.Validate(System.String)">
             <summary>
             Checks if a personal number is valid according to the personal number scheme.
             </summary>
-            <param name="personalNumber">String representation of the personal number.</param>
-            <returns>
-            true = valid: <paramref name="personalNumber"/> may be normalized.
-            false = invalid
-            null = scheme not applicable
-            </returns>
+            <returns>Validation information about the number.</returns>
         </member>
         <member name="T:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes">
             <summary>
             Personal Number Schemes available in different countries.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@)">
+        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes.Validate(System.String,System.String)">
             <summary>
             Checks if a personal number is valid, in accordance with registered personal number schemes.
             </summary>
-            <param name="countryCode">ISO 3166-1 Country Codes.</param>
-            <param name="personalNumber">Personal Number</param>
-            <returns>
-            true = valid
-            false = invalid
-            null = no registered schemes for country.
-            </returns>
-        </member>
-        <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes.IsValid(System.String,System.String@,System.String@)">
-            <summary>
-            Checks if a personal number is valid, in accordance with registered personal number schemes.
-            </summary>
-            <param name="countryCode">ISO 3166-1 Country Codes.</param>
-            <param name="personalNumber">Personal Number</param>
-            <param name="displayString">A string that can be displayed to a user, informing the user about the approximate format expected.</param>
-            <returns>
-            true = valid: <paramref name="personalNumber"/> may be normalized.
-            false = invalid
-            null = no registered schemes for country.
-            </returns>
+            <param name="CountryCode">ISO 3166-1 Country Codes.</param>
+            <param name="PersonalNumber">Personal Number</param>
+            <returns>Validation information about the number.</returns>
         </member>
         <member name="M:IdApp.Services.Data.PersonalNumbers.PersonalNumberSchemes.DisplayStringForCountry(System.String)">
             <summary>
