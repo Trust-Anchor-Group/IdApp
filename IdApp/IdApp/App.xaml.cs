@@ -38,13 +38,13 @@ using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using IdApp.Popups.Pin.PinPopup;
 using IdApp.Services.AttachmentCache;
 using IdApp.Services.Contracts;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI.QR;
 using IdApp.Services.Tag;
-using IdApp.Pages.Main.PinPopup;
 using IdApp.Services.UI;
 
 namespace IdApp

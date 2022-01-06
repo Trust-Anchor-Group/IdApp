@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 
-namespace IdApp.Pages.Main.PinPopup
+namespace IdApp.Popups.Pin.PinPopup
 {
     /// <summary>
     /// Prompts the user for its PIN

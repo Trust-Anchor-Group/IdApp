@@ -186,6 +186,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Main\PinPopup\" />
+    <Folder Include="Popups\Pin\PinPopup\" />
   </ItemGroup>
 </Project>

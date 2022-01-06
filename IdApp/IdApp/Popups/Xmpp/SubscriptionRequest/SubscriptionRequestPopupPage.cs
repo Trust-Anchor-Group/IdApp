@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 
-namespace IdApp.Pages.Main.SubscriptionRequest
+namespace IdApp.Popups.Xmpp.SubscriptionRequest
 {
     /// <summary>
     /// How to respond to a presence subscription request.

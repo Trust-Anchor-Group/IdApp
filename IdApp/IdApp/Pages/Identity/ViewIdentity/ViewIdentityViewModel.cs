@@ -18,9 +18,11 @@ using Waher.Persistence;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
+using IdApp.Popups.Pin.ChangePin;
 using IdApp.Services.AttachmentCache;
 using IdApp.Services.EventLog;
 using IdApp.Services.Contracts;
+using IdApp.Services.Crypto;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
@@ -29,8 +31,6 @@ using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
-using IdApp.Pages.Main.ChangePin;
-using IdApp.Services.Crypto;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {

@@ -5,7 +5,7 @@ using IdApp.Services.UI;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 
-namespace IdApp.Pages.Main.ChangePin
+namespace IdApp.Popups.Pin.ChangePin
 {
     /// <summary>
     /// Prompts the user for its PIN
