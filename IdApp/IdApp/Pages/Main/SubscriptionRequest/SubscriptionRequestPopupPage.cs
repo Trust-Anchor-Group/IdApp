@@ -43,6 +43,8 @@ namespace IdApp.Pages.Main.SubscriptionRequest
             this.bareJid = BareJid;
 
             InitializeComponent();
+
+            this.BindingContext = this;
         }
 
         /// <summary>

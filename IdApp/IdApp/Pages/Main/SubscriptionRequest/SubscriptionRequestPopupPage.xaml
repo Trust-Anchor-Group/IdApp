@@ -17,19 +17,24 @@
             EasingOut="SinIn"
             HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <ScrollView HorizontalOptions="Center" VerticalOptions="Center">
-        <AbsoluteLayout>
-            <Frame Margin="15" BackgroundColor="White" HorizontalOptions="Center">
+    <ScrollView HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+            <Frame Margin="15" BackgroundColor="White" HorizontalOptions="Center" VerticalOptions="FillAndExpand">
                 <StackLayout Padding="10,5" IsClippedToBounds="True" Spacing="3">
                     <Label Text="{x:Static local:AppResources.PresenceSubscriptionRequest}" FontSize="Large"/>
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
                                 <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived1}"/>
+                                <Span Text=" "/>
                                 <Span Text="{Binding BareJid}" FontAttributes="Bold"/>
+                                <Span Text=" "/>
                                 <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived2}"/>
+                                <Span Text=" "/>
                                 <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived3}"/>
+                                <Span Text=" "/>
                                 <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived4}"/>
+                                <Span Text=" "/>
                                 <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived5}"/>
                             </FormattedString>
                         </Label.FormattedText>
