@@ -831,6 +831,24 @@
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
     <value>Vänligen granska alla information ovan och bocka för de tillhörande checkboxarna om informationen stämmer. Detta måste göras innan informationen kan godkännas.</value>
   </data>
+  <data name="PresenceSubscriptionReceived1" xml:space="preserve">
+    <value>Du har mottagit en förfrågan att följa din närvaro från:</value>
+  </data>
+  <data name="PresenceSubscriptionReceived2" xml:space="preserve">
+    <value>Om du accepterar denna förfrågan, kommer de kunna se din närvaro online.</value>
+  </data>
+  <data name="PresenceSubscriptionReceived3" xml:space="preserve">
+    <value>Om du nekar denna förfråga, kommer de att notifieras om att du inte går med på denna förfrågan.</value>
+  </data>
+  <data name="PresenceSubscriptionReceived4" xml:space="preserve">
+    <value>Du kan också välja att ignorera denna förfrågan. Då kommer inget svar att returneras till avsändaren.</value>
+  </data>
+  <data name="PresenceSubscriptionReceived5" xml:space="preserve">
+    <value>Vad vill du göra?</value>
+  </data>
+  <data name="PresenceSubscriptionRequest" xml:space="preserve">
+    <value>Förfrågan om närvaruprenumeration</value>
+  </data>
   <data name="ProductInformation" xml:space="preserve">
     <value>Produktinformation</value>
   </data>
@@ -893,6 +911,9 @@
   </data>
   <data name="Registry" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="Reject" xml:space="preserve">
+    <value>Neka</value>
   </data>
   <data name="RejectInformation" xml:space="preserve">
     <value>Neka</value>

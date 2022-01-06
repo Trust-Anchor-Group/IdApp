@@ -1254,6 +1254,36 @@
               Looks up a localized string similar to Please review all information above, and check the corresponding check boxes if the information is correct. This must be done before you can approve the information..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.PresenceSubscriptionReceived1">
+            <summary>
+              Looks up a localized string similar to You have received a presence subscription from:.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PresenceSubscriptionReceived2">
+            <summary>
+              Looks up a localized string similar to If you accept this request, they will see your online presence..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PresenceSubscriptionReceived3">
+            <summary>
+              Looks up a localized string similar to If you reject this request, they will be notified that you do not consent to this request..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PresenceSubscriptionReceived4">
+            <summary>
+              Looks up a localized string similar to You can also ignore the request. This will not return a response to the sender..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PresenceSubscriptionReceived5">
+            <summary>
+              Looks up a localized string similar to What do you want to do?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PresenceSubscriptionRequest">
+            <summary>
+              Looks up a localized string similar to Presence Subscription Request.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ProductInformation">
             <summary>
               Looks up a localized string similar to Product Information.
@@ -1357,6 +1387,11 @@
         <member name="P:IdApp.AppResources.Registry">
             <summary>
               Looks up a localized string similar to Registry.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Reject">
+            <summary>
+              Looks up a localized string similar to Reject.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.RejectInformation">
@@ -7405,6 +7440,50 @@
         <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.IsOnline">
             <summary>
             Gets or sets whether the application is online, i.e. has network access.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.SubscriptionRequest.PresenceRequestAction">
+            <summary>
+            How to respond to a presence subscription request.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.SubscriptionRequest.PresenceRequestAction.Accept">
+            <summary>
+            Accept request
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.SubscriptionRequest.PresenceRequestAction.Reject">
+            <summary>
+            Reject request
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Main.SubscriptionRequest.PresenceRequestAction.Ignore">
+            <summary>
+            Ignore request.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Main.SubscriptionRequest.SubscriptionRequestPopupPage">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.SubscriptionRequest.SubscriptionRequestPopupPage.#ctor(System.String)">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+            <param name="BareJid">Bare JID of sender of request.</param>
+        </member>
+        <member name="P:IdApp.Pages.Main.SubscriptionRequest.SubscriptionRequestPopupPage.BareJid">
+            <summary>
+            Bare JID of sender of request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Main.SubscriptionRequest.SubscriptionRequestPopupPage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Pages.Main.SubscriptionRequest.SubscriptionRequestPopupPage.Result">
+            <summary>
+            Task waiting for result. (null, null) means dialog was closed without providing a PIN.
             </summary>
         </member>
         <member name="T:IdApp.Pages.NeuronViewModel">

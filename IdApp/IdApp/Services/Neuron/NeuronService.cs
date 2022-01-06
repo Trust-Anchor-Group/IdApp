@@ -33,6 +33,7 @@ using Waher.Runtime.Settings;
 using Waher.Content;
 using IdApp.Services.Navigation;
 using Waher.Persistence;
+using IdApp.Pages.Main.SubscriptionRequest;
 
 namespace IdApp.Services.Neuron
 {
@@ -170,6 +171,8 @@ namespace IdApp.Services.Neuron
 					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
+					this.xmppClient.OnChatMessage += XmppClient_OnChatMessage;
+					this.xmppClient.OnPresenceSubscribe += XmppClient_OnPresenceSubscribe;
 
 					this.xmppClient.RegisterMessageHandler("Delivered", ContractsClient.NamespaceOnboarding, this.TransferIdDelivered, true);
 
@@ -220,7 +223,10 @@ namespace IdApp.Services.Neuron
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.ProvisioningJid))
 					{
 						Thread?.NewState("Prov");
-						this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid);
+						this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid)
+						{
+							ManagePresenceSubscriptionRequests = false
+						};
 					}
 
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
@@ -437,7 +443,12 @@ namespace IdApp.Services.Neuron
 							this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
 
 						if (this.provisioningClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
-							this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid);
+						{
+							this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid)
+							{
+								ManagePresenceSubscriptionRequests = false
+							};
+						}
 
 						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
 							this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
@@ -987,7 +998,7 @@ namespace IdApp.Services.Neuron
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
-			this.uiSerializer.BeginInvokeOnMainThread(async () => 
+			this.uiSerializer.BeginInvokeOnMainThread(async () =>
 				await NavigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}"));
 		}
 
@@ -1006,6 +1017,34 @@ namespace IdApp.Services.Neuron
 
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", CodesGenerated);
 			await Database.Provider.Flush();
+		}
+
+		private async Task XmppClient_OnPresenceSubscribe(object Sender, PresenceEventArgs e)
+		{
+			SubscriptionRequestPopupPage Page = new SubscriptionRequestPopupPage(e.FromBareJID);
+
+			await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
+			PresenceRequestAction Action = await Page.Result;
+
+			switch (Action)
+			{
+				case PresenceRequestAction.Accept:
+					e.Accept();
+					break;
+
+				case PresenceRequestAction.Reject:
+					e.Decline();
+					break;
+
+				case PresenceRequestAction.Ignore:
+				default:
+					break;
+			}
+		}
+
+		private Task XmppClient_OnChatMessage(object Sender, MessageEventArgs e)
+		{
+			return Task.CompletedTask;  // TODO
 		}
 	}
 }

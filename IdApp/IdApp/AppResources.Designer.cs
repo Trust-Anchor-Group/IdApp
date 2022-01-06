@@ -2203,6 +2203,60 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have received a presence subscription from:.
+        /// </summary>
+        internal static string PresenceSubscriptionReceived1 {
+            get {
+                return ResourceManager.GetString("PresenceSubscriptionReceived1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you accept this request, they will see your online presence..
+        /// </summary>
+        internal static string PresenceSubscriptionReceived2 {
+            get {
+                return ResourceManager.GetString("PresenceSubscriptionReceived2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you reject this request, they will be notified that you do not consent to this request..
+        /// </summary>
+        internal static string PresenceSubscriptionReceived3 {
+            get {
+                return ResourceManager.GetString("PresenceSubscriptionReceived3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can also ignore the request. This will not return a response to the sender..
+        /// </summary>
+        internal static string PresenceSubscriptionReceived4 {
+            get {
+                return ResourceManager.GetString("PresenceSubscriptionReceived4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What do you want to do?.
+        /// </summary>
+        internal static string PresenceSubscriptionReceived5 {
+            get {
+                return ResourceManager.GetString("PresenceSubscriptionReceived5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Presence Subscription Request.
+        /// </summary>
+        internal static string PresenceSubscriptionRequest {
+            get {
+                return ResourceManager.GetString("PresenceSubscriptionRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product Information.
         /// </summary>
         internal static string ProductInformation {
@@ -2388,6 +2442,15 @@ namespace IdApp {
         internal static string Registry {
             get {
                 return ResourceManager.GetString("Registry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reject.
+        /// </summary>
+        internal static string Reject {
+            get {
+                return ResourceManager.GetString("Reject", resourceCulture);
             }
         }
         
