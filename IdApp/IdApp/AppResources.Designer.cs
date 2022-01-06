@@ -2212,7 +2212,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you accept this request, they will see your online presence..
+        ///   Looks up a localized string similar to If you accept this request, they can see your online presence..
         /// </summary>
         internal static string PresenceSubscriptionReceived2 {
             get {
@@ -2230,7 +2230,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can also ignore the request. This will not return a response to the sender..
+        ///   Looks up a localized string similar to You can also ignore the request by closing the dialog without returning a response..
         /// </summary>
         internal static string PresenceSubscriptionReceived4 {
             get {

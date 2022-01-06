@@ -64,9 +64,10 @@ namespace IdApp.Popups.Xmpp.SubscriptionRequest
             return false;
         }
 
-        private void Close()
+        private async void Close()
         {
-            this.OnIgnore(this, EventArgs.Empty);
+            await PopupNavigation.Instance.PopAsync();
+            this.result.TrySetResult(PresenceRequestAction.Ignore);
         }
 
         private async void OnAccept(object sender, EventArgs e)
@@ -79,12 +80,6 @@ namespace IdApp.Popups.Xmpp.SubscriptionRequest
         {
             await PopupNavigation.Instance.PopAsync();
             this.result.TrySetResult(PresenceRequestAction.Reject);
-        }
-
-        private async void OnIgnore(object sender, EventArgs e)
-        {
-            await PopupNavigation.Instance.PopAsync();
-            this.result.TrySetResult(PresenceRequestAction.Ignore);
         }
 
         /// <summary>

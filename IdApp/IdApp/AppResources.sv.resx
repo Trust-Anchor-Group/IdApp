@@ -835,13 +835,13 @@
     <value>Du har mottagit en förfrågan att följa din närvaro från:</value>
   </data>
   <data name="PresenceSubscriptionReceived2" xml:space="preserve">
-    <value>Om du accepterar denna förfrågan, kommer de kunna se din närvaro online.</value>
+    <value>Om du accepterar denna förfrågan, kan de se din närvaro online.</value>
   </data>
   <data name="PresenceSubscriptionReceived3" xml:space="preserve">
     <value>Om du nekar denna förfråga, kommer de att notifieras om att du inte går med på denna förfrågan.</value>
   </data>
   <data name="PresenceSubscriptionReceived4" xml:space="preserve">
-    <value>Du kan också välja att ignorera denna förfrågan. Då kommer inget svar att returneras till avsändaren.</value>
+    <value>Du kan också välja att ignorera denna förfrågan genom att stänga fönstret utan att returnera ett svar.</value>
   </data>
   <data name="PresenceSubscriptionReceived5" xml:space="preserve">
     <value>Vad vill du göra?</value>
