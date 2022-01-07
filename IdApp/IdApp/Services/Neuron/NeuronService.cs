@@ -35,6 +35,7 @@ using Waher.Runtime.Settings;
 using Waher.Content;
 using Waher.Persistence;
 using IdApp.Popups.Xmpp.SubscribeTo;
+using System.Text;
 
 namespace IdApp.Services.Neuron
 {
@@ -1022,6 +1023,26 @@ namespace IdApp.Services.Neuron
 
 		private async Task XmppClient_OnPresenceSubscribe(object Sender, PresenceEventArgs e)
 		{
+			// TODO: Check Legal ID
+
+			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(e.FromBareJID);
+			if (!(ContactInfo is null) && ContactInfo.AllowSubscriptionFrom.HasValue)
+			{
+				if (ContactInfo.AllowSubscriptionFrom.Value)
+					e.Accept();
+				else
+					e.Decline();
+
+				if (string.IsNullOrWhiteSpace(ContactInfo.FriendlyName) ||
+					(ContactInfo.FriendlyName == e.FromBareJID && !string.IsNullOrWhiteSpace(e.NickName)))
+				{
+					ContactInfo.FriendlyName = string.IsNullOrWhiteSpace(e.NickName) ? e.FromBareJID : e.NickName;
+					await Database.Update(ContactInfo);
+				}
+
+				return;
+			}
+
 			SubscriptionRequestPopupPage SubscriptionRequestPage = new SubscriptionRequestPopupPage(e.FromBareJID);
 
 			await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscriptionRequestPage);
@@ -1032,13 +1053,44 @@ namespace IdApp.Services.Neuron
 				case PresenceRequestAction.Accept:
 					e.Accept();
 
+					if (ContactInfo is null)
+					{
+						ContactInfo = new ContactInfo()
+						{
+							AllowSubscriptionFrom = true,
+							BareJid = e.FromBareJID,
+							FriendlyName = string.IsNullOrWhiteSpace(e.NickName) ? e.FromBareJID : e.NickName,
+							IsThing = false
+						};
+
+						await Database.Insert(ContactInfo);
+					}
+					else if (!ContactInfo.AllowSubscriptionFrom.HasValue || !ContactInfo.AllowSubscriptionFrom.Value)
+					{
+						ContactInfo.AllowSubscriptionFrom = true;
+						await Database.Update(ContactInfo);
+					}
+
 					SubscribeToPopupPage SubscribeToPage = new SubscribeToPopupPage(e.FromBareJID);
 
 					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPage);
 					bool? SubscribeTo = await SubscribeToPage.Result;
 
 					if (SubscribeTo.HasValue && SubscribeTo.Value)
-						e.Client.RequestPresenceSubscription(e.FromBareJID);
+					{
+						string IdXml;
+
+						if (this.tagProfile.LegalIdentity is null)
+							IdXml = string.Empty;
+						else
+						{
+							StringBuilder Xml = new StringBuilder();
+							this.tagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+							IdXml = Xml.ToString();
+						}
+
+						e.Client.RequestPresenceSubscription(e.FromBareJID, IdXml);
+					}
 					break;
 
 				case PresenceRequestAction.Reject:
