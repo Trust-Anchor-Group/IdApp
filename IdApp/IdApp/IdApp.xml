@@ -1644,6 +1644,26 @@
               Looks up a localized string similar to Submit.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.SubscribeToPresence">
+            <summary>
+              Looks up a localized string similar to Subscribe to presence?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SubscribeToPresence1">
+            <summary>
+              Looks up a localized string similar to Do you want to subscribe to the presence of:.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SubscribeToPresence2">
+            <summary>
+              Looks up a localized string similar to By subscribing to the presence of someone, and if they accept, you will be notified of their online presence..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SubscribeToPresence3">
+            <summary>
+              Looks up a localized string similar to What do you want to do?.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.SuccessTitle">
             <summary>
               Looks up a localized string similar to Success.
@@ -10642,6 +10662,30 @@
             Task waiting for result. null means dialog was closed without providing a PIN.
             </summary>
         </member>
+        <member name="T:IdApp.Popups.Xmpp.SubscribeTo.SubscribeToPopupPage">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.SubscribeTo.SubscribeToPopupPage.#ctor(System.String)">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+            <param name="BareJid">Bare JID of sender of request.</param>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscribeTo.SubscribeToPopupPage.BareJid">
+            <summary>
+            Bare JID of sender of request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.SubscribeTo.SubscribeToPopupPage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscribeTo.SubscribeToPopupPage.Result">
+            <summary>
+            Task waiting for result.
+            </summary>
+        </member>
         <member name="T:IdApp.Popups.Xmpp.SubscriptionRequest.PresenceRequestAction">
             <summary>
             How to respond to a presence subscription request.
@@ -10683,7 +10727,7 @@
         </member>
         <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.Result">
             <summary>
-            Task waiting for result. (null, null) means dialog was closed without providing a PIN.
+            Task waiting for result.
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">

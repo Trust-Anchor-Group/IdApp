@@ -34,6 +34,7 @@ using Waher.Content.Xml;
 using Waher.Runtime.Settings;
 using Waher.Content;
 using Waher.Persistence;
+using IdApp.Popups.Xmpp.SubscribeTo;
 
 namespace IdApp.Services.Neuron
 {
@@ -1021,15 +1022,23 @@ namespace IdApp.Services.Neuron
 
 		private async Task XmppClient_OnPresenceSubscribe(object Sender, PresenceEventArgs e)
 		{
-			SubscriptionRequestPopupPage Page = new SubscriptionRequestPopupPage(e.FromBareJID);
+			SubscriptionRequestPopupPage SubscriptionRequestPage = new SubscriptionRequestPopupPage(e.FromBareJID);
 
-			await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
-			PresenceRequestAction Action = await Page.Result;
+			await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscriptionRequestPage);
+			PresenceRequestAction Action = await SubscriptionRequestPage.Result;
 
 			switch (Action)
 			{
 				case PresenceRequestAction.Accept:
 					e.Accept();
+
+					SubscribeToPopupPage SubscribeToPage = new SubscribeToPopupPage(e.FromBareJID);
+
+					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPage);
+					bool? SubscribeTo = await SubscribeToPage.Result;
+
+					if (SubscribeTo.HasValue && SubscribeTo.Value)
+						e.Client.RequestPresenceSubscription(e.FromBareJID);
 					break;
 
 				case PresenceRequestAction.Reject:

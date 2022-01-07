@@ -1071,6 +1071,18 @@
   <data name="Submit" xml:space="preserve">
     <value>Skicka in</value>
   </data>
+  <data name="SubscribeToPresence" xml:space="preserve">
+    <value>Prenumerera på närvaro?</value>
+  </data>
+  <data name="SubscribeToPresence1" xml:space="preserve">
+    <value>Vill du prenumerera på närvaroinformation från:</value>
+  </data>
+  <data name="SubscribeToPresence2" xml:space="preserve">
+    <value>Genom att prenumerera på online-prenumeration från någon, och om de accepterar, kommer du att notiferas om deras online-närvaro.</value>
+  </data>
+  <data name="SubscribeToPresence3" xml:space="preserve">
+    <value>Vad vill du göra?</value>
+  </data>
   <data name="SuccessTitle" xml:space="preserve">
     <value>Operationen lyckades</value>
   </data>

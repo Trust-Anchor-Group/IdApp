@@ -2905,6 +2905,42 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscribe to presence?.
+        /// </summary>
+        internal static string SubscribeToPresence {
+            get {
+                return ResourceManager.GetString("SubscribeToPresence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to subscribe to the presence of:.
+        /// </summary>
+        internal static string SubscribeToPresence1 {
+            get {
+                return ResourceManager.GetString("SubscribeToPresence1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to By subscribing to the presence of someone, and if they accept, you will be notified of their online presence..
+        /// </summary>
+        internal static string SubscribeToPresence2 {
+            get {
+                return ResourceManager.GetString("SubscribeToPresence2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What do you want to do?.
+        /// </summary>
+        internal static string SubscribeToPresence3 {
+            get {
+                return ResourceManager.GetString("SubscribeToPresence3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
         internal static string SuccessTitle {

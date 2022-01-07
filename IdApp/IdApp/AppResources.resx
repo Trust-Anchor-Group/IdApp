@@ -1320,4 +1320,16 @@
   <data name="Reject" xml:space="preserve">
     <value>Reject</value>
   </data>
+  <data name="SubscribeToPresence1" xml:space="preserve">
+    <value>Do you want to subscribe to the presence of:</value>
+  </data>
+  <data name="SubscribeToPresence2" xml:space="preserve">
+    <value>By subscribing to the presence of someone, and if they accept, you will be notified of their online presence.</value>
+  </data>
+  <data name="SubscribeToPresence3" xml:space="preserve">
+    <value>What do you want to do?</value>
+  </data>
+  <data name="SubscribeToPresence" xml:space="preserve">
+    <value>Subscribe to presence?</value>
+  </data>
 </root>
