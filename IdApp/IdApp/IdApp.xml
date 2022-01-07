@@ -6508,69 +6508,6 @@
             Makes the user control flip from front to back, or the other way around.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Main.Image.ImageView">
-            <summary>
-            A generic UI component to display an image.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Image.ImageView.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Main.Image.ImageView"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Image.ImageView.ShowPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
-            <summary>
-            Shows the attachments photos in the current view.
-            </summary>
-            <param name="attachments">The attachments to show.</param>
-        </member>
-        <member name="M:IdApp.Pages.Main.Image.ImageView.HidePhotos">
-            <summary>
-            Hides the photos from view.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Image.ImageView.PhotosAreShowing">
-            <summary>
-            Gets if photos are showing or not.
-            </summary>
-            <returns>If photos are showing</returns>
-        </member>
-        <member name="T:IdApp.Pages.Main.Image.ImageViewModel">
-            <summary>
-             The class to use as binding context for displaying images.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Image.ImageViewModel.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Main.Image.ImageViewModel"/> class.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Image.ImageViewModel.Photos">
-            <summary>
-            Holds the list of photos to display.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.Image.ImageViewModel.IsSwipeEnabledProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.Image.ImageViewModel.IsSwipeEnabled"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Image.ImageViewModel.IsSwipeEnabled">
-            <summary>
-            Gets or sets whether a user can swipe to see the photos.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Image.ImageViewModel.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
-            <summary>
-            Loads the attachments photos, if there are any.
-            </summary>
-            <param name="attachments">The attachments to load.</param>
-        </member>
-        <member name="M:IdApp.Pages.Main.Image.ImageViewModel.ClearPhotos">
-            <summary>
-            Clears the currently displayed photos.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
             <summary>
             A page to use when the application is loading, or initializing.
@@ -10598,6 +10535,69 @@
         <member name="P:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.ShareCommand">
             <summary>
             The command to bind to for sharing the QR code
+            </summary>
+        </member>
+        <member name="T:IdApp.Popups.Photos.Image.ImageView">
+            <summary>
+            A generic UI component to display an image.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Photos.Image.ImageView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Popups.Photos.Image.ImageView"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Photos.Image.ImageView.ShowPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
+            <summary>
+            Shows the attachments photos in the current view.
+            </summary>
+            <param name="attachments">The attachments to show.</param>
+        </member>
+        <member name="M:IdApp.Popups.Photos.Image.ImageView.HidePhotos">
+            <summary>
+            Hides the photos from view.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Photos.Image.ImageView.PhotosAreShowing">
+            <summary>
+            Gets if photos are showing or not.
+            </summary>
+            <returns>If photos are showing</returns>
+        </member>
+        <member name="T:IdApp.Popups.Photos.Image.ImageViewModel">
+            <summary>
+             The class to use as binding context for displaying images.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Photos.Image.ImageViewModel.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Popups.Photos.Image.ImageViewModel"/> class.
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Photos.Image.ImageViewModel.Photos">
+            <summary>
+            Holds the list of photos to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.Popups.Photos.Image.ImageViewModel.IsSwipeEnabledProperty">
+            <summary>
+            See <see cref="P:IdApp.Popups.Photos.Image.ImageViewModel.IsSwipeEnabled"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Photos.Image.ImageViewModel.IsSwipeEnabled">
+            <summary>
+            Gets or sets whether a user can swipe to see the photos.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Photos.Image.ImageViewModel.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[])">
+            <summary>
+            Loads the attachments photos, if there are any.
+            </summary>
+            <param name="attachments">The attachments to load.</param>
+        </member>
+        <member name="M:IdApp.Popups.Photos.Image.ImageViewModel.ClearPhotos">
+            <summary>
+            Clears the currently displayed photos.
             </summary>
         </member>
         <member name="T:IdApp.Popups.Pin.ChangePin.ChangePinPopupPage">

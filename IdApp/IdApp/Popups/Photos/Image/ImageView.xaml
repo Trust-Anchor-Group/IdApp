@@ -4,9 +4,9 @@
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:idApp="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
-                       xmlns:model="clr-namespace:IdApp.Pages.Main.Image;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
                        x:DataType="model:ImageViewModel"
-                       x:Class="IdApp.Pages.Main.Image.ImageView">
+                       x:Class="IdApp.Popups.Photos.Image.ImageView">
     <ContentView.Content>
         <Frame x:Name="PhotoViewer" HasShadow="true" BackgroundColor="{DynamicResource HeadingBackgroundTranslucent}" 
                Opacity="0" HorizontalOptions="Center" VerticalOptions="Center">

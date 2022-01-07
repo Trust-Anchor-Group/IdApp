@@ -6,7 +6,7 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Registration.ValidateIdentity;assembly=IdApp"
-                       xmlns:image="clr-namespace:IdApp.Pages.Main.Image;assembly=IdApp"
+                       xmlns:image="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
                        x:DataType="model:ValidateIdentityViewModel"
                        x:Class="IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityView">
     <ContentView.Content>

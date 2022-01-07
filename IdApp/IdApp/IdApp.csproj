@@ -138,7 +138,7 @@
     <Compile Update="Pages\Identity\TransferIdentity\TransferIdentityPage.xaml.cs">
       <DependentUpon>TransferIdentityPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\Main\Image\ImageView.xaml.cs">
+    <Compile Update="Popups\Photos\Image\ImageView.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
     <Compile Update="Pages\Main\Loading\LoadingPage.xaml.cs">

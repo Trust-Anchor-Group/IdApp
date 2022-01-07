@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using IdApp.Pages;
 using IdApp.Services.AttachmentCache;
 using IdApp.Services.EventLog;
 using IdApp.Services.Network;
@@ -8,7 +9,7 @@ using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
-namespace IdApp.Pages.Main.Image
+namespace IdApp.Popups.Photos.Image
 {
     /// <summary>
     ///  The class to use as binding context for displaying images.

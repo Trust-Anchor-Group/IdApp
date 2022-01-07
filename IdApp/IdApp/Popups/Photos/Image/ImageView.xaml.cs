@@ -5,7 +5,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Waher.Networking.XMPP.Contracts;
 
-namespace IdApp.Pages.Main.Image
+namespace IdApp.Popups.Photos.Image
 {
     /// <summary>
     /// A generic UI component to display an image.
