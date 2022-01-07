@@ -23,6 +23,7 @@ using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
+using IdApp.Pages.Identity.ViewIdentity;
 
 namespace IdApp.Pages.Main.Main
 {
@@ -75,6 +76,7 @@ namespace IdApp.Pages.Main.Main
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiSerializer,
 				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
 
+			this.ViewMyIdentityCommand = new Command(async () => await ViewMyIdentity(), () => this.IsConnected);
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
 			this.ViewMyThingsCommand = new Command(async () => await ViewMyThings(), () => this.IsConnected);
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
@@ -191,6 +193,21 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		#region Properties
+
+		/// <summary>
+		/// See <see cref="ViewMyIdentityCommand"/>
+		/// </summary>
+		public static readonly BindableProperty ViewMyIdentityCommandProperty =
+			BindableProperty.Create("ViewMyIdentityCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+
+		/// <summary>
+		/// The command to bind to for viewing the user's own contracts.
+		/// </summary>
+		public ICommand ViewMyIdentityCommand
+		{
+			get { return (ICommand)GetValue(ViewMyIdentityCommandProperty); }
+			set { SetValue(ViewMyIdentityCommandProperty, value); }
+		}
 
 		/// <summary>
 		/// See <see cref="ViewMyContactsCommand"/>
@@ -616,6 +633,11 @@ namespace IdApp.Pages.Main.Main
 
 		#endregion
 
+		private async Task ViewMyIdentity()
+		{
+			await this.navigationService.GoToAsync(nameof(ViewIdentityPage));
+		}
+
 		private async Task ViewMyContacts()
 		{
 			await this.navigationService.GoToAsync(nameof(MyContactsPage), 
@@ -717,8 +739,8 @@ namespace IdApp.Pages.Main.Main
 					this.ConnectionErrorsText = string.Empty;
 				
 				this.HasConnectionErrors = !string.IsNullOrWhiteSpace(this.ConnectionErrorsText);
-				this.EvaluateCommands(this.ViewMyContactsCommand, this.ViewMyThingsCommand, this.ScanQrCodeCommand,
-					this.ViewSignedContractsCommand, this.ViewWalletCommand);
+				this.EvaluateCommands(this.ViewMyIdentityCommand, this.ViewMyContactsCommand, this.ViewMyThingsCommand, 
+					this.ScanQrCodeCommand, this.ViewSignedContractsCommand, this.ViewWalletCommand);
 			}
 			catch (Exception ex)
 			{

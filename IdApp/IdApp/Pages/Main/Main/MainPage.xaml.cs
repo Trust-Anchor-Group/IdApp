@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Pages.Main.Shell;
+using System;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Main.Main

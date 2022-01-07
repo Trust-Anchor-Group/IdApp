@@ -6791,6 +6791,16 @@
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.DoUnbind">
             <inheritdoc />
         </member>
+        <member name="F:IdApp.Pages.Main.Main.MainViewModel.ViewMyIdentityCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.ViewMyIdentityCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Main.Main.MainViewModel.ViewMyIdentityCommand">
+            <summary>
+            The command to bind to for viewing the user's own contracts.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Main.Main.MainViewModel.ViewMyContactsCommandProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Main.MainViewModel.ViewMyContactsCommand"/>

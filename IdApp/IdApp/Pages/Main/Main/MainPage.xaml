@@ -70,6 +70,9 @@
                                 HorizontalOptions="StartAndExpand" LineBreakMode="WordWrap" IsVisible="{Binding Path=HasConnectionErrors}" />
                     </Grid>
                     <BoxView Color="{StaticResource AccentColor}" HeightRequest="3" VerticalOptions="Start" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Path=ViewMyIdentityCommand}" CommandParameter="{Binding .}"/>
+                    </StackLayout.GestureRecognizers>
                 </StackLayout>
                 <flipView:FlipView Grid.Column="1" Grid.Row="1" WidthRequest="340" VerticalOptions="FillAndExpand" x:Name="IdCard" HorizontalOptions="Center">
                     <flipView:FlipView.GestureRecognizers>
