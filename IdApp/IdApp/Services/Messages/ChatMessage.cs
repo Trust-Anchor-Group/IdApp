@@ -56,7 +56,8 @@ namespace IdApp.Services.Messages
 		{
 			this.Updated = DateTime.MinValue;
 	
-			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter));
+			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.Xmpp));
+			this.IotIdUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.IotId));
 		}
 
 		/// <summary>
@@ -250,10 +251,15 @@ namespace IdApp.Services.Messages
 		/// </summary>
 		public ICommand XmppUriClicked { get; }
 
-		private Task ExecuteXmppUriClicked(object Parameter)
+		/// <summary>
+		/// Command executed when a multi-media-link with the iotid URI scheme is clicked.
+		/// </summary>
+		public ICommand IotIdUriClicked { get; }
+
+		private Task ExecuteXmppUriClicked(object Parameter, UriScheme Scheme)
 		{
 			if (Parameter is string Uri && !(this.chatView is null))
-				return this.chatView.ExecuteXmppUriClicked(this, Uri);
+				return this.chatView.ExecuteXmppUriClicked(this, Uri, Scheme);
 			else
 				return Task.CompletedTask;
 		}

@@ -3745,12 +3745,13 @@
             Command executed when a message has been selected (or deselected) in the list view.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String,IdApp.Pages.Contacts.Chat.UriScheme)">
             <summary>
             Called when a Multi-media URI link using the XMPP URI scheme.
             </summary>
             <param name="Message">Message containing the URI.</param>
             <param name="Uri">URI</param>
+            <param name="Scheme">URI Scheme</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ProcessXmppUri(System.String)">
             <summary>
@@ -3768,17 +3769,58 @@
             <param name="TagProfile">TAG Profile</param>
             <returns>If URI could be processed.</returns>
         </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.UriScheme">
+            <summary>
+            URI Scheme
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.Xmpp">
+            <summary>
+            XMPP URI Scheme (xmpp)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.IotId">
+            <summary>
+            IoTID URI Scheme (iotid)
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.IChatView">
             <summary>
             Interfaces for views displaying markdown
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.IChatView.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String)">
+        <member name="M:IdApp.Pages.Contacts.Chat.IChatView.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String,IdApp.Pages.Contacts.Chat.UriScheme)">
             <summary>
-            Called when a Multi-media URI link using the XMPP URI scheme.
+            Called when a special Multi-media URI link has been clicked.
             </summary>
             <param name="Message">Message containing the URI.</param>
             <param name="Uri">URI</param>
+            <param name="Scheme">URI Scheme</param>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme">
+            <summary>
+            Implements the iotid URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.#ctor">
+            <summary>
+            Implements the iotid URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme">
             <summary>
@@ -12141,6 +12183,11 @@
         <member name="P:IdApp.Services.Messages.ChatMessage.XmppUriClicked">
             <summary>
             Command executed when a multi-media-link with the xmpp URI scheme is clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.IotIdUriClicked">
+            <summary>
+            Command executed when a multi-media-link with the iotid URI scheme is clicked.
             </summary>
         </member>
         <member name="T:IdApp.Services.Messages.MessageTypeTemplateSelector">

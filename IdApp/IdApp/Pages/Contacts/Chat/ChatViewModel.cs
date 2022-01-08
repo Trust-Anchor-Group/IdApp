@@ -27,6 +27,10 @@ using IdApp.Services.Neuron;
 using IdApp.Services.Messages;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
+using IdApp.Services.UI.QR;
+using IdApp.Services.Contracts;
+using IdApp.Services.ThingRegistries;
+using IdApp.Services.Wallet;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -689,9 +693,20 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		/// <param name="Message">Message containing the URI.</param>
 		/// <param name="Uri">URI</param>
-		public Task ExecuteXmppUriClicked(ChatMessage Message, string Uri)
+		/// <param name="Scheme">URI Scheme</param>
+		public Task ExecuteXmppUriClicked(ChatMessage Message, string Uri, UriScheme Scheme)
 		{
-			return ProcessXmppUri(Uri, this.NeuronService, this.TagProfile);
+			switch (Scheme)
+			{
+				case UriScheme.Xmpp:
+					return ProcessXmppUri(Uri, this.NeuronService, this.TagProfile);
+
+				default:
+					return QrCode.OpenUrl(Uri, this.logService, this.NeuronService, this.UiSerializer,
+						App.Instantiate<IContractOrchestratorService>(),
+						App.Instantiate<IThingRegistryOrchestratorService>(),
+						App.Instantiate<IEDalerOrchestratorService>());
+			}
 		}
 
 		/// <summary>
