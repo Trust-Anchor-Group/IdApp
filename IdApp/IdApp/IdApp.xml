@@ -3781,7 +3781,12 @@
         </member>
         <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.IotId">
             <summary>
-            IoTID URI Scheme (iotid)
+            IoT ID URI Scheme (iotid)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.IotSc">
+            <summary>
+            IoT Smart Contract URI Scheme (iotSc)
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.IChatView">
@@ -3820,6 +3825,31 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme">
+            <summary>
+            Implements the iotid URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.#ctor">
+            <summary>
+            Implements the iotid URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme">
@@ -12188,6 +12218,11 @@
         <member name="P:IdApp.Services.Messages.ChatMessage.IotIdUriClicked">
             <summary>
             Command executed when a multi-media-link with the iotid URI scheme is clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.IotScUriClicked">
+            <summary>
+            Command executed when a multi-media-link with the iotsc URI scheme is clicked.
             </summary>
         </member>
         <member name="T:IdApp.Services.Messages.MessageTypeTemplateSelector">

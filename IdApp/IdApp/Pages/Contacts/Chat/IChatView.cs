@@ -15,9 +15,14 @@ namespace IdApp.Pages.Contacts.Chat
 		Xmpp,
 
 		/// <summary>
-		/// IoTID URI Scheme (iotid)
+		/// IoT ID URI Scheme (iotid)
 		/// </summary>
-		IotId
+		IotId,
+
+		/// <summary>
+		/// IoT Smart Contract URI Scheme (iotSc)
+		/// </summary>
+		IotSc
 	}
 
 	/// <summary>

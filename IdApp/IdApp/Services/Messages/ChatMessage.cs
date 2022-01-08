@@ -58,6 +58,7 @@ namespace IdApp.Services.Messages
 	
 			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.Xmpp));
 			this.IotIdUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.IotId));
+			this.IotScUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.IotSc));
 		}
 
 		/// <summary>
@@ -255,6 +256,11 @@ namespace IdApp.Services.Messages
 		/// Command executed when a multi-media-link with the iotid URI scheme is clicked.
 		/// </summary>
 		public ICommand IotIdUriClicked { get; }
+
+		/// <summary>
+		/// Command executed when a multi-media-link with the iotsc URI scheme is clicked.
+		/// </summary>
+		public ICommand IotScUriClicked { get; }
 
 		private Task ExecuteXmppUriClicked(object Parameter, UriScheme Scheme)
 		{
