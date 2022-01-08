@@ -13,15 +13,18 @@ using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
 using Waher.Content.Xml;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
+using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Services;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Messages;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
-using Waher.Networking.XMPP.HttpFileUpload;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -34,6 +37,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
+		private TaskCompletionSource<bool> waitUntilBound = new TaskCompletionSource<bool>();
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
@@ -69,6 +73,8 @@ namespace IdApp.Pages.Contacts.Chat
 			this.EmbedContract = new Command(async _ => await this.ExecuteEmbedContract(), _ => this.CanExecuteEmbedContract());
 			this.EmbedMoney = new Command(async _ => await this.ExecuteEmbedMoney(), _ => this.CanExecuteEmbedMoney());
 			this.EmbedThing = new Command(async _ => await this.ExecuteEmbedThing(), _ => this.CanExecuteEmbedThing());
+
+			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter));
 		}
 
 		/// <inheritdoc/>
@@ -100,6 +106,8 @@ namespace IdApp.Pages.Contacts.Chat
 			this.ExistsMoreMessages = c <= 0;
 
 			this.EvaluateAllCommands();
+
+			this.waitUntilBound.TrySetResult(true);
 		}
 
 		/// <inheritdoc/>
@@ -107,6 +115,8 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			this.Messages.Clear();
 			await base.DoUnbind();
+
+			this.waitUntilBound = new TaskCompletionSource<bool>();
 		}
 
 		private void EvaluateAllCommands()
@@ -512,6 +522,8 @@ namespace IdApp.Pages.Contacts.Chat
 				await Slot.PUT(Bin, ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
 				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(FileName) + "](" + Slot.GetUrl + ")");
 
+				// TODO: File Transfer instead of HTTP File Upload
+
 				if (DeleteFile)
 					File.Delete(FilePath);
 			}
@@ -559,7 +571,43 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedId()
 		{
-			// TODO
+			TaskCompletionSource<ContactInfo> SelectedContact = new TaskCompletionSource<ContactInfo>();
+
+			await this.navigationService.GoToAsync(nameof(MyContactsPage),
+				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact));
+
+			ContactInfo Contact = await SelectedContact.Task;
+			if (Contact is null)
+				return;
+
+			await this.waitUntilBound.Task;		// Wait until view is bound again.
+
+			if (!(Contact.LegalIdentity is null))
+			{
+				StringBuilder Markdown = new StringBuilder();
+
+				Markdown.AppendLine("```iotid");
+
+				Contact.LegalIdentity.Serialize(Markdown, true, true, true, true, true, true, true);
+
+				Markdown.AppendLine();
+				Markdown.AppendLine("```");
+
+				await this.ExecuteSendMessage(string.Empty, Markdown.ToString());
+				return;
+			}
+
+			if (!string.IsNullOrEmpty(Contact.LegalId))
+			{
+				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(Contact.FriendlyName) + "](" + ContractsClient.LegalIdUriString(Contact.LegalId) + ")");
+				return;
+			}
+
+			if (!string.IsNullOrEmpty(Contact.BareJid))
+			{
+				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(Contact.FriendlyName) + "](xmpp:" + Contact.BareJid + "?subscribe)");
+				return;
+			}
 		}
 
 		/// <summary>
@@ -607,6 +655,13 @@ namespace IdApp.Pages.Contacts.Chat
 			// TODO
 		}
 
+		/// <summary>
+		/// Command executed when a multi-media-link with the xmpp URI scheme is clicked.
+		/// </summary>
+		public ICommand XmppUriClicked { get; }
 
+		private async Task ExecuteXmppUriClicked(object Parameter)
+		{
+		}
 	}
 }

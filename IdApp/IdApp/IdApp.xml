@@ -2271,6 +2271,28 @@
         <member name="M:IdApp.Behaviors.TextChangedBehavior.OnDetachingFrom(Xamarin.Forms.Entry)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Behaviors.UnfocusOnClickedBehavior">
+            <summary>
+            Used for unfocusing an input control.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.UnfocusOnClickedBehavior.UnfocusControl">
+            <summary>
+            The view to unfocus.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.UnfocusOnClickedBehavior.OnAttachedTo(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.UnfocusOnClickedBehavior.OnDetachingFrom(Xamarin.Forms.Button)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.UnfocusOnClickedBehavior.Unfocus(Xamarin.Forms.View)">
+            <summary>
+            Sets focus on an element.
+            </summary>
+            <param name="Element">Element to focus on.</param>
+        </member>
         <member name="T:IdApp.Constants">
             <summary>
             A set of never changing property constants and helpful values.
@@ -3703,6 +3725,36 @@
             Command to embed a reference to a thing
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppUriClicked">
+            <summary>
+            Command executed when a multi-media-link with the xmpp URI scheme is clicked.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme">
+            <summary>
+            Implements the XMPP URI Scheme, as defined in XEP-0147: https://xmpp.org/extensions/xep-0147.html
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.#ctor">
+            <summary>
+            Implements the XMPP URI Scheme, as defined in XEP-0147: https://xmpp.org/extensions/xep-0147.html
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.SelectContactAction">
             <summary>
             Actions to take when a contact has been selected.
@@ -3718,6 +3770,11 @@
             View the identity.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.SelectContactAction.Select">
+            <summary>
+            Embed link to ID in chat
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.ContactListNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a list of contacts.
@@ -3730,6 +3787,13 @@
             <param name="Description">Description presented to user.</param>
             <param name="Action">Action to take when a contact has been selected.</param>
         </member>
+        <member name="M:IdApp.Pages.Contacts.ContactListNavigationArgs.#ctor(System.String,System.Threading.Tasks.TaskCompletionSource{IdApp.Services.ContactInfo})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            </summary>
+            <param name="Description">Description presented to user.</param>
+            <param name="Selection">Selection source, where selected item will be stored, or null if cancelled.</param>
+        </member>
         <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Description">
             <summary>
             Description presented to user.
@@ -3738,6 +3802,11 @@
         <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Action">
             <summary>
             Action to take when a contact has been selected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.ContactListNavigationArgs.Selection">
+            <summary>
+            Selection source, if selecting identity.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.ContactListViewModel">

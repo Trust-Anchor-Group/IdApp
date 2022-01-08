@@ -10,7 +10,8 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:ChatViewModel"
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
-                       Title="{Binding Path=FriendlyName}">
+                       Title="{Binding Path=FriendlyName}"
+                       x:Name="MarkdownView">
     <views:ContentBasePage.Resources>
         <DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
             <ViewCell>
@@ -81,7 +82,11 @@
                     <Button Text="{x:Static local:FontAwesome.PaperPlane}" IsVisible="{Binding Path=IsWriting}"
                         FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
                         CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding SendCommand}" 
-                        HorizontalOptions="End" VerticalOptions="Center"/>
+                        HorizontalOptions="End" VerticalOptions="Center">
+                        <Button.Behaviors>
+                            <behaviors:UnfocusOnClickedBehavior UnfocusControl="EditorControl"/>
+                        </Button.Behaviors>
+                    </Button>
                 </StackLayout>
             </Grid>
             <Frame.Behaviors>

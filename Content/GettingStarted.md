@@ -59,6 +59,7 @@ if (!Types.IsInitialized)
         typeof(XmppClient).Assembly,                // Serialization of general XMPP objects
         typeof(ContractsClient).Assembly,           // Serialization of XMPP objects related to digital identities and smart contracts
         typeof(Expression).Assembly,                // Indexes basic script functions
+        typeof(MarkdownDocument).Assembly,          // Indexes basic Markdown interfaces
         typeof(XmppServerlessMessaging).Assembly,   // Indexes End-to-End encryption mechanisms
         typeof(TagConfiguration).Assembly,          // Indexes persistable objects
         typeof(RegistrationStep).Assembly);         // Indexes persistable objects

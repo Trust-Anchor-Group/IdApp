@@ -1,4 +1,6 @@
-﻿using IdApp.Services.Navigation;
+﻿using IdApp.Services;
+using IdApp.Services.Navigation;
+using System.Threading.Tasks;
 
 namespace IdApp.Pages.Contacts
 {
@@ -15,7 +17,12 @@ namespace IdApp.Pages.Contacts
         /// <summary>
         /// View the identity.
         /// </summary>
-        ViewIdentity
+        ViewIdentity,
+
+        /// <summary>
+        /// Embed link to ID in chat
+        /// </summary>
+        Select
     }
 
     /// <summary>
@@ -25,6 +32,7 @@ namespace IdApp.Pages.Contacts
     {
         private readonly string description;
         private readonly SelectContactAction action;
+        private readonly TaskCompletionSource<ContactInfo> selection;
 
         /// <summary>
         /// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
@@ -38,6 +46,17 @@ namespace IdApp.Pages.Contacts
         }
 
         /// <summary>
+        /// Creates an instance of the <see cref="ContactListNavigationArgs"/> class.
+        /// </summary>
+        /// <param name="Description">Description presented to user.</param>
+        /// <param name="Selection">Selection source, where selected item will be stored, or null if cancelled.</param>
+        public ContactListNavigationArgs(string Description, TaskCompletionSource<ContactInfo> Selection)
+            : this(Description, SelectContactAction.Select)
+        {
+            this.selection = Selection;
+        }
+
+        /// <summary>
         /// Description presented to user.
         /// </summary>
         public string Description => this.description;
@@ -46,5 +65,10 @@ namespace IdApp.Pages.Contacts
         /// Action to take when a contact has been selected.
         /// </summary>
         public SelectContactAction Action => this.action;
+
+        /// <summary>
+        /// Selection source, if selecting identity.
+        /// </summary>
+        public TaskCompletionSource<ContactInfo> Selection => this.selection;
     }
 }

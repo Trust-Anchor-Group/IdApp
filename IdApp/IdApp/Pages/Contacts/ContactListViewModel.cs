@@ -29,6 +29,7 @@ namespace IdApp.Pages.Contacts
 		private readonly INetworkService networkService;
 		private readonly INavigationService navigationService;
 		private readonly IUiSerializer uiSerializer;
+		private TaskCompletionSource<ContactInfo> selection;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
@@ -64,11 +65,13 @@ namespace IdApp.Pages.Contacts
 			{
 				this.Description = args.Description;
 				this.Action = args.Action;
+				this.selection = args.Selection;
 			}
 			else
 			{
 				this.Description = AppResources.ContactsDescription;
 				this.Action = SelectContactAction.ViewIdentity;
+				this.selection = null;
 			}
 
 			SortedDictionary<string, ContactInfo> Sorted = new SortedDictionary<string, ContactInfo>();
@@ -105,8 +108,14 @@ namespace IdApp.Pages.Contacts
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.ShowContactsMissing = false;
-			this.Contacts.Clear();
+			if (this.Action != SelectContactAction.Select)
+			{
+				this.ShowContactsMissing = false;
+				this.Contacts.Clear();
+			}
+
+			this.selection?.TrySetResult(null);
+
 			await base.DoUnbind();
 		}
 
@@ -218,6 +227,11 @@ namespace IdApp.Pages.Contacts
 										await viewModel.navigationService.GoToAsync(nameof(ChatPage), 
 											new ChatNavigationArgs(Contact.BareJid, Contact.FriendlyName));
 									}
+									break;
+
+								case SelectContactAction.Select:
+									viewModel.selection?.TrySetResult(Contact);
+									await viewModel.navigationService.GoBackAsync();
 									break;
 							}
 						});
