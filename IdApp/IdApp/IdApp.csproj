@@ -95,7 +95,7 @@
     <EmbeddedResource Update="Pages\Main\Main\MainPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\Main\MainTabBar\MainTabBarView.xaml">
+    <EmbeddedResource Update="Controls\MainTabBar\MainTabBarView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Registration\ChooseAccount\ChooseAccountView.xaml">

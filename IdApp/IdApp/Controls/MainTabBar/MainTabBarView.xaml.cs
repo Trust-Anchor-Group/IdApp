@@ -5,7 +5,7 @@ using IdApp.Services.EventLog;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace IdApp.Pages.Main.MainTabBar
+namespace IdApp.Controls.MainTabBar
 {
 	/// <summary>
 	/// Represents the main tab bar in the Main page of the application.

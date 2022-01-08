@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <content:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:flipView="clr-namespace:IdApp.Pages.Main.FlipView;assembly=IdApp"
+                       xmlns:flipView="clr-namespace:IdApp.Controls.FlipView;assembly=IdApp"
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
-                       xmlns:mainTabBar="clr-namespace:IdApp.Pages.Main.MainTabBar;assembly=IdApp"
+                       xmlns:mainTabBar="clr-namespace:IdApp.Controls.MainTabBar;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Main.Main;assembly=IdApp" 
                        xmlns:content="clr-namespace:IdApp.Pages;assembly=IdApp" 
                        x:DataType="model:MainViewModel"

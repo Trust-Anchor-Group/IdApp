@@ -2531,6 +2531,212 @@
             Download file timeout
             </summary>
         </member>
+        <member name="T:IdApp.Controls.FlipView.FlipView">
+            <summary>
+            The FlipView is a user control that holds two child controls: a <see cref="P:IdApp.Controls.FlipView.FlipView.FrontView"/> and a <see cref="P:IdApp.Controls.FlipView.FlipView.BackView"/>.
+            It can be flipped like a coin when the user taps on it. In order to flip the view, simply call the <see cref="M:IdApp.Controls.FlipView.FlipView.Flip"/> method.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.FlipView.FlipView.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Controls.FlipView.FlipView"/> control.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.FlipView.FlipView.FrontViewProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.FlipView.FlipView.FrontView">
+            <summary>
+            The view displayed on the 'front' side of this user control.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.FlipView.FlipView.BackViewProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.FlipView.FlipView.BackView">
+            <summary>
+            The view displayed on the 'back' side of this user control.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.FlipView.FlipView.Flip">
+            <summary>
+            Makes the user control flip from front to back, or the other way around.
+            </summary>
+        </member>
+        <member name="T:IdApp.Controls.MainTabBar.MainTabBarView">
+            <summary>
+            Represents the main tab bar in the Main page of the application.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.MainTabBar.MainTabBarView.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Controls.MainTabBar.MainTabBarView"/> class.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Command">
+            <summary>
+            The command to bind to for the first button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Command">
+            <summary>
+            The command to bind to for the first button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonCommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonCommand"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonCommand">
+            <summary>
+            The command to bind to for the second button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Command">
+            <summary>
+            The command to bind to for the third button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2CommandProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Command"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Command">
+            <summary>
+            The command to bind to for the third button.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1FontFamily">
+            <summary>
+            The font family to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2FontFamily">
+            <summary>
+            The font family to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonFontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonFontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonFontFamily">
+            <summary>
+            The font family to use for text on the second button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1FontFamily">
+            <summary>
+            The font family to use for text on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2FontFamilyProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2FontFamily"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2FontFamily">
+            <summary>
+            The font family to use for text on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton1Text">
+            <summary>
+            The text to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.LeftButton2Text">
+            <summary>
+            The text to use for text on the first button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonTextProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonText"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.CenterButtonText">
+            <summary>
+            The text to use for text on the second button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton1Text">
+            <summary>
+            The text to use for text on the third button
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2TextProperty">
+            <summary>
+            See <see cref="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Text"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.MainTabBar.MainTabBarView.RightButton2Text">
+            <summary>
+            The text to use for text on the third button
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.MainTabBar.MainTabBarView.Show">
+            <summary>
+            Call this method to show the toolbar content.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.MainTabBar.MainTabBarView.Hide">
+            <summary>
+            Call this method to hide the toolbar content.
+            </summary>
+        </member>
         <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
             <summary>
             Converts a boolean value to a bold font (if true), or regular font (if false).
@@ -6665,42 +6871,6 @@
             Gets or sets whether the <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Country"/> property is for review.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Main.FlipView.FlipView">
-            <summary>
-            The FlipView is a user control that holds two child controls: a <see cref="P:IdApp.Pages.Main.FlipView.FlipView.FrontView"/> and a <see cref="P:IdApp.Pages.Main.FlipView.FlipView.BackView"/>.
-            It can be flipped like a coin when the user taps on it. In order to flip the view, simply call the <see cref="M:IdApp.Pages.Main.FlipView.FlipView.Flip"/> method.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.FlipView.FlipView.#ctor">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Main.FlipView.FlipView"/> control.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.FlipView.FlipView.FrontViewProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.FlipView.FlipView.FrontView">
-            <summary>
-            The view displayed on the 'front' side of this user control.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.FlipView.FlipView.BackViewProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.FlipView.FlipView.BackView">
-            <summary>
-            The view displayed on the 'back' side of this user control.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.FlipView.FlipView.Flip">
-            <summary>
-            Makes the user control flip from front to back, or the other way around.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.Main.Loading.LoadingPage">
             <summary>
             A page to use when the application is loading, or initializing.
@@ -6753,176 +6923,6 @@
         </member>
         <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
             <inheritdoc/>
-        </member>
-        <member name="T:IdApp.Pages.Main.MainTabBar.MainTabBarView">
-            <summary>
-            Represents the main tab bar in the Main page of the application.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.MainTabBar.MainTabBarView.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Main.MainTabBar.MainTabBarView"/> class.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1CommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1Command"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1Command">
-            <summary>
-            The command to bind to for the first button.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2CommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2Command"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2Command">
-            <summary>
-            The command to bind to for the first button.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonCommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonCommand"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonCommand">
-            <summary>
-            The command to bind to for the second button.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1CommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1Command"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1Command">
-            <summary>
-            The command to bind to for the third button.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2CommandProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2Command"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2Command">
-            <summary>
-            The command to bind to for the third button.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1FontFamilyProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1FontFamily"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1FontFamily">
-            <summary>
-            The font family to use for text on the first button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2FontFamilyProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2FontFamily"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2FontFamily">
-            <summary>
-            The font family to use for text on the first button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonFontFamilyProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonFontFamily"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonFontFamily">
-            <summary>
-            The font family to use for text on the second button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1FontFamilyProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1FontFamily"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1FontFamily">
-            <summary>
-            The font family to use for text on the third button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2FontFamilyProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2FontFamily"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2FontFamily">
-            <summary>
-            The font family to use for text on the third button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1TextProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1Text"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton1Text">
-            <summary>
-            The text to use for text on the first button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2TextProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2Text"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.LeftButton2Text">
-            <summary>
-            The text to use for text on the first button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonTextProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonText"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.CenterButtonText">
-            <summary>
-            The text to use for text on the second button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1TextProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1Text"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton1Text">
-            <summary>
-            The text to use for text on the third button
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2TextProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2Text"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.MainTabBar.MainTabBarView.RightButton2Text">
-            <summary>
-            The text to use for text on the third button
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.MainTabBar.MainTabBarView.Show">
-            <summary>
-            Call this method to show the toolbar content.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.MainTabBar.MainTabBarView.Hide">
-            <summary>
-            Call this method to hide the toolbar content.
-            </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Main.MainPage">
             <summary>
