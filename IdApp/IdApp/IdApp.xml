@@ -2218,6 +2218,28 @@
         <member name="M:IdApp.Behaviors.SetFocusOnSelectedBehavior.OnDetachingFrom(Xamarin.Forms.Picker)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Behaviors.SetFocusOnTappedBehavior">
+            <summary>
+            Used for moving focus to the next UI component when a view has been tapped.
+            </summary>
+        </member>
+        <member name="P:IdApp.Behaviors.SetFocusOnTappedBehavior.SetFocusTo">
+            <summary>
+            The view to move focus to.
+            </summary>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnTappedBehavior.OnAttachedTo(Xamarin.Forms.View)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnTappedBehavior.OnDetachingFrom(Xamarin.Forms.View)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Behaviors.SetFocusOnTappedBehavior.FocusOn(Xamarin.Forms.View)">
+            <summary>
+            Sets focus on an element.
+            </summary>
+            <param name="Element">Element to focus on.</param>
+        </member>
         <member name="T:IdApp.Behaviors.TextChangedBehavior">
             <summary>
             A behavior for being able to bind an <see cref="T:Xamarin.Forms.Entry"/>'s TextChanged event to an <see cref="T:System.Windows.Input.ICommand"/>.

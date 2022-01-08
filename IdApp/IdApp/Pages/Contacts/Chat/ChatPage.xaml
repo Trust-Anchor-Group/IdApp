@@ -5,6 +5,7 @@
                        xmlns:local="clr-namespace:IdApp;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Contacts.Chat;assembly=IdApp"
                        xmlns:messages="clr-namespace:IdApp.Services.Messages;assembly=IdApp"
+                       xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                        x:DataType="model:ChatViewModel"
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
                        Title="{Binding Path=FriendlyName}">
@@ -39,7 +40,7 @@
         <ListView x:Name="Messages" ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}" HasUnevenRows="True"
                   SelectedItem="{Binding Path=SelectedMessage, Mode=TwoWay}" VerticalOptions="StartAndExpand" Rotation="180" SeparatorVisibility="None"/>
         <Frame BorderColor="Black" CornerRadius="5" Padding="5">
-            <Grid>
+            <Grid x:Name="ControlGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -47,13 +48,16 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <Editor Grid.Column="0" Grid.Row="0" Text="{Binding MarkdownInput}" HorizontalOptions="StartAndExpand" 
+                <Editor x:Name="EditorControl" Grid.Column="0" Grid.Row="0" Text="{Binding MarkdownInput}" HorizontalOptions="StartAndExpand" 
                         AutoSize="TextChanges" Keyboard="Chat"/>
                 <Button Grid.Column="1" Grid.Row="0" Text="{x:Static local:FontAwesome.PaperPlane}" 
                         FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Large"
                         CornerRadius="8" WidthRequest="50" HeightRequest="50" Command="{Binding SendCommand}" 
                         HorizontalOptions="End" VerticalOptions="Center"/>
             </Grid>
+            <Frame.Behaviors>
+                <behaviors:SetFocusOnTappedBehavior SetFocusTo="EditorControl" BindingContext="{Binding BindingContext, Source={x:Reference ControlGrid}}"/>
+            </Frame.Behaviors>
         </Frame>
     </StackLayout>
 </views:ContentBasePage>
