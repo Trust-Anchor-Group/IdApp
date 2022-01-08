@@ -23,6 +23,8 @@ namespace IdApp.Pages.Contacts.Chat
 	/// </summary>
 	public class ChatViewModel : NeuronViewModel
 	{
+		private const int MessageBatchSize = 50;
+
 		private readonly INavigationService navigationService;
 
 		/// <summary>
@@ -48,8 +50,9 @@ namespace IdApp.Pages.Contacts.Chat
 			this.navigationService = NavigationService ?? App.Instantiate<INavigationService>();
 
 			this.Messages = new ObservableCollection<ChatMessage>();
-		
-			this.SendCommand = new Command(async _ => await Send(), _ => CanSendMessage());
+
+			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
+			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMoreMessages(), _ => this.CanExecuteLoadMoreMessages());
 		}
 
 		/// <inheritdoc/>
@@ -68,11 +71,17 @@ namespace IdApp.Pages.Contacts.Chat
 				this.FriendlyName = string.Empty;
 			}
 
-			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, 50, new FilterFieldEqualTo("RemoteBareJid", this.BareJid), "-Created");
+			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, MessageBatchSize, new FilterFieldEqualTo("RemoteBareJid", this.BareJid), "-Created");
 
+			int c = MessageBatchSize;
 			this.Messages.Clear();
 			foreach (ChatMessage Message in Messages)
+			{
 				this.Messages.Add(Message);
+				c--;
+			}
+
+			this.ExistsMoreMessages = c <= 0;
 
 			this.EvaluateAllCommands();
 		}
@@ -86,7 +95,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.SendCommand);
+			this.EvaluateCommands(this.SendCommand, this.LoadMoreMessages);
 		}
 
 		/// <summary>
@@ -131,11 +140,30 @@ namespace IdApp.Pages.Contacts.Chat
 		public string MarkdownInput
 		{
 			get { return (string)GetValue(MarkdownInputProperty); }
-			set 
+			set
 			{
 				SetValue(MarkdownInputProperty, value);
 				this.IsWriting = !string.IsNullOrEmpty(value);
 				this.EvaluateCommands(this.SendCommand);
+			}
+		}
+
+		/// <summary>
+		/// <see cref="ExistsMoreMessages"/>
+		/// </summary>
+		public static readonly BindableProperty ExistsMoreMessagesProperty =
+			BindableProperty.Create("ExistsMoreMessages", typeof(bool), typeof(ContactListViewModel), default(bool));
+
+		/// <summary>
+		/// Current Markdown input.
+		/// </summary>
+		public bool ExistsMoreMessages
+		{
+			get { return (bool)GetValue(ExistsMoreMessagesProperty); }
+			set
+			{
+				SetValue(ExistsMoreMessagesProperty, value);
+				this.EvaluateCommands(this.LoadMoreMessages);
 			}
 		}
 
@@ -220,17 +248,17 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public ICommand SendCommand { get; }
 
-		private bool CanSendMessage()
+		private bool CanExecuteSendMessage()
 		{
 			return this.IsConnected && !string.IsNullOrEmpty(this.MarkdownInput);
 		}
 
-		private Task Send()
+		private Task ExecuteSendMessage()
 		{
-			return this.Send(string.Empty);
+			return this.ExecuteSendMessage(string.Empty);
 		}
 
-		private async Task Send(string ReplaceObjectId)
+		private async Task ExecuteSendMessage(string ReplaceObjectId)
 		{
 			try
 			{
@@ -283,7 +311,7 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 
 				this.NeuronService.Xmpp.SendMessage(Waher.Networking.XMPP.MessageType.Chat, this.BareJid, Xml.ToString(),
-					Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty);	// TODO: End-to-End encryption
+					Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty); // TODO: End-to-End encryption
 
 				if (string.IsNullOrEmpty(ReplaceObjectId))
 				{
@@ -312,7 +340,7 @@ namespace IdApp.Pages.Contacts.Chat
 						await Database.Update(Old);
 
 						Message = Old;
-					
+
 						this.MessageUpdated(Message);
 					}
 				}
@@ -323,6 +351,33 @@ namespace IdApp.Pages.Contacts.Chat
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		/// <summary>
+		/// The command to bind to for loading more messages.
+		/// </summary>
+		public ICommand LoadMoreMessages { get; }
+
+		private bool CanExecuteLoadMoreMessages()
+		{
+			return this.ExistsMoreMessages && this.Messages.Count > 0;
+		}
+
+		private async Task ExecuteLoadMoreMessages()
+		{
+			ChatMessage Last = this.Messages[this.Messages.Count - 1];
+			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, MessageBatchSize, new FilterAnd(
+				new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
+				new FilterFieldLesserThan("Created", Last.Created)), "-Created");
+
+			int c = MessageBatchSize;
+			foreach (ChatMessage Message in Messages)
+			{
+				this.Messages.Add(Message);
+				c--;
+			}
+
+			this.ExistsMoreMessages = c <= 0;
 		}
 
 	}

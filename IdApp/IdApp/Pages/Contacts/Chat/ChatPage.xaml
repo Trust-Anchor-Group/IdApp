@@ -6,6 +6,7 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Contacts.Chat;assembly=IdApp"
                        xmlns:messages="clr-namespace:IdApp.Services.Messages;assembly=IdApp"
                        xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
+                       xmlns:loading="clr-namespace:IdApp.Controls.LoadingListView;assembly=IdApp"
                        x:DataType="model:ChatViewModel"
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
                        Title="{Binding Path=FriendlyName}">
@@ -37,8 +38,9 @@
                                               DefaultTemplate="{StaticResource OtherItems}"/>
     </views:ContentBasePage.Resources>
     <StackLayout Margin="{StaticResource DefaultMargin}">
-        <ListView x:Name="Messages" ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}" HasUnevenRows="True"
-                  SelectedItem="{Binding Path=SelectedMessage, Mode=TwoWay}" VerticalOptions="StartAndExpand" Rotation="180" SeparatorVisibility="None"/>
+        <loading:LoadingListView x:Name="Messages" ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}" 
+                                 HasUnevenRows="True" SelectedItem="{Binding Path=SelectedMessage, Mode=TwoWay}" VerticalOptions="StartAndExpand" 
+                                 Rotation="180" SeparatorVisibility="None" LoadMoreCommand="{Binding Path=LoadMoreMessages}"/>
         <Frame BorderColor="Black" CornerRadius="5" Padding="5">
             <Grid x:Name="ControlGrid">
                 <Grid.RowDefinitions>

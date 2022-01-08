@@ -2567,6 +2567,26 @@
             Makes the user control flip from front to back, or the other way around.
             </summary>
         </member>
+        <member name="T:IdApp.Controls.LoadingListView.LoadingListView">
+            <summary>
+            ListView that can load new items when the last items is being displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.LoadingListView.LoadingListView.LoadMoreCommandProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.LoadingListView.LoadingListView.LoadMoreCommand">
+            <summary>
+            Command executed when last item is appearing and new data should be loaded.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.LoadingListView.LoadingListView.#ctor">
+            <summary>
+            ListView that can load new items when the last items is being displayed
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.MainTabBar.MainTabBarView">
             <summary>
             Represents the main tab bar in the Main page of the application.
@@ -3587,6 +3607,16 @@
             Current Markdown input.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.ExistsMoreMessagesProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.ExistsMoreMessages"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.ExistsMoreMessages">
+            <summary>
+            Current Markdown input.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.IsWritingProperty">
             <summary>
             <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsWriting"/>
@@ -3627,6 +3657,11 @@
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SendCommand">
             <summary>
             The command to bind to for sending user input
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.LoadMoreMessages">
+            <summary>
+            The command to bind to for loading more messages.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.SelectContactAction">
