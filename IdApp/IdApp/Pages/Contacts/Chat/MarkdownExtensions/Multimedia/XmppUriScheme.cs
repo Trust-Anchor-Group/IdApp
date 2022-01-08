@@ -87,7 +87,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				Output.WriteStartElement("StackLayout.GestureRecognizers");
 
 				Output.WriteStartElement("TapGestureRecognizer");
-				Output.WriteAttributeString("Command", "{Binding Path=BindingContext.XmppUriClicked, Source={x:Reference MarkdownView}}");
+				Output.WriteAttributeString("Command", "{Binding Path=XmppUriClicked}");
 				Output.WriteAttributeString("CommandParameter", Item.Url);
 				Output.WriteEndElement();
 

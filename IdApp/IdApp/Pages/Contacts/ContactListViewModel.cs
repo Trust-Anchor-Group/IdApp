@@ -54,6 +54,10 @@ namespace IdApp.Pages.Contacts
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 			this.Contacts = new ObservableCollection<ContactInfo>();
+
+			this.Description = AppResources.ContactsDescription;
+			this.Action = SelectContactAction.ViewIdentity;
+			this.selection = null;
 		}
 
 		/// <inheritdoc/>
@@ -66,12 +70,6 @@ namespace IdApp.Pages.Contacts
 				this.Description = args.Description;
 				this.Action = args.Action;
 				this.selection = args.Selection;
-			}
-			else
-			{
-				this.Description = AppResources.ContactsDescription;
-				this.Action = SelectContactAction.ViewIdentity;
-				this.selection = null;
 			}
 
 			SortedDictionary<string, ContactInfo> Sorted = new SortedDictionary<string, ContactInfo>();

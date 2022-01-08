@@ -3740,10 +3740,24 @@
             Command executed when a message has been selected (or deselected) in the list view.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppUriClicked">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String)">
             <summary>
-            Command executed when a multi-media-link with the xmpp URI scheme is clicked.
+            Called when a Multi-media URI link using the XMPP URI scheme.
             </summary>
+            <param name="Message">Message containing the URI.</param>
+            <param name="Uri">URI</param>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.IChatView">
+            <summary>
+            Interfaces for views displaying markdown
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.IChatView.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String)">
+            <summary>
+            Called when a Multi-media URI link using the XMPP URI scheme.
+            </summary>
+            <param name="Message">Message containing the URI.</param>
+            <param name="Uri">URI</param>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme">
             <summary>
@@ -12092,9 +12106,20 @@
             Message Style ID
             </summary>
         </member>
+        <member name="M:IdApp.Services.Messages.ChatMessage.ParseXaml(IdApp.Pages.Contacts.Chat.IChatView)">
+            <summary>
+            Parses the XAML in the message.
+            </summary>
+            <param name="View"></param>
+        </member>
         <member name="P:IdApp.Services.Messages.ChatMessage.ParsedXaml">
             <summary>
             Parsed XAML
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.XmppUriClicked">
+            <summary>
+            Command executed when a multi-media-link with the xmpp URI scheme is clicked.
             </summary>
         </member>
         <member name="T:IdApp.Services.Messages.MessageTypeTemplateSelector">

@@ -10,8 +10,7 @@
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:ChatViewModel"
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
-                       Title="{Binding Path=FriendlyName}"
-                       x:Name="MarkdownView">
+                       Title="{Binding Path=FriendlyName}">
     <views:ContentBasePage.Resources>
         <DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
             <ViewCell>

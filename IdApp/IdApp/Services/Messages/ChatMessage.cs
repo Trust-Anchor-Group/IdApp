@@ -1,4 +1,7 @@
-﻿using System;
+﻿using IdApp.Pages.Contacts.Chat;
+using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Waher.Events;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
@@ -44,6 +47,7 @@ namespace IdApp.Services.Messages
 		private string xaml = string.Empty;
 		private object parsedXaml = null;
 
+		private IChatView chatView;
 
 		/// <summary>
 		/// Chat Messages
@@ -51,6 +55,8 @@ namespace IdApp.Services.Messages
 		public ChatMessage()
 		{
 			this.Updated = DateTime.MinValue;
+	
+			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter));
 		}
 
 		/// <summary>
@@ -159,6 +165,73 @@ namespace IdApp.Services.Messages
 		public string StyleId => "Message" + this.messageType.ToString();
 
 		/// <summary>
+		/// Parses the XAML in the message.
+		/// </summary>
+		/// <param name="View"></param>
+		public void ParseXaml(IChatView View)
+		{
+			this.chatView = View;
+
+			if (!string.IsNullOrEmpty(this.xaml))
+			{
+				try
+				{
+					this.parsedXaml = new StackLayout().LoadFromXaml(this.xaml);
+
+					if (this.parsedXaml is StackLayout Layout)
+						Layout.StyleId = this.StyleId;
+				}
+				catch (Exception ex)
+				{
+					Log.Critical(ex);
+
+					StackLayout Layout = new StackLayout()
+					{
+						Orientation = StackOrientation.Vertical,
+						StyleId = this.StyleId
+					};
+
+					Layout.Children.Add(new Label()
+					{
+						Text = ex.Message,
+						FontFamily = "Courier New",
+						TextColor = Color.Red,
+						TextType = TextType.Text
+					});
+
+					this.parsedXaml = Layout;
+				}
+			}
+			else
+			{
+				StackLayout Layout = new StackLayout()
+				{
+					Orientation = StackOrientation.Vertical,
+					StyleId = this.StyleId
+				};
+
+				if (!string.IsNullOrEmpty(this.html))
+				{
+					Layout.Children.Add(new Label()
+					{
+						Text = this.html,
+						TextType = TextType.Html
+					});
+				}
+				else if (!string.IsNullOrEmpty(this.plainText))
+				{
+					Layout.Children.Add(new Label()
+					{
+						Text = this.plainText,
+						TextType = TextType.Text
+					});
+				}
+
+				this.parsedXaml = Layout;
+			}
+		}
+
+		/// <summary>
 		/// Parsed XAML
 		/// </summary>
 		public object ParsedXaml
@@ -166,68 +239,24 @@ namespace IdApp.Services.Messages
 			get
 			{
 				if (this.parsedXaml is null)
-				{
-					if (!string.IsNullOrEmpty(this.xaml))
-					{
-						try
-						{
-							this.parsedXaml = new StackLayout().LoadFromXaml(this.xaml);
-
-							if (this.parsedXaml is StackLayout Layout)
-								Layout.StyleId = this.StyleId;
-						}
-						catch (Exception ex)
-						{
-							Log.Critical(ex);
-
-							StackLayout Layout = new StackLayout()
-							{
-								Orientation = StackOrientation.Vertical,
-								StyleId = this.StyleId
-							};
-
-							Layout.Children.Add(new Label()
-							{
-								Text = ex.Message,
-								FontFamily = "Courier New",
-								TextColor = Color.Red,
-								TextType = TextType.Text
-							});
-						
-							this.parsedXaml = Layout;
-						}
-					}
-					else
-					{
-						StackLayout Layout = new StackLayout()
-						{
-							Orientation = StackOrientation.Vertical,
-							StyleId = this.StyleId
-						};
-
-						if (!string.IsNullOrEmpty(this.html))
-						{
-							Layout.Children.Add(new Label()
-							{
-								Text = this.html,
-								TextType = TextType.Html
-							});
-						}
-						else if (!string.IsNullOrEmpty(this.plainText))
-						{
-							Layout.Children.Add(new Label()
-							{
-								Text = this.plainText,
-								TextType = TextType.Text
-							});
-						}
-
-						this.parsedXaml = Layout;
-					}
-				}
+					this.ParseXaml(null);
 
 				return this.parsedXaml;
 			}
 		}
+
+		/// <summary>
+		/// Command executed when a multi-media-link with the xmpp URI scheme is clicked.
+		/// </summary>
+		public ICommand XmppUriClicked { get; }
+
+		private Task ExecuteXmppUriClicked(object Parameter)
+		{
+			if (Parameter is string Uri && !(this.chatView is null))
+				return this.chatView.ExecuteXmppUriClicked(this, Uri);
+			else
+				return Task.CompletedTask;
+		}
+
 	}
 }

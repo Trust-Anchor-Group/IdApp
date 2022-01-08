@@ -31,7 +31,7 @@ namespace IdApp.Pages.Contacts.Chat
 	/// <summary>
 	/// The view model to bind to when displaying the list of contacts.
 	/// </summary>
-	public class ChatViewModel : NeuronViewModel
+	public class ChatViewModel : NeuronViewModel, IChatView
 	{
 		private const int MessageBatchSize = 50;
 
@@ -56,8 +56,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="TagProfile">TAG Profie service.</param>
 		/// <param name="NavigationService">Navigation service.</param>
 		/// <param name="LogService">Log service.</param>
-		protected internal ChatViewModel(INeuronService NeuronService, IUiSerializer UiSerializer, ITagProfile TagProfile,
-			INavigationService NavigationService, ILogService LogService)
+		protected internal ChatViewModel(INeuronService NeuronService, IUiSerializer UiSerializer,
+			ITagProfile TagProfile, INavigationService NavigationService, ILogService LogService)
 			: base(NeuronService, UiSerializer, TagProfile)
 		{
 			this.navigationService = NavigationService ?? App.Instantiate<INavigationService>();
@@ -75,7 +75,6 @@ namespace IdApp.Pages.Contacts.Chat
 			this.EmbedThing = new Command(async _ => await this.ExecuteEmbedThing(), _ => this.CanExecuteEmbedThing());
 
 			this.MessageSelected = new Command(async Parameter => await this.ExecuteMessageSelected(Parameter));
-			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter));
 		}
 
 		/// <inheritdoc/>
@@ -100,6 +99,7 @@ namespace IdApp.Pages.Contacts.Chat
 			this.Messages.Clear();
 			foreach (ChatMessage Message in Messages)
 			{
+				Message.ParseXaml(this);
 				this.Messages.Add(Message);
 				c--;
 			}
@@ -250,6 +250,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
+				Message.ParseXaml(this);
 				this.Messages.Insert(0, Message);
 			});
 		}
@@ -264,6 +265,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
+				Message.ParseXaml(this);
 				foreach (ChatMessage Msg in this.Messages)
 				{
 					if (Msg.ObjectId == Message.ObjectId)
@@ -407,6 +409,7 @@ namespace IdApp.Pages.Contacts.Chat
 			int c = MessageBatchSize;
 			foreach (ChatMessage Message in Messages)
 			{
+				Message.ParseXaml(this);
 				this.Messages.Add(Message);
 				c--;
 			}
@@ -581,7 +584,7 @@ namespace IdApp.Pages.Contacts.Chat
 			if (Contact is null)
 				return;
 
-			await this.waitUntilBound.Task;		// Wait until view is bound again.
+			await this.waitUntilBound.Task;     // Wait until view is bound again.
 
 			if (!(Contact.LegalIdentity is null))
 			{
@@ -680,12 +683,13 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <summary>
-		/// Command executed when a multi-media-link with the xmpp URI scheme is clicked.
+		/// Called when a Multi-media URI link using the XMPP URI scheme.
 		/// </summary>
-		public ICommand XmppUriClicked { get; }
-
-		private async Task ExecuteXmppUriClicked(object Parameter)
+		/// <param name="Message">Message containing the URI.</param>
+		/// <param name="Uri">URI</param>
+		public Task ExecuteXmppUriClicked(ChatMessage Message, string Uri)
 		{
+			return Task.CompletedTask;
 		}
 	}
 }
