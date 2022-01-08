@@ -41,8 +41,8 @@
     </views:ContentBasePage.Resources>
     <StackLayout Margin="{StaticResource DefaultMargin}">
         <loading:LoadingListView x:Name="Messages" ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}" 
-                                 HasUnevenRows="True" SelectedItem="{Binding Path=SelectedMessage, Mode=TwoWay}" VerticalOptions="StartAndExpand" 
-                                 Rotation="180" SeparatorVisibility="None" LoadMoreCommand="{Binding Path=LoadMoreMessages}"/>
+                                 HasUnevenRows="True" VerticalOptions="StartAndExpand" Rotation="180" SeparatorVisibility="None" 
+                                 LoadMoreCommand="{Binding Path=LoadMoreMessages}" ItemSelectedCommand="{Binding Path=MessageSelected}"/>
         <Frame BorderColor="Black" CornerRadius="5" Padding="5">
             <Grid x:Name="ControlGrid">
                 <Grid.RowDefinitions>

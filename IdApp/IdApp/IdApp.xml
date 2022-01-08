@@ -2604,6 +2604,16 @@
             Command executed when last item is appearing and new data should be loaded.
             </summary>
         </member>
+        <member name="F:IdApp.Controls.LoadingListView.LoadingListView.ItemSelectedCommandProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.LoadingListView.LoadingListView.ItemSelectedCommand">
+            <summary>
+            Command executed when last item is appearing and new data should be loaded.
+            </summary>
+        </member>
         <member name="M:IdApp.Controls.LoadingListView.LoadingListView.#ctor">
             <summary>
             ListView that can load new items when the last items is being displayed
@@ -3585,12 +3595,12 @@
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.#ctor">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatViewModel"/> class.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService)">
             <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatViewModel"/> class.
             For unit tests.
             </summary>
             <param name="NeuronService">The Neuron service for XMPP communication.</param>
@@ -3638,6 +3648,16 @@
             Current Markdown input.
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageIdProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageId">
+            <summary>
+            Current Markdown input.
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.ExistsMoreMessagesProperty">
             <summary>
             <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.ExistsMoreMessages"/>
@@ -3661,16 +3681,6 @@
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Messages">
             <summary>
             Holds the list of chat messages to display.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.SelectedMessageProperty">
-            <summary>
-            See <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SelectedMessage"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SelectedMessage">
-            <summary>
-            The currently selected contact, if any.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageAdded(IdApp.Services.Messages.ChatMessage)">
@@ -3723,6 +3733,11 @@
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedThing">
             <summary>
             Command to embed a reference to a thing
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageSelected">
+            <summary>
+            Command executed when a message has been selected (or deselected) in the list view.
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppUriClicked">

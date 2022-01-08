@@ -40,7 +40,7 @@ namespace IdApp.Pages.Contacts.Chat
 		private TaskCompletionSource<bool> waitUntilBound = new TaskCompletionSource<bool>();
 
 		/// <summary>
-		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
+		/// Creates an instance of the <see cref="ChatViewModel"/> class.
 		/// </summary>
 		public ChatViewModel()
 			: this(null, null, null, null, null)
@@ -48,7 +48,7 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <summary>
-		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
+		/// Creates an instance of the <see cref="ChatViewModel"/> class.
 		/// For unit tests.
 		/// </summary>
 		/// <param name="NeuronService">The Neuron service for XMPP communication.</param>
@@ -74,6 +74,7 @@ namespace IdApp.Pages.Contacts.Chat
 			this.EmbedMoney = new Command(async _ => await this.ExecuteEmbedMoney(), _ => this.CanExecuteEmbedMoney());
 			this.EmbedThing = new Command(async _ => await this.ExecuteEmbedThing(), _ => this.CanExecuteEmbedThing());
 
+			this.MessageSelected = new Command(async Parameter => await this.ExecuteMessageSelected(Parameter));
 			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter));
 		}
 
@@ -136,7 +137,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="BareJid"/>
 		/// </summary>
 		public static readonly BindableProperty BareJidProperty =
-			BindableProperty.Create("BareJid", typeof(string), typeof(ContactListViewModel), default(string));
+			BindableProperty.Create("BareJid", typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Bare JID of remote party
@@ -151,7 +152,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="FriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty FriendlyNameProperty =
-			BindableProperty.Create("FriendlyName", typeof(string), typeof(ContactListViewModel), default(string));
+			BindableProperty.Create("FriendlyName", typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Friendly name of remote party
@@ -166,7 +167,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="MarkdownInput"/>
 		/// </summary>
 		public static readonly BindableProperty MarkdownInputProperty =
-			BindableProperty.Create("MarkdownInput", typeof(string), typeof(ContactListViewModel), default(string));
+			BindableProperty.Create("MarkdownInput", typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Current Markdown input.
@@ -183,10 +184,30 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <summary>
+		/// <see cref="MessageId"/>
+		/// </summary>
+		public static readonly BindableProperty MessageIdProperty =
+			BindableProperty.Create("MessageId", typeof(string), typeof(ChatViewModel), default(string));
+
+		/// <summary>
+		/// Current Markdown input.
+		/// </summary>
+		public string MessageId
+		{
+			get { return (string)GetValue(MessageIdProperty); }
+			set
+			{
+				SetValue(MessageIdProperty, value);
+				this.IsWriting = !string.IsNullOrEmpty(value);
+				this.EvaluateAllCommands();
+			}
+		}
+
+		/// <summary>
 		/// <see cref="ExistsMoreMessages"/>
 		/// </summary>
 		public static readonly BindableProperty ExistsMoreMessagesProperty =
-			BindableProperty.Create("ExistsMoreMessages", typeof(bool), typeof(ContactListViewModel), default(bool));
+			BindableProperty.Create("ExistsMoreMessages", typeof(bool), typeof(ChatViewModel), default(bool));
 
 		/// <summary>
 		/// Current Markdown input.
@@ -205,7 +226,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="IsWriting"/>
 		/// </summary>
 		public static readonly BindableProperty IsWritingProperty =
-			BindableProperty.Create("IsWriting", typeof(bool), typeof(ContactListViewModel), default(bool));
+			BindableProperty.Create("IsWriting", typeof(bool), typeof(ChatViewModel), default(bool));
 
 		/// <summary>
 		/// If the user is writing markdown.
@@ -220,27 +241,6 @@ namespace IdApp.Pages.Contacts.Chat
 		/// Holds the list of chat messages to display.
 		/// </summary>
 		public ObservableCollection<ChatMessage> Messages { get; }
-
-		/// <summary>
-		/// See <see cref="SelectedMessage"/>
-		/// </summary>
-		public static readonly BindableProperty SelectedMessageProperty =
-			BindableProperty.Create("SelectedMessage", typeof(ChatMessage), typeof(ContactListViewModel), default(ChatMessage),
-				propertyChanged: (b, oldValue, newValue) =>
-				{
-					if (b is ChatViewModel viewModel && newValue is ChatMessage Message)
-					{
-					}
-				});
-
-		/// <summary>
-		/// The currently selected contact, if any.
-		/// </summary>
-		public ChatMessage SelectedMessage
-		{
-			get { return (ChatMessage)GetValue(SelectedMessageProperty); }
-			set { SetValue(SelectedMessageProperty, value); }
-		}
 
 		/// <summary>
 		/// External message has been received
@@ -289,8 +289,9 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteSendMessage()
 		{
-			await this.ExecuteSendMessage(string.Empty, this.MarkdownInput);
+			await this.ExecuteSendMessage(this.MessageId, this.MarkdownInput);
 			this.MarkdownInput = string.Empty;
+			this.MessageId = string.Empty;
 		}
 
 		private async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
@@ -653,6 +654,29 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteEmbedThing()
 		{
 			// TODO
+		}
+
+		/// <summary>
+		/// Command executed when a message has been selected (or deselected) in the list view.
+		/// </summary>
+		public ICommand MessageSelected { get; }
+
+		private Task ExecuteMessageSelected(object Parameter)
+		{
+			if (!(Parameter is ChatMessage Message) || Message.MessageType != MessageType.Sent)
+			{
+				this.MarkdownInput = string.Empty;
+				this.MessageId = string.Empty;
+			}
+			else
+			{
+				this.MarkdownInput = Message.Markdown;
+				this.MessageId = Message.ObjectId;
+			}
+
+			this.EvaluateAllCommands();
+
+			return Task.CompletedTask;
 		}
 
 		/// <summary>
