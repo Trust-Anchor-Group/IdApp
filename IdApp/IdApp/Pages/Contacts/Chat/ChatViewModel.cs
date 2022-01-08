@@ -13,11 +13,13 @@ using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
 using Waher.Content.Xml;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Services;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
@@ -321,7 +323,7 @@ namespace IdApp.Pages.Contacts.Chat
 					Created = DateTime.UtcNow,
 					RemoteBareJid = this.BareJid,
 					RemoteObjectId = string.Empty,
-					MessageType = MessageType.Sent,
+					MessageType = Services.Messages.MessageType.Sent,
 					Html = HtmlDocument.GetBody(await Doc.GenerateHTML()),
 					PlainText = (await Doc.GeneratePlainText()).Trim(),
 					Markdown = MarkdownInput,
@@ -666,7 +668,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private Task ExecuteMessageSelected(object Parameter)
 		{
-			if (!(Parameter is ChatMessage Message) || Message.MessageType != MessageType.Sent)
+			if (!(Parameter is ChatMessage Message) || Message.MessageType != Services.Messages.MessageType.Sent)
 			{
 				this.MarkdownInput = string.Empty;
 				this.MessageId = string.Empty;
@@ -687,9 +689,58 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		/// <param name="Message">Message containing the URI.</param>
 		/// <param name="Uri">URI</param>
-		public Task ExecuteXmppUriClicked(ChatMessage Message, string Uri)
+		public async Task ExecuteXmppUriClicked(ChatMessage Message, string Uri)
 		{
-			return Task.CompletedTask;
+			int i = Uri.IndexOf(':');
+			if (i < 0)
+				return;
+
+			string Jid = Uri.Substring(i + 1).TrimStart();
+			string Command;
+
+			i = Jid.IndexOf('?');
+			if (i < 0)
+				Command = "subscribe";
+			else
+			{
+				Command = Jid.Substring(i + 1).TrimStart();
+				Jid = Jid.Substring(0, i).TrimEnd();
+			}
+
+			Jid = System.Web.HttpUtility.UrlDecode(Jid);
+			Jid = XmppClient.GetBareJID(Jid);
+			RosterItem Item = this.NeuronService.Xmpp.GetRosterItem(Jid);
+
+			switch (Command.ToLower())
+			{
+				case "subscribe":
+					SubscribeToPopupPage SubscribeToPopupPage = new SubscribeToPopupPage(Jid);
+
+					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPopupPage);
+					bool? SubscribeTo = await SubscribeToPopupPage.Result;
+
+					if (SubscribeTo.HasValue && SubscribeTo.Value)
+					{
+						string IdXml;
+
+						if (this.TagProfile.LegalIdentity is null)
+							IdXml = string.Empty;
+						else
+						{
+							StringBuilder Xml = new StringBuilder();
+							this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+							IdXml = Xml.ToString();
+						}
+
+						this.NeuronService.Xmpp.RequestPresenceSubscription(Jid, IdXml);
+					}
+					break;
+
+				case "unsubscribe":
+				case "remove":
+					// TODO
+					break;
+			}
 		}
 	}
 }
