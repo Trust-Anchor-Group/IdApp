@@ -81,6 +81,11 @@ namespace IdApp
             public const string UriSchemeOnboarding = "obinfo";
 
             /// <summary>
+            /// XMPP URI Scheme (xmpp)
+            /// </summary>
+            public const string UriSchemeXmpp = "xmpp";
+
+            /// <summary>
             /// Gets the predefined scheme from an IoT Code
             /// </summary>
             /// <param name="Url">The URL to parse.</param>
@@ -104,6 +109,7 @@ namespace IdApp
                     case UriSchemeTagSign:
                     case UriSchemeEDaler:
                     case UriSchemeOnboarding:
+                    case UriSchemeXmpp:
                         return Url;
 
                     default:

@@ -2368,6 +2368,11 @@
             Tag ID URI Scheme (tagid)
             </summary>
         </member>
+        <member name="F:IdApp.Constants.UriSchemes.UriSchemeXmpp">
+            <summary>
+            XMPP URI Scheme (xmpp)
+            </summary>
+        </member>
         <member name="M:IdApp.Constants.UriSchemes.GetScheme(System.String)">
             <summary>
             Gets the predefined scheme from an IoT Code
@@ -3746,6 +3751,22 @@
             </summary>
             <param name="Message">Message containing the URI.</param>
             <param name="Uri">URI</param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ProcessXmppUri(System.String)">
+            <summary>
+            Processes an XMPP URI
+            </summary>
+            <param name="Uri">XMPP URI</param>
+            <returns>If URI could be processed.</returns>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ProcessXmppUri(System.String,IdApp.Services.Neuron.INeuronService,IdApp.Services.Tag.ITagProfile)">
+            <summary>
+            Processes an XMPP URI
+            </summary>
+            <param name="Uri">XMPP URI</param>
+            <param name="NeuronService">Neuron Service</param>
+            <param name="TagProfile">TAG Profile</param>
+            <returns>If URI could be processed.</returns>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.IChatView">
             <summary>

@@ -31,6 +31,7 @@
 				<data android:scheme="tagsign" />
 				<data android:scheme="edaler" />
 				<data android:scheme="obinfo" />
+				<data android:scheme="xmpp" />
 			</intent-filter>
 		</activity>
 	</application>

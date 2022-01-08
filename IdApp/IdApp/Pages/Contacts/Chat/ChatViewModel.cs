@@ -689,11 +689,33 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		/// <param name="Message">Message containing the URI.</param>
 		/// <param name="Uri">URI</param>
-		public async Task ExecuteXmppUriClicked(ChatMessage Message, string Uri)
+		public Task ExecuteXmppUriClicked(ChatMessage Message, string Uri)
+		{
+			return ProcessXmppUri(Uri, this.NeuronService, this.TagProfile);
+		}
+
+		/// <summary>
+		/// Processes an XMPP URI
+		/// </summary>
+		/// <param name="Uri">XMPP URI</param>
+		/// <returns>If URI could be processed.</returns>
+		public static Task<bool> ProcessXmppUri(string Uri)
+		{
+			return ProcessXmppUri(Uri, App.Instantiate<INeuronService>(), App.Instantiate<ITagProfile>());
+		}
+
+		/// <summary>
+		/// Processes an XMPP URI
+		/// </summary>
+		/// <param name="Uri">XMPP URI</param>
+		/// <param name="NeuronService">Neuron Service</param>
+		/// <param name="TagProfile">TAG Profile</param>
+		/// <returns>If URI could be processed.</returns>
+		public static async Task<bool> ProcessXmppUri(string Uri, INeuronService NeuronService, ITagProfile TagProfile)
 		{
 			int i = Uri.IndexOf(':');
 			if (i < 0)
-				return;
+				return false;
 
 			string Jid = Uri.Substring(i + 1).TrimStart();
 			string Command;
@@ -709,7 +731,6 @@ namespace IdApp.Pages.Contacts.Chat
 
 			Jid = System.Web.HttpUtility.UrlDecode(Jid);
 			Jid = XmppClient.GetBareJID(Jid);
-			RosterItem Item = this.NeuronService.Xmpp.GetRosterItem(Jid);
 
 			switch (Command.ToLower())
 			{
@@ -723,23 +744,30 @@ namespace IdApp.Pages.Contacts.Chat
 					{
 						string IdXml;
 
-						if (this.TagProfile.LegalIdentity is null)
+						if (TagProfile.LegalIdentity is null)
 							IdXml = string.Empty;
 						else
 						{
 							StringBuilder Xml = new StringBuilder();
-							this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+							TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
 							IdXml = Xml.ToString();
 						}
 
-						this.NeuronService.Xmpp.RequestPresenceSubscription(Jid, IdXml);
+						NeuronService.Xmpp.RequestPresenceSubscription(Jid, IdXml);
 					}
-					break;
+					return true;
 
 				case "unsubscribe":
-				case "remove":
 					// TODO
-					break;
+					return false;
+
+				case "remove":
+					RosterItem Item = NeuronService.Xmpp.GetRosterItem(Jid);
+					// TODO
+					return false;
+
+				default:
+					return false;
 			}
 		}
 	}

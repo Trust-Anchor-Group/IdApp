@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using IdApp.Pages.Contacts.Chat;
+using IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
@@ -136,6 +138,9 @@ namespace IdApp.Services.UI.QR
                     case Constants.UriSchemes.UriSchemeOnboarding:
                         await uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
                         return false;
+
+                    case Constants.UriSchemes.UriSchemeXmpp:
+                        return await ChatViewModel.ProcessXmppUri(Url);
 
                     default:
                         if (await Launcher.TryOpenAsync(uri))
