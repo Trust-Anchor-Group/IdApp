@@ -6,6 +6,7 @@ using IdApp.Services.Provisioning;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Neuron
@@ -133,6 +134,11 @@ namespace IdApp.Services.Neuron
         /// Provides access to the eDaler wallet.
         /// </summary>
         INeuronWallet Wallet { get; }
+
+        /// <summary>
+        /// HTTP File Upload client
+        /// </summary>
+        HttpFileUploadClient FileUploadClient { get; }
 
         /// <summary>
         /// Run this method to discover services for any given Neuron server.

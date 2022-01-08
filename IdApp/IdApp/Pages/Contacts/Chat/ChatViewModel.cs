@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
+using Xamarin.Forms;
+using Plugin.Media.Abstractions;
+using Plugin.Media;
+using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
 using Waher.Content.Xml;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
-using Xamarin.Forms;
+using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
-using IdApp.Services.UI;
 using IdApp.Services.Messages;
 using IdApp.Services.Tag;
+using IdApp.Services.UI;
+using Waher.Networking.XMPP.HttpFileUpload;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -26,12 +33,13 @@ namespace IdApp.Pages.Contacts.Chat
 		private const int MessageBatchSize = 50;
 
 		private readonly INavigationService navigationService;
+		private readonly ILogService logService;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
 		/// </summary>
 		public ChatViewModel()
-			: this(null, null, null, null)
+			: this(null, null, null, null, null)
 		{
 		}
 
@@ -42,17 +50,25 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="NeuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="UiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
 		/// <param name="TagProfile">TAG Profie service.</param>
-		/// <param name="NavigationService">Navigation service. </param>
+		/// <param name="NavigationService">Navigation service.</param>
+		/// <param name="LogService">Log service.</param>
 		protected internal ChatViewModel(INeuronService NeuronService, IUiSerializer UiSerializer, ITagProfile TagProfile,
-			INavigationService NavigationService)
+			INavigationService NavigationService, ILogService LogService)
 			: base(NeuronService, UiSerializer, TagProfile)
 		{
 			this.navigationService = NavigationService ?? App.Instantiate<INavigationService>();
+			this.logService = LogService ?? App.Instantiate<ILogService>();
 
 			this.Messages = new ObservableCollection<ChatMessage>();
 
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
 			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMoreMessages(), _ => this.CanExecuteLoadMoreMessages());
+			this.TakePhoto = new Command(async _ => await this.ExecuteTakePhoto(), _ => this.CanExecuteTakePhoto());
+			this.EmbedFile = new Command(async _ => await this.ExecuteEmbedFile(), _ => this.CanExecuteEmbedFile());
+			this.EmbedId = new Command(async _ => await this.ExecuteEmbedId(), _ => this.CanExecuteEmbedId());
+			this.EmbedContract = new Command(async _ => await this.ExecuteEmbedContract(), _ => this.CanExecuteEmbedContract());
+			this.EmbedMoney = new Command(async _ => await this.ExecuteEmbedMoney(), _ => this.CanExecuteEmbedMoney());
+			this.EmbedThing = new Command(async _ => await this.ExecuteEmbedThing(), _ => this.CanExecuteEmbedThing());
 		}
 
 		/// <inheritdoc/>
@@ -95,7 +111,15 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.SendCommand, this.LoadMoreMessages);
+			this.EvaluateCommands(this.SendCommand, this.LoadMoreMessages, this.TakePhoto, this.EmbedFile,
+				this.EmbedId, this.EmbedContract, this.EmbedMoney, this.EmbedThing);
+		}
+
+		/// <inheritdoc/>
+		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		{
+			base.NeuronService_ConnectionStateChanged(sender, e);
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.EvaluateAllCommands());
 		}
 
 		/// <summary>
@@ -144,7 +168,7 @@ namespace IdApp.Pages.Contacts.Chat
 			{
 				SetValue(MarkdownInputProperty, value);
 				this.IsWriting = !string.IsNullOrEmpty(value);
-				this.EvaluateCommands(this.SendCommand);
+				this.EvaluateAllCommands();
 			}
 		}
 
@@ -253,16 +277,17 @@ namespace IdApp.Pages.Contacts.Chat
 			return this.IsConnected && !string.IsNullOrEmpty(this.MarkdownInput);
 		}
 
-		private Task ExecuteSendMessage()
+		private async Task ExecuteSendMessage()
 		{
-			return this.ExecuteSendMessage(string.Empty);
+			await this.ExecuteSendMessage(string.Empty, this.MarkdownInput);
+			this.MarkdownInput = string.Empty;
 		}
 
-		private async Task ExecuteSendMessage(string ReplaceObjectId)
+		private async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(this.MarkdownInput))
+				if (string.IsNullOrEmpty(MarkdownInput))
 					return;
 
 				MarkdownSettings Settings = new MarkdownSettings()
@@ -276,7 +301,7 @@ namespace IdApp.Pages.Contacts.Chat
 					VideoControls = false
 				};
 
-				MarkdownDocument Doc = await MarkdownDocument.CreateAsync(this.MarkdownInput, Settings);
+				MarkdownDocument Doc = await MarkdownDocument.CreateAsync(MarkdownInput, Settings);
 
 				ChatMessage Message = new ChatMessage()
 				{
@@ -286,14 +311,14 @@ namespace IdApp.Pages.Contacts.Chat
 					MessageType = MessageType.Sent,
 					Html = HtmlDocument.GetBody(await Doc.GenerateHTML()),
 					PlainText = (await Doc.GeneratePlainText()).Trim(),
-					Markdown = this.MarkdownInput,
+					Markdown = MarkdownInput,
 					Xaml = await Doc.GenerateXamarinForms()
 				};
 
 				StringBuilder Xml = new StringBuilder();
 
 				Xml.Append("<content xmlns=\"urn:xmpp:content\" type=\"text/markdown\">");
-				Xml.Append(XML.Encode(this.MarkdownInput));
+				Xml.Append(XML.Encode(MarkdownInput));
 				Xml.Append("</content><html xmlns='http://jabber.org/protocol/xhtml-im'><body xmlns='http://www.w3.org/1999/xhtml'>");
 
 				HtmlDocument HtmlDoc = new HtmlDocument("<root>" + Message.Html + "</root>");
@@ -344,8 +369,6 @@ namespace IdApp.Pages.Contacts.Chat
 						this.MessageUpdated(Message);
 					}
 				}
-
-				this.MarkdownInput = string.Empty;
 			}
 			catch (Exception ex)
 			{
@@ -379,6 +402,211 @@ namespace IdApp.Pages.Contacts.Chat
 
 			this.ExistsMoreMessages = c <= 0;
 		}
+
+		/// <summary>
+		/// Command to take and send a photo
+		/// </summary>
+		public ICommand TakePhoto { get; }
+
+		private bool CanExecuteTakePhoto()
+		{
+			return this.IsConnected && !this.IsWriting && this.NeuronService.Contracts.FileUploadIsSupported;
+		}
+
+		private async Task ExecuteTakePhoto()
+		{
+			if (!this.NeuronService.Contracts.FileUploadIsSupported)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+				return;
+			}
+
+			if (Device.RuntimePlatform == Device.iOS)
+			{
+				MediaFile capturedPhoto;
+
+				try
+				{
+					capturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
+					{
+						CompressionQuality = 80,
+						RotateImage = false
+					});
+				}
+				catch (Exception)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+					return;
+				}
+
+				if (!(capturedPhoto is null))
+				{
+					try
+					{
+						await this.EmbedPhoto(capturedPhoto.Path, true);
+					}
+					catch (Exception ex)
+					{
+						await this.UiSerializer.DisplayAlert(ex);
+					}
+				}
+			}
+			else
+			{
+				FileResult capturedPhoto;
+
+				try
+				{
+					capturedPhoto = await MediaPicker.CapturePhotoAsync();
+					if (capturedPhoto is null)
+						return;
+				}
+				catch (Exception)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+					return;
+				}
+
+				if (!(capturedPhoto is null))
+				{
+					try
+					{
+						await this.EmbedPhoto(capturedPhoto.FullPath, true);
+					}
+					catch (Exception ex)
+					{
+						await this.UiSerializer.DisplayAlert(ex);
+					}
+				}
+			}
+		}
+
+		private async Task EmbedPhoto(string FilePath, bool DeleteFile)
+		{
+			try
+			{
+				byte[] Bin = File.ReadAllBytes(FilePath);
+				if (!InternetContent.TryGetContentType(Path.GetExtension(FilePath), out string ContentType))
+					ContentType = "application/octet-stream";
+
+				if (Bin.Length > this.TagProfile.HttpFileUploadMaxSize.GetValueOrDefault())
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PhotoIsTooLarge);
+					return;
+				}
+
+				// Taking or picking photos switches to another app, so ID app has to reconnect again after.
+				if (!await this.NeuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect))
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain));
+					return;
+				}
+
+				string FileName = Path.GetFileName(FilePath);
+				HttpFileUploadEventArgs Slot = await this.NeuronService.Contracts.FileUploadClient.RequestUploadSlotAsync(
+					FileName, ContentType, Bin.Length);
+
+				if (!Slot.Ok)
+					throw Slot.StanzaError ?? new Exception(Slot.ErrorText);
+
+				await Slot.PUT(Bin, ContentType, (int)Constants.Timeouts.UploadFile.TotalMilliseconds);
+				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(FileName) + "](" + Slot.GetUrl + ")");
+
+				if (DeleteFile)
+					File.Delete(FilePath);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.logService.LogException(ex);
+				return;
+			}
+		}
+
+		/// <summary>
+		/// Command to embed a file
+		/// </summary>
+		public ICommand EmbedFile { get; }
+
+		private bool CanExecuteEmbedFile()
+		{
+			return this.IsConnected && !this.IsWriting && this.NeuronService.Contracts.FileUploadIsSupported;
+		}
+
+		private async Task ExecuteEmbedFile()
+		{
+			if (!this.NeuronService.Contracts.FileUploadIsSupported)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
+				return;
+			}
+
+			FileResult pickedPhoto = await MediaPicker.PickPhotoAsync();
+
+			if (!(pickedPhoto is null))
+				await this.EmbedPhoto(pickedPhoto.FullPath, false);
+		}
+
+		/// <summary>
+		/// Command to embed a reference to a legal ID
+		/// </summary>
+		public ICommand EmbedId { get; }
+
+		private bool CanExecuteEmbedId()
+		{
+			return this.IsConnected && !this.IsWriting;
+		}
+
+		private async Task ExecuteEmbedId()
+		{
+			// TODO
+		}
+
+		/// <summary>
+		/// Command to embed a reference to a smart contract
+		/// </summary>
+		public ICommand EmbedContract { get; }
+
+		private bool CanExecuteEmbedContract()
+		{
+			return this.IsConnected && !this.IsWriting;
+		}
+
+		private async Task ExecuteEmbedContract()
+		{
+			// TODO
+		}
+
+		/// <summary>
+		/// Command to embed a payment
+		/// </summary>
+		public ICommand EmbedMoney { get; }
+
+		private bool CanExecuteEmbedMoney()
+		{
+			return this.IsConnected && !this.IsWriting;
+		}
+
+		private async Task ExecuteEmbedMoney()
+		{
+			// TODO
+		}
+
+		/// <summary>
+		/// Command to embed a reference to a thing
+		/// </summary>
+		public ICommand EmbedThing { get; }
+
+		private bool CanExecuteEmbedThing()
+		{
+			return this.IsConnected && !this.IsWriting;
+		}
+
+		private async Task ExecuteEmbedThing()
+		{
+			// TODO
+		}
+
 
 	}
 }

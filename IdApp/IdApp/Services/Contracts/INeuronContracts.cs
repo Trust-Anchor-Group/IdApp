@@ -5,6 +5,7 @@ using IdApp.Pages.Registration.RegisterIdentity;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Temporary;
 
@@ -27,6 +28,11 @@ namespace IdApp.Services.Contracts
         /// Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
         /// </summary>
         bool FileUploadIsSupported { get; }
+
+        /// <summary>
+        /// HTTP File Upload client
+        /// </summary>
+        HttpFileUploadClient FileUploadClient { get; }
 
         #endregion
 

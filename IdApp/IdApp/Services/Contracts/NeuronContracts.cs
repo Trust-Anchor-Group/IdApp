@@ -90,7 +90,7 @@ namespace IdApp.Services.Contracts
 			{
 				if (this.fileUploadClient is null || this.fileUploadClient.Client != this.neuronService.Xmpp)
 				{
-					this.fileUploadClient = (this.neuronService as NeuronService)?.FileUploadClient;
+					this.fileUploadClient = this.neuronService?.FileUploadClient;
 					if (this.fileUploadClient is null)
 						throw new InvalidOperationException(AppResources.FileUploadServiceNotFound);
 				}

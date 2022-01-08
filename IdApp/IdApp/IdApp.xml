@@ -3297,6 +3297,11 @@
             paper-plane
             </summary>
         </member>
+        <member name="F:IdApp.FontAwesome.PaperClip">
+            <summary>
+            paperclip
+            </summary>
+        </member>
         <member name="T:IdApp.IDeviceInformation">
             <summary>
             Dependency interface for device-specific information.
@@ -3561,7 +3566,7 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
             For unit tests.
@@ -3569,12 +3574,16 @@
             <param name="NeuronService">The Neuron service for XMPP communication.</param>
             <param name="UiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
             <param name="TagProfile">TAG Profie service.</param>
-            <param name="NavigationService">Navigation service. </param>
+            <param name="NavigationService">Navigation service.</param>
+            <param name="LogService">Log service.</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoBind">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.BareJidProperty">
@@ -3662,6 +3671,36 @@
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.LoadMoreMessages">
             <summary>
             The command to bind to for loading more messages.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.TakePhoto">
+            <summary>
+            Command to take and send a photo
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedFile">
+            <summary>
+            Command to embed a file
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedId">
+            <summary>
+            Command to embed a reference to a legal ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedContract">
+            <summary>
+            Command to embed a reference to a smart contract
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedMoney">
+            <summary>
+            Command to embed a payment
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.EmbedThing">
+            <summary>
+            Command to embed a reference to a thing
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.SelectContactAction">
@@ -11237,6 +11276,11 @@
             Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
             </summary>
         </member>
+        <member name="P:IdApp.Services.Contracts.INeuronContracts.FileUploadClient">
+            <summary>
+            HTTP File Upload client
+            </summary>
+        </member>
         <member name="M:IdApp.Services.Contracts.INeuronContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.Contracts.LegalIdentityAttachment[])">
             <summary>
             Adds a legal identity.
@@ -12239,6 +12283,11 @@
         <member name="P:IdApp.Services.Neuron.INeuronService.Wallet">
             <summary>
             Provides access to the eDaler wallet.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Neuron.INeuronService.FileUploadClient">
+            <summary>
+            HTTP File Upload client
             </summary>
         </member>
         <member name="M:IdApp.Services.Neuron.INeuronService.DiscoverServices(Waher.Networking.XMPP.XmppClient)">

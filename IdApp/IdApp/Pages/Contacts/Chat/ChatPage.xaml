@@ -7,6 +7,7 @@
                        xmlns:messages="clr-namespace:IdApp.Services.Messages;assembly=IdApp"
                        xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingListView;assembly=IdApp"
+                       xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:ChatViewModel"
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
                        Title="{Binding Path=FriendlyName}">
@@ -48,14 +49,40 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Editor x:Name="EditorControl" Grid.Column="0" Grid.Row="0" Text="{Binding MarkdownInput}" HorizontalOptions="StartAndExpand" 
                         AutoSize="TextChanges" Keyboard="Chat"/>
-                <Button Grid.Column="1" Grid.Row="0" Text="{x:Static local:FontAwesome.PaperPlane}" 
-                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Large"
-                        CornerRadius="8" WidthRequest="50" HeightRequest="50" Command="{Binding SendCommand}" 
+                <StackLayout Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                    <Button Text="{x:Static local:FontAwesome.Camera}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding TakePhoto}" 
                         HorizontalOptions="End" VerticalOptions="Center"/>
+                    <Button Text="{x:Static local:FontAwesome.PaperClip}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedFile}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
+                    <Button Text="{x:Static local:FontAwesome.User}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedId}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
+                    <Button Text="{x:Static local:FontAwesome.Paragraph}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedContract}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
+                    <Button Text="{x:Static local:FontAwesome.MoneyBill}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedMoney}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
+                    <Button Text="{x:Static local:FontAwesome.Things}" IsVisible="{Binding Path=IsWriting, Converter={converters:LogicalNot}}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding EmbedThing}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
+                    <Button Text="{x:Static local:FontAwesome.PaperPlane}" IsVisible="{Binding Path=IsWriting}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding SendCommand}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
+                </StackLayout>
             </Grid>
             <Frame.Behaviors>
                 <behaviors:SetFocusOnTappedBehavior SetFocusTo="EditorControl" BindingContext="{Binding BindingContext, Source={x:Reference ControlGrid}}"/>

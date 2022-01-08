@@ -135,5 +135,10 @@
         /// paper-plane
         /// </summary>
         public const string PaperPlane = "\uf1d8";
+
+        /// <summary>
+        /// paperclip
+        /// </summary>
+        public const string PaperClip = "\uf0c6";
     }
 }

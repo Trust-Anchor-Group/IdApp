@@ -489,15 +489,28 @@ namespace IdApp.Services.Neuron
 
 		#region Lifecycle
 
-		public async Task<bool> WaitForConnectedState(TimeSpan timeout)
+		public async Task<bool> WaitForConnectedState(TimeSpan Timeout)
 		{
 			if (this.xmppClient is null)
-				return false;
+			{
+				DateTime Start = DateTime.Now;
+
+				while (this.xmppClient is null && DateTime.Now - Start < Timeout)
+					await Task.Delay(1000);
+
+				if (this.xmppClient is null)
+					return false;
+			
+				Timeout -= DateTime.Now - Start;
+			}
 
 			if (this.xmppClient.State == XmppState.Connected)
 				return true;
 
-			int i = await this.xmppClient.WaitStateAsync((int)timeout.TotalMilliseconds, XmppState.Connected);
+			if (Timeout < TimeSpan.Zero)
+				return false;
+
+			int i = await this.xmppClient.WaitStateAsync((int)Timeout.TotalMilliseconds, XmppState.Connected);
 			return i >= 0;
 		}
 
