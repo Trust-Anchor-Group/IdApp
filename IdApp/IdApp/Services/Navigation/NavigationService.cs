@@ -173,5 +173,10 @@ namespace IdApp.Services.Navigation
                 await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
             }
         }
+
+        /// <summary>
+        /// Current page
+        /// </summary>
+        public Page CurrentPage => Shell.Current.CurrentPage;
     }
 }

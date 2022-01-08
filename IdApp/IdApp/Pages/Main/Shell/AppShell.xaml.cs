@@ -98,6 +98,7 @@ namespace IdApp.Pages.Main.Shell
 
 			// Contacts:
 			Routing.RegisterRoute(nameof(Contacts.MyContacts.MyContactsPage), typeof(Contacts.MyContacts.MyContactsPage));
+			Routing.RegisterRoute(nameof(Contacts.Chat.ChatPage), typeof(Contacts.Chat.ChatPage));
 
 			// Contracts:
 			Routing.RegisterRoute(nameof(Contracts.ClientSignature.ClientSignaturePage), typeof(Contracts.ClientSignature.ClientSignaturePage));

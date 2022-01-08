@@ -222,6 +222,9 @@
   <data name="Change" xml:space="preserve">
     <value>Förändring:</value>
   </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Chatt</value>
+  </data>
   <data name="ChooseAccount" xml:space="preserve">
     <value>Välj konto</value>
   </data>

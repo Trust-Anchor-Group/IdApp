@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Contacts.Chat;assembly=IdApp"
+                       xmlns:messages="clr-namespace:IdApp.Services.Messages;assembly=IdApp"
+                       x:DataType="model:ChatViewModel"
+                       x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
+                       Title="{Binding Path=FriendlyName}">
+    <views:ContentBasePage.Resources>
+        <DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
+            <ViewCell>
+                <Frame HorizontalOptions="StartAndExpand" Rotation="180" BackgroundColor="LightYellow" Padding="5" CornerRadius="5">
+                    <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Start"/>
+                </Frame>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="ReceivedMessage" x:DataType="messages:ChatMessage">
+            <ViewCell>
+                <Frame HorizontalOptions="EndAndExpand" Rotation="180" BackgroundColor="LightBlue" Padding="5" CornerRadius="5">
+                    <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="End"/>
+                </Frame>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="OtherItems" x:DataType="messages:ChatMessage">
+            <ViewCell>
+                <Frame HorizontalOptions="CenterAndExpand" Rotation="180" BackgroundColor="LightSalmon" Padding="5" CornerRadius="5">
+                    <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Center"/>
+                </Frame>
+            </ViewCell>
+        </DataTemplate>
+        <messages:MessageTypeTemplateSelector x:Key="MessageStyleSelector" 
+                                              SentTemplate="{StaticResource SentMessage}" 
+                                              ReceivedTemplate="{StaticResource ReceivedMessage}" 
+                                              DefaultTemplate="{StaticResource OtherItems}"/>
+    </views:ContentBasePage.Resources>
+    <StackLayout Margin="{StaticResource DefaultMargin}">
+        <ListView x:Name="Messages" ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}" HasUnevenRows="True"
+                  SelectedItem="{Binding Path=SelectedMessage, Mode=TwoWay}" VerticalOptions="StartAndExpand" Rotation="180" SeparatorVisibility="None"/>
+        <Frame BorderColor="Black" CornerRadius="5" Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Editor Grid.Column="0" Grid.Row="0" Text="{Binding MarkdownInput}" HorizontalOptions="StartAndExpand" 
+                        AutoSize="TextChanges" Keyboard="Chat"/>
+                <Button Grid.Column="1" Grid.Row="0" Text="{x:Static local:FontAwesome.PaperPlane}" 
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Large"
+                        CornerRadius="8" WidthRequest="50" HeightRequest="50" Command="{Binding SendCommand}" 
+                        HorizontalOptions="End" VerticalOptions="Center"/>
+            </Grid>
+        </Frame>
+    </StackLayout>
+</views:ContentBasePage>

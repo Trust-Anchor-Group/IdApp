@@ -249,6 +249,11 @@
               Looks up a localized string similar to Change PIN.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Chat">
+            <summary>
+              Looks up a localized string similar to Chat.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ChooseAccount">
             <summary>
               Looks up a localized string similar to Choose account.
@@ -3039,6 +3044,11 @@
             folder-open
             </summary>
         </member>
+        <member name="F:IdApp.FontAwesome.PaperPlane">
+            <summary>
+            paper-plane
+            </summary>
+        </member>
         <member name="T:IdApp.IDeviceInformation">
             <summary>
             Dependency interface for device-specific information.
@@ -3254,6 +3264,142 @@
             <see cref="M:Xamarin.Forms.Command.ChangeCanExecute"/> on the list of commands passed in.
             </summary>
             <param name="commands">The commands to re-evaluate.</param>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.ChatNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a list of contacts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
+            </summary>
+            <param name="BareJid">Bare JID of remote chat party</param>
+            <param name="FriendlyName">Friendly name</param>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.BareJid">
+            <summary>
+            Bare JID of remote chat party
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.FriendlyName">
+            <summary>
+            Friendly name
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.ChatPage">
+            <summary>
+            A page that displays a list of the current user's contacts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.ChatViewModel">
+            <summary>
+            The view model to bind to when displaying the list of contacts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.#ctor">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
+            For unit tests.
+            </summary>
+            <param name="NeuronService">The Neuron service for XMPP communication.</param>
+            <param name="UiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
+            <param name="TagProfile">TAG Profie service.</param>
+            <param name="NavigationService">Navigation service. </param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.BareJidProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.BareJid"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.BareJid">
+            <summary>
+            Bare JID of remote party
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.FriendlyNameProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.FriendlyName"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.FriendlyName">
+            <summary>
+            Friendly name of remote party
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.MarkdownInputProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.MarkdownInput"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.MarkdownInput">
+            <summary>
+            Current Markdown input.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.IsWritingProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsWriting"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.IsWriting">
+            <summary>
+            If the user is writing markdown.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.Messages">
+            <summary>
+            Holds the list of chat messages to display.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.SelectedMessageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SelectedMessage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SelectedMessage">
+            <summary>
+            The currently selected contact, if any.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageAdded(IdApp.Services.Messages.ChatMessage)">
+            <summary>
+            External message has been received
+            </summary>
+            <param name="Message">Message</param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.MessageUpdated(IdApp.Services.Messages.ChatMessage)">
+            <summary>
+            External message has been updated
+            </summary>
+            <param name="Message">Message</param>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SendCommand">
+            <summary>
+            The command to bind to for sending user input
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Contacts.SelectContactAction">
             <summary>
@@ -5909,6 +6055,11 @@
             The command for sending a payment to entity.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.ChatCommand">
+            <summary>
+            The command for opening the chat page.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyHtmlToClipboard">
             <summary>
             Copies ID to clipboard
@@ -7376,9 +7527,9 @@
             <summary>
             Creates an instance of a <see cref="T:IdApp.Pages.NeuronViewModel"/>.
             </summary>
-            <param name="neuronService"></param>
-            <param name="uiSerializer"></param>
-            <param name="tagProfile"></param>
+            <param name="neuronService">The Neuron service for XMPP communication.</param>
+            <param name="uiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
+            <param name="tagProfile">TAG Profie service.</param>
         </member>
         <member name="M:IdApp.Pages.NeuronViewModel.DoBind">
             <inheritdoc/>
@@ -11676,6 +11827,114 @@
             The current loaded state.
             </summary>
         </member>
+        <member name="T:IdApp.Services.Messages.MessageType">
+            <summary>
+            Message type
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Messages.MessageType.Sent">
+            <summary>
+            Message sent by the user
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Messages.MessageType.Received">
+            <summary>
+            Message received from remote party
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Messages.ChatMessage">
+            <summary>
+            Chat Messages
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Messages.ChatMessage.#ctor">
+            <summary>
+            Chat Messages
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.ObjectId">
+            <summary>
+            Object ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.RemoteBareJid">
+            <summary>
+            Remote Bare JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.Created">
+            <summary>
+            When message was created
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.Updated">
+            <summary>
+            When message was created
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.RemoteObjectId">
+            <summary>
+            Remote Objcet ID. If sent by the local user, value will be null or empty.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.MessageType">
+            <summary>
+            Message Type
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.PlainText">
+            <summary>
+            Plain text of message
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.Markdown">
+            <summary>
+            Markdown of message
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.Html">
+            <summary>
+            HTML of message
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.Xaml">
+            <summary>
+            HTML of message
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.StyleId">
+            <summary>
+            Message Style ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.ParsedXaml">
+            <summary>
+            Parsed XAML
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Messages.MessageTypeTemplateSelector">
+            <summary>
+            Data Template Selector, based on Message Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.MessageTypeTemplateSelector.SentTemplate">
+            <summary>
+            Template to use for sent messages.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.MessageTypeTemplateSelector.ReceivedTemplate">
+            <summary>
+            Template to use for received messages.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.MessageTypeTemplateSelector.DefaultTemplate">
+            <summary>
+            Template to use for other items.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Messages.MessageTypeTemplateSelector.OnSelectTemplate(System.Object,Xamarin.Forms.BindableObject)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Services.Navigation.INavigationService">
             <summary>
             The navigation service is a wafer-thin wrapper around the <see cref="T:Xamarin.Forms.Shell"/>'s <c>GoToAsync()</c> methods.
@@ -11714,6 +11973,11 @@
             <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="T:IdApp.Services.Navigation.NavigationArgs"/>.</typeparam>
             <param name="args">The actual args.</param>
         </member>
+        <member name="P:IdApp.Services.Navigation.INavigationService.CurrentPage">
+            <summary>
+            Current page
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Navigation.NavigationArgs">
             <summary>
             An abstract base class holding page specific navigation parameters.
@@ -11729,6 +11993,11 @@
         </member>
         <member name="M:IdApp.Services.Navigation.NavigationService.Unload">
             <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Services.Navigation.NavigationService.CurrentPage">
+            <summary>
+            Current page
+            </summary>
         </member>
         <member name="T:IdApp.Services.Network.INetworkService">
             <summary>

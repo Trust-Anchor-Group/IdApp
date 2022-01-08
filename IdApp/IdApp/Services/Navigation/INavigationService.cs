@@ -42,5 +42,10 @@ namespace IdApp.Services.Navigation
         /// <typeparam name="TArgs">The type of arguments to pass. Must be a subclass of <see cref="NavigationArgs"/>.</typeparam>
         /// <param name="args">The actual args.</param>
         bool TryPopArgs<TArgs>(out TArgs args) where TArgs : NavigationArgs;
+
+        /// <summary>
+        /// Current page
+        /// </summary>
+        Page CurrentPage { get; }
     }
 }

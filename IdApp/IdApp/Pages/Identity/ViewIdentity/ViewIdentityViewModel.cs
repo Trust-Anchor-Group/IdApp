@@ -31,6 +31,7 @@ using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
+using IdApp.Pages.Contacts.Chat;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -74,16 +75,17 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiSerializer,
 				AttachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
 
-			this.ApproveCommand = new Command(async _ => await Approve(), _ => IsConnected);
-			this.RejectCommand = new Command(async _ => await Reject(), _ => IsConnected);
-			this.RevokeCommand = new Command(async _ => await Revoke(), _ => IsConnected);
-			this.TransferCommand = new Command(async _ => await Transfer(), _ => IsConnected);
-			this.CompromiseCommand = new Command(async _ => await Compromise(), _ => IsConnected);
-			this.ChangePinCommand = new Command(async _ => await ChangePin(), _ => IsConnected);
+			this.ApproveCommand = new Command(async _ => await Approve(), _ => this.IsConnected);
+			this.RejectCommand = new Command(async _ => await Reject(), _ => this.IsConnected);
+			this.RevokeCommand = new Command(async _ => await Revoke(), _ => this.IsConnected);
+			this.TransferCommand = new Command(async _ => await Transfer(), _ => this.IsConnected);
+			this.CompromiseCommand = new Command(async _ => await Compromise(), _ => this.IsConnected);
+			this.ChangePinCommand = new Command(async _ => await ChangePin(), _ => this.IsConnected);
 			this.CopyCommand = new Command(_ => this.CopyHtmlToClipboard());
 			this.AddContactCommand = new Command(async _ => await this.AddContact(), _ => this.ThirdPartyNotInContacts);
 			this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
 			this.SendPaymentToCommand = new Command(async _ => await this.SendPaymentTo(), _ => this.ThirdParty);
+			this.ChatCommand = new Command(async _ => await this.OpenChat(), _ => this.ThirdParty);
 		}
 
 		/// <inheritdoc/>
@@ -210,6 +212,11 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public ICommand SendPaymentToCommand { get; }
 
+		/// <summary>
+		/// The command for opening the chat page.
+		/// </summary>
+		public ICommand ChatCommand { get; }
+
 		#endregion
 
 		private void AssignProperties()
@@ -319,7 +326,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.TransferCommand, 
 				this.ChangePinCommand, this.CompromiseCommand, this.AddContactCommand, this.RemoveContactCommand, 
-				this.SendPaymentToCommand);
+				this.SendPaymentToCommand, this.ChatCommand);
 		}
 
 		/// <inheritdoc/>
@@ -1656,6 +1663,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			catch (Exception ex)
 			{
 				this.logService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task OpenChat()
+		{
+			try
+			{
+				await this.navigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.BareJid, this.GetFriendlyName()));
+			}
+			catch (Exception ex)
+			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

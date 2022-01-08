@@ -16,6 +16,7 @@ using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
 using IdApp.Services.UI;
+using IdApp.Pages.Contacts.Chat;
 
 namespace IdApp.Pages.Contacts
 {
@@ -207,7 +208,16 @@ namespace IdApp.Pages.Contacts
 
 								case SelectContactAction.ViewIdentity:
 								default:
-									await viewModel.navigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
+									if (!(Contact.LegalIdentity is null))
+									{
+										await viewModel.navigationService.GoToAsync(nameof(ViewIdentityPage),
+											new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
+									}
+									else if (!string.IsNullOrEmpty(Contact.BareJid))
+									{
+										await viewModel.navigationService.GoToAsync(nameof(ChatPage), 
+											new ChatNavigationArgs(Contact.BareJid, Contact.FriendlyName));
+									}
 									break;
 							}
 						});

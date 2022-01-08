@@ -30,7 +30,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		{
 			this.navigationService = navigationService;
 
-			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
+			this.AcceptCommand = new Command(async _ => await Accept(), _ => this.IsConnected);
 		}
 
 		/// <inheritdoc/>

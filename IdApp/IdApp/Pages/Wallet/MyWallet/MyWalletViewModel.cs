@@ -58,8 +58,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 			this.BackCommand = new Command(async _ => await GoBack());
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
-			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => IsConnected);
-			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => IsConnected);
+			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => this.IsConnected);
+			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => this.IsConnected);
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
 

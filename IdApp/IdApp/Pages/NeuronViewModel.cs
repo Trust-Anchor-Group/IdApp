@@ -16,9 +16,9 @@ namespace IdApp.Pages
         /// <summary>
         /// Creates an instance of a <see cref="NeuronViewModel"/>.
         /// </summary>
-        /// <param name="neuronService"></param>
-        /// <param name="uiSerializer"></param>
-        /// <param name="tagProfile"></param>
+        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
+        /// <param name="uiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
+        /// <param name="tagProfile">TAG Profie service.</param>
         protected NeuronViewModel(INeuronService neuronService, IUiSerializer uiSerializer, ITagProfile tagProfile)
         {
             this.NeuronService = neuronService ?? App.Instantiate<INeuronService>();

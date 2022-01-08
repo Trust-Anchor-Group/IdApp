@@ -33,6 +33,7 @@
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="Waher.Content" Version="2.0.0" />
+    <PackageReference Include="Waher.Content.Emoji" Version="2.0.0" />
     <PackageReference Include="Waher.Content.Images" Version="2.0.0" />
     <PackageReference Include="Waher.Content.QR" Version="2.0.0" />
     <PackageReference Include="Waher.Content.Xml" Version="2.0.0" />
@@ -128,6 +129,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\Contacts\Chat\ChatPage.xaml.cs">
+      <DependentUpon>ChatPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Pages\Contacts\MyContacts\MyContactsPage.xaml.cs">
       <DependentUpon>MyContactsPage.xaml</DependentUpon>

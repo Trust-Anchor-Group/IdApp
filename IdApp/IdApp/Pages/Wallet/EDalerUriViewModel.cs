@@ -47,7 +47,7 @@ namespace IdApp.Pages.Wallet
 			this.networkService = networkService;
 			this.shareQrCode = ShareQrCode;
 
-			this.AcceptCommand = new Command(async _ => await Accept(), _ => IsConnected);
+			this.AcceptCommand = new Command(async _ => await Accept(), _ => this.IsConnected);
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
 			this.PayOnlineCommand = new Command(async _ => await this.PayOnline(), _ => this.CanPayOnline());
 			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());

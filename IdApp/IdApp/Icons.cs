@@ -130,5 +130,10 @@
         /// folder-open
         /// </summary>
         public const string FolderOpen = "\uf07c";
+
+        /// <summary>
+        /// paper-plane
+        /// </summary>
+        public const string PaperPlane = "\uf1d8";
     }
 }

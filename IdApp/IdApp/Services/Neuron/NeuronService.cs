@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using IdApp.Extensions;
+using IdApp.Pages.Contacts.Chat;
+using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Popups.Xmpp.SubscriptionRequest;
 using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
+using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Provisioning;
@@ -16,6 +21,10 @@ using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using EDaler;
+using Waher.Content;
+using Waher.Content.Html;
+using Waher.Content.Markdown;
+using Waher.Content.Xml;
 using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
@@ -26,16 +35,14 @@ using Waher.Networking.XMPP.Control;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.MUC;
 using Waher.Networking.XMPP.Provisioning;
+using Waher.Networking.XMPP.PubSub;
 using Waher.Networking.XMPP.Sensor;
 using Waher.Networking.XMPP.ServiceDiscovery;
+using Waher.Persistence;
+using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
-using Waher.Content.Xml;
 using Waher.Runtime.Settings;
-using Waher.Content;
-using Waher.Persistence;
-using IdApp.Popups.Xmpp.SubscribeTo;
-using System.Text;
 
 namespace IdApp.Services.Neuron
 {
@@ -1103,9 +1110,164 @@ namespace IdApp.Services.Neuron
 			}
 		}
 
-		private Task XmppClient_OnChatMessage(object Sender, MessageEventArgs e)
+		private async Task XmppClient_OnChatMessage(object Sender, MessageEventArgs e)
 		{
-			return Task.CompletedTask;  // TODO
+			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(e.FromBareJID);
+			string FriendlyName = ContactInfo?.FriendlyName ?? e.FromBareJID;
+			string ReplaceObjectId = null;
+
+			ChatMessage Message = new ChatMessage()
+			{
+				Created = DateTime.UtcNow,
+				RemoteBareJid = e.FromBareJID,
+				RemoteObjectId = e.Id,
+				MessageType = Messages.MessageType.Received,
+				Html = "",
+				PlainText = e.Body,
+				Markdown = ""
+			};
+
+			foreach (XmlNode N in e.Message.ChildNodes)
+			{
+				if (N is XmlElement E)
+				{
+					switch (N.LocalName)
+					{
+						case "content":
+							if (E.NamespaceURI == "urn:xmpp:content")
+							{
+								string Type = XML.Attribute(E, "type");
+
+								switch (Type)
+								{
+									case "text/markdown":
+										Message.Markdown = E.InnerText;
+										break;
+
+									case "text/plain":
+										Message.PlainText = E.InnerText;
+										break;
+
+									case "text/html":
+										Message.Html = E.InnerText;
+										break;
+								}
+							}
+							break;
+
+						case "html":
+							if (E.NamespaceURI == "http://jabber.org/protocol/xhtml-im")
+							{
+								string Html = E.InnerXml;
+
+								int i = Html.IndexOf("<body", StringComparison.OrdinalIgnoreCase);
+								if (i >= 0)
+								{
+									i = Html.IndexOf('>', i + 5);
+									if (i >= 0)
+										Html = Html.Substring(i + 1).TrimStart();
+
+									i = Html.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
+									if (i >= 0)
+										Html = Html.Substring(0, i).TrimEnd();
+								}
+
+								Message.Html = Html;
+							}
+							break;
+
+						case "replace":
+							if (E.NamespaceURI == "urn:xmpp:message-correct:0")
+								ReplaceObjectId = XML.Attribute(E, "id");
+							break;
+
+						case "delay":
+							if (E.NamespaceURI == PubSubClient.NamespaceDelayedDelivery &&
+								E.HasAttribute("stamp") &&
+								XML.TryParse(E.GetAttribute("stamp"), out DateTime Timestamp2))
+							{
+								Message.Created = Timestamp2.ToUniversalTime();
+							}
+							break;
+					}
+				}
+			}
+
+			if (!string.IsNullOrEmpty(Message.Markdown))
+			{
+				try
+				{
+					MarkdownSettings Settings = new MarkdownSettings()
+					{
+						AllowScriptTag = false,
+						EmbedEmojis = false,    // TODO: Emojis
+						AudioAutoplay = false,
+						AudioControls = false,
+						ParseMetaData = false,
+						VideoAutoplay = false,
+						VideoControls = false
+					};
+
+					MarkdownDocument Doc = await MarkdownDocument.CreateAsync(Message.Markdown, Settings);
+
+					if (string.IsNullOrEmpty(Message.PlainText))
+						Message.PlainText = (await Doc.GeneratePlainText()).Trim();
+
+					if (string.IsNullOrEmpty(Message.Html))
+						Message.Html = HtmlDocument.GetBody(await Doc.GenerateHTML());
+
+					Message.Xaml = await Doc.GenerateXamarinForms();
+				}
+				catch (Exception ex)
+				{
+					Log.Critical(ex);
+					Message.Markdown = string.Empty;
+				}
+			}
+
+			if (string.IsNullOrEmpty(ReplaceObjectId))
+				await Database.Insert(Message);
+			else
+			{
+				ChatMessage Old = await Database.FindFirstIgnoreRest<ChatMessage>(new FilterAnd(
+					new FilterFieldEqualTo("RemoteBareJid", e.FromBareJID),
+					new FilterFieldEqualTo("RemoteObjectId", ReplaceObjectId)));
+
+				if (Old is null)
+				{
+					ReplaceObjectId = null;
+					await Database.Insert(Message);
+				}
+				else
+				{
+					Old.Updated = Message.Created;
+					Old.Html = Message.Html;
+					Old.PlainText = Message.PlainText;
+					Old.Markdown = Message.Markdown;
+					Old.Xaml = Message.Xaml;
+
+					await Database.Update(Old);
+
+					Message = Old;
+				}
+			}
+
+			INavigationService NavigationService = App.Instantiate<INavigationService>();
+
+			if (NavigationService.CurrentPage is ChatPage ChatPage &&
+				ChatPage.BindingContext is ChatViewModel ChatViewModel &&
+				ChatViewModel.BareJid == e.FromBareJID)
+			{
+				if (string.IsNullOrEmpty(ReplaceObjectId))
+					ChatViewModel.MessageAdded(Message);
+				else
+					ChatViewModel.MessageUpdated(Message);
+			}
+			else
+			{
+				this.uiSerializer.BeginInvokeOnMainThread(async () =>
+					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(e.FromBareJID, FriendlyName)));
+			}
 		}
 	}
 }

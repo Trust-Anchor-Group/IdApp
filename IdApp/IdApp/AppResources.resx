@@ -1332,4 +1332,7 @@
   <data name="SubscribeToPresence" xml:space="preserve">
     <value>Subscribe to presence?</value>
   </data>
+  <data name="Chat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
 </root>
