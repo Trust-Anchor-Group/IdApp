@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Waher.Content.Markdown;
 using Waher.Events;
 using Waher.Persistence;
 using Waher.Persistence.Attributes;
@@ -44,7 +45,6 @@ namespace IdApp.Services.Messages
 		private string plainText = string.Empty;
 		private string markdown = string.Empty;
 		private string html = string.Empty;
-		private string xaml = string.Empty;
 		private object parsedXaml = null;
 
 		private IChatView chatView;
@@ -149,19 +149,6 @@ namespace IdApp.Services.Messages
 		}
 
 		/// <summary>
-		/// HTML of message
-		/// </summary>
-		public string Xaml
-		{
-			get => this.xaml;
-			set
-			{
-				this.xaml = value;
-				this.parsedXaml = null;
-			}
-		}
-
-		/// <summary>
 		/// Message Style ID
 		/// </summary>
 		public string StyleId => "Message" + this.messageType.ToString();
@@ -170,15 +157,30 @@ namespace IdApp.Services.Messages
 		/// Parses the XAML in the message.
 		/// </summary>
 		/// <param name="View"></param>
-		public void ParseXaml(IChatView View)
+		public async Task GenerateXaml(IChatView View)
 		{
 			this.chatView = View;
 
-			if (!string.IsNullOrEmpty(this.xaml))
+			if (!string.IsNullOrEmpty(this.markdown))
 			{
 				try
 				{
-					this.parsedXaml = new StackLayout().LoadFromXaml(this.xaml);
+					MarkdownSettings Settings = new MarkdownSettings()
+					{
+						AllowScriptTag = false,
+						EmbedEmojis = false,    // TODO: Emojis
+						AudioAutoplay = false,
+						AudioControls = false,
+						ParseMetaData = false,
+						VideoAutoplay = false,
+						VideoControls = false
+					};
+
+					MarkdownDocument Doc = await MarkdownDocument.CreateAsync(this.markdown, Settings);
+
+					string Xaml = await Doc.GenerateXamarinForms();
+
+					this.parsedXaml = new StackLayout().LoadFromXaml(Xaml);
 
 					if (this.parsedXaml is StackLayout Layout)
 						Layout.StyleId = this.StyleId;
@@ -236,16 +238,7 @@ namespace IdApp.Services.Messages
 		/// <summary>
 		/// Parsed XAML
 		/// </summary>
-		public object ParsedXaml
-		{
-			get
-			{
-				if (this.parsedXaml is null)
-					this.ParseXaml(null);
-
-				return this.parsedXaml;
-			}
-		}
+		public object ParsedXaml => this.parsedXaml;
 
 		/// <summary>
 		/// Command executed when a multi-media-link with the xmpp URI scheme is clicked.

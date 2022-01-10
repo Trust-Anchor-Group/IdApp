@@ -3802,6 +3802,64 @@
             <param name="Uri">URI</param>
             <param name="Scheme">URI Scheme</param>
         </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock">
+            <summary>
+            Handles embedded Legal IDs.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.#ctor">
+            <summary>
+            Handles embedded Legal IDs.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesHTML">
+            <summary>
+            If generation of HTML is supported
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesPlainText">
+            <summary>
+            If generation of plain text is supported.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.HandlesXAML">
+            <summary>
+            If generation of XAML is supported.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates HTML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Plain Text (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates WPF XAML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Xamarin XAML
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.Register(Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Registers the Markdown document in which the construct resides.
+            </summary>
+            <param name="Document">Markdown document</param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.Supports(System.String)">
+            <summary>
+            How much the module supports code of a given language (i.e. type of content)
+            </summary>
+            <param name="Language">Code language</param>
+            <returns>Grade of support.</returns>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme">
             <summary>
             Implements the iotid URI Scheme
@@ -12189,17 +12247,12 @@
             HTML of message
             </summary>
         </member>
-        <member name="P:IdApp.Services.Messages.ChatMessage.Xaml">
-            <summary>
-            HTML of message
-            </summary>
-        </member>
         <member name="P:IdApp.Services.Messages.ChatMessage.StyleId">
             <summary>
             Message Style ID
             </summary>
         </member>
-        <member name="M:IdApp.Services.Messages.ChatMessage.ParseXaml(IdApp.Pages.Contacts.Chat.IChatView)">
+        <member name="M:IdApp.Services.Messages.ChatMessage.GenerateXaml(IdApp.Pages.Contacts.Chat.IChatView)">
             <summary>
             Parses the XAML in the message.
             </summary>

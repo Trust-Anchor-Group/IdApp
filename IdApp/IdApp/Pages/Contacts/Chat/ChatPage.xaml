@@ -14,21 +14,24 @@
     <views:ContentBasePage.Resources>
         <DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
             <ViewCell>
-                <Frame HorizontalOptions="StartAndExpand" Rotation="180" BackgroundColor="LightYellow" Padding="5" CornerRadius="5">
+                <Frame HorizontalOptions="StartAndExpand" Rotation="180" BackgroundColor="LightYellow" 
+                       Padding="5" CornerRadius="5" Margin="2" BorderColor="Yellow">
                     <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Start"/>
                 </Frame>
             </ViewCell>
         </DataTemplate>
         <DataTemplate x:Key="ReceivedMessage" x:DataType="messages:ChatMessage">
             <ViewCell>
-                <Frame HorizontalOptions="EndAndExpand" Rotation="180" BackgroundColor="LightBlue" Padding="5" CornerRadius="5">
+                <Frame HorizontalOptions="EndAndExpand" Rotation="180" BackgroundColor="LightBlue" 
+                       Padding="5" CornerRadius="5" Margin="2" BorderColor="SkyBlue">
                     <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="End"/>
                 </Frame>
             </ViewCell>
         </DataTemplate>
         <DataTemplate x:Key="OtherItems" x:DataType="messages:ChatMessage">
             <ViewCell>
-                <Frame HorizontalOptions="CenterAndExpand" Rotation="180" BackgroundColor="LightSalmon" Padding="5" CornerRadius="5">
+                <Frame HorizontalOptions="CenterAndExpand" Rotation="180" BackgroundColor="LightSalmon" 
+                       Padding="5" CornerRadius="5" Margin="2" BorderColor="Salmon">
                     <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Center"/>
                 </Frame>
             </ViewCell>

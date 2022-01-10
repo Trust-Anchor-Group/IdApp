@@ -191,7 +191,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Contacts\Chat\MarkdownExtensions\CodeBlocks\" />
     <Folder Include="Popups\Pin\PinPopup\" />
   </ItemGroup>
 </Project>

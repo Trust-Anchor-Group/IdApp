@@ -1228,8 +1228,6 @@ namespace IdApp.Services.Neuron
 
 					if (string.IsNullOrEmpty(Message.Html))
 						Message.Html = HtmlDocument.GetBody(await Doc.GenerateHTML());
-
-					Message.Xaml = await Doc.GenerateXamarinForms();
 				}
 				catch (Exception ex)
 				{
@@ -1257,7 +1255,6 @@ namespace IdApp.Services.Neuron
 					Old.Html = Message.Html;
 					Old.PlainText = Message.PlainText;
 					Old.Markdown = Message.Markdown;
-					Old.Xaml = Message.Xaml;
 
 					await Database.Update(Old);
 
@@ -1272,9 +1269,9 @@ namespace IdApp.Services.Neuron
 				ChatViewModel.BareJid == e.FromBareJID)
 			{
 				if (string.IsNullOrEmpty(ReplaceObjectId))
-					ChatViewModel.MessageAdded(Message);
+					await ChatViewModel.MessageAdded(Message);
 				else
-					ChatViewModel.MessageUpdated(Message);
+					await ChatViewModel.MessageUpdated(Message);
 			}
 			else
 			{

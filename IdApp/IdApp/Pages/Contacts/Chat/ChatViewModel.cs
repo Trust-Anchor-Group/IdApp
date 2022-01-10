@@ -105,7 +105,7 @@ namespace IdApp.Pages.Contacts.Chat
 			this.Messages.Clear();
 			foreach (ChatMessage Message in Messages)
 			{
-				Message.ParseXaml(this);
+				await Message.GenerateXaml(this);
 				this.Messages.Add(Message);
 				c--;
 			}
@@ -252,26 +252,25 @@ namespace IdApp.Pages.Contacts.Chat
 		/// External message has been received
 		/// </summary>
 		/// <param name="Message">Message</param>
-		public void MessageAdded(ChatMessage Message)
+		public async Task MessageAdded(ChatMessage Message)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() =>
-			{
-				Message.ParseXaml(this);
-				this.Messages.Insert(0, Message);
-			});
+			await Message.GenerateXaml(this);
+
+			this.UiSerializer.BeginInvokeOnMainThread(() => this.Messages.Insert(0, Message));
 		}
 
 		/// <summary>
 		/// External message has been updated
 		/// </summary>
 		/// <param name="Message">Message</param>
-		public void MessageUpdated(ChatMessage Message)
+		public async Task MessageUpdated(ChatMessage Message)
 		{
 			int i = 0;
 
+			await Message.GenerateXaml(this);
+
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				Message.ParseXaml(this);
 				foreach (ChatMessage Msg in this.Messages)
 				{
 					if (Msg.ObjectId == Message.ObjectId)
@@ -330,8 +329,7 @@ namespace IdApp.Pages.Contacts.Chat
 					MessageType = Services.Messages.MessageType.Sent,
 					Html = HtmlDocument.GetBody(await Doc.GenerateHTML()),
 					PlainText = (await Doc.GeneratePlainText()).Trim(),
-					Markdown = MarkdownInput,
-					Xaml = await Doc.GenerateXamarinForms()
+					Markdown = MarkdownInput
 				};
 
 				StringBuilder Xml = new StringBuilder();
@@ -360,7 +358,7 @@ namespace IdApp.Pages.Contacts.Chat
 				if (string.IsNullOrEmpty(ReplaceObjectId))
 				{
 					await Database.Insert(Message);
-					this.MessageAdded(Message);
+					await this.MessageAdded(Message);
 				}
 				else
 				{
@@ -371,7 +369,7 @@ namespace IdApp.Pages.Contacts.Chat
 						ReplaceObjectId = null;
 						await Database.Insert(Message);
 
-						this.MessageAdded(Message);
+						await this.MessageAdded(Message);
 					}
 					else
 					{
@@ -379,13 +377,12 @@ namespace IdApp.Pages.Contacts.Chat
 						Old.Html = Message.Html;
 						Old.PlainText = Message.PlainText;
 						Old.Markdown = Message.Markdown;
-						Old.Xaml = Message.Xaml;
 
 						await Database.Update(Old);
 
 						Message = Old;
 
-						this.MessageUpdated(Message);
+						await this.MessageUpdated(Message);
 					}
 				}
 			}
@@ -415,7 +412,7 @@ namespace IdApp.Pages.Contacts.Chat
 			int c = MessageBatchSize;
 			foreach (ChatMessage Message in Messages)
 			{
-				Message.ParseXaml(this);
+				await Message.GenerateXaml(this);
 				this.Messages.Add(Message);
 				c--;
 			}
