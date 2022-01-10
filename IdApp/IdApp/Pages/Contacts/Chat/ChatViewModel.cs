@@ -31,6 +31,8 @@ using IdApp.Services.UI.QR;
 using IdApp.Services.Contracts;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
+using IdApp.Pages.Contracts.MyContracts;
+using IdApp.Pages.Contracts.MyContracts.ObjectModel;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -629,7 +631,35 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedContract()
 		{
-			// TODO
+			TaskCompletionSource<Contract> SelectedContract = new TaskCompletionSource<Contract>();
+
+			await this.navigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(
+				ContractsListMode.MyContracts, SelectedContract));
+
+			Contract Contract = await SelectedContract.Task;
+			if (Contract is null)
+				return;
+
+			await this.waitUntilBound.Task;     // Wait until view is bound again.
+
+			if (Contract.Visibility >= ContractVisibility.Public)
+			{
+				string FriendlyName = await ContractModel.GetName(Contract, this.TagProfile, this.NeuronService);
+				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(FriendlyName) + "](" + Contract.ContractIdUriString + ")");
+			}
+			else
+			{
+				StringBuilder Markdown = new StringBuilder();
+
+				Markdown.AppendLine("```iotsc");
+
+				Contract.Serialize(Markdown, true, true, true, true, true, true, true);
+
+				Markdown.AppendLine();
+				Markdown.AppendLine("```");
+
+				await this.ExecuteSendMessage(string.Empty, Markdown.ToString());
+			}
 		}
 
 		/// <summary>

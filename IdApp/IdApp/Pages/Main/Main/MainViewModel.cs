@@ -24,6 +24,7 @@ using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Pages.Contracts.MyContracts;
 
 namespace IdApp.Pages.Main.Main
 {
@@ -651,7 +652,7 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewSignedContracts()
 		{
-			await this.navigationService.GoToAsync(nameof(Contracts.SignedContracts.SignedContractsPage));
+			await this.navigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
 		}
 
 		private async Task ViewWallet()

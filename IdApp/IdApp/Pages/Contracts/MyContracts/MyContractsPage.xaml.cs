@@ -18,21 +18,13 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// Creates a new instance of the <see cref="MyContractsPage"/> class.
 		/// </summary>
 		public MyContractsPage()
-			: this(ContractsListMode.MyContracts)
-		{
-		}
-
-		/// <summary>
-		/// Creates a new instance of the <see cref="MyContractsPage"/> class.
-		/// </summary>
-		/// <param name="ContractsListMode">What list of contracts to display.</param>
-		protected MyContractsPage(ContractsListMode ContractsListMode)
 		{
 			this.navigationService = App.Instantiate<INavigationService>();
 
-			MyContractsViewModel ViewModel = new MyContractsViewModel(ContractsListMode);
+			MyContractsViewModel ViewModel = new MyContractsViewModel();
 			this.Title = ViewModel.Title;
 			this.ViewModel = ViewModel;
+
 			InitializeComponent();
 		}
 

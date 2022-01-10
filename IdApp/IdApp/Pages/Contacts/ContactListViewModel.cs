@@ -174,8 +174,7 @@ namespace IdApp.Pages.Contacts
 			BindableProperty.Create("SelectedContact", typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo), 
 				propertyChanged: (b, oldValue, newValue) =>
 				{
-					if (b is ContactListViewModel viewModel &&
-						newValue is ContactInfo Contact)
+					if (b is ContactListViewModel viewModel && newValue is ContactInfo Contact)
 					{
 						viewModel.uiSerializer.BeginInvokeOnMainThread(async () =>
 						{

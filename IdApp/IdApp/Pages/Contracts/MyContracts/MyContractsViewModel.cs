@@ -16,51 +16,26 @@ using IdApp.Services.UI;
 namespace IdApp.Pages.Contracts.MyContracts
 {
 	/// <summary>
-	/// What list of contracts to display
-	/// </summary>
-	public enum ContractsListMode
-	{
-		/// <summary>
-		/// Contracts I have created
-		/// </summary>
-		MyContracts,
-
-		/// <summary>
-		/// Contracts I have signed
-		/// </summary>
-		SignedContracts,
-
-		/// <summary>
-		/// Contract templates I have used to create new contracts
-		/// </summary>
-		ContractTemplates
-	}
-
-	/// <summary>
 	/// The view model to bind to when displaying 'my' contracts.
 	/// </summary>
 	public class MyContractsViewModel : BaseViewModel
 	{
 		internal readonly Dictionary<string, Contract> contractsMap;
 
-		/// <summary>
-		/// Show created contracts or signed contracts?
-		/// </summary>
-		internal readonly ContractsListMode contractsListMode;
-
 		private readonly INeuronService neuronService;
 		private readonly INetworkService networkService;
 		internal readonly INavigationService navigationService;
 		internal readonly IUiSerializer uiSerializer;
 		internal readonly ITagProfile tagProfile;
+		internal ContractsListMode contractsListMode;
 		private DateTime loadContractsTimestamp;
+		private TaskCompletionSource<Contract> selection;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyContractsViewModel"/> class.
 		/// </summary>
-		/// <param name="ContractsListMode">What list of contracts to display.</param>
-		public MyContractsViewModel(ContractsListMode ContractsListMode)
-			: this(ContractsListMode, null, null, null, null, null)
+		public MyContractsViewModel()
+			: this(null, null, null, null, null)
 		{
 		}
 
@@ -68,13 +43,12 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// Creates an instance of the <see cref="MyContractsViewModel"/> class.
 		/// For unit tests.
 		/// </summary>
-		/// <param name="ContractsListMode">What list of contracts to display.</param>
 		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
 		/// <param name="networkService">The network service for network access.</param>
 		/// <param name="navigationService">The navigation service.</param>
 		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
 		/// <param name="TagProfile">TAG Profile</param>
-		protected internal MyContractsViewModel(ContractsListMode ContractsListMode, INeuronService neuronService, 
+		protected internal MyContractsViewModel(INeuronService neuronService, 
 			INetworkService networkService, INavigationService navigationService, IUiSerializer uiSerializer,
 			ITagProfile TagProfile)
 		{
@@ -83,28 +57,11 @@ namespace IdApp.Pages.Contracts.MyContracts
 			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 			this.tagProfile = TagProfile ?? App.Instantiate<ITagProfile>();
-			this.contractsListMode = ContractsListMode;
 			this.contractsMap = new Dictionary<string, Contract>();
 			this.Categories = new ObservableCollection<ContractCategoryModel>();
 			this.IsBusy = true;
-
-			switch (ContractsListMode)
-			{
-				case ContractsListMode.MyContracts:
-					this.Title = AppResources.MyContracts;
-					this.Description = AppResources.MyContractsInfoText;
-					break;
-
-				case ContractsListMode.SignedContracts:
-					this.Title = AppResources.SignedContracts;
-					this.Description = AppResources.SignedContractsInfoText;
-					break;
-
-				case ContractsListMode.ContractTemplates:
-					this.Title = AppResources.ContractTemplates;
-					this.Description = AppResources.ContractTemplatesInfoText;
-					break;
-			}
+			this.Action = SelectContractAction.ViewContract;
+			this.selection = null;
 		}
 
 		/// <inheritdoc/>
@@ -114,6 +71,31 @@ namespace IdApp.Pages.Contracts.MyContracts
 			this.ShowContractsMissing = false;
 			this.loadContractsTimestamp = DateTime.UtcNow;
 
+			if (this.navigationService.TryPopArgs(out MyContractsNavigationArgs args))
+			{
+				this.contractsListMode = args.Mode;
+				this.Action = args.Action;
+				this.selection = args.Selection;
+
+				switch (this.contractsListMode)
+				{
+					case ContractsListMode.MyContracts:
+						this.Title = AppResources.MyContracts;
+						this.Description = AppResources.MyContractsInfoText;
+						break;
+
+					case ContractsListMode.SignedContracts:
+						this.Title = AppResources.SignedContracts;
+						this.Description = AppResources.SignedContractsInfoText;
+						break;
+
+					case ContractsListMode.ContractTemplates:
+						this.Title = AppResources.ContractTemplates;
+						this.Description = AppResources.ContractTemplatesInfoText;
+						break;
+				}
+			}
+
 			await base.DoBind();
 
 			uiSerializer.BeginInvokeOnMainThread(async () => await LoadContracts(this.loadContractsTimestamp));
@@ -122,10 +104,15 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.ShowContractsMissing = false;
-			this.loadContractsTimestamp = DateTime.UtcNow;
-			this.Categories.Clear();
-			this.contractsMap.Clear();
+			if (this.Action != SelectContractAction.Select)
+			{
+				this.ShowContractsMissing = false;
+				this.loadContractsTimestamp = DateTime.UtcNow;
+				this.Categories.Clear();
+				this.contractsMap.Clear();
+			}
+
+			this.selection?.TrySetResult(null);
 
 			await base.DoUnbind();
 		}
@@ -161,6 +148,21 @@ namespace IdApp.Pages.Contracts.MyContracts
 		}
 
 		/// <summary>
+		/// <see cref="Action"/>
+		/// </summary>
+		public static readonly BindableProperty ActionProperty =
+			BindableProperty.Create("Action", typeof(SelectContractAction), typeof(MyContractsViewModel), default(SelectContractAction));
+
+		/// <summary>
+		/// The action to take when contact has been selected.
+		/// </summary>
+		public SelectContractAction Action
+		{
+			get { return (SelectContractAction)GetValue(ActionProperty); }
+			set { SetValue(ActionProperty, value); }
+		}
+
+		/// <summary>
 		/// See <see cref="ShowContractsMissing"/>
 		/// </summary>
 		public static readonly BindableProperty ShowContractsMissingProperty =
@@ -185,21 +187,32 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// </summary>
 		public static readonly BindableProperty SelectedContractProperty =
 			BindableProperty.Create("SelectedContract", typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel), 
-				propertyChanged: (b, oldValue, newValue) =>
+				propertyChanged: async (b, oldValue, newValue) =>
 				{
 					MyContractsViewModel viewModel = (MyContractsViewModel)b;
 					ContractModel model = (ContractModel)newValue;
-					if (!(model is null) && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract contract))
+
+					if (!(model is null) && viewModel.contractsMap.TryGetValue(model.ContractId, out Contract Contract))
 					{
-						if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
+						switch (viewModel.Action)
 						{
-							viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
-								nameof(NewContractPage), new NewContractNavigationArgs(contract)));
-						}
-						else
-						{
-							viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
-								nameof(ViewContractPage), new ViewContractNavigationArgs(contract, false)));
+							case SelectContractAction.ViewContract:
+								if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
+								{
+									viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
+										nameof(NewContractPage), new NewContractNavigationArgs(Contract)));
+								}
+								else
+								{
+									viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
+										nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false)));
+								}
+								break;
+
+							case SelectContractAction.Select:
+								viewModel.selection?.TrySetResult(Contract);
+								await viewModel.navigationService.GoBackAsync();
+								break;
 						}
 					}
 				});

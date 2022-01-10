@@ -3860,6 +3860,64 @@
             <param name="Language">Code language</param>
             <returns>Grade of support.</returns>
         </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock">
+            <summary>
+            Handles embedded Smart Contracts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.#ctor">
+            <summary>
+            Handles embedded Smart Contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesHTML">
+            <summary>
+            If generation of HTML is supported
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesPlainText">
+            <summary>
+            If generation of plain text is supported.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesXAML">
+            <summary>
+            If generation of XAML is supported.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates HTML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GeneratePlainText(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Plain Text (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates WPF XAML (not supported)
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Generates Xamarin XAML
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.Register(Waher.Content.Markdown.MarkdownDocument)">
+            <summary>
+            Registers the Markdown document in which the construct resides.
+            </summary>
+            <param name="Document">Markdown document</param>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.Supports(System.String)">
+            <summary>
+            How much the module supports code of a given language (i.e. type of content)
+            </summary>
+            <param name="Language">Code language</param>
+            <returns>Grade of support.</returns>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme">
             <summary>
             Implements the iotid URI Scheme
@@ -4444,38 +4502,6 @@
             The signature in plain text.
             </summary>
         </member>
-        <member name="T:IdApp.Pages.Contracts.ContractTemplates.ContractTemplatesPage">
-            <summary>
-            A page that displays a list of contract templates used by the current user.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.ContractTemplates.ContractTemplatesPage.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.ContractTemplates.ContractTemplatesPage"/> class.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Contracts.MyContracts.MyContractsPage">
-            <summary>
-            A page that displays a list of the current user's contracts.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsPage.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsPage"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsPage.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsPage"/> class.
-            </summary>
-            <param name="ContractsListMode">What list of contracts to display.</param>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsPage.OnBackButtonPressed">
-            <summary>
-            Overrides the back button behavior to handle navigation internally instead.
-            </summary>
-            <returns>Whether or not the back navigation was handled</returns>
-        </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.ContractsListMode">
             <summary>
             What list of contracts to display
@@ -4496,28 +4522,85 @@
             Contract templates I have used to create new contracts
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.SelectContractAction">
+            <summary>
+            Actions to take when a contact has been selected.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.MyContracts.SelectContractAction.ViewContract">
+            <summary>
+            View the identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.MyContracts.SelectContractAction.Select">
+            <summary>
+            Embed link to ID in chat
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to views displaying a list of contacts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs"/> class.
+            </summary>
+            <param name="Mode">What list of contracts to display.</param>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode,System.Threading.Tasks.TaskCompletionSource{Waher.Networking.XMPP.Contracts.Contract})">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs"/> class.
+            </summary>
+            <param name="Mode">What list of contracts to display.</param>
+            <param name="Selection">Selection source, where selected item will be stored, or null if cancelled.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs.Action">
+            <summary>
+            Action to take when a contact has been selected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs.Mode">
+            <summary>
+            What list of contracts to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.MyContractsNavigationArgs.Selection">
+            <summary>
+            Selection source, if selecting identity.
+            </summary>
+        </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.MyContractsPage">
+            <summary>
+            A page that displays a list of the current user's contracts.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
+        </member>
         <member name="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel">
             <summary>
             The view model to bind to when displaying 'my' contracts.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.contractsListMode">
-            <summary>
-            Show created contracts or signed contracts?
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel"/> class.
             </summary>
-            <param name="ContractsListMode">What list of contracts to display.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.#ctor(IdApp.Pages.Contracts.MyContracts.ContractsListMode,IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel"/> class.
             For unit tests.
             </summary>
-            <param name="ContractsListMode">What list of contracts to display.</param>
             <param name="neuronService">The Neuron service for XMPP communication.</param>
             <param name="networkService">The network service for network access.</param>
             <param name="navigationService">The navigation service.</param>
@@ -4548,6 +4631,16 @@
         <member name="P:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.Description">
             <summary>
             Gets or sets the introductory text for the view displaying contracts.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.ActionProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.Action"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.Action">
+            <summary>
+            The action to take when contact has been selected.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.ShowContractsMissingProperty">
@@ -4621,6 +4714,22 @@
             <param name="Contract">Contract</param>
             <param name="TagProfile">TAG profile</param>
             <param name="NeuronService">Neuron service.</param>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService)">
+            <summary>
+            Gets a displayable name for a contract.
+            </summary>
+            <param name="Contract">Contract</param>
+            <param name="TagProfile">TAG Profile</param>
+            <param name="NeuronService">Neuron Service</param>
+            <returns>Displayable Name</returns>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetCategory(Waher.Networking.XMPP.Contracts.Contract)">
+            <summary>
+            Gets the category of a contract
+            </summary>
+            <param name="Contract">Contract</param>
+            <returns>Contract Category</returns>
         </member>
         <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.ContractId">
             <summary>
@@ -5629,16 +5738,6 @@
         <member name="P:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel.Signature">
             <summary>
             The signature of the server signature contract.
-            </summary>
-        </member>
-        <member name="T:IdApp.Pages.Contracts.SignedContracts.SignedContractsPage">
-            <summary>
-            A page that displays a list of contracts signed by the current user.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.SignedContracts.SignedContractsPage.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.SignedContracts.SignedContractsPage"/> class.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.ViewContract.ObjectModel.PartModel">

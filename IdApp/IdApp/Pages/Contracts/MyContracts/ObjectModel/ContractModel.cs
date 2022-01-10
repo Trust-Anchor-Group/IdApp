@@ -52,7 +52,14 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
             return new ContractModel(ContractId, Timestamp, Contract, Category, Name);
         }
 
-        private static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, INeuronService NeuronService)
+        /// <summary>
+        /// Gets a displayable name for a contract.
+        /// </summary>
+        /// <param name="Contract">Contract</param>
+        /// <param name="TagProfile">TAG Profile</param>
+        /// <param name="NeuronService">Neuron Service</param>
+        /// <returns>Displayable Name</returns>
+        public static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, INeuronService NeuronService)
 		{
             if (Contract.Parts is null)
                 return null;
@@ -89,7 +96,12 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
             return sb?.ToString();
         }
 
-        private static async Task<string> GetCategory(Contract Contract)
+        /// <summary>
+        /// Gets the category of a contract
+        /// </summary>
+        /// <param name="Contract">Contract</param>
+        /// <returns>Contract Category</returns>
+        public static async Task<string> GetCategory(Contract Contract)
         {
             HumanReadableText[] Localizations = Contract.ForHumans;
             string Language = Contract.DeviceLanguage();

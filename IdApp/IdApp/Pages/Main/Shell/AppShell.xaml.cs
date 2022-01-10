@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
@@ -102,13 +103,11 @@ namespace IdApp.Pages.Main.Shell
 
 			// Contracts:
 			Routing.RegisterRoute(nameof(Contracts.ClientSignature.ClientSignaturePage), typeof(Contracts.ClientSignature.ClientSignaturePage));
-			Routing.RegisterRoute(nameof(Contracts.ContractTemplates.ContractTemplatesPage), typeof(Contracts.ContractTemplates.ContractTemplatesPage));
 			Routing.RegisterRoute(nameof(Contracts.MyContracts.MyContractsPage), typeof(Contracts.MyContracts.MyContractsPage));
 			Routing.RegisterRoute(nameof(Contracts.NewContract.NewContractPage), typeof(Contracts.NewContract.NewContractPage));
 			Routing.RegisterRoute(nameof(Contracts.PetitionContract.PetitionContractPage), typeof(Contracts.PetitionContract.PetitionContractPage));
 			Routing.RegisterRoute(nameof(Contracts.PetitionSignature.PetitionSignaturePage), typeof(Contracts.PetitionSignature.PetitionSignaturePage));
 			Routing.RegisterRoute(nameof(Contracts.ServerSignature.ServerSignaturePage), typeof(Contracts.ServerSignature.ServerSignaturePage));
-			Routing.RegisterRoute(nameof(Contracts.SignedContracts.SignedContractsPage), typeof(Contracts.SignedContracts.SignedContractsPage));
 			Routing.RegisterRoute(nameof(Contracts.ViewContract.ViewContractPage), typeof(Contracts.ViewContract.ViewContractPage));
 
 			// Things
@@ -170,17 +169,17 @@ namespace IdApp.Pages.Main.Shell
 
 		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(Pages.Contracts.MyContracts.MyContractsPage));
+			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.MyContracts));
 		}
 
 		private async void SignedContractsMenuItem_Clicked(object sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(Pages.Contracts.SignedContracts.SignedContractsPage));
+			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
 		}
 
 		private async void NewContractMenuItem_Clicked(object sender, EventArgs e)
 		{
-			await this.GoToPage(nameof(Pages.Contracts.ContractTemplates.ContractTemplatesPage));
+			await this.GoToPage(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.ContractTemplates));
 		}
 
 		private void ExitMenuItem_Clicked(object sender, EventArgs e)
