@@ -48,7 +48,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <param name="navigationService">The navigation service.</param>
 		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
 		/// <param name="TagProfile">TAG Profile</param>
-		protected internal MyContractsViewModel(INeuronService neuronService, 
+		protected internal MyContractsViewModel(INeuronService neuronService,
 			INetworkService networkService, INavigationService navigationService, IUiSerializer uiSerializer,
 			ITagProfile TagProfile)
 		{
@@ -186,7 +186,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// See <see cref="SelectedContract"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContractProperty =
-			BindableProperty.Create("SelectedContract", typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel), 
+			BindableProperty.Create("SelectedContract", typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel),
 				propertyChanged: async (b, oldValue, newValue) =>
 				{
 					MyContractsViewModel viewModel = (MyContractsViewModel)b;
@@ -266,9 +266,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 					return;
 				}
 
-				List<ContractCategoryModel> Categories = new List<ContractCategoryModel>();
-				List<ContractModel> Contracts = new List<ContractModel>();
-				string LastCategory = null;
+				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new SortedDictionary<string, List<ContractModel>>(StringComparer.CurrentCultureIgnoreCase);
 
 				foreach (KeyValuePair<DateTime, string> P in timestampsAndcontractIds)
 				{
@@ -296,26 +294,22 @@ namespace IdApp.Pages.Contracts.MyContracts
 					ContractModel Item = await ContractModel.Create(ContractId, Timestamp, contract, this.tagProfile, this.neuronService);
 					string Category = Item.Category;
 
-					if (LastCategory is null)
-						LastCategory = Category;
-					else if (LastCategory != Category)
+					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts))
 					{
-						Contracts.Sort(new DateTimeDesc());
-						Categories.Add(new ContractCategoryModel(LastCategory, Contracts.ToArray()));
-						LastCategory = Category;
-						Contracts.Clear();
+						Contracts = new List<ContractModel>();
+						ContractsByCategory[Category] = Contracts;
 					}
 
 					Contracts.Add(Item);
 				}
 
-				if (Contracts.Count > 0)
-				{
-					Contracts.Sort(new DateTimeDesc());
-					Categories.Add(new ContractCategoryModel(LastCategory, Contracts.ToArray()));
-				}
+				List<ContractCategoryModel> Categories = new List<ContractCategoryModel>();
 
-				Categories.Sort(new CategoryAsc());
+				foreach (KeyValuePair<string, List<ContractModel>> P in ContractsByCategory)
+				{
+					P.Value.Sort(new DateTimeDesc());
+					Categories.Add(new ContractCategoryModel(P.Key, P.Value.ToArray()));
+				}
 
 				foreach (ContractCategoryModel Model in Categories)
 					this.Categories.Add(Model);
@@ -329,11 +323,6 @@ namespace IdApp.Pages.Contracts.MyContracts
 		private class DateTimeDesc : IComparer<ContractModel>
 		{
 			public int Compare(ContractModel x, ContractModel y) => y.Timestamp.CompareTo(x.Timestamp);
-		}
-
-		private class CategoryAsc : IComparer<ContractCategoryModel>
-		{
-			public int Compare(ContractCategoryModel x, ContractCategoryModel y) => x.Category.CompareTo(y.Category);
 		}
 
 		private static KeyValuePair<DateTime, string>[] AnnotateWithMinDateTime(string[] IDs)
