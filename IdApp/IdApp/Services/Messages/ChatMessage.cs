@@ -59,7 +59,8 @@ namespace IdApp.Services.Messages
 			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.Xmpp));
 			this.IotIdUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotId));
 			this.IotScUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotSc));
-			this.EDalerUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotSc));
+			this.IotDiscoUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotDisco));
+			this.EDalerUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.EDaler));
 		}
 
 		/// <summary>
@@ -255,6 +256,11 @@ namespace IdApp.Services.Messages
 		/// Command executed when a multi-media-link with the iotsc URI scheme is clicked.
 		/// </summary>
 		public ICommand IotScUriClicked { get; }
+
+		/// <summary>
+		/// Command executed when a multi-media-link with the iotdisco URI scheme is clicked.
+		/// </summary>
+		public ICommand IotDiscoUriClicked { get; }
 
 		/// <summary>
 		/// Command executed when a multi-media-link with the edaler URI scheme is clicked.

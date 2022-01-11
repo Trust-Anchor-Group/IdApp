@@ -21,6 +21,11 @@ using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.MyContracts;
+using IdApp.Pages.Contracts.MyContracts.ObjectModel;
+using IdApp.Pages.Things.MyThings;
+using IdApp.Pages.Wallet;
+using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Services;
 using IdApp.Services.EventLog;
@@ -33,10 +38,6 @@ using IdApp.Services.UI.QR;
 using IdApp.Services.Contracts;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
-using IdApp.Pages.Contracts.MyContracts;
-using IdApp.Pages.Contracts.MyContracts.ObjectModel;
-using IdApp.Pages.Wallet;
-using IdApp.Pages.Wallet.SendPayment;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -760,7 +761,44 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedThing()
 		{
-			// TODO
+			TaskCompletionSource<ContactInfo> ThingToShare = new TaskCompletionSource<ContactInfo>();
+
+			await this.navigationService.GoToAsync(nameof(MyThingsPage), new MyThingsNavigationArgs(ThingToShare));
+
+			ContactInfo Thing = await ThingToShare.Task;
+			if (Thing is null)
+				return;
+
+			await this.waitUntilBound.Task;     // Wait until view is bound again.
+
+			StringBuilder sb = new StringBuilder();
+
+			sb.Append("![");
+			sb.Append(MarkdownDocument.Encode(Thing.FriendlyName));
+			sb.Append("](iotdisco:JID=");
+			sb.Append(Thing.BareJid);
+
+			if (!string.IsNullOrEmpty(Thing.SourceId))
+			{
+				sb.Append(";SID=");
+				sb.Append(Thing.SourceId);
+			}
+
+			if (!string.IsNullOrEmpty(Thing.Partition))
+			{
+				sb.Append(";PT=");
+				sb.Append(Thing.Partition);
+			}
+
+			if (!string.IsNullOrEmpty(Thing.NodeId))
+			{
+				sb.Append(";NID=");
+				sb.Append(Thing.NodeId);
+			}
+
+			sb.Append(")");
+
+			await this.ExecuteSendMessage(string.Empty, sb.ToString());
 		}
 
 		/// <summary>

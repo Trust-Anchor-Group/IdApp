@@ -20,9 +20,14 @@ namespace IdApp.Pages.Contacts.Chat
 		IotId,
 
 		/// <summary>
-		/// IoT Smart Contract URI Scheme (iotSc)
+		/// IoT Smart Contract URI Scheme (iotsc)
 		/// </summary>
 		IotSc,
+
+		/// <summary>
+		/// IoT Discovery URI Scheme (iotdisco)
+		/// </summary>
+		IotDisco,
 
 		/// <summary>
 		/// eDaler URI Scheme (edaler)

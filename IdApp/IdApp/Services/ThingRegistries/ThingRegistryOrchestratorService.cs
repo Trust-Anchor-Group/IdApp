@@ -135,7 +135,8 @@ namespace IdApp.Services.ThingRegistries
 					throw new InvalidOperationException("Not a direct reference URI.");
 				}
 
-				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId, PartitionId, NodeId);
+				ContactInfo Info = await ContactInfo.FindByBareJid(Jid, SourceId ?? string.Empty, 
+					PartitionId ?? string.Empty, NodeId ?? string.Empty);
 
 				if (Info is null)
 				{

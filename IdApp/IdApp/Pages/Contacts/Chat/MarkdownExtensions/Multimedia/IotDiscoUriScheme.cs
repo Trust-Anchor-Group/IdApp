@@ -10,21 +10,21 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 {
 	/// <summary>
-	/// Implements the iotsc URI Scheme
+	/// Implements the iotdisco URI Scheme
 	/// </summary>
-	public class IotScUriScheme : MultimediaContent
+	public class IotDiscoUriScheme : MultimediaContent
 	{
 		/// <summary>
-		/// Implements the iotsc URI Scheme
+		/// Implements the iotdisco URI Scheme
 		/// </summary>
-		public IotScUriScheme()
+		public IotDiscoUriScheme()
 		{
 		}
 
 		/// <inheritdoc/>
 		public override Grade Supports(MultimediaItem Item)
 		{
-			if (Item.Url.StartsWith("iotsc:", StringComparison.OrdinalIgnoreCase))
+			if (Item.Url.StartsWith("iotdisco:", StringComparison.OrdinalIgnoreCase))
 				return Grade.Excellent;
 			else
 				return Grade.NotAtAll;
@@ -60,7 +60,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				Output.WriteAttributeString("HorizontalOptions", "Center");
 
 				Output.WriteStartElement("Label");
-				Output.WriteAttributeString("Text", FontAwesome.Paragraph);
+				Output.WriteAttributeString("Text", FontAwesome.Things);
 				Output.WriteAttributeString("FontFamily", "{StaticResource FontAwesomeSolid}");
 				Output.WriteAttributeString("FontSize", "Large");
 				Output.WriteAttributeString("HorizontalOptions", "Center");
@@ -87,7 +87,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				Output.WriteStartElement("StackLayout.GestureRecognizers");
 
 				Output.WriteStartElement("TapGestureRecognizer");
-				Output.WriteAttributeString("Command", "{Binding Path=IotScUriClicked}");
+				Output.WriteAttributeString("Command", "{Binding Path=IotDiscoUriClicked}");
 				Output.WriteAttributeString("CommandParameter", Item.Url);
 				Output.WriteEndElement();
 

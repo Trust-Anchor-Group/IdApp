@@ -3812,7 +3812,12 @@
         </member>
         <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.IotSc">
             <summary>
-            IoT Smart Contract URI Scheme (iotSc)
+            IoT Smart Contract URI Scheme (iotsc)
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.IotDisco">
+            <summary>
+            IoT Discovery URI Scheme (iotdisco)
             </summary>
         </member>
         <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.EDaler">
@@ -3974,6 +3979,31 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme">
+            <summary>
+            Implements the iotdisco URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.#ctor">
+            <summary>
+            Implements the iotdisco URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme">
             <summary>
             Implements the iotid URI Scheme
@@ -4001,12 +4031,12 @@
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme">
             <summary>
-            Implements the iotid URI Scheme
+            Implements the iotsc URI Scheme
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.#ctor">
             <summary>
-            Implements the iotid URI Scheme
+            Implements the iotsc URI Scheme
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
@@ -9500,6 +9530,22 @@
             The currently selected contact, if any.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs">
+            <summary>
+            Holds navigation parameters specific to viewing things.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs.#ctor(System.Threading.Tasks.TaskCompletionSource{IdApp.Services.ContactInfo})">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs"/> class.
+            </summary>
+            <param name="ThingToShare">Task completion source where the selected thing is placed.</param>
+        </member>
+        <member name="P:IdApp.Pages.Things.MyThings.MyThingsNavigationArgs.ThingToShare">
+            <summary>
+            Task completion source where the selected thing is placed.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingNavigationArgs">
             <summary>
             Holds navigation parameters specific to claiming things.
@@ -12465,6 +12511,11 @@
         <member name="P:IdApp.Services.Messages.ChatMessage.IotScUriClicked">
             <summary>
             Command executed when a multi-media-link with the iotsc URI scheme is clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.IotDiscoUriClicked">
+            <summary>
+            Command executed when a multi-media-link with the iotdisco URI scheme is clicked.
             </summary>
         </member>
         <member name="P:IdApp.Services.Messages.ChatMessage.EDalerUriClicked">

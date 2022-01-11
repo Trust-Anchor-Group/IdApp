@@ -25,6 +25,7 @@ namespace IdApp.Pages.Things.MyThings
 		private readonly INetworkService networkService;
 		private readonly INavigationService navigationService;
 		private readonly IUiSerializer uiSerializer;
+		private TaskCompletionSource<ContactInfo> thingToShare;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyThingsViewModel"/> class.
@@ -56,6 +57,11 @@ namespace IdApp.Pages.Things.MyThings
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
+
+			if (this.navigationService.TryPopArgs(out MyThingsNavigationArgs Args))
+				this.thingToShare = Args.ThingToShare;
+			else
+				this.thingToShare = null;
 
 			SortedDictionary<string, ContactInfo> SortedByName = new SortedDictionary<string, ContactInfo>();
 			SortedDictionary<string, ContactInfo> SortedByAddress = new SortedDictionary<string, ContactInfo>();
@@ -156,7 +162,10 @@ namespace IdApp.Pages.Things.MyThings
 		{
 			this.ShowThingsMissing = false;
 			this.Things.Clear();
+
 			await base.DoUnbind();
+
+			this.thingToShare?.TrySetResult(null);
 		}
 
 		/// <summary>
@@ -212,12 +221,17 @@ namespace IdApp.Pages.Things.MyThings
 		public static readonly BindableProperty SelectedThingProperty =
 			BindableProperty.Create("SelectedThing", typeof(ContactInfo), typeof(MyThingsViewModel), default(ContactInfo), propertyChanged: (b, oldValue, newValue) =>
 			{
-				if (b is MyThingsViewModel viewModel &&
-					newValue is ContactInfo Thing)
+				if (b is MyThingsViewModel viewModel && newValue is ContactInfo Thing)
 				{
 					viewModel.uiSerializer.BeginInvokeOnMainThread(async () =>
 					{
-						await viewModel.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing));
+						if (viewModel.thingToShare is null)
+							await viewModel.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing));
+						else
+						{
+							viewModel.thingToShare.TrySetResult(Thing);
+							await viewModel.navigationService.GoBackAsync();
+						}
 					});
 				}
 			});
