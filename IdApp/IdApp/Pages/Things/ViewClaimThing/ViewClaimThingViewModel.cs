@@ -288,6 +288,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 							LegalIdentity = null,
 							FriendlyName = FriendlyName,
 							IsThing = true,
+							Owner = true,
 							SourceId = e.Node.SourceId,
 							Partition = e.Node.Partition,
 							NodeId = e.Node.NodeId,

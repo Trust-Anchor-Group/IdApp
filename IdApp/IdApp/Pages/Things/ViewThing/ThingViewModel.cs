@@ -136,7 +136,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// </summary>
 		public bool CanDisownThing
 		{
-			get { return this.NeuronService.IsOnline && IsConnected && (this.thing?.Owner ?? false); }
+			get { return this.IsConnected && (this.thing?.Owner ?? false); }
 		}
 
 		/// <summary>

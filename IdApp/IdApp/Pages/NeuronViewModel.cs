@@ -34,6 +34,7 @@ namespace IdApp.Pages
         protected override async Task DoBind()
         {
             await base.DoBind();
+
             this.SetConnectionStateAndText(this.NeuronService.State);
             this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
         }

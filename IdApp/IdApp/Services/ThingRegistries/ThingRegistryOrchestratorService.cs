@@ -89,22 +89,28 @@ namespace IdApp.Services.ThingRegistries
 						{
 							Property[] Properties = ViewClaimThingViewModel.ToProperties(Thing.Tags);
 
-							await this.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(new ContactInfo()
+							ContactInfo ContactInfo = await ContactInfo.FindByBareJid(Thing.Jid, Thing.Node.SourceId, Thing.Node.Partition, Thing.Node.NodeId);
+							if (ContactInfo is null)
 							{
-								AllowSubscriptionFrom = false,
-								BareJid = Thing.Jid,
-								IsThing = true,
-								LegalId = string.Empty,
-								LegalIdentity = null,
-								FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties),
-								MetaData = Properties,
-								SourceId = Thing.Node.SourceId,
-								Partition = Thing.Node.Partition,
-								NodeId = Thing.Node.NodeId,
-								Owner = false,
-								RegistryJid = RegistryJid,
-								SubcribeTo = null
-							}));
+								ContactInfo = new ContactInfo()
+								{
+									AllowSubscriptionFrom = false,
+									BareJid = Thing.Jid,
+									IsThing = true,
+									LegalId = string.Empty,
+									LegalIdentity = null,
+									FriendlyName = ViewClaimThingViewModel.GetFriendlyName(Properties),
+									MetaData = Properties,
+									SourceId = Thing.Node.SourceId,
+									Partition = Thing.Node.Partition,
+									NodeId = Thing.Node.NodeId,
+									Owner = false,
+									RegistryJid = RegistryJid,
+									SubcribeTo = null
+								};
+							}
+
+							await this.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo));
 						});
 						break;
 
