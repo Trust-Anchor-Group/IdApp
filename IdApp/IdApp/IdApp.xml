@@ -3878,7 +3878,7 @@
             Generates WPF XAML (not supported)
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates Xamarin XAML
             </summary>
@@ -3936,7 +3936,7 @@
             Generates WPF XAML (not supported)
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates Xamarin XAML
             </summary>
@@ -12521,6 +12521,11 @@
         <member name="P:IdApp.Services.Messages.ChatMessage.EDalerUriClicked">
             <summary>
             Command executed when a multi-media-link with the edaler URI scheme is clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.HyperlinkClicked">
+            <summary>
+            Command executed when a hyperlink in rendered markdown has been clicked.
             </summary>
         </member>
         <member name="T:IdApp.Services.Messages.MessageTypeTemplateSelector">

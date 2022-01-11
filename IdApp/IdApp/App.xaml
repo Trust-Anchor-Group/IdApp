@@ -102,6 +102,9 @@
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>
             <Setter Property="TextColor" Value="Blue"/>
         </Style>
+        <Style TargetType="Label" x:Key="HyperlinkColor">
+            <Setter Property="TextColor" Value="Blue"/>
+        </Style>
         <Style TargetType="Label" x:Key="FormattedValueLabel">
             <Setter Property="LineBreakMode" Value="WordWrap"/>
             <Setter Property="VerticalOptions" Value="StartAndExpand"/>

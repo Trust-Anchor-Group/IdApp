@@ -9,7 +9,7 @@ namespace IdApp.Pages.Things.MyThings
     /// </summary>
     public class MyThingsNavigationArgs : NavigationArgs
     {
-        private TaskCompletionSource<ContactInfo> thingToShare;
+        private readonly TaskCompletionSource<ContactInfo> thingToShare;
 
         /// <summary>
         /// Creates a new instance of the <see cref="MyThingsNavigationArgs"/> class.

@@ -921,5 +921,6 @@ namespace IdApp.Pages.Contacts.Chat
 					return false;
 			}
 		}
+
 	}
 }

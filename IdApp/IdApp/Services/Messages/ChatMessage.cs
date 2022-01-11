@@ -61,6 +61,7 @@ namespace IdApp.Services.Messages
 			this.IotScUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotSc));
 			this.IotDiscoUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotDisco));
 			this.EDalerUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.EDaler));
+			this.HyperlinkClicked = new Command(async Parameter => await this.ExecuteHyperlinkClicked(Parameter));
 		}
 
 		/// <summary>
@@ -181,6 +182,7 @@ namespace IdApp.Services.Messages
 					MarkdownDocument Doc = await MarkdownDocument.CreateAsync(this.markdown, Settings);
 
 					string Xaml = await Doc.GenerateXamarinForms();
+					Xaml = Xaml.Replace("TextColor=\"{Binding HyperlinkColor}\"", "Style=\"{StaticResource HyperlinkColor}\"");
 
 					this.parsedXaml = new StackLayout().LoadFromXaml(Xaml);
 
@@ -267,12 +269,25 @@ namespace IdApp.Services.Messages
 		/// </summary>
 		public ICommand EDalerUriClicked { get; }
 
+		/// <summary>
+		/// Command executed when a hyperlink in rendered markdown has been clicked.
+		/// </summary>
+		public ICommand HyperlinkClicked { get; }
+
 		private Task ExecuteUriClicked(object Parameter, UriScheme Scheme)
 		{
 			if (Parameter is string Uri && !(this.chatView is null))
 				return this.chatView.ExecuteUriClicked(this, Uri, Scheme);
 			else
 				return Task.CompletedTask;
+		}
+
+		private async Task ExecuteHyperlinkClicked(object Parameter)
+		{
+			if (!(Parameter is string Url))
+				return;
+
+			await App.OpenUrl(Url);
 		}
 
 	}
