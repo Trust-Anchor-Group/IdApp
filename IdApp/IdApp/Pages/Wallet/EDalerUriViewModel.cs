@@ -28,6 +28,7 @@ namespace IdApp.Pages.Wallet
 		private readonly INavigationService navigationService;
 		private readonly INetworkService networkService;
 		private readonly IShareQrCode shareQrCode;
+		private TaskCompletionSource<string> uriToSend;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -46,6 +47,7 @@ namespace IdApp.Pages.Wallet
 			this.navigationService = navigationService;
 			this.networkService = networkService;
 			this.shareQrCode = ShareQrCode;
+			this.uriToSend = null;
 
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => this.IsConnected);
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
@@ -53,6 +55,7 @@ namespace IdApp.Pages.Wallet
 			this.ShareCommand = new Command(async _ => await this.Share(), _ => this.CanShare());
 			this.SubmitCommand = new Command(async _ => await this.Submit(), _ => this.IsConnected);
 			this.ShowCodeCommand = new Command(async _ => await this.ShowCode());
+			this.SendPaymentCommand = new Command(async _ => await this.SendPayment(), _ => this.CanSendPayment());
 
 			this.FromClickCommand = new Command(async x => await this.FromLabelClicked());
 		}
@@ -65,6 +68,7 @@ namespace IdApp.Pages.Wallet
 			if (this.navigationService.TryPopArgs(out EDalerUriNavigationArgs args))
 			{
 				this.FriendlyName = args.FriendlyName;
+				this.uriToSend = args.UriToSend;
 
 				if (!(args.Uri is null))
 				{
@@ -117,7 +121,7 @@ namespace IdApp.Pages.Wallet
 
 					this.HasMessage = !string.IsNullOrEmpty(this.Message);
 				}
-			
+
 				this.MessagePreset = !string.IsNullOrEmpty(this.Message);
 				this.EncryptMessage = args.Uri?.ToType == EntityType.LegalId;
 			}
@@ -132,6 +136,7 @@ namespace IdApp.Pages.Wallet
 		protected override async Task DoUnbind()
 		{
 			this.TagProfile.Changed -= TagProfile_Changed;
+			this.uriToSend?.TrySetResult(null);
 			await base.DoUnbind();
 		}
 
@@ -142,7 +147,7 @@ namespace IdApp.Pages.Wallet
 		private void EvaluateAllCommands()
 		{
 			this.EvaluateCommands(this.AcceptCommand, this.PayOnlineCommand, this.GenerateQrCodeCommand, this.ShareCommand,
-				this.SubmitCommand, this.ShareCommand);
+				this.SubmitCommand, this.ShareCommand, this.SendPaymentCommand);
 		}
 
 		/// <inheritdoc/>
@@ -250,7 +255,7 @@ namespace IdApp.Pages.Wallet
 					this.AmountColor = Color.Salmon;
 				}
 
-				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand);
+				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 			}
 		}
 
@@ -363,7 +368,7 @@ namespace IdApp.Pages.Wallet
 					this.AmountExtraColor = Color.Salmon;
 				}
 
-				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand);
+				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 			}
 		}
 
@@ -777,6 +782,11 @@ namespace IdApp.Pages.Wallet
 		public ICommand ShowCodeCommand { get; }
 
 		/// <summary>
+		/// The command to bind to send the payment via the parent page.
+		/// </summary>
+		public ICommand SendPaymentCommand { get; }
+
+		/// <summary>
 		/// See <see cref="EDalerGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerGlyphProperty =
@@ -878,7 +888,7 @@ namespace IdApp.Pages.Wallet
 				// TODO: Offline options: Expiry days
 
 				this.NotPaid = false;
-				this.EvaluateCommands(this.PayOnlineCommand);
+				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 
 				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(Uri));
 				if (succeeded)
@@ -890,7 +900,7 @@ namespace IdApp.Pages.Wallet
 				{
 					this.NotPaid = true;
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToProcessEDalerUri);
-					this.EvaluateCommands(this.PayOnlineCommand);
+					this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 				}
 			}
 			catch (Exception ex)
@@ -898,12 +908,18 @@ namespace IdApp.Pages.Wallet
 				this.NotPaid = true;
 				this.logService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
-				this.EvaluateCommands(this.PayOnlineCommand);
+				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 			}
 		}
 
 		private async Task GenerateQrCode()
 		{
+			if (!this.NotPaid)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+				return;
+			}
+
 			if (!await App.VerifyPin())
 				return;
 
@@ -952,8 +968,8 @@ namespace IdApp.Pages.Wallet
 			}
 		}
 
-		private bool CanPayOnline() => this.AmountOk && this.AmountExtraOk && !this.HasQrCode && this.IsConnected; // TODO: Add To field OK
-		private bool CanGenerateQrCode() => this.AmountOk && this.AmountExtraOk && !this.HasQrCode;	// TODO: Add To field OK
+		private bool CanPayOnline() => this.AmountOk && this.AmountExtraOk && !this.HasQrCode && this.IsConnected && this.NotPaid; // TODO: Add To field OK
+		private bool CanGenerateQrCode() => this.AmountOk && this.AmountExtraOk && !this.HasQrCode && this.NotPaid; // TODO: Add To field OK
 		private bool CanShare() => this.HasQrCode;
 
 		private async Task Share()
@@ -1024,6 +1040,51 @@ namespace IdApp.Pages.Wallet
 							await this.shareQrCode.ShowQrCode();
 					});
 				}
+			}
+			catch (Exception ex)
+			{
+				this.logService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private bool CanSendPayment()
+		{
+			return !(this.uriToSend is null) && this.AmountOk && this.AmountExtraOk && this.NotPaid;
+		}
+
+		private async Task SendPayment()
+		{
+			if (!this.NotPaid)
+			{
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PaymentAlreadySent);
+				return;
+			}
+
+			if (!await App.VerifyPin())
+				return;
+
+			try
+			{
+				string Uri;
+
+				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
+				{
+					LegalIdentity LegalIdentity = await this.NeuronService.Contracts.GetLegalIdentity(this.To);
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+						this.Currency, 3, this.Message);
+				}
+				else
+				{
+					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+						this.Currency, 3, this.Message);
+				}
+
+				// TODO: Validate To is a Bare JID or proper Legal Identity
+				// TODO: Offline options: Expiry days
+
+				this.uriToSend?.TrySetResult(Uri);
+				await this.navigationService.GoBackAsync();
 			}
 			catch (Exception ex)
 			{

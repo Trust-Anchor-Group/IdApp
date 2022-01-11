@@ -222,7 +222,7 @@ namespace IdApp.Pages.Contacts
 									else if (!string.IsNullOrEmpty(Contact.BareJid))
 									{
 										await viewModel.navigationService.GoToAsync(nameof(ChatPage), 
-											new ChatNavigationArgs(Contact.BareJid, Contact.FriendlyName));
+											new ChatNavigationArgs(Contact.LegalId, Contact.BareJid, Contact.FriendlyName));
 									}
 									break;
 

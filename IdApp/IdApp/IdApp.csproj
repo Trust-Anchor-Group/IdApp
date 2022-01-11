@@ -143,6 +143,9 @@
     <Compile Update="Pages\Identity\TransferIdentity\TransferIdentityPage.xaml.cs">
       <DependentUpon>TransferIdentityPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Pages\Wallet\SendPayment\SendPaymentPage.xaml.cs">
+      <DependentUpon>SendPaymentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Popups\Photos\Image\ImageView.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
@@ -191,6 +194,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Wallet\NewFolder\" />
     <Folder Include="Popups\Pin\PinPopup\" />
   </ItemGroup>
 </Project>

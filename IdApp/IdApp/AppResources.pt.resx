@@ -939,6 +939,12 @@
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
     <value>Välj din roll för kontraktet.</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Skicka</value>
+  </data>
+  <data name="SendPayment" xml:space="preserve">
+    <value>Skicka betalning</value>
+  </data>
   <data name="SendPaymentTo" xml:space="preserve">
     <value>Skicka betalning</value>
   </data>

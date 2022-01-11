@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
+                       xmlns:model="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
+                       x:DataType="model:EDalerUriViewModel"
+                       x:Class="IdApp.Pages.Wallet.SendPayment.SendPaymentPage"
+                       Title="{x:Static local:AppResources.SendPayment}">
+    <Grid>
+        <ScrollView x:Name="ScrollView">
+            <StackLayout Margin="{StaticResource DefaultMargin}">
+                <Label Text="{x:Static local:AppResources.Payment}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static local:AppResources.PaymentDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <!-- Note -->
+                <Label Text="{x:Static local:AppResources.To}"/>
+                <Entry Text="{Binding Path=To}" IsReadOnly="{Binding Path=ToPreset}"/>
+                <Label Text="{x:Static local:AppResources.Amount}"/>
+                <Entry Text="{Binding Path=AmountText}" BackgroundColor="{Binding Path=AmountColor}" 
+                       Placeholder="{Binding Path=Currency}" IsReadOnly="{Binding Path=AmountPreset}"/>
+                <Label Text="{x:Static local:AppResources.AmountExtra}" IsVisible="{Binding Path=AmountPreset}"/>
+                <Entry Text="{Binding Path=AmountExtraText}" BackgroundColor="{Binding Path=AmountExtraColor}" 
+                       Placeholder="{Binding Path=Currency}" IsVisible="{Binding Path=AmountPreset}"/>
+                <Label Text="{x:Static local:AppResources.Message}"/>
+                <Entry Text="{Binding Path=Message}" IsReadOnly="{Binding Path=MessagePreset}"/>
+                <StackLayout Orientation="Horizontal" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}">
+                    <CheckBox IsChecked="{Binding Path=EncryptMessage, Mode=TwoWay}" VerticalOptions="Center" IsEnabled="False"/>
+                    <Label Text="{x:Static local:AppResources.EncryptMessage}" VerticalOptions="Center" />
+                </StackLayout>
+                <!-- BUTTONS -->
+                <Button Text="{x:Static local:AppResources.Send}" Command="{Binding Path=SendPaymentCommand}" 
+                        Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</views:ContentBasePage>

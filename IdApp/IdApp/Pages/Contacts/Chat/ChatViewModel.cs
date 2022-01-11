@@ -9,6 +9,8 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Plugin.Media.Abstractions;
 using Plugin.Media;
+using EDaler;
+using EDaler.Uris;
 using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
@@ -33,6 +35,8 @@ using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Contracts.MyContracts.ObjectModel;
+using IdApp.Pages.Wallet;
+using IdApp.Pages.Wallet.SendPayment;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -92,11 +96,13 @@ namespace IdApp.Pages.Contacts.Chat
 
 			if (this.navigationService.TryPopArgs(out ChatNavigationArgs args))
 			{
+				this.LegalId = args.LegalId;
 				this.BareJid = args.BareJid;
 				this.FriendlyName = args.FriendlyName;
 			}
 			else
 			{
+				this.LegalId = string.Empty;
 				this.BareJid = string.Empty;
 				this.FriendlyName = string.Empty;
 			}
@@ -154,6 +160,21 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			get { return (string)GetValue(BareJidProperty); }
 			set { SetValue(BareJidProperty, value); }
+		}
+
+		/// <summary>
+		/// <see cref="LegalId"/>
+		/// </summary>
+		public static readonly BindableProperty LegalIdProperty =
+			BindableProperty.Create("LegalId", typeof(string), typeof(ChatViewModel), default(string));
+
+		/// <summary>
+		/// Bare JID of remote party
+		/// </summary>
+		public string LegalId
+		{
+			get { return (string)GetValue(LegalIdProperty); }
+			set { SetValue(LegalIdProperty, value); }
 		}
 
 		/// <summary>
@@ -674,7 +695,57 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedMoney()
 		{
-			// TODO
+			StringBuilder sb = new StringBuilder();
+
+			sb.Append("edaler:");
+
+			if (!string.IsNullOrEmpty(this.LegalId))
+			{
+				sb.Append("ti=");
+				sb.Append(this.LegalId);
+			}
+			else if (!string.IsNullOrEmpty(this.BareJid))
+			{
+				sb.Append("t=");
+				sb.Append(this.BareJid);
+			}
+			else
+				return;
+
+			Balance CurrentBalance = await this.NeuronService.Wallet.GetBalanceAsync();
+
+			sb.Append(";cu=");
+			sb.Append(CurrentBalance.Currency);
+
+			if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
+				return;
+
+			TaskCompletionSource<string> UriToSend = new TaskCompletionSource<string>();
+
+			await this.navigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed, 
+				this.FriendlyName, UriToSend));
+
+			string Uri = await UriToSend.Task;
+			if (string.IsNullOrEmpty(Uri) || !EDalerUri.TryParse(Uri, out Parsed))
+				return;
+
+			await this.waitUntilBound.Task;     // Wait until view is bound again.
+
+			sb.Clear();
+
+			sb.Append(Parsed.Amount.ToString());
+
+			if (Parsed.AmountExtra.HasValue)
+			{
+				sb.Append(" (+");
+				sb.Append(Parsed.AmountExtra.Value.ToString());
+				sb.Append(")");
+			}
+
+			sb.Append(" ");
+			sb.Append(Parsed.Currency);
+
+			await this.ExecuteSendMessage(string.Empty, "![" + sb.ToString() + "](" + Uri + ")");
 		}
 
 		/// <summary>
@@ -721,7 +792,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="Message">Message containing the URI.</param>
 		/// <param name="Uri">URI</param>
 		/// <param name="Scheme">URI Scheme</param>
-		public Task ExecuteXmppUriClicked(ChatMessage Message, string Uri, UriScheme Scheme)
+		public Task ExecuteUriClicked(ChatMessage Message, string Uri, UriScheme Scheme)
 		{
 			switch (Scheme)
 			{

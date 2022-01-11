@@ -1335,4 +1335,10 @@
   <data name="Chat" xml:space="preserve">
     <value>Chat</value>
   </data>
+  <data name="SendPayment" xml:space="preserve">
+    <value>Send Payment</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
 </root>

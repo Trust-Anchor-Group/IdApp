@@ -22,7 +22,12 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// IoT Smart Contract URI Scheme (iotSc)
 		/// </summary>
-		IotSc
+		IotSc,
+
+		/// <summary>
+		/// eDaler URI Scheme (edaler)
+		/// </summary>
+		EDaler
 	}
 
 	/// <summary>
@@ -36,6 +41,6 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="Message">Message containing the URI.</param>
 		/// <param name="Uri">URI</param>
 		/// <param name="Scheme">URI Scheme</param>
-		Task ExecuteXmppUriClicked(ChatMessage Message, string Uri, UriScheme Scheme);
+		Task ExecuteUriClicked(ChatMessage Message, string Uri, UriScheme Scheme);
 	}
 }

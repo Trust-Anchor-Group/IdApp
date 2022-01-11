@@ -121,6 +121,7 @@ namespace IdApp.Pages.Main.Shell
 			Routing.RegisterRoute(nameof(Wallet.MyWallet.MyWalletPage), typeof(Wallet.MyWallet.MyWalletPage));
 			Routing.RegisterRoute(nameof(Wallet.RequestPayment.RequestPaymentPage), typeof(Wallet.RequestPayment.RequestPaymentPage));
 			Routing.RegisterRoute(nameof(Wallet.Payment.PaymentPage), typeof(Wallet.Payment.PaymentPage));
+			Routing.RegisterRoute(nameof(Wallet.SendPayment.SendPaymentPage), typeof(Wallet.SendPayment.SendPaymentPage));
 			Routing.RegisterRoute(nameof(Wallet.PaymentAcceptance.PaymentAcceptancePage), typeof(Wallet.PaymentAcceptance.PaymentAcceptancePage));
 			Routing.RegisterRoute(nameof(Wallet.PendingPayment.PendingPaymentPage), typeof(Wallet.PendingPayment.PendingPaymentPage));
 			Routing.RegisterRoute(nameof(Wallet.AccountEvent.AccountEventPage), typeof(Wallet.AccountEvent.AccountEventPage));

@@ -56,9 +56,10 @@ namespace IdApp.Services.Messages
 		{
 			this.Updated = DateTime.MinValue;
 	
-			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.Xmpp));
-			this.IotIdUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.IotId));
-			this.IotScUriClicked = new Command(async Parameter => await this.ExecuteXmppUriClicked(Parameter, UriScheme.IotSc));
+			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.Xmpp));
+			this.IotIdUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotId));
+			this.IotScUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotSc));
+			this.EDalerUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotSc));
 		}
 
 		/// <summary>
@@ -255,10 +256,15 @@ namespace IdApp.Services.Messages
 		/// </summary>
 		public ICommand IotScUriClicked { get; }
 
-		private Task ExecuteXmppUriClicked(object Parameter, UriScheme Scheme)
+		/// <summary>
+		/// Command executed when a multi-media-link with the edaler URI scheme is clicked.
+		/// </summary>
+		public ICommand EDalerUriClicked { get; }
+
+		private Task ExecuteUriClicked(object Parameter, UriScheme Scheme)
 		{
 			if (Parameter is string Uri && !(this.chatView is null))
-				return this.chatView.ExecuteXmppUriClicked(this, Uri, Scheme);
+				return this.chatView.ExecuteUriClicked(this, Uri, Scheme);
 			else
 				return Task.CompletedTask;
 		}

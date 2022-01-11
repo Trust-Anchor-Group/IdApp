@@ -1544,9 +1544,19 @@
               Looks up a localized string similar to Select your role in this contract..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Send">
+            <summary>
+              Looks up a localized string similar to Send.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.SendCode">
             <summary>
               Looks up a localized string similar to Send Code.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.SendPayment">
+            <summary>
+              Looks up a localized string similar to Send Payment.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.SendPaymentTo">
@@ -3560,12 +3570,18 @@
             Holds navigation parameters specific to views displaying a list of contacts.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.#ctor(System.String,System.String,System.String)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListNavigationArgs"/> class.
             </summary>
+            <param name="LegalId">Legal ID, if available.</param>
             <param name="BareJid">Bare JID of remote chat party</param>
             <param name="FriendlyName">Friendly name</param>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.LegalId">
+            <summary>
+            Legal ID, if available.
+            </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatNavigationArgs.BareJid">
             <summary>
@@ -3629,6 +3645,16 @@
             </summary>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.BareJid">
+            <summary>
+            Bare JID of remote party
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.LegalIdProperty">
+            <summary>
+            <see cref="P:IdApp.Pages.Contacts.Chat.ChatViewModel.LegalId"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.LegalId">
             <summary>
             Bare JID of remote party
             </summary>
@@ -3745,7 +3771,7 @@
             Command executed when a message has been selected (or deselected) in the list view.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String,IdApp.Pages.Contacts.Chat.UriScheme)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ExecuteUriClicked(IdApp.Services.Messages.ChatMessage,System.String,IdApp.Pages.Contacts.Chat.UriScheme)">
             <summary>
             Called when a Multi-media URI link using the XMPP URI scheme.
             </summary>
@@ -3789,12 +3815,17 @@
             IoT Smart Contract URI Scheme (iotSc)
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Contacts.Chat.UriScheme.EDaler">
+            <summary>
+            eDaler URI Scheme (edaler)
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.IChatView">
             <summary>
             Interfaces for views displaying markdown
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.IChatView.ExecuteXmppUriClicked(IdApp.Services.Messages.ChatMessage,System.String,IdApp.Pages.Contacts.Chat.UriScheme)">
+        <member name="M:IdApp.Pages.Contacts.Chat.IChatView.ExecuteUriClicked(IdApp.Services.Messages.ChatMessage,System.String,IdApp.Pages.Contacts.Chat.UriScheme)">
             <summary>
             Called when a special Multi-media URI link has been clicked.
             </summary>
@@ -3917,6 +3948,31 @@
             </summary>
             <param name="Language">Code language</param>
             <returns>Grade of support.</returns>
+        </member>
+        <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme">
+            <summary>
+            Implements the edaler URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.#ctor">
+            <summary>
+            Implements the edaler URI Scheme
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.Supports(Waher.Content.Markdown.Model.MultimediaItem)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.EmbedInlineLink(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateHTML(System.Text.StringBuilder,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+            <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme">
             <summary>
@@ -10140,6 +10196,14 @@
             <param name="Uri">Parsed edaler URI.</param>
             <param name="FriendlyName">Optional Friendly Name associated with URI</param>
         </member>
+        <member name="M:IdApp.Pages.Wallet.EDalerUriNavigationArgs.#ctor(EDaler.Uris.EDalerUri,System.String,System.Threading.Tasks.TaskCompletionSource{System.String})">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriNavigationArgs"/> class.
+            </summary>
+            <param name="Uri">Parsed edaler URI.</param>
+            <param name="FriendlyName">Optional Friendly Name associated with URI</param>
+            <param name="UriToSend">Task Completion Source in case the URI being built is to be returned to the parent page.</param>
+        </member>
         <member name="P:IdApp.Pages.Wallet.EDalerUriNavigationArgs.Uri">
             <summary>
             The edaler URI
@@ -10148,6 +10212,11 @@
         <member name="P:IdApp.Pages.Wallet.EDalerUriNavigationArgs.FriendlyName">
             <summary>
             Optional Friendly Name associated with URI
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriNavigationArgs.UriToSend">
+            <summary>
+            Task Completion Source in case the URI being built is to be returned to the parent page.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.EDalerUriViewModel">
@@ -10557,6 +10626,11 @@
         <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.ShowCodeCommand">
             <summary>
             The command to bind to for displaying eDaler URI as a QR Code
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.SendPaymentCommand">
+            <summary>
+            The command to bind to send the payment via the parent page.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerGlyphProperty">
@@ -11161,6 +11235,22 @@
             <summary>
             The command to bind to for sharing the QR code
             </summary>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.SendPayment.SendPaymentPage">
+            <summary>
+            A page that allows the user to realize payments.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.SendPayment.SendPaymentPage.#ctor">
+            <summary>
+            Creates a new instance of the <see cref="T:IdApp.Pages.Wallet.SendPayment.SendPaymentPage"/> class.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.SendPayment.SendPaymentPage.OnBackButtonPressed">
+            <summary>
+            Overrides the back button behavior to handle navigation internally instead.
+            </summary>
+            <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="T:IdApp.Popups.Photos.Image.ImageView">
             <summary>
@@ -12375,6 +12465,11 @@
         <member name="P:IdApp.Services.Messages.ChatMessage.IotScUriClicked">
             <summary>
             Command executed when a multi-media-link with the iotsc URI scheme is clicked.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.ChatMessage.EDalerUriClicked">
+            <summary>
+            Command executed when a multi-media-link with the edaler URI scheme is clicked.
             </summary>
         </member>
         <member name="T:IdApp.Services.Messages.MessageTypeTemplateSelector">

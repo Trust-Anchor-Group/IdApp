@@ -1671,7 +1671,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await this.navigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.BareJid, this.GetFriendlyName()));
+				await this.navigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid, this.GetFriendlyName()));
 			}
 			catch (Exception ex)
 			{

@@ -1,5 +1,6 @@
 ﻿using EDaler.Uris;
 using IdApp.Services.Navigation;
+using System.Threading.Tasks;
 
 namespace IdApp.Pages.Wallet
 {
@@ -23,9 +24,21 @@ namespace IdApp.Pages.Wallet
 		/// <param name="Uri">Parsed edaler URI.</param>
 		/// <param name="FriendlyName">Optional Friendly Name associated with URI</param>
 		public EDalerUriNavigationArgs(EDalerUri Uri, string FriendlyName)
+			: this(Uri, string.Empty, null)
+		{
+		}
+
+		/// <summary>
+		/// Creates a new instance of the <see cref="EDalerUriNavigationArgs"/> class.
+		/// </summary>
+		/// <param name="Uri">Parsed edaler URI.</param>
+		/// <param name="FriendlyName">Optional Friendly Name associated with URI</param>
+		/// <param name="UriToSend">Task Completion Source in case the URI being built is to be returned to the parent page.</param>
+		public EDalerUriNavigationArgs(EDalerUri Uri, string FriendlyName, TaskCompletionSource<string> UriToSend)
 		{
 			this.Uri = Uri;
 			this.FriendlyName = FriendlyName;
+			this.UriToSend = UriToSend;
 		}
 
 		/// <summary>
@@ -37,5 +50,10 @@ namespace IdApp.Pages.Wallet
 		/// Optional Friendly Name associated with URI
 		/// </summary>
 		public string FriendlyName { get; }
+
+		/// <summary>
+		/// Task Completion Source in case the URI being built is to be returned to the parent page.
+		/// </summary>
+		public TaskCompletionSource<string> UriToSend { get; }
 	}
 }

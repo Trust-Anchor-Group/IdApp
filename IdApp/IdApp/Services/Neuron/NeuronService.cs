@@ -500,7 +500,7 @@ namespace IdApp.Services.Neuron
 
 				if (this.xmppClient is null)
 					return false;
-			
+
 				Timeout -= DateTime.Now - Start;
 			}
 
@@ -1275,8 +1275,12 @@ namespace IdApp.Services.Neuron
 			}
 			else
 			{
+				ContactInfo Info = await ContactInfo.FindByBareJid(e.FromBareJID);
+				string LegalId = Info?.LegalId;
+				string BareJid = Info?.BareJid ?? e.FromBareJID;
+
 				this.uiSerializer.BeginInvokeOnMainThread(async () =>
-					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(e.FromBareJID, FriendlyName)));
+					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
 			}
 		}
 	}
