@@ -51,7 +51,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 		}
 
 		/// <inheritdoc/>
-		public override async Task GenerateXamarinForms(XmlWriter Output, TextAlignment TextAlignment, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
+		public override async Task GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, MultimediaItem[] Items, IEnumerable<MarkdownElement> ChildNodes, bool AloneInParagraph, MarkdownDocument Document)
 		{
 			foreach (MultimediaItem Item in Items)
 			{

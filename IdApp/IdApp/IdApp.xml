@@ -3976,7 +3976,7 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.EDalerUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme">
@@ -4001,7 +4001,7 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotDiscoUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme">
@@ -4026,7 +4026,7 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotIdUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme">
@@ -4051,7 +4051,7 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.IotScUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme">
@@ -4076,7 +4076,7 @@
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXAML(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.TextAlignment,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
+        <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia.XmppUriScheme.GenerateXamarinForms(System.Xml.XmlWriter,Waher.Content.Markdown.Model.XamarinRenderingState,Waher.Content.Markdown.Model.MultimediaItem[],System.Collections.Generic.IEnumerable{Waher.Content.Markdown.Model.MarkdownElement},System.Boolean,Waher.Content.Markdown.MarkdownDocument)">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.SelectContactAction">
