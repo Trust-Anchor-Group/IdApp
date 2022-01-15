@@ -1275,9 +1275,8 @@ namespace IdApp.Services.Neuron
 			}
 			else
 			{
-				ContactInfo Info = await ContactInfo.FindByBareJid(e.FromBareJID);
-				string LegalId = Info?.LegalId;
-				string BareJid = Info?.BareJid ?? e.FromBareJID;
+				string LegalId = ContactInfo?.LegalId;
+				string BareJid = ContactInfo?.BareJid ?? e.FromBareJID;
 
 				this.uiSerializer.BeginInvokeOnMainThread(async () =>
 					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
