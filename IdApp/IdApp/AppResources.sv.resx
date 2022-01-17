@@ -120,6 +120,9 @@
   <data name="About" xml:space="preserve">
     <value>Om appen</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Missbruk</value>
+  </data>
   <data name="Accept" xml:space="preserve">
     <value>Acceptera</value>
   </data>
@@ -209,6 +212,9 @@
   </data>
   <data name="Balance" xml:space="preserve">
     <value>Balans:</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Blockera</value>
   </data>
   <data name="Building" xml:space="preserve">
     <value>Fastighet</value>
@@ -447,6 +453,21 @@
   <data name="From" xml:space="preserve">
     <value>Från</value>
   </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Vidare handling?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Vill du vidta vidare åtgärder mot:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Du kan välja att blocka adressen.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Detta kommer att säkerställa att du slipper fler prenumereringsförfrågningar från avsändaren.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Du kan också välja att rapportera avsändaren till din operatör.</value>
+  </data>
   <data name="General" xml:space="preserve">
     <value>Allmänt</value>
   </data>
@@ -651,6 +672,9 @@
   <data name="NoContractsFound" xml:space="preserve">
     <value>Hittade inga kontrakt.</value>
   </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Nej, bara ignorera</value>
+  </data>
   <data name="NotAnInvitationCode" xml:space="preserve">
     <value>Inte en kod med en inbjudan.</value>
   </data>
@@ -695,6 +719,9 @@
   </data>
   <data name="Options" xml:space="preserve">
     <value>Alternativ</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Annat</value>
   </data>
   <data name="Parameters" xml:space="preserve">
     <value>Parametrar</value>
@@ -939,6 +966,9 @@
   <data name="RepeatNewPin" xml:space="preserve">
     <value>Repetera ny PIN</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Rapportera</value>
+  </data>
   <data name="ReportAsCompromized" xml:space="preserve">
     <value>Rapportera som komprometterad</value>
   </data>
@@ -1073,6 +1103,9 @@
   </data>
   <data name="Skip" xml:space="preserve">
     <value>Hoppa över</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>Tillstånd</value>

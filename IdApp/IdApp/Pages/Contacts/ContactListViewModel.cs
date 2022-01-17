@@ -77,7 +77,9 @@ namespace IdApp.Pages.Contacts
 			string Suffix;
 			int i;
 
-			foreach (ContactInfo Info in await Database.Find<ContactInfo>(new FilterNot(new FilterFieldEqualTo("IsThing", true))))
+			foreach (ContactInfo Info in await Database.Find<ContactInfo>(new FilterAnd(
+				new FilterNot(new FilterFieldEqualTo("IsThing", true)),
+				new FilterNot(new FilterFieldEqualTo("AllowSubscriptionFrom", false)))))
 			{
 				Name = Info.FriendlyName;
 				if (Sorted.ContainsKey(Name))

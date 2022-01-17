@@ -70,6 +70,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Abuse.
+        /// </summary>
+        internal static string Abuse {
+            get {
+                return ResourceManager.GetString("Abuse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accept.
         /// </summary>
         internal static string Accept {
@@ -336,6 +345,15 @@ namespace IdApp {
         internal static string Balance {
             get {
                 return ResourceManager.GetString("Balance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Block.
+        /// </summary>
+        internal static string Block {
+            get {
+                return ResourceManager.GetString("Block", resourceCulture);
             }
         }
         
@@ -1051,6 +1069,51 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Further Action?.
+        /// </summary>
+        internal static string FurtherAction {
+            get {
+                return ResourceManager.GetString("FurtherAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Would you like to take any further action against:.
+        /// </summary>
+        internal static string FurtherAction1 {
+            get {
+                return ResourceManager.GetString("FurtherAction1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can choose to block the address..
+        /// </summary>
+        internal static string FurtherAction2 {
+            get {
+                return ResourceManager.GetString("FurtherAction2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will make sure you don&apos;t receive more subscription requests from the sender..
+        /// </summary>
+        internal static string FurtherAction3 {
+            get {
+                return ResourceManager.GetString("FurtherAction3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can also choose to report the sender to your operator..
+        /// </summary>
+        internal static string FurtherAction4 {
+            get {
+                return ResourceManager.GetString("FurtherAction4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to General.
         /// </summary>
         internal static string General {
@@ -1663,6 +1726,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No, just ignore.
+        /// </summary>
+        internal static string NoJustIgnore {
+            get {
+                return ResourceManager.GetString("NoJustIgnore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not an invitation code..
         /// </summary>
         internal static string NotAnInvitationCode {
@@ -1794,6 +1866,15 @@ namespace IdApp {
         internal static string Options {
             get {
                 return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other.
+        /// </summary>
+        internal static string Other {
+            get {
+                return ResourceManager.GetString("Other", resourceCulture);
             }
         }
         
@@ -2527,6 +2608,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report.
+        /// </summary>
+        internal static string Report {
+            get {
+                return ResourceManager.GetString("Report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report as Compromised.
         /// </summary>
         internal static string ReportAsCompromized {
@@ -2914,6 +3004,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Spam.
+        /// </summary>
+        internal static string Spam {
+            get {
+                return ResourceManager.GetString("Spam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to State.
         /// </summary>
         internal static string State {
@@ -3216,6 +3315,24 @@ namespace IdApp {
         internal static string TransferIdentityInformationText {
             get {
                 return ResourceManager.GetString("TransferIdentityInformationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TypeOfReport.
+        /// </summary>
+        internal static string TypeOfReport {
+            get {
+                return ResourceManager.GetString("TypeOfReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select type of report you want to file for:.
+        /// </summary>
+        internal static string TypeOfReport1 {
+            get {
+                return ResourceManager.GetString("TypeOfReport1", resourceCulture);
             }
         }
         

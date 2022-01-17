@@ -69,6 +69,11 @@
               Looks up a localized string similar to About the app.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Abuse">
+            <summary>
+              Looks up a localized string similar to Abuse.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.Accept">
             <summary>
               Looks up a localized string similar to Accept.
@@ -217,6 +222,11 @@
         <member name="P:IdApp.AppResources.Balance">
             <summary>
               Looks up a localized string similar to Balance:.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Block">
+            <summary>
+              Looks up a localized string similar to Block.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Building">
@@ -614,6 +624,31 @@
               Looks up a localized string similar to From.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.FurtherAction">
+            <summary>
+              Looks up a localized string similar to Further Action?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FurtherAction1">
+            <summary>
+              Looks up a localized string similar to Would you like to take any further action against:.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FurtherAction2">
+            <summary>
+              Looks up a localized string similar to You can choose to block the address..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FurtherAction3">
+            <summary>
+              Looks up a localized string similar to This will make sure you don&apos;t receive more subscription requests from the sender..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.FurtherAction4">
+            <summary>
+              Looks up a localized string similar to You can also choose to report the sender to your operator..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.General">
             <summary>
               Looks up a localized string similar to General.
@@ -954,6 +989,11 @@
               Looks up a localized string similar to No contracts found..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.NoJustIgnore">
+            <summary>
+              Looks up a localized string similar to No, just ignore.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.NotAnInvitationCode">
             <summary>
               Looks up a localized string similar to Not an invitation code..
@@ -1027,6 +1067,11 @@
         <member name="P:IdApp.AppResources.Options">
             <summary>
               Looks up a localized string similar to Options.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Other">
+            <summary>
+              Looks up a localized string similar to Other.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.Parameters">
@@ -1336,7 +1381,7 @@
         </member>
         <member name="P:IdApp.AppResources.PurposeEducationalOrExperimental">
             <summary>
-              Looks up a localized string similar to For educational or experimental use..
+              Looks up a localized string similar to Educational or experimental use..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PurposeWorkEducationalOrExperimental">
@@ -1346,7 +1391,7 @@
         </member>
         <member name="P:IdApp.AppResources.PurposeWorkOrPersonal">
             <summary>
-              Looks up a localized string similar to For work or personal use..
+              Looks up a localized string similar to Work or personal use..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.PurposeWorkOrPersonalDescription">
@@ -1432,6 +1477,11 @@
         <member name="P:IdApp.AppResources.RepeatNewPin">
             <summary>
               Looks up a localized string similar to Repeat New PIN.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.Report">
+            <summary>
+              Looks up a localized string similar to Report.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.ReportAsCompromized">
@@ -1649,6 +1699,11 @@
               Looks up a localized string similar to Skip.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.Spam">
+            <summary>
+              Looks up a localized string similar to Spam.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.State">
             <summary>
               Looks up a localized string similar to State.
@@ -1817,6 +1872,16 @@
         <member name="P:IdApp.AppResources.TransferIdentityInformationText">
             <summary>
               Looks up a localized string similar to Scan the QR invitation code below from a device that is being initialized, to transfer the Digital Identity on this device to the second device. Once the code is scanned and the identity transferred, it will be removed from this device..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TypeOfReport">
+            <summary>
+              Looks up a localized string similar to TypeOfReport.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.TypeOfReport1">
+            <summary>
+              Looks up a localized string similar to Select type of report you want to file for:.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnableToAccessInvitation">
@@ -11451,6 +11516,74 @@
         <member name="P:IdApp.Popups.Pin.PinPopup.PinPopupPage.Result">
             <summary>
             Task waiting for result. null means dialog was closed without providing a PIN.
+            </summary>
+        </member>
+        <member name="T:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockAction">
+            <summary>
+            How to continue when rejecting a subscription request.
+            </summary>
+        </member>
+        <member name="F:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockAction.Block">
+            <summary>
+            Block sender
+            </summary>
+        </member>
+        <member name="F:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockAction.Report">
+            <summary>
+            Report sender
+            </summary>
+        </member>
+        <member name="F:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockAction.Ignore">
+            <summary>
+            Ignore sender
+            </summary>
+        </member>
+        <member name="T:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockPopupPage">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockPopupPage.#ctor(System.String)">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+            <param name="BareJid">Bare JID of sender of request.</param>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockPopupPage.BareJid">
+            <summary>
+            Bare JID of sender of request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockPopupPage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockPopupPage.Result">
+            <summary>
+            Task waiting for result.
+            </summary>
+        </member>
+        <member name="T:IdApp.Popups.Xmpp.ReportType.ReportTypePopupPage">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.ReportType.ReportTypePopupPage.#ctor(System.String)">
+            <summary>
+            Prompts the user for a response of a presence subscription request.
+            </summary>
+            <param name="BareJid">Bare JID of sender of request.</param>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.ReportType.ReportTypePopupPage.BareJid">
+            <summary>
+            Bare JID of sender of request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.ReportType.ReportTypePopupPage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.ReportType.ReportTypePopupPage.Result">
+            <summary>
+            Task waiting for result.
             </summary>
         </member>
         <member name="T:IdApp.Popups.Xmpp.SubscribeTo.SubscribeToPopupPage">

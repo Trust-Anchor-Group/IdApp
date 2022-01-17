@@ -1353,4 +1353,43 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Unsubscribe from</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Abuse</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Further Action?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Would you like to take any further action against:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>You can choose to block the address.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>This will make sure you don't receive more subscription requests from the sender.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>You can also choose to report the sender to your operator.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>No, just ignore</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Select type of report you want to file for:</value>
+  </data>
 </root>

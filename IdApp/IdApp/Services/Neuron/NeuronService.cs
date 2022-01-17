@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts.Chat;
+using IdApp.Popups.Xmpp.ReportOrBlock;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Popups.Xmpp.SubscriptionRequest;
 using IdApp.Services.Contracts;
@@ -43,6 +44,8 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
+using Waher.Networking.XMPP.Abuse;
+using IdApp.Popups.Xmpp.ReportType;
 
 namespace IdApp.Services.Neuron
 {
@@ -67,6 +70,7 @@ namespace IdApp.Services.Neuron
 		private SensorClient sensorClient;
 		private ConcentratorClient concentratorClient;
 		private EDalerClient eDalerClient;
+		private AbuseClient abuseClient;
 		private Timer reconnectTimer;
 		private readonly NeuronContracts contracts;
 		private readonly NeuronMultiUserChat muc;
@@ -189,6 +193,8 @@ namespace IdApp.Services.Neuron
 					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
 
 					// Add extensions before connecting
+
+					this.abuseClient = new AbuseClient(this.xmppClient);
 
 					if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
 					{
@@ -318,6 +324,9 @@ namespace IdApp.Services.Neuron
 
 			this.concentratorClient?.Dispose();
 			this.concentratorClient = null;
+
+			this.abuseClient?.Dispose();
+			this.abuseClient = null;
 
 			this.xmppClient?.Dispose();
 			this.xmppClient = null;
@@ -1120,6 +1129,53 @@ namespace IdApp.Services.Neuron
 
 				case PresenceRequestAction.Reject:
 					e.Decline();
+
+					ReportOrBlockPopupPage ReportOrBlockPage = new ReportOrBlockPopupPage(e.FromBareJID);
+
+					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(ReportOrBlockPage);
+					ReportOrBlockAction ReportOrBlock = await ReportOrBlockPage.Result;
+
+					if (ReportOrBlock == ReportOrBlockAction.Block || ReportOrBlock == ReportOrBlockAction.Report)
+					{
+						if (ContactInfo is null)
+						{
+							ContactInfo = new ContactInfo()
+							{
+								AllowSubscriptionFrom = false,
+								BareJid = e.FromBareJID,
+								FriendlyName = string.IsNullOrWhiteSpace(e.NickName) ? e.FromBareJID : e.NickName,
+								IsThing = false
+							};
+
+							await Database.Insert(ContactInfo);
+						}
+						else if (!ContactInfo.AllowSubscriptionFrom.HasValue || ContactInfo.AllowSubscriptionFrom.Value)
+						{
+							ContactInfo.AllowSubscriptionFrom = false;
+							await Database.Update(ContactInfo);
+						}
+
+						if (ReportOrBlock == ReportOrBlockAction.Report)
+						{
+							ReportTypePopupPage ReportTypePage = new ReportTypePopupPage(e.FromBareJID);
+
+							await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(ReportOrBlockPage);
+							ReportingReason? ReportType = await ReportTypePage.Result;
+
+							if (ReportType.HasValue)
+							{
+								TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+
+								await this.abuseClient.BlockJID(e.FromBareJID, ReportType.Value, (sender2, e2) =>
+								{
+									Result.TrySetResult(e.Ok);
+									return Task.CompletedTask;
+								}, null);
+
+								await Result.Task;
+							}
+						}
+					}
 					break;
 
 				case PresenceRequestAction.Ignore:
