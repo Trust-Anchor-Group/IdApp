@@ -37,6 +37,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Version", "Version", "{EA60
 		IdApp\Version\Version.cs = IdApp\Version\Version.cs
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Translation", "Translation", "{C200FCAA-4DFB-4502-9743-C104DDF93445}"
+	ProjectSection(SolutionItems) = preProject
+		Translation\CreateZip.bat = Translation\CreateZip.bat
+		Translation\TranslateResources.bat = Translation\TranslateResources.bat
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +127,7 @@ Global
 		{F13E31E8-60F7-4F2F-B69E-7B6655CCE57B} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
 		{E6C2C29D-14A4-4B08-AFC6-EA1E1E351F2D} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
 		{EA601FF1-D513-4082-A9E3-74091321B362} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
+		{C200FCAA-4DFB-4502-9743-C104DDF93445} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7816AF3C-464A-4113-9E1E-B9A38E86BB11}

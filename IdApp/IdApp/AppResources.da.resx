@@ -118,1227 +118,1227 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>Sobre o aplicativo</value>
+    <value>Om appen</value>
   </data>
   <data name="Accept" xml:space="preserve">
-    <value>Aceitar</value>
+    <value>Modtage</value>
   </data>
   <data name="Account" xml:space="preserve">
-    <value>Conta</value>
+    <value>Konto</value>
   </data>
   <data name="AccountEvent" xml:space="preserve">
-    <value>Evento de conta</value>
+    <value>Kontohændelse</value>
   </data>
   <data name="AccountEventDescription" xml:space="preserve">
-    <value>Abaixo você pode ver informações sobre um único evento de conta.</value>
+    <value>Nedenfor kan du se oplysninger om en enkelt konto begivenhed.</value>
   </data>
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
-    <value>O nome da conta {0} já está tomado. Escolha outro.</value>
+    <value>Kontonavn {0} er allerede taget. Vælg en anden.</value>
   </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
-    <value>O nome da conta é inválido</value>
+    <value>Kontonavnet er ugyldigt</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Adicionar</value>
+    <value>Tilføje</value>
   </data>
   <data name="AddContact" xml:space="preserve">
-    <value>Adicionar contato</value>
+    <value>Tilføj kontaktperson</value>
   </data>
   <data name="AddPart" xml:space="preserve">
-    <value>Adicionar parte</value>
+    <value>Tilføj del</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Endereço</value>
+    <value>Adresse</value>
   </data>
   <data name="Address2" xml:space="preserve">
-    <value>Endereço (linha 2)</value>
+    <value>Adresse (række 2)</value>
   </data>
   <data name="Altitude" xml:space="preserve">
-    <value>Altitude</value>
+    <value>Højde</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Quantidade:</value>
+    <value>Beløb:</value>
   </data>
   <data name="AmountExtra" xml:space="preserve">
-    <value>Valor Extra: (opcional, sugestão)</value>
+    <value>Ekstra beløb: (valgfrit, forslag)</value>
   </data>
   <data name="Apartment" xml:space="preserve">
-    <value>Apartamento</value>
+    <value>Lejlighed</value>
   </data>
   <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
-    <value>Uma revisão por pares que você pediu foi aceita.</value>
+    <value>En peer review, du har anmodet om, er blevet accepteret.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
-    <value>Uma revisão por pares solicitada foi rejeitada, devido a um erro de assinatura.</value>
+    <value>En peer review, du har anmodet om, er blevet afvist på grund af en signaturfejl.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
-    <value>Um colega que você pediu para revisar seu pedido, rejeitou aprová-lo.</value>
+    <value>En peer, du har anmodet om at gennemse din ansøgning, har afvist at godkende den.</value>
   </data>
   <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
-    <value>Uma petição foi enviada para as partes do contrato. Se alguma das partes aceitar a petição, as informações do contrato serão exibidas na tela.</value>
+    <value>Der er sendt et andragende til de dele af kontrakten. Hvis nogen af delene accepterer andragendet, vil kontraktoplysningerne blive vist på skærmen.</value>
   </data>
   <data name="APetitionHasBeenSentToTheOwner" xml:space="preserve">
-    <value>Uma petição foi enviada ao dono da identidade. Se o proprietário aceitar a petição, as informações de identidade serão exibidas na tela.</value>
+    <value>Der er sendt et andragende til ejeren af identiteten. Hvis ejeren accepterer andragendet, vises identitetsoplysningerne på skærmen.</value>
   </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
-    <value>Uma petição foi enviada ao seu par.</value>
+    <value>En underskriftsindsamling er blevet sendt til din jævnaldrende</value>
   </data>
   <data name="ApproveInformation" xml:space="preserve">
-    <value>Aprovar informações</value>
+    <value>Godkend oplysninger</value>
   </data>
   <data name="Archiving_Optional" xml:space="preserve">
-    <value>Arquivamento (opcional)</value>
+    <value>Arkivering (valgfrit)</value>
   </data>
   <data name="Archiving_Required" xml:space="preserve">
-    <value>Arquivamento (obrigatório)</value>
+    <value>Arkivering (påkrævet)</value>
   </data>
   <data name="Area" xml:space="preserve">
-    <value>Área</value>
+    <value>Område</value>
   </data>
   <data name="AreYouSureYouWantToRemoveContact" xml:space="preserve">
-    <value>Tem certeza que deseja remover esse contato da sua lista de contatos?</value>
+    <value>Er du sikker på, at du vil fjerne kontaktpersonen fra listen over kontaktpersoner?</value>
   </data>
   <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
-    <value>Tem certeza que quer informar sua identidade legal como comprometida, roubada ou hackeada?</value>
+    <value>Er du sikker på, at du vil rapportere din juridiske identitet som kompromitteret, stjålet eller hacket?</value>
   </data>
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
-    <value>Tem certeza que quer revogar sua identidade legal do pedido?</value>
+    <value>Er du sikker på, at du vil tilbagekalde din juridiske identitet fra ansøgningen?</value>
   </data>
   <data name="Balance" xml:space="preserve">
-    <value>Equilíbrio:</value>
+    <value>Saldo:</value>
   </data>
   <data name="Building" xml:space="preserve">
-    <value>Edifício</value>
+    <value>Bygning</value>
   </data>
   <data name="CanActAsTemplate" xml:space="preserve">
-    <value>Pode atuar como modelo</value>
+    <value>Kan fungere som skabelon</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancelar</value>
+    <value>Aflyse</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
-    <value>Não pode se conectar a {0}</value>
+    <value>Der kan ikke oprettes forbindelse til {0}</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>Mudar:</value>
+    <value>Forandre:</value>
   </data>
   <data name="ChooseAccount" xml:space="preserve">
-    <value>Escolha conta</value>
+    <value>Vælg konto</value>
   </data>
   <data name="City" xml:space="preserve">
-    <value>Cidade</value>
+    <value>By</value>
   </data>
   <data name="ClaimThing" xml:space="preserve">
-    <value>Coisa de Reivindicação</value>
+    <value>Kræv ting</value>
   </data>
   <data name="Class" xml:space="preserve">
-    <value>Classe</value>
+    <value>Klasse</value>
   </data>
   <data name="ClientSignature" xml:space="preserve">
-    <value>Assinatura do cliente</value>
+    <value>Klientsignatur</value>
   </data>
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações relacionadas à assinatura de um cliente.</value>
+    <value>Følgende er oplysninger, der er relateret til en klientsignatur.</value>
   </data>
   <data name="ClientSignatures" xml:space="preserve">
-    <value>Assinaturas do cliente</value>
+    <value>Klientsignaturer</value>
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
-    <value>Assinaturas criptográficas feitas por diferentes partes estão listadas abaixo.</value>
+    <value>Kryptografiske signaturer foretaget af forskellige dele er angivet nedenfor.</value>
   </data>
   <data name="CodeNotRecognized" xml:space="preserve">
-    <value>Código não reconhecido.</value>
+    <value>Koden blev ikke genkendt.</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirmar</value>
+    <value>Bekræfte</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Ligar</value>
+    <value>Forbinde</value>
   </data>
   <data name="Connection" xml:space="preserve">
-    <value>Conexão</value>
+    <value>Forbindelse</value>
   </data>
   <data name="Contacts" xml:space="preserve">
-    <value>Contatos</value>
+    <value>Kontakter</value>
   </data>
   <data name="ContactsDescription" xml:space="preserve">
-    <value>Abaixo estão todos os contatos em seu livro de contatos. Clique em qualquer um para interagir com esse contato.</value>
+    <value>Nedenfor er alle kontakter i din kontaktbog. Klik på en for at interagere med denne kontakt.</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continuar</value>
+    <value>Fortsætte</value>
   </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
-    <value>O contrato foi suprimido.</value>
+    <value>Kontrakten er blevet slettet.</value>
   </data>
   <data name="ContractHasBeenObsoleted" xml:space="preserve">
-    <value>O contrato foi obsoleto.</value>
+    <value>Kontrakten er forældet.</value>
   </data>
   <data name="ContractId" xml:space="preserve">
-    <value>ID do contrato</value>
+    <value>Kontrakt-id</value>
   </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
-    <value>Selecione a função de contrato primeiro e tente novamente.</value>
+    <value>Vælg kontraktrollen først, og prøv derefter igen.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
-    <value>Contratos</value>
+    <value>Kontrakter</value>
   </data>
   <data name="ContractSuccessfullySigned" xml:space="preserve">
-    <value>Contrato assinado com sucesso.</value>
+    <value>Kontrakten blev underskrevet.</value>
   </data>
   <data name="ContractTemplates" xml:space="preserve">
-    <value>Modelos de contrato</value>
+    <value>Kontraktskabeloner</value>
   </data>
   <data name="ContractTemplatesInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de modelos de contrato que você usou. Clique em um modelo para criar um novo contrato com base nesse modelo.</value>
+    <value>Nedenfor er en liste over kontraktskabeloner, du har brugt. Klik på en skabelon for at oprette en ny kontrakt baseret på skabelonen.</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
-    <value>Selecione a visibilidade do contrato primeiro e tente novamente.</value>
+    <value>Vælg kontraktsynlighed først, og prøv igen.</value>
   </data>
   <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
-    <value>Criador e peças</value>
+    <value>Skaber og dele</value>
   </data>
   <data name="ContractVisibility_DomainAndParts" xml:space="preserve">
-    <value>Domínio e peças</value>
+    <value>Domæne og dele</value>
   </data>
   <data name="ContractVisibility_Public" xml:space="preserve">
-    <value>Público, não pesquisável</value>
+    <value>Offentlig, ikke søgbar</value>
   </data>
   <data name="ContractVisibility_PublicSearchable" xml:space="preserve">
-    <value>Público e pesquisável</value>
+    <value>Offentlig og søgbar</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
-    <value>Poderia revisar minhas informações de identidade?</value>
+    <value>Vil du venligst gennemgå mine identitetsoplysninger?</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>País</value>
+    <value>Land</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Criar</value>
+    <value>Skabe</value>
   </data>
   <data name="Created" xml:space="preserve">
-    <value>Criado</value>
+    <value>Lavet</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Criar novo</value>
+    <value>Opret ny</value>
   </data>
   <data name="Decline" xml:space="preserve">
-    <value>Declinar</value>
+    <value>Forfald</value>
   </data>
   <data name="DefinePin" xml:space="preserve">
-    <value>Definir PIN</value>
+    <value>Definer pinkode</value>
   </data>
   <data name="DeleteContract" xml:space="preserve">
-    <value>Excluir contrato</value>
+    <value>Slet kontrakt</value>
   </data>
   <data name="Devices" xml:space="preserve">
-    <value>Dispositivos</value>
+    <value>Enheder</value>
   </data>
   <data name="Digest" xml:space="preserve">
-    <value>Digerir</value>
+    <value>Fordøje</value>
   </data>
   <data name="DisownThing" xml:space="preserve">
-    <value>Coisa renegada</value>
+    <value>Afslået ting</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
-    <value>{0} não segue a política onipresente de criptografia</value>
+    <value>{0} følger ikke den allestedsnærværende krypteringspolitik</value>
   </data>
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
-    <value>{0} não é um operador válido</value>
+    <value>{0} er ikke en gyldig operator</value>
   </data>
   <data name="DomainNameIsInvalid" xml:space="preserve">
-    <value>O nome de domínio é inválido</value>
+    <value>Domænenavnet er ugyldigt</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Duração</value>
+    <value>Varighed</value>
   </data>
   <data name="EDalerNote" xml:space="preserve">
-    <value>Nota eDaler</value>
+    <value>eDaler Note</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>O código representa uma nota eDaler. Você pode aceitá-lo pressionando o botão Aceitar abaixo. Se não tiver sido aceita antes, sua carteira receberá o valor do eDaler especificado na nota.</value>
+    <value>Koden repræsenterer en eDaler-note. Du kan acceptere det ved at trykke på knappen Accepter nedenfor. Hvis det ikke er blevet accepteret før, vil din tegnebog modtage det beløb af eDaler angivet på noten.</value>
   </data>
   <data name="EncryptMessage" xml:space="preserve">
-    <value>Mensagem criptografada</value>
+    <value>Krypter meddelelse</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Número de telefone</value>
+    <value>Telefonnummer</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Ocorreu um erro</value>
+    <value>Der opstod en fejl</value>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>Sair</value>
+    <value>Udgang</value>
   </data>
   <data name="ExpiredEDalerUri" xml:space="preserve">
-    <value>Este código eDaler expirou.</value>
+    <value>Denne eDaler-kode er udløbet.</value>
   </data>
   <data name="ExpiresAt" xml:space="preserve">
-    <value>(Expira {0})</value>
+    <value>(Udløber {0})</value>
   </data>
   <data name="FailedToLoadPhoto" xml:space="preserve">
-    <value>Falha ao carregar foto</value>
+    <value>Foto kunne ikke indlæses</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Nome próprio</value>
+    <value>Fornavn</value>
   </data>
   <data name="From" xml:space="preserve">
-    <value>De</value>
+    <value>Fra</value>
   </data>
   <data name="General" xml:space="preserve">
-    <value>Geral</value>
+    <value>Generel</value>
   </data>
   <data name="GeneralInformation" xml:space="preserve">
-    <value>Informações Gerais</value>
+    <value>Generelle oplysninger</value>
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
-    <value>A seguir, algumas informações gerais sobre o contrato.</value>
+    <value>Følgende er nogle generelle oplysninger om kontrakten.</value>
   </data>
   <data name="GenerateQrCode" xml:space="preserve">
-    <value>Gerar QR Code</value>
+    <value>Generér QR-kode</value>
   </data>
   <data name="HashFunction" xml:space="preserve">
-    <value>Função hash</value>
+    <value>Hash-funktion</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Casa</value>
+    <value>Hjem</value>
   </data>
   <data name="HumanReadableText" xml:space="preserve">
-    <value>Texto legível humano</value>
+    <value>Læsbar tekst til mennesker</value>
   </data>
   <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
-    <value>Aprovo que minhas informações pessoais estejam associadas à identidade jurídica que estou revisando, para fins de transparência.</value>
+    <value>Jeg bifalder, at mine personlige oplysninger er knyttet til den juridiske identitet, jeg gennemgår, med henblik på gennemsigtighed.</value>
   </data>
   <data name="ID" xml:space="preserve">
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Sua id foi copiada para a prancheta.</value>
+    <value>Dit id blev kopieret til Udklipsholder.</value>
   </data>
   <data name="Identity" xml:space="preserve">
-    <value>Identidade</value>
+    <value>Identitet</value>
   </data>
   <data name="IdentityInformation" xml:space="preserve">
-    <value>Informações de identidade</value>
+    <value>Identitetsoplysninger</value>
   </data>
   <data name="IdentityInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações pessoais registradas para a parte que assinou o contrato.</value>
+    <value>Følgende er personlige oplysninger registreret for den part, der har underskrevet kontrakten.</value>
   </data>
   <data name="IdentityState_Approved" xml:space="preserve">
-    <value>Aprovado</value>
+    <value>Godkendt</value>
   </data>
   <data name="IdentityState_Compromized" xml:space="preserve">
-    <value>Compromizado</value>
+    <value>Kompromitteret</value>
   </data>
   <data name="IdentityState_Created" xml:space="preserve">
-    <value>Criado</value>
+    <value>Lavet</value>
   </data>
   <data name="IdentityState_Obsoleted" xml:space="preserve">
-    <value>Obsoleto</value>
+    <value>Forældet</value>
   </data>
   <data name="IdentityState_Rejected" xml:space="preserve">
-    <value>Indeferido</value>
+    <value>Afvist</value>
   </data>
   <data name="Ignore" xml:space="preserve">
-    <value>Ignorar</value>
+    <value>Ignorere</value>
   </data>
   <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
-    <value>Revisei cuidadosamente todas as informações acima, e acho que é uma representação correta da pessoa que solicitou a revisão:</value>
+    <value>Jeg har omhyggeligt gennemgået alle ovenstående oplysninger, og finder det at være en korrekt repræsentation af den person, der anmoder om revisionen:</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
-    <value>Incompleto</value>
+    <value>Ukomplet</value>
   </data>
   <data name="InformationAboutClaimedThingText" xml:space="preserve">
-    <value>As seguintes informações são disponibilizadas sobre a coisa cujo código você digitalizou. Escolha se você quer tentar reivindicar essa coisa como sua, e também se você quiser torná-la publicamente pesquisável no Registro de Coisas.</value>
+    <value>Følgende oplysninger gøres tilgængelige om den ting, hvis kode du scannede. Vælg, om du vil forsøge at gøre krav på denne ting som din, og også hvis du vil gøre den offentligt søgbar i Tingregistreringsdatabasen.</value>
   </data>
   <data name="InformationAboutThing" xml:space="preserve">
-    <value>Informações sobre o negócio</value>
+    <value>Oplysninger om ting</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>As seguintes informações são disponibilizadas sobre a coisa. Você também pode ver os dados atuais dos sensores que você está autorizado a ver. Se a coisa é um atuador, e você tem o direito de controlar a coisa, parâmetros de controle também serão mostrados.</value>
+    <value>Følgende oplysninger stilles til rådighed om ting. Du kan også se aktuelle sensordata, du har tilladelse til at se. Hvis ting er en aktuator, og du har ret til at kontrollere ting, kontrol parametre vil blive vist også.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
-    <value>As informações estão faltando ou inválidas</value>
+    <value>Oplysningerne mangler eller er ugyldige</value>
   </data>
   <data name="Inspect" xml:space="preserve">
-    <value>Inspecione a comunicação</value>
+    <value>Undersøg kommunikation</value>
   </data>
   <data name="InvalidEDalerUri" xml:space="preserve">
-    <value>EDaler URI inválido: {0}</value>
+    <value>Ugyldig eDaler-URI: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
-    <value>Código de descoberta de IoT inválido</value>
+    <value>Ugyldig IoT-registreringskode</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
-    <value>Nome de usuário ou senha inválidos</value>
+    <value>Ugyldigt brugernavn eller adgangskode</value>
   </data>
   <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Convide peer para revisão</value>
+    <value>Inviter peer til gennemgang</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Chave</value>
+    <value>Nøgle</value>
   </data>
   <data name="LastNames" xml:space="preserve">
-    <value>Sobrenomes</value>
+    <value>Efternavne</value>
   </data>
   <data name="Latitude" xml:space="preserve">
-    <value>Latitude</value>
+    <value>Breddegrad</value>
   </data>
   <data name="LegalId" xml:space="preserve">
-    <value>Legal Id</value>
+    <value>Juridisk id</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Carregamento...</value>
+    <value>Pålæsning...</value>
   </data>
   <data name="LocalName" xml:space="preserve">
-    <value>Nome local</value>
+    <value>Lokalt navn</value>
   </data>
   <data name="Longitude" xml:space="preserve">
-    <value>Longitude</value>
+    <value>Længdegrad</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
-    <value>Uma visão geral dos dados legíveis pela máquina incorporados no contrato é mostrada abaixo.</value>
+    <value>Nedenfor vises en oversigt over de maskinlæsbare data, der er integreret i kontrakten.</value>
   </data>
   <data name="MachineReadableText" xml:space="preserve">
-    <value>Informações legíveis à máquina</value>
+    <value>Læsbare oplysninger om maskinen</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>Minha ID Digital</value>
+    <value>Mit digitale id</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
-    <value>Torne a coisa pública</value>
+    <value>Gør ting offentlige</value>
   </data>
   <data name="Manufacturer" xml:space="preserve">
-    <value>Fabricante</value>
+    <value>Fabrikant</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Mensagem</value>
+    <value>Budskab</value>
   </data>
   <data name="MeterLocation" xml:space="preserve">
-    <value>Localização do medidor</value>
+    <value>Placering af måler</value>
   </data>
   <data name="MeterNumber" xml:space="preserve">
-    <value>Número do medidor</value>
+    <value>Målernummer</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
-    <value>Nome do meio(s)</value>
+    <value>Mellemnavn(er)</value>
   </data>
   <data name="Mode" xml:space="preserve">
-    <value>Modo</value>
+    <value>Tilstand</value>
   </data>
   <data name="Model" xml:space="preserve">
-    <value>Modelo</value>
+    <value>Model</value>
   </data>
   <data name="MyContracts" xml:space="preserve">
-    <value>Meus Contratos</value>
+    <value>Mine kontrakter</value>
   </data>
   <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de contratos que você criou. Clique em um contrato para obter mais informações sobre ele.</value>
+    <value>Nedenfor er en liste over kontrakter, du har oprettet. Klik på en kontrakt for mere information om det.</value>
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Meus Contratos Criados</value>
+    <value>Mine oprettede kontrakter</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
-    <value>Minha identidade</value>
+    <value>Min identitet</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Nome</value>
+    <value>Navn</value>
   </data>
   <data name="Namespace" xml:space="preserve">
     <value>Namespace</value>
   </data>
   <data name="Network" xml:space="preserve">
-    <value>Rede</value>
+    <value>Netværk</value>
   </data>
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
-    <value>A rede parece estar faltando. Verifique sua configuração e cobertura e tente novamente.</value>
+    <value>Netværket ser ud til at mangle. Kontroller konfigurationen og dækningen, og prøv igen.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
-    <value>Neurônio</value>
+    <value>Neuron</value>
   </data>
   <data name="NewContract" xml:space="preserve">
-    <value>Novo Contrato</value>
+    <value>Ny kontrakt</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Não</value>
+    <value>Nej</value>
   </data>
   <data name="NoContactsFound" xml:space="preserve">
-    <value>Nenhum contato encontrado.</value>
+    <value>Der blev ikke fundet nogen kontaktpersoner.</value>
   </data>
   <data name="NoContractsFound" xml:space="preserve">
-    <value>Não foram encontrados contratos.</value>
+    <value>Der blev ikke fundet nogen kontrakter.</value>
   </data>
   <data name="Notary" xml:space="preserve">
-    <value>Notário</value>
+    <value>Notar</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
-    <value>Não conectado ao operador</value>
+    <value>Ikke tilsluttet operatøren</value>
   </data>
   <data name="NoThingsFound" xml:space="preserve">
-    <value>Nenhuma coisa encontrada.</value>
+    <value>Der blev ikke fundet noget.</value>
   </data>
   <data name="ObsoleteContract" xml:space="preserve">
-    <value>Contrato obsoleto</value>
+    <value>Forældet kontrakt</value>
   </data>
   <data name="Offline" xml:space="preserve">
     <value>Offline</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OKEY</value>
+    <value>OK</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
   </data>
   <data name="Open" xml:space="preserve">
-    <value>Abrir</value>
+    <value>Åben</value>
   </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
-    <value>Operadora não suporta identidades legais e contratos inteligentes</value>
+    <value>Operatøren understøtter ikke juridiske identiteter og smarte kontrakter</value>
   </data>
   <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
-    <value>Operadora não suporta Provisionamento e Suporte de Decisão para as Coisas</value>
+    <value>Operatøren understøtter ikke klargøring og beslutningsstøtte til ting</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
-    <value>A operadora {0} não suporta o registro de novas contas</value>
+    <value>Operatøren {0} understøtter ikke registrering af nye konti</value>
   </data>
   <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
-    <value>Operador não suporta Registros de Coisas</value>
+    <value>Operatøren understøtter ikke Thing registre</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opções</value>
+    <value>Indstillinger</value>
   </data>
   <data name="Parameters" xml:space="preserve">
-    <value>Parâmetros</value>
+    <value>Parametre</value>
   </data>
   <data name="ParametersInfoText" xml:space="preserve">
-    <value>Os parâmetros do contrato são mostrados abaixo, juntamente com seus valores correspondentes.</value>
+    <value>Kontraktparametre er vist nedenfor sammen med deres tilsvarende værdier.</value>
   </data>
   <data name="Parts" xml:space="preserve">
-    <value>Partes</value>
+    <value>Dele</value>
   </data>
   <data name="PartsInfoText" xml:space="preserve">
-    <value>As partes (esperadas) definidas para o contrato estão listadas abaixo.</value>
+    <value>De (forventede) dele, der er defineret for kontrakten, er angivet nedenfor.</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Senha</value>
+    <value>Kodeord</value>
   </data>
   <data name="PasswordIsInvalid" xml:space="preserve">
-    <value>A senha é inválida</value>
+    <value>Adgangskoden er ugyldig</value>
   </data>
   <data name="MakePayment" xml:space="preserve">
-    <value>Fazer o pagamento</value>
+    <value>Foretag betaling</value>
   </data>
   <data name="Payment" xml:space="preserve">
-    <value>Pagamento</value>
+    <value>Betaling</value>
   </data>
   <data name="PaymentAcceptance" xml:space="preserve">
-    <value>Aceitação de Pagamentos</value>
+    <value>Accept af betaling</value>
   </data>
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
-    <value>Abaixo você pode ver os detalhes do pagamento offline. Se for aceitável, você pode optar por aceitar enviar o pagamento ao Neurônio para processamento.</value>
+    <value>Nedenfor kan du se detaljerne i offlinebetalingen. Hvis det er acceptabelt, kan du vælge at acceptere at sende betalingen til Neuron til behandling.</value>
   </data>
   <data name="PaymentAlreadySent" xml:space="preserve">
-    <value>As instruções de pagamento já foram enviadas. Você pode resender pagamentos pendentes da exibição de pagamento pendente.</value>
+    <value>Betalingsinstruktionen er allerede sendt. Du kan sende ventende betalinger igen fra den ventende betalingsvisning.</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Digite o valor a pagar ao destinatário abaixo. Uma vez feito, você pode optar por pagar on-line (se conectado) ou offline, clicando no botão correspondente.</value>
+    <value>Angiv det beløb, der skal betales til modtageren nedenfor. Når det er gjort, kan du vælge enten at betale online (hvis den er tilsluttet) eller offline ved at klikke på den tilsvarende knap.</value>
   </data>
   <data name="PaymentSuccess" xml:space="preserve">
-    <value>Pagamento realizado com sucesso.</value>
+    <value>Betalingen blev realiseret.</value>
   </data>
   <data name="PayOffline" xml:space="preserve">
-    <value>Pague offline</value>
+    <value>Betal offline</value>
   </data>
   <data name="PayOnline" xml:space="preserve">
-    <value>Pague online</value>
+    <value>Betal online</value>
   </data>
   <data name="PeerReview" xml:space="preserve">
-    <value>Revisão por pares</value>
+    <value>Peer Review</value>
   </data>
   <data name="PeerReviewAccepted" xml:space="preserve">
-    <value>Revisão por pares aceita</value>
+    <value>Peer review accepteret</value>
   </data>
   <data name="PeerReviewRejected" xml:space="preserve">
-    <value>Revisão por pares rejeitada</value>
+    <value>Peer review afvist</value>
   </data>
   <data name="PendingPayment" xml:space="preserve">
-    <value>Pagamento pendente</value>
+    <value>Afventer betaling</value>
   </data>
   <data name="PendingPaymentDescription" xml:space="preserve">
-    <value>Abaixo você pode ver informações sobre um pagamento que foi gerado, mas ainda não foi totalmente processado.</value>
+    <value>Nedenfor kan du se oplysninger om en betaling, der er genereret, men som endnu ikke er blevet behandlet fuldt ud.</value>
   </data>
   <data name="PersonalLegalInformation" xml:space="preserve">
-    <value>Informações pessoais/legais</value>
+    <value>Personlige/juridiske oplysninger</value>
   </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
-    <value>Para conseguir uma carteira, realizar transações e assinar contratos inteligentes, você precisa de uma identidade pessoal ou legal atestada atribuída à sua conta.</value>
+    <value>For at kunne få en tegnebog, udføre transaktioner og underskrive smarte kontrakter har du brug for en attesteret personlig eller juridisk identitet, der er tildelt din konto.</value>
   </data>
   <data name="PersonalNumber" xml:space="preserve">
-    <value>Número pessoal</value>
+    <value>Personligt nummer</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
-    <value>O número pessoal não corresponde aos regulamentos nacionais de números pessoais</value>
+    <value>Personnummeret stemmer ikke overens med nationale regler for personnummer</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
-    <value>O número pessoal não corresponde aos regulamentos nacionais de números pessoais. Formato esperado: </value>
+    <value>Personnummeret stemmer ikke overens med nationale regler for personnummer. Forventet format: </value>
   </data>
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
-    <value>Número pessoal ({0})</value>
+    <value>Personligt nummer ({0})</value>
   </data>
   <data name="Petition" xml:space="preserve">
-    <value>Pedir</value>
+    <value>Bøn</value>
   </data>
   <data name="PetitionContract" xml:space="preserve">
-    <value>Acesso ao Contrato</value>
+    <value>Adgang til kontrakt</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
-    <value>Uma petição para os dados pessoais em um de seus contratos foi recebida. Revise as informações abaixo e escolha como deseja responder.</value>
+    <value>Der er modtaget en underskriftsindsamling for personoplysninger i en af dine kontrakter. Gennemgå oplysningerne nedenfor, og vælg, hvordan du vil reagere.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
-    <value>Acesso à Identidade</value>
+    <value>Adgang til identitet</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
-    <value>Uma petição para os dados pessoais de sua identidade legal foi recebida. Revise as informações abaixo e escolha como deseja responder.</value>
+    <value>Der er modtaget en begæring om personoplysninger om din juridiske identitet. Gennemgå oplysningerne nedenfor, og vælg, hvordan du vil reagere.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
-    <value>Petição enviada</value>
+    <value>Andragende sendt</value>
   </data>
   <data name="PetitionSignature" xml:space="preserve">
-    <value>Assinatura solicitada</value>
+    <value>Underskrift anmodet</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>Um pedido de sua assinatura foi recebido. Revise o motivo abaixo e as informações sobre quem enviou a solicitação e escolha como deseja responder.</value>
+    <value>Der er modtaget en anmodning om din underskrift. Gennemgå årsagen nedenfor og oplysningerne om, hvem der har sendt anmodningen, og vælg derefter, hvordan du vil svare.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
-    <value>Petição para ver contrato foi negada.</value>
+    <value>Andragende for at se kontrakt blev nægtet.</value>
   </data>
   <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
-    <value>Petição para ver identidade jurídica foi negada.</value>
+    <value>Andragende for at se juridisk identitet blev afvist.</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
-    <value>A foto é muito grande.</value>
+    <value>Billedet er for stort</value>
   </data>
   <data name="Photos" xml:space="preserve">
-    <value>Fotos</value>
+    <value>Billeder</value>
   </data>
   <data name="PickPhoto" xml:space="preserve">
-    <value>Escolha foto</value>
+    <value>Vælg foto</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>PIN é inválido</value>
+    <value>Pinkoden er ugyldig</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
-    <value>O número PIN não deve incluir espaço branco líder ou de arrasto.</value>
+    <value>Pinkoden må ikke indeholde foranstillede eller efterfølgende mellemrum.</value>
   </data>
   <data name="PinOrPassword" xml:space="preserve">
-    <value>PIN ou senha</value>
+    <value>Pinkode eller adgangskode</value>
   </data>
   <data name="PinsDoNotMatch" xml:space="preserve">
-    <value>PiNs não correspondem</value>
+    <value>Pinkoder stemmer ikke overens</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>Número PIN muito curto. Pelo menos {0} números (ou caracteres) são necessários.</value>
+    <value>Pinkoden er for kort. Der kræves mindst {0} tal (eller tegn).</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
-    <value>Revise todas as informações acima e verifique as caixas de seleção correspondentes se as informações estão corretas. Isso deve ser feito antes que você possa aprovar a informação.</value>
+    <value>Gennemse alle ovenstående oplysninger, og markér de tilsvarende afkrydsningsfelter, hvis oplysningerne er korrekte. Dette skal gøres, før du kan godkende oplysningerne.</value>
   </data>
   <data name="ProductInformation" xml:space="preserve">
-    <value>Informações sobre produtos</value>
+    <value>Produktoplysninger</value>
   </data>
   <data name="Proposal" xml:space="preserve">
-    <value>Proposta</value>
+    <value>Forslag</value>
   </data>
   <data name="Propose" xml:space="preserve">
-    <value>Propor</value>
+    <value>Foreslå</value>
   </data>
   <data name="Provider" xml:space="preserve">
-    <value>Provedor</value>
+    <value>Udbyder</value>
   </data>
   <data name="PublicKey" xml:space="preserve">
-    <value>Chave pública</value>
+    <value>Offentlig nøgle</value>
   </data>
   <data name="Purpose" xml:space="preserve">
-    <value>Propósito</value>
+    <value>Formål</value>
   </data>
   <data name="Qrcode" xml:space="preserve">
-    <value>QR Code</value>
+    <value>QR-kode</value>
   </data>
   <data name="QrCodeNotUnderstood" xml:space="preserve">
-    <value>Código não compreendido</value>
+    <value>Kode, der ikke er forstået</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
-    <value>Digite manualmente</value>
+    <value>Indtast manuelt</value>
   </data>
   <data name="QrScanCode" xml:space="preserve">
-    <value>Código de varredura</value>
+    <value>Scanningskode</value>
   </data>
   <data name="QrScanOverlay" xml:space="preserve">
-    <value>Alinhe o QR-Code dentro do quadro</value>
+    <value>Justere QR-koden i rammen</value>
   </data>
   <data name="QrScanUri" xml:space="preserve">
     <value>URI:</value>
   </data>
   <data name="ReceiveEDaler" xml:space="preserve">
-    <value>Receba eDaler</value>
+    <value>Modtag eDaler</value>
   </data>
   <data name="Region" xml:space="preserve">
-    <value>Região ou Estado</value>
+    <value>Region eller stat</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Registro</value>
+    <value>Registrer</value>
   </data>
   <data name="Registry" xml:space="preserve">
-    <value>Registro</value>
+    <value>Registreringsdatabase</value>
   </data>
   <data name="RejectInformation" xml:space="preserve">
-    <value>Informações de rejeição</value>
+    <value>Afvis oplysninger</value>
   </data>
   <data name="RemoteParty" xml:space="preserve">
-    <value>Festa Remota:</value>
+    <value>Fjernfest:</value>
   </data>
   <data name="RemoveContact" xml:space="preserve">
-    <value>Remover contato</value>
+    <value>Fjern kontaktperson</value>
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
-    <value>Relatório como Comprometido</value>
+    <value>Rapport som kompromitteret</value>
   </data>
   <data name="Request" xml:space="preserve">
-    <value>Pedir</value>
+    <value>Bøn</value>
   </data>
   <data name="RequestingEntity" xml:space="preserve">
-    <value>Entidade solicitante</value>
+    <value>Anmode om enhed</value>
   </data>
   <data name="RequestPayment" xml:space="preserve">
-    <value>Solicitar pagamento</value>
+    <value>Anmod om betaling</value>
   </data>
   <data name="RequestPaymentDescription" xml:space="preserve">
-    <value>Para solicitar o pagamento de alguém, preencha os detalhes sobre o pagamento abaixo e clique no botão Gerar QR Code. O código gerado pode ser usado pela outra parte, para gerar um pagamento para sua conta.</value>
+    <value>Hvis du vil anmode om betaling fra en person, skal du udfylde oplysningerne om betalingen nedenfor og klikke på knappen Generer QR-kode. Den genererede kode kan bruges af den anden part til at generere en betaling til din konto.</value>
   </data>
   <data name="RequestPaymentMessage" xml:space="preserve">
-    <value>Solicitando pagamento de {0} {1}.</value>
+    <value>Anmoder om betaling af {0} {1}.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
-    <value>O pedido foi cronometrado</value>
+    <value>Anmodningen blev timeout</value>
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
-    <value>O pedido foi cancelado.</value>
+    <value>Anmodningen blev annulleret</value>
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
-    <value>Redigitar PIN ou senha</value>
+    <value>Skriv pinkode eller adgangskode igen</value>
   </data>
   <data name="ReviewIdentityInformationText" xml:space="preserve">
-    <value>Você foi solicitado a revisar as seguintes informações pessoais. Se correto, verifique as caixas correspondentes e pressione o botão Aprovar na parte inferior. Você também pode pressionar o botão Rejeitar se encontrar algo que esteja incorreto.</value>
+    <value>Du er blevet bedt om at gennemgå følgende personlige oplysninger. Hvis det er korrekt, skal du markere de tilsvarende felter og trykke på knappen Godkend nederst. Du kan også trykke på knappen Afvis, hvis du finder noget, der er forkert.</value>
   </data>
   <data name="RevokeInformation" xml:space="preserve">
-    <value>Revogar</value>
+    <value>Tilbagekalde</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>Papel</value>
+    <value>Rolle</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Papéis</value>
+    <value>Roller</value>
   </data>
   <data name="RolesInfoText" xml:space="preserve">
-    <value>Abaixo você pode ver as diferentes funções definidas para o contrato. Se mais de uma parte for assumida para um papel, esse número será mostrado na descrição do papel.</value>
+    <value>Nedenfor kan du se de forskellige roller, der er defineret for kontrakten. Hvis der antages mere end én del for en rolle, vises dette tal i beskrivelsen af rollen.</value>
   </data>
   <data name="Room" xml:space="preserve">
-    <value>Quarto</value>
+    <value>Værelse</value>
   </data>
   <data name="ScannedQrCode" xml:space="preserve">
-    <value>Código QR digitalizado</value>
+    <value>Scannet QR-kode</value>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
-    <value>Digitalizar código QR</value>
+    <value>Scan QR-kode</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Selecionar uma foto não é suportado neste dispositivo</value>
+    <value>Valg af et billede understøttes ikke på denne enhed</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
-    <value>Selecione quem deve ter acesso a este contrato.</value>
+    <value>Vælg, hvem der skal have adgang til denne kontrakt.</value>
   </data>
   <data name="SelectYourRole" xml:space="preserve">
-    <value>Selecione sua função neste contrato.</value>
+    <value>Vælg din rolle i denne kontrakt.</value>
   </data>
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
-    <value>Selecione sua função neste contrato.</value>
+    <value>Vælg din rolle i denne kontrakt.</value>
   </data>
   <data name="SendPaymentTo" xml:space="preserve">
-    <value>Enviar pagamento</value>
+    <value>Send betaling</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
-    <value>Número de série</value>
+    <value>Serienummer</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
-    <value>Assinatura do servidor</value>
+    <value>Serversignatur</value>
   </data>
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações relacionadas à assinatura de um servidor.</value>
+    <value>Følgende oplysninger er relateret til en serversignatur.</value>
   </data>
   <data name="ServerSignatures" xml:space="preserve">
-    <value>Assinaturas de servidores</value>
+    <value>Serversignaturer</value>
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
-    <value>A integridade do contrato é protegida pela assinatura do servidor mostrada abaixo.</value>
+    <value>Kontraktens integritet er beskyttet af den serversignatur, der er vist nedenfor.</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Compartilhar</value>
+    <value>Aktie</value>
   </data>
   <data name="ShowCode" xml:space="preserve">
-    <value>Mostrar código</value>
+    <value>Vis kode</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
-    <value>Sinal após</value>
+    <value>Underskriv efter</value>
   </data>
   <data name="SignAsRole" xml:space="preserve">
-    <value>Assine como {0}</value>
+    <value>Underskriv som {0}</value>
   </data>
   <data name="Signature" xml:space="preserve">
-    <value>Assinatura</value>
+    <value>Underskrift</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
-    <value>Informações de assinatura</value>
+    <value>Signaturoplysninger</value>
   </data>
   <data name="SignBefore" xml:space="preserve">
-    <value>Assine antes</value>
+    <value>Signer før</value>
   </data>
   <data name="SignedContracts" xml:space="preserve">
-    <value>Contratos assinados</value>
+    <value>Underskrevne kontrakter</value>
   </data>
   <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de contratos que você assinou. Clique em um contrato para obter mais informações sobre ele.</value>
+    <value>Nedenfor er en liste over kontrakter, som du har underskrevet. Klik på en kontrakt for mere information om det.</value>
   </data>
   <data name="Skip" xml:space="preserve">
-    <value>Saltitar</value>
+    <value>Overspringe</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>Estado</value>
+    <value>Stat</value>
   </data>
   <data name="StreetName" xml:space="preserve">
-    <value>Nome de Rua</value>
+    <value>Gadenavn</value>
   </data>
   <data name="StreetNumber" xml:space="preserve">
-    <value>Número de rua</value>
+    <value>Gadenummer</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Enviar</value>
+    <value>Indsende</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
-    <value>Êxito</value>
+    <value>Succes</value>
   </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
-    <value>Valor da tag copiado para prancheta</value>
+    <value>Mærkatværdi kopieret til Udklipsholder</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
-    <value>Tire foto</value>
+    <value>Tag foto</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Tirar uma foto não é suportado neste dispositivo</value>
+    <value>Det understøttes ikke at tage et billede på denne enhed</value>
   </data>
   <data name="TemplateId" xml:space="preserve">
-    <value>ID de modelo</value>
+    <value>Skabelon-id</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>O contrato exige pelo menos {0} parte(s) de {1} de papel. Adicione mais peças ao contrato e tente novamente.</value>
+    <value>Kontrakten kræver mindst {0} del af rollerollen {1}. Føj flere dele til kontrakten, og prøv igen.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
-    <value>O contrato exige, no máximo, {0} parte(s) do papel {1}. Remova algumas das peças do contrato e tente novamente.</value>
+    <value>Kontrakten kræver højst {0} del af rollerollen {1}. Fjern nogle af delene fra kontrakten, og prøv igen.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>A senha da conexão é {0}. Isso foi copiado para a prancheta.</value>
+    <value>Adgangskoden til forbindelsen er {0}. Dette er blevet kopieret til Udklipsholder.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
-    <value>Não há rede</value>
+    <value>Der er ikke noget netværk</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>O código especificado não é uma identidade legal</value>
+    <value>Den angivne kode er ikke en juridisk identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
-    <value>Coisa</value>
+    <value>Ting</value>
   </data>
   <data name="ThingDisowned" xml:space="preserve">
-    <value>Isso foi renegado com sucesso. Agora pode ser reivindicado por um novo dono.</value>
+    <value>Dette er blevet afvist med succes. Det kan nu hævdes af en ny ejer.</value>
   </data>
   <data name="Things" xml:space="preserve">
-    <value>Coisas</value>
+    <value>Ting</value>
   </data>
   <data name="ThingsDescription" xml:space="preserve">
-    <value>Abaixo estão todas as suas coisas, e coisas em seu livro de contatos. Clique em qualquer um para interagir com essa coisa.</value>
+    <value>Nedenfor er alle dine ting, og ting i din kontaktbog. Klik på en for at interagere med den ting.</value>
   </data>
   <data name="Timestamp" xml:space="preserve">
-    <value>Carimbo de tempo</value>
+    <value>Tidsstempel</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>Para</value>
+    <value>Til</value>
   </data>
   <data name="TransactionAccepted" xml:space="preserve">
-    <value>A transação foi aceita e processada.</value>
+    <value>Transaktionen er accepteret og behandlet.</value>
   </data>
   <data name="TransactionId" xml:space="preserve">
-    <value>ID da transação:</value>
+    <value>Transaktions-id:</value>
   </data>
   <data name="Transferable" xml:space="preserve">
-    <value>Transferível</value>
+    <value>Overførbar</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
-    <value>Incapaz de autenticar com {0}</value>
+    <value>Det er ikke muligt at godkende med {0}</value>
   </data>
   <data name="UnableToClaimThing" xml:space="preserve">
-    <value>Incapaz de reivindicar coisa</value>
+    <value>Ude af stand til at kræve ting</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Incapaz de se conectar a {0}</value>
+    <value>Der kan ikke oprettes forbindelse til {0}</value>
   </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
-    <value>Não é possível processar o código eDaler.</value>
+    <value>eDaler-koden kan ikke behandles.</value>
   </data>
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
-    <value>EDaler URI não reconhecido.</value>
+    <value>Ukendt eDaler URI.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
-    <value>O texto não está em conformidade com nenhum dos esquemas de URI suportados.</value>
+    <value>Teksten er ikke i overensstemmelse med nogen af de understøttede URI-skemaer.</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>Atualizado</value>
+    <value>Opdateret</value>
   </data>
   <data name="ValidateIdentityInfo1Text" xml:space="preserve">
-    <value>Suas informações de identidade devem ser validadas antes de serem aprovadas. Isso pode ser feito manualmente pelo seu operador. Também pode ser feito por pares.</value>
+    <value>Dine identitetsoplysninger skal valideres, før de kan godkendes. Dette kan gøres manuelt af din operatør. Det kan også gøres af jævnaldrende.</value>
   </data>
   <data name="ValidateIdentityInfo2Text" xml:space="preserve">
-    <value>Para convidar um colega a revisar seu aplicativo, você precisa digitalizar o código de ID do peer que deseja convidar. Eles poderão ver e revisar sua aplicação. Quando os pares suficientes revisarem suas informações e certificarem que estão corretas, o operador aprovará automaticamente sua aplicação. As informações sobre quem revisou sua identidade serão codificadas na própria identidade revisada.</value>
+    <value>Hvis du vil invitere en peer til at gennemse dit program, skal du scanne id-koden for den peer, du vil invitere. De vil være i stand til at se og gennemgå din ansøgning. Når tilstrækkeligt mange peers har gennemgået dine oplysninger og bekræftet, at de er korrekte, vil operatøren automatisk godkende din ansøgning. Oplysningerne om, hvem der gennemgik din identitet, vil blive kodet ind i selve den anmeldte identitet.</value>
   </data>
   <data name="ValidateIdentityInfo3Text" xml:space="preserve">
-    <value>Você pode ver o status atual do aplicativo abaixo.</value>
+    <value>Du kan se den aktuelle status for ansøgningen nedenfor.</value>
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
-    <value>Validando informações</value>
+    <value>Validering af oplysninger</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Versão</value>
+    <value>Version</value>
   </data>
   <data name="ViewContract" xml:space="preserve">
-    <value>Ver contrato</value>
+    <value>Vis kontrakt</value>
   </data>
   <data name="ViewIdentityInformationText" xml:space="preserve">
-    <value>A seguir estão as informações pessoais registradas com a identidade legal. Assinaturas e pagamentos são assinados usando essas informações.</value>
+    <value>Følgende er personlige oplysninger registreret med den juridiske identitet. Underskrifter og betalinger signeres ved hjælp af disse oplysninger.</value>
   </data>
   <data name="Visibility" xml:space="preserve">
-    <value>Visibilidade</value>
+    <value>Synlighed</value>
   </data>
   <data name="Wallet" xml:space="preserve">
-    <value>Carteira</value>
+    <value>Tegnebog</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
-    <value>Bem-vindo ao TAG Digital ID App!</value>
+    <value>Velkommen til TAG Digital ID App!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Antes de nos conectarmos à rede TAG ID, precisamos selecionar um provedor de serviços para você. Para isso, precisamos saber o propósito de usar o aplicativo. Selecione a opção mais apropriada abaixo.</value>
+    <value>Før du opretter forbindelse til TAG ID-netværket, skal vi vælge en tjenesteudbyder til dig. For at gøre dette skal vi kende formålet med at bruge appen. Vælg den mest hensigtsmæssige indstilling nedenfor.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
-    <value>Autenticando identidade de rede</value>
+    <value>Godkendelse af netværksidentitet</value>
   </data>
   <data name="XmppState_Binding" xml:space="preserve">
-    <value>Conexão de ligação</value>
+    <value>Bindingsforbindelse</value>
   </data>
   <data name="XmppState_Connected" xml:space="preserve">
-    <value>Conectado</value>
+    <value>Sammenhængende</value>
   </data>
   <data name="XmppState_ConnectedTo" xml:space="preserve">
-    <value>Conectado ao {0}</value>
+    <value>Forbundet til {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
-    <value>Estabelecendo conexão</value>
+    <value>Opretter forbindelse</value>
   </data>
   <data name="XmppState_Error" xml:space="preserve">
-    <value>Erro de conexão</value>
+    <value>Der opstod en forbindelsesfejl</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Lista de buscas</value>
+    <value>Henter liste</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
-    <value>Desconectado</value>
+    <value>Afbrudt</value>
   </data>
   <data name="XmppState_Registering" xml:space="preserve">
-    <value>Registro com corretor</value>
+    <value>Registrering hos mægler</value>
   </data>
   <data name="XmppState_RequestingSession" xml:space="preserve">
-    <value>Sessão de solicitação</value>
+    <value>Anmoder om session</value>
   </data>
   <data name="XmppState_SettingPresence" xml:space="preserve">
-    <value>Presença de configuração</value>
+    <value>Indstilling af tilstedeværelse</value>
   </data>
   <data name="XmppState_StartingEncryption" xml:space="preserve">
-    <value>Conexão de criptografia</value>
+    <value>Krypterer forbindelse</value>
   </data>
   <data name="XmppState_StreamNegotiation" xml:space="preserve">
-    <value>Fluxo de negociação</value>
+    <value>Forhandlingsstrøm</value>
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
-    <value>Fluxo estabelecido</value>
+    <value>Stream etableret</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Sim</value>
+    <value>Ja</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>Ontem</value>
+    <value>I går</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
-    <value>Você pode proteger sua carteira e informações confidenciais adicionando um número ou senha pin adicional.</value>
+    <value>Du kan beskytte din tegnebog og følsomme oplysninger ved at tilføje et ekstra pinkode eller en ekstra adgangskode.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
-    <value>Você foi agora assinado fora. Para fazer login novamente, use o menu no canto superior esquerdo.</value>
+    <value>Du er nu blevet logget ud. Hvis du vil logge på igen, skal du bruge menuen i øverste venstre hjørne.</value>
   </data>
   <data name="YouHaveReceivedAProposal" xml:space="preserve">
-    <value>Você recebeu uma proposta.</value>
+    <value>De har modtaget et forslag.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
-    <value>Você precisa aprovar para associar suas informações pessoais com a identidade que você revisa. Quando terceiros revisarem as informações na identidade, terão acesso à identidade dos revisores, para transparência.</value>
+    <value>Du skal godkende for at knytte dine personlige oplysninger til den identitet, du anmelder. Når tredjeparter gennemgår oplysningerne i identiteten, har de adgang til anmeldernes identitet for gennemsigtighed.</value>
   </data>
   <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
-    <value>Você precisa verificar a caixa que você revisou cuidadosamente todas as informações correspondentes acima.</value>
+    <value>Du skal markere det felt, du har omhyggeligt gennemgået alle tilsvarende oplysninger ovenfor.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
-    <value>Você precisa selecionar um país</value>
+    <value>Du skal vælge et land</value>
   </data>
   <data name="YouNeedToProvideAFirstName" xml:space="preserve">
-    <value>Você precisa fornecer um primeiro nome</value>
+    <value>Du skal angive et fornavn</value>
   </data>
   <data name="YouNeedToProvideALastName" xml:space="preserve">
-    <value>Você precisa fornecer pelo menos um sobrenome</value>
+    <value>Du skal angive mindst ét efternavn</value>
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
-    <value>Você precisa fornecer um número de segurança pessoal ou social</value>
+    <value>Du skal angive et personligt eller cpr-nummer</value>
   </data>
   <data name="YouNeedToProvideAPhoto" xml:space="preserve">
-    <value>Você precisa fornecer uma foto</value>
+    <value>Du skal give et foto</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
-    <value>Seu contrato contém erros. Corrija esses erros e tente novamente.</value>
+    <value>Kontrakten indeholder fejl. Ret disse fejl, og prøv igen.</value>
   </data>
   <data name="YourLegalIdentity" xml:space="preserve">
-    <value>Sua identidade legal</value>
+    <value>Din juridiske identitet</value>
   </data>
   <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
-    <value>Sua identidade legal foi marcada como comprometida. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Din juridiske identitet er blevet stemplet som kompromitteret. Du er derfor blevet omdirigeret til at oprette en ny konto.</value>
   </data>
   <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
-    <value>Sua identidade legal foi marcada como obsoleta. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Din juridiske identitet er blevet forældet. Du er derfor blevet omdirigeret til at oprette en ny konto.</value>
   </data>
   <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
-    <value>As chaves de assinatura de sua identidade legal são inválidas. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Din juridiske identitets signeringsnøgler er ugyldige. Du er derfor blevet omdirigeret til at oprette en ny konto.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
-    <value>Seu Papel</value>
+    <value>Din rolle</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
-    <value>CEP ou Cep</value>
+    <value>Postnummer</value>
   </data>
   <data name="SelectContactToPay" xml:space="preserve">
-    <value>Abaixo estão todos os contatos em seu livro de contatos. Selecione o contato a quem deseja fazer o pagamento.</value>
+    <value>Nedenfor er alle kontakter i din kontaktbog. Vælg den kontaktperson, du vil foretage betalingen til.</value>
   </data>
   <data name="SendCode" xml:space="preserve">
-    <value>Enviar código</value>
+    <value>Send kode</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
-    <value>O código não estava correto.</value>
+    <value>Koden var ikke korrekt.</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
-    <value>Código de verificação</value>
+    <value>Bekræftelseskode</value>
   </data>
   <data name="VerifyCode" xml:space="preserve">
-    <value>Verificar código</value>
+    <value>Bekræft kode</value>
   </data>
   <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
-    <value>Também precisamos validar seu número de telefone celular. Digite seu número de telefone celular abaixo, usando o formato de número de telefone internacional, sem espaços.</value>
+    <value>Vi skal også validere dit mobiltelefonnummer. Indtast dit mobiltelefonnummer nedenfor ved hjælp af internationalt telefonnummerformat uden mellemrum.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Para uso educacional ou experimental.</value>
+    <value>Til uddannelsesmæssig eller eksperimentel brug.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Esta opção permite que você use o Tag ID para fins educacionais, experimentais ou de teste. Não há custos incorridos ao usar esta opção. A conta pode ser removida quando não for mais usada. Não há garantia de que o prestador de serviços educacionais ou experimentais selecionado continuará a operar por longos períodos de tempo.</value>
+    <value>Denne indstilling giver dig mulighed for at bruge Tag ID til uddannelsesmæssige, eksperimentelle eller testformål. Der er ingen omkostninger, der opstår, når du bruger denne indstilling. Kontoen kan fjernes, når den ikke længere bruges. Der er ingen garanti for, at den valgte uddannelses- eller eksperimentelle tjenesteudbyder vil fortsætte driften i længere tid.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Para trabalho ou uso pessoal.</value>
+    <value>Til arbejde eller personlig brug.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Esta opção permite que você use o Tag ID para fins de trabalho ou pessoais. Você pode usar o aplicativo por três meses sem nenhum custo. Após esse período, certas operações podem incorrer em custos.</value>
+    <value>Denne indstilling giver dig mulighed for at bruge tag-id til arbejde eller personlige formål. Du kan bruge appen i tre måneder uden omkostninger. Efter denne periode kan visse operationer medføre omkostninger.</value>
   </data>
   <data name="SelectPurpose" xml:space="preserve">
-    <value>Selecionar propósito</value>
+    <value>Vælg formål</value>
   </data>
   <data name="WelcomeToTagCodeSent" xml:space="preserve">
-    <value>Um código foi enviado para o número indicado acima. Quando você recebê-lo, digite o código de verificação abaixo para continuar.</value>
+    <value>Der er sendt en kode til det nummer, der er angivet ovenfor. Når du modtager den, skal du indtaste bekræftelseskoden nedenfor for at fortsætte.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
-    <value>Convite de Reivindicação</value>
+    <value>Indbydelse</value>
   </data>
   <data name="Invitation" xml:space="preserve">
-    <value>Convite</value>
+    <value>Indbydelse</value>
   </data>
   <data name="NotAnInvitationCode" xml:space="preserve">
-    <value>Não é um código de convite.</value>
+    <value>Ikke en invitationskode.</value>
   </data>
   <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
-    <value>Este código representa um convite de Identificação de Tag, e não pode ser reclamado neste momento.</value>
+    <value>Denne kode repræsenterer en invitation til tag-id og kan ikke gøres krav på nuværende tidspunkt.</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
-    <value>Criar conta</value>
+    <value>Opret konto</value>
   </data>
   <data name="InvalidInvitationCode" xml:space="preserve">
-    <value>Código de convite inválido.</value>
+    <value>Ugyldig invitationskode.</value>
   </data>
   <data name="ScanInvitation" xml:space="preserve">
-    <value>Convite de varredura</value>
+    <value>Invitation til scanning</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
-    <value>Seu provedor de serviços foi selecionado para ser</value>
+    <value>Din tjenesteudbyder er valgt til at være</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Você pode optar por criar uma conta neste provedor. Digite o nome da conta que deseja criar e pressione o botão Criar novo. Você também pode optar por digitalizar um convite ou código de transferência, para usar uma conta que já foi preparada para você, em outro provedor de serviços. Clique no botão 'Procurar' para digitalizar um código de convite.</value>
+    <value>Du kan vælge at oprette en konto på denne udbyder. Angiv navnet på den konto, du vil oprette, og tryk på knappen Opret ny. Du kan også vælge at scanne en invitation eller overførselskode for at bruge en konto, der allerede er forberedt til dig, på en anden tjenesteudbyder. Klik på knappen Scan invitation for at scanne en invitationskode.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Falha ao vincular {0} de modelo de exibição para {1} de página</value>
+    <value>Visningsmodel {0} kunne ikke bindes til side {1}</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao restaurar estado para {0} de modelo de visualização para {1} de página</value>
+    <value>Tilstanden for visningsmodel {0} for side {1}</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao salvar estado para {0} de modelo de exibição para {1} de página</value>
+    <value>Tilstanden for visningsmodel {0} for side {1}</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Falha ao desvincular o modelo de visualização {0} para {1} de página</value>
+    <value>Visningsmodellen {0} til side {1} kunne ikke adskilles</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
-    <value>Continue de qualquer maneira</value>
+    <value>Fortsæt alligevel</value>
   </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Parece que o banco de dados não foi fechado corretamente e, portanto, pode ser danificado. Uma tentativa pode ser feita para reparar o banco de dados, primeiro limpando-o. Gostaria de proceder?</value>
+    <value>Det ser ud til, at databasen ikke er blevet lukket korrekt og derfor kan blive beskadiget. Man kan forsøge at reparere databasen ved først at tørre den af. Hvordan vil du fortsætte?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
-    <value>Problema de banco de dados</value>
+    <value>Databaseproblem</value>
   </data>
   <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>O reparo do banco de dados falhou. Estamos sem opções agora, então continue por sua conta e risco.</value>
+    <value>Databasereparationen mislykkedes. Vi har ikke flere muligheder nu, så fortsæt på egen risiko.</value>
   </data>
   <data name="EDalerServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço eDaler encontrado no corretor.</value>
+    <value>Der blev ikke fundet nogen eDaler-tjeneste på mægler.</value>
   </data>
   <data name="FailedToClosePage" xml:space="preserve">
-    <value>Falha ao fechar página</value>
+    <value>Siden kunne ikke lukkes</value>
   </data>
   <data name="FailedToNavigateToPage" xml:space="preserve">
-    <value>Falha ao navegar para {0} {1} de página</value>
+    <value>Der kunne ikke navigeres til side {0} {1}</value>
   </data>
   <data name="FileUploadServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de upload de arquivo encontrado no corretor.</value>
+    <value>Der blev ikke fundet nogen filoverførselstjeneste på mægleren.</value>
   </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
-    <value>Não é uma reivindicação iotdisco válida URI.</value>
+    <value>Ikke en gyldig iotdisco-krav-URI.</value>
   </data>
   <data name="LegalServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço legal encontrado no corretor.</value>
+    <value>Der blev ikke fundet nogen juridisk tjeneste på mægleren.</value>
   </data>
   <data name="ProvisioningServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de provisionamento encontrado no corretor.</value>
+    <value>Der blev ikke fundet nogen klargøringstjeneste på mægler.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
-    <value>Reparar e continuar</value>
+    <value>Reparer og fortsæt</value>
   </data>
   <data name="ThingRegistryServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de registro de coisa encontrado no corretor.</value>
+    <value>Der blev ikke fundet noget registreringsdatabasetjeneste på mægler.</value>
   </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
-    <value>Não é possível obter lista dos meus dispositivos.</value>
+    <value>Listen over mine enheder kan ikke hentes.</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Telefone</value>
+    <value>Telefon</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
-    <value>Não é possível acessar informações de convite.</value>
+    <value>Der kan ikke opnås adgang til invitationsoplysninger.</value>
   </data>
   <data name="InvitationAccepted" xml:space="preserve">
-    <value>Convite aceito</value>
+    <value>Invitation accepteret</value>
   </data>
   <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
-    <value>Você foi convidado a criar uma conta na {0}. Pressione OK e digite o nome da conta que deseja criar.</value>
+    <value>Du er blevet inviteret til at oprette en konto på {0}. Tryk på OK, og angiv navnet på den konto, du vil oprette.</value>
   </data>
   <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
-    <value>Tem certeza que deseja transferir sua identidade legal do aplicativo para outro? A identidade será removida deste dispositivo uma vez concluída. Certifique-se também de que ninguém mais poderá ver sua tela durante o processo.</value>
+    <value>Er du sikker på, at du vil overføre din juridiske identitet fra ansøgningen til en anden? Identiteten fjernes fra denne enhed, når den er fuldført. Sørg også for, at ingen andre kan se din skærm under processen.</value>
   </data>
   <data name="TransferId" xml:space="preserve">
-    <value>ID de transferência</value>
+    <value>Overførsels-id</value>
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
-    <value>Escaneie o código de convite QR abaixo de um dispositivo que está sendo inicializado, para transferir a Identidade Digital neste dispositivo para o segundo dispositivo. Uma vez que o código é digitalizado e a identidade transferida, ele será removido deste dispositivo.</value>
+    <value>Scan nedenstående QR-invitationskode fra en enhed, der initialiseres, for at overføre den digitale identitet på denne enhed til den anden enhed. Når koden er scannet og identiteten overført, vil den blive fjernet fra denne enhed.</value>
   </data>
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
-    <value>Confirme digitando seu número PIN.</value>
+    <value>Bekræft ved at indtaste pinkoden.</value>
   </data>
   <data name="UnexpectedResponse" xml:space="preserve">
-    <value>Uma resposta inesperada foi recebida.</value>
+    <value>Der blev modtaget et uventet svar.</value>
   </data>
   <data name="EnterPin" xml:space="preserve">
-    <value>Digite PIN</value>
+    <value>Angiv pinkode</value>
   </data>
   <data name="ChangePin" xml:space="preserve">
-    <value>Alterar PIN</value>
+    <value>Skift pinkode</value>
   </data>
   <data name="EnterNewPin" xml:space="preserve">
-    <value>Digite novo PIN</value>
+    <value>Angiv ny pinkode</value>
   </data>
   <data name="RepeatNewPin" xml:space="preserve">
-    <value>Repita o novo PIN</value>
+    <value>Gentag ny pinkode</value>
   </data>
   <data name="Enter" xml:space="preserve">
-    <value>Entrar</value>
+    <value>Indtaste</value>
   </data>
   <data name="PinChanged" xml:space="preserve">
-    <value>O PIN foi alterado com sucesso.</value>
+    <value>Pinkoden er blevet ændret.</value>
   </data>
   <data name="UnableToChangePassword" xml:space="preserve">
-    <value>Não é possível alterar a senha da rede.</value>
+    <value>Adgangskoden til netværket kan ikke ændres.</value>
   </data>
   <data name="PresenceSubscriptionReceived1" xml:space="preserve">
-    <value>Você recebeu uma assinatura de presença de:</value>
+    <value>Du har modtaget et tilstedeværelsesabonnement fra:</value>
   </data>
   <data name="PresenceSubscriptionReceived2" xml:space="preserve">
-    <value>Se você aceitar esse pedido, eles podem ver sua presença online.</value>
+    <value>Hvis du accepterer denne anmodning, kan de se din online tilstedeværelse.</value>
   </data>
   <data name="PresenceSubscriptionReceived3" xml:space="preserve">
-    <value>Se você rejeitar este pedido, eles serão notificados de que você não concorda com essa solicitação.</value>
+    <value>Hvis du afviser denne anmodning, får de besked om, at du ikke accepterer denne anmodning.</value>
   </data>
   <data name="PresenceSubscriptionReceived4" xml:space="preserve">
-    <value>Você também pode ignorar a solicitação fechando o diálogo sem retornar uma resposta.</value>
+    <value>Du kan også ignorere anmodningen ved at lukke dialogboksen uden at returnere et svar.</value>
   </data>
   <data name="PresenceSubscriptionReceived5" xml:space="preserve">
-    <value>O que você quer fazer?</value>
+    <value>Hvad vil du gøre?</value>
   </data>
   <data name="PresenceSubscriptionRequest" xml:space="preserve">
-    <value>Solicitação de Assinatura de Presença</value>
+    <value>Anmodning om tilstedeværelsesabonnement</value>
   </data>
   <data name="Reject" xml:space="preserve">
-    <value>Rejeitar</value>
+    <value>Afvise</value>
   </data>
   <data name="SubscribeToPresence1" xml:space="preserve">
-    <value>Você deseja se inscrever na presença de:</value>
+    <value>Vil du abonnere på tilstedeværelsen af:</value>
   </data>
   <data name="SubscribeToPresence2" xml:space="preserve">
-    <value>Ao assinar a presença de alguém, e se eles aceitarem, você será notificado de sua presença online.</value>
+    <value>Ved at abonnere på tilstedeværelsen af nogen, og hvis de accepterer, vil du blive underrettet om deres online tilstedeværelse.</value>
   </data>
   <data name="SubscribeToPresence3" xml:space="preserve">
-    <value>O que você quer fazer?</value>
+    <value>Hvad vil du gøre?</value>
   </data>
   <data name="SubscribeToPresence" xml:space="preserve">
-    <value>Se inscrever para presença?</value>
+    <value>Abonner på tilstedeværelse?</value>
   </data>
   <data name="Chat" xml:space="preserve">
-    <value>Bater papo</value>
+    <value>Chatte</value>
   </data>
   <data name="SendPayment" xml:space="preserve">
-    <value>Enviar pagamento</value>
+    <value>Send betaling</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Enviar</value>
+    <value>Sende</value>
   </data>
 </root>

@@ -118,1227 +118,1227 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>Sobre o aplicativo</value>
+    <value>Osnovni podaci o aplikaciji</value>
   </data>
   <data name="Accept" xml:space="preserve">
-    <value>Aceitar</value>
+    <value>Prihvati</value>
   </data>
   <data name="Account" xml:space="preserve">
-    <value>Conta</value>
+    <value>Nalog</value>
   </data>
   <data name="AccountEvent" xml:space="preserve">
-    <value>Evento de conta</value>
+    <value>Događaj naloga</value>
   </data>
   <data name="AccountEventDescription" xml:space="preserve">
-    <value>Abaixo você pode ver informações sobre um único evento de conta.</value>
+    <value>U nastavku možete videti informacije o jednom događaju naloga.</value>
   </data>
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
-    <value>O nome da conta {0} já está tomado. Escolha outro.</value>
+    <value>Ime naloga {0} je već zauzeto. Odaberite drugu.</value>
   </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
-    <value>O nome da conta é inválido</value>
+    <value>Ime naloga je nevažeće</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Adicionar</value>
+    <value>Dodati</value>
   </data>
   <data name="AddContact" xml:space="preserve">
-    <value>Adicionar contato</value>
+    <value>Dodaj kontakt</value>
   </data>
   <data name="AddPart" xml:space="preserve">
-    <value>Adicionar parte</value>
+    <value>Dodaj deo</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Endereço</value>
+    <value>Adresa</value>
   </data>
   <data name="Address2" xml:space="preserve">
-    <value>Endereço (linha 2)</value>
+    <value>Adresa (red 2)</value>
   </data>
   <data name="Altitude" xml:space="preserve">
-    <value>Altitude</value>
+    <value>Visinu</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Quantidade:</value>
+    <value>Iznos:</value>
   </data>
   <data name="AmountExtra" xml:space="preserve">
-    <value>Valor Extra: (opcional, sugestão)</value>
+    <value>Dodatni iznos: (opcionalno, predlog)</value>
   </data>
   <data name="Apartment" xml:space="preserve">
-    <value>Apartamento</value>
+    <value>Stan</value>
   </data>
   <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
-    <value>Uma revisão por pares que você pediu foi aceita.</value>
+    <value>Vršnjačka recenzija koju ste tražili je prihvaćena.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
-    <value>Uma revisão por pares solicitada foi rejeitada, devido a um erro de assinatura.</value>
+    <value>Vršnjačka recenzija koju ste tražili je odbijena zbog greške u potpisu.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
-    <value>Um colega que você pediu para revisar seu pedido, rejeitou aprová-lo.</value>
+    <value>Vršnjak kojeg ste tražili da pregleda vašu aplikaciju, odbio je da je odobri.</value>
   </data>
   <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
-    <value>Uma petição foi enviada para as partes do contrato. Se alguma das partes aceitar a petição, as informações do contrato serão exibidas na tela.</value>
+    <value>Delovima ugovora poslata je peticija. Ako bilo koji deo prihvati peticiju, informacije o ugovoru će biti prikazane na ekranu.</value>
   </data>
   <data name="APetitionHasBeenSentToTheOwner" xml:space="preserve">
-    <value>Uma petição foi enviada ao dono da identidade. Se o proprietário aceitar a petição, as informações de identidade serão exibidas na tela.</value>
+    <value>Vlasniku identiteta poslata je peticija. Ako vlasnik prihvati peticiju, informacije o identitetu će biti prikazane na ekranu.</value>
   </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
-    <value>Uma petição foi enviada ao seu par.</value>
+    <value>Vaša vršnjakinja je poslata peticija</value>
   </data>
   <data name="ApproveInformation" xml:space="preserve">
-    <value>Aprovar informações</value>
+    <value>Odobravanje informacija</value>
   </data>
   <data name="Archiving_Optional" xml:space="preserve">
-    <value>Arquivamento (opcional)</value>
+    <value>Arhiviranje (opcionalno)</value>
   </data>
   <data name="Archiving_Required" xml:space="preserve">
-    <value>Arquivamento (obrigatório)</value>
+    <value>Arhiviranje (obavezno)</value>
   </data>
   <data name="Area" xml:space="preserve">
-    <value>Área</value>
+    <value>Oblast</value>
   </data>
   <data name="AreYouSureYouWantToRemoveContact" xml:space="preserve">
-    <value>Tem certeza que deseja remover esse contato da sua lista de contatos?</value>
+    <value>Želite li zaista da uklonite ovaj kontakt sa liste kontakata?</value>
   </data>
   <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
-    <value>Tem certeza que quer informar sua identidade legal como comprometida, roubada ou hackeada?</value>
+    <value>Želite li zaista da prijavite svoj pravni identitet kao kompromitovan, ukraden ili hakovan?</value>
   </data>
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
-    <value>Tem certeza que quer revogar sua identidade legal do pedido?</value>
+    <value>Želite li zaista da opozovete svoj pravni identitet iz aplikacije?</value>
   </data>
   <data name="Balance" xml:space="preserve">
-    <value>Equilíbrio:</value>
+    <value>Saldo:</value>
   </data>
   <data name="Building" xml:space="preserve">
-    <value>Edifício</value>
+    <value>Zgradu</value>
   </data>
   <data name="CanActAsTemplate" xml:space="preserve">
-    <value>Pode atuar como modelo</value>
+    <value>Može da deluje kao predložak</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancelar</value>
+    <value>Otkaži</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
-    <value>Não pode se conectar a {0}</value>
+    <value>Nije u nisam mogao da se povežem {0}</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>Mudar:</value>
+    <value>Promenite:</value>
   </data>
   <data name="ChooseAccount" xml:space="preserve">
-    <value>Escolha conta</value>
+    <value>Odaberite nalog</value>
   </data>
   <data name="City" xml:space="preserve">
-    <value>Cidade</value>
+    <value>Grad</value>
   </data>
   <data name="ClaimThing" xml:space="preserve">
-    <value>Coisa de Reivindicação</value>
+    <value>Stvar sa zahtevom</value>
   </data>
   <data name="Class" xml:space="preserve">
-    <value>Classe</value>
+    <value>Klase</value>
   </data>
   <data name="ClientSignature" xml:space="preserve">
-    <value>Assinatura do cliente</value>
+    <value>Potpis klijenta</value>
   </data>
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações relacionadas à assinatura de um cliente.</value>
+    <value>Slede informacije vezane za potpis klijenta.</value>
   </data>
   <data name="ClientSignatures" xml:space="preserve">
-    <value>Assinaturas do cliente</value>
+    <value>Potpisi klijenta</value>
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
-    <value>Assinaturas criptográficas feitas por diferentes partes estão listadas abaixo.</value>
+    <value>U nastavku su navedeni kriptografski potpisi napravljeni različitim delovima.</value>
   </data>
   <data name="CodeNotRecognized" xml:space="preserve">
-    <value>Código não reconhecido.</value>
+    <value>Kôd nije prepoznat.</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirmar</value>
+    <value>Potvrdite</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Ligar</value>
+    <value>Povezivanje</value>
   </data>
   <data name="Connection" xml:space="preserve">
-    <value>Conexão</value>
+    <value>Vezu</value>
   </data>
   <data name="Contacts" xml:space="preserve">
-    <value>Contatos</value>
+    <value>Kontakti</value>
   </data>
   <data name="ContactsDescription" xml:space="preserve">
-    <value>Abaixo estão todos os contatos em seu livro de contatos. Clique em qualquer um para interagir com esse contato.</value>
+    <value>Ispod su svi kontakti u vašoj knjizi kontakata. Kliknite na bilo koju od 10 osoba da biste imali interakciju sa tim kontaktom.</value>
   </data>
   <data name="Continue" xml:space="preserve">
-    <value>Continuar</value>
+    <value>Nastavite</value>
   </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
-    <value>O contrato foi suprimido.</value>
+    <value>Ugovor je izbrisan.</value>
   </data>
   <data name="ContractHasBeenObsoleted" xml:space="preserve">
-    <value>O contrato foi obsoleto.</value>
+    <value>Ugovor je zastareo.</value>
   </data>
   <data name="ContractId" xml:space="preserve">
-    <value>ID do contrato</value>
+    <value>ID ugovora</value>
   </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
-    <value>Selecione a função de contrato primeiro e tente novamente.</value>
+    <value>Prvo izaberite ulogu ugovora, a zatim pokušajte ponovo.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
-    <value>Contratos</value>
+    <value>Ugovore</value>
   </data>
   <data name="ContractSuccessfullySigned" xml:space="preserve">
-    <value>Contrato assinado com sucesso.</value>
+    <value>Ugovor je uspešno potpisan.</value>
   </data>
   <data name="ContractTemplates" xml:space="preserve">
-    <value>Modelos de contrato</value>
+    <value>Predlošci ugovora</value>
   </data>
   <data name="ContractTemplatesInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de modelos de contrato que você usou. Clique em um modelo para criar um novo contrato com base nesse modelo.</value>
+    <value>Ispod je lista predložaka ugovora koje ste koristili. Kliknite na predložak da biste kreirali novi ugovor zasnovan na tom predlošku.</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
-    <value>Selecione a visibilidade do contrato primeiro e tente novamente.</value>
+    <value>Prvo izaberite vidljivost ugovora, a zatim pokušajte ponovo.</value>
   </data>
   <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
-    <value>Criador e peças</value>
+    <value>Kreator i delovi</value>
   </data>
   <data name="ContractVisibility_DomainAndParts" xml:space="preserve">
-    <value>Domínio e peças</value>
+    <value>Domen i delovi</value>
   </data>
   <data name="ContractVisibility_Public" xml:space="preserve">
-    <value>Público, não pesquisável</value>
+    <value>Javno, ne može se pretraživati</value>
   </data>
   <data name="ContractVisibility_PublicSearchable" xml:space="preserve">
-    <value>Público e pesquisável</value>
+    <value>Javno i pretraživo</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
-    <value>Poderia revisar minhas informações de identidade?</value>
+    <value>Možete li, molim vas, da pregledate moje informacije o identitetu?</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>País</value>
+    <value>Zemlja</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Criar</value>
+    <value>Kreirate</value>
   </data>
   <data name="Created" xml:space="preserve">
-    <value>Criado</value>
+    <value>Kreirali</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Criar novo</value>
+    <value>Kreiraj novi</value>
   </data>
   <data name="Decline" xml:space="preserve">
-    <value>Declinar</value>
+    <value>Odbijete</value>
   </data>
   <data name="DefinePin" xml:space="preserve">
-    <value>Definir PIN</value>
+    <value>Definiši PIN</value>
   </data>
   <data name="DeleteContract" xml:space="preserve">
-    <value>Excluir contrato</value>
+    <value>Izbriši ugovor</value>
   </data>
   <data name="Devices" xml:space="preserve">
-    <value>Dispositivos</value>
+    <value>Uređaji</value>
   </data>
   <data name="Digest" xml:space="preserve">
-    <value>Digerir</value>
+    <value>Digest</value>
   </data>
   <data name="DisownThing" xml:space="preserve">
-    <value>Coisa renegada</value>
+    <value>Odrekao se Stvari</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
-    <value>{0} não segue a política onipresente de criptografia</value>
+    <value>{0} ne sledi sveprisutne smernice šifrovanja</value>
   </data>
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
-    <value>{0} não é um operador válido</value>
+    <value>{0} nije važeći operator</value>
   </data>
   <data name="DomainNameIsInvalid" xml:space="preserve">
-    <value>O nome de domínio é inválido</value>
+    <value>Ime domena je nevažeće</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Duração</value>
+    <value>Trajanje</value>
   </data>
   <data name="EDalerNote" xml:space="preserve">
-    <value>Nota eDaler</value>
+    <value>eDaler napomena</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>O código representa uma nota eDaler. Você pode aceitá-lo pressionando o botão Aceitar abaixo. Se não tiver sido aceita antes, sua carteira receberá o valor do eDaler especificado na nota.</value>
+    <value>Kôd predstavlja eDaler notu. To možete da prihvatite pritiskom na dugme Prihvati ispod. Ako ranije nije prihvaćen, vaš novčanik će dobiti količinu eDalera navedenu u nanešti.</value>
   </data>
   <data name="EncryptMessage" xml:space="preserve">
-    <value>Mensagem criptografada</value>
+    <value>Šifriraj poruku</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Número de telefone</value>
+    <value>Telefonski broj</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Ocorreu um erro</value>
+    <value>Došlo je do greške</value>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>Sair</value>
+    <value>Izlaz</value>
   </data>
   <data name="ExpiredEDalerUri" xml:space="preserve">
-    <value>Este código eDaler expirou.</value>
+    <value>Ovaj eDaler kod je istekao.</value>
   </data>
   <data name="ExpiresAt" xml:space="preserve">
-    <value>(Expira {0})</value>
+    <value>(Ističe {0})</value>
   </data>
   <data name="FailedToLoadPhoto" xml:space="preserve">
-    <value>Falha ao carregar foto</value>
+    <value>Učitavanje fotografije nije uspelo</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Nome próprio</value>
+    <value>Ime</value>
   </data>
   <data name="From" xml:space="preserve">
-    <value>De</value>
+    <value>Iz</value>
   </data>
   <data name="General" xml:space="preserve">
-    <value>Geral</value>
+    <value>Opšte</value>
   </data>
   <data name="GeneralInformation" xml:space="preserve">
-    <value>Informações Gerais</value>
+    <value>Opšte informacije</value>
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
-    <value>A seguir, algumas informações gerais sobre o contrato.</value>
+    <value>Slede neke opšte informacije o ugovoru.</value>
   </data>
   <data name="GenerateQrCode" xml:space="preserve">
-    <value>Gerar QR Code</value>
+    <value>Generiši QR kôd</value>
   </data>
   <data name="HashFunction" xml:space="preserve">
-    <value>Função hash</value>
+    <value>Funkcija Hash</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Casa</value>
+    <value>Kuжi</value>
   </data>
   <data name="HumanReadableText" xml:space="preserve">
-    <value>Texto legível humano</value>
+    <value>Ljudski čitljiv tekst</value>
   </data>
   <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
-    <value>Aprovo que minhas informações pessoais estejam associadas à identidade jurídica que estou revisando, para fins de transparência.</value>
+    <value>Odobravam da moji lični podaci budu povezani sa pravnim identitetom koji preispitujem, u svrhu transparentnosti.</value>
   </data>
   <data name="ID" xml:space="preserve">
     <value>ID</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Sua id foi copiada para a prancheta.</value>
+    <value>Vaš ID je kopiran u ostavu.</value>
   </data>
   <data name="Identity" xml:space="preserve">
-    <value>Identidade</value>
+    <value>Identitet</value>
   </data>
   <data name="IdentityInformation" xml:space="preserve">
-    <value>Informações de identidade</value>
+    <value>Informacije o identitetu</value>
   </data>
   <data name="IdentityInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações pessoais registradas para a parte que assinou o contrato.</value>
+    <value>Slede lični podaci registrovani za stranku koja je potpisala ugovor.</value>
   </data>
   <data name="IdentityState_Approved" xml:space="preserve">
-    <value>Aprovado</value>
+    <value>Odobrio</value>
   </data>
   <data name="IdentityState_Compromized" xml:space="preserve">
-    <value>Compromizado</value>
+    <value>Compromized</value>
   </data>
   <data name="IdentityState_Created" xml:space="preserve">
-    <value>Criado</value>
+    <value>Kreirali</value>
   </data>
   <data name="IdentityState_Obsoleted" xml:space="preserve">
-    <value>Obsoleto</value>
+    <value>Zastarelo</value>
   </data>
   <data name="IdentityState_Rejected" xml:space="preserve">
-    <value>Indeferido</value>
+    <value>Odbio</value>
   </data>
   <data name="Ignore" xml:space="preserve">
-    <value>Ignorar</value>
+    <value>Ignorisati</value>
   </data>
   <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
-    <value>Revisei cuidadosamente todas as informações acima, e acho que é uma representação correta da pessoa que solicitou a revisão:</value>
+    <value>Pažljivo sam pregledao sve gorenavedene informacije, i smatram da je to tačan prikaz osobe koja traži recenziju:</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
-    <value>Incompleto</value>
+    <value>Nepotpuna</value>
   </data>
   <data name="InformationAboutClaimedThingText" xml:space="preserve">
-    <value>As seguintes informações são disponibilizadas sobre a coisa cujo código você digitalizou. Escolha se você quer tentar reivindicar essa coisa como sua, e também se você quiser torná-la publicamente pesquisável no Registro de Coisas.</value>
+    <value>Sledeće informacije su dostupne o stvari čiji ste kôd skenirali. Odaberite da li želite da pokušate da prisvoje ovu stvar kao vašu, kao i ako želite da je učinite javno pretražim u Registru stvari.</value>
   </data>
   <data name="InformationAboutThing" xml:space="preserve">
-    <value>Informações sobre o negócio</value>
+    <value>Informacije o stvarima</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>As seguintes informações são disponibilizadas sobre a coisa. Você também pode ver os dados atuais dos sensores que você está autorizado a ver. Se a coisa é um atuador, e você tem o direito de controlar a coisa, parâmetros de controle também serão mostrados.</value>
+    <value>Sledeće informacije su dostupne o tome. Takođe možete videti aktuelne senzorske podatke koje ste ovlašćeni da vidite. Ako je stvar aktuator, a vi imate prava da kontrolišete stvar, biće prikazani i parametri kontrole.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
-    <value>As informações estão faltando ou inválidas</value>
+    <value>Informacije nedostaju ili su nevažeće</value>
   </data>
   <data name="Inspect" xml:space="preserve">
-    <value>Inspecione a comunicação</value>
+    <value>Provera komunikacije</value>
   </data>
   <data name="InvalidEDalerUri" xml:space="preserve">
-    <value>EDaler URI inválido: {0}</value>
+    <value>Nevažeći eDaler URI: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
-    <value>Código de descoberta de IoT inválido</value>
+    <value>Nevažeći IoT kôd otkrivanja</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
-    <value>Nome de usuário ou senha inválidos</value>
+    <value>Nevažeće korisničko ime ili lozinka</value>
   </data>
   <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Convide peer para revisão</value>
+    <value>Pozivanje ravnopravnog uređaja na redigovanje</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Chave</value>
+    <value>Ključ</value>
   </data>
   <data name="LastNames" xml:space="preserve">
-    <value>Sobrenomes</value>
+    <value>Prezimena</value>
   </data>
   <data name="Latitude" xml:space="preserve">
-    <value>Latitude</value>
+    <value>Geografska širina</value>
   </data>
   <data name="LegalId" xml:space="preserve">
-    <value>Legal Id</value>
+    <value>Pravni ID</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Carregamento...</value>
+    <value>Učitavanje...</value>
   </data>
   <data name="LocalName" xml:space="preserve">
-    <value>Nome local</value>
+    <value>Lokalno ime</value>
   </data>
   <data name="Longitude" xml:space="preserve">
-    <value>Longitude</value>
+    <value>Geografska dužina</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
-    <value>Uma visão geral dos dados legíveis pela máquina incorporados no contrato é mostrada abaixo.</value>
+    <value>Pregled podataka čitljivih na računaru ugrađenih u ugovor prikazan je ispod.</value>
   </data>
   <data name="MachineReadableText" xml:space="preserve">
-    <value>Informações legíveis à máquina</value>
+    <value>Informacije o čitljivom računaru</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>Minha ID Digital</value>
+    <value>Moj digitalni ID</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
-    <value>Torne a coisa pública</value>
+    <value>Objavite to javno</value>
   </data>
   <data name="Manufacturer" xml:space="preserve">
-    <value>Fabricante</value>
+    <value>Proizvođača</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Mensagem</value>
+    <value>Poruku</value>
   </data>
   <data name="MeterLocation" xml:space="preserve">
-    <value>Localização do medidor</value>
+    <value>Lokacija merača</value>
   </data>
   <data name="MeterNumber" xml:space="preserve">
-    <value>Número do medidor</value>
+    <value>Broj merača</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
-    <value>Nome do meio(s)</value>
+    <value>Srednja imena</value>
   </data>
   <data name="Mode" xml:space="preserve">
-    <value>Modo</value>
+    <value>Režimu</value>
   </data>
   <data name="Model" xml:space="preserve">
-    <value>Modelo</value>
+    <value>Model</value>
   </data>
   <data name="MyContracts" xml:space="preserve">
-    <value>Meus Contratos</value>
+    <value>Moji ugovori</value>
   </data>
   <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de contratos que você criou. Clique em um contrato para obter mais informações sobre ele.</value>
+    <value>Ispod je lista ugovora koje ste kreirali. Kliknite na ugovor za više informacija o njemu.</value>
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Meus Contratos Criados</value>
+    <value>Moji kreirani ugovori</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
-    <value>Minha identidade</value>
+    <value>Moj identitet</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Nome</value>
+    <value>Ime</value>
   </data>
   <data name="Namespace" xml:space="preserve">
-    <value>Namespace</value>
+    <value>Prostor za ime</value>
   </data>
   <data name="Network" xml:space="preserve">
-    <value>Rede</value>
+    <value>Mrežne</value>
   </data>
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
-    <value>A rede parece estar faltando. Verifique sua configuração e cobertura e tente novamente.</value>
+    <value>Izgleda da nedostaje mreža. Proverite konfiguraciju i pokrivenost i pokušajte ponovo.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
-    <value>Neurônio</value>
+    <value>Neuron</value>
   </data>
   <data name="NewContract" xml:space="preserve">
-    <value>Novo Contrato</value>
+    <value>Novi ugovor</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Não</value>
+    <value>Ne</value>
   </data>
   <data name="NoContactsFound" xml:space="preserve">
-    <value>Nenhum contato encontrado.</value>
+    <value>Nisu pronađeni kontakti.</value>
   </data>
   <data name="NoContractsFound" xml:space="preserve">
-    <value>Não foram encontrados contratos.</value>
+    <value>Ugovori nisu pronađeni.</value>
   </data>
   <data name="Notary" xml:space="preserve">
-    <value>Notário</value>
+    <value>Beleћnik</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
-    <value>Não conectado ao operador</value>
+    <value>Nije povezano sa operaterom</value>
   </data>
   <data name="NoThingsFound" xml:space="preserve">
-    <value>Nenhuma coisa encontrada.</value>
+    <value>Nijedna stvari nisu pronađene.</value>
   </data>
   <data name="ObsoleteContract" xml:space="preserve">
-    <value>Contrato obsoleto</value>
+    <value>Zastareli ugovor</value>
   </data>
   <data name="Offline" xml:space="preserve">
-    <value>Offline</value>
+    <value>Vanmrežne</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OKEY</value>
+    <value>U REDU</value>
   </data>
   <data name="Online" xml:space="preserve">
     <value>Online</value>
   </data>
   <data name="Open" xml:space="preserve">
-    <value>Abrir</value>
+    <value>Otvorite</value>
   </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
-    <value>Operadora não suporta identidades legais e contratos inteligentes</value>
+    <value>Operater ne podržava pravne identitete i pametne ugovore</value>
   </data>
   <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
-    <value>Operadora não suporta Provisionamento e Suporte de Decisão para as Coisas</value>
+    <value>Operator ne podržava obezbeđivanje i podršku odlukama za stvari</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
-    <value>A operadora {0} não suporta o registro de novas contas</value>
+    <value>Operater {0} ne podržava registraciju novih računa</value>
   </data>
   <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
-    <value>Operador não suporta Registros de Coisas</value>
+    <value>Operator ne podržava registre stvari</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opções</value>
+    <value>Opcije</value>
   </data>
   <data name="Parameters" xml:space="preserve">
-    <value>Parâmetros</value>
+    <value>Parametre</value>
   </data>
   <data name="ParametersInfoText" xml:space="preserve">
-    <value>Os parâmetros do contrato são mostrados abaixo, juntamente com seus valores correspondentes.</value>
+    <value>Dole su prikazani parametri ugovora, zajedno sa odgovarajućim vrednostima.</value>
   </data>
   <data name="Parts" xml:space="preserve">
-    <value>Partes</value>
+    <value>Delove</value>
   </data>
   <data name="PartsInfoText" xml:space="preserve">
-    <value>As partes (esperadas) definidas para o contrato estão listadas abaixo.</value>
+    <value>Dole su navedeni (očekivani) delovi definisani za ugovor.</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Senha</value>
+    <value>Lozinku</value>
   </data>
   <data name="PasswordIsInvalid" xml:space="preserve">
-    <value>A senha é inválida</value>
+    <value>Lozinka je nevažeća</value>
   </data>
   <data name="MakePayment" xml:space="preserve">
-    <value>Fazer o pagamento</value>
+    <value>Izvrši plaćanje</value>
   </data>
   <data name="Payment" xml:space="preserve">
-    <value>Pagamento</value>
+    <value>Plaćanja</value>
   </data>
   <data name="PaymentAcceptance" xml:space="preserve">
-    <value>Aceitação de Pagamentos</value>
+    <value>Prihvatanje plaćanja</value>
   </data>
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
-    <value>Abaixo você pode ver os detalhes do pagamento offline. Se for aceitável, você pode optar por aceitar enviar o pagamento ao Neurônio para processamento.</value>
+    <value>U nastavku možete videti detalje vanmrežnog plaćanja. Ako je prihvatljivo, možete odabrati da prihvatite slanje uplate Neuronu na obradu.</value>
   </data>
   <data name="PaymentAlreadySent" xml:space="preserve">
-    <value>As instruções de pagamento já foram enviadas. Você pode resender pagamentos pendentes da exibição de pagamento pendente.</value>
+    <value>Uputstvo za plaćanje je već poslato. Uplate na čekanju možete ponovo da posatite iz prikaza neobrađene uplate.</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Digite o valor a pagar ao destinatário abaixo. Uma vez feito, você pode optar por pagar on-line (se conectado) ou offline, clicando no botão correspondente.</value>
+    <value>Unesite iznos koji treba platiti dole navedenom primaocu. Kada završite, možete odabrati da platite na mreži (ako ste povezani) ili van mreže tako što ćete kliknuti na odgovarajuće dugme.</value>
   </data>
   <data name="PaymentSuccess" xml:space="preserve">
-    <value>Pagamento realizado com sucesso.</value>
+    <value>Plaćanje je uspešno realizovano.</value>
   </data>
   <data name="PayOffline" xml:space="preserve">
-    <value>Pague offline</value>
+    <value>Plaćanje van mreže</value>
   </data>
   <data name="PayOnline" xml:space="preserve">
-    <value>Pague online</value>
+    <value>Plaćanje preko interneta</value>
   </data>
   <data name="PeerReview" xml:space="preserve">
-    <value>Revisão por pares</value>
+    <value>Pregled ravnopravnog uređaja</value>
   </data>
   <data name="PeerReviewAccepted" xml:space="preserve">
-    <value>Revisão por pares aceita</value>
+    <value>Vršnjačka recenzija je prihvaćena</value>
   </data>
   <data name="PeerReviewRejected" xml:space="preserve">
-    <value>Revisão por pares rejeitada</value>
+    <value>Odbijena je redigovanje ravnopravnog uređaja</value>
   </data>
   <data name="PendingPayment" xml:space="preserve">
-    <value>Pagamento pendente</value>
+    <value>Plaćanje na čekanju</value>
   </data>
   <data name="PendingPaymentDescription" xml:space="preserve">
-    <value>Abaixo você pode ver informações sobre um pagamento que foi gerado, mas ainda não foi totalmente processado.</value>
+    <value>U nastavku možete videti informacije o izvršenoj uplati, ali još uvek nisu u potpunosti obrađene.</value>
   </data>
   <data name="PersonalLegalInformation" xml:space="preserve">
-    <value>Informações pessoais/legais</value>
+    <value>Lične/pravne informacije</value>
   </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
-    <value>Para conseguir uma carteira, realizar transações e assinar contratos inteligentes, você precisa de uma identidade pessoal ou legal atestada atribuída à sua conta.</value>
+    <value>Da biste mogli da nabavite novčanik, obavite transakcije i potpišete pametne ugovore, potreban vam je atestiran lični ili pravni identitet dodeljen vašem nalogu.</value>
   </data>
   <data name="PersonalNumber" xml:space="preserve">
-    <value>Número pessoal</value>
+    <value>Lični broj</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
-    <value>O número pessoal não corresponde aos regulamentos nacionais de números pessoais</value>
+    <value>Lični broj se ne podudara sa nacionalnim propisima o ličnim brojima</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
-    <value>O número pessoal não corresponde aos regulamentos nacionais de números pessoais. Formato esperado: </value>
+    <value>Lični broj se ne podudara sa nacionalnim propisima o ličnim brojima. Očekivani format: </value>
   </data>
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
-    <value>Número pessoal ({0})</value>
+    <value>Lični broj ({0})</value>
   </data>
   <data name="Petition" xml:space="preserve">
-    <value>Pedir</value>
+    <value>Zahtev</value>
   </data>
   <data name="PetitionContract" xml:space="preserve">
-    <value>Acesso ao Contrato</value>
+    <value>Pristup ugovoru</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
-    <value>Uma petição para os dados pessoais em um de seus contratos foi recebida. Revise as informações abaixo e escolha como deseja responder.</value>
+    <value>Primljena je peticija za lične podatke u jednom od vaših ugovora. Pregledajte dole navedene informacije i odaberite način na koji želite da odgovorite.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
-    <value>Acesso à Identidade</value>
+    <value>Pristup identitetu</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
-    <value>Uma petição para os dados pessoais de sua identidade legal foi recebida. Revise as informações abaixo e escolha como deseja responder.</value>
+    <value>Primljena je peticija za lične podatke vašeg pravnog identiteta. Pregledajte dole navedene informacije i odaberite način na koji želite da odgovorite.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
-    <value>Petição enviada</value>
+    <value>Peticija poslata</value>
   </data>
   <data name="PetitionSignature" xml:space="preserve">
-    <value>Assinatura solicitada</value>
+    <value>Zahteva se potpis</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>Um pedido de sua assinatura foi recebido. Revise o motivo abaixo e as informações sobre quem enviou a solicitação e escolha como deseja responder.</value>
+    <value>Primljen je zahtev za vaš potpis. Pregledajte dole navedeni razlog i informacije o tome ko je poslao zahtev, a zatim odaberite način na koji želite da odgovorite.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
-    <value>Petição para ver contrato foi negada.</value>
+    <value>Peticija za viđenje ugovora je odbijena.</value>
   </data>
   <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
-    <value>Petição para ver identidade jurídica foi negada.</value>
+    <value>Peticija za viđenje pravnog identiteta je odbijena.</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
-    <value>A foto é muito grande.</value>
+    <value>Fotografija je prevelika</value>
   </data>
   <data name="Photos" xml:space="preserve">
-    <value>Fotos</value>
+    <value>Fotografije</value>
   </data>
   <data name="PickPhoto" xml:space="preserve">
-    <value>Escolha foto</value>
+    <value>Odaberi fotografiju</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>PIN é inválido</value>
+    <value>PIN je nevažeći</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
-    <value>O número PIN não deve incluir espaço branco líder ou de arrasto.</value>
+    <value>PIN broj ne sme da sadrži razmak na početku ili zao posle toga.</value>
   </data>
   <data name="PinOrPassword" xml:space="preserve">
-    <value>PIN ou senha</value>
+    <value>PIN kôd ili lozinka</value>
   </data>
   <data name="PinsDoNotMatch" xml:space="preserve">
-    <value>PiNs não correspondem</value>
+    <value>PIN-ovi se ne podudaraju</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>Número PIN muito curto. Pelo menos {0} números (ou caracteres) são necessários.</value>
+    <value>PIN broj je prekratko. Potrebno je {0} najmanje nekoliko brojeva (ili znakova).</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
-    <value>Revise todas as informações acima e verifique as caixas de seleção correspondentes se as informações estão corretas. Isso deve ser feito antes que você possa aprovar a informação.</value>
+    <value>Pregledajte sve gorenavedene informacije i proverite odgovarajuća polja za potvrdu ako su informacije tačne. Ovo morate da uradite da biste mogli da odobrite informacije.</value>
   </data>
   <data name="ProductInformation" xml:space="preserve">
-    <value>Informações sobre produtos</value>
+    <value>Informacije o proizvodu</value>
   </data>
   <data name="Proposal" xml:space="preserve">
-    <value>Proposta</value>
+    <value>Predlog</value>
   </data>
   <data name="Propose" xml:space="preserve">
-    <value>Propor</value>
+    <value>Predloži</value>
   </data>
   <data name="Provider" xml:space="preserve">
-    <value>Provedor</value>
+    <value>Dobavljača</value>
   </data>
   <data name="PublicKey" xml:space="preserve">
-    <value>Chave pública</value>
+    <value>Javni ključ</value>
   </data>
   <data name="Purpose" xml:space="preserve">
-    <value>Propósito</value>
+    <value>Svrhu</value>
   </data>
   <data name="Qrcode" xml:space="preserve">
-    <value>QR Code</value>
+    <value>QR kôd</value>
   </data>
   <data name="QrCodeNotUnderstood" xml:space="preserve">
-    <value>Código não compreendido</value>
+    <value>Šifra nije shvaćena</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
-    <value>Digite manualmente</value>
+    <value>Unesite ručno</value>
   </data>
   <data name="QrScanCode" xml:space="preserve">
-    <value>Código de varredura</value>
+    <value>Kôd skeniranja</value>
   </data>
   <data name="QrScanOverlay" xml:space="preserve">
-    <value>Alinhe o QR-Code dentro do quadro</value>
+    <value>Poravnavanje QR-koda unutar okvira</value>
   </data>
   <data name="QrScanUri" xml:space="preserve">
     <value>URI:</value>
   </data>
   <data name="ReceiveEDaler" xml:space="preserve">
-    <value>Receba eDaler</value>
+    <value>Primi eDaler</value>
   </data>
   <data name="Region" xml:space="preserve">
-    <value>Região ou Estado</value>
+    <value>Region ili država</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Registro</value>
+    <value>Registrujete</value>
   </data>
   <data name="Registry" xml:space="preserve">
-    <value>Registro</value>
+    <value>Registratora</value>
   </data>
   <data name="RejectInformation" xml:space="preserve">
-    <value>Informações de rejeição</value>
+    <value>Odbaci informacije</value>
   </data>
   <data name="RemoteParty" xml:space="preserve">
-    <value>Festa Remota:</value>
+    <value>Udaljena žurka:</value>
   </data>
   <data name="RemoveContact" xml:space="preserve">
-    <value>Remover contato</value>
+    <value>Ukloni kontakt</value>
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
-    <value>Relatório como Comprometido</value>
+    <value>Izveštaj kao kompromitovan</value>
   </data>
   <data name="Request" xml:space="preserve">
-    <value>Pedir</value>
+    <value>Zahtev</value>
   </data>
   <data name="RequestingEntity" xml:space="preserve">
-    <value>Entidade solicitante</value>
+    <value>Zahtevanje entiteta</value>
   </data>
   <data name="RequestPayment" xml:space="preserve">
-    <value>Solicitar pagamento</value>
+    <value>Uplata zahteva</value>
   </data>
   <data name="RequestPaymentDescription" xml:space="preserve">
-    <value>Para solicitar o pagamento de alguém, preencha os detalhes sobre o pagamento abaixo e clique no botão Gerar QR Code. O código gerado pode ser usado pela outra parte, para gerar um pagamento para sua conta.</value>
+    <value>Da biste zatražili plaćanje od nekoga, popunite detalje o dole navedenoj uplati i kliknite na dugme Generiši QR šifru. Generisanu šifru može da koristi druga strana da bi generisala uplatu na vaš račun.</value>
   </data>
   <data name="RequestPaymentMessage" xml:space="preserve">
-    <value>Solicitando pagamento de {0} {1}.</value>
+    <value>Zahtevam isplatu {0} {1}.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
-    <value>O pedido foi cronometrado</value>
+    <value>Vreme zahteva je isteglo</value>
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
-    <value>O pedido foi cancelado.</value>
+    <value>Zahtev je otkazan</value>
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
-    <value>Redigitar PIN ou senha</value>
+    <value>Ponovo otkucajte PIN kôd ili lozinku</value>
   </data>
   <data name="ReviewIdentityInformationText" xml:space="preserve">
-    <value>Você foi solicitado a revisar as seguintes informações pessoais. Se correto, verifique as caixas correspondentes e pressione o botão Aprovar na parte inferior. Você também pode pressionar o botão Rejeitar se encontrar algo que esteja incorreto.</value>
+    <value>Od vas je zatraženo da pregledate sledeće lične informacije. Ako je ispravno, proverite odgovarajuća polja i pritisnite dugme Odobri na dnu. Takođe možete da pritisnete dugme "Odbaci" ako pronađete nešto što je netačno.</value>
   </data>
   <data name="RevokeInformation" xml:space="preserve">
-    <value>Revogar</value>
+    <value>Opozoveš</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>Papel</value>
+    <value>Ulogu</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Papéis</value>
+    <value>Uloge</value>
   </data>
   <data name="RolesInfoText" xml:space="preserve">
-    <value>Abaixo você pode ver as diferentes funções definidas para o contrato. Se mais de uma parte for assumida para um papel, esse número será mostrado na descrição do papel.</value>
+    <value>U nastavku možete videti različite uloge definisane za ugovor. Ako se za ulogu preuzme više od jednog dela, ovaj broj će biti prikazan u opisu uloge.</value>
   </data>
   <data name="Room" xml:space="preserve">
-    <value>Quarto</value>
+    <value>Soba</value>
   </data>
   <data name="ScannedQrCode" xml:space="preserve">
-    <value>Código QR digitalizado</value>
+    <value>Skenirani QR kôd</value>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
-    <value>Digitalizar código QR</value>
+    <value>Skeniraj QR kôd</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Selecionar uma foto não é suportado neste dispositivo</value>
+    <value>Izbor fotografije nije podržan na ovom uređaju</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
-    <value>Selecione quem deve ter acesso a este contrato.</value>
+    <value>Izaberite ko bi trebalo da ima pristup ovom ugovoru.</value>
   </data>
   <data name="SelectYourRole" xml:space="preserve">
-    <value>Selecione sua função neste contrato.</value>
+    <value>Izaberite svoju ulogu u ovom ugovoru.</value>
   </data>
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
-    <value>Selecione sua função neste contrato.</value>
+    <value>Izaberite svoju ulogu u ovom ugovoru.</value>
   </data>
   <data name="SendPaymentTo" xml:space="preserve">
-    <value>Enviar pagamento</value>
+    <value>Pošalji uplatu</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
-    <value>Número de série</value>
+    <value>Serijski broj</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
-    <value>Assinatura do servidor</value>
+    <value>Potpis servera</value>
   </data>
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações relacionadas à assinatura de um servidor.</value>
+    <value>Slede informacije vezane za potpis servera.</value>
   </data>
   <data name="ServerSignatures" xml:space="preserve">
-    <value>Assinaturas de servidores</value>
+    <value>Potpisi servera</value>
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
-    <value>A integridade do contrato é protegida pela assinatura do servidor mostrada abaixo.</value>
+    <value>Integritet ugovora je zaštićen potpisom servera prikazanim ispod.</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Compartilhar</value>
+    <value>Delite</value>
   </data>
   <data name="ShowCode" xml:space="preserve">
-    <value>Mostrar código</value>
+    <value>Prikaži kôd</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
-    <value>Sinal após</value>
+    <value>Potpiši posle</value>
   </data>
   <data name="SignAsRole" xml:space="preserve">
-    <value>Assine como {0}</value>
+    <value>Potpiši kao {0}</value>
   </data>
   <data name="Signature" xml:space="preserve">
-    <value>Assinatura</value>
+    <value>Potpis</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
-    <value>Informações de assinatura</value>
+    <value>Informacije o potpisu</value>
   </data>
   <data name="SignBefore" xml:space="preserve">
-    <value>Assine antes</value>
+    <value>Potpiši pre</value>
   </data>
   <data name="SignedContracts" xml:space="preserve">
-    <value>Contratos assinados</value>
+    <value>Potpisani ugovori</value>
   </data>
   <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de contratos que você assinou. Clique em um contrato para obter mais informações sobre ele.</value>
+    <value>Ispod je lista ugovora koje ste potpisali. Kliknite na ugovor za više informacija o njemu.</value>
   </data>
   <data name="Skip" xml:space="preserve">
-    <value>Saltitar</value>
+    <value>Preskoči</value>
   </data>
   <data name="State" xml:space="preserve">
-    <value>Estado</value>
+    <value>Država</value>
   </data>
   <data name="StreetName" xml:space="preserve">
-    <value>Nome de Rua</value>
+    <value>Ime ulice</value>
   </data>
   <data name="StreetNumber" xml:space="preserve">
-    <value>Número de rua</value>
+    <value>Broj ulice</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Enviar</value>
+    <value>Prosleđivanje</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
-    <value>Êxito</value>
+    <value>Uspeh</value>
   </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
-    <value>Valor da tag copiado para prancheta</value>
+    <value>Vrednost oznake kopirana u ostavu</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
-    <value>Tire foto</value>
+    <value>Fotografisanje</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Tirar uma foto não é suportado neste dispositivo</value>
+    <value>Fotografisanje nije podržano na ovom uređaju</value>
   </data>
   <data name="TemplateId" xml:space="preserve">
-    <value>ID de modelo</value>
+    <value>ID predloška</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>O contrato exige pelo menos {0} parte(s) de {1} de papel. Adicione mais peças ao contrato e tente novamente.</value>
+    <value>Ugovor zahteva najmanje {0} uloge u {1}. Dodajte još delova ugovoru i pokušajte ponovo.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
-    <value>O contrato exige, no máximo, {0} parte(s) do papel {1}. Remova algumas das peças do contrato e tente novamente.</value>
+    <value>Ugovor zahteva najviše {0} deo uloge {1}. Uklonite neke delove iz ugovora i pokušajte ponovo.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>A senha da conexão é {0}. Isso foi copiado para a prancheta.</value>
+    <value>Lozinka za vezu je {0}. Ovo je kopirano u ostavu.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
-    <value>Não há rede</value>
+    <value>Ne postoji mreža</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>O código especificado não é uma identidade legal</value>
+    <value>Navedeni kôd nije pravni identitet</value>
   </data>
   <data name="Thing" xml:space="preserve">
-    <value>Coisa</value>
+    <value>Stvar</value>
   </data>
   <data name="ThingDisowned" xml:space="preserve">
-    <value>Isso foi renegado com sucesso. Agora pode ser reivindicado por um novo dono.</value>
+    <value>Ovo se uspešno odreklo. Sada ga može tražiti novi vlasnik.</value>
   </data>
   <data name="Things" xml:space="preserve">
-    <value>Coisas</value>
+    <value>Stvari</value>
   </data>
   <data name="ThingsDescription" xml:space="preserve">
-    <value>Abaixo estão todas as suas coisas, e coisas em seu livro de contatos. Clique em qualquer um para interagir com essa coisa.</value>
+    <value>U nastavku su sve vaše stvari, i stvari u vašoj kontakt knjizi. Kliknite na bilo koju interakciju sa tom stvari.</value>
   </data>
   <data name="Timestamp" xml:space="preserve">
-    <value>Carimbo de tempo</value>
+    <value>Vremenska oznaka</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>Para</value>
+    <value>Da</value>
   </data>
   <data name="TransactionAccepted" xml:space="preserve">
-    <value>A transação foi aceita e processada.</value>
+    <value>Transakcija je prihvaćena i obrađena.</value>
   </data>
   <data name="TransactionId" xml:space="preserve">
-    <value>ID da transação:</value>
+    <value>ID transakcije:</value>
   </data>
   <data name="Transferable" xml:space="preserve">
-    <value>Transferível</value>
+    <value>Prenosivo</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
-    <value>Incapaz de autenticar com {0}</value>
+    <value>Nije moguće potvrditi verodostojnost pomoću {0}</value>
   </data>
   <data name="UnableToClaimThing" xml:space="preserve">
-    <value>Incapaz de reivindicar coisa</value>
+    <value>Nije moguće tražiti stvar</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Incapaz de se conectar a {0}</value>
+    <value>Nije moguće povezati se sa {0}</value>
   </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
-    <value>Não é possível processar o código eDaler.</value>
+    <value>Nije moguće obraditi eDaler kôd.</value>
   </data>
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
-    <value>EDaler URI não reconhecido.</value>
+    <value>Neprepoznatljiv eDaler URI.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
-    <value>O texto não está em conformidade com nenhum dos esquemas de URI suportados.</value>
+    <value>Tekst nije u skladu ni sa jednom od podržanih URI šema.</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>Atualizado</value>
+    <value>Ažurira</value>
   </data>
   <data name="ValidateIdentityInfo1Text" xml:space="preserve">
-    <value>Suas informações de identidade devem ser validadas antes de serem aprovadas. Isso pode ser feito manualmente pelo seu operador. Também pode ser feito por pares.</value>
+    <value>Vaše informacije o identitetu mora biti proverene da bi se odobrile. Ovo može ručno da uradi vaš operater. To mogu da urade i vršnjaci.</value>
   </data>
   <data name="ValidateIdentityInfo2Text" xml:space="preserve">
-    <value>Para convidar um colega a revisar seu aplicativo, você precisa digitalizar o código de ID do peer que deseja convidar. Eles poderão ver e revisar sua aplicação. Quando os pares suficientes revisarem suas informações e certificarem que estão corretas, o operador aprovará automaticamente sua aplicação. As informações sobre quem revisou sua identidade serão codificadas na própria identidade revisada.</value>
+    <value>Da biste pozvali ravnopravnog uređaja da pregleda aplikaciju, potrebno je da skenirate ID kôd ravnopravnog uređaja koji želite da pozovete. Oni će moći da vide i pregledaju vašu prijavu. Kada dovoljan broj vršnjaka pregleda vaše informacije i potvrdi da su tačne, operater će automatski odobriti vašu aplikaciju. Informacije o tome ko je pregledao vaš identitet biće kodirane u sam redigovan identitet.</value>
   </data>
   <data name="ValidateIdentityInfo3Text" xml:space="preserve">
-    <value>Você pode ver o status atual do aplicativo abaixo.</value>
+    <value>Trenutni status aplikacije možete videti u nastavku.</value>
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
-    <value>Validando informações</value>
+    <value>Provera valjanosti informacija</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Versão</value>
+    <value>Verzija</value>
   </data>
   <data name="ViewContract" xml:space="preserve">
-    <value>Ver contrato</value>
+    <value>Prikaži ugovor</value>
   </data>
   <data name="ViewIdentityInformationText" xml:space="preserve">
-    <value>A seguir estão as informações pessoais registradas com a identidade legal. Assinaturas e pagamentos são assinados usando essas informações.</value>
+    <value>Slede lične informacije registrovane sa pravnim identitetom. Potpisi i uplate se potpisi koristeći ove informacije.</value>
   </data>
   <data name="Visibility" xml:space="preserve">
-    <value>Visibilidade</value>
+    <value>Vidljivost</value>
   </data>
   <data name="Wallet" xml:space="preserve">
-    <value>Carteira</value>
+    <value>Novиanik</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
-    <value>Bem-vindo ao TAG Digital ID App!</value>
+    <value>Dobrodošli u TAG aplikaciju za digitalne ID-ove!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Antes de nos conectarmos à rede TAG ID, precisamos selecionar um provedor de serviços para você. Para isso, precisamos saber o propósito de usar o aplicativo. Selecione a opção mais apropriada abaixo.</value>
+    <value>Pre povezivanja sa TAG ID mrežom, potrebno je da izaberemo dobavljača usluga za vas. Da bismo to uradili, moramo da znamo svrhu korišćenja aplikacije. Izaberite najprikladnije dole navedene opcije.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
-    <value>Autenticando identidade de rede</value>
+    <value>Potvrda identiteta mreže</value>
   </data>
   <data name="XmppState_Binding" xml:space="preserve">
-    <value>Conexão de ligação</value>
+    <value>Povezivanje povezivanja</value>
   </data>
   <data name="XmppState_Connected" xml:space="preserve">
-    <value>Conectado</value>
+    <value>Povezan sa</value>
   </data>
   <data name="XmppState_ConnectedTo" xml:space="preserve">
-    <value>Conectado ao {0}</value>
+    <value>Povezano sa {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
-    <value>Estabelecendo conexão</value>
+    <value>Uspostavljanje veze</value>
   </data>
   <data name="XmppState_Error" xml:space="preserve">
-    <value>Erro de conexão</value>
+    <value>Greška u vezi</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Lista de buscas</value>
+    <value>Prenošenje spiska</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
-    <value>Desconectado</value>
+    <value>Prekinuta</value>
   </data>
   <data name="XmppState_Registering" xml:space="preserve">
-    <value>Registro com corretor</value>
+    <value>Registracija kod brokera</value>
   </data>
   <data name="XmppState_RequestingSession" xml:space="preserve">
-    <value>Sessão de solicitação</value>
+    <value>Zahtevanje sesije</value>
   </data>
   <data name="XmppState_SettingPresence" xml:space="preserve">
-    <value>Presença de configuração</value>
+    <value>Postavljanje prisustva</value>
   </data>
   <data name="XmppState_StartingEncryption" xml:space="preserve">
-    <value>Conexão de criptografia</value>
+    <value>Veza šifrovanja</value>
   </data>
   <data name="XmppState_StreamNegotiation" xml:space="preserve">
-    <value>Fluxo de negociação</value>
+    <value>Pregovarački tok</value>
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
-    <value>Fluxo estabelecido</value>
+    <value>Uspostavljen tok</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Sim</value>
+    <value>Da</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>Ontem</value>
+    <value>Juče</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
-    <value>Você pode proteger sua carteira e informações confidenciais adicionando um número ou senha pin adicional.</value>
+    <value>Novčanik i osetljive informacije možete da zaštitite dodavanjem dodatnog PIN broja ili lozinke.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
-    <value>Você foi agora assinado fora. Para fazer login novamente, use o menu no canto superior esquerdo.</value>
+    <value>Sada ste odjaљnjeni. Da biste se ponovo prijavili, koristite meni u gornjem levom uglu.</value>
   </data>
   <data name="YouHaveReceivedAProposal" xml:space="preserve">
-    <value>Você recebeu uma proposta.</value>
+    <value>Primili ste predlog.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
-    <value>Você precisa aprovar para associar suas informações pessoais com a identidade que você revisa. Quando terceiros revisarem as informações na identidade, terão acesso à identidade dos revisores, para transparência.</value>
+    <value>Potrebno je da odobrite povezivanje ličnih informacija sa identitetom koji pregledate. Kada treća lica pregledaju informacije u identitetu, imaće pristup identitetu redaktora, radi transparentnosti.</value>
   </data>
   <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
-    <value>Você precisa verificar a caixa que você revisou cuidadosamente todas as informações correspondentes acima.</value>
+    <value>Potrebno je da proverite polje koje ste pažljivo pregledali sve gorenavedene odgovarajuće informacije.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
-    <value>Você precisa selecionar um país</value>
+    <value>Moraš da izabereš državu</value>
   </data>
   <data name="YouNeedToProvideAFirstName" xml:space="preserve">
-    <value>Você precisa fornecer um primeiro nome</value>
+    <value>Moraš da navedeš ime</value>
   </data>
   <data name="YouNeedToProvideALastName" xml:space="preserve">
-    <value>Você precisa fornecer pelo menos um sobrenome</value>
+    <value>Moraš da navedeš bar jedno prezime</value>
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
-    <value>Você precisa fornecer um número de segurança pessoal ou social</value>
+    <value>Potrebno je da navedete lični ili socijalni broj</value>
   </data>
   <data name="YouNeedToProvideAPhoto" xml:space="preserve">
-    <value>Você precisa fornecer uma foto</value>
+    <value>Moraš da obezbediš fotografiju</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
-    <value>Seu contrato contém erros. Corrija esses erros e tente novamente.</value>
+    <value>Vaš ugovor sadrži greške. Otklonjene ove greške i pokušajte ponovo.</value>
   </data>
   <data name="YourLegalIdentity" xml:space="preserve">
-    <value>Sua identidade legal</value>
+    <value>Vaš pravni identitet</value>
   </data>
   <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
-    <value>Sua identidade legal foi marcada como comprometida. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Vaš pravni identitet je označen kao kompromitovan. Zbog toga ste preusmereni da kreirate novi nalog.</value>
   </data>
   <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
-    <value>Sua identidade legal foi marcada como obsoleta. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Vaš pravni identitet je označen kao zastareo. Zbog toga ste preusmereni da kreirate novi nalog.</value>
   </data>
   <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
-    <value>As chaves de assinatura de sua identidade legal são inválidas. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Ključevi za potpisivanje vašeg pravnog identiteta su nevažeći. Zbog toga ste preusmereni da kreirate novi nalog.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
-    <value>Seu Papel</value>
+    <value>Vaša uloga</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
-    <value>CEP ou Cep</value>
+    <value>Poštanski broj ili poštanski broj</value>
   </data>
   <data name="SelectContactToPay" xml:space="preserve">
-    <value>Abaixo estão todos os contatos em seu livro de contatos. Selecione o contato a quem deseja fazer o pagamento.</value>
+    <value>Ispod su svi kontakti u vašoj knjizi kontakata. Izaberite kontakt kome želite da izvršite uplatu.</value>
   </data>
   <data name="SendCode" xml:space="preserve">
-    <value>Enviar código</value>
+    <value>Pošalji kôd</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
-    <value>O código não estava correto.</value>
+    <value>Šifra nije bila tačna.</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
-    <value>Código de verificação</value>
+    <value>Verifikacioni kôd</value>
   </data>
   <data name="VerifyCode" xml:space="preserve">
-    <value>Verificar código</value>
+    <value>Verifikuj kôd</value>
   </data>
   <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
-    <value>Também precisamos validar seu número de telefone celular. Digite seu número de telefone celular abaixo, usando o formato de número de telefone internacional, sem espaços.</value>
+    <value>Takođe moramo da potvrdimo vaš broj mobilnog telefona. Unesite dole navedeni broj mobilnog telefona koristeći međunarodni format broja telefona, bez prostora.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Para uso educacional ou experimental.</value>
+    <value>Za edukativnu ili eksperimentalnu upotrebu.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Esta opção permite que você use o Tag ID para fins educacionais, experimentais ou de teste. Não há custos incorridos ao usar esta opção. A conta pode ser removida quando não for mais usada. Não há garantia de que o prestador de serviços educacionais ou experimentais selecionado continuará a operar por longos períodos de tempo.</value>
+    <value>Ova opcija vam omogućava da koristite ID oznake u edukativne, eksperimentalne ili probne svrhe. Prilikom korišćenja ove opcije nema nastalih troškova. Nalog se može ukloniti kada se više ne koristi. Ne postoji garancija da će izabrani obrazovni ili eksperimentalni pružalac usluga nastaviti sa radom duži vremenski period.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Para trabalho ou uso pessoal.</value>
+    <value>Za posao ili ličnu upotrebu.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Esta opção permite que você use o Tag ID para fins de trabalho ou pessoais. Você pode usar o aplicativo por três meses sem nenhum custo. Após esse período, certas operações podem incorrer em custos.</value>
+    <value>Ova opcija vam omogućava da koristite ID oznake u radne ili lične svrhe. Aplikaciju možete koristiti tri meseca bez troškova. Nakon ovog vremenskog perioda, određene operacije mogu naneti troškove.</value>
   </data>
   <data name="SelectPurpose" xml:space="preserve">
-    <value>Selecionar propósito</value>
+    <value>Izaberi svrhu</value>
   </data>
   <data name="WelcomeToTagCodeSent" xml:space="preserve">
-    <value>Um código foi enviado para o número indicado acima. Quando você recebê-lo, digite o código de verificação abaixo para continuar.</value>
+    <value>Šifra je poslata na gore navedeni broj. Kada ga primite, unesite dole navedeni verifikacioni kôd da biste nastavili.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
-    <value>Convite de Reivindicação</value>
+    <value>Pozivnica za zahtev</value>
   </data>
   <data name="Invitation" xml:space="preserve">
-    <value>Convite</value>
+    <value>Poziv</value>
   </data>
   <data name="NotAnInvitationCode" xml:space="preserve">
-    <value>Não é um código de convite.</value>
+    <value>Nije pozivni kod.</value>
   </data>
   <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
-    <value>Este código representa um convite de Identificação de Tag, e não pode ser reclamado neste momento.</value>
+    <value>Ovaj kôd predstavlja poziv za ID oznake i trenutno se ne može tražiti.</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
-    <value>Criar conta</value>
+    <value>Kreiraj nalog</value>
   </data>
   <data name="InvalidInvitationCode" xml:space="preserve">
-    <value>Código de convite inválido.</value>
+    <value>Nevažeći pozivni kôd.</value>
   </data>
   <data name="ScanInvitation" xml:space="preserve">
-    <value>Convite de varredura</value>
+    <value>Pozivnica za skeniranje</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
-    <value>Seu provedor de serviços foi selecionado para ser</value>
+    <value>Dobavljač usluga je izabran da bude</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Você pode optar por criar uma conta neste provedor. Digite o nome da conta que deseja criar e pressione o botão Criar novo. Você também pode optar por digitalizar um convite ou código de transferência, para usar uma conta que já foi preparada para você, em outro provedor de serviços. Clique no botão 'Procurar' para digitalizar um código de convite.</value>
+    <value>Možete odabrati da kreirate nalog kod ovog dobavljača. Unesite ime naloga koji želite da kreirate i pritisnite dugme Kreiraj novi. Takođe možete odabrati da skenirate pozivnicu ili šifru za prenos da biste koristili nalog koji je već pripremljen za vas, kod drugog dobavljača usluga. Kliknite na dugme "Skeniraj pozivnicu" da biste skenirali kôd pozivnice.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Falha ao vincular {0} de modelo de exibição para {1} de página</value>
+    <value>Povezivanje viewmodela za {0} stranice nije uspelo {1}</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao restaurar estado para {0} de modelo de visualização para {1} de página</value>
+    <value>Vraćanje stanja u prethodno stanje za viewmodel {0} za stranicu {1}</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao salvar estado para {0} de modelo de exibição para {1} de página</value>
+    <value>Čuvanje stanja za viewmodel za {0} stranice nije uspelo {1}</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Falha ao desvincular o modelo de visualização {0} para {1} de página</value>
+    <value>Nije uspelo otpojanjanje viewmodel {0} za stranicu {1}</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
-    <value>Continue de qualquer maneira</value>
+    <value>Ipak nastavi</value>
   </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Parece que o banco de dados não foi fechado corretamente e, portanto, pode ser danificado. Uma tentativa pode ser feita para reparar o banco de dados, primeiro limpando-o. Gostaria de proceder?</value>
+    <value>Izgleda da baza podataka nije ispravno zatvorena i da je stoga oštećena. Prvi put možete da pokušate da popravite bazu podataka tako što ćete je prvo brišući. Da li biste želeli da nastavite?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
-    <value>Problema de banco de dados</value>
+    <value>Problem sa bazom podataka</value>
   </data>
   <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>O reparo do banco de dados falhou. Estamos sem opções agora, então continue por sua conta e risco.</value>
+    <value>Popravka baze podataka nije uspela. Sada nam je poneta opcija, zato nastavite na sopstveni rizik.</value>
   </data>
   <data name="EDalerServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço eDaler encontrado no corretor.</value>
+    <value>Nije pronađena eDaler usluga na brokeru.</value>
   </data>
   <data name="FailedToClosePage" xml:space="preserve">
-    <value>Falha ao fechar página</value>
+    <value>Zatvaranje stranice nije uspelo</value>
   </data>
   <data name="FailedToNavigateToPage" xml:space="preserve">
-    <value>Falha ao navegar para {0} {1} de página</value>
+    <value>Kretanje do stranice nije uspelo {0} {1}</value>
   </data>
   <data name="FileUploadServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de upload de arquivo encontrado no corretor.</value>
+    <value>Nije pronađena nijedna usluga otpremanja datoteka na brokeru.</value>
   </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
-    <value>Não é uma reivindicação iotdisco válida URI.</value>
+    <value>Nije važeći iotdisco zahtev URI.</value>
   </data>
   <data name="LegalServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço legal encontrado no corretor.</value>
+    <value>Nije pronađena pravna usluga na brokeru.</value>
   </data>
   <data name="ProvisioningServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de provisionamento encontrado no corretor.</value>
+    <value>Nije pronađena usluga pružanja na brokeru.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
-    <value>Reparar e continuar</value>
+    <value>Popravka i nastavak</value>
   </data>
   <data name="ThingRegistryServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de registro de coisa encontrado no corretor.</value>
+    <value>Nije pronađena usluga registratora kod brokera.</value>
   </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
-    <value>Não é possível obter lista dos meus dispositivos.</value>
+    <value>Nije moguće dobiti listu mojih uređaja.</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Telefone</value>
+    <value>Telefon</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
-    <value>Não é possível acessar informações de convite.</value>
+    <value>Nije moguće pristupiti informacijama o pozivu.</value>
   </data>
   <data name="InvitationAccepted" xml:space="preserve">
-    <value>Convite aceito</value>
+    <value>Pozivnica prihvaćena</value>
   </data>
   <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
-    <value>Você foi convidado a criar uma conta na {0}. Pressione OK e digite o nome da conta que deseja criar.</value>
+    <value>Pozvani ste da kreirate nalog na {0}. Kliknite na dugme "U redu" i unesite ime naloga koji želite da kreirate.</value>
   </data>
   <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
-    <value>Tem certeza que deseja transferir sua identidade legal do aplicativo para outro? A identidade será removida deste dispositivo uma vez concluída. Certifique-se também de que ninguém mais poderá ver sua tela durante o processo.</value>
+    <value>Želite li zaista da prenesete svoj pravni identitet iz aplikacije u drugi? Identitet će biti uklonjen sa ovog uređaja kada se dovrši. Takođe se uverite da niko drugi ne može da vidi ekran tokom procesa.</value>
   </data>
   <data name="TransferId" xml:space="preserve">
-    <value>ID de transferência</value>
+    <value>ID prenosa</value>
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
-    <value>Escaneie o código de convite QR abaixo de um dispositivo que está sendo inicializado, para transferir a Identidade Digital neste dispositivo para o segundo dispositivo. Uma vez que o código é digitalizado e a identidade transferida, ele será removido deste dispositivo.</value>
+    <value>Skenirajte Kôd QR pozivnice ispod sa uređaja koji se inicijalira da biste preneli digitalni identitet na ovom uređaju na drugi uređaj. Kada se kôd skenira i identitet prenese, biće uklonjen sa ovog uređaja.</value>
   </data>
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
-    <value>Confirme digitando seu número PIN.</value>
+    <value>Potvrdite unošenjem PIN broja.</value>
   </data>
   <data name="UnexpectedResponse" xml:space="preserve">
-    <value>Uma resposta inesperada foi recebida.</value>
+    <value>Primljen je neočekivani odgovor.</value>
   </data>
   <data name="EnterPin" xml:space="preserve">
-    <value>Digite PIN</value>
+    <value>Unesite PIN</value>
   </data>
   <data name="ChangePin" xml:space="preserve">
-    <value>Alterar PIN</value>
+    <value>Promeni PIN</value>
   </data>
   <data name="EnterNewPin" xml:space="preserve">
-    <value>Digite novo PIN</value>
+    <value>Unesite novi PIN</value>
   </data>
   <data name="RepeatNewPin" xml:space="preserve">
-    <value>Repita o novo PIN</value>
+    <value>Ponovi novi PIN</value>
   </data>
   <data name="Enter" xml:space="preserve">
-    <value>Entrar</value>
+    <value>Ući</value>
   </data>
   <data name="PinChanged" xml:space="preserve">
-    <value>O PIN foi alterado com sucesso.</value>
+    <value>PIN je uspešno promenjen.</value>
   </data>
   <data name="UnableToChangePassword" xml:space="preserve">
-    <value>Não é possível alterar a senha da rede.</value>
+    <value>Nije moguće promeniti mrežnu lozinku.</value>
   </data>
   <data name="PresenceSubscriptionReceived1" xml:space="preserve">
-    <value>Você recebeu uma assinatura de presença de:</value>
+    <value>Pretplatu na prisustvo dobili ste od:</value>
   </data>
   <data name="PresenceSubscriptionReceived2" xml:space="preserve">
-    <value>Se você aceitar esse pedido, eles podem ver sua presença online.</value>
+    <value>Ako prihvatite ovaj zahtev, oni mogu da vide vaše prisustvo na mreži.</value>
   </data>
   <data name="PresenceSubscriptionReceived3" xml:space="preserve">
-    <value>Se você rejeitar este pedido, eles serão notificados de que você não concorda com essa solicitação.</value>
+    <value>Ako odbijete ovaj zahtev, biće obavešteni da ne pristajete na ovaj zahtev.</value>
   </data>
   <data name="PresenceSubscriptionReceived4" xml:space="preserve">
-    <value>Você também pode ignorar a solicitação fechando o diálogo sem retornar uma resposta.</value>
+    <value>Zahtev možete zanemariti i zatvaranjem dijaloga bez uzvraćanja odgovora.</value>
   </data>
   <data name="PresenceSubscriptionReceived5" xml:space="preserve">
-    <value>O que você quer fazer?</value>
+    <value>Šta želite da uradite?</value>
   </data>
   <data name="PresenceSubscriptionRequest" xml:space="preserve">
-    <value>Solicitação de Assinatura de Presença</value>
+    <value>Zahtev za pretplatu na prisustvo</value>
   </data>
   <data name="Reject" xml:space="preserve">
-    <value>Rejeitar</value>
+    <value>Odbaci</value>
   </data>
   <data name="SubscribeToPresence1" xml:space="preserve">
-    <value>Você deseja se inscrever na presença de:</value>
+    <value>Želite li da se pretplatite na prisustvo:</value>
   </data>
   <data name="SubscribeToPresence2" xml:space="preserve">
-    <value>Ao assinar a presença de alguém, e se eles aceitarem, você será notificado de sua presença online.</value>
+    <value>Pretplatom na prisustvo nekoga, a ako prihvati, bićete obavešteni o njegovom onlajn prisustvu.</value>
   </data>
   <data name="SubscribeToPresence3" xml:space="preserve">
-    <value>O que você quer fazer?</value>
+    <value>Šta želite da uradite?</value>
   </data>
   <data name="SubscribeToPresence" xml:space="preserve">
-    <value>Se inscrever para presença?</value>
+    <value>Da se pretplatim na prisustvo?</value>
   </data>
   <data name="Chat" xml:space="preserve">
-    <value>Bater papo</value>
+    <value>Razgovor</value>
   </data>
   <data name="SendPayment" xml:space="preserve">
-    <value>Enviar pagamento</value>
+    <value>Pošalji uplatu</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Enviar</value>
+    <value>Poљalji</value>
   </data>
 </root>

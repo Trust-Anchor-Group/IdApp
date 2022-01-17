@@ -118,217 +118,217 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>Sobre o aplicativo</value>
+    <value>Acerca de la aplicación</value>
   </data>
   <data name="Accept" xml:space="preserve">
-    <value>Aceitar</value>
+    <value>Aceptar</value>
   </data>
   <data name="Account" xml:space="preserve">
-    <value>Conta</value>
+    <value>Cuenta</value>
   </data>
   <data name="AccountEvent" xml:space="preserve">
-    <value>Evento de conta</value>
+    <value>Evento de cuenta</value>
   </data>
   <data name="AccountEventDescription" xml:space="preserve">
-    <value>Abaixo você pode ver informações sobre um único evento de conta.</value>
+    <value>A continuación puede ver información sobre un evento de una sola cuenta.</value>
   </data>
   <data name="AccountNameAlreadyTaken" xml:space="preserve">
-    <value>O nome da conta {0} já está tomado. Escolha outro.</value>
+    <value>El nombre de la cuenta ya {0} está tomada. Elige otro.</value>
   </data>
   <data name="AccountNameIsInvalid" xml:space="preserve">
-    <value>O nome da conta é inválido</value>
+    <value>El nombre de la cuenta no es válido</value>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Adicionar</value>
+    <value>Agregar</value>
   </data>
   <data name="AddContact" xml:space="preserve">
-    <value>Adicionar contato</value>
+    <value>Agregar contacto</value>
   </data>
   <data name="AddPart" xml:space="preserve">
-    <value>Adicionar parte</value>
+    <value>Añadir pieza</value>
   </data>
   <data name="Address" xml:space="preserve">
-    <value>Endereço</value>
+    <value>Dirección</value>
   </data>
   <data name="Address2" xml:space="preserve">
-    <value>Endereço (linha 2)</value>
+    <value>Dirección (fila 2)</value>
   </data>
   <data name="Altitude" xml:space="preserve">
-    <value>Altitude</value>
+    <value>Altitud</value>
   </data>
   <data name="Amount" xml:space="preserve">
-    <value>Quantidade:</value>
+    <value>Importe:</value>
   </data>
   <data name="AmountExtra" xml:space="preserve">
-    <value>Valor Extra: (opcional, sugestão)</value>
+    <value>Cantidad Extra: (opcional, sugerencia)</value>
   </data>
   <data name="Apartment" xml:space="preserve">
     <value>Apartamento</value>
   </data>
   <data name="APeerReviewYouhaveRequestedHasBeenAccepted" xml:space="preserve">
-    <value>Uma revisão por pares que você pediu foi aceita.</value>
+    <value>Se ha aceptado una revisión por pares que solicitó.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError" xml:space="preserve">
-    <value>Uma revisão por pares solicitada foi rejeitada, devido a um erro de assinatura.</value>
+    <value>Una revisión por pares que solicitó ha sido rechazada debido a un error de firma.</value>
   </data>
   <data name="APeerYouRequestedToReviewHasRejected" xml:space="preserve">
-    <value>Um colega que você pediu para revisar seu pedido, rejeitou aprová-lo.</value>
+    <value>Un compañero que solicitó para revisar su solicitud, ha rechazado aprobarla.</value>
   </data>
   <data name="APetitionHasBeenSentToTheContract" xml:space="preserve">
-    <value>Uma petição foi enviada para as partes do contrato. Se alguma das partes aceitar a petição, as informações do contrato serão exibidas na tela.</value>
+    <value>Se ha enviado una petición a las partes del contrato. Si alguna de las partes acepta la petición, la información del contrato se mostrará en la pantalla.</value>
   </data>
   <data name="APetitionHasBeenSentToTheOwner" xml:space="preserve">
-    <value>Uma petição foi enviada ao dono da identidade. Se o proprietário aceitar a petição, as informações de identidade serão exibidas na tela.</value>
+    <value>Se ha enviado una petición al propietario de la identidad. Si el propietario acepta la petición, la información de identidad se mostrará en la pantalla.</value>
   </data>
   <data name="APetitionHasBeenSentToYourPeer" xml:space="preserve">
-    <value>Uma petição foi enviada ao seu par.</value>
+    <value>Se ha enviado una petición a su compañero</value>
   </data>
   <data name="ApproveInformation" xml:space="preserve">
-    <value>Aprovar informações</value>
+    <value>Aprobar información</value>
   </data>
   <data name="Archiving_Optional" xml:space="preserve">
-    <value>Arquivamento (opcional)</value>
+    <value>Archivado (opcional)</value>
   </data>
   <data name="Archiving_Required" xml:space="preserve">
-    <value>Arquivamento (obrigatório)</value>
+    <value>Archivado (requerido)</value>
   </data>
   <data name="Area" xml:space="preserve">
     <value>Área</value>
   </data>
   <data name="AreYouSureYouWantToRemoveContact" xml:space="preserve">
-    <value>Tem certeza que deseja remover esse contato da sua lista de contatos?</value>
+    <value>¿Está seguro de que desea eliminar este contacto de su lista de contactos?</value>
   </data>
   <data name="AreYouSureYouWantToReportYourLegalIdentityAsCompromized" xml:space="preserve">
-    <value>Tem certeza que quer informar sua identidade legal como comprometida, roubada ou hackeada?</value>
+    <value>¿Está seguro de que desea denunciar su identidad legal como comprometida, robada o pirateada?</value>
   </data>
   <data name="AreYouSureYouWantToRevokeYourLegalIdentity" xml:space="preserve">
-    <value>Tem certeza que quer revogar sua identidade legal do pedido?</value>
+    <value>¿Está seguro de que desea revocar su identidad legal de la solicitud?</value>
   </data>
   <data name="Balance" xml:space="preserve">
-    <value>Equilíbrio:</value>
+    <value>Equilibrar:</value>
   </data>
   <data name="Building" xml:space="preserve">
-    <value>Edifício</value>
+    <value>Edificio</value>
   </data>
   <data name="CanActAsTemplate" xml:space="preserve">
-    <value>Pode atuar como modelo</value>
+    <value>Puede actuar como plantilla</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
   </data>
   <data name="CantConnectTo" xml:space="preserve">
-    <value>Não pode se conectar a {0}</value>
+    <value>No se puede conectar a {0}</value>
   </data>
   <data name="Change" xml:space="preserve">
-    <value>Mudar:</value>
+    <value>Cambio:</value>
   </data>
   <data name="ChooseAccount" xml:space="preserve">
-    <value>Escolha conta</value>
+    <value>Elegir cuenta</value>
   </data>
   <data name="City" xml:space="preserve">
-    <value>Cidade</value>
+    <value>Ciudad</value>
   </data>
   <data name="ClaimThing" xml:space="preserve">
-    <value>Coisa de Reivindicação</value>
+    <value>Reclamar cosa</value>
   </data>
   <data name="Class" xml:space="preserve">
-    <value>Classe</value>
+    <value>Clase</value>
   </data>
   <data name="ClientSignature" xml:space="preserve">
-    <value>Assinatura do cliente</value>
+    <value>Firma del cliente</value>
   </data>
   <data name="ClientSignatureInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações relacionadas à assinatura de um cliente.</value>
+    <value>La siguiente es información relacionada con una firma de cliente.</value>
   </data>
   <data name="ClientSignatures" xml:space="preserve">
-    <value>Assinaturas do cliente</value>
+    <value>Firmas de clientes</value>
   </data>
   <data name="ClientSignaturesInfoText" xml:space="preserve">
-    <value>Assinaturas criptográficas feitas por diferentes partes estão listadas abaixo.</value>
+    <value>Las firmas criptográficas hechas por diferentes partes se enumeran a continuación.</value>
   </data>
   <data name="CodeNotRecognized" xml:space="preserve">
-    <value>Código não reconhecido.</value>
+    <value>Código no reconocido.</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirmar</value>
   </data>
   <data name="Connect" xml:space="preserve">
-    <value>Ligar</value>
+    <value>Conectar</value>
   </data>
   <data name="Connection" xml:space="preserve">
-    <value>Conexão</value>
+    <value>Conexión</value>
   </data>
   <data name="Contacts" xml:space="preserve">
-    <value>Contatos</value>
+    <value>Contactos</value>
   </data>
   <data name="ContactsDescription" xml:space="preserve">
-    <value>Abaixo estão todos os contatos em seu livro de contatos. Clique em qualquer um para interagir com esse contato.</value>
+    <value>A continuación se muestran todos los contactos en su libreta de contactos. Haga clic en cualquiera para interactuar con ese contacto.</value>
   </data>
   <data name="Continue" xml:space="preserve">
     <value>Continuar</value>
   </data>
   <data name="ContractHasBeenDeleted" xml:space="preserve">
-    <value>O contrato foi suprimido.</value>
+    <value>Se ha suprimido el contrato.</value>
   </data>
   <data name="ContractHasBeenObsoleted" xml:space="preserve">
-    <value>O contrato foi obsoleto.</value>
+    <value>El contrato ha quedado obsoleto.</value>
   </data>
   <data name="ContractId" xml:space="preserve">
-    <value>ID do contrato</value>
+    <value>ID de contrato</value>
   </data>
   <data name="ContractRoleMustBeSelected" xml:space="preserve">
-    <value>Selecione a função de contrato primeiro e tente novamente.</value>
+    <value>Seleccione primero el rol de contrato y, a continuación, inténtelo de nuevo.</value>
   </data>
   <data name="Contracts" xml:space="preserve">
     <value>Contratos</value>
   </data>
   <data name="ContractSuccessfullySigned" xml:space="preserve">
-    <value>Contrato assinado com sucesso.</value>
+    <value>Contrato firmado con éxito.</value>
   </data>
   <data name="ContractTemplates" xml:space="preserve">
-    <value>Modelos de contrato</value>
+    <value>Plantillas de contrato</value>
   </data>
   <data name="ContractTemplatesInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de modelos de contrato que você usou. Clique em um modelo para criar um novo contrato com base nesse modelo.</value>
+    <value>A continuación se muestra una lista de las plantillas de contrato que ha utilizado. Haga clic en una plantilla para crear un nuevo contrato basado en esa plantilla.</value>
   </data>
   <data name="ContractVisibilityMustBeSelected" xml:space="preserve">
-    <value>Selecione a visibilidade do contrato primeiro e tente novamente.</value>
+    <value>Seleccione primero la visibilidad del contrato y, a continuación, inténtelo de nuevo.</value>
   </data>
   <data name="ContractVisibility_CreatorAndParts" xml:space="preserve">
-    <value>Criador e peças</value>
+    <value>Creador y partes</value>
   </data>
   <data name="ContractVisibility_DomainAndParts" xml:space="preserve">
-    <value>Domínio e peças</value>
+    <value>Dominio y piezas</value>
   </data>
   <data name="ContractVisibility_Public" xml:space="preserve">
-    <value>Público, não pesquisável</value>
+    <value>Público, no se puede buscar</value>
   </data>
   <data name="ContractVisibility_PublicSearchable" xml:space="preserve">
-    <value>Público e pesquisável</value>
+    <value>Público y con capacidad de búsqueda</value>
   </data>
   <data name="CouldYouPleaseReviewMyIdentityInformation" xml:space="preserve">
-    <value>Poderia revisar minhas informações de identidade?</value>
+    <value>¿Podría revisar mi información de identidad?</value>
   </data>
   <data name="Country" xml:space="preserve">
     <value>País</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Criar</value>
+    <value>Crear</value>
   </data>
   <data name="Created" xml:space="preserve">
-    <value>Criado</value>
+    <value>Creado</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
-    <value>Criar novo</value>
+    <value>Crear nuevo</value>
   </data>
   <data name="Decline" xml:space="preserve">
-    <value>Declinar</value>
+    <value>Rechazar</value>
   </data>
   <data name="DefinePin" xml:space="preserve">
     <value>Definir PIN</value>
   </data>
   <data name="DeleteContract" xml:space="preserve">
-    <value>Excluir contrato</value>
+    <value>Eliminar contrato</value>
   </data>
   <data name="Devices" xml:space="preserve">
     <value>Dispositivos</value>
@@ -337,190 +337,190 @@
     <value>Digerir</value>
   </data>
   <data name="DisownThing" xml:space="preserve">
-    <value>Coisa renegada</value>
+    <value>Cosa repudiada</value>
   </data>
   <data name="DomainDoesNotFollowEncryptionPolicy" xml:space="preserve">
-    <value>{0} não segue a política onipresente de criptografia</value>
+    <value>{0} no sigue la política de cifrado ubicuo</value>
   </data>
   <data name="DomainIsNotAValidOperator" xml:space="preserve">
-    <value>{0} não é um operador válido</value>
+    <value>{0} no es un operador válido</value>
   </data>
   <data name="DomainNameIsInvalid" xml:space="preserve">
-    <value>O nome de domínio é inválido</value>
+    <value>El nombre de dominio no es válido</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Duração</value>
+    <value>Duración</value>
   </data>
   <data name="EDalerNote" xml:space="preserve">
-    <value>Nota eDaler</value>
+    <value>Nota de eDaler</value>
   </data>
   <data name="EDalerNoteDescription" xml:space="preserve">
-    <value>O código representa uma nota eDaler. Você pode aceitá-lo pressionando o botão Aceitar abaixo. Se não tiver sido aceita antes, sua carteira receberá o valor do eDaler especificado na nota.</value>
+    <value>El código representa una nota de eDaler. Puede aceptarlo presionando el botón Aceptar a continuación. Si no ha sido aceptado antes, su billetera recibirá la cantidad de eDaler especificada en la nota.</value>
   </data>
   <data name="EncryptMessage" xml:space="preserve">
-    <value>Mensagem criptografada</value>
+    <value>Cifrar mensaje</value>
   </data>
   <data name="EnterPhoneNumber" xml:space="preserve">
-    <value>Número de telefone</value>
+    <value>Número de teléfono</value>
   </data>
   <data name="ErrorTitle" xml:space="preserve">
-    <value>Ocorreu um erro</value>
+    <value>Se ha producido un error</value>
   </data>
   <data name="Exit" xml:space="preserve">
-    <value>Sair</value>
+    <value>Salida</value>
   </data>
   <data name="ExpiredEDalerUri" xml:space="preserve">
-    <value>Este código eDaler expirou.</value>
+    <value>Este código eDaler ha caducado.</value>
   </data>
   <data name="ExpiresAt" xml:space="preserve">
-    <value>(Expira {0})</value>
+    <value>(Caduca {0})</value>
   </data>
   <data name="FailedToLoadPhoto" xml:space="preserve">
-    <value>Falha ao carregar foto</value>
+    <value>Error al cargar la foto</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>Nome próprio</value>
+    <value>Nombre</value>
   </data>
   <data name="From" xml:space="preserve">
     <value>De</value>
   </data>
   <data name="General" xml:space="preserve">
-    <value>Geral</value>
+    <value>General</value>
   </data>
   <data name="GeneralInformation" xml:space="preserve">
-    <value>Informações Gerais</value>
+    <value>Información General</value>
   </data>
   <data name="GeneralInformationInfoText" xml:space="preserve">
-    <value>A seguir, algumas informações gerais sobre o contrato.</value>
+    <value>A continuación se presenta información general sobre el contrato.</value>
   </data>
   <data name="GenerateQrCode" xml:space="preserve">
-    <value>Gerar QR Code</value>
+    <value>Generar código QR</value>
   </data>
   <data name="HashFunction" xml:space="preserve">
-    <value>Função hash</value>
+    <value>Función Hash</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Casa</value>
+    <value>Hogar</value>
   </data>
   <data name="HumanReadableText" xml:space="preserve">
-    <value>Texto legível humano</value>
+    <value>Texto legible por humanos</value>
   </data>
   <data name="IApproveOfMyPersonalInformationToBeAssociated" xml:space="preserve">
-    <value>Aprovo que minhas informações pessoais estejam associadas à identidade jurídica que estou revisando, para fins de transparência.</value>
+    <value>Apruebo que mi información personal se asocie con la identidad legal que estoy revisando, con fines de transparencia.</value>
   </data>
   <data name="ID" xml:space="preserve">
-    <value>ID</value>
+    <value>IDENTIFICACIÓN</value>
   </data>
   <data name="IdCopiedSuccessfully" xml:space="preserve">
-    <value>Sua id foi copiada para a prancheta.</value>
+    <value>Su ID fue copiado en el portapapeles.</value>
   </data>
   <data name="Identity" xml:space="preserve">
-    <value>Identidade</value>
+    <value>Identidad</value>
   </data>
   <data name="IdentityInformation" xml:space="preserve">
-    <value>Informações de identidade</value>
+    <value>Información de identidad</value>
   </data>
   <data name="IdentityInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações pessoais registradas para a parte que assinou o contrato.</value>
+    <value>La siguiente es la información personal registrada para la parte que firmó el contrato.</value>
   </data>
   <data name="IdentityState_Approved" xml:space="preserve">
-    <value>Aprovado</value>
+    <value>Aprobado</value>
   </data>
   <data name="IdentityState_Compromized" xml:space="preserve">
     <value>Compromizado</value>
   </data>
   <data name="IdentityState_Created" xml:space="preserve">
-    <value>Criado</value>
+    <value>Creado</value>
   </data>
   <data name="IdentityState_Obsoleted" xml:space="preserve">
     <value>Obsoleto</value>
   </data>
   <data name="IdentityState_Rejected" xml:space="preserve">
-    <value>Indeferido</value>
+    <value>Rechazado</value>
   </data>
   <data name="Ignore" xml:space="preserve">
     <value>Ignorar</value>
   </data>
   <data name="IHaveCarefullyReviewedAllInformationAbove" xml:space="preserve">
-    <value>Revisei cuidadosamente todas as informações acima, e acho que é uma representação correta da pessoa que solicitou a revisão:</value>
+    <value>He revisado cuidadosamente toda la información anterior y encuentro que es una representación correcta de la persona que solicita la revisión:</value>
   </data>
   <data name="Incomplete" xml:space="preserve">
     <value>Incompleto</value>
   </data>
   <data name="InformationAboutClaimedThingText" xml:space="preserve">
-    <value>As seguintes informações são disponibilizadas sobre a coisa cujo código você digitalizou. Escolha se você quer tentar reivindicar essa coisa como sua, e também se você quiser torná-la publicamente pesquisável no Registro de Coisas.</value>
+    <value>La siguiente información está disponible sobre la cosa cuyo código escaneó. Elija si desea intentar reclamar esta cosa como suya, y también si desea que se pueda buscar públicamente en el Registro de cosas.</value>
   </data>
   <data name="InformationAboutThing" xml:space="preserve">
-    <value>Informações sobre o negócio</value>
+    <value>Información sobre la cosa</value>
   </data>
   <data name="InformationAboutThingText" xml:space="preserve">
-    <value>As seguintes informações são disponibilizadas sobre a coisa. Você também pode ver os dados atuais dos sensores que você está autorizado a ver. Se a coisa é um atuador, e você tem o direito de controlar a coisa, parâmetros de controle também serão mostrados.</value>
+    <value>La siguiente información está disponible sobre la cosa. También puede ver los datos actuales del sensor que está autorizado a ver. Si la cosa es un actuador, y usted tiene derechos para controlar la cosa, también se mostrarán los parámetros de control.</value>
   </data>
   <data name="InformationIsMissingOrInvalid" xml:space="preserve">
-    <value>As informações estão faltando ou inválidas</value>
+    <value>Falta información o no es válida</value>
   </data>
   <data name="Inspect" xml:space="preserve">
-    <value>Inspecione a comunicação</value>
+    <value>Inspeccionar la comunicación</value>
   </data>
   <data name="InvalidEDalerUri" xml:space="preserve">
-    <value>EDaler URI inválido: {0}</value>
+    <value>URI de eDaler no válido: {0}</value>
   </data>
   <data name="InvalidIoTDiscoveryCode" xml:space="preserve">
-    <value>Código de descoberta de IoT inválido</value>
+    <value>Código de detección de IoT no válido</value>
   </data>
   <data name="InvalidUsernameOrPassword" xml:space="preserve">
-    <value>Nome de usuário ou senha inválidos</value>
+    <value>Nombre de usuario o contraseña no válidos</value>
   </data>
   <data name="InvitePeerToReview" xml:space="preserve">
-    <value>Convide peer para revisão</value>
+    <value>Invitar a un compañero a revisar</value>
   </data>
   <data name="Key" xml:space="preserve">
-    <value>Chave</value>
+    <value>Llave</value>
   </data>
   <data name="LastNames" xml:space="preserve">
-    <value>Sobrenomes</value>
+    <value>Apellido(s)</value>
   </data>
   <data name="Latitude" xml:space="preserve">
-    <value>Latitude</value>
+    <value>Latitud</value>
   </data>
   <data name="LegalId" xml:space="preserve">
-    <value>Legal Id</value>
+    <value>Identificación legal</value>
   </data>
   <data name="Loading" xml:space="preserve">
-    <value>Carregamento...</value>
+    <value>Carga...</value>
   </data>
   <data name="LocalName" xml:space="preserve">
-    <value>Nome local</value>
+    <value>Nombre local</value>
   </data>
   <data name="Longitude" xml:space="preserve">
-    <value>Longitude</value>
+    <value>Longitud</value>
   </data>
   <data name="MachineReadableInfoText" xml:space="preserve">
-    <value>Uma visão geral dos dados legíveis pela máquina incorporados no contrato é mostrada abaixo.</value>
+    <value>A continuación se muestra una descripción general de los datos legibles por máquina incrustados en el contrato.</value>
   </data>
   <data name="MachineReadableText" xml:space="preserve">
-    <value>Informações legíveis à máquina</value>
+    <value>Información legible por máquina</value>
   </data>
   <data name="MainPageTitle" xml:space="preserve">
-    <value>Minha ID Digital</value>
+    <value>Mi ID digital</value>
   </data>
   <data name="MakeThingPublic" xml:space="preserve">
-    <value>Torne a coisa pública</value>
+    <value>Hacer que las cosas se hagan públicas</value>
   </data>
   <data name="Manufacturer" xml:space="preserve">
     <value>Fabricante</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Mensagem</value>
+    <value>Mensaje</value>
   </data>
   <data name="MeterLocation" xml:space="preserve">
-    <value>Localização do medidor</value>
+    <value>Ubicación del medidor</value>
   </data>
   <data name="MeterNumber" xml:space="preserve">
-    <value>Número do medidor</value>
+    <value>Número de medidor</value>
   </data>
   <data name="MiddleNames" xml:space="preserve">
-    <value>Nome do meio(s)</value>
+    <value>Segundo(s) nombre(s)</value>
   </data>
   <data name="Mode" xml:space="preserve">
     <value>Modo</value>
@@ -529,262 +529,262 @@
     <value>Modelo</value>
   </data>
   <data name="MyContracts" xml:space="preserve">
-    <value>Meus Contratos</value>
+    <value>Mis contratos</value>
   </data>
   <data name="MyContractsInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de contratos que você criou. Clique em um contrato para obter mais informações sobre ele.</value>
+    <value>A continuación se muestra una lista de los contratos que ha creado. Haga clic en un contrato para obtener más información al respecto.</value>
   </data>
   <data name="MyCreatedContracts" xml:space="preserve">
-    <value>Meus Contratos Criados</value>
+    <value>Mis contratos creados</value>
   </data>
   <data name="MyIdentity" xml:space="preserve">
-    <value>Minha identidade</value>
+    <value>Mi identidad</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Nome</value>
+    <value>Nombre</value>
   </data>
   <data name="Namespace" xml:space="preserve">
     <value>Namespace</value>
   </data>
   <data name="Network" xml:space="preserve">
-    <value>Rede</value>
+    <value>Red</value>
   </data>
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
-    <value>A rede parece estar faltando. Verifique sua configuração e cobertura e tente novamente.</value>
+    <value>La red parece faltar. Compruebe su configuración y cobertura e inténtelo de nuevo.</value>
   </data>
   <data name="Neuron" xml:space="preserve">
-    <value>Neurônio</value>
+    <value>Neurona</value>
   </data>
   <data name="NewContract" xml:space="preserve">
-    <value>Novo Contrato</value>
+    <value>Nuevo contrato</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Não</value>
+    <value>No</value>
   </data>
   <data name="NoContactsFound" xml:space="preserve">
-    <value>Nenhum contato encontrado.</value>
+    <value>No se han encontrado contactos.</value>
   </data>
   <data name="NoContractsFound" xml:space="preserve">
-    <value>Não foram encontrados contratos.</value>
+    <value>No se encontraron contratos.</value>
   </data>
   <data name="Notary" xml:space="preserve">
-    <value>Notário</value>
+    <value>Notario</value>
   </data>
   <data name="NotConnectedToTheOperator" xml:space="preserve">
-    <value>Não conectado ao operador</value>
+    <value>No conectado al operador</value>
   </data>
   <data name="NoThingsFound" xml:space="preserve">
-    <value>Nenhuma coisa encontrada.</value>
+    <value>No se encontraron cosas.</value>
   </data>
   <data name="ObsoleteContract" xml:space="preserve">
     <value>Contrato obsoleto</value>
   </data>
   <data name="Offline" xml:space="preserve">
-    <value>Offline</value>
+    <value>Sin conexión</value>
   </data>
   <data name="Ok" xml:space="preserve">
-    <value>OKEY</value>
+    <value>DE ACUERDO</value>
   </data>
   <data name="Online" xml:space="preserve">
-    <value>Online</value>
+    <value>En línea</value>
   </data>
   <data name="Open" xml:space="preserve">
     <value>Abrir</value>
   </data>
   <data name="OperatorDoesNotSupportLegalIdentitiesAndSmartContracts" xml:space="preserve">
-    <value>Operadora não suporta identidades legais e contratos inteligentes</value>
+    <value>El operador no admite identidades legales ni contratos inteligentes</value>
   </data>
   <data name="OperatorDoesNotSupportProvisioningAndDecisionSupportForThings" xml:space="preserve">
-    <value>Operadora não suporta Provisionamento e Suporte de Decisão para as Coisas</value>
+    <value>El operador no admite el aprovisionamiento y la compatibilidad con la toma de decisiones para las cosas</value>
   </data>
   <data name="OperatorDoesNotSupportRegisteringNewAccounts" xml:space="preserve">
-    <value>A operadora {0} não suporta o registro de novas contas</value>
+    <value>El operador {0} no admite el registro de nuevas cuentas</value>
   </data>
   <data name="OperatorDoesNotSupportThingRegistries" xml:space="preserve">
-    <value>Operador não suporta Registros de Coisas</value>
+    <value>El operador no admite registros de cosas</value>
   </data>
   <data name="OperatorDomainOther" xml:space="preserve">
     <value>&lt;Other&gt;</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opções</value>
+    <value>Opciones</value>
   </data>
   <data name="Parameters" xml:space="preserve">
-    <value>Parâmetros</value>
+    <value>Parámetros</value>
   </data>
   <data name="ParametersInfoText" xml:space="preserve">
-    <value>Os parâmetros do contrato são mostrados abaixo, juntamente com seus valores correspondentes.</value>
+    <value>Los parámetros del contrato se muestran a continuación, junto con sus valores correspondientes.</value>
   </data>
   <data name="Parts" xml:space="preserve">
     <value>Partes</value>
   </data>
   <data name="PartsInfoText" xml:space="preserve">
-    <value>As partes (esperadas) definidas para o contrato estão listadas abaixo.</value>
+    <value>Las partes (esperadas) definidas para el contrato se enumeran a continuación.</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Senha</value>
+    <value>Contraseña</value>
   </data>
   <data name="PasswordIsInvalid" xml:space="preserve">
-    <value>A senha é inválida</value>
+    <value>La contraseña no es válida</value>
   </data>
   <data name="MakePayment" xml:space="preserve">
-    <value>Fazer o pagamento</value>
+    <value>Realizar pago</value>
   </data>
   <data name="Payment" xml:space="preserve">
-    <value>Pagamento</value>
+    <value>Pago</value>
   </data>
   <data name="PaymentAcceptance" xml:space="preserve">
-    <value>Aceitação de Pagamentos</value>
+    <value>Aceptación de pagos</value>
   </data>
   <data name="PaymentAcceptanceDescription" xml:space="preserve">
-    <value>Abaixo você pode ver os detalhes do pagamento offline. Se for aceitável, você pode optar por aceitar enviar o pagamento ao Neurônio para processamento.</value>
+    <value>A continuación puede ver los detalles del pago fuera de línea. Si es aceptable, puede optar por aceptar enviar el pago a Neuron para su procesamiento.</value>
   </data>
   <data name="PaymentAlreadySent" xml:space="preserve">
-    <value>As instruções de pagamento já foram enviadas. Você pode resender pagamentos pendentes da exibição de pagamento pendente.</value>
+    <value>Ya se han enviado instrucciones de pago. Puedes reenviar pagos pendientes desde la vista de pagos pendientes.</value>
   </data>
   <data name="PaymentDescription" xml:space="preserve">
-    <value>Digite o valor a pagar ao destinatário abaixo. Uma vez feito, você pode optar por pagar on-line (se conectado) ou offline, clicando no botão correspondente.</value>
+    <value>Ingrese el monto a pagar al destinatario a continuación. Una vez hecho esto, puede optar por pagar en línea (si está conectado) o fuera de línea, haciendo clic en el botón correspondiente.</value>
   </data>
   <data name="PaymentSuccess" xml:space="preserve">
-    <value>Pagamento realizado com sucesso.</value>
+    <value>Pago realizado con éxito.</value>
   </data>
   <data name="PayOffline" xml:space="preserve">
-    <value>Pague offline</value>
+    <value>Pagar sin conexión</value>
   </data>
   <data name="PayOnline" xml:space="preserve">
-    <value>Pague online</value>
+    <value>Pagar en línea</value>
   </data>
   <data name="PeerReview" xml:space="preserve">
-    <value>Revisão por pares</value>
+    <value>Revisión por pares</value>
   </data>
   <data name="PeerReviewAccepted" xml:space="preserve">
-    <value>Revisão por pares aceita</value>
+    <value>Revisión por pares aceptada</value>
   </data>
   <data name="PeerReviewRejected" xml:space="preserve">
-    <value>Revisão por pares rejeitada</value>
+    <value>Revisión por pares rechazada</value>
   </data>
   <data name="PendingPayment" xml:space="preserve">
-    <value>Pagamento pendente</value>
+    <value>Pago pendiente</value>
   </data>
   <data name="PendingPaymentDescription" xml:space="preserve">
-    <value>Abaixo você pode ver informações sobre um pagamento que foi gerado, mas ainda não foi totalmente processado.</value>
+    <value>A continuación puede ver información sobre un pago que se ha generado, pero que aún no se ha procesado por completo.</value>
   </data>
   <data name="PersonalLegalInformation" xml:space="preserve">
-    <value>Informações pessoais/legais</value>
+    <value>Información personal/legal</value>
   </data>
   <data name="PersonalLegalInfoText" xml:space="preserve">
-    <value>Para conseguir uma carteira, realizar transações e assinar contratos inteligentes, você precisa de uma identidade pessoal ou legal atestada atribuída à sua conta.</value>
+    <value>Para poder obtener una billetera, realizar transacciones y firmar contratos inteligentes, necesita una identidad personal o legal certificada asignada a su cuenta.</value>
   </data>
   <data name="PersonalNumber" xml:space="preserve">
-    <value>Número pessoal</value>
+    <value>Número personal</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry" xml:space="preserve">
-    <value>O número pessoal não corresponde aos regulamentos nacionais de números pessoais</value>
+    <value>El número personal no coincide con las regulaciones nacionales de números personales</value>
   </data>
   <data name="PersonalNumberDoesNotMatchCountry_ExpectedFormat" xml:space="preserve">
-    <value>O número pessoal não corresponde aos regulamentos nacionais de números pessoais. Formato esperado: </value>
+    <value>El número personal no coincide con las regulaciones nacionales de números personales. Formato esperado: </value>
   </data>
   <data name="PersonalNumberPlaceholder" xml:space="preserve">
-    <value>Número pessoal ({0})</value>
+    <value>Número personal ({0})</value>
   </data>
   <data name="Petition" xml:space="preserve">
     <value>Pedir</value>
   </data>
   <data name="PetitionContract" xml:space="preserve">
-    <value>Acesso ao Contrato</value>
+    <value>Acceso al Contrato</value>
   </data>
   <data name="PetitionContractInformationText" xml:space="preserve">
-    <value>Uma petição para os dados pessoais em um de seus contratos foi recebida. Revise as informações abaixo e escolha como deseja responder.</value>
+    <value>Se ha recibido una petición de los datos personales en uno de sus contratos. Revise la información a continuación y elija cómo desea responder.</value>
   </data>
   <data name="PetitionIdentity" xml:space="preserve">
-    <value>Acesso à Identidade</value>
+    <value>Acceso a la identidad</value>
   </data>
   <data name="PetitionIdentityInformationText" xml:space="preserve">
-    <value>Uma petição para os dados pessoais de sua identidade legal foi recebida. Revise as informações abaixo e escolha como deseja responder.</value>
+    <value>Se ha recibido una petición de los datos personales de su identidad legal. Revise la información a continuación y elija cómo desea responder.</value>
   </data>
   <data name="PetitionSent" xml:space="preserve">
-    <value>Petição enviada</value>
+    <value>Petición enviada</value>
   </data>
   <data name="PetitionSignature" xml:space="preserve">
-    <value>Assinatura solicitada</value>
+    <value>Firma solicitada</value>
   </data>
   <data name="PetitionSignatureInformationText" xml:space="preserve">
-    <value>Um pedido de sua assinatura foi recebido. Revise o motivo abaixo e as informações sobre quem enviou a solicitação e escolha como deseja responder.</value>
+    <value>Se ha recibido una solicitud de firma. Revise el motivo a continuación y la información sobre quién envió la solicitud y, a continuación, elija cómo desea responder.</value>
   </data>
   <data name="PetitionToViewContractWasDenied" xml:space="preserve">
-    <value>Petição para ver contrato foi negada.</value>
+    <value>La petición para ver el contrato fue denegada.</value>
   </data>
   <data name="PetitionToViewLegalIdentityWasDenied" xml:space="preserve">
-    <value>Petição para ver identidade jurídica foi negada.</value>
+    <value>La petición para ver la identidad legal fue denegada.</value>
   </data>
   <data name="PhotoIsTooLarge" xml:space="preserve">
-    <value>A foto é muito grande.</value>
+    <value>La foto es demasiado grande</value>
   </data>
   <data name="Photos" xml:space="preserve">
     <value>Fotos</value>
   </data>
   <data name="PickPhoto" xml:space="preserve">
-    <value>Escolha foto</value>
+    <value>Elegir foto</value>
   </data>
   <data name="PinIsInvalid" xml:space="preserve">
-    <value>PIN é inválido</value>
+    <value>El PIN no es válido</value>
   </data>
   <data name="PinMustNotIncludeWhitespace" xml:space="preserve">
-    <value>O número PIN não deve incluir espaço branco líder ou de arrasto.</value>
+    <value>El número PIN no debe incluir espacios en blanco iniciales o finales.</value>
   </data>
   <data name="PinOrPassword" xml:space="preserve">
-    <value>PIN ou senha</value>
+    <value>PIN o contraseña</value>
   </data>
   <data name="PinsDoNotMatch" xml:space="preserve">
-    <value>PiNs não correspondem</value>
+    <value>Los PIN no coinciden</value>
   </data>
   <data name="PinTooShort" xml:space="preserve">
-    <value>Número PIN muito curto. Pelo menos {0} números (ou caracteres) são necessários.</value>
+    <value>Número PIN demasiado corto. Se requieren al menos {0} números (o caracteres).</value>
   </data>
   <data name="PleaseReviewAndCheckAllCheckboxes" xml:space="preserve">
-    <value>Revise todas as informações acima e verifique as caixas de seleção correspondentes se as informações estão corretas. Isso deve ser feito antes que você possa aprovar a informação.</value>
+    <value>Revise toda la información anterior y marque las casillas de verificación correspondientes si la información es correcta. Esto debe hacerse antes de que pueda aprobar la información.</value>
   </data>
   <data name="ProductInformation" xml:space="preserve">
-    <value>Informações sobre produtos</value>
+    <value>Información del producto</value>
   </data>
   <data name="Proposal" xml:space="preserve">
-    <value>Proposta</value>
+    <value>Propuesta</value>
   </data>
   <data name="Propose" xml:space="preserve">
-    <value>Propor</value>
+    <value>Proponer</value>
   </data>
   <data name="Provider" xml:space="preserve">
-    <value>Provedor</value>
+    <value>Proveedor</value>
   </data>
   <data name="PublicKey" xml:space="preserve">
-    <value>Chave pública</value>
+    <value>Clave pública</value>
   </data>
   <data name="Purpose" xml:space="preserve">
     <value>Propósito</value>
   </data>
   <data name="Qrcode" xml:space="preserve">
-    <value>QR Code</value>
+    <value>Código QR</value>
   </data>
   <data name="QrCodeNotUnderstood" xml:space="preserve">
-    <value>Código não compreendido</value>
+    <value>Código no entendido</value>
   </data>
   <data name="QrEnterManually" xml:space="preserve">
-    <value>Digite manualmente</value>
+    <value>Introducir manualmente</value>
   </data>
   <data name="QrScanCode" xml:space="preserve">
-    <value>Código de varredura</value>
+    <value>Escanear código</value>
   </data>
   <data name="QrScanOverlay" xml:space="preserve">
-    <value>Alinhe o QR-Code dentro do quadro</value>
+    <value>Alinear el código QR dentro del marco</value>
   </data>
   <data name="QrScanUri" xml:space="preserve">
     <value>URI:</value>
   </data>
   <data name="ReceiveEDaler" xml:space="preserve">
-    <value>Receba eDaler</value>
+    <value>Recibir eDaler</value>
   </data>
   <data name="Region" xml:space="preserve">
-    <value>Região ou Estado</value>
+    <value>Región o Estado</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Registro</value>
@@ -793,550 +793,550 @@
     <value>Registro</value>
   </data>
   <data name="RejectInformation" xml:space="preserve">
-    <value>Informações de rejeição</value>
+    <value>Rechazar información</value>
   </data>
   <data name="RemoteParty" xml:space="preserve">
-    <value>Festa Remota:</value>
+    <value>Fiesta remota:</value>
   </data>
   <data name="RemoveContact" xml:space="preserve">
-    <value>Remover contato</value>
+    <value>Eliminar contacto</value>
   </data>
   <data name="ReportAsCompromized" xml:space="preserve">
-    <value>Relatório como Comprometido</value>
+    <value>Informe como comprometido</value>
   </data>
   <data name="Request" xml:space="preserve">
     <value>Pedir</value>
   </data>
   <data name="RequestingEntity" xml:space="preserve">
-    <value>Entidade solicitante</value>
+    <value>Entidad solicitante</value>
   </data>
   <data name="RequestPayment" xml:space="preserve">
-    <value>Solicitar pagamento</value>
+    <value>Solicitar pago</value>
   </data>
   <data name="RequestPaymentDescription" xml:space="preserve">
-    <value>Para solicitar o pagamento de alguém, preencha os detalhes sobre o pagamento abaixo e clique no botão Gerar QR Code. O código gerado pode ser usado pela outra parte, para gerar um pagamento para sua conta.</value>
+    <value>Para solicitar el pago a alguien, complete los detalles sobre el pago a continuación y haga clic en el botón Generar código QR. El código generado puede ser utilizado por la otra parte, para generar un pago a su cuenta.</value>
   </data>
   <data name="RequestPaymentMessage" xml:space="preserve">
-    <value>Solicitando pagamento de {0} {1}.</value>
+    <value>Solicitar el pago de {0} {1}.</value>
   </data>
   <data name="RequestTimedOut" xml:space="preserve">
-    <value>O pedido foi cronometrado</value>
+    <value>Se agotó el tiempo de espera de la solicitud</value>
   </data>
   <data name="RequestWasCancelled" xml:space="preserve">
-    <value>O pedido foi cancelado.</value>
+    <value>La solicitud fue cancelada</value>
   </data>
   <data name="RetypePinOrPassword" xml:space="preserve">
-    <value>Redigitar PIN ou senha</value>
+    <value>Vuelva a escribir pin o contraseña</value>
   </data>
   <data name="ReviewIdentityInformationText" xml:space="preserve">
-    <value>Você foi solicitado a revisar as seguintes informações pessoais. Se correto, verifique as caixas correspondentes e pressione o botão Aprovar na parte inferior. Você também pode pressionar o botão Rejeitar se encontrar algo que esteja incorreto.</value>
+    <value>Se le ha solicitado que revise la siguiente información personal. Si es correcto, marque las casillas correspondientes y presione el botón Aprobar en la parte inferior. También puede presionar el botón Rechazar si encuentra algo que sea incorrecto.</value>
   </data>
   <data name="RevokeInformation" xml:space="preserve">
-    <value>Revogar</value>
+    <value>Revocar</value>
   </data>
   <data name="Role" xml:space="preserve">
-    <value>Papel</value>
+    <value>Rol</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Papéis</value>
+    <value>Papeles</value>
   </data>
   <data name="RolesInfoText" xml:space="preserve">
-    <value>Abaixo você pode ver as diferentes funções definidas para o contrato. Se mais de uma parte for assumida para um papel, esse número será mostrado na descrição do papel.</value>
+    <value>A continuación puede ver los diferentes roles definidos para el contrato. Si se asume más de una parte para un rol, este número se mostrará en la descripción del rol.</value>
   </data>
   <data name="Room" xml:space="preserve">
-    <value>Quarto</value>
+    <value>Cuarto</value>
   </data>
   <data name="ScannedQrCode" xml:space="preserve">
-    <value>Código QR digitalizado</value>
+    <value>Código QR escaneado</value>
   </data>
   <data name="ScanQRCode" xml:space="preserve">
-    <value>Digitalizar código QR</value>
+    <value>Escanear código QR</value>
   </data>
   <data name="SelectingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Selecionar uma foto não é suportado neste dispositivo</value>
+    <value>La selección de una foto no es compatible con este dispositivo</value>
   </data>
   <data name="SelectWhoShouldHaveAccessToThisContract" xml:space="preserve">
-    <value>Selecione quem deve ter acesso a este contrato.</value>
+    <value>Seleccione quién debe tener acceso a este contrato.</value>
   </data>
   <data name="SelectYourRole" xml:space="preserve">
-    <value>Selecione sua função neste contrato.</value>
+    <value>Seleccione su rol en este contrato.</value>
   </data>
   <data name="SelectYourRoleInThisContract" xml:space="preserve">
-    <value>Selecione sua função neste contrato.</value>
+    <value>Seleccione su rol en este contrato.</value>
   </data>
   <data name="SendPaymentTo" xml:space="preserve">
-    <value>Enviar pagamento</value>
+    <value>Enviar pago</value>
   </data>
   <data name="SerialNumber" xml:space="preserve">
-    <value>Número de série</value>
+    <value>Número de serie</value>
   </data>
   <data name="ServerSignature" xml:space="preserve">
-    <value>Assinatura do servidor</value>
+    <value>Firma del servidor</value>
   </data>
   <data name="ServerSignatureInformationInfoText" xml:space="preserve">
-    <value>A seguir, informações relacionadas à assinatura de um servidor.</value>
+    <value>A continuación se muestra información relacionada con una firma de servidor.</value>
   </data>
   <data name="ServerSignatures" xml:space="preserve">
-    <value>Assinaturas de servidores</value>
+    <value>Firmas del servidor</value>
   </data>
   <data name="ServerSignaturesInfoText" xml:space="preserve">
-    <value>A integridade do contrato é protegida pela assinatura do servidor mostrada abaixo.</value>
+    <value>La integridad del contrato está protegida por la firma del servidor que se muestra a continuación.</value>
   </data>
   <data name="Share" xml:space="preserve">
-    <value>Compartilhar</value>
+    <value>Compartir</value>
   </data>
   <data name="ShowCode" xml:space="preserve">
     <value>Mostrar código</value>
   </data>
   <data name="SignAfter" xml:space="preserve">
-    <value>Sinal após</value>
+    <value>Firmar después</value>
   </data>
   <data name="SignAsRole" xml:space="preserve">
-    <value>Assine como {0}</value>
+    <value>Firma como {0}</value>
   </data>
   <data name="Signature" xml:space="preserve">
-    <value>Assinatura</value>
+    <value>Firma</value>
   </data>
   <data name="SignatureInformation" xml:space="preserve">
-    <value>Informações de assinatura</value>
+    <value>Información de firma</value>
   </data>
   <data name="SignBefore" xml:space="preserve">
-    <value>Assine antes</value>
+    <value>Firmar antes</value>
   </data>
   <data name="SignedContracts" xml:space="preserve">
-    <value>Contratos assinados</value>
+    <value>Contratos firmados</value>
   </data>
   <data name="SignedContractsInfoText" xml:space="preserve">
-    <value>Abaixo está uma lista de contratos que você assinou. Clique em um contrato para obter mais informações sobre ele.</value>
+    <value>A continuación se muestra una lista de los contratos que ha firmado. Haga clic en un contrato para obtener más información al respecto.</value>
   </data>
   <data name="Skip" xml:space="preserve">
-    <value>Saltitar</value>
+    <value>Saltarse</value>
   </data>
   <data name="State" xml:space="preserve">
     <value>Estado</value>
   </data>
   <data name="StreetName" xml:space="preserve">
-    <value>Nome de Rua</value>
+    <value>Nombre de la calle</value>
   </data>
   <data name="StreetNumber" xml:space="preserve">
-    <value>Número de rua</value>
+    <value>Número de calle</value>
   </data>
   <data name="Submit" xml:space="preserve">
     <value>Enviar</value>
   </data>
   <data name="SuccessTitle" xml:space="preserve">
-    <value>Êxito</value>
+    <value>Éxito</value>
   </data>
   <data name="TagValueCopiedToClipboard" xml:space="preserve">
-    <value>Valor da tag copiado para prancheta</value>
+    <value>Valor de etiqueta copiado en el portapapeles</value>
   </data>
   <data name="TakePhoto" xml:space="preserve">
-    <value>Tire foto</value>
+    <value>Toma foto</value>
   </data>
   <data name="TakingAPhotoIsNotSupported" xml:space="preserve">
-    <value>Tirar uma foto não é suportado neste dispositivo</value>
+    <value>Tomar una foto no es compatible con este dispositivo</value>
   </data>
   <data name="TemplateId" xml:space="preserve">
-    <value>ID de modelo</value>
+    <value>ID de plantilla</value>
   </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
-    <value>O contrato exige pelo menos {0} parte(s) de {1} de papel. Adicione mais peças ao contrato e tente novamente.</value>
+    <value>El contrato requiere al menos {0} parte (s) de la función {1}. Agregue más partes al contrato e inténtelo de nuevo.</value>
   </data>
   <data name="TheContractRequiresAtMost_RemoveParts" xml:space="preserve">
-    <value>O contrato exige, no máximo, {0} parte(s) do papel {1}. Remova algumas das peças do contrato e tente novamente.</value>
+    <value>El contrato requiere como máximo {0} parte (s) de la {1} de rol. Quita algunas de las partes del contrato e inténtalo de nuevo.</value>
   </data>
   <data name="ThePasswordForTheConnectionIs" xml:space="preserve">
-    <value>A senha da conexão é {0}. Isso foi copiado para a prancheta.</value>
+    <value>La contraseña para la conexión es {0}. Esto se ha copiado en el portapapeles.</value>
   </data>
   <data name="ThereIsNoNetwork" xml:space="preserve">
-    <value>Não há rede</value>
+    <value>No hay red</value>
   </data>
   <data name="TheSpecifiedCodeIsNotALegalIdentity" xml:space="preserve">
-    <value>O código especificado não é uma identidade legal</value>
+    <value>El código especificado no es una identidad legal</value>
   </data>
   <data name="Thing" xml:space="preserve">
-    <value>Coisa</value>
+    <value>Cosa</value>
   </data>
   <data name="ThingDisowned" xml:space="preserve">
-    <value>Isso foi renegado com sucesso. Agora pode ser reivindicado por um novo dono.</value>
+    <value>Esto ha sido repudiado con éxito. Ahora puede ser reclamado por un nuevo propietario.</value>
   </data>
   <data name="Things" xml:space="preserve">
-    <value>Coisas</value>
+    <value>Cosas</value>
   </data>
   <data name="ThingsDescription" xml:space="preserve">
-    <value>Abaixo estão todas as suas coisas, e coisas em seu livro de contatos. Clique em qualquer um para interagir com essa coisa.</value>
+    <value>A continuación se muestran todas sus cosas y cosas en su libro de contactos. Haga clic en cualquiera para interactuar con esa cosa.</value>
   </data>
   <data name="Timestamp" xml:space="preserve">
-    <value>Carimbo de tempo</value>
+    <value>Marca de tiempo</value>
   </data>
   <data name="To" xml:space="preserve">
     <value>Para</value>
   </data>
   <data name="TransactionAccepted" xml:space="preserve">
-    <value>A transação foi aceita e processada.</value>
+    <value>La transacción ha sido aceptada y procesada.</value>
   </data>
   <data name="TransactionId" xml:space="preserve">
-    <value>ID da transação:</value>
+    <value>ID de transacción:</value>
   </data>
   <data name="Transferable" xml:space="preserve">
-    <value>Transferível</value>
+    <value>Transferible</value>
   </data>
   <data name="UnableToAuthenticateWith" xml:space="preserve">
-    <value>Incapaz de autenticar com {0}</value>
+    <value>No se puede autenticar con {0}</value>
   </data>
   <data name="UnableToClaimThing" xml:space="preserve">
-    <value>Incapaz de reivindicar coisa</value>
+    <value>No se puede reclamar nada</value>
   </data>
   <data name="UnableToConnectTo" xml:space="preserve">
-    <value>Incapaz de se conectar a {0}</value>
+    <value>No se puede conectar a {0}</value>
   </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
-    <value>Não é possível processar o código eDaler.</value>
+    <value>No se puede procesar el código eDaler.</value>
   </data>
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
-    <value>EDaler URI não reconhecido.</value>
+    <value>URI de eDaler no reconocido.</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
-    <value>O texto não está em conformidade com nenhum dos esquemas de URI suportados.</value>
+    <value>El texto no se ajusta a ninguno de los esquemas de URI admitidos.</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>Atualizado</value>
+    <value>Actualizado</value>
   </data>
   <data name="ValidateIdentityInfo1Text" xml:space="preserve">
-    <value>Suas informações de identidade devem ser validadas antes de serem aprovadas. Isso pode ser feito manualmente pelo seu operador. Também pode ser feito por pares.</value>
+    <value>Su información de identidad debe ser validada antes de que pueda ser aprobada. Esto puede ser hecho manualmente por su operador. También puede ser hecho por compañeros.</value>
   </data>
   <data name="ValidateIdentityInfo2Text" xml:space="preserve">
-    <value>Para convidar um colega a revisar seu aplicativo, você precisa digitalizar o código de ID do peer que deseja convidar. Eles poderão ver e revisar sua aplicação. Quando os pares suficientes revisarem suas informações e certificarem que estão corretas, o operador aprovará automaticamente sua aplicação. As informações sobre quem revisou sua identidade serão codificadas na própria identidade revisada.</value>
+    <value>Para invitar a un par a revisar su solicitud, debe escanear el código de identificación del par al que desea invitar. Podrán ver y revisar su solicitud. Cuando suficientes pares hayan revisado su información y certificado que es correcta, el operador aprobará automáticamente su solicitud. La información sobre quién revisó su identidad se codificará en la propia identidad revisada.</value>
   </data>
   <data name="ValidateIdentityInfo3Text" xml:space="preserve">
-    <value>Você pode ver o status atual do aplicativo abaixo.</value>
+    <value>Puede ver el estado actual de la aplicación a continuación.</value>
   </data>
   <data name="ValidatingInformation" xml:space="preserve">
-    <value>Validando informações</value>
+    <value>Validación de la información</value>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Versão</value>
+    <value>Versión</value>
   </data>
   <data name="ViewContract" xml:space="preserve">
     <value>Ver contrato</value>
   </data>
   <data name="ViewIdentityInformationText" xml:space="preserve">
-    <value>A seguir estão as informações pessoais registradas com a identidade legal. Assinaturas e pagamentos são assinados usando essas informações.</value>
+    <value>A continuación se muestra la información personal registrada con la identidad legal. Las firmas y los pagos se firman utilizando esta información.</value>
   </data>
   <data name="Visibility" xml:space="preserve">
-    <value>Visibilidade</value>
+    <value>Visibilidad</value>
   </data>
   <data name="Wallet" xml:space="preserve">
-    <value>Carteira</value>
+    <value>Billetera</value>
   </data>
   <data name="WelcomeToTagHeading" xml:space="preserve">
-    <value>Bem-vindo ao TAG Digital ID App!</value>
+    <value>¡Bienvenido a la aplicación TAG Digital ID!</value>
   </data>
   <data name="WelcomeToTagSubheading" xml:space="preserve">
-    <value>Antes de nos conectarmos à rede TAG ID, precisamos selecionar um provedor de serviços para você. Para isso, precisamos saber o propósito de usar o aplicativo. Selecione a opção mais apropriada abaixo.</value>
+    <value>Antes de conectarnos a la red TAG ID, debemos seleccionar un proveedor de servicios para usted. Para hacer esto, necesitamos saber el propósito de usar la aplicación. Seleccione la opción más adecuada a continuación.</value>
   </data>
   <data name="XmppState_Authenticating" xml:space="preserve">
-    <value>Autenticando identidade de rede</value>
+    <value>Autenticación de la identidad de red</value>
   </data>
   <data name="XmppState_Binding" xml:space="preserve">
-    <value>Conexão de ligação</value>
+    <value>Conexión de enlace</value>
   </data>
   <data name="XmppState_Connected" xml:space="preserve">
-    <value>Conectado</value>
+    <value>Conexo</value>
   </data>
   <data name="XmppState_ConnectedTo" xml:space="preserve">
-    <value>Conectado ao {0}</value>
+    <value>Conectado a {0}</value>
   </data>
   <data name="XmppState_Connecting" xml:space="preserve">
-    <value>Estabelecendo conexão</value>
+    <value>Establecimiento de la conexión</value>
   </data>
   <data name="XmppState_Error" xml:space="preserve">
-    <value>Erro de conexão</value>
+    <value>Error de conexión</value>
   </data>
   <data name="XmppState_FetchingRoster" xml:space="preserve">
-    <value>Lista de buscas</value>
+    <value>Búsqueda de la lista</value>
   </data>
   <data name="XmppState_Offline" xml:space="preserve">
     <value>Desconectado</value>
   </data>
   <data name="XmppState_Registering" xml:space="preserve">
-    <value>Registro com corretor</value>
+    <value>Registrarse con el corredor</value>
   </data>
   <data name="XmppState_RequestingSession" xml:space="preserve">
-    <value>Sessão de solicitação</value>
+    <value>Solicitud de sesión</value>
   </data>
   <data name="XmppState_SettingPresence" xml:space="preserve">
-    <value>Presença de configuração</value>
+    <value>Configuración de la presencia</value>
   </data>
   <data name="XmppState_StartingEncryption" xml:space="preserve">
-    <value>Conexão de criptografia</value>
+    <value>Cifrado de la conexión</value>
   </data>
   <data name="XmppState_StreamNegotiation" xml:space="preserve">
-    <value>Fluxo de negociação</value>
+    <value>Corriente de negociación</value>
   </data>
   <data name="XmppState_StreamOpened" xml:space="preserve">
-    <value>Fluxo estabelecido</value>
+    <value>Flujo establecido</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Sim</value>
+    <value>Sí</value>
   </data>
   <data name="Yesterday" xml:space="preserve">
-    <value>Ontem</value>
+    <value>Ayer</value>
   </data>
   <data name="YouCanProtectYourWalletPinInfo" xml:space="preserve">
-    <value>Você pode proteger sua carteira e informações confidenciais adicionando um número ou senha pin adicional.</value>
+    <value>Puede proteger su billetera e información confidencial agregando un número PIN o contraseña adicional.</value>
   </data>
   <data name="YouHaveNowBeenSignedOut" xml:space="preserve">
-    <value>Você foi agora assinado fora. Para fazer login novamente, use o menu no canto superior esquerdo.</value>
+    <value>Ya ha sido cerrado. Para volver a iniciar sesión, utilice el menú de la esquina superior izquierda.</value>
   </data>
   <data name="YouHaveReceivedAProposal" xml:space="preserve">
-    <value>Você recebeu uma proposta.</value>
+    <value>Ha recibido una propuesta.</value>
   </data>
   <data name="YouNeedToApproveToAssociate" xml:space="preserve">
-    <value>Você precisa aprovar para associar suas informações pessoais com a identidade que você revisa. Quando terceiros revisarem as informações na identidade, terão acesso à identidade dos revisores, para transparência.</value>
+    <value>Debe aprobar para asociar su información personal con la identidad que revisa. Cuando terceros revisen la información en la identidad, tendrán acceso a la identidad de los revisores, por transparencia.</value>
   </data>
   <data name="YouNeedToCheckCarefullyReviewed" xml:space="preserve">
-    <value>Você precisa verificar a caixa que você revisou cuidadosamente todas as informações correspondentes acima.</value>
+    <value>Debe marcar la casilla que ha revisado cuidadosamente toda la información correspondiente anterior.</value>
   </data>
   <data name="YouNeedToProvideACountry" xml:space="preserve">
-    <value>Você precisa selecionar um país</value>
+    <value>Debe seleccionar un país</value>
   </data>
   <data name="YouNeedToProvideAFirstName" xml:space="preserve">
-    <value>Você precisa fornecer um primeiro nome</value>
+    <value>Debe proporcionar un nombre de pila</value>
   </data>
   <data name="YouNeedToProvideALastName" xml:space="preserve">
-    <value>Você precisa fornecer pelo menos um sobrenome</value>
+    <value>Debe proporcionar al menos un apellido</value>
   </data>
   <data name="YouNeedToProvideAPersonalNumber" xml:space="preserve">
-    <value>Você precisa fornecer um número de segurança pessoal ou social</value>
+    <value>Debe proporcionar un número de seguro personal o social</value>
   </data>
   <data name="YouNeedToProvideAPhoto" xml:space="preserve">
-    <value>Você precisa fornecer uma foto</value>
+    <value>Necesitas proporcionar una foto</value>
   </data>
   <data name="YourContractContainsErrors" xml:space="preserve">
-    <value>Seu contrato contém erros. Corrija esses erros e tente novamente.</value>
+    <value>Su contrato contiene errores. Corrija estos errores e inténtelo de nuevo.</value>
   </data>
   <data name="YourLegalIdentity" xml:space="preserve">
-    <value>Sua identidade legal</value>
+    <value>Su identidad legal</value>
   </data>
   <data name="YourLegalIdentityHasBeenCompromised" xml:space="preserve">
-    <value>Sua identidade legal foi marcada como comprometida. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Su identidad legal ha sido marcada como comprometida. Por lo tanto, se le ha redirigido para crear una nueva cuenta.</value>
   </data>
   <data name="YourLegalIdentityHasBeenObsoleted" xml:space="preserve">
-    <value>Sua identidade legal foi marcada como obsoleta. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Su identidad legal ha sido marcada como obsoleta. Por lo tanto, se le ha redirigido para crear una nueva cuenta.</value>
   </data>
   <data name="YourLegalIdentityHasInvalidOrMissingKeys" xml:space="preserve">
-    <value>As chaves de assinatura de sua identidade legal são inválidas. Portanto, você foi redirecionado para criar uma nova conta.</value>
+    <value>Las claves de firma de su identidad legal no son válidas. Por lo tanto, se le ha redirigido para crear una nueva cuenta.</value>
   </data>
   <data name="YourRole" xml:space="preserve">
-    <value>Seu Papel</value>
+    <value>Su rol</value>
   </data>
   <data name="ZipCode" xml:space="preserve">
-    <value>CEP ou Cep</value>
+    <value>Código postal</value>
   </data>
   <data name="SelectContactToPay" xml:space="preserve">
-    <value>Abaixo estão todos os contatos em seu livro de contatos. Selecione o contato a quem deseja fazer o pagamento.</value>
+    <value>A continuación se muestran todos los contactos en su libreta de contactos. Seleccione el contacto al que desea realizar el pago.</value>
   </data>
   <data name="SendCode" xml:space="preserve">
     <value>Enviar código</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
-    <value>O código não estava correto.</value>
+    <value>El código no era correcto.</value>
   </data>
   <data name="VerificationCode" xml:space="preserve">
-    <value>Código de verificação</value>
+    <value>Código de verificación</value>
   </data>
   <data name="VerifyCode" xml:space="preserve">
     <value>Verificar código</value>
   </data>
   <data name="WelcomeToTagPurposeSelected" xml:space="preserve">
-    <value>Também precisamos validar seu número de telefone celular. Digite seu número de telefone celular abaixo, usando o formato de número de telefone internacional, sem espaços.</value>
+    <value>También necesitamos validar su número de teléfono móvil. Introduzca su número de teléfono móvil a continuación, utilizando el formato de número de teléfono internacional, sin espacios.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Para uso educacional ou experimental.</value>
+    <value>Para uso educativo o experimental.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
-    <value>Esta opção permite que você use o Tag ID para fins educacionais, experimentais ou de teste. Não há custos incorridos ao usar esta opção. A conta pode ser removida quando não for mais usada. Não há garantia de que o prestador de serviços educacionais ou experimentais selecionado continuará a operar por longos períodos de tempo.</value>
+    <value>Esta opción le permite utilizar Tag ID con fines educativos, experimentales o de prueba. No se incurre en costos al usar esta opción. La cuenta puede eliminarse cuando ya no se utilice. No hay garantía de que el proveedor de servicios educativos o experimentales seleccionado continúe operando durante largos períodos de tiempo.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Para trabalho ou uso pessoal.</value>
+    <value>Para uso laboral o personal.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
-    <value>Esta opção permite que você use o Tag ID para fins de trabalho ou pessoais. Você pode usar o aplicativo por três meses sem nenhum custo. Após esse período, certas operações podem incorrer em custos.</value>
+    <value>Esta opción le permite utilizar Tag ID para fines laborales o personales. Puede usar la aplicación durante tres meses sin costo alguno. Después de este período de tiempo, ciertas operaciones pueden incurrir en costos.</value>
   </data>
   <data name="SelectPurpose" xml:space="preserve">
-    <value>Selecionar propósito</value>
+    <value>Seleccione Propósito</value>
   </data>
   <data name="WelcomeToTagCodeSent" xml:space="preserve">
-    <value>Um código foi enviado para o número indicado acima. Quando você recebê-lo, digite o código de verificação abaixo para continuar.</value>
+    <value>Se ha enviado un código al número indicado anteriormente. Cuando lo reciba, ingrese el código de verificación a continuación para continuar.</value>
   </data>
   <data name="ClaimInvitation" xml:space="preserve">
-    <value>Convite de Reivindicação</value>
+    <value>Reclamar invitación</value>
   </data>
   <data name="Invitation" xml:space="preserve">
-    <value>Convite</value>
+    <value>Invitación</value>
   </data>
   <data name="NotAnInvitationCode" xml:space="preserve">
-    <value>Não é um código de convite.</value>
+    <value>No es un código de invitación.</value>
   </data>
   <data name="ThisCodeCannotBeClaimedAtThisTime" xml:space="preserve">
-    <value>Este código representa um convite de Identificação de Tag, e não pode ser reclamado neste momento.</value>
+    <value>Este código representa una invitación de ID de etiqueta y no se puede reclamar en este momento.</value>
   </data>
   <data name="CreateAccount" xml:space="preserve">
-    <value>Criar conta</value>
+    <value>Crear cuenta</value>
   </data>
   <data name="InvalidInvitationCode" xml:space="preserve">
-    <value>Código de convite inválido.</value>
+    <value>Código de invitación no válido.</value>
   </data>
   <data name="ScanInvitation" xml:space="preserve">
-    <value>Convite de varredura</value>
+    <value>Escanear invitación</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount1" xml:space="preserve">
-    <value>Seu provedor de serviços foi selecionado para ser</value>
+    <value>Su proveedor de servicios ha sido seleccionado para ser</value>
   </data>
   <data name="ToConnectToDomainYouNeedAnAccount2" xml:space="preserve">
-    <value>Você pode optar por criar uma conta neste provedor. Digite o nome da conta que deseja criar e pressione o botão Criar novo. Você também pode optar por digitalizar um convite ou código de transferência, para usar uma conta que já foi preparada para você, em outro provedor de serviços. Clique no botão 'Procurar' para digitalizar um código de convite.</value>
+    <value>Puede optar por crear una cuenta en este proveedor. Introduzca el nombre de la cuenta que desea crear y pulse el botón Crear nuevo. También puede optar por escanear un código de invitación o transferencia, para usar una cuenta que ya se ha preparado para usted, en otro proveedor de servicios. Haga clic en el botón Analizar invitación para escanear un código de invitación.</value>
   </data>
   <data name="FailedToBindViewModelForPage" xml:space="preserve">
-    <value>Falha ao vincular {0} de modelo de exibição para {1} de página</value>
+    <value>Error al enlazar el {0} viewmodel para el {1} de página</value>
   </data>
   <data name="FailedToRestoreViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao restaurar estado para {0} de modelo de visualização para {1} de página</value>
+    <value>Error al restaurar el estado de viewmodel {0} para la página {1}</value>
   </data>
   <data name="FailedToSaveViewModelStateForPage" xml:space="preserve">
-    <value>Falha ao salvar estado para {0} de modelo de exibição para {1} de página</value>
+    <value>Error al guardar el estado de viewmodel {0} para el {1} de página</value>
   </data>
   <data name="FailedToUnbindViewModelForPage" xml:space="preserve">
-    <value>Falha ao desvincular o modelo de visualização {0} para {1} de página</value>
+    <value>Error al desvincular el {0} viewmodel para el {1} de página</value>
   </data>
   <data name="ContinueAnyway" xml:space="preserve">
-    <value>Continue de qualquer maneira</value>
+    <value>Continuar de todos modos</value>
   </data>
   <data name="DatabaseCorruptInfoText" xml:space="preserve">
-    <value>Parece que o banco de dados não foi fechado corretamente e, portanto, pode ser danificado. Uma tentativa pode ser feita para reparar o banco de dados, primeiro limpando-o. Gostaria de proceder?</value>
+    <value>Parece que la base de datos no se ha cerrado correctamente y, por lo tanto, puede estar dañada. Se puede intentar reparar la base de datos borrándola primero. ¿Cómo le gustaría proceder?</value>
   </data>
   <data name="DatabaseIssue" xml:space="preserve">
-    <value>Problema de banco de dados</value>
+    <value>Problema de base de datos</value>
   </data>
   <data name="DatabaseRepairFailedInfoText" xml:space="preserve">
-    <value>O reparo do banco de dados falhou. Estamos sem opções agora, então continue por sua conta e risco.</value>
+    <value>Error en la reparación de la base de datos. Ahora estamos sin opciones, así que continúe bajo su propio riesgo.</value>
   </data>
   <data name="EDalerServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço eDaler encontrado no corretor.</value>
+    <value>No se encontró ningún servicio de eDaler en el corredor.</value>
   </data>
   <data name="FailedToClosePage" xml:space="preserve">
-    <value>Falha ao fechar página</value>
+    <value>Error al cerrar la página</value>
   </data>
   <data name="FailedToNavigateToPage" xml:space="preserve">
-    <value>Falha ao navegar para {0} {1} de página</value>
+    <value>Error al navegar a la página {0} {1}</value>
   </data>
   <data name="FileUploadServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de upload de arquivo encontrado no corretor.</value>
+    <value>No se encontró ningún servicio de carga de archivos en el corredor.</value>
   </data>
   <data name="InvalidIoTDiscoClaimUri" xml:space="preserve">
-    <value>Não é uma reivindicação iotdisco válida URI.</value>
+    <value>No es un URI de reclamación iotdisco válido.</value>
   </data>
   <data name="LegalServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço legal encontrado no corretor.</value>
+    <value>No se encuentra ningún servicio legal en el corredor.</value>
   </data>
   <data name="ProvisioningServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de provisionamento encontrado no corretor.</value>
+    <value>No se encuentra ningún servicio de aprovisionamiento en el corredor.</value>
   </data>
   <data name="RepairAndContinue" xml:space="preserve">
-    <value>Reparar e continuar</value>
+    <value>Reparar y continuar</value>
   </data>
   <data name="ThingRegistryServiceNotFound" xml:space="preserve">
-    <value>Nenhum serviço de registro de coisa encontrado no corretor.</value>
+    <value>No se encontró ningún servicio de registro en el corredor.</value>
   </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
-    <value>Não é possível obter lista dos meus dispositivos.</value>
+    <value>No se puede obtener la lista de mis dispositivos.</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Telefone</value>
+    <value>Teléfono</value>
   </data>
   <data name="UnableToAccessInvitation" xml:space="preserve">
-    <value>Não é possível acessar informações de convite.</value>
+    <value>No se puede acceder a la información de la invitación.</value>
   </data>
   <data name="InvitationAccepted" xml:space="preserve">
-    <value>Convite aceito</value>
+    <value>Invitación aceptada</value>
   </data>
   <data name="InvitedToCreateAccountOnDomain" xml:space="preserve">
-    <value>Você foi convidado a criar uma conta na {0}. Pressione OK e digite o nome da conta que deseja criar.</value>
+    <value>Se le ha invitado a crear una cuenta en {0}. Pulse OK e introduzca el nombre de la cuenta que desea crear.</value>
   </data>
   <data name="AreYouSureYouWantToTransferYourLegalIdentity" xml:space="preserve">
-    <value>Tem certeza que deseja transferir sua identidade legal do aplicativo para outro? A identidade será removida deste dispositivo uma vez concluída. Certifique-se também de que ninguém mais poderá ver sua tela durante o processo.</value>
+    <value>¿Está seguro de que desea transferir su identidad legal de la aplicación a otra? La identidad se eliminará de este dispositivo una vez completada. También asegúrese de que nadie más pueda ver su pantalla durante el proceso.</value>
   </data>
   <data name="TransferId" xml:space="preserve">
-    <value>ID de transferência</value>
+    <value>ID de transferencia</value>
   </data>
   <data name="TransferIdentityInformationText" xml:space="preserve">
-    <value>Escaneie o código de convite QR abaixo de um dispositivo que está sendo inicializado, para transferir a Identidade Digital neste dispositivo para o segundo dispositivo. Uma vez que o código é digitalizado e a identidade transferida, ele será removido deste dispositivo.</value>
+    <value>Escanee el código de invitación QR a continuación desde un dispositivo que se está inicializando, para transferir la Identidad Digital en este dispositivo al segundo dispositivo. Una vez que se escanea el código y se transfiere la identidad, se eliminará de este dispositivo.</value>
   </data>
   <data name="ConfirmByEnteringYourPin" xml:space="preserve">
-    <value>Confirme digitando seu número PIN.</value>
+    <value>Confirme ingresando su número PIN.</value>
   </data>
   <data name="UnexpectedResponse" xml:space="preserve">
-    <value>Uma resposta inesperada foi recebida.</value>
+    <value>Se recibió una respuesta inesperada.</value>
   </data>
   <data name="EnterPin" xml:space="preserve">
-    <value>Digite PIN</value>
+    <value>Introduzca el PIN</value>
   </data>
   <data name="ChangePin" xml:space="preserve">
-    <value>Alterar PIN</value>
+    <value>Cambiar PIN</value>
   </data>
   <data name="EnterNewPin" xml:space="preserve">
-    <value>Digite novo PIN</value>
+    <value>Introduzca un nuevo PIN</value>
   </data>
   <data name="RepeatNewPin" xml:space="preserve">
-    <value>Repita o novo PIN</value>
+    <value>Repetir nuevo PIN</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Entrar</value>
   </data>
   <data name="PinChanged" xml:space="preserve">
-    <value>O PIN foi alterado com sucesso.</value>
+    <value>El PIN se ha cambiado correctamente.</value>
   </data>
   <data name="UnableToChangePassword" xml:space="preserve">
-    <value>Não é possível alterar a senha da rede.</value>
+    <value>No se puede cambiar la contraseña de red.</value>
   </data>
   <data name="PresenceSubscriptionReceived1" xml:space="preserve">
-    <value>Você recebeu uma assinatura de presença de:</value>
+    <value>Ha recibido una suscripción de presencia de:</value>
   </data>
   <data name="PresenceSubscriptionReceived2" xml:space="preserve">
-    <value>Se você aceitar esse pedido, eles podem ver sua presença online.</value>
+    <value>Si acepta esta solicitud, pueden ver su presencia en línea.</value>
   </data>
   <data name="PresenceSubscriptionReceived3" xml:space="preserve">
-    <value>Se você rejeitar este pedido, eles serão notificados de que você não concorda com essa solicitação.</value>
+    <value>Si rechaza esta solicitud, se les notificará que no acepta esta solicitud.</value>
   </data>
   <data name="PresenceSubscriptionReceived4" xml:space="preserve">
-    <value>Você também pode ignorar a solicitação fechando o diálogo sem retornar uma resposta.</value>
+    <value>También puede ignorar la solicitud cerrando el cuadro de diálogo sin devolver una respuesta.</value>
   </data>
   <data name="PresenceSubscriptionReceived5" xml:space="preserve">
-    <value>O que você quer fazer?</value>
+    <value>¿Qué quieres hacer?</value>
   </data>
   <data name="PresenceSubscriptionRequest" xml:space="preserve">
-    <value>Solicitação de Assinatura de Presença</value>
+    <value>Solicitud de suscripción de presencia</value>
   </data>
   <data name="Reject" xml:space="preserve">
-    <value>Rejeitar</value>
+    <value>Rechazar</value>
   </data>
   <data name="SubscribeToPresence1" xml:space="preserve">
-    <value>Você deseja se inscrever na presença de:</value>
+    <value>¿Desea suscribirse a la presencia de:</value>
   </data>
   <data name="SubscribeToPresence2" xml:space="preserve">
-    <value>Ao assinar a presença de alguém, e se eles aceitarem, você será notificado de sua presença online.</value>
+    <value>Al suscribirse a la presencia de alguien, y si acepta, se le notificará de su presencia en línea.</value>
   </data>
   <data name="SubscribeToPresence3" xml:space="preserve">
-    <value>O que você quer fazer?</value>
+    <value>¿Qué quieres hacer?</value>
   </data>
   <data name="SubscribeToPresence" xml:space="preserve">
-    <value>Se inscrever para presença?</value>
+    <value>¿Suscribirse a la presencia?</value>
   </data>
   <data name="Chat" xml:space="preserve">
-    <value>Bater papo</value>
+    <value>Charlar</value>
   </data>
   <data name="SendPayment" xml:space="preserve">
-    <value>Enviar pagamento</value>
+    <value>Enviar pago</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Enviar</value>
