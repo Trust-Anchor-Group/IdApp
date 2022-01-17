@@ -1341,4 +1341,16 @@
   <data name="Send" xml:space="preserve">
     <value>Poљalji</value>
   </data>
+  <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
+    <value>Poslat je zahtev za pretplatu na prisustvo. Kada primalac prihvati zahtev, status kontakta će biti ažuriran.</value>
+  </data>
+  <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
+    <value>Poslat je zahtev za otkazivanje pretplate na obaveštenje o prisustvu.</value>
+  </data>
+  <data name="SubscribeTo" xml:space="preserve">
+    <value>Pretplatite se na</value>
+  </data>
+  <data name="UnsubscribeFrom" xml:space="preserve">
+    <value>Otkaži pretplatu sa</value>
+  </data>
 </root>

@@ -1341,4 +1341,16 @@
   <data name="Send" xml:space="preserve">
     <value>Senden</value>
   </data>
+  <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
+    <value>Eine Anwesenheitsabonnementanforderung wurde gesendet. Wenn der Empfänger die Anfrage akzeptiert, wird der Kontaktstatus aktualisiert.</value>
+  </data>
+  <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
+    <value>Es wurde eine Aufforderung gesendet, sich von der Anwesenheitsbenachrichtigung zu lösen.</value>
+  </data>
+  <data name="SubscribeTo" xml:space="preserve">
+    <value>Abonnieren</value>
+  </data>
+  <data name="UnsubscribeFrom" xml:space="preserve">
+    <value>Abmelden von</value>
+  </data>
 </root>

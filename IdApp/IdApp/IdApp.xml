@@ -1289,6 +1289,16 @@
               Looks up a localized string similar to Presence Subscription Request.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.PresenceSubscriptionRequestSent">
+            <summary>
+              Looks up a localized string similar to A presence subscription request has been sent. When the recipient accepts the request, the contact status will be updated..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.PresenceUnsubscriptionRequestSent">
+            <summary>
+              Looks up a localized string similar to A request to unsibscribe from presence notification has been sent..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ProductInformation">
             <summary>
               Looks up a localized string similar to Product Information.
@@ -1659,6 +1669,11 @@
               Looks up a localized string similar to Submit.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.SubscribeTo">
+            <summary>
+              Looks up a localized string similar to Subscribe to.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.SubscribeToPresence">
             <summary>
               Looks up a localized string similar to Subscribe to presence?.
@@ -1852,6 +1867,11 @@
         <member name="P:IdApp.AppResources.UnrecognizedEDalerURI">
             <summary>
               Looks up a localized string similar to Unrecognized eDaler URI..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnsubscribeFrom">
+            <summary>
+              Looks up a localized string similar to Unsubscribe from.
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnsupportedUriScheme">
@@ -6796,6 +6816,16 @@
             The command for opening the chat page.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SubscribeToCommand">
+            <summary>
+            The command for subscribing to the presence of a contact
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.UnsubscribeFromCommand">
+            <summary>
+            The command for unsubscribing from the presence of a contact
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CopyHtmlToClipboard">
             <summary>
             Copies ID to clipboard
@@ -7137,6 +7167,26 @@
         <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsPersonal">
             <summary>
             Gets or sets whether the identity is a personal identity.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.SubscribedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Subscribed"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.Subscribed">
+            <summary>
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReview"/>.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.NotSubscribedProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.NotSubscribed"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.NotSubscribed">
+            <summary>
+            Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="P:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.IsForReview"/>.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.FirstNameIsCheckedProperty">

@@ -86,6 +86,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.RemoveContactCommand = new Command(async _ => await this.RemoveContact(), _ => this.ThirdPartyInContacts);
 			this.SendPaymentToCommand = new Command(async _ => await this.SendPaymentTo(), _ => this.ThirdParty);
 			this.ChatCommand = new Command(async _ => await this.OpenChat(), _ => this.ThirdParty);
+			this.SubscribeToCommand = new Command(async _ => await this.SubscribeTo(), _ => this.NotSubscribed);
+			this.UnsubscribeFromCommand = new Command(async _ => await this.UnsubscribeFrom(), _ => this.Subscribed);
 		}
 
 		/// <inheritdoc/>
@@ -140,6 +142,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.TagProfile.Changed += TagProfile_Changed;
 			this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
+			this.NeuronService.Xmpp.OnRosterItemAdded += CheckRosterItem;
+			this.NeuronService.Xmpp.OnRosterItemRemoved += CheckRosterItem;
+			this.NeuronService.Xmpp.OnRosterItemUpdated += CheckRosterItem;
 		}
 
 		/// <inheritdoc/>
@@ -149,6 +154,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			this.TagProfile.Changed -= TagProfile_Changed;
 			this.NeuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
+			this.NeuronService.Xmpp.OnRosterItemAdded -= CheckRosterItem;
+			this.NeuronService.Xmpp.OnRosterItemRemoved -= CheckRosterItem;
+			this.NeuronService.Xmpp.OnRosterItemUpdated -= CheckRosterItem;
 
 			this.LegalIdentity = null;
 
@@ -217,6 +225,16 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// </summary>
 		public ICommand ChatCommand { get; }
 
+		/// <summary>
+		/// The command for subscribing to the presence of a contact
+		/// </summary>
+		public ICommand SubscribeToCommand { get; }
+
+		/// <summary>
+		/// The command for unsubscribing from the presence of a contact
+		/// </summary>
+		public ICommand UnsubscribeFromCommand { get; }
+
 		#endregion
 
 		private void AssignProperties()
@@ -280,6 +298,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.IsNotForReview = !IsForReview;
 			this.ThirdParty = !(this.LegalIdentity is null) && !this.IsPersonal;
 
+			this.UpdateSubscriptionStatus();
+
 			this.IsForReviewFirstName = !string.IsNullOrWhiteSpace(this.FirstName) && this.IsForReview;
 			this.IsForReviewMiddleNames = !string.IsNullOrWhiteSpace(this.MiddleNames) && this.IsForReview;
 			this.IsForReviewLastNames = !string.IsNullOrWhiteSpace(this.LastNames) && this.IsForReview;
@@ -326,7 +346,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.TransferCommand, 
 				this.ChangePinCommand, this.CompromiseCommand, this.AddContactCommand, this.RemoveContactCommand, 
-				this.SendPaymentToCommand, this.ChatCommand);
+				this.SendPaymentToCommand, this.ChatCommand, this.SubscribeToCommand, this.UnsubscribeFromCommand);
 		}
 
 		/// <inheritdoc/>
@@ -883,6 +903,36 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			get { return (bool)GetValue(IsPersonalProperty); }
 			set { SetValue(IsPersonalProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="Subscribed"/>
+		/// </summary>
+		public static readonly BindableProperty SubscribedProperty =
+			BindableProperty.Create("Subscribed", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
+		/// </summary>
+		public bool Subscribed
+		{
+			get { return (bool)GetValue(SubscribedProperty); }
+			set { SetValue(SubscribedProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="NotSubscribed"/>
+		/// </summary>
+		public static readonly BindableProperty NotSubscribedProperty =
+			BindableProperty.Create("NotSubscribed", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+
+		/// <summary>
+		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
+		/// </summary>
+		public bool NotSubscribed
+		{
+			get { return (bool)GetValue(NotSubscribedProperty); }
+			set { SetValue(NotSubscribedProperty, value); }
 		}
 
 		/// <summary>
@@ -1677,6 +1727,53 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		private async Task SubscribeTo()
+		{
+			if (this.ThirdPartyNotInContacts)
+				await this.AddContact();
+
+			try
+			{
+				this.NeuronService.Xmpp.RequestPresenceSubscription(this.BareJid);
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceSubscriptionRequestSent);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private async Task UnsubscribeFrom()
+		{
+			try
+			{
+				this.NeuronService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceUnsubscriptionRequestSent);
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+		}
+
+		private Task CheckRosterItem(object Sender, RosterItem Item)
+		{
+			if (string.Compare(Item.BareJid, this.BareJid, true) == 0)
+				this.UiSerializer.BeginInvokeOnMainThread(() => this.UpdateSubscriptionStatus());
+
+			return Task.CompletedTask;
+		}
+
+		private void UpdateSubscriptionStatus()
+		{
+			RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
+
+			this.Subscribed = this.ThirdParty && !(Item is null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
+			this.NotSubscribed = this.ThirdParty && (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To));
+
+			this.EvaluateAllCommands();
 		}
 
 	}

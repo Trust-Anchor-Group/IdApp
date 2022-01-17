@@ -176,7 +176,7 @@ namespace IdApp.Services.Neuron
 					this.xmppClient.AllowScramSHA1 = true;
 					this.xmppClient.AllowScramSHA256 = true;
 
-					this.xmppClient.RequestRosterOnStartup = false;
+					this.xmppClient.RequestRosterOnStartup = true;
 					this.xmppClient.OnStateChanged += XmppClient_StateChanged;
 					this.xmppClient.OnConnectionError += XmppClient_ConnectionError;
 					this.xmppClient.OnError += XmppClient_Error;
@@ -1091,25 +1091,30 @@ namespace IdApp.Services.Neuron
 						await Database.Update(ContactInfo);
 					}
 
-					SubscribeToPopupPage SubscribeToPage = new SubscribeToPopupPage(e.FromBareJID);
+					RosterItem Item = this.xmppClient[e.FromBareJID];
 
-					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPage);
-					bool? SubscribeTo = await SubscribeToPage.Result;
-
-					if (SubscribeTo.HasValue && SubscribeTo.Value)
+					if (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To))
 					{
-						string IdXml;
+						SubscribeToPopupPage SubscribeToPage = new SubscribeToPopupPage(e.FromBareJID);
 
-						if (this.tagProfile.LegalIdentity is null)
-							IdXml = string.Empty;
-						else
+						await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPage);
+						bool? SubscribeTo = await SubscribeToPage.Result;
+
+						if (SubscribeTo.HasValue && SubscribeTo.Value)
 						{
-							StringBuilder Xml = new StringBuilder();
-							this.tagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
-							IdXml = Xml.ToString();
-						}
+							string IdXml;
 
-						e.Client.RequestPresenceSubscription(e.FromBareJID, IdXml);
+							if (this.tagProfile.LegalIdentity is null)
+								IdXml = string.Empty;
+							else
+							{
+								StringBuilder Xml = new StringBuilder();
+								this.tagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+								IdXml = Xml.ToString();
+							}
+
+							e.Client.RequestPresenceSubscription(e.FromBareJID, IdXml);
+						}
 					}
 					break;
 

@@ -1341,4 +1341,16 @@
   <data name="Send" xml:space="preserve">
     <value>Sende</value>
   </data>
+  <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
+    <value>En forespørsel om tilstedeværelsesabonnement er sendt. Når mottakeren godtar forespørselen, oppdateres kontaktstatusen.</value>
+  </data>
+  <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
+    <value>Det er sendt en forespørsel om å stoppe abonnementet på tilstedeværelsesvarsling.</value>
+  </data>
+  <data name="SubscribeTo" xml:space="preserve">
+    <value>Abonnere på</value>
+  </data>
+  <data name="UnsubscribeFrom" xml:space="preserve">
+    <value>Stopp abonnementet på</value>
+  </data>
 </root>

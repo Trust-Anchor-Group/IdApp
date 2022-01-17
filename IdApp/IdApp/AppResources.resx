@@ -1341,4 +1341,16 @@
   <data name="Send" xml:space="preserve">
     <value>Send</value>
   </data>
+  <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
+    <value>A presence subscription request has been sent. When the recipient accepts the request, the contact status will be updated.</value>
+  </data>
+  <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
+    <value>A request to unsibscribe from presence notification has been sent.</value>
+  </data>
+  <data name="SubscribeTo" xml:space="preserve">
+    <value>Subscribe to</value>
+  </data>
+  <data name="UnsubscribeFrom" xml:space="preserve">
+    <value>Unsubscribe from</value>
+  </data>
 </root>

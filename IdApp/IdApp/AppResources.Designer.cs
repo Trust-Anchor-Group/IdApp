@@ -2266,6 +2266,24 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A presence subscription request has been sent. When the recipient accepts the request, the contact status will be updated..
+        /// </summary>
+        internal static string PresenceSubscriptionRequestSent {
+            get {
+                return ResourceManager.GetString("PresenceSubscriptionRequestSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A request to unsibscribe from presence notification has been sent..
+        /// </summary>
+        internal static string PresenceUnsubscriptionRequestSent {
+            get {
+                return ResourceManager.GetString("PresenceUnsubscriptionRequestSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product Information.
         /// </summary>
         internal static string ProductInformation {
@@ -2932,6 +2950,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Subscribe to.
+        /// </summary>
+        internal static string SubscribeTo {
+            get {
+                return ResourceManager.GetString("SubscribeTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Subscribe to presence?.
         /// </summary>
         internal static string SubscribeToPresence {
@@ -3279,6 +3306,15 @@ namespace IdApp {
         internal static string UnrecognizedEDalerURI {
             get {
                 return ResourceManager.GetString("UnrecognizedEDalerURI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsubscribe from.
+        /// </summary>
+        internal static string UnsubscribeFrom {
+            get {
+                return ResourceManager.GetString("UnsubscribeFrom", resourceCulture);
             }
         }
         

@@ -852,6 +852,12 @@
   <data name="PresenceSubscriptionRequest" xml:space="preserve">
     <value>Förfrågan om närvaruprenumeration</value>
   </data>
+  <data name="PresenceSubscriptionRequestSent" xml:space="preserve">
+    <value>En förfrågan om närvaruprenumeration har skickats. När mottagaren accepterar förfrågan, kommer kontaktstatusen att uppdateras.</value>
+  </data>
+  <data name="PresenceUnsubscriptionRequestSent" xml:space="preserve">
+    <value>En förfrågan att ta bort närvaruprenumerationen har skickats.</value>
+  </data>
   <data name="ProductInformation" xml:space="preserve">
     <value>Produktinformation</value>
   </data>
@@ -1080,6 +1086,9 @@
   <data name="Submit" xml:space="preserve">
     <value>Skicka in</value>
   </data>
+  <data name="SubscribeTo" xml:space="preserve">
+    <value>Prenumerera på</value>
+  </data>
   <data name="SubscribeToPresence" xml:space="preserve">
     <value>Prenumerera på närvaro?</value>
   </data>
@@ -1196,6 +1205,9 @@
   </data>
   <data name="UnrecognizedEDalerURI" xml:space="preserve">
     <value>Okänd eDaler-URI.</value>
+  </data>
+  <data name="UnsubscribeFrom" xml:space="preserve">
+    <value>Avprenumerera från</value>
   </data>
   <data name="UnsupportedUriScheme" xml:space="preserve">
     <value>Texten överensstämmer inte med någon av de URI-scheman som stöds.</value>

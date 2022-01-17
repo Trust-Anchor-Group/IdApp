@@ -172,6 +172,12 @@
                 <Button Text="{x:Static local:AppResources.Chat}" 
                             Command="{Binding Path=ChatCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                <Button Text="{x:Static local:AppResources.SubscribeTo}" 
+                            Command="{Binding Path=SubscribeToCommand}" IsVisible="{Binding Path=NotSubscribed}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
+                <Button Text="{x:Static local:AppResources.UnsubscribeFrom}" 
+                            Command="{Binding Path=UnsubscribeFromCommand}" IsVisible="{Binding Path=Subscribed}" Margin="{StaticResource DefaultBottomOnlyMargin}"
+                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
             </StackLayout>
         </ScrollView>
         <image:ImageView x:Name="PhotoViewer" IsVisible="False"/>
