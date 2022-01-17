@@ -1153,13 +1153,13 @@
     <value>We also need to validate your mobile phone number. Please enter your mobile phone number below, using international phone number format, without spaces.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>For educational or experimental use.</value>
+    <value>Educational or experimental use.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>This option allows you to use Tag ID for educational, experimental or test purposes. There are no costs incurred when using this option. The account may be removed when no longer used. There is no guarantee the educational or experimental service provider selected will continue operation for extended periods of time.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>For work or personal use.</value>
+    <value>Work or personal use.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
     <value>This option allows you to use Tag ID for work or personal purposes. You can use the app for three months at no cost. After this time period, certain operations may incur costs.</value>

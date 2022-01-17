@@ -1153,13 +1153,13 @@
     <value>Meidän on myös vahvistettava matkapuhelinnumerosi. Kirjoita matkapuhelinnumerosi alla, käyttäen kansainvälistä puhelinnumeromuotoa, ilman välilyöntejä.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Opetus- tai koekäyttöön.</value>
+    <value>Koulutuksellinen tai kokeellinen käyttö.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>Tämän vaihtoehdon avulla voit käyttää Tunnistetunnusta opetus-, kokeellisiin tai testitarkoituksiin. Tätä vaihtoehtoa käytettäessä ei aiheudu kustannuksia. Tili voidaan poistaa, kun sitä ei enää käytetä. Ei ole mitään takeita siitä, että valittu koulutus- tai kokeilupalvelujen tarjoaja jatkaa toimintaansa pitkään.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Työhön tai henkilökohtaiseen käyttöön.</value>
+    <value>Työ tai henkilökohtainen käyttö.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
     <value>Tämän vaihtoehdon avulla voit käyttää tunnistetunnusta työhön tai henkilökohtaisiin tarkoituksiin. Voit käyttää sovellusta kolme kuukautta maksutta. Tämän ajanjakson jälkeen tietyistä toiminnoista voi aiheutua kustannuksia.</value>

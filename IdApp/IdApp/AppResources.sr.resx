@@ -1153,13 +1153,13 @@
     <value>Takođe moramo da potvrdimo vaš broj mobilnog telefona. Unesite dole navedeni broj mobilnog telefona koristeći međunarodni format broja telefona, bez prostora.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Za edukativnu ili eksperimentalnu upotrebu.</value>
+    <value>Edukativna ili eksperimentalna upotreba.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>Ova opcija vam omogućava da koristite ID oznake u edukativne, eksperimentalne ili probne svrhe. Prilikom korišćenja ove opcije nema nastalih troškova. Nalog se može ukloniti kada se više ne koristi. Ne postoji garancija da će izabrani obrazovni ili eksperimentalni pružalac usluga nastaviti sa radom duži vremenski period.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Za posao ili ličnu upotrebu.</value>
+    <value>Posao ili lična upotreba.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
     <value>Ova opcija vam omogućava da koristite ID oznake u radne ili lične svrhe. Aplikaciju možete koristiti tri meseca bez troškova. Nakon ovog vremenskog perioda, određene operacije mogu naneti troškove.</value>

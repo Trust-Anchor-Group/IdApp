@@ -1153,13 +1153,13 @@
     <value>Vi må også validere mobilnummeret ditt. Skriv inn mobilnummeret ditt nedenfor, ved hjelp av internasjonalt telefonnummerformat, uten mellomrom.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>For pedagogisk eller eksperimentell bruk.</value>
+    <value>Pedagogisk eller eksperimentell bruk.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>Med dette alternativet kan du bruke Tag ID til pedagogiske, eksperimentelle eller testformål. Det påløper ingen kostnader ved bruk av dette alternativet. Kontoen kan bli fjernet når den ikke lenger brukes. Det er ingen garanti for at den valgte utdannings- eller eksperimentelle tjenesteleverandøren vil fortsette driften i lengre perioder.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Til arbeid eller personlig bruk.</value>
+    <value>Arbeid eller personlig bruk.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
     <value>Med dette alternativet kan du bruke Tag ID til arbeid eller personlige formål. Du kan bruke appen i tre måneder uten kostnad. Etter denne tidsperioden kan enkelte operasjoner medføre kostnader.</value>

@@ -2347,7 +2347,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For educational or experimental use..
+        ///   Looks up a localized string similar to Educational or experimental use..
         /// </summary>
         internal static string PurposeEducationalOrExperimental {
             get {
@@ -2365,7 +2365,7 @@ namespace IdApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For work or personal use..
+        ///   Looks up a localized string similar to Work or personal use..
         /// </summary>
         internal static string PurposeWorkOrPersonal {
             get {

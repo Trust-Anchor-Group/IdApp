@@ -1153,13 +1153,13 @@
     <value>Wir müssen auch Ihre Mobiltelefonnummer validieren. Bitte geben Sie unten Ihre Mobiltelefonnummer im internationalen Rufnummernformat ohne Leerzeichen ein.</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>Für pädagogische oder experimentelle Zwecke.</value>
+    <value>Pädagogische oder experimentelle Nutzung.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>Mit dieser Option können Sie die Tag-ID für Bildungs-, Versuchs- oder Testzwecke verwenden. Bei der Nutzung dieser Option fallen keine Kosten an. Das Konto kann entfernt werden, wenn es nicht mehr verwendet wird. Es gibt keine Garantie dafür, dass der ausgewählte Bildungs- oder Versuchsdienstleister den Betrieb über einen längeren Zeitraum fortsetzen wird.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>Für den geschäftlichen oder persönlichen Gebrauch.</value>
+    <value>Geschäftlicher oder persönlicher Gebrauch.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
     <value>Mit dieser Option können Sie die Tag-ID für geschäftliche oder persönliche Zwecke verwenden. Sie können die App drei Monate lang kostenlos nutzen. Nach diesem Zeitraum können bestimmte Vorgänge Kosten verursachen.</value>

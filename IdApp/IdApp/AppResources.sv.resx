@@ -880,13 +880,13 @@
     <value>Syfte</value>
   </data>
   <data name="PurposeEducationalOrExperimental" xml:space="preserve">
-    <value>För utbildning eller experimentell användning.</value>
+    <value>Utbildning eller experimentell användning.</value>
   </data>
   <data name="PurposeWorkEducationalOrExperimental" xml:space="preserve">
     <value>Detta val tillåter dig att använda Tag ID för utbildnings eller experimentella syften. När man använder detta val medförs inga kostnader. Kontot kan tas bort när det inte längre används. Det finns heller ingen garanti att den utvalda tjänsteleverantören kommer att fortsätta driften under en längre tid.</value>
   </data>
   <data name="PurposeWorkOrPersonal" xml:space="preserve">
-    <value>För arbete eller personlig användning.</value>
+    <value>Arbete eller personlig användning.</value>
   </data>
   <data name="PurposeWorkOrPersonalDescription" xml:space="preserve">
     <value>Detta val tillåter dig att använda Tag ID för arbete eller personligt bruk. Du kan använda appen i tre månader utan kostnad. Efter denna tidsperiod kan vissa funktioner medföra kostnader.</value>
