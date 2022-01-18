@@ -376,9 +376,6 @@ namespace IdApp.Pages.Contacts.Chat
 					Xml.Append("' xmlns='urn:xmpp:message-correct:0'/>");
 				}
 
-				this.NeuronService.Xmpp.SendMessage(Waher.Networking.XMPP.MessageType.Chat, this.BareJid, Xml.ToString(),
-					Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty); // TODO: End-to-End encryption
-
 				if (string.IsNullOrEmpty(ReplaceObjectId))
 				{
 					await Database.Insert(Message);
@@ -409,6 +406,10 @@ namespace IdApp.Pages.Contacts.Chat
 						await this.MessageUpdated(Message);
 					}
 				}
+
+				this.NeuronService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId, 
+					this.BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null); 
+				// TODO: End-to-End encryption
 			}
 			catch (Exception ex)
 			{
