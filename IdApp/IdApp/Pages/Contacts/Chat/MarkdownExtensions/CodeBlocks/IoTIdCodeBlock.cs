@@ -19,7 +19,6 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 	public class IoTIdCodeBlock : ICodeContent
 	{
 		private MarkdownDocument document;
-		private LegalIdentity identity;
 
 		/// <summary>
 		/// Handles embedded Legal IDs.
@@ -72,30 +71,29 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// </summary>
 		public async Task<bool> GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
-			if (this.identity is null)
+			LegalIdentity Identity;
+
+			try
 			{
-				try
-				{
-					StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new StringBuilder();
 
-					foreach (string Row in Rows)
-						sb.AppendLine(Row);
+				foreach (string Row in Rows)
+					sb.AppendLine(Row);
 
-					XmlDocument Doc = new XmlDocument();
-					Doc.LoadXml(sb.ToString());
+				XmlDocument Doc = new XmlDocument();
+				Doc.LoadXml(sb.ToString());
 
-					this.identity = LegalIdentity.Parse(Doc.DocumentElement);
-				}
-				catch (Exception ex)
-				{
-					Output.WriteStartElement("Label");
-					Output.WriteAttributeString("Text", ex.Message);
-					Output.WriteAttributeString("FontFamily", "Courier New");
-					Output.WriteAttributeString("TextColor", "Red");
-					Output.WriteEndElement();
+				Identity = LegalIdentity.Parse(Doc.DocumentElement);
+			}
+			catch (Exception ex)
+			{
+				Output.WriteStartElement("Label");
+				Output.WriteAttributeString("Text", ex.Message);
+				Output.WriteAttributeString("FontFamily", "Courier New");
+				Output.WriteAttributeString("TextColor", "Red");
+				Output.WriteEndElement();
 
-					return false;
-				}
+				return false;
 			}
 
 			Output.WriteStartElement("StackLayout");
@@ -104,11 +102,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			bool ImageShown = false;
 
-			if (!(this.identity.Attachments is null))
+			if (!(Identity.Attachments is null))
 			{
 				string ImageUrl = null;
 
-				foreach (Attachment Attachment in this.identity.Attachments)
+				foreach (Attachment Attachment in Identity.Attachments)
 				{
 					if (Attachment.ContentType.StartsWith("image/"))
 					{
@@ -175,14 +173,14 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 			Output.WriteAttributeString("LineBreakMode", "WordWrap");
 			Output.WriteAttributeString("FontSize", "Medium");
 			Output.WriteAttributeString("HorizontalOptions", "Center");
-			Output.WriteAttributeString("Text", ContactInfo.GetFriendlyName(this.identity));
+			Output.WriteAttributeString("Text", ContactInfo.GetFriendlyName(Identity));
 			Output.WriteEndElement();
 
 			Output.WriteStartElement("StackLayout.GestureRecognizers");
 
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=IotIdUriClicked}");
-			Output.WriteAttributeString("CommandParameter", this.identity.IdUriString);
+			Output.WriteAttributeString("CommandParameter", Identity.IdUriString);
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();

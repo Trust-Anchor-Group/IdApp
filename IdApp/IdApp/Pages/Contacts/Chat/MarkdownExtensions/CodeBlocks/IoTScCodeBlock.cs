@@ -22,7 +22,6 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 	public class IoTScCodeBlock : ICodeContent
 	{
 		private MarkdownDocument document;
-		private Contract contract;
 
 		/// <summary>
 		/// Handles embedded Smart Contracts.
@@ -75,31 +74,30 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		/// </summary>
 		public async Task<bool> GenerateXamarinForms(XmlWriter Output, XamarinRenderingState State, string[] Rows, string Language, int Indent, MarkdownDocument Document)
 		{
-			if (this.contract is null)
+			Contract Contract;
+
+			try
 			{
-				try
-				{
-					StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new StringBuilder();
 
-					foreach (string Row in Rows)
-						sb.AppendLine(Row);
+				foreach (string Row in Rows)
+					sb.AppendLine(Row);
 
-					XmlDocument Doc = new XmlDocument();
-					Doc.LoadXml(sb.ToString());
+				XmlDocument Doc = new XmlDocument();
+				Doc.LoadXml(sb.ToString());
 
-					ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
-					this.contract = Parsed.Contract;
-				}
-				catch (Exception ex)
-				{
-					Output.WriteStartElement("Label");
-					Output.WriteAttributeString("Text", ex.Message);
-					Output.WriteAttributeString("FontFamily", "Courier New");
-					Output.WriteAttributeString("TextColor", "Red");
-					Output.WriteEndElement();
+				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);
+				Contract = Parsed.Contract;
+			}
+			catch (Exception ex)
+			{
+				Output.WriteStartElement("Label");
+				Output.WriteAttributeString("Text", ex.Message);
+				Output.WriteAttributeString("FontFamily", "Courier New");
+				Output.WriteAttributeString("TextColor", "Red");
+				Output.WriteEndElement();
 
-					return false;
-				}
+				return false;
 			}
 
 			Output.WriteStartElement("StackLayout");
@@ -108,11 +106,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			bool ImageShown = false;
 
-			if (!(this.contract.Attachments is null))
+			if (!(Contract.Attachments is null))
 			{
 				string ImageUrl = null;
 
-				foreach (Attachment Attachment in this.contract.Attachments)
+				foreach (Attachment Attachment in Contract.Attachments)
 				{
 					if (Attachment.ContentType.StartsWith("image/"))
 					{
@@ -175,7 +173,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 				Output.WriteEndElement();
 			}
 
-			string FriendlyName = await ContractModel.GetCategory(this.contract);
+			string FriendlyName = await ContractModel.GetCategory(Contract);
 
 			Output.WriteStartElement("Label");
 			Output.WriteAttributeString("LineBreakMode", "WordWrap");
@@ -188,7 +186,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			Output.WriteStartElement("TapGestureRecognizer");
 			Output.WriteAttributeString("Command", "{Binding Path=IotScUriClicked}");
-			Output.WriteAttributeString("CommandParameter", this.contract.ContractIdUriString);
+			Output.WriteAttributeString("CommandParameter", Contract.ContractIdUriString);
 			Output.WriteEndElement();
 
 			Output.WriteEndElement();
