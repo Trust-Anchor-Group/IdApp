@@ -1,13 +1,11 @@
 ﻿using IdApp.Services;
-using IdApp.Services.AttachmentCache;
-using SkiaSharp;
+using IdApp.Services.UI.Photos;
 using System;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Waher.Content.Markdown;
 using Waher.Content.Markdown.Model;
-using Waher.Content.Markdown.Model.Multimedia;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 
@@ -104,58 +102,17 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			if (!(Identity.Attachments is null))
 			{
-				string ImageUrl = null;
+				(string FileName, int Width, int Height) = await PhotosLoader.LoadPhotoAsTemporaryFile(Identity.Attachments, 300, 300);
 
-				foreach (Attachment Attachment in Identity.Attachments)
+				if (!string.IsNullOrEmpty(FileName))
 				{
-					if (Attachment.ContentType.StartsWith("image/"))
-					{
-						if (Attachment.ContentType == "image/png")
-						{
-							ImageUrl = Attachment.Url;
-							break;
-						}
-						else if (ImageUrl is null)
-							ImageUrl = Attachment.Url;
-					}
-				}
+					Output.WriteStartElement("Image");
+					Output.WriteAttributeString("Source", FileName);
+					Output.WriteAttributeString("WidthRequest", Width.ToString());
+					Output.WriteAttributeString("HeightRequest", Height.ToString());
+					Output.WriteEndElement();
 
-				if (!string.IsNullOrEmpty(ImageUrl))
-				{
-					IAttachmentCacheService Attachments = App.Instantiate<IAttachmentCacheService>();
-
-					(byte[] Data, string _) = await Attachments.TryGet(ImageUrl);
-
-					if (!(Data is null))
-					{
-						string FileName = await ImageContent.GetTemporaryFile(Data);
-						int Width;
-						int Height;
-
-						using (SKBitmap Bitmap = SKBitmap.Decode(Data))
-						{
-							Width = Bitmap.Width;
-							Height = Bitmap.Height;
-						}
-
-						double ScaleWidth = 300.0 / Width;
-						double ScaleHeight = 300.0 / Height;
-						double Scale = Math.Min(ScaleWidth, ScaleHeight);
-
-						if (Scale < 1)
-						{
-							Width = (int)(Width * Scale + 0.5);
-							Height = (int)(Height * Scale + 0.5);
-						}
-
-						Output.WriteStartElement("Image");
-						Output.WriteAttributeString("Source", FileName);
-						Output.WriteAttributeString("WidthRequest", Width.ToString());
-						Output.WriteAttributeString("HeightRequest", Height.ToString());
-						Output.WriteEndElement();
-
-						ImageShown = true;
-					}
+					ImageShown = true;
 				}
 			}
 

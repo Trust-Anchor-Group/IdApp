@@ -19,42 +19,47 @@
     </pages:PopupPage.Animation>
     <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
         <Frame Margin="15" BackgroundColor="White">
-            <StackLayout Padding="10,5" Spacing="3">
-                <Label Text="{x:Static local:AppResources.PresenceSubscriptionRequest}" FontSize="Large"/>
-                <Label>
-                    <Label.FormattedText>
-                        <FormattedString>
-                            <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived1}"/>
-                            <Span Text=" "/>
-                            <Span Text="{Binding BareJid}" FontAttributes="Bold"/>
-                            <Span Text=" "/>
-                            <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived2}"/>
-                            <Span Text=" "/>
-                            <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived3}"/>
-                            <Span Text=" "/>
-                            <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived4}"/>
-                            <Span Text=" "/>
-                            <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived5}"/>
-                        </FormattedString>
-                    </Label.FormattedText>
-                </Label>
-                <Button Margin="10,5" Clicked="OnAccept" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Accept}">
-                    <Button.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
-                    </Button.HeightRequest>
-                </Button>
-                <Button Margin="10,5" Clicked="OnReject" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Reject}">
-                    <Button.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
-                    </Button.HeightRequest>
-                </Button>
-                <StackLayout Margin="10,10">
-                    <StackLayout.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
-                        <!-- If not added, last button is not shown... -->
-                    </StackLayout.HeightRequest>
+            <ScrollView Orientation="Vertical">
+                <StackLayout Padding="10,5" Spacing="3">
+                    <Label Text="{x:Static local:AppResources.PresenceSubscriptionRequest}" FontSize="Large"/>
+                    <Image HorizontalOptions="Center" Source="{Binding PhotoUrl}" WidthRequest="{Binding PhotoWidth}"
+                       HeightRequest="{Binding PhotoHeight}" IsVisible="{Binding HasPhoto}"/>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived1}"/>
+                                <Span Text=" "/>
+                                <Span Text="{Binding PrimaryName}" FontAttributes="Bold"/>
+                                <Span Text="{Binding SecondaryName}"/>
+                                <Span Text=" "/>
+                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived2}"/>
+                                <Span Text=" "/>
+                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived3}"/>
+                                <Span Text=" "/>
+                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived4}"/>
+                                <Span Text=" "/>
+                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived5}"/>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button Margin="10,5" Clicked="OnAccept" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Accept}">
+                        <Button.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+                        </Button.HeightRequest>
+                    </Button>
+                    <Button Margin="10,5" Clicked="OnReject" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Reject}">
+                        <Button.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+                        </Button.HeightRequest>
+                    </Button>
+                    <StackLayout Margin="10,10">
+                        <StackLayout.HeightRequest>
+                            <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
+                            <!-- If not added, last button is not shown... -->
+                        </StackLayout.HeightRequest>
+                    </StackLayout>
                 </StackLayout>
-            </StackLayout>
+            </ScrollView>
         </Frame>
         <Grid HorizontalOptions="End" VerticalOptions="Start">
             <Grid.GestureRecognizers>

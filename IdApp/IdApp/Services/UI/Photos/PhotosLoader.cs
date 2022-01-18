@@ -8,8 +8,10 @@ using IdApp.Services.AttachmentCache;
 using IdApp.Services.EventLog;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
+using SkiaSharp;
 using Waher.Content.Images;
 using Waher.Content.Images.Exif;
+using Waher.Content.Markdown.Model.Multimedia;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Temporary;
 using Xamarin.Forms;
@@ -118,12 +120,6 @@ namespace IdApp.Services.UI.Photos
 		{
 			try
 			{
-				if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
-					return (null, string.Empty, 0);
-
-				if (attachment is null)
-					return (null, string.Empty, 0);
-
 				return await GetPhoto(attachment, signWith, DateTime.UtcNow);
 			}
 			catch (Exception ex)
@@ -164,10 +160,10 @@ namespace IdApp.Services.UI.Photos
 
 				try
 				{
-					if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
+					(byte[] Bin, string ContentType, int Rotation) = await GetPhoto(attachment, signWith, now);
+					if (Bin is null)
 						continue;
 
-					(byte[] Bin, string ContentType, int Rotation) = await GetPhoto(attachment, signWith, now);
 					Photo Photo = new Photo(Bin, Rotation);
 
 					if (!(Bin is null))
@@ -184,9 +180,15 @@ namespace IdApp.Services.UI.Photos
 
 		private async Task<(byte[], string, int)> GetPhoto(Attachment attachment, SignWith signWith, DateTime now)
 		{
+			if (attachment is null)
+				return (null, string.Empty, 0);
+
 			(byte[] Bin, string ContentType) = await this.attachmentCacheService.TryGet(attachment.Url);
 			if (!(Bin is null))
 				return (Bin, ContentType, GetImageRotation(Bin));
+
+			if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
+				return (null, string.Empty, 0);
 
 			KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
 
@@ -253,6 +255,149 @@ namespace IdApp.Services.UI.Photos
 			}
 
 			return 0;
+		}
+
+		/// <summary>
+		/// Loads a photo attachment.
+		/// </summary>
+		/// <param name="Attachment">Attachment containing photo.</param>
+		/// <returns>Photo, Content-Type, Rotation</returns>
+		public static Task<(byte[], string, int)> LoadPhoto(Attachment Attachment)
+		{
+			return LoadPhoto(Attachment, null, null, null, null, null);
+		}
+
+		/// <summary>
+		/// Loads a photo attachment.
+		/// </summary>
+		/// <param name="Attachment">Attachment containing photo.</param>
+		/// <param name="LogService">Log Service</param>
+		/// <param name="NetworkService">Network Service</param>
+		/// <param name="NeuronService">Neuron Sevice</param>
+		/// <param name="UiSerializer">UI Serializer</param>
+		/// <param name="AttachmentCacheService">Attachment Cache Service</param>
+		/// <returns>Photo, Content-Type, Rotation</returns>
+		public static async Task<(byte[], string, int)> LoadPhoto(Attachment Attachment, ILogService LogService, INetworkService NetworkService,
+			INeuronService NeuronService, IUiSerializer UiSerializer, IAttachmentCacheService AttachmentCacheService)
+		{
+			PhotosLoader Loader = new PhotosLoader(
+				LogService ?? App.Instantiate<ILogService>(),
+				NetworkService ?? App.Instantiate<INetworkService>(),
+				NeuronService ?? App.Instantiate<INeuronService>(),
+				UiSerializer ?? App.Instantiate<IUiSerializer>(),
+				AttachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
+
+			(byte[], string, int) Image = await Loader.LoadOnePhoto(Attachment, SignWith.LatestApprovedIdOrCurrentKeys);
+
+			return Image;
+		}
+
+		/// <summary>
+		/// Tries to load a photo from a set of attachments.
+		/// </summary>
+		/// <param name="Attachments">Attachments</param>
+		/// <param name="MaxWith">Maximum width when displaying photo.</param>
+		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
+		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
+		public static Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment[] Attachments, int MaxWith, int MaxHeight)
+		{
+			return LoadPhotoAsTemporaryFile(Attachments, MaxWith, MaxHeight, null, null, null, null, null);
+		}
+
+		/// <summary>
+		/// Tries to load a photo from a set of attachments.
+		/// </summary>
+		/// <param name="Attachments">Attachments</param>
+		/// <param name="MaxWith">Maximum width when displaying photo.</param>
+		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
+		/// <param name="LogService">Log Service</param>
+		/// <param name="NetworkService">Network Service</param>
+		/// <param name="NeuronService">Neuron Sevice</param>
+		/// <param name="UiSerializer">UI Serializer</param>
+		/// <param name="AttachmentCacheService">Attachment Cache Service</param>
+		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
+		public static Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment[] Attachments, int MaxWith, int MaxHeight,
+			ILogService LogService, INetworkService NetworkService, INeuronService NeuronService, IUiSerializer UiSerializer,
+			IAttachmentCacheService AttachmentCacheService)
+		{
+			Attachment Photo = null;
+
+			foreach (Attachment Attachment in Attachments)
+			{
+				if (Attachment.ContentType.StartsWith("image/"))
+				{
+					if (Attachment.ContentType == "image/png")
+					{
+						Photo = Attachment;
+						break;
+					}
+					else if (Photo is null)
+						Photo = Attachment;
+				}
+			}
+
+			if (Photo is null)
+				return Task.FromResult<(string, int, int)>((null, 0, 0));
+			else
+				return LoadPhotoAsTemporaryFile(Photo, MaxWith, MaxHeight, LogService, NetworkService, NeuronService, UiSerializer, AttachmentCacheService);
+		}
+
+		/// <summary>
+		/// Tries to load a photo from an attachments.
+		/// </summary>
+		/// <param name="Attachment">Attachment</param>
+		/// <param name="MaxWith">Maximum width when displaying photo.</param>
+		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
+		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
+		public static Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment Attachment, int MaxWith, int MaxHeight)
+		{
+			return LoadPhotoAsTemporaryFile(Attachment, MaxWith, MaxHeight, null, null, null, null, null);
+		}
+
+		/// <summary>
+		/// Tries to load a photo from an attachments.
+		/// </summary>
+		/// <param name="Attachment">Attachment</param>
+		/// <param name="MaxWith">Maximum width when displaying photo.</param>
+		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
+		/// <param name="LogService">Log Service</param>
+		/// <param name="NetworkService">Network Service</param>
+		/// <param name="NeuronService">Neuron Sevice</param>
+		/// <param name="UiSerializer">UI Serializer</param>
+		/// <param name="AttachmentCacheService">Attachment Cache Service</param>
+		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
+		public static async Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment Attachment, int MaxWith, int MaxHeight, 
+			ILogService LogService, INetworkService NetworkService, INeuronService NeuronService, IUiSerializer UiSerializer, 
+			IAttachmentCacheService AttachmentCacheService)
+		{
+			(byte[] Data, string _, int _) = await LoadPhoto(Attachment, LogService, NetworkService, NeuronService, UiSerializer, AttachmentCacheService);
+			
+			if (!(Data is null))
+			{
+				string FileName = await ImageContent.GetTemporaryFile(Data);
+				int Width;
+				int Height;
+
+				using (SKBitmap Bitmap = SKBitmap.Decode(Data))
+				{
+					Width = Bitmap.Width;
+					Height = Bitmap.Height;
+				}
+
+				double ScaleWidth = ((double)MaxWith) / Width;
+				double ScaleHeight = ((double)MaxHeight) / Height;
+				double Scale = Math.Min(ScaleWidth, ScaleHeight);
+
+				if (Scale < 1)
+				{
+					Width = (int)(Width * Scale + 0.5);
+					Height = (int)(Height * Scale + 0.5);
+				}
+
+				return (FileName, Width, Height);
+			}
+			else 
+				return (null, 0, 0);
 		}
 
 	}

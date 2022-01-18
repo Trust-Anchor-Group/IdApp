@@ -1737,7 +1737,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				this.NeuronService.Xmpp.RequestPresenceSubscription(this.BareJid);
+				string IdXml;
+
+				if (this.TagProfile.LegalIdentity is null)
+					IdXml = string.Empty;
+				else
+				{
+					StringBuilder Xml = new StringBuilder();
+					this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+					IdXml = Xml.ToString();
+				}
+
+				this.NeuronService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceSubscriptionRequestSent);
 			}
 			catch (Exception ex)

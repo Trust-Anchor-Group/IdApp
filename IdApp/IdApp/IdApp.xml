@@ -11684,15 +11684,59 @@
             Prompts the user for a response of a presence subscription request.
             </summary>
         </member>
-        <member name="M:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.#ctor(System.String)">
+        <member name="M:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.#ctor(System.String,System.String,System.String,System.Int32,System.Int32)">
             <summary>
             Prompts the user for a response of a presence subscription request.
             </summary>
             <param name="BareJid">Bare JID of sender of request.</param>
+            <param name="FriendlyName">Friendly Name</param>
+            <param name="PhotoUrl">Photo URL</param>
+            <param name="PhotoWidth">Photo Width</param>
+            <param name="PhotoHeight">Photo Height</param>
         </member>
         <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.BareJid">
             <summary>
             Bare JID of sender of request.
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.FriendlyName">
+            <summary>
+            Friendly Name
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.PrimaryName">
+            <summary>
+            Primary Name to display
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.SecondaryName">
+            <summary>
+            Secondary name to display
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.HasFriendlyName">
+            <summary>
+            If there's a friendly name to display
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.HasPhoto">
+            <summary>
+            If there's a photo to display.
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.PhotoUrl">
+            <summary>
+            URL to photo.
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.PhotoWidth">
+            <summary>
+            Width of photo
+            </summary>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.PhotoHeight">
+            <summary>
+            Height of photo
             </summary>
         </member>
         <member name="M:IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage.OnBackgroundClicked">
@@ -14359,6 +14403,71 @@
             </summary>
             <param name="JpegImage">Binary representation of JPEG image.</param>
             <returns>Rotation angle (degrees).</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhoto(Waher.Networking.XMPP.Contracts.Attachment)">
+            <summary>
+            Loads a photo attachment.
+            </summary>
+            <param name="Attachment">Attachment containing photo.</param>
+            <returns>Photo, Content-Type, Rotation</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhoto(Waher.Networking.XMPP.Contracts.Attachment,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+            <summary>
+            Loads a photo attachment.
+            </summary>
+            <param name="Attachment">Attachment containing photo.</param>
+            <param name="LogService">Log Service</param>
+            <param name="NetworkService">Network Service</param>
+            <param name="NeuronService">Neuron Sevice</param>
+            <param name="UiSerializer">UI Serializer</param>
+            <param name="AttachmentCacheService">Attachment Cache Service</param>
+            <returns>Photo, Content-Type, Rotation</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment[],System.Int32,System.Int32)">
+            <summary>
+            Tries to load a photo from a set of attachments.
+            </summary>
+            <param name="Attachments">Attachments</param>
+            <param name="MaxWith">Maximum width when displaying photo.</param>
+            <param name="MaxHeight">Maximum height when displaying photo.</param>
+            <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment[],System.Int32,System.Int32,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+            <summary>
+            Tries to load a photo from a set of attachments.
+            </summary>
+            <param name="Attachments">Attachments</param>
+            <param name="MaxWith">Maximum width when displaying photo.</param>
+            <param name="MaxHeight">Maximum height when displaying photo.</param>
+            <param name="LogService">Log Service</param>
+            <param name="NetworkService">Network Service</param>
+            <param name="NeuronService">Neuron Sevice</param>
+            <param name="UiSerializer">UI Serializer</param>
+            <param name="AttachmentCacheService">Attachment Cache Service</param>
+            <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment,System.Int32,System.Int32)">
+            <summary>
+            Tries to load a photo from an attachments.
+            </summary>
+            <param name="Attachment">Attachment</param>
+            <param name="MaxWith">Maximum width when displaying photo.</param>
+            <param name="MaxHeight">Maximum height when displaying photo.</param>
+            <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment,System.Int32,System.Int32,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+            <summary>
+            Tries to load a photo from an attachments.
+            </summary>
+            <param name="Attachment">Attachment</param>
+            <param name="MaxWith">Maximum width when displaying photo.</param>
+            <param name="MaxHeight">Maximum height when displaying photo.</param>
+            <param name="LogService">Log Service</param>
+            <param name="NetworkService">Network Service</param>
+            <param name="NeuronService">Neuron Sevice</param>
+            <param name="UiSerializer">UI Serializer</param>
+            <param name="AttachmentCacheService">Attachment Cache Service</param>
+            <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
         </member>
         <member name="T:IdApp.Services.UI.QR.QrCode">
             <summary>

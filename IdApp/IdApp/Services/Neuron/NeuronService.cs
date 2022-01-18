@@ -46,6 +46,7 @@ using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
 using Waher.Networking.XMPP.Abuse;
 using IdApp.Popups.Xmpp.ReportType;
+using IdApp.Services.UI.Photos;
 
 namespace IdApp.Services.Neuron
 {
@@ -1052,27 +1053,52 @@ namespace IdApp.Services.Neuron
 
 		private async Task XmppClient_OnPresenceSubscribe(object Sender, PresenceEventArgs e)
 		{
-			// TODO: Check Legal ID
+			LegalIdentity RemoteIdentity = null;
+			string FriendlyName = string.IsNullOrWhiteSpace(e.NickName) ? e.FromBareJID : e.NickName;
+			string PhotoUrl = null;
+			int PhotoWidth = 0;
+			int PhotoHeight = 0;
 
-			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(e.FromBareJID);
-			if (!(ContactInfo is null) && ContactInfo.AllowSubscriptionFrom.HasValue)
+			foreach (XmlNode N in e.Presence.ChildNodes)
 			{
-				if (ContactInfo.AllowSubscriptionFrom.Value)
+				if (N is XmlElement E && E.LocalName == "identity" && E.NamespaceURI == ContractsClient.NamespaceLegalIdentities)
+				{
+					RemoteIdentity = LegalIdentity.Parse(E);
+					if (!(RemoteIdentity is null))
+					{
+						FriendlyName = ContactInfo.GetFriendlyName(RemoteIdentity);
+						break;
+					}
+				}
+			}
+
+			ContactInfo Info = await ContactInfo.FindByBareJid(e.FromBareJID);
+			if (!(Info is null) && Info.AllowSubscriptionFrom.HasValue)
+			{
+				if (Info.AllowSubscriptionFrom.Value)
 					e.Accept();
 				else
 					e.Decline();
 
-				if (string.IsNullOrWhiteSpace(ContactInfo.FriendlyName) ||
-					(ContactInfo.FriendlyName == e.FromBareJID && !string.IsNullOrWhiteSpace(e.NickName)))
+				if (Info.FriendlyName != FriendlyName || (!(RemoteIdentity is null) && Info.LegalId != RemoteIdentity.Id))
 				{
-					ContactInfo.FriendlyName = string.IsNullOrWhiteSpace(e.NickName) ? e.FromBareJID : e.NickName;
-					await Database.Update(ContactInfo);
+					if (!(RemoteIdentity is null))
+					{
+						Info.LegalId = RemoteIdentity.Id;
+						Info.LegalIdentity = RemoteIdentity;
+					}
+
+					Info.FriendlyName = FriendlyName;
+					await Database.Update(Info);
 				}
 
 				return;
 			}
 
-			SubscriptionRequestPopupPage SubscriptionRequestPage = new SubscriptionRequestPopupPage(e.FromBareJID);
+			if (!(RemoteIdentity is null) && !(RemoteIdentity.Attachments is null))
+				(PhotoUrl, PhotoWidth, PhotoHeight) = await PhotosLoader.LoadPhotoAsTemporaryFile(RemoteIdentity.Attachments, 300, 300);
+
+			SubscriptionRequestPopupPage SubscriptionRequestPage = new SubscriptionRequestPopupPage(e.FromBareJID, FriendlyName, PhotoUrl, PhotoWidth, PhotoHeight);
 
 			await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscriptionRequestPage);
 			PresenceRequestAction Action = await SubscriptionRequestPage.Result;
@@ -1082,9 +1108,9 @@ namespace IdApp.Services.Neuron
 				case PresenceRequestAction.Accept:
 					e.Accept();
 
-					if (ContactInfo is null)
+					if (Info is null)
 					{
-						ContactInfo = new ContactInfo()
+						Info = new ContactInfo()
 						{
 							AllowSubscriptionFrom = true,
 							BareJid = e.FromBareJID,
@@ -1092,12 +1118,12 @@ namespace IdApp.Services.Neuron
 							IsThing = false
 						};
 
-						await Database.Insert(ContactInfo);
+						await Database.Insert(Info);
 					}
-					else if (!ContactInfo.AllowSubscriptionFrom.HasValue || !ContactInfo.AllowSubscriptionFrom.Value)
+					else if (!Info.AllowSubscriptionFrom.HasValue || !Info.AllowSubscriptionFrom.Value)
 					{
-						ContactInfo.AllowSubscriptionFrom = true;
-						await Database.Update(ContactInfo);
+						Info.AllowSubscriptionFrom = true;
+						await Database.Update(Info);
 					}
 
 					RosterItem Item = this.xmppClient[e.FromBareJID];
@@ -1137,9 +1163,9 @@ namespace IdApp.Services.Neuron
 
 					if (ReportOrBlock == ReportOrBlockAction.Block || ReportOrBlock == ReportOrBlockAction.Report)
 					{
-						if (ContactInfo is null)
+						if (Info is null)
 						{
-							ContactInfo = new ContactInfo()
+							Info = new ContactInfo()
 							{
 								AllowSubscriptionFrom = false,
 								BareJid = e.FromBareJID,
@@ -1147,12 +1173,12 @@ namespace IdApp.Services.Neuron
 								IsThing = false
 							};
 
-							await Database.Insert(ContactInfo);
+							await Database.Insert(Info);
 						}
-						else if (!ContactInfo.AllowSubscriptionFrom.HasValue || ContactInfo.AllowSubscriptionFrom.Value)
+						else if (!Info.AllowSubscriptionFrom.HasValue || Info.AllowSubscriptionFrom.Value)
 						{
-							ContactInfo.AllowSubscriptionFrom = false;
-							await Database.Update(ContactInfo);
+							Info.AllowSubscriptionFrom = false;
+							await Database.Update(Info);
 						}
 
 						if (ReportOrBlock == ReportOrBlockAction.Report)
