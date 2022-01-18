@@ -46,7 +46,7 @@ namespace IdApp.Pages.Contacts.Chat
 	/// </summary>
 	public class ChatViewModel : NeuronViewModel, IChatView
 	{
-		private const int MessageBatchSize = 50;
+		private const int MessageBatchSize = 30;
 
 		private readonly INavigationService navigationService;
 		private readonly ILogService logService;
