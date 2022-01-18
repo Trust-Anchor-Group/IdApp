@@ -79,6 +79,7 @@ namespace IdApp.Pages.Contacts.Chat
 			this.Messages = new ObservableCollection<ChatMessage>();
 
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
+			this.CancelCommand = new Command(async _ => await this.ExecuteCancelMessage(), _ => this.CanExecuteCancelMessage());
 			this.LoadMoreMessages = new Command(async _ => await this.ExecuteLoadMoreMessages(), _ => this.CanExecuteLoadMoreMessages());
 			this.TakePhoto = new Command(async _ => await this.ExecuteTakePhoto(), _ => this.CanExecuteTakePhoto());
 			this.EmbedFile = new Command(async _ => await this.ExecuteEmbedFile(), _ => this.CanExecuteEmbedFile());
@@ -137,7 +138,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.SendCommand, this.LoadMoreMessages, this.TakePhoto, this.EmbedFile,
+			this.EvaluateCommands(this.SendCommand, this.CancelCommand, this.LoadMoreMessages, this.TakePhoto, this.EmbedFile,
 				this.EmbedId, this.EmbedContract, this.EmbedMoney, this.EmbedThing);
 		}
 
@@ -321,8 +322,7 @@ namespace IdApp.Pages.Contacts.Chat
 		private async Task ExecuteSendMessage()
 		{
 			await this.ExecuteSendMessage(this.MessageId, this.MarkdownInput);
-			this.MarkdownInput = string.Empty;
-			this.MessageId = string.Empty;
+			await this.ExecuteCancelMessage();
 		}
 
 		private async Task ExecuteSendMessage(string ReplaceObjectId, string MarkdownInput)
@@ -414,6 +414,24 @@ namespace IdApp.Pages.Contacts.Chat
 			{
 				await this.UiSerializer.DisplayAlert(ex);
 			}
+		}
+
+		/// <summary>
+		/// The command to bind to for sending user input
+		/// </summary>
+		public ICommand CancelCommand { get; }
+
+		private bool CanExecuteCancelMessage()
+		{
+			return this.IsConnected && !string.IsNullOrEmpty(this.MarkdownInput);
+		}
+
+		private Task ExecuteCancelMessage()
+		{
+			this.MarkdownInput = string.Empty;
+			this.MessageId = string.Empty;
+
+			return Task.CompletedTask;
 		}
 
 		/// <summary>
@@ -723,7 +741,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			TaskCompletionSource<string> UriToSend = new TaskCompletionSource<string>();
 
-			await this.navigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed, 
+			await this.navigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed,
 				this.FriendlyName, UriToSend));
 
 			string Uri = await UriToSend.Task;

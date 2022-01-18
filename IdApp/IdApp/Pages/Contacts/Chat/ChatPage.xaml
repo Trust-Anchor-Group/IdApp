@@ -89,6 +89,14 @@
                             <behaviors:UnfocusOnClickedBehavior UnfocusControl="EditorControl"/>
                         </Button.Behaviors>
                     </Button>
+                    <Button Text="{x:Static local:FontAwesome.WindowClose}" IsVisible="{Binding Path=IsWriting}"
+                        FontFamily="{StaticResource FontAwesomeSolid}" TextColor="White" FontSize="Medium"
+                        CornerRadius="8" WidthRequest="40" HeightRequest="40" Command="{Binding CancelCommand}" 
+                        HorizontalOptions="End" VerticalOptions="Center">
+                        <Button.Behaviors>
+                            <behaviors:UnfocusOnClickedBehavior UnfocusControl="EditorControl"/>
+                        </Button.Behaviors>
+                    </Button>
                 </StackLayout>
             </Grid>
             <Frame.Behaviors>

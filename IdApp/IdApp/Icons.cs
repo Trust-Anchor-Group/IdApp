@@ -140,5 +140,10 @@
         /// paperclip
         /// </summary>
         public const string PaperClip = "\uf0c6";
+
+        /// <summary>
+        /// window-close
+        /// </summary>
+        public const string WindowClose = "\uf410";
     }
 }

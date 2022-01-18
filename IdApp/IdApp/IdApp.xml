@@ -3434,6 +3434,11 @@
             paperclip
             </summary>
         </member>
+        <member name="F:IdApp.FontAwesome.WindowClose">
+            <summary>
+            window-close
+            </summary>
+        </member>
         <member name="T:IdApp.IDeviceInformation">
             <summary>
             Dependency interface for device-specific information.
@@ -3812,6 +3817,11 @@
             <param name="Message">Message</param>
         </member>
         <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.SendCommand">
+            <summary>
+            The command to bind to for sending user input
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.ChatViewModel.CancelCommand">
             <summary>
             The command to bind to for sending user input
             </summary>
