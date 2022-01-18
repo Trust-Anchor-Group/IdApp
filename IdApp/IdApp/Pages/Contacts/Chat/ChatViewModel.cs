@@ -826,15 +826,36 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private Task ExecuteMessageSelected(object Parameter)
 		{
-			if (!(Parameter is ChatMessage Message) || Message.MessageType != Services.Messages.MessageType.Sent)
+			if (Parameter is ChatMessage Message)
 			{
-				this.MarkdownInput = string.Empty;
-				this.MessageId = string.Empty;
-			}
-			else
-			{
-				this.MarkdownInput = Message.Markdown;
-				this.MessageId = Message.ObjectId;
+				switch (Message.MessageType)
+				{
+					case Services.Messages.MessageType.Sent:
+						this.MarkdownInput = Message.Markdown;
+						this.MessageId = Message.ObjectId;
+						break;
+
+					case Services.Messages.MessageType.Received:
+						string s = Message.Markdown;
+						if (string.IsNullOrEmpty(s))
+							s = MarkdownDocument.Encode(Message.PlainText);
+
+						string[] Rows = s.Replace("\r\n", "\n").Replace("\r", "\n").Split('\n');
+
+						StringBuilder Quote = new StringBuilder();
+
+						foreach (string Row in Rows)
+						{
+							Quote.Append("> ");
+							Quote.AppendLine(Row);
+						}
+
+						Quote.AppendLine();
+
+						this.MarkdownInput = Quote.ToString();
+						this.MessageId = string.Empty;
+						break;
+				}
 			}
 
 			this.EvaluateAllCommands();
