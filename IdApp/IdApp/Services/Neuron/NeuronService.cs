@@ -1067,6 +1067,20 @@ namespace IdApp.Services.Neuron
 					if (!(RemoteIdentity is null))
 					{
 						FriendlyName = ContactInfo.GetFriendlyName(RemoteIdentity);
+
+						IdentityStatus Status = await this.contractsClient.ValidateAsync(RemoteIdentity);
+						if (Status != IdentityStatus.Valid)
+						{
+							e.Decline();
+
+							Log.Warning("Invalid ID received. Presence subscription declined.", e.FromBareJID, RemoteIdentity.Id, "IdValidationError",
+								new KeyValuePair<string, object>("Recipient JID", this.BareJid),
+								new KeyValuePair<string, object>("Sender JID", e.FromBareJID),
+								new KeyValuePair<string, object>("Legal ID", RemoteIdentity.Id),
+								new KeyValuePair<string, object>("Validation", Status));
+							return;
+						}
+
 						break;
 					}
 				}
