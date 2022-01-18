@@ -186,6 +186,7 @@ namespace IdApp.Services.Neuron
 					this.xmppClient.OnError += XmppClient_Error;
 					this.xmppClient.OnChatMessage += XmppClient_OnChatMessage;
 					this.xmppClient.OnPresenceSubscribe += XmppClient_OnPresenceSubscribe;
+					this.xmppClient.OnPresenceUnsubscribed += XmppClient_OnPresenceUnsubscribed;
 
 					this.xmppClient.RegisterMessageHandler("Delivered", ContractsClient.NamespaceOnboarding, this.TransferIdDelivered, true);
 
@@ -283,7 +284,6 @@ namespace IdApp.Services.Neuron
 				isCreatingClient = false;
 			}
 		}
-
 		private void DestroyXmppClient()
 		{
 			this.reconnectTimer?.Dispose();
@@ -1181,6 +1181,16 @@ namespace IdApp.Services.Neuron
 				case PresenceRequestAction.Ignore:
 				default:
 					break;
+			}
+		}
+
+		private async Task XmppClient_OnPresenceUnsubscribed(object Sender, PresenceEventArgs e)
+		{
+			ContactInfo ContactInfo = await ContactInfo.FindByBareJid(e.FromBareJID);
+			if (!(ContactInfo is null) && ContactInfo.AllowSubscriptionFrom.HasValue && ContactInfo.AllowSubscriptionFrom.Value)
+			{
+				ContactInfo.AllowSubscriptionFrom = null;
+				await Database.Update(ContactInfo);
 			}
 		}
 

@@ -1761,7 +1761,16 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					bool? Remove = await Page.Result;
 
 					if (Remove.HasValue && Remove.Value)
+					{
 						this.NeuronService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
+
+						ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
+						if (!(Info is null) && Info.AllowSubscriptionFrom.HasValue && Info.AllowSubscriptionFrom.Value)
+						{
+							Info.AllowSubscriptionFrom = null;
+							await Database.Update(Info);
+						}
+					}
 				}
 
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceUnsubscriptionRequestSent);
