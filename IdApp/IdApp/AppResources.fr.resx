@@ -1353,4 +1353,52 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Se désabonner de</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Abus</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Bloquer</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>D’autres mesures?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Souhaitez-vous prendre d’autres mesures contre :</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Vous pouvez choisir de bloquer l’adresse.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Cela garantira que vous ne recevez pas plus de demandes d’abonnement de la part de l’expéditeur.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Vous pouvez également choisir de signaler l’expéditeur à votre opérateur.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Non, il suffit d’ignorer</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Autre</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Rapport</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Pourriel</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Sélectionnez le type de rapport que vous souhaitez classer :</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Supprimer l’abonnement ?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Vous avez toujours une demande d’abonnement approuvée de :</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Voulez-vous également révoquer cette autorisation ?</value>
+  </data>
 </root>

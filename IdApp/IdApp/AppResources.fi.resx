@@ -1353,4 +1353,52 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Peruuta tilaus</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Väärinkäyttö</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Estää</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Lisätoimia?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Haluatko ryhtyä lisätoimiin:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Voit estää osoitteen.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Näin varmistat, ettet saa lähettäjältä lisää tilauspyyntöjä.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Voit myös ilmoittaa lähettäjän operaattorillesi.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Ei, älä välitä.</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Toinen</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Raportti</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Roskaposti</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Valitse arkistoitava raporttityyppi:</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Poistetaanko tilaus?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Sinulla on edelleen hyväksytty tilauspyyntö:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Haluatko peruuttaa myös tämän oikeuden?</value>
+  </data>
 </root>

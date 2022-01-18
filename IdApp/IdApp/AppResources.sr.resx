@@ -1353,4 +1353,52 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Otkaži pretplatu sa</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Zlostavljanja</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Blok</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Dalja akcija?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Želite li da preduzmete bilo kakvu dalju akciju protiv:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Možete odabrati da blokirate adresu.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Ovo će se pobrinuti da ne primate više zahteva za pretplatu od pošiljaoca.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Takođe možete odabrati da prijavite pošiljaoca operateru.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Ne, samo ignoriši</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Drugi</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Izveštaj</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Izaberite tip izveštaja za koji želite da arhivirate:</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Želite li da uklonite pretplatu?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Još uvek imate odobren zahtev za pretplatu od:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Želite li da opozovete i ovu dozvolu?</value>
+  </data>
 </root>

@@ -1353,4 +1353,52 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Cancelar inscrição de</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Abuso</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Bloquear</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Mais ação?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Gostaria de tomar mais medidas contra:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Você pode optar por bloquear o endereço.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Isso garantirá que você não receba mais solicitações de assinatura do remetente.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Você também pode optar por relatar o remetente ao seu operador.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Não, apenas ignore</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Outro</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Relatório</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Selecione o tipo de relatório que você deseja arquivar:</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Remover a assinatura?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Você ainda tem um pedido de assinatura aprovado de:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Você quer revogar essa permissão também?</value>
+  </data>
 </root>

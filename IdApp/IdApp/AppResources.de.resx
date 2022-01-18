@@ -1353,4 +1353,52 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Abmelden von</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Missbrauch</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Weitere Maßnahmen?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Möchten Sie weitere Maßnahmen ergreifen gegen:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Sie können die Adresse blockieren.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Dadurch wird sichergestellt, dass Sie keine weiteren Abonnementanforderungen vom Absender erhalten.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Sie können den Absender auch an Ihren Operator melden.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Nein, einfach ignorieren</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andere</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Bericht</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Wählen Sie den Berichtstyp aus, für den Sie eine Datei erstellen möchten:</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Abonnement entfernen?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Sie haben noch eine genehmigte Abonnementanfrage von:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Möchten Sie diese Erlaubnis auch widerrufen?</value>
+  </data>
 </root>

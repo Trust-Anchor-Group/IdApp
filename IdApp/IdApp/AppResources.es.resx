@@ -1353,4 +1353,52 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Darse de baja de</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Abuso</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Bloquear</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>¿Más acciones?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>¿Desea tomar alguna otra medida contra:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Puede optar por bloquear la dirección.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Esto asegurará que no reciba más solicitudes de suscripción del remitente.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>También puede optar por informar al remitente a su operador.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>No, simplemente ignora</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Otro</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Informe</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Spam</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Seleccione el tipo de informe que desea presentar:</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>¿Eliminar la suscripción?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Aún tiene una solicitud de suscripción aprobada de:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>¿Desea revocar este permiso también?</value>
+  </data>
 </root>

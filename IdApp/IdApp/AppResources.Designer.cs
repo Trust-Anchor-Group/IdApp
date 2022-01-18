@@ -2590,6 +2590,33 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Subscription?.
+        /// </summary>
+        internal static string RemoveSubscription {
+            get {
+                return ResourceManager.GetString("RemoveSubscription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You still have an approved subscription request from:.
+        /// </summary>
+        internal static string RemoveSubscription1 {
+            get {
+                return ResourceManager.GetString("RemoveSubscription1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to revoke this permission also?.
+        /// </summary>
+        internal static string RemoveSubscription2 {
+            get {
+                return ResourceManager.GetString("RemoveSubscription2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Repair and continue.
         /// </summary>
         internal static string RepairAndContinue {

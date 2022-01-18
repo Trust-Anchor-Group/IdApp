@@ -1353,4 +1353,52 @@
   <data name="UnsubscribeFrom" xml:space="preserve">
     <value>Stopp abonnementet på</value>
   </data>
+  <data name="Abuse" xml:space="preserve">
+    <value>Misbruk</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Sperre</value>
+  </data>
+  <data name="FurtherAction" xml:space="preserve">
+    <value>Ytterligere handling?</value>
+  </data>
+  <data name="FurtherAction1" xml:space="preserve">
+    <value>Vil du gjøre noe mer mot:</value>
+  </data>
+  <data name="FurtherAction2" xml:space="preserve">
+    <value>Du kan velge å blokkere adressen.</value>
+  </data>
+  <data name="FurtherAction3" xml:space="preserve">
+    <value>Dette vil sørge for at du ikke mottar flere abonnementsforespørsler fra avsenderen.</value>
+  </data>
+  <data name="FurtherAction4" xml:space="preserve">
+    <value>Du kan også velge å rapportere avsenderen til operatøren din.</value>
+  </data>
+  <data name="NoJustIgnore" xml:space="preserve">
+    <value>Nei, bare ignorer</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Annen</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Rapport</value>
+  </data>
+  <data name="Spam" xml:space="preserve">
+    <value>Søppelpost</value>
+  </data>
+  <data name="TypeOfReport" xml:space="preserve">
+    <value>TypeOfReport</value>
+  </data>
+  <data name="TypeOfReport1" xml:space="preserve">
+    <value>Velg rapporttypen du vil arkivere for:</value>
+  </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Vil du fjerne abonnementet?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Du har fortsatt en godkjent abonnementsforespørsel fra:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Vil du tilbakekalle denne tillatelsen også?</value>
+  </data>
 </root>
