@@ -77,10 +77,11 @@ namespace IdApp.Pages.Contacts
 			string Suffix;
 			int i;
 
-			foreach (ContactInfo Info in await Database.Find<ContactInfo>(new FilterAnd(
-				new FilterNot(new FilterFieldEqualTo("IsThing", true)),
-				new FilterNot(new FilterFieldEqualTo("AllowSubscriptionFrom", false)))))
+			foreach (ContactInfo Info in await Database.Find<ContactInfo>(new FilterFieldNotEqualTo("IsThing", true)))	// Includes thos with IsThing=null
 			{
+				if (Info.AllowSubscriptionFrom.HasValue && !Info.AllowSubscriptionFrom.Value)
+					continue;
+
 				Name = Info.FriendlyName;
 				if (Sorted.ContainsKey(Name))
 				{
@@ -173,7 +174,7 @@ namespace IdApp.Pages.Contacts
 		/// See <see cref="SelectedContact"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContactProperty =
-			BindableProperty.Create("SelectedContact", typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo), 
+			BindableProperty.Create("SelectedContact", typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo),
 				propertyChanged: (b, oldValue, newValue) =>
 				{
 					if (b is ContactListViewModel viewModel && newValue is ContactInfo Contact)
@@ -201,7 +202,7 @@ namespace IdApp.Pages.Contacts
 										break;
 
 									Balance Balance = await viewModel.neuronService.Wallet.GetBalanceAsync();
-									
+
 									sb.Append(";cu=");
 									sb.Append(Balance.Currency);
 
@@ -223,7 +224,7 @@ namespace IdApp.Pages.Contacts
 									}
 									else if (!string.IsNullOrEmpty(Contact.BareJid))
 									{
-										await viewModel.navigationService.GoToAsync(nameof(ChatPage), 
+										await viewModel.navigationService.GoToAsync(nameof(ChatPage),
 											new ChatNavigationArgs(Contact.LegalId, Contact.BareJid, Contact.FriendlyName));
 									}
 									break;
