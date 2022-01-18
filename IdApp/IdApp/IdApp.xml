@@ -1469,6 +1469,21 @@
               Looks up a localized string similar to Remove Contact.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.RemoveSubscription">
+            <summary>
+              Looks up a localized string similar to Remove Subscription?.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RemoveSubscription1">
+            <summary>
+              Looks up a localized string similar to You still have an approved subscription request from:.
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.RemoveSubscription2">
+            <summary>
+              Looks up a localized string similar to Do you want to revoke this permission also?.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.RepairAndContinue">
             <summary>
               Looks up a localized string similar to Repair and continue.
@@ -11526,6 +11541,30 @@
         <member name="P:IdApp.Popups.Pin.PinPopup.PinPopupPage.Result">
             <summary>
             Task waiting for result. null means dialog was closed without providing a PIN.
+            </summary>
+        </member>
+        <member name="T:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage">
+            <summary>
+            Asks the user if it wants to remove an existing presence subscription request as well.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage.#ctor(System.String)">
+            <summary>
+            Asks the user if it wants to remove an existing presence subscription request as well.
+            </summary>
+            <param name="BareJid">Bare JID of sender of request.</param>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage.BareJid">
+            <summary>
+            Bare JID of sender of request.
+            </summary>
+        </member>
+        <member name="M:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage.OnBackgroundClicked">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Popups.Xmpp.RemoveSubscription.RemoveSubscriptionPopupPage.Result">
+            <summary>
+            Task waiting for result.
             </summary>
         </member>
         <member name="T:IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockAction">

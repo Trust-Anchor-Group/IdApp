@@ -960,6 +960,15 @@
   <data name="RemoveContact" xml:space="preserve">
     <value>Ta bort kontakt</value>
   </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Ta bort prenumeration?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>Du har fortfarande en godkänd prenumerationsförfrågan från:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Vill du ta tillbaka detta godkännande också?</value>
+  </data>
   <data name="RepairAndContinue" xml:space="preserve">
     <value>Reparera och fortsätt</value>
   </data>

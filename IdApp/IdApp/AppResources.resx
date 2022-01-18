@@ -1392,4 +1392,13 @@
   <data name="TypeOfReport1" xml:space="preserve">
     <value>Select type of report you want to file for:</value>
   </data>
+  <data name="RemoveSubscription" xml:space="preserve">
+    <value>Remove Subscription?</value>
+  </data>
+  <data name="RemoveSubscription1" xml:space="preserve">
+    <value>You still have an approved subscription request from:</value>
+  </data>
+  <data name="RemoveSubscription2" xml:space="preserve">
+    <value>Do you want to revoke this permission also?</value>
+  </data>
 </root>

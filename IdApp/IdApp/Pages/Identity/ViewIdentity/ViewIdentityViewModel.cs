@@ -32,6 +32,7 @@ using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Contacts.Chat;
+using IdApp.Popups.Xmpp.RemoveSubscription;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {
@@ -344,8 +345,8 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void EvaluateAllCommands()
 		{
-			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.TransferCommand, 
-				this.ChangePinCommand, this.CompromiseCommand, this.AddContactCommand, this.RemoveContactCommand, 
+			this.EvaluateCommands(this.ApproveCommand, this.RejectCommand, this.RevokeCommand, this.TransferCommand,
+				this.ChangePinCommand, this.CompromiseCommand, this.AddContactCommand, this.RemoveContactCommand,
 				this.SendPaymentToCommand, this.ChatCommand, this.SubscribeToCommand, this.UnsubscribeFromCommand);
 		}
 
@@ -1637,7 +1638,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 									if (N is XmlElement Info && Info.LocalName == "Code" && Info.NamespaceURI == ContractsClient.NamespaceOnboarding)
 									{
 										string Code = XML.Attribute(Info, "code");
-										string Url = "obinfo:" + Constants.Domains.IdDomain + ":" + Code + ":" + 
+										string Url = "obinfo:" + Constants.Domains.IdDomain + ":" + Code + ":" +
 											Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
 
 										await this.NeuronService.AddTransferCode(Code);
@@ -1674,10 +1675,10 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				while (true)
 				{
 					ChangePinPopupPage Page = new ChangePinPopupPage();
-				
+
 					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
 					(string OldPin, string NewPin) = await Page.Result;
-				
+
 					if (OldPin is null || OldPin == NewPin)
 						return;
 
@@ -1704,9 +1705,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PinChanged);
 						return;
 					}
-				
+
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.PinIsInvalid);
-				
+
 					// TODO: Limit number of attempts.
 				}
 			}
@@ -1750,6 +1751,19 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			try
 			{
 				this.NeuronService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
+
+				RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
+				if (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.From)
+				{
+					RemoveSubscriptionPopupPage Page = new RemoveSubscriptionPopupPage(this.BareJid);
+
+					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
+					bool? Remove = await Page.Result;
+
+					if (Remove.HasValue && Remove.Value)
+						this.NeuronService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
+				}
+
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceUnsubscriptionRequestSent);
 			}
 			catch (Exception ex)
