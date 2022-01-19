@@ -1401,4 +1401,7 @@
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>Möchten Sie diese Erlaubnis auch widerrufen?</value>
   </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>Der Server scheint das Hochladen von Dateien nicht zu unterstützen.</value>
+  </data>
 </root>

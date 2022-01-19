@@ -1644,6 +1644,11 @@
               Looks up a localized string similar to Serial Number.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.ServerDoesNotSupportFileUpload">
+            <summary>
+              Looks up a localized string similar to The server does not seem to support File Uploading..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.ServerSignature">
             <summary>
               Looks up a localized string similar to Server Signature.

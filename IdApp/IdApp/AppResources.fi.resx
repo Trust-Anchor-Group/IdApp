@@ -1401,4 +1401,7 @@
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>Haluatko peruuttaa myös tämän oikeuden?</value>
   </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>Palvelin ei näytä tukevan tiedostojen lataamista.</value>
+  </data>
 </root>

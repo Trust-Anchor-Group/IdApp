@@ -1401,4 +1401,7 @@
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>Do you want to revoke this permission also?</value>
   </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>The server does not seem to support File Uploading.</value>
+  </data>
 </root>

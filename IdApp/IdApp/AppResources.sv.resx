@@ -1062,6 +1062,9 @@
   <data name="SerialNumber" xml:space="preserve">
     <value>Serienummer</value>
   </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>Servern verkar inte stödja filuppladdning.</value>
+  </data>
   <data name="ServerSignature" xml:space="preserve">
     <value>Serversignatur</value>
   </data>

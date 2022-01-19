@@ -2905,6 +2905,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The server does not seem to support File Uploading..
+        /// </summary>
+        internal static string ServerDoesNotSupportFileUpload {
+            get {
+                return ResourceManager.GetString("ServerDoesNotSupportFileUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server Signature.
         /// </summary>
         internal static string ServerSignature {

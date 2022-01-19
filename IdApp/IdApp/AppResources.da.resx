@@ -1401,4 +1401,7 @@
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>Vil du også tilbagekalde denne tilladelse?</value>
   </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>Serveren ser ikke ud til at understøtte filoverførsel.</value>
+  </data>
 </root>

@@ -407,8 +407,8 @@ namespace IdApp.Pages.Contacts.Chat
 					}
 				}
 
-				this.NeuronService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId, 
-					this.BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null); 
+				this.NeuronService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
+					this.BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
 				// TODO: End-to-End encryption
 			}
 			catch (Exception ex)
@@ -477,7 +477,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			if (!this.NeuronService.Contracts.FileUploadIsSupported)
 			{
-				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.ServerDoesNotSupportFileUpload);
 				return;
 			}
 
@@ -493,9 +493,9 @@ namespace IdApp.Pages.Contacts.Chat
 						RotateImage = false
 					});
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
 					return;
 				}
 
@@ -521,9 +521,9 @@ namespace IdApp.Pages.Contacts.Chat
 					if (capturedPhoto is null)
 						return;
 				}
-				catch (Exception)
+				catch (Exception ex)
 				{
-					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported);
+					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
 					return;
 				}
 

@@ -1401,4 +1401,7 @@
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>Želite li da opozovete i ovu dozvolu?</value>
   </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>Izgleda da server ne podržava otpremanje datoteka.</value>
+  </data>
 </root>

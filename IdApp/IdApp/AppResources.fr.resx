@@ -1401,4 +1401,7 @@
   <data name="RemoveSubscription2" xml:space="preserve">
     <value>Voulez-vous également révoquer cette autorisation ?</value>
   </data>
+  <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
+    <value>Le serveur ne semble pas prendre en charge le téléchargement de fichiers.</value>
+  </data>
 </root>
