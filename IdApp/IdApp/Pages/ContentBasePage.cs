@@ -37,9 +37,9 @@ namespace IdApp.Pages
         /// </summary>
         protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiSerializer uiSerializer)
         {
-            this.logService = logService ?? Types.Instantiate<ILogService>(false);
-            this.settingsService = settingsService ?? Types.Instantiate<ISettingsService>(false);
-            this.uiSerializer = uiSerializer ?? Types.Instantiate<IUiSerializer>(false);
+            this.logService = logService ?? App.Instantiate<ILogService>();
+            this.settingsService = settingsService ?? App.Instantiate<ISettingsService>();
+            this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
             PropertyChanged += OnPropertyChanged;
         }
 

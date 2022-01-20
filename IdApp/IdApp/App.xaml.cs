@@ -78,7 +78,7 @@ namespace IdApp
 			AppDomain.CurrentDomain.FirstChanceException += CurrentDomain_FirstChanceException;
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
-			
+
 			this.initCompleted = this.Init();
 
 			InitializeComponent();
@@ -207,7 +207,6 @@ namespace IdApp
 				if (Types.GetType(type.FullName) is null)
 					return null;    // Type not managed by Runtime.Inventory. Xamarin.Forms resolves this using its default mechanism.
 
-				bool IsReg = SingletonAttribute.IsRegistered(type);
 				return Types.Instantiate(true, type);
 			});
 
@@ -376,7 +375,7 @@ namespace IdApp
 			if (!(this.sdk?.StorageService is null))
 				await this.sdk.StorageService.Shutdown();
 
-			Waher.Events.Log.Terminate();	// Causes list of singleton instances to be cleared.
+			Waher.Events.Log.Terminate();   // Causes list of singleton instances to be cleared.
 		}
 
 		#endregion
@@ -559,7 +558,7 @@ namespace IdApp
 				HttpClient client = new HttpClient();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				
+
 				StringContent content = new StringContent(message);
 				content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
 
@@ -578,7 +577,7 @@ namespace IdApp
 			if (!(this.startupProfiler is null))
 			{
 				this.startupProfiler.Stop();
-				
+
 				string uml = this.startupProfiler.ExportPlantUml(TimeUnit.MilliSeconds);
 
 				try
