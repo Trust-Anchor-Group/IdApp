@@ -13,6 +13,7 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.NFC" />
+	<uses-feature android:name="android.hardware.nfc" android:required="false" />
 	<application android:label="TAG ID" android:icon="@mipmap/icon">
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="${applicationId}.fileprovider" android:exported="false" android:grantUriPermissions="true" android:requestLegacyExternalStorage="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths"></meta-data>
