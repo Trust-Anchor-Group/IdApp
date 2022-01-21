@@ -26,7 +26,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Frame Grid.Row="0" Grid.RowSpan="4" CornerRadius="5" BackgroundColor="#e0ffffff"/>
+                        <Frame Grid.Row="0" Grid.RowSpan="4" CornerRadius="5" BackgroundColor="#f0ffffff"/>
                         <Label Grid.Row="0" Margin="20" Text="{x:Static resources:AppResources.WelcomeToTagHeading}" 
                            HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
                         <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagSubheading}" FontSize="Body"
@@ -51,7 +51,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#e0ffffff"/>
+                        <Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#f0ffffff"/>
                         <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagPurposeSelected}" 
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
                         <Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resources:AppResources.EnterPhoneNumber}" 
@@ -76,7 +76,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#e0ffffff"/>
+                        <Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#f0ffffff"/>
                         <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagCodeSent}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
                         <Entry Grid.Row="1" x:Name="VerificationCodeEntry" Placeholder="{x:Static resources:AppResources.VerificationCode}" 
