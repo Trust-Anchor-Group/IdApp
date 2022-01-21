@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace IdApp
+namespace IdApp.DeviceSpecific
 {
     /// <summary>
     /// Dependency interface for device-specific closing of application.

@@ -1,5 +1,6 @@
-﻿using System.IO;
-using Foundation;
+﻿using Foundation;
+using IdApp.DeviceSpecific;
+using System.IO;
 using UIKit;
 using Xamarin.Forms;
 

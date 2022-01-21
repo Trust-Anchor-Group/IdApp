@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using IdApp.DeviceSpecific;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 

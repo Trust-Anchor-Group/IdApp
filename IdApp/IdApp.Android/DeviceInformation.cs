@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Provider;
+using IdApp.DeviceSpecific;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.DeviceInformation))]
 namespace IdApp.Android

@@ -1,6 +1,7 @@
-﻿using System.IO;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
+using IdApp.DeviceSpecific;
+using System.IO;
 using Xamarin.Essentials;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.ShareContent))]

@@ -1,4 +1,12 @@
-﻿using Plugin.Media;
+﻿using IdApp.DeviceSpecific;
+using IdApp.Extensions;
+using IdApp.Services.Data.PersonalNumbers;
+using IdApp.Services.Contracts;
+using IdApp.Services.Neuron;
+using IdApp.Services.Tag;
+using IdApp.Services.UI.Photos;
+using IdApp.Services.Data.Countries;
+using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.ObjectModel;
@@ -10,13 +18,6 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Extensions;
-using IdApp.Services.Data.PersonalNumbers;
-using IdApp.Services.Contracts;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI.Photos;
-using IdApp.Services.Data.Countries;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {

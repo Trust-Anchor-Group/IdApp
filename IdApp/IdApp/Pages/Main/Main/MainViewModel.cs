@@ -3,20 +3,21 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.DeviceSpecific;
 using IdApp.Extensions;
-using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contacts;
+using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.MyContracts;
+using IdApp.Pages.Identity.ViewIdentity;
+using IdApp.Services.Data.Countries;
+using IdApp.Services.Neuron;
+using IdApp.Services.UI;
+using IdApp.Services.UI.Photos;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.Neuron;
-using IdApp.Services.UI;
-using IdApp.Services.UI.Photos;
-using IdApp.Services.Data.Countries;
-using IdApp.Pages.Identity.ViewIdentity;
-using IdApp.Pages.Contracts.MyContracts;
 
 namespace IdApp.Pages.Main.Main
 {

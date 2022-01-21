@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.DeviceSpecific;
 using IdApp.Services.Neuron;
 using Waher.Content;
 using Xamarin.Forms;

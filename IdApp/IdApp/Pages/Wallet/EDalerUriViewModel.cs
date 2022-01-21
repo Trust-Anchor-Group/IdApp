@@ -5,12 +5,13 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
+using IdApp.DeviceSpecific;
+using IdApp.Services.Neuron;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.Neuron;
 
 namespace IdApp.Pages.Wallet
 {

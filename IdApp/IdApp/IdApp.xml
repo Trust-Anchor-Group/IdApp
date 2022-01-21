@@ -3013,6 +3013,40 @@
         <member name="M:IdApp.Converters.LogicalNot.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.DeviceSpecific.ICloseApplication">
+            <summary>
+            Dependency interface for device-specific closing of application.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.ICloseApplication.Close">
+            <summary>
+            Closes the application
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.IDeviceInformation">
+            <summary>
+            Dependency interface for device-specific information.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.IDeviceInformation.GetDeviceId">
+            <summary>
+            Gets the ID of the device.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.IShareContent">
+            <summary>
+            Dependency interface for sharing content with other applications.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.IShareContent.ShareImage(System.Byte[],System.String,System.String,System.String)">
+            <summary>
+            Shares an image in PNG format.
+            </summary>
+            <param name="PngFile">Binary representation (PNG format) of image.</param>
+            <param name="Message">Message to send with image.</param>
+            <param name="Title">Title for operation.</param>
+            <param name="FileName">Filename of image file.</param>
+        </member>
         <member name="T:IdApp.Exceptions.MissingNetworkException">
             <summary>
             Represents network errors.
@@ -3303,16 +3337,6 @@
             <param name="State">The state to convert.</param>
             <returns>String representation</returns>
         </member>
-        <member name="T:IdApp.ICloseApplication">
-            <summary>
-            Dependency interface for device-specific closing of application.
-            </summary>
-        </member>
-        <member name="M:IdApp.ICloseApplication.Close">
-            <summary>
-            Closes the application
-            </summary>
-        </member>
         <member name="T:IdApp.FontAwesome">
             <summary>
             A list of Unicode constants for the FontAwesome Solid Icons:
@@ -3458,30 +3482,6 @@
             <summary>
             window-close
             </summary>
-        </member>
-        <member name="T:IdApp.IDeviceInformation">
-            <summary>
-            Dependency interface for device-specific information.
-            </summary>
-        </member>
-        <member name="M:IdApp.IDeviceInformation.GetDeviceId">
-            <summary>
-            Gets the ID of the device.
-            </summary>
-        </member>
-        <member name="T:IdApp.IShareContent">
-            <summary>
-            Dependency interface for sharing content with other applications.
-            </summary>
-        </member>
-        <member name="M:IdApp.IShareContent.ShareImage(System.Byte[],System.String,System.String,System.String)">
-            <summary>
-            Shares an image in PNG format.
-            </summary>
-            <param name="PngFile">Binary representation (PNG format) of image.</param>
-            <param name="Message">Message to send with image.</param>
-            <param name="Title">Title for operation.</param>
-            <param name="FileName">Filename of image file.</param>
         </member>
         <member name="T:IdApp.Pages.BaseViewModel">
             <summary>

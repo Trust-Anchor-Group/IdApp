@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using IdApp.DeviceSpecific;
 using System.Threading.Tasks;
 
 [assembly: Xamarin.Forms.Dependency(typeof(IdApp.Android.CloseApplication))]

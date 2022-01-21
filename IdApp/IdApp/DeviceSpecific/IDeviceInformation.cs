@@ -1,4 +1,4 @@
-﻿namespace IdApp
+﻿namespace IdApp.DeviceSpecific
 {
     /// <summary>
     /// Dependency interface for device-specific information.

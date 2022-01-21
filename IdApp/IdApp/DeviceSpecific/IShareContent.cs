@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace IdApp
+﻿namespace IdApp.DeviceSpecific
 {
     /// <summary>
     /// Dependency interface for sharing content with other applications.
