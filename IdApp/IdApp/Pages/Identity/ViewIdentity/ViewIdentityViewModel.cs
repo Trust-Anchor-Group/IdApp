@@ -19,15 +19,8 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
 using IdApp.Popups.Pin.ChangePin;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.EventLog;
 using IdApp.Services.Contracts;
-using IdApp.Services.Crypto;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
@@ -42,39 +35,16 @@ namespace IdApp.Pages.Identity.ViewIdentity
 	public class ViewIdentityViewModel : NeuronViewModel
 	{
 		private SignaturePetitionEventArgs identityToReview;
-		private readonly ILogService logService;
-		private readonly INavigationService navigationService;
-		private readonly INetworkService networkService;
-		private readonly IEDalerOrchestratorService eDalerService;
-		private readonly IAttachmentCacheService attachmentCacheService;
-		private readonly ICryptoService cryptoService;
 		private readonly PhotosLoader photosLoader;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewIdentityViewModel"/> class.
 		/// </summary>
-		public ViewIdentityViewModel(
-			ITagProfile TagProfile,
-			IUiSerializer UiSerializer,
-			INeuronService NeuronService,
-			INavigationService NavigationService,
-			INetworkService NetworkService,
-			ILogService LogService,
-			IEDalerOrchestratorService EDalerService,
-			IAttachmentCacheService AttachmentCacheService,
-			ICryptoService CryptoService)
-		: base(NeuronService, UiSerializer, TagProfile)
+		public ViewIdentityViewModel()
+		: base()
 		{
-			this.logService = LogService;
-			this.navigationService = NavigationService;
-			this.networkService = NetworkService;
-			this.eDalerService = EDalerService;
-			this.attachmentCacheService = AttachmentCacheService;
-			this.cryptoService = CryptoService;
-
 			this.Photos = new ObservableCollection<Photo>();
-			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiSerializer,
-				AttachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
+			this.photosLoader = new PhotosLoader(this.Photos);
 
 			this.ApproveCommand = new Command(async _ => await Approve(), _ => this.IsConnected);
 			this.RejectCommand = new Command(async _ => await Reject(), _ => this.IsConnected);
@@ -96,7 +66,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out ViewIdentityNavigationArgs args))
 			{
 				this.LegalIdentity = args.Identity ?? this.TagProfile.LegalIdentity;
 				this.identityToReview = args.IdentityToReview;
@@ -338,7 +308,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 			catch (Exception ex)
 			{
-				logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1336,23 +1306,23 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded1, byte[] signature) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
+				(bool succeeded1, byte[] signature) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
 
 				if (!succeeded1)
 				{
 					return;
 				}
 
-				bool succeeded2 = await this.networkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true));
+				bool succeeded2 = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true));
 
 				if (succeeded2)
 				{
-					await this.navigationService.GoBackAsync();
+					await this.NavigationService.GoBackAsync();
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1364,15 +1334,15 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false));
+				bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false));
 				if (succeeded)
 				{
-					await this.navigationService.GoBackAsync();
+					await this.NavigationService.GoBackAsync();
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1387,17 +1357,17 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToRevokeYourLegalIdentity))
 					return;
 
-				(bool succeeded, LegalIdentity revokedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
 				if (succeeded)
 				{
 					this.LegalIdentity = revokedIdentity;
 					this.TagProfile.RevokeLegalIdentity(revokedIdentity);
-					await this.navigationService.GoToAsync($"{nameof(RegistrationPage)}");
+					await this.NavigationService.GoToAsync($"{nameof(RegistrationPage)}");
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1420,18 +1390,18 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized))
 					return;
 
-				(bool succeeded, LegalIdentity compromisedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
 
 				if (succeeded)
 				{
 					this.LegalIdentity = compromisedIdentity;
 					this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
-					await this.navigationService.GoToAsync($"{nameof(RegistrationPage)}");
+					await this.NavigationService.GoToAsync($"{nameof(RegistrationPage)}");
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1493,7 +1463,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					await Database.Update(Info);
 				}
 
-				await this.attachmentCacheService.MakePermanent(this.LegalId);
+				await this.AttachmentCacheService.MakePermanent(this.LegalId);
 				await Database.Provider.Flush();
 
 				this.ThirdPartyInContacts = true;
@@ -1518,7 +1488,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!(Info is null))
 				{
 					await Database.Delete(Info);
-					await this.attachmentCacheService.MakeTemporary(Info.LegalId);
+					await this.AttachmentCacheService.MakeTemporary(Info.LegalId);
 					await Database.Provider.Flush();
 				}
 
@@ -1549,7 +1519,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				else
 					Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
 
-				await this.eDalerService.OpenEDalerUri(Uri);
+				await this.EDalerOrchestratorService.OpenEDalerUri(Uri);
 			}
 			catch (Exception ex)
 			{
@@ -1642,7 +1612,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 											Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
 
 										await this.NeuronService.AddTransferCode(Code);
-										await this.navigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
+										await this.NavigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
 										return;
 									}
 								}
@@ -1660,7 +1630,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1685,7 +1655,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					if (this.TagProfile.ComputePinHash(OldPin) == this.TagProfile.PinHash)
 					{
 						TaskCompletionSource<bool> PasswordChanged = new TaskCompletionSource<bool>();
-						string NewPassword = this.cryptoService.CreateRandomPassword();
+						string NewPassword = this.CryptoService.CreateRandomPassword();
 
 						this.NeuronService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
 						{
@@ -1713,7 +1683,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1722,7 +1692,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				await this.navigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid, this.GetFriendlyName()));
+				await this.NavigationService.GoToAsync(nameof(ChatPage), new ChatNavigationArgs(this.LegalId, this.BareJid, this.GetFriendlyName()));
 			}
 			catch (Exception ex)
 			{

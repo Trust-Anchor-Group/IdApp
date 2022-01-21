@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services;
 using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
@@ -27,26 +25,12 @@ namespace IdApp.Pages.Things.ViewClaimThing
 	/// </summary>
 	public class ViewClaimThingViewModel : NeuronViewModel
 	{
-		private readonly ILogService logService;
-		private readonly INavigationService navigationService;
-		private readonly INetworkService networkService;
-
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewClaimThingViewModel"/> class.
 		/// </summary>
-		public ViewClaimThingViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			INetworkService networkService,
-			ILogService logService)
-			: base(neuronService, uiSerializer, tagProfile)
+		public ViewClaimThingViewModel()
+			: base()
 		{
-			this.logService = logService;
-			this.navigationService = navigationService;
-			this.networkService = networkService;
-
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 			this.ClaimThingCommand = new Command(async _ => await ClaimThing(), _ => this.CanClaimThing);
 			this.Tags = new ObservableCollection<HumanReadableTag>();
@@ -57,7 +41,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out ViewClaimThingNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out ViewClaimThingNavigationArgs args))
 			{
 				this.Uri = args.Uri;
 
@@ -171,7 +155,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		private Task LabelClicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.logService);
+				return LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
 			else
 				return Task.CompletedTask;
 		}
@@ -267,7 +251,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				if (!await App.VerifyPin())
 					return;
 
-				(bool Succeeded, NodeResultEventArgs e) = await this.networkService.TryRequest(() => this.NeuronService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
+				(bool Succeeded, NodeResultEventArgs e) = await this.NetworkService.TryRequest(() => this.NeuronService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
 				if (!Succeeded)
 					return;
 
@@ -306,7 +290,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 					}
 
 					await Database.Provider.Flush();
-					await this.navigationService.GoBackAsync();
+					await this.NavigationService.GoBackAsync();
 				}
 				else
 				{
@@ -319,7 +303,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

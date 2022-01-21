@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages
 {
@@ -16,14 +14,8 @@ namespace IdApp.Pages
         /// <summary>
         /// Creates an instance of a <see cref="NeuronViewModel"/>.
         /// </summary>
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="uiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
-        /// <param name="tagProfile">TAG Profie service.</param>
-        protected NeuronViewModel(INeuronService neuronService, IUiSerializer uiSerializer, ITagProfile tagProfile)
+        protected NeuronViewModel()
         {
-            this.NeuronService = neuronService ?? App.Instantiate<INeuronService>();
-            this.UiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-            this.TagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
             this.StateSummaryText = AppResources.XmppState_Offline;
             this.ConnectionStateText = AppResources.XmppState_Offline;
             this.ConnectionStateColor = new SolidColorBrush(Color.Red);
@@ -47,21 +39,6 @@ namespace IdApp.Pages
         }
 
         #region Properties
-
-        /// <summary>
-        /// Gets the current <see cref="IUiSerializer"/>.
-        /// </summary>
-        protected IUiSerializer UiSerializer { get; }
-
-        /// <summary>
-        /// Gets the current <see cref="INeuronService"/>.
-        /// </summary>
-        protected INeuronService NeuronService { get; }
-
-        /// <summary>
-        /// Gets the current <see cref="ITagProfile"/>.
-        /// </summary>
-        protected ITagProfile TagProfile { get; }
 
         /// <summary>
         /// 

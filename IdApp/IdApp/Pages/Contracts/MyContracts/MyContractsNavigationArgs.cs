@@ -46,7 +46,6 @@ namespace IdApp.Pages.Contracts.MyContracts
     /// </summary>
     public class MyContractsNavigationArgs : NavigationArgs
     {
-        private readonly string description;
         private readonly SelectContractAction action;
         private readonly TaskCompletionSource<Contract> selection;
         private readonly ContractsListMode mode;

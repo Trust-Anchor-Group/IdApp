@@ -1,10 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.AccountEvent
@@ -14,19 +11,12 @@ namespace IdApp.Pages.Wallet.AccountEvent
 	/// </summary>
 	public class AccountEventViewModel : NeuronViewModel
 	{
-		private readonly INavigationService navigationService;
-
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
 		/// </summary>
-		public AccountEventViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService)
-		: base(neuronService, uiSerializer, tagProfile)
+		public AccountEventViewModel()
+			: base()
 		{
-			this.navigationService = navigationService;
 		}
 
 		/// <inheritdoc/>
@@ -34,7 +24,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out AccountEventNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out AccountEventNavigationArgs args))
 			{
 				this.Remote = args.Event.Remote;
 				this.FriendlyName = args.Event.FriendlyName;

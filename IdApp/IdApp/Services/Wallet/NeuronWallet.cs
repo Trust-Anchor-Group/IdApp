@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
-using IdApp.Services.EventLog;
 using IdApp.Services.Neuron;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
@@ -11,30 +10,27 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Services.Wallet
 {
 	[Singleton]
-	internal sealed class NeuronWallet : INeuronWallet
+	internal sealed class NeuronWallet : ServiceReferences, INeuronWallet
 	{
-		private readonly INeuronService neuronService;
-		private readonly ILogService logService;
 		private EDalerClient eDalerClient;
 		private Balance lastBalance = null;
 		private DateTime lastEvent = DateTime.MinValue;
 
-		internal NeuronWallet(INeuronService neuronService, ILogService logService)
+		internal NeuronWallet()
+			: base()
 		{
-			this.neuronService = neuronService;
-			this.logService = logService;
 		}
 
 		public EDalerClient EDalerClient
 		{
 			get
 			{
-				if (this.eDalerClient is null || this.eDalerClient.Client != this.neuronService.Xmpp)
+				if (this.eDalerClient is null || this.eDalerClient.Client != this.NeuronService.Xmpp)
 				{
 					if (!(this.eDalerClient is null))
 						this.eDalerClient.BalanceUpdated -= EDalerClient_BalanceUpdated;
 
-					this.eDalerClient = (this.neuronService as NeuronService)?.EDalerClient;
+					this.eDalerClient = (this.NeuronService as NeuronService)?.EDalerClient;
 					if (this.eDalerClient is null)
 						throw new InvalidOperationException(AppResources.EDalerServiceNotFound);
 
@@ -59,7 +55,7 @@ namespace IdApp.Services.Wallet
 				}
 				catch (Exception ex)
 				{
-					this.logService.LogException(ex);
+					this.LogService.LogException(ex);
 				}
 			}
 		}

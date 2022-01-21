@@ -1,6 +1,4 @@
-﻿using IdApp.Services.EventLog;
-using IdApp.Services.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Events;
@@ -13,16 +11,12 @@ namespace IdApp.Services.Navigation
     internal sealed class NavigationService : LoadableService, INavigationService
     {
         private const string DefaultGoBackRoute = "..";
-        private readonly ILogService logService;
-        private readonly IUiSerializer uiSerializer;
         private NavigationArgs currentNavigationArgs;
         private readonly Dictionary<string, NavigationArgs> navigationArgsMap;
         bool isManuallyNavigatingBack = false;
 
-        public NavigationService(ILogService logService, IUiSerializer uiSerializer)
+        public NavigationService()
         {
-            this.logService = logService;
-            this.uiSerializer = uiSerializer;
             this.navigationArgsMap = new Dictionary<string, NavigationArgs>();
         }
 
@@ -39,7 +33,7 @@ namespace IdApp.Services.Navigation
                 }
                 catch (Exception e)
                 {
-                    this.logService.LogException(e);
+                    this.LogService.LogException(e);
                     this.EndLoad(false);
                 }
             }
@@ -58,7 +52,7 @@ namespace IdApp.Services.Navigation
                 }
                 catch (Exception e)
                 {
-                    this.logService.LogException(e);
+                    this.LogService.LogException(e);
                 }
 
                 this.EndUnload();
@@ -148,8 +142,8 @@ namespace IdApp.Services.Navigation
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
-                await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
+                this.LogService.LogException(e);
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.FailedToClosePage);
             }
         }
 
@@ -168,9 +162,9 @@ namespace IdApp.Services.Navigation
             catch (Exception e)
             {
                 e = Log.UnnestException(e);
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
                 string extraInfo = $"{Environment.NewLine}{e.Message}";
-                await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
+                await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.FailedToNavigateToPage, route, extraInfo));
             }
         }
 

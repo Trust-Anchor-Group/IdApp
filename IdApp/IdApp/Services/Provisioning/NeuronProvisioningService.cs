@@ -8,23 +8,21 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Services.Provisioning
 {
 	[Singleton]
-	internal sealed class NeuronProvisioningService : INeuronProvisioningService
+	internal sealed class NeuronProvisioningService : ServiceReferences, INeuronProvisioningService
 	{
-		private readonly INeuronService neuronService;
 		private ProvisioningClient provisioningClient;
 
-		internal NeuronProvisioningService(INeuronService neuronService)
+		internal NeuronProvisioningService()
 		{
-			this.neuronService = neuronService;
 		}
 
 		public ProvisioningClient ProvisioningClient
 		{
 			get
 			{
-				if (this.provisioningClient is null || this.provisioningClient.Client != this.neuronService.Xmpp)
+				if (this.provisioningClient is null || this.provisioningClient.Client != this.NeuronService.Xmpp)
 				{
-					this.provisioningClient = (this.neuronService as NeuronService)?.ProvisioningClient;
+					this.provisioningClient = (this.NeuronService as NeuronService)?.ProvisioningClient;
 					if (this.provisioningClient is null)
 						throw new InvalidOperationException(AppResources.ProvisioningServiceNotFound);
 				}

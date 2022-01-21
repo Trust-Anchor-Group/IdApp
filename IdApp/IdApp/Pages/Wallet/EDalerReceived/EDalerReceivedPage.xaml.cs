@@ -1,8 +1,4 @@
-﻿using IdApp.Services.Navigation;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.EDalerReceived
 {
@@ -12,19 +8,12 @@ namespace IdApp.Pages.Wallet.EDalerReceived
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EDalerReceivedPage
     {
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="EDalerReceivedPage"/> class.
         /// </summary>
 		public EDalerReceivedPage()
 		{
-            this.navigationService = App.Instantiate<INavigationService>();
-            this.ViewModel = new EDalerReceivedViewModel(
-                App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiSerializer>(),
-                App.Instantiate<INeuronService>(),
-                this.navigationService);
+            this.ViewModel = new EDalerReceivedViewModel();
 
             InitializeComponent();
         }
@@ -35,7 +24,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
         /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
-            this.navigationService.GoBackAsync();
+            this.ViewModel.NavigationService.GoBackAsync();
             return true;
         }
 	}

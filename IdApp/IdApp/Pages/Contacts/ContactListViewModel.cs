@@ -12,10 +12,6 @@ using IdApp.Services;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Xamarin.Forms;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.UI;
 using IdApp.Pages.Contacts.Chat;
 
 namespace IdApp.Pages.Contacts
@@ -25,34 +21,13 @@ namespace IdApp.Pages.Contacts
 	/// </summary>
 	public class ContactListViewModel : BaseViewModel
 	{
-		private readonly INeuronService neuronService;
-		private readonly INetworkService networkService;
-		private readonly INavigationService navigationService;
-		private readonly IUiSerializer uiSerializer;
 		private TaskCompletionSource<ContactInfo> selection;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
 		/// </summary>
-		public ContactListViewModel()
-			: this(null, null, null, null)
+		protected internal ContactListViewModel()
 		{
-		}
-
-		/// <summary>
-		/// Creates an instance of the <see cref="ContactListViewModel"/> class.
-		/// For unit tests.
-		/// </summary>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="networkService">The network service for network access.</param>
-		/// <param name="navigationService">The navigation service.</param>
-		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-		protected internal ContactListViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiSerializer uiSerializer)
-		{
-			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-			this.networkService = networkService ?? App.Instantiate<INetworkService>();
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
 			this.Contacts = new ObservableCollection<ContactInfo>();
 
 			this.Description = AppResources.ContactsDescription;
@@ -65,7 +40,7 @@ namespace IdApp.Pages.Contacts
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out ContactListNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out ContactListNavigationArgs args))
 			{
 				this.Description = args.Description;
 				this.Action = args.Action;
@@ -179,7 +154,7 @@ namespace IdApp.Pages.Contacts
 				{
 					if (b is ContactListViewModel viewModel && newValue is ContactInfo Contact)
 					{
-						viewModel.uiSerializer.BeginInvokeOnMainThread(async () =>
+						viewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
 						{
 							switch (viewModel.Action)
 							{
@@ -201,7 +176,7 @@ namespace IdApp.Pages.Contacts
 									else
 										break;
 
-									Balance Balance = await viewModel.neuronService.Wallet.GetBalanceAsync();
+									Balance Balance = await viewModel.NeuronService.Wallet.GetBalanceAsync();
 
 									sb.Append(";cu=");
 									sb.Append(Balance.Currency);
@@ -209,7 +184,7 @@ namespace IdApp.Pages.Contacts
 									if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
 										break;
 
-									await viewModel.navigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
+									await viewModel.NavigationService.GoToAsync(nameof(PaymentPage), new EDalerUriNavigationArgs(Parsed)
 									{
 										ReturnRoute = "../.."
 									});
@@ -219,19 +194,19 @@ namespace IdApp.Pages.Contacts
 								default:
 									if (!(Contact.LegalIdentity is null))
 									{
-										await viewModel.navigationService.GoToAsync(nameof(ViewIdentityPage),
+										await viewModel.NavigationService.GoToAsync(nameof(ViewIdentityPage),
 											new ViewIdentityNavigationArgs(Contact.LegalIdentity, null));
 									}
 									else if (!string.IsNullOrEmpty(Contact.BareJid))
 									{
-										await viewModel.navigationService.GoToAsync(nameof(ChatPage),
+										await viewModel.NavigationService.GoToAsync(nameof(ChatPage),
 											new ChatNavigationArgs(Contact.LegalId, Contact.BareJid, Contact.FriendlyName));
 									}
 									break;
 
 								case SelectContactAction.Select:
 									viewModel.selection?.TrySetResult(Contact);
-									await viewModel.navigationService.GoBackAsync();
+									await viewModel.NavigationService.GoBackAsync();
 									break;
 							}
 						});

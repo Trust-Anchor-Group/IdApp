@@ -1,10 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using IdApp.Pages;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.EventLog;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
@@ -16,7 +11,6 @@ namespace IdApp.Popups.Photos.Image
     /// </summary>
     public class ImageViewModel : BaseViewModel
     {
-        private readonly IUiSerializer uiSerializer;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
@@ -24,15 +18,8 @@ namespace IdApp.Popups.Photos.Image
         /// </summary>
         public ImageViewModel()
         {
-            this.uiSerializer = App.Instantiate<IUiSerializer>();
             this.Photos = new ObservableCollection<Photo>();
-            this.photosLoader = new PhotosLoader(
-                App.Instantiate<ILogService>(),
-                App.Instantiate<INetworkService>(),
-                App.Instantiate<INeuronService>(),
-                App.Instantiate<IUiSerializer>(),
-                App.Instantiate<IAttachmentCacheService>(),
-                this.Photos);
+            this.photosLoader = new PhotosLoader(this.Photos);
         }
 
         /// <summary>
@@ -66,7 +53,7 @@ namespace IdApp.Popups.Photos.Image
 
             _ = this.photosLoader.LoadPhotos(attachments, SignWith.LatestApprovedIdOrCurrentKeys, () =>
             {
-                this.uiSerializer.BeginInvokeOnMainThread(() => this.IsSwipeEnabled = this.Photos.Count > 1);
+                this.UiSerializer.BeginInvokeOnMainThread(() => this.IsSwipeEnabled = this.Photos.Count > 1);
             });
         }
 

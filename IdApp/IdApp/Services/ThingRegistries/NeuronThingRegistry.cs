@@ -9,23 +9,21 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Services.ThingRegistries
 {
 	[Singleton]
-	internal sealed class NeuronThingRegistry : INeuronThingRegistry
+	internal sealed class NeuronThingRegistry : ServiceReferences, INeuronThingRegistry
 	{
-		private readonly INeuronService neuronService;
 		private ThingRegistryClient registryClient;
 
-		internal NeuronThingRegistry(INeuronService neuronService)
+		internal NeuronThingRegistry()
 		{
-			this.neuronService = neuronService;
 		}
 
 		public ThingRegistryClient RegistryClient
 		{
 			get
 			{
-				if (this.registryClient is null || this.registryClient.Client != this.neuronService.Xmpp)
+				if (this.registryClient is null || this.registryClient.Client != this.NeuronService.Xmpp)
 				{
-					this.registryClient = (this.neuronService as NeuronService)?.ThingRegistryClient;
+					this.registryClient = (this.NeuronService as NeuronService)?.ThingRegistryClient;
 					if (this.registryClient is null)
 						throw new InvalidOperationException(AppResources.ThingRegistryServiceNotFound);
 				}

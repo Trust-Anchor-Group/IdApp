@@ -7,11 +7,6 @@ using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Contracts.MyContracts
 {
@@ -22,11 +17,6 @@ namespace IdApp.Pages.Contracts.MyContracts
 	{
 		internal readonly Dictionary<string, Contract> contractsMap;
 
-		private readonly INeuronService neuronService;
-		private readonly INetworkService networkService;
-		internal readonly INavigationService navigationService;
-		internal readonly IUiSerializer uiSerializer;
-		internal readonly ITagProfile tagProfile;
 		internal ContractsListMode contractsListMode;
 		private DateTime loadContractsTimestamp;
 		private TaskCompletionSource<Contract> selection;
@@ -34,29 +24,8 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <summary>
 		/// Creates an instance of the <see cref="MyContractsViewModel"/> class.
 		/// </summary>
-		public MyContractsViewModel()
-			: this(null, null, null, null, null)
+		protected internal MyContractsViewModel()
 		{
-		}
-
-		/// <summary>
-		/// Creates an instance of the <see cref="MyContractsViewModel"/> class.
-		/// For unit tests.
-		/// </summary>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="networkService">The network service for network access.</param>
-		/// <param name="navigationService">The navigation service.</param>
-		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-		/// <param name="TagProfile">TAG Profile</param>
-		protected internal MyContractsViewModel(INeuronService neuronService,
-			INetworkService networkService, INavigationService navigationService, IUiSerializer uiSerializer,
-			ITagProfile TagProfile)
-		{
-			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-			this.networkService = networkService ?? App.Instantiate<INetworkService>();
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-			this.tagProfile = TagProfile ?? App.Instantiate<ITagProfile>();
 			this.contractsMap = new Dictionary<string, Contract>();
 			this.Categories = new ObservableCollection<ContractCategoryModel>();
 			this.IsBusy = true;
@@ -71,7 +40,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 			this.ShowContractsMissing = false;
 			this.loadContractsTimestamp = DateTime.UtcNow;
 
-			if (this.navigationService.TryPopArgs(out MyContractsNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out MyContractsNavigationArgs args))
 			{
 				this.contractsListMode = args.Mode;
 				this.Action = args.Action;
@@ -98,7 +67,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 			await base.DoBind();
 
-			uiSerializer.BeginInvokeOnMainThread(async () => await LoadContracts(this.loadContractsTimestamp));
+			this.UiSerializer.BeginInvokeOnMainThread(async () => await LoadContracts(this.loadContractsTimestamp));
 		}
 
 		/// <inheritdoc/>
@@ -199,19 +168,19 @@ namespace IdApp.Pages.Contracts.MyContracts
 							case SelectContractAction.ViewContract:
 								if (viewModel.contractsListMode == ContractsListMode.ContractTemplates)
 								{
-									viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
+									viewModel.UiSerializer.BeginInvokeOnMainThread(async () => await viewModel.NavigationService.GoToAsync(
 										nameof(NewContractPage), new NewContractNavigationArgs(Contract)));
 								}
 								else
 								{
-									viewModel.uiSerializer.BeginInvokeOnMainThread(async () => await viewModel.navigationService.GoToAsync(
+									viewModel.UiSerializer.BeginInvokeOnMainThread(async () => await viewModel.NavigationService.GoToAsync(
 										nameof(ViewContractPage), new ViewContractNavigationArgs(Contract, false)));
 								}
 								break;
 
 							case SelectContractAction.Select:
 								viewModel.selection?.TrySetResult(Contract);
-								await viewModel.navigationService.GoBackAsync();
+								await viewModel.NavigationService.GoBackAsync();
 								break;
 						}
 					}
@@ -237,17 +206,17 @@ namespace IdApp.Pages.Contracts.MyContracts
 				switch (this.contractsListMode)
 				{
 					case ContractsListMode.MyContracts:
-						(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetCreatedContractIds);
+						(succeeded, contractIds) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetCreatedContractIds);
 						timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
 						break;
 
 					case ContractsListMode.SignedContracts:
-						(succeeded, contractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetSignedContractIds);
+						(succeeded, contractIds) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetSignedContractIds);
 						timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
 						break;
 
 					case ContractsListMode.ContractTemplates:
-						(succeeded, timestampsAndcontractIds) = await this.networkService.TryRequest(this.neuronService.Contracts.GetContractTemplateIds);
+						(succeeded, timestampsAndcontractIds) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetContractTemplateIds);
 						break;
 
 					default:
@@ -262,7 +231,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 				if (timestampsAndcontractIds.Length <= 0)
 				{
-					this.uiSerializer.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
+					this.UiSerializer.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
 					return;
 				}
 
@@ -276,7 +245,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					try
 					{
-						contract = await this.neuronService.Contracts.GetContract(ContractId);
+						contract = await this.NeuronService.Contracts.GetContract(ContractId);
 					}
 					catch (Waher.Networking.XMPP.StanzaErrors.ItemNotFoundException)
 					{
@@ -291,7 +260,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					this.contractsMap[ContractId] = contract;
 
-					ContractModel Item = await ContractModel.Create(ContractId, Timestamp, contract, this.tagProfile, this.neuronService);
+					ContractModel Item = await ContractModel.Create(ContractId, Timestamp, contract, this.TagProfile, this.NeuronService);
 					string Category = Item.Category;
 
 					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts))

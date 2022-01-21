@@ -3483,65 +3483,6 @@
             <param name="Title">Title for operation.</param>
             <param name="FileName">Filename of image file.</param>
         </member>
-        <member name="T:IdApp.ITagIdSdk">
-            <summary>
-            The TagIdSdk is the 'root' of the Neuron library.
-            Use this to access Neuron specific features and services, and to control startup/shutdown.
-            <br/>
-            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
-            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.TagProfile">
-            <summary>
-            The TAG Profile used for authentication/connection.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.UiSerializer">
-            <summary>
-            A UI dispatcher for accessing the UI thread as well as display alerts to the user.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.CryptoService">
-            <summary>
-            Provides authorization services.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.NeuronService">
-            <summary>
-            Provides Neuron server access.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.NetworkService">
-            <summary>
-            Provides network access.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.LogService">
-            <summary>
-            The log service, collecting information about events, exceptions and the likes.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.StorageService">
-            <summary>
-            Use this for persistent storage.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.SettingsService">
-            <summary>
-            Allows for saving/restoring user settings.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.NavigationService">
-            <summary>
-            Provides application navigation services in a generic way.
-            </summary>
-        </member>
-        <member name="P:IdApp.ITagIdSdk.StartupProfiler">
-            <summary>
-            Profiler of startup process, if any.
-            </summary>
-        </member>
         <member name="T:IdApp.Pages.BaseViewModel">
             <summary>
             A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.
@@ -3728,17 +3669,6 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatViewModel"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.Chat.ChatViewModel"/> class.
-            For unit tests.
-            </summary>
-            <param name="NeuronService">The Neuron service for XMPP communication.</param>
-            <param name="UiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
-            <param name="TagProfile">TAG Profie service.</param>
-            <param name="NavigationService">Navigation service.</param>
-            <param name="LogService">Log service.</param>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoBind">
             <inheritdoc/>
@@ -4258,16 +4188,6 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contacts.ContactListViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contacts.ContactListViewModel"/> class.
-            For unit tests.
-            </summary>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="navigationService">The navigation service.</param>
-            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-        </member>
         <member name="M:IdApp.Pages.Contacts.ContactListViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -4345,12 +4265,6 @@
         <member name="M:IdApp.Pages.ContentBasePage.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.ContentBasePage"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.ContentBasePage.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Settings.ISettingsService,IdApp.Services.UI.IUiSerializer)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.ContentBasePage"/> class.
-            For unit tests.
             </summary>
         </member>
         <member name="P:IdApp.Pages.ContentBasePage.ViewModel">
@@ -4441,13 +4355,6 @@
         <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.#ctor(IdApp.Services.Navigation.INavigationService)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel"/> class.
-            For unit tests.
-            <param name="navigationService">The navigation service.</param>
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.ClientSignature.ClientSignatureViewModel.DoBind">
@@ -4797,17 +4704,6 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel"/> class.
-            For unit tests.
-            </summary>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="navigationService">The navigation service.</param>
-            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-            <param name="TagProfile">TAG Profile</param>
-        </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.MyContractsViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -4997,19 +4893,6 @@
         <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Contracts.IContractOrchestratorService)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractViewModel"/> class.
-            For unit tests.
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="logService">The log service.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.NewContract.NewContractViewModel.DoBind">
@@ -5276,18 +5159,6 @@
         <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel"/> class.
-            For unit tests.
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="logService">The log service.</param>
-            <param name="networkService">The network and connectivity service.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractViewModel.DoBind">
@@ -5606,18 +5477,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel"/> class.
-            For unit tests.
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="logService">The log service.</param>
-            <param name="networkService">The network and connectivity service.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="attachmentCacheService">The attachment cache to use.</param>
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignatureViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -5901,13 +5760,6 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel.#ctor(IdApp.Services.Navigation.INavigationService)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel"/> class.
-            For unit tests.
-            <param name="navigationService">The navigation service.</param>
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.Contracts.ServerSignature.ServerSignatureViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -6092,20 +5944,6 @@
         <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService,IdApp.Services.EventLog.ILogService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Contracts.IContractOrchestratorService)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel"/> class.
-            For unit tests.
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="logService">The log service.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="networkService">The network and connectivity service.</param>
-            <param name="attachmentCacheService">The attachment cache to use.</param>
-            <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractViewModel.DoBind">
@@ -6448,18 +6286,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel"/> class.
-            For unit tests.
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="logService">The log service.</param>
-            <param name="networkService">The network and connectivity service.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="attachmentCacheService">The attachment cache to use.</param>
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -6738,7 +6564,7 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.TransferIdentity.TransferIdentityViewModel"/> class.
             </summary>
@@ -6840,7 +6666,7 @@
             The view model to bind to for when displaying identities.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Wallet.IEDalerOrchestratorService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Crypto.ICryptoService)">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel"/> class.
             </summary>
@@ -7549,12 +7375,6 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Loading.LoadingViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Main.Loading.LoadingViewModel"/> class.
-            For unit tests.
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.DoBind">
             <inheritdoc />
         </member>
@@ -7603,12 +7423,6 @@
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Main.MainViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.AttachmentCache.IAttachmentCacheService,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Main.Main.MainViewModel"/> class.
-            For unit tests.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.DoBind">
@@ -7940,15 +7754,9 @@
             A page to display for scanning of a QR code, either automatically via the camera, or by entering the code manually.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
-            </summary>
-        </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor(IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
-            For unit tests.
             </summary>
             <param name="viewModel">The view model to use.</param>
         </member>
@@ -7981,12 +7789,6 @@
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.#ctor(IdApp.Services.Navigation.INavigationService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel"/> class.
-            For unit tests.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.DoBind">
@@ -8143,26 +7945,6 @@
         <member name="M:IdApp.Pages.Main.Shell.AppShellViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.TagProfile">
-            <summary>
-            Current TAG Profile
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.NeuronService">
-            <summary>
-            Current Neuron Service
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.NetworkService">
-            <summary>
-            Current Network Service
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Main.Shell.AppShellViewModel.UiSerializer">
-            <summary>
-            Current UI Dispatcher Service
-            </summary>
-        </member>
         <member name="F:IdApp.Pages.Main.Shell.AppShellViewModel.ConnectionStateTextProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Main.Shell.AppShellViewModel.ConnectionStateText"/>
@@ -8198,34 +7980,16 @@
             A view model that holds Neuron state.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.NeuronViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Tag.ITagProfile)">
+        <member name="M:IdApp.Pages.NeuronViewModel.#ctor">
             <summary>
             Creates an instance of a <see cref="T:IdApp.Pages.NeuronViewModel"/>.
             </summary>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="uiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
-            <param name="tagProfile">TAG Profie service.</param>
         </member>
         <member name="M:IdApp.Pages.NeuronViewModel.DoBind">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.NeuronViewModel.DoUnbind">
             <inheritdoc/>
-        </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.UiSerializer">
-            <summary>
-            Gets the current <see cref="T:IdApp.Services.UI.IUiSerializer"/>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.NeuronService">
-            <summary>
-            Gets the current <see cref="T:IdApp.Services.Neuron.INeuronService"/>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.TagProfile">
-            <summary>
-            Gets the current <see cref="T:IdApp.Services.Tag.ITagProfile"/>.
-            </summary>
         </member>
         <member name="F:IdApp.Pages.NeuronViewModel.ConnectionStateTextProperty">
             <summary>
@@ -8295,18 +8059,10 @@
             The view model to bind to when showing Step 2 of the registration flow: creating or connecting to an account.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel"/> class.
             </summary>
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="cryptoService">The crypto service to use for password generation.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="logService">The log service.</param>
         </member>
         <member name="M:IdApp.Pages.Registration.ChooseAccount.ChooseAccountViewModel.DoBind">
             <inheritdoc />
@@ -8373,16 +8129,10 @@
             The view model to bind to when showing Step 5 of the registration flow: defining a PIN.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.DefinePin.DefinePinViewModel"/> class.
             </summary>
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="logService">The log service.</param>
         </member>
         <member name="M:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.DoBind">
             <inheritdoc />
@@ -8580,17 +8330,9 @@
             The view model to bind to when showing Step 3 of the registration flow: registering an identity.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel"/> class.
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="logService">The log service.</param>
-            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.DoBind">
@@ -8903,17 +8645,11 @@
             An event that fires whenever the <see cref="P:IdApp.Pages.Registration.RegistrationStepViewModel.Step"/> property changes.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.#ctor(IdApp.Services.Tag.RegistrationStep,IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.#ctor(IdApp.Services.Tag.RegistrationStep)">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel"/> class.
             </summary>
             <param name="step">The current step for this instance.</param>
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="logService">The log service.</param>
         </member>
         <member name="F:IdApp.Pages.Registration.RegistrationStepViewModel.TitleProperty">
             <summary>
@@ -8928,36 +8664,6 @@
         <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.Step">
             <summary>
             The current step for this view model instance.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.UiSerializer">
-            <summary>
-            The <see cref="T:IdApp.Services.UI.IUiSerializer"/> instance.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.TagProfile">
-            <summary>
-            The <see cref="T:IdApp.Services.Tag.ITagProfile"/> instance to edit.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.NeuronService">
-            <summary>
-            The <see cref="T:IdApp.Services.Neuron.INeuronService"/> instance.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.NavigationService">
-            <summary>
-            The <see cref="T:IdApp.Services.Navigation.INavigationService"/> instance.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.SettingsService">
-            <summary>
-            The <see cref="T:IdApp.Services.Settings.ISettingsService"/> instance.
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Registration.RegistrationStepViewModel.LogService">
-            <summary>
-            The <see cref="T:IdApp.Services.EventLog.ILogService"/> instance.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Registration.RegistrationStepViewModel.OnStepCompleted(System.EventArgs)">
@@ -9014,21 +8720,6 @@
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Settings.ISettingsService,IdApp.Services.Neuron.INeuronService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationViewModel"/> class.
-            For unit tests.
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="cryptoService">The service to use for cryptographic operations.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="networkService">The network and connectivity service.</param>
-            <param name="logService">The log service.</param>
-            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.Pages.Registration.Registration.RegistrationViewModel.DoBind">
@@ -9111,17 +8802,9 @@
             The view model to bind to when showing Step 4 of the registration flow: validating an identity.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel"/> class.
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="logService">The log service.</param>
-            <param name="attachmentCacheService">The attachment cache to use.</param>
             </summary>
         </member>
         <member name="M:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.DoBind">
@@ -9425,17 +9108,10 @@
             The view model to bind to when showing Step 1 of the registration flow: choosing an operator.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Settings.ISettingsService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel"/> class.
             </summary>
-            <param name="tagProfile">The tag profile to work with.</param>
-            <param name="uiSerializer">The UI dispatcher for alerts.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="navigationService">The navigation service to use for app navigation</param>
-            <param name="settingsService">The settings service for persisting UI state.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="logService">The log service.</param>
         </member>
         <member name="M:IdApp.Pages.Registration.ValidatePhoneNr.ValidatePhoneNrViewModel.DoBind">
             <summary>
@@ -9626,16 +9302,6 @@
             Creates an instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsViewModel"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.#ctor(IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Things.MyThings.MyThingsViewModel"/> class.
-            For unit tests.
-            </summary>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="navigationService">The navigation service.</param>
-            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-        </member>
         <member name="M:IdApp.Pages.Things.MyThings.MyThingsViewModel.DoBind">
             <inheritdoc/>
         </member>
@@ -9728,7 +9394,7 @@
             The view model to bind to for when displaying thing claim information.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel"/> class.
             </summary>
@@ -9835,18 +9501,6 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ThingViewModel"/> class.
             </summary>
-        </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService,IdApp.Services.Network.INetworkService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.EventLog.ILogService)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Pages.Things.ViewThing.ThingViewModel"/> class.
-            For unit tests.
-            </summary>
-            <param name="tagProfile">TAG Profile.</param>
-            <param name="neuronService">The Neuron service for XMPP communication.</param>
-            <param name="networkService">The network service for network access.</param>
-            <param name="navigationService">The navigation service.</param>
-            <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-            <param name="logService">Log service.</param>
         </member>
         <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.DoBind">
             <inheritdoc/>
@@ -10029,7 +9683,7 @@
             The view model to bind to for when displaying the contents of an account event.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -10230,7 +9884,7 @@
             The view model to bind to for displaying information about an incoming balance change.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService)">
+        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -10415,7 +10069,7 @@
             The view model to bind to for when displaying the contents of an eDaler URI.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Pages.Wallet.IShareQrCode)">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.#ctor(IdApp.Pages.Wallet.IShareQrCode)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.EDalerUriViewModel"/> class.
             </summary>
@@ -10892,7 +10546,7 @@
             The view model to bind to for when displaying the wallet.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.Network.INetworkService,IdApp.Services.EventLog.ILogService,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.#ctor">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel"/> class.
             </summary>
@@ -11243,7 +10897,7 @@
             The view model to bind to for requesting a payment.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.#ctor(IdApp.Services.Tag.ITagProfile,IdApp.Services.UI.IUiSerializer,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.EventLog.ILogService,IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage)">
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.#ctor(IdApp.Pages.Wallet.RequestPayment.RequestPaymentPage)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel"/> class.
             </summary>
@@ -11755,11 +11409,10 @@
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
             <inheritdoc cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>
         </member>
-        <member name="M:IdApp.Services.AttachmentCache.AttachmentCacheService.#ctor(IdApp.Services.EventLog.ILogService)">
+        <member name="M:IdApp.Services.AttachmentCache.AttachmentCacheService.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.AttachmentCache.AttachmentCacheService"/> class.
             </summary>
-            <param name="logService">The log service to use.</param>
         </member>
         <member name="M:IdApp.Services.AttachmentCache.AttachmentCacheService.Load(System.Boolean)">
             <inheritdoc/>
@@ -12615,16 +12268,6 @@
             Adds support for Xmpp Multi-User Chat functionality.
             </summary>
         </member>
-        <member name="E:IdApp.Services.INeuronMultiUserChat.ConnectionStateChanged">
-            <summary>
-            Triggers whenever the chat functionality is online or not.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.INeuronMultiUserChat.IsOnline">
-            <summary>
-            Returns <c>true</c> if Chats is online, <c>false</c> otherwise.
-            </summary>
-        </member>
         <member name="T:IdApp.Services.LoadableService">
             <inheritdoc/>
         </member>
@@ -13170,6 +12813,81 @@
             </summary>
             <returns>Complete list of my devices.</returns>
         </member>
+        <member name="T:IdApp.Services.ServiceReferences">
+            <summary>
+            Abstract base class for (bindable) classes that reference services in the app.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.ServiceReferences.#ctor">
+            <summary>
+            Abstract base class for (bindable) classes that reference services in the app.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.UiSerializer">
+            <summary>
+            The dispatcher to use for alerts and accessing the main thread.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.NeuronService">
+            <summary>
+            The Neuron service for XMPP communication.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.TagProfile">
+            <summary>
+            TAG Profie service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.NavigationService">
+            <summary>
+            Navigation service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.LogService">
+            <summary>
+            Log service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.NetworkService">
+            <summary>
+            Network service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.EDalerOrchestratorService">
+            <summary>
+            EDaler orchestrator service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.ContractOrchestratorService">
+            <summary>
+            Contract orchestrator service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.ThingRegistryOrchestratorService">
+            <summary>
+            Thing Registry orchestrator service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.AttachmentCacheService">
+            <summary>
+            AttachmentCache service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.CryptoService">
+            <summary>
+            Crypto service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.SettingsService">
+            <summary>
+            Settings service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.StorageService">
+            <summary>
+            Storage service.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Settings.ISettingsService">
             <summary>
             Handles common UI settings that need to be persisted during sessions.
@@ -13374,13 +13092,10 @@
             </summary>
             <param name="exportOutput">Receives the contents of the database.</param>
         </member>
-        <member name="M:IdApp.Services.Storage.StorageService.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Crypto.ICryptoService,IdApp.Services.UI.IUiSerializer)">
+        <member name="M:IdApp.Services.Storage.StorageService.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.Storage.StorageService"/> class.
             </summary>
-            <param name="logService">The log service to use for logging.</param>
-            <param name="cryptoService">The crypto service to use.</param>
-            <param name="uiSerializer">The UI Dispatcher, for main thread access and to display alerts.</param>
         </member>
         <member name="M:IdApp.Services.Storage.StorageService.Init(Waher.Runtime.Profiling.ProfilerThread)">
             <inheritdoc />
@@ -14357,28 +14072,18 @@
             This class also handles errors when trying to load photos, and internally it uses a <see cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>.
             </summary>
         </member>
-        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.UI.Photos.PhotosLoader"/> class.
             Use this constructor for when you want to load a a <b>single photo</b>.
             </summary>
-            <param name="logService">The log service to use if and when logging errors.</param>
-            <param name="networkService">The network service to use for checking connectivity.</param>
-            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
         </member>
-        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.#ctor(IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService,System.Collections.ObjectModel.ObservableCollection{IdApp.Services.UI.Photos.Photo})">
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.#ctor(System.Collections.ObjectModel.ObservableCollection{IdApp.Services.UI.Photos.Photo})">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Services.UI.Photos.PhotosLoader"/> class.
             Use this constructor for when you want to load a <b>list of photos</b>.
             </summary>
-            <param name="logService">The log service to use if and when logging errors.</param>
-            <param name="networkService">The network service to use for checking connectivity.</param>
-            <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-            <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
-            <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
-            <param name="photos">The collection the photos should be added to when downloaded.</param>
+            <param name="Photos">The collection the photos should be added to when downloaded.</param>
         </member>
         <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotos(Waher.Networking.XMPP.Contracts.Attachment[],Waher.Networking.XMPP.Contracts.SignWith,System.Action)">
             <summary>
@@ -14416,18 +14121,6 @@
             <param name="Attachment">Attachment containing photo.</param>
             <returns>Photo, Content-Type, Rotation</returns>
         </member>
-        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhoto(Waher.Networking.XMPP.Contracts.Attachment,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Loads a photo attachment.
-            </summary>
-            <param name="Attachment">Attachment containing photo.</param>
-            <param name="LogService">Log Service</param>
-            <param name="NetworkService">Network Service</param>
-            <param name="NeuronService">Neuron Sevice</param>
-            <param name="UiSerializer">UI Serializer</param>
-            <param name="AttachmentCacheService">Attachment Cache Service</param>
-            <returns>Photo, Content-Type, Rotation</returns>
-        </member>
         <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment[],System.Int32,System.Int32)">
             <summary>
             Tries to load a photo from a set of attachments.
@@ -14435,20 +14128,6 @@
             <param name="Attachments">Attachments</param>
             <param name="MaxWith">Maximum width when displaying photo.</param>
             <param name="MaxHeight">Maximum height when displaying photo.</param>
-            <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
-        </member>
-        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment[],System.Int32,System.Int32,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Tries to load a photo from a set of attachments.
-            </summary>
-            <param name="Attachments">Attachments</param>
-            <param name="MaxWith">Maximum width when displaying photo.</param>
-            <param name="MaxHeight">Maximum height when displaying photo.</param>
-            <param name="LogService">Log Service</param>
-            <param name="NetworkService">Network Service</param>
-            <param name="NeuronService">Neuron Sevice</param>
-            <param name="UiSerializer">UI Serializer</param>
-            <param name="AttachmentCacheService">Attachment Cache Service</param>
             <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
         </member>
         <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment,System.Int32,System.Int32)">
@@ -14460,37 +14139,16 @@
             <param name="MaxHeight">Maximum height when displaying photo.</param>
             <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
         </member>
-        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhotoAsTemporaryFile(Waher.Networking.XMPP.Contracts.Attachment,System.Int32,System.Int32,IdApp.Services.EventLog.ILogService,IdApp.Services.Network.INetworkService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.AttachmentCache.IAttachmentCacheService)">
-            <summary>
-            Tries to load a photo from an attachments.
-            </summary>
-            <param name="Attachment">Attachment</param>
-            <param name="MaxWith">Maximum width when displaying photo.</param>
-            <param name="MaxHeight">Maximum height when displaying photo.</param>
-            <param name="LogService">Log Service</param>
-            <param name="NetworkService">Network Service</param>
-            <param name="NeuronService">Neuron Sevice</param>
-            <param name="UiSerializer">UI Serializer</param>
-            <param name="AttachmentCacheService">Attachment Cache Service</param>
-            <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
-        </member>
         <member name="T:IdApp.Services.UI.QR.QrCode">
             <summary>
             Helper class to perform scanning of QR Codes by displaying the UI and handling async results.
             </summary>
         </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.Navigation.INavigationService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
+        <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCodeAndHandleResult">
             <summary>
             Scans a QR Code, and depending on the actual result, takes different actions. 
             This typically means navigating to an appropriate page.
             </summary>
-            <param name="logService">The log service to use for logging.</param>
-            <param name="neuronService">The Neuron service for XMPP access</param>
-            <param name="navigationService">The navigation service for page navigation.</param>
-            <param name="uiSerializer">The ui dispatcher for main thread access.</param>
-            <param name="contractOrchestratorService">The contract orchestrator service.</param>
-            <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
-            <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.OpenUrl(System.String)">
             <summary>
@@ -14498,20 +14156,6 @@
             This typically means navigating to an appropriate page.
             </summary>
             <param name="Url">URL to open.</param>
-            <returns>If URL was handled.</returns>
-        </member>
-        <member name="M:IdApp.Services.UI.QR.QrCode.OpenUrl(System.String,IdApp.Services.EventLog.ILogService,IdApp.Services.Neuron.INeuronService,IdApp.Services.UI.IUiSerializer,IdApp.Services.Contracts.IContractOrchestratorService,IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService,IdApp.Services.Wallet.IEDalerOrchestratorService)">
-            <summary>
-            Scans a QR Code, and depending on the actual result, takes different actions. 
-            This typically means navigating to an appropriate page.
-            </summary>
-            <param name="Url">URL to open.</param>
-            <param name="logService">The log service to use for logging.</param>
-            <param name="neuronService">The Neuron service for XMPP access</param>
-            <param name="uiSerializer">The ui dispatcher for main thread access.</param>
-            <param name="contractOrchestratorService">The contract orchestrator service.</param>
-            <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
-            <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
             <returns>If URL was handled.</returns>
         </member>
         <member name="M:IdApp.Services.UI.QR.QrCode.ScanQrCode(IdApp.Services.Navigation.INavigationService,System.String,System.Func{System.String,System.Threading.Tasks.Task})">
@@ -15081,58 +14725,6 @@
         </member>
         <member name="M:IdApp.Services.XmlDatabaseExport.ReportException(System.Exception)">
             <inheritdoc/>
-        </member>
-        <member name="T:IdApp.TagIdSdk">
-            <summary>
-            The TagIdSdk is the 'root' of the Neuron library.
-            Use this to access Neuron specific features and services, and to control startup/shutdown.
-            <br/>
-            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
-            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
-            </summary>
-        </member>
-        <member name="M:IdApp.TagIdSdk.#ctor(System.Reflection.Assembly,Waher.Runtime.Profiling.Profiler)">
-            <summary>
-            The TagIdSdk is the 'root' of the Neuron library.
-            Use this to access Neuron specific features and services, and to control startup/shutdown.
-            <br/>
-            It is imperative that you integrate this class into your <see cref="T:Xamarin.Forms.Application"/>
-            <see cref="M:Xamarin.Forms.Application.OnStart"/> and <see cref="M:Xamarin.Forms.Application.OnResume"/> methods.
-            </summary>
-            <param name="appAssembly">The assembly containing the main App class.</param>
-            <param name="startupProfiler">Optional Startup profiler. May be null.</param>
-        </member>
-        <member name="P:IdApp.TagIdSdk.TagProfile">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.UiSerializer">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.CryptoService">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.NeuronService">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.NetworkService">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.NavigationService">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.StorageService">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.SettingsService">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.LogService">
-            <inheritdoc/>
-        </member>
-        <member name="P:IdApp.TagIdSdk.StartupProfiler">
-            <summary>
-            Profiler of startup process, if any.
-            </summary>
         </member>
     </members>
 </doc>

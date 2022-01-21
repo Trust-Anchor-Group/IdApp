@@ -1,7 +1,4 @@
-﻿using IdApp.Services.Crypto;
-using IdApp.Services.EventLog;
-using IdApp.Services.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -16,12 +13,9 @@ using Waher.Runtime.Profiling;
 namespace IdApp.Services.Storage
 {
 	[Singleton]
-	internal sealed class StorageService : IStorageService
+	internal sealed class StorageService : ServiceReferences, IStorageService
 	{
 		private readonly LinkedList<TaskCompletionSource<bool>> tasksWaiting = new LinkedList<TaskCompletionSource<bool>>();
-		private readonly ILogService logService;
-		private readonly ICryptoService cryptoService;
-		private readonly IUiSerializer uiSerializer;
 		private readonly string dataFolder;
 		private FilesProvider databaseProvider;
 		private bool? initialized = null;
@@ -30,14 +24,8 @@ namespace IdApp.Services.Storage
 		/// <summary>
 		/// Creates a new instance of the <see cref="StorageService"/> class.
 		/// </summary>
-		/// <param name="logService">The log service to use for logging.</param>
-		/// <param name="cryptoService">The crypto service to use.</param>
-		/// <param name="uiSerializer">The UI Dispatcher, for main thread access and to display alerts.</param>
-		public StorageService(ILogService logService, ICryptoService cryptoService, IUiSerializer uiSerializer)
+		public StorageService()
 		{
-			this.logService = logService;
-			this.cryptoService = cryptoService;
-			this.uiSerializer = uiSerializer;
 			string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			this.dataFolder = Path.Combine(appDataFolder, "Data");
 		}
@@ -76,7 +64,7 @@ namespace IdApp.Services.Storage
 			{
 				e1 = Log.UnnestException(e1);
 				Thread?.Exception(e1);
-				this.logService.LogException(e1);
+				this.LogService.LogException(e1);
 			}
 
 			try
@@ -95,13 +83,13 @@ namespace IdApp.Services.Storage
 			{
 				e = Log.UnnestException(e);
 				Thread?.Exception(e);
-				this.logService.LogException(e);
+				this.LogService.LogException(e);
 			}
 
 			try
 			{
 				Thread?.NewState("UI");
-				if (await this.uiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
+				if (await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
 				{
 					try
 					{
@@ -129,10 +117,10 @@ namespace IdApp.Services.Storage
 					{
 						e3 = Log.UnnestException(e3);
 						Thread?.Exception(e3);
-						this.logService.LogException(e3);
+						this.LogService.LogException(e3);
 
 						Thread?.NewState("UI");
-						await this.uiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
+						await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
 					}
 				}
 
@@ -193,7 +181,7 @@ namespace IdApp.Services.Storage
 			}
 			catch (Exception e)
 			{
-				this.logService.LogException(e);
+				this.LogService.LogException(e);
 			}
 		}
 
@@ -202,7 +190,7 @@ namespace IdApp.Services.Storage
 			FilesProvider.AsyncFileIo = false;  // Asynchronous file I/O induces a long delay during startup on mobile platforms. Why??
 
 			return FilesProvider.CreateAsync(dataFolder, "Default", 8192, 10000, 8192, Encoding.UTF8,
-				(int)Constants.Timeouts.Database.TotalMilliseconds, this.cryptoService.GetCustomKey, Thread);
+				(int)Constants.Timeouts.Database.TotalMilliseconds, this.CryptoService.GetCustomKey, Thread);
 		}
 
 		#endregion

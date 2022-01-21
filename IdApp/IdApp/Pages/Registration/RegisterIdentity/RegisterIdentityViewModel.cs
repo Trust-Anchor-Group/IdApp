@@ -11,16 +11,10 @@ using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Extensions;
-using IdApp.Services.AttachmentCache;
 using IdApp.Services.Data.PersonalNumbers;
-using IdApp.Services.EventLog;
 using IdApp.Services.Contracts;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 
@@ -34,33 +28,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		private const string ProfilePhotoFileName = "ProfilePhoto.jpg";
 		private readonly string localPhotoFileName;
 		private LegalIdentityAttachment photo;
-		private readonly INetworkService networkService;
 		private readonly PhotosLoader photosLoader;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="RegisterIdentityModel"/> class.
-		/// <param name="tagProfile">The tag profile to work with.</param>
-		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="navigationService">The navigation service to use for app navigation</param>
-		/// <param name="settingsService">The settings service for persisting UI state.</param>
-		/// <param name="networkService">The network service for network access.</param>
-		/// <param name="logService">The log service.</param>
-		/// <param name="attachmentCacheService">The attachment cache to use.</param>
 		/// </summary>
-		public RegisterIdentityViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			ISettingsService settingsService,
-			INetworkService networkService,
-			ILogService logService,
-			IAttachmentCacheService attachmentCacheService)
-		 : base(RegistrationStep.RegisterIdentity, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
+		public RegisterIdentityViewModel()
+		 : base(RegistrationStep.RegisterIdentity)
 		{
-			this.networkService = networkService;
-
 			IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
 			this.DeviceId = deviceInfo?.GetDeviceId();
 
@@ -78,8 +53,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.PersonalNumberPlaceholder = AppResources.PersonalNumber;
 
 			this.localPhotoFileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), ProfilePhotoFileName);
-			this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiSerializer,
-				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
+			this.photosLoader = new PhotosLoader();
 		}
 
 		/// <inheritdoc />
@@ -654,7 +628,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			{
 				RegisterIdentityModel model = CreateRegisterModel();
 				LegalIdentityAttachment[] photos = { this.photo };
-				(bool succeeded, LegalIdentity addedIdentity) = await this.networkService.TryRequest(() => this.NeuronService.Contracts.AddLegalIdentity(model, photos));
+				(bool succeeded, LegalIdentity addedIdentity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.AddLegalIdentity(model, photos));
 				if (succeeded)
 				{
 					this.LegalIdentity = addedIdentity;

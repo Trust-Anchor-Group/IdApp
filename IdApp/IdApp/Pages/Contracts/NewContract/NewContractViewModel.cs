@@ -8,13 +8,6 @@ using IdApp.Extensions;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
-using IdApp.Services.Contracts;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using IdApp.Services.UI.QR;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
@@ -33,13 +26,6 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private readonly Dictionary<string, ParameterInfo> parametersByName = new Dictionary<string, ParameterInfo>();
 		private Contract template;
-		private readonly ILogService logService;
-		private readonly INeuronService neuronService;
-		private readonly INavigationService navigationService;
-		private readonly IUiSerializer uiSerializer;
-		private readonly ISettingsService settingsService;
-		private readonly IContractOrchestratorService contractOrchestratorService;
-		private readonly ITagProfile tagProfile;
 		private string templateId;
 		private bool saveStateWhileScanning;
 		private Contract stateTemplateWhileScanning;
@@ -48,39 +34,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// <summary>
 		/// Creates an instance of the <see cref="NewContractViewModel"/> class.
 		/// </summary>
-		public NewContractViewModel()
-			: this(null, null, null, null, null, null, null)
+		protected internal NewContractViewModel()
 		{
-		}
-
-		/// <summary>
-		/// Creates an instance of the <see cref="NewContractViewModel"/> class.
-		/// For unit tests.
-		/// <param name="tagProfile">The tag profile to work with.</param>
-		/// <param name="logService">The log service.</param>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-		/// <param name="navigationService">The navigation service to use for app navigation</param>
-		/// <param name="settingsService">The settings service for persisting UI state.</param>
-		/// <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
-		/// </summary>
-		protected internal NewContractViewModel(
-			ITagProfile tagProfile,
-			ILogService logService,
-			INeuronService neuronService,
-			IUiSerializer uiSerializer,
-			INavigationService navigationService,
-			ISettingsService settingsService,
-			IContractOrchestratorService contractOrchestratorService)
-		{
-			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
-			this.logService = logService ?? App.Instantiate<ILogService>();
-			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.settingsService = settingsService ?? App.Instantiate<ISettingsService>();
-			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
-
 			this.ContractVisibilityItems = new ObservableCollection<ContractVisibilityModel>();
 			this.AvailableRoles = new ObservableCollection<string>();
 			this.ProposeCommand = new Command(async _ => await this.Propose(), _ => this.CanPropose());
@@ -92,7 +47,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out NewContractNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out NewContractNavigationArgs args))
 			{
 				this.template = args.Contract;
 			}
@@ -121,9 +76,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			if (!this.saveStateWhileScanning)
 			{
-				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
-				await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+				await this.SettingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
 			}
 			await base.DoUnbind();
 		}
@@ -134,25 +89,25 @@ namespace IdApp.Pages.Contracts.NewContract
 			await base.DoSaveState();
 
 			if (!(this.SelectedContractVisibilityItem is null))
-				await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
+				await this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)), this.SelectedContractVisibilityItem.Visibility);
 			else
-				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
 
 			if (!(SelectedRole is null))
-				await this.settingsService.SaveState(GetSettingsKey(nameof(SelectedRole)), this.SelectedRole);
+				await this.SettingsService.SaveState(GetSettingsKey(nameof(SelectedRole)), this.SelectedRole);
 			else
-				await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+				await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
 
 			if (this.partsToAdd.Count > 0)
 			{
 				foreach (KeyValuePair<string, string> part in this.partsToAdd)
 				{
 					string settingsKey = $"{PartSettingsPrefix}{part.Key}";
-					await this.settingsService.SaveState(settingsKey, part.Value);
+					await this.SettingsService.SaveState(settingsKey, part.Value);
 				}
 			}
 			else
-				await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+				await this.SettingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
 
 			this.partsToAdd.Clear();
 		}
@@ -162,20 +117,20 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			if (this.saveStateWhileScanning)
 			{
-				Enum e = await this.settingsService.RestoreEnumState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+				Enum e = await this.SettingsService.RestoreEnumState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
 				if (!(e is null))
 				{
 					ContractVisibility cv = (ContractVisibility)e;
 					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == cv);
 				}
 
-				string selectedRole = await this.settingsService.RestoreStringState(GetSettingsKey(nameof(SelectedRole)));
+				string selectedRole = await this.SettingsService.RestoreStringState(GetSettingsKey(nameof(SelectedRole)));
 				string matchingRole = this.AvailableRoles.FirstOrDefault(x => x.Equals(selectedRole));
 
 				if (!string.IsNullOrWhiteSpace(matchingRole))
 					this.SelectedRole = matchingRole;
 
-				List<(string key, string value)> settings = (await this.settingsService.RestoreStateWhereKeyStartsWith<string>(PartSettingsPrefix)).ToList();
+				List<(string key, string value)> settings = (await this.SettingsService.RestoreStateWhereKeyStartsWith<string>(PartSettingsPrefix)).ToList();
 				if (settings.Count > 0)
 				{
 					this.partsToAdd.Clear();
@@ -201,9 +156,9 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private async Task DeleteState()
 		{
-			await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
-			await this.settingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
-			await this.settingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
+			await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedContractVisibilityItem)));
+			await this.SettingsService.RemoveState(GetSettingsKey(nameof(SelectedRole)));
+			await this.SettingsService.RemoveStateWhereKeyStartsWith(PartSettingsPrefix);
 		}
 
 		#region Properties
@@ -276,11 +231,11 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				NewContractViewModel viewModel = (NewContractViewModel)b;
 				string oldRole = (string)oldValue;
-				viewModel.RemoveRole(oldRole, viewModel.tagProfile.LegalIdentity.Id);
+				viewModel.RemoveRole(oldRole, viewModel.TagProfile.LegalIdentity.Id);
 				string newRole = (string)newValue;
 				if (!(viewModel.template is null) && !string.IsNullOrWhiteSpace(newRole))
 				{
-					viewModel.AddRole(newRole, viewModel.tagProfile.LegalIdentity.Id);
+					viewModel.AddRole(newRole, viewModel.TagProfile.LegalIdentity.Id);
 				}
 			});
 
@@ -543,12 +498,12 @@ namespace IdApp.Pages.Contracts.NewContract
 			try
 			{
 				if (sender is Label label && !string.IsNullOrEmpty(label.StyleId))
-					await this.contractOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
+					await this.ContractOrchestratorService.OpenLegalIdentity(label.StyleId, "For inclusion as part in a contract.");
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -558,14 +513,14 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				this.saveStateWhileScanning = true;
 				this.stateTemplateWhileScanning = this.template;
-				await QrCode.ScanQrCode(this.navigationService, AppResources.Add, async code =>
+				await QrCode.ScanQrCode(this.NavigationService, AppResources.Add, async code =>
 				{
 					string id = Constants.UriSchemes.RemoveScheme(code);
 					if (!string.IsNullOrWhiteSpace(code) && !string.IsNullOrWhiteSpace(id))
 					{
 						this.partsToAdd[button.StyleId] = id;
 						string settingsKey = $"{PartSettingsPrefix}{button.StyleId}";
-						await this.settingsService.SaveState(settingsKey, id);
+						await this.SettingsService.SaveState(settingsKey, id);
 					}
 				});
 			}
@@ -699,13 +654,13 @@ namespace IdApp.Pages.Contracts.NewContract
 							{
 								if (Nr < Min)
 								{
-									await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
+									await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtLeast_AddMoreParts, Min, Role));
 									return;
 								}
 
 								if (Nr > Min)
 								{
-									await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
+									await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.TheContractRequiresAtMost_RemoveParts, Max, Role));
 									return;
 								}
 
@@ -732,7 +687,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					{
 						if (Entry.BackgroundColor == Color.Salmon)
 						{
-							await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
+							await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.YourContractContainsErrors);
 							Entry.Focus();
 							return;
 						}
@@ -760,35 +715,35 @@ namespace IdApp.Pages.Contracts.NewContract
 						break;
 
 					default:
-						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractVisibilityMustBeSelected);
 						return;
 				}
 
 				if ((this.SelectedRole is null))
 				{
-					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
 					return;
 				}
 
 				if (!await App.VerifyPin())
 					return;
 
-				Created = await this.neuronService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
+				Created = await this.NeuronService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
 					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration, this.template.ArchiveRequired,
 					this.template.ArchiveOptional, null, null, false);
 
-				Created = await this.neuronService.Contracts.SignContract(Created, this.SelectedRole, false);
+				Created = await this.NeuronService.Contracts.SignContract(Created, this.SelectedRole, false);
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 			finally
 			{
 				if (!(Created is null))
 				{
-					await this.navigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage), new ViewContractNavigationArgs(Created, false)
+					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ViewContract.ViewContractPage), new ViewContractNavigationArgs(Created, false)
 					{
 						ReturnRoute = $"///{nameof(MainPage)}"
 					});

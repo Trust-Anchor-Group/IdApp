@@ -6,8 +6,6 @@ using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using IdApp.Exceptions;
 using IdApp.Extensions;
-using IdApp.Services.EventLog;
-using IdApp.Services.UI;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;
@@ -21,15 +19,11 @@ namespace IdApp.Services.Network
 	internal class NetworkService : LoadableService, INetworkService
 	{
 		private const int DefaultXmppPortNumber = 5222;
-		private readonly ILogService logService;
-		private readonly IUiSerializer uiSerializer;
 
 		public event EventHandler<ConnectivityChangedEventArgs> ConnectivityChanged;
 
-		public NetworkService(ILogService logService, IUiSerializer uiSerializer)
+		public NetworkService()
 		{
-			this.uiSerializer = uiSerializer;
-			this.logService = logService;
 		}
 
 		///<inheritdoc/>
@@ -112,10 +106,10 @@ namespace IdApp.Services.Network
 				if (!this.IsOnline)
 				{
 					thrownException = new MissingNetworkException(AppResources.ThereIsNoNetwork);
-					logService.LogException(thrownException, GetParameter(memberName));
+					this.LogService.LogException(thrownException, GetParameter(memberName));
 
 					if (displayAlert)
-						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.ThereIsNoNetwork, memberName));
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.ThereIsNoNetwork, memberName));
 				}
 				else
 				{
@@ -129,48 +123,48 @@ namespace IdApp.Services.Network
 				
 				if (ae.InnerException is TimeoutException te)
 				{
-					logService.LogException(te, GetParameter(memberName));
+					this.LogService.LogException(te, GetParameter(memberName));
 				
 					if (displayAlert)
-						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
 				}
 				else if (ae.InnerException is TaskCanceledException tce)
 				{
-					logService.LogException(tce, GetParameter(memberName));
+					this.LogService.LogException(tce, GetParameter(memberName));
 				
 					if (displayAlert)
-						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
 				}
 				else if (!(ae.InnerException is null))
 				{
-					logService.LogException(ae.InnerException, GetParameter(memberName));
+					this.LogService.LogException(ae.InnerException, GetParameter(memberName));
 				
 					if (displayAlert)
-						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.InnerException.Message, memberName));
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.InnerException.Message, memberName));
 				}
 				else
 				{
-					logService.LogException(ae, GetParameter(memberName));
+					this.LogService.LogException(ae, GetParameter(memberName));
 			
 					if (displayAlert)
-						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.Message, memberName));
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(ae.Message, memberName));
 				}
 			}
 			catch (TimeoutException te)
 			{
 				thrownException = te;
-				logService.LogException(te, GetParameter(memberName));
+				this.LogService.LogException(te, GetParameter(memberName));
 			
 				if (displayAlert)
-					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestTimedOut, memberName));
 			}
 			catch (TaskCanceledException tce)
 			{
 				thrownException = tce;
-				logService.LogException(tce, GetParameter(memberName));
+				this.LogService.LogException(tce, GetParameter(memberName));
 			
 				if (displayAlert)
-					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(AppResources.RequestWasCancelled, memberName));
 			}
 			catch (Exception e)
 			{
@@ -183,10 +177,10 @@ namespace IdApp.Services.Network
 				else
 					message = e.Message;
 				
-				logService.LogException(e, GetParameter(memberName));
+				this.LogService.LogException(e, GetParameter(memberName));
 
 				if (displayAlert)
-					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(message, memberName));
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, CreateMessage(message, memberName));
 			}
 
 			if (rethrowException)

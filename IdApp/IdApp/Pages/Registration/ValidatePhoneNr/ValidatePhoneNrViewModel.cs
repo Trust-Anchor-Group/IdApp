@@ -6,13 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Content;
 using Xamarin.Forms;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Registration.ValidatePhoneNr
 {
@@ -37,29 +31,12 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 	/// </summary>
 	public class ValidatePhoneNrViewModel : RegistrationStepViewModel
 	{
-		private readonly INetworkService networkService;
-
 		/// <summary>
 		/// Creates a new instance of the <see cref="ValidatePhoneNrViewModel"/> class.
 		/// </summary>
-		/// <param name="tagProfile">The tag profile to work with.</param>
-		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="navigationService">The navigation service to use for app navigation</param>
-		/// <param name="settingsService">The settings service for persisting UI state.</param>
-		/// <param name="networkService">The network service for network access.</param>
-		/// <param name="logService">The log service.</param>
-		public ValidatePhoneNrViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			ISettingsService settingsService,
-			INetworkService networkService,
-			ILogService logService)
-			: base(RegistrationStep.ValidatePhoneNr, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
+		public ValidatePhoneNrViewModel()
+			: base(RegistrationStep.ValidatePhoneNr)
 		{
-			this.networkService = networkService;
 			this.SendCodeCommand = new Command(async () => await this.SendCode(), this.SendCodeCanExecute);
 			this.VerifyCodeCommand = new Command(async () => await this.VerifyCode(), this.VerifyCodeCanExecute);
 			this.Title = AppResources.EnterPhoneNumber;
@@ -248,7 +225,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 		private async Task SendCode()
 		{
-			if (!this.networkService.IsOnline)
+			if (!this.NetworkService.IsOnline)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
 				return;
@@ -293,7 +270,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 		private async Task VerifyCode()
 		{
-			if (!this.networkService.IsOnline)
+			if (!this.NetworkService.IsOnline)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
 				return;
@@ -323,7 +300,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 					try
 					{
-						(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
+						(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(Domain);
 						DefaultConnectivity = HostName == Domain && PortNumber == Waher.Networking.XMPP.XmppCredentials.DefaultPort;
 					}
 					catch (Exception)

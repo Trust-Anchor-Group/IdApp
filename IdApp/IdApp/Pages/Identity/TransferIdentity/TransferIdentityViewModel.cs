@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -18,24 +16,14 @@ namespace IdApp.Pages.Identity.TransferIdentity
 	/// </summary>
 	public class TransferIdentityViewModel : NeuronViewModel
 	{
-		private readonly INavigationService navigationService;
-		private readonly ILogService logService;
 		private Timer timer;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="TransferIdentityViewModel"/> class.
 		/// </summary>
-		public TransferIdentityViewModel(
-			ITagProfile TagProfile,
-			IUiSerializer UiSerializer,
-			INeuronService NeuronService,
-			INavigationService NavigationService,
-			ILogService LogService)
-		: base(NeuronService, UiSerializer, TagProfile)
+		public TransferIdentityViewModel()
+			: base()
 		{
-			this.navigationService = NavigationService;
-			this.logService = LogService;
-
 			this.CopyUriToClipboard = new Command(async () => await this.CopyUriToClipboardClicked());
 		}
 
@@ -44,7 +32,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out TransferIdentityNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out TransferIdentityNavigationArgs args))
 				this.Uri = args.Uri;
 
 			byte[] Data = Services.UI.QR.QrCode.GeneratePng(this.Uri, 400, 400);
@@ -65,11 +53,11 @@ namespace IdApp.Pages.Identity.TransferIdentity
 			{
 				try
 				{
-					await this.navigationService.GoBackAsync();
+					await this.NavigationService.GoBackAsync();
 				}
 				catch (Exception ex)
 				{
-					this.logService.LogException(ex);
+					this.LogService.LogException(ex);
 				}
 			});
 		}

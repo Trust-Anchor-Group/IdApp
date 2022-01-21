@@ -6,14 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
-using IdApp.Services.Crypto;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using IdApp.Services.UI.QR;
 using Waher.Content;
 using Waher.Content.Xml;
@@ -30,33 +23,12 @@ namespace IdApp.Pages.Registration.ChooseAccount
 	{
 		private delegate Task<bool> ConnectMethod();
 
-		private readonly ICryptoService cryptoService;
-		private readonly INetworkService networkService;
-
 		/// <summary>
 		/// Creates a new instance of the <see cref="ChooseAccountViewModel"/> class.
 		/// </summary>
-		/// <param name="tagProfile">The tag profile to work with.</param>
-		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="navigationService">The navigation service to use for app navigation</param>
-		/// <param name="settingsService">The settings service for persisting UI state.</param>
-		/// <param name="cryptoService">The crypto service to use for password generation.</param>
-		/// <param name="networkService">The network service for network access.</param>
-		/// <param name="logService">The log service.</param>
-		public ChooseAccountViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			ISettingsService settingsService,
-			ICryptoService cryptoService,
-			INetworkService networkService,
-			ILogService logService)
-			: base(RegistrationStep.Account, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
+		public ChooseAccountViewModel()
+			: base(RegistrationStep.Account)
 		{
-			this.cryptoService = cryptoService;
-			this.networkService = networkService;
 			this.CreateNewCommand = new Command(async _ => await PerformAction(this.CreateAccount, true), _ => CanCreateAccount());
 			this.ScanQrCodeCommand = new Command(async _ => await PerformAction(this.ScanQrCode, false), _ => CanScanQrCode());
 			this.Title = AppResources.ChooseAccount;
@@ -149,7 +121,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private async Task PerformAction(ConnectMethod Method, bool MakeBusy)
 		{
-			if (!this.networkService.IsOnline)
+			if (!this.NetworkService.IsOnline)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NetworkSeemsToBeMissing);
 				return;
@@ -185,7 +157,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private bool CanCreateAccount()
 		{
-			if (!this.networkService.IsOnline)
+			if (!this.NetworkService.IsOnline)
 				return false;
 
 			if (this.IsBusy)
@@ -201,9 +173,9 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		{
 			try
 			{
-				string passwordToUse = this.cryptoService.CreateRandomPassword();
+				string passwordToUse = this.CryptoService.CreateRandomPassword();
 
-				(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
+				(string hostName, int portNumber, bool isIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
 				async Task OnConnected(XmppClient client)
 				{
@@ -235,7 +207,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 		private bool CanScanQrCode()
 		{
-			if (!this.networkService.IsOnline)
+			if (!this.NetworkService.IsOnline)
 				return false;
 
 			if (this.IsBusy)
@@ -431,7 +403,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 			try
 			{
-				(string HostName, int PortNumber, bool IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(Domain);
+				(string HostName, int PortNumber, bool IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(Domain);
 				DefaultConnectivity = HostName == Domain && PortNumber == XmppCredentials.DefaultPort;
 			}
 			catch (Exception ex)
@@ -522,7 +494,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					}
 				}
 
-				(string hostName, int portNumber, bool isIpAddress) = await this.networkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
+				(string hostName, int portNumber, bool isIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
 				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain,
 					isIpAddress, hostName, portNumber, AccountName, Password, PasswordMethod, Constants.LanguageCodes.Default,

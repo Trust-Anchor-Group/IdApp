@@ -1,8 +1,4 @@
-﻿using IdApp.Services.Navigation;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.AccountEvent
 {
@@ -12,20 +8,13 @@ namespace IdApp.Pages.Wallet.AccountEvent
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AccountEventPage
     {
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="AccountEventPage"/> class.
         /// </summary>
 		public AccountEventPage()
 		{
-            this.navigationService = App.Instantiate<INavigationService>();
-            this.ViewModel = new AccountEventViewModel(
-                App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiSerializer>(),
-                App.Instantiate<INeuronService>(),
-                this.navigationService);
-
+            this.ViewModel = new AccountEventViewModel();
+            
             InitializeComponent();
         }
 
@@ -35,7 +24,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
         /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
-            this.navigationService.GoBackAsync();
+            this.ViewModel.NavigationService.GoBackAsync();
             return true;
         }
     }

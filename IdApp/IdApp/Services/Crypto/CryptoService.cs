@@ -1,5 +1,4 @@
-﻿using IdApp.Services.EventLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
@@ -11,14 +10,12 @@ using Xamarin.Essentials;
 namespace IdApp.Services.Crypto
 {
 	[Singleton]
-	internal sealed class CryptoService : ICryptoService
+	internal sealed class CryptoService : ServiceReferences, ICryptoService
 	{
-		private readonly ILogService logService;
 		private readonly RandomNumberGenerator rnd;
 
-		public CryptoService(ILogService logService)
+		public CryptoService()
 		{
-			this.logService = logService;
 			this.rnd = RandomNumberGenerator.Create();
 		}
 
@@ -35,7 +32,7 @@ namespace IdApp.Services.Crypto
 			}
 			catch (TypeInitializationException ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				// No secure storage available.
 
 				key = Hashes.ComputeSHA256Hash(Encoding.UTF8.GetBytes(fileName + ".Key"));

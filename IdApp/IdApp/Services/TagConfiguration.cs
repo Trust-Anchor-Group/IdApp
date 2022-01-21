@@ -1,5 +1,4 @@
 ﻿using IdApp.Services.Tag;
-using System;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
 

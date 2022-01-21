@@ -4,10 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Wallet.EDalerReceived
 {
@@ -16,20 +13,12 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 	/// </summary>
 	public class EDalerReceivedViewModel : NeuronViewModel
 	{
-		private readonly INavigationService navigationService;
-
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
 		/// </summary>
-		public EDalerReceivedViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService)
-		: base(neuronService, uiSerializer, tagProfile)
+		public EDalerReceivedViewModel()
+		: base()
 		{
-			this.navigationService = navigationService;
-
 			this.AcceptCommand = new Command(async _ => await Accept(), _ => this.IsConnected);
 		}
 
@@ -38,7 +27,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
 			{
 				this.Amount = args.Balance.Amount;
 				this.Currency = args.Balance.Currency;
@@ -301,7 +290,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 
 		private Task Accept()
 		{
-			return this.navigationService.GoBackAsync();
+			return this.NavigationService.GoBackAsync();
 		}
 	}
 }

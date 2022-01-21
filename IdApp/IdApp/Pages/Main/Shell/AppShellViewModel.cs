@@ -3,10 +3,7 @@ using IdApp.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Main.Shell
 {
@@ -45,26 +42,6 @@ namespace IdApp.Pages.Main.Shell
 
 			await base.DoUnbind();
 		}
-
-		/// <summary>
-		/// Current TAG Profile
-		/// </summary>
-		public ITagProfile TagProfile => App.Instantiate<ITagProfile>();
-
-		/// <summary>
-		/// Current Neuron Service
-		/// </summary>
-		public INeuronService NeuronService => App.Instantiate<INeuronService>();
-
-		/// <summary>
-		/// Current Network Service
-		/// </summary>
-		public INetworkService NetworkService => App.Instantiate<INetworkService>();
-
-		/// <summary>
-		/// Current UI Dispatcher Service
-		/// </summary>
-		public IUiSerializer UiSerializer => App.Instantiate<IUiSerializer>();
 
 		#region Properties
 

@@ -10,12 +10,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Wallet
 {
@@ -24,28 +19,15 @@ namespace IdApp.Pages.Wallet
 	/// </summary>
 	public class EDalerUriViewModel : NeuronViewModel
 	{
-		private readonly ILogService logService;
-		private readonly INavigationService navigationService;
-		private readonly INetworkService networkService;
 		private readonly IShareQrCode shareQrCode;
 		private TaskCompletionSource<string> uriToSend;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
 		/// </summary>
-		public EDalerUriViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			INetworkService networkService,
-			ILogService logService,
-			IShareQrCode ShareQrCode)
-		: base(neuronService, uiSerializer, tagProfile)
+		public EDalerUriViewModel(IShareQrCode ShareQrCode)
+		: base()
 		{
-			this.logService = logService;
-			this.navigationService = navigationService;
-			this.networkService = networkService;
 			this.shareQrCode = ShareQrCode;
 			this.uriToSend = null;
 
@@ -65,7 +47,7 @@ namespace IdApp.Pages.Wallet
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out EDalerUriNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out EDalerUriNavigationArgs args))
 			{
 				this.FriendlyName = args.FriendlyName;
 				this.uriToSend = args.UriToSend;
@@ -829,7 +811,7 @@ namespace IdApp.Pages.Wallet
 			}
 			catch (Exception ex)
 			{
-				logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -841,10 +823,10 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
 				if (succeeded)
 				{
-					await this.navigationService.GoBackAsync();
+					await this.NavigationService.GoBackAsync();
 					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.TransactionAccepted);
 				}
 				else
@@ -852,7 +834,7 @@ namespace IdApp.Pages.Wallet
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -890,10 +872,10 @@ namespace IdApp.Pages.Wallet
 				this.NotPaid = false;
 				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 
-				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.NeuronService.Wallet.SendUri(Uri));
 				if (succeeded)
 				{
-					await this.navigationService.GoBackAsync();
+					await this.NavigationService.GoBackAsync();
 					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
 				}
 				else
@@ -906,7 +888,7 @@ namespace IdApp.Pages.Wallet
 			catch (Exception ex)
 			{
 				this.NotPaid = true;
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 			}
@@ -963,7 +945,7 @@ namespace IdApp.Pages.Wallet
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -987,7 +969,7 @@ namespace IdApp.Pages.Wallet
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -999,10 +981,10 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.networkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
 				if (succeeded)
 				{
-					await this.navigationService.GoBackAsync();
+					await this.NavigationService.GoBackAsync();
 					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PaymentSuccess);
 				}
 				else
@@ -1010,7 +992,7 @@ namespace IdApp.Pages.Wallet
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1043,7 +1025,7 @@ namespace IdApp.Pages.Wallet
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -1084,11 +1066,11 @@ namespace IdApp.Pages.Wallet
 				// TODO: Offline options: Expiry days
 
 				this.uriToSend?.TrySetResult(Uri);
-				await this.navigationService.GoBackAsync();
+				await this.NavigationService.GoBackAsync();
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

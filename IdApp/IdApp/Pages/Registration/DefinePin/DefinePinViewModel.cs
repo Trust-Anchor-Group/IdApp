@@ -4,12 +4,8 @@ using System.Windows.Input;
 using IdApp.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Registration.DefinePin
 {
@@ -21,20 +17,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// <summary>
         /// Creates a new instance of the <see cref="DefinePinViewModel"/> class.
         /// </summary>
-        /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="navigationService">The navigation service to use for app navigation</param>
-        /// <param name="settingsService">The settings service for persisting UI state.</param>
-        /// <param name="logService">The log service.</param>
-        public DefinePinViewModel(
-            ITagProfile tagProfile,
-            IUiSerializer uiSerializer,
-            INeuronService neuronService,
-            INavigationService navigationService,
-            ISettingsService settingsService,
-            ILogService logService)
-            : base(RegistrationStep.Pin, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
+        public DefinePinViewModel()
+            : base(RegistrationStep.Pin)
         {
             this.ContinueCommand = new Command(_ => Continue(), _ => CanContinue());
             this.SkipCommand = new Command(_ => Skip(), _ => CanSkip());

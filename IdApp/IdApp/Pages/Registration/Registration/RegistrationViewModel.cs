@@ -2,15 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.Crypto;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using Command = Xamarin.Forms.Command;
@@ -22,60 +14,22 @@ namespace IdApp.Pages.Registration.Registration
     /// </summary>
     public class RegistrationViewModel : BaseViewModel
     {
-        private readonly ITagProfile tagProfile;
-        private readonly INavigationService navigationService;
         private bool muteStepSync;
 
         /// <summary>
         /// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
         /// </summary>
-        public RegistrationViewModel()
-            : this(null, null, null, null, null, null, null, null, null)
+        protected internal RegistrationViewModel()
         {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="RegistrationViewModel"/> class.
-        /// For unit tests.
-        /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-        /// <param name="settingsService">The settings service for persisting UI state.</param>
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="cryptoService">The service to use for cryptographic operations.</param>
-        /// <param name="navigationService">The navigation service to use for app navigation</param>
-        /// <param name="networkService">The network and connectivity service.</param>
-        /// <param name="logService">The log service.</param>
-        /// <param name="attachmentCacheService">The attachment cache to use.</param>
-        /// </summary>
-        protected internal RegistrationViewModel(
-            ITagProfile tagProfile,
-            IUiSerializer uiSerializer, 
-            ISettingsService settingsService, 
-            INeuronService neuronService, 
-            ICryptoService cryptoService, 
-            INavigationService navigationService,
-            INetworkService networkService, 
-            ILogService logService,
-            IAttachmentCacheService attachmentCacheService)
-        {
-            this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
-            uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-            settingsService = settingsService ?? App.Instantiate<ISettingsService>();
-            neuronService = neuronService ?? App.Instantiate<INeuronService>();
-            cryptoService = cryptoService ?? App.Instantiate<ICryptoService>();
-            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-            networkService = networkService ?? App.Instantiate<INetworkService>();
-            logService = logService ?? App.Instantiate<ILogService>();
-            
             GoToPrevCommand = new Command(GoToPrev, () => (RegistrationStep)CurrentStep > RegistrationStep.ValidatePhoneNr);
             
             RegistrationSteps = new ObservableCollection<RegistrationStepViewModel>
             {
-                this.AddChildViewModel(new ValidatePhoneNr.ValidatePhoneNrViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, networkService, logService)),
-                this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, cryptoService, networkService, logService)),
-                this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService,  networkService, logService, attachmentCacheService)),
-                this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, networkService, logService, attachmentCacheService)),
-                this.AddChildViewModel(new DefinePin.DefinePinViewModel(this.tagProfile, uiSerializer, neuronService, this.navigationService, settingsService, logService))
+                this.AddChildViewModel(new ValidatePhoneNr.ValidatePhoneNrViewModel()),
+                this.AddChildViewModel(new ChooseAccount.ChooseAccountViewModel()),
+                this.AddChildViewModel(new RegisterIdentity.RegisterIdentityViewModel()),
+                this.AddChildViewModel(new ValidateIdentity.ValidateIdentityViewModel()),
+                this.AddChildViewModel(new DefinePin.DefinePinViewModel())
             };
             
             SyncTagProfileStep();
@@ -202,7 +156,7 @@ namespace IdApp.Pages.Registration.Registration
             {
                 case RegistrationStep.Account:
                     // User connected to an existing account (as opposed to creating a new one). Copy values from the legal identity.
-                    if (!(this.tagProfile.LegalIdentity is null))
+                    if (!(this.TagProfile.LegalIdentity is null))
                     {
                         RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
                         vm.PopulateFromTagProfile();
@@ -219,7 +173,7 @@ namespace IdApp.Pages.Registration.Registration
                     break;
 
                 case RegistrationStep.Pin:
-                    this.navigationService.GoToAsync($"///{nameof(Main.Main.MainPage)}");
+                    this.NavigationService.GoToAsync($"///{nameof(Main.Main.MainPage)}");
                     break;
 
                 default: // RegistrationStep.Operator
@@ -236,28 +190,28 @@ namespace IdApp.Pages.Registration.Registration
             {
                 case RegistrationStep.Account:
                     this.RegistrationSteps[CurrentStep].ClearStepState();
-                    this.tagProfile.ClearAccount();
+                    this.TagProfile.ClearAccount();
                     break;
 
                 case RegistrationStep.RegisterIdentity:
                     this.RegistrationSteps[CurrentStep].ClearStepState();
-                    this.tagProfile.ClearLegalIdentity();
+                    this.TagProfile.ClearLegalIdentity();
                     break;
 
                 case RegistrationStep.ValidateIdentity:
                     RegisterIdentity.RegisterIdentityViewModel vm = (RegisterIdentity.RegisterIdentityViewModel)this.RegistrationSteps[(int)RegistrationStep.RegisterIdentity];
                     vm.PopulateFromTagProfile();
                     this.RegistrationSteps[CurrentStep].ClearStepState();
-                    this.tagProfile.ClearIsValidated();
+                    this.TagProfile.ClearIsValidated();
                     break;
 
                 case RegistrationStep.Pin:
                     this.RegistrationSteps[CurrentStep].ClearStepState();
-                    this.tagProfile.ClearPin();
+                    this.TagProfile.ClearPin();
                     break;
 
                 default: // RegistrationStep.Operator
-                    this.tagProfile.ClearDomain();
+                    this.TagProfile.ClearDomain();
                     break;
             }
 
@@ -266,10 +220,10 @@ namespace IdApp.Pages.Registration.Registration
 
         private void SyncTagProfileStep()
         {
-            if (this.tagProfile.Step == RegistrationStep.Complete)
-                this.navigationService.GoToAsync($"///{nameof(Main.Main.MainPage)}");
+            if (this.TagProfile.Step == RegistrationStep.Complete)
+                this.NavigationService.GoToAsync($"///{nameof(Main.Main.MainPage)}");
             else
-                this.CurrentStep = (int)this.tagProfile.Step;
+                this.CurrentStep = (int)this.TagProfile.Step;
         }
     }
 }

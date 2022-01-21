@@ -5,39 +5,14 @@ using IdApp.Pages.Things.ViewThing;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Services.ThingRegistries
 {
 	[Singleton]
 	internal class ThingRegistryOrchestratorService : LoadableService, IThingRegistryOrchestratorService
 	{
-		private readonly ITagProfile tagProfile;
-		private readonly IUiSerializer uiSerializer;
-		private readonly INeuronService neuronService;
-		private readonly INavigationService navigationService;
-		private readonly ILogService logService;
-		private readonly INetworkService networkService;
-
-		public ThingRegistryOrchestratorService(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			ILogService logService,
-			INetworkService networkService)
+		public ThingRegistryOrchestratorService()
 		{
-			this.tagProfile = tagProfile;
-			this.uiSerializer = uiSerializer;
-			this.neuronService = neuronService;
-			this.navigationService = navigationService;
-			this.logService = logService;
-			this.networkService = networkService;
 		}
 
 		public override Task Load(bool isResuming)
@@ -62,9 +37,9 @@ namespace IdApp.Services.ThingRegistries
 
 		public Task OpenClaimDevice(string Uri)
 		{
-			this.uiSerializer.BeginInvokeOnMainThread(async () =>
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
-				await this.navigationService.GoToAsync(nameof(ViewClaimThingPage), new ViewClaimThingNavigationArgs(Uri));
+				await this.NavigationService.GoToAsync(nameof(ViewClaimThingPage), new ViewClaimThingNavigationArgs(Uri));
 			});
 
 			return Task.CompletedTask;
@@ -74,18 +49,18 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				(SearchResultThing[] Things, string RegistryJid) = await this.neuronService.ThingRegistry.SearchAll(Uri);
+				(SearchResultThing[] Things, string RegistryJid) = await this.NeuronService.ThingRegistry.SearchAll(Uri);
 
 				switch (Things.Length)
 				{
 					case 0:
-						await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NoThingsFound);
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NoThingsFound);
 						break;
 
 					case 1:
 						SearchResultThing Thing = Things[0];
 
-						this.uiSerializer.BeginInvokeOnMainThread(async () =>
+						this.UiSerializer.BeginInvokeOnMainThread(async () =>
 						{
 							Property[] Properties = ViewClaimThingViewModel.ToProperties(Thing.Tags);
 
@@ -110,7 +85,7 @@ namespace IdApp.Services.ThingRegistries
 								};
 							}
 
-							await this.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo));
+							await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(ContactInfo));
 						});
 						break;
 
@@ -121,7 +96,7 @@ namespace IdApp.Services.ThingRegistries
 			}
 			catch (Exception ex)
 			{
-				await this.uiSerializer.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -129,7 +104,7 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				if (!this.neuronService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
+				if (!this.NeuronService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
 					out string NodeId, out string PartitionId, out MetaDataTag[] Tags))
 				{
 					throw new InvalidOperationException("Not a direct reference URI.");
@@ -160,12 +135,12 @@ namespace IdApp.Services.ThingRegistries
 					};
 				}
 
-				this.uiSerializer.BeginInvokeOnMainThread(async () =>
-					await this.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info)));
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
+					await this.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Info)));
 			}
 			catch (Exception ex)
 			{
-				await this.uiSerializer.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 

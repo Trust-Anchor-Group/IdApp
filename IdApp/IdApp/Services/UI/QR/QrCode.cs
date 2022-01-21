@@ -2,7 +2,6 @@
 using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Contacts.Chat;
-using IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia;
 using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
@@ -30,30 +29,14 @@ namespace IdApp.Services.UI.QR
         /// Scans a QR Code, and depending on the actual result, takes different actions. 
         /// This typically means navigating to an appropriate page.
         /// </summary>
-        /// <param name="logService">The log service to use for logging.</param>
-        /// <param name="neuronService">The Neuron service for XMPP access</param>
-        /// <param name="navigationService">The navigation service for page navigation.</param>
-        /// <param name="uiSerializer">The ui dispatcher for main thread access.</param>
-        /// <param name="contractOrchestratorService">The contract orchestrator service.</param>
-        /// <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
-        /// <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
-        public static async Task ScanQrCodeAndHandleResult(
-            ILogService logService,
-            INeuronService neuronService,
-            INavigationService navigationService,
-            IUiSerializer uiSerializer,
-            IContractOrchestratorService contractOrchestratorService,
-            IThingRegistryOrchestratorService thingRegistryOrchestratorService,
-            IEDalerOrchestratorService eDalerOrchestratorService)
+        public static async Task ScanQrCodeAndHandleResult()
         {
-            string Url = await QrCode.ScanQrCode(navigationService, AppResources.Open);
+            string Url = await QrCode.ScanQrCode(App.Instantiate<INavigationService>(), AppResources.Open);
             if (string.IsNullOrWhiteSpace(Url))
                 return;
 
-            await OpenUrl(Url, logService, neuronService, uiSerializer, contractOrchestratorService,
-                thingRegistryOrchestratorService, eDalerOrchestratorService);
+            await OpenUrl(Url);
         }
-
 
         /// <summary>
         /// Scans a QR Code, and depending on the actual result, takes different actions. 
@@ -61,42 +44,20 @@ namespace IdApp.Services.UI.QR
         /// </summary>
         /// <param name="Url">URL to open.</param>
         /// <returns>If URL was handled.</returns>
-        public static Task<bool> OpenUrl(string Url)
+        public static async Task<bool> OpenUrl(string Url)
         {
-            return OpenUrl(Url,
-                App.Instantiate<ILogService>(),
-                App.Instantiate<INeuronService>(),
-                App.Instantiate<IUiSerializer>(),
-                App.Instantiate<IContractOrchestratorService>(),
-                App.Instantiate<IThingRegistryOrchestratorService>(),
-                App.Instantiate<IEDalerOrchestratorService>());
-        }
+            ILogService LogService = App.Instantiate<ILogService>();
+            IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
+            INeuronService NeuronService = App.Instantiate<INeuronService>();
+            IContractOrchestratorService ContractOrchestratorService = App.Instantiate<IContractOrchestratorService>();
+            IThingRegistryOrchestratorService ThingRegistryOrchestratorService = App.Instantiate<IThingRegistryOrchestratorService>();
+            IEDalerOrchestratorService EDalerOrchestratorService = App.Instantiate<IEDalerOrchestratorService>();
 
-        /// <summary>
-        /// Scans a QR Code, and depending on the actual result, takes different actions. 
-        /// This typically means navigating to an appropriate page.
-        /// </summary>
-        /// <param name="Url">URL to open.</param>
-        /// <param name="logService">The log service to use for logging.</param>
-        /// <param name="neuronService">The Neuron service for XMPP access</param>
-        /// <param name="uiSerializer">The ui dispatcher for main thread access.</param>
-        /// <param name="contractOrchestratorService">The contract orchestrator service.</param>
-        /// <param name="thingRegistryOrchestratorService">The thing registry orchestrator service.</param>
-        /// <param name="eDalerOrchestratorService">eDaler orchestrator service.</param>
-        /// <returns>If URL was handled.</returns>
-        public static async Task<bool> OpenUrl(string Url, 
-            ILogService logService,
-            INeuronService neuronService,
-            IUiSerializer uiSerializer,
-            IContractOrchestratorService contractOrchestratorService,
-            IThingRegistryOrchestratorService thingRegistryOrchestratorService,
-            IEDalerOrchestratorService eDalerOrchestratorService)
-        { 
             try
             {
                 if (!Uri.TryCreate(Url, UriKind.Absolute, out Uri uri))
                 {
-                    await uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
+                    await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.CodeNotRecognized);
                     return false;
                 }
 
@@ -104,39 +65,39 @@ namespace IdApp.Services.UI.QR
                 {
                     case Constants.UriSchemes.UriSchemeIotId:
                         string legalId = Constants.UriSchemes.RemoveScheme(Url);
-                        await contractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
+                        await ContractOrchestratorService.OpenLegalIdentity(legalId, AppResources.ScannedQrCode);
                         return true;
 
                     case Constants.UriSchemes.UriSchemeIotSc:
                         string contractId = Constants.UriSchemes.RemoveScheme(Url);
-                        await contractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
+                        await ContractOrchestratorService.OpenContract(contractId, AppResources.ScannedQrCode);
                         return true;
                         
                     case Constants.UriSchemes.UriSchemeIotDisco:
-                        if (neuronService.ThingRegistry.IsIoTDiscoClaimURI(Url))
-                            await thingRegistryOrchestratorService.OpenClaimDevice(Url);
-                        else if (neuronService.ThingRegistry.IsIoTDiscoSearchURI(Url))
-                            await thingRegistryOrchestratorService.OpenSearchDevices(Url);
-                        else if (neuronService.ThingRegistry.IsIoTDiscoDirectURI(Url))
-                            await thingRegistryOrchestratorService.OpenDeviceReference(Url);
+                        if (NeuronService.ThingRegistry.IsIoTDiscoClaimURI(Url))
+                            await ThingRegistryOrchestratorService.OpenClaimDevice(Url);
+                        else if (NeuronService.ThingRegistry.IsIoTDiscoSearchURI(Url))
+                            await ThingRegistryOrchestratorService.OpenSearchDevices(Url);
+                        else if (NeuronService.ThingRegistry.IsIoTDiscoDirectURI(Url))
+                            await ThingRegistryOrchestratorService.OpenDeviceReference(Url);
                         else
                         {
-                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{Url}");
+                            await UiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.InvalidIoTDiscoveryCode}{Environment.NewLine}{Environment.NewLine}{Url}");
                             return false;
                         }
                         return true;
 
                     case Constants.UriSchemes.UriSchemeTagSign:
                         string request = Constants.UriSchemes.RemoveScheme(Url);
-                        await contractOrchestratorService.TagSignature(request);
+                        await ContractOrchestratorService.TagSignature(request);
                         return true;
 
                     case Constants.UriSchemes.UriSchemeEDaler:
-                        await eDalerOrchestratorService.OpenEDalerUri(Url);
+                        await EDalerOrchestratorService.OpenEDalerUri(Url);
                         return true;
 
                     case Constants.UriSchemes.UriSchemeOnboarding:
-                        await uiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
+                        await UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ThisCodeCannotBeClaimedAtThisTime);
                         return false;
 
                     case Constants.UriSchemes.UriSchemeXmpp:
@@ -147,15 +108,15 @@ namespace IdApp.Services.UI.QR
                             return true;
                         else
                         {
-                            await uiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{Url}");
+                            await UiSerializer.DisplayAlert(AppResources.ErrorTitle, $"{AppResources.QrCodeNotUnderstood}{Environment.NewLine}{Environment.NewLine}{Url}");
                             return false;
                         }
                 }
             }
             catch (Exception ex)
             {
-                logService.LogException(ex);
-                await uiSerializer.DisplayAlert(ex);
+                LogService.LogException(ex);
+                await UiSerializer.DisplayAlert(ex);
                 return false;
             }
         }

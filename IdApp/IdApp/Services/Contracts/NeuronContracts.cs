@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Registration.RegisterIdentity;
-using IdApp.Services.EventLog;
 using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -18,24 +14,13 @@ using Waher.Runtime.Temporary;
 namespace IdApp.Services.Contracts
 {
 	[Singleton]
-	internal sealed class NeuronContracts : INeuronContracts
+	internal sealed class NeuronContracts : ServiceReferences, INeuronContracts
 	{
-		private readonly ITagProfile tagProfile;
-		private readonly IUiSerializer uiSerializer;
-		private readonly INeuronService neuronService;
-		private readonly ILogService logService;
-		private readonly ISettingsService settingsService;
 		private ContractsClient contractsClient;
 		private HttpFileUploadClient fileUploadClient;
 
-		internal NeuronContracts(ITagProfile tagProfile, IUiSerializer uiSerializer, INeuronService neuronService,
-			ILogService logService, ISettingsService settingsService)
+		internal NeuronContracts()
 		{
-			this.tagProfile = tagProfile;
-			this.uiSerializer = uiSerializer;
-			this.neuronService = neuronService;
-			this.logService = logService;
-			this.settingsService = settingsService;
 		}
 
 		/// <summary>
@@ -45,7 +30,7 @@ namespace IdApp.Services.Contracts
 		{
 			get
 			{
-				if (this.contractsClient is null || this.contractsClient.Client != this.neuronService.Xmpp)
+				if (this.contractsClient is null || this.contractsClient.Client != this.NeuronService.Xmpp)
 				{
 					if (!(this.contractsClient is null))
 					{
@@ -61,7 +46,7 @@ namespace IdApp.Services.Contracts
 						this.contractsClient.ContractProposalReceived -= ContractsClient_ContractProposalReceived;
 					}
 
-					this.contractsClient = (this.neuronService as NeuronService)?.ContractsClient;
+					this.contractsClient = (this.NeuronService as NeuronService)?.ContractsClient;
 					if (this.contractsClient is null)
 						throw new InvalidOperationException(AppResources.LegalServiceNotFound);
 
@@ -88,9 +73,9 @@ namespace IdApp.Services.Contracts
 		{
 			get
 			{
-				if (this.fileUploadClient is null || this.fileUploadClient.Client != this.neuronService.Xmpp)
+				if (this.fileUploadClient is null || this.fileUploadClient.Client != this.NeuronService.Xmpp)
 				{
-					this.fileUploadClient = this.neuronService?.FileUploadClient;
+					this.fileUploadClient = this.NeuronService?.FileUploadClient;
 					if (this.fileUploadClient is null)
 						throw new InvalidOperationException(AppResources.FileUploadServiceNotFound);
 				}
@@ -160,7 +145,7 @@ namespace IdApp.Services.Contracts
 			string Prefix = Constants.KeyPrefixes.ContractTemplatePrefix;
 			int PrefixLen = Prefix.Length;
 
-			foreach ((string Key, DateTime LastUsed) in await this.settingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
+			foreach ((string Key, DateTime LastUsed) in await this.SettingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
 				Result.Add(new KeyValuePair<DateTime, string>(LastUsed, Key.Substring(PrefixLen)));
 
 			return Result.ToArray();
@@ -180,7 +165,7 @@ namespace IdApp.Services.Contracts
 		{
 			await this.ContractsClient.GenerateNewKeys();
 
-			LegalIdentity identity = await this.ContractsClient.ApplyAsync(model.ToProperties(this.neuronService));
+			LegalIdentity identity = await this.ContractsClient.ApplyAsync(model.ToProperties(this.NeuronService));
 
 			foreach (var a in attachments)
 			{
@@ -210,7 +195,7 @@ namespace IdApp.Services.Contracts
 				return await this.ContractsClient.HasPrivateKey(legalIdentityId);
 			else
 			{
-				using (ContractsClient cc = new ContractsClient(client, this.tagProfile.LegalJid))
+				using (ContractsClient cc = new ContractsClient(client, this.TagProfile.LegalJid))
 				{
 					if (!await cc.LoadKeys(false))
 						return false;
@@ -287,7 +272,7 @@ namespace IdApp.Services.Contracts
 				return await this.ContractsClient.GetLegalIdentitiesAsync();
 			else
 			{
-				using (ContractsClient cc = new ContractsClient(client, this.tagProfile.LegalJid))  // No need to load keys for this operation.
+				using (ContractsClient cc = new ContractsClient(client, this.TagProfile.LegalJid))  // No need to load keys for this operation.
 				{
 					return await cc.GetLegalIdentitiesAsync();
 				}
@@ -393,8 +378,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -406,8 +391,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -419,8 +404,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -432,8 +417,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -445,8 +430,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -458,8 +443,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -471,8 +456,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -484,16 +469,16 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
 		private async Task ContractsClient_IdentityUpdated(object sender, LegalIdentityEventArgs e)
 		{
-			if (this.tagProfile.LegalIdentity is null ||
-				this.tagProfile.LegalIdentity.Id == e.Identity.Id ||
-				this.tagProfile.LegalIdentity.Created < e.Identity.Created)
+			if (this.TagProfile.LegalIdentity is null ||
+				this.TagProfile.LegalIdentity.Id == e.Identity.Id ||
+				this.TagProfile.LegalIdentity.Created < e.Identity.Created)
 			{
 				try
 				{
@@ -501,8 +486,8 @@ namespace IdApp.Services.Contracts
 				}
 				catch (Exception ex)
 				{
-					this.logService.LogException(ex);
-					await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+					this.LogService.LogException(ex);
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 				}
 			}
 		}
@@ -515,8 +500,8 @@ namespace IdApp.Services.Contracts
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
 			}
 		}
 
@@ -530,11 +515,11 @@ namespace IdApp.Services.Contracts
 			{
 				try
 				{
-					return tagProfile.FileUploadIsSupported && !(this.FileUploadClient is null) && this.FileUploadClient.HasSupport;
+					return this.TagProfile.FileUploadIsSupported && !(this.FileUploadClient is null) && this.FileUploadClient.HasSupport;
 				}
 				catch (Exception ex)
 				{
-					this.logService?.LogException(ex);
+					this.LogService?.LogException(ex);
 					return false;
 				}
 			}

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using IdApp.Services.EventLog;
-using IdApp.Services.Settings;
-using IdApp.Services.UI;
-using Waher.Runtime.Inventory;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
@@ -19,27 +15,12 @@ namespace IdApp.Pages
         private const string DefaultMargin = "DefaultMargin";
         private const string SafeAreaInsets = "SafeAreaInsets";
         private const string SafeAreaInsetsDefaultMargin = "SafeAreaInsetsDefaultMargin";
-        private readonly ILogService logService;
-        private readonly ISettingsService settingsService;
-        private readonly IUiSerializer uiSerializer;
 
         /// <summary>
         /// Creates an instance of the <see cref="ContentBasePage"/> class.
         /// </summary>
-        public ContentBasePage()
-            : this(null, null, null)
+        protected internal ContentBasePage()
         {
-        }
-
-        /// <summary>
-        /// Creates an instance of the <see cref="ContentBasePage"/> class.
-        /// For unit tests.
-        /// </summary>
-        protected internal ContentBasePage(ILogService logService, ISettingsService settingsService, IUiSerializer uiSerializer)
-        {
-            this.logService = logService ?? App.Instantiate<ILogService>();
-            this.settingsService = settingsService ?? App.Instantiate<ISettingsService>();
-            this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -89,23 +70,23 @@ namespace IdApp.Pages
                     catch (Exception e)
                     {
                         e = Waher.Events.Log.UnnestException(e);
-                        this.logService.LogException(e);
+                        this.ViewModel.LogService.LogException(e);
                         string msg = string.Format(AppResources.FailedToBindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                        await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                        await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
 
                 try
                 {
-                    if (await this.settingsService.WaitInitDone())
+                    if (await this.ViewModel.SettingsService.WaitInitDone())
                         await ViewModel.RestoreState();
                 }
                 catch (Exception e)
                 {
                     e = Waher.Events.Log.UnnestException(e);
-                    this.logService.LogException(e);
+                    this.ViewModel.LogService.LogException(e);
                     string msg = string.Format(AppResources.FailedToRestoreViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                    await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                    await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
         }
@@ -119,15 +100,15 @@ namespace IdApp.Pages
                 {
                     try
                     {
-                        if (await this.settingsService.WaitInitDone())
+                        if (await this.ViewModel.SettingsService.WaitInitDone())
                             await ViewModel.SaveState();
                     }
                     catch (Exception e)
                     {
                         e = Waher.Events.Log.UnnestException(e);
-                        this.logService.LogException(e);
+                        this.ViewModel.LogService.LogException(e);
                         string msg = string.Format(AppResources.FailedToSaveViewModelStateForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                        await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                        await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                     }
                 }
 
@@ -138,9 +119,9 @@ namespace IdApp.Pages
                 catch (Exception e)
                 {
                     e = Waher.Events.Log.UnnestException(e);
-                    this.logService.LogException(e);
+                    this.ViewModel.LogService.LogException(e);
                     string msg = string.Format(AppResources.FailedToUnbindViewModelForPage, ViewModel.GetType().FullName, this.GetType().FullName);
-                    await this.uiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
+                    await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
             base.OnDisappearing();
@@ -154,7 +135,7 @@ namespace IdApp.Pages
         protected void ForceReRender(params Layout[] layouts)
         {
             // Important to BeginInvoke here to get the UI to update properly.
-            this.uiSerializer.BeginInvokeOnMainThread(() =>
+            this.ViewModel.UiSerializer.BeginInvokeOnMainThread(() =>
             {
                 foreach (Layout layout in layouts)
                 {

@@ -1,6 +1,4 @@
-﻿using IdApp.Services.EventLog;
-using IdApp.Services.Storage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Persistence;
@@ -10,28 +8,21 @@ using Waher.Runtime.Settings;
 namespace IdApp.Services.Settings
 {
     [Singleton]
-    internal sealed class SettingsService : ISettingsService
+    internal sealed class SettingsService : ServiceReferences, ISettingsService
     {
         private const string WildCard = "*";
-        private readonly IStorageService storageService;
-        private readonly ILogService logService;
 
-        public SettingsService(IStorageService storageService, ILogService logService)
+        public SettingsService()
         {
-            this.storageService = storageService;
-            this.logService = logService;
         }
 
         private static string FormatKey(string keyPrefix)
         {
             if (string.IsNullOrWhiteSpace(keyPrefix))
-            {
                 return WildCard;
-            }
+            
             if (!keyPrefix.EndsWith(WildCard))
-            {
                 keyPrefix += WildCard;
-            }
 
             return keyPrefix;
         }
@@ -45,7 +36,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -58,7 +49,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -71,7 +62,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -84,7 +75,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -97,7 +88,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -110,7 +101,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -123,7 +114,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -136,7 +127,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -162,7 +153,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return matches;
@@ -178,7 +169,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -192,7 +183,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -206,7 +197,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -220,7 +211,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -234,7 +225,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -248,7 +239,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -262,7 +253,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -284,7 +275,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
 
             return defaultValueIfNotFound;
@@ -302,7 +293,7 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
@@ -319,13 +310,13 @@ namespace IdApp.Services.Settings
             }
             catch (Exception e)
             {
-                this.logService.LogException(e);
+                this.LogService.LogException(e);
             }
         }
 
         public Task<bool> WaitInitDone()
 		{
-            return this.storageService.WaitInitDone();
+            return this.StorageService.WaitInitDone();
 		}
     }
 }

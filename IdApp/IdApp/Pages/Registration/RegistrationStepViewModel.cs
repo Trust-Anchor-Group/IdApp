@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Registration
@@ -24,28 +19,9 @@ namespace IdApp.Pages.Registration
         /// Creates a new instance of the <see cref="IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel"/> class.
         /// </summary>
         /// <param name="step">The current step for this instance.</param>
-        /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="navigationService">The navigation service to use for app navigation</param>
-        /// <param name="settingsService">The settings service for persisting UI state.</param>
-        /// <param name="logService">The log service.</param>
-        public RegistrationStepViewModel(
-            RegistrationStep step,
-            ITagProfile tagProfile,
-            IUiSerializer uiSerializer,
-            INeuronService neuronService, 
-            INavigationService navigationService,
-            ISettingsService settingsService,
-            ILogService logService)
+        public RegistrationStepViewModel(RegistrationStep step)
         {
             this.Step = step;
-            this.UiSerializer = uiSerializer;
-            this.TagProfile = tagProfile;
-            this.NeuronService = neuronService;
-            this.NavigationService = navigationService;
-            this.SettingsService = settingsService;
-            this.LogService = logService;
         }
 
         #region Properties
@@ -69,36 +45,6 @@ namespace IdApp.Pages.Registration
         /// The current step for this view model instance.
         /// </summary>
         public RegistrationStep Step { get; }
-
-        /// <summary>
-        /// The <see cref="IUiSerializer"/> instance.
-        /// </summary>
-        protected IUiSerializer UiSerializer { get; }
-
-        /// <summary>
-        /// The <see cref="ITagProfile"/> instance to edit.
-        /// </summary>
-        protected ITagProfile TagProfile { get; }
-
-        /// <summary>
-        /// The <see cref="INeuronService"/> instance.
-        /// </summary>
-        protected INeuronService NeuronService { get; }
-
-        /// <summary>
-        /// The <see cref="INavigationService"/> instance.
-        /// </summary>
-        protected INavigationService NavigationService { get; }
-
-        /// <summary>
-        /// The <see cref="ISettingsService"/> instance.
-        /// </summary>
-        protected ISettingsService SettingsService { get; }
-
-        /// <summary>
-        /// The <see cref="ILogService"/> instance.
-        /// </summary>
-        protected ILogService LogService { get; }
 
         #endregion
 

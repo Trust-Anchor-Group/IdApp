@@ -11,16 +11,12 @@ using IdApp.Popups.Xmpp.ReportOrBlock;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Popups.Xmpp.SubscriptionRequest;
 using IdApp.Services.Contracts;
-using IdApp.Services.EventLog;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Provisioning;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
-using IdApp.Services.UI;
 using EDaler;
 using Waher.Content;
 using Waher.Content.Html;
@@ -54,11 +50,6 @@ namespace IdApp.Services.Neuron
 	internal sealed class NeuronService : LoadableService, INeuronService
 	{
 		private readonly Assembly appAssembly;
-		private readonly INetworkService networkService;
-		private readonly ILogService logService;
-		private readonly ITagProfile tagProfile;
-		private readonly ISettingsService settingsService;
-		private readonly IUiSerializer uiSerializer;
 		private Profiler startupProfiler;
 		private ProfilerThread xmppThread;
 		private XmppClient xmppClient;
@@ -93,26 +84,14 @@ namespace IdApp.Services.Neuron
 		private string historyTextData;
 		private string historyHtml;
 
-		public NeuronService(
-			Assembly AppAssembly,
-			ITagProfile TagProfile,
-			IUiSerializer UiSerializer,
-			INetworkService NetworkService,
-			ILogService LogService,
-			ISettingsService SettingsService,
-			Profiler StartupProfiler)
+		public NeuronService(Assembly AppAssembly, Profiler StartupProfiler)
 		{
 			this.appAssembly = AppAssembly;
-			this.networkService = NetworkService;
-			this.logService = LogService;
-			this.tagProfile = TagProfile;
-			this.settingsService = SettingsService;
-			this.uiSerializer = UiSerializer;
-			this.contracts = new NeuronContracts(this.tagProfile, UiSerializer, this, this.logService, this.settingsService);
-			this.muc = new NeuronMultiUserChat(this);
-			this.thingRegistry = new NeuronThingRegistry(this);
-			this.provisioning = new NeuronProvisioningService(this);
-			this.wallet = new NeuronWallet(this, this.logService);
+			this.contracts = new NeuronContracts();
+			this.muc = new NeuronMultiUserChat();
+			this.thingRegistry = new NeuronThingRegistry();
+			this.provisioning = new NeuronProvisioningService();
+			this.wallet = new NeuronWallet();
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = StartupProfiler;
 		}
@@ -140,16 +119,16 @@ namespace IdApp.Services.Neuron
 						this.DestroyXmppClient();
 					}
 
-					this.domainName = this.tagProfile.Domain;
-					this.accountName = this.tagProfile.Account;
-					this.passwordHash = this.tagProfile.PasswordHash;
-					this.passwordHashMethod = this.tagProfile.PasswordHashMethod;
+					this.domainName = this.TagProfile.Domain;
+					this.accountName = this.TagProfile.Account;
+					this.passwordHash = this.TagProfile.PasswordHash;
+					this.passwordHashMethod = this.TagProfile.PasswordHashMethod;
 
 					string HostName;
 					int PortNumber;
 					bool IsIpAddress;
 
-					if (this.tagProfile.DefaultXmppConnectivity)
+					if (this.TagProfile.DefaultXmppConnectivity)
 					{
 						HostName = this.domainName;
 						PortNumber = XmppCredentials.DefaultPort;
@@ -158,10 +137,10 @@ namespace IdApp.Services.Neuron
 					else
 					{
 						Thread?.NewState("DNS");
-						(HostName, PortNumber, IsIpAddress) = await this.networkService.LookupXmppHostnameAndPort(domainName);
+						(HostName, PortNumber, IsIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(domainName);
 
 						if (HostName == domainName && PortNumber == XmppCredentials.DefaultPort)
-							this.tagProfile.SetDomain(domainName, true, this.tagProfile.ApiKey, this.tagProfile.ApiSecret);
+							this.TagProfile.SetDomain(domainName, true, this.TagProfile.ApiKey, this.TagProfile.ApiSecret);
 					}
 
 					this.xmppLastStateChange = DateTime.Now;
@@ -192,16 +171,16 @@ namespace IdApp.Services.Neuron
 					this.xmppClient.RegisterMessageHandler("Delivered", ContractsClient.NamespaceOnboarding, this.TransferIdDelivered, true);
 
 					Thread?.NewState("Sink");
-					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.tagProfile.LogJid, false);
+					this.xmppEventSink = new XmppEventSink("XMPP Event Sink", this.xmppClient, this.TagProfile.LogJid, false);
 
 					// Add extensions before connecting
 
 					this.abuseClient = new AbuseClient(this.xmppClient);
 
-					if (!string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
 					{
 						Thread?.NewState("Legal");
-						this.contractsClient = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
+						this.contractsClient = new ContractsClient(this.xmppClient, this.TagProfile.LegalJid);
 
 						Thread?.NewState("Keys");
 						if (!await this.contractsClient.LoadKeys(false))
@@ -219,37 +198,37 @@ namespace IdApp.Services.Neuron
 						}
 					}
 
-					if (!string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize.HasValue)
 					{
 						Thread?.NewState("Upload");
-						this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize);
+						this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.TagProfile.HttpFileUploadJid, this.TagProfile.HttpFileUploadMaxSize);
 					}
 
-					if (!string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.MucJid))
 					{
 						Thread?.NewState("MUC");
-						this.mucClient = new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid);
+						this.mucClient = new MultiUserChatClient(this.xmppClient, this.TagProfile.MucJid);
 					}
 
-					if (!string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
 					{
 						Thread?.NewState("Reg");
-						this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
+						this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.TagProfile.RegistryJid);
 					}
 
-					if (!string.IsNullOrWhiteSpace(this.tagProfile.ProvisioningJid))
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.ProvisioningJid))
 					{
 						Thread?.NewState("Prov");
-						this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid)
+						this.provisioningClient = new ProvisioningClient(this.xmppClient, this.TagProfile.ProvisioningJid)
 						{
 							ManagePresenceSubscriptionRequests = false
 						};
 					}
 
-					if (!string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
 					{
 						Thread?.NewState("eDaler");
-						this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
+						this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
 					}
 
 					Thread?.NewState("Sensor");
@@ -267,12 +246,12 @@ namespace IdApp.Services.Neuron
 					this.RecreateReconnectTimer();
 
 					// Await connected state during registration or user initiated log in, but not otherwise.
-					if (!this.tagProfile.IsCompleteOrWaitingForValidation())
+					if (!this.TagProfile.IsCompleteOrWaitingForValidation())
 					{
 						Thread?.NewState("Wait");
 						if (!await this.WaitForConnectedState(Constants.Timeouts.XmppConnect))
 						{
-							this.logService.LogWarning("Connect to XMPP server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
+							this.LogService.LogWarning("Connect to XMPP server '{0}' failed for account '{1}' with the specified timeout of {2} ms",
 								this.domainName,
 								this.accountName,
 								(int)Constants.Timeouts.XmppConnect.TotalMilliseconds);
@@ -294,7 +273,7 @@ namespace IdApp.Services.Neuron
 
 			if (!(this.xmppEventSink is null))
 			{
-				this.logService.RemoveListener(this.xmppEventSink);
+				this.LogService.RemoveListener(this.xmppEventSink);
 				this.xmppEventSink.Dispose();
 				this.xmppEventSink = null;
 			}
@@ -346,34 +325,34 @@ namespace IdApp.Services.Neuron
 			if (this.xmppClient is null)
 				return false;
 
-			if (this.domainName != this.tagProfile.Domain)
+			if (this.domainName != this.TagProfile.Domain)
 				return false;
 
-			if (this.accountName != this.tagProfile.Account)
+			if (this.accountName != this.TagProfile.Account)
 				return false;
 
-			if (this.passwordHash != this.tagProfile.PasswordHash)
+			if (this.passwordHash != this.TagProfile.PasswordHash)
 				return false;
 
-			if (this.passwordHashMethod != this.tagProfile.PasswordHashMethod)
+			if (this.passwordHashMethod != this.TagProfile.PasswordHashMethod)
 				return false;
 
-			if (this.contractsClient?.ComponentAddress != this.tagProfile.LegalJid)
+			if (this.contractsClient?.ComponentAddress != this.TagProfile.LegalJid)
 				return false;
 
-			if (this.fileUploadClient?.FileUploadJid != this.tagProfile.HttpFileUploadJid)
+			if (this.fileUploadClient?.FileUploadJid != this.TagProfile.HttpFileUploadJid)
 				return false;
 
-			if (this.mucClient?.ComponentAddress != this.tagProfile.MucJid)
+			if (this.mucClient?.ComponentAddress != this.TagProfile.MucJid)
 				return false;
 
-			if (this.thingRegistryClient?.ThingRegistryAddress != this.tagProfile.RegistryJid)
+			if (this.thingRegistryClient?.ThingRegistryAddress != this.TagProfile.RegistryJid)
 				return false;
 
-			if (this.provisioningClient?.ProvisioningServerAddress != this.tagProfile.ProvisioningJid)
+			if (this.provisioningClient?.ProvisioningServerAddress != this.TagProfile.ProvisioningJid)
 				return false;
 
-			if (this.eDalerClient?.ComponentAddress != this.tagProfile.EDalerJid)
+			if (this.eDalerClient?.ComponentAddress != this.TagProfile.EDalerJid)
 				return false;
 
 			return true;
@@ -381,7 +360,7 @@ namespace IdApp.Services.Neuron
 
 		private bool ShouldCreateClient()
 		{
-			return this.tagProfile.Step > RegistrationStep.Account && !this.XmppParametersCurrent();
+			return this.TagProfile.Step > RegistrationStep.Account && !this.XmppParametersCurrent();
 		}
 
 		private void RecreateReconnectTimer()
@@ -398,8 +377,8 @@ namespace IdApp.Services.Neuron
 				return;
 
 			if (ShouldCreateClient())
-				await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity, null);
-			else if (this.tagProfile.Step <= RegistrationStep.Account)
+				await this.CreateXmppClient(this.TagProfile.Step <= RegistrationStep.RegisterIdentity, null);
+			else if (this.TagProfile.Step <= RegistrationStep.Account)
 				this.DestroyXmppClient();
 		}
 
@@ -436,14 +415,14 @@ namespace IdApp.Services.Neuron
 
 					this.RecreateReconnectTimer();
 
-					if (string.IsNullOrEmpty(this.tagProfile.PasswordHashMethod))
-						this.tagProfile.SetAccount(this.tagProfile.Account, this.xmppClient.PasswordHash, this.xmppClient.PasswordHashMethod);
+					if (string.IsNullOrEmpty(this.TagProfile.PasswordHashMethod))
+						this.TagProfile.SetAccount(this.TagProfile.Account, this.xmppClient.PasswordHash, this.xmppClient.PasswordHashMethod);
 
-					if (this.tagProfile.NeedsUpdating() && await this.DiscoverServices())
+					if (this.TagProfile.NeedsUpdating() && await this.DiscoverServices())
 					{
-						if (this.contractsClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+						if (this.contractsClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
 						{
-							this.contractsClient = new ContractsClient(this.xmppClient, this.tagProfile.LegalJid);
+							this.contractsClient = new ContractsClient(this.xmppClient, this.TagProfile.LegalJid);
 
 							if (!await this.contractsClient.LoadKeys(false))
 							{
@@ -452,28 +431,28 @@ namespace IdApp.Services.Neuron
 							}
 						}
 
-						if (this.fileUploadClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) && this.tagProfile.HttpFileUploadMaxSize.HasValue)
-							this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.tagProfile.HttpFileUploadJid, this.tagProfile.HttpFileUploadMaxSize);
+						if (this.fileUploadClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) && this.TagProfile.HttpFileUploadMaxSize.HasValue)
+							this.fileUploadClient = new HttpFileUploadClient(this.xmppClient, this.TagProfile.HttpFileUploadJid, this.TagProfile.HttpFileUploadMaxSize);
 
-						if (this.mucClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
-							this.mucClient = new MultiUserChatClient(this.xmppClient, this.tagProfile.MucJid);
+						if (this.mucClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.MucJid))
+							this.mucClient = new MultiUserChatClient(this.xmppClient, this.TagProfile.MucJid);
 
-						if (this.thingRegistryClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
-							this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.tagProfile.RegistryJid);
+						if (this.thingRegistryClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
+							this.thingRegistryClient = new ThingRegistryClient(this.xmppClient, this.TagProfile.RegistryJid);
 
-						if (this.provisioningClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.RegistryJid))
+						if (this.provisioningClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.RegistryJid))
 						{
-							this.provisioningClient = new ProvisioningClient(this.xmppClient, this.tagProfile.ProvisioningJid)
+							this.provisioningClient = new ProvisioningClient(this.xmppClient, this.TagProfile.ProvisioningJid)
 							{
 								ManagePresenceSubscriptionRequests = false
 							};
 						}
 
-						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
-							this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.tagProfile.EDalerJid);
+						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
+							this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
 					}
 
-					this.logService.AddListener(this.xmppEventSink);
+					this.LogService.AddListener(this.xmppEventSink);
 
 					this.xmppThread?.Stop();
 					this.xmppThread = null;
@@ -535,7 +514,7 @@ namespace IdApp.Services.Neuron
 					Thread?.NewState("Load");
 					try
 					{
-						this.tagProfile.StepChanged += TagProfile_StepChanged;
+						this.TagProfile.StepChanged += TagProfile_StepChanged;
 
 						if (ShouldCreateClient())
 						{
@@ -545,7 +524,7 @@ namespace IdApp.Services.Neuron
 							ClientsThread?.Start();
 							try
 							{
-								await this.CreateXmppClient(this.tagProfile.Step <= RegistrationStep.RegisterIdentity, ClientsThread);
+								await this.CreateXmppClient(this.TagProfile.Step <= RegistrationStep.RegisterIdentity, ClientsThread);
 							}
 							finally
 							{
@@ -555,7 +534,7 @@ namespace IdApp.Services.Neuron
 
 						if (!(this.xmppClient is null) &&
 							this.xmppClient.State == XmppState.Connected &&
-							this.tagProfile.IsCompleteOrWaitingForValidation())
+							this.TagProfile.IsCompleteOrWaitingForValidation())
 						{
 							Thread?.NewState("Presence");
 							// Don't await this one, just fire and forget, to improve startup time.
@@ -569,7 +548,7 @@ namespace IdApp.Services.Neuron
 					{
 						ex = Log.UnnestException(ex);
 						Thread?.Exception(ex);
-						this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+						this.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 						this.EndLoad(false);
 					}
 				}
@@ -596,7 +575,7 @@ namespace IdApp.Services.Neuron
 			{
 				try
 				{
-					this.tagProfile.StepChanged -= TagProfile_StepChanged;
+					this.TagProfile.StepChanged -= TagProfile_StepChanged;
 
 					if (!(this.xmppClient is null) && !fast)
 					{
@@ -614,7 +593,7 @@ namespace IdApp.Services.Neuron
 				}
 				catch (Exception ex)
 				{
-					this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+					this.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 				}
 
 				this.EndUnload();
@@ -809,7 +788,7 @@ namespace IdApp.Services.Neuron
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), $"{operation}"));
+				this.LogService.LogException(ex, new KeyValuePair<string, string>(nameof(ConnectOperation), $"{operation}"));
 				succeeded = false;
 				errorMessage = string.Format(AppResources.UnableToConnectTo, domain);
 			}
@@ -864,7 +843,7 @@ namespace IdApp.Services.Neuron
 			catch (Exception ex)
 			{
 				string commsDump = await this.sniffer.SnifferToText();
-				this.logService.LogException(ex, new KeyValuePair<string, string>("Sniffer", commsDump));
+				this.LogService.LogException(ex, new KeyValuePair<string, string>("Sniffer", commsDump));
 				return false;
 			}
 
@@ -876,19 +855,19 @@ namespace IdApp.Services.Neuron
 
 			await Task.WhenAll(Tasks.ToArray());
 
-			if (string.IsNullOrWhiteSpace(this.tagProfile.LegalJid))
+			if (string.IsNullOrWhiteSpace(this.TagProfile.LegalJid))
 				return false;
 
-			if (string.IsNullOrWhiteSpace(this.tagProfile.HttpFileUploadJid) || !this.tagProfile.HttpFileUploadMaxSize.HasValue)
+			if (string.IsNullOrWhiteSpace(this.TagProfile.HttpFileUploadJid) || !this.TagProfile.HttpFileUploadMaxSize.HasValue)
 				return false;
 
-			if (string.IsNullOrWhiteSpace(this.tagProfile.LogJid))
+			if (string.IsNullOrWhiteSpace(this.TagProfile.LogJid))
 				return false;
 
-			if (string.IsNullOrWhiteSpace(this.tagProfile.MucJid))
+			if (string.IsNullOrWhiteSpace(this.TagProfile.MucJid))
 				return false;
 
-			if (string.IsNullOrWhiteSpace(this.tagProfile.EDalerJid))
+			if (string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
 				return false;
 
 			return true;
@@ -901,32 +880,32 @@ namespace IdApp.Services.Neuron
 			lock (SynchObject)
 			{
 				if (itemResponse.HasFeature(ContractsClient.NamespaceLegalIdentities))
-					this.tagProfile.SetLegalJid(Item.JID);
+					this.TagProfile.SetLegalJid(Item.JID);
 
 				if (itemResponse.HasFeature(ThingRegistryClient.NamespaceDiscovery))
-					this.tagProfile.SetRegistryJid(Item.JID);
+					this.TagProfile.SetRegistryJid(Item.JID);
 
 				if (itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningDevice) &&
 					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningOwner) &&
 					itemResponse.HasFeature(ProvisioningClient.NamespaceProvisioningToken))
 				{
-					this.tagProfile.SetProvisioningJid(Item.JID);
+					this.TagProfile.SetProvisioningJid(Item.JID);
 				}
 
 				if (itemResponse.HasFeature(HttpFileUploadClient.Namespace))
 				{
 					long? maxSize = HttpFileUploadClient.FindMaxFileSize(Client, itemResponse);
-					this.tagProfile.SetFileUploadParameters(Item.JID, maxSize);
+					this.TagProfile.SetFileUploadParameters(Item.JID, maxSize);
 				}
 
 				if (itemResponse.HasFeature(XmppEventSink.NamespaceEventLogging))
-					this.tagProfile.SetLogJid(Item.JID);
+					this.TagProfile.SetLogJid(Item.JID);
 
 				if (itemResponse.HasFeature(MultiUserChatClient.NamespaceMuc))
-					this.tagProfile.SetMucJid(Item.JID);
+					this.TagProfile.SetMucJid(Item.JID);
 
 				if (itemResponse.HasFeature(EDalerClient.NamespaceEDaler))
-					this.tagProfile.SetEDalerJid(Item.JID);
+					this.TagProfile.SetEDalerJid(Item.JID);
 			}
 		}
 
@@ -935,7 +914,7 @@ namespace IdApp.Services.Neuron
 			if (this.xmppClient is null)
 				return;
 
-			if (!this.networkService.IsOnline)
+			if (!this.NetworkService.IsOnline)
 				return;
 
 			if (this.XmppStale())
@@ -987,7 +966,7 @@ namespace IdApp.Services.Neuron
 			}
 			catch (Exception e)
 			{
-				this.logService.LogException(e);
+				this.LogService.LogException(e);
 			}
 
 			return html;
@@ -1024,13 +1003,13 @@ namespace IdApp.Services.Neuron
 			this.passwordHashMethod = string.Empty;
 			this.xmppConnected = false;
 
-			this.tagProfile.ClearAll();
+			this.TagProfile.ClearAll();
 			await RuntimeSettings.SetAsync("TransferId.CodesSent", string.Empty);
 			await Database.Provider.Flush();
 
 			INavigationService NavigationService = App.Instantiate<INavigationService>();
 
-			this.uiSerializer.BeginInvokeOnMainThread(async () =>
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				await NavigationService.GoToAsync($"/{nameof(Pages.Registration.Registration.RegistrationPage)}"));
 		}
 
@@ -1153,12 +1132,12 @@ namespace IdApp.Services.Neuron
 						{
 							string IdXml;
 
-							if (this.tagProfile.LegalIdentity is null)
+							if (this.TagProfile.LegalIdentity is null)
 								IdXml = string.Empty;
 							else
 							{
 								StringBuilder Xml = new StringBuilder();
-								this.tagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
+								this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
 								IdXml = Xml.ToString();
 							}
 
@@ -1389,7 +1368,7 @@ namespace IdApp.Services.Neuron
 				string LegalId = ContactInfo?.LegalId;
 				string BareJid = ContactInfo?.BareJid ?? e.FromBareJID;
 
-				this.uiSerializer.BeginInvokeOnMainThread(async () =>
+				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
 			}
 		}

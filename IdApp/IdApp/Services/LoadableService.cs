@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Waher.Runtime.Profiling;
 
 namespace IdApp.Services
 {
 	/// <inheritdoc/>
-	public class LoadableService : ILoadableService
+	public class LoadableService : ServiceReferences, ILoadableService
 	{
 		/// <summary>
 		/// Gets whether the service is unloading or not.

@@ -11,15 +11,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.Contracts;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.ThingRegistries;
-using IdApp.Services.Wallet;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
@@ -34,48 +26,15 @@ namespace IdApp.Pages.Main.Main
 	/// </summary>
 	public class MainViewModel : NeuronViewModel
 	{
-		private readonly ILogService logService;
-		private readonly INetworkService networkService;
-		private readonly INavigationService navigationService;
-		private readonly IContractOrchestratorService contractOrchestratorService;
-		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
-		private readonly IEDalerOrchestratorService eDalerOrchestratorService;
 		private readonly PhotosLoader photosLoader;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="MainViewModel"/> class.
 		/// </summary>
-		public MainViewModel()
-			: this(null, null, null, null, null, null, null, null, null, null)
+		protected internal MainViewModel()
+			: base()
 		{
-		}
-
-		/// <summary>
-		/// Creates a new instance of the <see cref="MainViewModel"/> class.
-		/// For unit tests.
-		/// </summary>
-		protected internal MainViewModel(
-			ILogService logService,
-			INeuronService neuronService,
-			IUiSerializer uiSerializer,
-			ITagProfile tagProfile,
-			INavigationService navigationService,
-			INetworkService networkService,
-			IAttachmentCacheService attachmentCacheService,
-			IContractOrchestratorService contractOrchestratorService,
-			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
-			IEDalerOrchestratorService eDalerOrchestratorService)
-			: base(neuronService, uiSerializer, tagProfile)
-		{
-			this.logService = logService ?? App.Instantiate<ILogService>();
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.networkService = networkService ?? App.Instantiate<INetworkService>();
-			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
-			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? App.Instantiate<IThingRegistryOrchestratorService>();
-			this.eDalerOrchestratorService = eDalerOrchestratorService ?? App.Instantiate<IEDalerOrchestratorService>();
-
-			this.photosLoader = new PhotosLoader(this.logService, this.networkService, this.NeuronService, this.UiSerializer,
-				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
+			this.photosLoader = new PhotosLoader();
 
 			this.ViewMyIdentityCommand = new Command(async () => await ViewMyIdentity(), () => this.IsConnected);
 			this.ViewMyContactsCommand = new Command(async () => await ViewMyContacts(), () => this.IsConnected);
@@ -94,7 +53,7 @@ namespace IdApp.Pages.Main.Main
 			this.AssignProperties();
 			this.SetConnectionStateAndText(this.NeuronService.State);
 			this.NeuronService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
-			this.networkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
+			this.NetworkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
 		}
 
 		/// <inheritdoc />
@@ -102,7 +61,7 @@ namespace IdApp.Pages.Main.Main
 		{
 			this.photosLoader.CancelLoadPhotos();
 			this.NeuronService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
-			this.networkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
+			this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
 			return base.DoUnbind();
 		}
 
@@ -145,7 +104,7 @@ namespace IdApp.Pages.Main.Main
 						}
 						catch (Exception ex)
 						{
-							this.logService.LogException(ex);
+							this.LogService.LogException(ex);
 							await this.UiSerializer.DisplayAlert(ex);
 						}
 					});
@@ -189,7 +148,7 @@ namespace IdApp.Pages.Main.Main
 			}
 			catch (Exception e)
 			{
-				this.logService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
+				this.LogService.LogException(e, this.GetClassAndMethod(MethodBase.GetCurrentMethod()));
 			}
 		}
 
@@ -636,35 +595,33 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewMyIdentity()
 		{
-			await this.navigationService.GoToAsync(nameof(ViewIdentityPage));
+			await this.NavigationService.GoToAsync(nameof(ViewIdentityPage));
 		}
 
 		private async Task ViewMyContacts()
 		{
-			await this.navigationService.GoToAsync(nameof(MyContactsPage), 
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), 
 				new ContactListNavigationArgs(AppResources.ContactsDescription, SelectContactAction.ViewIdentity));
 		}
 
 		private async Task ViewMyThings()
 		{
-			await this.navigationService.GoToAsync(nameof(Things.MyThings.MyThingsPage));
+			await this.NavigationService.GoToAsync(nameof(Things.MyThings.MyThingsPage));
 		}
 
 		private async Task ViewSignedContracts()
 		{
-			await this.navigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
+			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(ContractsListMode.SignedContracts));
 		}
 
 		private async Task ViewWallet()
 		{
-			await this.eDalerOrchestratorService.OpenWallet();
+			await this.EDalerOrchestratorService.OpenWallet();
 		}
 
 		private async Task ScanQrCode()
 		{
-			await Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
-				this.UiSerializer, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
-				this.eDalerOrchestratorService);
+			await Services.UI.QR.QrCode.ScanQrCodeAndHandleResult();
 		}
 
 		private void SetLocation()
@@ -711,7 +668,7 @@ namespace IdApp.Pages.Main.Main
 			try
 			{
 				// Network
-				this.IsOnline = this.networkService?.IsOnline ?? false;
+				this.IsOnline = this.NetworkService?.IsOnline ?? false;
 				this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
 				this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
 
@@ -745,7 +702,7 @@ namespace IdApp.Pages.Main.Main
 			}
 			catch (Exception ex)
 			{
-				this.logService?.LogException(ex);
+				this.LogService?.LogException(ex);
 			}
 		}
 
@@ -763,7 +720,7 @@ namespace IdApp.Pages.Main.Main
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
@@ -782,7 +739,7 @@ namespace IdApp.Pages.Main.Main
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

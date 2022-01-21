@@ -9,15 +9,7 @@ using EDaler.Uris;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Services;
-using IdApp.Services.Contracts;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.ThingRegistries;
-using IdApp.Services.UI;
-using IdApp.Services.Wallet;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -27,35 +19,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 	/// </summary>
 	public class MyWalletViewModel : NeuronViewModel
 	{
-		private readonly ILogService logService;
-		private readonly INavigationService navigationService;
-		private readonly INetworkService networkService;
-		private readonly IContractOrchestratorService contractOrchestratorService;
-		private readonly IThingRegistryOrchestratorService thingRegistryOrchestratorService;
-		private readonly IEDalerOrchestratorService eDalerOrchestratorService;
-
 		/// <summary>
 		/// Creates an instance of the <see cref="MyWalletViewModel"/> class.
 		/// </summary>
-		public MyWalletViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			INetworkService networkService,
-			ILogService logService,
-			IContractOrchestratorService contractOrchestratorService,
-			IThingRegistryOrchestratorService thingThingRegistryOrchestratorService,
-			IEDalerOrchestratorService eDalerOrchestratorService)
-		: base(neuronService, uiSerializer, tagProfile)
+		public MyWalletViewModel()
+			: base()
 		{
-			this.logService = logService;
-			this.navigationService = navigationService;
-			this.networkService = networkService;
-			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
-			this.thingRegistryOrchestratorService = thingThingRegistryOrchestratorService ?? App.Instantiate<IThingRegistryOrchestratorService>();
-			this.eDalerOrchestratorService = eDalerOrchestratorService ?? App.Instantiate<IEDalerOrchestratorService>();
-
 			this.BackCommand = new Command(async _ => await GoBack());
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => this.IsConnected);
@@ -72,7 +41,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			await base.DoBind();
 
-			if (this.Balance is null && this.navigationService.TryPopArgs(out WalletNavigationArgs args))
+			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
 				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, 
 					args.More, this.NeuronService.Wallet.LastEvent);
@@ -183,7 +152,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 
@@ -408,24 +377,22 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task GoBack()
 		{
-			await this.navigationService.GoBackAsync();
+			await this.NavigationService.GoBackAsync();
 		}
 
 		private async Task ScanQrCode()
 		{
-			await Services.UI.QR.QrCode.ScanQrCodeAndHandleResult(this.logService, this.NeuronService, this.navigationService,
-				this.UiSerializer, this.contractOrchestratorService, this.thingRegistryOrchestratorService,
-				this.eDalerOrchestratorService);
+			await Services.UI.QR.QrCode.ScanQrCodeAndHandleResult();
 		}
 
 		private async Task RequestPayment()
 		{
-			await this.navigationService.GoToAsync(nameof(Wallet.RequestPayment.RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
+			await this.NavigationService.GoToAsync(nameof(Wallet.RequestPayment.RequestPaymentPage), new EDalerBalanceNavigationArgs(this.Balance));
 		}
 
 		private async Task MakePayment()
 		{
-			await this.navigationService.GoToAsync(nameof(MyContactsPage), 
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage), 
 				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment));
 		}
 
@@ -440,7 +407,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				return;
 			}
 
-			await this.navigationService.GoToAsync(nameof(PendingPayment.PendingPaymentPage), new EDalerUriNavigationArgs(Uri, Item.FriendlyName));
+			await this.NavigationService.GoToAsync(nameof(PendingPayment.PendingPaymentPage), new EDalerUriNavigationArgs(Uri, Item.FriendlyName));
 		}
 
 		private async Task ShowEvent(object P)
@@ -448,7 +415,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			if (!(P is AccountEventItem Item))
 				return;
 
-			await this.navigationService.GoToAsync(nameof(AccountEvent.AccountEventPage), new AccountEvent.AccountEventNavigationArgs(Item));
+			await this.NavigationService.GoToAsync(nameof(AccountEvent.AccountEventPage), new AccountEvent.AccountEventNavigationArgs(Item));
 		}
 
 	}

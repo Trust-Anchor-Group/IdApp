@@ -3,13 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
-using IdApp.Services.AttachmentCache;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
@@ -21,9 +15,6 @@ namespace IdApp.Pages.Identity.PetitionIdentity
     /// </summary>
     public class PetitionIdentityViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
-        private readonly INeuronService neuronService;
-        private readonly INetworkService networkService;
         private string requestorFullJid;
         private string requestedIdentityId;
         private string petitionId;
@@ -33,49 +24,22 @@ namespace IdApp.Pages.Identity.PetitionIdentity
         /// <summary>
         /// Creates a new instance of the <see cref="PetitionIdentityViewModel"/> class.
         /// </summary>
-        public PetitionIdentityViewModel()
-            : this(null, null, null, null, null, null)
+        protected internal PetitionIdentityViewModel()
         {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="PetitionIdentityViewModel"/> class.
-        /// For unit tests.
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="navigationService">The navigation service to use for app navigation</param>
-        /// <param name="logService">The log service.</param>
-        /// <param name="networkService">The network and connectivity service.</param>
-        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-        /// <param name="attachmentCacheService">The attachment cache to use.</param>
-        /// </summary>
-        protected internal PetitionIdentityViewModel(
-            INeuronService neuronService,
-            INavigationService navigationService,
-            ILogService logService, 
-            INetworkService networkService,
-            IUiSerializer uiSerializer,
-            IAttachmentCacheService attachmentCacheService)
-        {
-            this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-            logService = logService ?? App.Instantiate<ILogService>();
-            this.networkService = networkService ?? App.Instantiate<INetworkService>();
-            uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-            attachmentCacheService = attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>();
-
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             
             this.Photos = new ObservableCollection<Photo>();
-            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiSerializer, attachmentCacheService, this.Photos);
+            this.photosLoader = new PhotosLoader(this.Photos);
         }
 
         /// <inheritdoc/>
         protected override async Task DoBind()
         {
             await base.DoBind();
-            if (this.navigationService.TryPopArgs(out PetitionIdentityNavigationArgs args))
+
+            if (this.NavigationService.TryPopArgs(out PetitionIdentityNavigationArgs args))
             {
                 this.RequestorIdentity = args.RequestorIdentity;
                 this.requestorFullJid = args.RequestorFullJid;
@@ -83,7 +47,9 @@ namespace IdApp.Pages.Identity.PetitionIdentity
                 this.petitionId = args.PetitionId;
                 this.purpose = args.Purpose;
             }
+
             this.AssignProperties();
+           
             if (!(this.RequestorIdentity?.Attachments is null))
             {
                 _ = this.photosLoader.LoadPhotos(this.RequestorIdentity.Attachments, SignWith.LatestApprovedId);
@@ -127,21 +93,21 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             if (!await App.VerifyPin())
                 return;
 
-            bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
             if (succeeded)
-                await this.navigationService.GoBackAsync();
+                await this.NavigationService.GoBackAsync();
         }
 
         private async Task Decline()
         {
-            bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
             if (succeeded)
-                await this.navigationService.GoBackAsync();
+                await this.NavigationService.GoBackAsync();
         }
 
         private async Task Ignore()
         {
-            await this.navigationService.GoBackAsync();
+            await this.NavigationService.GoBackAsync();
         }
 
         #region Properties

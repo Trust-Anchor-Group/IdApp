@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Services.Navigation;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Main.ScanQrCode
@@ -11,8 +10,6 @@ namespace IdApp.Pages.Main.ScanQrCode
     /// </summary>
     public class ScanQrCodeViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// An event that is fired when the scanning mode changes from automatic scan to manual entry.
         /// </summary>
@@ -22,34 +19,20 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// Creates a new instance of the <see cref="ScanQrCodeViewModel"/> class.
         /// </summary>
         public ScanQrCodeViewModel()
-            : this(null)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="ScanQrCodeViewModel"/> class.
-        /// For unit tests.
-        /// </summary>
-        protected internal ScanQrCodeViewModel(INavigationService navigationService)
         {
             SwitchModeCommand = new Command(SwitchMode);
             OpenCommandText = AppResources.Open;
             SetModeText();
-            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
         }
 
         /// <inheritdoc />
         protected override async Task DoBind()
         {
             await base.DoBind();
-            if (this.navigationService.TryPopArgs(out ScanQrCodeNavigationArgs args) && !string.IsNullOrWhiteSpace(args.CommandName))
-            {
+            if (this.NavigationService.TryPopArgs(out ScanQrCodeNavigationArgs args) && !string.IsNullOrWhiteSpace(args.CommandName))
                 OpenCommandText = args.CommandName;
-            }
             else
-            {
                 OpenCommandText = AppResources.Open;
-            }
         }
 
         #region Properties

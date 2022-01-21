@@ -3,10 +3,8 @@ using System.Threading.Tasks;
 using IdApp.Services;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Main.Loading
 {
@@ -15,28 +13,12 @@ namespace IdApp.Pages.Main.Loading
 	/// </summary>
 	public class LoadingViewModel : NeuronViewModel
 	{
-		private readonly INavigationService navigationService;
-
 		/// <summary>
 		/// Creates a new instance of the <see cref="LoadingViewModel"/> class.
 		/// </summary>
-		public LoadingViewModel()
-			: this(null, null, null, null)
+		protected internal LoadingViewModel()
+			: base()
 		{
-		}
-
-		/// <summary>
-		/// Creates a new instance of the <see cref="LoadingViewModel"/> class.
-		/// For unit tests.
-		/// </summary>
-		protected internal LoadingViewModel(
-			INeuronService neuronService,
-			IUiSerializer uiSerializer,
-			ITagProfile tagProfile,
-			INavigationService navigationService)
-			: base(neuronService, uiSerializer, tagProfile)
-		{
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
 		}
 
 		/// <inheritdoc />
@@ -98,9 +80,9 @@ namespace IdApp.Pages.Main.Loading
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					if (this.TagProfile.IsComplete())
-						await this.navigationService.GoToAsync($"///{nameof(Main.MainPage)}");
+						await this.NavigationService.GoToAsync($"///{nameof(Main.MainPage)}");
 					else
-						await this.navigationService.GoToAsync($"/{nameof(Registration.Registration.RegistrationPage)}");
+						await this.NavigationService.GoToAsync($"/{nameof(Registration.Registration.RegistrationPage)}");
 				});
 			}
 		}

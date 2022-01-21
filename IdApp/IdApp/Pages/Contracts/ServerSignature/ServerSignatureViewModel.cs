@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using IdApp.Services.Navigation;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
@@ -12,35 +11,23 @@ namespace IdApp.Pages.Contracts.ServerSignature
     /// </summary>
     public class ServerSignatureViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
         private Contract contract;
 
         /// <summary>
         /// Creates an instance of the <see cref="ServerSignatureViewModel"/> class.
         /// </summary>
-        public ServerSignatureViewModel()
-            : this(null)
+        protected internal ServerSignatureViewModel()
         {
-        }
-
-        /// <summary>
-        /// Creates an instance of the <see cref="ServerSignatureViewModel"/> class.
-        /// For unit tests.
-        /// <param name="navigationService">The navigation service.</param>
-        /// </summary>
-        protected internal ServerSignatureViewModel(INavigationService navigationService)
-        {
-            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
         }
 
         /// <inheritdoc/>
         protected override async Task DoBind()
         {
             await base.DoBind();
-            if (this.navigationService.TryPopArgs(out ServerSignatureNavigationArgs args))
-            {
+            
+            if (this.NavigationService.TryPopArgs(out ServerSignatureNavigationArgs args))
                 this.contract = args.Contract;
-            }
+            
             AssignProperties();
         }
 

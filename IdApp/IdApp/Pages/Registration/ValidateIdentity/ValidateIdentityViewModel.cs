@@ -4,16 +4,10 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
-using IdApp.Services.AttachmentCache;
 using IdApp.Services.Contracts;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Settings;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
@@ -27,38 +21,19 @@ namespace IdApp.Pages.Registration.ValidateIdentity
     /// </summary>
     public class ValidateIdentityViewModel : RegistrationStepViewModel
     {
-        private readonly INetworkService networkService;
         private readonly PhotosLoader photosLoader;
 
         /// <summary>
         /// Creates a new instance of the <see cref="ValidateIdentityViewModel"/> class.
-        /// <param name="tagProfile">The tag profile to work with.</param>
-        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="navigationService">The navigation service to use for app navigation</param>
-        /// <param name="settingsService">The settings service for persisting UI state.</param>
-        /// <param name="networkService">The network service for network access.</param>
-        /// <param name="logService">The log service.</param>
-        /// <param name="attachmentCacheService">The attachment cache to use.</param>
         /// </summary>
-        public ValidateIdentityViewModel(
-            ITagProfile tagProfile,
-            IUiSerializer uiSerializer,
-            INeuronService neuronService,
-            INavigationService navigationService,
-            ISettingsService settingsService,
-            INetworkService networkService,
-            ILogService logService,
-            IAttachmentCacheService attachmentCacheService)
-            : base(RegistrationStep.ValidateIdentity, tagProfile, uiSerializer, neuronService, navigationService, settingsService, logService)
+        public ValidateIdentityViewModel()
+            : base(RegistrationStep.ValidateIdentity)
         {
-            this.networkService = networkService;
             this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.NeuronService.IsOnline);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<Photo>();
-            this.photosLoader = new PhotosLoader(logService, networkService, neuronService, uiSerializer,
-                attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(this.Photos);
         }
 
         /// <inheritdoc />
@@ -584,7 +559,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 return;
             }
 
-            bool succeeded = await this.networkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(
+            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(
                 Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
 
             if (succeeded)

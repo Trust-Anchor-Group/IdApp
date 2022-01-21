@@ -5,7 +5,6 @@ using IdApp.Pages.Identity.PetitionIdentity;
 using IdApp.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using IdApp.Services.Navigation;
 using IdApp.Services.Data.Countries;
 
 namespace IdApp.Pages.Contracts.ClientSignature
@@ -15,26 +14,14 @@ namespace IdApp.Pages.Contracts.ClientSignature
     /// </summary>
     public class ClientSignatureViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
         private Waher.Networking.XMPP.Contracts.ClientSignature signature;
         private LegalIdentity identity;
 
         /// <summary>
         /// Creates an instance of the <see cref="ClientSignatureViewModel"/> class.
         /// </summary>
-        public ClientSignatureViewModel()
-            : this(null)
+        protected internal ClientSignatureViewModel()
         {
-        }
-
-        /// <summary>
-        /// Creates an instance of the <see cref="ClientSignatureViewModel"/> class.
-        /// For unit tests.
-        /// <param name="navigationService">The navigation service.</param>
-        /// </summary>
-        protected internal ClientSignatureViewModel(INavigationService navigationService)
-        {
-            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
         }
 
         /// <inheritdoc/>
@@ -42,7 +29,7 @@ namespace IdApp.Pages.Contracts.ClientSignature
         {
             await base.DoBind();
 
-            if (this.navigationService.TryPopArgs(out ClientSignatureNavigationArgs args))
+            if (this.NavigationService.TryPopArgs(out ClientSignatureNavigationArgs args))
             {
                 this.signature = args.Signature;
                 this.identity = args.Identity;

@@ -11,13 +11,6 @@ using IdApp.Extensions;
 using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.ServerSignature;
 using IdApp.Pages.Contracts.ViewContract.ObjectModel;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.Contracts;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;
@@ -32,55 +25,15 @@ namespace IdApp.Pages.Contracts.ViewContract
 	public class ViewContractViewModel : BaseViewModel
 	{
 		private bool isReadOnly;
-		private readonly IUiSerializer uiSerializer;
-		private readonly ILogService logService;
-		private readonly INavigationService navigationService;
-		private readonly INeuronService neuronService;
-		private readonly IContractOrchestratorService contractOrchestratorService;
-		private readonly ITagProfile tagProfile;
 		private readonly PhotosLoader photosLoader;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewContractViewModel"/> class.
 		/// </summary>
-		public ViewContractViewModel()
-			: this(null, null, null, null, null, null, null, null)
+		protected internal ViewContractViewModel()
 		{
-		}
-
-		/// <summary>
-		/// Creates an instance of the <see cref="ViewContractViewModel"/> class.
-		/// For unit tests.
-		/// <param name="tagProfile">The tag profile to work with.</param>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="logService">The log service.</param>
-		/// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-		/// <param name="navigationService">The navigation service to use for app navigation</param>
-		/// <param name="networkService">The network and connectivity service.</param>
-		/// <param name="attachmentCacheService">The attachment cache to use.</param>
-		/// <param name="contractOrchestratorService">The service to use for contract orchestration.</param>
-		/// </summary>
-		protected internal ViewContractViewModel(
-			ITagProfile tagProfile,
-			INeuronService neuronService,
-			ILogService logService,
-			IUiSerializer uiSerializer,
-			INavigationService navigationService,
-			INetworkService networkService,
-			IAttachmentCacheService attachmentCacheService,
-			IContractOrchestratorService contractOrchestratorService)
-		{
-			this.tagProfile = tagProfile ?? App.Instantiate<ITagProfile>();
-			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-			this.logService = logService ?? App.Instantiate<ILogService>();
-			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			networkService = networkService ?? App.Instantiate<INetworkService>();
-			this.contractOrchestratorService = contractOrchestratorService ?? App.Instantiate<IContractOrchestratorService>();
-
 			this.Photos = new ObservableCollection<Photo>();
-			this.photosLoader = new PhotosLoader(this.logService, networkService, this.neuronService, this.uiSerializer,
-				attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
+			this.photosLoader = new PhotosLoader(this.Photos);
 
 			this.ObsoleteContractCommand = new Command(async _ => await ObsoleteContract());
 			this.DeleteContractCommand = new Command(async _ => await DeleteContract());
@@ -92,7 +45,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out ViewContractNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out ViewContractNavigationArgs args))
 			{
 				this.Contract = args.Contract;
 				this.isReadOnly = args.IsReadOnly;
@@ -564,7 +517,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				{
 					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in Contract.ClientSignatures)
 					{
-						if (signature.LegalId == this.tagProfile.LegalIdentity.Id)
+						if (signature.LegalId == this.TagProfile.LegalIdentity.Id)
 							hasSigned = true;
 
 						if (!nrSignatures.TryGetValue(signature.Role, out int count))
@@ -572,7 +525,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 						nrSignatures[signature.Role] = count + 1;
 
-						if (string.Compare(signature.BareJid, this.neuronService.BareJid, true) == 0)
+						if (string.Compare(signature.BareJid, this.NeuronService.BareJid, true) == 0)
 						{
 							if (!(Contract.Roles is null))
 							{
@@ -663,7 +616,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					{
 						AddKeyValueLabelPair(partsLayout, part.Role, part.LegalId, false, part.LegalId, openLegalId);
 
-						if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.tagProfile.LegalIdentity.Id)
+						if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.TagProfile.LegalIdentity.Id)
 						{
 							Button button = new Button
 							{
@@ -759,7 +712,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				{
 					_ = this.photosLoader.LoadPhotos(this.Contract.Attachments, SignWith.LatestApprovedId, () =>
 						{
-							this.uiSerializer.BeginInvokeOnMainThread(() => HasPhotos = this.Photos.Count > 0);
+							this.UiSerializer.BeginInvokeOnMainThread(() => HasPhotos = this.Photos.Count > 0);
 						});
 				}
 				else
@@ -767,12 +720,12 @@ namespace IdApp.Pages.Contracts.ViewContract
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
+				this.LogService.LogException(ex, this.GetClassAndMethod(MethodBase.GetCurrentMethod())
 					.Append(new KeyValuePair<string, string>("ContractId", this.Contract?.ContractId))
 					.ToArray());
 
 				ClearContract();
-				await this.uiSerializer.DisplayAlert(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -829,16 +782,16 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				if (sender is Button button && !string.IsNullOrEmpty(button.StyleId))
 				{
-					Contract contract = await this.neuronService.Contracts.SignContract(this.Contract, button.StyleId, false);
-					await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
+					Contract contract = await this.NeuronService.Contracts.SignContract(this.Contract, button.StyleId, false);
+					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
 					await this.ContractUpdated(contract);
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -847,12 +800,12 @@ namespace IdApp.Pages.Contracts.ViewContract
 			try
 			{
 				if (sender is StackLayout Layout && !string.IsNullOrEmpty(Layout.StyleId))
-					await this.contractOrchestratorService.OpenLegalIdentity(Layout.StyleId, "Reviewing contract where you are part.");
+					await this.ContractOrchestratorService.OpenLegalIdentity(Layout.StyleId, "Reviewing contract where you are part.");
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -867,17 +820,17 @@ namespace IdApp.Pages.Contracts.ViewContract
 					if (!(signature is null))
 					{
 						string legalId = signature.LegalId;
-						LegalIdentity identity = await this.neuronService.Contracts.GetLegalIdentity(legalId);
+						LegalIdentity identity = await this.NeuronService.Contracts.GetLegalIdentity(legalId);
 
-						await this.navigationService.GoToAsync(nameof(Pages.Contracts.ClientSignature.ClientSignaturePage), 
+						await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ClientSignature.ClientSignaturePage), 
 							new ClientSignatureNavigationArgs(signature, identity));
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -887,14 +840,14 @@ namespace IdApp.Pages.Contracts.ViewContract
 			{
 				if (sender is StackLayout layout && !string.IsNullOrEmpty(layout.StyleId))
 				{
-					await this.navigationService.GoToAsync(nameof(Pages.Contracts.ServerSignature.ServerSignaturePage),
+					await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ServerSignature.ServerSignaturePage),
 						  new ServerSignatureNavigationArgs(this.Contract));
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -905,16 +858,16 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (!await App.VerifyPin())
 					return;
 
-				Contract obsoletedContract = await this.neuronService.Contracts.ObsoleteContract(this.Contract.ContractId);
+				Contract obsoletedContract = await this.NeuronService.Contracts.ObsoleteContract(this.Contract.ContractId);
 
-				await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
 				await this.ContractUpdated(obsoletedContract);
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 
@@ -925,16 +878,16 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (!await App.VerifyPin())
 					return;
 
-				Contract deletedContract = await this.neuronService.Contracts.DeleteContract(this.Contract.ContractId);
+				Contract deletedContract = await this.NeuronService.Contracts.DeleteContract(this.Contract.ContractId);
 
-				await this.uiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
+				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 
 				await this.ContractUpdated(deletedContract);
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
-				await this.uiSerializer.DisplayAlert(ex);
+				this.LogService.LogException(ex);
+				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
 	}

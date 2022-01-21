@@ -9,10 +9,6 @@ using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Xamarin.Forms;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.UI;
 
 namespace IdApp.Pages.Things.MyThings
 {
@@ -21,35 +17,13 @@ namespace IdApp.Pages.Things.MyThings
 	/// </summary>
 	public class MyThingsViewModel : BaseViewModel
 	{
-		private readonly INeuronService neuronService;
-		private readonly INetworkService networkService;
-		private readonly INavigationService navigationService;
-		private readonly IUiSerializer uiSerializer;
 		private TaskCompletionSource<ContactInfo> thingToShare;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="MyThingsViewModel"/> class.
 		/// </summary>
-		public MyThingsViewModel()
-			: this(null, null, null, null)
+		protected internal MyThingsViewModel()
 		{
-		}
-
-		/// <summary>
-		/// Creates an instance of the <see cref="MyThingsViewModel"/> class.
-		/// For unit tests.
-		/// </summary>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="networkService">The network service for network access.</param>
-		/// <param name="navigationService">The navigation service.</param>
-		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-		protected internal MyThingsViewModel(INeuronService neuronService, INetworkService networkService, INavigationService navigationService, IUiSerializer uiSerializer)
-		{
-			this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-			this.networkService = networkService ?? App.Instantiate<INetworkService>();
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-
 			this.Things = new ObservableCollection<ContactInfo>();
 		}
 
@@ -58,7 +32,7 @@ namespace IdApp.Pages.Things.MyThings
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out MyThingsNavigationArgs Args))
+			if (this.NavigationService.TryPopArgs(out MyThingsNavigationArgs Args))
 				this.thingToShare = Args.ThingToShare;
 			else
 				this.thingToShare = null;
@@ -92,7 +66,7 @@ namespace IdApp.Pages.Things.MyThings
 				SortedByAddress[Key] = Info;
 			}
 
-			SearchResultThing[] MyDevices = await this.neuronService.Provisioning.GetAllMyDevices();
+			SearchResultThing[] MyDevices = await this.NeuronService.Provisioning.GetAllMyDevices();
 			foreach (SearchResultThing Thing in MyDevices)
 			{
 				Property[] MetaData = ViewClaimThing.ViewClaimThingViewModel.ToProperties(Thing.Tags);
@@ -124,7 +98,7 @@ namespace IdApp.Pages.Things.MyThings
 					NodeId = Thing.Node.NodeId,
 					Owner = true,
 					MetaData = MetaData,
-					RegistryJid = this.neuronService.Provisioning.ServiceJid
+					RegistryJid = this.NeuronService.Provisioning.ServiceJid
 				};
 
 				await Database.Insert(Info);
@@ -223,14 +197,14 @@ namespace IdApp.Pages.Things.MyThings
 			{
 				if (b is MyThingsViewModel viewModel && newValue is ContactInfo Thing)
 				{
-					viewModel.uiSerializer.BeginInvokeOnMainThread(async () =>
+					viewModel.UiSerializer.BeginInvokeOnMainThread(async () =>
 					{
 						if (viewModel.thingToShare is null)
-							await viewModel.navigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing));
+							await viewModel.NavigationService.GoToAsync(nameof(ViewThingPage), new ViewThingNavigationArgs(Thing));
 						else
 						{
 							viewModel.thingToShare.TrySetResult(Thing);
-							await viewModel.navigationService.GoBackAsync();
+							await viewModel.NavigationService.GoBackAsync();
 						}
 					});
 				}

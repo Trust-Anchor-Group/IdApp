@@ -163,9 +163,7 @@ namespace IdApp.Pages.Main.Shell
 
 		internal async void ScanQrCodeMenuItem_Clicked(object sender, EventArgs e)
 		{
-            await QrCode.ScanQrCodeAndHandleResult(this.LogService, this.NeuronService, this.NavigationService,
-                this.UiSerializer, this.ContractOrchestratorService, this.ThingRegistryOrchestratorService,
-				this.EDalerOrchestratorService);
+            await QrCode.ScanQrCodeAndHandleResult();
 		}
 
 		private async void MyContractsMenuItem_Clicked(object sender, EventArgs e)

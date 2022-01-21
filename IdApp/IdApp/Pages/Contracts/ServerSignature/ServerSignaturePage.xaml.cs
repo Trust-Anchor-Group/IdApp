@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using IdApp.Services.Navigation;
 
 namespace IdApp.Pages.Contracts.ServerSignature
 {
@@ -9,14 +8,11 @@ namespace IdApp.Pages.Contracts.ServerSignature
     [DesignTimeVisible(true)]
 	public partial class ServerSignaturePage
 	{
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="ServerSignaturePage"/> class.
         /// </summary>
 		public ServerSignaturePage()
 		{
-            this.navigationService = App.Instantiate<INavigationService>();
             ViewModel = new ServerSignatureViewModel();
 			InitializeComponent();
 		}
@@ -27,7 +23,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
-            this.navigationService.GoBackAsync();
+            this.ViewModel.NavigationService.GoBackAsync();
             return true;
         }
 	}

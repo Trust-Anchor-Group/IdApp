@@ -4,10 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using IdApp.Extensions;
+using IdApp.Pages;
 using IdApp.Services.AttachmentCache;
-using IdApp.Services.EventLog;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
 using SkiaSharp;
 using Waher.Content.Images;
 using Waher.Content.Images.Exif;
@@ -24,13 +22,8 @@ namespace IdApp.Services.UI.Photos
 	/// digital identity. When the photos are loaded, they are added to an <see cref="ObservableCollection{T}"/> on the main thread.
 	/// This class also handles errors when trying to load photos, and internally it uses a <see cref="IAttachmentCacheService"/>.
 	/// </summary>
-	public class PhotosLoader
+	public class PhotosLoader : BaseViewModel
 	{
-		private readonly ILogService logService;
-		private readonly INetworkService networkService;
-		private readonly INeuronService neuronService;
-		private readonly IUiSerializer uiSerializer;
-		private readonly IAttachmentCacheService attachmentCacheService;
 		private readonly ObservableCollection<Photo> photos;
 		private readonly List<string> attachmentIds;
 		private DateTime loadPhotosTimestamp;
@@ -39,18 +32,8 @@ namespace IdApp.Services.UI.Photos
 		/// Creates a new instance of the <see cref="PhotosLoader"/> class.
 		/// Use this constructor for when you want to load a a <b>single photo</b>.
 		/// </summary>
-		/// <param name="logService">The log service to use if and when logging errors.</param>
-		/// <param name="networkService">The network service to use for checking connectivity.</param>
-		/// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-		/// <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
-		/// <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
-		public PhotosLoader(
-			ILogService logService,
-			INetworkService networkService,
-			INeuronService neuronService,
-			IUiSerializer uiSerializer,
-			IAttachmentCacheService attachmentCacheService)
-			: this(logService, networkService, neuronService, uiSerializer, attachmentCacheService, new ObservableCollection<Photo>())
+		public PhotosLoader()
+			: this(new ObservableCollection<Photo>())
 		{
 		}
 
@@ -58,26 +41,10 @@ namespace IdApp.Services.UI.Photos
 		/// Creates a new instance of the <see cref="PhotosLoader"/> class.
 		/// Use this constructor for when you want to load a <b>list of photos</b>.
 		/// </summary>
-		/// <param name="logService">The log service to use if and when logging errors.</param>
-		/// <param name="networkService">The network service to use for checking connectivity.</param>
-		/// <param name="neuronService">The neuron service to know which XMPP server to connect to.</param>
-		/// <param name="uiSerializer">The UI dispatcher to use for alerts and context switching.</param>
-		/// <param name="attachmentCacheService">The attachment cache service to use for optimizing requests.</param>
-		/// <param name="photos">The collection the photos should be added to when downloaded.</param>
-		public PhotosLoader(
-			ILogService logService,
-			INetworkService networkService,
-			INeuronService neuronService,
-			IUiSerializer uiSerializer,
-			IAttachmentCacheService attachmentCacheService,
-			ObservableCollection<Photo> photos)
+		/// <param name="Photos">The collection the photos should be added to when downloaded.</param>
+		public PhotosLoader(ObservableCollection<Photo> Photos)
 		{
-			this.logService = logService;
-			this.networkService = networkService;
-			this.neuronService = neuronService;
-			this.uiSerializer = uiSerializer;
-			this.attachmentCacheService = attachmentCacheService;
-			this.photos = photos;
+			this.photos = Photos;
 			this.attachmentIds = new List<string>();
 		}
 
@@ -106,7 +73,7 @@ namespace IdApp.Services.UI.Photos
 			}
 			catch (Exception e)
 			{
-				this.logService.LogException(e);
+				this.LogService.LogException(e);
 			}
 		}
 
@@ -124,7 +91,7 @@ namespace IdApp.Services.UI.Photos
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 			}
 
 			return (null, string.Empty, 0);
@@ -167,11 +134,11 @@ namespace IdApp.Services.UI.Photos
 					Photo Photo = new Photo(Bin, Rotation);
 
 					if (!(Bin is null))
-						this.uiSerializer.BeginInvokeOnMainThread(() => photos.Add(Photo));
+						this.UiSerializer.BeginInvokeOnMainThread(() => photos.Add(Photo));
 				}
 				catch (Exception ex)
 				{
-					this.logService.LogException(ex);
+					this.LogService.LogException(ex);
 				}
 			}
 
@@ -183,14 +150,14 @@ namespace IdApp.Services.UI.Photos
 			if (attachment is null)
 				return (null, string.Empty, 0);
 
-			(byte[] Bin, string ContentType) = await this.attachmentCacheService.TryGet(attachment.Url);
+			(byte[] Bin, string ContentType) = await this.AttachmentCacheService.TryGet(attachment.Url);
 			if (!(Bin is null))
 				return (Bin, ContentType, GetImageRotation(Bin));
 
-			if (!this.networkService.IsOnline || !this.neuronService.IsOnline)
+			if (!this.NetworkService.IsOnline || !this.NeuronService.IsOnline)
 				return (null, string.Empty, 0);
 
-			KeyValuePair<string, TemporaryFile> pair = await this.neuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
+			KeyValuePair<string, TemporaryFile> pair = await this.NeuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
 
 			using (TemporaryFile file = pair.Value)
 			{
@@ -207,9 +174,9 @@ namespace IdApp.Services.UI.Photos
 				if (file.Length != file.Read(Bin, 0, (int)file.Length))
 					return (null, string.Empty, 0);
 
-				bool IsContact = await this.neuronService.Contracts.IsContact(attachment.LegalId);
+				bool IsContact = await this.NeuronService.Contracts.IsContact(attachment.LegalId);
 
-				await this.attachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
+				await this.AttachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
 
 				return (Bin, ContentType, GetImageRotation(Bin));
 			}
@@ -262,30 +229,9 @@ namespace IdApp.Services.UI.Photos
 		/// </summary>
 		/// <param name="Attachment">Attachment containing photo.</param>
 		/// <returns>Photo, Content-Type, Rotation</returns>
-		public static Task<(byte[], string, int)> LoadPhoto(Attachment Attachment)
+		public static async Task<(byte[], string, int)> LoadPhoto(Attachment Attachment)
 		{
-			return LoadPhoto(Attachment, null, null, null, null, null);
-		}
-
-		/// <summary>
-		/// Loads a photo attachment.
-		/// </summary>
-		/// <param name="Attachment">Attachment containing photo.</param>
-		/// <param name="LogService">Log Service</param>
-		/// <param name="NetworkService">Network Service</param>
-		/// <param name="NeuronService">Neuron Sevice</param>
-		/// <param name="UiSerializer">UI Serializer</param>
-		/// <param name="AttachmentCacheService">Attachment Cache Service</param>
-		/// <returns>Photo, Content-Type, Rotation</returns>
-		public static async Task<(byte[], string, int)> LoadPhoto(Attachment Attachment, ILogService LogService, INetworkService NetworkService,
-			INeuronService NeuronService, IUiSerializer UiSerializer, IAttachmentCacheService AttachmentCacheService)
-		{
-			PhotosLoader Loader = new PhotosLoader(
-				LogService ?? App.Instantiate<ILogService>(),
-				NetworkService ?? App.Instantiate<INetworkService>(),
-				NeuronService ?? App.Instantiate<INeuronService>(),
-				UiSerializer ?? App.Instantiate<IUiSerializer>(),
-				AttachmentCacheService ?? App.Instantiate<IAttachmentCacheService>());
+			PhotosLoader Loader = new PhotosLoader();
 
 			(byte[], string, int) Image = await Loader.LoadOnePhoto(Attachment, SignWith.LatestApprovedIdOrCurrentKeys);
 
@@ -300,25 +246,6 @@ namespace IdApp.Services.UI.Photos
 		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
 		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
 		public static Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment[] Attachments, int MaxWith, int MaxHeight)
-		{
-			return LoadPhotoAsTemporaryFile(Attachments, MaxWith, MaxHeight, null, null, null, null, null);
-		}
-
-		/// <summary>
-		/// Tries to load a photo from a set of attachments.
-		/// </summary>
-		/// <param name="Attachments">Attachments</param>
-		/// <param name="MaxWith">Maximum width when displaying photo.</param>
-		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
-		/// <param name="LogService">Log Service</param>
-		/// <param name="NetworkService">Network Service</param>
-		/// <param name="NeuronService">Neuron Sevice</param>
-		/// <param name="UiSerializer">UI Serializer</param>
-		/// <param name="AttachmentCacheService">Attachment Cache Service</param>
-		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
-		public static Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment[] Attachments, int MaxWith, int MaxHeight,
-			ILogService LogService, INetworkService NetworkService, INeuronService NeuronService, IUiSerializer UiSerializer,
-			IAttachmentCacheService AttachmentCacheService)
 		{
 			Attachment Photo = null;
 
@@ -339,7 +266,7 @@ namespace IdApp.Services.UI.Photos
 			if (Photo is null)
 				return Task.FromResult<(string, int, int)>((null, 0, 0));
 			else
-				return LoadPhotoAsTemporaryFile(Photo, MaxWith, MaxHeight, LogService, NetworkService, NeuronService, UiSerializer, AttachmentCacheService);
+				return LoadPhotoAsTemporaryFile(Photo, MaxWith, MaxHeight);
 		}
 
 		/// <summary>
@@ -349,28 +276,9 @@ namespace IdApp.Services.UI.Photos
 		/// <param name="MaxWith">Maximum width when displaying photo.</param>
 		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
 		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
-		public static Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment Attachment, int MaxWith, int MaxHeight)
+		public static async Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment Attachment, int MaxWith, int MaxHeight)
 		{
-			return LoadPhotoAsTemporaryFile(Attachment, MaxWith, MaxHeight, null, null, null, null, null);
-		}
-
-		/// <summary>
-		/// Tries to load a photo from an attachments.
-		/// </summary>
-		/// <param name="Attachment">Attachment</param>
-		/// <param name="MaxWith">Maximum width when displaying photo.</param>
-		/// <param name="MaxHeight">Maximum height when displaying photo.</param>
-		/// <param name="LogService">Log Service</param>
-		/// <param name="NetworkService">Network Service</param>
-		/// <param name="NeuronService">Neuron Sevice</param>
-		/// <param name="UiSerializer">UI Serializer</param>
-		/// <param name="AttachmentCacheService">Attachment Cache Service</param>
-		/// <returns>Filename, Width, Height, if loaded, (null,0,0) if not.</returns>
-		public static async Task<(string, int, int)> LoadPhotoAsTemporaryFile(Attachment Attachment, int MaxWith, int MaxHeight, 
-			ILogService LogService, INetworkService NetworkService, INeuronService NeuronService, IUiSerializer UiSerializer, 
-			IAttachmentCacheService AttachmentCacheService)
-		{
-			(byte[] Data, string _, int _) = await LoadPhoto(Attachment, LogService, NetworkService, NeuronService, UiSerializer, AttachmentCacheService);
+			(byte[] Data, string _, int _) = await LoadPhoto(Attachment);
 			
 			if (!(Data is null))
 			{

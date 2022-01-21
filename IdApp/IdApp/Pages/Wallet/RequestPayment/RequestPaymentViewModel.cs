@@ -3,11 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using Waher.Content;
 using Xamarin.Forms;
 
@@ -18,24 +14,14 @@ namespace IdApp.Pages.Wallet.RequestPayment
 	/// </summary>
 	public class RequestPaymentViewModel : NeuronViewModel
 	{
-		private readonly ILogService logService;
-		private readonly INavigationService navigationService;
 		private readonly RequestPaymentPage page;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="RequestPaymentViewModel"/> class.
 		/// </summary>
-		public RequestPaymentViewModel(
-			ITagProfile tagProfile,
-			IUiSerializer uiSerializer,
-			INeuronService neuronService,
-			INavigationService navigationService,
-			ILogService logService,
-			RequestPaymentPage page)
-		: base(neuronService, uiSerializer, tagProfile)
+		public RequestPaymentViewModel(RequestPaymentPage page)
+		: base()
 		{
-			this.logService = logService;
-			this.navigationService = navigationService;
 			this.page = page;
 
 			this.GenerateQrCodeCommand = new Command(async _ => await this.GenerateQrCode(), _ => this.CanGenerateQrCode());
@@ -47,7 +33,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out EDalerBalanceNavigationArgs args))
 				this.Currency = args.Balance.Currency;
 
 			this.Amount = 0;
@@ -450,7 +436,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

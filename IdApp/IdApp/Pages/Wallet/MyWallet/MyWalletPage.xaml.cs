@@ -1,13 +1,4 @@
-﻿using IdApp.Services.Contracts;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.ThingRegistries;
-using IdApp.Services.UI;
-using IdApp.Services.Wallet;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.MyWallet
 {
@@ -17,24 +8,12 @@ namespace IdApp.Pages.Wallet.MyWallet
     [XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MyWalletPage
     {
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="MyWalletPage"/> class.
         /// </summary>
 		public MyWalletPage()
 		{
-            this.navigationService = App.Instantiate<INavigationService>();
-            this.ViewModel = new MyWalletViewModel(
-                App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiSerializer>(),
-                App.Instantiate<INeuronService>(),
-                this.navigationService ?? App.Instantiate<INavigationService>(),
-                App.Instantiate<INetworkService>(),
-                App.Instantiate<ILogService>(),
-                App.Instantiate<IContractOrchestratorService>(),
-                App.Instantiate<IThingRegistryOrchestratorService>(),
-                App.Instantiate<IEDalerOrchestratorService>());
+            this.ViewModel = new MyWalletViewModel();
 
             InitializeComponent();
         }
@@ -45,7 +24,7 @@ namespace IdApp.Pages.Wallet.MyWallet
         /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
-            this.navigationService.GoBackAsync();
+            this.ViewModel.NavigationService.GoBackAsync();
             return true;
         }
 

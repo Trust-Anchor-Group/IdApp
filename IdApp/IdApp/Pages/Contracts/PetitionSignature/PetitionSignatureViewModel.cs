@@ -5,12 +5,6 @@ using System.Windows.Input;
 using IdApp.Extensions;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 
@@ -21,9 +15,6 @@ namespace IdApp.Pages.Contracts.PetitionSignature
     /// </summary>
     public class PetitionSignatureViewModel : BaseViewModel
     {
-        private readonly INavigationService navigationService;
-        private readonly INeuronService neuronService;
-        private readonly INetworkService networkService;
         private string requestorFullJid;
         private string signatoryIdentityId;
         private string petitionId;
@@ -34,42 +25,14 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// <summary>
         /// Creates a new instance of the <see cref="PetitionSignatureViewModel"/> class.
         /// </summary>
-        public PetitionSignatureViewModel()
-            : this(null, null, null, null, null, null)
+        protected internal PetitionSignatureViewModel()
         {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="PetitionSignatureViewModel"/> class.
-        /// For unit tests.
-        /// <param name="neuronService">The Neuron service for XMPP communication.</param>
-        /// <param name="navigationService">The navigation service to use for app navigation</param>
-        /// <param name="logService">The log service.</param>
-        /// <param name="networkService">The network and connectivity service.</param>
-        /// <param name="uiSerializer">The UI dispatcher for alerts.</param>
-        /// <param name="attachmentCacheService">The attachment cache to use.</param>
-        /// </summary>
-        protected internal PetitionSignatureViewModel(
-            INeuronService neuronService,
-            INavigationService navigationService,
-            ILogService logService,
-            INetworkService networkService,
-            IUiSerializer uiSerializer,
-            IAttachmentCacheService attachmentCacheService)
-        {
-            this.neuronService = neuronService ?? App.Instantiate<INeuronService>();
-            this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-            logService = logService ?? App.Instantiate<ILogService>();
-            this.networkService = networkService ?? App.Instantiate<INetworkService>();
-            uiSerializer = uiSerializer ?? App.Instantiate<IUiSerializer>();
-
             this.AcceptCommand = new Command(async _ => await Accept());
             this.DeclineCommand = new Command(async _ => await Decline());
             this.IgnoreCommand = new Command(async _ => await Ignore());
             
             this.Photos = new ObservableCollection<Photo>();
-            this.photosLoader = new PhotosLoader(logService, this.networkService, this.neuronService, uiSerializer,
-                attachmentCacheService ?? App.Instantiate<IAttachmentCacheService>(), this.Photos);
+            this.photosLoader = new PhotosLoader(this.Photos);
         }
 
         /// <inheritdoc/>
@@ -77,7 +40,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         {
             await base.DoBind();
         
-            if (this.navigationService.TryPopArgs(out PetitionSignatureNavigationArgs args))
+            if (this.NavigationService.TryPopArgs(out PetitionSignatureNavigationArgs args))
             {
                 this.RequestorIdentity = args.RequestorIdentity;
                 this.requestorFullJid = args.RequestorFullJid;
@@ -132,29 +95,29 @@ namespace IdApp.Pages.Contracts.PetitionSignature
             if (!await App.VerifyPin())
                 return;
 
-            bool succeeded = await this.networkService.TryRequest(async () =>
+            bool succeeded = await this.NetworkService.TryRequest(async () =>
             {
-                byte[] signature = await this.neuronService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
-                await this.neuronService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, signature,
+                byte[] signature = await this.NeuronService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
+                await this.NeuronService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, signature,
                     this.petitionId, this.requestorFullJid, true);
             });
 
             if (succeeded)
-                await this.navigationService.GoBackAsync();
+                await this.NavigationService.GoBackAsync();
         }
 
         private async Task Decline()
         {
-            bool succeeded = await this.networkService.TryRequest(() => this.neuronService.Contracts.SendPetitionSignatureResponse(
+            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(
                 this.signatoryIdentityId, this.contentToSign, new byte[0], this.petitionId, this.requestorFullJid, false));
 
             if (succeeded)
-                await this.navigationService.GoBackAsync();
+                await this.NavigationService.GoBackAsync();
         }
 
         private async Task Ignore()
         {
-            await this.navigationService.GoBackAsync();
+            await this.NavigationService.GoBackAsync();
         }
 
         #region Properties

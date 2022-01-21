@@ -1,20 +1,13 @@
-﻿using System;
-using Waher.Runtime.Inventory;
+﻿using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Neuron
 {
     [Singleton]
-    internal sealed class NeuronMultiUserChat : INeuronMultiUserChat
+    internal sealed class NeuronMultiUserChat : ServiceReferences, INeuronMultiUserChat
     {
-        private readonly INeuronService neuronService;
-
-        internal NeuronMultiUserChat(INeuronService neuronService)
+        internal NeuronMultiUserChat()
+            : base()
         {
-            this.neuronService = neuronService;
         }
-
-        public bool IsOnline => !(this.neuronService.IsOnline);
-
-        public event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
     }
 }

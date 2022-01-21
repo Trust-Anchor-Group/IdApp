@@ -20,18 +20,22 @@ namespace IdApp.Services.Contracts
             Data = data;
             ContentLength = data?.Length ?? 0;
         }
+
         /// <summary>
         /// The raw filename.
         /// </summary>
         public string Filename { get; }
+        
         /// <summary>
         /// Content type (mime) of the attachment.
         /// </summary>
         public string ContentType { get; }
+        
         /// <summary>
         /// The raw file data.
         /// </summary>
         public byte[] Data { get; }
+ 
         /// <summary>
         /// Attachment content length.
         /// </summary>

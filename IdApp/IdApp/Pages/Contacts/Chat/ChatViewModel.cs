@@ -28,16 +28,10 @@ using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Services;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
 using IdApp.Services.Messages;
 using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using IdApp.Services.UI.QR;
-using IdApp.Services.Contracts;
-using IdApp.Services.ThingRegistries;
-using IdApp.Services.Wallet;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -48,34 +42,14 @@ namespace IdApp.Pages.Contacts.Chat
 	{
 		private const int MessageBatchSize = 30;
 
-		private readonly INavigationService navigationService;
-		private readonly ILogService logService;
 		private TaskCompletionSource<bool> waitUntilBound = new TaskCompletionSource<bool>();
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ChatViewModel"/> class.
 		/// </summary>
-		public ChatViewModel()
-			: this(null, null, null, null, null)
+		protected internal ChatViewModel()
+			: base()
 		{
-		}
-
-		/// <summary>
-		/// Creates an instance of the <see cref="ChatViewModel"/> class.
-		/// For unit tests.
-		/// </summary>
-		/// <param name="NeuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="UiSerializer">The dispatcher to use for alerts and accessing the main thread.</param>
-		/// <param name="TagProfile">TAG Profie service.</param>
-		/// <param name="NavigationService">Navigation service.</param>
-		/// <param name="LogService">Log service.</param>
-		protected internal ChatViewModel(INeuronService NeuronService, IUiSerializer UiSerializer,
-			ITagProfile TagProfile, INavigationService NavigationService, ILogService LogService)
-			: base(NeuronService, UiSerializer, TagProfile)
-		{
-			this.navigationService = NavigationService ?? App.Instantiate<INavigationService>();
-			this.logService = LogService ?? App.Instantiate<ILogService>();
-
 			this.Messages = new ObservableCollection<ChatMessage>();
 
 			this.SendCommand = new Command(async _ => await this.ExecuteSendMessage(), _ => this.CanExecuteSendMessage());
@@ -96,7 +70,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out ChatNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out ChatNavigationArgs args))
 			{
 				this.LegalId = args.LegalId;
 				this.BareJid = args.BareJid;
@@ -580,7 +554,7 @@ namespace IdApp.Pages.Contacts.Chat
 			catch (Exception ex)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, ex.Message);
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				return;
 			}
 		}
@@ -623,7 +597,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			TaskCompletionSource<ContactInfo> SelectedContact = new TaskCompletionSource<ContactInfo>();
 
-			await this.navigationService.GoToAsync(nameof(MyContactsPage),
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
 				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact));
 
 			ContactInfo Contact = await SelectedContact.Task;
@@ -674,7 +648,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			TaskCompletionSource<Contract> SelectedContract = new TaskCompletionSource<Contract>();
 
-			await this.navigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(
+			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(
 				ContractsListMode.MyContracts, SelectedContract));
 
 			Contract Contract = await SelectedContract.Task;
@@ -742,7 +716,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			TaskCompletionSource<string> UriToSend = new TaskCompletionSource<string>();
 
-			await this.navigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed,
+			await this.NavigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed,
 				this.FriendlyName, UriToSend));
 
 			string Uri = await UriToSend.Task;
@@ -782,7 +756,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			TaskCompletionSource<ContactInfo> ThingToShare = new TaskCompletionSource<ContactInfo>();
 
-			await this.navigationService.GoToAsync(nameof(MyThingsPage), new MyThingsNavigationArgs(ThingToShare));
+			await this.NavigationService.GoToAsync(nameof(MyThingsPage), new MyThingsNavigationArgs(ThingToShare));
 
 			ContactInfo Thing = await ThingToShare.Task;
 			if (Thing is null)
@@ -878,10 +852,7 @@ namespace IdApp.Pages.Contacts.Chat
 					return ProcessXmppUri(Uri, this.NeuronService, this.TagProfile);
 
 				default:
-					return QrCode.OpenUrl(Uri, this.logService, this.NeuronService, this.UiSerializer,
-						App.Instantiate<IContractOrchestratorService>(),
-						App.Instantiate<IThingRegistryOrchestratorService>(),
-						App.Instantiate<IEDalerOrchestratorService>());
+					return QrCode.OpenUrl(Uri);
 			}
 		}
 
@@ -953,7 +924,7 @@ namespace IdApp.Pages.Contacts.Chat
 					return false;
 
 				case "remove":
-					RosterItem Item = NeuronService.Xmpp.GetRosterItem(Jid);
+					NeuronService.Xmpp.GetRosterItem(Jid);
 					// TODO
 					return false;
 

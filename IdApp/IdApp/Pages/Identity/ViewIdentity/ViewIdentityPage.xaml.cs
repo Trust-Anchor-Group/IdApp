@@ -1,14 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using IdApp.Services.AttachmentCache;
-using IdApp.Services.Crypto;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
-using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
-using IdApp.Services.Wallet;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Identity.ViewIdentity
@@ -19,24 +10,12 @@ namespace IdApp.Pages.Identity.ViewIdentity
     [DesignTimeVisible(true)]
     public partial class ViewIdentityPage
     {
-        private readonly INavigationService navigationService;
-
         /// <summary>
         /// Creates a new instance of the <see cref="ViewIdentityPage"/> class.
         /// </summary>
         public ViewIdentityPage()
         {
-            this.navigationService = App.Instantiate<INavigationService>();
-            this.ViewModel = new ViewIdentityViewModel(
-                App.Instantiate<ITagProfile>(),
-                App.Instantiate<IUiSerializer>(),
-                App.Instantiate<INeuronService>(),
-                this.navigationService ?? App.Instantiate<INavigationService>(),
-                App.Instantiate<INetworkService>(),
-                App.Instantiate<ILogService>(),
-                App.Instantiate<IEDalerOrchestratorService>(),
-                App.Instantiate<IAttachmentCacheService>(),
-                App.Instantiate<ICryptoService>());
+            this.ViewModel = new ViewIdentityViewModel();
 
             InitializeComponent();
         }
@@ -54,7 +33,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
         /// <returns>Whether or not the back navigation was handled</returns>
         protected override bool OnBackButtonPressed()
         {
-            this.navigationService.GoBackAsync();
+            this.ViewModel.NavigationService.GoBackAsync();
             return true;
         }
 

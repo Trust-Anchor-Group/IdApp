@@ -1,5 +1,4 @@
-﻿using IdApp.Services.EventLog;
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using Waher.Persistence;
@@ -14,15 +13,12 @@ namespace IdApp.Services.AttachmentCache
 	{
 		private static readonly TimeSpan ExpiryTemporary = TimeSpan.FromHours(24);
 		private const string CacheFolderName = "Attachments";
-		private readonly ILogService logService;
 
 		/// <summary>
 		/// Creates a new instance of the <see cref="AttachmentCacheService"/> class.
 		/// </summary>
-		/// <param name="logService">The log service to use.</param>
-		public AttachmentCacheService(ILogService logService)
+		public AttachmentCacheService()
 		{
-			this.logService = logService;
 		}
 
 		///<inheritdoc/>
@@ -41,7 +37,7 @@ namespace IdApp.Services.AttachmentCache
 				}
 				catch (Exception e)
 				{
-					this.logService.LogException(e);
+					this.LogService.LogException(e);
 					this.EndLoad(false);
 				}
 			}
@@ -80,7 +76,7 @@ namespace IdApp.Services.AttachmentCache
 			}
 			catch (Exception e)
 			{
-				this.logService.LogException(e);
+				this.LogService.LogException(e);
 				return (null, string.Empty);
 			}
 		}
@@ -199,13 +195,13 @@ namespace IdApp.Services.AttachmentCache
 					}
 					catch (Exception ex)
 					{
-						this.logService.LogException(ex);
+						this.LogService.LogException(ex);
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 			}
 		}
 	}

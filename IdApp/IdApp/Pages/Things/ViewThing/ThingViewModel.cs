@@ -4,12 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services;
-using IdApp.Services.EventLog;
-using IdApp.Services.Navigation;
-using IdApp.Services.Network;
 using IdApp.Services.Neuron;
-using IdApp.Services.Tag;
-using IdApp.Services.UI;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Xamarin.Forms;
@@ -21,42 +16,14 @@ namespace IdApp.Pages.Things.ViewThing
 	/// </summary>
 	public class ThingViewModel : NeuronViewModel
 	{
-		private readonly INetworkService networkService;
-		private readonly INavigationService navigationService;
-		private readonly ILogService logService;
 		private ContactInfo thing;
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ThingViewModel"/> class.
 		/// </summary>
-		public ThingViewModel()
-			: this(null, null, null, null, null, null)
+		protected internal ThingViewModel()
+			: base()
 		{
-		}
-
-		/// <summary>
-		/// Creates an instance of the <see cref="ThingViewModel"/> class.
-		/// For unit tests.
-		/// </summary>
-		/// <param name="tagProfile">TAG Profile.</param>
-		/// <param name="neuronService">The Neuron service for XMPP communication.</param>
-		/// <param name="networkService">The network service for network access.</param>
-		/// <param name="navigationService">The navigation service.</param>
-		/// <param name="uiSerializer"> The dispatcher to use for alerts and accessing the main thread.</param>
-		/// <param name="logService">Log service.</param>
-		protected internal ThingViewModel(
-			ITagProfile tagProfile,
-			INeuronService neuronService,
-			INetworkService networkService,
-			INavigationService navigationService,
-			IUiSerializer uiSerializer,
-			ILogService logService)
-			: base(neuronService, uiSerializer, tagProfile)
-		{
-			this.networkService = networkService ?? App.Instantiate<INetworkService>();
-			this.navigationService = navigationService ?? App.Instantiate<INavigationService>();
-			this.logService = logService ?? App.Instantiate<ILogService>();
-
 			this.ClickCommand = new Command(async x => await this.LabelClicked(x));
 			this.DisownThingCommand = new Command(async _ => await DisownThing(), _ => this.CanDisownThing);
 
@@ -68,7 +35,7 @@ namespace IdApp.Pages.Things.ViewThing
 		{
 			await base.DoBind();
 
-			if (this.navigationService.TryPopArgs(out ViewThingNavigationArgs args))
+			if (this.NavigationService.TryPopArgs(out ViewThingNavigationArgs args))
 			{
 				this.thing = args.Thing;
 
@@ -164,7 +131,7 @@ namespace IdApp.Pages.Things.ViewThing
 		private Task LabelClicked(object obj)
 		{
 			if (obj is HumanReadableTag Tag)
-				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.logService);
+				return ViewClaimThing.ViewClaimThingViewModel.LabelClicked(Tag.Name, Tag.Value, Tag.LocalizedValue, this.UiSerializer, this.LogService);
 			else
 				return Task.CompletedTask;
 		}
@@ -176,7 +143,7 @@ namespace IdApp.Pages.Things.ViewThing
 				if (!await App.VerifyPin())
 					return;
 
-				(bool Succeeded, bool Done) = await this.networkService.TryRequest(() => 
+				(bool Succeeded, bool Done) = await this.NetworkService.TryRequest(() => 
 					this.NeuronService.ThingRegistry.Disown(this.thing.RegistryJid, this.thing.BareJid, this.thing.SourceId, this.thing.Partition, this.thing.NodeId));
 
 				if (!Succeeded)
@@ -189,11 +156,11 @@ namespace IdApp.Pages.Things.ViewThing
 				}
 
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ThingDisowned);
-				await this.navigationService.GoBackAsync();
+				await this.NavigationService.GoBackAsync();
 			}
 			catch (Exception ex)
 			{
-				this.logService.LogException(ex);
+				this.LogService.LogException(ex);
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}

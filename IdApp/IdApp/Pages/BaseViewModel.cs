@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Extensions;
+using IdApp.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -14,7 +15,7 @@ namespace IdApp.Pages
     /// <br/>
     /// NOTE: using this class requires your page/view to inherit from <see cref="ContentBasePage"/>.
     /// </summary>
-    public abstract class BaseViewModel : BindableObject
+    public abstract class BaseViewModel : ServiceReferences
     {
         private readonly List<BaseViewModel> childViewModels;
 
