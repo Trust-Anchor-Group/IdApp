@@ -3033,6 +3033,41 @@
             Gets the ID of the device.
             </summary>
         </member>
+        <member name="T:IdApp.DeviceSpecific.INearFieldCommunication">
+            <summary>
+            Interface for Near-Fieald Communication (NFC).
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.Available">
+            <summary>
+            If NFC Feature is available.
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.Enabled">
+            <summary>
+            If NFC is enabled.
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.SupportsWriting">
+            <summary>
+            If Writing to NFC Tags is supported.
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.Listening">
+            <summary>
+            If the adapter is currently listening.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.INearFieldCommunication.StartListening">
+            <summary>
+            Starts listening for NFC Tags.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.INearFieldCommunication.StopListening">
+            <summary>
+            Stops listening for NFC Tags.
+            </summary>
+        </member>
         <member name="T:IdApp.DeviceSpecific.IShareContent">
             <summary>
             Dependency interface for sharing content with other applications.
@@ -7754,11 +7789,10 @@
             A page to display for scanning of a QR code, either automatically via the camera, or by entering the code manually.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor(IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel)">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.#ctor">
             <summary>
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
             </summary>
-            <param name="viewModel">The view model to use.</param>
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnAppearing">
             <summary>
@@ -7792,6 +7826,9 @@
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.DoBind">
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.DoUnbind">
             <inheritdoc />
         </member>
         <member name="P:IdApp.Pages.Main.ScanQrCode.ScanQrCodeViewModel.SwitchModeCommand">
@@ -12770,6 +12807,56 @@
             </summary>
             <param name="Code">Transfer Code</param>
         </member>
+        <member name="T:IdApp.Services.Nfc.INfcService">
+            <summary>
+            Interface for the Near-Field Communication (NFC) Service.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Nfc.NfcService">
+            <summary>
+            Near-Field Communication (NFC) Service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Nfc.NfcService.#ctor">
+            <summary>
+            Near-Field Communication (NFC) Service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Nfc.NfcService.Dispose">
+            <summary>
+            <see cref="M:System.IDisposable.Dispose"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcService.Available">
+            <summary>
+            If NFC Feature is available.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcService.Enabled">
+            <summary>
+            If NFC is enabled.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcService.SupportsWriting">
+            <summary>
+            If Writing to NFC Tags is supported.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcService.Listening">
+            <summary>
+            If the adapter is currently listening.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Nfc.NfcService.StartListening">
+            <summary>
+            Starts listening for NFC Tags.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Nfc.NfcService.StopListening">
+            <summary>
+            Stops listening for NFC Tags.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Provisioning.INeuronProvisioningService">
             <summary>
             Adds support for XMPP Provisioning
@@ -12886,6 +12973,11 @@
         <member name="P:IdApp.Services.ServiceReferences.StorageService">
             <summary>
             Storage service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.NfcService">
+            <summary>
+            Near-Field Communication (NFC) service.
             </summary>
         </member>
         <member name="T:IdApp.Services.Settings.ISettingsService">

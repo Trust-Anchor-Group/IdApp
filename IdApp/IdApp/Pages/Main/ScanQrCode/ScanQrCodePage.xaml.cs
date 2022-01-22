@@ -16,7 +16,7 @@ namespace IdApp.Pages.Main.ScanQrCode
 		/// <summary>
 		/// Creates a new instance of the <see cref="ScanQrCodePage"/> class.
 		/// </summary>
-		protected internal ScanQrCodePage()
+		public ScanQrCodePage()
 		{
 			this.ViewModel = new ScanQrCodeViewModel();
 			InitializeComponent();

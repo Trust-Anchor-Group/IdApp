@@ -5,6 +5,7 @@ using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
 using IdApp.Services.Neuron;
+using IdApp.Services.Nfc;
 using IdApp.Services.Settings;
 using IdApp.Services.Storage;
 using IdApp.Services.Tag;
@@ -40,6 +41,7 @@ namespace IdApp.Services
         private ICryptoService cryptoService;
         private ISettingsService settingsService;
         private IStorageService storageService;
+        private INfcService nfcService;
 
         /// <summary>
         /// The dispatcher to use for alerts and accessing the main thread.
@@ -220,6 +222,20 @@ namespace IdApp.Services
                     this.storageService = App.Instantiate<IStorageService>();
 
                 return this.storageService;
+            }
+        }
+
+        /// <summary>
+        /// Near-Field Communication (NFC) service.
+        /// </summary>
+        public INfcService NfcService
+        {
+            get
+            {
+                if (this.nfcService is null)
+                    this.nfcService = App.Instantiate<INfcService>();
+
+                return this.nfcService;
             }
         }
 

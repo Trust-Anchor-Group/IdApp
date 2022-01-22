@@ -1,5 +1,7 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.Content.PM;
+using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -9,6 +11,7 @@ using Waher.Events;
 namespace IdApp.Android
 {
     [Activity(Label = "@string/app_name", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, ScreenOrientation = ScreenOrientation.Portrait)]
+    [IntentFilter(new[] { NfcAdapter.ActionNdefDiscovered }, Categories = new[] { Intent.CategoryDefault })]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -25,6 +28,7 @@ namespace IdApp.Android
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             ZXing.Net.Mobile.Forms.Android.Platform.Init();
             Rg.Plugins.Popup.Popup.Init(this);
+            NearFieldCommunication.OnCreated(this);
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
@@ -52,10 +56,21 @@ namespace IdApp.Android
 			}
         }
 
+		protected override void OnResume()
+		{
+			base.OnResume();
+            NearFieldCommunication.OnResumed(this);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+		{
+			base.OnNewIntent(intent);
+            NearFieldCommunication.OnNewIntent(intent);
+		}
+
 		public override void OnBackPressed()
 		{
             Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
-
 	}
 }

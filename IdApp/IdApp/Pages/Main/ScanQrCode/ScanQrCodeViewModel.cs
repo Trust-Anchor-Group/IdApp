@@ -33,14 +33,26 @@ namespace IdApp.Pages.Main.ScanQrCode
                 OpenCommandText = args.CommandName;
             else
                 OpenCommandText = AppResources.Open;
+
+            if (this.NfcService.Enabled && !this.NfcService.Listening)
+                this.NfcService.StartListening();
         }
 
-        #region Properties
+        /// <inheritdoc />
+		protected override Task DoUnbind()
+		{
+            if (this.NfcService.Listening)
+                this.NfcService.StopListening();
+            
+            return base.DoUnbind();
+		}
 
-        /// <summary>
-        /// Action to bind to for switching scan mode from manual to automatic.
-        /// </summary>
-        public ICommand SwitchModeCommand { get; }
+		#region Properties
+
+		/// <summary>
+		/// Action to bind to for switching scan mode from manual to automatic.
+		/// </summary>
+		public ICommand SwitchModeCommand { get; }
 
         /// <summary>
         /// See <see cref="LinkText"/>

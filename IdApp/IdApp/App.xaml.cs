@@ -29,6 +29,7 @@ using IdApp.Services.Storage;
 using IdApp.Services.Settings;
 using IdApp.Services.Navigation;
 using IdApp.Services.Neuron;
+using IdApp.Services.Nfc;
 using Waher.Content;
 using Waher.Content.Images;
 using Waher.Content.Xml;
@@ -207,6 +208,7 @@ namespace IdApp
 			Types.InstantiateDefault<IContractOrchestratorService>(false);
 			Types.InstantiateDefault<IThingRegistryOrchestratorService>(false);
 			Types.InstantiateDefault<IEDalerOrchestratorService>(false);
+			Types.InstantiateDefault<INfcService>(false);
 
 			this.services = new ServiceReferences();
 
