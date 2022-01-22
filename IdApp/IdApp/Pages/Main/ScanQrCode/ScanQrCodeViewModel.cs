@@ -33,17 +33,11 @@ namespace IdApp.Pages.Main.ScanQrCode
                 OpenCommandText = args.CommandName;
             else
                 OpenCommandText = AppResources.Open;
-
-            if (this.NfcService.Enabled && !this.NfcService.Listening)
-                this.NfcService.StartListening();
         }
 
         /// <inheritdoc />
 		protected override Task DoUnbind()
 		{
-            if (this.NfcService.Listening)
-                this.NfcService.StopListening();
-            
             return base.DoUnbind();
 		}
 

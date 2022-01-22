@@ -3033,41 +3033,6 @@
             Gets the ID of the device.
             </summary>
         </member>
-        <member name="T:IdApp.DeviceSpecific.INearFieldCommunication">
-            <summary>
-            Interface for Near-Fieald Communication (NFC).
-            </summary>
-        </member>
-        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.Available">
-            <summary>
-            If NFC Feature is available.
-            </summary>
-        </member>
-        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.Enabled">
-            <summary>
-            If NFC is enabled.
-            </summary>
-        </member>
-        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.SupportsWriting">
-            <summary>
-            If Writing to NFC Tags is supported.
-            </summary>
-        </member>
-        <member name="P:IdApp.DeviceSpecific.INearFieldCommunication.Listening">
-            <summary>
-            If the adapter is currently listening.
-            </summary>
-        </member>
-        <member name="M:IdApp.DeviceSpecific.INearFieldCommunication.StartListening">
-            <summary>
-            Starts listening for NFC Tags.
-            </summary>
-        </member>
-        <member name="M:IdApp.DeviceSpecific.INearFieldCommunication.StopListening">
-            <summary>
-            Stops listening for NFC Tags.
-            </summary>
-        </member>
         <member name="T:IdApp.DeviceSpecific.IShareContent">
             <summary>
             Dependency interface for sharing content with other applications.
@@ -12825,36 +12790,6 @@
         <member name="M:IdApp.Services.Nfc.NfcService.Dispose">
             <summary>
             <see cref="M:System.IDisposable.Dispose"/>
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Nfc.NfcService.Available">
-            <summary>
-            If NFC Feature is available.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Nfc.NfcService.Enabled">
-            <summary>
-            If NFC is enabled.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Nfc.NfcService.SupportsWriting">
-            <summary>
-            If Writing to NFC Tags is supported.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Nfc.NfcService.Listening">
-            <summary>
-            If the adapter is currently listening.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Nfc.NfcService.StartListening">
-            <summary>
-            Starts listening for NFC Tags.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Nfc.NfcService.StopListening">
-            <summary>
-            Stops listening for NFC Tags.
             </summary>
         </member>
         <member name="T:IdApp.Services.Provisioning.INeuronProvisioningService">

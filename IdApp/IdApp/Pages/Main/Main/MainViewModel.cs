@@ -51,6 +51,7 @@ namespace IdApp.Pages.Main.Main
 		protected override async Task DoBind()
 		{
 			await base.DoBind();
+			
 			this.AssignProperties();
 			this.SetConnectionStateAndText(this.NeuronService.State);
 			this.NeuronService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
@@ -63,6 +64,7 @@ namespace IdApp.Pages.Main.Main
 			this.photosLoader.CancelLoadPhotos();
 			this.NeuronService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
+		
 			return base.DoUnbind();
 		}
 

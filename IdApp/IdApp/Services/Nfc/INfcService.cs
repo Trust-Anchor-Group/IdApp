@@ -1,5 +1,4 @@
-﻿using IdApp.DeviceSpecific;
-using Waher.Runtime.Inventory;
+﻿using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Nfc
 {
@@ -7,7 +6,7 @@ namespace IdApp.Services.Nfc
 	/// Interface for the Near-Field Communication (NFC) Service.
 	/// </summary>
 	[DefaultImplementation(typeof(NfcService))]
-	public interface INfcService : INearFieldCommunication
+	public interface INfcService
 	{
 	}
 }

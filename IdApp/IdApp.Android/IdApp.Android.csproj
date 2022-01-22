@@ -99,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloseApplication.cs" />
-    <Compile Include="NearFieldCommunication.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="MainActivity.cs" />
