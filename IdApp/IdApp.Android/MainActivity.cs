@@ -6,8 +6,13 @@ using Android.Nfc.Tech;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using IdApp.Android.Nfc;
+using IdApp.DeviceSpecific.Nfc;
+using IdApp.Services.Nfc;
 using System;
+using System.Collections.Generic;
 using Waher.Events;
+using static Java.Interop.JniEnvironment;
 
 namespace IdApp.Android
 {
@@ -98,206 +103,56 @@ namespace IdApp.Android
 						{
 							byte[] ID = Tag.GetId();
 							string[] TechList = Tag.GetTechList();
+							List<INfcInterface> Interfaces = new List<INfcInterface>();
 
 							foreach (string Tech in TechList)
 							{
 								switch (Tech)
 								{
 									case "android.nfc.tech.IsoDep":
-										IsoDep IsoDep = IsoDep.Get(Tag);
-										// TODO: Embed in IsoDep class
+										Interfaces.Add(new IsoDepInterface(Tag));
 										break;
 
 									case "android.nfc.tech.MifareClassic":
-										using (MifareClassic MifareClassic = MifareClassic.Get(Tag))
-										{
-											await MifareClassic.ConnectAsync();
-											try
-											{
-												MifareClassicType Type = MifareClassic.Type;
-												int BlockCount = MifareClassic.BlockCount;
-												int SectorCount = MifareClassic.SectorCount;
-												int TotalBytes = BlockCount << 4;
-												byte[] Data = new byte[TotalBytes];
-												int BlockIndex = 0;
-
-												while (BlockIndex < BlockCount)
-												{
-													byte[] Block = await MifareClassic.ReadBlockAsync(BlockIndex++);
-													Array.Copy(Block, 0, Data, BlockIndex << 4, 16);
-												}
-
-												// TODO: Embed in MifareClassic class
-											}
-											finally
-											{
-												MifareClassic.Close();
-											}
-										}
+										Interfaces.Add(new MifareClassicInterface(Tag));
 										break;
 
 									case "android.nfc.tech.MifareUltralight":
-										using (MifareUltralight MifareUltralight = MifareUltralight.Get(Tag))
-										{
-											await MifareUltralight.ConnectAsync();
-											try
-											{
-												MifareUltralightType Type = MifareUltralight.Type;
-												int TotalBytes;
-
-												switch (Type)
-												{
-													case MifareUltralightType.Ultralight:
-													case MifareUltralightType.Unknown:
-													default:
-														TotalBytes = 64;
-														break;
-
-													case MifareUltralightType.UltralightC:
-														TotalBytes = 192;
-														break;
-												}
-
-												int PageSize = MifareUltralight.PageSize;
-												int NrPages = TotalBytes / PageSize;
-												byte[] Data = new byte[TotalBytes];
-												int Offset = 0;
-
-												while (Offset < TotalBytes)
-												{
-													byte[] Pages = await MifareUltralight.ReadPagesAsync(Offset / PageSize);
-													int i = Math.Min(Pages.Length, TotalBytes - Offset);
-													if (i <= 0)
-														throw new Exception("Unexpected end of data.");
-
-													Array.Copy(Pages, 0, Data, Offset, i);
-													Offset += i;
-												}
-
-												// TODO: Embed in MifareUltralight class
-											}
-											finally
-											{
-												MifareUltralight.Close();
-											}
-										}
+										Interfaces.Add(new MifareUltralightInterface(Tag));
 										break;
 
 									case "android.nfc.tech.Ndef":
-										using (Ndef Ndef = Ndef.Get(Tag))
-										{
-											await Ndef.ConnectAsync();
-											try
-											{
-												bool CanMakeReadOnly = Ndef.CanMakeReadOnly();
-												bool IsWritable = Ndef.IsWritable;
-												NdefMessage Message = Ndef.NdefMessage;
-												NdefRecord[] Records = Message.GetRecords();
-
-												// TODO: Embed in Ndef class
-											}
-											finally
-											{
-												Ndef.Close();
-											}
-										}
+										Interfaces.Add(new NdefInterface(Tag));
 										break;
 
 									case "android.nfc.tech.NdefFormatable":
-										NdefFormatable NdefFormatable = NdefFormatable.Get(Tag);
-										// TODO: Embed in NdefFormatable class
+										Interfaces.Add(new NdefFormatableInterface(Tag));
 										break;
 
 									case "android.nfc.tech.NfcA":
-										using (NfcA NfcA = NfcA.Get(Tag))
-										{
-											await NfcA.ConnectAsync();
-											try
-											{
-												byte[] Data = NfcA.GetAtqa();
-												short Sak = NfcA.Sak;
-
-												// TODO: Embed in NfcA class
-											}
-											finally
-											{
-												NfcA.Close();
-											}
-										}
+										Interfaces.Add(new NfcAInterface(Tag));
 										break;
 
 									case "android.nfc.tech.NfcB":
-										using (NfcB NfcB = NfcB.Get(Tag))
-										{
-											await NfcB.ConnectAsync();
-											try
-											{
-												byte[] Data = NfcB.GetApplicationData();
-												byte[] ProtocolInfo = NfcB.GetProtocolInfo();
-
-												// TODO: Embed in NfcB class
-											}
-											finally
-											{
-												NfcB.Close();
-											}
-										}
+										Interfaces.Add(new NfcBInterface(Tag));
 										break;
 
 									case "android.nfc.tech.NfcBarcode":
-										using (NfcBarcode NfcBarcode = NfcBarcode.Get(Tag))
-										{
-											await NfcBarcode.ConnectAsync();
-											try
-											{
-												byte[] Data = NfcBarcode.GetBarcode();
-
-												// TODO: Embed in NfcBarcode class
-											}
-											finally
-											{
-												NfcBarcode.Close();
-											}
-										}
+										Interfaces.Add(new NfcBarcodeInterface(Tag));
 										break;
 
 									case "android.nfc.tech.NfcF":
-										using (NfcF NfcF = NfcF.Get(Tag))
-										{
-											await NfcF.ConnectAsync();
-											try
-											{
-												byte[] Data = NfcF.GetManufacturer();
-												byte[] ProtocolInfo = NfcF.GetSystemCode();
-
-												// TODO: Embed in NfcF class
-											}
-											finally
-											{
-												NfcF.Close();
-											}
-										}
+										Interfaces.Add(new NfcFInterface(Tag));
 										break;
 
 									case "android.nfc.tech.NfcV":
-										using (NfcV NfcV = NfcV.Get(Tag))
-										{
-											await NfcV.ConnectAsync();
-											try
-											{
-												sbyte DsfId = NfcV.DsfId;
-												sbyte ResponseFlags = NfcV.ResponseFlags;
-
-												// TODO: Embed in NfcV class
-											}
-											finally
-											{
-												NfcV.Close();
-											}
-										}
+										Interfaces.Add(new NfcVInterface(Tag));
 										break;
 								}
 							}
+
+							INfcService Service = App.Instantiate<INfcService>();
+							await Service.TagDetected(new NfcTag(ID, Interfaces.ToArray()));
 						}
 						break;
 				}

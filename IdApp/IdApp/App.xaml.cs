@@ -237,7 +237,13 @@ namespace IdApp
 			return;
 		}
 
-		internal static T Instantiate<T>()
+		/// <summary>
+		/// Instantiates an object of type <typeparamref name="T"/>, after assuring default instances have been created first.
+		/// ASsures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
+		/// </summary>
+		/// <typeparam name="T">Type of object to instantiate.</typeparam>
+		/// <returns>Instance</returns>
+		public static T Instantiate<T>()
 		{
 			if (!defaultInstantiated)
 				defaultInstantiated = defaultInstantiatedSource.Task.Result;

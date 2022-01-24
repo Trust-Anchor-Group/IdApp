@@ -99,6 +99,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloseApplication.cs" />
+    <Compile Include="Nfc\NdefFormatableInterface.cs" />
+    <Compile Include="Nfc\NdefInterface.cs" />
+    <Compile Include="Nfc\MifareClassicInterface.cs" />
+    <Compile Include="Nfc\IsoDepInterface.cs" />
+    <Compile Include="Nfc\NfcVInterface.cs" />
+    <Compile Include="Nfc\NfcFInterface.cs" />
+    <Compile Include="Nfc\NfcBInterface.cs" />
+    <Compile Include="Nfc\NfcAInterface.cs" />
+    <Compile Include="Nfc\NfcBarcodeInterface.cs" />
+    <Compile Include="Nfc\MifareUltralightInterface.cs" />
+    <Compile Include="Nfc\NfcInterface.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="MainActivity.cs" />

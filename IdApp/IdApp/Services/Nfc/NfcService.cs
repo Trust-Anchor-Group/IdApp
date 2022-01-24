@@ -1,4 +1,6 @@
-﻿using System;
+﻿using IdApp.DeviceSpecific.Nfc;
+using System;
+using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Nfc
@@ -7,7 +9,7 @@ namespace IdApp.Services.Nfc
 	/// Near-Field Communication (NFC) Service.
 	/// </summary>
 	[Singleton]
-	public class NfcService : ServiceReferences, INfcService, IDisposable
+	public class NfcService : ServiceReferences, INfcService
 	{
 		/// <summary>
 		/// Near-Field Communication (NFC) Service.
@@ -18,10 +20,12 @@ namespace IdApp.Services.Nfc
 		}
 
 		/// <summary>
-		/// <see cref="IDisposable.Dispose"/>
+		/// Method called when a new NFC Tag has been detected.
 		/// </summary>
-		public void Dispose()
+		/// <param name="Tag">NFC Tag</param>
+		public Task TagDetected(INfcTag Tag)
 		{
+			return Task.CompletedTask;
 		}
 	}
 }

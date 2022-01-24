@@ -12,6 +12,14 @@
         <member name="M:IdApp.App.#ctor">
             <inheritdoc/>
         </member>
+        <member name="M:IdApp.App.Instantiate``1">
+            <summary>
+            Instantiates an object of type <typeparamref name="T"/>, after assuring default instances have been created first.
+            ASsures singleton classes are only instantiated once, and that the reference to the singleton instance is returned.
+            </summary>
+            <typeparam name="T">Type of object to instantiate.</typeparam>
+            <returns>Instance</returns>
+        </member>
         <member name="M:IdApp.App.OnStart">
             <inheritdoc/>
         </member>
@@ -3046,6 +3054,141 @@
             <param name="Message">Message to send with image.</param>
             <param name="Title">Title for operation.</param>
             <param name="FileName">Filename of image file.</param>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.IIsoDepInterface">
+            <summary>
+            ISO DEP interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.IIsoDepInterface.GetHighLayerResponse">
+            <summary>
+            Return the higher layer response bytes for NfcB tags.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.IIsoDepInterface.GetHistoricalBytes">
+            <summary>
+            Return the ISO-DEP historical bytes for NfcA tags.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.IMifareClassicInterface">
+            <summary>
+            Mifare Classic interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.IMifareUltralightInterface">
+            <summary>
+            Mifare Ultralight interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INdefFormatableInterface">
+            <summary>
+            NDEF Formatable interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INdefInterface">
+            <summary>
+            NDEF interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcAInterface">
+            <summary>
+            NFC A interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcAInterface.GetAtqa">
+            <summary>
+            Return the ATQA/SENS_RES bytes from tag discovery.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcAInterface.GetSqk">
+            <summary>
+            Return the SAK/SEL_RES bytes from tag discovery.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcBarcodeInterface">
+            <summary>
+            NFC Barcode interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcBInterface">
+            <summary>
+            NFC B interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcBInterface.GetApplicationData">
+            <summary>
+            Gets Application Data from the interface.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcBInterface.GetProtocolInfo">
+            <summary>
+            Gets Protocol Information from the interface.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcFInterface">
+            <summary>
+            NFC F interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcFInterface.GetManufacturer">
+            <summary>
+            Return the Manufacturer bytes from tag discovery.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcFInterface.GetSystemCode">
+            <summary>
+            Return the System Code bytes from tag discovery.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcInterface">
+            <summary>
+            Specific Interface (technology) for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.INfcInterface.Tag">
+            <summary>
+            NFC Tag
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcReadableBinaryInterface">
+            <summary>
+            Mifare Ultralight interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcReadableBinaryInterface.ReadAllData">
+            <summary>
+            Reads all data from the interface
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcTag">
+            <summary>
+            Interface for an NFC Tag.
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.INfcTag.ID">
+            <summary>
+            NFC Tag ID
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.INfcTag.Interfaces">
+            <summary>
+            Communication interfaces available on the NFC Tag.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.INfcVInterface">
+            <summary>
+            NFC V interface, for communication with an NFC Tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcVInterface.GetDsfId">
+            <summary>
+            Return the DSF ID bytes from tag discovery.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INfcVInterface.GetResponseFlags">
+            <summary>
+            Return the Response Flag bytes from tag discovery.
+            </summary>
         </member>
         <member name="T:IdApp.Exceptions.MissingNetworkException">
             <summary>
@@ -12777,6 +12920,12 @@
             Interface for the Near-Field Communication (NFC) Service.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Nfc.INfcService.TagDetected(IdApp.DeviceSpecific.Nfc.INfcTag)">
+            <summary>
+            Method called when a new NFC Tag has been detected.
+            </summary>
+            <param name="Tag">NFC Tag</param>
+        </member>
         <member name="T:IdApp.Services.Nfc.NfcService">
             <summary>
             Near-Field Communication (NFC) Service.
@@ -12787,7 +12936,35 @@
             Near-Field Communication (NFC) Service.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Nfc.NfcService.Dispose">
+        <member name="M:IdApp.Services.Nfc.NfcService.TagDetected(IdApp.DeviceSpecific.Nfc.INfcTag)">
+            <summary>
+            Method called when a new NFC Tag has been detected.
+            </summary>
+            <param name="Tag">NFC Tag</param>
+        </member>
+        <member name="T:IdApp.Services.Nfc.NfcTag">
+            <summary>
+            Class defining interaction with an NFC Tag.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Nfc.NfcTag.#ctor(System.Byte[],IdApp.DeviceSpecific.Nfc.INfcInterface[])">
+            <summary>
+            Class defining interaction with an NFC Tag.
+            </summary>
+            <param name="ID">ID of Tag</param>
+            <param name="Interfaces">Available communication interfaces.</param>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcTag.ID">
+            <summary>
+            ID of Tag
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcTag.Interfaces">
+            <summary>
+            Available communication interfaces.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Nfc.NfcTag.Dispose">
             <summary>
             <see cref="M:System.IDisposable.Dispose"/>
             </summary>
