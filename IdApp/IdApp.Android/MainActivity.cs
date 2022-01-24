@@ -2,7 +2,6 @@
 using Android.Content;
 using Android.Content.PM;
 using Android.Nfc;
-using Android.Nfc.Tech;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -12,7 +11,6 @@ using IdApp.Services.Nfc;
 using System;
 using System.Collections.Generic;
 using Waher.Events;
-using static Java.Interop.JniEnvironment;
 
 namespace IdApp.Android
 {

@@ -110,6 +110,11 @@
     <Compile Include="Nfc\NfcBarcodeInterface.cs" />
     <Compile Include="Nfc\MifareUltralightInterface.cs" />
     <Compile Include="Nfc\NfcInterface.cs" />
+    <Compile Include="Nfc\Records\ExternalTypeRecord.cs" />
+    <Compile Include="Nfc\Records\WellKnownTypeRecord.cs" />
+    <Compile Include="Nfc\Records\Record.cs" />
+    <Compile Include="Nfc\Records\MimeTypeRecord.cs" />
+    <Compile Include="Nfc\Records\UriRecord.cs" />
     <Compile Include="ShareContent.cs" />
     <Compile Include="DeviceInformation.cs" />
     <Compile Include="MainActivity.cs" />
@@ -163,6 +168,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\city.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

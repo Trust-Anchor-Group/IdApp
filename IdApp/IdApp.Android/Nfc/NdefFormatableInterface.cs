@@ -1,7 +1,6 @@
 ﻿using Android.Nfc;
 using Android.Nfc.Tech;
 using IdApp.DeviceSpecific.Nfc;
-using System.Threading.Tasks;
 
 namespace IdApp.Android.Nfc
 {

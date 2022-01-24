@@ -1,6 +1,9 @@
 ﻿using Android.Nfc;
 using Android.Nfc.Tech;
+using IdApp.Android.Nfc.Records;
 using IdApp.DeviceSpecific.Nfc;
+using IdApp.DeviceSpecific.Nfc.Records;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IdApp.Android.Nfc
@@ -41,16 +44,45 @@ namespace IdApp.Android.Nfc
 		}
 
 		/// <summary>
-		/// Return the ISO-DEP historical bytes for NfcA tags.
+		/// Gets the message (with records) of the NDEF tag.
 		/// </summary>
-		public async Task<byte[]> GetMessage()
+		public async Task<INdefRecord[]> GetMessage()
 		{
+			await this.OpenIfClosed();
+
 			NdefMessage Message = this.ndef.NdefMessage;
 			NdefRecord[] Records = Message.GetRecords();
+			List<INdefRecord> Result = new List<INdefRecord>();
 
-			// TODO: Return interpreted message.
+			foreach (NdefRecord Record in Records)
+			{
+				switch (Record.Tnf)
+				{
+					case NdefRecord.TnfAbsoluteUri:
+						Result.Add(new UriRecord(Record));
+						break;
 
-			return Message.ToByteArray();
+					case NdefRecord.TnfMimeMedia:
+						Result.Add(new MimeTypeRecord(Record));
+						break;
+
+					case NdefRecord.TnfWellKnown:
+						Result.Add(new WellKnownTypeRecord(Record));
+						break;
+
+					case NdefRecord.TnfExternalType:
+						Result.Add(new ExternalTypeRecord(Record));
+						break;
+
+					case NdefRecord.TnfEmpty:
+					case NdefRecord.TnfUnchanged:
+					case NdefRecord.TnfUnknown:
+					default:
+						break;
+				}
+			}
+
+			return Result.ToArray();
 		}
 	}
 }

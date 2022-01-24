@@ -3090,6 +3090,21 @@
             NDEF interface, for communication with an NFC Tag.
             </summary>
         </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INdefInterface.CanMakeReadOnly">
+            <summary>
+            If the TAG can be made read-only
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INdefInterface.IsWritable">
+            <summary>
+            If the TAG is writable
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.INdefInterface.GetMessage">
+            <summary>
+            Gets the message (with records) of the NDEF tag.
+            </summary>
+        </member>
         <member name="T:IdApp.DeviceSpecific.Nfc.INfcAInterface">
             <summary>
             NFC A interface, for communication with an NFC Tag.
@@ -3188,6 +3203,99 @@
         <member name="M:IdApp.DeviceSpecific.Nfc.INfcVInterface.GetResponseFlags">
             <summary>
             Return the Response Flag bytes from tag discovery.
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Records.INdefExternalTypeRecord">
+            <summary>
+            Interface for NDEF External Type records
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefExternalTypeRecord.ExternalType">
+            <summary>
+            NFC External Type
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefExternalTypeRecord.Data">
+            <summary>
+            Data Payload
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Records.INdefMimeTypeRecord">
+            <summary>
+            Interface for NDEF MIME Type records
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefMimeTypeRecord.ContentType">
+            <summary>
+            Content-Type
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefMimeTypeRecord.Data">
+            <summary>
+            Data Payload
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Records.NDefRecordType">
+            <summary>
+            Type of NDEF Record
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Records.NDefRecordType.Uri">
+            <summary>
+            Absolute URI
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Records.NDefRecordType.WellKnownType">
+            <summary>
+            Well-known Type
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Records.NDefRecordType.ExternalType">
+            <summary>
+            External Type
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Records.NDefRecordType.MimeType">
+            <summary>
+            MIME-Type
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Records.INdefRecord">
+            <summary>
+            Interface for NDEF records
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefRecord.Type">
+            <summary>
+            Type of NDEF record
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Records.INdefUriRecord">
+            <summary>
+            Interface for NDEF URI records
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefUriRecord.Uri">
+            <summary>
+            URI
+            </summary>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Records.INdefWellKnownTypeRecord">
+            <summary>
+            Interface for NDEF Well-Known Type records
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefWellKnownTypeRecord.WellKnownType">
+            <summary>
+            NFC Well-Known Type
+            
+            Reference:
+            https://nfc-forum.org/our-work/specification-releases/specifications/nfc-forum-assigned-numbers-register/
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Records.INdefWellKnownTypeRecord.Data">
+            <summary>
+            Data Payload
             </summary>
         </member>
         <member name="T:IdApp.Exceptions.MissingNetworkException">
