@@ -3134,7 +3134,17 @@
         </member>
         <member name="P:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.KSeed">
             <summary>
-            Seed for computing cryptographic keys
+            Seed for computing cryptographic keys (§D.2)
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.KEnc">
+            <summary>
+            3DES Enceryption Key (§D.1)
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.KMac">
+            <summary>
+            3DES MAC Key (§D.1)
             </summary>
         </member>
         <member name="T:IdApp.DeviceSpecific.Nfc.IIsoDepInterface">
@@ -11989,6 +11999,13 @@
             <param name="Identity">Legal Identity</param>
             <returns>Friendly name</returns>
         </member>
+        <member name="P:IdApp.Services.ContactInfo.Item(System.String)">
+            <summary>
+            Access to meta-data properties.
+            </summary>
+            <param name="PropertyName">Name of property</param>
+            <returns>Property value.</returns>
+        </member>
         <member name="M:IdApp.Services.Contracts.ContractOrchestratorService.TagSignature(System.String)">
             <summary>
             TAG Signature request scanned.
@@ -13165,6 +13182,45 @@
             <summary>
             <see cref="M:System.IDisposable.Dispose"/>
             </summary>
+        </member>
+        <member name="T:IdApp.Services.Nfc.NfcTagReference">
+            <summary>
+            Contains information about a contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcTagReference.ObjectId">
+            <summary>
+            Object ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcTagReference.TagId">
+            <summary>
+            Bare JID of contact.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcTagReference.FriendlyName">
+            <summary>
+            Friendly name.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcTagReference.MetaData">
+            <summary>
+            Meta-data related to a thing.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Nfc.NfcTagReference.FindByTagId(Waher.Persistence.CaseInsensitiveString)">
+            <summary>
+            Finds information about a contact, given its Bare JID.
+            </summary>
+            <param name="TagId">Tag ID</param>
+            <returns>Tag reference, if found.</returns>
+        </member>
+        <member name="P:IdApp.Services.Nfc.NfcTagReference.Item(System.String)">
+            <summary>
+            Access to meta-data properties.
+            </summary>
+            <param name="PropertyName">Name of property</param>
+            <returns>Property value.</returns>
         </member>
         <member name="T:IdApp.Services.Provisioning.INeuronProvisioningService">
             <summary>

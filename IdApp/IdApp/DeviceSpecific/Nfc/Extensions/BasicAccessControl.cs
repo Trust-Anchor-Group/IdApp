@@ -93,10 +93,10 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 			};
 		}
 
-		private static readonly Regex td2_mrz_nr9charsplus = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*\n(?'Nr1'[^<]{9})<(?'Country2'\w{3})(?'Pnr'[^<]*)(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<])(?'Nr2'[^<]*)(?'NrCheck'[^<])<.*$", RegexOptions.Multiline);
-		private static readonly Regex td2_mrz_nr9chars = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*\n(?'Nr'.{9})(?'NrCheck'[^<])(?'Country2'\w{3})(?'Pnr'[^<]{6})(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<])<.*$", RegexOptions.Multiline);
-		private static readonly Regex td1_mrz_nr9charsplus = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'Nr1'[^<]{9})<(?'Nr2'.{3})(?'NrCheck'[^<])<+\n(?'Pnr'[^<]{6})(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<])(?'Country2'\w{3})<*.\n(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*$", RegexOptions.Multiline);
-		private static readonly Regex td1_mrz_nr9chars = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'Nr'.{9})(?'NrCheck'.)<+\n(?'Pnr'[^<]{6})(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<])(?'Country2'\w{3})<*.\n(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*$", RegexOptions.Multiline);
+		private static readonly Regex td2_mrz_nr9charsplus = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*\n(?'Nr1'[^<]{9})<(?'Country2'\w{3})(?'Pnr'[^<]*)(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<])(?'Nr2'[^<]*)(?'NrCheck'[^<]).*$", RegexOptions.Multiline);
+		private static readonly Regex td2_mrz_nr9chars = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*\n(?'Nr'.{9})(?'NrCheck'[^<])(?'Country2'\w{3})(?'Pnr'[^<]{6})(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<]).*$", RegexOptions.Multiline);
+		private static readonly Regex td1_mrz_nr9charsplus = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'Nr1'[^<]{9})<(?'Nr2'.{3})(?'NrCheck'[^<])<+\n(?'Pnr'[^<]{6})(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<])(?'Country2'\w{3})<*.\n(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*).*$", RegexOptions.Multiline);
+		private static readonly Regex td1_mrz_nr9chars = new Regex(@"^(?'DocType'.)<(?'Country1'\w{3})(?'Nr'.{9})(?'NrCheck'.)<+\n(?'Pnr'[^<]{6})(?'PnrCheck'[^<])(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'[^<])(?'Country2'\w{3})<*.\n(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*).*$", RegexOptions.Multiline);
 
 		/// <summary>
 		/// Request Challenge (§D.3)

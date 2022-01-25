@@ -1,5 +1,7 @@
 using IdApp.DeviceSpecific.Nfc.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using Waher.Security;
 
 namespace IdApp.Test
 {
@@ -26,6 +28,15 @@ namespace IdApp.Test
 			Assert.AreEqual("340712", Info.DateOfBirth);
 			Assert.AreEqual("950712", Info.ExpiryDate);
 			Assert.AreEqual("D23145890734934071279507122", Info.MRZ_Information);
+
+			string KSeed = Hashes.BinaryToString(Info.KSeed);
+			Console.Out.WriteLine("KSeed: " + KSeed);
+
+			string KEnc = Hashes.BinaryToString(Info.KEnc);
+			Console.Out.WriteLine("KEnc: " + KEnc);
+
+			string KMac = Hashes.BinaryToString(Info.KMac);
+			Console.Out.WriteLine("KMac: " + KMac);
 		}
 
 		[TestMethod]
@@ -45,6 +56,18 @@ namespace IdApp.Test
 			Assert.AreEqual("690806", Info.DateOfBirth);
 			Assert.AreEqual("940623", Info.ExpiryDate);
 			Assert.AreEqual("L898902C<369080619406236", Info.MRZ_Information);
+
+			string KSeed = Hashes.BinaryToString(Info.KSeed);
+			Console.Out.WriteLine("KSeed: " + KSeed);
+			Assert.AreEqual("239AB9CB282DAF66231DC5A4DF6BFBAE", KSeed.ToUpper());
+
+			string KEnc = Hashes.BinaryToString(Info.KEnc);
+			Console.Out.WriteLine("KEnc: " + KEnc);
+			//Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
+
+			string KMac = Hashes.BinaryToString(Info.KMac);
+			Console.Out.WriteLine("KMac: " + KMac);
+			//Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
 		}
 
 		[TestMethod]
@@ -64,6 +87,15 @@ namespace IdApp.Test
 			Assert.AreEqual("340712", Info.DateOfBirth);
 			Assert.AreEqual("950712", Info.ExpiryDate);
 			Assert.AreEqual("D23145890734934071279507122", Info.MRZ_Information);
+
+			string KSeed = Hashes.BinaryToString(Info.KSeed);
+			Console.Out.WriteLine("KSeed: " + KSeed);
+
+			string KEnc = Hashes.BinaryToString(Info.KEnc);
+			Console.Out.WriteLine("KEnc: " + KEnc);
+
+			string KMac = Hashes.BinaryToString(Info.KMac);
+			Console.Out.WriteLine("KMac: " + KMac);
 		}
 
 		[TestMethod]
@@ -83,6 +115,18 @@ namespace IdApp.Test
 			Assert.AreEqual("690806", Info.DateOfBirth);
 			Assert.AreEqual("940623", Info.ExpiryDate);
 			Assert.AreEqual("L898902C<369080619406236", Info.MRZ_Information);
+
+			string KSeed = Hashes.BinaryToString(Info.KSeed);
+			Console.Out.WriteLine("KSeed: " + KSeed);
+			Assert.AreEqual("239AB9CB282DAF66231DC5A4DF6BFBAE", KSeed.ToUpper());
+
+			string KEnc = Hashes.BinaryToString(Info.KEnc);
+			Console.Out.WriteLine("KEnc: " + KEnc);
+			//Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
+
+			string KMac = Hashes.BinaryToString(Info.KMac);
+			Console.Out.WriteLine("KMac: " + KMac);
+			//Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
 		}
 	}
 }

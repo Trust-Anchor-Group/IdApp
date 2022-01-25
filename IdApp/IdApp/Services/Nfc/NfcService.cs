@@ -3,7 +3,11 @@ using IdApp.DeviceSpecific.Nfc.Extensions;
 using System;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Waher.Networking.XMPP.Contracts;
+using Waher.Persistence;
 using Waher.Runtime.Inventory;
+using Waher.Runtime.Settings;
+using Waher.Security;
 
 namespace IdApp.Services.Nfc
 {
@@ -27,28 +31,50 @@ namespace IdApp.Services.Nfc
 		/// <param name="Tag">NFC Tag</param>
 		public async Task TagDetected(INfcTag Tag)
 		{
+			string TagId = Hashes.BinaryToString(Tag.ID).ToUpper();
+			NfcTagReference TagReference = await NfcTagReference.FindByTagId(TagId);
+
 			foreach (INfcInterface Interface in Tag.Interfaces)
 			{
 				if (Interface is IIsoDepInterface Iso14443_4)
 				{
-					byte[] Challenge = await Iso14443_4.RequestChallenge();
-					if (!(Challenge is null))
+					string Mrz = await RuntimeSettings.GetAsync("NFC.LastMrz", string.Empty);
+
+					if (!string.IsNullOrEmpty(Mrz) &&
+						BasicAccessControl.ParseMrz(Mrz, out DocumentInformation DocInfo))
 					{
-						byte[] Rnd1 = new byte[8];
-						byte[] Rnd2 = new byte[16];
+						// §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
 
-						using (RandomNumberGenerator Rnd = RandomNumberGenerator.Create())
+						byte[] Challenge = await Iso14443_4.RequestChallenge();
+						if (!(Challenge is null))
 						{
-							Rnd.GetBytes(Rnd1);
-							Rnd.GetBytes(Rnd2);
+							byte[] Rnd1 = new byte[8];
+							byte[] Rnd2 = new byte[16];
+
+							using (RandomNumberGenerator Rnd = RandomNumberGenerator.Create())
+							{
+								Rnd.GetBytes(Rnd1);
+								Rnd.GetBytes(Rnd2);
+							}
+
+							byte[] S = new byte[8 + 8 + 16];
+							byte[] EIFD;
+							byte[] MIFD;
+
+							Array.Copy(Rnd1, 0, S, 0, 8);
+							Array.Copy(Challenge, 0, S, 8, 8);
+							Array.Copy(Rnd2, 0, S, 16, 16);
+
+							using (TripleDES Cipher = TripleDES.Create())
+							{
+								using (ICryptoTransform Encryptor = Cipher.CreateEncryptor(DocInfo.KEnc, null))
+								{
+									EIFD = Encryptor.TransformFinalBlock(S, 0, 32);
+								}
+							}
+
+
 						}
-
-						byte[] C = new byte[8 + 8 + 16];
-
-						Array.Copy(Rnd1, 0, C, 0, 8);
-						Array.Copy(Challenge, 0, C, 8, 8);
-						Array.Copy(Rnd2, 0, C, 16, 16);
-
 					}
 				}
 			}

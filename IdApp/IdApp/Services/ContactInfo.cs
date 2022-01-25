@@ -29,7 +29,7 @@ namespace IdApp.Services
 		private string sourceId = string.Empty;
 		private string partition = string.Empty;
 		private string nodeId = string.Empty;
-		private string registryJid = string.Empty;
+		private CaseInsensitiveString registryJid = string.Empty;
 		private bool? subcribeTo = null;
 		private bool? allowSubscriptionFrom = null;
 		private bool? isThing = null;
@@ -55,7 +55,7 @@ namespace IdApp.Services
 		/// <summary>
 		/// Bare JID of contact.
 		/// </summary>
-		public string BareJid
+		public CaseInsensitiveString BareJid
 		{
 			get => this.bareJid;
 			set => this.bareJid = value;
@@ -64,7 +64,7 @@ namespace IdApp.Services
 		/// <summary>
 		/// Legal ID of contact.
 		/// </summary>
-		public string LegalId
+		public CaseInsensitiveString LegalId
 		{
 			get => this.legalId;
 			set => this.legalId = value;
@@ -120,7 +120,7 @@ namespace IdApp.Services
 		/// <summary>
 		/// Registry JID
 		/// </summary>
-		public string RegistryJid
+		public CaseInsensitiveString RegistryJid
 		{
 			get => this.registryJid;
 			set => this.registryJid = value;
@@ -453,6 +453,28 @@ namespace IdApp.Services
 					sb.Append(' ');
 
 				sb.Append(Value);
+			}
+		}
+
+		/// <summary>
+		/// Access to meta-data properties.
+		/// </summary>
+		/// <param name="PropertyName">Name of property</param>
+		/// <returns>Property value.</returns>
+		public string this[string PropertyName]
+		{
+			get
+			{
+				if (!(this.metaData is null))
+				{
+					foreach (Property P in this.metaData)
+					{
+						if (string.Compare(P.Name, PropertyName, true) == 0)
+							return P.Value;
+					}
+				}
+
+				return string.Empty;
 			}
 		}
 
