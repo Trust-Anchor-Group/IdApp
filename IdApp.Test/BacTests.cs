@@ -63,11 +63,11 @@ namespace IdApp.Test
 
 			string KEnc = Hashes.BinaryToString(Info.KEnc);
 			Console.Out.WriteLine("KEnc: " + KEnc);
-			//Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
+			Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
 
 			string KMac = Hashes.BinaryToString(Info.KMac);
 			Console.Out.WriteLine("KMac: " + KMac);
-			//Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
+			Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
 		}
 
 		[TestMethod]
@@ -122,11 +122,11 @@ namespace IdApp.Test
 
 			string KEnc = Hashes.BinaryToString(Info.KEnc);
 			Console.Out.WriteLine("KEnc: " + KEnc);
-			//Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
+			Assert.AreEqual("AB94FDECF2674FDFB9B391F85D7F76F2", KEnc.ToUpper());
 
 			string KMac = Hashes.BinaryToString(Info.KMac);
 			Console.Out.WriteLine("KMac: " + KMac);
-			//Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
+			Assert.AreEqual("7962D9ECE03D1ACD4C76089DCE131543", KMac.ToUpper());
 		}
 	}
 }

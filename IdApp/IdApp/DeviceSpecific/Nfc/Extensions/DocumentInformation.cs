@@ -108,20 +108,19 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 			}
 		}
 
-		private byte[] CalcKey(long Counter)
+		private byte[] CalcKey(int Counter)
 		{
-			byte[] H = this.KSeed;
-			byte[] D = new byte[24];
-			Array.Copy(H, 0, D, 0, 16);
+			byte[] D = new byte[20];
+			Array.Copy(this.KSeed, 0, D, 0, 16);
 			int i;
 
-			for (i = 23; i >= 16; i--)
+			for (i = 19; i >= 16; i--)
 			{
 				D[i] = (byte)(Counter);
 				Counter >>= 8;
 			}
 
-			H = Hashes.ComputeSHA1Hash(D);
+			byte[] H = Hashes.ComputeSHA1Hash(D);
 			Array.Resize<byte>(ref H, 16);
 			OddParity(H);
 

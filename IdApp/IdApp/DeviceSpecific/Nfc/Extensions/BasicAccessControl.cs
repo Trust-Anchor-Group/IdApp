@@ -8,7 +8,7 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 	/// Contains NFC Extensions for Basic Access Control.
 	/// 
 	/// Reference:
-	/// https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
+	/// §4.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
 	/// </summary>
 	public static class BasicAccessControl
 	{

@@ -43,7 +43,7 @@ namespace IdApp.Services.Nfc
 					if (!string.IsNullOrEmpty(Mrz) &&
 						BasicAccessControl.ParseMrz(Mrz, out DocumentInformation DocInfo))
 					{
-						// §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
+						// §4.3, §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
 
 						byte[] Challenge = await Iso14443_4.RequestChallenge();
 						if (!(Challenge is null))
