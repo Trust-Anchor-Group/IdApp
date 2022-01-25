@@ -14,19 +14,24 @@
 		public string DocumentType;
 
 		/// <summary>
-		/// 3-letter country code.
+		/// 3-letter country code of issuing state.
 		/// </summary>
-		public string Country;
+		public string IssuingState;
 
 		/// <summary>
-		/// Last names
+		/// 3-letter country code of nationality.
 		/// </summary>
-		public string[] LastNames;
+		public string Nationality;
 
 		/// <summary>
-		/// First names
+		/// Primary Identifier (Last names)
 		/// </summary>
-		public string[] FirstNames;
+		public string[] PrimaryIdentifier;
+
+		/// <summary>
+		/// Secondary Identifier (First names)
+		/// </summary>
+		public string[] SecondaryIdentifier;
 
 		/// <summary>
 		/// Gender
@@ -47,6 +52,11 @@
 		/// Expiry Dte (YYMMDD)
 		/// </summary>
 		public string ExpiryDate;
+
+		/// <summary>
+		/// Optional Data
+		/// </summary>
+		public string OptionalData;
 
 		/// <summary>
 		/// MRZ-information for use with Basic Access Control (BAC).

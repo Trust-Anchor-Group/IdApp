@@ -3143,19 +3143,24 @@
             Document Type
             </summary>
         </member>
-        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.Country">
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.IssuingState">
             <summary>
-            3-letter country code.
+            3-letter country code of issuing state.
             </summary>
         </member>
-        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.LastNames">
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.Nationality">
             <summary>
-            Last names
+            3-letter country code of nationality.
             </summary>
         </member>
-        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.FirstNames">
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.PrimaryIdentifier">
             <summary>
-            First names
+            Primary Identifier (Last names)
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.SecondaryIdentifier">
+            <summary>
+            Secondary Identifier (First names)
             </summary>
         </member>
         <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.Gender">
@@ -3176,6 +3181,11 @@
         <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.ExpiryDate">
             <summary>
             Expiry Dte (YYMMDD)
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.OptionalData">
+            <summary>
+            Optional Data
             </summary>
         </member>
         <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.MRZ_Information">
