@@ -3055,6 +3055,88 @@
             <param name="Title">Title for operation.</param>
             <param name="FileName">Filename of image file.</param>
         </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl">
+            <summary>
+            Contains NFC Extensions for Basic Access Control.
+            
+            Reference:
+            https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.ParseMrz(System.String,IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation@)">
+            <summary>
+            Derives Basic Access Control Keys from the second row of the 
+            Machine-Readable string in passport (MRZ).
+            </summary>
+            <param name="MRZ">Machine-Readable text.</param>
+            <param name="Info">Parsed Document Information.</param>
+            <returns>If the string could be parsed.</returns>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.RequestChallenge(IdApp.DeviceSpecific.Nfc.IIsoDepInterface)">
+            <summary>
+            Request Challenge (§D.3)
+            </summary>
+            <param name="TagInterface"></param>
+            <returns>Challenge</returns>
+        </member>
+        <member name="T:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation">
+            <summary>
+            Contains parsed information from a machine-readable document information string.
+            
+            Reference:
+            https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.DocumentType">
+            <summary>
+            Document Type
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.Country">
+            <summary>
+            3-letter country code.
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.LastNames">
+            <summary>
+            Last names
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.FirstNames">
+            <summary>
+            First names
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.Gender">
+            <summary>
+            Gender
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.DocumentNumber">
+            <summary>
+            Document number
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.DateOfBirth">
+            <summary>
+            Date-of-birth (YYMMDD)
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.ExpiryDate">
+            <summary>
+            Expiry Dte (YYMMDD)
+            </summary>
+        </member>
+        <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.MRZ_Information">
+            <summary>
+            MRZ-information for use with Basic Access Control (BAC).
+            </summary>
+        </member>
+        <member name="P:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.KSeed">
+            <summary>
+            Seed for computing cryptographic keys
+            </summary>
+        </member>
         <member name="T:IdApp.DeviceSpecific.Nfc.IIsoDepInterface">
             <summary>
             ISO DEP interface, for communication with an NFC Tag.
@@ -3069,6 +3151,13 @@
             <summary>
             Return the ISO-DEP historical bytes for NfcA tags.
             </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.IIsoDepInterface.ExecuteCommand(System.Byte[])">
+            <summary>
+            Executes an ISO 14443-4 command on the tag.
+            </summary>
+            <param name="Command">Command</param>
+            <returns>Response</returns>
         </member>
         <member name="T:IdApp.DeviceSpecific.Nfc.IMifareClassicInterface">
             <summary>

@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Translation", "Translation"
 		Translation\TranslateResources.bat = Translation\TranslateResources.bat
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdApp.Test", "IdApp.Test\IdApp.Test.csproj", "{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +121,18 @@ Global
 		{114FBB88-901A-4604-A4D0-809D1994582F}.Release|iPhone.Build.0 = Release|Any CPU
 		{114FBB88-901A-4604-A4D0-809D1994582F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{114FBB88-901A-4604-A4D0-809D1994582F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|iPhone.Build.0 = Release|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

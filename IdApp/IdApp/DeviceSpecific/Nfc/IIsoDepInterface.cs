@@ -16,5 +16,12 @@ namespace IdApp.DeviceSpecific.Nfc
 		/// Return the ISO-DEP historical bytes for NfcA tags.
 		/// </summary>
 		Task<byte[]> GetHistoricalBytes();
+
+		/// <summary>
+		/// Executes an ISO 14443-4 command on the tag.
+		/// </summary>
+		/// <param name="Command">Command</param>
+		/// <returns>Response</returns>
+		Task<byte[]> ExecuteCommand(byte[] Command);
 	}
 }

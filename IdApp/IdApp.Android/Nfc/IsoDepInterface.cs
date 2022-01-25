@@ -39,5 +39,16 @@ namespace IdApp.Android.Nfc
 			await this.OpenIfClosed();
 			return this.isoDep.GetHistoricalBytes();
 		}
+
+		/// <summary>
+		/// Executes an ISO 14443-4 command on the tag.
+		/// </summary>
+		/// <param name="Command">Command</param>
+		/// <returns>Response</returns>
+		public async Task<byte[]> ExecuteCommand(byte[] Command)
+		{
+			await this.OpenIfClosed();
+			return await this.isoDep.TransceiveAsync(Command);
+		}
 	}
 }
