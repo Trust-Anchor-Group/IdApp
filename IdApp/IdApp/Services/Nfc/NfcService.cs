@@ -48,31 +48,8 @@ namespace IdApp.Services.Nfc
 						byte[] Challenge = await Iso14443_4.RequestChallenge();
 						if (!(Challenge is null))
 						{
-							byte[] Rnd1 = new byte[8];
-							byte[] Rnd2 = new byte[16];
-
-							using (RandomNumberGenerator Rnd = RandomNumberGenerator.Create())
-							{
-								Rnd.GetBytes(Rnd1);
-								Rnd.GetBytes(Rnd2);
-							}
-
-							byte[] S = new byte[8 + 8 + 16];
-							byte[] EIFD;
-							byte[] MIFD;
-
-							Array.Copy(Rnd1, 0, S, 0, 8);
-							Array.Copy(Challenge, 0, S, 8, 8);
-							Array.Copy(Rnd2, 0, S, 16, 16);
-
-							using (TripleDES Cipher = TripleDES.Create())
-							{
-								using (ICryptoTransform Encryptor = Cipher.CreateEncryptor(DocInfo.KEnc, null))
-								{
-									EIFD = Encryptor.TransformFinalBlock(S, 0, 32);
-								}
-							}
-
+							byte[] ChallengeResponse = DocInfo.CalcResponse(Challenge);
+							byte[] Response = await Iso14443_4.SendResponse(ChallengeResponse);
 
 						}
 					}

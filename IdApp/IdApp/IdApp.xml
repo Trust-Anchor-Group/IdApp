@@ -3072,11 +3072,62 @@
             <param name="Info">Parsed Document Information.</param>
             <returns>If the string could be parsed.</returns>
         </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.KSeed(IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation)">
+            <summary>
+            Seed for computing cryptographic keys (§D.2)
+            </summary>
+            <param name="Info">Document Information</param>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.KEnc(IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation)">
+            <summary>
+            3DES Encryption Key (§D.1)
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.KMac(IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation)">
+            <summary>
+            DES MAC Key (§D.1)
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.CONCAT(System.Byte[],System.Byte[][])">
+            <summary>
+            Concatenates a series of byte arrays.
+            </summary>
+            <param name="Bytes">First byte array</param>
+            <param name="MoreBytes">following bytes arrays.</param>
+            <returns>Concatenated byte array.</returns>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.CalcResponse(System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+            Calculates a response to a challenge.
+            </summary>
+            <param name="Challenge">Challenge</param>
+            <param name="Rnd1">Random number 1</param>
+            <param name="Rnd2">Random number 2</param>
+            <param name="KEnc">Encryption Key</param>
+            <param name="KMac">MAC Key</param>
+            <returns>Response</returns>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.CalcResponse(IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation,System.Byte[])">
+            <summary>
+            Calculates a response to a challenge.
+            </summary>
+            <param name="Info">Document Information</param>
+            <param name="Challenge">Challenge</param>
+            <returns>Response</returns>
+        </member>
         <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.RequestChallenge(IdApp.DeviceSpecific.Nfc.IIsoDepInterface)">
             <summary>
             Request Challenge (§D.3)
             </summary>
-            <param name="TagInterface"></param>
+            <param name="TagInterface">NFC interface to tag.</param>
+            <returns>Challenge</returns>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.SendResponse(IdApp.DeviceSpecific.Nfc.IIsoDepInterface,System.Byte[])">
+            <summary>
+            Send Response to challenge (§D.3)
+            </summary>
+            <param name="TagInterface">NFC interface to tag.</param>
+            <param name="ChallengeResponse">ChallengeResponse.</param>
             <returns>Challenge</returns>
         </member>
         <member name="T:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation">
@@ -3130,21 +3181,6 @@
         <member name="F:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.MRZ_Information">
             <summary>
             MRZ-information for use with Basic Access Control (BAC).
-            </summary>
-        </member>
-        <member name="P:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.KSeed">
-            <summary>
-            Seed for computing cryptographic keys (§D.2)
-            </summary>
-        </member>
-        <member name="P:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.KEnc">
-            <summary>
-            3DES Enceryption Key (§D.1)
-            </summary>
-        </member>
-        <member name="P:IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation.KMac">
-            <summary>
-            3DES MAC Key (§D.1)
             </summary>
         </member>
         <member name="T:IdApp.DeviceSpecific.Nfc.IIsoDepInterface">
