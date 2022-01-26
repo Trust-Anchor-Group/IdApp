@@ -2,6 +2,8 @@ using IdApp.DeviceSpecific.Nfc.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
+using Waher.Runtime.Settings;
 using Waher.Security;
 
 namespace IdApp.Test
@@ -135,7 +137,33 @@ namespace IdApp.Test
 		}
 
 		[TestMethod]
-		public void Test_05_BAC_ChallengeResponse()
+		public void Test_05_Parse_MRZ()
+		{
+			// §3.1, ICAO 9303-3, https://www.icao.int/publications/Documents/9303_p3_cons_en.pdf
+
+			string Mrz = "P<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<<<<<<<<<\nL898902C36UTO7408122F1204159ZE184226B<<<<<10";
+			Assert.IsTrue(BasicAccessControl.ParseMrz(Mrz, out _));
+		}
+
+		[TestMethod]
+		public void Test_06_Parse_MRZ()
+		{
+			// §B, ICAO 9303-5, https://www.icao.int/publications/Documents/9303_p5_cons_en.pdf
+
+			string Mrz = "I<UTOD231458907<<<<<<<<<<<<<<<\n7408122F1204159UTO<<<<<<<<<<<6\nERIKSSON<<ANNA<MARIA<<<<<<<<<<";
+			Assert.IsTrue(BasicAccessControl.ParseMrz(Mrz, out _));
+		}
+
+		[TestMethod]
+		public void Test_07_Parse_MRZ()
+		{
+			// §B, ICAO 9303-6, https://www.icao.int/publications/Documents/9303_p6_cons_en.pdf
+
+			string Mrz = "I<UTOERIKSSON<<ANNA<MARIA<<<<<<<<<<<\nD231458907UTO7408122F1204159<<<<<<<6";
+			Assert.IsTrue(BasicAccessControl.ParseMrz(Mrz, out _));
+		}
+		[TestMethod]
+		public void Test_08_BAC_ChallengeResponse()
 		{
 			byte[] Challenge = Hashes.StringToBinary("4608F91988702212");
 			byte[] Rnd1 = Hashes.StringToBinary("781723860C06C226");

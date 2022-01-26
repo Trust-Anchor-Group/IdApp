@@ -89,13 +89,21 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 				return false;
 
 			string s = Info.OptionalData.Replace("<", string.Empty);
+			string OptionalCheck;
+
 			if (!string.IsNullOrEmpty(s))
 			{
-				string OptionalCheck = M.Groups["OptionalCheck"].Value;
+				OptionalCheck = M.Groups["OptionalCheck"].Value;
 				if (OptionalCheck != CalcCheckDigit(Info.OptionalData))
 					return false;
 			}
+			else
+				OptionalCheck = null;
+
 			Info.OptionalData = s;
+
+			// TODO: Check OptioncalCheck
+			// TODO: Check OverallCheck
 
 			Info.MRZ_Information = Info.DocumentNumber + NrCheck +
 				Info.DateOfBirth + BirthCheck + Info.ExpiryDate + ExpiryCheck;
@@ -141,8 +149,8 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 				DocumentType = M.Groups["DocType"].Value,
 				IssuingState = M.Groups["Issuer"].Value,
 				Nationality = M.Groups["Nationality"].Value,
-				PrimaryIdentifier = M.Groups["LNames"].Value.Split('<'),
-				SecondaryIdentifier = M.Groups["FNames"].Value.Split('<'),
+				PrimaryIdentifier = M.Groups["PID"].Value.Split('<'),
+				SecondaryIdentifier = M.Groups["SID"].Value.Split('<'),
 				Gender = M.Groups["Gender"].Value,
 				DocumentNumber = M.Groups["Nr"].Value,
 				DateOfBirth = M.Groups["Birth"].Value,
@@ -152,12 +160,12 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 		}
 
 		// TD2, ref: ICAO 9303-5, §B: https://www.icao.int/publications/Documents/9303_p5_cons_en.pdf
-		private static readonly Regex td2_mrz_nr9charsplus = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*\n(?'Nr1'[^<]{9})<(?'Nationality'\w{3})(?'Birth'[^<]*)(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)(?'Nr2'[^<]*)(?'NrCheck'\d)((?'Optional'.*)(?'OptionalCheck'\d))?.*$", RegexOptions.Multiline);
-		private static readonly Regex td2_mrz_nr9chars = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*)<*\n(?'Nr'.{9})(?'NrCheck'\d)(?'Nationality'\w{3})(?'Birth'[^<]{6})(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)((?'Optional'.*)(?'OptionalCheck'\d))?.*$", RegexOptions.Multiline);
+		private static readonly Regex td2_mrz_nr9charsplus = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'PID'[^<]+(<[^<]+)*)<<(?'SID'[^<]+(<[^<]+)*)<*\n(?'Nr1'[^<]{9})<(?'Nationality'\w{3})(?'Birth'[^<]*)(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)(?'Nr2'[^<]*)(?'NrCheck'\d)((?'Optional'.*)(?'OptionalCheck'\d))?<*(?'OverallCheck'\d)$", RegexOptions.Multiline);
+		private static readonly Regex td2_mrz_nr9chars = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'PID'[^<]+(<[^<]+)*)<<(?'SID'[^<]+(<[^<]+)*)<*\n(?'Nr'.{9})(?'NrCheck'\d)(?'Nationality'\w{3})(?'Birth'[^<]{6})(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)((?'Optional'.*)(?'OptionalCheck'\d))?<*(?'OverallCheck'\d)$", RegexOptions.Multiline);
 
 		// TD1, ref: ICAO 9303-5, §B: https://www.icao.int/publications/Documents/9303_p5_cons_en.pdf
-		private static readonly Regex td1_mrz_nr9charsplus = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'Nr1'[^<]{9})<(?'Nr2'.{3})(?'NrCheck'\d)((?'Optional'.*)(?'OptionalCheck'\d))?<*\n(?'Birth'[^<]{6})(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)(?'Nationality'\w{3})<*.\n(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*).*$", RegexOptions.Multiline);
-		private static readonly Regex td1_mrz_nr9chars = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'Nr'.{9})(?'NrCheck'.)((?'Optional'.*)(?'OptionalCheck'\d))?<*\n(?'Birth'[^<]{6})(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)(?'Nationality'\w{3})<*.\n(?'LNames'[^<]+(<[^<]+)*)<<(?'FNames'[^<]+(<[^<]+)*).*$", RegexOptions.Multiline);
+		private static readonly Regex td1_mrz_nr9charsplus = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'Nr1'[^<]{9})<(?'Nr2'.{3})(?'NrCheck'\d)((?'Optional'.*)(?'OptionalCheck'\d))?<*\n(?'Birth'[^<]{6})(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)(?'Nationality'\w{3})<*(?'OverallCheck'\d)\n(?'PID'[^<]+(<[^<]+)*)<<(?'SID'[^<]+(<[^<]+)*).*$", RegexOptions.Multiline);
+		private static readonly Regex td1_mrz_nr9chars = new Regex(@"^(?'DocType'.{1,2})<(?'Issuer'\w{3})(?'Nr'.{9})(?'NrCheck'.)((?'Optional'.*)(?'OptionalCheck'\d))?<*\n(?'Birth'[^<]{6})(?'BirthCheck'\d)(?'Gender'[MF])(?'Expires'[^<]{6})(?'ExpiryCheck'\d)(?'Nationality'\w{3})<*(?'OverallCheck'\d)\n(?'PID'[^<]+(<[^<]+)*)<<(?'SID'[^<]+(<[^<]+)*).*$", RegexOptions.Multiline);
 
 		/// <summary>
 		/// Seed for computing cryptographic keys (§D.2)
