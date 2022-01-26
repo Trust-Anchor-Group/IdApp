@@ -274,7 +274,7 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 		/// <param name="KEnc">Encryption Key</param>
 		/// <param name="KMac">MAC Key</param>
 		/// <returns>Response</returns>
-		public static byte[] CalcResponse(byte[] Challenge, byte[] Rnd1, byte[] Rnd2,
+		public static byte[] CalcChallengeResponse(byte[] Challenge, byte[] Rnd1, byte[] Rnd2,
 			byte[] KEnc, byte[] KMac)
 		{
 			byte[] S = Rnd1.CONCAT(Challenge, Rnd2);
@@ -357,7 +357,7 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 		/// <param name="Info">Document Information</param>
 		/// <param name="Challenge">Challenge</param>
 		/// <returns>Response</returns>
-		public static byte[] CalcResponse(this DocumentInformation Info, byte[] Challenge)
+		public static byte[] CalcChallengeResponse(this DocumentInformation Info, byte[] Challenge)
 		{
 			byte[] Rnd1 = new byte[8];
 			byte[] Rnd2 = new byte[16];
@@ -368,7 +368,7 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 				Rnd.GetBytes(Rnd2);
 			}
 
-			return CalcResponse(Challenge, Rnd1, Rnd2, Info.KEnc(), Info.KMac());
+			return CalcChallengeResponse(Challenge, Rnd1, Rnd2, Info.KEnc(), Info.KMac());
 		}
 
 		/// <summary>

@@ -48,7 +48,7 @@ namespace IdApp.Services.Nfc
 						byte[] Challenge = await Iso14443_4.GetChallenge();
 						if (!(Challenge is null))
 						{
-							byte[] ChallengeResponse = DocInfo.CalcResponse(Challenge);
+							byte[] ChallengeResponse = DocInfo.CalcChallengeResponse(Challenge);
 							byte[] Response = await Iso14443_4.ExternalAuthenticate(ChallengeResponse);
 
 						}

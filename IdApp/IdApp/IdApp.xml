@@ -3096,7 +3096,7 @@
             <param name="MoreBytes">following bytes arrays.</param>
             <returns>Concatenated byte array.</returns>
         </member>
-        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.CalcResponse(System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.CalcChallengeResponse(System.Byte[],System.Byte[],System.Byte[],System.Byte[],System.Byte[])">
             <summary>
             Calculates a response to a challenge.
             </summary>
@@ -3107,7 +3107,7 @@
             <param name="KMac">MAC Key</param>
             <returns>Response</returns>
         </member>
-        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.CalcResponse(IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation,System.Byte[])">
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.CalcChallengeResponse(IdApp.DeviceSpecific.Nfc.Extensions.DocumentInformation,System.Byte[])">
             <summary>
             Calculates a response to a challenge.
             </summary>
