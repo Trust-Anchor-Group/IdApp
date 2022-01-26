@@ -318,31 +318,28 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 				byte[] H = null;
 
 				c += 8;
-				while (i < c)
+				using (ICryptoTransform Encryptor2 = Cipher.CreateEncryptor(Ka, new byte[8]))
 				{
-					Array.Copy(Data, i, Block, 0, 8);
-					i += 8;
-
-					if (!(H is null))
+					while (i < c)
 					{
-						for (j = 0; j < 8; j++)
-							Block[j] ^= H[j];
-					}
+						Array.Copy(Data, i, Block, 0, 8);
+						i += 8;
 
-					using (ICryptoTransform Encryptor2 = Cipher.CreateEncryptor(Ka, new byte[8]))
-					{
+						if (!(H is null))
+						{
+							for (j = 0; j < 8; j++)
+								Block[j] ^= H[j];
+						}
+
 						H = Encryptor2.TransformFinalBlock(Block, 0, 8);
 					}
-				}
 
-				using (ICryptoTransform FinalDecryptor = Cipher.CreateDecryptor(Kb, new byte[8]))
-				{
-					H = FinalDecryptor.TransformFinalBlock(H, 0, 8);
-				}
+					using (ICryptoTransform FinalDecryptor = Cipher.CreateDecryptor(Kb, new byte[8]))
+					{
+						H = FinalDecryptor.TransformFinalBlock(H, 0, 8);
+					}
 
-				using (ICryptoTransform FinalEncryptor = Cipher.CreateEncryptor(Ka, new byte[8]))
-				{
-					H = FinalEncryptor.TransformFinalBlock(H, 0, 8);
+					H = Encryptor2.TransformFinalBlock(H, 0, 8);
 				}
 
 				MIFD = H;
@@ -406,13 +403,14 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 		public static async Task<byte[]> ExternalAuthenticate(this IIsoDepInterface TagInterface,
 			byte[] ChallengeResponse)
 		{
+			byte Lc = (byte)ChallengeResponse.Length;
 			byte[] Command = new byte[]
 			{
 				0x00,	// CLA
 				0x82,	// INS
 				0x00,	// P1
 				0x00,	// P2
-				0x28	// Lc
+				Lc
 			}.CONCAT(ChallengeResponse, new byte[]
 			{
 				0x28	// Le
