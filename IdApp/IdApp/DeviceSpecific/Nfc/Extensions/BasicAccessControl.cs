@@ -127,6 +127,8 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 					j = ch - '0';
 				else if (ch >= 'A' && ch <= 'Z')
 					j = ch - 'A' + 10;
+				else if (ch >= 'a' && ch <= 'z')
+					j = ch - 'a' + 10;
 				else if (ch == '<')
 					j = 0;
 				else
@@ -346,12 +348,7 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 				MIFD = H;
 			}
 
-			byte[] Response = new byte[40];
-
-			Array.Copy(EIFD, 0, Response, 0, 32);
-			Array.Copy(MIFD, 0, Response, 32, 8);
-
-			return Response;
+			return EIFD.CONCAT(MIFD);
 		}
 
 		/// <summary>
@@ -375,11 +372,11 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 		}
 
 		/// <summary>
-		/// Request Challenge (§D.3)
+		/// Get Challenge (§7.1.5.4, §D.3)
 		/// </summary>
 		/// <param name="TagInterface">NFC interface to tag.</param>
 		/// <returns>Challenge</returns>
-		public static async Task<byte[]> RequestChallenge(this IIsoDepInterface TagInterface)
+		public static async Task<byte[]> GetChallenge(this IIsoDepInterface TagInterface)
 		{
 			byte[] Command = new byte[]
 			{
@@ -401,12 +398,12 @@ namespace IdApp.DeviceSpecific.Nfc.Extensions
 		}
 
 		/// <summary>
-		/// Send Response to challenge (§D.3)
+		/// Send Response to challenge (§7.1.5.4, §D.3)
 		/// </summary>
 		/// <param name="TagInterface">NFC interface to tag.</param>
 		/// <param name="ChallengeResponse">ChallengeResponse.</param>
 		/// <returns>Challenge</returns>
-		public static async Task<byte[]> SendResponse(this IIsoDepInterface TagInterface,
+		public static async Task<byte[]> ExternalAuthenticate(this IIsoDepInterface TagInterface,
 			byte[] ChallengeResponse)
 		{
 			byte[] Command = new byte[]

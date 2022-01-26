@@ -45,11 +45,11 @@ namespace IdApp.Services.Nfc
 					{
 						// §4.3, §D.3, https://www.icao.int/publications/Documents/9303_p11_cons_en.pdf
 
-						byte[] Challenge = await Iso14443_4.RequestChallenge();
+						byte[] Challenge = await Iso14443_4.GetChallenge();
 						if (!(Challenge is null))
 						{
 							byte[] ChallengeResponse = DocInfo.CalcResponse(Challenge);
-							byte[] Response = await Iso14443_4.SendResponse(ChallengeResponse);
+							byte[] Response = await Iso14443_4.ExternalAuthenticate(ChallengeResponse);
 
 						}
 					}

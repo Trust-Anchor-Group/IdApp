@@ -3115,16 +3115,16 @@
             <param name="Challenge">Challenge</param>
             <returns>Response</returns>
         </member>
-        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.RequestChallenge(IdApp.DeviceSpecific.Nfc.IIsoDepInterface)">
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.GetChallenge(IdApp.DeviceSpecific.Nfc.IIsoDepInterface)">
             <summary>
-            Request Challenge (§D.3)
+            Get Challenge (§7.1.5.4, §D.3)
             </summary>
             <param name="TagInterface">NFC interface to tag.</param>
             <returns>Challenge</returns>
         </member>
-        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.SendResponse(IdApp.DeviceSpecific.Nfc.IIsoDepInterface,System.Byte[])">
+        <member name="M:IdApp.DeviceSpecific.Nfc.Extensions.BasicAccessControl.ExternalAuthenticate(IdApp.DeviceSpecific.Nfc.IIsoDepInterface,System.Byte[])">
             <summary>
-            Send Response to challenge (§D.3)
+            Send Response to challenge (§7.1.5.4, §D.3)
             </summary>
             <param name="TagInterface">NFC interface to tag.</param>
             <param name="ChallengeResponse">ChallengeResponse.</param>
