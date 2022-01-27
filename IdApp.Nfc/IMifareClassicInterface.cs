@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace IdApp.DeviceSpecific.Nfc
+namespace IdApp.Nfc
 {
 	/// <summary>
 	/// Mifare Classic interface, for communication with an NFC Tag.

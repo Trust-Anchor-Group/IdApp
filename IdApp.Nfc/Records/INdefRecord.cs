@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdApp.DeviceSpecific.Nfc.Records
+namespace IdApp.Nfc.Records
 {
 	/// <summary>
 	/// Type of NDEF Record

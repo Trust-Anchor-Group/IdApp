@@ -1,4 +1,4 @@
-﻿using IdApp.DeviceSpecific.Nfc;
+﻿using IdApp.Nfc;
 using System;
 
 namespace IdApp.Services.Nfc

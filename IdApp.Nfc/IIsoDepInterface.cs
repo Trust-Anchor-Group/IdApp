@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace IdApp.DeviceSpecific.Nfc
+namespace IdApp.Nfc
 {
 	/// <summary>
 	/// ISO DEP interface, for communication with an NFC Tag.

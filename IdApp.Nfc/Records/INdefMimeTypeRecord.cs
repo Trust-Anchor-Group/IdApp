@@ -1,4 +1,4 @@
-﻿namespace IdApp.DeviceSpecific.Nfc.Records
+﻿namespace IdApp.Nfc.Records
 {
 	/// <summary>
 	/// Interface for NDEF MIME Type records

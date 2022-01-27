@@ -1,4 +1,4 @@
-﻿using IdApp.DeviceSpecific.Nfc;
+﻿using IdApp.Nfc;
 using System.Threading.Tasks;
 using Waher.Runtime.Inventory;
 

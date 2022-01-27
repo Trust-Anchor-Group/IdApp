@@ -7,7 +7,7 @@
     <Company>Trust Anchor Group</Company>
     <Description>TAG white-label Digital ID App. Provides authentication of legal identity, and features for wallets, smart contracts and interaction with smart devices.</Description>
     <Copyright>Copyright © Trust Anchor Group 2019-2021. All rights reserved.</Copyright>
-    <RepositoryUrl>https://github.com/Trust-Anchor-Group/XamarinApp</RepositoryUrl>
+    <RepositoryUrl>https://github.com/Trust-Anchor-Group/IdApp</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -223,5 +223,9 @@
 
   <ItemGroup>
     <Folder Include="Popups\Pin\PinPopup\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\IdApp.Nfc\IdApp.Nfc.csproj" />
   </ItemGroup>
 </Project>

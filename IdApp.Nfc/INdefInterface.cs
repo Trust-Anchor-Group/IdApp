@@ -1,7 +1,7 @@
-﻿using IdApp.DeviceSpecific.Nfc.Records;
+﻿using IdApp.Nfc.Records;
 using System.Threading.Tasks;
 
-namespace IdApp.DeviceSpecific.Nfc
+namespace IdApp.Nfc
 {
 	/// <summary>
 	/// NDEF interface, for communication with an NFC Tag.

@@ -1,4 +1,4 @@
-﻿namespace IdApp.DeviceSpecific.Nfc.Extensions
+﻿namespace IdApp.Nfc.Extensions
 {
 	/// <summary>
 	/// Contains parsed information from a machine-readable document information string.

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Waher.Content;
 using Waher.Security;
 
-namespace IdApp.DeviceSpecific.Nfc.Extensions
+namespace IdApp.Nfc.Extensions
 {
 	/// <summary>
 	/// Contains NFC Extensions for Basic Access Control.

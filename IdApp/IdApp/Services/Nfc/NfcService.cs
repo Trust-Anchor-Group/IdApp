@@ -1,5 +1,5 @@
-﻿using IdApp.DeviceSpecific.Nfc;
-using IdApp.DeviceSpecific.Nfc.Extensions;
+﻿using IdApp.Nfc;
+using IdApp.Nfc.Extensions;
 using System;
 using System.Security.Cryptography;
 using System.Threading.Tasks;

@@ -45,6 +45,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Translation", "Translation"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdApp.Test", "IdApp.Test\IdApp.Test.csproj", "{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdApp.Nfc", "IdApp.Nfc\IdApp.Nfc.csproj", "{287FEE40-DD8B-4D97-AD66-1B506BC3B374}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,18 @@ Global
 		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|iPhone.Build.0 = Release|Any CPU
 		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{71B312BC-B9DC-49C7-9138-D06C95ADA9FA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Release|Any CPU.Build.0 = Release|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Release|iPhone.Build.0 = Release|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{287FEE40-DD8B-4D97-AD66-1B506BC3B374}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

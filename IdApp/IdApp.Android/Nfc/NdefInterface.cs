@@ -1,8 +1,8 @@
 ﻿using Android.Nfc;
 using Android.Nfc.Tech;
 using IdApp.Android.Nfc.Records;
-using IdApp.DeviceSpecific.Nfc;
-using IdApp.DeviceSpecific.Nfc.Records;
+using IdApp.Nfc;
+using IdApp.Nfc.Records;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

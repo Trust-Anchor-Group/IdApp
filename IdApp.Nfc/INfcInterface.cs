@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdApp.DeviceSpecific.Nfc
+namespace IdApp.Nfc
 {
 	/// <summary>
 	/// Specific Interface (technology) for communication with an NFC Tag.

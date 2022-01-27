@@ -1,5 +1,5 @@
 ﻿using Android.Nfc;
-using IdApp.DeviceSpecific.Nfc.Records;
+using IdApp.Nfc.Records;
 
 namespace IdApp.Android.Nfc.Records
 {

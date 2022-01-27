@@ -1,4 +1,4 @@
-using IdApp.DeviceSpecific.Nfc.Extensions;
+using IdApp.Nfc.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Security.Cryptography;

@@ -151,6 +151,10 @@
     <AndroidResource Include="Resources\drawable\tag_bg2.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\IdApp.Nfc\IdApp.Nfc.csproj">
+      <Project>{287fee40-dd8b-4d97-ad66-1b506bc3b374}</Project>
+      <Name>IdApp.Nfc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IdApp\IdApp.csproj">
       <Project>{8d6d18dd-9739-4f11-808e-252d7a53d032}</Project>
       <Name>IdApp</Name>

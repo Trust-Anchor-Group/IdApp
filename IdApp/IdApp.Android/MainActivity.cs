@@ -6,7 +6,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using IdApp.Android.Nfc;
-using IdApp.DeviceSpecific.Nfc;
+using IdApp.Nfc;
 using IdApp.Services.Nfc;
 using System;
 using System.Collections.Generic;
