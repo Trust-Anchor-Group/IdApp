@@ -89,20 +89,16 @@ namespace IdApp.Nfc.Extensions
 				return false;
 
 			string s = Info.OptionalData.Replace("<", string.Empty);
-			string OptionalCheck;
 
 			if (!string.IsNullOrEmpty(s))
 			{
-				OptionalCheck = M.Groups["OptionalCheck"].Value;
+				string OptionalCheck = M.Groups["OptionalCheck"].Value;
 				if (OptionalCheck != CalcCheckDigit(Info.OptionalData))
 					return false;
 			}
-			else
-				OptionalCheck = null;
 
 			Info.OptionalData = s;
 
-			// TODO: Check OptioncalCheck
 			// TODO: Check OverallCheck
 
 			Info.MRZ_Information = Info.DocumentNumber + NrCheck +
