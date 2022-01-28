@@ -1,7 +1,7 @@
 ﻿namespace IdApp.Cv.Statistics
 {
 	/// <summary>
-	/// Static class for Arithmetics Operations, implemented as extensions.
+	/// Static class for Statistical Operations, implemented as extensions.
 	/// </summary>
 	public static partial class StatisticsOperations
 	{

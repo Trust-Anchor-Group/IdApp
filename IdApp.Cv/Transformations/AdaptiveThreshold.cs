@@ -4,7 +4,7 @@ using System;
 namespace IdApp.Cv.Transformations
 {
 	/// <summary>
-	/// Static class for Arithmetics Operations, implemented as extensions.
+	/// Static class for Transformation Operations, implemented as extensions.
 	/// </summary>
 	public static partial class TransformationOperations
 	{
