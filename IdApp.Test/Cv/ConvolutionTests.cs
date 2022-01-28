@@ -12,7 +12,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_01_Sharpen()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
 			IMatrix G = M.GrayScale();
 			G = G.Sharpen();
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_01_Sharpen.png");

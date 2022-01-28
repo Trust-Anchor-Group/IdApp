@@ -16,9 +16,19 @@ namespace IdApp.Cv
 		/// <returns>Matrix</returns>
 		public static IMatrix FromBitmapFile(string FileName)
 		{
+			return FromBitmapFile(FileName, int.MaxValue, int.MaxValue);
+		}
+
+		/// <summary>
+		/// Loads a bitmap from a file, and returns a matrix.
+		/// </summary>
+		/// <param name="FileName">File name of bitmap.</param>
+		/// <returns>Matrix</returns>
+		public static IMatrix FromBitmapFile(string FileName, int MaxWidth, int MaxHeight)
+		{
 			using (SKBitmap Bmp = SKBitmap.Decode(FileName))
 			{
-				return FromBitmap(Bmp);
+				return FromBitmap(Bmp, MaxWidth, MaxHeight);
 			}
 		}
 
@@ -29,9 +39,21 @@ namespace IdApp.Cv
 		/// <returns>Matrix</returns>
 		public static IMatrix FromBitmapFile(byte[] Data)
 		{
+			return FromBitmapFile(Data, int.MaxValue, int.MaxValue);
+		}
+
+		/// <summary>
+		/// Loads a bitmap from a binary representation, and returns a matrix.
+		/// </summary>
+		/// <param name="Data">Binary representation of bitmap</param>
+		/// <param name="MaxWidth">Maximum width of matrix.</param>
+		/// <param name="MaxHeight">Maximum Height of matrix.</param>
+		/// <returns>Matrix</returns>
+		public static IMatrix FromBitmapFile(byte[] Data, int MaxWidth, int MaxHeight)
+		{
 			using (SKBitmap Bmp = SKBitmap.Decode(Data))
 			{
-				return FromBitmap(Bmp);
+				return FromBitmap(Bmp, MaxWidth, MaxHeight);
 			}
 		}
 
@@ -42,49 +64,95 @@ namespace IdApp.Cv
 		/// <returns>Matrix</returns>
 		public static IMatrix FromBitmap(SKBitmap Bmp)
 		{
-			byte[] Data = Bmp.Bytes;
+			return FromBitmap(Bmp, int.MaxValue, int.MaxValue);
+		}
 
-			switch (Bmp.ColorType)
+		/// <summary>
+		/// Craetes a matrix from a bitmap.
+		/// </summary>
+		/// <param name="Bmp">Bitmap</param>
+		/// <param name="MaxWidth">Maximum width of matrix.</param>
+		/// <param name="MaxHeight">Maximum Height of matrix.</param>
+		/// <returns>Matrix</returns>
+		public static IMatrix FromBitmap(SKBitmap Bmp, int MaxWidth, int MaxHeight)
+		{
+			if (Bmp.Width > MaxWidth || Bmp.Height > MaxHeight)
 			{
-				case SKColorType.Alpha8:
-				case SKColorType.Gray8:
-					return new Matrix<byte>(Bmp.Width, Bmp.Height, Data);
+				double Scale = ((double)MaxWidth) / Bmp.Width;
+				double Scale2 = ((double)MaxHeight) / Bmp.Height;
 
-				case SKColorType.Bgra8888:
-					int i, j, c = Data.Length;
-					uint[] Bin32 = new uint[c / 4];
-					uint ui32;
+				if (Scale2 < Scale)
+					Scale = Scale2;
 
-					i = j = 0;
-					while (i < c)
+				int Width = (int)(Bmp.Width * Scale + 0.5);
+				int Height = (int)(Bmp.Height * Scale + 0.5);
+
+				using (SKSurface Surface = SKSurface.Create(new SKImageInfo(Width, Height, SKImageInfo.PlatformColorType, SKAlphaType.Premul)))
+				{
+					SKCanvas Canvas = Surface.Canvas;
+					Canvas.DrawBitmap(Bmp, new SKRect(0, 0, Bmp.Width, Bmp.Height),
+						new SKRect(0, 0, Width, Height), new SKPaint()
+						{
+							IsAntialias = true,
+							FilterQuality = SKFilterQuality.High
+						});
+
+
+					using (SKImage ScaledIamge = Surface.Snapshot())
 					{
-						ui32 = (uint)(Data[i++] << 16);
-						ui32 |= (uint)(Data[i++] << 8);
-						ui32 |= Data[i++];
-						ui32 |= (uint)(Data[i++] << 24);
-						Bin32[j++] = ui32;
+						using (SKBitmap ScaledBitmap = SKBitmap.FromImage(ScaledIamge))
+						{
+							return FromBitmap(ScaledBitmap, int.MaxValue, int.MaxValue);
+						}
 					}
+				}
+			}
+			else
+			{
+				byte[] Data = Bmp.Bytes;
 
-					return new Matrix<uint>(Bmp.Width, Bmp.Height, Bin32);
+				switch (Bmp.ColorType)
+				{
+					case SKColorType.Alpha8:
+					case SKColorType.Gray8:
+						return new Matrix<byte>(Bmp.Width, Bmp.Height, Data);
 
-				case SKColorType.Rgba8888:
-					c = Data.Length;
-					Bin32 = new uint[c / 4];
+					case SKColorType.Bgra8888:
+						int i, j, c = Data.Length;
+						uint[] Bin32 = new uint[c / 4];
+						uint ui32;
 
-					i = j = 0;
-					while (i < c)
-					{
-						ui32 = (uint)(Data[i++] << 16);
-						ui32 |= (uint)(Data[i++] << 24);
-						ui32 |= Data[i++];
-						ui32 |= (uint)(Data[i++] << 8);
-						Bin32[j++] = ui32;
-					}
+						i = j = 0;
+						while (i < c)
+						{
+							ui32 = (uint)(Data[i++] << 16);
+							ui32 |= (uint)(Data[i++] << 8);
+							ui32 |= Data[i++];
+							ui32 |= (uint)(Data[i++] << 24);
+							Bin32[j++] = ui32;
+						}
 
-					return new Matrix<uint>(Bmp.Width, Bmp.Height, Bin32);
+						return new Matrix<uint>(Bmp.Width, Bmp.Height, Bin32);
 
-				default:
-					throw new ArgumentException("Color type not supported: " + Bmp.ColorType.ToString(), nameof(Bmp));
+					case SKColorType.Rgba8888:
+						c = Data.Length;
+						Bin32 = new uint[c / 4];
+
+						i = j = 0;
+						while (i < c)
+						{
+							ui32 = (uint)(Data[i++] << 16);
+							ui32 |= (uint)(Data[i++] << 24);
+							ui32 |= Data[i++];
+							ui32 |= (uint)(Data[i++] << 8);
+							Bin32[j++] = ui32;
+						}
+
+						return new Matrix<uint>(Bmp.Width, Bmp.Height, Bin32);
+
+					default:
+						throw new ArgumentException("Color type not supported: " + Bmp.ColorType.ToString(), nameof(Bmp));
+				}
 			}
 		}
 

@@ -11,7 +11,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_01_Grayscale()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg", 600, 600);
 			IMatrix G = M.GrayScale();
 			Bitmaps.ToImageFile(G, "Cv\\Results\\ColorModels\\Test_01_Grayscale.png");
 		}
@@ -19,7 +19,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_02_ReduceColors()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg", 600, 600);
 			IMatrix G = M.ReduceColors(4);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\ColorModels\\Test_02_ReduceColors.png");
 		}
@@ -27,7 +27,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_03_ReduceColorsBW()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg", 600, 600);
 			IMatrix G = M.GrayScale();
 			G = G.ReduceColors(4);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\ColorModels\\Test_03_ReduceColorsBW.png");
@@ -36,7 +36,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_04_ReduceColorsBinary()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg", 600, 600);
 			IMatrix G = M.GrayScale();
 			G = G.ReduceColors(2);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\ColorModels\\Test_04_ReduceColorsBinary.png");

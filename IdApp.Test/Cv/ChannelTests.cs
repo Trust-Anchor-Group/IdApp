@@ -11,7 +11,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_01_Red()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Red.png");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Red.png", 600, 600);
 			Assert.AreEqual(typeof(uint), M.ElementType);
 			Assert.AreEqual(100, M.Width);
 			Assert.AreEqual(100, M.Height);
@@ -31,7 +31,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_02_Green()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Green.png");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Green.png", 600, 600);
 			Assert.AreEqual(typeof(uint), M.ElementType);
 			Assert.AreEqual(100, M.Width);
 			Assert.AreEqual(100, M.Height);
@@ -51,7 +51,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_03_Blue()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Blue.png");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Blue.png", 600, 600);
 			Assert.AreEqual(typeof(uint), M.ElementType);
 			Assert.AreEqual(100, M.Width);
 			Assert.AreEqual(100, M.Height);
@@ -71,7 +71,7 @@ namespace IdApp.Test.Cv
 		[TestMethod]
 		public void Test_04_Semitransparent()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Semitransparent.png");
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\Semitransparent.png", 600, 600);
 			Assert.AreEqual(typeof(uint), M.ElementType);
 			Assert.AreEqual(100, M.Width);
 			Assert.AreEqual(100, M.Height);
