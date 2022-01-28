@@ -7,10 +7,169 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Cv\TestData\0_id-esp.png" />
+    <None Remove="Cv\TestData\0_pass-lva.jpg" />
+    <None Remove="Cv\TestData\100_id-che.jpg" />
+    <None Remove="Cv\TestData\100_id-mac.jpg" />
+    <None Remove="Cv\TestData\100_id-rou.jpg" />
+    <None Remove="Cv\TestData\100_id-si.jpg" />
+    <None Remove="Cv\TestData\100_id-usa.jpg" />
+    <None Remove="Cv\TestData\100_pass-bdr.jpg" />
+    <None Remove="Cv\TestData\100_pass-chn.jpg" />
+    <None Remove="Cv\TestData\100_pass-cze.jpg" />
+    <None Remove="Cv\TestData\100_pass-cze2.jpg" />
+    <None Remove="Cv\TestData\100_pass-fin.png" />
+    <None Remove="Cv\TestData\100_pass-hrv.jpg" />
+    <None Remove="Cv\TestData\100_pass-isl.png" />
+    <None Remove="Cv\TestData\100_pass-ltu.jpg" />
+    <None Remove="Cv\TestData\100_pass-lux.jpg" />
+    <None Remove="Cv\TestData\100_pass-polx.jpg" />
+    <None Remove="Cv\TestData\100_pass-uto.jpg" />
+    <None Remove="Cv\TestData\100_pass2-uto.jpg" />
+    <None Remove="Cv\TestData\100_visa-polx.jpg" />
+    <None Remove="Cv\TestData\100_visa-usa.jpg" />
+    <None Remove="Cv\TestData\24_pass-egy.jpg" />
+    <None Remove="Cv\TestData\25_pass-uto.jpg" />
+    <None Remove="Cv\TestData\27_pass-gbr.jpg" />
+    <None Remove="Cv\TestData\33_id-usa.jpg" />
+    <None Remove="Cv\TestData\43_pass-fra.jpg" />
+    <None Remove="Cv\TestData\43_pass-twn.jpg" />
+    <None Remove="Cv\TestData\53_id-d.jpg" />
+    <None Remove="Cv\TestData\62_pass-aus.png" />
+    <None Remove="Cv\TestData\62_pass-pol.png" />
+    <None Remove="Cv\TestData\77_card-cmw.png" />
+    <None Remove="Cv\TestData\79_pass-can.jpg" />
+    <None Remove="Cv\TestData\79_pass-hun.png" />
+    <None Remove="Cv\TestData\98_pass-nld.jpg" />
+    <None Remove="Cv\TestData\Blue.png" />
+    <None Remove="Cv\TestData\Green.png" />
+    <None Remove="Cv\TestData\Red.png" />
+    <None Remove="Cv\TestData\Semitransparent.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Cv\TestData\0_id-esp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\0_pass-lva.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_id-che.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_id-mac.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_id-rou.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_id-si.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_id-usa.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-bdr.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-chn.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-cze.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-cze2.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-fin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-hrv.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-isl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-ltu.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-lux.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-polx.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass-uto.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_pass2-uto.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_visa-polx.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\100_visa-usa.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\24_pass-egy.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\25_pass-uto.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\27_pass-gbr.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\33_id-usa.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\43_pass-fra.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\43_pass-twn.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\53_id-d.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\62_pass-aus.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\62_pass-pol.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\77_card-cmw.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\79_pass-can.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\79_pass-hun.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\98_pass-nld.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\Blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\Green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\Red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\Semitransparent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.1.0" />
     <PackageReference Include="MSTest.TestFramework" Version="2.1.0" />
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" />
   </ItemGroup>
 
   <ItemGroup>

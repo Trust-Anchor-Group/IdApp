@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Waher.Security;
 
-namespace IdApp.Test
+namespace IdApp.Test.Nfc
 {
 	[TestClass]
 	public class BacTests
