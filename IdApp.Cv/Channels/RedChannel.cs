@@ -1,4 +1,6 @@
-﻿namespace IdApp.Cv.Channels
+﻿using System;
+
+namespace IdApp.Cv.Channels
 {
 	/// <summary>
 	/// Static class for Channel Operations, implemented as extensions.
@@ -27,6 +29,19 @@
 			}
 
 			return new Matrix<byte>(w, h, Dest);
+		}
+
+		/// <summary>
+		/// Creates a matrix of pixel red channel values.
+		/// </summary>
+		/// <param name="M">Matrix of colored pixels.</param>
+		/// <returns>Matrix of red-channel pixel component values.</returns>
+		public static IMatrix RedChannel(this IMatrix M)
+		{
+			if (M is Matrix<uint> M2)
+				return RedChannel(M2);
+			else
+				throw new ArgumentException("Unsupported type: " + M.GetType().FullName, nameof(M));
 		}
 	}
 }

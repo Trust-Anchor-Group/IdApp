@@ -1,4 +1,6 @@
-﻿namespace IdApp.Cv.ColorModels
+﻿using System;
+
+namespace IdApp.Cv.ColorModels
 {
 	/// <summary>
 	/// Static class for Channel Operations, implemented as extensions.
@@ -41,6 +43,7 @@
 
 			return new Matrix<float>(w, h, Dest);
 		}
+
 		/// <summary>
 		/// Creates a matrix of grayscale values. Floating point scales are used
 		/// to avoid round-off errors and loss when transforming the image.
@@ -64,6 +67,35 @@
 			}
 
 			return new Matrix<float>(w, h, Dest);
+		}
+
+		/// <summary>
+		/// Creates a matrix of grayscale values. Floating point scales are used
+		/// to avoid round-off errors and loss when transforming the image.
+		/// </summary>
+		/// <param name="M">Matrix of byte-values gray scale pixels.</param>
+		/// <returns>Matrix of floating point gray scale pixels.</returns>
+		public static Matrix<float> GrayScale(this Matrix<float> M)
+		{
+			return M;
+		}
+
+		/// <summary>
+		/// Creates a matrix of grayscale values. Floating point scales are used
+		/// to avoid round-off errors and loss when transforming the image.
+		/// </summary>
+		/// <param name="M">Matrix of pixels.</param>
+		/// <returns>Matrix of alpha-channel pixel component values.</returns>
+		public static IMatrix GrayScale(this IMatrix M)
+		{
+			if (M is Matrix<uint> M2)
+				return GrayScale(M2);
+			else if (M is Matrix<byte> M3)
+				return GrayScale(M3);
+			else if (M is Matrix<float> M4)
+				return GrayScale(M4);
+			else
+				throw new ArgumentException("Unsupported type: " + M.GetType().FullName, nameof(M));
 		}
 	}
 }

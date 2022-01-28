@@ -94,19 +94,34 @@ namespace IdApp.Test.Cv
 		public void Test_05_Grayscale()
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
-			Assert.AreEqual(typeof(uint), M.ElementType);
-			Assert.AreEqual(761, M.Width);
-			Assert.AreEqual(640, M.Height);
-
-			Matrix<uint> M2 = M as Matrix<uint>;
-			Assert.IsNotNull(M2);
-
-			Matrix<float> G = M2.GrayScale();
-			Assert.AreEqual(M.Width, G.Width);
-			Assert.AreEqual(M.Height, G.Height);
-
+			IMatrix G = M.GrayScale();
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Basic\\Test_05_Grayscale.png");
 		}
 
+		[TestMethod]
+		public void Test_06_ReduceColors()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
+			IMatrix G = M.ReduceColors(4);
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Basic\\Test_06_ReduceColors.png");
+		}
+
+		[TestMethod]
+		public void Test_07_ReduceColorsBW()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
+			IMatrix G = M.GrayScale();
+			G = G.ReduceColors(4);
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Basic\\Test_07_ReduceColorsBW.png");
+		}
+
+		[TestMethod]
+		public void Test_08_ReduceColorsBinary()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass2-uto.jpg");
+			IMatrix G = M.GrayScale();
+			G = G.ReduceColors(2);
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Basic\\Test_08_ReduceColorsBinary.png");
+		}
 	}
 }
