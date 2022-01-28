@@ -8,10 +8,10 @@ namespace IdApp.Cv.Arithmetics
 	public static partial class ArithmeticsOperations
 	{
 		/// <summary>
-		/// Performs a scalar multiplication on each element in the matrix.
+		/// Performs a scalar division on each element in the matrix.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
-		/// <param name="Scalar">Scalar Value to use in scalar multiplication.</param>
+		/// <param name="Scalar">Scalar Value to use in scalar division.</param>
 		public static void ScalarDivision(this Matrix<float> M, float Scalar)
 		{
 			if (Scalar == 0)

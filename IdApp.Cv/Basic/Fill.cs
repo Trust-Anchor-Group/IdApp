@@ -18,14 +18,14 @@ namespace IdApp.Cv.Basic
 		{
 			int y, h = M.Height;
 			int x, w = M.Width;
-			int Offset = M.Start;
+			int Index = M.Start;
 			int Skip = M.Skip;
 			T[] Data = M.Data;
 
-			for (y = 0; y < h; y++, Offset += Skip)
+			for (y = 0; y < h; y++, Index += Skip)
 			{
 				for (x = 0; x < w; x++)			// TODO: For wide rows, this can be optimized using Array.Copy().
-					Data[Offset++] = Value;		// TODO: .NET Standard 2.1 also contains Array.Fill.
+					Data[Index++] = Value;		// TODO: .NET Standard 2.1 also contains Array.Fill.
 			}
 		}
 	}

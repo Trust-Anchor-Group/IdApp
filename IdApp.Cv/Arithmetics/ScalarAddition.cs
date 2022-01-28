@@ -8,11 +8,11 @@ namespace IdApp.Cv.Arithmetics
 	public static partial class ArithmeticsOperations
 	{
 		/// <summary>
-		/// Performs a scalar multiplication on each element in the matrix.
+		/// Performs a scalar addition on each element in the matrix.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
-		/// <param name="Scalar">Scalar Value to use in scalar multiplication.</param>
-		public static void ScalarMultiplication(this Matrix<float> M, float Scalar)
+		/// <param name="Scalar">Scalar Value to use in scalar addition.</param>
+		public static void ScalarAddition(this Matrix<float> M, float Scalar)
 		{
 			int y, h = M.Height;
 			int x, w = M.Width;
@@ -23,7 +23,7 @@ namespace IdApp.Cv.Arithmetics
 			for (y = 0; y < h; y++, Index += Skip)
 			{
 				for (x = 0; x < w; x++)
-					Data[Index++] *= Scalar;
+					Data[Index++] += Scalar;
 			}
 		}
 	}

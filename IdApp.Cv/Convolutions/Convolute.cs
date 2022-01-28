@@ -43,6 +43,7 @@ namespace IdApp.Cv.Convolutions
 			}
 
 			Result.ScalarDivision(Sum);
+			Result.Cap(0, 1);
 
 			return Result;
 		}
