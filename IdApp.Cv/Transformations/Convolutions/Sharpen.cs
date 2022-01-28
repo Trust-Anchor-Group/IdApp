@@ -1,4 +1,4 @@
-﻿namespace IdApp.Cv.Convolutions
+﻿namespace IdApp.Cv.Transformations.Convolutions
 {
 	/// <summary>
 	/// Static class for Convolution Operations, implemented as extensions.

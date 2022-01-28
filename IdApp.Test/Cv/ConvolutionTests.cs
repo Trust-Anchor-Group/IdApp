@@ -1,7 +1,7 @@
 ﻿using System;
 using IdApp.Cv;
 using IdApp.Cv.ColorModels;
-using IdApp.Cv.Convolutions;
+using IdApp.Cv.Transformations.Convolutions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IdApp.Test.Cv
