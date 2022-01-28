@@ -71,23 +71,102 @@ namespace IdApp.Cv
 		/// <summary>
 		/// Width of matrix (number of columns)
 		/// </summary>
-		public int Width => this.width;
+		public int Width
+		{
+			get => this.width;
+			set
+			{
+				if (value <= 0 || value >= this.rowSize - this.left)
+					throw new ArgumentOutOfRangeException(nameof(Width));
+
+				this.width = value;
+				this.skip = this.rowSize - this.width;
+			}
+		}
 
 		/// <summary>
 		/// Height of matrix (number of rows)
 		/// </summary>
-		public int Height => this.height;
+		public int Height
+		{
+			get => this.height;
+			set
+			{
+				if (value <= 0 || (this.top + value) * this.width >= this.dataSize)
+					throw new ArgumentOutOfRangeException(nameof(Height));
+
+				this.height = value;
+			}
+		}
 
 		/// <summary>
 		/// Left offset of matrix in underlying data array.
 		/// </summary>
-		public int Left => this.left;
+		public int Left
+		{
+			get => this.left;
+			set
+			{
+				if (value < 0 || value >= this.rowSize - this.width)
+					throw new ArgumentOutOfRangeException(nameof(Left));
+
+				this.left = value;
+				this.start = this.left + this.top * this.rowSize;
+			}
+		}
 
 		/// <summary>
 		/// Top offset of matrix in underlying data array.
 		/// </summary>
-		public int Top => this.top;
+		public int Top
+		{
+			get => this.top;
+			set
+			{
+				if (value < 0 || (value + this.height) * this.width >= this.dataSize)
+					throw new ArgumentOutOfRangeException(nameof(Top));
 
+				this.top = value;
+				this.start = this.left + this.top * this.rowSize;
+			}
+		}
+
+		/// <summary>
+		/// Sets <see cref="Left"/> and <see cref="Width"/> simultaneously.
+		/// </summary>
+		/// <param name="Left">New Left</param>
+		/// <param name="Width">New Width</param>
+		public void SetXSpan(int Left, int Width)
+		{
+			if (Left < 0 || Left >= this.rowSize - Width)
+				throw new ArgumentOutOfRangeException(nameof(Left));
+
+			if (Width <= 0)
+				throw new ArgumentOutOfRangeException(nameof(Width));
+
+			this.left = Left;
+			this.start = this.left + this.top * this.rowSize;
+			this.width = Width;
+			this.skip = this.rowSize - this.width;
+		}
+
+		/// <summary>
+		/// Sets <see cref="Top"/> and <see cref="Height"/> simultaneously.
+		/// </summary>
+		/// <param name="Top">New Top</param>
+		/// <param name="Height">New Height</param>
+		public void SetYSpan(int Top, int Height)
+		{
+			if (Top < 0 || (Top + Height) * this.width >= this.dataSize)
+				throw new ArgumentOutOfRangeException(nameof(Top));
+
+			if (Height <= 0)
+				throw new ArgumentOutOfRangeException(nameof(Height));
+
+			this.top = Top;
+			this.height = Height;
+			this.start = this.left + this.top * this.rowSize;
+		}
 		/// <summary>
 		/// Number of elements per row in underlying data array.
 		/// </summary>

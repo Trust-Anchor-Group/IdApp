@@ -17,6 +17,7 @@ namespace IdApp.Cv.Transformations
 		/// <param name="Threshold">If the pixel is below thid threshold compared to the
 		/// average pixel value in the square neighborhood of the pixel, it is colored black.
 		/// Otherwise, the pixel is colored white.</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood.</param>
 		public static void AdaptiveThreshold(this Matrix<float> M, float Threshold,
 			int NeighborhoodWidth)
 		{
