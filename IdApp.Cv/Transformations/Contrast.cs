@@ -5,7 +5,7 @@ namespace IdApp.Cv.Transformations
 	/// <summary>
 	/// Static class for Arithmetics Operations, implemented as extensions.
 	/// </summary>
-	public static partial class ArithmeticsOperations
+	public static partial class TransformationOperations
 	{
 		/// <summary>
 		/// Improves contrast by setting the range of visible values.

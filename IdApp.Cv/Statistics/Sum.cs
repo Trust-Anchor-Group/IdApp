@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Static class for Arithmetics Operations, implemented as extensions.
 	/// </summary>
-	public static partial class ArithmeticsOperations
+	public static partial class StatisticsOperations
 	{
 		/// <summary>
 		/// Computes the sum of all values in the matrix.
