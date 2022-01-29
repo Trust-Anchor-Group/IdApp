@@ -91,5 +91,50 @@ namespace IdApp.Test.Cv
 			G = G.GaussianBlur(7, 1.5f);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_07_GaussianBlur_7x7.png");
 		}
+
+		[TestMethod]
+		public void Test_08_DetectHorizontalLines()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectHorizontalLines();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_08_DetectHorizontalLines.png");
+		}
+
+		[TestMethod]
+		public void Test_09_DetectVerticalLines()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectVerticalLines();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_09_DetectVerticalLines.png");
+		}
+
+		[TestMethod]
+		public void Test_10_Detect45DegreeLines()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.Detect45DegreeLines();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_10_Detect45DegreeLines.png");
+		}
+
+		[TestMethod]
+		public void Test_11_Detect135DegreeLines()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.Detect135DegreeLines();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_11_Detect135DegreeLines.png");
+		}
+
+		[TestMethod]
+		public void Test_12_DetectEdges()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectEdges();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_12_DetectEdges.png");
+		}
 	}
 }

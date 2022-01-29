@@ -20,7 +20,7 @@ namespace IdApp.Cv.Transformations.Convolutions
 		{
 			float Sum = Kernel.Sum();
 
-			if (Sum != 1)
+			if (Sum != 1 && Sum != 0)
 			{
 				Kernel = Kernel.Copy();
 				Kernel.ScalarDivision(Sum);
