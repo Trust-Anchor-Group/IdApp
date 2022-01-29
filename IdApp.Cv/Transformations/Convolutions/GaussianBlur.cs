@@ -17,7 +17,7 @@ namespace IdApp.Cv.Transformations.Convolutions
 		public static Matrix<float> GaussianBlur(this IMatrix M, int KernelWidth, float Sigma)
 		{
 			Matrix<float> Kernel = new Matrix<float>(KernelWidth, KernelWidth);
-			float d = -KernelWidth * 0.5f;
+			float d = -(KernelWidth - 1) * 0.5f;
 			float x, x2, y, s2;
 			int i, j;
 
