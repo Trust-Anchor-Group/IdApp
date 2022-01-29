@@ -153,5 +153,41 @@ namespace IdApp.Test.Cv
 			G2 = G2.Close(7);
 			Bitmaps.ToImageFile(G2, "Cv\\Results\\Morphological\\Test_12_Close7.png");
 		}
+
+		[TestMethod]
+		public void Test_13_HighlightFeatures3()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass-lux.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			Matrix<float> G2 = G as Matrix<float>;
+			Assert.IsNotNull(G2);
+			G2.AdaptiveThreshold(0.2f, 21);
+			G2 = G2.HighlightFeatures_3x3(0.1f);
+			Bitmaps.ToImageFile(G2, "Cv\\Results\\Morphological\\Test_13_HighlightFeatures3.png");
+		}
+
+		[TestMethod]
+		public void Test_14_HighlightFeatures5()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass-lux.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			Matrix<float> G2 = G as Matrix<float>;
+			Assert.IsNotNull(G2);
+			G2.AdaptiveThreshold(0.2f, 21);
+			G2 = G2.HighlightFeatures_5x5(0.1f);
+			Bitmaps.ToImageFile(G2, "Cv\\Results\\Morphological\\Test_14_HighlightFeatures5.png");
+		}
+
+		[TestMethod]
+		public void Test_15_HighlightFeatures7()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_pass-lux.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			Matrix<float> G2 = G as Matrix<float>;
+			Assert.IsNotNull(G2);
+			G2.AdaptiveThreshold(0.2f, 21);
+			G2 = G2.HighlightFeatures_7x7(0.1f);
+			Bitmaps.ToImageFile(G2, "Cv\\Results\\Morphological\\Test_15_HighlightFeatures7.png");
+		}
 	}
 }

@@ -59,6 +59,53 @@ namespace IdApp.Cv
 		}
 
 		/// <summary>
+		/// Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
+		/// </summary>
+		/// <typeparam name="T">Type of each pixel.</typeparam>
+		/// <param name="Width">Width of Matrix</param>
+		/// <param name="Height">Height of Matrix</param>
+		/// <param name="Data">Underlying data.</param>
+		/// <param name="Left">Left coordinate of matrix in underlying data.</param>
+		/// <param name="Top">Top coordinate of matrix in underlying data.</param>
+		/// <param name="RowSize">Size of one row.</param>
+		/// <param name="Start">Start index of matrix in underlying data.</param>
+		/// <param name="Skip">Number of elements to skip after last element in a row of the matrix to the first element of the next row.</param>
+		protected Matrix(int Width, int Height, T[] Data, int Left, int Top, int RowSize, 
+			int Start, int Skip)
+		{
+			this.dataSize = Data.Length;
+			this.data = Data;
+			this.width = Width;
+			this.height = Height;
+			this.left = Left;
+			this.top = Top;
+			this.start = Start;
+			this.rowSize = RowSize;
+			this.skip = Skip;
+		}
+
+		/// <summary>
+		/// Creates a shallow copy of the matrix. The shallow copy points to the same
+		/// underlying pixel data.
+		/// </summary>
+		/// <returns>Shallow copy</returns>
+		public virtual Matrix<T> ShallowCopy()
+		{
+			return new Matrix<T>()
+			{
+				data = this.data,
+				width = this.width,
+				height = this.height,
+				left = this.left,
+				top = this.top,
+				start = this.start,
+				rowSize = this.rowSize,
+				dataSize = this.dataSize,
+				skip = this.skip
+			};
+		}
+
+		/// <summary>
 		/// Type of elements in matrix.
 		/// </summary>
 		public Type ElementType => typeof(T);
@@ -138,7 +185,7 @@ namespace IdApp.Cv
 		/// <param name="Width">New Width</param>
 		public void SetXSpan(int Left, int Width)
 		{
-			if (Left < 0 || Left >= this.rowSize - Width)
+			if (Left < 0 || Left + Width > this.rowSize)
 				throw new ArgumentOutOfRangeException(nameof(Left));
 
 			if (Width <= 0)
@@ -157,7 +204,7 @@ namespace IdApp.Cv
 		/// <param name="Height">New Height</param>
 		public void SetYSpan(int Top, int Height)
 		{
-			if (Top < 0 || (Top + Height) * this.width >= this.dataSize)
+			if (Top < 0 || (Top + Height) * this.width > this.dataSize)
 				throw new ArgumentOutOfRangeException(nameof(Top));
 
 			if (Height <= 0)

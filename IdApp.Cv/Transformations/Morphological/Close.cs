@@ -25,5 +25,17 @@
 				Dilate(NeighborhoodWidth).
 				Erode(NeighborhoodWidth);
 		}
+
+		/// <summary>
+		/// Closes an image by first dilating it, and then eroding it.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Kernel">Kernel of morphological operation.</param>
+		public static Matrix<float> Close(this Matrix<float> M, Shape Kernel)
+		{
+			return M.
+				Dilate(Kernel).
+				Erode(Kernel);
+		}
 	}
 }

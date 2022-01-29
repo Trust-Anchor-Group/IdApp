@@ -6,6 +6,18 @@
 	public static partial class TransformationOperations
 	{
 		/// <summary>
+		/// Creates a black and white image based on the threshold level provided in
+		/// <paramref name="Threshold"/>. Values at or above the threshold value become 1, 
+		/// and values below become 0.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Threshold">Threshold value</param>
+		public static void Threshold(this Matrix<float> M, float Threshold)
+		{
+			M.Threshold(Threshold, float.MaxValue);
+		}
+
+		/// <summary>
 		/// Creates a black and white image based on the threshold levels provided in
 		/// <paramref name="Min"/> and <paramref name="Max"/>.
 		/// If Min &lt; Max, values between Min and Max become 1, and values outside of the
