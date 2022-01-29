@@ -10,7 +10,7 @@
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
 		/// <returns>Sharpened image.</returns>
-		public static IMatrix Sharpen(this IMatrix M)
+		public static Matrix<float> Sharpen(this IMatrix M)
 		{
 			return M.Convolute(sharpenKernel);
 		}

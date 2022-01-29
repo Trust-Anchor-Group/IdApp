@@ -1,4 +1,6 @@
 ﻿using IdApp.Cv.Arithmetics;
+using IdApp.Cv.Basic;
+using IdApp.Cv.Statistics;
 using System;
 
 namespace IdApp.Cv.Transformations.Convolutions
@@ -16,7 +18,13 @@ namespace IdApp.Cv.Transformations.Convolutions
 		/// <returns>New matrix containing the convolution result.</returns>
 		public static Matrix<float> Convolute(this Matrix<float> M, Matrix<float> Kernel)
 		{
-			float Sum = 0f;
+			float Sum = Kernel.Sum();
+
+			if (Sum != 1)
+			{
+				Kernel = Kernel.Copy();
+				Kernel.ScalarDivision(Sum);
+			}
 
 			int KernelY, KernelHeight = Kernel.Height;
 			int KernelX, KernelWidth = Kernel.Width;
@@ -42,7 +50,6 @@ namespace IdApp.Cv.Transformations.Convolutions
 				}
 			}
 
-			Result.ScalarDivision(Sum);
 			Result.Cap(0, 1);
 
 			return Result;
@@ -54,7 +61,7 @@ namespace IdApp.Cv.Transformations.Convolutions
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="Kernel">Kernel of convolution</param>
 		/// <returns>New matrix containing the convolution result.</returns>
-		public static IMatrix Convolute(this IMatrix M, IMatrix Kernel)
+		public static Matrix<float> Convolute(this IMatrix M, IMatrix Kernel)
 		{
 			if (!(M is Matrix<float> M2))
 				throw new ArgumentException("Unsupported type: " + M.GetType().FullName, nameof(M));
