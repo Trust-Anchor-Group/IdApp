@@ -1,6 +1,7 @@
 ﻿using System;
 using IdApp.Cv;
 using IdApp.Cv.ColorModels;
+using IdApp.Cv.Transformations;
 using IdApp.Cv.Transformations.Convolutions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -135,6 +136,44 @@ namespace IdApp.Test.Cv
 			IMatrix G = M.GrayScale();
 			G = G.DetectEdges();
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_12_DetectEdges.png");
+		}
+
+		[TestMethod]
+		public void Test_13_DetectHorizontalLinesSobel()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectEdgesSobelHorizontal();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_13_DetectHorizontalLinesSobel.png");
+		}
+
+		[TestMethod]
+		public void Test_14_DetectVerticalLinesSobel()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectEdgesSobelVertical();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_14_DetectVerticalLinesSobel.png");
+		}
+
+		[TestMethod]
+		public void Test_15_DetectEdgesLaplacian()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectEdgesLaplacian();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_15_DetectEdgesLaplacian.png");
+		}
+
+		[TestMethod]
+		public void Test_16_DetectEdgesLaplacianWithGauss()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.GaussianBlur(5, 1.25f);
+			G = G.DetectEdgesLaplacian();
+			((Matrix<float>)G).Threshold(0.1f);
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_16_DetectEdgesLaplacianWithGauss.png");
 		}
 	}
 }
