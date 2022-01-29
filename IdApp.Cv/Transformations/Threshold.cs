@@ -11,10 +11,14 @@
 		/// and values below become 0.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
-		/// <param name="Threshold">Threshold value</param>
+		/// <param name="Threshold">Threshold value. If negative, the negative image
+		/// will be returned using the corresponding positive threshold.</param>
 		public static void Threshold(this Matrix<float> M, float Threshold)
 		{
-			M.Threshold(Threshold, float.MaxValue);
+			if (Threshold < 0)
+				M.Threshold(float.MinValue, -Threshold);
+			else
+				M.Threshold(Threshold, float.MaxValue);
 		}
 
 		/// <summary>

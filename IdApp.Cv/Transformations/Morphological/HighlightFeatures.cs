@@ -12,7 +12,8 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// 3x3 morphological shapes are used during the transformation.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
-		/// <param name="Threshold">Threeshold value.</param>
+		/// <param name="Threshold">Threshold value. If negative, the negative image
+		/// will be returned using the corresponding positive threshold.</param>
 		public static Matrix<float> HighlightFeatures_3x3(this Matrix<float> M, float Threshold)
 		{
 			Matrix<float> Image1 = M.
@@ -34,7 +35,8 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// 5x5 morphological shapes are used during the transformation.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
-		/// <param name="Threshold">Threeshold value.</param>
+		/// <param name="Threshold">Threshold value. If negative, the negative image
+		/// will be returned using the corresponding positive threshold.</param>
 		public static Matrix<float> HighlightFeatures_5x5(this Matrix<float> M, float Threshold)
 		{
 			Matrix<float> Image1 = M.
@@ -56,7 +58,8 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// 7x7 morphological shapes are used during the transformation.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
-		/// <param name="Threshold">Threeshold value.</param>
+		/// <param name="Threshold">Threshold value. If negative, the negative image
+		/// will be returned using the corresponding positive threshold.</param>
 		public static Matrix<float> HighlightFeatures_7x7(this Matrix<float> M, float Threshold)
 		{
 			Matrix<float> Image1 = M.
