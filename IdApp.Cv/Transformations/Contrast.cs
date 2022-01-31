@@ -1,4 +1,5 @@
 ﻿using IdApp.Cv.Arithmetics;
+using IdApp.Cv.Statistics;
 
 namespace IdApp.Cv.Transformations
 {
@@ -7,6 +8,16 @@ namespace IdApp.Cv.Transformations
 	/// </summary>
 	public static partial class TransformationOperations
 	{
+		/// <summary>
+		/// Improves contrast by maximizing the range of visible values.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		public static void Contrast(this Matrix<float> M)
+		{
+			M.Range(out float Min, out float Max);
+			M.Contrast(Min, Max);
+		}
+
 		/// <summary>
 		/// Improves contrast by setting the range of visible values.
 		/// </summary>

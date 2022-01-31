@@ -23,8 +23,20 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<float> MorphologicalGradient(this Matrix<float> M, int NeighborhoodWidth)
 		{
-			Matrix<float> Result = M.Dilate(NeighborhoodWidth);
-			Result.AbsoluteDifference(M.Erode(NeighborhoodWidth));
+			return M.MorphologicalGradient(NeighborhoodWidth, NeighborhoodWidth);
+		}
+
+		/// <summary>
+		/// The absolute difference between the dilation and the erosion of an image.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		public static Matrix<float> MorphologicalGradient(this Matrix<float> M, 
+			int NeighborhoodWidth, int NeighborhoodHeight)
+		{
+			Matrix<float> Result = M.Dilate(NeighborhoodWidth, NeighborhoodHeight);
+			Result.AbsoluteDifference(M.Erode(NeighborhoodWidth, NeighborhoodHeight));
 			return Result;
 		}
 

@@ -21,9 +21,21 @@
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<float> Close(this Matrix<float> M, int NeighborhoodWidth)
 		{
+			return M.Close(NeighborhoodWidth, NeighborhoodWidth);
+		}
+
+		/// <summary>
+		/// Closes an image by first dilating it, and then eroding it.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		public static Matrix<float> Close(this Matrix<float> M, int NeighborhoodWidth,
+			int NeighborhoodHeight)
+		{
 			return M.
-				Dilate(NeighborhoodWidth).
-				Erode(NeighborhoodWidth);
+				Dilate(NeighborhoodWidth, NeighborhoodHeight).
+				Erode(NeighborhoodWidth, NeighborhoodHeight);
 		}
 
 		/// <summary>

@@ -7,6 +7,7 @@
 	{
 		/// <summary>
 		/// Detects horizontal edges in an image using the Sharr Horizontal Edge Operator.
+		/// (Second order vertical derivative of image)
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
 		/// <returns>Image where horizontal edges are highlighted.</returns>

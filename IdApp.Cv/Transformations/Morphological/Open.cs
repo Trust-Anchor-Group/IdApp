@@ -21,9 +21,21 @@
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<float> Open(this Matrix<float> M, int NeighborhoodWidth)
 		{
+			return M.Open(NeighborhoodWidth, NeighborhoodWidth);
+		}
+
+		/// <summary>
+		/// Opens an image by first eroding it, and then dilating it.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		public static Matrix<float> Open(this Matrix<float> M, int NeighborhoodWidth,
+			int NeighborhoodHeight)
+		{
 			return M.
-				Erode(NeighborhoodWidth).
-				Dilate(NeighborhoodWidth);
+				Erode(NeighborhoodWidth, NeighborhoodHeight).
+				Dilate(NeighborhoodWidth, NeighborhoodHeight);
 		}
 
 		/// <summary>

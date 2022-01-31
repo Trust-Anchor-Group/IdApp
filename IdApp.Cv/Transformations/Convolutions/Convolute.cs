@@ -43,14 +43,9 @@ namespace IdApp.Cv.Transformations.Convolutions
 					Scalar = KernelData[KernelOffset++];
 
 					if (Scalar != 0)
-					{
 						Result.WeightedAddition(M.Region(KernelX, KernelY, ResultWidth, ResultHeight), Scalar);
-						Sum += Scalar;
-					}
 				}
 			}
-
-			Result.Cap(0, 1);
 
 			return Result;
 		}

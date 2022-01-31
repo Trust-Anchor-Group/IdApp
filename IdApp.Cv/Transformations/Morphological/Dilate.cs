@@ -17,7 +17,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		{
 			return Dilate(M, 3);
 		}
-		
+
 		/// <summary>
 		/// Dilates an image by replacing a pixel with the maximum value of a square 
 		/// neighborhood of the pixel.
@@ -26,11 +26,29 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<float> Dilate(this Matrix<float> M, int NeighborhoodWidth)
 		{
-			if (NeighborhoodWidth <= 0 || NeighborhoodWidth >= M.Width || NeighborhoodWidth >= M.Height)
+			return M.Dilate(NeighborhoodWidth, NeighborhoodWidth);
+		}
+
+		/// <summary>
+		/// Dilates an image by replacing a pixel with the maximum value of a square 
+		/// neighborhood of the pixel.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		public static Matrix<float> Dilate(this Matrix<float> M, int NeighborhoodWidth, 
+			int NeighborhoodHeight)
+		{
+			if (NeighborhoodWidth <= 0 || NeighborhoodWidth >= M.Width)
 				throw new ArgumentOutOfRangeException(nameof(NeighborhoodWidth));
 
-			int From = -NeighborhoodWidth / 2;
-			int To = NeighborhoodWidth + From;
+			if (NeighborhoodHeight <= 0 || NeighborhoodHeight >= M.Height)
+				throw new ArgumentOutOfRangeException(nameof(NeighborhoodHeight));
+
+			int FromX = -NeighborhoodWidth / 2;
+			int ToX = NeighborhoodWidth + FromX;
+			int FromY = -NeighborhoodHeight / 2;
+			int ToY = NeighborhoodHeight + FromY;
 			int y, h = M.Height;
 			int x, w = M.Width;
 			int x1, y1, x2, y2;
@@ -40,11 +58,11 @@ namespace IdApp.Cv.Transformations.Morphological
 
 			for (y = 0; y < h; y++)
 			{
-				y1 = y + From;
+				y1 = y + FromY;
 				if (y1 < 0)
 					y1 = 0;
 
-				y2 = y + To;
+				y2 = y + ToY;
 				if (y2 >= h)
 					y2 = h - 1;
 
@@ -52,11 +70,11 @@ namespace IdApp.Cv.Transformations.Morphological
 
 				for (x = 0; x < w; x++)
 				{
-					x1 = x + From;
+					x1 = x + FromX;
 					if (x1 < 0)
 						x1 = 0;
 
-					x2 = x + To;
+					x2 = x + ToX;
 					if (x2 >= w)
 						x2 = w - 1;
 

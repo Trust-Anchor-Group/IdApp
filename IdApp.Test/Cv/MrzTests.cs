@@ -1,6 +1,8 @@
 ﻿using System;
 using IdApp.Cv;
+using IdApp.Cv.Arithmetics;
 using IdApp.Cv.ColorModels;
+using IdApp.Cv.Transformations;
 using IdApp.Cv.Transformations.Convolutions;
 using IdApp.Cv.Transformations.Morphological;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -32,7 +34,7 @@ namespace IdApp.Test.Cv
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<float> G = (Matrix<float>)M.GrayScale();
-			G = G.GaussianBlur(3, 1);
+			G = G.GaussianBlur(3);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Mrz\\Test_03_Blur.png");
 		}
 
@@ -41,8 +43,8 @@ namespace IdApp.Test.Cv
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<float> G = (Matrix<float>)M.GrayScale();
-			G = G.GaussianBlur(3, 1);
-			G = G.BlackHat(3);
+			G = G.GaussianBlur(3);
+			G = G.BlackHat(13, 5);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Mrz\\Test_04_BlackHat.png");
 		}
 
@@ -51,10 +53,35 @@ namespace IdApp.Test.Cv
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<float> G = (Matrix<float>)M.GrayScale();
-			G = G.GaussianBlur(3, 1);
-			G = G.BlackHat(3);
-			G = G.DetectEdgesSharrVertical();
+			G = G.GaussianBlur(3);
+			G = G.BlackHat(13, 5);
+			G = G.DetectEdgesSharrHorizontal();     // Detect horizontal edges=detect vertical changes
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Mrz\\Test_05_Sharr.png");
+		}
+
+		[TestMethod]
+		public void Test_06_Abs()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
+			Matrix<float> G = (Matrix<float>)M.GrayScale();
+			G = G.GaussianBlur(3);
+			G = G.BlackHat(13, 5);
+			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
+			G.Abs();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Mrz\\Test_06_Abs.png");
+		}
+
+		[TestMethod]
+		public void Test_07_Contrast()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
+			Matrix<float> G = (Matrix<float>)M.GrayScale();
+			G = G.GaussianBlur(3);
+			G = G.BlackHat(13, 5);
+			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
+			G.Abs();
+			G.Contrast();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Mrz\\Test_07_Contrast.png");
 		}
 	}
 }
