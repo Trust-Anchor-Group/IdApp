@@ -1,5 +1,4 @@
-﻿using IdApp.Cv.Basic;
-using System;
+﻿using System;
 
 namespace IdApp.Cv.Transformations.Convolutions
 {
@@ -13,6 +12,18 @@ namespace IdApp.Cv.Transformations.Convolutions
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="KernelWidth">Width of kernel.</param>
+		/// <returns>Blurred image.</returns>
+		public static Matrix<float> GaussianBlur(this IMatrix M, int KernelWidth)
+		{
+			return GaussianBlur(M, KernelWidth, 0.3f * ((KernelWidth - 1) * 0.5f - 1) + 0.8f);
+		}
+
+		/// <summary>
+		/// Blurs an image using Gaussian Blur.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="KernelWidth">Width of kernel.</param>
+		/// <param name="Sigma">Sigma. (Default=OpenCV Default: 0.3*((KernelWidth-1)*0.5-1)+0.8</param>
 		/// <returns>Blurred image.</returns>
 		public static Matrix<float> GaussianBlur(this IMatrix M, int KernelWidth, float Sigma)
 		{

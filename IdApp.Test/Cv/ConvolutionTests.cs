@@ -71,7 +71,7 @@ namespace IdApp.Test.Cv
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
 			IMatrix G = M.GrayScale();
-			G = G.GaussianBlur(3, 1);
+			G = G.GaussianBlur(3);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_05_GaussianBlur_3x3.png");
 		}
 
@@ -80,7 +80,7 @@ namespace IdApp.Test.Cv
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
 			IMatrix G = M.GrayScale();
-			G = G.GaussianBlur(5, 1.25f);
+			G = G.GaussianBlur(5);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_06_GaussianBlur_5x5.png");
 		}
 
@@ -89,7 +89,7 @@ namespace IdApp.Test.Cv
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
 			IMatrix G = M.GrayScale();
-			G = G.GaussianBlur(7, 1.5f);
+			G = G.GaussianBlur(7);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_07_GaussianBlur_7x7.png");
 		}
 
@@ -174,6 +174,24 @@ namespace IdApp.Test.Cv
 			G = G.DetectEdgesLaplacian();
 			((Matrix<float>)G).Threshold(0.1f);
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_16_DetectEdgesLaplacianWithGauss.png");
+		}
+
+		[TestMethod]
+		public void Test_17_DetectHorizontalLinesSharr()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectEdgesSharrHorizontal();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_17_DetectHorizontalLinesSharr.png");
+		}
+
+		[TestMethod]
+		public void Test_18_DetectVerticalLinesSharr()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\100_id-si.jpg", 600, 600);
+			IMatrix G = M.GrayScale();
+			G = G.DetectEdgesSharrVertical();
+			Bitmaps.ToImageFile(G, "Cv\\Results\\Convolutions\\Test_18_DetectVerticalLinesSharr.png");
 		}
 	}
 }
