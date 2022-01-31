@@ -43,6 +43,7 @@
     <None Remove="Cv\TestData\98_pass-nld.jpg" />
     <None Remove="Cv\TestData\Blue.png" />
     <None Remove="Cv\TestData\Green.png" />
+    <None Remove="Cv\TestData\mrz_original.jpg" />
     <None Remove="Cv\TestData\Red.png" />
     <None Remove="Cv\TestData\Semitransparent.png" />
   </ItemGroup>
@@ -154,6 +155,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cv\TestData\Green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Cv\TestData\mrz_original.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Cv\TestData\Red.png">
