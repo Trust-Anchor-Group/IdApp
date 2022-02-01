@@ -17,9 +17,9 @@
 
 		private static readonly Matrix<float> detectEdgesKernelLaplacian = new Matrix<float>(3, 3, new float[]
 		{
-			 0, -1,  0,
-			-1,  4, -1,
-			 0, -1,  0
+			 0,  1,  0,
+			 1, -4,  1,
+			 0,  1,  0
 		});
 	}
 }

@@ -6,7 +6,7 @@
 	public static partial class ConvolutionOperations
 	{
 		/// <summary>
-		/// Sharpens an image.
+		/// Sharpens an image. (Subtracts the negative Laplacian).
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
 		/// <returns>Sharpened image.</returns>
