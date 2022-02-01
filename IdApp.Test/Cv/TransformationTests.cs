@@ -3,6 +3,7 @@ using IdApp.Cv;
 using IdApp.Cv.ColorModels;
 using IdApp.Cv.Statistics;
 using IdApp.Cv.Transformations;
+using IdApp.Cv.Transformations.Thresholds;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IdApp.Test.Cv

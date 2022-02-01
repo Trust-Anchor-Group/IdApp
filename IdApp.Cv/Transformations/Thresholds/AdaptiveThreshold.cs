@@ -1,7 +1,7 @@
 ﻿using IdApp.Cv.Statistics;
 using System;
 
-namespace IdApp.Cv.Transformations
+namespace IdApp.Cv.Transformations.Thresholds
 {
 	/// <summary>
 	/// Static class for Transformation Operations, implemented as extensions.
