@@ -21,38 +21,39 @@ namespace IdApp.Cv.Transformations.Thresholds
 		public static float OtsuThreshold(this Matrix<float> M, int Buckets, float Min, float Max)
 		{
 			int[] Histogram = M.Histogram(Buckets, Min, Max);
-			int total = M.Width * M.Height;
-			int i, c = Buckets;
+			int NrPixels = M.Width * M.Height;
+			int i, j, c = Buckets;
 
-			long sumB = 0;
-			float wB = 0;
-			float wF, mF, val;
-			float maximum = 0.0f;
-			float level = 0;
-			long sum1 = 0;
+			long SumB = 0;
+			long WSumHistogram = 0;
+			float t, mF, wF, wB = 0;
+			float BestT = 0;
+			float MaxT = 0;
 
 			for (i = 1; i < c; i++)
-				sum1 += i * Histogram[i];
+				WSumHistogram += i * Histogram[i];
 
 			for (i = 0; i < c; i++)
 			{
-				wF = total - wB;
+				wF = NrPixels - wB;
 				if (wB > 0 && wF > 0)
 				{
-					mF = (sum1 - sumB) / wF;
-					val = wB * wF * ((sumB / wB) - mF) * ((sumB / wB) - mF);
-					if (val >= maximum)
+					mF = (WSumHistogram - SumB) / wF;
+					t = ((SumB / wB) - mF);
+					t = wB * wF * t * t;
+					if (t >= MaxT)
 					{
-						level = i;
-						maximum = val;
+						BestT = i;
+						MaxT = t;
 					}
 				}
 
-				wB = wB + Histogram[i];
-				sumB = sumB + i * Histogram[i];
+				j = Histogram[i];
+				wB += j;
+				SumB += i * j;
 			}
 
-			return level * (Max - Min) / Buckets + Min;
+			return BestT * (Max - Min) / Buckets + Min;
 		}
 
 	}
