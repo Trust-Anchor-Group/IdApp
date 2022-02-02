@@ -15,7 +15,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// </summary>
 		/// <param name="Width">Width of Matrix</param>
 		/// <param name="Height">Height of Matrix</param>
-		/// <param name="Data">Underlying data.</param>
+		/// <param name="Points">Points in the shape.</param>
 		/// <param name="PixelX">X-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
 		/// <param name="PixelY">Y-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
 		public Shape(int Width, int Height, bool[] Points, int PixelX, int PixelY)
@@ -34,7 +34,6 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <summary>
 		/// Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
 		/// </summary>
-		/// <typeparam name="T">Type of each pixel.</typeparam>
 		/// <param name="Width">Width of Matrix</param>
 		/// <param name="Height">Height of Matrix</param>
 		/// <param name="Data">Underlying data.</param>

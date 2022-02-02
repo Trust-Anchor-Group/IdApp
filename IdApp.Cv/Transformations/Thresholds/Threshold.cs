@@ -29,6 +29,8 @@
 		/// outside of the range become 1.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Min">Minimum threshold value.</param>
+		/// <param name="Max">Maximum threshold value.</param>
 		public static void Threshold(this Matrix<float> M, float Min, float Max)
 		{
 			int y, h = M.Height;
@@ -86,6 +88,8 @@
 		/// outside of the range become 1.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Min">Minimum threshold value.</param>
+		/// <param name="Max">Maximum threshold value.</param>
 		public static void Threshold(this Matrix<int> M, int Min, int Max)
 		{
 			int y, h = M.Height;

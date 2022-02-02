@@ -1,5 +1,4 @@
-﻿using IdApp.Cv.Basic;
-using IdApp.Cv.Statistics;
+﻿using IdApp.Cv.Statistics;
 using System;
 
 namespace IdApp.Cv.Transformations.Morphological
@@ -16,7 +15,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		public static Matrix<float> Erode(this Matrix<float> M)
 		{
-			return M.Erode(3);
+			return M.Erode(3, 3, 0f);
 		}
 
 		/// <summary>
@@ -27,7 +26,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<float> Erode(this Matrix<float> M, int NeighborhoodWidth)
 		{
-			return M.Erode(NeighborhoodWidth, NeighborhoodWidth);
+			return M.Erode(NeighborhoodWidth, NeighborhoodWidth, 0f);
 		}
 
 		/// <summary>
@@ -39,6 +38,20 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
 		public static Matrix<float> Erode(this Matrix<float> M, int NeighborhoodWidth,
 			int NeighborhoodHeight)
+		{
+			return M.Erode(NeighborhoodWidth, NeighborhoodHeight, 0f);
+		}
+
+		/// <summary>
+		/// Erodes an image by replacing a pixel with the minimum value of a square 
+		/// neighborhood of the pixel.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		/// <param name="MinThreshold">Minimum threshold.</param>
+		public static Matrix<float> Erode(this Matrix<float> M, int NeighborhoodWidth,
+			int NeighborhoodHeight, float MinThreshold)
 		{
 			if (NeighborhoodWidth <= 0 || NeighborhoodWidth >= M.Width)
 				throw new ArgumentOutOfRangeException(nameof(NeighborhoodWidth));
@@ -53,11 +66,14 @@ namespace IdApp.Cv.Transformations.Morphological
 			int y, h = M.Height;
 			int x, w = M.Width;
 			int x1, y1, x2, y2;
-			Matrix<float> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodWidth);
+			Matrix<float> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodHeight);
 			float[] Result = new float[w * h];
+			float[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -69,19 +85,24 @@ namespace IdApp.Cv.Transformations.Morphological
 
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-						x1 = 0;
+					if (Src[SrcIndex] <= MinThreshold)
+						Result[Index++] = MinThreshold;
+					else
+					{
+						x1 = x + FromX;
+						if (x1 < 0)
+							x1 = 0;
 
-					x2 = x + ToX;
-					if (x2 >= w)
-						x2 = w - 1;
+						x2 = x + ToX;
+						if (x2 >= w)
+							x2 = w - 1;
 
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
 
-					Result[Index++] = Neighborhood.Min();
+						Result[Index++] = Neighborhood.Min();
+					}
 				}
 			}
 
@@ -95,6 +116,18 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="Kernel">Kernel of morphological operation.</param>
 		public static Matrix<float> Erode(this Matrix<float> M, Shape Kernel)
+		{
+			return M.Erode(Kernel, 0f);
+		}
+
+		/// <summary>
+		/// Erodes an image by replacing a pixel with the minimum value of pixels in a
+		/// neighborhood of the pixel determined by the <paramref name="Kernel"/>.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Kernel">Kernel of morphological operation.</param>
+		/// <param name="MinThreshold">Minimum threshold.</param>
+		public static Matrix<float> Erode(this Matrix<float> M, Shape Kernel, float MinThreshold)
 		{
 			int KernelWidth = Kernel.Width;
 			int KernelHeight = Kernel.Height;
@@ -115,9 +148,12 @@ namespace IdApp.Cv.Transformations.Morphological
 			Matrix<float> Neighborhood = M.Region(0, 0, KernelWidth, KernelHeight);
 			Matrix<bool> KernelNeighborhood = Kernel.ShallowCopy();
 			float[] Result = new float[w * h];
+			float[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -140,30 +176,35 @@ namespace IdApp.Cv.Transformations.Morphological
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-					{
-						kx1 = -x1;
-						x1 = 0;
-					}
+					if (Src[SrcIndex] <= MinThreshold)
+						Result[Index++] = MinThreshold;
 					else
-						kx1 = 0;
-
-					x2 = x + ToX;
-					if (x2 >= w)
 					{
-						kx2 = KernelWidth - (x2 - w) - 1;
-						x2 = w - 1;
+						x1 = x + FromX;
+						if (x1 < 0)
+						{
+							kx1 = -x1;
+							x1 = 0;
+						}
+						else
+							kx1 = 0;
+
+						x2 = x + ToX;
+						if (x2 >= w)
+						{
+							kx2 = KernelWidth - (x2 - w) - 1;
+							x2 = w - 1;
+						}
+						else
+							kx2 = KernelWidth;
+
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
+
+						Result[Index++] = Neighborhood.Min(KernelNeighborhood);
 					}
-					else
-						kx2 = KernelWidth;
-
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
-					KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
-
-					Result[Index++] = Neighborhood.Min(KernelNeighborhood);
 				}
 			}
 
@@ -177,7 +218,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		public static Matrix<int> Erode(this Matrix<int> M)
 		{
-			return M.Erode(3);
+			return M.Erode(3, 3, 0);
 		}
 
 		/// <summary>
@@ -188,7 +229,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<int> Erode(this Matrix<int> M, int NeighborhoodWidth)
 		{
-			return M.Erode(NeighborhoodWidth, NeighborhoodWidth);
+			return M.Erode(NeighborhoodWidth, NeighborhoodWidth, 0);
 		}
 
 		/// <summary>
@@ -200,6 +241,20 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
 		public static Matrix<int> Erode(this Matrix<int> M, int NeighborhoodWidth,
 			int NeighborhoodHeight)
+		{
+			return M.Erode(NeighborhoodWidth, NeighborhoodHeight, 0);
+		}
+
+		/// <summary>
+		/// Erodes an image by replacing a pixel with the minimum value of a square 
+		/// neighborhood of the pixel.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		/// <param name="MinThreshold">Minimum threshold.</param>
+		public static Matrix<int> Erode(this Matrix<int> M, int NeighborhoodWidth,
+			int NeighborhoodHeight, int MinThreshold)
 		{
 			if (NeighborhoodWidth <= 0 || NeighborhoodWidth >= M.Width)
 				throw new ArgumentOutOfRangeException(nameof(NeighborhoodWidth));
@@ -214,11 +269,14 @@ namespace IdApp.Cv.Transformations.Morphological
 			int y, h = M.Height;
 			int x, w = M.Width;
 			int x1, y1, x2, y2;
-			Matrix<int> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodWidth);
+			Matrix<int> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodHeight);
 			int[] Result = new int[w * h];
+			int[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -230,19 +288,24 @@ namespace IdApp.Cv.Transformations.Morphological
 
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-						x1 = 0;
+					if (Src[SrcIndex] <= MinThreshold)
+						Result[Index++] = MinThreshold;
+					else
+					{
+						x1 = x + FromX;
+						if (x1 < 0)
+							x1 = 0;
 
-					x2 = x + ToX;
-					if (x2 >= w)
-						x2 = w - 1;
+						x2 = x + ToX;
+						if (x2 >= w)
+							x2 = w - 1;
 
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
 
-					Result[Index++] = Neighborhood.Min();
+						Result[Index++] = Neighborhood.Min();
+					}
 				}
 			}
 
@@ -256,6 +319,18 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="Kernel">Kernel of morphological operation.</param>
 		public static Matrix<int> Erode(this Matrix<int> M, Shape Kernel)
+		{
+			return M.Erode(Kernel, 0);
+		}
+
+		/// <summary>
+		/// Erodes an image by replacing a pixel with the minimum value of pixels in a
+		/// neighborhood of the pixel determined by the <paramref name="Kernel"/>.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Kernel">Kernel of morphological operation.</param>
+		/// <param name="MinThreshold">Minimum threshold.</param>
+		public static Matrix<int> Erode(this Matrix<int> M, Shape Kernel, int MinThreshold)
 		{
 			int KernelWidth = Kernel.Width;
 			int KernelHeight = Kernel.Height;
@@ -276,9 +351,12 @@ namespace IdApp.Cv.Transformations.Morphological
 			Matrix<int> Neighborhood = M.Region(0, 0, KernelWidth, KernelHeight);
 			Matrix<bool> KernelNeighborhood = Kernel.ShallowCopy();
 			int[] Result = new int[w * h];
+			int[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -301,30 +379,35 @@ namespace IdApp.Cv.Transformations.Morphological
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-					{
-						kx1 = -x1;
-						x1 = 0;
-					}
+					if (Src[SrcIndex] <= MinThreshold)
+						Result[Index++] = MinThreshold;
 					else
-						kx1 = 0;
-
-					x2 = x + ToX;
-					if (x2 >= w)
 					{
-						kx2 = KernelWidth - (x2 - w) - 1;
-						x2 = w - 1;
+						x1 = x + FromX;
+						if (x1 < 0)
+						{
+							kx1 = -x1;
+							x1 = 0;
+						}
+						else
+							kx1 = 0;
+
+						x2 = x + ToX;
+						if (x2 >= w)
+						{
+							kx2 = KernelWidth - (x2 - w) - 1;
+							x2 = w - 1;
+						}
+						else
+							kx2 = KernelWidth;
+
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
+
+						Result[Index++] = Neighborhood.Min(KernelNeighborhood);
 					}
-					else
-						kx2 = KernelWidth;
-
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
-					KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
-
-					Result[Index++] = Neighborhood.Min(KernelNeighborhood);
 				}
 			}
 

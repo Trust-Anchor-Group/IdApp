@@ -15,7 +15,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		public static Matrix<float> Dilate(this Matrix<float> M)
 		{
-			return Dilate(M, 3);
+			return Dilate(M, 3, 3, 1f);
 		}
 
 		/// <summary>
@@ -26,7 +26,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<float> Dilate(this Matrix<float> M, int NeighborhoodWidth)
 		{
-			return M.Dilate(NeighborhoodWidth, NeighborhoodWidth);
+			return M.Dilate(NeighborhoodWidth, NeighborhoodWidth, 1f);
 		}
 
 		/// <summary>
@@ -36,8 +36,22 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
-		public static Matrix<float> Dilate(this Matrix<float> M, int NeighborhoodWidth, 
+		public static Matrix<float> Dilate(this Matrix<float> M, int NeighborhoodWidth,
 			int NeighborhoodHeight)
+		{
+			return M.Dilate(NeighborhoodWidth, NeighborhoodHeight, 1f);
+		}
+
+		/// <summary>
+		/// Dilates an image by replacing a pixel with the maximum value of a square 
+		/// neighborhood of the pixel.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		/// <param name="MaxThreshold">Maximum threshold.</param>
+		public static Matrix<float> Dilate(this Matrix<float> M, int NeighborhoodWidth,
+			int NeighborhoodHeight, float MaxThreshold)
 		{
 			if (NeighborhoodWidth <= 0 || NeighborhoodWidth >= M.Width)
 				throw new ArgumentOutOfRangeException(nameof(NeighborhoodWidth));
@@ -52,11 +66,14 @@ namespace IdApp.Cv.Transformations.Morphological
 			int y, h = M.Height;
 			int x, w = M.Width;
 			int x1, y1, x2, y2;
-			Matrix<float> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodWidth);
+			Matrix<float> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodHeight);
 			float[] Result = new float[w * h];
+			float[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -68,19 +85,24 @@ namespace IdApp.Cv.Transformations.Morphological
 
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-						x1 = 0;
+					if (Src[SrcIndex] >= MaxThreshold)
+						Result[Index++] = MaxThreshold;
+					else
+					{
+						x1 = x + FromX;
+						if (x1 < 0)
+							x1 = 0;
 
-					x2 = x + ToX;
-					if (x2 >= w)
-						x2 = w - 1;
+						x2 = x + ToX;
+						if (x2 >= w)
+							x2 = w - 1;
 
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
 
-					Result[Index++] = Neighborhood.Max();
+						Result[Index++] = Neighborhood.Max();
+					}
 				}
 			}
 
@@ -94,6 +116,18 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="Kernel">Kernel of morphological operation.</param>
 		public static Matrix<float> Dilate(this Matrix<float> M, Shape Kernel)
+		{
+			return M.Dilate(Kernel, 1f);
+		}
+
+		/// <summary>
+		/// Dilates an image by replacing a pixel with the maximum value of pixels in a
+		/// neighborhood of the pixel determined by the <paramref name="Kernel"/>.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Kernel">Kernel of morphological operation.</param>
+		/// <param name="MaxThreshold">Maximum threshold.</param>
+		public static Matrix<float> Dilate(this Matrix<float> M, Shape Kernel, float MaxThreshold)
 		{
 			int KernelWidth = Kernel.Width;
 			int KernelHeight = Kernel.Height;
@@ -114,9 +148,12 @@ namespace IdApp.Cv.Transformations.Morphological
 			Matrix<float> Neighborhood = M.Region(0, 0, KernelWidth, KernelHeight);
 			Matrix<bool> KernelNeighborhood = Kernel.ShallowCopy();
 			float[] Result = new float[w * h];
+			float[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -139,30 +176,35 @@ namespace IdApp.Cv.Transformations.Morphological
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-					{
-						kx1 = -x1;
-						x1 = 0;
-					}
+					if (Src[SrcIndex] >= MaxThreshold)
+						Result[Index++] = MaxThreshold;
 					else
-						kx1 = 0;
-
-					x2 = x + ToX;
-					if (x2 >= w)
 					{
-						kx2 = KernelWidth - (x2 - w) - 1;
-						x2 = w - 1;
+						x1 = x + FromX;
+						if (x1 < 0)
+						{
+							kx1 = -x1;
+							x1 = 0;
+						}
+						else
+							kx1 = 0;
+
+						x2 = x + ToX;
+						if (x2 >= w)
+						{
+							kx2 = KernelWidth - (x2 - w) - 1;
+							x2 = w - 1;
+						}
+						else
+							kx2 = KernelWidth;
+
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
+
+						Result[Index++] = Neighborhood.Max(KernelNeighborhood);
 					}
-					else
-						kx2 = KernelWidth;
-
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
-					KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
-
-					Result[Index++] = Neighborhood.Max(KernelNeighborhood);
 				}
 			}
 
@@ -176,7 +218,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		public static Matrix<int> Dilate(this Matrix<int> M)
 		{
-			return Dilate(M, 3);
+			return Dilate(M, 3, 3, 0x01000000);
 		}
 
 		/// <summary>
@@ -187,7 +229,7 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
 		public static Matrix<int> Dilate(this Matrix<int> M, int NeighborhoodWidth)
 		{
-			return M.Dilate(NeighborhoodWidth, NeighborhoodWidth);
+			return M.Dilate(NeighborhoodWidth, NeighborhoodWidth, 0x01000000);
 		}
 
 		/// <summary>
@@ -199,6 +241,20 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
 		public static Matrix<int> Dilate(this Matrix<int> M, int NeighborhoodWidth,
 			int NeighborhoodHeight)
+		{
+			return M.Dilate(NeighborhoodWidth, NeighborhoodHeight, 0x01000000);
+		}
+
+		/// <summary>
+		/// Dilates an image by replacing a pixel with the maximum value of a square 
+		/// neighborhood of the pixel.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		/// <param name="MaxThreshold">Maximum threshold.</param>
+		public static Matrix<int> Dilate(this Matrix<int> M, int NeighborhoodWidth,
+			int NeighborhoodHeight, int MaxThreshold)
 		{
 			if (NeighborhoodWidth <= 0 || NeighborhoodWidth >= M.Width)
 				throw new ArgumentOutOfRangeException(nameof(NeighborhoodWidth));
@@ -213,11 +269,14 @@ namespace IdApp.Cv.Transformations.Morphological
 			int y, h = M.Height;
 			int x, w = M.Width;
 			int x1, y1, x2, y2;
-			Matrix<int> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodWidth);
+			Matrix<int> Neighborhood = M.Region(0, 0, NeighborhoodWidth, NeighborhoodHeight);
 			int[] Result = new int[w * h];
+			int[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -229,19 +288,24 @@ namespace IdApp.Cv.Transformations.Morphological
 
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-						x1 = 0;
+					if (Src[SrcIndex] >= MaxThreshold)
+						Result[Index++] = MaxThreshold;
+					else
+					{
+						x1 = x + FromX;
+						if (x1 < 0)
+							x1 = 0;
 
-					x2 = x + ToX;
-					if (x2 >= w)
-						x2 = w - 1;
+						x2 = x + ToX;
+						if (x2 >= w)
+							x2 = w - 1;
 
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
 
-					Result[Index++] = Neighborhood.Max();
+						Result[Index++] = Neighborhood.Max();
+					}
 				}
 			}
 
@@ -255,6 +319,18 @@ namespace IdApp.Cv.Transformations.Morphological
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="Kernel">Kernel of morphological operation.</param>
 		public static Matrix<int> Dilate(this Matrix<int> M, Shape Kernel)
+		{
+			return M.Dilate(Kernel, 0x01000000);
+		}
+
+		/// <summary>
+		/// Dilates an image by replacing a pixel with the maximum value of pixels in a
+		/// neighborhood of the pixel determined by the <paramref name="Kernel"/>.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Kernel">Kernel of morphological operation.</param>
+		/// <param name="MaxThreshold">Maximum threshold.</param>
+		public static Matrix<int> Dilate(this Matrix<int> M, Shape Kernel, int MaxThreshold)
 		{
 			int KernelWidth = Kernel.Width;
 			int KernelHeight = Kernel.Height;
@@ -275,9 +351,12 @@ namespace IdApp.Cv.Transformations.Morphological
 			Matrix<int> Neighborhood = M.Region(0, 0, KernelWidth, KernelHeight);
 			Matrix<bool> KernelNeighborhood = Kernel.ShallowCopy();
 			int[] Result = new int[w * h];
+			int[] Src = M.Data;
 			int Index = 0;
+			int SrcIndex = M.Start;
+			int SrcSkip = M.Skip;
 
-			for (y = 0; y < h; y++)
+			for (y = 0; y < h; y++, SrcIndex += SrcSkip)
 			{
 				y1 = y + FromY;
 				if (y1 < 0)
@@ -300,30 +379,35 @@ namespace IdApp.Cv.Transformations.Morphological
 				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
 				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1);
 
-				for (x = 0; x < w; x++)
+				for (x = 0; x < w; x++, SrcIndex++)
 				{
-					x1 = x + FromX;
-					if (x1 < 0)
-					{
-						kx1 = -x1;
-						x1 = 0;
-					}
+					if (Src[SrcIndex] >= MaxThreshold)
+						Result[Index++] = MaxThreshold;
 					else
-						kx1 = 0;
-
-					x2 = x + ToX;
-					if (x2 >= w)
 					{
-						kx2 = KernelWidth - (x2 - w) - 1;
-						x2 = w - 1;
+						x1 = x + FromX;
+						if (x1 < 0)
+						{
+							kx1 = -x1;
+							x1 = 0;
+						}
+						else
+							kx1 = 0;
+
+						x2 = x + ToX;
+						if (x2 >= w)
+						{
+							kx2 = KernelWidth - (x2 - w) - 1;
+							x2 = w - 1;
+						}
+						else
+							kx2 = KernelWidth;
+
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
+
+						Result[Index++] = Neighborhood.Max(KernelNeighborhood);
 					}
-					else
-						kx2 = KernelWidth;
-
-					Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
-					KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
-
-					Result[Index++] = Neighborhood.Max(KernelNeighborhood);
 				}
 			}
 

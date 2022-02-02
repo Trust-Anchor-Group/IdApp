@@ -27,7 +27,6 @@ namespace IdApp.Cv
 		/// <summary>
 		/// Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
 		/// </summary>
-		/// <typeparam name="T">Type of each pixel.</typeparam>
 		/// <param name="Width">Width of Matrix</param>
 		/// <param name="Height">Height of Matrix</param>
 		public Matrix(int Width, int Height)
@@ -38,7 +37,6 @@ namespace IdApp.Cv
 		/// <summary>
 		/// Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
 		/// </summary>
-		/// <typeparam name="T">Type of each pixel.</typeparam>
 		/// <param name="Width">Width of Matrix</param>
 		/// <param name="Height">Height of Matrix</param>
 		/// <param name="Data">Underlying data.</param>
@@ -61,7 +59,6 @@ namespace IdApp.Cv
 		/// <summary>
 		/// Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
 		/// </summary>
-		/// <typeparam name="T">Type of each pixel.</typeparam>
 		/// <param name="Width">Width of Matrix</param>
 		/// <param name="Height">Height of Matrix</param>
 		/// <param name="Data">Underlying data.</param>
@@ -242,27 +239,8 @@ namespace IdApp.Cv
 		/// <returns>Pixel/Element</returns>
 		public T this[int X, int Y]
 		{
-			get
-			{
-				if (X < 0 || X >= this.width)
-					throw new ArgumentOutOfRangeException(nameof(X));
-
-				if (Y < 0 || Y >= this.height)
-					throw new ArgumentOutOfRangeException(nameof(Y));
-
-				return this.data[(X + this.left) + (Y + this.top) * this.rowSize];
-			}
-
-			set
-			{
-				if (X < 0 || X >= this.width)
-					throw new ArgumentOutOfRangeException(nameof(X));
-
-				if (Y < 0 || Y >= this.height)
-					throw new ArgumentOutOfRangeException(nameof(Y));
-
-				this.data[(X + this.left) + (Y + this.top) * this.rowSize] = value;
-			}
+			get => this.data[(X + this.left) + (Y + this.top) * this.rowSize];
+			set => this.data[(X + this.left) + (Y + this.top) * this.rowSize] = value;
 		}
 
 		/// <summary>
@@ -349,6 +327,11 @@ namespace IdApp.Cv
 			};
 		}
 
+		/// <summary>
+		/// Loads an image into a matrix.
+		/// </summary>
+		/// <param name="FileName">Filename of image file.</param>
+		/// <returns>Matrix iamge.</returns>
 		public static IMatrix LoadFromFile(string FileName)
 		{
 			using (SKBitmap Bmp = SKBitmap.Decode(FileName))

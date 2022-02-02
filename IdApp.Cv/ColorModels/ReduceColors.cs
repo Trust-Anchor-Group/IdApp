@@ -10,8 +10,8 @@ namespace IdApp.Cv.ColorModels
 		/// <summary>
 		/// Reduces the number of colors used in a matrix.
 		/// </summary>
+		/// <param name="M">Image matrix.</param>
 		/// <param name="N">Number of values for each channel.</param>
-		/// <param name="Divisor">Divisor</param>
 		/// <returns>Matrix with reduced set of colors.</returns>
 		public static Matrix<uint> ReduceColors(this Matrix<uint> M, uint N)
 		{

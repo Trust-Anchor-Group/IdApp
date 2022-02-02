@@ -23,6 +23,10 @@ namespace IdApp.Cv
 		/// Loads a bitmap from a file, and returns a matrix.
 		/// </summary>
 		/// <param name="FileName">File name of bitmap.</param>
+		/// <param name="MaxHeight">Maximum height of loaded image. If image is larger,
+		/// it will be scaled down.</param>
+		/// <param name="MaxWidth">Maximum width of loaded image. If image is larger,
+		/// it will be scaled down.</param>
 		/// <returns>Matrix</returns>
 		public static IMatrix FromBitmapFile(string FileName, int MaxWidth, int MaxHeight)
 		{

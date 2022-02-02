@@ -90,7 +90,6 @@ namespace IdApp.Cv.Transformations.Thresholds
 		/// https://en.wikipedia.org/wiki/Otsu%27s_method
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
-		/// <param name="Buckets">Number of buckets in histogram.</param>
 		/// <returns>Threshold level.</returns>
 		public static int OtsuThreshold(this Matrix<int> M)
 		{
