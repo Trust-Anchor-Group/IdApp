@@ -10,12 +10,32 @@
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
 		/// <returns>Image where edges are highlighted.</returns>
-		public static Matrix<float> DetectEdges(this IMatrix M)
+		public static Matrix<float> DetectEdges(this Matrix<float> M)
 		{
 			return M.Convolute(detectEdgesKernel);
 		}
 
-		private static readonly Matrix<float> detectEdgesKernel = new Matrix<float>(3, 3, new float[]
+		/// <summary>
+		/// Detects edges in an image.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <returns>Image where edges are highlighted.</returns>
+		public static Matrix<int> DetectEdges(this Matrix<int> M)
+		{
+			return M.Convolute(detectEdgesKernel);
+		}
+
+		/// <summary>
+		/// Detects edges in an image.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <returns>Image where edges are highlighted.</returns>
+		public static IMatrix DetectEdges(this IMatrix M)
+		{
+			return M.Convolute(detectEdgesKernel);
+		}
+
+		private static readonly Matrix<int> detectEdgesKernel = new Matrix<int>(3, 3, new int[]
 		{
 			-1, -1, -1,
 			-1,  8, -1,

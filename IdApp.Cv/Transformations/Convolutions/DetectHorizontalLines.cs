@@ -10,12 +10,32 @@
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
 		/// <returns>Image where horizontal lines are highlighted.</returns>
-		public static Matrix<float> DetectHorizontalLines(this IMatrix M)
+		public static Matrix<float> DetectHorizontalLines(this Matrix<float> M)
 		{
 			return M.Convolute(detectHorizontalLinesKernel);
 		}
 
-		private static readonly Matrix<float> detectHorizontalLinesKernel = new Matrix<float>(3, 3, new float[]
+		/// <summary>
+		/// Detects horizontal lines in an image.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <returns>Image where horizontal lines are highlighted.</returns>
+		public static Matrix<int> DetectHorizontalLines(this Matrix<int> M)
+		{
+			return M.Convolute(detectHorizontalLinesKernel);
+		}
+
+		/// <summary>
+		/// Detects horizontal lines in an image.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <returns>Image where horizontal lines are highlighted.</returns>
+		public static IMatrix DetectHorizontalLines(this IMatrix M)
+		{
+			return M.Convolute(detectHorizontalLinesKernel);
+		}
+
+		private static readonly Matrix<int> detectHorizontalLinesKernel = new Matrix<int>(3, 3, new int[]
 		{
 			-1, -1, -1,
 			 2,  2,  2,

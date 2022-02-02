@@ -287,6 +287,27 @@ namespace IdApp.Cv
 				RowBytes = w;
 				ColorType = SKColorType.Gray8;
 			}
+			else if (M is Matrix<int> FixedPointMatrix)
+			{
+				int[] Src = FixedPointMatrix.Data;
+				int SrcIndex = FixedPointMatrix.Start;
+				int SrcSkip = FixedPointMatrix.Skip;
+				Dest = new byte[w * h];
+				int DestIndex = 0;
+				int f;
+
+				for (y = 0; y < h; y++, SrcIndex += SrcSkip)
+				{
+					for (x = 0; x < w; x++)
+					{
+						f = Src[SrcIndex++] + 32768;
+						Dest[DestIndex++] = f < 0f ? (byte)0 : f >= 0x01000000 ? (byte)255 : (byte)(f >> 16);
+					}
+				}
+
+				RowBytes = w;
+				ColorType = SKColorType.Gray8;
+			}
 			else
 				throw new ArgumentException("Matrix type not supported: " + M.GetType().FullName);
 

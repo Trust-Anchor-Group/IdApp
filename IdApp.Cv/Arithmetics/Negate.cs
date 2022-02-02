@@ -30,6 +30,26 @@ namespace IdApp.Cv.Arithmetics
 		/// Negates the pixels of a matrix, creating the negative image.
 		/// </summary>
 		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="MaxValue">Maximum value used in matrix.</param>
+		public static void Negate(this Matrix<int> M)
+		{
+			int y, h = M.Height;
+			int x, w = M.Width;
+			int Index = M.Start;
+			int Skip = M.Skip;
+			int[] Data = M.Data;
+
+			for (y = 0; y < h; y++, Index += Skip)
+			{
+				for (x = 0; x < w; x++, Index++)
+					Data[Index] = 0x01000000 - Data[Index];
+			}
+		}
+
+		/// <summary>
+		/// Negates the pixels of a matrix, creating the negative image.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
 		public static void Negate(this Matrix<byte> M)
 		{
 			int y, h = M.Height;

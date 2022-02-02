@@ -13,9 +13,9 @@ namespace IdApp.Cv.Transformations.Convolutions
 		/// <param name="M">Matrix of pixel values</param>
 		/// <param name="KernelWidth">Width of kernel.</param>
 		/// <returns>Blurred image.</returns>
-		public static Matrix<float> GaussianBlur(this IMatrix M, int KernelWidth)
+		public static Matrix<float> GaussianBlur(this Matrix<float> M, int KernelWidth)
 		{
-			return GaussianBlur(M, KernelWidth, 0.3f * ((KernelWidth - 1) * 0.5f - 1) + 0.8f);
+			return M.Convolute(GaussianBlurKernel(KernelWidth));
 		}
 
 		/// <summary>
@@ -25,7 +25,73 @@ namespace IdApp.Cv.Transformations.Convolutions
 		/// <param name="KernelWidth">Width of kernel.</param>
 		/// <param name="Sigma">Sigma. (Default=OpenCV Default: 0.3*((KernelWidth-1)*0.5-1)+0.8</param>
 		/// <returns>Blurred image.</returns>
-		public static Matrix<float> GaussianBlur(this IMatrix M, int KernelWidth, float Sigma)
+		public static Matrix<float> GaussianBlur(this Matrix<float> M, int KernelWidth, float Sigma)
+		{
+			return M.Convolute(GaussianBlurKernel(KernelWidth, Sigma));
+		}
+
+		/// <summary>
+		/// Blurs an image using Gaussian Blur.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="KernelWidth">Width of kernel.</param>
+		/// <returns>Blurred image.</returns>
+		public static Matrix<int> GaussianBlur(this Matrix<int> M, int KernelWidth)
+		{
+			return M.Convolute(GaussianBlurKernel(KernelWidth));
+		}
+
+		/// <summary>
+		/// Blurs an image using Gaussian Blur.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="KernelWidth">Width of kernel.</param>
+		/// <param name="Sigma">Sigma. (Default=OpenCV Default: 0.3*((KernelWidth-1)*0.5-1)+0.8</param>
+		/// <returns>Blurred image.</returns>
+		public static Matrix<int> GaussianBlur(this Matrix<int> M, int KernelWidth, float Sigma)
+		{
+			return M.Convolute(GaussianBlurKernel(KernelWidth, Sigma));
+		}
+
+		/// <summary>
+		/// Blurs an image using Gaussian Blur.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="KernelWidth">Width of kernel.</param>
+		/// <returns>Blurred image.</returns>
+		public static IMatrix GaussianBlur(this IMatrix M, int KernelWidth)
+		{
+			return M.Convolute(GaussianBlurKernel(KernelWidth));
+		}
+
+		/// <summary>
+		/// Blurs an image using Gaussian Blur.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="KernelWidth">Width of kernel.</param>
+		/// <param name="Sigma">Sigma. (Default=OpenCV Default: 0.3*((KernelWidth-1)*0.5-1)+0.8</param>
+		/// <returns>Blurred image.</returns>
+		public static IMatrix GaussianBlur(this IMatrix M, int KernelWidth, float Sigma)
+		{
+			return M.Convolute(GaussianBlurKernel(KernelWidth, Sigma));
+		}
+
+		/// <summary>
+		/// Creates a kernel matrix for a Gaussian Blur operation.
+		/// </summary>
+		/// <param name="KernelWidth">Width of kernel.</param>
+		public static Matrix<float> GaussianBlurKernel(int KernelWidth)
+		{
+			return GaussianBlurKernel(KernelWidth, 0.3f * ((KernelWidth - 1) * 0.5f - 1) + 0.8f);
+		}
+
+		/// <summary>
+		/// Creates a kernel matrix for a Gaussian Blur operation.
+		/// </summary>
+		/// <param name="KernelWidth">Width of kernel.</param>
+		/// <param name="Sigma">Sigma argument</param>
+		/// <returns>Blurred image.</returns>
+		public static Matrix<float> GaussianBlurKernel(int KernelWidth, float Sigma)
 		{
 			Matrix<float> Kernel = new Matrix<float>(KernelWidth, KernelWidth);
 			float d = -(KernelWidth - 1) * 0.5f;
@@ -47,7 +113,8 @@ namespace IdApp.Cv.Transformations.Convolutions
 				}
 			}
 
-			return M.Convolute(Kernel);
+			return Kernel;
 		}
+
 	}
 }

@@ -141,6 +141,40 @@ namespace IdApp.Cv.ColorModels
 		/// <param name="M">Matrix of pixels.</param>
 		/// <param name="N">Number of color values.</param>
 		/// <returns>Matrix with reduced set of colors.</returns>
+		public static Matrix<int> ReduceColors(this Matrix<int> M, uint N)
+		{
+			if (N < 2)
+				throw new ArgumentOutOfRangeException(nameof(N));
+
+			N--;
+
+			int y, h = M.Height;
+			int x, w = M.Width;
+			int SrcOffset = M.Start;
+			int DestOffset = 0;
+			int SrcSkip = M.Skip;
+			int[] Src = M.Data;
+			int[] Dest = new int[w * h];
+			int f;
+
+			for (y = 0; y < h; y++, SrcOffset += SrcSkip)
+			{
+				for (x = 0; x < w; x++)
+				{
+					f = Src[SrcOffset++];
+					Dest[DestOffset++] = (int)(((((long)f) * N + 8388608) & -0x1000000L) / N);
+				}
+			}
+
+			return new Matrix<int>(w, h, Dest);
+		}
+
+		/// <summary>
+		/// Reduces the number of colors used in a matrix.
+		/// </summary>
+		/// <param name="M">Matrix of pixels.</param>
+		/// <param name="N">Number of color values.</param>
+		/// <returns>Matrix with reduced set of colors.</returns>
 		public static IMatrix ReduceColors(this IMatrix M, uint N)
 		{
 			if (M is Matrix<uint> M2)
@@ -149,6 +183,8 @@ namespace IdApp.Cv.ColorModels
 				return ReduceColors(M3, N);
 			else if (M is Matrix<float> M4)
 				return ReduceColors(M4, N);
+			else if (M is Matrix<int> M5)
+				return ReduceColors(M5, N);
 			else
 				throw new ArgumentException("Unsupported type: " + M.GetType().FullName, nameof(M));
 		}

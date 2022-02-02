@@ -13,5 +13,14 @@
 		{
 			return M.Sum() / (M.Width * M.Height);
 		}
+
+		/// <summary>
+		/// Computes the average value of all values in the matrix.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		public static int Average(this Matrix<int> M)
+		{
+			return (int)(M.Sum() / (M.Width * M.Height));
+		}
 	}
 }

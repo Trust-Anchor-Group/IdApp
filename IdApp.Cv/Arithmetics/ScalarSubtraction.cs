@@ -14,5 +14,15 @@
 		{
 			M.ScalarAddition(-Scalar);
 		}
+
+		/// <summary>
+		/// Performs a scalar subtraction on each element in the matrix.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="Scalar">Scalar Value to use in scalar subtraction.</param>
+		public static void ScalarSubtraction(this Matrix<int> M, int Scalar)
+		{
+			M.ScalarAddition(-Scalar);
+		}
 	}
 }

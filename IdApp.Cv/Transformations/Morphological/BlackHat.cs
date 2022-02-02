@@ -39,5 +39,38 @@ namespace IdApp.Cv.Transformations.Morphological
 			Result.AbsoluteDifference(M);
 			return Result;
 		}
+
+		/// <summary>
+		/// The absolute difference between an image, and its opening.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		public static Matrix<int> BlackHat(this Matrix<int> M)
+		{
+			return M.BlackHat(3);
+		}
+
+		/// <summary>
+		/// The absolute difference between an image, and its opening.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		public static Matrix<int> BlackHat(this Matrix<int> M, int NeighborhoodWidth)
+		{
+			return M.BlackHat(NeighborhoodWidth, NeighborhoodWidth);
+		}
+
+		/// <summary>
+		/// The absolute difference between an image, and its opening.
+		/// </summary>
+		/// <param name="M">Matrix of pixel values</param>
+		/// <param name="NeighborhoodWidth">Width of neighborhood (default=3).</param>
+		/// <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
+		public static Matrix<int> BlackHat(this Matrix<int> M, int NeighborhoodWidth,
+			int NeighborhoodHeight)
+		{
+			Matrix<int> Result = M.Close(NeighborhoodWidth, NeighborhoodHeight);
+			Result.AbsoluteDifference(M);
+			return Result;
+		}
 	}
 }
