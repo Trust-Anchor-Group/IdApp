@@ -1,5 +1,4 @@
-﻿using System;
-using IdApp.Cv;
+﻿using IdApp.Cv;
 using IdApp.Cv.Arithmetics;
 using IdApp.Cv.Basic;
 using IdApp.Cv.ColorModels;
@@ -9,6 +8,7 @@ using IdApp.Cv.Transformations.Convolutions;
 using IdApp.Cv.Transformations.Morphological;
 using IdApp.Cv.Transformations.Thresholds;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace IdApp.Test.Cv
 {

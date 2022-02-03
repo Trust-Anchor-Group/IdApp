@@ -324,5 +324,21 @@ namespace IdApp.Cv
 			}
 		}
 
+
+		/// <summary>
+		/// Encodes an image in a matrix using PNG.
+		/// </summary>
+		/// <param name="M">Matrix</param>
+		/// <returns>Binary PNG representation of image.</returns>
+		public static byte[] EncodeAsPng(IMatrix M)
+		{
+			using (SKImage Image = ToBitmap(M))
+			{
+				using (SKData Data = Image.Encode(SKEncodedImageFormat.Png, 100))
+				{
+					return Data.ToArray();
+				}
+			}
+		}
 	}
 }

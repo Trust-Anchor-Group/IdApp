@@ -569,6 +569,13 @@
             <param name="M">Matrix</param>
             <returns>Image</returns>
         </member>
+        <member name="M:IdApp.Cv.Bitmaps.EncodeAsPng(IdApp.Cv.IMatrix)">
+            <summary>
+            Encodes an image in a matrix using PNG.
+            </summary>
+            <param name="M">Matrix</param>
+            <returns>Binary PNG representation of image.</returns>
+        </member>
         <member name="T:IdApp.Cv.Channels.ChannelOperations">
             <summary>
             Static class for Channel Operations, implemented as extensions.
