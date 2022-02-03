@@ -1,4 +1,5 @@
 ﻿using IdApp.Cv.Basic;
+using System;
 using System.Collections.Generic;
 
 namespace IdApp.Cv.Objects
@@ -338,5 +339,78 @@ namespace IdApp.Cv.Objects
 		/// Objects found in map.
 		/// </summary>
 		public ObjectInformation[] Objects => this.objects;
+
+		/// <summary>
+		/// Extracts an object in the form of image from the underlying image. Only
+		/// pixels pertaining to the object will be copied.
+		/// </summary>
+		/// <param name="Nr">Object Number</param>
+		/// <returns>Object image.</returns>
+		public IMatrix Extract(ushort Nr)
+		{
+			return this.Extract(Nr, this.image);
+		}
+
+		/// <summary>
+		/// Extracts an object in the form of image from the underlying image. Only
+		/// pixels pertaining to the object will be copied.
+		/// </summary>
+		/// <param name="Nr">Object Number</param>
+		/// <param name="Source">Source image to get the original pixels from.</param>
+		/// <returns>Object image.</returns>
+		public IMatrix Extract(ushort Nr, IMatrix Source)
+		{
+			if (Source.Width != this.Width || Source.Height != this.Height)
+				throw new ArgumentOutOfRangeException(nameof(Source));
+
+			if (!this.objectsById.TryGetValue(Nr, out ObjectInformation Info))
+				throw new ArgumentOutOfRangeException(nameof(Nr));
+
+			if (Source is Matrix<float> M)
+				return this.Extract<float>(Nr, M, Info, float.MinValue);
+			else if (Source is Matrix<int> M2)
+				return this.Extract<int>(Nr, M2, Info, int.MinValue);
+			else if (Source is Matrix<uint> M3)
+				return this.Extract<uint>(Nr, M3, Info, 0);
+			else if (Source is Matrix<byte> M4)
+				return this.Extract<byte>(Nr, M4, Info, 0);
+			else
+				throw new InvalidOperationException("Underlying image type not supported.");
+		}
+
+		private Matrix<T> Extract<T>(ushort Nr, Matrix<T> Image, ObjectInformation Object, T BackgroundValue)
+			where T : struct
+		{
+			int SrcX1 = Object.MinX;
+			int SrcY1 = Object.MinY;
+			int SrcX2 = Object.MaxX;
+			int SrcY2 = Object.MaxY;
+			int w = SrcX2 - SrcX1 + 1;
+			int h = SrcY2 - SrcY1 + 1;
+			int SrcIndex = Image.StartIndex(SrcX1, SrcY1);
+			int SrcSkip = Image.Skip + Image.Width - w;
+			int MaskIndex = this.StartIndex(SrcX1, SrcY1);
+			int MaskSkip = Image.Width - w;
+			int x, y;
+			ushort i;
+			Matrix<T> Result = new Matrix<T>(w, h);
+			ushort[] Mask = this.Data;
+			T[] Src = Image.Data;
+			T[] Dest = Result.Data;
+			int DestIndex = 0;
+
+			Nr++;
+
+			for (y = SrcY1; y <= SrcY2; y++, SrcIndex += SrcSkip, MaskIndex += MaskSkip)
+			{
+				for (x = SrcX1; x <= SrcX2; x++, SrcIndex++)
+				{
+					i = Mask[MaskIndex++];
+					Dest[DestIndex++] = i == Nr ? Src[SrcIndex] : BackgroundValue;
+				}
+			}
+
+			return Result;
+		}
 	}
 }

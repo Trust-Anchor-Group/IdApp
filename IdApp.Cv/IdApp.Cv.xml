@@ -1095,6 +1095,23 @@
             Objects found in map.
             </summary>
         </member>
+        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract(System.UInt16)">
+            <summary>
+            Extracts an object in the form of image from the underlying image. Only
+            pixels pertaining to the object will be copied.
+            </summary>
+            <param name="Nr">Object Number</param>
+            <returns>Object image.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract(System.UInt16,IdApp.Cv.IMatrix)">
+            <summary>
+            Extracts an object in the form of image from the underlying image. Only
+            pixels pertaining to the object will be copied.
+            </summary>
+            <param name="Nr">Object Number</param>
+            <param name="Source">Source image to get the original pixels from.</param>
+            <returns>Object image.</returns>
+        </member>
         <member name="T:IdApp.Cv.Objects.ObjectOperations">
             <summary>
             Static class for Object Operations, implemented as extensions.

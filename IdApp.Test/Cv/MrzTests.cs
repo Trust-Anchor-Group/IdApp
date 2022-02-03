@@ -231,6 +231,8 @@ namespace IdApp.Test.Cv
 			ushort i;
 			int c = ObjectMap.NrObjects;
 
+			Borders.Fill(0xff000000);
+
 			for (i = 0; i < c; i++)
 			{
 				ObjectInformation Info = ObjectMap[i];
@@ -265,6 +267,7 @@ namespace IdApp.Test.Cv
 			ObjectInformation[] Objects = ObjectMap.Objects;
 
 			Array.Sort(Objects, (o1, o2) => o2.NrPixels - o1.NrPixels);
+			Borders.Fill(0xff000000);
 
 			foreach (ObjectInformation Object in Objects)
 			{
@@ -285,10 +288,10 @@ namespace IdApp.Test.Cv
 		}
 
 		[TestMethod]
-		public void Test_17_OnlyRectangles()
+		public void Test_17_Candidate()
 		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
-			Matrix<float> G = (Matrix<float>)M.GrayScale();
+			Matrix<uint> M = (Matrix<uint>)Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
+			Matrix<float> G = M.GrayScale();
 			G = G.GaussianBlur(3);
 			G = G.BlackHat(13, 5);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
@@ -297,36 +300,37 @@ namespace IdApp.Test.Cv
 			G = G.Close(13, 5);
 			G.Threshold(G.OtsuThreshold());
 			G = G.Close(5, 21);
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
+			//G = G.Erode();
+			//G = G.Erode();
+			//G = G.Erode();
+			//G = G.Erode();
 
 			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
 			ObjectMap ObjectMap = G.ObjectMap(0.5f);
 			ObjectInformation[] Objects = ObjectMap.Objects;
 
 			Array.Sort(Objects, (o1, o2) => o2.NrPixels - o1.NrPixels);
+			Borders.Fill(0xff000000);
 
 			foreach (ObjectInformation Object in Objects)
 			{
-				foreach (Point Point in Object.Contour)
-					Borders[Point.X, Point.Y] = 0xff80ff80;
+				float Aspect = ((float)Object.Width) / Object.Height;
+				if (Aspect < 5)
+					continue;
+
+				float RelativeWidth = ((float)Object.Width) / G.Width;
+				if (RelativeWidth < 0.75f)
+					continue;
 
 				Point[] Reduced = Object.Contour.Reduce(10);
-				if (Reduced.Length == 4)
-				{
-					Point Last = Reduced[Reduced.Length - 1];
+				if (Reduced.Length != 4)
+					continue;
 
-					foreach (Point Point in Reduced)
-					{
-						Borders.Line(Last.X, Last.Y, Point.X, Point.Y, 0xffa0a0ff);
-						Last = Point;
-					}
-				}
+				Matrix<uint> SubRegion = M.Region((M.Width - G.Width) / 2, (M.Height - G.Height) / 2, G.Width, G.Height);
+				IMatrix Obj = ObjectMap.Extract(Object.Nr, SubRegion);
+				Bitmaps.ToImageFile(Obj, "Cv\\Results\\Mrz\\Test_17_Candidate.png");
+				break;
 			}
-
-			Bitmaps.ToImageFile(Borders, "Cv\\Results\\Mrz\\Test_17_OnlyRectangles.png");
 		}
 
 	}
