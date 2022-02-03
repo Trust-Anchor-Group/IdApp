@@ -1119,6 +1119,15 @@
             <param name="Source">Source image to get the original pixels from.</param>
             <returns>Object image.</returns>
         </member>
+        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract``1(System.UInt16,IdApp.Cv.Matrix{``0})">
+            <summary>
+            Extracts an object in the form of image from the underlying image. Only
+            pixels pertaining to the object will be copied.
+            </summary>
+            <param name="Nr">Object Number</param>
+            <param name="Source">Source image to get the original pixels from.</param>
+            <returns>Object image.</returns>
+        </member>
         <member name="T:IdApp.Cv.Objects.ObjectOperations">
             <summary>
             Static class for Object Operations, implemented as extensions.
@@ -1137,6 +1146,25 @@
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Threshold">Threshold to use when identifying objects.</param>
+        </member>
+        <member name="T:IdApp.Cv.Objects.Utilities">
+            <summary>
+            Static class for Object Operations, implemented as extensions.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Objects.Utilities.ExtractMrzRegion(IdApp.Cv.Matrix{System.Single})">
+            <summary>
+            Extracts the MRZ region of an image.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>MRZ region if found, null if not found.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Objects.Utilities.ExtractMrzRegion(IdApp.Cv.Matrix{System.Int32})">
+            <summary>
+            Extracts the MRZ region of an image.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>MRZ region if found, null if not found.</returns>
         </member>
         <member name="T:IdApp.Cv.Statistics.StatisticsOperations">
             <summary>

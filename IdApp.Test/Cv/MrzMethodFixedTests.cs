@@ -13,7 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace IdApp.Test.Cv
 {
 	[TestClass]
-	public class MrzFixedTests
+	public class MrzMethodFixedTests
 	{
 		// See also: https://www.pyimagesearch.com/2015/11/30/detecting-machine-readable-zones-in-passport-images/
 
@@ -21,7 +21,7 @@ namespace IdApp.Test.Cv
 		public void Test_01_Resize()
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
-			Bitmaps.ToImageFile(M, "Cv\\Results\\MrzFixed\\Test_01_Resize.png");
+			Bitmaps.ToImageFile(M, "Cv\\Results\\MrzMethodFixed\\Test_01_Resize.png");
 		}
 
 		[TestMethod]
@@ -29,7 +29,7 @@ namespace IdApp.Test.Cv
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_02_Gray.png");
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_02_Gray.png");
 		}
 
 		[TestMethod]
@@ -38,7 +38,7 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_03_Blur.png");
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_03_Blur.png");
 		}
 
 		[TestMethod]
@@ -47,8 +47,8 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_04_BlackHat.png");
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_04_BlackHat.png");
 		}
 
 		[TestMethod]
@@ -57,9 +57,9 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrHorizontal();     // Detect horizontal edges=detect vertical changes
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_05_Sharr.png");
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_05_Sharr.png");
 		}
 
 		[TestMethod]
@@ -68,10 +68,10 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_06_Abs.png");
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_06_Abs.png");
 		}
 
 		[TestMethod]
@@ -80,11 +80,11 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
 			G.Contrast();
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_07_Contrast.png");
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_07_Contrast.png");
 		}
 
 		[TestMethod]
@@ -93,12 +93,12 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
 			G.Contrast();
-			G = G.Close(13, 5);
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_08_Close.png");
+			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_08_Close.png");
 		}
 
 		[TestMethod]
@@ -107,15 +107,15 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
 			G.Contrast();
-			G = G.Close(13, 5);
+			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			int Otsu = G.OtsuThreshold();
 			Console.Out.WriteLine("Otsu threshold: " + Otsu);
 			G.Threshold(Otsu);
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_09_OtsuThreshold.png");
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_09_OtsuThreshold.png");
 		}
 
 		[TestMethod]
@@ -124,107 +124,29 @@ namespace IdApp.Test.Cv
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
 			G.Contrast();
-			G = G.Close(13, 5);
+			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_10_Close.png");
+			G = G.Close((5 * M.Width + 208) / 415, (33 * M.Height + 300) / 600);
+			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzMethodFixed\\Test_10_Close.png");
 		}
 
 		[TestMethod]
-		public void Test_11_Erode1()
+		public void Test_11_ObjectMap()
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
 			G.Contrast();
-			G = G.Close(13, 5);
+			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			G = G.Erode();
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_11_Erode1.png");
-		}
-
-		[TestMethod]
-		public void Test_12_Erode2()
-		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
-			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
-			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
-			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
-			G.Abs();
-			G.Contrast();
-			G = G.Close(13, 5);
-			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			G = G.Erode();
-			G = G.Erode();
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_12_Erode2.png");
-		}
-
-		[TestMethod]
-		public void Test_13_Erode3()
-		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
-			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
-			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
-			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
-			G.Abs();
-			G.Contrast();
-			G = G.Close(13, 5);
-			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_13_Erode3.png");
-		}
-
-		[TestMethod]
-		public void Test_14_Erode4()
-		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
-			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
-			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
-			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
-			G.Abs();
-			G.Contrast();
-			G = G.Close(13, 5);
-			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
-			Bitmaps.ToImageFile(G, "Cv\\Results\\MrzFixed\\Test_14_Erode4.png");
-		}
-
-		[TestMethod]
-		public void Test_15_ObjectMap()
-		{
-			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
-			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
-			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
-			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
-			G.Abs();
-			G.Contrast();
-			G = G.Close(13, 5);
-			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
+			G = G.Close((5 * M.Width + 208) / 415, (33 * M.Height + 300) / 600);
 
 			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
 			ObjectMap ObjectMap = G.ObjectMap(0x800000);
@@ -241,26 +163,22 @@ namespace IdApp.Test.Cv
 					Borders[Point.X, Point.Y] = 0xff80ff80;
 			}
 
-			Bitmaps.ToImageFile(Borders, "Cv\\Results\\MrzFixed\\Test_15_ObjectMap.png");
+			Bitmaps.ToImageFile(Borders, "Cv\\Results\\MrzMethodFixed\\Test_11_ObjectMap.png");
 		}
 
 		[TestMethod]
-		public void Test_16_ReduceContours()
+		public void Test_12_ReduceContours()
 		{
 			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
 			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
 			G.Contrast();
-			G = G.Close(13, 5);
+			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
+			G = G.Close((5 * M.Width + 208) / 415, (33 * M.Height + 300) / 600);
 
 			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
 			ObjectMap ObjectMap = G.ObjectMap(0x00080000);
@@ -284,29 +202,25 @@ namespace IdApp.Test.Cv
 				}
 			}
 
-			Bitmaps.ToImageFile(Borders, "Cv\\Results\\MrzFixed\\Test_16_ReduceContours.png");
+			Bitmaps.ToImageFile(Borders, "Cv\\Results\\MrzMethodFixed\\Test_12_ReduceContours.png");
 		}
 
 		[TestMethod]
-		public void Test_17_Candidate()
+		public void Test_13_Candidate()
 		{
 			Matrix<uint> M = (Matrix<uint>)Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
-			Matrix<float> G = M.GrayScale();
+			Matrix<int> G = M.GrayScaleFixed();
 			G = G.GaussianBlur(3);
-			G = G.BlackHat(13, 5);
+			Matrix<int> ForOcr = G = G.BlackHat((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
 			G.Abs();
 			G.Contrast();
-			G = G.Close(13, 5);
+			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G.Threshold(G.OtsuThreshold());
-			G = G.Close(5, 21);
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
-			G = G.Erode();
+			G = G.Close((5 * M.Width + 208) / 415, (33 * M.Height + 300) / 600);
 
 			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
-			ObjectMap ObjectMap = G.ObjectMap(0.5f);
+			ObjectMap ObjectMap = G.ObjectMap(0x00800000);
 			ObjectInformation[] Objects = ObjectMap.Objects;
 
 			Array.Sort(Objects, (o1, o2) => o2.NrPixels - o1.NrPixels);
@@ -326,9 +240,9 @@ namespace IdApp.Test.Cv
 				if (Reduced.Length != 4)
 					continue;
 
-				Matrix<uint> SubRegion = M.Region((M.Width - G.Width) / 2, (M.Height - G.Height) / 2, G.Width, G.Height);
+				Matrix<int> SubRegion = ForOcr.Region((ForOcr.Width - G.Width) / 2, (ForOcr.Height - G.Height) / 2, G.Width, G.Height);
 				IMatrix Obj = ObjectMap.Extract(Object.Nr, SubRegion);
-				Bitmaps.ToImageFile(Obj, "Cv\\Results\\MrzFixed\\Test_17_Candidate.png");
+				Bitmaps.ToImageFile(Obj, "Cv\\Results\\MrzMethodFixed\\Test_13_Candidate.png");
 				break;
 			}
 		}

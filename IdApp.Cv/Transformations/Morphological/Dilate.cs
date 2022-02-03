@@ -84,7 +84,7 @@ namespace IdApp.Cv.Transformations.Morphological
 				if (y2 >= h)
 					y2 = h - 1;
 
-				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
+				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1 + 1);
 
 				for (x = 0; x < w; x++, SrcIndex++)
 				{
@@ -100,7 +100,7 @@ namespace IdApp.Cv.Transformations.Morphological
 						if (x2 >= w)
 							x2 = w - 1;
 
-						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1 + 1);
 
 						Result[Index++] = Neighborhood.Max();
 					}
@@ -174,8 +174,8 @@ namespace IdApp.Cv.Transformations.Morphological
 				else
 					ky2 = KernelHeight;
 
-				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
-				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1);
+				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1 + 1);
+				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1 + 1);
 
 				for (x = 0; x < w; x++, SrcIndex++)
 				{
@@ -201,8 +201,8 @@ namespace IdApp.Cv.Transformations.Morphological
 						else
 							kx2 = KernelWidth;
 
-						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
-						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1 + 1);
+						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1 + 1);
 
 						Result[Index++] = Neighborhood.Max(KernelNeighborhood);
 					}
@@ -287,7 +287,7 @@ namespace IdApp.Cv.Transformations.Morphological
 				if (y2 >= h)
 					y2 = h - 1;
 
-				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
+				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1 + 1);
 
 				for (x = 0; x < w; x++, SrcIndex++)
 				{
@@ -303,7 +303,7 @@ namespace IdApp.Cv.Transformations.Morphological
 						if (x2 >= w)
 							x2 = w - 1;
 
-						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1 + 1);
 
 						Result[Index++] = Neighborhood.Max();
 					}
@@ -377,8 +377,8 @@ namespace IdApp.Cv.Transformations.Morphological
 				else
 					ky2 = KernelHeight;
 
-				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1);
-				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1);
+				Neighborhood.SetYSpan(y1 + M.Top, y2 - y1 + 1);
+				KernelNeighborhood.SetYSpan(ky1 + Kernel.Top, ky2 - ky1 + 1);
 
 				for (x = 0; x < w; x++, SrcIndex++)
 				{
@@ -404,8 +404,8 @@ namespace IdApp.Cv.Transformations.Morphological
 						else
 							kx2 = KernelWidth;
 
-						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1);
-						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1);
+						Neighborhood.SetXSpan(x1 + M.Left, x2 - x1 + 1);
+						KernelNeighborhood.SetXSpan(kx1 + Kernel.Left, kx2 - kx1 + 1);
 
 						Result[Index++] = Neighborhood.Max(KernelNeighborhood);
 					}

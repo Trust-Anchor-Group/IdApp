@@ -378,6 +378,25 @@ namespace IdApp.Cv.Objects
 				throw new InvalidOperationException("Underlying image type not supported.");
 		}
 
+		/// <summary>
+		/// Extracts an object in the form of image from the underlying image. Only
+		/// pixels pertaining to the object will be copied.
+		/// </summary>
+		/// <param name="Nr">Object Number</param>
+		/// <param name="Source">Source image to get the original pixels from.</param>
+		/// <returns>Object image.</returns>
+		public Matrix<T> Extract<T>(ushort Nr, Matrix<T> Source)
+			where T : struct
+		{
+			if (Source.Width != this.Width || Source.Height != this.Height)
+				throw new ArgumentOutOfRangeException(nameof(Source));
+
+			if (!this.objectsById.TryGetValue(Nr, out ObjectInformation Info))
+				throw new ArgumentOutOfRangeException(nameof(Nr));
+		
+			return this.Extract<T>(Nr, Source, Info, default(T));
+		}
+
 		private Matrix<T> Extract<T>(ushort Nr, Matrix<T> Image, ObjectInformation Object, T BackgroundValue)
 			where T : struct
 		{
