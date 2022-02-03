@@ -1,4 +1,5 @@
-﻿using IdApp.Cv.Statistics;
+﻿using IdApp.Cv.Basic;
+using IdApp.Cv.Statistics;
 using System;
 
 namespace IdApp.Cv.Transformations.Morphological

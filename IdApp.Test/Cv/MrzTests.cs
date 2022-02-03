@@ -1,7 +1,9 @@
 ﻿using System;
 using IdApp.Cv;
 using IdApp.Cv.Arithmetics;
+using IdApp.Cv.Basic;
 using IdApp.Cv.ColorModels;
+using IdApp.Cv.Objects;
 using IdApp.Cv.Transformations;
 using IdApp.Cv.Transformations.Convolutions;
 using IdApp.Cv.Transformations.Morphological;
@@ -204,6 +206,40 @@ namespace IdApp.Test.Cv
 			G = G.Erode();
 			G = G.Erode();
 			Bitmaps.ToImageFile(G, "Cv\\Results\\Mrz\\Test_14_Erode4.png");
+		}
+
+		[TestMethod]
+		public void Test_15_ObjectMap()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
+			Matrix<float> G = (Matrix<float>)M.GrayScale();
+			G = G.GaussianBlur(3);
+			G = G.BlackHat(13, 5);
+			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
+			G.Abs();
+			G.Contrast();
+			G = G.Close(13, 5);
+			G.Threshold(G.OtsuThreshold());
+			G = G.Close(5, 21);
+			G = G.Erode();
+			G = G.Erode();
+			G = G.Erode();
+			G = G.Erode();
+
+			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
+			ObjectMap ObjectMap = G.ObjectMap(0.5f);
+			ushort i;
+			int c = ObjectMap.NrObjects;
+
+			for (i = 0; i < c; i++)
+			{
+				ObjectInformation Info = ObjectMap[i];
+
+				foreach (Point Point in Info.Contour)
+					Borders[Point.X, Point.Y] = 0xff80ff80;
+			}
+
+			Bitmaps.ToImageFile(Borders, "Cv\\Results\\Mrz\\Test_15_ObjectMap.png");
 		}
 	}
 }

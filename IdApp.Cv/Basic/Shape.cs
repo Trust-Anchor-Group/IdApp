@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdApp.Cv.Transformations.Morphological
+namespace IdApp.Cv.Basic
 {
 	/// <summary>
 	/// Shape for morphological operations.

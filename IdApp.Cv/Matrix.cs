@@ -244,6 +244,17 @@ namespace IdApp.Cv
 		}
 
 		/// <summary>
+		/// Gets the start index of a point in the image.
+		/// </summary>
+		/// <param name="X">X-Coordinate</param>
+		/// <param name="Y">Y-Coordinate</param>
+		/// <returns>Index into underlying data set.</returns>
+		public int StartIndex(int X, int Y)
+		{
+			return (X + this.left) + (Y + this.top) * this.rowSize;
+		}
+
+		/// <summary>
 		/// Returns a row vector as a matrix.
 		/// </summary>
 		/// <param name="RowIndex">Zero-based row index.</param>

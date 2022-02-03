@@ -271,6 +271,145 @@
             <param name="M">Matrix of pixels</param>
             <param name="Value">Value to set.</param>
         </member>
+        <member name="T:IdApp.Cv.Basic.Point">
+            <summary>
+            Represents a point in an image.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Point.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Represents a point in an image.
+            </summary>
+            <param name="X">X-Coordinate</param>
+            <param name="Y">Y-Coordinate</param>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Point.X">
+            <summary>
+            X-Coordinate
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Point.Y">
+            <summary>
+            Y-Coordinate
+            </summary>
+        </member>
+        <member name="T:IdApp.Cv.Basic.Rect">
+            <summary>
+            Represents a rectangle in an image.
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Rect.Left">
+            <summary>
+            Top X-Coordinate
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Rect.Top">
+            <summary>
+            Top Y-Coordinate
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Rect.Width">
+            <summary>
+            Width of rectangle.
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Rect.Height">
+            <summary>
+            Height of rectangle.
+            </summary>
+        </member>
+        <member name="T:IdApp.Cv.Basic.Shape">
+            <summary>
+            Shape for morphological operations.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Shape.#ctor(System.Int32,System.Int32,System.Boolean[],System.Int32,System.Int32)">
+            <summary>
+            Shape for morphological operations.
+            </summary>
+            <param name="Width">Width of Matrix</param>
+            <param name="Height">Height of Matrix</param>
+            <param name="Points">Points in the shape.</param>
+            <param name="PixelX">X-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
+            <param name="PixelY">Y-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Shape.#ctor(System.Int32,System.Int32,System.Boolean[],System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
+            </summary>
+            <param name="Width">Width of Matrix</param>
+            <param name="Height">Height of Matrix</param>
+            <param name="Data">Underlying data.</param>
+            <param name="Left">Left coordinate of matrix in underlying data.</param>
+            <param name="Top">Top coordinate of matrix in underlying data.</param>
+            <param name="RowSize">Size of one row.</param>
+            <param name="Start">Start index of matrix in underlying data.</param>
+            <param name="Skip">Number of elements to skip after last element in a row of the matrix to the first element of the next row.</param>
+            <param name="PixelX">X-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
+            <param name="PixelY">Y-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
+        </member>
+        <member name="P:IdApp.Cv.Basic.Shape.PixelX">
+            <summary>
+            X-coordinate within matrix representing the pixel on which the morphlogical operation operates.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Basic.Shape.PixelY">
+            <summary>
+            Y-coordinate within matrix representing the pixel on which the morphlogical operation operates.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Shape.ShallowCopy">
+            <summary>
+            Creates a shallow copy of the matrix. The shallow copy points to the same
+            underlying pixel data.
+            </summary>
+            <returns>Shallow copy</returns>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.Cross_3x3">
+            <summary>
+            Cross shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.Cross_5x5">
+            <summary>
+            Cross shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.Cross_7x7">
+            <summary>
+            Cross shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.X_3x3">
+            <summary>
+            X shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.X_5x5">
+            <summary>
+            X shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.X_7x7">
+            <summary>
+            X shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.Diamond_3x3">
+            <summary>
+            Diamond shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.Diamond_5x5">
+            <summary>
+            Diamond shape
+            </summary>
+        </member>
+        <member name="F:IdApp.Cv.Basic.Shape.Diamond_7x7">
+            <summary>
+            Diamond shape
+            </summary>
+        </member>
         <member name="T:IdApp.Cv.Bitmaps">
             <summary>
             Static methods managing conversion to and from bitmap representations.
@@ -606,6 +745,14 @@
             Number of elements to skip from the right edge in the underlying data to the left edge of the new row.
             </summary>
         </member>
+        <member name="M:IdApp.Cv.IMatrix.StartIndex(System.Int32,System.Int32)">
+            <summary>
+            Gets the start index of a point in the image.
+            </summary>
+            <param name="X">X-Coordinate</param>
+            <param name="Y">Y-Coordinate</param>
+            <returns>Index into underlying data set.</returns>
+        </member>
         <member name="T:IdApp.Cv.Matrix`1">
             <summary>
             Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
@@ -719,6 +866,14 @@
             <param name="Y">Zero-based Y-coordinate (row)</param>
             <returns>Pixel/Element</returns>
         </member>
+        <member name="M:IdApp.Cv.Matrix`1.StartIndex(System.Int32,System.Int32)">
+            <summary>
+            Gets the start index of a point in the image.
+            </summary>
+            <param name="X">X-Coordinate</param>
+            <param name="Y">Y-Coordinate</param>
+            <returns>Index into underlying data set.</returns>
+        </member>
         <member name="M:IdApp.Cv.Matrix`1.Row(System.Int32)">
             <summary>
             Returns a row vector as a matrix.
@@ -749,6 +904,135 @@
             </summary>
             <param name="FileName">Filename of image file.</param>
             <returns>Matrix iamge.</returns>
+        </member>
+        <member name="T:IdApp.Cv.Objects.ObjectInformation">
+            <summary>
+            Contains information about an object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Objects.ObjectInformation.#ctor(System.UInt16,System.Int32,System.Int32,IdApp.Cv.Objects.ObjectMap)">
+            <summary>
+            Contains information about an object.
+            </summary>
+            <param name="Nr">Object Number.</param>
+            <param name="X0">X-Coordinate where object was first detected.</param>
+            <param name="Y0">Y-Coordinate where object was first detected.</param>
+            <param name="Map">Object Map</param>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.Nr">
+            <summary>
+            Object number in image
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.NrPixels">
+            <summary>
+            Number of pixels in object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.MinX">
+            <summary>
+            Smallest X-coordinate of bounding box
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.MaxX">
+            <summary>
+            Largest X-coordinate of bounding box
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.MinY">
+            <summary>
+            Smallest Y-coordinate of bounding box
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.MaxY">
+            <summary>
+            Largest Y-coordinate of bounding box
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.X0">
+            <summary>
+            X-Coordinate where object was first detected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.Y0">
+            <summary>
+            Y-Coordinate where object was first detected.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.Width">
+            <summary>
+            Width of object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.Height">
+            <summary>
+            Height of object.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.Map">
+            <summary>
+            Object Map containing information about the objects in an image.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectInformation.Contour">
+            <summary>
+            Contour of the object.
+            </summary>
+        </member>
+        <member name="T:IdApp.Cv.Objects.ObjectMap">
+            <summary>
+            Contains an object map of contents in an image.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Objects.ObjectMap.#ctor(IdApp.Cv.Matrix{System.Single},System.Single)">
+            <summary>
+            Contains an object map of contents in an image.
+            </summary>
+            <param name="M">Image matrix</param>
+            <param name="Threshold">Threshold to use when identifying objects.</param>
+        </member>
+        <member name="M:IdApp.Cv.Objects.ObjectMap.#ctor(IdApp.Cv.Matrix{System.Int32},System.Int32)">
+            <summary>
+            Contains an object map of contents in an image.
+            </summary>
+            <param name="M">Image matrix</param>
+            <param name="Threshold">Threshold to use when identifying objects.</param>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectMap.Image">
+            <summary>
+            Underlying image.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectMap.NrObjects">
+            <summary>
+            Number of objects in map.
+            </summary>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectMap.Item(System.UInt16)">
+            <summary>
+            Gets a reference to information about an object in the object map.
+            </summary>
+            <param name="Nr">Zero-based object index.</param>
+            <returns>Object information.</returns>
+        </member>
+        <member name="T:IdApp.Cv.Objects.ObjectOperations">
+            <summary>
+            Static class for Object Operations, implemented as extensions.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Objects.ObjectOperations.ObjectMap(IdApp.Cv.Matrix{System.Single},System.Single)">
+            <summary>
+            Computes an object map of an image.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <param name="Threshold">Threshold to use when identifying objects.</param>
+        </member>
+        <member name="M:IdApp.Cv.Objects.ObjectOperations.ObjectMap(IdApp.Cv.Matrix{System.Int32},System.Int32)">
+            <summary>
+            Computes an object map of an image.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <param name="Threshold">Threshold to use when identifying objects.</param>
         </member>
         <member name="T:IdApp.Cv.Statistics.StatisticsOperations">
             <summary>
@@ -1496,14 +1780,14 @@
             <param name="MinThreshold">Minimum threshold</param>
             <param name="MaxThreshold">Maximum threshold</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape)">
             <summary>
             Closes an image by first dilating it, and then eroding it.
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape,System.Single,System.Single)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape,System.Single,System.Single)">
             <summary>
             Closes an image by first dilating it, and then eroding it.
             </summary>
@@ -1543,14 +1827,14 @@
             <param name="MinThreshold">Minimum threshold</param>
             <param name="MaxThreshold">Maximum threshold</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape)">
             <summary>
             Closes an image by first dilating it, and then eroding it.
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape,System.Int32,System.Int32)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Close(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape,System.Int32,System.Int32)">
             <summary>
             Closes an image by first dilating it, and then eroding it.
             </summary>
@@ -1593,7 +1877,7 @@
             <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
             <param name="MaxThreshold">Maximum threshold.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape)">
             <summary>
             Dilates an image by replacing a pixel with the maximum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1601,7 +1885,7 @@
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape,System.Single)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape,System.Single)">
             <summary>
             Dilates an image by replacing a pixel with the maximum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1644,7 +1928,7 @@
             <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
             <param name="MaxThreshold">Maximum threshold.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape)">
             <summary>
             Dilates an image by replacing a pixel with the maximum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1652,7 +1936,7 @@
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape,System.Int32)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Dilate(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape,System.Int32)">
             <summary>
             Dilates an image by replacing a pixel with the maximum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1695,7 +1979,7 @@
             <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
             <param name="MinThreshold">Minimum threshold.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape)">
             <summary>
             Erodes an image by replacing a pixel with the minimum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1703,7 +1987,7 @@
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape,System.Single)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape,System.Single)">
             <summary>
             Erodes an image by replacing a pixel with the minimum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1746,7 +2030,7 @@
             <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
             <param name="MinThreshold">Minimum threshold.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape)">
             <summary>
             Erodes an image by replacing a pixel with the minimum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1754,7 +2038,7 @@
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape,System.Int32)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Erode(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape,System.Int32)">
             <summary>
             Erodes an image by replacing a pixel with the minimum value of pixels in a
             neighborhood of the pixel determined by the <paramref name="Kernel"/>.
@@ -1914,14 +2198,14 @@
             <param name="MinThreshold">Minimum threshold</param>
             <param name="MaxThreshold">Maximum threshold</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape)">
             <summary>
             The absolute difference between the dilation and the erosion of an image.
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape,System.Single,System.Single)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape,System.Single,System.Single)">
             <summary>
             The absolute difference between the dilation and the erosion of an image.
             </summary>
@@ -1961,14 +2245,14 @@
             <param name="MinThreshold">Minimum threshold</param>
             <param name="MaxThreshold">Maximum threshold</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape)">
             <summary>
             The absolute difference between the dilation and the erosion of an image.
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape,System.Int32,System.Int32)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.MorphologicalGradient(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape,System.Int32,System.Int32)">
             <summary>
             The absolute difference between the dilation and the erosion of an image.
             </summary>
@@ -2008,14 +2292,14 @@
             <param name="MinThreshold">Minimum threshold</param>
             <param name="MaxThreshold">Maximum threshold</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape)">
             <summary>
             Opens an image by first eroding it, and then dilating it.
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Transformations.Morphological.Shape,System.Single,System.Single)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Basic.Shape,System.Single,System.Single)">
             <summary>
             Opens an image by first eroding it, and then dilating it.
             </summary>
@@ -2055,14 +2339,14 @@
             <param name="MinThreshold">Minimum threshold</param>
             <param name="MaxThreshold">Maximum threshold</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape)">
             <summary>
             Opens an image by first eroding it, and then dilating it.
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Kernel">Kernel of morphological operation.</param>
         </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Transformations.Morphological.Shape,System.Int32,System.Int32)">
+        <member name="M:IdApp.Cv.Transformations.Morphological.MorphologicalOperations.Open(IdApp.Cv.Matrix{System.Int32},IdApp.Cv.Basic.Shape,System.Int32,System.Int32)">
             <summary>
             Opens an image by first eroding it, and then dilating it.
             </summary>
@@ -2132,98 +2416,6 @@
             <param name="NeighborhoodHeight">Height of neighborhood (default=3).</param>
             <param name="MinThreshold">Minimum threshold</param>
             <param name="MaxThreshold">Maximum threshold</param>
-        </member>
-        <member name="T:IdApp.Cv.Transformations.Morphological.Shape">
-            <summary>
-            Shape for morphological operations.
-            </summary>
-        </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.Shape.#ctor(System.Int32,System.Int32,System.Boolean[],System.Int32,System.Int32)">
-            <summary>
-            Shape for morphological operations.
-            </summary>
-            <param name="Width">Width of Matrix</param>
-            <param name="Height">Height of Matrix</param>
-            <param name="Points">Points in the shape.</param>
-            <param name="PixelX">X-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
-            <param name="PixelY">Y-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
-        </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.Shape.#ctor(System.Int32,System.Int32,System.Boolean[],System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
-            <summary>
-            Implements a Matrix, basic component for computations in Image Processing and Computer Vision.
-            </summary>
-            <param name="Width">Width of Matrix</param>
-            <param name="Height">Height of Matrix</param>
-            <param name="Data">Underlying data.</param>
-            <param name="Left">Left coordinate of matrix in underlying data.</param>
-            <param name="Top">Top coordinate of matrix in underlying data.</param>
-            <param name="RowSize">Size of one row.</param>
-            <param name="Start">Start index of matrix in underlying data.</param>
-            <param name="Skip">Number of elements to skip after last element in a row of the matrix to the first element of the next row.</param>
-            <param name="PixelX">X-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
-            <param name="PixelY">Y-coordinate within matrix representing the pixel on which the morphlogical operation operates.</param>
-        </member>
-        <member name="P:IdApp.Cv.Transformations.Morphological.Shape.PixelX">
-            <summary>
-            X-coordinate within matrix representing the pixel on which the morphlogical operation operates.
-            </summary>
-        </member>
-        <member name="P:IdApp.Cv.Transformations.Morphological.Shape.PixelY">
-            <summary>
-            Y-coordinate within matrix representing the pixel on which the morphlogical operation operates.
-            </summary>
-        </member>
-        <member name="M:IdApp.Cv.Transformations.Morphological.Shape.ShallowCopy">
-            <summary>
-            Creates a shallow copy of the matrix. The shallow copy points to the same
-            underlying pixel data.
-            </summary>
-            <returns>Shallow copy</returns>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.Cross_3x3">
-            <summary>
-            Cross shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.Cross_5x5">
-            <summary>
-            Cross shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.Cross_7x7">
-            <summary>
-            Cross shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.X_3x3">
-            <summary>
-            X shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.X_5x5">
-            <summary>
-            X shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.X_7x7">
-            <summary>
-            X shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.Diamond_3x3">
-            <summary>
-            Diamond shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.Diamond_5x5">
-            <summary>
-            Diamond shape
-            </summary>
-        </member>
-        <member name="F:IdApp.Cv.Transformations.Morphological.Shape.Diamond_7x7">
-            <summary>
-            Diamond shape
-            </summary>
         </member>
         <member name="T:IdApp.Cv.Transformations.Thresholds.TransformationOperations">
             <summary>

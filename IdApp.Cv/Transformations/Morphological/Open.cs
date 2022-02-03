@@ -1,4 +1,6 @@
-﻿namespace IdApp.Cv.Transformations.Morphological
+﻿using IdApp.Cv.Basic;
+
+namespace IdApp.Cv.Transformations.Morphological
 {
 	/// <summary>
 	/// Static class for Morphological Operations, implemented as extensions.

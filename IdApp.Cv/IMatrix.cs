@@ -51,5 +51,13 @@ namespace IdApp.Cv
 		/// Number of elements to skip from the right edge in the underlying data to the left edge of the new row.
 		/// </summary>
 		int Skip { get; }
+
+		/// <summary>
+		/// Gets the start index of a point in the image.
+		/// </summary>
+		/// <param name="X">X-Coordinate</param>
+		/// <param name="Y">Y-Coordinate</param>
+		/// <returns>Index into underlying data set.</returns>
+		int StartIndex(int X, int Y);
 	}
 }

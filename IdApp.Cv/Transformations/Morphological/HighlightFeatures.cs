@@ -1,4 +1,5 @@
 ﻿using IdApp.Cv.Arithmetics;
+using IdApp.Cv.Basic;
 using IdApp.Cv.Transformations.Thresholds;
 
 namespace IdApp.Cv.Transformations.Morphological
