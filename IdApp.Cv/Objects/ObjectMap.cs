@@ -8,7 +8,8 @@ namespace IdApp.Cv.Objects
 	/// </summary>
 	public class ObjectMap : Matrix<ushort>
 	{
-		private readonly Dictionary<ushort, ObjectInformation> objects = new Dictionary<ushort, ObjectInformation>();
+		private readonly Dictionary<ushort, ObjectInformation> objectsById = new Dictionary<ushort, ObjectInformation>();
+		private readonly ObjectInformation[] objects;
 		private readonly IMatrix image;
 
 		/// <summary>
@@ -42,14 +43,17 @@ namespace IdApp.Cv.Objects
 						Obj = Dest[DestIndex];
 						if (Obj == 0)
 						{
-							Obj = (ushort)this.objects.Count;
+							Obj = (ushort)this.objectsById.Count;
 							Info = new ObjectInformation(Obj, x, y, this);
-							this.objects[Obj] = Info;
+							this.objectsById[Obj] = Info;
 							this.FloodFill(x, y, M, Threshold, Info);
 						}
 					}
 				}
 			}
+
+			this.objects = new ObjectInformation[this.objectsById.Count];
+			this.objectsById.Values.CopyTo(this.objects, 0);
 		}
 
 		private void FloodFill(int x, int y, Matrix<float> M, float Threshold, ObjectInformation Info)
@@ -148,14 +152,17 @@ namespace IdApp.Cv.Objects
 						Obj = Dest[DestIndex];
 						if (Obj == 0)
 						{
-							Obj = (ushort)this.objects.Count;
+							Obj = (ushort)this.objectsById.Count;
 							Info = new ObjectInformation(Obj, x, y, this);
-							this.objects[Obj] = Info;
+							this.objectsById[Obj] = Info;
 							this.FloodFill(x, y, M, Threshold, Info);
 						}
 					}
 				}
 			}
+
+			this.objects = new ObjectInformation[this.objectsById.Count];
+			this.objectsById.Values.CopyTo(this.objects, 0);
 		}
 
 		private void FloodFill(int x, int y, Matrix<int> M, int Threshold, ObjectInformation Info)
@@ -230,14 +237,14 @@ namespace IdApp.Cv.Objects
 		/// <summary>
 		/// Number of objects in map.
 		/// </summary>
-		public int NrObjects => this.objects.Count;
+		public int NrObjects => this.objectsById.Count;
 
 		/// <summary>
 		/// Gets a reference to information about an object in the object map.
 		/// </summary>
 		/// <param name="Nr">Zero-based object index.</param>
 		/// <returns>Object information.</returns>
-		public ObjectInformation this[ushort Nr] => this.objects[Nr];
+		public ObjectInformation this[ushort Nr] => this.objectsById[Nr];
 
 		internal Point[] FindContour(int X0, int Y0, int Nr)
 		{
@@ -327,5 +334,9 @@ namespace IdApp.Cv.Objects
 			public int Dir;
 		}
 
+		/// <summary>
+		/// Objects found in map.
+		/// </summary>
+		public ObjectInformation[] Objects => this.objects;
 	}
 }

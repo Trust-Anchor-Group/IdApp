@@ -241,5 +241,93 @@ namespace IdApp.Test.Cv
 
 			Bitmaps.ToImageFile(Borders, "Cv\\Results\\MrzFixed\\Test_15_ObjectMap.png");
 		}
+
+		[TestMethod]
+		public void Test_16_ReduceContours()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
+			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
+			G = G.GaussianBlur(3);
+			G = G.BlackHat(13, 5);
+			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
+			G.Abs();
+			G.Contrast();
+			G = G.Close(13, 5);
+			G.Threshold(G.OtsuThreshold());
+			G = G.Close(5, 21);
+			G = G.Erode();
+			G = G.Erode();
+			G = G.Erode();
+			G = G.Erode();
+
+			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
+			ObjectMap ObjectMap = G.ObjectMap(0x00080000);
+			ObjectInformation[] Objects = ObjectMap.Objects;
+
+			Array.Sort(Objects, (o1, o2) => o2.NrPixels - o1.NrPixels);
+
+			foreach (ObjectInformation Object in Objects)
+			{
+				foreach (Point Point in Object.Contour)
+					Borders[Point.X, Point.Y] = 0xff80ff80;
+
+				Point[] Reduced = Object.Contour.Reduce(10);
+				Point Last = Reduced[Reduced.Length - 1];
+
+				foreach (Point Point in Reduced)
+				{
+					Borders.Line(Last.X, Last.Y, Point.X, Point.Y, 0xffa0a0ff);
+					Last = Point;
+				}
+			}
+
+			Bitmaps.ToImageFile(Borders, "Cv\\Results\\MrzFixed\\Test_16_ReduceContours.png");
+		}
+
+		[TestMethod]
+		public void Test_17_OnlyRectangles()
+		{
+			IMatrix M = Bitmaps.FromBitmapFile("Cv\\TestData\\mrz_original.jpg", 600, 600);
+			Matrix<int> G = (Matrix<int>)M.GrayScaleFixed();
+			G = G.GaussianBlur(3);
+			G = G.BlackHat(13, 5);
+			G = G.DetectEdgesSharrVertical();     // Detect vertical edges=detect horizontal changes
+			G.Abs();
+			G.Contrast();
+			G = G.Close(13, 5);
+			G.Threshold(G.OtsuThreshold());
+			G = G.Close(5, 21);
+			G = G.Erode();
+			G = G.Erode();
+			G = G.Erode();
+			G = G.Erode();
+
+			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
+			ObjectMap ObjectMap = G.ObjectMap(0x00080000);
+			ObjectInformation[] Objects = ObjectMap.Objects;
+
+			Array.Sort(Objects, (o1, o2) => o2.NrPixels - o1.NrPixels);
+
+			foreach (ObjectInformation Object in Objects)
+			{
+				foreach (Point Point in Object.Contour)
+					Borders[Point.X, Point.Y] = 0xff80ff80;
+
+				Point[] Reduced = Object.Contour.Reduce(10);
+				if (Reduced.Length == 4)
+				{
+					Point Last = Reduced[Reduced.Length - 1];
+
+					foreach (Point Point in Reduced)
+					{
+						Borders.Line(Last.X, Last.Y, Point.X, Point.Y, 0xffa0a0ff);
+						Last = Point;
+					}
+				}
+			}
+
+			Bitmaps.ToImageFile(Borders, "Cv\\Results\\MrzFixed\\Test_17_OnlyRectangles.png");
+		}
+
 	}
 }

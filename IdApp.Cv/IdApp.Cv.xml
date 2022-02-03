@@ -255,6 +255,12 @@
             <summary>
             Static class for Basic Operations, implemented as extensions.
             </summary>
+            <summary>
+            Static class for Basic Operations, implemented as extensions.
+            </summary>
+            <summary>
+            Static class for Basic Operations, implemented as extensions.
+            </summary>
         </member>
         <member name="M:IdApp.Cv.Basic.BasicOperations.Copy``1(IdApp.Cv.Matrix{``0})">
             <summary>
@@ -270,6 +276,50 @@
             <typeparam name="T">Pixel type.</typeparam>
             <param name="M">Matrix of pixels</param>
             <param name="Value">Value to set.</param>
+        </member>
+        <member name="M:IdApp.Cv.Basic.BasicOperations.Line``1(IdApp.Cv.Matrix{``0},System.Int32,System.Int32,System.Int32,System.Int32,``0)">
+            <summary>
+            Draws a line between two points.
+            </summary>
+            <typeparam name="T">Pixel type.</typeparam>
+            <param name="M">Matrix of pixels</param>
+            <param name="X1">X-coordinate of one of the endpoints.</param>
+            <param name="Y1">Y-coordinate of one of the endpoints.</param>
+            <param name="X2">X-coordinate of the other of the endpoints.</param>
+            <param name="Y2">Y-coordinate of the other of the endpoints.</param>
+            <param name="Value">Value to set.</param>
+        </member>
+        <member name="M:IdApp.Cv.Basic.BasicOperations.Reduce(IdApp.Cv.Basic.Point[],System.Int32)">
+            <summary>
+            Reduces a contour, by removing points that are already represented by lines between
+            other points, within a distance defined by <paramref name="Threshold"/>.
+            </summary>
+            <param name="Contour">Contour</param>
+            <param name="Threshold">Distance from a line deemed "within the same line".</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Cv.Basic.BasicOperations.DistanceToLine(IdApp.Cv.Basic.Point,IdApp.Cv.Basic.Point,IdApp.Cv.Basic.Point)">
+            <summary>
+            Calculates the shortest distance of a point (x,y) to a line defined by
+            two points (x1,y1) and (x2,y2).
+            </summary>
+            <param name="P1">Coordinates of point 1 defining the line.</param>
+            <param name="P2">Coordinates of point 2 defining the line.</param>
+            <param name="P">Coordinates of point whose distance from the line is to be calculated.</param>
+            <returns>Shortest distance.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Basic.BasicOperations.DistanceToLine(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Calculates the shortest distance of a point (x,y) to a line defined by
+            two points (x1,y1) and (x2,y2).
+            </summary>
+            <param name="x1">X-Coordinate of point 1 defining the line.</param>
+            <param name="y1">Y-Coordinate of point 1 defining the line.</param>
+            <param name="x2">X-Coordinate of point 2 defining the line.</param>
+            <param name="y2">Y-Coordinate of point 2 defining the line.</param>
+            <param name="x">X-Coordinate of point whose distance from the line is to be calculated.</param>
+            <param name="y">Y-Coordinate of point whose distance from the line is to be calculated.</param>
+            <returns>Shortest distance.</returns>
         </member>
         <member name="T:IdApp.Cv.Basic.Point">
             <summary>
@@ -292,6 +342,31 @@
             <summary>
             Y-Coordinate
             </summary>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Point.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Point.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Point.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Point.op_Equality(IdApp.Cv.Basic.Point,IdApp.Cv.Basic.Point)">
+            <summary>
+            Equals operator on points.
+            </summary>
+            <param name="P1">Point 1</param>
+            <param name="P2">Point 2</param>
+            <returns>If P1 represents the same point as P2.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Basic.Point.op_Inequality(IdApp.Cv.Basic.Point,IdApp.Cv.Basic.Point)">
+            <summary>
+            Not-Equals operator on points.
+            </summary>
+            <param name="P1">Point 1</param>
+            <param name="P2">Point 2</param>
+            <returns>If P1 represents a different point than P2.</returns>
         </member>
         <member name="T:IdApp.Cv.Basic.Rect">
             <summary>
@@ -1014,6 +1089,11 @@
             </summary>
             <param name="Nr">Zero-based object index.</param>
             <returns>Object information.</returns>
+        </member>
+        <member name="P:IdApp.Cv.Objects.ObjectMap.Objects">
+            <summary>
+            Objects found in map.
+            </summary>
         </member>
         <member name="T:IdApp.Cv.Objects.ObjectOperations">
             <summary>
