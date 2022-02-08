@@ -471,6 +471,7 @@ namespace IdApp.Cv.Objects
 				for (x = SrcX1; x <= SrcX2; x++, SrcIndex++)
 				{
 					i = Mask[MaskIndex++];
+					i &= 0x3fff;
 					Dest[DestIndex++] = i < c && Included[i] ? Src[SrcIndex] : BackgroundValue;
 				}
 			}
