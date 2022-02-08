@@ -8,9 +8,12 @@ using Android.Views;
 using IdApp.Android.Nfc;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
+using IdApp.Services.Ocr;
 using System;
 using System.Collections.Generic;
+using Tesseract.Droid;
 using Waher.Events;
+using Waher.Runtime.Inventory;
 
 namespace IdApp.Android
 {
@@ -41,6 +44,9 @@ namespace IdApp.Android
 			Xamarin.Essentials.Platform.Init(this, savedInstanceState);
 			ZXing.Net.Mobile.Forms.Android.Platform.Init();
 			Rg.Plugins.Popup.Popup.Init(this);
+
+			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
+			OcrService.RegisterApi(new TesseractApi(Application, AssetsDeployment.OncePerVersion));
 
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 			LoadApplication(new App());

@@ -1404,4 +1404,16 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Izgleda da server ne podržava otpremanje datoteka.</value>
   </data>
+  <data name="TesseractNotCreated" xml:space="preserve">
+    <value>OCR biblioteka Tesseract nije kreirana</value>
+  </data>
+  <data name="UnabletoInitializeTesseract" xml:space="preserve">
+    <value>Nije moguće pokrenuti OCR biblioteku Tesseract</value>
+  </data>
+  <data name="UnableToTesseractImage" xml:space="preserve">
+    <value>Nije moguće obraditi sliku pomoću Tesseract OCR biblioteke.</value>
+  </data>
+  <data name="UnableToExtractMachineReadableString" xml:space="preserve">
+    <value>Nije moguće izdvojiti tekst čitljiv na računaru sa slike.</value>
+  </data>
 </root>

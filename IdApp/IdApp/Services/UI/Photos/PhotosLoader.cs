@@ -199,6 +199,16 @@ namespace IdApp.Services.UI.Photos
 			if (!EXIF.TryExtractFromJPeg(JpegImage, out ExifTag[] Tags))
 				return 0;
 
+			return GetImageRotation(Tags);
+		}
+
+		/// <summary>
+		/// Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
+		/// </summary>
+		/// <param name="Tags">EXIF Tags encoded in image.</param>
+		/// <returns>Rotation angle (degrees).</returns>
+		public static int GetImageRotation(ExifTag[] Tags)
+		{
 			foreach (ExifTag Tag in Tags)
 			{
 				if (Tag.Name == ExifTagName.Orientation)

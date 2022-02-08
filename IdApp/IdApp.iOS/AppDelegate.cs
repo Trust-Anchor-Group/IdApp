@@ -1,5 +1,8 @@
 ﻿using Foundation;
+using IdApp.Services.Ocr;
+using Tesseract.iOS;
 using UIKit;
+using Waher.Runtime.Inventory;
 
 namespace IdApp.iOS
 {
@@ -24,6 +27,9 @@ namespace IdApp.iOS
             LoadApplication(new App());
 
             ZXing.Net.Mobile.Forms.iOS.Platform.Init();
+
+            IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
+            OcrService.RegisterApi(new TesseractApi());
 
             return base.FinishedLaunching(app, options);
         }

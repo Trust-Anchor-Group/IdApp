@@ -1161,6 +1161,9 @@
   <data name="TemplateId" xml:space="preserve">
     <value>MallId</value>
   </data>
+  <data name="TesseractNotCreated" xml:space="preserve">
+    <value>Tesseracts OCR-bibliotek inte skapat</value>
+  </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
     <value>Kontraktet kräver åtminstone {0} delar för rollen {1}. Lägg till delar till kontraktet och försök igen.</value>
   </data>
@@ -1236,11 +1239,20 @@
   <data name="UnableToConnectTo" xml:space="preserve">
     <value>Ej möjligt att ansluta till {0}</value>
   </data>
+  <data name="UnableToExtractMachineReadableString" xml:space="preserve">
+    <value>Kunde inte extrahera den maskinläsbara texten från bilden.</value>
+  </data>
   <data name="UnableToGetListOfMyDevices" xml:space="preserve">
     <value>Kunde inte hämta listan över mina enheter.</value>
   </data>
+  <data name="UnabletoInitializeTesseract" xml:space="preserve">
+    <value>Kunde inte initiera Tesseracts OCR-bibliotek</value>
+  </data>
   <data name="UnableToProcessEDalerUri" xml:space="preserve">
     <value>Kunde inte behandla eDaler-koden.</value>
+  </data>
+  <data name="UnableToTesseractImage" xml:space="preserve">
+    <value>Kunde inte bearbeta bild med Tesseracts OCR-bibliotek.</value>
   </data>
   <data name="UnableToVerifyCode" xml:space="preserve">
     <value>Koden var inte korrekt.</value>

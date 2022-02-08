@@ -113,6 +113,8 @@ namespace IdApp.Cv.Arithmetics
 				Negate(M3);
 			else if (M is Matrix<float> M4)
 				Negate(M4);
+			else if (M is Matrix<int> M5)
+				Negate(M5);
 			else
 				throw new ArgumentException("Unsupported type: " + M.GetType().FullName, nameof(M));
 		}

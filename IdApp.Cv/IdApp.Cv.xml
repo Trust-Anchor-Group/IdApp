@@ -1102,29 +1102,29 @@
             Objects found in map.
             </summary>
         </member>
-        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract(System.UInt16)">
+        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract(System.UInt16[])">
             <summary>
-            Extracts an object in the form of image from the underlying image. Only
-            pixels pertaining to the object will be copied.
+            Extracts one or more objects in the form of image from the underlying image. 
+            Only pixels pertaining to the objects will be copied.
             </summary>
-            <param name="Nr">Object Number</param>
+            <param name="Nrs">Object Numbers</param>
             <returns>Object image.</returns>
         </member>
-        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract(System.UInt16,IdApp.Cv.IMatrix)">
+        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract(System.UInt16[],IdApp.Cv.IMatrix)">
             <summary>
-            Extracts an object in the form of image from the underlying image. Only
-            pixels pertaining to the object will be copied.
+            Extracts one or more objects in the form of image from the underlying image. 
+            Only pixels pertaining to the objects will be copied.
             </summary>
-            <param name="Nr">Object Number</param>
+            <param name="Nrs">Object Numbers</param>
             <param name="Source">Source image to get the original pixels from.</param>
             <returns>Object image.</returns>
         </member>
-        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract``1(System.UInt16,IdApp.Cv.Matrix{``0})">
+        <member name="M:IdApp.Cv.Objects.ObjectMap.Extract``1(System.UInt16[],IdApp.Cv.Matrix{``0})">
             <summary>
-            Extracts an object in the form of image from the underlying image. Only
-            pixels pertaining to the object will be copied.
+            Extracts one or more objects in the form of image from the underlying image. 
+            Only pixels pertaining to the objects will be copied.
             </summary>
-            <param name="Nr">Object Number</param>
+            <param name="Nrs">Object Numbers</param>
             <param name="Source">Source image to get the original pixels from.</param>
             <returns>Object image.</returns>
         </member>
@@ -1146,25 +1146,6 @@
             </summary>
             <param name="M">Matrix of pixel values</param>
             <param name="Threshold">Threshold to use when identifying objects.</param>
-        </member>
-        <member name="T:IdApp.Cv.Objects.Utilities">
-            <summary>
-            Static class for Object Operations, implemented as extensions.
-            </summary>
-        </member>
-        <member name="M:IdApp.Cv.Objects.Utilities.ExtractMrzRegion(IdApp.Cv.Matrix{System.Single})">
-            <summary>
-            Extracts the MRZ region of an image.
-            </summary>
-            <param name="M">Matrix of pixel values</param>
-            <returns>MRZ region if found, null if not found.</returns>
-        </member>
-        <member name="M:IdApp.Cv.Objects.Utilities.ExtractMrzRegion(IdApp.Cv.Matrix{System.Int32})">
-            <summary>
-            Extracts the MRZ region of an image.
-            </summary>
-            <param name="M">Matrix of pixel values</param>
-            <returns>MRZ region if found, null if not found.</returns>
         </member>
         <member name="T:IdApp.Cv.Statistics.StatisticsOperations">
             <summary>
@@ -1792,6 +1773,89 @@
             </summary>
             <param name="M">Matrix of pixel values</param>
             <returns>Sharpened image.</returns>
+        </member>
+        <member name="T:IdApp.Cv.Transformations.Linear.LinearTransformationOperations">
+            <summary>
+            Static class for Linear Transformation Operations, implemented as extensions.
+            </summary>
+            <summary>
+            Static class for Linear Transformation Operations, implemented as extensions.
+            </summary>
+            <summary>
+            Static class for Linear Transformation Operations, implemented as extensions.
+            </summary>
+            <summary>
+            Static class for Linear Transformation Operations, implemented as extensions.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.ToDoubleMatrix(IdApp.Cv.Matrix{System.Single})">
+            <summary>
+            Converts a CV Matrix to a script Matrix.
+            </summary>
+            <param name="M">CV Matrix</param>
+            <returns>Script matrix.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.LinearTransform(IdApp.Cv.Matrix{System.Single},IdApp.Cv.Matrix{System.Single},System.Int32,System.Int32)">
+            <summary>
+            Performs an image convolution on a matrix.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <param name="Transform">Linear transform in homogeneous coordinates</param>
+            <param name="Width">Width of new image.</param>
+            <param name="Height">Height of new image.</param>
+            <returns>New matrix containing the transformed result.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.LinearTransform(IdApp.Cv.Matrix{System.Single},Waher.Script.Objects.Matrices.DoubleMatrix,System.Int32,System.Int32)">
+            <summary>
+            Performs an image convolution on a matrix.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <param name="Transform">Linear transform in homogeneous coordinates</param>
+            <param name="Width">Width of new image.</param>
+            <param name="Height">Height of new image.</param>
+            <returns>New matrix containing the transformed result.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.Rotate180``1(IdApp.Cv.Matrix{``0})">
+            <summary>
+            Rotates the image 180 degrees to the right.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>New matrix containing the convolution result.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.Rotate180(IdApp.Cv.IMatrix)">
+            <summary>
+            Rotates the image 180 degrees to the right.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>New matrix containing the convolution result.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.Rotate270``1(IdApp.Cv.Matrix{``0})">
+            <summary>
+            Rotates the image 270 degrees to the right.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>New matrix containing the convolution result.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.Rotate270(IdApp.Cv.IMatrix)">
+            <summary>
+            Rotates the image 270 degrees to the right.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>New matrix containing the convolution result.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.Rotate90``1(IdApp.Cv.Matrix{``0})">
+            <summary>
+            Rotates the image 90 degrees to the right.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>New matrix containing the convolution result.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Transformations.Linear.LinearTransformationOperations.Rotate90(IdApp.Cv.IMatrix)">
+            <summary>
+            Rotates the image 90 degrees to the right.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>New matrix containing the convolution result.</returns>
         </member>
         <member name="T:IdApp.Cv.Transformations.Morphological.MorphologicalOperations">
             <summary>
@@ -2695,6 +2759,25 @@
             <param name="M">Matrix of pixel values</param>
             <param name="Min">Minimum threshold value.</param>
             <param name="Max">Maximum threshold value.</param>
+        </member>
+        <member name="T:IdApp.Cv.Utilities.Utilities">
+            <summary>
+            Static class for Object Operations, implemented as extensions.
+            </summary>
+        </member>
+        <member name="M:IdApp.Cv.Utilities.Utilities.ExtractMrzRegion(IdApp.Cv.Matrix{System.Single})">
+            <summary>
+            Extracts the MRZ region of an image.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>MRZ region if found, null if not found.</returns>
+        </member>
+        <member name="M:IdApp.Cv.Utilities.Utilities.ExtractMrzRegion(IdApp.Cv.Matrix{System.Int32})">
+            <summary>
+            Extracts the MRZ region of an image.
+            </summary>
+            <param name="M">Matrix of pixel values</param>
+            <returns>MRZ region if found, null if not found.</returns>
         </member>
     </members>
 </doc>

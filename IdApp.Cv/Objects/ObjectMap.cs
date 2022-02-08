@@ -320,8 +320,8 @@ namespace IdApp.Cv.Objects
 			return Result.ToArray();
 		}
 
-		private static readonly int[] DirectionX = new int[] { 1,  1,  0, -1, -1, -1, 0, 1 };
-		private static readonly int[] DirectionY = new int[] { 0, -1, -1, -1,  0,  1, 1, 1 };
+		private static readonly int[] DirectionX = new int[] { 1, 1, 0, -1, -1, -1, 0, 1 };
+		private static readonly int[] DirectionY = new int[] { 0, -1, -1, -1, 0, 1, 1, 1 };
 
 		private class Rec
 		{
@@ -341,76 +341,124 @@ namespace IdApp.Cv.Objects
 		public ObjectInformation[] Objects => this.objects;
 
 		/// <summary>
-		/// Extracts an object in the form of image from the underlying image. Only
-		/// pixels pertaining to the object will be copied.
+		/// Extracts one or more objects in the form of image from the underlying image. 
+		/// Only pixels pertaining to the objects will be copied.
 		/// </summary>
-		/// <param name="Nr">Object Number</param>
+		/// <param name="Nrs">Object Numbers</param>
 		/// <returns>Object image.</returns>
-		public IMatrix Extract(ushort Nr)
+		public IMatrix Extract(params ushort[] Nrs)
 		{
-			return this.Extract(Nr, this.image);
+			return this.Extract(Nrs, this.image);
 		}
 
 		/// <summary>
-		/// Extracts an object in the form of image from the underlying image. Only
-		/// pixels pertaining to the object will be copied.
+		/// Extracts one or more objects in the form of image from the underlying image. 
+		/// Only pixels pertaining to the objects will be copied.
 		/// </summary>
-		/// <param name="Nr">Object Number</param>
+		/// <param name="Nrs">Object Numbers</param>
 		/// <param name="Source">Source image to get the original pixels from.</param>
 		/// <returns>Object image.</returns>
-		public IMatrix Extract(ushort Nr, IMatrix Source)
+		public IMatrix Extract(ushort[] Nrs, IMatrix Source)
 		{
 			if (Source.Width != this.Width || Source.Height != this.Height)
 				throw new ArgumentOutOfRangeException(nameof(Source));
 
-			if (!this.objectsById.TryGetValue(Nr, out ObjectInformation Info))
-				throw new ArgumentOutOfRangeException(nameof(Nr));
+			ObjectInformation[] Infos = this.GetInfo(Nrs);
 
 			if (Source is Matrix<float> M)
-				return this.Extract<float>(Nr, M, Info, float.MinValue);
+				return this.Extract<float>(Nrs, M, Infos, float.MinValue);
 			else if (Source is Matrix<int> M2)
-				return this.Extract<int>(Nr, M2, Info, int.MinValue);
+				return this.Extract<int>(Nrs, M2, Infos, int.MinValue);
 			else if (Source is Matrix<uint> M3)
-				return this.Extract<uint>(Nr, M3, Info, 0);
+				return this.Extract<uint>(Nrs, M3, Infos, 0);
 			else if (Source is Matrix<byte> M4)
-				return this.Extract<byte>(Nr, M4, Info, 0);
+				return this.Extract<byte>(Nrs, M4, Infos, 0);
 			else
 				throw new InvalidOperationException("Underlying image type not supported.");
 		}
 
+		private ObjectInformation[] GetInfo(ushort[] Nrs)
+		{
+			int i, c = Nrs.Length;
+			ObjectInformation[] Infos = new ObjectInformation[c];
+
+			for (i = 0; i < c; i++)
+			{
+				if (!this.objectsById.TryGetValue(Nrs[i], out ObjectInformation Info))
+					throw new ArgumentOutOfRangeException(nameof(Nrs));
+
+				Infos[i] = Info;
+			}
+
+			return Infos;
+		}
+
 		/// <summary>
-		/// Extracts an object in the form of image from the underlying image. Only
-		/// pixels pertaining to the object will be copied.
+		/// Extracts one or more objects in the form of image from the underlying image. 
+		/// Only pixels pertaining to the objects will be copied.
 		/// </summary>
-		/// <param name="Nr">Object Number</param>
+		/// <param name="Nrs">Object Numbers</param>
 		/// <param name="Source">Source image to get the original pixels from.</param>
 		/// <returns>Object image.</returns>
-		public Matrix<T> Extract<T>(ushort Nr, Matrix<T> Source)
+		public Matrix<T> Extract<T>(ushort[] Nrs, Matrix<T> Source)
 			where T : struct
 		{
 			if (Source.Width != this.Width || Source.Height != this.Height)
 				throw new ArgumentOutOfRangeException(nameof(Source));
 
-			if (!this.objectsById.TryGetValue(Nr, out ObjectInformation Info))
-				throw new ArgumentOutOfRangeException(nameof(Nr));
-		
-			return this.Extract<T>(Nr, Source, Info, default(T));
+			ObjectInformation[] Infos = this.GetInfo(Nrs);
+
+			return this.Extract<T>(Nrs, Source, Infos, default);
 		}
 
-		private Matrix<T> Extract<T>(ushort Nr, Matrix<T> Image, ObjectInformation Object, T BackgroundValue)
+		private Matrix<T> Extract<T>(ushort[] Nrs, Matrix<T> Image, ObjectInformation[] Objects, T BackgroundValue)
 			where T : struct
 		{
-			int SrcX1 = Object.MinX;
-			int SrcY1 = Object.MinY;
-			int SrcX2 = Object.MaxX;
-			int SrcY2 = Object.MaxY;
+			int x, y, c = Nrs.Length;
+			if (c != Objects.Length)
+				throw new ArgumentException("Array size mismatch.", nameof(Objects));
+
+			if (c == 0)
+				return new Matrix<T>(1, 1);
+
+			int SrcX1 = Objects[0].MinX;
+			int SrcY1 = Objects[0].MinY;
+			int SrcX2 = Objects[0].MaxX;
+			int SrcY2 = Objects[0].MaxY;
+			y = Objects[0].Nr;
+
+			for (x = 1; x < c; x++)
+			{
+				ObjectInformation Info = Objects[x];
+
+				if (Info.MinX < SrcX1)
+					SrcX1 = Info.MinX;
+
+				if (Info.MaxX > SrcX2)
+					SrcX2 = Info.MaxX;
+
+				if (Info.MinY < SrcY1)
+					SrcY1 = Info.MinY;
+
+				if (Info.MaxY > SrcY2)
+					SrcY2 = Info.MaxY;
+
+				if (Info.Nr > y)
+					y = Info.Nr;
+			}
+
+			bool[] Included = new bool[y + 2];
+			for (x = 0; x < c; x++)
+				Included[Objects[x].Nr + 1] = true;
+
+			c = y + 2;
+
 			int w = SrcX2 - SrcX1 + 1;
 			int h = SrcY2 - SrcY1 + 1;
 			int SrcIndex = Image.StartIndex(SrcX1, SrcY1);
 			int SrcSkip = Image.Skip + Image.Width - w;
 			int MaskIndex = this.StartIndex(SrcX1, SrcY1);
 			int MaskSkip = Image.Width - w;
-			int x, y;
 			ushort i;
 			Matrix<T> Result = new Matrix<T>(w, h);
 			ushort[] Mask = this.Data;
@@ -418,14 +466,12 @@ namespace IdApp.Cv.Objects
 			T[] Dest = Result.Data;
 			int DestIndex = 0;
 
-			Nr++;
-
 			for (y = SrcY1; y <= SrcY2; y++, SrcIndex += SrcSkip, MaskIndex += MaskSkip)
 			{
 				for (x = SrcX1; x <= SrcX2; x++, SrcIndex++)
 				{
 					i = Mask[MaskIndex++];
-					Dest[DestIndex++] = i == Nr ? Src[SrcIndex] : BackgroundValue;
+					Dest[DestIndex++] = i < c && Included[i] ? Src[SrcIndex] : BackgroundValue;
 				}
 			}
 

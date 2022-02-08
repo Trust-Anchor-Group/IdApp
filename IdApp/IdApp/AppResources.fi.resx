@@ -1404,4 +1404,16 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Palvelin ei näytä tukevan tiedostojen lataamista.</value>
   </data>
+  <data name="TesseractNotCreated" xml:space="preserve">
+    <value>Tesseract OCR -kirjastoa ei luotu</value>
+  </data>
+  <data name="UnabletoInitializeTesseract" xml:space="preserve">
+    <value>Tesseract OCR -kirjastoa ei voi alustaa</value>
+  </data>
+  <data name="UnableToTesseractImage" xml:space="preserve">
+    <value>Kuvaa ei voi käsitellä Tesseract OCR -kirjastolla.</value>
+  </data>
+  <data name="UnableToExtractMachineReadableString" xml:space="preserve">
+    <value>Tietokoneesta ei voi poimia koneellista tekstiä.</value>
+  </data>
 </root>

@@ -1802,6 +1802,11 @@
               Looks up a localized string similar to Template ID.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.TesseractNotCreated">
+            <summary>
+              Looks up a localized string similar to Tesseract OCR Library not created.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.TheContractRequiresAtLeast_AddMoreParts">
             <summary>
               Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
@@ -1937,14 +1942,29 @@
               Looks up a localized string similar to Unable to connect to {0}.
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.UnableToExtractMachineReadableString">
+            <summary>
+              Looks up a localized string similar to Unable to extract machine-readable text from image..
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.UnableToGetListOfMyDevices">
             <summary>
               Looks up a localized string similar to Unable to get list of my devices..
             </summary>
         </member>
+        <member name="P:IdApp.AppResources.UnabletoInitializeTesseract">
+            <summary>
+              Looks up a localized string similar to Unable to initialize Tesseract OCR Library.
+            </summary>
+        </member>
         <member name="P:IdApp.AppResources.UnableToProcessEDalerUri">
             <summary>
               Looks up a localized string similar to Unable to process eDaler code..
+            </summary>
+        </member>
+        <member name="P:IdApp.AppResources.UnableToTesseractImage">
+            <summary>
+              Looks up a localized string similar to Unable to process image with Tesseract OCR Library..
             </summary>
         </member>
         <member name="P:IdApp.AppResources.UnableToVerifyCode">
@@ -3489,6 +3509,11 @@
         <member name="F:IdApp.FontAwesome.WindowClose">
             <summary>
             window-close
+            </summary>
+        </member>
+        <member name="F:IdApp.FontAwesome.Passport">
+            <summary>
+            passport
             </summary>
         </member>
         <member name="T:IdApp.Pages.BaseViewModel">
@@ -8366,6 +8391,11 @@
             The command to bind to for selecting a photo from the camera roll.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.EPassportCommand">
+            <summary>
+            The command to bind to for scanning an ePassport or eID.
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityViewModel.RemovePhotoCommand">
             <summary>
             The command to bind to for removing the currently selected photo.
@@ -12880,6 +12910,84 @@
             <param name="PropertyName">Name of property</param>
             <returns>Property value.</returns>
         </member>
+        <member name="T:IdApp.Services.Ocr.IOcrService">
+            <summary>
+            Interface for the Optical Character Recognition (OCR) Service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Ocr.IOcrService.RegisterApi(Tesseract.ITesseractApi)">
+            <summary>
+            Method called to register the platform-dependant Tesseract API interface.
+            </summary>
+            <param name="Api">Tesseract API Reference</param>
+        </member>
+        <member name="P:IdApp.Services.Ocr.IOcrService.Created">
+            <summary>
+            If API is created
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Ocr.IOcrService.Initialized">
+            <summary>
+            If API is initialized
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Ocr.IOcrService.Initialize">
+            <summary>
+            Initializes API
+            </summary>
+            <returns>If API was successfully initialized.</returns>
+        </member>
+        <member name="M:IdApp.Services.Ocr.IOcrService.ProcessImage(IdApp.Cv.IMatrix)">
+            <summary>
+            Processes an image and tries to extract strings of characters from it.
+            </summary>
+            <param name="Image">Pre-processed image.</param>
+            <returns>Any lines of text found.</returns>
+        </member>
+        <member name="T:IdApp.Services.Ocr.OcrService">
+            <summary>
+            Optical Character Recognition (OCR) Service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Ocr.OcrService.#ctor">
+            <summary>
+            Optical Character Recognition (OCR) Service.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Ocr.OcrService.RegisterApi(Tesseract.ITesseractApi)">
+            <summary>
+            Method called to register the platform-dependant Tesseract API interface.
+            </summary>
+            <param name="Api">Tesseract API Reference</param>
+        </member>
+        <member name="P:IdApp.Services.Ocr.OcrService.Api">
+            <summary>
+            Tesseract API reference.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Ocr.OcrService.Created">
+            <summary>
+            If API is created
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Ocr.OcrService.Initialized">
+            <summary>
+            If API is initialized
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Ocr.OcrService.Initialize">
+            <summary>
+            Initializes API
+            </summary>
+            <returns>If API was successfully initialized.</returns>
+        </member>
+        <member name="M:IdApp.Services.Ocr.OcrService.ProcessImage(IdApp.Cv.IMatrix)">
+            <summary>
+            Processes an image and tries to extract strings of characters from it.
+            </summary>
+            <param name="Image">Pre-processed image.</param>
+            <returns>Any lines of text found.</returns>
+        </member>
         <member name="T:IdApp.Services.Provisioning.INeuronProvisioningService">
             <summary>
             Adds support for XMPP Provisioning
@@ -14227,6 +14335,13 @@
             Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
             </summary>
             <param name="JpegImage">Binary representation of JPEG image.</param>
+            <returns>Rotation angle (degrees).</returns>
+        </member>
+        <member name="M:IdApp.Services.UI.Photos.PhotosLoader.GetImageRotation(Waher.Content.Images.Exif.ExifTag[])">
+            <summary>
+            Gets the rotation angle to use, to display the image correctly in Xamarin Forms.
+            </summary>
+            <param name="Tags">EXIF Tags encoded in image.</param>
             <returns>Rotation angle (degrees).</returns>
         </member>
         <member name="M:IdApp.Services.UI.Photos.PhotosLoader.LoadPhoto(Waher.Networking.XMPP.Contracts.Attachment)">

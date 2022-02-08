@@ -1404,4 +1404,16 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>The server does not seem to support File Uploading.</value>
   </data>
+  <data name="TesseractNotCreated" xml:space="preserve">
+    <value>Tesseract OCR Library not created</value>
+  </data>
+  <data name="UnabletoInitializeTesseract" xml:space="preserve">
+    <value>Unable to initialize Tesseract OCR Library</value>
+  </data>
+  <data name="UnableToTesseractImage" xml:space="preserve">
+    <value>Unable to process image with Tesseract OCR Library.</value>
+  </data>
+  <data name="UnableToExtractMachineReadableString" xml:space="preserve">
+    <value>Unable to extract machine-readable text from image.</value>
+  </data>
 </root>

@@ -1,12 +1,14 @@
 ﻿using IdApp.Cv.Arithmetics;
 using IdApp.Cv.Basic;
+using IdApp.Cv.Objects;
 using IdApp.Cv.Transformations;
 using IdApp.Cv.Transformations.Convolutions;
 using IdApp.Cv.Transformations.Morphological;
 using IdApp.Cv.Transformations.Thresholds;
 using System;
+using System.Collections.Generic;
 
-namespace IdApp.Cv.Objects
+namespace IdApp.Cv.Utilities
 {
 	/// <summary>
 	/// Static class for Object Operations, implemented as extensions.
@@ -27,14 +29,13 @@ namespace IdApp.Cv.Objects
 			G.Contrast();
 			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G.Threshold(G.OtsuThreshold());
-			G = G.Close((5 * M.Width + 208) / 415, (33 * M.Height + 300) / 600);
 
-			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
 			ObjectMap ObjectMap = G.ObjectMap(0.5f);
 			ObjectInformation[] Objects = ObjectMap.Objects;
 
-			Array.Sort(Objects, (o1, o2) => o2.NrPixels - o1.NrPixels);
-			Borders.Fill(0xff000000);
+			Array.Sort(Objects, (o1, o2) => o1.MinY - o2.MinY);
+
+			List<ushort> Found = new List<ushort>();
 
 			foreach (ObjectInformation Object in Objects)
 			{
@@ -46,15 +47,20 @@ namespace IdApp.Cv.Objects
 				if (RelativeWidth < 0.75f)
 					continue;
 
-				Point[] Reduced = Object.Contour.Reduce(10);
-				if (Reduced.Length != 4)
+				int i = (5 * Math.Max(M.Width, M.Height) + 300) / 600;
+				Point[] Reduced = Object.Contour.Reduce(i);
+				Point[] Reduced2 = Reduced.Reduce(i);
+				if (Reduced2.Length != 4)
 					continue;
 
-				Matrix<float> SubRegion = ForOcr.Region((ForOcr.Width - G.Width) / 2, (ForOcr.Height - G.Height) / 2, G.Width, G.Height);
-				return ObjectMap.Extract<float>(Object.Nr, SubRegion);
+				Found.Add(Object.Nr);
 			}
 
-			return null;
+			if (Found.Count == 0)
+				return null;
+
+			Matrix<float> SubRegion = ForOcr.Region((ForOcr.Width - G.Width) / 2, (ForOcr.Height - G.Height) / 2, G.Width, G.Height);
+			return ObjectMap.Extract(Found.ToArray(), SubRegion);
 		}
 
 		/// <summary>
@@ -71,14 +77,13 @@ namespace IdApp.Cv.Objects
 			G.Contrast();
 			G = G.Close((13 * M.Width + 208) / 415, (5 * M.Height + 300) / 600);
 			G.Threshold(G.OtsuThreshold());
-			G = G.Close((5 * M.Width + 208) / 415, (33 * M.Height + 300) / 600);
 
-			Matrix<uint> Borders = new Matrix<uint>(G.Width, G.Height);
-			ObjectMap ObjectMap = G.ObjectMap(0x00800000);
+			ObjectMap ObjectMap = G.ObjectMap(0x800000);
 			ObjectInformation[] Objects = ObjectMap.Objects;
 
-			Array.Sort(Objects, (o1, o2) => o2.NrPixels - o1.NrPixels);
-			Borders.Fill(0xff000000);
+			Array.Sort(Objects, (o1, o2) => o1.MinY - o2.MinY);
+
+			List<ushort> Found = new List<ushort>();
 
 			foreach (ObjectInformation Object in Objects)
 			{
@@ -90,15 +95,20 @@ namespace IdApp.Cv.Objects
 				if (RelativeWidth < 0.75f)
 					continue;
 
-				Point[] Reduced = Object.Contour.Reduce(10);
-				if (Reduced.Length != 4)
-					continue;
+				//int i = (5 * Math.Max(M.Width, M.Height) + 300) / 600;
+				//Point[] Reduced = Object.Contour.Reduce(i);
+				//Point[] Reduced2 = Reduced.Reduce(i);
+				//if (Reduced2.Length != 4)
+				//	continue;
 
-				Matrix<int> SubRegion = ForOcr.Region((ForOcr.Width - G.Width) / 2, (ForOcr.Height - G.Height) / 2, G.Width, G.Height);
-				return ObjectMap.Extract<int>(Object.Nr, SubRegion);
+				Found.Add(Object.Nr);
 			}
 
-			return null;
+			if (Found.Count == 0)
+				return null;
+
+			Matrix<int> SubRegion = ForOcr.Region((ForOcr.Width - G.Width) / 2, (ForOcr.Height - G.Height) / 2, G.Width, G.Height);
+			return ObjectMap.Extract(Found.ToArray(), SubRegion);
 		}
 	}
 }

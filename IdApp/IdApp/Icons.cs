@@ -145,5 +145,10 @@
         /// window-close
         /// </summary>
         public const string WindowClose = "\uf410";
+
+        /// <summary>
+        /// passport
+        /// </summary>
+        public const string Passport = "\uf5ab";
     }
 }

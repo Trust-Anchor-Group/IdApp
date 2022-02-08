@@ -1404,4 +1404,16 @@
   <data name="ServerDoesNotSupportFileUpload" xml:space="preserve">
     <value>Serveren ser ikke ut til å støtte filopplasting.</value>
   </data>
+  <data name="TesseractNotCreated" xml:space="preserve">
+    <value>Tesseract OCR-bibliotek er ikke opprettet</value>
+  </data>
+  <data name="UnabletoInitializeTesseract" xml:space="preserve">
+    <value>Kan ikke initialisere Tesseract OCR-bibliotek</value>
+  </data>
+  <data name="UnableToTesseractImage" xml:space="preserve">
+    <value>Kan ikke behandle bilde med Tesseract OCR-bibliotek.</value>
+  </data>
+  <data name="UnableToExtractMachineReadableString" xml:space="preserve">
+    <value>Kan ikke trekke ut maskinlesbar tekst fra bildet.</value>
+  </data>
 </root>

@@ -189,6 +189,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Tesseract">
+      <Version>0.3.4</Version>
+    </PackageReference>
     <PackageReference Include="ZXing.Net.Mobile.Forms">
       <Version>3.1.0-beta2</Version>
     </PackageReference>
@@ -213,5 +216,6 @@
     <None Include="Info.plist" />
     <BundleResource Include="Resources\FontAwesome5Free-Regular-400.otf" />
     <BundleResource Include="Resources\FontAwesome5Free-Solid-900.otf" />
+    <BundleResource Include="Resources\tessdata\eng.traineddata" />
   </ItemGroup>
 </Project>

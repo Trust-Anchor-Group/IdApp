@@ -3175,6 +3175,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tesseract OCR Library not created.
+        /// </summary>
+        internal static string TesseractNotCreated {
+            get {
+                return ResourceManager.GetString("TesseractNotCreated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
         /// </summary>
         internal static string TheContractRequiresAtLeast_AddMoreParts {
@@ -3418,6 +3427,15 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to extract machine-readable text from image..
+        /// </summary>
+        internal static string UnableToExtractMachineReadableString {
+            get {
+                return ResourceManager.GetString("UnableToExtractMachineReadableString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to get list of my devices..
         /// </summary>
         internal static string UnableToGetListOfMyDevices {
@@ -3427,11 +3445,29 @@ namespace IdApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to initialize Tesseract OCR Library.
+        /// </summary>
+        internal static string UnabletoInitializeTesseract {
+            get {
+                return ResourceManager.GetString("UnabletoInitializeTesseract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to process eDaler code..
         /// </summary>
         internal static string UnableToProcessEDalerUri {
             get {
                 return ResourceManager.GetString("UnableToProcessEDalerUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to process image with Tesseract OCR Library..
+        /// </summary>
+        internal static string UnableToTesseractImage {
+            get {
+                return ResourceManager.GetString("UnableToTesseractImage", resourceCulture);
             }
         }
         

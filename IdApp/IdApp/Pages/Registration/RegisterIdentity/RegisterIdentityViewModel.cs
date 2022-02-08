@@ -1,4 +1,9 @@
-﻿using IdApp.DeviceSpecific;
+﻿using IdApp.Cv;
+using IdApp.Cv.ColorModels;
+using IdApp.Cv.Transformations;
+using IdApp.Cv.Transformations.Linear;
+using IdApp.Cv.Utilities;
+using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Services.Data.PersonalNumbers;
 using IdApp.Services.Contracts;
@@ -14,10 +19,15 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Waher.Content;
+using Waher.Content.Images;
+using Waher.Content.Images.Exif;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Services.Ocr;
+using IdApp.Nfc.Extensions;
+using IdApp.Cv.Arithmetics;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {
@@ -48,6 +58,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			this.RegisterCommand = new Command(async _ => await Register(), _ => CanRegister());
 			this.TakePhotoCommand = new Command(async _ => await TakePhoto(), _ => !IsBusy);
 			this.PickPhotoCommand = new Command(async _ => await PickPhoto(), _ => !IsBusy);
+			this.EPassportCommand = new Command(async _ => await ScanPassport(), _ => !IsBusy);
 			this.RemovePhotoCommand = new Command(_ => RemovePhoto(true));
 
 			this.Title = AppResources.PersonalLegalInformation;
@@ -89,6 +100,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The command to bind to for selecting a photo from the camera roll.
 		/// </summary>
 		public ICommand PickPhotoCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for scanning an ePassport or eID.
+		/// </summary>
+		public ICommand EPassportCommand { get; }
 
 		/// <summary>
 		/// The command to bind to for removing the currently selected photo.
@@ -499,6 +515,140 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				await AddPhoto(pickedPhoto.FullPath, true);
 		}
 
+		private async Task ScanPassport()
+		{
+			// TODO: Open Camera View with preview, constantly scanning for MRZ codes.
+
+			string FileName;
+
+			if (Device.RuntimePlatform == Device.iOS)
+			{
+				MediaFile capturedPhoto;
+
+				try
+				{
+					capturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
+					{
+						CompressionQuality = 80,
+						RotateImage = false
+					});
+				}
+				catch (Exception ex)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					return;
+				}
+
+				if (capturedPhoto is null)
+					return;
+
+				FileName = capturedPhoto.Path;
+			}
+			else
+			{
+				FileResult capturedPhoto;
+
+				try
+				{
+					capturedPhoto = await MediaPicker.CapturePhotoAsync();
+					if (capturedPhoto is null)
+						return;
+				}
+				catch (Exception ex)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.TakingAPhotoIsNotSupported + ": " + ex.Message);
+					return;
+				}
+
+				FileName = capturedPhoto.FullPath;
+			}
+
+			try
+			{
+				IMatrix M = Bitmaps.FromBitmapFile(FileName, 600, 600);
+
+				if (EXIF.TryExtractFromJPeg(FileName, out ExifTag[] Tags))
+				{
+					switch (PhotosLoader.GetImageRotation(Tags))
+					{
+						case -90:
+							M = M.Rotate270();
+							break;
+
+						case 90:
+							M = M.Rotate90();
+							break;
+
+						case 180:
+							M = M.Rotate180();
+							break;
+					}
+				}
+
+				Matrix<int> Grayscale = (Matrix<int>)M.GrayScaleFixed();
+				Matrix<int> Mrz = Grayscale.ExtractMrzRegion();
+
+				if (Mrz is null)
+					return;
+
+				IOcrService OcrService = App.Instantiate<IOcrService>();
+				if (!OcrService.Created)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.TesseractNotCreated);
+					return;
+				}
+
+				if (!OcrService.Initialized)
+				{
+					if (!await OcrService.Initialize())
+					{
+						await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnabletoInitializeTesseract);
+						return;
+					}
+				}
+
+				Mrz.Negate();
+				Mrz.Contrast();
+				string s = Convert.ToBase64String(Bitmaps.EncodeAsPng(Mrz));  // TODO: Remove
+				string[] Rows = await OcrService.ProcessImage(Mrz);
+
+				if (Rows.Length == 0)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToTesseractImage);
+					return;
+				}
+
+				DocumentInformation DocInfo = null;
+				int c = Rows.Length;
+
+				if (c >= 3)
+				{
+					if (!BasicAccessControl.ParseMrz(Rows[c - 3] + "\n" + Rows[c - 2] + "\n" + Rows[c - 1], out DocInfo))
+						DocInfo = null;
+				}
+
+				if (DocInfo is null && c >= 2)
+				{
+					if (!BasicAccessControl.ParseMrz(Rows[c - 2] + "\n" + Rows[c - 1], out DocInfo))
+						DocInfo = null;
+				}
+
+				if (DocInfo is null)
+				{
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnableToExtractMachineReadableString);
+					return;
+				}
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
+			finally
+			{
+				File.Delete(FileName);
+			}
+		}
+
 		/// <summary>
 		/// Adds a photo from the specified path to use as a profile photo.
 		/// </summary>
@@ -623,7 +773,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				return;
 			}
 
-			SetIsBusy(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
+			SetIsBusy(RegisterCommand, TakePhotoCommand, PickPhotoCommand, EPassportCommand);
 
 			try
 			{
@@ -636,7 +786,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					this.TagProfile.SetLegalIdentity(this.LegalIdentity);
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
-						SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
+						SetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand, EPassportCommand);
 						OnStepCompleted(EventArgs.Empty);
 					});
 				}
@@ -648,7 +798,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			}
 			finally
 			{
-				BeginInvokeSetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand);
+				BeginInvokeSetIsDone(RegisterCommand, TakePhotoCommand, PickPhotoCommand, EPassportCommand);
 			}
 		}
 
