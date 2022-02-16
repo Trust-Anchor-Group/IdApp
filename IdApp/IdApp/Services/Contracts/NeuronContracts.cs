@@ -127,12 +127,12 @@ namespace IdApp.Services.Contracts
 
 		public Task<string[]> GetCreatedContractIds()
 		{
-			return this.ContractsClient.GetCreatedContractsAsync();
+			return this.ContractsClient.GetCreatedContractReferencesAsync();
 		}
 
 		public Task<string[]> GetSignedContractIds()
 		{
-			return this.ContractsClient.GetSignedContractsAsync();
+			return this.ContractsClient.GetSignedContractReferencesAsync();
 		}
 
 		/// <summary>

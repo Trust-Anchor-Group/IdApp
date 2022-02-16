@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <PackageReference Include="EDaler" Version="2.0.0" />
-    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.14" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
     <PackageReference Include="SkiaSharp" Version="2.80.3" />
     <PackageReference Include="Waher.Content" Version="2.0.0" />
     <PackageReference Include="Waher.Content.Emoji" Version="2.0.0" />
@@ -45,7 +45,7 @@
     <PackageReference Include="Waher.Networking.UPnP" Version="2.0.0" />
     <PackageReference Include="Waher.Networking.XMPP" Version="2.0.1" />
     <PackageReference Include="Waher.Networking.XMPP.Concentrator" Version="2.0.1" />
-    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="2.0.1" />
+    <PackageReference Include="Waher.Networking.XMPP.Contracts" Version="2.1.0" />
     <PackageReference Include="Waher.Networking.XMPP.Control" Version="2.0.1" />
     <PackageReference Include="Waher.Networking.XMPP.MUC" Version="2.0.1" />
     <PackageReference Include="Waher.Networking.XMPP.P2P" Version="2.0.0" />
@@ -66,8 +66,8 @@
     <PackageReference Include="Waher.Script" Version="2.0.4" />
     <PackageReference Include="Waher.Security" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2337" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.1" />
     <PackageReference Include="Xamarin.Tesseract" Version="0.3.4" />
     <PackageReference Include="ZXing.Net.Mobile.Forms" Version="3.1.0-beta2" />
   </ItemGroup>
