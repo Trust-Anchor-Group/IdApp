@@ -199,37 +199,46 @@ namespace IdApp.Pages.Contracts.MyContracts
 		{
 			try
 			{
-				bool succeeded;
-				string[] contractIds;
-				KeyValuePair<DateTime, string>[] timestampsAndcontractIds;
+				bool Succeeded;
+				Contract[] Contracts;
+				ContractReference[] ContractReferences;
 
 				switch (this.contractsListMode)
 				{
 					case ContractsListMode.MyContracts:
-						(succeeded, contractIds) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetCreatedContractIds);
-						timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
+						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetCreatedContracts);
+						ContractReferences = ToReferences(Contracts);
 						break;
 
 					case ContractsListMode.SignedContracts:
-						(succeeded, contractIds) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetSignedContractIds);
-						timestampsAndcontractIds = AnnotateWithMinDateTime(contractIds);
+						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetSignedContracts);
+						ContractReferences = ToReferences(Contracts);
 						break;
 
 					case ContractsListMode.ContractTemplates:
-						(succeeded, timestampsAndcontractIds) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetContractTemplateIds);
+						KeyValuePair<DateTime, string>[] Templates;
+						(Succeeded, Templates) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetContractTemplateIds);
+
+						int i = 0;
+						int c = Templates.Length;
+						ContractReferences = new ContractReference[c];
+
+						foreach (KeyValuePair<DateTime, string> P in Templates)
+							ContractReferences[i++] = new ContractReference(P.Key, P.Value);
+
 						break;
 
 					default:
 						return;
 				}
 
-				if (!succeeded)
+				if (!Succeeded)
 					return;
 
 				if (this.loadContractsTimestamp > now)
 					return;
 
-				if (timestampsAndcontractIds.Length <= 0)
+				if (ContractReferences.Length <= 0)
 				{
 					this.UiSerializer.BeginInvokeOnMainThread(() => this.ShowContractsMissing = true);
 					return;
@@ -237,15 +246,13 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new SortedDictionary<string, List<ContractModel>>(StringComparer.CurrentCultureIgnoreCase);
 
-				foreach (KeyValuePair<DateTime, string> P in timestampsAndcontractIds)
+				foreach (ContractReference Ref in ContractReferences)
 				{
-					DateTime Timestamp = P.Key;
-					string ContractId = P.Value;
 					Contract contract;
 
 					try
 					{
-						contract = await this.NeuronService.Contracts.GetContract(ContractId);
+						contract = await Ref.GetContract(this.NeuronService.Contracts);
 					}
 					catch (Waher.Networking.XMPP.StanzaErrors.ItemNotFoundException)
 					{
@@ -255,21 +262,18 @@ namespace IdApp.Pages.Contracts.MyContracts
 					if (this.loadContractsTimestamp > now)
 						return;
 
-					if (Timestamp == DateTime.MinValue)
-						Timestamp = contract.Created;
+					this.contractsMap[Ref.ContractId] = contract;
 
-					this.contractsMap[ContractId] = contract;
-
-					ContractModel Item = await ContractModel.Create(ContractId, Timestamp, contract, this.TagProfile, this.NeuronService);
+					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Timestamp, contract, this.TagProfile, this.NeuronService);
 					string Category = Item.Category;
 
-					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts))
+					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts2))
 					{
-						Contracts = new List<ContractModel>();
-						ContractsByCategory[Category] = Contracts;
+						Contracts2 = new List<ContractModel>();
+						ContractsByCategory[Category] = Contracts2;
 					}
 
-					Contracts.Add(Item);
+					Contracts2.Add(Item);
 				}
 
 				List<ContractCategoryModel> Categories = new List<ContractCategoryModel>();
@@ -294,16 +298,16 @@ namespace IdApp.Pages.Contracts.MyContracts
 			public int Compare(ContractModel x, ContractModel y) => y.Timestamp.CompareTo(x.Timestamp);
 		}
 
-		private static KeyValuePair<DateTime, string>[] AnnotateWithMinDateTime(string[] IDs)
+		private static ContractReference[] ToReferences(Contract[] Contracts)
 		{
-			if (IDs is null)
-				return new KeyValuePair<DateTime, string>[0];
+			if (Contracts is null)
+				return new ContractReference[0];
 
-			KeyValuePair<DateTime, string>[] Result = new KeyValuePair<DateTime, string>[IDs.Length];
+			ContractReference[] Result = new ContractReference[Contracts.Length];
 			int i = 0;
 
-			foreach (string ID in IDs)
-				Result[i++] = new KeyValuePair<DateTime, string>(DateTime.MinValue, ID);
+			foreach (Contract Contract in Contracts)
+				Result[i++] = new ContractReference(Contract);
 
 			return Result;
 		}

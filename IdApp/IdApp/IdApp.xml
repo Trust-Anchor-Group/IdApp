@@ -4886,6 +4886,41 @@
             Displayable category for the contract.
             </summary>
         </member>
+        <member name="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference">
+            <summary>
+            Contract reference.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.#ctor(System.DateTime,System.String)">
+            <summary>
+            Contract reference.
+            </summary>
+            <param name="Timestamp">Timestamp</param>
+            <param name="ContractId">Contract ID</param>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.#ctor(Waher.Networking.XMPP.Contracts.Contract)">
+            <summary>
+            Contract reference.
+            </summary>
+            <param name="Contract">Contract</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.ContractId">
+            <summary>
+            Contract ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.Timestamp">
+            <summary>
+            Timestamp
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.GetContract(IdApp.Services.Contracts.INeuronContracts)">
+            <summary>
+            Gets the contract
+            </summary>
+            <param name="Contracts">Contracts.</param>
+            <returns>Contract reference.</returns>
+        </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs">
             <summary>
             Holds navigation parameters specific to views displaying a new contract.
@@ -11836,17 +11871,17 @@
             <param name="contractId">The contract id.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetCreatedContractIds">
+        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetCreatedContracts">
             <summary>
-            Gets the id's of the created contracts.
+            Gets created contracts.
             </summary>
-            <returns>Id's of the created contracts.</returns>
+            <returns>Created contracts.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetSignedContractIds">
+        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetSignedContracts">
             <summary>
-            Gets the id's of the signed contracts.
+            Gets signed contracts.
             </summary>
-            <returns>Id's of the signed contracts.</returns>
+            <returns>Signed contracts.</returns>
         </member>
         <member name="M:IdApp.Services.Contracts.INeuronContracts.GetContractTemplateIds">
             <summary>

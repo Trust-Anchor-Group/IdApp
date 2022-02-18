@@ -125,14 +125,42 @@ namespace IdApp.Services.Contracts
 			return this.ContractsClient.DeleteContractAsync(contractId);
 		}
 
-		public Task<string[]> GetCreatedContractIds()
+		public async Task<Contract[]> GetCreatedContracts()
 		{
-			return this.ContractsClient.GetCreatedContractReferencesAsync();
+			List<Contract> Result = new List<Contract>();
+			ContractsEventArgs Contracts;
+			int Offset = 0;
+			int Nr;
+
+			do
+			{
+				Contracts = await this.ContractsClient.GetCreatedContractsAsync(Offset, 20);
+				Result.AddRange(Contracts.Contracts);
+				Nr = Contracts.Contracts.Length + Contracts.References.Length;
+				Offset += Nr;
+			}
+			while (Nr == 20);
+
+			return Result.ToArray();
 		}
 
-		public Task<string[]> GetSignedContractIds()
+		public async Task<Contract[]> GetSignedContracts()
 		{
-			return this.ContractsClient.GetSignedContractReferencesAsync();
+			List<Contract> Result = new List<Contract>();
+			ContractsEventArgs Contracts;
+			int Offset = 0;
+			int Nr;
+
+			do
+			{
+				Contracts = await this.ContractsClient.GetSignedContractsAsync(Offset, 20);
+				Result.AddRange(Contracts.Contracts);
+				Nr = Contracts.Contracts.Length + Contracts.References.Length;
+				Offset += Nr;
+			}
+			while (Nr == 20);
+
+			return Result.ToArray();
 		}
 
 		/// <summary>

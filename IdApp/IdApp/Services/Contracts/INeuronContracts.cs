@@ -133,16 +133,16 @@ namespace IdApp.Services.Contracts
         Task<Contract> GetContract(string contractId);
         
         /// <summary>
-        /// Gets the id's of the created contracts.
+        /// Gets created contracts.
         /// </summary>
-        /// <returns>Id's of the created contracts.</returns>
-        Task<string[]> GetCreatedContractIds();
+        /// <returns>Created contracts.</returns>
+        Task<Contract[]> GetCreatedContracts();
         
         /// <summary>
-        /// Gets the id's of the signed contracts.
+        /// Gets signed contracts.
         /// </summary>
-        /// <returns>Id's of the signed contracts.</returns>
-        Task<string[]> GetSignedContractIds();
+        /// <returns>Signed contracts.</returns>
+        Task<Contract[]> GetSignedContracts();
 
         /// <summary>
         /// Gets the id's of contract templates used.
