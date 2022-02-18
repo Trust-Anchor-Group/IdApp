@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
 using IdApp.DeviceSpecific;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -18,7 +18,7 @@ namespace IdApp.Pages.Wallet
 	/// <summary>
 	/// The view model to bind to for when displaying the contents of an eDaler URI.
 	/// </summary>
-	public class EDalerUriViewModel : NeuronViewModel
+	public class EDalerUriViewModel : XmppViewModel
 	{
 		private readonly IShareQrCode shareQrCode;
 		private TaskCompletionSource<string> uriToSend;
@@ -98,7 +98,7 @@ namespace IdApp.Pages.Wallet
 						this.Message = Encoding.UTF8.GetString(args.Uri.EncryptedMessage);
 					else
 					{
-						this.Message = await this.NeuronService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
+						this.Message = await this.XmppService.Wallet.TryDecryptMessage(args.Uri.EncryptedMessage,
 							args.Uri.EncryptionPublicKey, args.Uri.Id, args.Uri.From);
 					}
 
@@ -134,7 +134,7 @@ namespace IdApp.Pages.Wallet
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -715,7 +715,7 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool CanAccept
 		{
-			get { return this.NeuronService.State == XmppState.Connected; }
+			get { return this.XmppService.State == XmppState.Connected; }
 		}
 
 		/// <summary>
@@ -824,7 +824,7 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(this.Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
@@ -857,13 +857,13 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.NeuronService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 
@@ -873,7 +873,7 @@ namespace IdApp.Pages.Wallet
 				this.NotPaid = false;
 				this.EvaluateCommands(this.PayOnlineCommand, this.GenerateQrCodeCommand, this.SendPaymentCommand);
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.NeuronService.Wallet.SendUri(Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
@@ -912,13 +912,13 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.NeuronService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 
@@ -982,7 +982,7 @@ namespace IdApp.Pages.Wallet
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.NeuronService.Wallet.SendUri(this.Uri));
+				(bool succeeded, Transaction Transaction) = await this.NetworkService.TryRequest(() => this.XmppService.Wallet.SendUri(this.Uri));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
@@ -1053,13 +1053,13 @@ namespace IdApp.Pages.Wallet
 
 				if (this.EncryptMessage && this.ToType == EntityType.LegalId)
 				{
-					LegalIdentity LegalIdentity = await this.NeuronService.Contracts.GetLegalIdentity(this.To);
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
+					LegalIdentity LegalIdentity = await this.XmppService.Contracts.GetLegalIdentity(this.To);
+					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(LegalIdentity, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 				else
 				{
-					Uri = await this.NeuronService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
+					Uri = await this.XmppService.Wallet.CreateFullPaymentUri(this.To, this.Amount, this.AmountExtra,
 						this.Currency, 3, this.Message);
 				}
 

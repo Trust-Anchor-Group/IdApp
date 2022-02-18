@@ -7,7 +7,7 @@ using IdApp.DeviceSpecific;
 using IdApp.Extensions;
 using IdApp.Services.Data.PersonalNumbers;
 using IdApp.Services.Contracts;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
@@ -73,14 +73,14 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			await base.DoBind();
 			RegisterCommand.ChangeCanExecute();
-			this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+			this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoUnbind()
 		{
 			this.photosLoader.CancelLoadPhotos();
-			this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+			this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
 			await base.DoUnbind();
 		}
 
@@ -412,7 +412,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		#endregion
 
-		private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -435,7 +435,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task TakePhoto()
 		{
-			if (!this.NeuronService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.ServerDoesNotSupportFileUpload);
 				return;
@@ -503,7 +503,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private async Task PickPhoto()
 		{
-			if (!this.NeuronService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
 				return;
@@ -767,7 +767,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				return;
 			}
 
-			if (!this.NeuronService.IsOnline)
+			if (!this.XmppService.IsOnline)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.NotConnectedToTheOperator);
 				return;
@@ -779,7 +779,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			{
 				RegisterIdentityModel model = CreateRegisterModel();
 				LegalIdentityAttachment[] photos = { this.photo };
-				(bool succeeded, LegalIdentity addedIdentity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.AddLegalIdentity(model, photos));
+				(bool succeeded, LegalIdentity addedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddLegalIdentity(model, photos));
 				if (succeeded)
 				{
 					this.LegalIdentity = addedIdentity;
@@ -805,7 +805,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		private bool CanRegister()
 		{
 			// Ok to 'wait' on, since we're not actually waiting on anything.
-			return ValidateInput(false).GetAwaiter().GetResult() && this.NeuronService.IsOnline;
+			return ValidateInput(false).GetAwaiter().GetResult() && this.XmppService.IsOnline;
 		}
 
 		private RegisterIdentityModel CreateRegisterModel()

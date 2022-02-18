@@ -3,7 +3,7 @@ using IdApp.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 
 namespace IdApp.Pages.Main.Shell
 {
@@ -30,14 +30,14 @@ namespace IdApp.Pages.Main.Shell
 
 			this.IsOnline = this.NetworkService.IsOnline;
 
-			this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+			this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+			this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
 
 			await base.DoUnbind();
@@ -92,7 +92,7 @@ namespace IdApp.Pages.Main.Shell
 
 		#endregion
 
-		private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{

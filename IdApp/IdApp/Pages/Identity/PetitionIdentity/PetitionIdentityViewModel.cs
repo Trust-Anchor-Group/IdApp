@@ -93,14 +93,14 @@ namespace IdApp.Pages.Identity.PetitionIdentity
             if (!await App.VerifyPin())
                 return;
 
-            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, true));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }
 
         private async Task Decline()
         {
-            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(this.requestedIdentityId, this.petitionId, this.requestorFullJid, false));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }

@@ -12,10 +12,10 @@ using Waher.Runtime.Temporary;
 namespace IdApp.Services.Contracts
 {
     /// <summary>
-    /// Adds support for legal identities, smart contracts and signatures to a Neuron Service.
+    /// Adds support for legal identities, smart contracts and signatures to an XMPP Service.
     /// </summary>
-    [DefaultImplementation(typeof(NeuronContracts))]
-    public interface INeuronContracts
+    [DefaultImplementation(typeof(SmartContracts))]
+    public interface ISmartContracts
     {
         #region General
 

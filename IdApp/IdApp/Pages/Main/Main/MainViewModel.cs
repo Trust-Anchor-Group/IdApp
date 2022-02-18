@@ -10,7 +10,7 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Pages.Contracts.MyContracts;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using Waher.Content;
@@ -25,7 +25,7 @@ namespace IdApp.Pages.Main.Main
 	/// The view model to bind to for the main page of the application. Holds basic user profile state
 	/// as well as connection state.
 	/// </summary>
-	public class MainViewModel : NeuronViewModel
+	public class MainViewModel : XmppViewModel
 	{
 		private readonly PhotosLoader photosLoader;
 
@@ -53,8 +53,8 @@ namespace IdApp.Pages.Main.Main
 			await base.DoBind();
 			
 			this.AssignProperties();
-			this.SetConnectionStateAndText(this.NeuronService.State);
-			this.NeuronService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
+			this.SetConnectionStateAndText(this.XmppService.State);
+			this.XmppService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged += NetworkService_ConnectivityChanged;
 		}
 
@@ -62,7 +62,7 @@ namespace IdApp.Pages.Main.Main
 		protected override Task DoUnbind()
 		{
 			this.photosLoader.CancelLoadPhotos();
-			this.NeuronService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
+			this.XmppService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
 			this.NetworkService.ConnectivityChanged -= NetworkService_ConnectivityChanged;
 		
 			return base.DoUnbind();
@@ -128,7 +128,7 @@ namespace IdApp.Pages.Main.Main
 		{
 			try
 			{
-				bool connected = await this.NeuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
+				bool connected = await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect);
 				if (!connected)
 					return;
 
@@ -644,7 +644,7 @@ namespace IdApp.Pages.Main.Main
 		}
 
 		/// <inheritdoc />
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -656,13 +656,13 @@ namespace IdApp.Pages.Main.Main
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
-				this.SetConnectionStateAndText(this.NeuronService.State);
+				this.SetConnectionStateAndText(this.XmppService.State);
 			});
 		}
 
 		private void NetworkService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
 		{
-			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(this.NeuronService.State));
+			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(this.XmppService.State));
 		}
 
 		/// <inheritdoc/>
@@ -675,15 +675,15 @@ namespace IdApp.Pages.Main.Main
 				this.NetworkStateText = this.IsOnline ? AppResources.Online : AppResources.Offline;
 				this.IdentityStateText = this.TagProfile?.LegalIdentity?.State.ToDisplayText() ?? string.Empty;
 
-				// Neuron server
+				// XMPP server
 				this.IsConnected = state == XmppState.Connected;
 				this.ConnectionStateText = state.ToDisplayText();
 				this.ConnectionStateColor = new SolidColorBrush(state.ToColor());
 				this.StateSummaryText = (this.TagProfile?.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 
 				// Any connection errors or general errors that should be displayed?
-				string latestError = this.NeuronService?.LatestError ?? string.Empty;
-				string latestConnectionError = this.NeuronService?.LatestConnectionError ?? string.Empty;
+				string latestError = this.XmppService?.LatestError ?? string.Empty;
+				string latestConnectionError = this.XmppService?.LatestConnectionError ?? string.Empty;
 
 				if (!string.IsNullOrWhiteSpace(latestError) && !string.IsNullOrWhiteSpace(latestConnectionError))
 				{

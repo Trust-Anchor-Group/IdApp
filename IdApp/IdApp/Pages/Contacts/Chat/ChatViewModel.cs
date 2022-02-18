@@ -28,7 +28,7 @@ using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.SendPayment;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Services;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Messages;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
@@ -38,7 +38,7 @@ namespace IdApp.Pages.Contacts.Chat
 	/// <summary>
 	/// The view model to bind to when displaying the list of contacts.
 	/// </summary>
-	public class ChatViewModel : NeuronViewModel, IChatView
+	public class ChatViewModel : XmppViewModel, IChatView
 	{
 		private const int MessageBatchSize = 30;
 
@@ -117,9 +117,9 @@ namespace IdApp.Pages.Contacts.Chat
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
-			base.NeuronService_ConnectionStateChanged(sender, e);
+			base.XmppService_ConnectionStateChanged(sender, e);
 			this.UiSerializer.BeginInvokeOnMainThread(() => this.EvaluateAllCommands());
 		}
 
@@ -381,7 +381,7 @@ namespace IdApp.Pages.Contacts.Chat
 					}
 				}
 
-				this.NeuronService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
+				this.XmppService.Xmpp.SendMessage(QoSLevel.Unacknowledged, Waher.Networking.XMPP.MessageType.Chat, Message.ObjectId,
 					this.BareJid, Xml.ToString(), Message.PlainText, string.Empty, string.Empty, string.Empty, string.Empty, null, null);
 				// TODO: End-to-End encryption
 			}
@@ -444,12 +444,12 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteTakePhoto()
 		{
-			return this.IsConnected && !this.IsWriting && this.NeuronService.Contracts.FileUploadIsSupported;
+			return this.IsConnected && !this.IsWriting && this.XmppService.Contracts.FileUploadIsSupported;
 		}
 
 		private async Task ExecuteTakePhoto()
 		{
-			if (!this.NeuronService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.TakePhoto, AppResources.ServerDoesNotSupportFileUpload);
 				return;
@@ -530,14 +530,14 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 
 				// Taking or picking photos switches to another app, so ID app has to reconnect again after.
-				if (!await this.NeuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect))
+				if (!await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect))
 				{
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.UnableToConnectTo, this.TagProfile.Domain));
 					return;
 				}
 
 				string FileName = Path.GetFileName(FilePath);
-				HttpFileUploadEventArgs Slot = await this.NeuronService.Contracts.FileUploadClient.RequestUploadSlotAsync(
+				HttpFileUploadEventArgs Slot = await this.XmppService.Contracts.FileUploadClient.RequestUploadSlotAsync(
 					FileName, ContentType, Bin.Length);
 
 				if (!Slot.Ok)
@@ -566,12 +566,12 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private bool CanExecuteEmbedFile()
 		{
-			return this.IsConnected && !this.IsWriting && this.NeuronService.Contracts.FileUploadIsSupported;
+			return this.IsConnected && !this.IsWriting && this.XmppService.Contracts.FileUploadIsSupported;
 		}
 
 		private async Task ExecuteEmbedFile()
 		{
-			if (!this.NeuronService.Contracts.FileUploadIsSupported)
+			if (!this.XmppService.Contracts.FileUploadIsSupported)
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.PickPhoto, AppResources.SelectingAPhotoIsNotSupported);
 				return;
@@ -659,7 +659,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			if (Contract.Visibility >= ContractVisibility.Public)
 			{
-				string FriendlyName = await ContractModel.GetName(Contract, this.TagProfile, this.NeuronService);
+				string FriendlyName = await ContractModel.GetName(Contract, this.TagProfile, this.XmppService);
 				await this.ExecuteSendMessage(string.Empty, "![" + MarkdownDocument.Encode(FriendlyName) + "](" + Contract.ContractIdUriString + ")");
 			}
 			else
@@ -706,7 +706,7 @@ namespace IdApp.Pages.Contacts.Chat
 			else
 				return;
 
-			Balance CurrentBalance = await this.NeuronService.Wallet.GetBalanceAsync();
+			Balance CurrentBalance = await this.XmppService.Wallet.GetBalanceAsync();
 
 			sb.Append(";cu=");
 			sb.Append(CurrentBalance.Currency);
@@ -849,7 +849,7 @@ namespace IdApp.Pages.Contacts.Chat
 			switch (Scheme)
 			{
 				case UriScheme.Xmpp:
-					return ProcessXmppUri(Uri, this.NeuronService, this.TagProfile);
+					return ProcessXmppUri(Uri, this.XmppService, this.TagProfile);
 
 				default:
 					return QrCode.OpenUrl(Uri);
@@ -863,17 +863,17 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <returns>If URI could be processed.</returns>
 		public static Task<bool> ProcessXmppUri(string Uri)
 		{
-			return ProcessXmppUri(Uri, App.Instantiate<INeuronService>(), App.Instantiate<ITagProfile>());
+			return ProcessXmppUri(Uri, App.Instantiate<IXmppService>(), App.Instantiate<ITagProfile>());
 		}
 
 		/// <summary>
 		/// Processes an XMPP URI
 		/// </summary>
 		/// <param name="Uri">XMPP URI</param>
-		/// <param name="NeuronService">Neuron Service</param>
+		/// <param name="XmppService">XMPP Service</param>
 		/// <param name="TagProfile">TAG Profile</param>
 		/// <returns>If URI could be processed.</returns>
-		public static async Task<bool> ProcessXmppUri(string Uri, INeuronService NeuronService, ITagProfile TagProfile)
+		public static async Task<bool> ProcessXmppUri(string Uri, IXmppService XmppService, ITagProfile TagProfile)
 		{
 			int i = Uri.IndexOf(':');
 			if (i < 0)
@@ -915,7 +915,7 @@ namespace IdApp.Pages.Contacts.Chat
 							IdXml = Xml.ToString();
 						}
 
-						NeuronService.Xmpp.RequestPresenceSubscription(Jid, IdXml);
+						XmppService.Xmpp.RequestPresenceSubscription(Jid, IdXml);
 					}
 					return true;
 
@@ -924,7 +924,7 @@ namespace IdApp.Pages.Contacts.Chat
 					return false;
 
 				case "remove":
-					NeuronService.Xmpp.GetRosterItem(Jid);
+					XmppService.Xmpp.GetRosterItem(Jid);
 					// TODO
 					return false;
 

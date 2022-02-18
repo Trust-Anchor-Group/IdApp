@@ -91,14 +91,14 @@ namespace IdApp.Pages.Contracts.PetitionContract
             if (!await App.VerifyPin())
                 return;
 
-            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, true));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, true));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }
 
         private async Task Decline()
         {
-            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, false));
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(this.RequestedContract.ContractId, this.petitionId, this.requestorFullJid, false));
             if (succeeded)
                 await this.NavigationService.GoBackAsync();
         }

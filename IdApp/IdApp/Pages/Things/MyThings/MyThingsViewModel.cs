@@ -66,7 +66,7 @@ namespace IdApp.Pages.Things.MyThings
 				SortedByAddress[Key] = Info;
 			}
 
-			SearchResultThing[] MyDevices = await this.NeuronService.Provisioning.GetAllMyDevices();
+			SearchResultThing[] MyDevices = await this.XmppService.Provisioning.GetAllMyDevices();
 			foreach (SearchResultThing Thing in MyDevices)
 			{
 				Property[] MetaData = ViewClaimThing.ViewClaimThingViewModel.ToProperties(Thing.Tags);
@@ -98,7 +98,7 @@ namespace IdApp.Pages.Things.MyThings
 					NodeId = Thing.Node.NodeId,
 					Owner = true,
 					MetaData = MetaData,
-					RegistryJid = this.NeuronService.Provisioning.ServiceJid
+					RegistryJid = this.XmppService.Provisioning.ServiceJid
 				};
 
 				await Database.Insert(Info);

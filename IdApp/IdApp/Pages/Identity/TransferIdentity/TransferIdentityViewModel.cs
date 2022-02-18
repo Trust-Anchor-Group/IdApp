@@ -14,7 +14,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 	/// <summary>
 	/// The view model to bind to for when displaying identities.
 	/// </summary>
-	public class TransferIdentityViewModel : NeuronViewModel
+	public class TransferIdentityViewModel : XmppViewModel
 	{
 		private Timer timer;
 

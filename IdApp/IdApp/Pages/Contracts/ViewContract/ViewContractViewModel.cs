@@ -525,7 +525,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 						nrSignatures[signature.Role] = count + 1;
 
-						if (string.Compare(signature.BareJid, this.NeuronService.BareJid, true) == 0)
+						if (string.Compare(signature.BareJid, this.XmppService.BareJid, true) == 0)
 						{
 							if (!(Contract.Roles is null))
 							{
@@ -782,7 +782,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				if (sender is Button button && !string.IsNullOrEmpty(button.StyleId))
 				{
-					Contract contract = await this.NeuronService.Contracts.SignContract(this.Contract, button.StyleId, false);
+					Contract contract = await this.XmppService.Contracts.SignContract(this.Contract, button.StyleId, false);
 					await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractSuccessfullySigned);
 
 					await this.ContractUpdated(contract);
@@ -820,7 +820,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					if (!(signature is null))
 					{
 						string legalId = signature.LegalId;
-						LegalIdentity identity = await this.NeuronService.Contracts.GetLegalIdentity(legalId);
+						LegalIdentity identity = await this.XmppService.Contracts.GetLegalIdentity(legalId);
 
 						await this.NavigationService.GoToAsync(nameof(Pages.Contracts.ClientSignature.ClientSignaturePage), 
 							new ClientSignatureNavigationArgs(signature, identity));
@@ -858,7 +858,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (!await App.VerifyPin())
 					return;
 
-				Contract obsoletedContract = await this.NeuronService.Contracts.ObsoleteContract(this.Contract.ContractId);
+				Contract obsoletedContract = await this.XmppService.Contracts.ObsoleteContract(this.Contract.ContractId);
 
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenObsoleted);
 
@@ -878,7 +878,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				if (!await App.VerifyPin())
 					return;
 
-				Contract deletedContract = await this.NeuronService.Contracts.DeleteContract(this.Contract.ContractId);
+				Contract deletedContract = await this.XmppService.Contracts.DeleteContract(this.Contract.ContractId);
 
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.ContractHasBeenDeleted);
 

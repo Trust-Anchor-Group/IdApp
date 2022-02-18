@@ -20,7 +20,7 @@ using Xamarin.Forms;
 using IdApp.Pages.Identity.TransferIdentity;
 using IdApp.Popups.Pin.ChangePin;
 using IdApp.Services.Contracts;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
@@ -32,7 +32,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 	/// <summary>
 	/// The view model to bind to for when displaying identities.
 	/// </summary>
-	public class ViewIdentityViewModel : NeuronViewModel
+	public class ViewIdentityViewModel : XmppViewModel
 	{
 		private SignaturePetitionEventArgs identityToReview;
 		private readonly PhotosLoader photosLoader;
@@ -41,7 +41,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// Creates an instance of the <see cref="ViewIdentityViewModel"/> class.
 		/// </summary>
 		public ViewIdentityViewModel()
-		: base()
+			: base()
 		{
 			this.Photos = new ObservableCollection<Photo>();
 			this.photosLoader = new PhotosLoader(this.Photos);
@@ -112,10 +112,10 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			EvaluateAllCommands();
 
 			this.TagProfile.Changed += TagProfile_Changed;
-			this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
-			this.NeuronService.Xmpp.OnRosterItemAdded += CheckRosterItem;
-			this.NeuronService.Xmpp.OnRosterItemRemoved += CheckRosterItem;
-			this.NeuronService.Xmpp.OnRosterItemUpdated += CheckRosterItem;
+			this.XmppService.Contracts.LegalIdentityChanged += SmartContracts_LegalIdentityChanged;
+			this.XmppService.Xmpp.OnRosterItemAdded += CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemRemoved += CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemUpdated += CheckRosterItem;
 		}
 
 		/// <inheritdoc/>
@@ -124,10 +124,10 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.photosLoader.CancelLoadPhotos();
 
 			this.TagProfile.Changed -= TagProfile_Changed;
-			this.NeuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
-			this.NeuronService.Xmpp.OnRosterItemAdded -= CheckRosterItem;
-			this.NeuronService.Xmpp.OnRosterItemRemoved -= CheckRosterItem;
-			this.NeuronService.Xmpp.OnRosterItemUpdated -= CheckRosterItem;
+			this.XmppService.Contracts.LegalIdentityChanged -= SmartContracts_LegalIdentityChanged;
+			this.XmppService.Xmpp.OnRosterItemAdded -= CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemRemoved -= CheckRosterItem;
+			this.XmppService.Xmpp.OnRosterItemUpdated -= CheckRosterItem;
 
 			this.LegalIdentity = null;
 
@@ -321,7 +321,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
@@ -358,7 +358,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			this.UiSerializer.BeginInvokeOnMainThread(AssignProperties);
 		}
 
-		private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+		private void SmartContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -1306,14 +1306,14 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await App.VerifyPin())
 					return;
 
-				(bool succeeded1, byte[] signature) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
+				(bool succeeded1, byte[] signature) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.Sign(this.identityToReview.ContentToSign, SignWith.LatestApprovedId));
 
 				if (!succeeded1)
 				{
 					return;
 				}
 
-				bool succeeded2 = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true));
+				bool succeeded2 = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, signature, this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, true));
 
 				if (succeeded2)
 				{
@@ -1334,7 +1334,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 			try
 			{
-				bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false));
+				bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(this.identityToReview.SignatoryIdentityId, this.identityToReview.ContentToSign, new byte[0], this.identityToReview.PetitionId, this.identityToReview.RequestorFullJid, false));
 				if (succeeded)
 				{
 					await this.NavigationService.GoBackAsync();
@@ -1357,7 +1357,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToRevokeYourLegalIdentity))
 					return;
 
-				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.LegalIdentity.Id));
 				if (succeeded)
 				{
 					this.LegalIdentity = revokedIdentity;
@@ -1390,7 +1390,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				if (!await this.AreYouSure(AppResources.AreYouSureYouWantToReportYourLegalIdentityAsCompromized))
 					return;
 
-				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
+				(bool succeeded, LegalIdentity compromisedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.CompromiseLegalIdentity(this.LegalIdentity.Id));
 
 				if (succeeded)
 				{
@@ -1436,9 +1436,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				string FriendlyName = this.GetFriendlyName();
 
-				RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
 				if (Item is null)
-					this.NeuronService.Xmpp.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
+					this.XmppService.Xmpp.AddRosterItem(new RosterItem(this.BareJid, FriendlyName));
 
 				ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 				if (Info is null)
@@ -1492,9 +1492,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					await Database.Provider.Flush();
 				}
 
-				RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
 				if (!(Item is null))
-					this.NeuronService.Xmpp.RemoveRosterItem(this.BareJid);
+					this.XmppService.Xmpp.RemoveRosterItem(this.BareJid);
 
 				this.ThirdPartyInContacts = false;
 				this.ThirdPartyNotInContacts = true;
@@ -1511,13 +1511,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				Balance Balance = await this.NeuronService.Wallet.GetBalanceAsync();
+				Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
 				string Uri;
 
 				if (this.LegalIdentity is null)
-					Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.BareJid, null, null, Balance.Currency, string.Empty);
+					Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.BareJid, null, null, Balance.Currency, string.Empty);
 				else
-					Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
+					Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
 
 				await this.EDalerOrchestratorService.OpenEDalerUri(Uri);
 			}
@@ -1552,7 +1552,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					{
 						Output.WriteStartElement("Transfer", ContractsClient.NamespaceOnboarding);
 
-						await this.NeuronService.Contracts.ContractsClient.ExportKeys(Output);
+						await this.XmppService.Contracts.ContractsClient.ExportKeys(Output);
 
 						Output.WriteStartElement("Pin");
 						Output.WriteAttributeString("pin", Pin);
@@ -1601,7 +1601,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 									Output.WriteEndElement();
 								}
 
-								XmlElement Response = await this.NeuronService.Xmpp.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
+								XmlElement Response = await this.XmppService.Xmpp.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
 
 								foreach (XmlNode N in Response.ChildNodes)
 								{
@@ -1611,7 +1611,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 										string Url = "obinfo:" + Constants.Domains.IdDomain + ":" + Code + ":" +
 											Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
 
-										await this.NeuronService.AddTransferCode(Code);
+										await this.XmppService.AddTransferCode(Code);
 										await this.NavigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
 										return;
 									}
@@ -1657,7 +1657,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						TaskCompletionSource<bool> PasswordChanged = new TaskCompletionSource<bool>();
 						string NewPassword = this.CryptoService.CreateRandomPassword();
 
-						this.NeuronService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
+						this.XmppService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
 						{
 							PasswordChanged.TrySetResult(e.Ok);
 							return Task.CompletedTask;
@@ -1718,7 +1718,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					IdXml = Xml.ToString();
 				}
 
-				this.NeuronService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
+				this.XmppService.Xmpp.RequestPresenceSubscription(this.BareJid, IdXml);
 				await this.UiSerializer.DisplayAlert(AppResources.SuccessTitle, AppResources.PresenceSubscriptionRequestSent);
 			}
 			catch (Exception ex)
@@ -1731,9 +1731,9 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		{
 			try
 			{
-				this.NeuronService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
+				this.XmppService.Xmpp.RequestPresenceUnsubscription(this.BareJid);
 
-				RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
+				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
 				if (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.From)
 				{
 					RemoveSubscriptionPopupPage Page = new RemoveSubscriptionPopupPage(this.BareJid);
@@ -1743,7 +1743,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 					if (Remove.HasValue && Remove.Value)
 					{
-						this.NeuronService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
+						this.XmppService.Xmpp.RequestRevokePresenceSubscription(this.BareJid);
 
 						ContactInfo Info = await ContactInfo.FindByBareJid(this.BareJid);
 						if (!(Info is null) && Info.AllowSubscriptionFrom.HasValue && Info.AllowSubscriptionFrom.Value)
@@ -1772,7 +1772,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private void UpdateSubscriptionStatus()
 		{
-			RosterItem Item = this.NeuronService.Xmpp[this.BareJid];
+			RosterItem Item = this.XmppService.Xmpp[this.BareJid];
 
 			this.Subscribed = this.ThirdParty && !(Item is null) && (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.To);
 			this.NotSubscribed = this.ThirdParty && (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To));

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.AccountEvent
@@ -9,7 +9,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 	/// <summary>
 	/// The view model to bind to for when displaying the contents of an account event.
 	/// </summary>
-	public class AccountEventViewModel : NeuronViewModel
+	public class AccountEventViewModel : XmppViewModel
 	{
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -67,7 +67,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{

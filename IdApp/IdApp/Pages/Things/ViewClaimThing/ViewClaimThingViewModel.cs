@@ -7,7 +7,7 @@ using System.Windows.Input;
 using IdApp.Services;
 using IdApp.Services.EventLog;
 using IdApp.Services.Network;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.UI;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
@@ -23,7 +23,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 	/// <summary>
 	/// The view model to bind to for when displaying thing claim information.
 	/// </summary>
-	public class ViewClaimThingViewModel : NeuronViewModel
+	public class ViewClaimThingViewModel : XmppViewModel
 	{
 		/// <summary>
 		/// Creates an instance of the <see cref="ViewClaimThingViewModel"/> class.
@@ -45,7 +45,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 			{
 				this.Uri = args.Uri;
 
-				if (this.NeuronService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
+				if (this.XmppService.ThingRegistry.TryDecodeIoTDiscoClaimURI(args.Uri, out MetaDataTag[] Tags))
 				{
 					foreach (MetaDataTag Tag in Tags)
 						this.Tags.Add(new HumanReadableTag(Tag));
@@ -75,7 +75,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -132,7 +132,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// </summary>
 		public bool CanClaimThing
 		{
-			get { return this.IsConnected && this.NeuronService.IsOnline; }
+			get { return this.IsConnected && this.XmppService.IsOnline; }
 		}
 
 		/// <summary>
@@ -251,16 +251,16 @@ namespace IdApp.Pages.Things.ViewClaimThing
 				if (!await App.VerifyPin())
 					return;
 
-				(bool Succeeded, NodeResultEventArgs e) = await this.NetworkService.TryRequest(() => this.NeuronService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
+				(bool Succeeded, NodeResultEventArgs e) = await this.NetworkService.TryRequest(() => this.XmppService.ThingRegistry.ClaimThing(this.Uri, this.MakePublic));
 				if (!Succeeded)
 					return;
 
 				if (e.Ok)
 				{
 					string FriendlyName = GetFriendlyName(this.Tags);
-					RosterItem Item = this.NeuronService.Xmpp[e.JID];
+					RosterItem Item = this.XmppService.Xmpp[e.JID];
 					if (Item is null)
-						this.NeuronService.Xmpp.AddRosterItem(new RosterItem(e.JID, FriendlyName));
+						this.XmppService.Xmpp.AddRosterItem(new RosterItem(e.JID, FriendlyName));
 
 					ContactInfo Info = await ContactInfo.FindByBareJid(e.JID, e.Node.SourceId, e.Node.Partition, e.Node.NodeId);
 					if (Info is null)

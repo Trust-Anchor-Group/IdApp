@@ -9,7 +9,7 @@ using EDaler.Uris;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Services;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -17,7 +17,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 	/// <summary>
 	/// The view model to bind to for when displaying the wallet.
 	/// </summary>
-	public class MyWalletViewModel : NeuronViewModel
+	public class MyWalletViewModel : XmppViewModel
 	{
 		/// <summary>
 		/// Creates an instance of the <see cref="MyWalletViewModel"/> class.
@@ -44,34 +44,34 @@ namespace IdApp.Pages.Wallet.MyWallet
 			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
 				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, 
-					args.More, this.NeuronService.Wallet.LastEvent);
+					args.More, this.XmppService.Wallet.LastEvent);
 
 				StringBuilder Url = new StringBuilder();
 
 				Url.Append("https://");
-				Url.Append(this.NeuronService.Xmpp.Host);
+				Url.Append(this.XmppService.Xmpp.Host);
 				Url.Append("/Images/eDalerFront200.png");
 
 				this.EDalerGlyph = Url.ToString();
 			}
-			else if ((!(this.Balance is null) && !(this.NeuronService.Wallet.LastBalance is null) &&
-				(this.Balance.Amount != this.NeuronService.Wallet.LastBalance.Amount ||
-				this.Balance.Currency != this.NeuronService.Wallet.LastBalance.Currency ||
-				this.Balance.Timestamp != this.NeuronService.Wallet.LastBalance.Timestamp)) ||
-				this.LastEvent != this.NeuronService.Wallet.LastEvent)
+			else if ((!(this.Balance is null) && !(this.XmppService.Wallet.LastBalance is null) &&
+				(this.Balance.Amount != this.XmppService.Wallet.LastBalance.Amount ||
+				this.Balance.Currency != this.XmppService.Wallet.LastBalance.Currency ||
+				this.Balance.Timestamp != this.XmppService.Wallet.LastBalance.Timestamp)) ||
+				this.LastEvent != this.XmppService.Wallet.LastEvent)
 			{
-				await this.ReloadWallet(this.NeuronService.Wallet.LastBalance ?? Balance ?? this.Balance);
+				await this.ReloadWallet(this.XmppService.Wallet.LastBalance ?? Balance ?? this.Balance);
 			}
 
 			EvaluateAllCommands();
 
-			this.NeuronService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
+			this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
-			this.NeuronService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
+			this.XmppService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
 
 			await base.DoUnbind();
 		}
@@ -105,7 +105,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				{
 					if (!FriendlyNames.TryGetValue(Payment.To, out FriendlyName))
 					{
-						FriendlyName = await ContactInfo.GetFriendlyName(Payment.To, this.NeuronService.Xmpp);
+						FriendlyName = await ContactInfo.GetFriendlyName(Payment.To, this.XmppService.Xmpp);
 						FriendlyNames[Payment.To] = FriendlyName;
 					}
 
@@ -120,7 +120,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				{
 					if (!FriendlyNames.TryGetValue(Event.Remote, out FriendlyName))
 					{
-						FriendlyName = await ContactInfo.GetFriendlyName(Event.Remote, this.NeuronService.Xmpp);
+						FriendlyName = await ContactInfo.GetFriendlyName(Event.Remote, this.XmppService.Xmpp);
 						FriendlyNames[Event.Remote] = FriendlyName;
 					}
 
@@ -144,11 +144,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			try
 			{
-				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.NeuronService.Wallet.GetPendingPayments();
-				(EDaler.AccountEvent[] Events, bool More) = await this.NeuronService.Wallet.GetAccountEventsAsync(50);
+				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
+				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(50);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency, 
-					PendingPayments, Events, More, this.NeuronService.Wallet.LastEvent));
+					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
 			}
 			catch (Exception ex)
 			{
@@ -157,7 +157,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -401,7 +401,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			if (!(P is PendingPaymentItem Item))
 				return;
 
-			if (!this.NeuronService.Wallet.TryParseEDalerUri(Item.Uri, out EDalerUri Uri, out string Reason))
+			if (!this.XmppService.Wallet.TryParseEDalerUri(Item.Uri, out EDalerUri Uri, out string Reason))
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
 				return;

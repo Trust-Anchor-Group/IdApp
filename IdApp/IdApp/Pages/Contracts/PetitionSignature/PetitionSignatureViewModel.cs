@@ -97,8 +97,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
 
             bool succeeded = await this.NetworkService.TryRequest(async () =>
             {
-                byte[] signature = await this.NeuronService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
-                await this.NeuronService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, signature,
+                byte[] signature = await this.XmppService.Contracts.Sign(this.contentToSign, SignWith.LatestApprovedId);
+                await this.XmppService.Contracts.SendPetitionSignatureResponse(this.signatoryIdentityId, this.contentToSign, signature,
                     this.petitionId, this.requestorFullJid, true);
             });
 
@@ -108,7 +108,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
 
         private async Task Decline()
         {
-            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(
                 this.signatoryIdentityId, this.contentToSign, new byte[0], this.petitionId, this.requestorFullJid, false));
 
             if (succeeded)

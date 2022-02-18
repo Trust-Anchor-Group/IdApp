@@ -8,8 +8,8 @@ namespace IdApp.Services.Provisioning
     /// <summary>
     /// Adds support for XMPP Provisioning
     /// </summary>
-    [DefaultImplementation(typeof(NeuronProvisioningService))]
-    public interface INeuronProvisioningService
+    [DefaultImplementation(typeof(XmppProvisioningService))]
+    public interface IXmppProvisioningService
 	{
         /// <summary>
         /// JID of provisioning service.

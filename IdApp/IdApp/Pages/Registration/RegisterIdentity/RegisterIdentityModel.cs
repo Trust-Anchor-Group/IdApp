@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
@@ -83,9 +83,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// <summary>
 		/// Converts the <see cref="RegisterIdentityModel"/> to an array of <inheritdoc cref="Property"/>.
 		/// </summary>
-		/// <param name="neuronService">The Neuron service to use for accessing the Bare Jid.</param>
+		/// <param name="XmppService">The XMPP service to use for accessing the Bare Jid.</param>
 		/// <returns>The <see cref="RegisterIdentityModel"/> as a list of properties.</returns>
-		public Property[] ToProperties(INeuronService neuronService)
+		public Property[] ToProperties(IXmppService XmppService)
 		{
 			List<Property> properties = new List<Property>();
 			string s;
@@ -129,7 +129,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			if (!string.IsNullOrWhiteSpace(s = this.DeviceId?.Trim()))
 				properties.Add(new Property(Constants.XmppProperties.DeviceId, s));
 
-			properties.Add(new Property(Constants.XmppProperties.Jid, neuronService.BareJid));
+			properties.Add(new Property(Constants.XmppProperties.Jid, XmppService.BareJid));
 
 			return properties.ToArray();
 

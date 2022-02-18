@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using IdApp.Services;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Main.Loading
@@ -11,7 +11,7 @@ namespace IdApp.Pages.Main.Loading
 	/// <summary>
 	/// The view model to bind to for a loading page, i.e. a page showing the loading/startup state of a Xamarin app.
 	/// </summary>
-	public class LoadingViewModel : NeuronViewModel
+	public class LoadingViewModel : XmppViewModel
 	{
 		/// <summary>
 		/// Creates a new instance of the <see cref="LoadingViewModel"/> class.
@@ -27,13 +27,13 @@ namespace IdApp.Pages.Main.Loading
 			await base.DoBind();
 			IsBusy = true;
 			this.DisplayConnectionText = this.TagProfile.Step > RegistrationStep.Account;
-			this.NeuronService.Loaded += NeuronService_Loaded;
+			this.XmppService.Loaded += XmppService_Loaded;
 		}
 
 		/// <inheritdoc />
 		protected override async Task DoUnbind()
 		{
-			this.NeuronService.Loaded -= NeuronService_Loaded;
+			this.XmppService.Loaded -= XmppService_Loaded;
 			await base.DoUnbind();
 		}
 
@@ -57,7 +57,7 @@ namespace IdApp.Pages.Main.Loading
 		#endregion
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() => SetConnectionStateAndText(e.State));
 		}
@@ -71,7 +71,7 @@ namespace IdApp.Pages.Main.Loading
 			this.StateSummaryText = (this.TagProfile.LegalIdentity?.State)?.ToString() + " - " + this.ConnectionStateText;
 		}
 
-		private void NeuronService_Loaded(object sender, LoadedEventArgs e)
+		private void XmppService_Loaded(object sender, LoadedEventArgs e)
 		{
 			if (e.IsLoaded)
 			{

@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.DeviceSpecific;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using Waher.Content;
 using Xamarin.Forms;
 
@@ -13,7 +13,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 	/// <summary>
 	/// The view model to bind to for requesting a payment.
 	/// </summary>
-	public class RequestPaymentViewModel : NeuronViewModel
+	public class RequestPaymentViewModel : XmppViewModel
 	{
 		private readonly RequestPaymentPage page;
 
@@ -70,7 +70,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -389,12 +389,12 @@ namespace IdApp.Pages.Wallet.RequestPayment
 
 			if (this.EncryptMessage)
 			{
-				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.TagProfile.LegalIdentity, this.Amount, this.AmountExtra,
+				Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.TagProfile.LegalIdentity, this.Amount, this.AmountExtra,
 					this.Currency, this.Message);
 			}
 			else
 			{
-				Uri = this.NeuronService.Wallet.CreateIncompletePayMeUri(this.NeuronService.Xmpp.BareJID, this.Amount, this.AmountExtra,
+				Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.XmppService.Xmpp.BareJID, this.Amount, this.AmountExtra,
 					this.Currency, this.Message);
 			}
 

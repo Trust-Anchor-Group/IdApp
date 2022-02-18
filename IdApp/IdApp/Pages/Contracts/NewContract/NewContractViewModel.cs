@@ -728,11 +728,11 @@ namespace IdApp.Pages.Contracts.NewContract
 				if (!await App.VerifyPin())
 					return;
 
-				Created = await this.NeuronService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
+				Created = await this.XmppService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
 					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration, this.template.ArchiveRequired,
 					this.template.ArchiveOptional, null, null, false);
 
-				Created = await this.NeuronService.Contracts.SignContract(Created, this.SelectedRole, false);
+				Created = await this.XmppService.Contracts.SignContract(Created, this.SelectedRole, false);
 			}
 			catch (Exception ex)
 			{

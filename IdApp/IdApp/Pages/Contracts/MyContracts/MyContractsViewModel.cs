@@ -206,18 +206,18 @@ namespace IdApp.Pages.Contracts.MyContracts
 				switch (this.contractsListMode)
 				{
 					case ContractsListMode.MyContracts:
-						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetCreatedContracts);
+						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.XmppService.Contracts.GetCreatedContracts);
 						ContractReferences = ToReferences(Contracts);
 						break;
 
 					case ContractsListMode.SignedContracts:
-						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetSignedContracts);
+						(Succeeded, Contracts) = await this.NetworkService.TryRequest(this.XmppService.Contracts.GetSignedContracts);
 						ContractReferences = ToReferences(Contracts);
 						break;
 
 					case ContractsListMode.ContractTemplates:
 						KeyValuePair<DateTime, string>[] Templates;
-						(Succeeded, Templates) = await this.NetworkService.TryRequest(this.NeuronService.Contracts.GetContractTemplateIds);
+						(Succeeded, Templates) = await this.NetworkService.TryRequest(this.XmppService.Contracts.GetContractTemplateIds);
 
 						int i = 0;
 						int c = Templates.Length;
@@ -252,7 +252,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					try
 					{
-						contract = await Ref.GetContract(this.NeuronService.Contracts);
+						contract = await Ref.GetContract(this.XmppService.Contracts);
 					}
 					catch (Waher.Networking.XMPP.StanzaErrors.ItemNotFoundException)
 					{
@@ -264,7 +264,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 
 					this.contractsMap[Ref.ContractId] = contract;
 
-					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Timestamp, contract, this.TagProfile, this.NeuronService);
+					ContractModel Item = await ContractModel.Create(Ref.ContractId, Ref.Timestamp, contract, this.TagProfile, this.XmppService);
 					string Category = Item.Category;
 
 					if (!ContractsByCategory.TryGetValue(Category, out List<ContractModel> Contracts2))

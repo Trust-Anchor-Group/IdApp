@@ -24,7 +24,7 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginLoad())
 			{
-				this.NeuronService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
+				this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
 				this.EndLoad(true);
 			}
 			
@@ -35,7 +35,7 @@ namespace IdApp.Services.Wallet
 		{
 			if (this.BeginUnload())
 			{
-				this.NeuronService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
+				this.XmppService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
 				this.EndUnload();
 			}
 
@@ -66,9 +66,9 @@ namespace IdApp.Services.Wallet
 		{
 			try
 			{
-				Balance Balance = await this.NeuronService.Wallet.GetBalanceAsync();
-				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.NeuronService.Wallet.GetPendingPayments();
-				(AccountEvent[] Events, bool More) = await this.NeuronService.Wallet.GetAccountEventsAsync(50);
+				Balance Balance = await this.XmppService.Wallet.GetBalanceAsync();
+				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
+				(AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(50);
 
 				WalletNavigationArgs e = new WalletNavigationArgs(Balance, PendingAmount, PendingCurrency, PendingPayments, Events, More);
 
@@ -86,7 +86,7 @@ namespace IdApp.Services.Wallet
 		/// <param name="uri">eDaler URI.</param>
 		public async Task OpenEDalerUri(string uri)
 		{
-			if (!this.NeuronService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed, out string Reason))
+			if (!this.XmppService.Wallet.TryParseEDalerUri(uri, out EDalerUri Parsed, out string Reason))
 			{
 				await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, string.Format(AppResources.InvalidEDalerUri, Reason));
 				return;

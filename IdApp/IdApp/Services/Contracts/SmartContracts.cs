@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Registration.RegisterIdentity;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using Waher.Content;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
@@ -14,12 +14,12 @@ using Waher.Runtime.Temporary;
 namespace IdApp.Services.Contracts
 {
 	[Singleton]
-	internal sealed class NeuronContracts : ServiceReferences, INeuronContracts
+	internal sealed class SmartContracts : ServiceReferences, ISmartContracts
 	{
 		private ContractsClient contractsClient;
 		private HttpFileUploadClient fileUploadClient;
 
-		internal NeuronContracts()
+		internal SmartContracts()
 		{
 		}
 
@@ -30,7 +30,7 @@ namespace IdApp.Services.Contracts
 		{
 			get
 			{
-				if (this.contractsClient is null || this.contractsClient.Client != this.NeuronService.Xmpp)
+				if (this.contractsClient is null || this.contractsClient.Client != this.XmppService.Xmpp)
 				{
 					if (!(this.contractsClient is null))
 					{
@@ -46,7 +46,7 @@ namespace IdApp.Services.Contracts
 						this.contractsClient.ContractProposalReceived -= ContractsClient_ContractProposalReceived;
 					}
 
-					this.contractsClient = (this.NeuronService as NeuronService)?.ContractsClient;
+					this.contractsClient = (this.XmppService as XmppService)?.ContractsClient;
 					if (this.contractsClient is null)
 						throw new InvalidOperationException(AppResources.LegalServiceNotFound);
 
@@ -73,9 +73,9 @@ namespace IdApp.Services.Contracts
 		{
 			get
 			{
-				if (this.fileUploadClient is null || this.fileUploadClient.Client != this.NeuronService.Xmpp)
+				if (this.fileUploadClient is null || this.fileUploadClient.Client != this.XmppService.Xmpp)
 				{
-					this.fileUploadClient = this.NeuronService?.FileUploadClient;
+					this.fileUploadClient = this.XmppService?.FileUploadClient;
 					if (this.fileUploadClient is null)
 						throw new InvalidOperationException(AppResources.FileUploadServiceNotFound);
 				}
@@ -193,7 +193,7 @@ namespace IdApp.Services.Contracts
 		{
 			await this.ContractsClient.GenerateNewKeys();
 
-			LegalIdentity identity = await this.ContractsClient.ApplyAsync(model.ToProperties(this.NeuronService));
+			LegalIdentity identity = await this.ContractsClient.ApplyAsync(model.ToProperties(this.XmppService));
 
 			foreach (var a in attachments)
 			{

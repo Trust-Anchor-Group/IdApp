@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence;
 using Xamarin.Forms;
@@ -14,7 +14,7 @@ namespace IdApp.Pages.Things.ViewThing
 	/// <summary>
 	/// The view model to bind to when displaying a thing.
 	/// </summary>
-	public class ThingViewModel : NeuronViewModel
+	public class ThingViewModel : XmppViewModel
 	{
 		private ContactInfo thing;
 
@@ -66,7 +66,7 @@ namespace IdApp.Pages.Things.ViewThing
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{
@@ -144,7 +144,7 @@ namespace IdApp.Pages.Things.ViewThing
 					return;
 
 				(bool Succeeded, bool Done) = await this.NetworkService.TryRequest(() => 
-					this.NeuronService.ThingRegistry.Disown(this.thing.RegistryJid, this.thing.BareJid, this.thing.SourceId, this.thing.Partition, this.thing.NodeId));
+					this.XmppService.ThingRegistry.Disown(this.thing.RegistryJid, this.thing.BareJid, this.thing.SourceId, this.thing.Partition, this.thing.NodeId));
 
 				if (!Succeeded)
 					return;

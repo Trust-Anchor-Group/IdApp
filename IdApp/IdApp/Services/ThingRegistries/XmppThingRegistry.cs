@@ -1,4 +1,4 @@
-﻿using IdApp.Services.Neuron;
+﻿using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -9,11 +9,11 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Services.ThingRegistries
 {
 	[Singleton]
-	internal sealed class NeuronThingRegistry : ServiceReferences, INeuronThingRegistry
+	internal sealed class XmppThingRegistry : ServiceReferences, IXmppThingRegistry
 	{
 		private ThingRegistryClient registryClient;
 
-		internal NeuronThingRegistry()
+		internal XmppThingRegistry()
 		{
 		}
 
@@ -21,9 +21,9 @@ namespace IdApp.Services.ThingRegistries
 		{
 			get
 			{
-				if (this.registryClient is null || this.registryClient.Client != this.NeuronService.Xmpp)
+				if (this.registryClient is null || this.registryClient.Client != this.XmppService.Xmpp)
 				{
-					this.registryClient = (this.NeuronService as NeuronService)?.ThingRegistryClient;
+					this.registryClient = (this.XmppService as XmppService)?.ThingRegistryClient;
 					if (this.registryClient is null)
 						throw new InvalidOperationException(AppResources.ThingRegistryServiceNotFound);
 				}

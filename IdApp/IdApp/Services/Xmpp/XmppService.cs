@@ -44,10 +44,10 @@ using Waher.Networking.XMPP.Abuse;
 using IdApp.Popups.Xmpp.ReportType;
 using IdApp.Services.UI.Photos;
 
-namespace IdApp.Services.Neuron
+namespace IdApp.Services.Xmpp
 {
 	[Singleton]
-	internal sealed class NeuronService : LoadableService, INeuronService
+	internal sealed class XmppService : LoadableService, IXmppService
 	{
 		private readonly Assembly appAssembly;
 		private Profiler startupProfiler;
@@ -64,11 +64,11 @@ namespace IdApp.Services.Neuron
 		private EDalerClient eDalerClient;
 		private AbuseClient abuseClient;
 		private Timer reconnectTimer;
-		private readonly NeuronContracts contracts;
-		private readonly NeuronMultiUserChat muc;
-		private readonly NeuronThingRegistry thingRegistry;
-		private readonly NeuronProvisioningService provisioning;
-		private readonly NeuronWallet wallet;
+		private readonly SmartContracts contracts;
+		private readonly XmppMultiUserChat muc;
+		private readonly XmppThingRegistry thingRegistry;
+		private readonly XmppProvisioningService provisioning;
+		private readonly EDalerWallet wallet;
 		private string domainName;
 		private string accountName;
 		private string passwordHash;
@@ -84,14 +84,14 @@ namespace IdApp.Services.Neuron
 		private string historyTextData;
 		private string historyHtml;
 
-		public NeuronService(Assembly AppAssembly, Profiler StartupProfiler)
+		public XmppService(Assembly AppAssembly, Profiler StartupProfiler)
 		{
 			this.appAssembly = AppAssembly;
-			this.contracts = new NeuronContracts();
-			this.muc = new NeuronMultiUserChat();
-			this.thingRegistry = new NeuronThingRegistry();
-			this.provisioning = new NeuronProvisioningService();
-			this.wallet = new NeuronWallet();
+			this.contracts = new SmartContracts();
+			this.muc = new XmppMultiUserChat();
+			this.thingRegistry = new XmppThingRegistry();
+			this.provisioning = new XmppProvisioningService();
+			this.wallet = new EDalerWallet();
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = StartupProfiler;
 		}
@@ -505,7 +505,7 @@ namespace IdApp.Services.Neuron
 
 		public override async Task Load(bool isResuming)
 		{
-			ProfilerThread Thread = this.startupProfiler?.CreateThread("Neuron", ProfilerThreadType.Sequential);
+			ProfilerThread Thread = this.startupProfiler?.CreateThread("XMPP", ProfilerThreadType.Sequential);
 			Thread?.Start();
 			try
 			{
@@ -639,11 +639,11 @@ namespace IdApp.Services.Neuron
 
 		#endregion
 
-		public INeuronContracts Contracts => this.contracts;
-		public INeuronMultiUserChat MultiUserChat => this.muc;
-		public INeuronThingRegistry ThingRegistry => this.thingRegistry;
-		public INeuronProvisioningService Provisioning => this.provisioning;
-		public INeuronWallet Wallet => this.wallet;
+		public ISmartContracts Contracts => this.contracts;
+		public IXmppMultiUserChat MultiUserChat => this.muc;
+		public IXmppThingRegistry ThingRegistry => this.thingRegistry;
+		public IXmppProvisioningService Provisioning => this.provisioning;
+		public IEDalerWallet Wallet => this.wallet;
 
 		private enum ConnectOperation
 		{

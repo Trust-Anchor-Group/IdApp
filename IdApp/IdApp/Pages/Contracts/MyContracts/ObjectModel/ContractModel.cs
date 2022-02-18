@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IdApp.Extensions;
 using IdApp.Services;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using Waher.Content.Markdown;
 using Waher.Networking.XMPP.Contracts;
@@ -42,12 +42,12 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// <param name="Timestamp">The timestamp to show with the contract reference.</param>
         /// <param name="Contract">Contract</param>
         /// <param name="TagProfile">TAG profile</param>
-        /// <param name="NeuronService">Neuron service.</param>
+        /// <param name="XmppService">XMPP service.</param>
         public static async Task<ContractModel> Create(string ContractId, DateTime Timestamp, Contract Contract, ITagProfile TagProfile,
-            INeuronService NeuronService)
+            IXmppService XmppService)
         {
             string Category = await GetCategory(Contract) ?? Contract.ForMachinesNamespace + "#" + Contract.ForMachinesLocalName;
-            string Name = await GetName(Contract, TagProfile, NeuronService) ?? Contract.ContractId;
+            string Name = await GetName(Contract, TagProfile, XmppService) ?? Contract.ContractId;
 
             return new ContractModel(ContractId, Timestamp, Contract, Category, Name);
         }
@@ -57,9 +57,9 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
         /// </summary>
         /// <param name="Contract">Contract</param>
         /// <param name="TagProfile">TAG Profile</param>
-        /// <param name="NeuronService">Neuron Service</param>
+        /// <param name="XmppService">XMPP Service</param>
         /// <returns>Displayable Name</returns>
-        public static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, INeuronService NeuronService)
+        public static async Task<string> GetName(Contract Contract, ITagProfile TagProfile, IXmppService XmppService)
 		{
             if (Contract.Parts is null)
                 return null;
@@ -77,12 +77,12 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
 			{
                 if (Part.LegalId == TagProfile.LegalJid ||
                     (Signatures.TryGetValue(Part.LegalId, out Waher.Networking.XMPP.Contracts.ClientSignature PartSignature) &&
-                    string.Compare(PartSignature.BareJid, NeuronService.BareJid, true) == 0))
+                    string.Compare(PartSignature.BareJid, XmppService.BareJid, true) == 0))
                 {
                     continue;   // Self
                 }
 
-                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, NeuronService.Xmpp);
+                string FriendlyName = await ContactInfo.GetFriendlyName(Part.LegalId, XmppService.Xmpp);
 
                 if (sb is null)
                     sb = new StringBuilder(FriendlyName);

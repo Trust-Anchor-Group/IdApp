@@ -9,13 +9,13 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Runtime.Inventory;
 
-namespace IdApp.Services.Neuron
+namespace IdApp.Services.Xmpp
 {
     /// <summary>
-    /// Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
+    /// Represents an abstraction of a connection to an XMPP Server.
     /// </summary>
-    [DefaultImplementation(typeof(NeuronService))]
-    public interface INeuronService : ILoadableService
+    [DefaultImplementation(typeof(XmppService))]
+    public interface IXmppService : ILoadableService
     {
         /// <summary>
         /// Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="XmppState.Connected"/>.
@@ -25,7 +25,7 @@ namespace IdApp.Services.Neuron
         Task<bool> WaitForConnectedState(TimeSpan timeout);
         
         /// <summary>
-        /// An event that triggers whenever the connection state of the Neuron server changes.
+        /// An event that triggers whenever the connection state to the XMPP server changes.
         /// </summary>
         event EventHandler<ConnectionStateChangedEventArgs> ConnectionStateChanged;
         
@@ -81,12 +81,12 @@ namespace IdApp.Services.Neuron
             Func<XmppClient, Task> connectedFunc);
 
         /// <summary>
-        /// Determines whether the Neuron server is online or not.
+        /// Determines whether the connection to the XMPP server is live or not.
         /// </summary>
         bool IsOnline { get; }
         
         /// <summary>
-        /// The current state of the Neuron server.
+        /// The current state of the connection to the XMPP server.
         /// </summary>
         XmppState State { get; }
 
@@ -113,27 +113,27 @@ namespace IdApp.Services.Neuron
         /// <summary>
         /// Provides access to legal identities and contracts.
         /// </summary>
-        INeuronContracts Contracts { get; }
+        ISmartContracts Contracts { get; }
 
         /// <summary>
         /// Provides access to chat functionality.
         /// </summary>
-        INeuronMultiUserChat MultiUserChat { get; }
+        IXmppMultiUserChat MultiUserChat { get; }
 
         /// <summary>
         /// Provides access to thing registries.
         /// </summary>
-        INeuronThingRegistry ThingRegistry { get; }
+        IXmppThingRegistry ThingRegistry { get; }
 
         /// <summary>
         /// Provides access to provisioning and decision support.
         /// </summary>
-        INeuronProvisioningService Provisioning { get; }
+        IXmppProvisioningService Provisioning { get; }
 
         /// <summary>
         /// Provides access to the eDaler wallet.
         /// </summary>
-        INeuronWallet Wallet { get; }
+        IEDalerWallet Wallet { get; }
 
         /// <summary>
         /// HTTP File Upload client
@@ -141,7 +141,7 @@ namespace IdApp.Services.Neuron
         HttpFileUploadClient FileUploadClient { get; }
 
         /// <summary>
-        /// Run this method to discover services for any given Neuron server.
+        /// Run this method to discover services for any given XMPP server.
         /// </summary>
         /// <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
         /// <returns>If TAG services were found.</returns>

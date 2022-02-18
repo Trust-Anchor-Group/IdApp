@@ -180,12 +180,12 @@ namespace IdApp.Pages.Registration.ChooseAccount
 				async Task OnConnected(XmppClient client)
 				{
 					if (this.TagProfile.NeedsUpdating())
-						await this.NeuronService.DiscoverServices(client);
+						await this.XmppService.DiscoverServices(client);
 
 					this.TagProfile.SetAccount(this.AccountName, client.PasswordHash, client.PasswordHashMethod);
 				}
 
-				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndCreateAccount(this.TagProfile.Domain,
+				(bool succeeded, string errorMessage) = await this.XmppService.TryConnectAndCreateAccount(this.TagProfile.Domain,
 					isIpAddress, hostName, portNumber, this.AccountName, passwordToUse, Constants.LanguageCodes.Default,
 					this.TagProfile.ApiKey, this.TagProfile.ApiSecret, typeof(App).Assembly, OnConnected);
 
@@ -370,7 +370,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					}
 
 					if (!(LegalIdDefinition is null))
-						await this.NeuronService.Contracts.ContractsClient.ImportKeys(LegalIdDefinition);
+						await this.XmppService.Contracts.ContractsClient.ImportKeys(LegalIdDefinition);
 
 					if (AccountDone)
 					{
@@ -429,7 +429,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 					bool serviceDiscoverySucceeded;
 
 					if (this.TagProfile.NeedsUpdating())
-						serviceDiscoverySucceeded = await this.NeuronService.DiscoverServices(client);
+						serviceDiscoverySucceeded = await this.XmppService.DiscoverServices(client);
 					else
 						serviceDiscoverySucceeded = true;
 
@@ -496,7 +496,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 
 				(string hostName, int portNumber, bool isIpAddress) = await this.NetworkService.LookupXmppHostnameAndPort(this.TagProfile.Domain);
 
-				(bool succeeded, string errorMessage) = await this.NeuronService.TryConnectAndConnectToAccount(this.TagProfile.Domain,
+				(bool succeeded, string errorMessage) = await this.XmppService.TryConnectAndConnectToAccount(this.TagProfile.Domain,
 					isIpAddress, hostName, portNumber, AccountName, Password, PasswordMethod, Constants.LanguageCodes.Default,
 					typeof(App).Assembly, OnConnected);
 

@@ -28,7 +28,7 @@ using IdApp.Services.Network;
 using IdApp.Services.Storage;
 using IdApp.Services.Settings;
 using IdApp.Services.Navigation;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Nfc;
 using Waher.Content;
 using Waher.Content.Images;
@@ -203,7 +203,7 @@ namespace IdApp
 			Types.InstantiateDefault<IStorageService>(false);
 			Types.InstantiateDefault<ISettingsService>(false);
 			Types.InstantiateDefault<INavigationService>(false);
-			Types.InstantiateDefault<INeuronService>(false, appAssembly, startupProfiler);
+			Types.InstantiateDefault<IXmppService>(false, appAssembly, startupProfiler);
 			Types.InstantiateDefault<IAttachmentCacheService>(false);
 			Types.InstantiateDefault<IContractOrchestratorService>(false);
 			Types.InstantiateDefault<IThingRegistryOrchestratorService>(false);
@@ -303,8 +303,8 @@ namespace IdApp
 				if (!isResuming)
 					await WaitForConfigLoaded();
 
-				Thread?.NewState("Neuron");
-				await this.services.NeuronService.Load(isResuming);
+				Thread?.NewState("XMPP");
+				await this.services.XmppService.Load(isResuming);
 
 				Thread?.NewState("Timer");
 				TimeSpan initialAutoSaveDelay = Constants.Intervals.AutoSave.Multiply(4);
@@ -366,8 +366,8 @@ namespace IdApp
 
 			if (inPanic)
 			{
-				if (!(this.services?.NeuronService is null))
-					await this.services.NeuronService.UnloadFast();
+				if (!(this.services?.XmppService is null))
+					await this.services.XmppService.UnloadFast();
 			}
 			else
 			{
@@ -380,8 +380,8 @@ namespace IdApp
 				if (!(this.services.ThingRegistryOrchestratorService is null))
 					await this.services.ThingRegistryOrchestratorService.Unload();
 
-				if (!(this.services?.NeuronService is null))
-					await this.services.NeuronService.Unload();
+				if (!(this.services?.XmppService is null))
+					await this.services.XmppService.Unload();
 
 				if (!(this.services?.NetworkService is null))
 					await this.services.NetworkService.Unload();

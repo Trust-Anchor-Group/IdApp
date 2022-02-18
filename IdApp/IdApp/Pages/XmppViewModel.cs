@@ -2,19 +2,19 @@
 using System.Threading.Tasks;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 
 namespace IdApp.Pages
 {
     /// <summary>
-    /// A view model that holds Neuron state.
+    /// A view model that holds the XMPP state.
     /// </summary>
-    public class NeuronViewModel : BaseViewModel
+    public class XmppViewModel : BaseViewModel
     {
         /// <summary>
-        /// Creates an instance of a <see cref="NeuronViewModel"/>.
+        /// Creates an instance of a <see cref="XmppViewModel"/>.
         /// </summary>
-        protected NeuronViewModel()
+        protected XmppViewModel()
         {
             this.StateSummaryText = AppResources.XmppState_Offline;
             this.ConnectionStateText = AppResources.XmppState_Offline;
@@ -27,14 +27,14 @@ namespace IdApp.Pages
         {
             await base.DoBind();
 
-            this.SetConnectionStateAndText(this.NeuronService.State);
-            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+            this.SetConnectionStateAndText(this.XmppService.State);
+            this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
         }
 
         /// <inheritdoc/>
         protected override async Task DoUnbind()
         {
-            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
             await base.DoUnbind();
         }
 
@@ -44,7 +44,7 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty ConnectionStateTextProperty =
-            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(NeuronViewModel), default(string));
+            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(XmppViewModel), default(string));
 
         /// <summary>
         /// Gets the current connection state as a user friendly localized string.
@@ -59,7 +59,7 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty ConnectionStateColorProperty =
-            BindableProperty.Create("ConnectionStateColor", typeof(Brush), typeof(NeuronViewModel), new SolidColorBrush(Color.Default));
+            BindableProperty.Create("ConnectionStateColor", typeof(Brush), typeof(XmppViewModel), new SolidColorBrush(Color.Default));
 
         /// <summary>
         /// Gets the current connection state as a color.
@@ -74,7 +74,7 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty StateSummaryTextProperty =
-            BindableProperty.Create("StateSummaryText", typeof(string), typeof(NeuronViewModel), default(string));
+            BindableProperty.Create("StateSummaryText", typeof(string), typeof(XmppViewModel), default(string));
 
         /// <summary>
         /// Gets the current state summary as a user friendly localized string.
@@ -89,10 +89,10 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty IsConnectedProperty =
-            BindableProperty.Create("IsConnected", typeof(bool), typeof(NeuronViewModel), default(bool));
+            BindableProperty.Create("IsConnected", typeof(bool), typeof(XmppViewModel), default(bool));
 
         /// <summary>
-        /// Gets whether the view model is connected to a Neuron server.
+        /// Gets whether the view model is connected to an XMPP server.
         /// </summary>
         public bool IsConnected
         {
@@ -115,11 +115,11 @@ namespace IdApp.Pages
         }
 
         /// <summary>
-        /// Listens to connection state changes from the Neuron server.
+        /// Listens to connection state changes from the XMPP server.
         /// </summary>
-        /// <param name="sender">The neuron service instance.</param>
+        /// <param name="sender">The XMPP service instance.</param>
         /// <param name="e">The event args.</param>
-        protected virtual void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        protected virtual void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiSerializer.BeginInvokeOnMainThread(() => this.SetConnectionStateAndText(e.State));
         }

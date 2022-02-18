@@ -6,7 +6,7 @@ using IdApp.Pages.Main.ScanQrCode;
 using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using SkiaSharp;
@@ -48,7 +48,7 @@ namespace IdApp.Services.UI.QR
         {
             ILogService LogService = App.Instantiate<ILogService>();
             IUiSerializer UiSerializer = App.Instantiate<IUiSerializer>();
-            INeuronService NeuronService = App.Instantiate<INeuronService>();
+            IXmppService XmppService = App.Instantiate<IXmppService>();
             IContractOrchestratorService ContractOrchestratorService = App.Instantiate<IContractOrchestratorService>();
             IThingRegistryOrchestratorService ThingRegistryOrchestratorService = App.Instantiate<IThingRegistryOrchestratorService>();
             IEDalerOrchestratorService EDalerOrchestratorService = App.Instantiate<IEDalerOrchestratorService>();
@@ -74,11 +74,11 @@ namespace IdApp.Services.UI.QR
                         return true;
                         
                     case Constants.UriSchemes.UriSchemeIotDisco:
-                        if (NeuronService.ThingRegistry.IsIoTDiscoClaimURI(Url))
+                        if (XmppService.ThingRegistry.IsIoTDiscoClaimURI(Url))
                             await ThingRegistryOrchestratorService.OpenClaimDevice(Url);
-                        else if (NeuronService.ThingRegistry.IsIoTDiscoSearchURI(Url))
+                        else if (XmppService.ThingRegistry.IsIoTDiscoSearchURI(Url))
                             await ThingRegistryOrchestratorService.OpenSearchDevices(Url);
-                        else if (NeuronService.ThingRegistry.IsIoTDiscoDirectURI(Url))
+                        else if (XmppService.ThingRegistry.IsIoTDiscoDirectURI(Url))
                             await ThingRegistryOrchestratorService.OpenDeviceReference(Url);
                         else
                         {

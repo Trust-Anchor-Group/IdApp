@@ -9,8 +9,8 @@ namespace IdApp.Services.ThingRegistries
     /// <summary>
     /// Adds support for XMPP Thing Registries
     /// </summary>
-    [DefaultImplementation(typeof(NeuronThingRegistry))]
-    public interface INeuronThingRegistry
+    [DefaultImplementation(typeof(XmppThingRegistry))]
+    public interface IXmppThingRegistry
     {
 		/// <summary>
 		/// Checks if a URI is a claim URI.

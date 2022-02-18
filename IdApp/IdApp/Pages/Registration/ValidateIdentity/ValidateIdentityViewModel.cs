@@ -6,7 +6,7 @@ using System.Windows.Input;
 using IdApp.Extensions;
 using IdApp.Services.Contracts;
 using IdApp.Services.Data.Countries;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.Photos;
 using IdApp.Services.UI.QR;
@@ -29,7 +29,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         public ValidateIdentityViewModel()
             : base(RegistrationStep.ValidateIdentity)
         {
-            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.NeuronService.IsOnline);
+            this.InviteReviewerCommand = new Command(async _ => await InviteReviewer(), _ => this.State == IdentityState.Created && this.XmppService.IsOnline);
             this.ContinueCommand = new Command(_ => Continue(), _ => IsApproved);
             this.Title = AppResources.ValidatingInformation;
             this.Photos = new ObservableCollection<Photo>();
@@ -43,8 +43,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             AssignProperties();
 
             this.TagProfile.Changed += TagProfile_Changed;
-            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
-            this.NeuronService.Contracts.LegalIdentityChanged += NeuronContracts_LegalIdentityChanged;
+            this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
+            this.XmppService.Contracts.LegalIdentityChanged += XmppContracts_LegalIdentityChanged;
         }
 
         /// <inheritdoc />
@@ -52,8 +52,8 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         {
             this.photosLoader.CancelLoadPhotos();
             this.TagProfile.Changed -= TagProfile_Changed;
-            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
-            this.NeuronService.Contracts.LegalIdentityChanged -= NeuronContracts_LegalIdentityChanged;
+            this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
+            this.XmppService.Contracts.LegalIdentityChanged -= XmppContracts_LegalIdentityChanged;
             await base.DoUnbind();
         }
 
@@ -131,7 +131,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             BindableProperty.Create("BareJid", typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
-        /// Gets or sets the Bare Jid registered with the Neuron server.
+        /// Gets or sets the Bare Jid registered with the XMPP server.
         /// </summary>
         public string BareJid
         {
@@ -416,7 +416,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             BindableProperty.Create("IsConnected", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
 
         /// <summary>
-        /// Gets or sets if the app is connected to a Neuron server.
+        /// Gets or sets if the app is connected to an XMPP server.
         /// </summary>
         public bool IsConnected
         {
@@ -490,7 +490,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             ContinueCommand.ChangeCanExecute();
             InviteReviewerCommand.ChangeCanExecute();
 
-            SetConnectionStateAndText(this.NeuronService.State);
+            SetConnectionStateAndText(this.XmppService.State);
 
             if (this.IsConnected)
                 this.ReloadPhotos();
@@ -498,7 +498,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
 
         private void AssignBareJid()
         {
-            BareJid = this.NeuronService?.BareJid ?? string.Empty;
+            BareJid = this.XmppService?.BareJid ?? string.Empty;
         }
 
         private void TagProfile_Changed(object sender, PropertyChangedEventArgs e)
@@ -509,7 +509,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 this.UiSerializer.BeginInvokeOnMainThread(AssignBareJid);
         }
 
-        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiSerializer.BeginInvokeOnMainThread(async () =>
             {
@@ -539,7 +539,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
             }
         }
 
-        private void NeuronContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
+        private void XmppContracts_LegalIdentityChanged(object sender, LegalIdentityChangedEventArgs e)
         {
             this.UiSerializer.BeginInvokeOnMainThread(() =>
             {
@@ -559,7 +559,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
                 return;
             }
 
-            bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.PetitionPeerReviewId(
+            bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionPeerReviewId(
                 Constants.UriSchemes.RemoveScheme(Url), this.TagProfile.LegalIdentity, Guid.NewGuid().ToString(), AppResources.CouldYouPleaseReviewMyIdentityInformation));
 
             if (succeeded)

@@ -6,7 +6,7 @@ using IdApp.Services.Contracts;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.UI;
 using IdApp.Services.UI.QR;
@@ -33,9 +33,9 @@ namespace IdApp.Pages.Main.Shell
 		}
 
 		/// <summary>
-		/// Current Neuron Service
+		/// Current XMPP Service
 		/// </summary>
-		public INeuronService NeuronService => App.Instantiate<INeuronService>();
+		public IXmppService XmppService => App.Instantiate<IXmppService>();
 
 		/// <summary>
 		/// Current Network Service

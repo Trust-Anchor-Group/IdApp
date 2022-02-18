@@ -3709,7 +3709,7 @@
         <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Contacts.Chat.ChatViewModel.BareJidProperty">
@@ -3864,12 +3864,12 @@
             <param name="Uri">XMPP URI</param>
             <returns>If URI could be processed.</returns>
         </member>
-        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ProcessXmppUri(System.String,IdApp.Services.Neuron.INeuronService,IdApp.Services.Tag.ITagProfile)">
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatViewModel.ProcessXmppUri(System.String,IdApp.Services.Xmpp.IXmppService,IdApp.Services.Tag.ITagProfile)">
             <summary>
             Processes an XMPP URI
             </summary>
             <param name="Uri">XMPP URI</param>
-            <param name="NeuronService">Neuron Service</param>
+            <param name="XmppService">XMPP Service</param>
             <param name="TagProfile">TAG Profile</param>
             <returns>If URI could be processed.</returns>
         </member>
@@ -4835,7 +4835,7 @@
             The data model for a contract.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.Create(System.String,System.DateTime,Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel"/> class.
             </summary>
@@ -4843,15 +4843,15 @@
             <param name="Timestamp">The timestamp to show with the contract reference.</param>
             <param name="Contract">Contract</param>
             <param name="TagProfile">TAG profile</param>
-            <param name="NeuronService">Neuron service.</param>
+            <param name="XmppService">XMPP service.</param>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Neuron.INeuronService)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetName(Waher.Networking.XMPP.Contracts.Contract,IdApp.Services.Tag.ITagProfile,IdApp.Services.Xmpp.IXmppService)">
             <summary>
             Gets a displayable name for a contract.
             </summary>
             <param name="Contract">Contract</param>
             <param name="TagProfile">TAG Profile</param>
-            <param name="NeuronService">Neuron Service</param>
+            <param name="XmppService">XMPP Service</param>
             <returns>Displayable Name</returns>
         </member>
         <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractModel.GetCategory(Waher.Networking.XMPP.Contracts.Contract)">
@@ -4914,7 +4914,7 @@
             Timestamp
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.GetContract(IdApp.Services.Contracts.INeuronContracts)">
+        <member name="M:IdApp.Pages.Contracts.MyContracts.ObjectModel.ContractReference.GetContract(IdApp.Services.Contracts.ISmartContracts)">
             <summary>
             Gets the contract
             </summary>
@@ -6820,7 +6820,7 @@
             Copies ID to clipboard
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Identity.ViewIdentity.ViewIdentityViewModel.CreatedProperty">
@@ -7459,7 +7459,7 @@
             Gets or sets whether the user friendly connection text should be visible on screen or not.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Main.Loading.LoadingViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
@@ -7779,7 +7779,7 @@
             Gets or sets the user friendly connection errors text for display. Can be null.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Main.Main.MainViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc />
         </member>
         <member name="M:IdApp.Pages.Main.Main.MainViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
@@ -7955,9 +7955,9 @@
             Create a new instance of the <see cref="T:IdApp.Pages.Main.Shell.AppShell"/> class.
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Main.Shell.AppShell.NeuronService">
+        <member name="P:IdApp.Pages.Main.Shell.AppShell.XmppService">
             <summary>
-            Current Neuron Service
+            Current XMPP Service
             </summary>
         </member>
         <member name="P:IdApp.Pages.Main.Shell.AppShell.NetworkService">
@@ -8044,75 +8044,6 @@
             <summary>
             Gets or sets whether the application is online, i.e. has network access.
             </summary>
-        </member>
-        <member name="T:IdApp.Pages.NeuronViewModel">
-            <summary>
-            A view model that holds Neuron state.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.NeuronViewModel.#ctor">
-            <summary>
-            Creates an instance of a <see cref="T:IdApp.Pages.NeuronViewModel"/>.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.NeuronViewModel.DoBind">
-            <inheritdoc/>
-        </member>
-        <member name="M:IdApp.Pages.NeuronViewModel.DoUnbind">
-            <inheritdoc/>
-        </member>
-        <member name="F:IdApp.Pages.NeuronViewModel.ConnectionStateTextProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.ConnectionStateText">
-            <summary>
-            Gets the current connection state as a user friendly localized string.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.NeuronViewModel.ConnectionStateColorProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.ConnectionStateColor">
-            <summary>
-            Gets the current connection state as a color.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.NeuronViewModel.StateSummaryTextProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.StateSummaryText">
-            <summary>
-            Gets the current state summary as a user friendly localized string.
-            </summary>
-        </member>
-        <member name="F:IdApp.Pages.NeuronViewModel.IsConnectedProperty">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.NeuronViewModel.IsConnected">
-            <summary>
-            Gets whether the view model is connected to a Neuron server.
-            </summary>
-        </member>
-        <member name="M:IdApp.Pages.NeuronViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
-            <summary>
-            Sets both the connection state and connection text to the appropriate value.
-            </summary>
-            <param name="state">The current state.</param>
-        </member>
-        <member name="M:IdApp.Pages.NeuronViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
-            <summary>
-            Listens to connection state changes from the Neuron server.
-            </summary>
-            <param name="sender">The neuron service instance.</param>
-            <param name="e">The event args.</param>
         </member>
         <member name="T:IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
             <summary>
@@ -8290,7 +8221,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.IsConnected">
             <summary>
-            Gets or sets if the app is connected to a Neuron server.
+            Gets or sets if the app is connected to an XMPP server.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.DefinePin.DefinePinViewModel.ConnectionStateTextProperty">
@@ -8378,11 +8309,11 @@
             Jabber Id
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.ToProperties(IdApp.Services.Neuron.INeuronService)">
+        <member name="M:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel.ToProperties(IdApp.Services.Xmpp.IXmppService)">
             <summary>
             Converts the <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel"/> to an array of <inheritdoc cref="T:Waher.Networking.XMPP.Contracts.Property"/>.
             </summary>
-            <param name="neuronService">The Neuron service to use for accessing the Bare Jid.</param>
+            <param name="XmppService">The XMPP service to use for accessing the Bare Jid.</param>
             <returns>The <see cref="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel"/> as a list of properties.</returns>
         </member>
         <member name="T:IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityView">
@@ -8945,7 +8876,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.BareJid">
             <summary>
-            Gets or sets the Bare Jid registered with the Neuron server.
+            Gets or sets the Bare Jid registered with the XMPP server.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.StateProperty">
@@ -9135,7 +9066,7 @@
         </member>
         <member name="P:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.IsConnected">
             <summary>
-            Gets or sets if the app is connected to a Neuron server.
+            Gets or sets if the app is connected to an XMPP server.
             </summary>
         </member>
         <member name="F:IdApp.Pages.Registration.ValidateIdentity.ValidateIdentityViewModel.ConnectionStateTextProperty">
@@ -9480,7 +9411,7 @@
         <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.ViewClaimThing.ViewClaimThingViewModel.ClickCommand">
@@ -9583,7 +9514,7 @@
         <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Things.ViewThing.ThingViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="P:IdApp.Pages.Things.ViewThing.ThingViewModel.Tags">
@@ -9769,7 +9700,7 @@
         <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.AccountEvent.AccountEventViewModel.ChangeProperty">
@@ -9970,7 +9901,7 @@
         <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.AmountProperty">
@@ -10155,7 +10086,7 @@
         <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.EDalerUriViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.UriProperty">
@@ -10632,7 +10563,7 @@
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BalanceProperty">
@@ -10983,7 +10914,7 @@
         <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.DoUnbind">
             <inheritdoc/>
         </member>
-        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.NeuronService_ConnectionStateChanged(System.Object,IdApp.Services.Neuron.ConnectionStateChangedEventArgs)">
+        <member name="M:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
             <inheritdoc/>
         </member>
         <member name="F:IdApp.Pages.Wallet.RequestPayment.RequestPaymentViewModel.AmountProperty">
@@ -11171,6 +11102,75 @@
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.XmppViewModel">
+            <summary>
+            A view model that holds the XMPP state.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.XmppViewModel.#ctor">
+            <summary>
+            Creates an instance of a <see cref="T:IdApp.Pages.XmppViewModel"/>.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.XmppViewModel.DoBind">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.XmppViewModel.DoUnbind">
+            <inheritdoc/>
+        </member>
+        <member name="F:IdApp.Pages.XmppViewModel.ConnectionStateTextProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.XmppViewModel.ConnectionStateText">
+            <summary>
+            Gets the current connection state as a user friendly localized string.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.XmppViewModel.ConnectionStateColorProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.XmppViewModel.ConnectionStateColor">
+            <summary>
+            Gets the current connection state as a color.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.XmppViewModel.StateSummaryTextProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.XmppViewModel.StateSummaryText">
+            <summary>
+            Gets the current state summary as a user friendly localized string.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.XmppViewModel.IsConnectedProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.XmppViewModel.IsConnected">
+            <summary>
+            Gets whether the view model is connected to an XMPP server.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.XmppViewModel.SetConnectionStateAndText(Waher.Networking.XMPP.XmppState)">
+            <summary>
+            Sets both the connection state and connection text to the appropriate value.
+            </summary>
+            <param name="state">The current state.</param>
+        </member>
+        <member name="M:IdApp.Pages.XmppViewModel.XmppService_ConnectionStateChanged(System.Object,IdApp.Services.Xmpp.ConnectionStateChangedEventArgs)">
+            <summary>
+            Listens to connection state changes from the XMPP server.
+            </summary>
+            <param name="sender">The XMPP service instance.</param>
+            <param name="e">The event args.</param>
         </member>
         <member name="T:IdApp.Popups.Photos.Image.ImageView">
             <summary>
@@ -11761,27 +11761,27 @@
             </summary>
             <param name="request">Request string.</param>
         </member>
-        <member name="T:IdApp.Services.Contracts.INeuronContracts">
+        <member name="T:IdApp.Services.Contracts.ISmartContracts">
             <summary>
-            Adds support for legal identities, smart contracts and signatures to a Neuron Service.
+            Adds support for legal identities, smart contracts and signatures to an XMPP Service.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Contracts.INeuronContracts.ContractsClient">
+        <member name="P:IdApp.Services.Contracts.ISmartContracts.ContractsClient">
             <summary>
             Contracts client
             </summary>
         </member>
-        <member name="P:IdApp.Services.Contracts.INeuronContracts.FileUploadIsSupported">
+        <member name="P:IdApp.Services.Contracts.ISmartContracts.FileUploadIsSupported">
             <summary>
             Returns <c>true</c> if file upload is supported, <c>false</c> otherwise.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Contracts.INeuronContracts.FileUploadClient">
+        <member name="P:IdApp.Services.Contracts.ISmartContracts.FileUploadClient">
             <summary>
             HTTP File Upload client
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.Contracts.LegalIdentityAttachment[])">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.AddLegalIdentity(IdApp.Pages.Registration.RegisterIdentity.RegisterIdentityModel,IdApp.Services.Contracts.LegalIdentityAttachment[])">
             <summary>
             Adds a legal identity.
             </summary>
@@ -11789,28 +11789,28 @@
             <param name="attachments">The physical attachments to upload.</param>
             <returns>Legal Identity</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetLegalIdentities(Waher.Networking.XMPP.XmppClient)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetLegalIdentities(Waher.Networking.XMPP.XmppClient)">
             <summary>
             Returns a list of legal identities.
             </summary>
             <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>Legal Identities</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetLegalIdentity(System.String)">
             <summary>
             Gets a specific legal identity.
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>Legal identity object</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.IsContact(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.IsContact(System.String)">
             <summary>
             Checks if a legal identity is in the contacts list.
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>If the legal identity is in the contacts list.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
             <summary>
             Checks if the client has access to the private keys of the specified legal identity.
             </summary>
@@ -11818,21 +11818,21 @@
             <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>If private keys are available.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.ObsoleteLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.ObsoleteLegalIdentity(System.String)">
             <summary>
             Marks the legal identity as obsolete.
             </summary>
             <param name="legalIdentityId">The id to mark as obsolete.</param>
             <returns>Legal Identity</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.CompromiseLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.CompromiseLegalIdentity(System.String)">
             <summary>
             Marks the legal identity as compromised.
             </summary>
             <param name="legalIdentityId">The legal id to mark as compromised.</param>
             <returns>Legal Identity</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.PetitionIdentity(System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionIdentity(System.String,System.String,System.String)">
             <summary>
             Petitions a legal identity.
             </summary>
@@ -11840,7 +11840,7 @@
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose of the petitioning.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.SendPetitionIdentityResponse(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionIdentityResponse(System.String,System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning identity request.
             </summary>
@@ -11849,47 +11849,47 @@
             <param name="requestorFullJid">The full Jid of the requestor.</param>
             <param name="response">If the petition is accepted (true) or rejected (false).</param>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.LegalIdentityChanged">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.LegalIdentityChanged">
             <summary>
             An event that fires when a legal identity changes.
             </summary>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.PetitionForIdentityReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionForIdentityReceived">
             <summary>
             An event that fires when a petition for an identity is received.
             </summary>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.PetitionedIdentityResponseReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionedIdentityResponseReceived">
             <summary>
             An event that fires when a petitioned identity response is received.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetContract(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetContract(System.String)">
             <summary>
             Gets the contract with the specified id.
             </summary>
             <param name="contractId">The contract id.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetCreatedContracts">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetCreatedContracts">
             <summary>
             Gets created contracts.
             </summary>
             <returns>Created contracts.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetSignedContracts">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetSignedContracts">
             <summary>
             Gets signed contracts.
             </summary>
             <returns>Signed contracts.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetContractTemplateIds">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetContractTemplateIds">
             <summary>
             Gets the id's of contract templates used.
             </summary>
             <returns>Id's of contract templates.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.SignContract(Waher.Networking.XMPP.Contracts.Contract,System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.SignContract(Waher.Networking.XMPP.Contracts.Contract,System.String,System.Boolean)">
             <summary>
             Signs a given contract.
             </summary>
@@ -11898,14 +11898,14 @@
             <param name="transferable">Whether the contract is transferable or not.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.ObsoleteContract(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.ObsoleteContract(System.String)">
             <summary>
             Obsoletes a contract.
             </summary>
             <param name="contractId">The id of the contract to obsolete.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.CreateContract(System.String,Waher.Networking.XMPP.Contracts.Part[],Waher.Networking.XMPP.Contracts.Parameter[],Waher.Networking.XMPP.Contracts.ContractVisibility,Waher.Networking.XMPP.Contracts.ContractParts,Waher.Content.Duration,Waher.Content.Duration,Waher.Content.Duration,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.CreateContract(System.String,Waher.Networking.XMPP.Contracts.Part[],Waher.Networking.XMPP.Contracts.Parameter[],Waher.Networking.XMPP.Contracts.ContractVisibility,Waher.Networking.XMPP.Contracts.ContractParts,Waher.Content.Duration,Waher.Content.Duration,Waher.Content.Duration,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean)">
             <summary>
             Creates a new contract.
             </summary>
@@ -11922,14 +11922,14 @@
             <param name="canActAsTemplate">Can this contract act as a template itself?</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.DeleteContract(System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.DeleteContract(System.String)">
             <summary>
             Deletes a contract.
             </summary>
             <param name="contractId">The id of the contract to delete.</param>
             <returns>Smart Contract</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.PetitionContract(System.String,System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionContract(System.String,System.String,System.String)">
             <summary>
             Petitions a contract with the specified id and purpose.
             </summary>
@@ -11937,7 +11937,7 @@
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.SendPetitionContractResponse(System.String,System.String,System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionContractResponse(System.String,System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning contract request.
             </summary>
@@ -11946,17 +11946,17 @@
             <param name="requestorFullJid">The full Jid of the requestor.</param>
             <param name="response">If the petition is accepted (true) or rejected (false).</param>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.PetitionForContractReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionForContractReceived">
             <summary>
             An event that fires when a petition for a contract is received.
             </summary>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.PetitionedContractResponseReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionedContractResponseReceived">
             <summary>
             An event that fires when a petitioned contract response is received.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.GetAttachment(System.String,Waher.Networking.XMPP.Contracts.SignWith,System.TimeSpan)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.GetAttachment(System.String,Waher.Networking.XMPP.Contracts.SignWith,System.TimeSpan)">
             <summary>
             Gets an attachment for a contract.
             </summary>
@@ -11965,7 +11965,7 @@
             <param name="signWith">How the request is signed. For identity attachments, especially for attachments to an identity being created, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.CurrentKeys"/> should be used. For requesting attachments relating to a contract, <see cref="F:Waher.Networking.XMPP.Contracts.SignWith.LatestApprovedId"/> should be used.</param>
             <returns>Content-Type, and attachment file.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.PetitionPeerReviewId(System.String,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.PetitionPeerReviewId(System.String,Waher.Networking.XMPP.Contracts.LegalIdentity,System.String,System.String)">
             <summary>
             Sends a petition to a third-party to review a legal identity.
             </summary>
@@ -11974,7 +11974,7 @@
             <param name="petitionId">The petition id.</param>
             <param name="purpose">The purpose.</param>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.AddPeerReviewIdAttachment(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[])">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.AddPeerReviewIdAttachment(Waher.Networking.XMPP.Contracts.LegalIdentity,Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[])">
             <summary>
             Adds an attachment for the peer review.
             </summary>
@@ -11983,22 +11983,22 @@
             <param name="peerSignature">The raw signature data.</param>
             <returns>Legal Identity</returns>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.PetitionForPeerReviewIdReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionForPeerReviewIdReceived">
             <summary>
             An event that fires when a petition for peer review is received.
             </summary>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.PetitionedPeerReviewIdResponseReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionedPeerReviewIdResponseReceived">
             <summary>
             An event that fires when a petitioned peer review response is received.
             </summary>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.ContractProposalReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.ContractProposalReceived">
             <summary>
             Event raised when a contract proposal has been received.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.Sign(System.Byte[],Waher.Networking.XMPP.Contracts.SignWith)">
             <summary>
             Signs binary data with the corresponding private key.
             </summary>
@@ -12006,7 +12006,7 @@
             <param name="signWith">What keys that can be used to sign the data.</param>
             <returns>Signature</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.ValidateSignature(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[],System.Byte[])">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.ValidateSignature(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Byte[],System.Byte[])">
             <summary>Validates a signature of binary data.</summary>
             <param name="legalIdentity">Legal identity used to create the signature.</param>
             <param name="data">Binary data to sign-</param>
@@ -12017,7 +12017,7 @@
             null = Client key algorithm is unknown, and veracity of signature could not be established.
             </returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.INeuronContracts.SendPetitionSignatureResponse(System.String,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
+        <member name="M:IdApp.Services.Contracts.ISmartContracts.SendPetitionSignatureResponse(System.String,System.Byte[],System.Byte[],System.String,System.String,System.Boolean)">
             <summary>
             Sends a response to a petitioning signature request.
             </summary>
@@ -12029,7 +12029,7 @@
             <param name="requestorFullJid">Full JID of requestor.</param>
             <param name="response">If the petition is accepted (true) or rejected (false).</param>
         </member>
-        <member name="E:IdApp.Services.Contracts.INeuronContracts.PetitionForSignatureReceived">
+        <member name="E:IdApp.Services.Contracts.ISmartContracts.PetitionForSignatureReceived">
             <summary>
             An event that fires when a petition for a signature is received.
             </summary>
@@ -12083,23 +12083,23 @@
             The changed identity.
             </summary>
         </member>
-        <member name="P:IdApp.Services.Contracts.NeuronContracts.ContractsClient">
+        <member name="P:IdApp.Services.Contracts.SmartContracts.ContractsClient">
             <summary>
             Contracts client
             </summary>
         </member>
-        <member name="P:IdApp.Services.Contracts.NeuronContracts.FileUploadClient">
+        <member name="P:IdApp.Services.Contracts.SmartContracts.FileUploadClient">
             <summary>
             HTTP File Upload client
             </summary>
         </member>
-        <member name="M:IdApp.Services.Contracts.NeuronContracts.GetContractTemplateIds">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetContractTemplateIds">
             <summary>
             Gets the id's of contract templates used.
             </summary>
             <returns>Id's of contract templates, together with the last time they were used.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.NeuronContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.HasPrivateKey(System.String,Waher.Networking.XMPP.XmppClient)">
             <summary>
             Checks if the client has access to the private keys of the specified legal identity.
             </summary>
@@ -12107,14 +12107,14 @@
             <param name="client">The Xmpp client instance. Can be null, in that case the default one is used.</param>
             <returns>If private keys are available.</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.NeuronContracts.GetLegalIdentity(System.String)">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.GetLegalIdentity(System.String)">
             <summary>
             Gets a specific legal identity.
             </summary>
             <param name="legalIdentityId">The id of the legal identity to retrieve.</param>
             <returns>Legal identity object</returns>
         </member>
-        <member name="M:IdApp.Services.Contracts.NeuronContracts.IsContact(System.String)">
+        <member name="M:IdApp.Services.Contracts.SmartContracts.IsContact(System.String)">
             <summary>
             Checks if a legal identity is in the contacts list.
             </summary>
@@ -12343,11 +12343,6 @@
         <member name="E:IdApp.Services.ILoadableService.Loaded">
             <summary>
             Fires whenever the loading state of the service changes.
-            </summary>
-        </member>
-        <member name="T:IdApp.Services.INeuronMultiUserChat">
-            <summary>
-            Adds support for Xmpp Multi-User Chat functionality.
             </summary>
         </member>
         <member name="T:IdApp.Services.LoadableService">
@@ -12672,186 +12667,6 @@
         <member name="M:IdApp.Services.Network.NetworkService.Unload">
             <inheritdoc/>
         </member>
-        <member name="T:IdApp.Services.Neuron.ConnectionStateChangedEventArgs">
-            <summary>
-            Represents an event class holding data related to connection state changes.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Neuron.ConnectionStateChangedEventArgs.#ctor(Waher.Networking.XMPP.XmppState)">
-            <summary>
-            Creates an instance of the <see cref="T:IdApp.Services.Neuron.ConnectionStateChangedEventArgs"/> class.
-            </summary>
-            <param name="state">The current state.</param>
-        </member>
-        <member name="P:IdApp.Services.Neuron.ConnectionStateChangedEventArgs.State">
-            <summary>
-            The current state.
-            </summary>
-        </member>
-        <member name="T:IdApp.Services.Neuron.INeuronService">
-            <summary>
-            Represents an abstraction of a Neuron server. This opens and maintains a connection to a Neuron server.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.WaitForConnectedState(System.TimeSpan)">
-            <summary>
-            Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="F:Waher.Networking.XMPP.XmppState.Connected"/>.
-            </summary>
-            <param name="timeout">Maximum timeout before giving up.</param>
-            <returns>If connected</returns>
-        </member>
-        <member name="E:IdApp.Services.Neuron.INeuronService.ConnectionStateChanged">
-            <summary>
-            An event that triggers whenever the connection state of the Neuron server changes.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.TryConnect(System.String,System.Boolean,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
-            <summary>
-            To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
-            </summary>
-            <param name="domain">The server's domain name.</param>
-            <param name="isIpAddress">If the domain is provided as an IP address.</param>
-            <param name="hostName">The server's host name.</param>
-            <param name="portNumber">The xmpp port.</param>
-            <param name="languageCode">Language code to use for communication.</param>
-            <param name="appAssembly">The current app's main assembly.</param>
-            <param name="connectedFunc">A callback to use if and when connected.</param>
-            <returns>If connected. If not, any error message.</returns>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.TryConnectAndCreateAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
-            <summary>
-            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
-            </summary>
-            <param name="domain">The server's domain name.</param>
-            <param name="isIpAddress">If the domain is provided as an IP address.</param>
-            <param name="hostName">The server's host name.</param>
-            <param name="portNumber">The xmpp port.</param>
-            <param name="userName">The user name of the account to create.</param>
-            <param name="password">The password to use.</param>
-            <param name="languageCode">Language code to use for communication.</param>
-            <param name="ApiKey">API Key used when creating account.</param>
-            <param name="ApiSecret">API Secret used when creating account.</param>
-            <param name="appAssembly">The current app's main assembly.</param>
-            <param name="connectedFunc">A callback to use if and when connected.</param>
-            <returns>If connected. If not, any error message.</returns>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.TryConnectAndConnectToAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
-            <summary>
-            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
-            </summary>
-            <param name="domain">The server's domain name.</param>
-            <param name="isIpAddress">If the domain is provided as an IP address.</param>
-            <param name="hostName">The server's host name.</param>
-            <param name="portNumber">The xmpp port.</param>
-            <param name="userName">The user name of the account to create.</param>
-            <param name="password">The password to use.</param>
-            <param name="passwordMethod">The password hash method to use. Empty string signifies an unhashed password.</param>
-            <param name="languageCode">Language code to use for communication.</param>
-            <param name="appAssembly">The current app's main assembly.</param>
-            <param name="connectedFunc">A callback to use if and when connected.</param>
-            <returns>If connected. If not, any error message.</returns>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.IsOnline">
-            <summary>
-            Determines whether the Neuron server is online or not.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.State">
-            <summary>
-            The current state of the Neuron server.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.Xmpp">
-            <summary>
-            Interface to the XMPP network.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.BareJid">
-            <summary>
-            The Bare Jid of the current connection, or <c>null</c>.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.LatestError">
-            <summary>
-            The latest generic xmpp error, if any.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.LatestConnectionError">
-            <summary>
-            The latest generic xmpp connection error, if any.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.Contracts">
-            <summary>
-            Provides access to legal identities and contracts.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.MultiUserChat">
-            <summary>
-            Provides access to chat functionality.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.ThingRegistry">
-            <summary>
-            Provides access to thing registries.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.Provisioning">
-            <summary>
-            Provides access to provisioning and decision support.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.Wallet">
-            <summary>
-            Provides access to the eDaler wallet.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Neuron.INeuronService.FileUploadClient">
-            <summary>
-            HTTP File Upload client
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.DiscoverServices(Waher.Networking.XMPP.XmppClient)">
-            <summary>
-            Run this method to discover services for any given Neuron server.
-            </summary>
-            <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
-            <returns>If TAG services were found.</returns>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.CommsDumpAsHtml(System.Boolean)">
-            <summary>
-            Creates a dump of the latest Xmpp communication as html.
-            </summary>
-            <returns>The communication dump as a html formatted string.</returns>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.ClearHtmlContent">
-            <summary>
-            saves already sent html to history.
-            </summary>        
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.CommsDumpAsText(System.String)">
-            <summary>
-            Creates a dump of the latest Xmpp communication as Text.
-            </summary>
-            <returns>The communication dump as a text formatted string.</returns>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.UnloadFast">
-            <summary>
-            Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Neuron.INeuronService.AddTransferCode(System.String)">
-            <summary>
-            Registers a Transfer ID Code
-            </summary>
-            <param name="Code">Transfer Code</param>
-        </member>
-        <member name="M:IdApp.Services.Neuron.NeuronService.AddTransferCode(System.String)">
-            <summary>
-            Registers a Transfer ID Code
-            </summary>
-            <param name="Code">Transfer Code</param>
-        </member>
         <member name="T:IdApp.Services.Nfc.INfcService">
             <summary>
             Interface for the Near-Field Communication (NFC) Service.
@@ -13023,17 +12838,17 @@
             <param name="Image">Pre-processed image.</param>
             <returns>Any lines of text found.</returns>
         </member>
-        <member name="T:IdApp.Services.Provisioning.INeuronProvisioningService">
+        <member name="T:IdApp.Services.Provisioning.IXmppProvisioningService">
             <summary>
             Adds support for XMPP Provisioning
             </summary>
         </member>
-        <member name="P:IdApp.Services.Provisioning.INeuronProvisioningService.ServiceJid">
+        <member name="P:IdApp.Services.Provisioning.IXmppProvisioningService.ServiceJid">
             <summary>
             JID of provisioning service.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Provisioning.INeuronProvisioningService.GetMyDevices(System.Int32,System.Int32)">
+        <member name="M:IdApp.Services.Provisioning.IXmppProvisioningService.GetMyDevices(System.Int32,System.Int32)">
             <summary>
             Gets a (partial) list of my devices.
             </summary>
@@ -13041,18 +12856,18 @@
             <param name="MaxCount">Maximum number of items in response.</param>
             <returns>Found devices, and if there are more devices available.</returns>
         </member>
-        <member name="M:IdApp.Services.Provisioning.INeuronProvisioningService.GetAllMyDevices">
+        <member name="M:IdApp.Services.Provisioning.IXmppProvisioningService.GetAllMyDevices">
             <summary>
             Gets the full list of my devices.
             </summary>
             <returns>Complete list of my devices.</returns>
         </member>
-        <member name="P:IdApp.Services.Provisioning.NeuronProvisioningService.ServiceJid">
+        <member name="P:IdApp.Services.Provisioning.XmppProvisioningService.ServiceJid">
             <summary>
             JID of provisioning service.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Provisioning.NeuronProvisioningService.GetMyDevices(System.Int32,System.Int32)">
+        <member name="M:IdApp.Services.Provisioning.XmppProvisioningService.GetMyDevices(System.Int32,System.Int32)">
             <summary>
             Gets a (partial) list of my devices.
             </summary>
@@ -13060,7 +12875,7 @@
             <param name="MaxCount">Maximum number of items in response.</param>
             <returns>Found devices, and if there are more devices available.</returns>
         </member>
-        <member name="M:IdApp.Services.Provisioning.NeuronProvisioningService.GetAllMyDevices">
+        <member name="M:IdApp.Services.Provisioning.XmppProvisioningService.GetAllMyDevices">
             <summary>
             Gets the full list of my devices.
             </summary>
@@ -13081,9 +12896,9 @@
             The dispatcher to use for alerts and accessing the main thread.
             </summary>
         </member>
-        <member name="P:IdApp.Services.ServiceReferences.NeuronService">
+        <member name="P:IdApp.Services.ServiceReferences.XmppService">
             <summary>
-            The Neuron service for XMPP communication.
+            The XMPP service for XMPP communication.
             </summary>
         </member>
         <member name="P:IdApp.Services.ServiceReferences.TagProfile">
@@ -13544,32 +13359,32 @@
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.ProvisioningJid">
             <summary>
-            The Neuron server's provisioning Jid.
+            The XMPP server's provisioning Jid.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.HttpFileUploadJid">
             <summary>
-            The Neuron server's file upload Jid.
+            The XMPP server's file upload Jid.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.HttpFileUploadMaxSize">
             <summary>
-            The Neuron server's max size for file uploads.
+            The XMPP server's max size for file uploads.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.LogJid">
             <summary>
-            The Neuron server's log Jid.
+            The XMPP server's log Jid.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.MucJid">
             <summary>
-            The Neuron server's multi-user chat Jid.
+            The XMPP server's multi-user chat Jid.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.EDalerJid">
             <summary>
-            The Neuron server's eDaler service JID.
+            The XMPP server's eDaler service JID.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.Step">
@@ -13584,7 +13399,7 @@
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.FileUploadIsSupported">
             <summary>
-            Returns <c>true</c> if file upload is supported for the specified Neuron server, <c>false</c> otherwise.
+            Returns <c>true</c> if file upload is supported for the specified XMPP server, <c>false</c> otherwise.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.Pin">
@@ -14030,114 +13845,6 @@
             Clears the entire profile.
             </summary>
         </member>
-        <member name="T:IdApp.Services.ThingRegistries.INeuronThingRegistry">
-            <summary>
-            Adds support for XMPP Thing Registries
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.IsIoTDiscoClaimURI(System.String)">
-            <summary>
-            Checks if a URI is a claim URI.
-            </summary>
-            <param name="DiscoUri">IoTDisco URI</param>
-            <returns>If <paramref name="DiscoUri"/> is a claim URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.IsIoTDiscoSearchURI(System.String)">
-            <summary>
-            Checks if a URI is a search URI.
-            </summary>
-            <param name="DiscoUri">IoTDisco URI</param>
-            <returns>If <paramref name="DiscoUri"/> is a search URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.IsIoTDiscoDirectURI(System.String)">
-            <summary>
-            Checks if a URI is a direct reference URI.
-            </summary>
-            <param name="DiscoUri">IoTDisco URI</param>
-            <returns>If <paramref name="DiscoUri"/> is a direct reference URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoClaimURI(System.String,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
-            <summary>
-            Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
-            </summary>
-            <param name="DiscoUri">IoTDisco URI</param>
-            <param name="Tags">Decoded meta data tags.</param>
-            <returns>If DiscoUri was successfully decoded.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoSearchURI(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[]@,System.String@)">
-            <summary>
-            Tries to decode an IoTDisco Search URI (subset of all possible IoTDisco URIs).
-            </summary>
-            <param name="DiscoUri">IoTDisco URI</param>
-            <param name="Operators">Search operators.</param>
-            <param name="RegistryJid">Registry Service JID</param>
-            <returns>If the URI could be parsed.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.TryDecodeIoTDiscoDirectURI(System.String,System.String@,System.String@,System.String@,System.String@,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
-            <summary>
-            Tries to decode an IoTDisco Direct Reference URI (subset of all possible IoTDisco URIs).
-            </summary>
-            <param name="DiscoUri">IoTDisco URI</param>
-            <param name="Jid">JID of device</param>
-            <param name="SourceId">Optional Source ID of device, or null if none.</param>
-            <param name="NodeId">Optional Node ID of device, or null if none.</param>
-            <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
-            <param name="Tags">Decoded meta data tags.</param>
-            <returns>If the URI could be parsed.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.ClaimThing(System.String,System.Boolean)">
-            <summary>
-            Claims a think in accordance with parameters defined in a iotdisco claim URI.
-            </summary>
-            <param name="DiscoUri">IoTDisco URI</param>
-            <param name="MakePublic">If the device should be public in the thing registry.</param>
-            <returns>Information about the thing, or error if unable.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.Disown(System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Disowns a thing
-            </summary>
-            <param name="RegistryJid">Registry JID</param>
-            <param name="ThingJid">Thing JID</param>
-            <param name="SourceId">Source ID</param>
-            <param name="Partition">Partition</param>
-            <param name="NodeId">Node ID</param>
-            <returns>If the thing was disowned</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.Search(System.Int32,System.Int32,System.String)">
-            <summary>
-            Searches for devices in accordance with settings in a iotdisco-URI.
-            </summary>
-            <param name="Offset">Start offset of list</param>
-            <param name="MaxCount">Maximum number of items in response.</param>
-            <param name="DiscoUri">iotdisco URI.</param>
-            <returns>Devices found, Registry JID, and if more devices are available.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.Search(System.Int32,System.Int32,System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
-            <summary>
-            Searches for devices in accordance with settings in a iotdisco-URI.
-            </summary>
-            <param name="Offset">Start offset of list</param>
-            <param name="MaxCount">Maximum number of items in response.</param>
-            <param name="RegistryJid">Registry Service JID</param>
-            <param name="Operators">Search operators.</param>
-            <returns>Devices found, and if more devices are available.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.SearchAll(System.String)">
-            <summary>
-            Searches for all devices in accordance with settings in a iotdisco-URI.
-            </summary>
-            <param name="DiscoUri">iotdisco URI.</param>
-            <returns>Complete list of devices in registry matching the search operators, and the JID of the registry service.</returns>
-        </member>
-        <member name="M:IdApp.Services.ThingRegistries.INeuronThingRegistry.SearchAll(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
-            <summary>
-            Searches for all devices in accordance with settings in a iotdisco-URI.
-            </summary>
-            <param name="RegistryJid">Registry Service JID</param>
-            <param name="Operators">Search operators.</param>
-            <returns>Complete list of devices in registry matching the search operators.</returns>
-        </member>
         <member name="T:IdApp.Services.ThingRegistries.IThingRegistryOrchestratorService">
             <summary>
             Orchestrates operations on things via Thing Registry services.
@@ -14163,7 +13870,81 @@
             </summary>
             <param name="Uri">iotdisco direct reference URI</param>
         </member>
-        <member name="M:IdApp.Services.ThingRegistries.NeuronThingRegistry.Search(System.Int32,System.Int32,System.String)">
+        <member name="T:IdApp.Services.ThingRegistries.IXmppThingRegistry">
+            <summary>
+            Adds support for XMPP Thing Registries
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.IsIoTDiscoClaimURI(System.String)">
+            <summary>
+            Checks if a URI is a claim URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <returns>If <paramref name="DiscoUri"/> is a claim URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.IsIoTDiscoSearchURI(System.String)">
+            <summary>
+            Checks if a URI is a search URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <returns>If <paramref name="DiscoUri"/> is a search URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.IsIoTDiscoDirectURI(System.String)">
+            <summary>
+            Checks if a URI is a direct reference URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <returns>If <paramref name="DiscoUri"/> is a direct reference URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.TryDecodeIoTDiscoClaimURI(System.String,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
+            <summary>
+            Tries to decode an IoTDisco Claim URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Tags">Decoded meta data tags.</param>
+            <returns>If DiscoUri was successfully decoded.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.TryDecodeIoTDiscoSearchURI(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[]@,System.String@)">
+            <summary>
+            Tries to decode an IoTDisco Search URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Operators">Search operators.</param>
+            <param name="RegistryJid">Registry Service JID</param>
+            <returns>If the URI could be parsed.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.TryDecodeIoTDiscoDirectURI(System.String,System.String@,System.String@,System.String@,System.String@,Waher.Networking.XMPP.Provisioning.MetaDataTag[]@)">
+            <summary>
+            Tries to decode an IoTDisco Direct Reference URI (subset of all possible IoTDisco URIs).
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="Jid">JID of device</param>
+            <param name="SourceId">Optional Source ID of device, or null if none.</param>
+            <param name="NodeId">Optional Node ID of device, or null if none.</param>
+            <param name="PartitionId">Optional Partition ID of device, or null if none.</param>
+            <param name="Tags">Decoded meta data tags.</param>
+            <returns>If the URI could be parsed.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.ClaimThing(System.String,System.Boolean)">
+            <summary>
+            Claims a think in accordance with parameters defined in a iotdisco claim URI.
+            </summary>
+            <param name="DiscoUri">IoTDisco URI</param>
+            <param name="MakePublic">If the device should be public in the thing registry.</param>
+            <returns>Information about the thing, or error if unable.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.Disown(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Disowns a thing
+            </summary>
+            <param name="RegistryJid">Registry JID</param>
+            <param name="ThingJid">Thing JID</param>
+            <param name="SourceId">Source ID</param>
+            <param name="Partition">Partition</param>
+            <param name="NodeId">Node ID</param>
+            <returns>If the thing was disowned</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.Search(System.Int32,System.Int32,System.String)">
             <summary>
             Searches for devices in accordance with settings in a iotdisco-URI.
             </summary>
@@ -14172,7 +13953,7 @@
             <param name="DiscoUri">iotdisco URI.</param>
             <returns>Devices found, Registry JID, and if more devices are available.</returns>
         </member>
-        <member name="M:IdApp.Services.ThingRegistries.NeuronThingRegistry.Search(System.Int32,System.Int32,System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.Search(System.Int32,System.Int32,System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
             <summary>
             Searches for devices in accordance with settings in a iotdisco-URI.
             </summary>
@@ -14182,14 +13963,48 @@
             <param name="Operators">Search operators.</param>
             <returns>Devices found, and if more devices are available.</returns>
         </member>
-        <member name="M:IdApp.Services.ThingRegistries.NeuronThingRegistry.SearchAll(System.String)">
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.SearchAll(System.String)">
             <summary>
             Searches for all devices in accordance with settings in a iotdisco-URI.
             </summary>
             <param name="DiscoUri">iotdisco URI.</param>
             <returns>Complete list of devices in registry matching the search operators, and the JID of the registry service.</returns>
         </member>
-        <member name="M:IdApp.Services.ThingRegistries.NeuronThingRegistry.SearchAll(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+        <member name="M:IdApp.Services.ThingRegistries.IXmppThingRegistry.SearchAll(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+            <summary>
+            Searches for all devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="RegistryJid">Registry Service JID</param>
+            <param name="Operators">Search operators.</param>
+            <returns>Complete list of devices in registry matching the search operators.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.Search(System.Int32,System.Int32,System.String)">
+            <summary>
+            Searches for devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <param name="DiscoUri">iotdisco URI.</param>
+            <returns>Devices found, Registry JID, and if more devices are available.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.Search(System.Int32,System.Int32,System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
+            <summary>
+            Searches for devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="Offset">Start offset of list</param>
+            <param name="MaxCount">Maximum number of items in response.</param>
+            <param name="RegistryJid">Registry Service JID</param>
+            <param name="Operators">Search operators.</param>
+            <returns>Devices found, and if more devices are available.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.SearchAll(System.String)">
+            <summary>
+            Searches for all devices in accordance with settings in a iotdisco-URI.
+            </summary>
+            <param name="DiscoUri">iotdisco URI.</param>
+            <returns>Complete list of devices in registry matching the search operators, and the JID of the registry service.</returns>
+        </member>
+        <member name="M:IdApp.Services.ThingRegistries.XmppThingRegistry.SearchAll(System.String,Waher.Networking.XMPP.Provisioning.SearchOperators.SearchOperator[])">
             <summary>
             Searches for all devices in accordance with settings in a iotdisco-URI.
             </summary>
@@ -14642,6 +14457,138 @@
             </summary>
             <param name="uri">eDaler URI.</param>
         </member>
+        <member name="P:IdApp.Services.Wallet.EDalerWallet.LastBalance">
+            <summary>
+            Last reported balance
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Wallet.EDalerWallet.LastEvent">
+            <summary>
+            Timepoint of last event.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
+            <summary>
+            Tries to parse an eDaler URI.
+            </summary>
+            <param name="Uri">URI string.</param>
+            <param name="Parsed">Parsed eDaler URI, if successful.</param>
+            <param name="Reason">Error message, if not able to parse URI.</param>
+            <returns>If URI string could be parsed.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.TryDecryptMessage(System.Byte[],System.Byte[],System.Guid,System.String)">
+            <summary>
+            Tries to decrypt an encrypted private message.
+            </summary>
+            <param name="EncryptedMessage">Encrypted message.</param>
+            <param name="PublicKey">Public key used.</param>
+            <param name="TransactionId">ID of transaction containing the encrypted message.</param>
+            <param name="RemoteEndpoint">Remote endpoint</param>
+            <returns>Decrypted string, if successful, or null, if not.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.SendUri(System.String)">
+            <summary>
+            Sends an eDaler URI to the eDaler service.
+            </summary>
+            <param name="Uri">eDaler URI</param>
+            <returns>Transaction object containing information about the processed URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.GetAccountEventsAsync(System.Int32)">
+            <summary>
+            Gets account events available for the wallet.
+            </summary>
+            <param name="MaxCount">Maximum number of events to return.</param>
+            <returns>Events found, and if more events are available.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.GetAccountEventsAsync(System.Int32,System.DateTime)">
+            <summary>
+            Gets account events available for the wallet.
+            </summary>
+            <param name="MaxCount">Maximum number of events to return.</param>
+            <param name="From">From what point in time events should be returned.</param>
+            <returns>Events found, and if more events are available.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.GetBalanceAsync">
+            <summary>
+            Gets the current account balance.
+            </summary>
+            <returns>Current account balance.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.GetPendingPayments">
+            <summary>
+            Gets pending payments
+            </summary>
+            <returns>(Total amount, currency, items)</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="ToBareJid">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="ToBareJid">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <param name="Message">Unencrypted message to send to recipient.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="To">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
+            <summary>
+            Creates a full payment URI.
+            </summary>
+            <param name="To">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="ValidNrDays">For how many days the URI should be valid.</param>
+            <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
+            <returns>Signed payment URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.CreateIncompletePayMeUri(System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
+            <summary>
+            Creates an incomplete PayMe-URI.
+            </summary>
+            <param name="BareJid">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="Message">Message to be sent to recipient (not encrypted).</param>
+            <returns>Incomplete PayMe-URI.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.EDalerWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
+            <summary>
+            Creates an incomplete PayMe-URI.
+            </summary>
+            <param name="To">To whom the payment is to be made.</param>
+            <param name="Amount">Amount of eDaler to pay.</param>
+            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
+            <param name="Currency">Currency to pay.</param>
+            <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
+            But the message will be unencrypted in the incomplete PeyMe URI.</param>
+            <returns>Incomplete PayMe-URI.</returns>
+        </member>
         <member name="T:IdApp.Services.Wallet.IEDalerOrchestratorService">
             <summary>
             Orchestrates eDaler operations.
@@ -14658,12 +14605,12 @@
             </summary>
             <param name="uri">eDaler URI.</param>
         </member>
-        <member name="T:IdApp.Services.Wallet.INeuronWallet">
+        <member name="T:IdApp.Services.Wallet.IEDalerWallet">
             <summary>
             Adds support for eDaler wallets.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
             <summary>
             Tries to parse an eDaler URI.
             </summary>
@@ -14672,7 +14619,7 @@
             <param name="Reason">Error message, if not able to parse URI.</param>
             <returns>If URI string could be parsed.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.TryDecryptMessage(System.Byte[],System.Byte[],System.Guid,System.String)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.TryDecryptMessage(System.Byte[],System.Byte[],System.Guid,System.String)">
             <summary>
             Tries to decrypt an encrypted private message.
             </summary>
@@ -14682,26 +14629,26 @@
             <param name="RemoteEndpoint">Remote endpoint</param>
             <returns>Decrypted string, if successful, or null, if not.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.SendUri(System.String)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.SendUri(System.String)">
             <summary>
             Sends an eDaler URI to the eDaler service.
             </summary>
             <param name="Uri">eDaler URI</param>
             <returns>Transaction object containing information about the processed URI.</returns>
         </member>
-        <member name="E:IdApp.Services.Wallet.INeuronWallet.BalanceUpdated">
+        <member name="E:IdApp.Services.Wallet.IEDalerWallet.BalanceUpdated">
             <summary>
             Event raised when balance has been updated.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.GetAccountEventsAsync(System.Int32)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.GetAccountEventsAsync(System.Int32)">
             <summary>
             Gets account events available for the wallet.
             </summary>
             <param name="MaxCount">Maximum number of events to return.</param>
             <returns>Events found, and if more events are available.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.GetAccountEventsAsync(System.Int32,System.DateTime)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.GetAccountEventsAsync(System.Int32,System.DateTime)">
             <summary>
             Gets account events available for the wallet.
             </summary>
@@ -14709,19 +14656,19 @@
             <param name="From">From what point in time events should be returned.</param>
             <returns>Events found, and if more events are available.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.GetBalanceAsync">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.GetBalanceAsync">
             <summary>
             Gets the current account balance.
             </summary>
             <returns>Current account balance.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.GetPendingPayments">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.GetPendingPayments">
             <summary>
             Gets pending payments
             </summary>
             <returns>(Total amount, currency, items)</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
             <summary>
             Creates a full payment URI.
             </summary>
@@ -14732,7 +14679,7 @@
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
             <summary>
             Creates a full payment URI.
             </summary>
@@ -14744,7 +14691,7 @@
             <param name="Message">Unencrypted message to send to recipient.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
             <summary>
             Creates a full payment URI.
             </summary>
@@ -14755,149 +14702,7 @@
             <param name="ValidNrDays">For how many days the URI should be valid.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
-            <summary>
-            Creates a full payment URI.
-            </summary>
-            <param name="To">To whom the payment is to be made.</param>
-            <param name="Amount">Amount of eDaler to pay.</param>
-            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
-            <param name="Currency">Currency to pay.</param>
-            <param name="ValidNrDays">For how many days the URI should be valid.</param>
-            <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
-            <returns>Signed payment URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.CreateIncompletePayMeUri(System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
-            <summary>
-            Creates an incomplete PayMe-URI.
-            </summary>
-            <param name="BareJid">To whom the payment is to be made.</param>
-            <param name="Amount">Amount of eDaler to pay.</param>
-            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
-            <param name="Currency">Currency to pay.</param>
-            <param name="Message">Message to be sent to recipient (not encrypted).</param>
-            <returns>Incomplete PayMe-URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.INeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
-            <summary>
-            Creates an incomplete PayMe-URI.
-            </summary>
-            <param name="To">To whom the payment is to be made.</param>
-            <param name="Amount">Amount of eDaler to pay.</param>
-            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
-            <param name="Currency">Currency to pay.</param>
-            <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
-            But the message will be unencrypted in the incomplete PeyMe URI.</param>
-            <returns>Incomplete PayMe-URI.</returns>
-        </member>
-        <member name="P:IdApp.Services.Wallet.INeuronWallet.LastBalance">
-            <summary>
-            Last reported balance
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Wallet.INeuronWallet.LastEvent">
-            <summary>
-            Timepoint of last event.
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Wallet.NeuronWallet.LastBalance">
-            <summary>
-            Last reported balance
-            </summary>
-        </member>
-        <member name="P:IdApp.Services.Wallet.NeuronWallet.LastEvent">
-            <summary>
-            Timepoint of last event.
-            </summary>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.TryParseEDalerUri(System.String,EDaler.Uris.EDalerUri@,System.String@)">
-            <summary>
-            Tries to parse an eDaler URI.
-            </summary>
-            <param name="Uri">URI string.</param>
-            <param name="Parsed">Parsed eDaler URI, if successful.</param>
-            <param name="Reason">Error message, if not able to parse URI.</param>
-            <returns>If URI string could be parsed.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.TryDecryptMessage(System.Byte[],System.Byte[],System.Guid,System.String)">
-            <summary>
-            Tries to decrypt an encrypted private message.
-            </summary>
-            <param name="EncryptedMessage">Encrypted message.</param>
-            <param name="PublicKey">Public key used.</param>
-            <param name="TransactionId">ID of transaction containing the encrypted message.</param>
-            <param name="RemoteEndpoint">Remote endpoint</param>
-            <returns>Decrypted string, if successful, or null, if not.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.SendUri(System.String)">
-            <summary>
-            Sends an eDaler URI to the eDaler service.
-            </summary>
-            <param name="Uri">eDaler URI</param>
-            <returns>Transaction object containing information about the processed URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.GetAccountEventsAsync(System.Int32)">
-            <summary>
-            Gets account events available for the wallet.
-            </summary>
-            <param name="MaxCount">Maximum number of events to return.</param>
-            <returns>Events found, and if more events are available.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.GetAccountEventsAsync(System.Int32,System.DateTime)">
-            <summary>
-            Gets account events available for the wallet.
-            </summary>
-            <param name="MaxCount">Maximum number of events to return.</param>
-            <param name="From">From what point in time events should be returned.</param>
-            <returns>Events found, and if more events are available.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.GetBalanceAsync">
-            <summary>
-            Gets the current account balance.
-            </summary>
-            <returns>Current account balance.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.GetPendingPayments">
-            <summary>
-            Gets pending payments
-            </summary>
-            <returns>(Total amount, currency, items)</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
-            <summary>
-            Creates a full payment URI.
-            </summary>
-            <param name="ToBareJid">To whom the payment is to be made.</param>
-            <param name="Amount">Amount of eDaler to pay.</param>
-            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
-            <param name="Currency">Currency to pay.</param>
-            <param name="ValidNrDays">For how many days the URI should be valid.</param>
-            <returns>Signed payment URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.CreateFullPaymentUri(System.String,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
-            <summary>
-            Creates a full payment URI.
-            </summary>
-            <param name="ToBareJid">To whom the payment is to be made.</param>
-            <param name="Amount">Amount of eDaler to pay.</param>
-            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
-            <param name="Currency">Currency to pay.</param>
-            <param name="ValidNrDays">For how many days the URI should be valid.</param>
-            <param name="Message">Unencrypted message to send to recipient.</param>
-            <returns>Signed payment URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32)">
-            <summary>
-            Creates a full payment URI.
-            </summary>
-            <param name="To">To whom the payment is to be made.</param>
-            <param name="Amount">Amount of eDaler to pay.</param>
-            <param name="AmountExtra">Any amount extra of eDaler to pay.</param>
-            <param name="Currency">Currency to pay.</param>
-            <param name="ValidNrDays">For how many days the URI should be valid.</param>
-            <returns>Signed payment URI.</returns>
-        </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.CreateFullPaymentUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Decimal,System.Nullable{System.Decimal},System.String,System.Int32,System.String)">
             <summary>
             Creates a full payment URI.
             </summary>
@@ -14909,7 +14714,7 @@
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted.</param>
             <returns>Signed payment URI.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.CreateIncompletePayMeUri(System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.CreateIncompletePayMeUri(System.String,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
@@ -14920,7 +14725,7 @@
             <param name="Message">Message to be sent to recipient (not encrypted).</param>
             <returns>Incomplete PayMe-URI.</returns>
         </member>
-        <member name="M:IdApp.Services.Wallet.NeuronWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
+        <member name="M:IdApp.Services.Wallet.IEDalerWallet.CreateIncompletePayMeUri(Waher.Networking.XMPP.Contracts.LegalIdentity,System.Nullable{System.Decimal},System.Nullable{System.Decimal},System.String,System.String)">
             <summary>
             Creates an incomplete PayMe-URI.
             </summary>
@@ -14931,6 +14736,16 @@
             <param name="PrivateMessage">Message to be sent to recipient. Message will be end-to-end encrypted in payment.
             But the message will be unencrypted in the incomplete PeyMe URI.</param>
             <returns>Incomplete PayMe-URI.</returns>
+        </member>
+        <member name="P:IdApp.Services.Wallet.IEDalerWallet.LastBalance">
+            <summary>
+            Last reported balance
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Wallet.IEDalerWallet.LastEvent">
+            <summary>
+            Timepoint of last event.
+            </summary>
         </member>
         <member name="T:IdApp.Services.XmlDatabaseExport">
             <summary>
@@ -14990,6 +14805,191 @@
         </member>
         <member name="M:IdApp.Services.XmlDatabaseExport.ReportException(System.Exception)">
             <inheritdoc/>
+        </member>
+        <member name="T:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs">
+            <summary>
+            Represents an event class holding data related to connection state changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs.#ctor(Waher.Networking.XMPP.XmppState)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs"/> class.
+            </summary>
+            <param name="state">The current state.</param>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.ConnectionStateChangedEventArgs.State">
+            <summary>
+            The current state.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Xmpp.IXmppMultiUserChat">
+            <summary>
+            Adds support for Xmpp Multi-User Chat functionality.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Xmpp.IXmppService">
+            <summary>
+            Represents an abstraction of a connection to an XMPP Server.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.WaitForConnectedState(System.TimeSpan)">
+            <summary>
+            Can be used to <c>await</c> the server's connection state, i.e. skipping all intermediate states but <see cref="F:Waher.Networking.XMPP.XmppState.Connected"/>.
+            </summary>
+            <param name="timeout">Maximum timeout before giving up.</param>
+            <returns>If connected</returns>
+        </member>
+        <member name="E:IdApp.Services.Xmpp.IXmppService.ConnectionStateChanged">
+            <summary>
+            An event that triggers whenever the connection state to the XMPP server changes.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnect(System.String,System.Boolean,System.String,System.Int32,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the very first phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns>If connected. If not, any error message.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnectAndCreateAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also creating an account.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="userName">The user name of the account to create.</param>
+            <param name="password">The password to use.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="ApiKey">API Key used when creating account.</param>
+            <param name="ApiSecret">API Secret used when creating account.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns>If connected. If not, any error message.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.TryConnectAndConnectToAccount(System.String,System.Boolean,System.String,System.Int32,System.String,System.String,System.String,System.String,System.Reflection.Assembly,System.Func{Waher.Networking.XMPP.XmppClient,System.Threading.Tasks.Task})">
+            <summary>
+            To be used during the second phase of the startup/registration procedure. Tries to connect (and then disconnect) to the specified server, while also connecting to an existing account.
+            </summary>
+            <param name="domain">The server's domain name.</param>
+            <param name="isIpAddress">If the domain is provided as an IP address.</param>
+            <param name="hostName">The server's host name.</param>
+            <param name="portNumber">The xmpp port.</param>
+            <param name="userName">The user name of the account to create.</param>
+            <param name="password">The password to use.</param>
+            <param name="passwordMethod">The password hash method to use. Empty string signifies an unhashed password.</param>
+            <param name="languageCode">Language code to use for communication.</param>
+            <param name="appAssembly">The current app's main assembly.</param>
+            <param name="connectedFunc">A callback to use if and when connected.</param>
+            <returns>If connected. If not, any error message.</returns>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.IsOnline">
+            <summary>
+            Determines whether the connection to the XMPP server is live or not.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.State">
+            <summary>
+            The current state of the connection to the XMPP server.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.Xmpp">
+            <summary>
+            Interface to the XMPP network.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.BareJid">
+            <summary>
+            The Bare Jid of the current connection, or <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.LatestError">
+            <summary>
+            The latest generic xmpp error, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.LatestConnectionError">
+            <summary>
+            The latest generic xmpp connection error, if any.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.Contracts">
+            <summary>
+            Provides access to legal identities and contracts.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.MultiUserChat">
+            <summary>
+            Provides access to chat functionality.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.ThingRegistry">
+            <summary>
+            Provides access to thing registries.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.Provisioning">
+            <summary>
+            Provides access to provisioning and decision support.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.Wallet">
+            <summary>
+            Provides access to the eDaler wallet.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Xmpp.IXmppService.FileUploadClient">
+            <summary>
+            HTTP File Upload client
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.DiscoverServices(Waher.Networking.XMPP.XmppClient)">
+            <summary>
+            Run this method to discover services for any given XMPP server.
+            </summary>
+            <param name="client">The client to use. Can be <c>null</c>, in which case the default is used.</param>
+            <returns>If TAG services were found.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.CommsDumpAsHtml(System.Boolean)">
+            <summary>
+            Creates a dump of the latest Xmpp communication as html.
+            </summary>
+            <returns>The communication dump as a html formatted string.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.ClearHtmlContent">
+            <summary>
+            saves already sent html to history.
+            </summary>        
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.CommsDumpAsText(System.String)">
+            <summary>
+            Creates a dump of the latest Xmpp communication as Text.
+            </summary>
+            <returns>The communication dump as a text formatted string.</returns>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.UnloadFast">
+            <summary>
+            Perform a shutdown in critical situations. Attempts to shut down XMPP connection as fast as possible.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.AddTransferCode(System.String)">
+            <summary>
+            Registers a Transfer ID Code
+            </summary>
+            <param name="Code">Transfer Code</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.AddTransferCode(System.String)">
+            <summary>
+            Registers a Transfer ID Code
+            </summary>
+            <param name="Code">Transfer Code</param>
         </member>
     </members>
 </doc>

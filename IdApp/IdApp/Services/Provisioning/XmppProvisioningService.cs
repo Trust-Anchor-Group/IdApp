@@ -1,4 +1,4 @@
-﻿using IdApp.Services.Neuron;
+﻿using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -8,11 +8,11 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Services.Provisioning
 {
 	[Singleton]
-	internal sealed class NeuronProvisioningService : ServiceReferences, INeuronProvisioningService
+	internal sealed class XmppProvisioningService : ServiceReferences, IXmppProvisioningService
 	{
 		private ProvisioningClient provisioningClient;
 
-		internal NeuronProvisioningService()
+		internal XmppProvisioningService()
 		{
 		}
 
@@ -20,9 +20,9 @@ namespace IdApp.Services.Provisioning
 		{
 			get
 			{
-				if (this.provisioningClient is null || this.provisioningClient.Client != this.NeuronService.Xmpp)
+				if (this.provisioningClient is null || this.provisioningClient.Client != this.XmppService.Xmpp)
 				{
-					this.provisioningClient = (this.NeuronService as NeuronService)?.ProvisioningClient;
+					this.provisioningClient = (this.XmppService as XmppService)?.ProvisioningClient;
 					if (this.provisioningClient is null)
 						throw new InvalidOperationException(AppResources.ProvisioningServiceNotFound);
 				}

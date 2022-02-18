@@ -4,14 +4,14 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 
 namespace IdApp.Pages.Wallet.EDalerReceived
 {
 	/// <summary>
 	/// The view model to bind to for displaying information about an incoming balance change.
 	/// </summary>
-	public class EDalerReceivedViewModel : NeuronViewModel
+	public class EDalerReceivedViewModel : XmppViewModel
 	{
 		/// <summary>
 		/// Creates an instance of the <see cref="EDalerUriViewModel"/> class.
@@ -56,7 +56,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 				StringBuilder Url = new StringBuilder();
 
 				Url.Append("https://");
-				Url.Append(this.NeuronService.Xmpp.Host);
+				Url.Append(this.XmppService.Xmpp.Host);
 				Url.Append("/Images/eDalerFront200.png");
 
 				this.EDalerGlyph = Url.ToString();
@@ -85,7 +85,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		}
 
 		/// <inheritdoc/>
-		protected override void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+		protected override void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(() =>
 			{

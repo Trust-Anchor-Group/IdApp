@@ -4,7 +4,7 @@ using IdApp.Services.Crypto;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.Network;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Nfc;
 using IdApp.Services.Settings;
 using IdApp.Services.Storage;
@@ -28,7 +28,7 @@ namespace IdApp.Services
         {
         }
 
-        private INeuronService neuronService;
+        private IXmppService xmppService;
         private IUiSerializer uiSerializer;
         private ITagProfile tagProfile;
         private INavigationService navigationService;
@@ -58,16 +58,16 @@ namespace IdApp.Services
         }
 
         /// <summary>
-        /// The Neuron service for XMPP communication.
+        /// The XMPP service for XMPP communication.
         /// </summary>
-        public INeuronService NeuronService
+        public IXmppService XmppService
         {
             get
             {
-                if (this.neuronService is null)
-                    this.neuronService = App.Instantiate<INeuronService>();
+                if (this.xmppService is null)
+                    this.xmppService = App.Instantiate<IXmppService>();
 
-                return this.neuronService;
+                return this.xmppService;
             }
         }
 

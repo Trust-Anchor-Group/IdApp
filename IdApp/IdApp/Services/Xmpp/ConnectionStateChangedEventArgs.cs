@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Waher.Networking.XMPP;
 
-namespace IdApp.Services.Neuron
+namespace IdApp.Services.Xmpp
 {
     /// <summary>
     /// Represents an event class holding data related to connection state changes.

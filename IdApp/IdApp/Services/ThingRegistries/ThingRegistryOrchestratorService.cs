@@ -49,7 +49,7 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				(SearchResultThing[] Things, string RegistryJid) = await this.NeuronService.ThingRegistry.SearchAll(Uri);
+				(SearchResultThing[] Things, string RegistryJid) = await this.XmppService.ThingRegistry.SearchAll(Uri);
 
 				switch (Things.Length)
 				{
@@ -104,7 +104,7 @@ namespace IdApp.Services.ThingRegistries
 		{
 			try
 			{
-				if (!this.NeuronService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
+				if (!this.XmppService.ThingRegistry.TryDecodeIoTDiscoDirectURI(Uri, out string Jid, out string SourceId,
 					out string NodeId, out string PartitionId, out MetaDataTag[] Tags))
 				{
 					throw new InvalidOperationException("Not a direct reference URI.");

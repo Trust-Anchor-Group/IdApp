@@ -56,7 +56,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
 		/// </summary>
 		/// <param name="Contracts">Contracts.</param>
 		/// <returns>Contract reference.</returns>
-		public async Task<Contract> GetContract(INeuronContracts Contracts)
+		public async Task<Contract> GetContract(ISmartContracts Contracts)
 		{
 			if (this.contract is null)
 			{

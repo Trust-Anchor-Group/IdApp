@@ -154,10 +154,10 @@ namespace IdApp.Services.UI.Photos
 			if (!(Bin is null))
 				return (Bin, ContentType, GetImageRotation(Bin));
 
-			if (!this.NetworkService.IsOnline || !this.NeuronService.IsOnline)
+			if (!this.NetworkService.IsOnline || !this.XmppService.IsOnline)
 				return (null, string.Empty, 0);
 
-			KeyValuePair<string, TemporaryFile> pair = await this.NeuronService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
+			KeyValuePair<string, TemporaryFile> pair = await this.XmppService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
 
 			using (TemporaryFile file = pair.Value)
 			{
@@ -174,7 +174,7 @@ namespace IdApp.Services.UI.Photos
 				if (file.Length != file.Read(Bin, 0, (int)file.Length))
 					return (null, string.Empty, 0);
 
-				bool IsContact = await this.NeuronService.Contracts.IsContact(attachment.LegalId);
+				bool IsContact = await this.XmppService.Contracts.IsContact(attachment.LegalId);
 
 				await this.AttachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
 

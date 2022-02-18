@@ -76,32 +76,32 @@ namespace IdApp.Services.Tag
 		string RegistryJid { get; }
 
 		/// <summary>
-		/// The Neuron server's provisioning Jid.
+		/// The XMPP server's provisioning Jid.
 		/// </summary>
 		string ProvisioningJid { get; }
 
 		/// <summary>
-		/// The Neuron server's file upload Jid.
+		/// The XMPP server's file upload Jid.
 		/// </summary>
 		string HttpFileUploadJid { get; }
 
 		/// <summary>
-		/// The Neuron server's max size for file uploads.
+		/// The XMPP server's max size for file uploads.
 		/// </summary>
 		long? HttpFileUploadMaxSize { get; }
 
 		/// <summary>
-		/// The Neuron server's log Jid.
+		/// The XMPP server's log Jid.
 		/// </summary>
 		string LogJid { get; }
 
 		/// <summary>
-		/// The Neuron server's multi-user chat Jid.
+		/// The XMPP server's multi-user chat Jid.
 		/// </summary>
 		string MucJid { get; }
 
 		/// <summary>
-		/// The Neuron server's eDaler service JID.
+		/// The XMPP server's eDaler service JID.
 		/// </summary>
 		string EDalerJid { get; }
 
@@ -116,7 +116,7 @@ namespace IdApp.Services.Tag
 		bool PinIsValid { get; }
 
 		/// <summary>
-		/// Returns <c>true</c> if file upload is supported for the specified Neuron server, <c>false</c> otherwise.
+		/// Returns <c>true</c> if file upload is supported for the specified XMPP server, <c>false</c> otherwise.
 		/// </summary>
 		bool FileUploadIsSupported { get; }
 

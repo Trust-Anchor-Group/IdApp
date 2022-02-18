@@ -4,7 +4,7 @@ using System.Windows.Input;
 using IdApp.Extensions;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 using IdApp.Services.Tag;
 
 namespace IdApp.Pages.Registration.DefinePin
@@ -30,14 +30,14 @@ namespace IdApp.Pages.Registration.DefinePin
         protected override async Task DoBind()
         {
             await base.DoBind();
-            AssignProperties(this.NeuronService.State);
-            this.NeuronService.ConnectionStateChanged += NeuronService_ConnectionStateChanged;
+            AssignProperties(this.XmppService.State);
+            this.XmppService.ConnectionStateChanged += XmppService_ConnectionStateChanged;
         }
 
         /// <inheritdoc />
         protected override async Task DoUnbind()
         {
-            this.NeuronService.ConnectionStateChanged -= NeuronService_ConnectionStateChanged;
+            this.XmppService.ConnectionStateChanged -= XmppService_ConnectionStateChanged;
             await base.DoUnbind();
         }
 
@@ -172,7 +172,7 @@ namespace IdApp.Pages.Registration.DefinePin
             BindableProperty.Create("IsConnected", typeof(bool), typeof(DefinePinViewModel), default(bool));
 
         /// <summary>
-        /// Gets or sets if the app is connected to a Neuron server.
+        /// Gets or sets if the app is connected to an XMPP server.
         /// </summary>
         public bool IsConnected
         {
@@ -197,7 +197,7 @@ namespace IdApp.Pages.Registration.DefinePin
 
         #endregion
 
-        private void NeuronService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
+        private void XmppService_ConnectionStateChanged(object sender, ConnectionStateChangedEventArgs e)
         {
             this.UiSerializer.BeginInvokeOnMainThread(() =>
             {
@@ -227,7 +227,7 @@ namespace IdApp.Pages.Registration.DefinePin
 
         private bool CanSkip()
         {
-            return this.NeuronService.IsOnline;
+            return this.XmppService.IsOnline;
         }
 
         private void Continue()
@@ -254,7 +254,7 @@ namespace IdApp.Pages.Registration.DefinePin
 
         private bool CanContinue()
         {
-            return !PinsDoNotMatch && this.NeuronService.IsOnline;
+            return !PinsDoNotMatch && this.XmppService.IsOnline;
         }
     }
 }

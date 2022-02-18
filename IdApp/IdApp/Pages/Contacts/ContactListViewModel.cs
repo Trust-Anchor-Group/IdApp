@@ -176,7 +176,7 @@ namespace IdApp.Pages.Contacts
 									else
 										break;
 
-									Balance Balance = await viewModel.NeuronService.Wallet.GetBalanceAsync();
+									Balance Balance = await viewModel.XmppService.Wallet.GetBalanceAsync();
 
 									sb.Append(";cu=");
 									sb.Append(Balance.Currency);

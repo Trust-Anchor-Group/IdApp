@@ -15,7 +15,7 @@ using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
-using IdApp.Services.Neuron;
+using IdApp.Services.Xmpp;
 
 namespace IdApp.Services.Contracts
 {
@@ -30,15 +30,15 @@ namespace IdApp.Services.Contracts
 		{
 			if (this.BeginLoad())
 			{
-				this.NeuronService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
-				this.NeuronService.Contracts.PetitionForPeerReviewIdReceived += Contracts_PetitionForPeerReviewIdReceived;
-				this.NeuronService.Contracts.PetitionForIdentityReceived += Contracts_PetitionForIdentityReceived;
-				this.NeuronService.Contracts.PetitionForSignatureReceived += Contracts_PetitionForSignatureReceived;
-				this.NeuronService.Contracts.PetitionedContractResponseReceived += Contracts_PetitionedNeuronContractResponseReceived;
-				this.NeuronService.Contracts.PetitionForContractReceived += Contracts_PetitionForNeuronContractReceived;
-				this.NeuronService.Contracts.PetitionedIdentityResponseReceived += Contracts_PetitionedIdentityResponseReceived;
-				this.NeuronService.Contracts.PetitionedPeerReviewIdResponseReceived += Contracts_PetitionedPeerReviewResponseReceived;
-				this.NeuronService.Contracts.ContractProposalReceived += Contracts_ContractProposalReceived;
+				this.XmppService.ConnectionStateChanged += Contracts_ConnectionStateChanged;
+				this.XmppService.Contracts.PetitionForPeerReviewIdReceived += Contracts_PetitionForPeerReviewIdReceived;
+				this.XmppService.Contracts.PetitionForIdentityReceived += Contracts_PetitionForIdentityReceived;
+				this.XmppService.Contracts.PetitionForSignatureReceived += Contracts_PetitionForSignatureReceived;
+				this.XmppService.Contracts.PetitionedContractResponseReceived += Contracts_PetitionedSmartContractResponseReceived;
+				this.XmppService.Contracts.PetitionForContractReceived += Contracts_PetitionForSmartContractReceived;
+				this.XmppService.Contracts.PetitionedIdentityResponseReceived += Contracts_PetitionedIdentityResponseReceived;
+				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived += Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.Contracts.ContractProposalReceived += Contracts_ContractProposalReceived;
 
 				this.EndLoad(true);
 			}
@@ -49,15 +49,15 @@ namespace IdApp.Services.Contracts
 		{
 			if (this.BeginUnload())
 			{
-				this.NeuronService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
-				this.NeuronService.Contracts.PetitionForPeerReviewIdReceived -= Contracts_PetitionForPeerReviewIdReceived;
-				this.NeuronService.Contracts.PetitionForIdentityReceived -= Contracts_PetitionForIdentityReceived;
-				this.NeuronService.Contracts.PetitionForSignatureReceived -= Contracts_PetitionForSignatureReceived;
-				this.NeuronService.Contracts.PetitionedContractResponseReceived -= Contracts_PetitionedNeuronContractResponseReceived;
-				this.NeuronService.Contracts.PetitionForContractReceived -= Contracts_PetitionForNeuronContractReceived;
-				this.NeuronService.Contracts.PetitionedIdentityResponseReceived -= Contracts_PetitionedIdentityResponseReceived;
-				this.NeuronService.Contracts.PetitionedPeerReviewIdResponseReceived -= Contracts_PetitionedPeerReviewResponseReceived;
-				this.NeuronService.Contracts.ContractProposalReceived -= Contracts_ContractProposalReceived;
+				this.XmppService.ConnectionStateChanged -= Contracts_ConnectionStateChanged;
+				this.XmppService.Contracts.PetitionForPeerReviewIdReceived -= Contracts_PetitionForPeerReviewIdReceived;
+				this.XmppService.Contracts.PetitionForIdentityReceived -= Contracts_PetitionForIdentityReceived;
+				this.XmppService.Contracts.PetitionForSignatureReceived -= Contracts_PetitionForSignatureReceived;
+				this.XmppService.Contracts.PetitionedContractResponseReceived -= Contracts_PetitionedSmartContractResponseReceived;
+				this.XmppService.Contracts.PetitionForContractReceived -= Contracts_PetitionForSmartContractReceived;
+				this.XmppService.Contracts.PetitionedIdentityResponseReceived -= Contracts_PetitionedIdentityResponseReceived;
+				this.XmppService.Contracts.PetitionedPeerReviewIdResponseReceived -= Contracts_PetitionedPeerReviewResponseReceived;
+				this.XmppService.Contracts.ContractProposalReceived -= Contracts_ContractProposalReceived;
 				
 				this.EndUnload();
 			}
@@ -89,7 +89,7 @@ namespace IdApp.Services.Contracts
 			}
 			else
 			{
-				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
+				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.RequestedIdentityId));
 				if (succeeded && !(li is null))
 					identity = li;
 				else
@@ -105,7 +105,7 @@ namespace IdApp.Services.Contracts
 			if (identity.State == IdentityState.Compromised ||
 				identity.State == IdentityState.Rejected)
 			{
-				await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionIdentityResponse(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false));
+				await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionIdentityResponse(e.RequestedIdentityId, e.PetitionId, e.RequestorFullJid, false));
 			}
 			else
 			{
@@ -127,7 +127,7 @@ namespace IdApp.Services.Contracts
 				identity = this.TagProfile.LegalIdentity;
 			else
 			{
-				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
+				(bool succeeded, LegalIdentity li) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(e.SignatoryIdentityId));
 			
 				if (succeeded && !(li is null))
 					identity = li;
@@ -142,7 +142,7 @@ namespace IdApp.Services.Contracts
 			}
 
 			if (identity.State == IdentityState.Compromised || identity.State == IdentityState.Rejected)
-				await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false));
+				await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionSignatureResponse(e.SignatoryIdentityId, e.ContentToSign, new byte[0], e.PetitionId, e.RequestorFullJid, false));
 			else
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
@@ -153,7 +153,7 @@ namespace IdApp.Services.Contracts
 			}
 		}
 
-		private void Contracts_PetitionedNeuronContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
+		private void Contracts_PetitionedSmartContractResponseReceived(object sender, ContractPetitionResponseEventArgs e)
 		{
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
@@ -167,15 +167,15 @@ namespace IdApp.Services.Contracts
 			});
 		}
 
-		private async void Contracts_PetitionForNeuronContractReceived(object sender, ContractPetitionEventArgs e)
+		private async void Contracts_PetitionForSmartContractReceived(object sender, ContractPetitionEventArgs e)
 		{
-			(bool succeeded, Contract contract) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.GetContract(e.RequestedContractId));
+			(bool succeeded, Contract contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.RequestedContractId));
 
 			if (!succeeded)
 				return;
 
 			if (contract.State == ContractState.Deleted || contract.State == ContractState.Rejected)
-				await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
+				await this.NetworkService.TryRequest(() => this.XmppService.Contracts.SendPetitionContractResponse(e.RequestedContractId, e.PetitionId, e.RequestorFullJid, false));
 			else
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
@@ -214,7 +214,7 @@ namespace IdApp.Services.Contracts
 
 					try
 					{
-						result = this.NeuronService.Contracts.ValidateSignature(e.RequestedIdentity, data, e.Signature);
+						result = this.XmppService.Contracts.ValidateSignature(e.RequestedIdentity, data, e.Signature);
 					}
 					catch (Exception ex)
 					{
@@ -228,7 +228,7 @@ namespace IdApp.Services.Contracts
 							await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasBeenRejectedDueToSignatureError, AppResources.Ok);
 						else
 						{
-							(bool succeeded, LegalIdentity legalIdentity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.AddPeerReviewIdAttachment(this.TagProfile.LegalIdentity, e.RequestedIdentity, e.Signature));
+							(bool succeeded, LegalIdentity legalIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.AddPeerReviewIdAttachment(this.TagProfile.LegalIdentity, e.RequestedIdentity, e.Signature));
 			
 							if (succeeded)
 							{
@@ -250,7 +250,7 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				if (this.NeuronService.IsOnline && this.NeuronService.IsOnline)
+				if (this.XmppService.IsOnline && this.XmppService.IsOnline)
 				{
 					if (!(this.TagProfile.LegalIdentity is null) && this.TagProfile.IsCompleteOrWaitingForValidation())
 					{
@@ -271,7 +271,7 @@ namespace IdApp.Services.Contracts
 			Contract contract;
 			bool succeeded;
 
-			(succeeded, contract) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.GetContract(e.ContractId));
+			(succeeded, contract) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetContract(e.ContractId));
 			if (!succeeded || contract is null)
 				return;		// Contract not available.
 
@@ -306,14 +306,14 @@ namespace IdApp.Services.Contracts
 		protected async Task DownloadLegalIdentity(string legalId)
         {
             bool isConnected = 
-				!(this.NeuronService is null) &&
-                await this.NeuronService.WaitForConnectedState(Constants.Timeouts.XmppConnect) && 
-				this.NeuronService.IsOnline;
+				!(this.XmppService is null) &&
+                await this.XmppService.WaitForConnectedState(Constants.Timeouts.XmppConnect) && 
+				this.XmppService.IsOnline;
 
             if (!isConnected)
 				return;
 
-			(bool succeeded, LegalIdentity identity) = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.GetLegalIdentity(legalId), displayAlert: false);
+			(bool succeeded, LegalIdentity identity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.GetLegalIdentity(legalId), displayAlert: false);
 			if (succeeded)
 			{
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
@@ -332,12 +332,12 @@ namespace IdApp.Services.Contracts
 						this.TagProfile.RevokeLegalIdentity(identity);
 						gotoRegistrationPage = true;
 					}
-					else if (identity.State == IdentityState.Approved && !await this.NeuronService.Contracts.HasPrivateKey(identity.Id))
+					else if (identity.State == IdentityState.Approved && !await this.XmppService.Contracts.HasPrivateKey(identity.Id))
 					{
 						userMessage = AppResources.YourLegalIdentityHasInvalidOrMissingKeys;
 						try
 						{
-							identity = await this.NeuronService.Contracts.ObsoleteLegalIdentity(identity.Id);
+							identity = await this.XmppService.Contracts.ObsoleteLegalIdentity(identity.Id);
 						}
 						catch (Exception ex)
 						{
@@ -376,7 +376,7 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				LegalIdentity identity = await this.NeuronService.Contracts.GetLegalIdentity(legalId);
+				LegalIdentity identity = await this.XmppService.Contracts.GetLegalIdentity(legalId);
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
 					await this.NavigationService.GoToAsync(nameof(ViewIdentityPage), new ViewIdentityNavigationArgs(identity, null));
@@ -390,7 +390,7 @@ namespace IdApp.Services.Contracts
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.PetitionIdentity(legalId, Guid.NewGuid().ToString(), purpose));
+					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionIdentity(legalId, Guid.NewGuid().ToString(), purpose));
 					if (succeeded)
 					{
 						await this.UiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheOwner);
@@ -408,7 +408,7 @@ namespace IdApp.Services.Contracts
 		{
 			try
 			{
-				Contract contract = await this.NeuronService.Contracts.GetContract(contractId);
+				Contract contract = await this.XmppService.Contracts.GetContract(contractId);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
@@ -433,7 +433,7 @@ namespace IdApp.Services.Contracts
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () =>
 				{
-					bool succeeded = await this.NetworkService.TryRequest(() => this.NeuronService.Contracts.PetitionContract(contractId, Guid.NewGuid().ToString(), purpose));
+					bool succeeded = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.PetitionContract(contractId, Guid.NewGuid().ToString(), purpose));
 					if (succeeded)
 					{
 						await this.UiSerializer.DisplayAlert(AppResources.PetitionSent, AppResources.APetitionHasBeenSentToTheContract);
@@ -477,10 +477,10 @@ namespace IdApp.Services.Contracts
 			Xml.Append(XML.Encode(IdRef));
 			Xml.Append("'/>");
 
-			if (!this.NeuronService.IsOnline)
+			if (!this.XmppService.IsOnline)
 				throw new InvalidOperationException("App is not connected to the network.");
 
-			await this.NeuronService.Xmpp.IqSetAsync(JID, Xml.ToString());
+			await this.XmppService.Xmpp.IqSetAsync(JID, Xml.ToString());
 		}
 
 	}
