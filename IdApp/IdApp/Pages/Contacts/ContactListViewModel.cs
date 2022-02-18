@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
+using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Services;
+using Waher.Networking.XMPP;
 using Waher.Persistence;
 using Waher.Persistence.Filters;
 using Xamarin.Forms;
-using IdApp.Pages.Contacts.Chat;
 
 namespace IdApp.Pages.Contacts
 {
@@ -48,30 +48,37 @@ namespace IdApp.Pages.Contacts
 			}
 
 			SortedDictionary<string, ContactInfo> Sorted = new SortedDictionary<string, ContactInfo>();
-			string Name;
-			string Suffix;
+			Dictionary<CaseInsensitiveString, bool> Jids = new Dictionary<CaseInsensitiveString, bool>();
 			int i;
 
-			foreach (ContactInfo Info in await Database.Find<ContactInfo>(new FilterFieldNotEqualTo("IsThing", true)))	// Includes thos with IsThing=null
+			foreach (ContactInfo Info in await Database.Find<ContactInfo>())
 			{
+				Jids[Info.BareJid] = true;
+
+				if (Info.IsThing.HasValue && Info.IsThing.Value)        // Include those with IsThing=null
+					continue;
+
 				if (Info.AllowSubscriptionFrom.HasValue && !Info.AllowSubscriptionFrom.Value)
 					continue;
 
-				Name = Info.FriendlyName;
-				if (Sorted.ContainsKey(Name))
+				Add(Sorted, Info.FriendlyName, Info);
+			}
+
+			foreach (RosterItem Item in this.XmppService.Xmpp.Roster)
+			{
+				if (Jids.ContainsKey(Item.BareJid))
+					continue;
+
+				ContactInfo Info = new ContactInfo()
 				{
-					i = 1;
+					BareJid = Item.BareJid,
+					FriendlyName = Item.NameOrBareJid,
+					IsThing = null
+				};
 
-					do
-					{
-						Suffix = " " + (++i).ToString();
-					}
-					while (Sorted.ContainsKey(Name + Suffix));
+				await Database.Insert(Info);
 
-					Sorted[Name + Suffix] = Info;
-				}
-				else
-					Sorted[Name] = Info;
+				Add(Sorted, Info.FriendlyName, Info);
 			}
 
 			this.Contacts.Clear();
@@ -79,6 +86,25 @@ namespace IdApp.Pages.Contacts
 				this.Contacts.Add(Info);
 
 			this.ShowContactsMissing = Sorted.Count == 0;
+		}
+
+		private static void Add(SortedDictionary<string, ContactInfo> Sorted, string Name, ContactInfo Info)
+		{
+			if (Sorted.ContainsKey(Name))
+			{
+				int i = 1;
+				string Suffix;
+
+				do
+				{
+					Suffix = " " + (++i).ToString();
+				}
+				while (Sorted.ContainsKey(Name + Suffix));
+
+				Sorted[Name + Suffix] = Info;
+			}
+			else
+				Sorted[Name] = Info;
 		}
 
 		/// <inheritdoc/>
