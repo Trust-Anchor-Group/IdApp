@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml;
+using IdApp.Resx;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using Waher.Content;

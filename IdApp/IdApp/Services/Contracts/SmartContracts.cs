@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using IdApp.Pages.Registration.RegisterIdentity;
+using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using Waher.Content;
 using Waher.Networking.XMPP;

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using IdApp.Resx;
 using IdApp.Services.Tag;
 using IdApp.Services.UI;
 using Rg.Plugins.Popup.Pages;

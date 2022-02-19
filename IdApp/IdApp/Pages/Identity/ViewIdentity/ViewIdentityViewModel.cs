@@ -26,6 +26,7 @@ using IdApp.Services.UI.Photos;
 using IdApp.Services.Data.Countries;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Popups.Xmpp.RemoveSubscription;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Identity.ViewIdentity
 {

@@ -3,7 +3,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                 xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                  x:Class="IdApp.Popups.Xmpp.ReportType.ReportTypePopupPage">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
@@ -20,27 +20,27 @@
     <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
         <Frame Margin="15" BackgroundColor="White">
             <StackLayout Padding="10,5" Spacing="3">
-                <Label Text="{x:Static local:AppResources.TypeOfReport}" FontSize="Large"/>
+                <Label Text="{x:Static resx:AppResources.TypeOfReport}" FontSize="Large"/>
                 <Label>
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="{x:Static local:AppResources.TypeOfReport1}"/>
+                            <Span Text="{x:Static resx:AppResources.TypeOfReport1}"/>
                             <Span Text=" "/>
                             <Span Text="{Binding BareJid}" FontAttributes="Bold"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Button Margin="10,5" Clicked="OnSpam" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Spam}">
+                <Button Margin="10,5" Clicked="OnSpam" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Spam}">
                     <Button.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                     </Button.HeightRequest>
                 </Button>
-                <Button Margin="10,5" Clicked="OnAbuse" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Abuse}">
+                <Button Margin="10,5" Clicked="OnAbuse" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Abuse}">
                     <Button.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                     </Button.HeightRequest>
                 </Button>
-                <Button Margin="10,5" Clicked="OnOther" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Other}">
+                <Button Margin="10,5" Clicked="OnOther" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Other}">
                     <Button.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                     </Button.HeightRequest>
@@ -65,7 +65,7 @@
                     <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
                 </Ellipse.Stroke>
             </Ellipse>
-            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static local:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
     </AbsoluteLayout>
 </pages:PopupPage>

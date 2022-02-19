@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using IdApp.Pages.Things.ViewClaimThing;
 using IdApp.Pages.Things.ViewThing;
+using IdApp.Resx;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Runtime.Inventory;

@@ -6,6 +6,7 @@ using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using IdApp.Exceptions;
 using IdApp.Extensions;
+using IdApp.Resx;
 using Waher.Networking.DNS;
 using Waher.Networking.DNS.ResourceRecords;
 using Waher.Networking.XMPP;

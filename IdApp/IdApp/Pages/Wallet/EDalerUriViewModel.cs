@@ -12,6 +12,7 @@ using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Wallet
 {

@@ -9,6 +9,7 @@ using IdApp.Pages.Wallet.IssueEDaler;
 using IdApp.Pages.Wallet.MyWallet;
 using IdApp.Pages.Wallet.Payment;
 using IdApp.Pages.Wallet.PaymentAcceptance;
+using IdApp.Resx;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Wallet

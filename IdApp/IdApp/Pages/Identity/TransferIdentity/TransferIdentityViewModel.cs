@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Resx;
 using IdApp.Services.EventLog;
 using IdApp.Services.Navigation;
 using IdApp.Services.UI;

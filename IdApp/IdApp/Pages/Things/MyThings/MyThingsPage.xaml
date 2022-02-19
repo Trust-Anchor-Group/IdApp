@@ -2,16 +2,16 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:services="clr-namespace:IdApp.Services;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Things.MyThings;assembly=IdApp"
                        x:DataType="model:MyThingsViewModel"
                        x:Class="IdApp.Pages.Things.MyThings.MyThingsPage"
-                       Title="{x:Static local:AppResources.Things}">
+                       Title="{x:Static resx:AppResources.Things}">
     <StackLayout Margin="{StaticResource DefaultMargin}">
-        <Label Text="{x:Static local:AppResources.Things}" Style="{StaticResource Heading}"/>
-        <Label Text="{x:Static local:AppResources.ThingsDescription}" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowThingsMissing}" Text="{x:Static local:AppResources.NoThingsFound}" />
+        <Label Text="{x:Static resx:AppResources.Things}" Style="{StaticResource Heading}"/>
+        <Label Text="{x:Static resx:AppResources.ThingsDescription}" HorizontalOptions="Center" VerticalOptions="Start"/>
+        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowThingsMissing}" Text="{x:Static resx:AppResources.NoThingsFound}" />
         <ListView x:Name="Things" HasUnevenRows="True" ItemsSource="{Binding Path=Things}" SelectedItem="{Binding Path=SelectedThing, Mode=TwoWay}" VerticalOptions="StartAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="services:ContactInfo">

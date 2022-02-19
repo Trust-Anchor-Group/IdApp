@@ -1,4 +1,6 @@
-﻿namespace IdApp.Extensions
+﻿using IdApp.Resx;
+
+namespace IdApp.Extensions
 {
     /// <summary>
     /// An extension class for the boolean primitive type.

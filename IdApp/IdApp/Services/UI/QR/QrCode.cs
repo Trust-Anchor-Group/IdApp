@@ -13,6 +13,7 @@ using SkiaSharp;
 using Waher.Content.QR;
 using Waher.Content.QR.Encoding;
 using Xamarin.Essentials;
+using IdApp.Resx;
 
 namespace IdApp.Services.UI.QR
 {

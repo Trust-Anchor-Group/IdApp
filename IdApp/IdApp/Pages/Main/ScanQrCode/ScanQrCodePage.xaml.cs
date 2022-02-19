@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using IdApp.Resx;
 using IdApp.Services.UI.QR;
 using Xamarin.Forms.Xaml;
 using ZXing;

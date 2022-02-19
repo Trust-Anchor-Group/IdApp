@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Contracts.NewContract;assembly=IdApp"
                        x:DataType="model:NewContractViewModel"
                        x:Class="IdApp.Pages.Contracts.NewContract.NewContractPage"
-                       Title="{x:Static local:AppResources.NewContract}">
+                       Title="{x:Static resx:AppResources.NewContract}">
     <ScrollView>
         <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
             <StackLayout.Resources>
@@ -15,13 +15,13 @@
                 </Style>
             </StackLayout.Resources>
 
-            <Label Text="{x:Static local:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
-            <Picker Title="{x:Static local:AppResources.SelectWhoShouldHaveAccessToThisContract}" 
+            <Label Text="{x:Static resx:AppResources.Visibility}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
+            <Picker Title="{x:Static resx:AppResources.SelectWhoShouldHaveAccessToThisContract}" 
                     ItemsSource="{Binding Path=ContractVisibilityItems}" 
                     SelectedItem="{Binding Path=SelectedContractVisibilityItem, Mode=TwoWay}"/>
-            
-            <Label Text="{x:Static local:AppResources.YourRole}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
-            <Picker Title="{x:Static local:AppResources.SelectYourRoleInThisContract}" 
+
+            <Label Text="{x:Static resx:AppResources.YourRole}" Style="{StaticResource Heading}" HorizontalOptions="Start" />
+            <Picker Title="{x:Static resx:AppResources.SelectYourRoleInThisContract}" 
                     ItemsSource="{Binding Path=AvailableRoles}" 
                     SelectedItem="{Binding Path=SelectedRole, Mode=TwoWay}" 
                     IsEnabled="{Binding Path=HasRoles}"/>
@@ -30,7 +30,7 @@
             <ContentView Content="{Binding Path=Parameters}" />
             <ContentView Content="{Binding Path=HumanReadableText}" />
 
-            <Button Text="{x:Static local:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
+            <Button Text="{x:Static resx:AppResources.Propose}" Command="{Binding Path=ProposeCommand}" Margin="{StaticResource DefaultTopAndBottomOnlyMargin}"/>
         </StackLayout>
     </ScrollView>
 </views:ContentBasePage>

@@ -3,11 +3,11 @@
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Main.ScanQrCode;assembly=IdApp"
                        x:DataType="model:ScanQrCodeViewModel"
                        x:Class="IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"
-                       Title="{x:Static local:AppResources.ScanQRCode}"
+                       Title="{x:Static resx:AppResources.ScanQRCode}"
                        Shell.FlyoutBehavior="Disabled" 
                        SizeChanged="ContentBasePage_SizeChanged">
     <ContentPage.Content>
@@ -19,10 +19,10 @@
                                         HeightRequest="400"
                                         VerticalOptions="CenterAndExpand"
                                         HorizontalOptions="CenterAndExpand"/>
-                <forms:ZXingDefaultOverlay TopText="{x:Static local:AppResources.QrScanOverlay}"/>
+                <forms:ZXingDefaultOverlay TopText="{x:Static resx:AppResources.QrScanOverlay}"/>
             </Grid>
             <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
-                <Label Text="{x:Static local:AppResources.QrScanUri}" HorizontalOptions="FillAndExpand"/>
+                <Label Text="{x:Static resx:AppResources.QrScanUri}" HorizontalOptions="FillAndExpand"/>
                 <Entry x:Name="LinkEntry" Text="{Binding Path=LinkText, Mode=TwoWay}" HorizontalOptions="Fill"/>
                 <Button x:Name="OpenButton" Clicked="OpenButton_Click" IsEnabled="{Binding Path=OpenIsEnabled}" Text="{Binding Path=OpenCommandText}"/>
             </StackLayout>

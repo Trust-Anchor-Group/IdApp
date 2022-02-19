@@ -3,7 +3,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                 xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                  x:Class="IdApp.Popups.Xmpp.ReportOrBlock.ReportOrBlockPopupPage">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
@@ -20,33 +20,33 @@
     <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
         <Frame Margin="15" BackgroundColor="White">
             <StackLayout Padding="10,5" Spacing="3">
-                <Label Text="{x:Static local:AppResources.FurtherAction}" FontSize="Large"/>
+                <Label Text="{x:Static resx:AppResources.FurtherAction}" FontSize="Large"/>
                 <Label>
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="{x:Static local:AppResources.FurtherAction1}"/>
+                            <Span Text="{x:Static resx:AppResources.FurtherAction1}"/>
                             <Span Text=" "/>
                             <Span Text="{Binding BareJid}" FontAttributes="Bold"/>
                             <Span Text="? "/>
-                            <Span Text="{x:Static local:AppResources.FurtherAction2}"/>
+                            <Span Text="{x:Static resx:AppResources.FurtherAction2}"/>
                             <Span Text=" "/>
-                            <Span Text="{x:Static local:AppResources.FurtherAction3}"/>
+                            <Span Text="{x:Static resx:AppResources.FurtherAction3}"/>
                             <Span Text=" "/>
-                            <Span Text="{x:Static local:AppResources.FurtherAction4}"/>
+                            <Span Text="{x:Static resx:AppResources.FurtherAction4}"/>
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <Button Margin="10,5" Clicked="OnIgnore" HorizontalOptions="Fill" Text="{x:Static local:AppResources.NoJustIgnore}">
+                <Button Margin="10,5" Clicked="OnIgnore" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.NoJustIgnore}">
                     <Button.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                     </Button.HeightRequest>
                 </Button>
-                <Button Margin="10,5" Clicked="OnBlock" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Block}">
+                <Button Margin="10,5" Clicked="OnBlock" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Block}">
                     <Button.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                     </Button.HeightRequest>
                 </Button>
-                <Button Margin="10,5" Clicked="OnReport" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Report}">
+                <Button Margin="10,5" Clicked="OnReport" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Report}">
                     <Button.HeightRequest>
                         <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                     </Button.HeightRequest>
@@ -71,7 +71,7 @@
                     <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
                 </Ellipse.Stroke>
             </Ellipse>
-            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static local:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
     </AbsoluteLayout>
 </pages:PopupPage>

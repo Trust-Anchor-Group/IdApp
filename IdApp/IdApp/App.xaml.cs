@@ -55,6 +55,7 @@ using Waher.Script;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
+using IdApp.Resx;
 
 namespace IdApp
 {

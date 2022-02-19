@@ -2,15 +2,15 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Contracts.ServerSignature;assembly=IdApp"
                        x:DataType="model:ServerSignatureViewModel"
                        x:Class="IdApp.Pages.Contracts.ServerSignature.ServerSignaturePage"
-                       Title="{x:Static local:AppResources.ServerSignature}">
+                       Title="{x:Static resx:AppResources.ServerSignature}">
     <ScrollView x:Name="ScrollView">
         <StackLayout Margin="{DynamicResource SafeAreaInsetsDefaultMargin}" VerticalOptions="Start">
-            <Label Text="{x:Static local:AppResources.SignatureInformation}" Style="{StaticResource Heading}" />
-            <Label Text="{x:Static local:AppResources.ServerSignatureInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
+            <Label Text="{x:Static resx:AppResources.SignatureInformation}" Style="{StaticResource Heading}" />
+            <Label Text="{x:Static resx:AppResources.ServerSignatureInformationInfoText}" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" />
             <Grid VerticalOptions="StartAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -22,13 +22,13 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!-- -->
-                <Label Grid.Row="0" Grid.Column="0" Text="{x:Static local:AppResources.Provider}" Style="{StaticResource KeyLabel}" />
+                <Label Grid.Row="0" Grid.Column="0" Text="{x:Static resx:AppResources.Provider}" Style="{StaticResource KeyLabel}" />
                 <Label Grid.Row="0" Grid.Column="1" Text="{Binding Path=Provider}" Style="{StaticResource ValueLabel}"/>
                 <!-- -->
-                <Label Grid.Row="1" Grid.Column="0" Text="{x:Static local:AppResources.Timestamp}" Style="{StaticResource KeyLabel}" />
+                <Label Grid.Row="1" Grid.Column="0" Text="{x:Static resx:AppResources.Timestamp}" Style="{StaticResource KeyLabel}" />
                 <Label Grid.Row="1" Grid.Column="1" Text="{Binding Path=Timestamp}" Style="{StaticResource ValueLabel}"/>
                 <!-- -->
-                <Label Grid.Row="2" Grid.Column="0" Text="{x:Static local:AppResources.Signature}" Style="{StaticResource KeyLabel}" />
+                <Label Grid.Row="2" Grid.Column="0" Text="{x:Static resx:AppResources.Signature}" Style="{StaticResource KeyLabel}" />
                 <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=Signature}" Style="{StaticResource ValueLabel}"/>
             </Grid>
         </StackLayout>

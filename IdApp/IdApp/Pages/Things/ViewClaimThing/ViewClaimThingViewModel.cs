@@ -17,6 +17,7 @@ using Waher.Networking.XMPP.Provisioning;
 using Waher.Persistence;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Things.ViewClaimThing
 {

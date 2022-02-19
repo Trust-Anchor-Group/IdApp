@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Waher.Networking.XMPP;
 using Xamarin.Forms;
 using IdApp.Services.Xmpp;
+using IdApp.Resx;
 
 namespace IdApp.Pages
 {

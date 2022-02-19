@@ -13,6 +13,7 @@ using IdApp.Services.UI.QR;
 using IdApp.Services.Wallet;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Main.Shell
 {

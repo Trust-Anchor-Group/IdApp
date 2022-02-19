@@ -1,4 +1,4 @@
-﻿namespace IdApp
+﻿namespace IdApp.Resx
 {
     /// <summary>
     /// A list of Unicode constants for the FontAwesome Solid Icons:

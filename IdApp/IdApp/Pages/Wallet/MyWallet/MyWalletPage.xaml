@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:mainTabBar="clr-namespace:IdApp.Controls.MainTabBar;assembly=IdApp"
@@ -9,7 +9,7 @@
                        xmlns:objectmodel="clr-namespace:IdApp.Pages.Wallet;assembly=IdApp"
                        x:DataType="model:MyWalletViewModel"
                        x:Class="IdApp.Pages.Wallet.MyWallet.MyWalletPage"
-                       Title="{x:Static local:AppResources.Wallet}">
+                       Title="{x:Static resx:AppResources.Wallet}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -139,10 +139,10 @@
 
         <mainTabBar:MainTabBarView x:Name="WalletTabBar"
                                    Grid.Column="0" Grid.Row="2" 
-                                   LeftButton1Text="{x:Static local:FontAwesome.ArrowLeft}"
-                                   CenterButtonText="{x:Static local:FontAwesome.ScanQr}" 
-                                   RightButton1Text="{x:Static local:FontAwesome.HandHolding}" 
-                                   RightButton2Text="{x:Static local:FontAwesome.MoneyBill}" 
+                                   LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
+                                   CenterButtonText="{x:Static resx:FontAwesome.ScanQr}" 
+                                   RightButton1Text="{x:Static resx:FontAwesome.HandHolding}" 
+                                   RightButton2Text="{x:Static resx:FontAwesome.MoneyBill}" 
                                    LeftButton1Command="{Binding Path=BackCommand}" 
                                    CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
                                    RightButton1Command="{Binding Path=RequestPaymentCommand}"

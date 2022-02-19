@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Waher.Content;
 using Xamarin.Forms;
 using IdApp.Services.Tag;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Registration.ValidatePhoneNr
 {

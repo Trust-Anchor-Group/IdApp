@@ -1,4 +1,5 @@
-﻿using IdApp.Services;
+﻿using IdApp.Resx;
+using IdApp.Services;
 using IdApp.Services.UI.Photos;
 using System;
 using System.Text;

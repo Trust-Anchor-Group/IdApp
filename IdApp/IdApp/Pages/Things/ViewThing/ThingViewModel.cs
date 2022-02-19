@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using Waher.Networking.XMPP.Contracts;

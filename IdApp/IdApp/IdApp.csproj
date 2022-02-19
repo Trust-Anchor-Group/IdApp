@@ -80,43 +80,43 @@
     <EmbeddedResource Update="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.sr.resx">
+    <EmbeddedResource Update="Resx\AppResources.sr.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.fi.resx">
+    <EmbeddedResource Update="Resx\AppResources.fi.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.no.resx">
+    <EmbeddedResource Update="Resx\AppResources.no.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.da.resx">
+    <EmbeddedResource Update="Resx\AppResources.da.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.de.resx">
+    <EmbeddedResource Update="Resx\AppResources.de.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.fr.resx">
+    <EmbeddedResource Update="Resx\AppResources.fr.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.es.resx">
+    <EmbeddedResource Update="Resx\AppResources.es.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.pt.resx">
+    <EmbeddedResource Update="Resx\AppResources.pt.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.resx">
+    <EmbeddedResource Update="Resx\AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="AppResources.sv.resx">
+    <EmbeddedResource Update="Resx\AppResources.sv.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\Main\Shell\AppShell.xaml">
@@ -155,7 +155,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="AppResources.Designer.cs">
+    <Compile Update="Resx\AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>

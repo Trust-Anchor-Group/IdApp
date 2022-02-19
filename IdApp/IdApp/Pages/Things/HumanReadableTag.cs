@@ -1,4 +1,5 @@
-﻿using Waher.Networking.XMPP.Contracts;
+﻿using IdApp.Resx;
+using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Provisioning;
 
 namespace IdApp.Pages.Things

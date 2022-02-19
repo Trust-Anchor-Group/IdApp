@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Resx;
+using System;
 
 namespace IdApp.Pages.Wallet.MyWallet
 {

@@ -8,6 +8,7 @@ using IdApp.Pages.Contacts.Chat;
 using IdApp.Pages.Identity.ViewIdentity;
 using IdApp.Pages.Wallet;
 using IdApp.Pages.Wallet.Payment;
+using IdApp.Resx;
 using IdApp.Services;
 using Waher.Networking.XMPP;
 using Waher.Persistence;

@@ -3,7 +3,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-                 xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                 xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                  x:Class="IdApp.Popups.Xmpp.SubscriptionRequest.SubscriptionRequestPopupPage">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation 
@@ -21,33 +21,33 @@
         <Frame Margin="15" BackgroundColor="White">
             <ScrollView Orientation="Vertical">
                 <StackLayout Padding="10,5" Spacing="3">
-                    <Label Text="{x:Static local:AppResources.PresenceSubscriptionRequest}" FontSize="Large"/>
+                    <Label Text="{x:Static resx:AppResources.PresenceSubscriptionRequest}" FontSize="Large"/>
                     <Image HorizontalOptions="Center" Source="{Binding PhotoUrl}" WidthRequest="{Binding PhotoWidth}"
                        HeightRequest="{Binding PhotoHeight}" IsVisible="{Binding HasPhoto}"/>
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived1}"/>
+                                <Span Text="{x:Static resx:AppResources.PresenceSubscriptionReceived1}"/>
                                 <Span Text=" "/>
                                 <Span Text="{Binding PrimaryName}" FontAttributes="Bold"/>
                                 <Span Text="{Binding SecondaryName}"/>
                                 <Span Text=" "/>
-                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived2}"/>
+                                <Span Text="{x:Static resx:AppResources.PresenceSubscriptionReceived2}"/>
                                 <Span Text=" "/>
-                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived3}"/>
+                                <Span Text="{x:Static resx:AppResources.PresenceSubscriptionReceived3}"/>
                                 <Span Text=" "/>
-                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived4}"/>
+                                <Span Text="{x:Static resx:AppResources.PresenceSubscriptionReceived4}"/>
                                 <Span Text=" "/>
-                                <Span Text="{x:Static local:AppResources.PresenceSubscriptionReceived5}"/>
+                                <Span Text="{x:Static resx:AppResources.PresenceSubscriptionReceived5}"/>
                             </FormattedString>
                         </Label.FormattedText>
                     </Label>
-                    <Button Margin="10,5" Clicked="OnAccept" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Accept}">
+                    <Button Margin="10,5" Clicked="OnAccept" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Accept}">
                         <Button.HeightRequest>
                             <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                         </Button.HeightRequest>
                     </Button>
-                    <Button Margin="10,5" Clicked="OnReject" HorizontalOptions="Fill" Text="{x:Static local:AppResources.Reject}">
+                    <Button Margin="10,5" Clicked="OnReject" HorizontalOptions="Fill" Text="{x:Static resx:AppResources.Reject}">
                         <Button.HeightRequest>
                             <OnPlatform x:TypeArguments="x:Double" Android="50" WinPhone="30" iOS="30" />
                         </Button.HeightRequest>
@@ -73,7 +73,7 @@
                     <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
                 </Ellipse.Stroke>
             </Ellipse>
-            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static local:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
         </Grid>
     </AbsoluteLayout>
 </pages:PopupPage>

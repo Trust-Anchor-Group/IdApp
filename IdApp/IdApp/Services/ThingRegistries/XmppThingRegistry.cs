@@ -1,4 +1,5 @@
-﻿using IdApp.Services.Xmpp;
+﻿using IdApp.Resx;
+using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

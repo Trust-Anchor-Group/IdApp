@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Resx;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 

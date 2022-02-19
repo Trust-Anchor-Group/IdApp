@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
+using IdApp.Resx;
 
 namespace IdApp.Extensions
 {

@@ -8,6 +8,7 @@ using EDaler;
 using EDaler.Uris;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using Xamarin.Forms;

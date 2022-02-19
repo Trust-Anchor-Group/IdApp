@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
+using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;

@@ -8,6 +8,7 @@ using IdApp.Extensions;
 using IdApp.Pages.Contracts.NewContract.ObjectModel;
 using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
+using IdApp.Resx;
 using IdApp.Services.UI.QR;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;

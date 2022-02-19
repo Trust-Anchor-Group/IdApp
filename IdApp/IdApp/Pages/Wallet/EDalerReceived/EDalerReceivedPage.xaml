@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Wallet.EDalerReceived;assembly=IdApp"
                        x:DataType="model:EDalerReceivedViewModel"
                        x:Class="IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedPage"
-                       Title="{x:Static local:AppResources.ReceiveEDaler}">
+                       Title="{x:Static resx:AppResources.ReceiveEDaler}">
     <Grid>
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}">
-                <Label Text="{x:Static local:AppResources.EDalerNote}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
-                <Label Text="{x:Static local:AppResources.EDalerNoteDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
+                <Label Text="{x:Static resx:AppResources.EDalerNote}" Style="{StaticResource Heading}" Margin="{StaticResource DefaultTopOnlyMargin}" VerticalOptions="Start"/>
+                <Label Text="{x:Static resx:AppResources.EDalerNoteDescription}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <!-- Note -->
                 <Frame HeightRequest="150" BorderColor="Black" CornerRadius="6" HasShadow="True" BackgroundColor="{StaticResource HeadingBackground}">
                     <Grid HeightRequest="150" WidthRequest="10000">
@@ -40,7 +40,7 @@
                 </Frame>
                 <Label Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" Style="{StaticResource InfoText}" VerticalOptions="Start"/>
                 <!-- BUTTONS -->
-                <Button Text="{x:Static local:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
+                <Button Text="{x:Static resx:AppResources.Accept}" Command="{Binding Path=AcceptCommand}" Margin="{StaticResource DefaultBottomOnlyMargin}"/>
             </StackLayout>
         </ScrollView>
     </Grid>

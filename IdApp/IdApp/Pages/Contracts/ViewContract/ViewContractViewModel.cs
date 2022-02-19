@@ -11,6 +11,7 @@ using IdApp.Extensions;
 using IdApp.Pages.Contracts.ClientSignature;
 using IdApp.Pages.Contracts.ServerSignature;
 using IdApp.Pages.Contracts.ViewContract.ObjectModel;
+using IdApp.Resx;
 using IdApp.Services.UI;
 using IdApp.Services.UI.Photos;
 using Waher.Networking.XMPP.Contracts;

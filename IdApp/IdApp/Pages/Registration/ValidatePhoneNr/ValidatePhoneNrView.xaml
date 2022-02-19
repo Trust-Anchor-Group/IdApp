@@ -2,7 +2,7 @@
 <registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms" 
                                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                                    xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
-                                   xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
+                                   xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                                    xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                                    xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                                    xmlns:model="clr-namespace:IdApp.Pages.Registration.ValidatePhoneNr;assembly=IdApp"
@@ -27,11 +27,11 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0" Grid.RowSpan="4" CornerRadius="5" BackgroundColor="#f0ffffff"/>
-                        <Label Grid.Row="0" Margin="20" Text="{x:Static resources:AppResources.WelcomeToTagHeading}" 
+                        <Label Grid.Row="0" Margin="20" Text="{x:Static resx:AppResources.WelcomeToTagHeading}" 
                            HorizontalOptions="Center" VerticalOptions="Start" Style="{StaticResource Heading}" />
-                        <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagSubheading}" FontSize="Body"
+                        <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagSubheading}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
-                        <Picker Grid.Row="2" x:Name="PurposePicker" HorizontalOptions="FillAndExpand" Title="{x:Static resources:AppResources.SelectPurpose}"
+                        <Picker Grid.Row="2" x:Name="PurposePicker" HorizontalOptions="FillAndExpand" Title="{x:Static resx:AppResources.SelectPurpose}"
                                 ItemsSource="{Binding Path=Purposes}" SelectedIndex="{Binding Path=Purpose, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}">
                             <Picker.Behaviors>
                                 <behaviors:ScrollToSelectedBehavior ScrollTo="PhoneNumberEntry" 
@@ -40,9 +40,9 @@
                                                                       BindingContext="{Binding BindingContext, Source={x:Reference PhoneNumberFrame}}"/>
                             </Picker.Behaviors>
                         </Picker>
-                        <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.PurposeWorkOrPersonalDescription}" FontSize="Body"
+                        <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkOrPersonalDescription}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsZero}}" />
-                        <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.PurposeWorkEducationalOrExperimental}" FontSize="Body"
+                        <Label Grid.Row="3" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.PurposeWorkEducationalOrExperimental}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" IsVisible="{Binding Path=Purpose, Converter={converters:EqualsOne}}" />
                     </Grid>
                     <Grid x:Name="PhoneNumberFrame" IsVisible="{Binding Path=PurposeSelected}" Margin="{StaticResource DefaultBottomOnlyMargin}">
@@ -52,9 +52,9 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0" Grid.RowSpan="3" CornerRadius="5" BackgroundColor="#f0ffffff"/>
-                        <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagPurposeSelected}" 
+                        <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagPurposeSelected}" 
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
-                        <Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resources:AppResources.EnterPhoneNumber}" 
+                        <Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resx:AppResources.EnterPhoneNumber}" 
                                ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" 
                                Text="{Binding Path=PhoneNumber, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}">
                             <Entry.Behaviors>
@@ -64,7 +64,7 @@
                         </Entry>
                     </Grid>
                     <Button x:Name="SendCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}" 
-                            Text="{x:Static resources:AppResources.SendCode}" Command="{Binding Path=SendCodeCommand}"
+                            Text="{x:Static resx:AppResources.SendCode}" Command="{Binding Path=SendCodeCommand}"
                             IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=PurposeSelected}">
                         <Button.Behaviors>
                             <behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator" 
@@ -77,9 +77,9 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Frame Grid.Row="0" Grid.RowSpan="2" CornerRadius="5" BackgroundColor="#f0ffffff"/>
-                        <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resources:AppResources.WelcomeToTagCodeSent}" FontSize="Body"
+                        <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagCodeSent}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
-                        <Entry Grid.Row="1" x:Name="VerificationCodeEntry" Placeholder="{x:Static resources:AppResources.VerificationCode}" 
+                        <Entry Grid.Row="1" x:Name="VerificationCodeEntry" Placeholder="{x:Static resx:AppResources.VerificationCode}" 
                                 ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" Margin="{StaticResource DefaultMargin}" 
                                 Text="{Binding Path=VerificationCode, Mode=TwoWay}">
                             <Entry.Behaviors>
@@ -89,7 +89,7 @@
                         </Entry>
                     </Grid>
                     <Button x:Name="VerifyCodeButton" Margin="{StaticResource DefaultBottomOnlyMargin}" 
-                            Text="{x:Static resources:AppResources.VerifyCode}" Command="{Binding Path=VerifyCodeCommand}"
+                            Text="{x:Static resx:AppResources.VerifyCode}" Command="{Binding Path=VerifyCodeCommand}"
                             IsEnabled="{Binding Path=VerificationCodeValid}" IsVisible="{Binding Path=CodeSent}">
                         <Button.Behaviors>
                             <behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator" 

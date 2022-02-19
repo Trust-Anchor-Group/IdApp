@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Text;
 using System.Threading.Tasks;
+using IdApp.Resx;
 using IdApp.Services.UI.Tasks;
 using Waher.Events;
 using Waher.Runtime.Inventory;

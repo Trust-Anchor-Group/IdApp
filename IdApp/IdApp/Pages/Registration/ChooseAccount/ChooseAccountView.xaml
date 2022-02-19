@@ -2,7 +2,7 @@
 <registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms" 
                                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                                    xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
-                                   xmlns:resources="clr-namespace:IdApp;assembly=IdApp"
+                                   xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                                    xmlns:model="clr-namespace:IdApp.Pages.Registration.ChooseAccount;assembly=IdApp"
                                    x:DataType="model:ChooseAccountViewModel"
                                    x:Class="IdApp.Pages.Registration.ChooseAccount.ChooseAccountView">
@@ -18,23 +18,23 @@
             <Label Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="Body" Margin="{StaticResource DefaultMargin}">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="{x:Static resources:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
+                        <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount1}"/>
                         <Span Text=" "/>
                         <Span Text="{Binding Path=DomainName}" FontAttributes="Bold"/>
                         <Span Text=". "/>
-                        <Span Text="{x:Static resources:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
+                        <Span Text="{x:Static resx:AppResources.ToConnectToDomainYouNeedAnAccount2}"/>
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
             <StackLayout Grid.Row="1" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
-                <Label Text="{x:Static resources:AppResources.Account}" FontSize="Body"/>
+                <Label Text="{x:Static resx:AppResources.Account}" FontSize="Body"/>
                 <Entry Text="{Binding Path=AccountName}"/>
             </StackLayout>
             <ActivityIndicator Grid.Row="2" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" 
                                VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
-            <Button Grid.Row="3" Text="{x:Static resources:AppResources.CreateAccount}" Command="{Binding Path=CreateNewCommand}" 
+            <Button Grid.Row="3" Text="{x:Static resx:AppResources.CreateAccount}" Command="{Binding Path=CreateNewCommand}" 
                     Margin="{StaticResource DefaultMargin}" />
-            <Button Grid.Row="4" Text="{x:Static resources:AppResources.ScanInvitation}" Command="{Binding Path=ScanQrCodeCommand}" 
+            <Button Grid.Row="4" Text="{x:Static resx:AppResources.ScanInvitation}" Command="{Binding Path=ScanQrCodeCommand}" 
                     Margin="{StaticResource DefaultMargin}" />
         </Grid>
 

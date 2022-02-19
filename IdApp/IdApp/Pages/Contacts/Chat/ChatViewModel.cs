@@ -32,6 +32,7 @@ using IdApp.Services.Xmpp;
 using IdApp.Services.Messages;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Contacts.Chat
 {

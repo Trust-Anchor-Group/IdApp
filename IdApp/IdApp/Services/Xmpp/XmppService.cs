@@ -43,6 +43,7 @@ using Waher.Runtime.Settings;
 using Waher.Networking.XMPP.Abuse;
 using IdApp.Popups.Xmpp.ReportType;
 using IdApp.Services.UI.Photos;
+using IdApp.Resx;
 
 namespace IdApp.Services.Xmpp
 {

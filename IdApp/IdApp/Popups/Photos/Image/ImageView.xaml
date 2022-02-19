@@ -2,7 +2,7 @@
 <views:ContentBaseView xmlns="http://xamarin.com/schemas/2014/forms" 
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:idApp="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:photos="clr-namespace:IdApp.Services.UI.Photos;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
                        x:DataType="model:ImageViewModel"
@@ -50,7 +50,7 @@
                             <SolidColorBrush Color="{StaticResource HeadingBackground}"/>
                         </Ellipse.Stroke>
                     </Ellipse>
-                    <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static idApp:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label FontFamily="{StaticResource FontAwesomeSolid}" Text="{x:Static resx:FontAwesome.Times}" FontSize="Large" Margin="1,1,0,0" TextColor="{StaticResource HeadingBackground}" HorizontalOptions="Center" VerticalOptions="Center"/>
                 </Grid>
             </Grid>
         </Frame>

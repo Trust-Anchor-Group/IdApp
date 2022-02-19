@@ -2,16 +2,16 @@
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:model="clr-namespace:IdApp.Pages.Contacts;assembly=IdApp"
                        xmlns:services="clr-namespace:IdApp.Services;assembly=IdApp"
                        x:DataType="model:ContactListViewModel"
                        x:Class="IdApp.Pages.Contacts.MyContacts.MyContactsPage"
-                       Title="{x:Static local:AppResources.Contacts}">
+                       Title="{x:Static resx:AppResources.Contacts}">
     <StackLayout Margin="{StaticResource DefaultMargin}">
-        <Label Text="{x:Static local:AppResources.Contacts}" Style="{StaticResource Heading}"/>
+        <Label Text="{x:Static resx:AppResources.Contacts}" Style="{StaticResource Heading}"/>
         <Label Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
-        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContactsMissing}" Text="{x:Static local:AppResources.NoContactsFound}" />
+        <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContactsMissing}" Text="{x:Static resx:AppResources.NoContactsFound}" />
         <ListView x:Name="Contacts" HasUnevenRows="True" ItemsSource="{Binding Path=Contacts}" SelectedItem="{Binding Path=SelectedContact, Mode=TwoWay}" VerticalOptions="StartAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="services:ContactInfo">

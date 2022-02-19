@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.DeviceSpecific;
+using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using Waher.Content;
 using Xamarin.Forms;

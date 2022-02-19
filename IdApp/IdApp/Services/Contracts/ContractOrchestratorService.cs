@@ -16,6 +16,7 @@ using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.StanzaErrors;
 using Waher.Runtime.Inventory;
 using IdApp.Services.Xmpp;
+using IdApp.Resx;
 
 namespace IdApp.Services.Contracts
 {

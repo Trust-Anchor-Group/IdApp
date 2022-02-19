@@ -28,6 +28,7 @@ using Xamarin.Forms;
 using IdApp.Services.Ocr;
 using IdApp.Nfc.Extensions;
 using IdApp.Cv.Arithmetics;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Registration.RegisterIdentity
 {

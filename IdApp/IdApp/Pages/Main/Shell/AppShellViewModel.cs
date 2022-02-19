@@ -4,6 +4,7 @@ using Waher.Networking.XMPP;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Services.Xmpp;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Main.Shell
 {

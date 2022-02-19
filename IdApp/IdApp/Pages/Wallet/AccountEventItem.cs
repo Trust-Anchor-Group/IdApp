@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Resx;
+using System;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <views:ContentBasePage xmlns="http://xamarin.com/schemas/2014/forms"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                       xmlns:local="clr-namespace:IdApp;assembly=IdApp"
+                       xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                        xmlns:views="clr-namespace:IdApp.Pages;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        xmlns:image="clr-namespace:IdApp.Popups.Photos.Image;assembly=IdApp"
@@ -9,14 +9,14 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Identity.ViewIdentity;assembly=IdApp"
                        x:DataType="model:ViewIdentityViewModel"
                        x:Class="IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage"
-                       Title="{x:Static local:AppResources.Identity}">
+                       Title="{x:Static resx:AppResources.Identity}">
     <Grid>
         <ScrollView>
             <StackLayout Margin="{StaticResource DefaultMargin}" VerticalOptions="Start">
-                <Label Text="{x:Static local:AppResources.IdentityInformation}" Style="{StaticResource Heading}" IsVisible="{Binding Path=IsNotForReview}" />
-                <Label Text="{x:Static local:AppResources.ViewIdentityInformationText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=IsNotForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
-                <Label Text="{x:Static local:AppResources.PeerReview}" Style="{StaticResource Heading}" IsVisible="{Binding Path=IsForReview}" />
-                <Label Text="{x:Static local:AppResources.ReviewIdentityInformationText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+                <Label Text="{x:Static resx:AppResources.IdentityInformation}" Style="{StaticResource Heading}" IsVisible="{Binding Path=IsNotForReview}" />
+                <Label Text="{x:Static resx:AppResources.ViewIdentityInformationText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=IsNotForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
+                <Label Text="{x:Static resx:AppResources.PeerReview}" Style="{StaticResource Heading}" IsVisible="{Binding Path=IsForReview}" />
+                <Label Text="{x:Static resx:AppResources.ReviewIdentityInformationText}" Style="{StaticResource InfoText}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}" />
                 <Grid VerticalOptions="StartAndExpand">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -47,73 +47,73 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- - -->
-                    <Label Grid.Row="0" Grid.Column="1" Text="{x:Static local:AppResources.Created}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{x:Static resx:AppResources.Created}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="0" Grid.Column="2" Text="{Binding Path=Created}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
-                    <Label Grid.Row="1" Grid.Column="1" Text="{x:Static local:AppResources.Updated}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{x:Static resx:AppResources.Updated}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="1" Grid.Column="2" Text="{Binding Path=Updated}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
-                    <Label Grid.Row="2" Grid.Column="1" Text="{x:Static local:AppResources.State}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="2" Grid.Column="1" Text="{x:Static resx:AppResources.State}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="2" Grid.Column="2" Text="{Binding Path=State}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="3" Grid.Column="0" IsVisible="{Binding Path=IsForReviewFirstName}" IsChecked="{Binding Path=FirstNameIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="3" Grid.Column="1" Text="{x:Static local:AppResources.FirstName}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="3" Grid.Column="1" Text="{x:Static resx:AppResources.FirstName}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="3" Grid.Column="2" Text="{Binding Path=FirstName}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="4" Grid.Column="0" IsVisible="{Binding Path=IsForReviewMiddleNames}" IsChecked="{Binding Path=MiddleNamesIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="4" Grid.Column="1" Text="{x:Static local:AppResources.MiddleNames}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="4" Grid.Column="1" Text="{x:Static resx:AppResources.MiddleNames}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="4" Grid.Column="2" Text="{Binding Path=MiddleNames}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="5" Grid.Column="0" IsVisible="{Binding Path=IsForReviewLastNames}" IsChecked="{Binding Path=LastNamesIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="5" Grid.Column="1" Text="{x:Static local:AppResources.LastNames}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="5" Grid.Column="1" Text="{x:Static resx:AppResources.LastNames}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="5" Grid.Column="2" Text="{Binding Path=LastNames}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="6" Grid.Column="0" IsVisible="{Binding Path=IsForReviewPersonalNumber}" IsChecked="{Binding Path=PersonalNumberIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="6" Grid.Column="1" Text="{x:Static local:AppResources.PersonalNumber}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="6" Grid.Column="1" Text="{x:Static resx:AppResources.PersonalNumber}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="6" Grid.Column="2" Text="{Binding Path=PersonalNumber}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="7" Grid.Column="0" IsVisible="{Binding Path=IsForReviewAddress}" IsChecked="{Binding Path=AddressIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="7" Grid.Column="1" Text="{x:Static local:AppResources.Address}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="7" Grid.Column="1" Text="{x:Static resx:AppResources.Address}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="7" Grid.Column="2" Text="{Binding Path=Address}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="8" Grid.Column="0" IsVisible="{Binding Path=IsForReviewAddress2}" IsChecked="{Binding Path=Address2IsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="8" Grid.Column="1" Text="{x:Static local:AppResources.Address2}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="8" Grid.Column="1" Text="{x:Static resx:AppResources.Address2}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="8" Grid.Column="2" Text="{Binding Path=Address2}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="9" Grid.Column="0" IsVisible="{Binding Path=IsForReviewZipCode}" IsChecked="{Binding Path=ZipCodeIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="9" Grid.Column="1" Text="{x:Static local:AppResources.ZipCode}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="9" Grid.Column="1" Text="{x:Static resx:AppResources.ZipCode}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="9" Grid.Column="2" Text="{Binding Path=ZipCode}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="10" Grid.Column="0" IsVisible="{Binding Path=IsForReviewArea}" IsChecked="{Binding Path=AreaIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="10" Grid.Column="1" Text="{x:Static local:AppResources.Area}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="10" Grid.Column="1" Text="{x:Static resx:AppResources.Area}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="10" Grid.Column="2" Text="{Binding Path=Area}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="11" Grid.Column="0" IsVisible="{Binding Path=IsForReviewCity}" IsChecked="{Binding Path=CityIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="11" Grid.Column="1" Text="{x:Static local:AppResources.City}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="11" Grid.Column="1" Text="{x:Static resx:AppResources.City}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="11" Grid.Column="2" Text="{Binding Path=City}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="12" Grid.Column="0" IsVisible="{Binding Path=IsForReviewRegion}" IsChecked="{Binding Path=RegionIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="12" Grid.Column="1" Text="{x:Static local:AppResources.Region}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="12" Grid.Column="1" Text="{x:Static resx:AppResources.Region}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="12" Grid.Column="2" Text="{Binding Path=Region}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
                     <CheckBox Grid.Row="13" Grid.Column="0" IsVisible="{Binding Path=IsForReviewCountry}" IsChecked="{Binding Path=CountryCodeIsChecked, Mode=TwoWay}"/>
-                    <Label Grid.Row="13" Grid.Column="1" Text="{x:Static local:AppResources.Country}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="13" Grid.Column="1" Text="{x:Static resx:AppResources.Country}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="13" Grid.Column="2" Text="{Binding Path=Country}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
-                    <Label Grid.Row="14" Grid.Column="1" Text="{x:Static local:AppResources.ID}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="14" Grid.Column="1" Text="{x:Static resx:AppResources.ID}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="14" Grid.Column="2" Text="{Binding Path=LegalId}" Style="{StaticResource ClickableValueLabel}">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding CopyCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
                     <!-- - -->
-                    <Label Grid.Row="15" Grid.Column="1" Text="{x:Static local:AppResources.Network}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="15" Grid.Column="1" Text="{x:Static resx:AppResources.Network}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="15" Grid.Column="2" Text="{Binding Path=BareJid}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
-                    <Label Grid.Row="16" Grid.Column="1" Text="{x:Static local:AppResources.PublicKey}" Style="{StaticResource KeyLabel}" />
+                    <Label Grid.Row="16" Grid.Column="1" Text="{x:Static resx:AppResources.PublicKey}" Style="{StaticResource KeyLabel}" />
                     <Label Grid.Row="16" Grid.Column="2" Text="{Binding Path=PublicKey}" Style="{StaticResource ValueLabel}"/>
                     <!-- - -->
-                    <Label Grid.Row="17" Grid.Column="1" Text="{x:Static local:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
+                    <Label Grid.Row="17" Grid.Column="1" Text="{x:Static resx:AppResources.Photos}" HorizontalOptions="StartAndExpand" />
                     <ScrollView Grid.Row="17" Grid.Column="2" Orientation="Horizontal" HeightRequest="68">
                         <FlexLayout x:Name="PhotosLayout"
                             AlignContent="Center"
@@ -136,46 +136,46 @@
                     <Image Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="3" x:Name="QrCode" Source="{Binding Path=QrCode}" IsVisible="{Binding Path=HasQrCode}" WidthRequest="{Binding Path=QrCodeWidth, Mode=OneTime}" HeightRequest="{Binding Path=QrCodeHeight, Mode=OneTime}" HorizontalOptions="CenterAndExpand" Margin="0" />
                     <!-- - -->
                     <CheckBox Grid.Row="19" Grid.Column="0" x:Name="CarefulReviewCheck" IsChecked="{Binding Path=CarefulReviewIsChecked, Mode=TwoWay}" IsVisible="{Binding Path=IsForReview}"/>
-                    <Label Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IHaveCarefullyReviewedAllInformationAbove}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12"/>
+                    <Label Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static resx:AppResources.IHaveCarefullyReviewedAllInformationAbove}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12"/>
                     <!-- - -->
                     <CheckBox Grid.Row="20" Grid.Column="0" x:Name="ApprovePiiCheck" IsChecked="{Binding Path=ApprovePiiIsChecked, Mode=TwoWay}" IsVisible="{Binding Path=IsForReview}"/>
-                    <Label Grid.Row="20" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static local:AppResources.IApproveOfMyPersonalInformationToBeAssociated}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12" />
+                    <Label Grid.Row="20" Grid.Column="1" Grid.ColumnSpan="2" Text="{x:Static resx:AppResources.IApproveOfMyPersonalInformationToBeAssociated}" VerticalOptions="FillAndExpand" IsVisible="{Binding Path=IsForReview}" Margin="0,0,0,12" />
                 </Grid>
                 <Label x:Name="ConnectionState" HorizontalOptions="CenterAndExpand" Text="{Binding Path=ConnectionStateText}" IsVisible="{Binding Path=IsConnected, Converter={converters:LogicalNot}}"/>
-                <Button Text="{x:Static local:AppResources.ApproveInformation}"
+                <Button Text="{x:Static resx:AppResources.ApproveInformation}"
                             Command="{Binding Path=ApproveCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static local:AppResources.RejectInformation}" 
+                <Button Text="{x:Static resx:AppResources.RejectInformation}" 
                             Command="{Binding Path=RejectCommand}" IsVisible="{Binding Path=IsForReview}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static local:AppResources.ChangePin}" 
+                <Button Text="{x:Static resx:AppResources.ChangePin}" 
                             Command="{Binding Path=ChangePinCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
-                <Button Text="{x:Static local:AppResources.ReportAsCompromized}" 
+                <Button Text="{x:Static resx:AppResources.ReportAsCompromized}" 
                             Command="{Binding Path=CompromiseCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
-                <Button Text="{x:Static local:AppResources.RevokeInformation}" 
+                <Button Text="{x:Static resx:AppResources.RevokeInformation}" 
                             Command="{Binding Path=RevokeCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
-                <Button Text="{x:Static local:AppResources.TransferId}" 
+                <Button Text="{x:Static resx:AppResources.TransferId}" 
                             Command="{Binding Path=TransferCommand}" IsVisible="{Binding Path=IsPersonal}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}"/>
-                <Button Text="{x:Static local:AppResources.AddContact}" 
+                <Button Text="{x:Static resx:AppResources.AddContact}" 
                             Command="{Binding Path=AddContactCommand}" IsVisible="{Binding Path=ThirdPartyNotInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static local:AppResources.RemoveContact}" 
+                <Button Text="{x:Static resx:AppResources.RemoveContact}" 
                             Command="{Binding Path=RemoveContactCommand}" IsVisible="{Binding Path=ThirdPartyInContacts}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static local:AppResources.SendPaymentTo}" 
+                <Button Text="{x:Static resx:AppResources.SendPaymentTo}" 
                             Command="{Binding Path=SendPaymentToCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static local:AppResources.Chat}" 
+                <Button Text="{x:Static resx:AppResources.Chat}" 
                             Command="{Binding Path=ChatCommand}" IsVisible="{Binding Path=ThirdParty}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static local:AppResources.SubscribeTo}" 
+                <Button Text="{x:Static resx:AppResources.SubscribeTo}" 
                             Command="{Binding Path=SubscribeToCommand}" IsVisible="{Binding Path=NotSubscribed}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
-                <Button Text="{x:Static local:AppResources.UnsubscribeFrom}" 
+                <Button Text="{x:Static resx:AppResources.UnsubscribeFrom}" 
                             Command="{Binding Path=UnsubscribeFromCommand}" IsVisible="{Binding Path=Subscribed}" Margin="{StaticResource DefaultBottomOnlyMargin}"
                             IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" />
             </StackLayout>

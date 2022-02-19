@@ -13,6 +13,7 @@ using IdApp.Services.UI.QR;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
+using IdApp.Resx;
 
 namespace IdApp.Pages.Registration.ValidateIdentity
 {

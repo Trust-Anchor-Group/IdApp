@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IdApp.Pages.Contracts.MyContracts.ObjectModel;
 using IdApp.Pages.Contracts.NewContract;
 using IdApp.Pages.Contracts.ViewContract;
+using IdApp.Resx;
 using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
