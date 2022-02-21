@@ -236,10 +236,12 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 			try
 			{
+				var phoneNumber = TrimPhoneNumber(this.PhoneNumber);
+
 				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
 					new Dictionary<string, object>()
 					{
-						{ "Nr", this.PhoneNumber }
+						{ "Nr", phoneNumber }
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
 
 				if (Result is Dictionary<string, object> Response &&
@@ -281,10 +283,12 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 			try
 			{
+				var phoneNumber = TrimPhoneNumber(this.PhoneNumber);
+
 				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
 					new Dictionary<string, object>()
 					{
-						{ "Nr", this.PhoneNumber },
+						{ "Nr", phoneNumber },
 						{ "Code", int.Parse(this.VerificationCode) },
 						{ "Test", this.Purpose == (int)PurposeUse.EducationalOrExperimental }
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
@@ -297,7 +301,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				{
 					bool DefaultConnectivity;
 
-					this.TagProfile.SetPhone(this.PhoneNumber);
+					this.TagProfile.SetPhone(phoneNumber);
 
 					try
 					{
@@ -344,9 +348,18 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			return this.IsInternationalPhoneNumberFormat(this.PhoneNumber);
 		}
 
+		private string TrimPhoneNumber(string PhoneNr)
+        {
+			return PhoneNr.Trim().Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "");
+		}
+
 		private bool IsInternationalPhoneNumberFormat(string PhoneNr)
-		{
-			return !string.IsNullOrEmpty(PhoneNr) && internationalPhoneNr.IsMatch(PhoneNr);
+		{	
+			if (string.IsNullOrEmpty(PhoneNr))
+				return false;
+
+			var phoneNumber = TrimPhoneNumber(PhoneNr);
+			return internationalPhoneNr.IsMatch(phoneNumber);
 		}
 
 		private bool IsVerificationCode(string Code)

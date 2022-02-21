@@ -55,7 +55,7 @@
                         <Label Grid.Row="1" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagPurposeSelected}" 
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" FontSize="Body" />
                         <Entry Grid.Row="2" x:Name="PhoneNumberEntry" Placeholder="{x:Static resx:AppResources.EnterPhoneNumber}" 
-                               ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" 
+                               ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" Keyboard="Telephone"
                                Text="{Binding Path=PhoneNumber, Mode=TwoWay}" Margin="{StaticResource DefaultMargin}">
                             <Entry.Behaviors>
                                 <behaviors:ScrollToCompletedBehavior ScrollTo="SendCodeButton" 
@@ -80,8 +80,8 @@
                         <Label Grid.Row="0" Margin="{StaticResource DefaultMargin}" Text="{x:Static resx:AppResources.WelcomeToTagCodeSent}" FontSize="Body"
                            VerticalOptions="Start" TextColor="Black" HorizontalOptions="Center" />
                         <Entry Grid.Row="1" x:Name="VerificationCodeEntry" Placeholder="{x:Static resx:AppResources.VerificationCode}" 
-                                ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" Margin="{StaticResource DefaultMargin}" 
-                                Text="{Binding Path=VerificationCode, Mode=TwoWay}">
+                               ClearButtonVisibility="WhileEditing" IsSpellCheckEnabled="False" Keyboard="Numeric"
+                               Margin="{StaticResource DefaultMargin}" Text="{Binding Path=VerificationCode, Mode=TwoWay}">
                             <Entry.Behaviors>
                                 <behaviors:ScrollToCompletedBehavior ScrollTo="VerifyCodeButton" 
                                                                      BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
