@@ -236,12 +236,12 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 			try
 			{
-				var phoneNumber = TrimPhoneNumber(this.PhoneNumber);
+				string TrimmedNumber = TrimPhoneNumber(this.PhoneNumber);
 
 				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/SendVerificationMessage.ws"),
 					new Dictionary<string, object>()
 					{
-						{ "Nr", phoneNumber }
+						{ "Nr", TrimmedNumber }
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
 
 				if (Result is Dictionary<string, object> Response &&
@@ -283,12 +283,12 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 
 			try
 			{
-				var phoneNumber = TrimPhoneNumber(this.PhoneNumber);
+				string TrimmedNumber = TrimPhoneNumber(this.PhoneNumber);
 
 				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
 					new Dictionary<string, object>()
 					{
-						{ "Nr", phoneNumber },
+						{ "Nr", TrimmedNumber },
 						{ "Code", int.Parse(this.VerificationCode) },
 						{ "Test", this.Purpose == (int)PurposeUse.EducationalOrExperimental }
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
@@ -301,7 +301,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 				{
 					bool DefaultConnectivity;
 
-					this.TagProfile.SetPhone(phoneNumber);
+					this.TagProfile.SetPhone(TrimmedNumber);
 
 					try
 					{
