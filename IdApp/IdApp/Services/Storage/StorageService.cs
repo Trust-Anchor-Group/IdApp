@@ -48,6 +48,7 @@ namespace IdApp.Services.Storage
 			try
 			{
 				Thread?.NewState("Provider");
+
 				if (Database.HasProvider)
 					this.databaseProvider = Database.Provider as FilesProvider;
 
@@ -60,16 +61,7 @@ namespace IdApp.Services.Storage
 
 					await this.databaseProvider.Start();
 				}
-			}
-			catch (Exception e1)
-			{
-				e1 = Log.UnnestException(e1);
-				Thread?.Exception(e1);
-				this.LogService.LogException(e1);
-			}
 
-			try
-			{
 				Thread?.NewState("Register");
 
 				if (!(databaseProvider is null))
@@ -80,17 +72,21 @@ namespace IdApp.Services.Storage
 					return;
 				}
 			}
-			catch (Exception e)
+			catch (Exception e1)
 			{
-				e = Log.UnnestException(e);
-				Thread?.Exception(e);
-				this.LogService.LogException(e);
+				e1 = Log.UnnestException(e1);
+				Thread?.Exception(e1);
+				this.LogService.LogException(e1);
 			}
 
 			try
 			{
+				/* On iOS the UI is not initialised at this point, need to fuind another solution
 				Thread?.NewState("UI");
 				if (await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseCorruptInfoText, AppResources.RepairAndContinue, AppResources.ContinueAnyway))
+				*/
+				//TODO: when UI is ready, show an alert that the database was reset due to unrecoverable error
+				//TODO: say to close the application in a controlled manner
 				{
 					try
 					{
@@ -120,8 +116,11 @@ namespace IdApp.Services.Storage
 						Thread?.Exception(e3);
 						this.LogService.LogException(e3);
 
+						await App.Stop();
+						/*
 						Thread?.NewState("UI");
 						await this.UiSerializer.DisplayAlert(AppResources.DatabaseIssue, AppResources.DatabaseRepairFailedInfoText, AppResources.Ok);
+						*/
 					}
 				}
 
