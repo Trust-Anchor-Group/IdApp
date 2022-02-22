@@ -54,20 +54,29 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="FirstNameEntry" HorizontalOptions="FillAndExpand" Placeholder="{x:Static resx:AppResources.FirstName}" Text="{Binding Path=FirstName}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                        <Entry x:Name="FirstNameEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                               Placeholder="{x:Static resx:AppResources.FirstName}" Text="{Binding Path=FirstName}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                             <Entry.Behaviors>
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="MiddleNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
-                    <Entry x:Name="MiddleNamesEntry" Placeholder="{x:Static resx:AppResources.MiddleNames}" Text="{Binding Path=MiddleNames}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                    <Entry x:Name="MiddleNamesEntry"
+                           IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                           Placeholder="{x:Static resx:AppResources.MiddleNames}" Text="{Binding Path=MiddleNames}"
+                           IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                         <Entry.Behaviors>
                             <behaviors:SetFocusOnCompletedBehavior SetFocusTo="LastNamesEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>
                     </Entry>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="LastNamesEntry" HorizontalOptions="FillAndExpand" Placeholder="{x:Static resx:AppResources.LastNames}" Text="{Binding Path=LastNames}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                        <Entry x:Name="LastNamesEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                               Placeholder="{x:Static resx:AppResources.LastNames}" Text="{Binding Path=LastNames}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                             <Entry.Behaviors>
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="PersonalNumberEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
@@ -75,7 +84,10 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="PersonalNumberEntry" HorizontalOptions="FillAndExpand" Placeholder="{Binding Path=PersonalNumberPlaceholder}" Text="{Binding Path=PersonalNumber}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                        <Entry x:Name="PersonalNumberEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Numeric"
+                               Placeholder="{Binding Path=PersonalNumberPlaceholder}" Text="{Binding Path=PersonalNumber}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                             <Entry.Behaviors>
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AddressEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
@@ -83,40 +95,57 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="AddressEntry" HorizontalOptions="FillAndExpand" Placeholder="{x:Static resx:AppResources.Address}" Text="{Binding Path=Address}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                        <Entry x:Name="AddressEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                               Placeholder="{x:Static resx:AppResources.Address}" Text="{Binding Path=Address}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                             <Entry.Behaviors>
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="Address2Entry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
-                    <Entry x:Name="Address2Entry" Placeholder="{x:Static resx:AppResources.Address2}" Text="{Binding Path=Address2}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                    <Entry x:Name="Address2Entry"
+                           IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                           Placeholder="{x:Static resx:AppResources.Address2}" Text="{Binding Path=Address2}"
+                           IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                         <Entry.Behaviors>
                             <behaviors:SetFocusOnCompletedBehavior SetFocusTo="ZipCodeEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>
                     </Entry>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="ZipCodeEntry" HorizontalOptions="FillAndExpand" Placeholder="{x:Static resx:AppResources.ZipCode}" Text="{Binding Path=ZipCode}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                        <Entry x:Name="ZipCodeEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Plain"
+                               Placeholder="{x:Static resx:AppResources.ZipCode}" Text="{Binding Path=ZipCode}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                             <Entry.Behaviors>
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="AreaEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
-                    <Entry x:Name="AreaEntry" Placeholder="{x:Static resx:AppResources.Area}" Text="{Binding Path=Area}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                    <Entry x:Name="AreaEntry"
+                           IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                           Placeholder="{x:Static resx:AppResources.Area}" Text="{Binding Path=Area}"
+                           IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                         <Entry.Behaviors>
                             <behaviors:SetFocusOnCompletedBehavior SetFocusTo="CityEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                         </Entry.Behaviors>
                     </Entry>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="CityEntry" HorizontalOptions="FillAndExpand" Placeholder="{x:Static resx:AppResources.City}" Text="{Binding Path=City}" IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
+                        <Entry x:Name="CityEntry" HorizontalOptions="FillAndExpand"
+                               IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                               Placeholder="{x:Static resx:AppResources.City}" Text="{Binding Path=City}"
+                               IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
                             <Entry.Behaviors>
                                 <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegionEntry" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>
                             </Entry.Behaviors>
                         </Entry>
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
-                    <Entry x:Name="RegionEntry" Placeholder="{x:Static resx:AppResources.Region}" Text="{Binding Path=Region}" 
+                    <Entry x:Name="RegionEntry"
+                           IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text"
+                           Placeholder="{x:Static resx:AppResources.Region}" Text="{Binding Path=Region}" 
                            IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" Focused="RegionEntry_Focused">
                         <Entry.Behaviors>
                             <behaviors:SetFocusOnCompletedBehavior SetFocusTo="RegisterButton" BindingContext="{Binding BindingContext, Source={x:Reference RegistrationLayout}}"/>

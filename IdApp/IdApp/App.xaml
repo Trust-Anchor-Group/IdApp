@@ -53,7 +53,7 @@
                 <Trigger TargetType="Button"
                          Property="IsEnabled"
                          Value="False">
-                    <Setter Property="BackgroundColor" Value="Gray" />
+                    <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackgroundLight}" />
                 </Trigger>
             </Style.Triggers>
         </Style>
