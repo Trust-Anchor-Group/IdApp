@@ -28,7 +28,7 @@
             </Label>
             <StackLayout Grid.Row="1" Orientation="Vertical" Margin="{StaticResource DefaultLeftRightAndBottomMargin}" VerticalOptions="Start">
                 <Label Text="{x:Static resx:AppResources.Account}" FontSize="Body"/>
-                <Entry Text="{Binding Path=AccountName}" Keyboard="Email"/>
+                <Entry Text="{Binding Path=AccountName}" Keyboard="Email" ReturnType="Done"/>
             </StackLayout>
             <ActivityIndicator Grid.Row="2" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" 
                                VerticalOptions="Center" Margin="{StaticResource DefaultMargin}" Color="{StaticResource AccentColor}"/>
