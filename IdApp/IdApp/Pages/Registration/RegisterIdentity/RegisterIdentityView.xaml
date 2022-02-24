@@ -66,7 +66,7 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="MiddleNamesEntry"
+                        <Entry x:Name="MiddleNamesEntry" HorizontalOptions="FillAndExpand"
                                IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
                                Placeholder="{x:Static resx:AppResources.MiddleNames}" Text="{Binding Path=MiddleNames}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
@@ -110,7 +110,7 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="Address2Entry"
+                        <Entry x:Name="Address2Entry" HorizontalOptions="FillAndExpand"
                                IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
                                Placeholder="{x:Static resx:AppResources.Address2}" Text="{Binding Path=Address2}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
@@ -132,7 +132,7 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="AreaEntry"
+                        <Entry x:Name="AreaEntry" HorizontalOptions="FillAndExpand"
                                IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Next"
                                Placeholder="{x:Static resx:AppResources.Area}" Text="{Binding Path=Area}"
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}">
@@ -154,7 +154,7 @@
                         <Label Text="*" TextColor="{StaticResource AlertColor}" VerticalOptions="Center"/>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <Entry x:Name="RegionEntry"
+                        <Entry x:Name="RegionEntry" HorizontalOptions="FillAndExpand"
                                IsSpellCheckEnabled="False" IsTextPredictionEnabled="False" Keyboard="Text" ReturnType="Done"
                                Placeholder="{x:Static resx:AppResources.Region}" Text="{Binding Path=Region}" 
                                IsEnabled="{Binding Path=IsBusy, Converter={converters:LogicalNot}}" Focused="RegionEntry_Focused">
