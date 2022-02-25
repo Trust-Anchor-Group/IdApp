@@ -50,7 +50,6 @@ namespace IdApp.Pages.Contacts
 
 			SortedDictionary<string, ContactInfo> Sorted = new SortedDictionary<string, ContactInfo>();
 			Dictionary<CaseInsensitiveString, bool> Jids = new Dictionary<CaseInsensitiveString, bool>();
-			int i;
 
 			foreach (ContactInfo Info in await Database.Find<ContactInfo>())
 			{
