@@ -15,6 +15,7 @@ namespace IdApp.Services.Crypto
 	[Singleton]
 	internal sealed class CryptoService : ServiceReferences, ICryptoService
 	{
+		private readonly string basePath;
 		private readonly string deviceId;
 		private readonly RandomNumberGenerator rnd;
 
@@ -22,6 +23,7 @@ namespace IdApp.Services.Crypto
 		{
 			IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
 
+			this.basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			this.deviceId = deviceInfo?.GetDeviceId() + "_";
 			this.rnd = RandomNumberGenerator.Create();
 		}
@@ -33,7 +35,7 @@ namespace IdApp.Services.Crypto
 			string s = string.Empty;
 			int i;
 
-			string FileNameHash = deviceId + Path.GetFileName(fileName);
+			string FileNameHash = deviceId + Path.GetRelativePath(basePath, fileName);
 
 			try
 			{
