@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdApp", "IdApp\IdApp\IdApp.csproj", "{8D6D18DD-9739-4F11-808E-252D7A53D032}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{21240F73-9B95-4AF8-B1B1-E4197FAB406A}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{F13E31E8-60F7-4F2F-B69E-7B6655CCE57B}"
 	ProjectSection(SolutionItems) = preProject
