@@ -9,5 +9,9 @@
 		<string>NDEF</string>
 		<string>TAG</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.trustanchorgroup.neuroid</string>
+	</array>
 </dict>
 </plist>

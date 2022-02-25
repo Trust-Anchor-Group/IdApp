@@ -67,7 +67,7 @@
                             Text="{x:Static resx:AppResources.SendCode}" Command="{Binding Path=SendCodeCommand}"
                             IsEnabled="{Binding Path=PhoneNumberValid}" IsVisible="{Binding Path=PurposeSelected}">
                         <Button.Behaviors>
-                            <behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator" 
+                            <behaviors:ScrollToClickedBehavior ScrollTo="BottomIndicator" 
                                                                BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
                         </Button.Behaviors>
                     </Button>
@@ -92,11 +92,12 @@
                             Text="{x:Static resx:AppResources.VerifyCode}" Command="{Binding Path=VerifyCodeCommand}"
                             IsEnabled="{Binding Path=VerificationCodeValid}" IsVisible="{Binding Path=CodeSent}">
                         <Button.Behaviors>
-                            <behaviors:ScrollToClickedBehavior ScrollTo="ActivityIndicator" 
+                            <behaviors:ScrollToClickedBehavior ScrollTo="BottomIndicator" 
                                                                BindingContext="{Binding BindingContext, Source={x:Reference Frames}}"/>
                         </Button.Behaviors>
                     </Button>
                     <ActivityIndicator x:Name="ActivityIndicator" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
+                    <BoxView x:Name="BottomIndicator" HeightRequest="1" Color="#00000"/>
                 </StackLayout>
             </ScrollView>
         </Grid>
