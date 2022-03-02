@@ -11,19 +11,23 @@
                        Shell.FlyoutBehavior="Disabled" 
                        SizeChanged="ContentBasePage_SizeChanged">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
-            <Grid x:Name="AutomaticScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
+        <StackLayout Spacing="12" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
+            <Grid x:Name="AutomaticScanGrid"
+                  VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"
+                  IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
                 <forms:ZXingScannerView x:Name="Scanner"
                                         OnScanResult="Scanner_OnScanResult"
                                         IsScanning="True"
-                                        HeightRequest="400"
-                                        VerticalOptions="CenterAndExpand"
-                                        HorizontalOptions="CenterAndExpand"/>
+                                        VerticalOptions="FillAndExpand"
+                                        HorizontalOptions="FillAndExpand"/>
                 <forms:ZXingDefaultOverlay TopText="{x:Static resx:AppResources.QrScanOverlay}"/>
             </Grid>
-            <StackLayout x:Name="ManualScanGrid" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand" IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
+            <StackLayout x:Name="ManualScanGrid"
+                         VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand"
+                         IsVisible="{Binding Path=ScanIsManual, Mode=OneWay}">
                 <Label Text="{x:Static resx:AppResources.QrScanUri}" HorizontalOptions="FillAndExpand"/>
-                <Entry x:Name="LinkEntry" Text="{Binding Path=LinkText, Mode=TwoWay}" HorizontalOptions="Fill"/>
+                <Entry x:Name="LinkEntry" Text="{Binding Path=LinkText, Mode=TwoWay}" HorizontalOptions="Fill"
+                       Keyboard="Url" ReturnType="Done"/>
                 <Button x:Name="OpenButton" Clicked="OpenButton_Click" IsEnabled="{Binding Path=OpenIsEnabled}" Text="{Binding Path=OpenCommandText}"/>
             </StackLayout>
             <Button x:Name="ModeButton" Text="{Binding Path=ModeText}" Command="{Binding Path=SwitchModeCommand}"/>

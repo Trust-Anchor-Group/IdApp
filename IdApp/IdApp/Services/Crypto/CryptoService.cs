@@ -1,21 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using IdApp.DeviceSpecific;
 using Waher.Runtime.Inventory;
 using Waher.Security;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace IdApp.Services.Crypto
 {
 	[Singleton]
 	internal sealed class CryptoService : ServiceReferences, ICryptoService
 	{
+		private readonly string basePath;
+		private readonly string deviceId;
 		private readonly RandomNumberGenerator rnd;
 
 		public CryptoService()
 		{
+			IDeviceInformation deviceInfo = DependencyService.Get<IDeviceInformation>();
+
+			this.basePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			this.deviceId = deviceInfo?.GetDeviceId() + "_";
 			this.rnd = RandomNumberGenerator.Create();
 		}
 
@@ -23,12 +32,14 @@ namespace IdApp.Services.Crypto
 		{
 			byte[] key;
 			byte[] iv;
-			string s;
+			string s = string.Empty;
 			int i;
+
+			string FileNameHash = deviceId + Path.GetRelativePath(basePath, fileName);
 
 			try
 			{
-				s = await SecureStorage.GetAsync(fileName);
+				s = await SecureStorage.GetAsync(FileNameHash);
 			}
 			catch (TypeInitializationException ex)
 			{
@@ -59,7 +70,7 @@ namespace IdApp.Services.Crypto
 				}
 
 				s = Hashes.BinaryToString(key) + "," + Hashes.BinaryToString(iv);
-				await SecureStorage.SetAsync(fileName, s);
+				await SecureStorage.SetAsync(FileNameHash, s);
 			}
 
 			return new KeyValuePair<byte[], byte[]>(key, iv);
