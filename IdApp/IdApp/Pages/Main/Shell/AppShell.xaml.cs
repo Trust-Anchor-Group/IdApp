@@ -204,7 +204,7 @@ namespace IdApp.Pages.Main.Shell
 				sb.AppendLine($"Version: {AppInfo.VersionString}");
 				sb.AppendLine($"Platform: {Device.RuntimePlatform}");
 				sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
-				sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Model}");
+				sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Name}");
 				
 				await this.UiSerializer.DisplayAlert(AppResources.About, sb.ToString());
 			});
