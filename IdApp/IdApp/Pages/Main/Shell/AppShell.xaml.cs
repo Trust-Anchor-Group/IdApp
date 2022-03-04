@@ -201,7 +201,7 @@ namespace IdApp.Pages.Main.Shell
 				StringBuilder sb = new StringBuilder();
 				
 				sb.AppendLine($"Name: {AppInfo.Name}");
-				sb.AppendLine($"Version: {AppInfo.VersionString}");
+				sb.AppendLine($"Version: {AppInfo.VersionString}.{AppInfo.BuildString}");
 				sb.AppendLine($"Platform: {Device.RuntimePlatform}");
 				sb.AppendLine($"RuntimeVersion: {GetType().Assembly.ImageRuntimeVersion}");
 				sb.AppendLine($"Phone: {DeviceInfo.Manufacturer} {DeviceInfo.Name}");

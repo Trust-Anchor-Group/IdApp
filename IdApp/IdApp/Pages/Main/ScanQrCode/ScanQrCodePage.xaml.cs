@@ -21,6 +21,12 @@ namespace IdApp.Pages.Main.ScanQrCode
 		{
 			this.ViewModel = new ScanQrCodeViewModel();
 			InitializeComponent();
+
+			Scanner.Options = new MobileBarcodeScanningOptions
+			{
+				PossibleFormats = new List<ZXing.BarcodeFormat> { ZXing.BarcodeFormat.QR_CODE },
+				TryHarder = true
+			};
 		}
 
 		/// <summary>
