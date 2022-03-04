@@ -17,7 +17,7 @@
                   IsVisible="{Binding Path=ScanIsAutomatic, Mode=OneWay}">
                 <forms:ZXingScannerView x:Name="Scanner"
                                         OnScanResult="Scanner_OnScanResult"
-                                        IsScanning="True"
+                                        IsScanning="False" IsAnalyzing="False"
                                         VerticalOptions="FillAndExpand"
                                         HorizontalOptions="FillAndExpand"/>
                 <forms:ZXingDefaultOverlay TopText="{x:Static resx:AppResources.QrScanOverlay}"/>
