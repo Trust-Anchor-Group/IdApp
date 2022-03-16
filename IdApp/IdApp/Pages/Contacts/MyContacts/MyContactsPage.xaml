@@ -14,8 +14,9 @@
         <Label Text="{Binding Path=Description}" HorizontalOptions="Center" VerticalOptions="Start"/>
         <Label TextColor="{StaticResource AlertColor}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Start" IsVisible="{Binding Path=ShowContactsMissing}" Text="{x:Static resx:AppResources.NoContactsFound}" />
 
-        <noBounce:NoBounceCollectionView x:Name="Contacts" VerticalOptions="StartAndExpand" ItemSizingStrategy="MeasureAllItems"
-                                         ItemsSource="{Binding Path=Contacts}" SelectionMode="Single"
+        <noBounce:NoBounceCollectionView x:Name="Contacts" VerticalOptions="StartAndExpand"
+                                         ItemSizingStrategy="MeasureAllItems" SelectionMode="Single"
+                                         ItemsSource="{Binding Path=Contacts}"
                                          SelectedItem="{Binding Path=SelectedContact, Mode=TwoWay}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="0" />
