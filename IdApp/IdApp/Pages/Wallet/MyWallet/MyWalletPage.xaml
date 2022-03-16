@@ -56,23 +56,16 @@
         </Frame>
 
         <ScrollView Grid.Column="0" Grid.Row="1">
-            <StackLayout Margin="{StaticResource DefaultMargin}">
-                <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}" Orientation="Vertical"
-                             BindableLayout.ItemsSource="{Binding Path=PendingPayments}" VerticalOptions="Start">
+            <StackLayout Margin="{StaticResource DefaultMargin}" Spacing="16">
+                <StackLayout x:Name="PendingPaymentsLayout" IsVisible="{Binding Path=HasPending}"
+                             Spacing="16" Orientation="Vertical" VerticalOptions="Start"
+                             BindableLayout.ItemsSource="{Binding Path=PendingPayments}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="model:PendingPaymentItem">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
-                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=ExpiresStr}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Italic"/>
-                                <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="WordWrap" TextColor="{StaticResource PendingColor}" HorizontalTextAlignment="End">
+                            <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto">
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=ExpiresStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Italic"/>
+                                <Label Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" LineBreakMode="TailTruncation" TextColor="{StaticResource PendingColor}" HorizontalTextAlignment="End">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="-" FontSize="30" FontAttributes="Bold"/>
@@ -90,23 +83,15 @@
                     </BindableLayout.ItemTemplate>
                 </StackLayout>
 
-                <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=HasEvents}" Orientation="Vertical"
-                             BindableLayout.ItemsSource="{Binding Path=Events}" VerticalOptions="StartAndExpand">
+                <StackLayout x:Name="AccountEventsLayout" IsVisible="{Binding Path=HasEvents}"
+                             Spacing="16" Orientation="Vertical" VerticalOptions="StartAndExpand"
+                             BindableLayout.ItemsSource="{Binding Path=Events}">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="objectmodel:AccountEventItem">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="1*"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
-                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap" FontAttributes="Bold" FontSize="18"/>
-                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="WordWrap"/>
-                                <Label Grid.Column="1" Grid.Row="0" LineBreakMode="WordWrap" HorizontalTextAlignment="End">
+                            <Grid ColumnDefinitions="2*,*" RowDefinitions="auto,auto,auto">
+                                <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
+                                <Label Grid.Column="0" Grid.Row="1" Text="{Binding Path=TimestampStr}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
+                                <Label Grid.Column="1" Grid.Row="0" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="{Binding Path=Change}" FontSize="18" FontAttributes="Bold" TextColor="{Binding Path=TextColor}"/>
@@ -115,7 +100,7 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Grid.Column="1" Grid.Row="1" LineBreakMode="WordWrap" HorizontalTextAlignment="End">
+                                <Label Grid.Column="1" Grid.Row="1" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text=" ("/>
@@ -126,7 +111,7 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="WordWrap"/>
+                                <Label Grid.Column="0" Grid.Row="2" Text="{Binding Path=Message}" IsVisible="{Binding Path=HasMessage}" LineBreakMode="TailTruncation"/>
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Path=BindingContext.ShowEventCommand, Source={x:Reference AccountEventsLayout}}" CommandParameter="{Binding}" />
                                 </Grid.GestureRecognizers>
