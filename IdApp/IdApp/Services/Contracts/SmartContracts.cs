@@ -136,6 +136,9 @@ namespace IdApp.Services.Contracts
 			do
 			{
 				Contracts = await this.ContractsClient.GetCreatedContractsAsync(Offset, 20);
+				if (!Contracts.Ok)
+					throw Contracts.StanzaError ?? new Exception("Unable to get created contracts.");
+
 				Result.AddRange(Contracts.Contracts);
 				Nr = Contracts.Contracts.Length + Contracts.References.Length;
 				Offset += Nr;
