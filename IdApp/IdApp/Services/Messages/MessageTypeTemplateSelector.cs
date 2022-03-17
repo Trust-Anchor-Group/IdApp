@@ -34,8 +34,8 @@ namespace IdApp.Services.Messages
 					default: return this.DefaultTemplate;
 				}
 			}
-			else
-				return this.DefaultTemplate;
+
+			return this.DefaultTemplate;
 		}
 	}
 }
