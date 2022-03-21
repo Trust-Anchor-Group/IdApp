@@ -55,7 +55,7 @@ namespace IdApp.Services.Messages
 		public ChatMessage()
 		{
 			this.Updated = DateTime.MinValue;
-	
+
 			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.Xmpp));
 			this.IotIdUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotId));
 			this.IotScUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.IotSc));
@@ -215,7 +215,7 @@ namespace IdApp.Services.Messages
 				StackLayout Layout = new StackLayout()
 				{
 					Orientation = StackOrientation.Vertical,
-					StyleId = this.StyleId
+					StyleId = string.IsNullOrEmpty(this.html) && string.IsNullOrEmpty(this.plainText) ? string.Empty : this.StyleId
 				};
 
 				if (!string.IsNullOrEmpty(this.html))
