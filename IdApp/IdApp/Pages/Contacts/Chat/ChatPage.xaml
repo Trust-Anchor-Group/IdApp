@@ -6,48 +6,45 @@
                        xmlns:model="clr-namespace:IdApp.Pages.Contacts.Chat;assembly=IdApp"
                        xmlns:messages="clr-namespace:IdApp.Services.Messages;assembly=IdApp"
                        xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
-                       xmlns:loading="clr-namespace:IdApp.Controls.LoadingCollectionView;assembly=IdApp"
+                       xmlns:loading="clr-namespace:IdApp.Controls.LoadingListView;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
                        x:DataType="model:ChatViewModel"
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
                        Title="{Binding Path=FriendlyName}">
     <views:ContentBasePage.Resources>
         <DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
-            <Frame HorizontalOptions="StartAndExpand" Rotation="180" BackgroundColor="LightYellow" 
-                    Padding="5" CornerRadius="5" Margin="2" BorderColor="Yellow">
-                <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Start"/>
-            </Frame>
+            <ViewCell>
+                <Frame HorizontalOptions="StartAndExpand" Rotation="180" BackgroundColor="LightYellow" 
+                       Padding="5" CornerRadius="5" Margin="2" BorderColor="Yellow">
+                    <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Start"/>
+                </Frame>
+            </ViewCell>
         </DataTemplate>
         <DataTemplate x:Key="ReceivedMessage" x:DataType="messages:ChatMessage">
-            <Frame HorizontalOptions="EndAndExpand" Rotation="180" BackgroundColor="LightBlue" 
-                    Padding="5" CornerRadius="5" Margin="2" BorderColor="SkyBlue">
-                <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="End"/>
-            </Frame>
+            <ViewCell>
+                <Frame HorizontalOptions="EndAndExpand" Rotation="180" BackgroundColor="LightBlue" 
+                       Padding="5" CornerRadius="5" Margin="2" BorderColor="SkyBlue">
+                    <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="End"/>
+                </Frame>
+            </ViewCell>
         </DataTemplate>
         <DataTemplate x:Key="OtherItems" x:DataType="messages:ChatMessage">
-            <Frame HorizontalOptions="CenterAndExpand" Rotation="180" BackgroundColor="LightSalmon" 
-                    Padding="5" CornerRadius="5" Margin="2" BorderColor="Salmon">
-                <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Center"/>
-            </Frame>
+            <ViewCell>
+                <Frame HorizontalOptions="CenterAndExpand" Rotation="180" BackgroundColor="LightSalmon" 
+                       Padding="5" CornerRadius="5" Margin="2" BorderColor="Salmon">
+                    <ContentView Content="{Binding Path=ParsedXaml}" HorizontalOptions="Center"/>
+                </Frame>
+            </ViewCell>
         </DataTemplate>
         <messages:MessageTypeTemplateSelector x:Key="MessageStyleSelector" 
                                               SentTemplate="{StaticResource SentMessage}" 
                                               ReceivedTemplate="{StaticResource ReceivedMessage}" 
                                               DefaultTemplate="{StaticResource OtherItems}"/>
     </views:ContentBasePage.Resources>
-
     <StackLayout Margin="{StaticResource DefaultMargin}">
-        <loading:LoadingCollectionView x:Name="Messages" VerticalOptions="StartAndExpand"
-                                       ItemSizingStrategy="MeasureAllItems" Rotation="180"
-                                       ItemsSource="{Binding Path=Messages}"
-                                       ItemTemplate="{StaticResource MessageStyleSelector}"
-                                       LoadMoreCommand="{Binding Path=LoadMoreMessages}"
-                                       ItemSelectedCommand="{Binding Path=MessageSelected}">
-            <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" VerticalItemSpacing="16" />
-            </CollectionView.ItemsLayout>
-        </loading:LoadingCollectionView>
-
+        <loading:LoadingListView x:Name="Messages" ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}" 
+                                 HasUnevenRows="True" VerticalOptions="StartAndExpand" Rotation="180" SeparatorVisibility="None" 
+                                 LoadMoreCommand="{Binding Path=LoadMoreMessages}" ItemSelectedCommand="{Binding Path=MessageSelected}"/>
         <Frame BorderColor="Black" CornerRadius="5" Padding="5">
             <Grid x:Name="ControlGrid">
                 <Grid.RowDefinitions>
