@@ -36,7 +36,7 @@
                                               DefaultTemplate="{StaticResource OtherItems}"/>
     </views:ContentBasePage.Resources>
 
-    <StackLayout Margin="{StaticResource DefaultMargin}">
+    <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContainerView">
         <loading:LoadingCollectionView x:Name="Messages" VerticalOptions="StartAndExpand"
                                        ItemSizingStrategy="MeasureAllItems" Rotation="180"
                                        ItemsSource="{Binding Path=Messages}"
