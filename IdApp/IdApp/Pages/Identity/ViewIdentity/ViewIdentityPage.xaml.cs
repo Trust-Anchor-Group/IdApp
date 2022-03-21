@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using Waher.Networking.XMPP.Contracts;
 
 namespace IdApp.Pages.Identity.ViewIdentity
@@ -21,10 +22,10 @@ namespace IdApp.Pages.Identity.ViewIdentity
         }
 
         /// <inheritdoc/>
-        protected override void OnDisappearing()
+        protected override Task OnDisappearingAsync()
         {
             this.PhotoViewer.HidePhotos();
-            base.OnDisappearing();
+            return base.OnDisappearingAsync();
         }
 
         /// <summary>

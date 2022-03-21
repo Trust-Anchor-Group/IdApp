@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.MyWallet
 {
@@ -28,18 +29,22 @@ namespace IdApp.Pages.Wallet.MyWallet
             return true;
         }
 
-        /// <inheritdoc />
-        protected override void OnAppearing()
+        /// <summary>
+        /// Asynchronous OnAppearing-method.
+        /// </summary>
+        protected override async Task OnAppearingAsync()
         {
-            base.OnAppearing();
-            _ = this.WalletTabBar.Show();
+            await base.OnAppearingAsync();
+            await this.WalletTabBar.Show();
         }
 
-        /// <inheritdoc />
-        protected override async void OnDisappearing()
+        /// <summary>
+        /// Asynchronous OnAppearing-method.
+        /// </summary>
+        protected override async Task OnDisappearingAsync()
         {
             await this.WalletTabBar.Hide();
-            base.OnDisappearing();
+            await base.OnDisappearingAsync();
         }
     }
 }

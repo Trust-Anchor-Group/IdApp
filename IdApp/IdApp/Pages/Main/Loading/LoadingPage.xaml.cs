@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Main.Loading
@@ -22,9 +23,9 @@ namespace IdApp.Pages.Main.Loading
         /// <summary>
         /// Overridden to start an animation when the page is displayed on screen.
         /// </summary>
-        protected override async void OnAppearing()
+        protected override async Task OnAppearingAsync()
         {
-            base.OnAppearing();
+            await base.OnAppearingAsync();
             await LabelLayout.FadeTo(1.0, 2000, Easing.CubicInOut);
         }
     }

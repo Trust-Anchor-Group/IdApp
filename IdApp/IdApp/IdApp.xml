@@ -556,32 +556,32 @@
             Makes the user control flip from front to back, or the other way around.
             </summary>
         </member>
-        <member name="T:IdApp.Controls.LoadingListView.LoadingListView">
+        <member name="T:IdApp.Controls.LoadingCollectionView.LoadingCollectionView">
             <summary>
             ListView that can load new items when the last items is being displayed
             </summary>
         </member>
-        <member name="F:IdApp.Controls.LoadingListView.LoadingListView.LoadMoreCommandProperty">
+        <member name="F:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.LoadMoreCommandProperty">
             <summary>
             
             </summary>
         </member>
-        <member name="P:IdApp.Controls.LoadingListView.LoadingListView.LoadMoreCommand">
+        <member name="P:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.LoadMoreCommand">
             <summary>
             Command executed when last item is appearing and new data should be loaded.
             </summary>
         </member>
-        <member name="F:IdApp.Controls.LoadingListView.LoadingListView.ItemSelectedCommandProperty">
+        <member name="F:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.ItemSelectedCommandProperty">
             <summary>
             
             </summary>
         </member>
-        <member name="P:IdApp.Controls.LoadingListView.LoadingListView.ItemSelectedCommand">
+        <member name="P:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.ItemSelectedCommand">
             <summary>
             Command executed when last item is appearing and new data should be loaded.
             </summary>
         </member>
-        <member name="M:IdApp.Controls.LoadingListView.LoadingListView.#ctor">
+        <member name="M:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.#ctor">
             <summary>
             ListView that can load new items when the last items is being displayed
             </summary>
@@ -1361,6 +1361,9 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.OnAppearingAsync">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.Pages.Contacts.Chat.ChatViewModel">
             <summary>
             The view model to bind to when displaying the list of contacts.
@@ -1981,10 +1984,20 @@
             <returns>View model</returns>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.OnAppearing">
-            <inheritdoc/>
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnAppearingAsync">
+            <summary>
+            Asynchronous OnAppearing-method.
+            </summary>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.OnDisappearing">
-            <inheritdoc/>
+            <inheritdoc />
+        </member>
+        <member name="M:IdApp.Pages.ContentBasePage.OnDisappearingAsync">
+            <summary>
+            Asynchronous OnAppearing-method.
+            </summary>
         </member>
         <member name="M:IdApp.Pages.ContentBasePage.ForceReRender(Xamarin.Forms.Layout[])">
             <summary>
@@ -2878,7 +2891,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionContract.PetitionContractPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractPage.OnDisappearing">
+        <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractPage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contracts.PetitionContract.PetitionContractPage.OnBackButtonPressed">
@@ -3194,7 +3207,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.PetitionSignature.PetitionSignaturePage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignaturePage.OnDisappearing">
+        <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignaturePage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contracts.PetitionSignature.PetitionSignaturePage.OnBackButtonPressed">
@@ -3663,7 +3676,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Contracts.ViewContract.ViewContractPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractPage.OnDisappearing">
+        <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractPage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Contracts.ViewContract.ViewContractPage.OnBackButtonPressed">
@@ -4003,7 +4016,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage.OnDisappearing">
+        <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Identity.PetitionIdentity.PetitionIdentityPage.OnBackButtonPressed">
@@ -4388,7 +4401,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage.OnDisappearing">
+        <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Pages.Identity.ViewIdentity.ViewIdentityPage.OnBackButtonPressed">
@@ -5096,7 +5109,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Loading.LoadingPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Loading.LoadingPage.OnAppearing">
+        <member name="M:IdApp.Pages.Main.Loading.LoadingPage.OnAppearingAsync">
             <summary>
             Overridden to start an animation when the page is displayed on screen.
             </summary>
@@ -5144,11 +5157,15 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.Main.MainPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainPage.OnAppearing">
-            <inheritdoc />
+        <member name="M:IdApp.Pages.Main.Main.MainPage.OnAppearingAsync">
+            <summary>
+            Asynchronous OnAppearing-method.
+            </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.Main.MainPage.OnDisappearing">
-            <inheritdoc />
+        <member name="M:IdApp.Pages.Main.Main.MainPage.OnDisappearingAsync">
+            <summary>
+            Asynchronous OnAppearing-method.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Main.Main.MainViewModel">
             <summary>
@@ -5495,14 +5512,14 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnAppearing">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnAppearingAsync">
             <summary>
-            Overridden to initialize the QR Code scanner when the page appears on screen.
+            Asynchronous OnAppearing-method.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnDisappearing">
+        <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnDisappearingAsync">
             <summary>
-            Overridden to un-initialize the QR Code scanner when the page disappears from screen.
+            Asynchronous OnAppearing-method.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Main.ScanQrCode.ScanQrCodePage.OnBackButtonPressed">
@@ -6369,7 +6386,7 @@
             Creates a new instance of the <see cref="T:IdApp.Pages.Registration.Registration.RegistrationPage"/> class.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.OnAppearing">
+        <member name="M:IdApp.Pages.Registration.Registration.RegistrationPage.OnAppearingAsync">
             <summary>
             Overridden to sync the view with the view model when the page appears on screen.
             </summary>
@@ -8209,11 +8226,15 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.OnAppearing">
-            <inheritdoc />
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.OnAppearingAsync">
+            <summary>
+            Asynchronous OnAppearing-method.
+            </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.OnDisappearing">
-            <inheritdoc />
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletPage.OnDisappearingAsync">
+            <summary>
+            Asynchronous OnAppearing-method.
+            </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel">
             <summary>

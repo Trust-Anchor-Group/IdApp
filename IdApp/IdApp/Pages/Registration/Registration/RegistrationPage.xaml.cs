@@ -29,9 +29,10 @@ namespace IdApp.Pages.Registration.Registration
         /// <summary>
         /// Overridden to sync the view with the view model when the page appears on screen.
         /// </summary>
-        protected override async void OnAppearing()
+        protected override async Task OnAppearingAsync()
         {
-            base.OnAppearing();
+            await base.OnAppearingAsync();
+
             if (Device.RuntimePlatform == Device.Android)
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(100));

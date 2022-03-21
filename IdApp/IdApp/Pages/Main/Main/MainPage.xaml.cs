@@ -1,5 +1,7 @@
 ﻿using System;
 using Xamarin.Forms.Xaml;
+using Waher.Events;
+using System.Threading.Tasks;
 
 namespace IdApp.Pages.Main.Main
 {
@@ -19,18 +21,22 @@ namespace IdApp.Pages.Main.Main
 			ViewModel = new MainViewModel();
 		}
 
-		/// <inheritdoc />
-		protected override void OnAppearing()
+		/// <summary>
+		/// Asynchronous OnAppearing-method.
+		/// </summary>
+		protected override async Task OnAppearingAsync()
 		{
-			base.OnAppearing();
-			_ = this.MainTabBar.Show();
+			await base.OnAppearingAsync();
+			await this.MainTabBar.Show();
 		}
 
-		/// <inheritdoc />
-		protected override async void OnDisappearing()
+		/// <summary>
+		/// Asynchronous OnAppearing-method.
+		/// </summary>
+		protected override async Task OnDisappearingAsync()
 		{
 			await this.MainTabBar.Hide();
-			base.OnDisappearing();
+			await base.OnDisappearingAsync();
 		}
 
 		private void IdCard_Tapped(object sender, EventArgs e)

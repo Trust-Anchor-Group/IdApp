@@ -1,4 +1,5 @@
 ﻿using IdApp.Services.Navigation;
+using System.Threading.Tasks;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Contacts.Chat
@@ -30,6 +31,14 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			this.navigationService.GoBackAsync();
 			return true;
+		}
+
+		/// <inheritdoc/>
+		protected override async Task OnAppearingAsync()
+		{
+			await base.OnAppearingAsync();
+
+			this.ContainerView.ResolveLayoutChanges();  // Strange Xamarin issue: https://github.com/xamarin/Xamarin.Forms/issues/15066
 		}
 	}
 }

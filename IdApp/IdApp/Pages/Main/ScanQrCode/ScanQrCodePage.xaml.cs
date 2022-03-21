@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using IdApp.Resx;
 using IdApp.Services.UI.QR;
 using Xamarin.Forms.Xaml;
@@ -30,25 +31,27 @@ namespace IdApp.Pages.Main.ScanQrCode
 		}
 
 		/// <summary>
-		/// Overridden to initialize the QR Code scanner when the page appears on screen.
+		/// Asynchronous OnAppearing-method.
 		/// </summary>
-		protected override void OnAppearing()
+		protected override async Task OnAppearingAsync()
 		{
-			base.OnAppearing();
+			await base.OnAppearingAsync();
+
 			GetViewModel<ScanQrCodeViewModel>().ModeChanged += ViewModel_ModeChanged;
 			Scanner.IsScanning = true;
 			Scanner.IsAnalyzing = true;
 		}
 
 		/// <summary>
-		/// Overridden to un-initialize the QR Code scanner when the page disappears from screen.
+		/// Asynchronous OnAppearing-method.
 		/// </summary>
-		protected override void OnDisappearing()
+		protected override async Task OnDisappearingAsync()
 		{
 			Scanner.IsAnalyzing = false;
 			Scanner.IsScanning = false;
 			GetViewModel<ScanQrCodeViewModel>().ModeChanged -= ViewModel_ModeChanged;
-			base.OnDisappearing();
+
+			await base.OnDisappearingAsync();
 		}
 
 		private void ViewModel_ModeChanged(object sender, EventArgs e)

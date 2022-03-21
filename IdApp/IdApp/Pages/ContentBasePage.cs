@@ -3,6 +3,8 @@ using System;
 using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Waher.Events;
+using System.Threading.Tasks;
 
 namespace IdApp.Pages
 {
@@ -55,11 +57,25 @@ namespace IdApp.Pages
         {
             return (T)ViewModel;
         }
-
-        /// <inheritdoc/>
-        protected override async void OnAppearing()
+        /// <inheritdoc />
+        protected override sealed async void OnAppearing()
         {
-            base.OnAppearing();
+            try
+            {
+                base.OnAppearing();
+                await this.OnAppearingAsync();
+            }
+            catch (Exception ex)
+            {
+                Log.Critical(ex);
+            }
+        }
+
+        /// <summary>
+        /// Asynchronous OnAppearing-method.
+        /// </summary>
+        protected virtual async Task OnAppearingAsync()
+        {
             if (!(ViewModel is null))
             {
                 if (!ViewModel.IsBound)
@@ -92,8 +108,24 @@ namespace IdApp.Pages
             }
         }
 
-        /// <inheritdoc/>
-        protected override async void OnDisappearing()
+        /// <inheritdoc />
+        protected override sealed async void OnDisappearing()
+        {
+            try
+            {
+                await this.OnDisappearingAsync();
+                base.OnDisappearing();
+            }
+            catch (Exception ex)
+            {
+                Log.Critical(ex);
+            }
+        }
+
+        /// <summary>
+        /// Asynchronous OnAppearing-method.
+        /// </summary>
+        protected virtual async Task OnDisappearingAsync()
         {
             if (!(ViewModel is null))
             {
@@ -125,7 +157,6 @@ namespace IdApp.Pages
                     await this.ViewModel.UiSerializer.DisplayAlert(AppResources.ErrorTitle, msg + Environment.NewLine + e.Message);
                 }
             }
-            base.OnDisappearing();
         }
 
         /// <summary>
