@@ -17,6 +17,11 @@ namespace IdApp.Services.Messages
 	public enum MessageType
 	{
 		/// <summary>
+		/// An empty transparent bubble, used to fix an issue on iOS
+		/// </summary>
+		Empty,
+
+		/// <summary>
 		/// Message sent by the user
 		/// </summary>
 		Sent,
@@ -54,6 +59,7 @@ namespace IdApp.Services.Messages
 		/// </summary>
 		public ChatMessage()
 		{
+			this.MessageType = MessageType.Empty;
 			this.Updated = DateTime.MinValue;
 
 			this.XmppUriClicked = new Command(async Parameter => await this.ExecuteUriClicked(Parameter, UriScheme.Xmpp));
@@ -163,6 +169,16 @@ namespace IdApp.Services.Messages
 		public async Task GenerateXaml(IChatView View)
 		{
 			this.chatView = View;
+
+			if (this.MessageType == MessageType.Empty)
+			{
+				this.parsedXaml = new StackLayout()
+				{
+					Spacing = 0
+				};
+
+				return;
+			}
 
 			if (!string.IsNullOrEmpty(this.markdown))
 			{

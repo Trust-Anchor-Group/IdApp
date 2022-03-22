@@ -8,6 +8,11 @@ namespace IdApp.Services.Messages
 	public class MessageTypeTemplateSelector : DataTemplateSelector
 	{
 		/// <summary>
+		/// An empty transparent bubble, used to fix an issue on iOS
+		/// </summary>
+		public DataTemplate EmptyTemplate { get; set; }
+
+		/// <summary>
 		/// Template to use for sent messages.
 		/// </summary>
 		public DataTemplate SentTemplate { get; set; }
@@ -29,8 +34,9 @@ namespace IdApp.Services.Messages
 			{
 				switch (Message.MessageType)
 				{
-					case MessageType.Received: return this.ReceivedTemplate;
 					case MessageType.Sent: return this.SentTemplate;
+					case MessageType.Received: return this.ReceivedTemplate;
+					case MessageType.Empty: return this.EmptyTemplate;
 					default: return this.DefaultTemplate;
 				}
 			}

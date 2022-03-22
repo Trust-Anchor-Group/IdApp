@@ -88,6 +88,14 @@ namespace IdApp.Pages.Contacts.Chat
 
 			int c = MessageBatchSize;
 			this.Messages.Clear();
+
+			/// An empty transparent bubble, used to fix an issue on iOS
+			{
+				ChatMessage EmptyMessage = new ChatMessage();
+				await EmptyMessage.GenerateXaml(this);
+				this.Messages.Add(EmptyMessage);
+			}
+
 			foreach (ChatMessage Message in Messages)
 			{
 				await Message.GenerateXaml(this);
@@ -256,7 +264,24 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			await Message.GenerateXaml(this);
 
-			this.UiSerializer.BeginInvokeOnMainThread(() => this.Messages.Insert(0, Message));
+			this.UiSerializer.BeginInvokeOnMainThread(async () =>
+			{
+				if (this.Messages.Count > 0)
+				{
+					this.Messages.Insert(1, Message);
+				}
+				else
+                {
+					/// An empty transparent bubble, used to fix an issue on iOS
+					{
+						ChatMessage EmptyMessage = new ChatMessage();
+						await EmptyMessage.GenerateXaml(this);
+						this.Messages.Add(EmptyMessage);
+					}
+
+					this.Messages.Add(Message);
+				}
+			});
 		}
 
 		/// <summary>
@@ -426,6 +451,14 @@ namespace IdApp.Pages.Contacts.Chat
 			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, MessageBatchSize, new FilterAnd(
 				new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
 				new FilterFieldLesserThan("Created", Last.Created)), "-Created");
+
+			/// An empty transparent bubble, used to fix an issue on iOS
+			if (this.Messages.Count == 0)
+			{
+				ChatMessage EmptyMessage = new ChatMessage();
+				await EmptyMessage.GenerateXaml(this);
+				this.Messages.Add(EmptyMessage);
+			}
 
 			int c = MessageBatchSize;
 			foreach (ChatMessage Message in Messages)

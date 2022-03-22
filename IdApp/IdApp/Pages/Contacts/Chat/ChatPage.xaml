@@ -12,6 +12,12 @@
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
                        Title="{Binding Path=FriendlyName}">
     <views:ContentBasePage.Resources>
+        <DataTemplate x:Key="EmptyMessage" x:DataType="messages:ChatMessage">
+            <ViewCell>
+                <ContentView Content="{Binding Path=ParsedXaml}"
+                             HorizontalOptions="Start" HeightRequest="1"/>
+            </ViewCell>
+        </DataTemplate>
         <DataTemplate x:Key="SentMessage" x:DataType="messages:ChatMessage">
             <ViewCell>
                 <Frame HorizontalOptions="StartAndExpand" Rotation="180" BackgroundColor="LightYellow" 
@@ -37,6 +43,7 @@
             </ViewCell>
         </DataTemplate>
         <messages:MessageTypeTemplateSelector x:Key="MessageStyleSelector" 
+                                              EmptyTemplate="{StaticResource EmptyMessage}" 
                                               SentTemplate="{StaticResource SentMessage}" 
                                               ReceivedTemplate="{StaticResource ReceivedMessage}" 
                                               DefaultTemplate="{StaticResource OtherItems}"/>
