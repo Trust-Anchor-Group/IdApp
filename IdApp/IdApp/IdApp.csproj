@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <None Remove="Services\Data\PersonalNumbers\PersonalNumberSchemes.xml" />
+    <None Remove="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -224,6 +225,7 @@
 
   <ItemGroup>
     <Folder Include="Popups\Pin\PinPopup\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
   <ItemGroup>

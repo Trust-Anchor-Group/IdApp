@@ -8,6 +8,7 @@
                        xmlns:behaviors="clr-namespace:IdApp.Behaviors;assembly=IdApp"
                        xmlns:loading="clr-namespace:IdApp.Controls.LoadingListView;assembly=IdApp"
                        xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
+                       xmlns:nobounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
                        x:DataType="model:ChatViewModel"
                        x:Class="IdApp.Pages.Contacts.Chat.ChatPage"
                        Title="{Binding Path=FriendlyName}">
@@ -48,6 +49,7 @@
                                               ReceivedTemplate="{StaticResource ReceivedMessage}" 
                                               DefaultTemplate="{StaticResource OtherItems}"/>
     </views:ContentBasePage.Resources>
+
     <StackLayout Margin="{StaticResource DefaultMargin}" x:Name="ContainerView">
         <loading:LoadingListView x:Name="Messages" ItemsSource="{Binding Path=Messages}" ItemTemplate="{StaticResource MessageStyleSelector}" 
                                  HasUnevenRows="True" VerticalOptions="StartAndExpand" Rotation="180" SeparatorVisibility="None" 

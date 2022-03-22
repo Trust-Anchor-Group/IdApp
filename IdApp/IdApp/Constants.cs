@@ -7,6 +7,9 @@ namespace IdApp
     /// </summary>
     public static class Constants
     {
+        public const string iOSKeyboardAppears = "KeyboardAppears";
+        public const string iOSKeyboardDisappears = "KeyboardDisappears";
+
         /// <summary>
         /// A generic "no value available" string.
         /// </summary>

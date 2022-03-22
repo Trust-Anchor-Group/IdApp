@@ -1,8 +1,11 @@
-﻿using Foundation;
+﻿using CoreGraphics;
+using Foundation;
+using IdApp.Helpers;
 using IdApp.Services.Ocr;
 using Tesseract.iOS;
 using UIKit;
 using Waher.Runtime.Inventory;
+using Xamarin.Forms;
 
 namespace IdApp.iOS
 {
@@ -12,6 +15,9 @@ namespace IdApp.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+        NSObject OnKeyboardShowObserver;
+        NSObject OnKeyboardHideObserver;
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -30,7 +36,39 @@ namespace IdApp.iOS
             IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
             OcrService.RegisterApi(new TesseractApi());
 
+            RegisterKeyBoardObserver();
+
             return base.FinishedLaunching(app, options);
+        }
+
+        void RegisterKeyBoardObserver()
+        {
+            if (OnKeyboardShowObserver == null)
+                OnKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object sender, UIKeyboardEventArgs args) =>
+                {
+                    NSValue result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
+                    CGSize keyboardSize = result.RectangleFValue.Size;
+                    MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.iOSKeyboardAppears, new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
+                });
+
+            if (OnKeyboardHideObserver == null)
+                OnKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object sender, UIKeyboardEventArgs args) =>
+                    MessagingCenter.Send<object, string>(this, Constants.iOSKeyboardDisappears, Constants.iOSKeyboardDisappears));
+        }
+
+        public override void WillTerminate(UIApplication application)
+        {
+            if (OnKeyboardShowObserver == null)
+            {
+                OnKeyboardShowObserver.Dispose();
+                OnKeyboardShowObserver = null;
+            }
+
+            if (OnKeyboardHideObserver == null)
+            {
+                OnKeyboardHideObserver.Dispose();
+                OnKeyboardHideObserver = null;
+            }
         }
 
         /// <summary>
