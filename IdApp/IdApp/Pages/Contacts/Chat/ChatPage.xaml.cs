@@ -2,6 +2,8 @@
 using IdApp.Services.Navigation;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Contacts.Chat
@@ -44,7 +46,14 @@ namespace IdApp.Pages.Contacts.Chat
 			{
 				if (ContainerView.TranslationY == 0)
 				{
-					ContainerView.TranslationY -= eargs.KeyboardSize;
+					double Bottom = 0;
+					if (Device.RuntimePlatform == Device.iOS)
+					{
+						Thickness SafeInsets = On<iOS>().SafeAreaInsets();
+						Bottom = SafeInsets.Bottom;
+					}
+
+					ContainerView.TranslationY -= eargs.KeyboardSize - Bottom;
 				}
 			});
 			MessagingCenter.Subscribe<object, string>(this, Constants.iOSKeyboardDisappears, (sender, eargs) =>
