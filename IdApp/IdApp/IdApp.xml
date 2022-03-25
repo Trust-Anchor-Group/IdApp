@@ -586,6 +586,36 @@
             ListView that can load new items when the last items is being displayed
             </summary>
         </member>
+        <member name="T:IdApp.Controls.LoadingListView.LoadingListView">
+            <summary>
+            ListView that can load new items when the last items is being displayed
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.LoadingListView.LoadingListView.LoadMoreCommandProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.LoadingListView.LoadingListView.LoadMoreCommand">
+            <summary>
+            Command executed when last item is appearing and new data should be loaded.
+            </summary>
+        </member>
+        <member name="F:IdApp.Controls.LoadingListView.LoadingListView.ItemSelectedCommandProperty">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.LoadingListView.LoadingListView.ItemSelectedCommand">
+            <summary>
+            Command executed when last item is appearing and new data should be loaded.
+            </summary>
+        </member>
+        <member name="M:IdApp.Controls.LoadingListView.LoadingListView.#ctor">
+            <summary>
+            ListView that can load new items when the last items is being displayed
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.MainTabBar.MainTabBarView">
             <summary>
             Represents the main tab bar in the Main page of the application.
@@ -12439,6 +12469,11 @@
             Message type
             </summary>
         </member>
+        <member name="F:IdApp.Services.Messages.MessageType.Empty">
+            <summary>
+            An empty transparent bubble, used to fix an issue on iOS
+            </summary>
+        </member>
         <member name="F:IdApp.Services.Messages.MessageType.Sent">
             <summary>
             Message sent by the user
@@ -12553,6 +12588,11 @@
         <member name="T:IdApp.Services.Messages.MessageTypeTemplateSelector">
             <summary>
             Data Template Selector, based on Message Type.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Messages.MessageTypeTemplateSelector.EmptyTemplate">
+            <summary>
+            An empty transparent bubble, used to fix an issue on iOS
             </summary>
         </member>
         <member name="P:IdApp.Services.Messages.MessageTypeTemplateSelector.SentTemplate">

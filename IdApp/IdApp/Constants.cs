@@ -162,7 +162,7 @@ namespace IdApp
                 if (string.IsNullOrEmpty(Scheme))
                     return null;
 
-                return Url.Substring(Scheme.Length + 1);
+                return Url[(Scheme.Length + 1)..];
             }
         }
 

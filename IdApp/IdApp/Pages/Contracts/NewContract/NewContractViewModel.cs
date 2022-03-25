@@ -10,6 +10,7 @@ using IdApp.Pages.Contracts.ViewContract;
 using IdApp.Pages.Main.Main;
 using IdApp.Resx;
 using IdApp.Services.UI.QR;
+using Waher.Content;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Script;
@@ -25,7 +26,7 @@ namespace IdApp.Pages.Contracts.NewContract
 	{
 		private static readonly string PartSettingsPrefix = $"{typeof(NewContractViewModel)}.Part_";
 
-		private readonly Dictionary<string, ParameterInfo> parametersByName = new Dictionary<string, ParameterInfo>();
+		private readonly Dictionary<string, ParameterInfo> parametersByName = new();
 		private Contract template;
 		private string templateId;
 		private bool saveStateWhileScanning;
@@ -137,7 +138,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					this.partsToAdd.Clear();
 					foreach ((string key, string value) in settings)
 					{
-						string part = key.Substring(PartSettingsPrefix.Length);
+						string part = key[PartSettingsPrefix.Length..];
 						this.partsToAdd[part] = value;
 					}
 				}
@@ -463,7 +464,7 @@ namespace IdApp.Pages.Contracts.NewContract
 					case 1:
 						if (View is Button Button)
 						{
-							TapGestureRecognizer OpenLegalId = new TapGestureRecognizer();
+							TapGestureRecognizer OpenLegalId = new();
 							OpenLegalId.Tapped += this.LegalId_Tapped;
 
 							Label = new Label
@@ -531,14 +532,14 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			try
 			{
-				if (!(sender is Entry Entry) || !this.parametersByName.TryGetValue(Entry.StyleId, out ParameterInfo ParameterInfo))
+				if (sender is not Entry Entry || !this.parametersByName.TryGetValue(Entry.StyleId, out ParameterInfo ParameterInfo))
 					return;
 
 				if (ParameterInfo.Parameter is StringParameter SP)
 					SP.Value = e.NewTextValue;
 				else if (ParameterInfo.Parameter is NumericalParameter NP)
 				{
-					if (double.TryParse(e.NewTextValue, out double d))
+					if (decimal.TryParse(e.NewTextValue, out decimal d))
 					{
 						NP.Value = d;
 						Entry.BackgroundColor = Color.Default;
@@ -562,6 +563,45 @@ namespace IdApp.Pages.Contracts.NewContract
 						return;
 					}
 				}
+				else if (ParameterInfo.Parameter is DateParameter DP)
+				{
+					if (DateTime.TryParse(e.NewTextValue, out DateTime TP) && TP.TimeOfDay == TimeSpan.Zero)
+					{
+						DP.Value = TP;
+						Entry.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Entry.BackgroundColor = Color.Salmon;
+						return;
+					}
+				}
+				else if (ParameterInfo.Parameter is DateTimeParameter DTP)
+				{
+					if (DateTime.TryParse(e.NewTextValue, out DateTime TP))
+					{
+						DTP.Value = TP;
+						Entry.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Entry.BackgroundColor = Color.Salmon;
+						return;
+					}
+				}
+				else if (ParameterInfo.Parameter is TimeParameter TSP)
+				{
+					if (TimeSpan.TryParse(e.NewTextValue, out TimeSpan TS))
+					{
+						TSP.Value = TS;
+						Entry.BackgroundColor = Color.Default;
+					}
+					else
+					{
+						Entry.BackgroundColor = Color.Salmon;
+						return;
+					}
+				}
 
 				await this.ValidateParameters();
 				await PopulateHumanReadableText();
@@ -576,7 +616,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			try
 			{
-				if (!(sender is CheckBox CheckBox) || !this.parametersByName.TryGetValue(CheckBox.StyleId, out ParameterInfo ParameterInfo))
+				if (sender is not CheckBox CheckBox || !this.parametersByName.TryGetValue(CheckBox.StyleId, out ParameterInfo ParameterInfo))
 					return;
 
 				if (ParameterInfo.Parameter is BooleanParameter BP)
@@ -593,7 +633,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private async Task ValidateParameters()
 		{
-			Variables Variables = new Variables();
+			Variables Variables = new();
 			bool Ok = true;
 
 			foreach (ParameterInfo P in this.parametersByName.Values)
@@ -602,10 +642,15 @@ namespace IdApp.Pages.Contracts.NewContract
 			foreach (ParameterInfo P in this.parametersByName.Values)
 			{
 				if (await P.Parameter.IsParameterValid(Variables))
-					P.Control.BackgroundColor = Color.Default;
+				{
+					if (!(P.Control is null))
+						P.Control.BackgroundColor = Color.Default;
+				}
 				else
 				{
-					P.Control.BackgroundColor = Color.Salmon;
+					if (!(P.Control is null))
+						P.Control.BackgroundColor = Color.Salmon;
+
 					Ok = false;
 				}
 			}
@@ -617,7 +662,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 		private async Task Propose()
 		{
-			List<Part> Parts = new List<Part>();
+			List<Part> Parts = new();
 			Contract Created = null;
 			string Role = string.Empty;
 			int State = 0;
@@ -730,8 +775,9 @@ namespace IdApp.Pages.Contracts.NewContract
 					return;
 
 				Created = await this.XmppService.Contracts.CreateContract(this.templateId, Parts.ToArray(), this.template.Parameters,
-					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration, this.template.ArchiveRequired,
-					this.template.ArchiveOptional, null, null, false);
+					this.template.Visibility, ContractParts.ExplicitlyDefined, this.template.Duration ?? Duration.FromYears(1),
+					this.template.ArchiveRequired ?? Duration.FromYears(1), this.template.ArchiveOptional ?? Duration.FromYears(1),
+					null, null, false);
 
 				Created = await this.XmppService.Contracts.SignContract(Created, this.SelectedRole, false);
 			}
@@ -756,7 +802,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			StackLayout xaml = new StackLayout().LoadFromXaml(Xaml);
 
-			List<View> children = new List<View>();
+			List<View> children = new();
 			children.AddRange(xaml.Children);
 
 			foreach (View Element in children)
@@ -775,7 +821,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.HasRoles = this.template.Roles.Length > 0;
 			this.VisibilityIsEnabled = true;
 
-			StackLayout rolesLayout = new StackLayout();
+			StackLayout rolesLayout = new();
 			foreach (Role Role in this.template.Roles)
 			{
 				this.AvailableRoles.Add(Role.Name);
@@ -791,7 +837,7 @@ namespace IdApp.Pages.Contracts.NewContract
 
 				if (Role.MinCount > 0)
 				{
-					Button button = new Button
+					Button button = new()
 					{
 						Text = AppResources.AddPart,
 						StyleId = Role.Name,
@@ -804,7 +850,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			}
 			this.Roles = rolesLayout;
 
-			StackLayout parametersLayout = new StackLayout();
+			StackLayout parametersLayout = new();
 			if (template.Parameters.Length > 0)
 			{
 				parametersLayout.Children.Add(new Label
@@ -820,14 +866,14 @@ namespace IdApp.Pages.Contracts.NewContract
 			{
 				if (Parameter is BooleanParameter BP)
 				{
-					CheckBox CheckBox = new CheckBox()
+					CheckBox CheckBox = new()
 					{
 						StyleId = Parameter.Name,
 						IsChecked = BP.Value.HasValue && BP.Value.Value,
 						VerticalOptions = LayoutOptions.Center
 					};
 
-					StackLayout Layout = new StackLayout()
+					StackLayout Layout = new()
 					{
 						Orientation = StackOrientation.Horizontal
 					};
@@ -840,11 +886,13 @@ namespace IdApp.Pages.Contracts.NewContract
 
 					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, CheckBox);
 				}
+				else if (Parameter is CalcParameter)
+					this.parametersByName[Parameter.Name] = new ParameterInfo(Parameter, null);
 				else
 				{
 					Populate(parametersLayout, await Parameter.ToXamarinForms(this.template.DeviceLanguage(), this.template));
 
-					Entry Entry = new Entry()
+					Entry Entry = new()
 					{
 						StyleId = Parameter.Name,
 						Text = Parameter.ObjectValue?.ToString(),
@@ -871,7 +919,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			this.HumanReadableText = null;
 
-			StackLayout humanReadableTextLayout = new StackLayout();
+			StackLayout humanReadableTextLayout = new();
 
 			if (!(this.template is null))
 				Populate(humanReadableTextLayout, await this.template.ToXamarinForms(this.template.DeviceLanguage()));
