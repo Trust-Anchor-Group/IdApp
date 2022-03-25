@@ -57,6 +57,7 @@ namespace IdApp.Pages
         {
             return (T)ViewModel;
         }
+
         /// <inheritdoc />
         protected override sealed async void OnAppearing()
         {
