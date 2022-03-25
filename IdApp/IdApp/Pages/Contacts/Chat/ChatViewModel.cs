@@ -86,7 +86,6 @@ namespace IdApp.Pages.Contacts.Chat
 
 			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, MessageBatchSize, new FilterFieldEqualTo("RemoteBareJid", this.BareJid), "-Created");
 
-			int c = MessageBatchSize;
 			this.Messages.Clear();
 
 			/// An empty transparent bubble, used to fix an issue on iOS
@@ -96,6 +95,7 @@ namespace IdApp.Pages.Contacts.Chat
 				this.Messages.Add(EmptyMessage);
 			}
 
+			int c = MessageBatchSize;
 			foreach (ChatMessage Message in Messages)
 			{
 				await Message.GenerateXaml(this);
@@ -254,7 +254,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <summary>
 		/// Holds the list of chat messages to display.
 		/// </summary>
-		public ObservableCollection<ChatMessage> Messages { get; }
+		public ObservableCollection<ChatMessage> Messages { get; set; }
 
 		/// <summary>
 		/// External message has been received
@@ -447,27 +447,32 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteLoadMoreMessages()
 		{
+			this.ExistsMoreMessages = false;
+
 			ChatMessage Last = this.Messages[this.Messages.Count - 1];
 			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, MessageBatchSize, new FilterAnd(
 				new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
 				new FilterFieldLesserThan("Created", Last.Created)), "-Created");
+
+			var NewMessages = new ObservableCollection<ChatMessage>(this.Messages);
 
 			/// An empty transparent bubble, used to fix an issue on iOS
 			if (this.Messages.Count == 0)
 			{
 				ChatMessage EmptyMessage = new ChatMessage();
 				await EmptyMessage.GenerateXaml(this);
-				this.Messages.Add(EmptyMessage);
+				NewMessages.Add(EmptyMessage);
 			}
 
 			int c = MessageBatchSize;
 			foreach (ChatMessage Message in Messages)
 			{
 				await Message.GenerateXaml(this);
-				this.Messages.Add(Message);
+				NewMessages.Add(Message);
 				c--;
 			}
 
+			this.Messages = NewMessages;
 			this.ExistsMoreMessages = c <= 0;
 		}
 
