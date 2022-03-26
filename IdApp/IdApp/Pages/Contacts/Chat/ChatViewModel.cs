@@ -33,6 +33,7 @@ using IdApp.Services.Messages;
 using IdApp.Services.Tag;
 using IdApp.Services.UI.QR;
 using IdApp.Resx;
+using IdApp.Converters;
 
 namespace IdApp.Pages.Contacts.Chat
 {
@@ -766,12 +767,12 @@ namespace IdApp.Pages.Contacts.Chat
 
 			sb.Clear();
 
-			sb.Append(Parsed.Amount.ToString());
+			sb.Append(MoneyToString.ToString(Parsed.Amount));
 
 			if (Parsed.AmountExtra.HasValue)
 			{
 				sb.Append(" (+");
-				sb.Append(Parsed.AmountExtra.Value.ToString());
+				sb.Append(MoneyToString.ToString(Parsed.AmountExtra.Value));
 				sb.Append(")");
 			}
 

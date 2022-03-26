@@ -13,6 +13,7 @@ using Waher.Networking.XMPP.Contracts;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using IdApp.Resx;
+using IdApp.Converters;
 
 namespace IdApp.Pages.Wallet
 {
@@ -75,12 +76,12 @@ namespace IdApp.Pages.Wallet
 				this.HasQrCode = false;
 				this.NotPaid = true;
 
-				this.AmountText = this.Amount <= 0 ? string.Empty : this.Amount.ToString();
+				this.AmountText = this.Amount <= 0 ? string.Empty : MoneyToString.ToString(this.Amount);
 				this.AmountOk = CommonTypes.TryParse(this.AmountText, out decimal d) && d > 0;
 				this.AmountPreset = !string.IsNullOrEmpty(this.AmountText) && this.AmountOk;
 				this.AmountAndCurrency = this.AmountText + " " + this.Currency;
 
-				this.AmountExtraText = this.AmountExtra.HasValue ? this.AmountExtra.Value.ToString() : string.Empty;
+				this.AmountExtraText = this.AmountExtra.HasValue ? MoneyToString.ToString(this.AmountExtra.Value) : string.Empty;
 				this.AmountExtraOk = !this.AmountExtra.HasValue || this.AmountExtra.Value >= 0;
 				this.AmountExtraPreset = this.AmountExtra.HasValue;
 				this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;

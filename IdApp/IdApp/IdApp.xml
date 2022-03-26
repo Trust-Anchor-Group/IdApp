@@ -890,6 +890,27 @@
         <member name="M:IdApp.Converters.LogicalNot.ProvideValue(System.IServiceProvider)">
             <inheritdoc/>
         </member>
+        <member name="T:IdApp.Converters.MoneyToString">
+            <summary>
+            Converts values to strings.
+            </summary>
+        </member>
+        <member name="M:IdApp.Converters.MoneyToString.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.MoneyToString.ToString(System.Decimal)">
+            <summary>
+            Converts a monetary value to a string, removing any round-off errors.
+            </summary>
+            <param name="Money"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdApp.Converters.MoneyToString.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Converters.MoneyToString.ProvideValue(System.IServiceProvider)">
+            <inheritdoc/>
+        </member>
         <member name="T:IdApp.DeviceSpecific.ICloseApplication">
             <summary>
             Dependency interface for device-specific closing of application.

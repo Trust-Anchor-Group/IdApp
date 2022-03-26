@@ -35,7 +35,7 @@
                 <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource HeadingForeground}">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text="{Binding Path=Amount}" FontSize="50" FontAttributes="Bold"/>
+                            <Span Text="{Binding Path=Amount, Converter={converters:MoneyToString}}" FontSize="50" FontAttributes="Bold"/>
                             <Span Text=" "/>
                             <Span Text="{Binding Path=Currency}" FontSize="30"/>
                         </FormattedString>
@@ -45,7 +45,7 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="(-"/>
-                            <Span Text="{Binding Path=PendingAmount}" FontAttributes="Bold"/>
+                            <Span Text="{Binding Path=PendingAmount, Converter={converters:MoneyToString}}" FontAttributes="Bold"/>
                             <Span Text=" "/>
                             <Span Text="{Binding Path=PendingCurrency}"/>
                             <Span Text=")"/>
@@ -69,7 +69,7 @@
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text="-" FontSize="30" FontAttributes="Bold"/>
-                                            <Span Text="{Binding Path=Amount}" FontSize="30" FontAttributes="Bold"/>
+                                            <Span Text="{Binding Path=Amount, Converter={converters:MoneyToString}}" FontSize="30" FontAttributes="Bold"/>
                                             <Span Text=" "/>
                                             <Span Text="{Binding Path=Currency}" FontSize="20"/>
                                         </FormattedString>
@@ -94,7 +94,7 @@
                                 <Label Grid.Column="1" Grid.Row="0" LineBreakMode="TailTruncation" HorizontalTextAlignment="End">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding Path=Change}" FontSize="18" FontAttributes="Bold" TextColor="{Binding Path=TextColor}"/>
+                                            <Span Text="{Binding Path=Change, Converter={converters:MoneyToString}}" FontSize="18" FontAttributes="Bold" TextColor="{Binding Path=TextColor}"/>
                                             <Span Text=" "/>
                                             <Span Text="{Binding Path=Currency}" FontSize="16" TextColor="{Binding Path=TextColor}"/>
                                         </FormattedString>
@@ -104,7 +104,7 @@
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span Text=" ("/>
-                                            <Span Text="{Binding Path=Balance}" FontSize="14"/>
+                                            <Span Text="{Binding Path=Balance, Converter={converters:MoneyToString}}" FontSize="14"/>
                                             <Span Text=" "/>
                                             <Span Text="{Binding Path=Currency}" FontSize="12"/>
                                             <Span Text=" ) "/>

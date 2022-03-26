@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using IdApp.Converters;
 using IdApp.Services.Xmpp;
 using Xamarin.Forms;
 
@@ -38,10 +39,10 @@ namespace IdApp.Pages.Wallet.AccountEvent
 				this.Id = args.Event.TransactionId.ToString();
 				this.Currency = args.Event.Currency;
 
-				this.ChangeText = this.Change.ToString();
+				this.ChangeText = MoneyToString.ToString(this.Change);
 				this.ChangeAndCurrency = this.ChangeText + " " + this.Currency;
 
-				this.BalanceText = this.Balance.ToString();
+				this.BalanceText = MoneyToString.ToString(this.Balance);
 				this.BalanceAndCurrency = this.BalanceText + " " + this.Currency;
 			}
 
