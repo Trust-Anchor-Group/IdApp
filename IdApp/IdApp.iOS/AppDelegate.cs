@@ -44,16 +44,22 @@ namespace IdApp.iOS
         void RegisterKeyBoardObserver()
         {
             if (OnKeyboardShowObserver == null)
+            {
                 OnKeyboardShowObserver = UIKeyboard.Notifications.ObserveWillShow((object sender, UIKeyboardEventArgs args) =>
                 {
                     NSValue result = (NSValue)args.Notification.UserInfo.ObjectForKey(new NSString(UIKeyboard.FrameEndUserInfoKey));
                     CGSize keyboardSize = result.RectangleFValue.Size;
-                    MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.iOSKeyboardAppears, new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
+                    MessagingCenter.Send<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears, new KeyboardAppearEventArgs { KeyboardSize = (float)keyboardSize.Height });
                 });
+            }
 
             if (OnKeyboardHideObserver == null)
+            {
                 OnKeyboardHideObserver = UIKeyboard.Notifications.ObserveWillHide((object sender, UIKeyboardEventArgs args) =>
-                    MessagingCenter.Send<object, string>(this, Constants.iOSKeyboardDisappears, Constants.iOSKeyboardDisappears));
+                {
+                    MessagingCenter.Send<object>(this, Constants.MessagingCenter.KeyboardDisappears);
+                });
+            }
         }
 
         public override void WillTerminate(UIApplication application)

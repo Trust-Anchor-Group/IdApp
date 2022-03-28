@@ -5,10 +5,10 @@ using Xamarin.Forms;
 
 namespace IdApp.Controls.LoadingCollectionView
 {
-	/// <summary>
-	/// ListView that can load new items when the last items is being displayed
-	/// </summary>
-	public class LoadingCollectionView : NoBounceCollectionView
+    /// <summary>
+    /// CollectionView that can load new items when the last items is being displayed
+    /// </summary>
+    public class LoadingCollectionView : NoBounceCollectionView
 	{
         /// <summary>
         /// 

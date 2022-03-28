@@ -89,7 +89,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			this.Messages.Clear();
 
-			/// An empty transparent bubble, used to fix an issue on iOS
+			// An empty transparent bubble, used to fix an issue on iOS
 			{
 				ChatMessage EmptyMessage = new ChatMessage();
 				await EmptyMessage.GenerateXaml(this);
@@ -273,7 +273,7 @@ namespace IdApp.Pages.Contacts.Chat
 				}
 				else
                 {
-					/// An empty transparent bubble, used to fix an issue on iOS
+					// An empty transparent bubble, used to fix an issue on iOS
 					{
 						ChatMessage EmptyMessage = new ChatMessage();
 						await EmptyMessage.GenerateXaml(this);
@@ -457,7 +457,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			var NewMessages = new ObservableCollection<ChatMessage>(this.Messages);
 
-			/// An empty transparent bubble, used to fix an issue on iOS
+			// An empty transparent bubble, used to fix an issue on iOS
 			if (this.Messages.Count == 0)
 			{
 				ChatMessage EmptyMessage = new ChatMessage();

@@ -7,9 +7,6 @@ namespace IdApp
     /// </summary>
     public static class Constants
     {
-        public const string iOSKeyboardAppears = "KeyboardAppears";
-        public const string iOSKeyboardDisappears = "KeyboardDisappears";
-
         /// <summary>
         /// A generic "no value available" string.
         /// </summary>
@@ -319,6 +316,22 @@ namespace IdApp
             /// Download file timeout
             /// </summary>
             public static readonly TimeSpan DownloadFile = TimeSpan.FromSeconds(10);
+        }
+
+        /// <summary>
+        /// MessagingCenter events
+        /// </summary>
+        public static class MessagingCenter
+        {
+            /// <summary>
+            /// Keyboard appears event
+            /// </summary>
+            public const string KeyboardAppears = "KeyboardAppears";
+
+            /// <summary>
+            /// Keyboard disappears event
+            /// </summary>
+            public const string KeyboardDisappears = "KeyboardDisappears";
         }
     }
 }

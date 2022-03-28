@@ -42,7 +42,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			await base.OnAppearingAsync();
 
-			MessagingCenter.Subscribe<object, KeyboardAppearEventArgs>(this, Constants.iOSKeyboardAppears, (sender, eargs) =>
+			MessagingCenter.Subscribe<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears, (sender, eargs) =>
 			{
 				if (ContainerView.TranslationY == 0)
 				{
@@ -56,7 +56,8 @@ namespace IdApp.Pages.Contacts.Chat
 					ContainerView.TranslationY -= eargs.KeyboardSize - Bottom;
 				}
 			});
-			MessagingCenter.Subscribe<object, string>(this, Constants.iOSKeyboardDisappears, (sender, eargs) =>
+
+			MessagingCenter.Subscribe<object>(this, Constants.MessagingCenter.KeyboardDisappears, (sender) =>
 			{
 				ContainerView.TranslationY = 0;
 			});
@@ -64,10 +65,11 @@ namespace IdApp.Pages.Contacts.Chat
 			this.ContainerView.ResolveLayoutChanges();  // Strange Xamarin issue: https://github.com/xamarin/Xamarin.Forms/issues/15066
 		}
 
+		/// <inheritdoc/>
 		protected override async Task OnDisappearingAsync()
 		{
-			MessagingCenter.Unsubscribe<object, KeyboardAppearEventArgs>(this, Constants.iOSKeyboardAppears);
-			MessagingCenter.Unsubscribe<object, KeyboardAppearEventArgs>(this, Constants.iOSKeyboardDisappears);
+			MessagingCenter.Unsubscribe<object, KeyboardAppearEventArgs>(this, Constants.MessagingCenter.KeyboardAppears);
+			MessagingCenter.Unsubscribe<object>(this, Constants.MessagingCenter.KeyboardDisappears);
 
 			await base.OnDisappearingAsync();
 		}
