@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Windows.Input;
+using IdApp.Controls.NoBounceView;
 using Xamarin.Forms;
 
 namespace IdApp.Controls.LoadingListView
@@ -8,7 +8,7 @@ namespace IdApp.Controls.LoadingListView
 	/// <summary>
 	/// ListView that can load new items when the last items is being displayed
 	/// </summary>
-	public class LoadingListView : ListView
+	public class LoadingListView : NoBounceListView
 	{
         /// <summary>
         /// 

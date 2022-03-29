@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Renderers\NoBounceCollectionViewRenderer.cs" />
     <Compile Include="Renderers\NoBounceScrollViewRenderer.cs" />
+    <Compile Include="Renderers\NoBounceListViewRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\1024.png">
