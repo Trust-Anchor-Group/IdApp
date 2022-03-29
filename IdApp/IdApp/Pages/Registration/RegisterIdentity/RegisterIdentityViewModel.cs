@@ -704,15 +704,13 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				if (saveLocalCopy)
 				{
 					// try to downscale and comress the image
-					using (FileStream inFs = File.OpenRead(filePath))
-					{
-						SKData ImageData = CompressImage(inFs);
+					using FileStream InputStream = File.OpenRead(filePath);
+					using SKData ImageData = CompressImage(InputStream);
 
-						if (ImageData is not null)
-						{
-							FallbackOriginal = false;
-							await AddPhoto(ImageData.ToArray(), "image/jpeg", 0, saveLocalCopy, true);
-						}
+					if (ImageData is not null)
+					{
+						FallbackOriginal = false;
+						await AddPhoto(ImageData.ToArray(), "image/jpeg", 0, saveLocalCopy, true);
 					}
 				}
 
@@ -733,18 +731,17 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			}
 		}
 
-		private SKData CompressImage(Stream inFileData)
+		private SKData CompressImage(Stream inputStream)
 		{
 			try
 			{
-				SKManagedStream InputStream = new SKManagedStream(inFileData);
-				SKCodec Codec = SKCodec.Create(inFileData);
-				SKEncodedOrigin Orientation = Codec.EncodedOrigin;
+				using SKManagedStream ManagedStream = new SKManagedStream(inputStream);
+				using SKData ImageData = SKData.Create(ManagedStream);
 
-				InputStream.Rewind();
+				SKCodec Codec = SKCodec.Create(ImageData);
+				SKBitmap SkBitmap = SKBitmap.Decode(ImageData);
 
-				SKBitmap SkBitmap = SKBitmap.Decode(InputStream);
-				SkBitmap = HandleOrientation(SkBitmap, Orientation);
+				SkBitmap = HandleOrientation(SkBitmap, Codec.EncodedOrigin);
 
 				bool Resize = false;
 				int Height = SkBitmap.Height;
