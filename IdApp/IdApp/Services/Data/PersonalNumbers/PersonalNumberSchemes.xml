@@ -57,4 +57,7 @@
 	<Entry country="US" displayString="NNNNNNNNN">
 		<Pattern variable="SSN"><![CDATA[SSN like "\\d{9}"]]></Pattern>
 	</Entry>
+	<Entry country="MD" displayString="NNNNNNNNNNNNN">
+		<Pattern variable="IDNP"><![CDATA[IDNP like "\\d{13}"]]></Pattern>
+	</Entry>
 </Entries>
