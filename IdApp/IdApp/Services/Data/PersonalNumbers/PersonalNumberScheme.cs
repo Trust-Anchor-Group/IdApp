@@ -56,7 +56,10 @@ namespace IdApp.Services.Data.PersonalNumbers
 				if (EvalResult is bool b)
 				{
 					if (!b)
-						return null;
+					{
+						Info.IsValid = null;
+						return Info;
+					}
 
 					if (!(this.check is null))
 					{
