@@ -520,6 +520,21 @@
             Download file timeout
             </summary>
         </member>
+        <member name="T:IdApp.Constants.MessagingCenter">
+            <summary>
+            MessagingCenter events
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.MessagingCenter.KeyboardAppears">
+            <summary>
+            Keyboard appears event
+            </summary>
+        </member>
+        <member name="F:IdApp.Constants.MessagingCenter.KeyboardDisappears">
+            <summary>
+            Keyboard disappears event
+            </summary>
+        </member>
         <member name="T:IdApp.Controls.FlipView.FlipView">
             <summary>
             The FlipView is a user control that holds two child controls: a <see cref="P:IdApp.Controls.FlipView.FlipView.FrontView"/> and a <see cref="P:IdApp.Controls.FlipView.FlipView.BackView"/>.
@@ -558,7 +573,7 @@
         </member>
         <member name="T:IdApp.Controls.LoadingCollectionView.LoadingCollectionView">
             <summary>
-            ListView that can load new items when the last items is being displayed
+            CollectionView that can load new items when the last items is being displayed
             </summary>
         </member>
         <member name="F:IdApp.Controls.LoadingCollectionView.LoadingCollectionView.LoadMoreCommandProperty">
@@ -784,6 +799,21 @@
         <member name="M:IdApp.Controls.MainTabBar.MainTabBarView.Hide">
             <summary>
             Call this method to hide the toolbar content.
+            </summary>
+        </member>
+        <member name="T:IdApp.Controls.NoBounceView.NoBounceCollectionView">
+            <summary>
+            The NoBounceCollectionView disables the bounce effect for the collection view on iOS
+            </summary>
+        </member>
+        <member name="T:IdApp.Controls.NoBounceView.NoBounceListView">
+            <summary>
+            The NoBounceListView disables the bounce effect for the list view on iOS
+            </summary>
+        </member>
+        <member name="T:IdApp.Controls.NoBounceView.NoBounceScrollView">
+            <summary>
+            The NoBounceScrollView disables the bounce effect for the scroll view on iOS
             </summary>
         </member>
         <member name="T:IdApp.Converters.BooleanToBoldFontConverter">
@@ -1235,6 +1265,16 @@
             <param name="State">The state to convert.</param>
             <returns>String representation</returns>
         </member>
+        <member name="T:IdApp.Helpers.KeyboardAppearEventArgs">
+            <summary>
+            MessagingCenter event args
+            </summary>
+        </member>
+        <member name="P:IdApp.Helpers.KeyboardAppearEventArgs.KeyboardSize">
+            <summary>
+            Keyboard height
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.BaseViewModel">
             <summary>
             A base class for all view models, inheriting from the <see cref="T:Xamarin.Forms.BindableObject"/>.
@@ -1413,6 +1453,9 @@
             <returns>Whether or not the back navigation was handled</returns>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.OnAppearingAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Pages.Contacts.Chat.ChatPage.OnDisappearingAsync">
             <inheritdoc/>
         </member>
         <member name="T:IdApp.Pages.Contacts.Chat.ChatViewModel">
