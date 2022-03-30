@@ -451,7 +451,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				{
 					capturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
 					{
-						CompressionQuality = 90,
+						CompressionQuality = 80,
 						RotateImage = false
 					});
 				}
@@ -531,7 +531,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				{
 					capturedPhoto = await CrossMedia.Current.TakePhotoAsync(new StoreCameraMediaOptions()
 					{
-						CompressionQuality = 90,
+						CompressionQuality = 80,
 						RotateImage = false
 					});
 				}
@@ -704,15 +704,13 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				if (saveLocalCopy)
 				{
 					// try to downscale and comress the image
-					using (FileStream inFs = File.OpenRead(filePath))
-					{
-						SKData ImageData = CompressImage(inFs);
+					using FileStream InputStream = File.OpenRead(filePath);
+					using SKData ImageData = CompressImage(InputStream);
 
-						if (ImageData is not null)
-						{
-							FallbackOriginal = false;
-							await AddPhoto(ImageData.ToArray(), "image/jpeg", 0, saveLocalCopy, true);
-						}
+					if (ImageData is not null)
+					{
+						FallbackOriginal = false;
+						await AddPhoto(ImageData.ToArray(), "image/jpeg", 0, saveLocalCopy, true);
 					}
 				}
 
@@ -733,45 +731,44 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 			}
 		}
 
-		private SKData CompressImage(Stream inFileData)
+		private SKData CompressImage(Stream inputStream)
 		{
 			try
 			{
-				var inputStream = new SKManagedStream(inFileData);
-				var codec = SKCodec.Create(inFileData);
-				var orientation = codec.EncodedOrigin;
+				using SKManagedStream ManagedStream = new SKManagedStream(inputStream);
+				using SKData ImageData = SKData.Create(ManagedStream);
 
-				inputStream.Rewind();
+				SKCodec Codec = SKCodec.Create(ImageData);
+				SKBitmap SkBitmap = SKBitmap.Decode(ImageData);
 
-				var skBitmap = SKBitmap.Decode(inputStream);
-				skBitmap = HandleOrientation(skBitmap, orientation);
+				SkBitmap = HandleOrientation(SkBitmap, Codec.EncodedOrigin);
 
-				var resize = false;
-				var height = skBitmap.Height;
-				var width = skBitmap.Width;
+				bool Resize = false;
+				int Height = SkBitmap.Height;
+				int Width = SkBitmap.Width;
 
 				// resize if more than 4K
-				if ((width >= height) && (width > 3840))
+				if ((Width >= Height) && (Width > 3840))
 				{
-					height = (int)(height * (3840.0 / width) + 0.5);
-					width = 3840;
-					resize = true;
+					Height = (int)(Height * (3840.0 / Width) + 0.5);
+					Width = 3840;
+					Resize = true;
 				}
-				else if ((height > width) && (height > 3840))
+				else if ((Height > Width) && (Height > 3840))
 				{
-					width = (int)(width * (3840.0 / height) + 0.5);
-					height = 3840;
-					resize = true;
-				}
-
-				if (resize)
-				{
-					var info = skBitmap.Info;
-					var newInfo = new SKImageInfo(width, height, info.ColorType, info.AlphaType, info.ColorSpace);
-					skBitmap = skBitmap.Resize(newInfo, SKFilterQuality.High);
+					Width = (int)(Width * (3840.0 / Height) + 0.5);
+					Height = 3840;
+					Resize = true;
 				}
 
-				return skBitmap.Encode(SKEncodedImageFormat.Jpeg, 90);
+				if (Resize)
+				{
+					SKImageInfo Info = SkBitmap.Info;
+					SKImageInfo NewInfo = new SKImageInfo(Width, Height, Info.ColorType, Info.AlphaType, Info.ColorSpace);
+					SkBitmap = SkBitmap.Resize(NewInfo, SKFilterQuality.High);
+				}
+
+				return SkBitmap.Encode(SKEncodedImageFormat.Jpeg, 80);
 			}
 			catch (Exception)
 			{
@@ -782,39 +779,39 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 		private SKBitmap HandleOrientation(SKBitmap bitmap, SKEncodedOrigin orientation)
 		{
-			SKBitmap rotated;
+			SKBitmap Rotated;
 
 			switch (orientation)
 			{
 				case SKEncodedOrigin.BottomRight:
-					rotated = new SKBitmap(bitmap.Width, bitmap.Height);
+					Rotated = new SKBitmap(bitmap.Width, bitmap.Height);
 
-					using (var surface = new SKCanvas(rotated))
+					using (SKCanvas Surface = new SKCanvas(Rotated))
 					{
-						surface.RotateDegrees(180, bitmap.Width / 2, bitmap.Height / 2);
-						surface.DrawBitmap(bitmap, 0, 0);
+						Surface.RotateDegrees(180, bitmap.Width / 2, bitmap.Height / 2);
+						Surface.DrawBitmap(bitmap, 0, 0);
 					}
 					break;
 
 				case SKEncodedOrigin.RightTop:
-					rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+					Rotated = new SKBitmap(bitmap.Height, bitmap.Width);
 
-					using (var surface = new SKCanvas(rotated))
+					using (SKCanvas Surface = new SKCanvas(Rotated))
 					{
-						surface.Translate(rotated.Width, 0);
-						surface.RotateDegrees(90);
-						surface.DrawBitmap(bitmap, 0, 0);
+						Surface.Translate(Rotated.Width, 0);
+						Surface.RotateDegrees(90);
+						Surface.DrawBitmap(bitmap, 0, 0);
 					}
 					break;
 
 				case SKEncodedOrigin.LeftBottom:
-					rotated = new SKBitmap(bitmap.Height, bitmap.Width);
+					Rotated = new SKBitmap(bitmap.Height, bitmap.Width);
 
-					using (var surface = new SKCanvas(rotated))
+					using (SKCanvas Surface = new SKCanvas(Rotated))
 					{
-						surface.Translate(0, rotated.Height);
-						surface.RotateDegrees(270);
-						surface.DrawBitmap(bitmap, 0, 0);
+						Surface.Translate(0, Rotated.Height);
+						Surface.RotateDegrees(270);
+						Surface.DrawBitmap(bitmap, 0, 0);
 					}
 					break;
 
@@ -822,7 +819,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 					return bitmap;
 			}
 
-			return rotated;
+			return Rotated;
 		}
 
 		private void RemovePhoto(bool removeFileOnDisc)
