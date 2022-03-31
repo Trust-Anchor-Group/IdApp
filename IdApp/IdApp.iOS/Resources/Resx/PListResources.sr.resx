@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NSCameraUsageDescription" xml:space="preserve">
-    <value>This app needs access to the camera to take photos.</value>
+    <value>Ovoj aplikaciji je potreban pristup fotoaparatu da bi snimila fotografije za digitalni ID, kao i kada želite da skenira QR kodove.</value>
   </data>
   <data name="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
-    <value>This app needs access to the photo gallery.</value>
+    <value>Ova aplikacija mora da bude u mogućnosti da dodaje fotografije u galerije, ako želite da sačuvate fotografije koje napravite za kasniju upotrebu.</value>
   </data>
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
-    <value>This app needs access to photos.</value>
+    <value>Ovoj aplikaciji je potreban pristup galeriji fotografija da biste mogli da izaberete fotografiju profila za svoj ID, nabavite QR kodove iz drugih aplikacija ili delite slike sa kontaktima u ćaskanjima.</value>
   </data>
 </root>

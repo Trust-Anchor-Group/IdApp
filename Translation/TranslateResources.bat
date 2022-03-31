@@ -17,4 +17,3 @@
 ..\..\IoTGateway\Utilities\Waher.Utility.Translate\bin\Debug\netcoreapp3.1\Waher.Utility.Translate.exe -d "C:\ProgramData\Translations\IdApp" -e -rf "..\IdApp\IdApp.iOS\Resources\Resx\PListResource.resx" -rl en -tf "..\IdApp\IdApp.iOS\Resources\Resx\PListResources.fi.resx" -tl fi
 ..\..\IoTGateway\Utilities\Waher.Utility.Translate\bin\Debug\netcoreapp3.1\Waher.Utility.Translate.exe -d "C:\ProgramData\Translations\IdApp" -e -rf "..\IdApp\IdApp.iOS\Resources\Resx\PListResource.resx" -rl en -tf "..\IdApp\IdApp.iOS\Resources\Resx\PListResources.sr.resx" -tl sr
 
-IdApp\

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NSCameraUsageDescription" xml:space="preserve">
-    <value>This app needs access to the camera to take photos.</value>
+    <value>Tämä sovellus tarvitsee pääsyn kameraan valokuvien ottamiseen digitaaliseen tunnukseesi ja milloin haluat sen skannaavan QR-koodit.</value>
   </data>
   <data name="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
-    <value>This app needs access to the photo gallery.</value>
+    <value>Tämän sovelluksen on voitava lisätä valokuvia gallerioihin, jos haluat tallentaa ottamasi valokuvat myöhempää käyttöä varten.</value>
   </data>
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
-    <value>This app needs access to photos.</value>
+    <value>Tämä sovellus tarvitsee pääsyn valokuvagalleriaan, jotta voit valita profiilikuvan henkilötodistuksellesi, saada QR-koodeja muista sovelluksista tai jakaa kuvia yhteystietojen kanssa keskusteluissa.</value>
   </data>
 </root>

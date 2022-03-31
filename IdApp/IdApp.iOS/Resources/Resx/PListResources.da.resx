@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NSCameraUsageDescription" xml:space="preserve">
-    <value>This app needs access to the camera to take photos.</value>
+    <value>Denne app har brug for adgang til kameraet for at tage fotos til dit digitale id, og når du vil have det til at scanne QR-koder.</value>
   </data>
   <data name="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
-    <value>This app needs access to the photo gallery.</value>
+    <value>Denne app skal kunne tilføje fotos til dine gallerier, hvis du vil gemme fotos, du tager til senere brug.</value>
   </data>
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
-    <value>This app needs access to photos.</value>
+    <value>Denne app har brug for adgang til fotogalleriet, så du kan vælge et profilbillede til dit id, få QR-koder fra andre apps eller dele billeder med kontakter i chats.</value>
   </data>
 </root>
