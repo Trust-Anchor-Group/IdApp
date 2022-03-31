@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NSCameraUsageDescription" xml:space="preserve">
-    <value>Denna app behöver åtkomst till kameran för att kunna ta foton till ditt digitala ID, och när du vill skanna QR-koder.</value>
+    <value>TAG ID behöver åtkomst till kameran för att kunna ta foton till ditt digitala ID, och när du vill skanna QR-koder.</value>
   </data>
   <data name="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
-    <value>Denna app behöver kunna lägga till foton till ditt fotogalleri, om du vill spara foton du tar till senare.</value>
+    <value>TAG ID behöver kunna lägga till foton till ditt fotogalleri, om du vill spara foton du tar till senare.</value>
   </data>
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
-    <value>Denna app behöver åtkomst till fotogalleriet för att du ska kunna välja foton till ditt ID, hämta QR-koder från andra appar, eller dela bilder med kontakter i chattar.</value>
+    <value>TAG ID behöver åtkomst till fotogalleriet för att du ska kunna välja foton till ditt ID, hämta QR-koder från andra appar, eller dela bilder med kontakter i chattar.</value>
   </data>
 </root>

@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NSCameraUsageDescription" xml:space="preserve">
-    <value>Cette application a besoin d’accéder à l’appareil photo pour prendre des photos pour votre identification numérique, et quand vous le souhaitez, il scanne les codes QR.</value>
+    <value>TAG ID a besoin d’accéder à l’appareil photo pour prendre des photos pour votre identification numérique, et quand vous le souhaitez, il doit scanner les codes QR.</value>
   </data>
   <data name="NSPhotoLibraryAddUsageDescription" xml:space="preserve">
-    <value>Cette application doit pouvoir ajouter des photos à vos galeries, si vous souhaitez enregistrer les photos que vous prenez pour une utilisation ultérieure.</value>
+    <value>TAG ID doit pouvoir ajouter des photos à vos galeries si vous souhaitez enregistrer les photos que vous prenez pour une utilisation ultérieure.</value>
   </data>
   <data name="NSPhotoLibraryUsageDescription" xml:space="preserve">
-    <value>Cette application a besoin d’accéder à la galerie de photos pour que vous puissiez sélectionner une photo de profil pour votre pièce d’identité, obtenir des codes QR d’autres applications ou partager des images avec des contacts dans les chats.</value>
+    <value>TAG ID a besoin d’accéder à la galerie de photos pour que vous puissiez sélectionner une photo de profil pour votre pièce d’identité, obtenir des codes QR à partir d’autres applications ou partager des images avec des contacts dans les chats.</value>
   </data>
 </root>

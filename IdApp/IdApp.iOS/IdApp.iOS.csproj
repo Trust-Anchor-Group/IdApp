@@ -245,4 +245,7 @@
     <BundleResource Include="Resources\sr.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\sv.lproj\InfoPlist.strings" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Resx\PListResource.sv.resx" />
+  </ItemGroup>
 </Project>
