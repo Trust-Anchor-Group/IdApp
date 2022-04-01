@@ -25,11 +25,11 @@
 	<key>CFBundleName</key>
 	<string>TAG Demo</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs access to the camera to take photos.</string>
+	<string>TAG ID needs access to the camera to take photos for your digital ID, and when you want it to scan QR codes.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app needs access to photos.</string>
+	<string>TAG ID needs access to the photo gallery for you to be able to select a profile photo for your ID, get QR codes from other apps, or share images with contacts in chats.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>This app needs access to the photo gallery.</string>
+	<string>TAG ID needs to be able to add photos to your galleries, if you want to save photos you take for later use.</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>pt</string>

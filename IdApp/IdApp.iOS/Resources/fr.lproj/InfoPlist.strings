@@ -1,3 +1,3 @@
-﻿"NSCameraUsageDescription"="This app needs access to the camera to take photos.";
-"NSPhotoLibraryUsageDescription"="This app needs access to photos.";
-"NSPhotoLibraryAddUsageDescription"="This app needs access to the photo gallery.";
+﻿"NSCameraUsageDescription"="TAG ID a besoin d’accéder à l’appareil photo pour prendre des photos pour votre identification numérique, et quand vous le souhaitez, il doit scanner les codes QR.";
+"NSPhotoLibraryUsageDescription"="TAG ID a besoin d’accéder à la galerie de photos pour que vous puissiez sélectionner une photo de profil pour votre pièce d’identité, obtenir des codes QR à partir d’autres applications ou partager des images avec des contacts dans les chats.";
+"NSPhotoLibraryAddUsageDescription"="TAG ID doit pouvoir ajouter des photos à vos galeries si vous souhaitez enregistrer les photos que vous prenez pour une utilisation ultérieure.";
