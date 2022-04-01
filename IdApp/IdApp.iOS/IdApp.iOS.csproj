@@ -224,7 +224,7 @@
     <BundleResource Include="Resources\tessdata\eng.traineddata" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Resx\PListResource.resx" />
+    <None Include="Resources\Resx\PListResources.resx" />
     <None Include="Resources\Resx\PListResources.pt.resx" />
     <None Include="Resources\Resx\PListResources.es.resx" />
     <None Include="Resources\Resx\PListResources.de.resx" />
@@ -233,6 +233,7 @@
     <None Include="Resources\Resx\PListResources.no.resx" />
     <None Include="Resources\Resx\PListResources.fi.resx" />
     <None Include="Resources\Resx\PListResources.sr.resx" />
+    <None Include="Resources\Resx\PListResources.sv.resx" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\da.lproj\InfoPlist.strings" />
@@ -244,8 +245,5 @@
     <BundleResource Include="Resources\pt.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\sr.lproj\InfoPlist.strings" />
     <BundleResource Include="Resources\sv.lproj\InfoPlist.strings" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Resx\PListResource.sv.resx" />
   </ItemGroup>
 </Project>
