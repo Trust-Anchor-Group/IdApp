@@ -136,6 +136,11 @@ namespace IdApp.Services.Tag
 		bool UsePin { get; }
 
 		/// <summary>
+		/// Returns <c>true</c> if the user choose the educational or experimental purpose.
+		/// </summary>
+		bool IsTest { get; }
+
+		/// <summary>
 		/// The legal identity of the curren user/profile.
 		/// </summary>
 		LegalIdentity LegalIdentity { get; }
@@ -260,6 +265,11 @@ namespace IdApp.Services.Tag
 		/// Revert Step 5.
 		/// </summary>
 		void ClearPin();
+
+		/// <summary>
+		/// Step 1 - Set if the user choose the educational or experimental purpose.
+		/// </summary>
+		void SetIsTest(bool isTest);
 
 		/// <summary>
 		/// Sets the current <see cref="LegalIdentity"/> to the revoked identity, and reverses the <see cref="Step"/> property.

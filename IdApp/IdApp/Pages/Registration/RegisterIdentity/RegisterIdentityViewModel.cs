@@ -89,6 +89,11 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		#region Properties
 
 		/// <summary>
+		/// True if the user choose the educational or experimental purpose.
+		/// </summary>
+		public bool IsTest => this.TagProfile.IsTest;
+
+		/// <summary>
 		/// The command to bind to for performing the 'register' action.
 		/// </summary>
 		public ICommand RegisterCommand { get; }

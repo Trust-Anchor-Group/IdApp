@@ -75,6 +75,7 @@ namespace IdApp.Services.Tag
 		private string pinHash;
 		private long? httpFileUploadMaxSize;
 		private bool usePin;
+		private bool isTest;
 		private RegistrationStep step = RegistrationStep.ValidatePhoneNr;
 		private bool suppressPropertyChangedEvents;
 		private bool defaultXmppConnectivity;
@@ -131,6 +132,7 @@ namespace IdApp.Services.Tag
 				EDalerJid = this.EDalerJid,
 				PinHash = this.PinHash,
 				UsePin = this.UsePin,
+				IsTest = this.IsTest,
 				LegalIdentity = this.LegalIdentity,
 				Step = this.Step
 			};
@@ -167,6 +169,7 @@ namespace IdApp.Services.Tag
 				this.EDalerJid = configuration.EDalerJid;
 				this.PinHash = configuration.PinHash;
 				this.UsePin = configuration.UsePin;
+				this.IsTest = configuration.IsTest;
 				this.LegalIdentity = configuration.LegalIdentity;
 
 				// Do this last, as listeners will read the other properties when the event is fired.
@@ -490,6 +493,20 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public bool IsTest
+		{
+			get => this.isTest;
+			private set
+			{
+				if (this.isTest != value)
+				{
+					this.isTest = value;
+					this.FlagAsDirty(nameof(IsTest));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
 		public LegalIdentity LegalIdentity
 		{
 			get => this.legalIdentity;
@@ -737,6 +754,12 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public void SetIsTest(bool isTest)
+		{
+			this.IsTest = isTest;
+		}
+
+		/// <inheritdoc/>
 		public void SetLegalJid(string legalJid)
 		{
 			this.LegalJid = legalJid;
@@ -829,6 +852,7 @@ namespace IdApp.Services.Tag
 			this.pinHash = string.Empty;
 			this.httpFileUploadMaxSize = null;
 			this.usePin = false;
+			this.isTest = false;
 			this.step = RegistrationStep.ValidatePhoneNr;
 			this.defaultXmppConnectivity = false;
 

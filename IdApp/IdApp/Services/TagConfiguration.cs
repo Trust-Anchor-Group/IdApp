@@ -125,6 +125,12 @@ namespace IdApp.Services
 		public bool UsePin { get; set; }
 
 		/// <summary>
+		/// Set to true if the user choose the educational or experimental purpose.
+		/// </summary>
+		[DefaultValue(false)]
+		public bool IsTest { get; set; }
+
+		/// <summary>
 		/// User's current legal identity.
 		/// </summary>
 		[DefaultValueNull]

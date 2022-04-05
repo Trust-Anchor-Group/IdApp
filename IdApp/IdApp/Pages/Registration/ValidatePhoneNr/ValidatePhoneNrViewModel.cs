@@ -284,13 +284,14 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			try
 			{
 				string TrimmedNumber = TrimPhoneNumber(this.PhoneNumber);
+				bool IsTest = this.Purpose == (int)PurposeUse.EducationalOrExperimental;
 
 				object Result = await InternetContent.PostAsync(new Uri("https://" + Constants.Domains.IdDomain + "/ID/VerifyNumber.ws"),
 					new Dictionary<string, object>()
 					{
 						{ "Nr", TrimmedNumber },
 						{ "Code", int.Parse(this.VerificationCode) },
-						{ "Test", this.Purpose == (int)PurposeUse.EducationalOrExperimental }
+						{ "Test", IsTest }
 					}, new KeyValuePair<string, string>("Accept", "application/json"));
 
 				if (Result is Dictionary<string, object> Response &&
@@ -302,6 +303,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 					bool DefaultConnectivity;
 
 					this.TagProfile.SetPhone(TrimmedNumber);
+					this.TagProfile.SetIsTest(IsTest);
 
 					try
 					{
