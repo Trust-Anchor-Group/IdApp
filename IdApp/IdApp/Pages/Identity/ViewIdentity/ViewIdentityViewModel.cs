@@ -1364,7 +1364,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.LegalIdentity = revokedIdentity;
 					this.TagProfile.RevokeLegalIdentity(revokedIdentity);
 
-					await this.XmppService.Contracts.ContractsClient.GenerateNewKeys();
 					await this.NavigationService.GoToAsync($"{nameof(RegistrationPage)}");
 				}
 			}
@@ -1400,7 +1399,6 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					this.LegalIdentity = compromisedIdentity;
 					this.TagProfile.RevokeLegalIdentity(compromisedIdentity);
 
-					await this.XmppService.Contracts.ContractsClient.GenerateNewKeys();
 					await this.NavigationService.GoToAsync($"{nameof(RegistrationPage)}");
 				}
 			}
