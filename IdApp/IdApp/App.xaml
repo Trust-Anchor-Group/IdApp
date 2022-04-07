@@ -61,12 +61,13 @@
                x:Key="IconButton"
                ApplyToDerivedTypes="True"
                CanCascade="True">
-            <Setter Property="FontSize" Value="Small" />
+            <Setter Property="FontSize" Value="Medium" />
             <Setter Property="BackgroundColor" Value="{StaticResource HeadingBackground}" />
             <Setter Property="TextColor" Value="White" />
-            <Setter Property="CornerRadius" Value="2" />
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Margin" Value="2" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="HeightRequest" Value="40" />
+            <Setter Property="WidthRequest" Value="40" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
         </Style>
         <Style x:Key="Heading" TargetType="Label"
                ApplyToDerivedTypes="True"
