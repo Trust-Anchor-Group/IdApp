@@ -1164,6 +1164,9 @@
   <data name="TesseractNotCreated" xml:space="preserve">
     <value>Tesseracts OCR-bibliotek inte skapat</value>
   </data>
+  <data name="TestOtpUsed" xml:space="preserve">
+    <value>En tillfällig OTP-kod har använts. Applikationen kommer att sluta att fungera om en vecka. Du måste återinstallera applikationen för att kunna använda den igen.</value>
+  </data>
   <data name="TheContractRequiresAtLeast_AddMoreParts" xml:space="preserve">
     <value>Kontraktet kräver åtminstone {0} delar för rollen {1}. Lägg till delar till kontraktet och försök igen.</value>
   </data>
@@ -1307,6 +1310,9 @@
   </data>
   <data name="Wallet" xml:space="preserve">
     <value>Plånbok</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Varning</value>
   </data>
   <data name="WelcomeToTagCodeSent" xml:space="preserve">
     <value>En kod har skickats till numret angivet ovan. När du tar emot det, var god skriv ner verifieringskoden nedan for att fortsätta.</value>

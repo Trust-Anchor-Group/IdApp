@@ -1416,4 +1416,10 @@
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Tietokoneesta ei voi poimia koneellista tekstiä.</value>
   </data>
+  <data name="TestOtpUsed" xml:space="preserve">
+    <value>On käytetty väliaikaista OTP-koodia. Sovellus lakkaa toimimasta noin viikon kuluttua. Sinun on asennettava sovellus uudelleen, jotta voit käyttää sitä uudelleen.</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Varoitus</value>
+  </data>
 </root>

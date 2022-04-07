@@ -1416,4 +1416,10 @@
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Maschinenlesbarer Text kann nicht aus dem Bild extrahiert werden.</value>
   </data>
+  <data name="TestOtpUsed" xml:space="preserve">
+    <value>Es wurde ein temporärer OTP-Code verwendet. Die Anwendung wird in etwa einer Woche aufhören zu arbeiten. Sie müssen die Anwendung neu installieren, um sie erneut verwenden zu können.</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Warnung</value>
+  </data>
 </root>

@@ -1416,4 +1416,10 @@
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Nije moguće izdvojiti tekst čitljiv na računaru sa slike.</value>
   </data>
+  <data name="TestOtpUsed" xml:space="preserve">
+    <value>Korišćena je privremena OTP šifra. Aplikacija će prestati da radi za oko nedelju dana. Moraćete ponovo da instalirate aplikaciju da biste je ponovo koristili.</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Upozorenje</value>
+  </data>
 </root>

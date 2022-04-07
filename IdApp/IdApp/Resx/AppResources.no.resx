@@ -1416,4 +1416,10 @@
   <data name="UnableToExtractMachineReadableString" xml:space="preserve">
     <value>Kan ikke trekke ut maskinlesbar tekst fra bildet.</value>
   </data>
+  <data name="TestOtpUsed" xml:space="preserve">
+    <value>En midlertidig OTP-kode er brukt. Søknaden slutter å fungere om en uke. Du må installere programmet på nytt for å bruke det igjen.</value>
+  </data>
+  <data name="WarningTitle" xml:space="preserve">
+    <value>Advarsel</value>
+  </data>
 </root>
