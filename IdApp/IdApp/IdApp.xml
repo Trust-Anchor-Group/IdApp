@@ -13424,6 +13424,11 @@
             Set to true if the user choose the educational or experimental purpose.
             </summary>
         </member>
+        <member name="P:IdApp.Services.TagConfiguration.TestOtpTimestamp">
+            <summary>
+            Set to current timestamp if the user used a Test OTP Code.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.TagConfiguration.LegalIdentity">
             <summary>
             User's current legal identity.
@@ -13567,6 +13572,11 @@
             Returns <c>true</c> if the user choose the educational or experimental purpose.
             </summary>
         </member>
+        <member name="P:IdApp.Services.Tag.ITagProfile.TestOtpTimestamp">
+            <summary>
+            Returns a timestamp if the user used a Test OTP Code.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.LegalIdentity">
             <summary>
             The legal identity of the curren user/profile.
@@ -13696,6 +13706,11 @@
         <member name="M:IdApp.Services.Tag.ITagProfile.SetIsTest(System.Boolean)">
             <summary>
             Step 1 - Set if the user choose the educational or experimental purpose.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetTestOtpTimestamp(System.Nullable{System.DateTime})">
+            <summary>
+            Step 1 - Set if the user used a Test OTP Code.
             </summary>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.RevokeLegalIdentity(Waher.Networking.XMPP.Contracts.LegalIdentity)">
@@ -13923,6 +13938,9 @@
         <member name="P:IdApp.Services.Tag.TagProfile.IsTest">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.Services.Tag.TagProfile.TestOtpTimestamp">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Services.Tag.TagProfile.LegalIdentity">
             <inheritdoc/>
         </member>
@@ -13975,6 +13993,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetIsTest(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.SetTestOtpTimestamp(System.Nullable{System.DateTime})">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetLegalJid(System.String)">
