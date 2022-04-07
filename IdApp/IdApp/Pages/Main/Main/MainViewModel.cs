@@ -754,7 +754,7 @@ namespace IdApp.Pages.Main.Main
             {
 				TimeSpan timeSpan = DateTime.Now - this.TagProfile.TestOtpTimestamp.Value;
 
-				if (timeSpan.Seconds >= 7)
+				if (timeSpan.TotalDays >= 7)
 				{
 					try
 					{
