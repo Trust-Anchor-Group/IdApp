@@ -28,6 +28,8 @@ namespace IdApp.Pages.Main.Main
 		{
 			await base.OnAppearingAsync();
 			await this.MainTabBar.Show();
+
+			(this.ViewModel as MainViewModel)?.CheckOtpTimestamp();
 		}
 
 		/// <summary>

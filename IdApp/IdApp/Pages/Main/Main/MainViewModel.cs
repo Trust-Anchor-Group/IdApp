@@ -747,5 +747,30 @@ namespace IdApp.Pages.Main.Main
 				await this.UiSerializer.DisplayAlert(ex);
 			}
 		}
+
+		internal async Task CheckOtpTimestamp()
+        {
+			if (this.TagProfile.TestOtpTimestamp is not null)
+            {
+				TimeSpan timeSpan = DateTime.Now - this.TagProfile.TestOtpTimestamp.Value;
+
+				if (timeSpan.Seconds >= 7)
+				{
+					try
+					{
+						(bool succeeded, LegalIdentity revokedIdentity) = await this.NetworkService.TryRequest(() => this.XmppService.Contracts.ObsoleteLegalIdentity(this.TagProfile.LegalIdentity.Id));
+						if (succeeded)
+						{
+							this.TagProfile.RevokeLegalIdentity(revokedIdentity);
+						}
+					}
+					catch (Exception ex)
+					{
+						this.LogService.LogException(ex);
+						await this.UiSerializer.DisplayAlert(ex);
+					}
+				}
+			}
+		}
 	}
 }
