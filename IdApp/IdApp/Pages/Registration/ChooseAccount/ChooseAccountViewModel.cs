@@ -479,13 +479,35 @@ namespace IdApp.Pages.Registration.ChooseAccount
 							else if (!(createdIdentity is null))
 								this.LegalIdentity = createdIdentity;
 
+							string SelectedId;
+
 							if (!(this.LegalIdentity is null))
+							{
 								this.TagProfile.SetAccountAndLegalIdentity(AccountName, client.PasswordHash, client.PasswordHashMethod, this.LegalIdentity);
+								SelectedId = this.LegalIdentity.Id;
+							}
 							else
+							{
 								this.TagProfile.SetAccount(AccountName, client.PasswordHash, client.PasswordHashMethod);
+								SelectedId = string.Empty;
+							}
 
 							if (!string.IsNullOrEmpty(Pin))
 								this.TagProfile.SetPin(Pin, !string.IsNullOrEmpty(Pin));
+
+							foreach (LegalIdentity Identity in Identities)
+							{
+								if (Identity.Id == SelectedId)
+									continue;
+
+								switch (Identity.State)
+								{
+									case IdentityState.Approved:
+									case IdentityState.Created:
+										await ContractsClient.ObsoleteLegalIdentityAsync(Identity.Id);
+										break;
+								}
+							}
 						}
 						finally
 						{
