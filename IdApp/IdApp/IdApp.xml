@@ -11020,6 +11020,11 @@
               Looks up a localized string similar to Tesseract OCR Library not created.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.TestOtpUsed">
+            <summary>
+              Looks up a localized string similar to A temporary OTP code has been used. The application will stop working in about a week. You&apos;ll have to reinstall the application to use it again..
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.TheContractRequiresAtLeast_AddMoreParts">
             <summary>
               Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
@@ -11263,6 +11268,11 @@
         <member name="P:IdApp.Resx.AppResources.Wallet">
             <summary>
               Looks up a localized string similar to Wallet.
+            </summary>
+        </member>
+        <member name="P:IdApp.Resx.AppResources.WarningTitle">
+            <summary>
+              Looks up a localized string similar to Warning.
             </summary>
         </member>
         <member name="P:IdApp.Resx.AppResources.WelcomeToTagCodeSent">

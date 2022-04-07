@@ -3184,6 +3184,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A temporary OTP code has been used. The application will stop working in about a week. You&apos;ll have to reinstall the application to use it again..
+        /// </summary>
+        internal static string TestOtpUsed {
+            get {
+                return ResourceManager.GetString("TestOtpUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The contract requires at least {0} part(s) of role {1}. Add more parts to the contract and try again..
         /// </summary>
         internal static string TheContractRequiresAtLeast_AddMoreParts {
@@ -3621,6 +3630,15 @@ namespace IdApp.Resx {
         internal static string Wallet {
             get {
                 return ResourceManager.GetString("Wallet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        internal static string WarningTitle {
+            get {
+                return ResourceManager.GetString("WarningTitle", resourceCulture);
             }
         }
         
