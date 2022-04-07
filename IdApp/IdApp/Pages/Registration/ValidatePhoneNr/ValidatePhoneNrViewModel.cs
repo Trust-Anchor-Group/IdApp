@@ -298,12 +298,14 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 					Response.TryGetValue("Status", out object Obj) && Obj is bool Status && Status &&
 					Response.TryGetValue("Domain", out Obj) && Obj is string Domain &&
 					Response.TryGetValue("Key", out Obj) && Obj is string Key &&
-					Response.TryGetValue("Secret", out Obj) && Obj is string Secret)
+					Response.TryGetValue("Secret", out Obj) && Obj is string Secret &&
+					Response.TryGetValue("Temporary", out Obj) && Obj is bool IsTemporary)
 				{
 					bool DefaultConnectivity;
 
 					this.TagProfile.SetPhone(TrimmedNumber);
 					this.TagProfile.SetIsTest(IsTest);
+					this.TagProfile.SetTestOtpTimestamp(IsTemporary ? DateTime.Now : null);
 
 					try
 					{

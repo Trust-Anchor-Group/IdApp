@@ -222,8 +222,8 @@ namespace IdApp.Pages.Registration.DefinePin
         private void Skip()
         {
             UsePin = false;
-            this.TagProfile.SetPin(this.Pin, this.UsePin);
-            OnStepCompleted(EventArgs.Empty);
+
+            Complete();
         }
 
         private bool CanSkip()
@@ -248,9 +248,21 @@ namespace IdApp.Pages.Registration.DefinePin
                 return;
             }
 
+            Complete();
+        }
+
+
+        private void Complete()
+        {
+
             this.TagProfile.SetPin(this.Pin, this.UsePin);
 
             OnStepCompleted(EventArgs.Empty);
+
+            if (this.TagProfile.TestOtpTimestamp is not null)
+            {
+                this.UiSerializer.DisplayAlert(AppResources.WarningTitle, AppResources.TestOtpUsed, AppResources.Ok);
+            }
         }
 
         private bool CanContinue()

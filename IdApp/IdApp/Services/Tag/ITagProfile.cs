@@ -141,6 +141,11 @@ namespace IdApp.Services.Tag
 		bool IsTest { get; }
 
 		/// <summary>
+		/// Returns a timestamp if the user used a Test OTP Code.
+		/// </summary>
+		DateTime? TestOtpTimestamp { get; }
+
+		/// <summary>
 		/// The legal identity of the curren user/profile.
 		/// </summary>
 		LegalIdentity LegalIdentity { get; }
@@ -270,6 +275,11 @@ namespace IdApp.Services.Tag
 		/// Step 1 - Set if the user choose the educational or experimental purpose.
 		/// </summary>
 		void SetIsTest(bool isTest);
+
+		/// <summary>
+		/// Step 1 - Set if the user used a Test OTP Code.
+		/// </summary>
+		void SetTestOtpTimestamp(DateTime? timestamp);
 
 		/// <summary>
 		/// Sets the current <see cref="LegalIdentity"/> to the revoked identity, and reverses the <see cref="Step"/> property.

@@ -1,4 +1,5 @@
-﻿using IdApp.Services.Tag;
+﻿using System;
+using IdApp.Services.Tag;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Persistence.Attributes;
 
@@ -129,6 +130,12 @@ namespace IdApp.Services
 		/// </summary>
 		[DefaultValue(false)]
 		public bool IsTest { get; set; }
+
+		/// <summary>
+		/// Set to current timestamp if the user used a Test OTP Code.
+		/// </summary>
+		[DefaultValueNull]
+		public DateTime? TestOtpTimestamp { get; set; }
 
 		/// <summary>
 		/// User's current legal identity.

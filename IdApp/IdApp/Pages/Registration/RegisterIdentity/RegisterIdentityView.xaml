@@ -13,7 +13,6 @@
             <StackLayout Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
                 <!-- BEGIN HEADER -->
                 <Frame Padding="1" CornerRadius="4" BorderColor="LightGray" HasShadow="False">
-
                     <Grid ColumnSpacing="4" RowSpacing="4" Padding="6" ColumnDefinitions="*,auto" RowDefinitions="auto,auto">
                         <Label Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"  VerticalOptions="Start"
                                Margin="{StaticResource DefaultRightOnlyMargin}"
@@ -52,22 +51,6 @@
                                     IsVisible="{Binding Path=IsTest}" />
                         </StackLayout>
                     </Grid>
-                    <!--
-                        <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="42"/>
-                            <RowDefinition Height="32"/>
-                            <RowDefinition Height="42"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="100"/>
-                        </Grid.ColumnDefinitions>
-                        
-
--->                        
-                            <!--                            IsVisible="{Binding Path=IsTest}" /> -->
                 </Frame>
                 <!-- END HEADER -->
 

@@ -76,6 +76,7 @@ namespace IdApp.Services.Tag
 		private long? httpFileUploadMaxSize;
 		private bool usePin;
 		private bool isTest;
+		private DateTime? testOtpTimestamp;
 		private RegistrationStep step = RegistrationStep.ValidatePhoneNr;
 		private bool suppressPropertyChangedEvents;
 		private bool defaultXmppConnectivity;
@@ -133,6 +134,7 @@ namespace IdApp.Services.Tag
 				PinHash = this.PinHash,
 				UsePin = this.UsePin,
 				IsTest = this.IsTest,
+				TestOtpTimestamp = this.TestOtpTimestamp,
 				LegalIdentity = this.LegalIdentity,
 				Step = this.Step
 			};
@@ -170,6 +172,7 @@ namespace IdApp.Services.Tag
 				this.PinHash = configuration.PinHash;
 				this.UsePin = configuration.UsePin;
 				this.IsTest = configuration.IsTest;
+				this.TestOtpTimestamp = configuration.TestOtpTimestamp;
 				this.LegalIdentity = configuration.LegalIdentity;
 
 				// Do this last, as listeners will read the other properties when the event is fired.
@@ -507,6 +510,20 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public DateTime? TestOtpTimestamp
+		{
+			get => this.testOtpTimestamp;
+			private set
+			{
+				if (this.testOtpTimestamp != value)
+				{
+					this.testOtpTimestamp = value;
+					this.FlagAsDirty(nameof(TestOtpTimestamp));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
 		public LegalIdentity LegalIdentity
 		{
 			get => this.legalIdentity;
@@ -760,6 +777,12 @@ namespace IdApp.Services.Tag
 		}
 
 		/// <inheritdoc/>
+		public void SetTestOtpTimestamp(DateTime? timestamp)
+        {
+			this.TestOtpTimestamp = timestamp;
+        }
+
+		/// <inheritdoc/>
 		public void SetLegalJid(string legalJid)
 		{
 			this.LegalJid = legalJid;
@@ -853,6 +876,7 @@ namespace IdApp.Services.Tag
 			this.httpFileUploadMaxSize = null;
 			this.usePin = false;
 			this.isTest = false;
+			this.TestOtpTimestamp = null;
 			this.step = RegistrationStep.ValidatePhoneNr;
 			this.defaultXmppConnectivity = false;
 
