@@ -69,7 +69,7 @@ namespace IdApp.Android
 					{
 						Description = "Channel for events relating to Legal Identities, Smart Contracts, Payments or tokens"
 					};
-
+					
 					NotificationManager NotificationManager = (NotificationManager)GetSystemService(NotificationService);
 					NotificationManager.CreateNotificationChannels(new List<NotificationChannel>()
 					{
