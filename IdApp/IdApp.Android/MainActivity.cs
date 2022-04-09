@@ -1,10 +1,14 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Gms.Common;
 using Android.Nfc;
 using Android.OS;
 using Android.Runtime;
+using Android.Util;
 using Android.Views;
+using Firebase.Iid;
+using Firebase.Messaging;
 using IdApp.Android.Nfc;
 using IdApp.Nfc;
 using IdApp.Services.Nfc;
@@ -48,6 +52,41 @@ namespace IdApp.Android
 			IOcrService OcrService = Types.InstantiateDefault<IOcrService>(false);
 			OcrService.RegisterApi(new TesseractApi(Application, AssetsDeployment.OncePerVersion));
 
+			int Result = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(this);
+			if (Result == ConnectionResult.Success)
+			{
+				if (Build.VERSION.SdkInt >= BuildVersionCodes.O)
+				{
+					NotificationChannel MessagesChannel = new("Messages", "Instant Messages", NotificationImportance.High)
+					{
+						Description = "Channel for incoming Instant Message notifications"
+					};
+					NotificationChannel ReviewChannel = new("Requests", "Review and Signature Requests", NotificationImportance.High)
+					{
+						Description = "Channel for incoming Contract or Identity Review Requests, or Signature Requests"
+					};
+					NotificationChannel SignatureChannel = new("Events", "Events", NotificationImportance.Default)
+					{
+						Description = "Channel for events relating to Legal Identities, Smart Contracts, Payments or tokens"
+					};
+
+					NotificationManager NotificationManager = (NotificationManager)GetSystemService(NotificationService);
+					NotificationManager.CreateNotificationChannels(new List<NotificationChannel>()
+					{
+						MessagesChannel, ReviewChannel, SignatureChannel
+					});
+				}
+			}
+			else
+			{
+				string Msg = "Unable to access Google Play Services. Push notification is disabled.";
+
+				if (GoogleApiAvailability.Instance.IsUserResolvableError(Result))
+					Msg += " Error reported: " + GoogleApiAvailability.Instance.GetErrorString(Result);
+
+				Waher.Events.Log.Error(Msg);
+			}
+
 			global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 			LoadApplication(new App());
 		}
@@ -65,7 +104,7 @@ namespace IdApp.Android
 			}
 			catch (Exception ex)
 			{
-				Log.Critical(ex);
+				Waher.Events.Log.Critical(ex);
 			}
 		}
 
@@ -81,9 +120,9 @@ namespace IdApp.Android
 
 			if (!(nfcAdapter is null))
 			{
-				IntentFilter TagDetected = new IntentFilter(NfcAdapter.ActionTagDiscovered);
-				IntentFilter NDefDetected = new IntentFilter(NfcAdapter.ActionNdefDiscovered);
-				IntentFilter TechDetected = new IntentFilter(NfcAdapter.ActionTechDiscovered);
+				IntentFilter TagDetected = new(NfcAdapter.ActionTagDiscovered);
+				IntentFilter NDefDetected = new(NfcAdapter.ActionNdefDiscovered);
+				IntentFilter TechDetected = new(NfcAdapter.ActionTechDiscovered);
 				IntentFilter[] Filters = new IntentFilter[] { TagDetected, NDefDetected, TechDetected };
 
 				Intent Intent = new Intent(this, this.GetType()).AddFlags(ActivityFlags.SingleTop);
@@ -107,7 +146,7 @@ namespace IdApp.Android
 						{
 							byte[] ID = Tag.GetId();
 							string[] TechList = Tag.GetTechList();
-							List<INfcInterface> Interfaces = new List<INfcInterface>();
+							List<INfcInterface> Interfaces = new();
 
 							foreach (string Tech in TechList)
 							{
