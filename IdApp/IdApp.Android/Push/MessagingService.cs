@@ -1,8 +1,9 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Util;
 using Firebase.Messaging;
+using IdApp.Services.Push;
 using System.Collections.Generic;
+using Waher.Runtime.Inventory;
 
 namespace IdApp.Android.Push
 {
@@ -14,8 +15,6 @@ namespace IdApp.Android.Push
     })]
     public class MessagingService : FirebaseMessagingService
     {
-        const string TAG = "FirebaseMsg";
-
         public override void OnMessageReceived(RemoteMessage Message)
         {
             string Body = Message.GetNotification().Body;
@@ -24,7 +23,8 @@ namespace IdApp.Android.Push
 
 		public override void OnNewToken(string p0)
 		{
-            Log.Debug(TAG, p0);
+            IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
+            PushService?.NewToken(PushMessagingService.Firebase, p0);
 		}
 
 		public void ShowNotification(string MessageBody, IDictionary<string, string> Data)

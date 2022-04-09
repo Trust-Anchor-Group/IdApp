@@ -13021,6 +13021,100 @@
             </summary>
             <returns>Complete list of my devices.</returns>
         </member>
+        <member name="T:IdApp.Services.Push.PushMessagingService">
+            <summary>
+            Push messaging service used.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Push.PushMessagingService.Firebase">
+            <summary>
+            firebase.google.com
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Push.IPushNotificationService">
+            <summary>
+            Interface for push notification services.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Push.IPushNotificationService.NewToken(IdApp.Services.Push.PushMessagingService,System.String)">
+            <summary>
+            New token received from push notification back-end.
+            </summary>
+            <param name="Source">Source of token.</param>
+            <param name="Token">Token</param>
+        </member>
+        <member name="M:IdApp.Services.Push.IPushNotificationService.TryGetToken(IdApp.Services.Push.PushMessagingService,System.String@)">
+            <summary>
+            Tries to get a token from a push notification service.
+            </summary>
+            <param name="Source">Source of token</param>
+            <param name="Token">Token, if found.</param>
+            <returns>If a token was found for the corresponding source.</returns>
+        </member>
+        <member name="E:IdApp.Services.Push.IPushNotificationService.OnNewToken">
+            <summary>
+            Event raised when a new token is made available.
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Push.PushNotificationService">
+            <summary>
+            Push notification service
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Push.PushNotificationService.#ctor">
+            <summary>
+            Push notification service
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Push.PushNotificationService.NewToken(IdApp.Services.Push.PushMessagingService,System.String)">
+            <summary>
+            New token received from push notification back-end.
+            </summary>
+            <param name="Source">Source of token.</param>
+            <param name="Token">Token</param>
+        </member>
+        <member name="E:IdApp.Services.Push.PushNotificationService.OnNewToken">
+            <summary>
+            Event raised when a new token is made available.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Push.PushNotificationService.TryGetToken(IdApp.Services.Push.PushMessagingService,System.String@)">
+            <summary>
+            Tries to get a token from a push notification service.
+            </summary>
+            <param name="Source">Source of token</param>
+            <param name="Token">Token, if found.</param>
+            <returns>If a token was found for the corresponding source.</returns>
+        </member>
+        <member name="T:IdApp.Services.Push.TokenEventHandler">
+            <summary>
+            Delegate for token event handlers.
+            </summary>
+            <param name="Sender">Sender of event.</param>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:IdApp.Services.Push.TokenEventArgs">
+            <summary>
+            Event argumens for token-based events.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Push.TokenEventArgs.#ctor(IdApp.Services.Push.PushMessagingService,System.String)">
+            <summary>
+            Event argumens for token-based events.
+            </summary>
+            <param name="Source">Source of notification</param>
+            <param name="Token">Token</param>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenEventArgs.Source">
+            <summary>
+            Source of notification
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenEventArgs.Token">
+            <summary>
+            Token
+            </summary>
+        </member>
         <member name="T:IdApp.Services.ServiceReferences">
             <summary>
             Abstract base class for (bindable) classes that reference services in the app.
