@@ -219,6 +219,7 @@
   <ItemGroup>
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
+    <BundleResource Include="GoogleService-Info.plist" />
     <BundleResource Include="Resources\FontAwesome5Free-Regular-400.otf" />
     <BundleResource Include="Resources\FontAwesome5Free-Solid-900.otf" />
     <BundleResource Include="Resources\tessdata\eng.traineddata" />
