@@ -45,6 +45,7 @@ using IdApp.Popups.Xmpp.ReportType;
 using IdApp.Services.UI.Photos;
 using IdApp.Resx;
 using NeuroFeatures;
+using Waher.Networking.XMPP.Push;
 
 namespace IdApp.Services.Xmpp
 {
@@ -65,6 +66,7 @@ namespace IdApp.Services.Xmpp
 		private ConcentratorClient concentratorClient;
 		private EDalerClient eDalerClient;
 		private NeuroFeaturesClient neuroFeaturesClient;
+		private PushNotificationClient pushNotificationClient;
 		private AbuseClient abuseClient;
 		private Timer reconnectTimer;
 		private readonly SmartContracts contracts;
@@ -240,6 +242,12 @@ namespace IdApp.Services.Xmpp
 						this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
 					}
 
+					if (this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)
+					{
+						Thread?.NewState("Push");
+						this.pushNotificationClient = new PushNotificationClient(this.xmppClient);
+					}
+
 					Thread?.NewState("Sensor");
 					this.sensorClient = new SensorClient(this.xmppClient);
 
@@ -367,6 +375,9 @@ namespace IdApp.Services.Xmpp
 			if (this.neuroFeaturesClient?.ComponentAddress != this.TagProfile.NeuroFeaturesJid)
 				return false;
 
+			if ((this.pushNotificationClient is null) ^ !(this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value))
+				return false;
+
 			return true;
 		}
 
@@ -465,6 +476,9 @@ namespace IdApp.Services.Xmpp
 
 						if (this.neuroFeaturesClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
 							this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
+
+						if (this.pushNotificationClient is null && this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value)
+							this.pushNotificationClient = new PushNotificationClient(this.xmppClient);
 					}
 
 					this.LogService.AddListener(this.xmppEventSink);
@@ -694,7 +708,7 @@ namespace IdApp.Services.Xmpp
 			int portNumber, string userName, string password, string passwordMethod, string languageCode, string ApiKey, string ApiSecret,
 			Assembly applicationAssembly, Func<XmppClient, Task> connectedFunc, ConnectOperation operation)
 		{
-			TaskCompletionSource<bool> connected = new TaskCompletionSource<bool>();
+			TaskCompletionSource<bool> connected = new();
 			bool succeeded;
 			string errorMessage = null;
 			bool streamNegotiation = false;
@@ -790,7 +804,7 @@ namespace IdApp.Services.Xmpp
 					connected.TrySetResult(false);
 				}
 
-				using (Timer _ = new Timer(TimerCallback, null, (int)Constants.Timeouts.XmppConnect.TotalMilliseconds, Timeout.Infinite))
+				using (Timer _ = new(TimerCallback, null, (int)Constants.Timeouts.XmppConnect.TotalMilliseconds, Timeout.Infinite))
 				{
 					succeeded = await connected.Task;
 				}
@@ -845,7 +859,7 @@ namespace IdApp.Services.Xmpp
 
 		public async Task<bool> DiscoverServices(XmppClient Client = null)
 		{
-			Client = Client ?? xmppClient;
+			Client ??= xmppClient;
 			if (Client is null)
 				return false;
 
@@ -862,8 +876,10 @@ namespace IdApp.Services.Xmpp
 				return false;
 			}
 
-			List<Task> Tasks = new List<Task>();
-			object SynchObject = new object();
+			List<Task> Tasks = new();
+			object SynchObject = new();
+
+			Tasks.Add(this.CheckFeatures(Client, SynchObject));
 
 			foreach (Item Item in response.Items)
 				Tasks.Add(this.CheckComponent(Client, Item, SynchObject));
@@ -888,7 +904,20 @@ namespace IdApp.Services.Xmpp
 			if (string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
 				return false;
 
+			if (!(this.TagProfile.SupportsPushNotification.HasValue && this.TagProfile.SupportsPushNotification.Value))
+				return false;
+
 			return true;
+		}
+
+		private async Task CheckFeatures(XmppClient Client, object SynchObject)
+		{
+			ServiceDiscoveryEventArgs e = await Client.ServiceDiscoveryAsync(string.Empty);
+
+			lock (SynchObject)
+			{
+				this.TagProfile.SetSupportsPushNotification(e.HasFeature(PushNotificationClient.MessagePushNamespace));
+			}
 		}
 
 		private async Task CheckComponent(XmppClient Client, Item Item, object SynchObject)
@@ -1112,7 +1141,7 @@ namespace IdApp.Services.Xmpp
 			if (!(RemoteIdentity is null) && !(RemoteIdentity.Attachments is null))
 				(PhotoUrl, PhotoWidth, PhotoHeight) = await PhotosLoader.LoadPhotoAsTemporaryFile(RemoteIdentity.Attachments, 300, 300);
 
-			SubscriptionRequestPopupPage SubscriptionRequestPage = new SubscriptionRequestPopupPage(e.FromBareJID, FriendlyName, PhotoUrl, PhotoWidth, PhotoHeight);
+			SubscriptionRequestPopupPage SubscriptionRequestPage = new(e.FromBareJID, FriendlyName, PhotoUrl, PhotoWidth, PhotoHeight);
 
 			await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscriptionRequestPage);
 			PresenceRequestAction Action = await SubscriptionRequestPage.Result;
@@ -1144,7 +1173,7 @@ namespace IdApp.Services.Xmpp
 
 					if (Item is null || (Item.State != SubscriptionState.Both && Item.State != SubscriptionState.To))
 					{
-						SubscribeToPopupPage SubscribeToPage = new SubscribeToPopupPage(e.FromBareJID);
+						SubscribeToPopupPage SubscribeToPage = new(e.FromBareJID);
 
 						await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPage);
 						bool? SubscribeTo = await SubscribeToPage.Result;
@@ -1157,7 +1186,7 @@ namespace IdApp.Services.Xmpp
 								IdXml = string.Empty;
 							else
 							{
-								StringBuilder Xml = new StringBuilder();
+								StringBuilder Xml = new();
 								this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
 								IdXml = Xml.ToString();
 							}
@@ -1170,7 +1199,7 @@ namespace IdApp.Services.Xmpp
 				case PresenceRequestAction.Reject:
 					e.Decline();
 
-					ReportOrBlockPopupPage ReportOrBlockPage = new ReportOrBlockPopupPage(e.FromBareJID);
+					ReportOrBlockPopupPage ReportOrBlockPage = new(e.FromBareJID);
 
 					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(ReportOrBlockPage);
 					ReportOrBlockAction ReportOrBlock = await ReportOrBlockPage.Result;
@@ -1197,14 +1226,14 @@ namespace IdApp.Services.Xmpp
 
 						if (ReportOrBlock == ReportOrBlockAction.Report)
 						{
-							ReportTypePopupPage ReportTypePage = new ReportTypePopupPage(e.FromBareJID);
+							ReportTypePopupPage ReportTypePage = new(e.FromBareJID);
 
 							await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(ReportOrBlockPage);
 							ReportingReason? ReportType = await ReportTypePage.Result;
 
 							if (ReportType.HasValue)
 							{
-								TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+								TaskCompletionSource<bool> Result = new();
 
 								await this.abuseClient.BlockJID(e.FromBareJID, ReportType.Value, (sender2, e2) =>
 								{
@@ -1240,7 +1269,7 @@ namespace IdApp.Services.Xmpp
 			string FriendlyName = ContactInfo?.FriendlyName ?? e.FromBareJID;
 			string ReplaceObjectId = null;
 
-			ChatMessage Message = new ChatMessage()
+			ChatMessage Message = new()
 			{
 				Created = DateTime.UtcNow,
 				RemoteBareJid = e.FromBareJID,
@@ -1289,7 +1318,7 @@ namespace IdApp.Services.Xmpp
 								{
 									i = Html.IndexOf('>', i + 5);
 									if (i >= 0)
-										Html = Html.Substring(i + 1).TrimStart();
+										Html = Html[(i + 1)..].TrimStart();
 
 									i = Html.LastIndexOf("</body>", StringComparison.OrdinalIgnoreCase);
 									if (i >= 0)
@@ -1321,7 +1350,7 @@ namespace IdApp.Services.Xmpp
 			{
 				try
 				{
-					MarkdownSettings Settings = new MarkdownSettings()
+					MarkdownSettings Settings = new()
 					{
 						AllowScriptTag = false,
 						EmbedEmojis = false,    // TODO: Emojis

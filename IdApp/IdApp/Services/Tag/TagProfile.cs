@@ -75,6 +75,7 @@ namespace IdApp.Services.Tag
 		private string neuroFeaturesJid;
 		private string pinHash;
 		private long? httpFileUploadMaxSize;
+		private bool? supportsPushNotification;
 		private bool usePin;
 		private bool isTest;
 		private DateTime? testOtpTimestamp;
@@ -113,7 +114,7 @@ namespace IdApp.Services.Tag
 		/// <returns>Configuration object</returns>
 		public TagConfiguration ToConfiguration()
 		{
-			TagConfiguration clone = new TagConfiguration
+			TagConfiguration clone = new()
 			{
 				ObjectId = this.objectId,
 				Domain = this.Domain,
@@ -133,6 +134,7 @@ namespace IdApp.Services.Tag
 				MucJid = this.MucJid,
 				EDalerJid = this.EDalerJid,
 				NeuroFeaturesJid = this.NeuroFeaturesJid,
+				SupportsPushNotification = this.SupportsPushNotification,
 				PinHash = this.PinHash,
 				UsePin = this.UsePin,
 				IsTest = this.IsTest,
@@ -172,6 +174,7 @@ namespace IdApp.Services.Tag
 				this.MucJid = configuration.MucJid;
 				this.EDalerJid = configuration.EDalerJid;
 				this.NeuroFeaturesJid = configuration.NeuroFeaturesJid;
+				this.SupportsPushNotification = configuration.SupportsPushNotification;
 				this.PinHash = configuration.PinHash;
 				this.UsePin = configuration.UsePin;
 				this.IsTest = configuration.IsTest;
@@ -190,14 +193,15 @@ namespace IdApp.Services.Tag
 		/// <inheritdoc/>
 		public virtual bool NeedsUpdating()
 		{
-			return string.IsNullOrWhiteSpace(this.LegalJid) ||
-				   string.IsNullOrWhiteSpace(this.RegistryJid) ||
-				   string.IsNullOrWhiteSpace(this.ProvisioningJid) ||
-				   string.IsNullOrWhiteSpace(this.HttpFileUploadJid) ||
-				   string.IsNullOrWhiteSpace(this.LogJid) ||
-				   string.IsNullOrWhiteSpace(this.MucJid) ||
-				   string.IsNullOrWhiteSpace(this.EDalerJid) ||
-				   string.IsNullOrWhiteSpace(this.NeuroFeaturesJid);
+			return string.IsNullOrWhiteSpace(this.legalJid) ||
+				   string.IsNullOrWhiteSpace(this.registryJid) ||
+				   string.IsNullOrWhiteSpace(this.provisioningJid) ||
+				   string.IsNullOrWhiteSpace(this.httpFileUploadJid) ||
+				   string.IsNullOrWhiteSpace(this.logJid) ||
+				   string.IsNullOrWhiteSpace(this.mucJid) ||
+				   string.IsNullOrWhiteSpace(this.eDalerJid) ||
+				   string.IsNullOrWhiteSpace(this.neuroFeaturesJid) ||
+				   !this.supportsPushNotification.HasValue;
 		}
 
 		/// <inheritdoc/>
@@ -454,6 +458,20 @@ namespace IdApp.Services.Tag
 				{
 					this.neuroFeaturesJid = value;
 					this.FlagAsDirty(nameof(this.NeuroFeaturesJid));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
+		public bool? SupportsPushNotification
+		{
+			get => this.supportsPushNotification;
+			private set
+			{
+				if (this.supportsPushNotification != value)
+				{
+					this.supportsPushNotification = value;
+					this.FlagAsDirty(nameof(this.SupportsPushNotification));
 				}
 			}
 		}
@@ -849,12 +867,18 @@ namespace IdApp.Services.Tag
 			this.NeuroFeaturesJid = neuroFeaturesJid;
 		}
 
+		/// <inheritdoc/>
+		public void SetSupportsPushNotification(bool? supportsPushNotification)
+		{
+			this.SupportsPushNotification = supportsPushNotification;
+		}
+
 		#endregion
 
 		/// <inheritdoc/>
 		public string ComputePinHash(string pin)
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.Append(this.objectId);
 			sb.Append(':');
@@ -897,6 +921,7 @@ namespace IdApp.Services.Tag
 			this.mucJid = string.Empty;
 			this.eDalerJid = string.Empty;
 			this.neuroFeaturesJid = string.Empty;
+			this.supportsPushNotification = null;
 			this.pinHash = string.Empty;
 			this.httpFileUploadMaxSize = null;
 			this.usePin = false;
