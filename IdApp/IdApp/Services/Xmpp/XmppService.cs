@@ -313,6 +313,12 @@ namespace IdApp.Services.Xmpp
 			this.eDalerClient?.Dispose();
 			this.eDalerClient = null;
 
+			this.neuroFeaturesClient?.Dispose();
+			this.neuroFeaturesClient = null;
+
+			this.pushNotificationClient?.Dispose();
+			this.pushNotificationClient = null;
+
 			this.sensorClient?.Dispose();
 			this.sensorClient = null;
 
@@ -482,6 +488,8 @@ namespace IdApp.Services.Xmpp
 					}
 
 					this.LogService.AddListener(this.xmppEventSink);
+
+					await this.CheckPushNotificationToken();
 
 					this.xmppThread?.Stop();
 					this.xmppThread = null;
@@ -664,6 +672,8 @@ namespace IdApp.Services.Xmpp
 		public SensorClient SensorClient => this.sensorClient;
 		public ConcentratorClient ConcentratorClient => this.concentratorClient;
 		public EDalerClient EDalerClient => this.eDalerClient;
+		public NeuroFeaturesClient NeuroFeaturesClient => this.neuroFeaturesClient;
+		public PushNotificationClient PushNotificationClient => this.pushNotificationClient;
 		public ContractsClient ContractsClient => this.contractsClient;
 
 		#endregion
@@ -1422,5 +1432,65 @@ namespace IdApp.Services.Xmpp
 					await NavigationService.GoToAsync<ChatNavigationArgs>(nameof(ChatPage), new ChatNavigationArgs(LegalId, BareJid, FriendlyName)));
 			}
 		}
+
+		#region Push Notification
+
+		/// <summary>
+		/// Registers a new token with the back-end broker.
+		/// </summary>
+		/// <param name="Token">Token</param>
+		/// <param name="Service">Push Service</param>
+		/// <param name="ClientType">Type of client</param>
+		/// <returns>If token could be registered.</returns>
+		public async Task<bool> NewPushNotificationToken(string Token, PushMessagingService Service, ClientType ClientType)
+		{
+			DateTime TP = DateTime.UtcNow;
+
+			await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
+			await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
+			await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
+			await RuntimeSettings.SetAsync("PUSH.TP", TP);
+
+			if (this.pushNotificationClient is null || !this.IsOnline)
+				return false;
+			else
+			{
+				await this.pushNotificationClient.NewTokenAsync(Token, Service, ClientType);
+				await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
+
+				return true;
+			}
+		}
+
+		public async Task CheckPushNotificationToken()
+		{
+			DateTime Now = DateTime.Now;
+
+			if (this.IsOnline && !(this.pushNotificationClient is null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
+			{
+				this.lastTokenCheck = Now;
+
+				DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
+				DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
+
+				if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
+				{
+					string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
+
+					if (!string.IsNullOrEmpty(Token))
+					{
+						PushMessagingService Service = (PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", PushMessagingService.Firebase);
+						ClientType ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
+
+						await this.pushNotificationClient.NewTokenAsync(Token, Service, ClientType);
+						await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
+					}
+				}
+			}
+		}
+
+		private DateTime lastTokenCheck = DateTime.MinValue;
+
+		#endregion
 	}
 }

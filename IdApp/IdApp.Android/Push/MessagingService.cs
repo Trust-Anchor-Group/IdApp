@@ -3,6 +3,7 @@ using Android.Content;
 using Firebase.Messaging;
 using IdApp.Services.Push;
 using System.Collections.Generic;
+using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Android.Push
@@ -24,7 +25,7 @@ namespace IdApp.Android.Push
 		public override void OnNewToken(string p0)
 		{
             IPushNotificationService PushService = Types.Instantiate<IPushNotificationService>(true);
-            PushService?.NewToken(PushMessagingService.Firebase, p0);
+            PushService?.NewToken(Waher.Networking.XMPP.Push.PushMessagingService.Firebase, p0, ClientType.Android);
 		}
 
 		public void ShowNotification(string MessageBody, IDictionary<string, string> Data)
