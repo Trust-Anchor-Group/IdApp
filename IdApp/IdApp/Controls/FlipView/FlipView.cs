@@ -119,17 +119,9 @@ namespace IdApp.Controls.FlipView
 
         private void OrganizeViews()
         {
-            if (!(this.frontView is null) && !(this.backView is null) && this.contentHolder.Children.Count > 1)
+            if (this.backView is not null && this.frontView is not null)
             {
-                int fi = this.contentHolder.Children.IndexOf(this.frontView);
-                int bi = this.contentHolder.Children.IndexOf(this.backView);
-                if (fi >= 0 && bi >= 0 && fi < bi)
-                {
-                    this.contentHolder.Children.Remove(this.frontView);
-                    this.AddChild(this.frontView);
-                }
-
-                this.backView.IsVisible = false;
+                this.contentHolder.RaiseChild(this.isFlipped ? this.backView : this.frontView); ;
             }
         }
 
@@ -143,12 +135,10 @@ namespace IdApp.Controls.FlipView
                 if (this.isFlipped)
                 {
                     this.FlipFromBackToFront();
-                    this.isFlipped = false;
                 }
                 else
                 {
                     this.FlipFromFrontToBack();
-                    this.isFlipped = true;
                 }
             }
         }
@@ -159,8 +149,8 @@ namespace IdApp.Controls.FlipView
             await RotateFrontToBack_Forward();
 
             // Change the visible content
-            this.FrontView.IsVisible = false;
-            this.BackView.IsVisible = true;
+            this.isFlipped = true;
+            this.OrganizeViews();
 
             await RotateBackToFront_Forward();
             this.isFlipping = false;
@@ -172,8 +162,8 @@ namespace IdApp.Controls.FlipView
             await RotateFrontToBack_Reverse();
 
             // Change the visible content
-            this.BackView.IsVisible = false;
-            this.FrontView.IsVisible = true;
+            this.isFlipped = false;
+            this.OrganizeViews();
 
             await RotateBackToFront_Reverse();
             this.isFlipping = false;
