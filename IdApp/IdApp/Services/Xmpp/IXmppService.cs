@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using IdApp.Services.Contracts;
 using IdApp.Services.Provisioning;
+using IdApp.Services.Push;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using Waher.Networking.XMPP;
@@ -179,10 +180,8 @@ namespace IdApp.Services.Xmpp
         /// <summary>
         /// Registers a new token with the back-end broker.
         /// </summary>
-        /// <param name="Token">Token</param>
-        /// <param name="Service">Push Service</param>
-        /// <param name="ClientType">Type of client</param>
+        /// <param name="TokenInformation">Token Information</param>
         /// <returns>If token could be registered.</returns>
-        Task<bool> NewPushNotificationToken(string Token, PushMessagingService Service, ClientType ClientType);
+        Task<bool> NewPushNotificationToken(TokenInformation TokenInformation);
     }
 }

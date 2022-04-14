@@ -961,6 +961,17 @@
             Gets the ID of the device.
             </summary>
         </member>
+        <member name="T:IdApp.DeviceSpecific.IGetPushNotificationToken">
+            <summary>
+            Dependency interface for device-specific push notification tokens.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.IGetPushNotificationToken.GetToken">
+            <summary>
+            Gets a Push Notification token for the device.
+            </summary>
+            <returns>Token information.</returns>
+        </member>
         <member name="T:IdApp.DeviceSpecific.IShareContent">
             <summary>
             Dependency interface for sharing content with other applications.
@@ -13036,13 +13047,11 @@
             Interface for push notification services.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Push.IPushNotificationService.NewToken(Waher.Networking.XMPP.Push.PushMessagingService,System.String,Waher.Networking.XMPP.Push.ClientType)">
+        <member name="M:IdApp.Services.Push.IPushNotificationService.NewToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             New token received from push notification back-end.
             </summary>
-            <param name="Source">Source of token.</param>
-            <param name="Token">Token</param>
-            <param name="ClientType">Client Type</param>
+            <param name="TokenInformation">Token information.</param>
         </member>
         <member name="M:IdApp.Services.Push.IPushNotificationService.TryGetToken(Waher.Networking.XMPP.Push.PushMessagingService,System.String@)">
             <summary>
@@ -13067,13 +13076,11 @@
             Push notification service
             </summary>
         </member>
-        <member name="M:IdApp.Services.Push.PushNotificationService.NewToken(Waher.Networking.XMPP.Push.PushMessagingService,System.String,Waher.Networking.XMPP.Push.ClientType)">
+        <member name="M:IdApp.Services.Push.PushNotificationService.NewToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             New token received from push notification back-end.
             </summary>
-            <param name="Source">Source of token.</param>
-            <param name="Token">Token</param>
-            <param name="ClientType">Client Type</param>
+            <param name="TokenInformation">Token information</param>
         </member>
         <member name="E:IdApp.Services.Push.PushNotificationService.OnNewToken">
             <summary>
@@ -13121,6 +13128,26 @@
         <member name="P:IdApp.Services.Push.TokenEventArgs.ClientType">
             <summary>
             Client Type
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Push.TokenInformation">
+            <summary>
+            Contains information about a push notification token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenInformation.Token">
+            <summary>
+            Token string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenInformation.Service">
+            <summary>
+            Service issuing the token
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenInformation.ClientType">
+            <summary>
+            Type of client
             </summary>
         </member>
         <member name="T:IdApp.Services.ServiceReferences">
@@ -15313,13 +15340,11 @@
             </summary>
             <param name="Code">Transfer Code</param>
         </member>
-        <member name="M:IdApp.Services.Xmpp.IXmppService.NewPushNotificationToken(System.String,Waher.Networking.XMPP.Push.PushMessagingService,Waher.Networking.XMPP.Push.ClientType)">
+        <member name="M:IdApp.Services.Xmpp.IXmppService.NewPushNotificationToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             Registers a new token with the back-end broker.
             </summary>
-            <param name="Token">Token</param>
-            <param name="Service">Push Service</param>
-            <param name="ClientType">Type of client</param>
+            <param name="TokenInformation">Token Information</param>
             <returns>If token could be registered.</returns>
         </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.AddTransferCode(System.String)">
@@ -15328,13 +15353,11 @@
             </summary>
             <param name="Code">Transfer Code</param>
         </member>
-        <member name="M:IdApp.Services.Xmpp.XmppService.NewPushNotificationToken(System.String,Waher.Networking.XMPP.Push.PushMessagingService,Waher.Networking.XMPP.Push.ClientType)">
+        <member name="M:IdApp.Services.Xmpp.XmppService.NewPushNotificationToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             Registers a new token with the back-end broker.
             </summary>
-            <param name="Token">Token</param>
-            <param name="Service">Push Service</param>
-            <param name="ClientType">Type of client</param>
+            <param name="TokenInformation">Token information.</param>
             <returns>If token could be registered.</returns>
         </member>
     </members>

@@ -13,6 +13,7 @@ using IdApp.Popups.Xmpp.SubscriptionRequest;
 using IdApp.Services.Contracts;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
+using IdApp.Services.Push;
 using IdApp.Services.Provisioning;
 using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
@@ -46,6 +47,8 @@ using IdApp.Services.UI.Photos;
 using IdApp.Resx;
 using NeuroFeatures;
 using Waher.Networking.XMPP.Push;
+using IdApp.DeviceSpecific;
+using Xamarin.Forms;
 
 namespace IdApp.Services.Xmpp
 {
@@ -1438,24 +1441,24 @@ namespace IdApp.Services.Xmpp
 		/// <summary>
 		/// Registers a new token with the back-end broker.
 		/// </summary>
-		/// <param name="Token">Token</param>
-		/// <param name="Service">Push Service</param>
-		/// <param name="ClientType">Type of client</param>
+		/// <param name="TokenInformation">Token information.</param>
 		/// <returns>If token could be registered.</returns>
-		public async Task<bool> NewPushNotificationToken(string Token, PushMessagingService Service, ClientType ClientType)
+		public async Task<bool> NewPushNotificationToken(TokenInformation TokenInformation)
 		{
+			// TODO: Check if started
+
 			DateTime TP = DateTime.UtcNow;
 
-			await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
-			await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
-			await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
+			await RuntimeSettings.SetAsync("PUSH.TOKEN", TokenInformation.Token);
+			await RuntimeSettings.SetAsync("PUSH.SERVICE", TokenInformation.Service);
+			await RuntimeSettings.SetAsync("PUSH.CLIENT", TokenInformation.ClientType);
 			await RuntimeSettings.SetAsync("PUSH.TP", TP);
 
 			if (this.pushNotificationClient is null || !this.IsOnline)
 				return false;
 			else
 			{
-				await this.pushNotificationClient.NewTokenAsync(Token, Service, ClientType);
+				await this.pushNotificationClient.NewTokenAsync(TokenInformation.Token, TokenInformation.Service, TokenInformation.ClientType);
 				await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
 
 				return true;
@@ -1476,15 +1479,36 @@ namespace IdApp.Services.Xmpp
 				if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
 				{
 					string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
+					Waher.Networking.XMPP.Push.PushMessagingService Service;
+					ClientType ClientType;
 
-					if (!string.IsNullOrEmpty(Token))
+					if (string.IsNullOrEmpty(Token))
 					{
-						PushMessagingService Service = (PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", PushMessagingService.Firebase);
-						ClientType ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
+						IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
+						if (GetToken is null)
+							return;
 
-						await this.pushNotificationClient.NewTokenAsync(Token, Service, ClientType);
-						await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
+						TokenInformation TokenInformation = await GetToken.GetToken();
+
+						Token = TokenInformation.Token;
+						if (string.IsNullOrEmpty(Token))
+							return;
+
+						Service = TokenInformation.Service;
+						ClientType = TokenInformation.ClientType;
+
+						await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
+						await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
+						await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
 					}
+					else
+					{
+						Service = (Waher.Networking.XMPP.Push.PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", Waher.Networking.XMPP.Push.PushMessagingService.Firebase);
+						ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
+					}
+
+					await this.pushNotificationClient.NewTokenAsync(Token, Service, ClientType);
+					await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
 				}
 			}
 		}

@@ -22,10 +22,8 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// New token received from push notification back-end.
 		/// </summary>
-		/// <param name="Source">Source of token.</param>
-		/// <param name="Token">Token</param>
-		/// <param name="ClientType">Client Type</param>
-		Task NewToken(Waher.Networking.XMPP.Push.PushMessagingService Source, string Token, ClientType ClientType);
+		/// <param name="TokenInformation">Token information.</param>
+		Task NewToken(TokenInformation TokenInformation);
 
 		/// <summary>
 		/// Tries to get a token from a push notification service.

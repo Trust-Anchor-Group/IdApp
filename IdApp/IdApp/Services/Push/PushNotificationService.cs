@@ -25,21 +25,19 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// New token received from push notification back-end.
 		/// </summary>
-		/// <param name="Source">Source of token.</param>
-		/// <param name="Token">Token</param>
-		/// <param name="ClientType">Client Type</param>
-		public async Task NewToken(Waher.Networking.XMPP.Push.PushMessagingService Source, string Token, ClientType ClientType)
+		/// <param name="TokenInformation">Token information</param>
+		public async Task NewToken(TokenInformation TokenInformation)
 		{
 			lock (this.tokens)
 			{
-				this.tokens[Source] = Token;
+				this.tokens[TokenInformation.Service] = TokenInformation.Token;
 			}
 
-			await this.XmppService.NewPushNotificationToken(Token, Source, ClientType);
+			await this.XmppService.NewPushNotificationToken(TokenInformation);
 
 			try
 			{
-				this.OnNewToken?.Invoke(this, new TokenEventArgs(Source, Token, ClientType));
+				this.OnNewToken?.Invoke(this, new TokenEventArgs(TokenInformation.Service, TokenInformation.Token, TokenInformation.ClientType));
 			}
 			catch (Exception ex)
 			{
