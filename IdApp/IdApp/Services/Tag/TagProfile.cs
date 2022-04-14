@@ -72,6 +72,7 @@ namespace IdApp.Services.Tag
 		private string logJid;
 		private string mucJid;
 		private string eDalerJid;
+		private string neuroFeaturesJid;
 		private string pinHash;
 		private long? httpFileUploadMaxSize;
 		private bool usePin;
@@ -131,6 +132,7 @@ namespace IdApp.Services.Tag
 				LogJid = this.LogJid,
 				MucJid = this.MucJid,
 				EDalerJid = this.EDalerJid,
+				NeuroFeaturesJid = this.NeuroFeaturesJid,
 				PinHash = this.PinHash,
 				UsePin = this.UsePin,
 				IsTest = this.IsTest,
@@ -169,6 +171,7 @@ namespace IdApp.Services.Tag
 				this.LogJid = configuration.LogJid;
 				this.MucJid = configuration.MucJid;
 				this.EDalerJid = configuration.EDalerJid;
+				this.NeuroFeaturesJid = configuration.NeuroFeaturesJid;
 				this.PinHash = configuration.PinHash;
 				this.UsePin = configuration.UsePin;
 				this.IsTest = configuration.IsTest;
@@ -193,7 +196,8 @@ namespace IdApp.Services.Tag
 				   string.IsNullOrWhiteSpace(this.HttpFileUploadJid) ||
 				   string.IsNullOrWhiteSpace(this.LogJid) ||
 				   string.IsNullOrWhiteSpace(this.MucJid) ||
-				   string.IsNullOrWhiteSpace(this.EDalerJid);
+				   string.IsNullOrWhiteSpace(this.EDalerJid) ||
+				   string.IsNullOrWhiteSpace(this.NeuroFeaturesJid);
 		}
 
 		/// <inheritdoc/>
@@ -225,7 +229,7 @@ namespace IdApp.Services.Tag
 				if (this.defaultXmppConnectivity != value)
 				{
 					this.defaultXmppConnectivity = value;
-					this.FlagAsDirty(nameof(DefaultXmppConnectivity));
+					this.FlagAsDirty(nameof(this.DefaultXmppConnectivity));
 				}
 			}
 		}
@@ -239,7 +243,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.domain, value))
 				{
 					this.domain = value;
-					this.FlagAsDirty(nameof(Domain));
+					this.FlagAsDirty(nameof(this.Domain));
 				}
 			}
 		}
@@ -253,7 +257,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.apiKey, value))
 				{
 					this.apiKey = value;
-					this.FlagAsDirty(nameof(ApiKey));
+					this.FlagAsDirty(nameof(this.ApiKey));
 				}
 			}
 		}
@@ -267,7 +271,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.apiSecret, value))
 				{
 					this.apiSecret = value;
-					this.FlagAsDirty(nameof(ApiSecret));
+					this.FlagAsDirty(nameof(this.ApiSecret));
 				}
 			}
 		}
@@ -281,7 +285,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.phoneNumber, value))
 				{
 					this.phoneNumber = value;
-					this.FlagAsDirty(nameof(PhoneNumber));
+					this.FlagAsDirty(nameof(this.PhoneNumber));
 				}
 			}
 		}
@@ -295,7 +299,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.account, value))
 				{
 					this.account = value;
-					this.FlagAsDirty(nameof(Account));
+					this.FlagAsDirty(nameof(this.Account));
 				}
 			}
 		}
@@ -309,7 +313,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.passwordHash, value))
 				{
 					this.passwordHash = value;
-					this.FlagAsDirty(nameof(PasswordHash));
+					this.FlagAsDirty(nameof(this.PasswordHash));
 				}
 			}
 		}
@@ -323,7 +327,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.passwordHashMethod, value))
 				{
 					this.passwordHashMethod = value;
-					this.FlagAsDirty(nameof(PasswordHashMethod));
+					this.FlagAsDirty(nameof(this.PasswordHashMethod));
 				}
 			}
 		}
@@ -337,7 +341,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.legalJid, value))
 				{
 					this.legalJid = value;
-					this.FlagAsDirty(nameof(LegalJid));
+					this.FlagAsDirty(nameof(this.LegalJid));
 				}
 			}
 		}
@@ -351,7 +355,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.registryJid, value))
 				{
 					this.registryJid = value;
-					this.FlagAsDirty(nameof(RegistryJid));
+					this.FlagAsDirty(nameof(this.RegistryJid));
 				}
 			}
 		}
@@ -365,7 +369,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.provisioningJid, value))
 				{
 					this.provisioningJid = value;
-					this.FlagAsDirty(nameof(ProvisioningJid));
+					this.FlagAsDirty(nameof(this.ProvisioningJid));
 				}
 			}
 		}
@@ -379,7 +383,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.httpFileUploadJid, value))
 				{
 					this.httpFileUploadJid = value;
-					this.FlagAsDirty(nameof(HttpFileUploadJid));
+					this.FlagAsDirty(nameof(this.HttpFileUploadJid));
 				}
 			}
 		}
@@ -393,7 +397,7 @@ namespace IdApp.Services.Tag
 				if (this.httpFileUploadMaxSize != value)
 				{
 					this.httpFileUploadMaxSize = value;
-					this.FlagAsDirty(nameof(HttpFileUploadMaxSize));
+					this.FlagAsDirty(nameof(this.HttpFileUploadMaxSize));
 				}
 			}
 		}
@@ -407,7 +411,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.logJid, value))
 				{
 					this.logJid = value;
-					this.FlagAsDirty(nameof(LogJid));
+					this.FlagAsDirty(nameof(this.LogJid));
 				}
 			}
 		}
@@ -421,7 +425,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.mucJid, value))
 				{
 					this.mucJid = value;
-					this.FlagAsDirty(nameof(MucJid));
+					this.FlagAsDirty(nameof(this.MucJid));
 				}
 			}
 		}
@@ -435,7 +439,21 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.eDalerJid, value))
 				{
 					this.eDalerJid = value;
-					this.FlagAsDirty(nameof(EDalerJid));
+					this.FlagAsDirty(nameof(this.EDalerJid));
+				}
+			}
+		}
+
+		/// <inheritdoc/>
+		public string NeuroFeaturesJid
+		{
+			get => this.neuroFeaturesJid;
+			private set
+			{
+				if (!string.Equals(this.neuroFeaturesJid, value))
+				{
+					this.neuroFeaturesJid = value;
+					this.FlagAsDirty(nameof(this.NeuroFeaturesJid));
 				}
 			}
 		}
@@ -449,7 +467,7 @@ namespace IdApp.Services.Tag
 				if (this.step != value)
 				{
 					this.step = value;
-					this.FlagAsDirty(nameof(Step));
+					this.FlagAsDirty(nameof(this.Step));
 					this.OnStepChanged(EventArgs.Empty);
 				}
 			}
@@ -476,7 +494,7 @@ namespace IdApp.Services.Tag
 				if (!string.Equals(this.pinHash, value))
 				{
 					this.pinHash = value;
-					this.FlagAsDirty(nameof(PinHash));
+					this.FlagAsDirty(nameof(this.PinHash));
 				}
 			}
 		}
@@ -490,7 +508,7 @@ namespace IdApp.Services.Tag
 				if (this.usePin != value)
 				{
 					this.usePin = value;
-					this.FlagAsDirty(nameof(UsePin));
+					this.FlagAsDirty(nameof(this.UsePin));
 				}
 			}
 		}
@@ -504,7 +522,7 @@ namespace IdApp.Services.Tag
 				if (this.isTest != value)
 				{
 					this.isTest = value;
-					this.FlagAsDirty(nameof(IsTest));
+					this.FlagAsDirty(nameof(this.IsTest));
 				}
 			}
 		}
@@ -518,7 +536,7 @@ namespace IdApp.Services.Tag
 				if (this.testOtpTimestamp != value)
 				{
 					this.testOtpTimestamp = value;
-					this.FlagAsDirty(nameof(TestOtpTimestamp));
+					this.FlagAsDirty(nameof(this.TestOtpTimestamp));
 				}
 			}
 		}
@@ -532,7 +550,7 @@ namespace IdApp.Services.Tag
 				if (!Equals(this.legalIdentity, value))
 				{
 					this.legalIdentity = value;
-					this.FlagAsDirty(nameof(LegalIdentity));
+					this.FlagAsDirty(nameof(this.LegalIdentity));
 				}
 			}
 		}
@@ -825,6 +843,12 @@ namespace IdApp.Services.Tag
 			this.EDalerJid = eDalerJid;
 		}
 
+		/// <inheritdoc/>
+		public void SetNeuroFeaturesJid(string neuroFeaturesJid)
+		{
+			this.NeuroFeaturesJid = neuroFeaturesJid;
+		}
+
 		#endregion
 
 		/// <inheritdoc/>
@@ -872,6 +896,7 @@ namespace IdApp.Services.Tag
 			this.logJid = string.Empty;
 			this.mucJid = string.Empty;
 			this.eDalerJid = string.Empty;
+			this.neuroFeaturesJid = string.Empty;
 			this.pinHash = string.Empty;
 			this.httpFileUploadMaxSize = null;
 			this.usePin = false;

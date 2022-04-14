@@ -44,6 +44,7 @@ using Waher.Networking.XMPP.Abuse;
 using IdApp.Popups.Xmpp.ReportType;
 using IdApp.Services.UI.Photos;
 using IdApp.Resx;
+using NeuroFeatures;
 
 namespace IdApp.Services.Xmpp
 {
@@ -63,6 +64,7 @@ namespace IdApp.Services.Xmpp
 		private SensorClient sensorClient;
 		private ConcentratorClient concentratorClient;
 		private EDalerClient eDalerClient;
+		private NeuroFeaturesClient neuroFeaturesClient;
 		private AbuseClient abuseClient;
 		private Timer reconnectTimer;
 		private readonly SmartContracts contracts;
@@ -232,6 +234,12 @@ namespace IdApp.Services.Xmpp
 						this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
 					}
 
+					if (!string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
+					{
+						Thread?.NewState("Neuro-Features");
+						this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
+					}
+
 					Thread?.NewState("Sensor");
 					this.sensorClient = new SensorClient(this.xmppClient);
 
@@ -356,6 +364,9 @@ namespace IdApp.Services.Xmpp
 			if (this.eDalerClient?.ComponentAddress != this.TagProfile.EDalerJid)
 				return false;
 
+			if (this.neuroFeaturesClient?.ComponentAddress != this.TagProfile.NeuroFeaturesJid)
+				return false;
+
 			return true;
 		}
 
@@ -451,6 +462,9 @@ namespace IdApp.Services.Xmpp
 
 						if (this.eDalerClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
 							this.eDalerClient = new EDalerClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.EDalerJid);
+
+						if (this.neuroFeaturesClient is null && !string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
+							this.neuroFeaturesClient = new NeuroFeaturesClient(this.xmppClient, this.Contracts.ContractsClient, this.TagProfile.NeuroFeaturesJid);
 					}
 
 					this.LogService.AddListener(this.xmppEventSink);
@@ -871,6 +885,9 @@ namespace IdApp.Services.Xmpp
 			if (string.IsNullOrWhiteSpace(this.TagProfile.EDalerJid))
 				return false;
 
+			if (string.IsNullOrWhiteSpace(this.TagProfile.NeuroFeaturesJid))
+				return false;
+
 			return true;
 		}
 
@@ -907,6 +924,9 @@ namespace IdApp.Services.Xmpp
 
 				if (itemResponse.HasFeature(EDalerClient.NamespaceEDaler))
 					this.TagProfile.SetEDalerJid(Item.JID);
+
+				if (itemResponse.HasFeature(NeuroFeaturesClient.NamespaceNeuroFeatures))
+					this.TagProfile.SetNeuroFeaturesJid(Item.JID);
 			}
 		}
 

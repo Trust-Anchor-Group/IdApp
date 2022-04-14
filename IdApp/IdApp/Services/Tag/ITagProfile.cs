@@ -106,6 +106,11 @@ namespace IdApp.Services.Tag
 		string EDalerJid { get; }
 
 		/// <summary>
+		/// The XMPP server's Neuro-Features service JID.
+		/// </summary>
+		string NeuroFeaturesJid { get; }
+
+		/// <summary>
 		/// This profile's current registration step.
 		/// </summary>
 		RegistrationStep Step { get; }
@@ -335,6 +340,12 @@ namespace IdApp.Services.Tag
 		/// </summary>
 		/// <param name="eDalerJid">The eDaler service JID.</param>
 		void SetEDalerJid(string eDalerJid);
+
+		/// <summary>
+		/// Used during Xmpp service discovery. Sets the Neuro-Features service JID.
+		/// </summary>
+		/// <param name="neuroFeaturesJid">The Neuro-Features service JID.</param>
+		void SetNeuroFeaturesJid(string neuroFeaturesJid);
 
 		/// <summary>
 		/// Computes a hash of the specified PIN.

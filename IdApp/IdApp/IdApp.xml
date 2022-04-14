@@ -13503,6 +13503,11 @@
             eDaler Service JID
             </summary>
         </member>
+        <member name="P:IdApp.Services.TagConfiguration.NeuroFeaturesJid">
+            <summary>
+            Neuro-Features Service JID
+            </summary>
+        </member>
         <member name="P:IdApp.Services.TagConfiguration.PinHash">
             <summary>
             The hash of the user's pin.
@@ -13629,6 +13634,11 @@
         <member name="P:IdApp.Services.Tag.ITagProfile.EDalerJid">
             <summary>
             The XMPP server's eDaler service JID.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Tag.ITagProfile.NeuroFeaturesJid">
+            <summary>
+            The XMPP server's Neuro-Features service JID.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.Step">
@@ -13862,6 +13872,12 @@
             </summary>
             <param name="eDalerJid">The eDaler service JID.</param>
         </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetNeuroFeaturesJid(System.String)">
+            <summary>
+            Used during Xmpp service discovery. Sets the Neuro-Features service JID.
+            </summary>
+            <param name="neuroFeaturesJid">The Neuro-Features service JID.</param>
+        </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.ComputePinHash(System.String)">
             <summary>
             Computes a hash of the specified PIN.
@@ -14011,6 +14027,9 @@
         <member name="P:IdApp.Services.Tag.TagProfile.EDalerJid">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.Services.Tag.TagProfile.NeuroFeaturesJid">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Services.Tag.TagProfile.Step">
             <inheritdoc/>
         </member>
@@ -14111,6 +14130,9 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetEDalerJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.SetNeuroFeaturesJid(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ComputePinHash(System.String)">
