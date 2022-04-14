@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Waher.Events;
-using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Push
