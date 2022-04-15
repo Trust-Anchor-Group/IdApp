@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
+using Waher.Networking.XMPP.Push;
 
 namespace IdApp.Services.Push
 {
@@ -22,21 +21,28 @@ namespace IdApp.Services.Push
 		/// </summary>
 		/// <param name="Source">Source of notification</param>
 		/// <param name="Token">Token</param>
-		public TokenEventArgs(PushMessagingService Source, string Token)
+		/// <param name="ClientType">Client Type</param>
+		public TokenEventArgs(Waher.Networking.XMPP.Push.PushMessagingService Source, string Token, ClientType ClientType)
 			: base()
 		{
 			this.Source = Source;
 			this.Token = Token;
+			this.ClientType = ClientType;
 		}
 
 		/// <summary>
 		/// Source of notification
 		/// </summary>
-		public PushMessagingService Source { get; }
+		public Waher.Networking.XMPP.Push.PushMessagingService Source { get; }
 
 		/// <summary>
 		/// Token
 		/// </summary>
 		public string Token { get; }
+
+		/// <summary>
+		/// Client Type
+		/// </summary>
+		public ClientType ClientType { get; }
 	}
 }

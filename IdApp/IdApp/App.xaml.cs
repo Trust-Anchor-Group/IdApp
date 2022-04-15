@@ -64,9 +64,9 @@ namespace IdApp
 	/// </summary>
 	public partial class App
 	{
-		private static readonly TaskCompletionSource<bool> servicesSetup = new TaskCompletionSource<bool>();
-		private static readonly TaskCompletionSource<bool> configLoaded = new TaskCompletionSource<bool>();
-		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new TaskCompletionSource<bool>();
+		private static readonly TaskCompletionSource<bool> servicesSetup = new();
+		private static readonly TaskCompletionSource<bool> configLoaded = new();
+		private static readonly TaskCompletionSource<bool> defaultInstantiatedSource = new();
 		private static bool defaultInstantiated = false;
 		private static App instance;
 		private Timer autoSaveTimer;
@@ -109,7 +109,7 @@ namespace IdApp
 			ProfilerThread Thread = this.startupProfiler?.CreateThread("Init", ProfilerThreadType.Sequential);
 			Thread?.Start();
 
-			TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+			TaskCompletionSource<bool> Result = new();
 			Task.Run(async () => await this.InitInParallel(Thread, Result));
 			return Result.Task;
 		}
@@ -521,8 +521,8 @@ namespace IdApp
 			{
 				this.services?.LogService?.SaveExceptionDump(title, stackTrace);
 
-				ScrollView sv = new ScrollView();
-				StackLayout sl = new StackLayout
+				ScrollView sv = new();
+				StackLayout sl = new()
 				{
 					Orientation = StackOrientation.Vertical,
 				};
@@ -541,7 +541,7 @@ namespace IdApp
 					VerticalOptions = LayoutOptions.FillAndExpand
 				});
 
-				Button b = new Button { Text = "Copy to clipboard", Margin = 12 };
+				Button b = new() { Text = "Copy to clipboard", Margin = 12 };
 				b.Clicked += async (sender, args) => await Clipboard.SetTextAsync(stackTrace);
 				sl.Children.Add(b);
 
@@ -577,11 +577,11 @@ namespace IdApp
 		{
 			try
 			{
-				HttpClient client = new HttpClient();
+				HttpClient client = new();
 				client.DefaultRequestHeaders.Accept.Clear();
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-				StringContent content = new StringContent(message);
+				StringContent content = new(message);
 				content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
 
 				await client.PostAsync("https://lab.tagroot.io/Alert.ws", content);
@@ -643,9 +643,9 @@ namespace IdApp
 		/// <param name="SendAsAlert">If an alert is to be sent.</param>
 		public static async Task EvaluateDatabaseDiff(string FileName, bool IncludeUnchanged, bool SendAsAlert)
 		{
-			StringBuilder Xml = new StringBuilder();
+			StringBuilder Xml = new();
 
-			using (XmlDatabaseExport Output = new XmlDatabaseExport(Xml, true, 256))
+			using (XmlDatabaseExport Output = new(Xml, true, 256))
 			{
 				await Database.Export(Output);
 			}
@@ -657,7 +657,7 @@ namespace IdApp
 			string PrevState = File.Exists(FileName) ? File.ReadAllText(FileName) : string.Empty;
 
 			EditScript<string> Script = Difference.AnalyzeRows(PrevState, CurrentState);
-			StringBuilder Markdown = new StringBuilder();
+			StringBuilder Markdown = new();
 			string Prefix;
 
 			Markdown.Append("Database content changes (`");
@@ -736,7 +736,7 @@ namespace IdApp
 
 			while (true)
 			{
-				PinPopupPage Page = new PinPopupPage();
+				PinPopupPage Page = new();
 
 				await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
 				string Pin = await Page.Result;

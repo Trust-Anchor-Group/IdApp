@@ -3,10 +3,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using IdApp.Services.Contracts;
 using IdApp.Services.Provisioning;
+using IdApp.Services.Push;
 using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.HttpFileUpload;
+using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Xmpp
@@ -174,5 +176,12 @@ namespace IdApp.Services.Xmpp
         /// </summary>
         /// <param name="Code">Transfer Code</param>
         Task AddTransferCode(string Code);
+
+        /// <summary>
+        /// Registers a new token with the back-end broker.
+        /// </summary>
+        /// <param name="TokenInformation">Token Information</param>
+        /// <returns>If token could be registered.</returns>
+        Task<bool> NewPushNotificationToken(TokenInformation TokenInformation);
     }
 }

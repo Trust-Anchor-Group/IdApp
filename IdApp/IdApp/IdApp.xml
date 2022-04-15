@@ -961,6 +961,17 @@
             Gets the ID of the device.
             </summary>
         </member>
+        <member name="T:IdApp.DeviceSpecific.IGetPushNotificationToken">
+            <summary>
+            Dependency interface for device-specific push notification tokens.
+            </summary>
+        </member>
+        <member name="M:IdApp.DeviceSpecific.IGetPushNotificationToken.GetToken">
+            <summary>
+            Gets a Push Notification token for the device.
+            </summary>
+            <returns>Token information.</returns>
+        </member>
         <member name="T:IdApp.DeviceSpecific.IShareContent">
             <summary>
             Dependency interface for sharing content with other applications.
@@ -13036,14 +13047,13 @@
             Interface for push notification services.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Push.IPushNotificationService.NewToken(IdApp.Services.Push.PushMessagingService,System.String)">
+        <member name="M:IdApp.Services.Push.IPushNotificationService.NewToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             New token received from push notification back-end.
             </summary>
-            <param name="Source">Source of token.</param>
-            <param name="Token">Token</param>
+            <param name="TokenInformation">Token information.</param>
         </member>
-        <member name="M:IdApp.Services.Push.IPushNotificationService.TryGetToken(IdApp.Services.Push.PushMessagingService,System.String@)">
+        <member name="M:IdApp.Services.Push.IPushNotificationService.TryGetToken(Waher.Networking.XMPP.Push.PushMessagingService,System.String@)">
             <summary>
             Tries to get a token from a push notification service.
             </summary>
@@ -13066,19 +13076,18 @@
             Push notification service
             </summary>
         </member>
-        <member name="M:IdApp.Services.Push.PushNotificationService.NewToken(IdApp.Services.Push.PushMessagingService,System.String)">
+        <member name="M:IdApp.Services.Push.PushNotificationService.NewToken(IdApp.Services.Push.TokenInformation)">
             <summary>
             New token received from push notification back-end.
             </summary>
-            <param name="Source">Source of token.</param>
-            <param name="Token">Token</param>
+            <param name="TokenInformation">Token information</param>
         </member>
         <member name="E:IdApp.Services.Push.PushNotificationService.OnNewToken">
             <summary>
             Event raised when a new token is made available.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Push.PushNotificationService.TryGetToken(IdApp.Services.Push.PushMessagingService,System.String@)">
+        <member name="M:IdApp.Services.Push.PushNotificationService.TryGetToken(Waher.Networking.XMPP.Push.PushMessagingService,System.String@)">
             <summary>
             Tries to get a token from a push notification service.
             </summary>
@@ -13098,12 +13107,13 @@
             Event argumens for token-based events.
             </summary>
         </member>
-        <member name="M:IdApp.Services.Push.TokenEventArgs.#ctor(IdApp.Services.Push.PushMessagingService,System.String)">
+        <member name="M:IdApp.Services.Push.TokenEventArgs.#ctor(Waher.Networking.XMPP.Push.PushMessagingService,System.String,Waher.Networking.XMPP.Push.ClientType)">
             <summary>
             Event argumens for token-based events.
             </summary>
             <param name="Source">Source of notification</param>
             <param name="Token">Token</param>
+            <param name="ClientType">Client Type</param>
         </member>
         <member name="P:IdApp.Services.Push.TokenEventArgs.Source">
             <summary>
@@ -13113,6 +13123,31 @@
         <member name="P:IdApp.Services.Push.TokenEventArgs.Token">
             <summary>
             Token
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenEventArgs.ClientType">
+            <summary>
+            Client Type
+            </summary>
+        </member>
+        <member name="T:IdApp.Services.Push.TokenInformation">
+            <summary>
+            Contains information about a push notification token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenInformation.Token">
+            <summary>
+            Token string
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenInformation.Service">
+            <summary>
+            Service issuing the token
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Push.TokenInformation.ClientType">
+            <summary>
+            Type of client
             </summary>
         </member>
         <member name="T:IdApp.Services.ServiceReferences">
@@ -13503,6 +13538,16 @@
             eDaler Service JID
             </summary>
         </member>
+        <member name="P:IdApp.Services.TagConfiguration.NeuroFeaturesJid">
+            <summary>
+            Neuro-Features Service JID
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.TagConfiguration.SupportsPushNotification">
+            <summary>
+            If Push Notification is supported by server.
+            </summary>
+        </member>
         <member name="P:IdApp.Services.TagConfiguration.PinHash">
             <summary>
             The hash of the user's pin.
@@ -13629,6 +13674,16 @@
         <member name="P:IdApp.Services.Tag.ITagProfile.EDalerJid">
             <summary>
             The XMPP server's eDaler service JID.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Tag.ITagProfile.NeuroFeaturesJid">
+            <summary>
+            The XMPP server's Neuro-Features service JID.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.Tag.ITagProfile.SupportsPushNotification">
+            <summary>
+            If Push Notification is supported by server.
             </summary>
         </member>
         <member name="P:IdApp.Services.Tag.ITagProfile.Step">
@@ -13821,46 +13876,58 @@
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetLegalJid(System.String)">
             <summary>
-            Used during Xmpp service discovery. Sets the legal id.
+            Used during XMPP service discovery. Sets the legal id.
             </summary>
             <param name="legalJid">The legal id.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetProvisioningJid(System.String)">
             <summary>
-            Used during Xmpp service discovery. Sets the provisioning id.
+            Used during XMPP service discovery. Sets the provisioning id.
             </summary>
             <param name="provisioningJid"></param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetRegistryJid(System.String)">
             <summary>
-            Used during Xmpp service discovery. Sets the registry id.
+            Used during XMPP service discovery. Sets the registry id.
             </summary>
             <param name="registryJid"></param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetFileUploadParameters(System.String,System.Nullable{System.Int64})">
             <summary>
-            Used during Xmpp service discovery. Sets the file upload parameters.
+            Used during XMPP service discovery. Sets the file upload parameters.
             </summary>
             <param name="httpFileUploadJid">The http file upload id.</param>
             <param name="maxSize">The max size allowed.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetLogJid(System.String)">
             <summary>
-            Used during Xmpp service discovery. Sets the log id.
+            Used during XMPP service discovery. Sets the log id.
             </summary>
             <param name="logJid">The log id.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetMucJid(System.String)">
             <summary>
-            Used during Xmpp service discovery. Sets the multi-user chat id.
+            Used during XMPP service discovery. Sets the multi-user chat id.
             </summary>
             <param name="mucJid">The multi-user chat id.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.SetEDalerJid(System.String)">
             <summary>
-            Used during Xmpp service discovery. Sets the eDaler service JID.
+            Used during XMPP service discovery. Sets the eDaler service JID.
             </summary>
             <param name="eDalerJid">The eDaler service JID.</param>
+        </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetNeuroFeaturesJid(System.String)">
+            <summary>
+            Used during XMPP service discovery. Sets the Neuro-Features service JID.
+            </summary>
+            <param name="neuroFeaturesJid">The Neuro-Features service JID.</param>
+        </member>
+        <member name="M:IdApp.Services.Tag.ITagProfile.SetSupportsPushNotification(System.Nullable{System.Boolean})">
+            <summary>
+            Used during XMPP service discovery. Sets the support for push notifications.
+            </summary>
+            <param name="supportsPushNotification">If broker supports push notification.</param>
         </member>
         <member name="M:IdApp.Services.Tag.ITagProfile.ComputePinHash(System.String)">
             <summary>
@@ -14011,6 +14078,12 @@
         <member name="P:IdApp.Services.Tag.TagProfile.EDalerJid">
             <inheritdoc/>
         </member>
+        <member name="P:IdApp.Services.Tag.TagProfile.NeuroFeaturesJid">
+            <inheritdoc/>
+        </member>
+        <member name="P:IdApp.Services.Tag.TagProfile.SupportsPushNotification">
+            <inheritdoc/>
+        </member>
         <member name="P:IdApp.Services.Tag.TagProfile.Step">
             <inheritdoc/>
         </member>
@@ -14111,6 +14184,12 @@
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.SetEDalerJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.SetNeuroFeaturesJid(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:IdApp.Services.Tag.TagProfile.SetSupportsPushNotification(System.Nullable{System.Boolean})">
             <inheritdoc/>
         </member>
         <member name="M:IdApp.Services.Tag.TagProfile.ComputePinHash(System.String)">
@@ -15261,11 +15340,25 @@
             </summary>
             <param name="Code">Transfer Code</param>
         </member>
+        <member name="M:IdApp.Services.Xmpp.IXmppService.NewPushNotificationToken(IdApp.Services.Push.TokenInformation)">
+            <summary>
+            Registers a new token with the back-end broker.
+            </summary>
+            <param name="TokenInformation">Token Information</param>
+            <returns>If token could be registered.</returns>
+        </member>
         <member name="M:IdApp.Services.Xmpp.XmppService.AddTransferCode(System.String)">
             <summary>
             Registers a Transfer ID Code
             </summary>
             <param name="Code">Transfer Code</param>
+        </member>
+        <member name="M:IdApp.Services.Xmpp.XmppService.NewPushNotificationToken(IdApp.Services.Push.TokenInformation)">
+            <summary>
+            Registers a new token with the back-end broker.
+            </summary>
+            <param name="TokenInformation">Token information.</param>
+            <returns>If token could be registered.</returns>
         </member>
     </members>
 </doc>

@@ -1,0 +1,25 @@
+﻿using Waher.Networking.XMPP.Push;
+
+namespace IdApp.Services.Push
+{
+	/// <summary>
+	/// Contains information about a push notification token.
+	/// </summary>
+	public class TokenInformation
+	{
+		/// <summary>
+		/// Token string
+		/// </summary>
+		public string Token { get; set; }
+
+		/// <summary>
+		/// Service issuing the token
+		/// </summary>
+		public Waher.Networking.XMPP.Push.PushMessagingService Service { get; set; }
+
+		/// <summary>
+		/// Type of client
+		/// </summary>
+		public ClientType ClientType { get; set; }
+	}
+}
