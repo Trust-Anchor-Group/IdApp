@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <registration:RegistrationStepView xmlns="http://xamarin.com/schemas/2014/forms" 
                                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                   xmlns:noBounce="clr-namespace:IdApp.Controls.NoBounceView;assembly=IdApp"
                                    xmlns:registration="clr-namespace:IdApp.Pages.Registration;assembly=IdApp"
                                    xmlns:resx="clr-namespace:IdApp.Resx;assembly=IdApp"
                                    xmlns:converters="clr-namespace:IdApp.Converters;assembly=IdApp"
@@ -17,7 +18,7 @@
                     </OnPlatform>
                 </Image.Margin>
             </Image>
-            <ScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
+            <noBounce:NoBounceScrollView x:Name="ScrollView" Margin="{StaticResource DefaultLeftRightMargin}">
                 <StackLayout x:Name="Frames" Orientation="Vertical" Margin="{StaticResource DefaultMargin}">
                     <Grid Margin="{StaticResource DefaultBottomOnlyMargin}">
                         <Grid.RowDefinitions>
@@ -99,7 +100,7 @@
                     <ActivityIndicator x:Name="ActivityIndicator" IsVisible="{Binding Path=IsBusy}" IsRunning="{Binding Path=IsBusy}" Color="{StaticResource AccentColor}" />
                     <BoxView x:Name="BottomIndicator" HeightRequest="1" Color="#00000"/>
                 </StackLayout>
-            </ScrollView>
+            </noBounce:NoBounceScrollView>
         </Grid>
     </ContentView.Content>
 </registration:RegistrationStepView>
