@@ -30,7 +30,8 @@
 
             <StackLayout Grid.Row="2">
                 <Label Text="{x:Static resx:AppResources.Account}" FontSize="Body"/>
-                <Entry Text="{Binding Path=AccountName}" Keyboard="Email" ReturnType="Done"/>
+                <Entry Text="{Binding Path=AccountName}" Keyboard="Email" ReturnType="Done"
+                       TextChanged="AccountNameTextChanged"/>
             </StackLayout>
 
             <Button Grid.Row="3"
@@ -41,6 +42,5 @@
                     Text="{x:Static resx:AppResources.ScanInvitation}"
                     Command="{Binding Path=ScanQrCodeCommand}" />
         </Grid>
-
     </ContentView.Content>
 </registration:RegistrationStepView>
