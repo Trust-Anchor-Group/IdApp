@@ -8,7 +8,6 @@ using IdApp.Services.ThingRegistries;
 using IdApp.Services.Wallet;
 using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.HttpFileUpload;
-using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Xmpp

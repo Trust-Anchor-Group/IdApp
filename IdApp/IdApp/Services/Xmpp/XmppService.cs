@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using EDaler;
 using IdApp.Extensions;
 using IdApp.Pages.Contacts.Chat;
 using IdApp.Popups.Xmpp.ReportOrBlock;
+using IdApp.Popups.Xmpp.ReportType;
 using IdApp.Popups.Xmpp.SubscribeTo;
 using IdApp.Popups.Xmpp.SubscriptionRequest;
+using IdApp.Resx;
 using IdApp.Services.Contracts;
 using IdApp.Services.Messages;
 using IdApp.Services.Navigation;
@@ -17,8 +13,16 @@ using IdApp.Services.Push;
 using IdApp.Services.Provisioning;
 using IdApp.Services.Tag;
 using IdApp.Services.ThingRegistries;
+using IdApp.Services.UI.Photos;
 using IdApp.Services.Wallet;
-using EDaler;
+using NeuroFeatures;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Xml;
 using Waher.Content;
 using Waher.Content.Html;
 using Waher.Content.Markdown;
@@ -27,6 +31,7 @@ using Waher.Events;
 using Waher.Events.XMPP;
 using Waher.Networking.Sniffers;
 using Waher.Networking.XMPP;
+using Waher.Networking.XMPP.Abuse;
 using Waher.Networking.XMPP.Concentrator;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Networking.XMPP.Control;
@@ -34,6 +39,7 @@ using Waher.Networking.XMPP.HttpFileUpload;
 using Waher.Networking.XMPP.MUC;
 using Waher.Networking.XMPP.Provisioning;
 using Waher.Networking.XMPP.PubSub;
+using Waher.Networking.XMPP.Push;
 using Waher.Networking.XMPP.Sensor;
 using Waher.Networking.XMPP.ServiceDiscovery;
 using Waher.Persistence;
@@ -41,14 +47,6 @@ using Waher.Persistence.Filters;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Profiling;
 using Waher.Runtime.Settings;
-using Waher.Networking.XMPP.Abuse;
-using IdApp.Popups.Xmpp.ReportType;
-using IdApp.Services.UI.Photos;
-using IdApp.Resx;
-using NeuroFeatures;
-using Waher.Networking.XMPP.Push;
-using IdApp.DeviceSpecific;
-using Xamarin.Forms;
 
 namespace IdApp.Services.Xmpp
 {
@@ -492,7 +490,7 @@ namespace IdApp.Services.Xmpp
 
 					this.LogService.AddListener(this.xmppEventSink);
 
-					await this.CheckPushNotificationToken();
+					await this.PushNotificationService.CheckPushNotificationToken();
 
 					this.xmppThread?.Stop();
 					this.xmppThread = null;
@@ -1464,56 +1462,6 @@ namespace IdApp.Services.Xmpp
 				return true;
 			}
 		}
-
-		public async Task CheckPushNotificationToken()
-		{
-			DateTime Now = DateTime.Now;
-
-			if (this.IsOnline && !(this.pushNotificationClient is null) && Now.Subtract(this.lastTokenCheck).TotalHours >= 1)
-			{
-				this.lastTokenCheck = Now;
-
-				DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
-				DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
-
-				if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
-				{
-					string Token = await RuntimeSettings.GetAsync("PUSH.TOKEN", string.Empty);
-					Waher.Networking.XMPP.Push.PushMessagingService Service;
-					ClientType ClientType;
-
-					if (string.IsNullOrEmpty(Token))
-					{
-						IGetPushNotificationToken GetToken = DependencyService.Get<IGetPushNotificationToken>();
-						if (GetToken is null)
-							return;
-
-						TokenInformation TokenInformation = await GetToken.GetToken();
-
-						Token = TokenInformation.Token;
-						if (string.IsNullOrEmpty(Token))
-							return;
-
-						Service = TokenInformation.Service;
-						ClientType = TokenInformation.ClientType;
-
-						await RuntimeSettings.SetAsync("PUSH.TOKEN", Token);
-						await RuntimeSettings.SetAsync("PUSH.SERVICE", Service);
-						await RuntimeSettings.SetAsync("PUSH.CLIENT", ClientType);
-					}
-					else
-					{
-						Service = (Waher.Networking.XMPP.Push.PushMessagingService)await RuntimeSettings.GetAsync("PUSH.SERVICE", Waher.Networking.XMPP.Push.PushMessagingService.Firebase);
-						ClientType = (ClientType)await RuntimeSettings.GetAsync("PUSH.CLIENT", ClientType.Other);
-					}
-
-					await this.pushNotificationClient.NewTokenAsync(Token, Service, ClientType);
-					await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
-				}
-			}
-		}
-
-		private DateTime lastTokenCheck = DateTime.MinValue;
 
 		#endregion
 	}

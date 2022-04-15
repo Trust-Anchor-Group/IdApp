@@ -13066,6 +13066,11 @@
             Event raised when a new token is made available.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Push.IPushNotificationService.CheckPushNotificationToken">
+            <summary>
+            Checks if the Push Notification Token is current and registered properly.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Push.PushNotificationService">
             <summary>
             Push notification service
@@ -13094,6 +13099,11 @@
             <param name="Source">Source of token</param>
             <param name="Token">Token, if found.</param>
             <returns>If a token was found for the corresponding source.</returns>
+        </member>
+        <member name="M:IdApp.Services.Push.PushNotificationService.CheckPushNotificationToken">
+            <summary>
+            Checks if the Push Notification Token is current and registered properly.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Push.TokenEventHandler">
             <summary>
@@ -13228,6 +13238,11 @@
         <member name="P:IdApp.Services.ServiceReferences.NfcService">
             <summary>
             Near-Field Communication (NFC) service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.PushNotificationService">
+            <summary>
+            Push Notification Service
             </summary>
         </member>
         <member name="T:IdApp.Services.Settings.ISettingsService">
