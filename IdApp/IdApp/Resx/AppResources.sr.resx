@@ -1422,4 +1422,7 @@
   <data name="WarningTitle" xml:space="preserve">
     <value>Upozorenje</value>
   </data>
+  <data name="ChatMessageReceived" xml:space="preserve">
+    <value>Primljena poruka za ćaskanje</value>
+  </data>
 </root>

@@ -1422,4 +1422,7 @@
   <data name="WarningTitle" xml:space="preserve">
     <value>Advarsel</value>
   </data>
+  <data name="ChatMessageReceived" xml:space="preserve">
+    <value>Chatmelding mottatt</value>
+  </data>
 </root>

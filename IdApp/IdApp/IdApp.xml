@@ -9496,6 +9496,11 @@
               Looks up a localized string similar to Chat.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ChatMessageReceived">
+            <summary>
+              Looks up a localized string similar to Chat Message Received.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ChooseAccount">
             <summary>
               Looks up a localized string similar to Choose account.
@@ -13103,6 +13108,11 @@
         <member name="M:IdApp.Services.Push.PushNotificationService.CheckPushNotificationToken">
             <summary>
             Checks if the Push Notification Token is current and registered properly.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Push.PushNotificationService.currentTokenConfiguration">
+            <summary>
+            Increment this configuration number by one, each time token configuration changes.
             </summary>
         </member>
         <member name="T:IdApp.Services.Push.TokenEventHandler">

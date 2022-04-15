@@ -1,9 +1,12 @@
 ﻿using IdApp.DeviceSpecific;
+using IdApp.Resx;
 using IdApp.Services.Xmpp;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Waher.Events;
+using Waher.Networking.XMPP;
 using Waher.Networking.XMPP.Push;
 using Waher.Runtime.Inventory;
 using Waher.Runtime.Settings;
@@ -18,6 +21,7 @@ namespace IdApp.Services.Push
 	public class PushNotificationService : LoadableService, IPushNotificationService
 	{
 		private readonly Dictionary<Waher.Networking.XMPP.Push.PushMessagingService, string> tokens = new();
+		private DateTime lastTokenCheck = DateTime.MinValue;
 
 		/// <summary>
 		/// Push notification service
@@ -82,6 +86,7 @@ namespace IdApp.Services.Push
 
 				DateTime TP = await RuntimeSettings.GetAsync("PUSH.TP", DateTime.MinValue);
 				DateTime LastTP = await RuntimeSettings.GetAsync("PUSH.LAST_TP", DateTime.MinValue);
+				bool Reconfig = false;
 
 				if (TP != LastTP || DateTime.UtcNow.Subtract(LastTP).TotalDays >= 7)    // Firebase recommends updating token, while app still works, but not more often than once a week, unless it changes.
 				{
@@ -116,11 +121,37 @@ namespace IdApp.Services.Push
 
 					await PushNotificationClient.NewTokenAsync(Token, Service, ClientType);
 					await RuntimeSettings.SetAsync("PUSH.LAST_TP", TP);
+
+					Reconfig = true;
+				}
+
+				long ConfigNr = await RuntimeSettings.GetAsync("PUSH.CONFIG_NR", 0);
+				if (ConfigNr != currentTokenConfiguration || Reconfig)
+				{
+					await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", 0);
+					await PushNotificationClient.ClearRulesAsync();
+
+					// Push Notification rule for chat messages received when offline:
+
+					StringBuilder Content = new StringBuilder();
+
+					Content.Append("{'title':'");
+					Content.Append(AppResources.ChatMessageReceived);
+					Content.Append("','body':(select /default:message/default:body from Stanza),");
+					Content.Append("'fromJid':(select /default:message/@from from Stanza)}");
+
+					await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty, "Messages",
+						"Stanza", string.Empty, Content.ToString());
+
+					await RuntimeSettings.SetAsync("PUSH.CONFIG_NR", currentTokenConfiguration);
 				}
 			}
 		}
 
-		private DateTime lastTokenCheck = DateTime.MinValue;
+		/// <summary>
+		/// Increment this configuration number by one, each time token configuration changes.
+		/// </summary>
+		private const int currentTokenConfiguration = 2;
 
 	}
 }
