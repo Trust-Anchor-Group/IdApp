@@ -60,7 +60,7 @@ namespace IdApp.Services.ThingRegistries
 			if (!ThingRegistryClient.TryDecodeIoTDiscoURI(DiscoUri, out IEnumerable<SearchOperator> Operators2))
 				return false;
 
-			List<SearchOperator> List = new List<SearchOperator>();
+			List<SearchOperator> List = new();
 
 			foreach (SearchOperator Operator in Operators2)
 			{
@@ -69,7 +69,7 @@ namespace IdApp.Services.ThingRegistries
 					if (!string.IsNullOrEmpty(RegistryJid))
 						return false;
 
-					if (!(Operator is StringTagEqualTo StrEqOp))
+					if (Operator is not StringTagEqualTo StrEqOp)
 						return false;
 
 					RegistryJid = StrEqOp.Value;
@@ -96,7 +96,7 @@ namespace IdApp.Services.ThingRegistries
 				return false;
 			}
 
-			List<MetaDataTag> TagsFound = new List<MetaDataTag>();
+			List<MetaDataTag> TagsFound = new();
 
 			foreach (SearchOperator Operator in Operators2)
 			{
@@ -144,7 +144,7 @@ namespace IdApp.Services.ThingRegistries
 			if (!this.TryDecodeIoTDiscoClaimURI(DiscoUri, out MetaDataTag[] Tags))
 				throw new ArgumentException(AppResources.InvalidIoTDiscoClaimUri, nameof(DiscoUri));
 
-			TaskCompletionSource<NodeResultEventArgs> Result = new TaskCompletionSource<NodeResultEventArgs>();
+			TaskCompletionSource<NodeResultEventArgs> Result = new();
 
 			this.RegistryClient.Mine(MakePublic, Tags, (sender, e) =>
 			{
@@ -157,7 +157,7 @@ namespace IdApp.Services.ThingRegistries
 
 		public Task<bool> Disown(string RegistryJid, string ThingJid, string SourceId, string Partition, string NodeId)
 		{
-			TaskCompletionSource<bool> Result = new TaskCompletionSource<bool>();
+			TaskCompletionSource<bool> Result = new();
 
 			this.RegistryClient.Disown(RegistryJid, ThingJid, NodeId, SourceId, Partition, (sender, e) =>
 			{
@@ -195,7 +195,7 @@ namespace IdApp.Services.ThingRegistries
 		/// <returns>Devices found, and if more devices are available.</returns>
 		public Task<(SearchResultThing[], bool)> Search(int Offset, int MaxCount, string RegistryJid, params SearchOperator[] Operators)
 		{
-			TaskCompletionSource<(SearchResultThing[], bool)> Result = new TaskCompletionSource<(SearchResultThing[], bool)>();
+			TaskCompletionSource<(SearchResultThing[], bool)> Result = new();
 
 			this.RegistryClient.Search(RegistryJid, Offset, MaxCount, Operators, (sender, e) =>
 			{
@@ -237,7 +237,7 @@ namespace IdApp.Services.ThingRegistries
 			if (!More)
 				return Things;
 
-			List<SearchResultThing> Result = new List<SearchResultThing>();
+			List<SearchResultThing> Result = new();
 			int Offset = Things.Length;
 
 			Result.AddRange(Things);

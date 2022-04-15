@@ -48,8 +48,8 @@ namespace IdApp.Pages.Contacts
 				this.selection = args.Selection;
 			}
 
-			SortedDictionary<string, ContactInfo> Sorted = new SortedDictionary<string, ContactInfo>();
-			Dictionary<CaseInsensitiveString, bool> Jids = new Dictionary<CaseInsensitiveString, bool>();
+			SortedDictionary<string, ContactInfo> Sorted = new();
+			Dictionary<CaseInsensitiveString, bool> Jids = new();
 
 			foreach (ContactInfo Info in await Database.Find<ContactInfo>())
 			{
@@ -69,7 +69,7 @@ namespace IdApp.Pages.Contacts
 				if (Jids.ContainsKey(Item.BareJid))
 					continue;
 
-				ContactInfo Info = new ContactInfo()
+				ContactInfo Info = new()
 				{
 					BareJid = Item.BareJid,
 					FriendlyName = Item.NameOrBareJid,
@@ -185,7 +185,7 @@ namespace IdApp.Pages.Contacts
 							switch (viewModel.Action)
 							{
 								case SelectContactAction.MakePayment:
-									StringBuilder sb = new StringBuilder();
+									StringBuilder sb = new();
 
 									sb.Append("edaler:");
 

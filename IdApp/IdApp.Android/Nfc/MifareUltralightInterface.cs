@@ -31,21 +31,11 @@ namespace IdApp.Android.Nfc
 			await this.OpenIfClosed();
 
 			MifareUltralightType Type = this.mifareUltralight.Type;
-			int TotalBytes;
-
-			switch (Type)
+			int TotalBytes = Type switch
 			{
-				case MifareUltralightType.Ultralight:
-				case MifareUltralightType.Unknown:
-				default:
-					TotalBytes = 64;
-					break;
-
-				case MifareUltralightType.UltralightC:
-					TotalBytes = 192;
-					break;
-			}
-
+				MifareUltralightType.UltralightC => 192,
+				_ => 64,
+			};
 			int PageSize = MifareUltralight.PageSize;
 			byte[] Data = new byte[TotalBytes];
 			int Offset = 0;

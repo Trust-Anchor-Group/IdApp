@@ -208,7 +208,7 @@ namespace IdApp.Services.Contracts
 					await this.UiSerializer.DisplayAlert(AppResources.PeerReviewRejected, AppResources.APeerYouRequestedToReviewHasRejected, AppResources.Ok);
 				else
 				{
-					StringBuilder xml = new StringBuilder();
+					StringBuilder xml = new();
 					this.TagProfile.LegalIdentity.Serialize(xml, true, true, true, true, true, true, true);
 					byte[] data = Encoding.UTF8.GetBytes(xml.ToString());
 					bool? result;
@@ -459,7 +459,7 @@ namespace IdApp.Services.Contracts
 				throw new InvalidOperationException("Invalid TAG Signature URI.");
 
 			string JID = request.Substring(0, i);
-			string Key = request.Substring(i + 1);
+			string Key = request[(i + 1)..];
 
 			LegalIdentity ID = this.TagProfile?.LegalIdentity;
 			if (ID is null)
@@ -470,7 +470,7 @@ namespace IdApp.Services.Contracts
 
 			string IdRef = this.TagProfile?.LegalIdentity?.Id ?? string.Empty;
 
-			StringBuilder Xml = new StringBuilder();
+			StringBuilder Xml = new();
 
 			Xml.Append("<ql xmlns='https://tagroot.io/schema/Signature' key='");
 			Xml.Append(XML.Encode(Key));

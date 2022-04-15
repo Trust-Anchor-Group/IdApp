@@ -52,7 +52,7 @@ namespace IdApp.Android.Nfc
 
 			NdefMessage Message = this.ndef.NdefMessage;
 			NdefRecord[] Records = Message.GetRecords();
-			List<INdefRecord> Result = new List<INdefRecord>();
+			List<INdefRecord> Result = new();
 
 			foreach (NdefRecord Record in Records)
 			{

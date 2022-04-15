@@ -32,7 +32,7 @@ namespace IdApp.Services.Crypto
 		{
 			byte[] key;
 			byte[] iv;
-			string s = string.Empty;
+			string s;
 			int i;
 
 			string FileNameHash = deviceId + Path.GetRelativePath(basePath, fileName);
@@ -56,7 +56,7 @@ namespace IdApp.Services.Crypto
 			if (!string.IsNullOrWhiteSpace(s) && (i = s.IndexOf(',')) > 0)
 			{
 				key = Hashes.StringToBinary(s.Substring(0, i));
-				iv = Hashes.StringToBinary(s.Substring(i + 1));
+				iv = Hashes.StringToBinary(s[(i + 1)..]);
 			}
 			else
 			{

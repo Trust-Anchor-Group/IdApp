@@ -87,7 +87,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// <returns>The <see cref="RegisterIdentityModel"/> as a list of properties.</returns>
 		public Property[] ToProperties(IXmppService XmppService)
 		{
-			List<Property> properties = new List<Property>();
+			List<Property> properties = new();
 			string s;
 
 			if (!string.IsNullOrWhiteSpace(s = this.FirstName?.Trim()))

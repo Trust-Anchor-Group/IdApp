@@ -131,7 +131,7 @@ namespace IdApp.Services.UI.Photos
 					if (Bin is null)
 						continue;
 
-					Photo Photo = new Photo(Bin, Rotation);
+					Photo Photo = new(Bin, Rotation);
 
 					if (!(Bin is null))
 						this.UiSerializer.BeginInvokeOnMainThread(() => photos.Add(Photo));
@@ -159,27 +159,25 @@ namespace IdApp.Services.UI.Photos
 
 			KeyValuePair<string, TemporaryFile> pair = await this.XmppService.Contracts.GetAttachment(attachment.Url, signWith, Constants.Timeouts.DownloadFile);
 
-			using (TemporaryFile file = pair.Value)
-			{
-				if (this.loadPhotosTimestamp > now)     // If download has been cancelled any time _during_ download, stop here.
-					return (null, string.Empty, 0);
+			using TemporaryFile file = pair.Value;
+			if (this.loadPhotosTimestamp > now)     // If download has been cancelled any time _during_ download, stop here.
+				return (null, string.Empty, 0);
 
-				if (pair.Value.Length > int.MaxValue)   // Too large
-					return (null, string.Empty, 0);
+			if (pair.Value.Length > int.MaxValue)   // Too large
+				return (null, string.Empty, 0);
 
-				file.Reset();
+			file.Reset();
 
-				ContentType = pair.Key;
-				Bin = new byte[file.Length];
-				if (file.Length != file.Read(Bin, 0, (int)file.Length))
-					return (null, string.Empty, 0);
+			ContentType = pair.Key;
+			Bin = new byte[file.Length];
+			if (file.Length != file.Read(Bin, 0, (int)file.Length))
+				return (null, string.Empty, 0);
 
-				bool IsContact = await this.XmppService.Contracts.IsContact(attachment.LegalId);
+			bool IsContact = await this.XmppService.Contracts.IsContact(attachment.LegalId);
 
-				await this.AttachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
+			await this.AttachmentCacheService.Add(attachment.Url, attachment.LegalId, IsContact, Bin, ContentType);
 
-				return (Bin, ContentType, GetImageRotation(Bin));
-			}
+			return (Bin, ContentType, GetImageRotation(Bin));
 		}
 
 		/// <summary>
@@ -215,18 +213,18 @@ namespace IdApp.Services.UI.Photos
 				{
 					if (Tag.Value is ushort Orientation)
 					{
-						switch (Orientation)
+						return Orientation switch
 						{
-							case 1: return 0;       // Top left. Default orientation.
-							case 2: return 0;       // Top right. Horizontally reversed.
-							case 3: return 180;     // Bottom right. Rotated by 180 degrees.
-							case 4: return 180;     // Bottom left. Rotated by 180 degrees and then horizontally reversed.
-							case 5: return -90;     // Left top. Rotated by 90 degrees counterclockwise and then horizontally reversed.
-							case 6: return 90;      // Right top. Rotated by 90 degrees clockwise.
-							case 7: return 90;      // Right bottom. Rotated by 90 degrees clockwise and then horizontally reversed.
-							case 8: return -90;     // Left bottom. Rotated by 90 degrees counterclockwise.
-							default: return 0;
-						}
+							1 => 0,// Top left. Default orientation.
+							2 => 0,// Top right. Horizontally reversed.
+							3 => 180,// Bottom right. Rotated by 180 degrees.
+							4 => 180,// Bottom left. Rotated by 180 degrees and then horizontally reversed.
+							5 => -90,// Left top. Rotated by 90 degrees counterclockwise and then horizontally reversed.
+							6 => 90,// Right top. Rotated by 90 degrees clockwise.
+							7 => 90,// Right bottom. Rotated by 90 degrees clockwise and then horizontally reversed.
+							8 => -90,// Left bottom. Rotated by 90 degrees counterclockwise.
+							_ => 0,
+						};
 					}
 				}
 			}
@@ -241,7 +239,7 @@ namespace IdApp.Services.UI.Photos
 		/// <returns>Photo, Content-Type, Rotation</returns>
 		public static async Task<(byte[], string, int)> LoadPhoto(Attachment Attachment)
 		{
-			PhotosLoader Loader = new PhotosLoader();
+			PhotosLoader Loader = new();
 
 			(byte[], string, int) Image = await Loader.LoadOnePhoto(Attachment, SignWith.LatestApprovedIdOrCurrentKeys);
 

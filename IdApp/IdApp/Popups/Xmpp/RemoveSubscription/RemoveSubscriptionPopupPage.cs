@@ -10,7 +10,7 @@ namespace IdApp.Popups.Xmpp.RemoveSubscription
     /// </summary>
     public partial class RemoveSubscriptionPopupPage : PopupPage
     {
-        private readonly TaskCompletionSource<bool?> result = new TaskCompletionSource<bool?>();
+        private readonly TaskCompletionSource<bool?> result = new();
         private readonly string bareJid;
 
         /// <summary>

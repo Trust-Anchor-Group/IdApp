@@ -8,8 +8,8 @@ namespace IdApp.Services.Data.Countries
     /// </summary>
     public static class ISO_3166_1
     {
-        private static readonly SortedDictionary<string, string> codeByCountry = new SortedDictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
-        private static readonly SortedDictionary<string, string> countryByCode = new SortedDictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        private static readonly SortedDictionary<string, string> codeByCountry = new(StringComparer.InvariantCultureIgnoreCase);
+        private static readonly SortedDictionary<string, string> countryByCode = new(StringComparer.InvariantCultureIgnoreCase)
         {
            { "AF", "AFGHANISTAN" },
            { "AX", "ÅLAND ISLANDS" },

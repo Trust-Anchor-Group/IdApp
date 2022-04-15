@@ -32,13 +32,13 @@ namespace IdApp.Services.Messages
 		{
 			if (item is ChatMessage Message)
 			{
-				switch (Message.MessageType)
+				return Message.MessageType switch
 				{
-					case MessageType.Sent: return this.SentTemplate;
-					case MessageType.Received: return this.ReceivedTemplate;
-					case MessageType.Empty: return this.EmptyTemplate;
-					default: return this.DefaultTemplate;
-				}
+					MessageType.Sent => this.SentTemplate,
+					MessageType.Received => this.ReceivedTemplate,
+					MessageType.Empty => this.EmptyTemplate,
+					_ => this.DefaultTemplate,
+				};
 			}
 
 			return this.DefaultTemplate;

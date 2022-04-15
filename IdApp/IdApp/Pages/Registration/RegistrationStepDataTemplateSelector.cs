@@ -43,19 +43,14 @@ namespace IdApp.Pages.Registration
         {
             RegistrationStepViewModel viewModel = (RegistrationStepViewModel)item;
 
-            switch (viewModel.Step)
-            {
-                case RegistrationStep.Account:
-                    return ChooseAccount;
-                case RegistrationStep.RegisterIdentity:
-                    return RegisterIdentity;
-                case RegistrationStep.ValidateIdentity:
-                    return ValidateIdentity;
-                case RegistrationStep.Pin:
-                    return DefinePin;
-                default:
-                    return ValidatePhoneNr;
-            }
-        }
-    }
+			return viewModel.Step switch
+			{
+				RegistrationStep.Account => ChooseAccount,
+				RegistrationStep.RegisterIdentity => RegisterIdentity,
+				RegistrationStep.ValidateIdentity => ValidateIdentity,
+				RegistrationStep.Pin => DefinePin,
+				_ => ValidatePhoneNr,
+			};
+		}
+	}
 }

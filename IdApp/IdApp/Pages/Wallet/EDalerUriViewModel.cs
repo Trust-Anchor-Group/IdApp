@@ -86,7 +86,7 @@ namespace IdApp.Pages.Wallet
 				this.AmountExtraPreset = this.AmountExtra.HasValue;
 				this.AmountExtraAndCurrency = this.AmountExtraText + " " + this.Currency;
 
-				StringBuilder Url = new StringBuilder();
+				StringBuilder Url = new();
 
 				Url.Append("https://");
 				Url.Append(this.From);

@@ -286,21 +286,19 @@ namespace IdApp.Pages.Registration.ChooseAccount
 						Aes.Mode = CipherMode.CBC;
 						Aes.Padding = PaddingMode.PKCS7;
 
-						using (ICryptoTransform Decryptor = Aes.CreateDecryptor(Key, IV))
-						{
-							Decrypted = Decryptor.TransformFinalBlock(Encrypted, 0, Encrypted.Length);
-						}
+						using ICryptoTransform Decryptor = Aes.CreateDecryptor(Key, IV);
+						Decrypted = Decryptor.TransformFinalBlock(Encrypted, 0, Encrypted.Length);
 					}
 
 					string Xml = Encoding.UTF8.GetString(Decrypted);
 
-					XmlDocument Doc = new XmlDocument();
+					XmlDocument Doc = new();
 					Doc.LoadXml(Xml);
 
 					if (Doc.DocumentElement is null || Doc.DocumentElement.NamespaceURI != ContractsClient.NamespaceOnboarding)
 						throw new Exception("Invalid Invitation XML");
 
-					LinkedList<XmlElement> ToProcess = new LinkedList<XmlElement>();
+					LinkedList<XmlElement> ToProcess = new();
 					ToProcess.AddLast(Doc.DocumentElement);
 
 					bool AccountDone = false;
@@ -439,7 +437,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 						bool DestroyContractsClient = false;
 
 						if (!client.TryGetExtension(typeof(ContractsClient), out IXmppExtension Extension) ||
-							!(Extension is ContractsClient ContractsClient))
+							Extension is not ContractsClient ContractsClient)
 						{
 							ContractsClient = new ContractsClient(client, this.TagProfile.LegalJid);
 							DestroyContractsClient = true;

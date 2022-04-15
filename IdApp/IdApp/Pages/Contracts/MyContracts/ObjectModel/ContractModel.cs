@@ -64,7 +64,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
             if (Contract.Parts is null)
                 return null;
 
-            Dictionary<string, Waher.Networking.XMPP.Contracts.ClientSignature> Signatures = new Dictionary<string, Waher.Networking.XMPP.Contracts.ClientSignature>();
+            Dictionary<string, Waher.Networking.XMPP.Contracts.ClientSignature> Signatures = new();
             StringBuilder sb = null;
 
             if (!(Contract.ClientSignatures is null))
@@ -115,7 +115,7 @@ namespace IdApp.Pages.Contracts.MyContracts.ObjectModel
                 {
                     if (Block is Section Section)
                     {
-                        StringBuilder Markdown = new StringBuilder();
+                        StringBuilder Markdown = new();
 
                         foreach (InlineElement Item in Section.Header)
                             Item.GenerateMarkdown(Markdown, 1, new Waher.Networking.XMPP.Contracts.HumanReadable.MarkdownSettings(Contract, MarkdownType.ForRendering));

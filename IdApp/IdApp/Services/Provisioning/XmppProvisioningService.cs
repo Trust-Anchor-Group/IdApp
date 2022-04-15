@@ -45,7 +45,7 @@ namespace IdApp.Services.Provisioning
 		/// <returns>Found devices, and if there are more devices available.</returns>
 		public Task<(SearchResultThing[], bool)> GetMyDevices(int Offset, int MaxCount)
 		{
-			TaskCompletionSource<(SearchResultThing[], bool)> Result = new TaskCompletionSource<(SearchResultThing[], bool)>();
+			TaskCompletionSource<(SearchResultThing[], bool)> Result = new();
 
 			this.ProvisioningClient.GetDevices(Offset, MaxCount, (sender, e) =>
 			{
@@ -70,7 +70,7 @@ namespace IdApp.Services.Provisioning
 			if (!More)
 				return Things;
 
-			List<SearchResultThing> Result = new List<SearchResultThing>();
+			List<SearchResultThing> Result = new();
 			int Offset = Things.Length;
 
 			Result.AddRange(Things);

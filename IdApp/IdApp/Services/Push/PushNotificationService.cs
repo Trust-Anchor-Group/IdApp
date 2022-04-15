@@ -133,7 +133,7 @@ namespace IdApp.Services.Push
 
 					// Push Notification rule for chat messages received when offline:
 
-					StringBuilder Content = new StringBuilder();
+					StringBuilder Content = new();
 
 					Content.Append("{'title':'");
 					Content.Append(AppResources.ChatMessageReceived);

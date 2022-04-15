@@ -53,7 +53,7 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 					this.HasChange = true;
 				}
 
-				StringBuilder Url = new StringBuilder();
+				StringBuilder Url = new();
 
 				Url.Append("https://");
 				Url.Append(this.XmppService.Xmpp.Host);

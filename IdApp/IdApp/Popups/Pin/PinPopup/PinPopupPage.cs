@@ -10,7 +10,7 @@ namespace IdApp.Popups.Pin.PinPopup
     /// </summary>
     public partial class PinPopupPage : PopupPage
     {
-        private readonly TaskCompletionSource<string> result = new TaskCompletionSource<string>();
+        private readonly TaskCompletionSource<string> result = new();
 
         /// <summary>
         /// Prompts the user for its PIN

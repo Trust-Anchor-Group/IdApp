@@ -184,7 +184,7 @@ namespace IdApp.Services.Messages
 			{
 				try
 				{
-					MarkdownSettings Settings = new MarkdownSettings()
+					MarkdownSettings Settings = new()
 					{
 						AllowScriptTag = false,
 						EmbedEmojis = false,    // TODO: Emojis
@@ -209,7 +209,7 @@ namespace IdApp.Services.Messages
 				{
 					Log.Critical(ex);
 
-					StackLayout Layout = new StackLayout()
+					StackLayout Layout = new()
 					{
 						Orientation = StackOrientation.Vertical,
 						StyleId = this.StyleId
@@ -228,7 +228,7 @@ namespace IdApp.Services.Messages
 			}
 			else
 			{
-				StackLayout Layout = new StackLayout()
+				StackLayout Layout = new()
 				{
 					Orientation = StackOrientation.Vertical,
 					StyleId = string.IsNullOrEmpty(this.html) && string.IsNullOrEmpty(this.plainText) ? string.Empty : this.StyleId
@@ -300,7 +300,7 @@ namespace IdApp.Services.Messages
 
 		private async Task ExecuteHyperlinkClicked(object Parameter)
 		{
-			if (!(Parameter is string Url))
+			if (Parameter is not string Url)
 				return;
 
 			await App.OpenUrl(Url);

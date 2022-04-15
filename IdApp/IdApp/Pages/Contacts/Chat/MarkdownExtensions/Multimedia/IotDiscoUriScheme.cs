@@ -75,7 +75,7 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.Multimedia
 				Output.WriteAttributeString("LineBreakMode", "WordWrap");
 				Output.WriteAttributeString("TextType", "Html");
 				Output.WriteAttributeString("FontSize", "Medium");
-				StringBuilder Html = new StringBuilder();
+				StringBuilder Html = new();
 
 				foreach (MarkdownElement E in ChildNodes)
 					await E.GenerateHTML(Html);

@@ -74,7 +74,7 @@ namespace IdApp.Services.UI
 		/// <inheritdoc/>
 		public Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
         {
-            DisplayAlert Task = new DisplayAlert(title, message, accept, cancel);
+            DisplayAlert Task = new(title, message, accept, cancel);
             this.AddTask(Task);
             return Task.CompletionSource.Task;
         }
@@ -82,7 +82,7 @@ namespace IdApp.Services.UI
         /// <inheritdoc/>
         public Task DisplayAlert(string title, string message, string accept)
         {
-            DisplayAlert Task = new DisplayAlert(title, message, accept, null);
+            DisplayAlert Task = new(title, message, accept, null);
             this.AddTask(Task);
             return Task.CompletionSource.Task;
         }
@@ -90,7 +90,7 @@ namespace IdApp.Services.UI
         /// <inheritdoc/>
         public Task DisplayAlert(string title, string message)
         {
-            DisplayAlert Task = new DisplayAlert(title, message, null, null);
+            DisplayAlert Task = new(title, message, null, null);
             this.AddTask(Task);
             return Task.CompletionSource.Task;
         }
@@ -100,7 +100,7 @@ namespace IdApp.Services.UI
         {
             exception = Log.UnnestException(exception);
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             if (!(exception is null))
             {
@@ -134,7 +134,7 @@ namespace IdApp.Services.UI
         /// <inheritdoc/>
         public Task<string> DisplayPrompt(string title, string message, string accept, string cancel)
         {
-            DisplayPrompt Task = new DisplayPrompt(title, message, accept, cancel);
+            DisplayPrompt Task = new(title, message, accept, cancel);
             this.AddTask(Task);
             return Task.CompletionSource.Task;
         }
@@ -142,7 +142,7 @@ namespace IdApp.Services.UI
         /// <inheritdoc/>
         public Task<string> DisplayPrompt(string title, string message, string accept)
         {
-            DisplayPrompt Task = new DisplayPrompt(title, message, accept, null);
+            DisplayPrompt Task = new(title, message, accept, null);
             this.AddTask(Task);
             return Task.CompletionSource.Task;
         }
@@ -150,7 +150,7 @@ namespace IdApp.Services.UI
         /// <inheritdoc/>
         public Task<string> DisplayPrompt(string title, string message)
         {
-            DisplayPrompt Task = new DisplayPrompt(title, message, null, null);
+            DisplayPrompt Task = new(title, message, null, null);
             this.AddTask(Task);
             return Task.CompletionSource.Task;
         }

@@ -18,33 +18,28 @@ namespace IdApp.Extensions
         /// <returns>Color</returns>
         public static Color ToColor(this XmppState State)
         {
-            switch (State)
-            {
-                case XmppState.Error:
-                case XmppState.Offline:
-                    return Color.Red;
+			return State switch
+			{
+				XmppState.Error or 
+                XmppState.Offline => Color.Red,
 
-                case XmppState.Authenticating:
-                case XmppState.Connecting:
-                case XmppState.Registering:
-                case XmppState.StartingEncryption:
-                case XmppState.StreamNegotiation:
-                case XmppState.StreamOpened:
-                    return Color.Yellow;
+				XmppState.Authenticating or 
+                XmppState.Connecting or 
+                XmppState.Registering or 
+                XmppState.StartingEncryption or 
+                XmppState.StreamNegotiation or 
+                XmppState.StreamOpened => Color.Yellow,
 
-                case XmppState.Binding:
-                case XmppState.FetchingRoster:
-                case XmppState.RequestingSession:
-                case XmppState.SettingPresence:
-                    return Blend(Color.Yellow, ConnectedColor, 0.5);
+				XmppState.Binding or 
+                XmppState.FetchingRoster or 
+                XmppState.RequestingSession or 
+                XmppState.SettingPresence => Blend(Color.Yellow, ConnectedColor, 0.5),
 
-                case XmppState.Connected:
-                    return ConnectedColor;
+				XmppState.Connected => ConnectedColor,
 
-                default:
-                    return Color.Gray;
-            }
-        }
+				_ => Color.Gray,
+			};
+		}
 
         private static readonly Color ConnectedColor = Color.FromRgb(146, 208, 80);
 
@@ -72,48 +67,23 @@ namespace IdApp.Extensions
         /// <returns>Textual representation of an XMPP connection state.</returns>
         public static string ToDisplayText(this XmppState State)
         {
-            switch (State)
-            {
-                case XmppState.Authenticating:
-                    return AppResources.XmppState_Authenticating;
-
-                case XmppState.Binding:
-                    return AppResources.XmppState_Binding;
-
-                case XmppState.Connected:
-                    return AppResources.XmppState_Connected;
-
-                case XmppState.Connecting:
-                    return AppResources.XmppState_Connecting;
-
-                case XmppState.Error:
-                    return AppResources.XmppState_Error;
-
-                case XmppState.FetchingRoster:
-                    return AppResources.XmppState_FetchingRoster;
-
-                case XmppState.Registering:
-                    return AppResources.XmppState_Registering;
-
-                case XmppState.RequestingSession:
-                    return AppResources.XmppState_RequestingSession;
-
-                case XmppState.SettingPresence:
-                    return AppResources.XmppState_SettingPresence;
-
-                case XmppState.StartingEncryption:
-                    return AppResources.XmppState_StartingEncryption;
-
-                case XmppState.StreamNegotiation:
-                    return AppResources.XmppState_StreamNegotiation;
-
-                case XmppState.StreamOpened:
-                    return AppResources.XmppState_StreamOpened;
-
-                default:
-                    return AppResources.XmppState_Offline;
-            }
-        }
+			return State switch
+			{
+				XmppState.Authenticating => AppResources.XmppState_Authenticating,
+				XmppState.Binding => AppResources.XmppState_Binding,
+				XmppState.Connected => AppResources.XmppState_Connected,
+				XmppState.Connecting => AppResources.XmppState_Connecting,
+				XmppState.Error => AppResources.XmppState_Error,
+				XmppState.FetchingRoster => AppResources.XmppState_FetchingRoster,
+				XmppState.Registering => AppResources.XmppState_Registering,
+				XmppState.RequestingSession => AppResources.XmppState_RequestingSession,
+				XmppState.SettingPresence => AppResources.XmppState_SettingPresence,
+				XmppState.StartingEncryption => AppResources.XmppState_StartingEncryption,
+				XmppState.StreamNegotiation => AppResources.XmppState_StreamNegotiation,
+				XmppState.StreamOpened => AppResources.XmppState_StreamOpened,
+				_ => AppResources.XmppState_Offline,
+			};
+		}
 
 
         /// <summary>
@@ -123,27 +93,16 @@ namespace IdApp.Extensions
         /// <returns>String representation</returns>
         public static string ToDisplayText(this IdentityState State)
         {
-            switch (State)
-            {
-                case IdentityState.Approved:
-                    return AppResources.IdentityState_Approved;
-
-                case IdentityState.Compromised:
-                    return AppResources.IdentityState_Compromized;
-
-                case IdentityState.Created:
-                    return AppResources.IdentityState_Created;
-
-                case IdentityState.Obsoleted:
-                    return AppResources.IdentityState_Obsoleted;
-
-                case IdentityState.Rejected:
-                    return AppResources.IdentityState_Rejected;
-
-                default:
-                    return string.Empty;
-            }
-        }
+			return State switch
+			{
+				IdentityState.Approved => AppResources.IdentityState_Approved,
+				IdentityState.Compromised => AppResources.IdentityState_Compromized,
+				IdentityState.Created => AppResources.IdentityState_Created,
+				IdentityState.Obsoleted => AppResources.IdentityState_Obsoleted,
+				IdentityState.Rejected => AppResources.IdentityState_Rejected,
+				_ => string.Empty,
+			};
+		}
 
     }
 }

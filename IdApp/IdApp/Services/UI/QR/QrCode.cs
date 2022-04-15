@@ -22,7 +22,7 @@ namespace IdApp.Services.UI.QR
     /// </summary>
     public static class QrCode
     {
-        private static readonly QrEncoder encoder = new QrEncoder();
+        private static readonly QrEncoder encoder = new();
         private static TaskCompletionSource<string> qrCodeScanned;
         private static Func<string, Task> callback;
 
@@ -206,16 +206,11 @@ namespace IdApp.Services.UI.QR
             QrMatrix M = encoder.GenerateMatrix(CorrectionLevel.H, Text);
             byte[] Rgba = M.ToRGBA(Width, Height);
 
-            using (SKData Unencoded = SKData.Create(new MemoryStream(Rgba)))
-            {
-                using (SKImage Bitmap = SKImage.FromPixels(new SKImageInfo(Width, Height, SKColorType.Rgba8888), Unencoded, Width * 4))
-                {
-                    using (SKData Encoded = Bitmap.Encode(Format, 100))
-                    {
-                        return Encoded.ToArray();
-                    }
-                }
-            }
-        }
+			using SKData Unencoded = SKData.Create(new MemoryStream(Rgba));
+			using SKImage Bitmap = SKImage.FromPixels(new SKImageInfo(Width, Height, SKColorType.Rgba8888), Unencoded, Width * 4);
+			using SKData Encoded = Bitmap.Encode(Format, 100);
+
+			return Encoded.ToArray();
+		}
     }
 }

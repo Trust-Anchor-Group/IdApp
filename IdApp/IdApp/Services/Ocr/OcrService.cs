@@ -71,7 +71,7 @@ namespace IdApp.Services.Ocr
 			if (!await this.api.SetImage(Png))
 				return new string[0];
 
-			List<string> Result = new List<string>();
+			List<string> Result = new();
 			string s;
 
 			foreach (Result R in this.api.Results(PageIteratorLevel.Textline))

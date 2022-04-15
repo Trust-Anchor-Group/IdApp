@@ -24,7 +24,7 @@ namespace IdApp.Pages.Wallet
 		/// <param name="Uri">Parsed edaler URI.</param>
 		/// <param name="FriendlyName">Optional Friendly Name associated with URI</param>
 		public EDalerUriNavigationArgs(EDalerUri Uri, string FriendlyName)
-			: this(Uri, string.Empty, null)
+			: this(Uri, FriendlyName, null)
 		{
 		}
 

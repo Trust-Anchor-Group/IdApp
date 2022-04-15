@@ -37,8 +37,8 @@ namespace IdApp.Pages.Things.MyThings
 			else
 				this.thingToShare = null;
 
-			SortedDictionary<string, ContactInfo> SortedByName = new SortedDictionary<string, ContactInfo>();
-			SortedDictionary<string, ContactInfo> SortedByAddress = new SortedDictionary<string, ContactInfo>();
+			SortedDictionary<string, ContactInfo> SortedByName = new();
+			SortedDictionary<string, ContactInfo> SortedByAddress = new();
 			string Name;
 			string Suffix;
 			string Key;

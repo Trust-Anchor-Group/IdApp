@@ -31,7 +31,7 @@ namespace IdApp.Popups.Xmpp.ReportOrBlock
     /// </summary>
     public partial class ReportOrBlockPopupPage : PopupPage
     {
-        private readonly TaskCompletionSource<ReportOrBlockAction> result = new TaskCompletionSource<ReportOrBlockAction>();
+        private readonly TaskCompletionSource<ReportOrBlockAction> result = new();
         private readonly string bareJid;
 
         /// <summary>
