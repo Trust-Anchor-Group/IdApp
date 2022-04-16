@@ -47,7 +47,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, 
 					args.More, this.XmppService.Wallet.LastEvent);
 
-				StringBuilder Url = new StringBuilder();
+				StringBuilder Url = new();
 
 				Url.Append("https://");
 				Url.Append(this.XmppService.Xmpp.Host);
@@ -96,7 +96,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.HasEvents = (Events?.Length ?? 0) > 0;
 			this.HasMore = More;
 
-			Dictionary<string, string> FriendlyNames = new Dictionary<string, string>();
+			Dictionary<string, string> FriendlyNames = new();
 			string FriendlyName;
 
 			this.PendingPayments.Clear();
@@ -399,7 +399,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task ShowPending(object P)
 		{
-			if (!(P is PendingPaymentItem Item))
+			if (P is not PendingPaymentItem Item)
 				return;
 
 			if (!this.XmppService.Wallet.TryParseEDalerUri(Item.Uri, out EDalerUri Uri, out string Reason))
@@ -413,7 +413,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task ShowEvent(object P)
 		{
-			if (!(P is AccountEventItem Item))
+			if (P is not AccountEventItem Item)
 				return;
 
 			await this.NavigationService.GoToAsync(nameof(AccountEvent.AccountEventPage), new AccountEvent.AccountEventNavigationArgs(Item));

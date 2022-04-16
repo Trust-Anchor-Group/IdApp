@@ -13,6 +13,7 @@ using IdApp.Services.ThingRegistries;
 using IdApp.Services.UI;
 using IdApp.Services.Wallet;
 using Xamarin.Forms;
+using IdApp.Services.Push;
 
 namespace IdApp.Services
 {
@@ -42,6 +43,7 @@ namespace IdApp.Services
         private ISettingsService settingsService;
         private IStorageService storageService;
         private INfcService nfcService;
+        private IPushNotificationService pushNotificationService;
 
         /// <summary>
         /// The dispatcher to use for alerts and accessing the main thread.
@@ -236,6 +238,20 @@ namespace IdApp.Services
                     this.nfcService = App.Instantiate<INfcService>();
 
                 return this.nfcService;
+            }
+        }
+
+        /// <summary>
+        /// Push Notification Service
+        /// </summary>
+        public IPushNotificationService PushNotificationService
+        {
+            get
+            {
+                if (this.pushNotificationService is null)
+                    this.pushNotificationService = App.Instantiate<IPushNotificationService>();
+
+                return this.pushNotificationService;
             }
         }
 

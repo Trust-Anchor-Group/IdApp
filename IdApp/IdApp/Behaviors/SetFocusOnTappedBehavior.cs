@@ -17,7 +17,7 @@ namespace IdApp.Behaviors
         /// <inheritdoc/>
         protected override void OnAttachedTo(View View)
         {
-            TapGestureRecognizer Tap = new TapGestureRecognizer();
+            TapGestureRecognizer Tap = new();
             View.GestureRecognizers.Add(Tap);
             Tap.Tapped += Tap_Tapped;
 

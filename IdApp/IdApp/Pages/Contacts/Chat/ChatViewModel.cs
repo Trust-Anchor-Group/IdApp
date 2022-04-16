@@ -44,7 +44,7 @@ namespace IdApp.Pages.Contacts.Chat
 	{
 		private const int MessageBatchSize = 30;
 
-		private TaskCompletionSource<bool> waitUntilBound = new TaskCompletionSource<bool>();
+		private TaskCompletionSource<bool> waitUntilBound = new();
 
 		/// <summary>
 		/// Creates an instance of the <see cref="ChatViewModel"/> class.
@@ -91,7 +91,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			// An empty transparent bubble, used to fix an issue on iOS
 			{
-				ChatMessage EmptyMessage = new ChatMessage();
+				ChatMessage EmptyMessage = new();
 				await EmptyMessage.GenerateXaml(this);
 				this.Messages.Add(EmptyMessage);
 			}
@@ -268,14 +268,12 @@ namespace IdApp.Pages.Contacts.Chat
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
 				if (this.Messages.Count > 0)
-				{
 					this.Messages.Insert(1, Message);
-				}
 				else
-                {
+				{
 					// An empty transparent bubble, used to fix an issue on iOS
 					{
-						ChatMessage EmptyMessage = new ChatMessage();
+						ChatMessage EmptyMessage = new();
 						await EmptyMessage.GenerateXaml(this);
 						this.Messages.Add(EmptyMessage);
 					}
@@ -333,7 +331,7 @@ namespace IdApp.Pages.Contacts.Chat
 				if (string.IsNullOrEmpty(MarkdownInput))
 					return;
 
-				MarkdownSettings Settings = new MarkdownSettings()
+				MarkdownSettings Settings = new()
 				{
 					AllowScriptTag = false,
 					EmbedEmojis = false,    // TODO: Emojis
@@ -346,7 +344,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 				MarkdownDocument Doc = await MarkdownDocument.CreateAsync(MarkdownInput, Settings);
 
-				ChatMessage Message = new ChatMessage()
+				ChatMessage Message = new()
 				{
 					Created = DateTime.UtcNow,
 					RemoteBareJid = this.BareJid,
@@ -357,13 +355,13 @@ namespace IdApp.Pages.Contacts.Chat
 					Markdown = MarkdownInput
 				};
 
-				StringBuilder Xml = new StringBuilder();
+				StringBuilder Xml = new();
 
 				Xml.Append("<content xmlns=\"urn:xmpp:content\" type=\"text/markdown\">");
 				Xml.Append(XML.Encode(MarkdownInput));
 				Xml.Append("</content><html xmlns='http://jabber.org/protocol/xhtml-im'><body xmlns='http://www.w3.org/1999/xhtml'>");
 
-				HtmlDocument HtmlDoc = new HtmlDocument("<root>" + Message.Html + "</root>");
+				HtmlDocument HtmlDoc = new("<root>" + Message.Html + "</root>");
 
 				foreach (HtmlNode N in (HtmlDoc.Body ?? HtmlDoc.Root).Children)
 					N.Export(Xml);
@@ -450,7 +448,7 @@ namespace IdApp.Pages.Contacts.Chat
 		{
 			this.ExistsMoreMessages = false;
 
-			ChatMessage Last = this.Messages[this.Messages.Count - 1];
+			ChatMessage Last = this.Messages[^1];
 			IEnumerable<ChatMessage> Messages = await Database.Find<ChatMessage>(0, MessageBatchSize, new FilterAnd(
 				new FilterFieldEqualTo("RemoteBareJid", this.BareJid),
 				new FilterFieldLesserThan("Created", Last.Created)), "-Created");
@@ -460,7 +458,7 @@ namespace IdApp.Pages.Contacts.Chat
 			// An empty transparent bubble, used to fix an issue on iOS
 			if (this.Messages.Count == 0)
 			{
-				ChatMessage EmptyMessage = new ChatMessage();
+				ChatMessage EmptyMessage = new();
 				await EmptyMessage.GenerateXaml(this);
 				NewMessages.Add(EmptyMessage);
 			}
@@ -635,7 +633,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedId()
 		{
-			TaskCompletionSource<ContactInfo> SelectedContact = new TaskCompletionSource<ContactInfo>();
+			TaskCompletionSource<ContactInfo> SelectedContact = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
 				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectedContact));
@@ -648,7 +646,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			if (!(Contact.LegalIdentity is null))
 			{
-				StringBuilder Markdown = new StringBuilder();
+				StringBuilder Markdown = new();
 
 				Markdown.AppendLine("```iotid");
 
@@ -686,7 +684,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedContract()
 		{
-			TaskCompletionSource<Contract> SelectedContract = new TaskCompletionSource<Contract>();
+			TaskCompletionSource<Contract> SelectedContract = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyContractsPage), new MyContractsNavigationArgs(
 				ContractsListMode.MyContracts, SelectedContract));
@@ -704,7 +702,7 @@ namespace IdApp.Pages.Contacts.Chat
 			}
 			else
 			{
-				StringBuilder Markdown = new StringBuilder();
+				StringBuilder Markdown = new();
 
 				Markdown.AppendLine("```iotsc");
 
@@ -729,7 +727,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedMoney()
 		{
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.Append("edaler:");
 
@@ -754,7 +752,7 @@ namespace IdApp.Pages.Contacts.Chat
 			if (!EDalerUri.TryParse(sb.ToString(), out EDalerUri Parsed))
 				return;
 
-			TaskCompletionSource<string> UriToSend = new TaskCompletionSource<string>();
+			TaskCompletionSource<string> UriToSend = new();
 
 			await this.NavigationService.GoToAsync(nameof(SendPaymentPage), new EDalerUriNavigationArgs(Parsed,
 				this.FriendlyName, UriToSend));
@@ -794,7 +792,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 		private async Task ExecuteEmbedThing()
 		{
-			TaskCompletionSource<ContactInfo> ThingToShare = new TaskCompletionSource<ContactInfo>();
+			TaskCompletionSource<ContactInfo> ThingToShare = new();
 
 			await this.NavigationService.GoToAsync(nameof(MyThingsPage), new MyThingsNavigationArgs(ThingToShare));
 
@@ -804,7 +802,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 			await this.waitUntilBound.Task;     // Wait until view is bound again.
 
-			StringBuilder sb = new StringBuilder();
+			StringBuilder sb = new();
 
 			sb.Append("![");
 			sb.Append(MarkdownDocument.Encode(Thing.FriendlyName));
@@ -857,7 +855,7 @@ namespace IdApp.Pages.Contacts.Chat
 
 						string[] Rows = s.Replace("\r\n", "\n").Replace("\r", "\n").Split('\n');
 
-						StringBuilder Quote = new StringBuilder();
+						StringBuilder Quote = new();
 
 						foreach (string Row in Rows)
 						{
@@ -886,14 +884,10 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <param name="Scheme">URI Scheme</param>
 		public Task ExecuteUriClicked(ChatMessage Message, string Uri, UriScheme Scheme)
 		{
-			switch (Scheme)
-			{
-				case UriScheme.Xmpp:
-					return ProcessXmppUri(Uri, this.XmppService, this.TagProfile);
-
-				default:
-					return QrCode.OpenUrl(Uri);
-			}
+			if (Scheme == UriScheme.Xmpp)
+				return ProcessXmppUri(Uri, this.XmppService, this.TagProfile);
+			else
+				return QrCode.OpenUrl(Uri);
 		}
 
 		/// <summary>
@@ -919,7 +913,7 @@ namespace IdApp.Pages.Contacts.Chat
 			if (i < 0)
 				return false;
 
-			string Jid = Uri.Substring(i + 1).TrimStart();
+			string Jid = Uri[(i + 1)..].TrimStart();
 			string Command;
 
 			i = Jid.IndexOf('?');
@@ -927,7 +921,7 @@ namespace IdApp.Pages.Contacts.Chat
 				Command = "subscribe";
 			else
 			{
-				Command = Jid.Substring(i + 1).TrimStart();
+				Command = Jid[(i + 1)..].TrimStart();
 				Jid = Jid.Substring(0, i).TrimEnd();
 			}
 
@@ -937,7 +931,7 @@ namespace IdApp.Pages.Contacts.Chat
 			switch (Command.ToLower())
 			{
 				case "subscribe":
-					SubscribeToPopupPage SubscribeToPopupPage = new SubscribeToPopupPage(Jid);
+					SubscribeToPopupPage SubscribeToPopupPage = new(Jid);
 
 					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(SubscribeToPopupPage);
 					bool? SubscribeTo = await SubscribeToPopupPage.Result;
@@ -950,7 +944,7 @@ namespace IdApp.Pages.Contacts.Chat
 							IdXml = string.Empty;
 						else
 						{
-							StringBuilder Xml = new StringBuilder();
+							StringBuilder Xml = new();
 							TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
 							IdXml = Xml.ToString();
 						}

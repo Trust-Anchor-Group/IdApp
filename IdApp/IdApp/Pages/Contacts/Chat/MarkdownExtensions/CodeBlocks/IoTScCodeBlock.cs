@@ -42,6 +42,11 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 		public bool HandlesXAML => true;
 
 		/// <summary>
+		/// Markdown document.
+		/// </summary>
+		public MarkdownDocument Document => this.document;
+
+		/// <summary>
 		/// Generates HTML (not supported)
 		/// </summary>
 		public Task<bool> GenerateHTML(StringBuilder Output, string[] Rows, string Language, int Indent, MarkdownDocument Document)
@@ -74,12 +79,12 @@ namespace IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks
 
 			try
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 
 				foreach (string Row in Rows)
 					sb.AppendLine(Row);
 
-				XmlDocument Doc = new XmlDocument();
+				XmlDocument Doc = new();
 				Doc.LoadXml(sb.ToString());
 
 				ParsedContract Parsed = await Contract.Parse(Doc.DocumentElement);

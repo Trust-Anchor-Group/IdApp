@@ -128,7 +128,7 @@ namespace IdApp.Services.Contracts
 
 		public async Task<Contract[]> GetCreatedContracts()
 		{
-			List<Contract> Result = new List<Contract>();
+			List<Contract> Result = new();
 			ContractsEventArgs Contracts;
 			int Offset = 0;
 			int Nr;
@@ -150,7 +150,7 @@ namespace IdApp.Services.Contracts
 
 		public async Task<Contract[]> GetSignedContracts()
 		{
-			List<Contract> Result = new List<Contract>();
+			List<Contract> Result = new();
 			ContractsEventArgs Contracts;
 			int Offset = 0;
 			int Nr;
@@ -173,12 +173,12 @@ namespace IdApp.Services.Contracts
 		/// <returns>Id's of contract templates, together with the last time they were used.</returns>
 		public async Task<KeyValuePair<DateTime, string>[]> GetContractTemplateIds()
 		{
-			List<KeyValuePair<DateTime, string>> Result = new List<KeyValuePair<DateTime, string>>();
+			List<KeyValuePair<DateTime, string>> Result = new();
 			string Prefix = Constants.KeyPrefixes.ContractTemplatePrefix;
 			int PrefixLen = Prefix.Length;
 
 			foreach ((string Key, DateTime LastUsed) in await this.SettingsService.RestoreStateWhereKeyStartsWith<DateTime>(Prefix))
-				Result.Add(new KeyValuePair<DateTime, string>(LastUsed, Key.Substring(PrefixLen)));
+				Result.Add(new KeyValuePair<DateTime, string>(LastUsed, Key[PrefixLen..]));
 
 			return Result.ToArray();
 		}
@@ -227,13 +227,12 @@ namespace IdApp.Services.Contracts
 				return await this.ContractsClient.HasPrivateKey(legalIdentityId);
 			else
 			{
-				using (ContractsClient cc = new ContractsClient(client, this.TagProfile.LegalJid))
-				{
-					if (!await cc.LoadKeys(false))
-						return false;
+				using ContractsClient cc = new(client, this.TagProfile.LegalJid);
 
-					return await cc.HasPrivateKey(legalIdentityId);
-				}
+				if (!await cc.LoadKeys(false))
+					return false;
+
+				return await cc.HasPrivateKey(legalIdentityId);
 			}
 		}
 
@@ -304,10 +303,8 @@ namespace IdApp.Services.Contracts
 				return await this.ContractsClient.GetLegalIdentitiesAsync();
 			else
 			{
-				using (ContractsClient cc = new ContractsClient(client, this.TagProfile.LegalJid))  // No need to load keys for this operation.
-				{
-					return await cc.GetLegalIdentitiesAsync();
-				}
+				using ContractsClient cc = new(client, this.TagProfile.LegalJid);  // No need to load keys for this operation.
+				return await cc.GetLegalIdentitiesAsync();
 			}
 		}
 

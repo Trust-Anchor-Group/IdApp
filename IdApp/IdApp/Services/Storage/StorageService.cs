@@ -16,7 +16,7 @@ namespace IdApp.Services.Storage
 	[Singleton]
 	internal sealed class StorageService : ServiceReferences, IStorageService
 	{
-		private readonly LinkedList<TaskCompletionSource<bool>> tasksWaiting = new LinkedList<TaskCompletionSource<bool>>();
+		private readonly LinkedList<TaskCompletionSource<bool>> tasksWaiting = new();
 		private readonly string dataFolder;
 		private FilesProvider databaseProvider;
 		private bool? initialized = null;
@@ -153,7 +153,7 @@ namespace IdApp.Services.Storage
 				if (this.initialized.HasValue)
 					return Task.FromResult<bool>(this.initialized.Value);
 
-				TaskCompletionSource<bool> Wait = new TaskCompletionSource<bool>();
+				TaskCompletionSource<bool> Wait = new();
 				this.tasksWaiting.AddLast(Wait);
 
 				return Wait.Task;

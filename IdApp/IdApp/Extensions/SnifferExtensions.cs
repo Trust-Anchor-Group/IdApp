@@ -22,10 +22,10 @@ namespace IdApp.Extensions
             if (sniffer is null)
                 return string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
-            using (StringWriter writer = new StringWriter(sb))
-            using (TextWriterSniffer output = new TextWriterSniffer(writer, BinaryPresentationMethod.ByteCount))
+            using (StringWriter writer = new(sb))
+            using (TextWriterSniffer output = new(writer, BinaryPresentationMethod.ByteCount))
             {
                 await sniffer.ReplayAsync(output);
             }
@@ -40,7 +40,7 @@ namespace IdApp.Extensions
         /// <returns>The xmpp communication in xml.</returns>
         public static Task<string> SnifferToXml(this InMemorySniffer sniffer)
         {
-            XmlWriterSettings settings = new XmlWriterSettings()
+            XmlWriterSettings settings = new()
             {
                 Encoding = Encoding.UTF8,
                 Indent = true,
@@ -59,10 +59,10 @@ namespace IdApp.Extensions
             if (sniffer is null)
                 return string.Empty;
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
 
             using (XmlWriter writer = XmlWriter.Create(sb, settings))
-            using (XmlWriterSniffer output = new XmlWriterSniffer(writer, BinaryPresentationMethod.ByteCount))
+            using (XmlWriterSniffer output = new(writer, BinaryPresentationMethod.ByteCount))
             {
                 await sniffer.ReplayAsync(output);
             }
@@ -75,32 +75,26 @@ namespace IdApp.Extensions
             if (sniffer is null)
                 return;
 
-            using (TextFileSniffer output = new TextFileSniffer(fileName, BinaryPresentationMethod.ByteCount))
-            {
-                await sniffer.ReplayAsync(output);
-            }
-        }
+			using TextFileSniffer output = new(fileName, BinaryPresentationMethod.ByteCount);
+			await sniffer.ReplayAsync(output);
+		}
 
         internal static async Task SaveSnifferAsXml(InMemorySniffer sniffer, string fileName)
         {
             if (sniffer is null)
                 return;
 
-            using (XmlFileSniffer output = new XmlFileSniffer(fileName, BinaryPresentationMethod.ByteCount))
-            {
-                await sniffer.ReplayAsync(output);
-            }
-        }
+			using XmlFileSniffer output = new(fileName, BinaryPresentationMethod.ByteCount);
+			await sniffer.ReplayAsync(output);
+		}
 
         internal static async Task SaveSnifferAsXml(InMemorySniffer sniffer, string fileName, string xslTransform)
         {
             if (sniffer is null)
                 return;
 
-            using (XmlFileSniffer output = new XmlFileSniffer(fileName, xslTransform, BinaryPresentationMethod.ByteCount))
-            {
-                await sniffer.ReplayAsync(output);
-            }
-        }
+			using XmlFileSniffer output = new(fileName, xslTransform, BinaryPresentationMethod.ByteCount);
+			await sniffer.ReplayAsync(output);
+		}
     }
 }

@@ -1717,6 +1717,11 @@
             If generation of XAML is supported.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.Document">
+            <summary>
+            Markdown document.
+            </summary>
+        </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTIdCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
             <summary>
             Generates HTML (not supported)
@@ -1773,6 +1778,11 @@
         <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.HandlesXAML">
             <summary>
             If generation of XAML is supported.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.Document">
+            <summary>
+            Markdown document.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Contacts.Chat.MarkdownExtensions.CodeBlocks.IoTScCodeBlock.GenerateHTML(System.Text.StringBuilder,System.String[],System.String,System.Int32,Waher.Content.Markdown.MarkdownDocument)">
@@ -9496,6 +9506,11 @@
               Looks up a localized string similar to Chat.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.ChatMessageReceived">
+            <summary>
+              Looks up a localized string similar to Chat Message Received.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.ChooseAccount">
             <summary>
               Looks up a localized string similar to Choose account.
@@ -13066,6 +13081,11 @@
             Event raised when a new token is made available.
             </summary>
         </member>
+        <member name="M:IdApp.Services.Push.IPushNotificationService.CheckPushNotificationToken">
+            <summary>
+            Checks if the Push Notification Token is current and registered properly.
+            </summary>
+        </member>
         <member name="T:IdApp.Services.Push.PushNotificationService">
             <summary>
             Push notification service
@@ -13094,6 +13114,16 @@
             <param name="Source">Source of token</param>
             <param name="Token">Token, if found.</param>
             <returns>If a token was found for the corresponding source.</returns>
+        </member>
+        <member name="M:IdApp.Services.Push.PushNotificationService.CheckPushNotificationToken">
+            <summary>
+            Checks if the Push Notification Token is current and registered properly.
+            </summary>
+        </member>
+        <member name="F:IdApp.Services.Push.PushNotificationService.currentTokenConfiguration">
+            <summary>
+            Increment this configuration number by one, each time token configuration changes.
+            </summary>
         </member>
         <member name="T:IdApp.Services.Push.TokenEventHandler">
             <summary>
@@ -13228,6 +13258,11 @@
         <member name="P:IdApp.Services.ServiceReferences.NfcService">
             <summary>
             Near-Field Communication (NFC) service.
+            </summary>
+        </member>
+        <member name="P:IdApp.Services.ServiceReferences.PushNotificationService">
+            <summary>
+            Push Notification Service
             </summary>
         </member>
         <member name="T:IdApp.Services.Settings.ISettingsService">

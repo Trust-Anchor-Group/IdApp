@@ -101,21 +101,19 @@ namespace IdApp
 
                 Url = Url.Substring(0, i).ToLowerInvariant();
 
-                switch (Url)
-                {
-                    case UriSchemeIotId:
-                    case UriSchemeIotDisco:
-                    case UriSchemeIotSc:
-                    case UriSchemeTagSign:
-                    case UriSchemeEDaler:
-                    case UriSchemeOnboarding:
-                    case UriSchemeXmpp:
-                        return Url;
+				return Url switch
+				{
+					UriSchemeIotId or 
+                    UriSchemeIotDisco or 
+                    UriSchemeIotSc or 
+                    UriSchemeTagSign or 
+                    UriSchemeEDaler or 
+                    UriSchemeOnboarding or 
+                    UriSchemeXmpp => Url,
 
-                    default:
-                        return null;
-                }
-            }
+					_ => null,
+				};
+			}
 
             /// <summary>
             /// Checks if the specified code starts with the IoT ID scheme.

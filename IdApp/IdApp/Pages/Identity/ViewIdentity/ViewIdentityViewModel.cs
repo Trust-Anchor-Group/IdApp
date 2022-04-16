@@ -1411,7 +1411,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 		private string GetFriendlyName()
 		{
-			StringBuilder Name = new StringBuilder();
+			StringBuilder Name = new();
 			string s;
 
 			Name.Append(this.FirstName);
@@ -1548,7 +1548,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				this.EvaluateAllCommands();
 				try
 				{
-					StringBuilder Xml = new StringBuilder();
+					StringBuilder Xml = new();
 					XmlWriterSettings Settings = XML.WriterSettings(false, true);
 
 					using (XmlWriter Output = XmlWriter.Create(Xml, Settings))
@@ -1573,57 +1573,51 @@ namespace IdApp.Pages.Identity.ViewIdentity
 						Output.WriteEndElement();
 					}
 
-					using (RandomNumberGenerator Rnd = RandomNumberGenerator.Create())
+					using RandomNumberGenerator Rnd = RandomNumberGenerator.Create();
+					byte[] Data = Encoding.UTF8.GetBytes(Xml.ToString());
+					byte[] Key = new byte[16];
+					byte[] IV = new byte[16];
+
+					Rnd.GetBytes(Key);
+					Rnd.GetBytes(IV);
+
+					using Aes Aes = Aes.Create();
+					Aes.BlockSize = 128;
+					Aes.KeySize = 256;
+					Aes.Mode = CipherMode.CBC;
+					Aes.Padding = PaddingMode.PKCS7;
+
+					using ICryptoTransform Transform = Aes.CreateEncryptor(Key, IV);
+					byte[] Encrypted = Transform.TransformFinalBlock(Data, 0, Data.Length);
+
+					Xml.Clear();
+
+					using (XmlWriter Output = XmlWriter.Create(Xml, Settings))
 					{
-						byte[] Data = Encoding.UTF8.GetBytes(Xml.ToString());
-						byte[] Key = new byte[16];
-						byte[] IV = new byte[16];
+						Output.WriteStartElement("Info", ContractsClient.NamespaceOnboarding);
+						Output.WriteAttributeString("base64", Convert.ToBase64String(Encrypted));
+						Output.WriteAttributeString("once", "true");
+						Output.WriteAttributeString("expires", XML.Encode(DateTime.UtcNow.AddMinutes(1)));
+						Output.WriteEndElement();
+					}
 
-						Rnd.GetBytes(Key);
-						Rnd.GetBytes(IV);
+					XmlElement Response = await this.XmppService.Xmpp.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
 
-						using (Aes Aes = Aes.Create())
+					foreach (XmlNode N in Response.ChildNodes)
+					{
+						if (N is XmlElement Info && Info.LocalName == "Code" && Info.NamespaceURI == ContractsClient.NamespaceOnboarding)
 						{
-							Aes.BlockSize = 128;
-							Aes.KeySize = 256;
-							Aes.Mode = CipherMode.CBC;
-							Aes.Padding = PaddingMode.PKCS7;
+							string Code = XML.Attribute(Info, "code");
+							string Url = "obinfo:" + Constants.Domains.IdDomain + ":" + Code + ":" +
+								Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
 
-							using (ICryptoTransform Transform = Aes.CreateEncryptor(Key, IV))
-							{
-								byte[] Encrypted = Transform.TransformFinalBlock(Data, 0, Data.Length);
-
-								Xml.Clear();
-
-								using (XmlWriter Output = XmlWriter.Create(Xml, Settings))
-								{
-									Output.WriteStartElement("Info", ContractsClient.NamespaceOnboarding);
-									Output.WriteAttributeString("base64", Convert.ToBase64String(Encrypted));
-									Output.WriteAttributeString("once", "true");
-									Output.WriteAttributeString("expires", XML.Encode(DateTime.UtcNow.AddMinutes(1)));
-									Output.WriteEndElement();
-								}
-
-								XmlElement Response = await this.XmppService.Xmpp.IqSetAsync(Constants.Domains.OnboardingDomain, Xml.ToString());
-
-								foreach (XmlNode N in Response.ChildNodes)
-								{
-									if (N is XmlElement Info && Info.LocalName == "Code" && Info.NamespaceURI == ContractsClient.NamespaceOnboarding)
-									{
-										string Code = XML.Attribute(Info, "code");
-										string Url = "obinfo:" + Constants.Domains.IdDomain + ":" + Code + ":" +
-											Convert.ToBase64String(Key) + ":" + Convert.ToBase64String(IV);
-
-										await this.XmppService.AddTransferCode(Code);
-										await this.NavigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
-										return;
-									}
-								}
-
-								await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnexpectedResponse);
-							}
+							await this.XmppService.AddTransferCode(Code);
+							await this.NavigationService.GoToAsync(nameof(TransferIdentityPage), new TransferIdentityNavigationArgs(Url));
+							return;
 						}
 					}
+
+					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.UnexpectedResponse);
 				}
 				finally
 				{
@@ -1647,7 +1641,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 			{
 				while (true)
 				{
-					ChangePinPopupPage Page = new ChangePinPopupPage();
+					ChangePinPopupPage Page = new();
 
 					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
 					(string OldPin, string NewPin) = await Page.Result;
@@ -1657,7 +1651,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 
 					if (this.TagProfile.ComputePinHash(OldPin) == this.TagProfile.PinHash)
 					{
-						TaskCompletionSource<bool> PasswordChanged = new TaskCompletionSource<bool>();
+						TaskCompletionSource<bool> PasswordChanged = new();
 						string NewPassword = this.CryptoService.CreateRandomPassword();
 
 						this.XmppService.Xmpp.ChangePassword(NewPassword, (sender, e) =>
@@ -1716,7 +1710,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 					IdXml = string.Empty;
 				else
 				{
-					StringBuilder Xml = new StringBuilder();
+					StringBuilder Xml = new();
 					this.TagProfile.LegalIdentity.Serialize(Xml, true, true, true, true, true, true, true);
 					IdXml = Xml.ToString();
 				}
@@ -1739,7 +1733,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				RosterItem Item = this.XmppService.Xmpp[this.BareJid];
 				if (Item.State == SubscriptionState.Both || Item.State == SubscriptionState.From)
 				{
-					RemoveSubscriptionPopupPage Page = new RemoveSubscriptionPopupPage(this.BareJid);
+					RemoveSubscriptionPopupPage Page = new(this.BareJid);
 
 					await Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(Page);
 					bool? Remove = await Page.Result;

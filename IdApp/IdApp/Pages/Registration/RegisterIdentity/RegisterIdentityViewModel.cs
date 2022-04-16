@@ -740,7 +740,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		{
 			try
 			{
-				using SKManagedStream ManagedStream = new SKManagedStream(inputStream);
+				using SKManagedStream ManagedStream = new(inputStream);
 				using SKData ImageData = SKData.Create(ManagedStream);
 
 				SKCodec Codec = SKCodec.Create(ImageData);
@@ -769,7 +769,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				if (Resize)
 				{
 					SKImageInfo Info = SkBitmap.Info;
-					SKImageInfo NewInfo = new SKImageInfo(Width, Height, Info.ColorType, Info.AlphaType, Info.ColorSpace);
+					SKImageInfo NewInfo = new(Width, Height, Info.ColorType, Info.AlphaType, Info.ColorSpace);
 					SkBitmap = SkBitmap.Resize(NewInfo, SKFilterQuality.High);
 				}
 
@@ -791,7 +791,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				case SKEncodedOrigin.BottomRight:
 					Rotated = new SKBitmap(bitmap.Width, bitmap.Height);
 
-					using (SKCanvas Surface = new SKCanvas(Rotated))
+					using (SKCanvas Surface = new(Rotated))
 					{
 						Surface.RotateDegrees(180, bitmap.Width / 2, bitmap.Height / 2);
 						Surface.DrawBitmap(bitmap, 0, 0);
@@ -801,7 +801,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				case SKEncodedOrigin.RightTop:
 					Rotated = new SKBitmap(bitmap.Height, bitmap.Width);
 
-					using (SKCanvas Surface = new SKCanvas(Rotated))
+					using (SKCanvas Surface = new(Rotated))
 					{
 						Surface.Translate(Rotated.Width, 0);
 						Surface.RotateDegrees(90);
@@ -812,7 +812,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 				case SKEncodedOrigin.LeftBottom:
 					Rotated = new SKBitmap(bitmap.Height, bitmap.Width);
 
-					using (SKCanvas Surface = new SKCanvas(Rotated))
+					using (SKCanvas Surface = new(Rotated))
 					{
 						Surface.Translate(0, Rotated.Height);
 						Surface.RotateDegrees(270);
@@ -927,7 +927,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		private RegisterIdentityModel CreateRegisterModel()
 		{
 			string s;
-			RegisterIdentityModel model = new RegisterIdentityModel();
+			RegisterIdentityModel model = new();
 			if (!string.IsNullOrWhiteSpace(s = this.FirstName?.Trim()))
 				model.FirstName = s;
 

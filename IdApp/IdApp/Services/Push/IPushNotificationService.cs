@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Waher.Networking.XMPP.Push;
+using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Push
 {
@@ -17,6 +18,7 @@ namespace IdApp.Services.Push
 	/// <summary>
 	/// Interface for push notification services.
 	/// </summary>
+	[DefaultImplementation(typeof(PushNotificationService))]
 	public interface IPushNotificationService
 	{
 		/// <summary>
@@ -37,5 +39,10 @@ namespace IdApp.Services.Push
 		/// Event raised when a new token is made available.
 		/// </summary>
 		event TokenEventHandler OnNewToken;
+
+		/// <summary>
+		/// Checks if the Push Notification Token is current and registered properly.
+		/// </summary>
+		Task CheckPushNotificationToken();
 	}
 }

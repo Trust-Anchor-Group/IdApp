@@ -42,7 +42,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 		/// <returns>Validation information about the number.</returns>
 		public async Task<NumberInformation> Validate(string PersonalNumber)
 		{
-			NumberInformation Info = new NumberInformation()
+			NumberInformation Info = new()
 			{
 				PersonalNumber = PersonalNumber,
 				DisplayString = string.Empty
@@ -50,7 +50,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 
 			try
 			{
-				Variables Variables = new Variables(new Variable(this.variableName, PersonalNumber));
+				Variables Variables = new(new Variable(this.variableName, PersonalNumber));
 				object EvalResult = await this.pattern.EvaluateAsync(Variables);
 
 				if (EvalResult is bool b)
@@ -65,7 +65,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 					{
 						EvalResult = await this.check.EvaluateAsync(Variables);
 
-						if (!(EvalResult is bool b2) || !b2)
+						if (EvalResult is not bool b2 || !b2)
 						{
 							Info.IsValid = false;
 							return Info;
@@ -76,7 +76,7 @@ namespace IdApp.Services.Data.PersonalNumbers
 					{
 						EvalResult = await this.normalize.EvaluateAsync(Variables);
 
-						if (!(EvalResult is string Normalized))
+						if (EvalResult is not string Normalized)
 						{
 							Info.IsValid = false;
 							return Info;

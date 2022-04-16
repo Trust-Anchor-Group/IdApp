@@ -511,7 +511,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 					(Contract.State == ContractState.Approved || Contract.State == ContractState.BeingSigned) &&
 					(!Contract.SignAfter.HasValue || Contract.SignAfter.Value < DateTime.Now) &&
 					(!Contract.SignBefore.HasValue || Contract.SignBefore.Value > DateTime.Now);
-				Dictionary<string, int> nrSignatures = new Dictionary<string, int>();
+				Dictionary<string, int> nrSignatures = new();
 				bool canObsolete = false;
 
 				if (!(Contract.ClientSignatures is null))
@@ -572,7 +572,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				// Roles
 				if (!(Contract.Roles is null))
 				{
-					StackLayout rolesLayout = new StackLayout();
+					StackLayout rolesLayout = new();
 					foreach (Role role in Contract.Roles)
 					{
 						string html = await role.ToHTML(Contract.DeviceLanguage(), Contract);
@@ -584,7 +584,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 							(!nrSignatures.TryGetValue(role.Name, out int count) || count < role.MaxCount) &&
 							(!this.IsProposal || role.Name == this.Role))
 						{
-							Button button = new Button
+							Button button = new()
 							{
 								Text = string.Format(AppResources.SignAsRole, role.Name),
 								StyleId = role.Name
@@ -598,7 +598,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				}
 
 				// Parts
-				StackLayout partsLayout = new StackLayout();
+				StackLayout partsLayout = new();
 				if (Contract.SignAfter.HasValue)
 					AddKeyValueLabelPair(partsLayout, AppResources.SignAfter, Contract.SignAfter.Value.ToString(CultureInfo.CurrentUICulture));
 
@@ -610,7 +610,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 				if (!(Contract.Parts is null))
 				{
-					TapGestureRecognizer openLegalId = new TapGestureRecognizer();
+					TapGestureRecognizer openLegalId = new();
 					openLegalId.Tapped += this.Part_Tapped;
 
 					foreach (Part part in Contract.Parts)
@@ -619,7 +619,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 						if (!this.isReadOnly && acceptsSignatures && !hasSigned && part.LegalId == this.TagProfile.LegalIdentity.Id)
 						{
-							Button button = new Button
+							Button button = new()
 							{
 								Text = string.Format(AppResources.SignAsRole, part.Role),
 								StyleId = part.Role
@@ -635,7 +635,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 				// Parameters
 				if (!(Contract.Parameters is null))
 				{
-					StackLayout parametersLayout = new StackLayout();
+					StackLayout parametersLayout = new();
 
 					foreach (Parameter parameter in Contract.Parameters)
 					{
@@ -649,17 +649,17 @@ namespace IdApp.Pages.Contracts.ViewContract
 				}
 
 				// Human readable text
-				StackLayout humanReadableTextLayout = new StackLayout();
+				StackLayout humanReadableTextLayout = new();
 				string xaml = await Contract.ToXamarinForms(Contract.DeviceLanguage());
 				StackLayout humanReadableXaml = new StackLayout().LoadFromXaml(xaml);
-				List<View> children = new List<View>();
+				List<View> children = new();
 				children.AddRange(humanReadableXaml.Children);
 				foreach (View view in children)
 					humanReadableTextLayout.Children.Add(view);
 				this.HumanReadableText = humanReadableTextLayout;
 
 				// Machine readable text
-				StackLayout machineReadableTextLayout = new StackLayout();
+				StackLayout machineReadableTextLayout = new();
 				AddKeyValueLabelPair(machineReadableTextLayout, AppResources.ContractId, Contract.ContractId);
 				if (!string.IsNullOrEmpty(Contract.TemplateId))
 					AddKeyValueLabelPair(machineReadableTextLayout, AppResources.TemplateId, Contract.TemplateId);
@@ -672,8 +672,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 				// Client signatures
 				if (!(Contract.ClientSignatures is null))
 				{
-					StackLayout clientSignaturesLayout = new StackLayout();
-					TapGestureRecognizer openClientSignature = new TapGestureRecognizer();
+					StackLayout clientSignaturesLayout = new();
+					TapGestureRecognizer openClientSignature = new();
 					openClientSignature.Tapped += this.ClientSignature_Tapped;
 
 					foreach (Waher.Networking.XMPP.Contracts.ClientSignature signature in Contract.ClientSignatures)
@@ -689,8 +689,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 				// Server signature
 				if (!(Contract.ServerSignature is null))
 				{
-					StackLayout serverSignaturesLayout = new StackLayout();
-					TapGestureRecognizer openServerSignature = new TapGestureRecognizer();
+					StackLayout serverSignaturesLayout = new();
+					TapGestureRecognizer openServerSignature = new();
 					openServerSignature.Tapped += this.ServerSignature_Tapped;
 
 					AddKeyValueLabelPair(serverSignaturesLayout, Contract.Provider, Contract.ServerSignature.Timestamp.ToString(CultureInfo.CurrentUICulture) + ", " +
@@ -749,7 +749,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 
 		private static void AddKeyValueLabelPair(StackLayout container, string key, string value, bool isHtml, string styleId, TapGestureRecognizer tapGestureRecognizer)
 		{
-			StackLayout layout = new StackLayout
+			StackLayout layout = new()
 			{
 				Orientation = StackOrientation.Horizontal,
 				StyleId = styleId

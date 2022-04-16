@@ -32,7 +32,7 @@ namespace IdApp.Pages
                 {
                     Application.Current.Resources[SafeAreaInsets] = safeAreaInsets;
                     Thickness defaultMargin = (Thickness)Application.Current.Resources[DefaultMargin];
-                    Thickness safeAreaInsetsDefaultMargin = new Thickness(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
+                    Thickness safeAreaInsetsDefaultMargin = new(defaultMargin.Left + safeAreaInsets.Left, defaultMargin.Top + safeAreaInsets.Top, defaultMargin.Right + safeAreaInsets.Right, defaultMargin.Bottom + safeAreaInsets.Bottom);
                     Application.Current.Resources[SafeAreaInsetsDefaultMargin] = safeAreaInsetsDefaultMargin;
                 }
             }

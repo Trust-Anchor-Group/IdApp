@@ -11,7 +11,7 @@ namespace IdApp.Popups.Xmpp.ReportType
     /// </summary>
     public partial class ReportTypePopupPage : PopupPage
     {
-        private readonly TaskCompletionSource<ReportingReason?> result = new TaskCompletionSource<ReportingReason?>();
+        private readonly TaskCompletionSource<ReportingReason?> result = new();
         private readonly string bareJid;
 
         /// <summary>

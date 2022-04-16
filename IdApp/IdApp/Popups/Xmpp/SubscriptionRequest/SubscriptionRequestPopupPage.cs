@@ -31,7 +31,7 @@ namespace IdApp.Popups.Xmpp.SubscriptionRequest
     /// </summary>
     public partial class SubscriptionRequestPopupPage : PopupPage
     {
-        private readonly TaskCompletionSource<PresenceRequestAction> result = new TaskCompletionSource<PresenceRequestAction>();
+        private readonly TaskCompletionSource<PresenceRequestAction> result = new();
         private readonly string bareJid;
         private readonly string friendlyName;
         private readonly string photoUrl;

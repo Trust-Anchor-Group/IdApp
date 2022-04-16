@@ -237,6 +237,9 @@
   <data name="Chat" xml:space="preserve">
     <value>Chatt</value>
   </data>
+  <data name="ChatMessageReceived" xml:space="preserve">
+    <value>Chatt-meddelande mottaget</value>
+  </data>
   <data name="ChooseAccount" xml:space="preserve">
     <value>Välj konto</value>
   </data>

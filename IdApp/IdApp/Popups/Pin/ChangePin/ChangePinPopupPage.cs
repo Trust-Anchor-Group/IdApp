@@ -13,7 +13,7 @@ namespace IdApp.Popups.Pin.ChangePin
     /// </summary>
     public partial class ChangePinPopupPage : PopupPage
     {
-        private readonly TaskCompletionSource<(string, string)> result = new TaskCompletionSource<(string, string)>();
+        private readonly TaskCompletionSource<(string, string)> result = new();
         private readonly ITagProfile tagProfile;
         private readonly IUiSerializer uiSerializer;
 

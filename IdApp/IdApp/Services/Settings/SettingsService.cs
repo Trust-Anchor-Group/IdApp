@@ -138,7 +138,7 @@ namespace IdApp.Services.Settings
                 return Array.Empty<(string, T)>();
             }
 
-            List<(string, T)> matches = new List<(string, T)>();
+            List<(string, T)> matches = new();
 
             try
             {

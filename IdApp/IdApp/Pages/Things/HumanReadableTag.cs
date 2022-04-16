@@ -49,34 +49,34 @@ namespace IdApp.Pages.Things
 		{
 			get
 			{
-				switch (this.name)
+				return this.name switch
 				{
-					case "ALT": return AppResources.Altitude;
-					case "APT": return AppResources.Apartment;
-					case "AREA": return AppResources.Area;
-					case "BLD": return AppResources.Building;
-					case "CITY": return AppResources.City;
-					case "CLASS": return AppResources.Class;
-					case "COUNTRY": return AppResources.Country;
-					case "PHONE": return AppResources.Phone;
-					case "KEY": return AppResources.Key;
-					case "LAT": return AppResources.Latitude;
-					case "LON": return AppResources.Longitude;
-					case "MAN": return AppResources.Manufacturer;
-					case "MLOC": return AppResources.MeterLocation;
-					case "MNR": return AppResources.MeterNumber;
-					case "MODEL": return AppResources.Model;
-					case "NAME": return AppResources.Name;
-					case "PURL": return AppResources.ProductInformation;
-					case "R": return AppResources.Registry;
-					case "REGION": return AppResources.Region;
-					case "ROOM": return AppResources.Room;
-					case "SN": return AppResources.SerialNumber;
-					case "STREET": return AppResources.StreetName;
-					case "STREETNR": return AppResources.StreetNumber;
-					case "V": return AppResources.Version;
-					default: return this.name;
-				}
+					"ALT" => AppResources.Altitude,
+					"APT" => AppResources.Apartment,
+					"AREA" => AppResources.Area,
+					"BLD" => AppResources.Building,
+					"CITY" => AppResources.City,
+					"CLASS" => AppResources.Class,
+					"COUNTRY" => AppResources.Country,
+					"PHONE" => AppResources.Phone,
+					"KEY" => AppResources.Key,
+					"LAT" => AppResources.Latitude,
+					"LON" => AppResources.Longitude,
+					"MAN" => AppResources.Manufacturer,
+					"MLOC" => AppResources.MeterLocation,
+					"MNR" => AppResources.MeterNumber,
+					"MODEL" => AppResources.Model,
+					"NAME" => AppResources.Name,
+					"PURL" => AppResources.ProductInformation,
+					"R" => AppResources.Registry,
+					"REGION" => AppResources.Region,
+					"ROOM" => AppResources.Room,
+					"SN" => AppResources.SerialNumber,
+					"STREET" => AppResources.StreetName,
+					"STREETNR" => AppResources.StreetNumber,
+					"V" => AppResources.Version,
+					_ => this.name,
+				};
 			}
 		}
 
@@ -87,13 +87,13 @@ namespace IdApp.Pages.Things
 		{
 			get
 			{
-				switch (this.name)
+				return this.name switch
 				{
-					case "ALT": return "m";
-					case "LAT": return "°";
-					case "LON": return "°";
-					default: return string.Empty;
-				}
+					"ALT" => "m",
+					"LAT" => "°",
+					"LON" => "°",
+					_ => string.Empty,
+				};
 			}
 		}
 

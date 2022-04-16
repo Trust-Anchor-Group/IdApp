@@ -245,7 +245,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 					return;
 				}
 
-				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new SortedDictionary<string, List<ContractModel>>(StringComparer.CurrentCultureIgnoreCase);
+				SortedDictionary<string, List<ContractModel>> ContractsByCategory = new(StringComparer.CurrentCultureIgnoreCase);
 
 				foreach (ContractReference Ref in ContractReferences)
 				{
@@ -277,7 +277,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 					Contracts2.Add(Item);
 				}
 
-				List<ContractCategoryModel> Categories = new List<ContractCategoryModel>();
+				List<ContractCategoryModel> Categories = new();
 
 				foreach (KeyValuePair<string, List<ContractModel>> P in ContractsByCategory)
 				{

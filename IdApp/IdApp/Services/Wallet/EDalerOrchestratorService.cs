@@ -71,7 +71,7 @@ namespace IdApp.Services.Wallet
 				(decimal PendingAmount, string PendingCurrency, PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
 				(AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(50);
 
-				WalletNavigationArgs e = new WalletNavigationArgs(Balance, PendingAmount, PendingCurrency, PendingPayments, Events, More);
+				WalletNavigationArgs e = new(Balance, PendingAmount, PendingCurrency, PendingPayments, Events, More);
 
 				await this.NavigationService.GoToAsync(nameof(MyWalletPage), e);
 			}

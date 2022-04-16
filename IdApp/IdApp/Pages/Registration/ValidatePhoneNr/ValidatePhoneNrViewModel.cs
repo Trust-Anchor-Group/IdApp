@@ -371,7 +371,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 			return !string.IsNullOrEmpty(Code) && verificationCode.IsMatch(Code);
 		}
 
-		private static readonly Regex internationalPhoneNr = new Regex(@"^\+[1-9]\d{4,}$", RegexOptions.Singleline);
-		private static readonly Regex verificationCode = new Regex(@"^[1-9]\d{5}$", RegexOptions.Singleline);
+		private static readonly Regex internationalPhoneNr = new(@"^\+[1-9]\d{4,}$", RegexOptions.Singleline);
+		private static readonly Regex verificationCode = new(@"^[1-9]\d{5}$", RegexOptions.Singleline);
 	}
 }

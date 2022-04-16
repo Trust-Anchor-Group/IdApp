@@ -14,15 +14,15 @@ namespace IdApp.Services.Data.PersonalNumbers
     /// </summary>
     public static class PersonalNumberSchemes
     {
-        private static readonly Dictionary<string, LinkedList<PersonalNumberScheme>> schemesByCode = new Dictionary<string, LinkedList<PersonalNumberScheme>>();
+        private static readonly Dictionary<string, LinkedList<PersonalNumberScheme>> schemesByCode = new();
 
 		private static void LazyLoad()
 		{
 			try
 			{
-				XmlDocument doc = new XmlDocument();
+				XmlDocument doc = new();
 
-				using (MemoryStream ms = new MemoryStream(Resources.LoadResource(
+				using (MemoryStream ms = new(Resources.LoadResource(
 					$"{typeof(PersonalNumberSchemes).Namespace}.{typeof(PersonalNumberSchemes).Name}.xml")))
 				{
 					doc.Load(ms);

@@ -23,11 +23,11 @@ namespace IdApp.Android
             if (!Directory.Exists(dir.Path))
                 Directory.CreateDirectory(dir.Path);
 
-            Java.IO.File fileDir = new Java.IO.File(dir.AbsolutePath + (Java.IO.File.Separator + FileName));
+            Java.IO.File fileDir = new(dir.AbsolutePath + (Java.IO.File.Separator + FileName));
 
             File.WriteAllBytes(fileDir.Path, PngFile);
 
-            Intent Intent = new Intent(Intent.ActionSend);
+            Intent Intent = new(Intent.ActionSend);
             Intent.PutExtra(Intent.ExtraText, Message);
             Intent.SetType("image/png");
 

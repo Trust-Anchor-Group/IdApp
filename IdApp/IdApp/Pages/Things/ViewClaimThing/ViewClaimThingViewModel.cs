@@ -316,7 +316,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <returns>Enumerable set of <see cref="Property"/></returns>
 		public static Property[] ToProperties(IEnumerable<HumanReadableTag> Tags)
 		{
-			List<Property> Result = new List<Property>();
+			List<Property> Result = new();
 
 			foreach (HumanReadableTag Tag in Tags)
 				Result.Add(new Property(Tag.Name, Tag.Value));
@@ -331,7 +331,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// <returns>Enumerable set of <see cref="Property"/></returns>
 		public static Property[] ToProperties(IEnumerable<MetaDataTag> Tags)
 		{
-			List<Property> Result = new List<Property>();
+			List<Property> Result = new();
 
 			foreach (MetaDataTag Tag in Tags)
 				Result.Add(new Property(Tag.Name, Tag.StringValue));
