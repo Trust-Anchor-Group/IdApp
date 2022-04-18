@@ -24,8 +24,10 @@ namespace IdApp.Android.Push
 	{
 		public override void OnMessageReceived(RemoteMessage Message)
 		{
-			string Body = Message.GetNotification().Body;
-			ShowNotification(Body, Message.Data);
+			RemoteMessage.Notification Notification = Message.GetNotification();
+			string Body = Notification.Body;
+			string Title = Notification.Title;
+			ShowNotification(Title, Body, Message.Data);
 		}
 
 		public override void OnNewToken(string p0)
@@ -46,7 +48,7 @@ namespace IdApp.Android.Push
 			}
 		}
 
-		public void ShowNotification(string MessageBody, IDictionary<string, string> Data)
+		public void ShowNotification(string Title, string MessageBody, IDictionary<string, string> Data)
 		{
 			Intent Intent = new(this, typeof(MainActivity));
 			Intent.AddFlags(ActivityFlags.ClearTop);
@@ -58,7 +60,7 @@ namespace IdApp.Android.Push
 
 			Notification.Builder notificationBuilder = new Notification.Builder(this, "Messages")
 				.SetSmallIcon(Resource.Drawable.notification_action_background)
-				.SetContentTitle("Message Received")
+				.SetContentTitle(Title)
 				.SetContentText(MessageBody)
 				.SetAutoCancel(true)
 				.SetContentIntent(PendingIntent);

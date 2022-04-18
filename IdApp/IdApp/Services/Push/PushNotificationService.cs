@@ -137,8 +137,8 @@ namespace IdApp.Services.Push
 
 					Content.Append("{'title':'");
 					Content.Append(AppResources.ChatMessageReceived);
-					Content.Append("','body':(select /default:message/default:body from Stanza),");
-					Content.Append("'fromJid':(select /default:message/@from from Stanza)}");
+					Content.Append("','body':Stanza['body'].InnerText,");
+					Content.Append("'fromJid':Stanza.GetAttribute('from')}");
 
 					await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty, "Messages",
 						"Stanza", string.Empty, Content.ToString());
