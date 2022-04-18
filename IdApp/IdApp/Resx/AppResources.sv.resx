@@ -621,6 +621,9 @@
   <data name="Message" xml:space="preserve">
     <value>Meddelande</value>
   </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Message from:</value>
+  </data>
   <data name="MeterLocation" xml:space="preserve">
     <value>Mätarplats</value>
   </data>

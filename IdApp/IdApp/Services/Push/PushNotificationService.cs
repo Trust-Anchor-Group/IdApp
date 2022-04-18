@@ -135,10 +135,16 @@ namespace IdApp.Services.Push
 
 					StringBuilder Content = new();
 
+					Content.Append("FromJid:=GetAttribute(Stanza,'from');");
+					Content.Append("ToJid:=GetAttribute(Stanza,'to');");
+					Content.Append("FriendlyName:=RosterName(ToJid,FromJid);");
+					Content.Append("Body:=InnerText(GetElement(Stanza,'body'));");
 					Content.Append("{'title':'");
-					Content.Append(AppResources.ChatMessageReceived);
-					Content.Append("','body':Stanza['body'].InnerText,");
-					Content.Append("'fromJid':Stanza.GetAttribute('from')}");
+					Content.Append(AppResources.MessageFrom);
+					Content.Append(" ' + FriendlyName,");
+					Content.Append("'body':Body,");
+					Content.Append("'fromJid':FromJid,");
+					Content.Append("'rosterName':FriendlyName}");
 
 					await PushNotificationClient.AddRuleAsync(MessageType.Chat, string.Empty, string.Empty, "Messages",
 						"Stanza", string.Empty, Content.ToString());
@@ -151,7 +157,7 @@ namespace IdApp.Services.Push
 		/// <summary>
 		/// Increment this configuration number by one, each time token configuration changes.
 		/// </summary>
-		private const int currentTokenConfiguration = 2;
+		private const int currentTokenConfiguration = 6;
 
 	}
 }

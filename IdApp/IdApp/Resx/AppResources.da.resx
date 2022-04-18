@@ -1425,4 +1425,7 @@
   <data name="ChatMessageReceived" xml:space="preserve">
     <value>Chatbesked modtaget</value>
   </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Meddelelse fra:</value>
+  </data>
 </root>

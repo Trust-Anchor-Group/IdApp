@@ -1425,4 +1425,7 @@
   <data name="ChatMessageReceived" xml:space="preserve">
     <value>Chat-viesti vastaanotettu</value>
   </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Viesti kohteesta:</value>
+  </data>
 </root>

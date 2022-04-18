@@ -1573,6 +1573,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message from:.
+        /// </summary>
+        internal static string MessageFrom {
+            get {
+                return ResourceManager.GetString("MessageFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Meter Location.
         /// </summary>
         internal static string MeterLocation {

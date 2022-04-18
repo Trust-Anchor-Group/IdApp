@@ -1425,4 +1425,7 @@
   <data name="ChatMessageReceived" xml:space="preserve">
     <value>Primljena poruka za ćaskanje</value>
   </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Poruka od:</value>
+  </data>
 </root>

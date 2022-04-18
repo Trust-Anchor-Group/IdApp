@@ -10146,6 +10146,11 @@
               Looks up a localized string similar to Message.
             </summary>
         </member>
+        <member name="P:IdApp.Resx.AppResources.MessageFrom">
+            <summary>
+              Looks up a localized string similar to Message from:.
+            </summary>
+        </member>
         <member name="P:IdApp.Resx.AppResources.MeterLocation">
             <summary>
               Looks up a localized string similar to Meter Location.
