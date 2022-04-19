@@ -50,11 +50,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdApp.Test", "IdApp.Test\Id
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdApp.Nfc", "IdApp.Nfc\IdApp.Nfc.csproj", "{287FEE40-DD8B-4D97-AD66-1B506BC3B374}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdApp.Cv", "IdApp.Cv\IdApp.Cv.csproj", "{609AC463-43F4-4CAF-A778-9E48A46EC7F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdApp.Cv", "IdApp.Cv\IdApp.Cv.csproj", "{609AC463-43F4-4CAF-A778-9E48A46EC7F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{C7DACA32-3C57-4912-A6A4-DDA5C5EBDF28}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{05C0E47A-5D02-4459-B8E4-DF40D3BDD8EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E9AD8887-5C5F-4B46-9233-3BA27D2140AF}"
+	ProjectSection(SolutionItems) = preProject
+		Build\BuildAndroid.bat = Build\BuildAndroid.bat
+		Build\BuildAndroidRelease.bat = Build\BuildAndroidRelease.bat
+		Build\BuildIPhone.bat = Build\BuildIPhone.bat
+		Build\PreBuildEvents.bat = Build\PreBuildEvents.bat
+		Build\PreBuildEvents.sh = Build\PreBuildEvents.sh
+		Build\UpdateVersion.bat = Build\UpdateVersion.bat
+		Build\UpdateVersionInfo.runtimeconfig.json = Build\UpdateVersionInfo.runtimeconfig.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,6 +191,7 @@ Global
 		{C200FCAA-4DFB-4502-9743-C104DDF93445} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
 		{287FEE40-DD8B-4D97-AD66-1B506BC3B374} = {C7DACA32-3C57-4912-A6A4-DDA5C5EBDF28}
 		{609AC463-43F4-4CAF-A778-9E48A46EC7F1} = {C7DACA32-3C57-4912-A6A4-DDA5C5EBDF28}
+		{E9AD8887-5C5F-4B46-9233-3BA27D2140AF} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7816AF3C-464A-4113-9E1E-B9A38E86BB11}
