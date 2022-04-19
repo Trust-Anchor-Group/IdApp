@@ -1,0 +1,1 @@
+copy /Y "..\..\TagDemo Cert\google-services.json" "..\..\IdApp\IdApp.Android\"

@@ -63,5 +63,4 @@ Temporary Items
 *.bak
 *.user
 *.DotSettings
-/TagDemo Cert/*.keystore
-/TagDemo Cert/*.keyInfo
+/TagDemo Cert/*
