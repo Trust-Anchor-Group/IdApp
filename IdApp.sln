@@ -67,6 +67,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{E9AD8887
 		Build\UpdateVersionInfo.runtimeconfig.json = Build\UpdateVersionInfo.runtimeconfig.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TagDemo Cert", "TagDemo Cert", "{B95AB7B2-27F3-4262-A112-CB82647EEB7A}"
+	ProjectSection(SolutionItems) = preProject
+		TagDemo Cert\google-services.json = TagDemo Cert\google-services.json
+		TagDemo Cert\GoogleService-Info.plist = TagDemo Cert\GoogleService-Info.plist
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -192,6 +198,7 @@ Global
 		{287FEE40-DD8B-4D97-AD66-1B506BC3B374} = {C7DACA32-3C57-4912-A6A4-DDA5C5EBDF28}
 		{609AC463-43F4-4CAF-A778-9E48A46EC7F1} = {C7DACA32-3C57-4912-A6A4-DDA5C5EBDF28}
 		{E9AD8887-5C5F-4B46-9233-3BA27D2140AF} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
+		{B95AB7B2-27F3-4262-A112-CB82647EEB7A} = {21240F73-9B95-4AF8-B1B1-E4197FAB406A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7816AF3C-464A-4113-9E1E-B9A38E86BB11}
