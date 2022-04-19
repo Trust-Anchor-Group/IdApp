@@ -14988,6 +14988,108 @@
             Timepoint of last event.
             </summary>
         </member>
+        <member name="P:IdApp.Services.Wallet.INeuroWallet.NeuroFeaturesClient">
+            <summary>
+            Reference to the Neuro-Features client implementing the Neuro-Features XMPP extension
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.INeuroWallet.TokenRemoved">
+            <summary>
+            Event raised when a token has been removed from the wallet.
+            </summary>
+        </member>
+        <member name="E:IdApp.Services.Wallet.INeuroWallet.TokenAdded">
+            <summary>
+            Event raised when a token has been added to the wallet.
+            </summary>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTokens">
+            <summary>
+            Gets available tokens
+            </summary>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTokens(System.Int32,System.Int32)">
+            <summary>
+            Gets a section of available tokens
+            </summary>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTokenReferences">
+            <summary>
+            Gets references to available tokens
+            </summary>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTokenReferences(System.Int32,System.Int32)">
+            <summary>
+            Gets references to a section of available tokens
+            </summary>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTotals">
+            <summary>
+            Gets the value totals of tokens available in the wallet, grouped and ordered by currency.
+            </summary>
+            <returns>Response with tokens.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetToken(System.String)">
+            <summary>
+            Gets a specific token.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <returns>Token</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTokenEvents(System.String)">
+            <summary>
+            Gets events relating to a specific token.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <returns>Token events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetTokenEvents(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets events relating to a specific token.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <param name="Offset">Offset </param>
+            <param name="MaxCount">Maximum number of events to return.</param>
+            <returns>Token events.</returns>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.AddTextNote(System.String,System.String)">
+            <summary>
+            Adds a text note on a token.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <param name="TextNote">Text Note</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.AddTextNote(System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a text note on a token.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <param name="TextNote">Text Note</param>
+            <param name="Personal">If the text note contains personal information. (default=false).
+            
+            Note: Personal notes are deleted when ownership of token is transferred.</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.AddXmlNote(System.String,System.String)">
+            <summary>
+            Adds a xml note on a token.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <param name="XmlNote">Xml Note</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.AddXmlNote(System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a xml note on a token.
+            </summary>
+            <param name="TokenId">Token ID</param>
+            <param name="XmlNote">Xml Note</param>
+            <param name="Personal">If the xml note contains personal information. (default=false).
+            
+            Note: Personal notes are deleted when ownership of token is transferred.</param>
+        </member>
         <member name="T:IdApp.Services.Wallet.INeuroWalletOrchestratorService">
             <summary>
             Orchestrates eDaler operations.

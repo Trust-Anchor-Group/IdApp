@@ -2,17 +2,21 @@
 using System.Threading.Tasks;
 using EDaler;
 using EDaler.Uris;
+using NeuroFeatures;
+using NeuroFeatures.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
 
 namespace IdApp.Services.Wallet
 {
-    /// <summary>
-    /// Adds support for eDaler wallets.
-    /// </summary>
-    [DefaultImplementation(typeof(NeuroWallet))]
-    public interface INeuroWallet
-    {
+	/// <summary>
+	/// Adds support for eDaler wallets.
+	/// </summary>
+	[DefaultImplementation(typeof(NeuroWallet))]
+	public interface INeuroWallet
+	{
+		#region e-Daler
+
 		/// <summary>
 		/// Tries to parse an eDaler URI.
 		/// </summary>
@@ -143,17 +147,119 @@ namespace IdApp.Services.Wallet
 		/// <summary>
 		/// Last reported balance
 		/// </summary>
-		Balance LastBalance
-		{
-			get;
-		}
+		Balance LastBalance { get; }
 
 		/// <summary>
 		/// Timepoint of last event.
 		/// </summary>
-		DateTime LastEvent
-		{
-			get;
-		}
+		DateTime LastEvent { get; }
+
+		#endregion
+
+		#region Neuro-Features
+
+		/// <summary>
+		/// Reference to the Neuro-Features client implementing the Neuro-Features XMPP extension
+		/// </summary>
+		NeuroFeaturesClient NeuroFeaturesClient { get; }
+
+		/// <summary>
+		/// Event raised when a token has been removed from the wallet.
+		/// </summary>
+		event TokenEventHandler TokenRemoved;
+
+		/// <summary>
+		/// Event raised when a token has been added to the wallet.
+		/// </summary>
+		event TokenEventHandler TokenAdded;
+
+		/// <summary>
+		/// Gets available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		Task<TokensEventArgs> GetTokens();
+
+		/// <summary>
+		/// Gets a section of available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		Task<TokensEventArgs> GetTokens(int Offset, int MaxCount);
+
+		/// <summary>
+		/// Gets references to available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		Task<string[]> GetTokenReferences();
+
+		/// <summary>
+		/// Gets references to a section of available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		Task<string[]> GetTokenReferences(int Offset, int MaxCount);
+
+		/// <summary>
+		/// Gets the value totals of tokens available in the wallet, grouped and ordered by currency.
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		Task<TokenTotalsEventArgs> GetTotals();
+
+		/// <summary>
+		/// Gets a specific token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <returns>Token</returns>
+		Task<Token> GetToken(string TokenId);
+
+		/// <summary>
+		/// Gets events relating to a specific token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <returns>Token events.</returns>
+		Task<TokenEvent[]> GetTokenEvents(string TokenId);
+
+		/// <summary>
+		/// Gets events relating to a specific token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="Offset">Offset </param>
+		/// <param name="MaxCount">Maximum number of events to return.</param>
+		/// <returns>Token events.</returns>
+		Task<TokenEvent[]> GetTokenEvents(string TokenId, int Offset, int MaxCount);
+
+		/// <summary>
+		/// Adds a text note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="TextNote">Text Note</param>
+		Task AddTextNote(string TokenId, string TextNote);
+
+		/// <summary>
+		/// Adds a text note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="TextNote">Text Note</param>
+		/// <param name="Personal">If the text note contains personal information. (default=false).
+		/// 
+		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
+		Task AddTextNote(string TokenId, string TextNote, bool Personal);
+
+		/// <summary>
+		/// Adds a xml note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="XmlNote">Xml Note</param>
+		Task AddXmlNote(string TokenId, string XmlNote);
+
+		/// <summary>
+		/// Adds a xml note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="XmlNote">Xml Note</param>
+		/// <param name="Personal">If the xml note contains personal information. (default=false).
+		/// 
+		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
+		Task AddXmlNote(string TokenId, string XmlNote, bool Personal);
+
+		#endregion
 	}
 }
