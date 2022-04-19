@@ -92,7 +92,14 @@ namespace IdApp.Pages.Wallet
 				Url.Append(this.From);
 				Url.Append("/Images/eDalerFront200.png");
 
-				this.EDalerGlyph = Url.ToString();
+				this.EDalerFrontGlyph = Url.ToString();
+
+				Url.Clear();
+				Url.Append("https://");
+				Url.Append(this.XmppService.Xmpp.Host);
+				Url.Append("/Images/eDalerBack200.png");
+
+				this.EDalerBackGlyph = Url.ToString();
 
 				if (!(args.Uri?.EncryptedMessage is null))
 				{
@@ -772,18 +779,33 @@ namespace IdApp.Pages.Wallet
 		public ICommand SendPaymentCommand { get; }
 
 		/// <summary>
-		/// See <see cref="EDalerGlyph"/>
+		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
-		public static readonly BindableProperty EDalerGlyphProperty =
-			BindableProperty.Create("EDalerGlyph", typeof(string), typeof(EDalerUriViewModel), default(string));
+		public static readonly BindableProperty EDalerFrontGlyphProperty =
+			BindableProperty.Create("EDalerFrontGlyph", typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
 		/// </summary>
-		public string EDalerGlyph
+		public string EDalerFrontGlyph
 		{
-			get { return (string)GetValue(EDalerGlyphProperty); }
-			set { SetValue(EDalerGlyphProperty, value); }
+			get { return (string)GetValue(EDalerFrontGlyphProperty); }
+			set { SetValue(EDalerFrontGlyphProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="EDalerBackGlyph"/>
+		/// </summary>
+		public static readonly BindableProperty EDalerBackGlyphProperty =
+			BindableProperty.Create("EDalerBackGlyph", typeof(string), typeof(EDalerUriViewModel), default(string));
+
+		/// <summary>
+		/// eDaler glyph URL
+		/// </summary>
+		public string EDalerBackGlyph
+		{
+			get { return (string)GetValue(EDalerBackGlyphProperty); }
+			set { SetValue(EDalerBackGlyphProperty, value); }
 		}
 
 		#endregion

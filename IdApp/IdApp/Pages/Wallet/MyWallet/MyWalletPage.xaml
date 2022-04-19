@@ -30,7 +30,7 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="25"/>
                 </Grid.RowDefinitions>
-                <Image x:Name="Img" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerGlyph}" Opacity="0.5"/>
+                <Image x:Name="Img" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" Source="{Binding Path=EDalerFrontGlyph}" Opacity="0.5"/>
                 <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=Timestamp, Converter={converters:DateTimeToStringConverter}}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource HeadingForeground}"/>
                 <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" TextColor="{StaticResource HeadingForeground}">
                     <Label.FormattedText>

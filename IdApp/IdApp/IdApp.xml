@@ -7824,12 +7824,22 @@
             The command to bind to for claiming a thing
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerGlyphProperty">
+        <member name="F:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerFrontGlyphProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerGlyph"/>
+            See <see cref="P:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerFrontGlyph"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerGlyph">
+        <member name="P:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerFrontGlyph">
+            <summary>
+            eDaler glyph URL
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerBackGlyphProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerBackGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerReceived.EDalerReceivedViewModel.EDalerBackGlyph">
             <summary>
             eDaler glyph URL
             </summary>
@@ -8289,12 +8299,22 @@
             The command to bind to send the payment via the parent page.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerGlyphProperty">
+        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerFrontGlyphProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerGlyph"/>
+            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerFrontGlyph"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerGlyph">
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerFrontGlyph">
+            <summary>
+            eDaler glyph URL
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerBackGlyphProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerBackGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.EDalerUriViewModel.EDalerBackGlyph">
             <summary>
             eDaler glyph URL
             </summary>
@@ -8455,12 +8475,22 @@
             When code was created.
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerGlyphProperty">
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyphProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerGlyph"/>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyph"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerGlyph">
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerFrontGlyph">
+            <summary>
+            eDaler glyph URL
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerBackGlyphProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerBackGlyph"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.EDalerBackGlyph">
             <summary>
             eDaler glyph URL
             </summary>
