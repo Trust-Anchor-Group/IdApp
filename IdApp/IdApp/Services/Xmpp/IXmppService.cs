@@ -134,7 +134,7 @@ namespace IdApp.Services.Xmpp
         /// <summary>
         /// Provides access to the eDaler wallet.
         /// </summary>
-        IEDalerWallet Wallet { get; }
+        INeuroWallet Wallet { get; }
 
         /// <summary>
         /// HTTP File Upload client

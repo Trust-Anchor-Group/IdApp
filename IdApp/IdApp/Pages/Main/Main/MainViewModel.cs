@@ -620,7 +620,7 @@ namespace IdApp.Pages.Main.Main
 
 		private async Task ViewWallet()
 		{
-			await this.EDalerOrchestratorService.OpenWallet();
+			await this.NeuroWalletOrchestratorService.OpenWallet();
 		}
 
 		private async Task ScanQrCode()

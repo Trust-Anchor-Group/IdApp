@@ -6,8 +6,8 @@ namespace IdApp.Services.Wallet
     /// <summary>
     /// Orchestrates eDaler operations.
     /// </summary>
-    [DefaultImplementation(typeof(EDalerOrchestratorService))]
-    public interface IEDalerOrchestratorService : ILoadableService
+    [DefaultImplementation(typeof(NeuroWalletOrchestratorService))]
+    public interface INeuroWalletOrchestratorService : ILoadableService
     {
         /// <summary>
         /// Opens the wallet

@@ -56,6 +56,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Internals;
 using IdApp.Resx;
+using NeuroFeatures;
 
 namespace IdApp
 {
@@ -184,6 +185,7 @@ namespace IdApp
 					typeof(ConcentratorClient).Assembly,        // Serialization of XMPP objects related to concentrators
 					typeof(Expression).Assembly,                // Indexes basic script functions
 					typeof(EDalerClient).Assembly,              // Indexes eDaler client framework
+					typeof(NeuroFeaturesClient).Assembly,       // Indexes Neuro-Features client framework
 					typeof(XmppServerlessMessaging).Assembly);  // Indexes End-to-End encryption mechanisms
 			}
 
@@ -208,7 +210,7 @@ namespace IdApp
 			Types.InstantiateDefault<IAttachmentCacheService>(false);
 			Types.InstantiateDefault<IContractOrchestratorService>(false);
 			Types.InstantiateDefault<IThingRegistryOrchestratorService>(false);
-			Types.InstantiateDefault<IEDalerOrchestratorService>(false);
+			Types.InstantiateDefault<INeuroWalletOrchestratorService>(false);
 			Types.InstantiateDefault<INfcService>(false);
 
 			this.services = new ServiceReferences();
