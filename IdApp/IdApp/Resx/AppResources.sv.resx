@@ -663,6 +663,9 @@
   <data name="NetworkSeemsToBeMissing" xml:space="preserve">
     <value>Nätverk verkar saknas. Vänligen kolla din telefon-konfiguration och täckning och försök igen.</value>
   </data>
+  <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
+    <value>Ingen Neuro-Features-tjänst hittades på brokern.</value>
+  </data>
   <data name="Neuron" xml:space="preserve">
     <value>Neuron</value>
   </data>

@@ -1428,4 +1428,7 @@
   <data name="MessageFrom" xml:space="preserve">
     <value>Melding fra:</value>
   </data>
+  <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
+    <value>Finner ingen neuro-funksjoner-tjeneste på megler.</value>
+  </data>
 </root>

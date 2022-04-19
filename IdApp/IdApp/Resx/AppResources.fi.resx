@@ -1428,4 +1428,7 @@
   <data name="MessageFrom" xml:space="preserve">
     <value>Viesti kohteesta:</value>
   </data>
+  <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
+    <value>Välittäjältä ei löytynyt Neuro-Features-palvelua.</value>
+  </data>
 </root>

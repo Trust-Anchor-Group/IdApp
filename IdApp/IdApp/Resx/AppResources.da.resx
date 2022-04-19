@@ -1428,4 +1428,7 @@
   <data name="MessageFrom" xml:space="preserve">
     <value>Meddelelse fra:</value>
   </data>
+  <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
+    <value>Ingen Neuro-Features service fundet på mægler.</value>
+  </data>
 </root>
