@@ -63,4 +63,9 @@ Temporary Items
 *.bak
 *.user
 *.DotSettings
-/TagDemo Cert/*
+
+# Certificates and keys
+TagDemo Cert/*.*
+IdApp/IdApp.Android/google-services.json
+IdApp/IdApp.iOS/GoogleService-Info.plist
+
