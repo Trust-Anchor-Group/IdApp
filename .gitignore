@@ -66,6 +66,5 @@ Temporary Items
 
 # Certificates and keys
 TagDemo Cert/*.*
-IdApp/IdApp.Android/google-services.json
 IdApp/IdApp.iOS/GoogleService-Info.plist
-
+IdApp/IdApp.Android/google-services.json
