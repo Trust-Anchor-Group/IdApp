@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms.Xaml;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -14,7 +15,7 @@ namespace IdApp.Pages.Wallet.MyWallet
         /// </summary>
 		public MyWalletPage()
 		{
-            this.ViewModel = new MyWalletViewModel();
+            this.ViewModel = new MyWalletViewModel(this);
 
             InitializeComponent();
         }
@@ -35,7 +36,8 @@ namespace IdApp.Pages.Wallet.MyWallet
         protected override async Task OnAppearingAsync()
         {
             await base.OnAppearingAsync();
-            await this.WalletTabBar.Show();
+            await this.WalletFrontTabBar.Show();
+            await this.WalletBackTabBar.Show();
         }
 
         /// <summary>
@@ -43,8 +45,14 @@ namespace IdApp.Pages.Wallet.MyWallet
         /// </summary>
         protected override async Task OnDisappearingAsync()
         {
-            await this.WalletTabBar.Hide();
+            await this.WalletFrontTabBar.Hide();
+            await this.WalletBackTabBar.Hide();
             await base.OnDisappearingAsync();
+        }
+
+        internal void WalletFlipView_Tapped(object sender, EventArgs e)
+        {
+            this.WalletFlipView.Flip();
         }
     }
 }

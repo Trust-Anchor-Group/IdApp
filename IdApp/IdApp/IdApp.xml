@@ -8381,7 +8381,7 @@
             The view model to bind to for when displaying the wallet.
             </summary>
         </member>
-        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.#ctor">
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.#ctor(IdApp.Pages.Wallet.MyWallet.MyWalletPage)">
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel"/> class.
             </summary>
@@ -8553,6 +8553,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.ShowEventCommand">
             <summary>
             The command to bind to for displaying information about an account event.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.FlipCommand">
+            <summary>
+            The command to bind to for flipping the wallet.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem">
@@ -11675,6 +11680,11 @@
         <member name="F:IdApp.Resx.FontAwesome.Passport">
             <summary>
             passport
+            </summary>
+        </member>
+        <member name="F:IdApp.Resx.FontAwesome.Rotate">
+            <summary>
+            rotate
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">

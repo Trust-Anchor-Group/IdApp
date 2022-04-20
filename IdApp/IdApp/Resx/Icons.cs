@@ -150,5 +150,10 @@
         /// passport
         /// </summary>
         public const string Passport = "\uf5ab";
+
+        /// <summary>
+        /// rotate
+        /// </summary>
+        public const string Rotate = "\uf2f1";
     }
 }

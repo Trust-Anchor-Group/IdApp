@@ -20,18 +20,23 @@ namespace IdApp.Pages.Wallet.MyWallet
 	/// </summary>
 	public class MyWalletViewModel : XmppViewModel
 	{
+		private readonly MyWalletPage page;
+
 		/// <summary>
 		/// Creates an instance of the <see cref="MyWalletViewModel"/> class.
 		/// </summary>
-		public MyWalletViewModel()
+		public MyWalletViewModel(MyWalletPage Page)
 			: base()
 		{
+			this.page = Page;
+
 			this.BackCommand = new Command(async _ => await GoBack());
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => this.IsConnected);
 			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => this.IsConnected);
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
+			this.FlipCommand = new Command(async _ => await FlipWallet());
 
 			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			this.Events = new ObservableCollection<AccountEventItem>();
@@ -396,6 +401,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public ICommand ShowEventCommand { get; }
 
+		/// <summary>
+		/// The command to bind to for flipping the wallet.
+		/// </summary>
+		public ICommand FlipCommand { get; }
+
 		#endregion
 
 		private async Task GoBack()
@@ -439,6 +449,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 				return;
 
 			await this.NavigationService.GoToAsync(nameof(AccountEvent.AccountEventPage), new AccountEvent.AccountEventNavigationArgs(Item));
+		}
+
+		private Task FlipWallet()
+		{
+			this.page.WalletFlipView_Tapped(this, EventArgs.Empty);
+			return Task.CompletedTask;
 		}
 
 	}
