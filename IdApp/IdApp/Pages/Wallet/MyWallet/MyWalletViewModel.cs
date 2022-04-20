@@ -20,18 +20,23 @@ namespace IdApp.Pages.Wallet.MyWallet
 	/// </summary>
 	public class MyWalletViewModel : XmppViewModel
 	{
+		private readonly MyWalletPage page;
+
 		/// <summary>
 		/// Creates an instance of the <see cref="MyWalletViewModel"/> class.
 		/// </summary>
-		public MyWalletViewModel()
+		public MyWalletViewModel(MyWalletPage Page)
 			: base()
 		{
+			this.page = Page;
+
 			this.BackCommand = new Command(async _ => await GoBack());
 			this.ScanQrCodeCommand = new Command(async () => await ScanQrCode());
 			this.RequestPaymentCommand = new Command(async _ => await RequestPayment(), _ => this.IsConnected);
 			this.MakePaymentCommand = new Command(async _ => await MakePayment(), _ => this.IsConnected);
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
+			this.FlipCommand = new Command(async _ => await FlipWallet());
 
 			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			this.Events = new ObservableCollection<AccountEventItem>();
@@ -53,7 +58,14 @@ namespace IdApp.Pages.Wallet.MyWallet
 				Url.Append(this.XmppService.Xmpp.Host);
 				Url.Append("/Images/eDalerFront200.png");
 
-				this.EDalerGlyph = Url.ToString();
+				this.EDalerFrontGlyph = Url.ToString();
+
+				Url.Clear();
+				Url.Append("https://");
+				Url.Append(this.XmppService.Xmpp.Host);
+				Url.Append("/Images/eDalerBack200.png");
+
+				this.EDalerBackGlyph = Url.ToString();
 			}
 			else if ((!(this.Balance is null) && !(this.XmppService.Wallet.LastBalance is null) &&
 				(this.Balance.Amount != this.XmppService.Wallet.LastBalance.Amount ||
@@ -290,18 +302,33 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// See <see cref="EDalerGlyph"/>
+		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
-		public static readonly BindableProperty EDalerGlyphProperty =
-			BindableProperty.Create("EDalerGlyph", typeof(string), typeof(MyWalletViewModel), default(string));
+		public static readonly BindableProperty EDalerFrontGlyphProperty =
+			BindableProperty.Create("EDalerFrontGlyph", typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
 		/// </summary>
-		public string EDalerGlyph
+		public string EDalerFrontGlyph
 		{
-			get { return (string)GetValue(EDalerGlyphProperty); }
-			set { SetValue(EDalerGlyphProperty, value); }
+			get { return (string)GetValue(EDalerFrontGlyphProperty); }
+			set { SetValue(EDalerFrontGlyphProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="EDalerBackGlyph"/>
+		/// </summary>
+		public static readonly BindableProperty EDalerBackGlyphProperty =
+			BindableProperty.Create("EDalerBackGlyph", typeof(string), typeof(MyWalletViewModel), default(string));
+
+		/// <summary>
+		/// eDaler glyph URL
+		/// </summary>
+		public string EDalerBackGlyph
+		{
+			get { return (string)GetValue(EDalerBackGlyphProperty); }
+			set { SetValue(EDalerBackGlyphProperty, value); }
 		}
 
 		/// <summary>
@@ -374,6 +401,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public ICommand ShowEventCommand { get; }
 
+		/// <summary>
+		/// The command to bind to for flipping the wallet.
+		/// </summary>
+		public ICommand FlipCommand { get; }
+
 		#endregion
 
 		private async Task GoBack()
@@ -417,6 +449,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 				return;
 
 			await this.NavigationService.GoToAsync(nameof(AccountEvent.AccountEventPage), new AccountEvent.AccountEventNavigationArgs(Item));
+		}
+
+		private Task FlipWallet()
+		{
+			this.page.WalletFlipView_Tapped(this, EventArgs.Empty);
+			return Task.CompletedTask;
 		}
 
 	}

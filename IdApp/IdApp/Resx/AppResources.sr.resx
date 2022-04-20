@@ -1428,4 +1428,7 @@
   <data name="MessageFrom" xml:space="preserve">
     <value>Poruka od:</value>
   </data>
+  <data name="NeuroFeaturesServiceNotFound" xml:space="preserve">
+    <value>Nije pronađena usluga neuro-karakteristika na brokeru.</value>
+  </data>
 </root>

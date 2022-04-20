@@ -52,7 +52,7 @@ namespace IdApp.Services.UI.QR
             IXmppService XmppService = App.Instantiate<IXmppService>();
             IContractOrchestratorService ContractOrchestratorService = App.Instantiate<IContractOrchestratorService>();
             IThingRegistryOrchestratorService ThingRegistryOrchestratorService = App.Instantiate<IThingRegistryOrchestratorService>();
-            IEDalerOrchestratorService EDalerOrchestratorService = App.Instantiate<IEDalerOrchestratorService>();
+            INeuroWalletOrchestratorService EDalerOrchestratorService = App.Instantiate<INeuroWalletOrchestratorService>();
 
             try
             {

@@ -69,9 +69,9 @@ namespace IdApp.Pages.Main.Shell
 		public IThingRegistryOrchestratorService ThingRegistryOrchestratorService => App.Instantiate<IThingRegistryOrchestratorService>();
 
 		/// <summary>
-		/// Current eDaler Orchestrator Service
+		/// Current Neuro-Wallet Orchestrator Service
 		/// </summary>
-		public IEDalerOrchestratorService EDalerOrchestratorService => App.Instantiate<IEDalerOrchestratorService>();
+		public INeuroWalletOrchestratorService NeuroWalletOrchestratorService => App.Instantiate<INeuroWalletOrchestratorService>();
 
 		/// <inheritdoc/>
 		protected override void OnNavigated(ShellNavigatedEventArgs e)
@@ -198,7 +198,7 @@ namespace IdApp.Pages.Main.Shell
 
 			this.UiSerializer.BeginInvokeOnMainThread(async () =>
 			{
-				StringBuilder sb = new StringBuilder();
+				StringBuilder sb = new();
 				
 				sb.AppendLine($"Name: {AppInfo.Name}");
 				sb.AppendLine($"Version: {AppInfo.VersionString}.{AppInfo.BuildString}");

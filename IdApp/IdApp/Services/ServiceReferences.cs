@@ -36,7 +36,7 @@ namespace IdApp.Services
         private ILogService logService;
         private INetworkService networkService;
         private IContractOrchestratorService contractOrchestratorService;
-        private IEDalerOrchestratorService eDalerOrchestratorService;
+        private INeuroWalletOrchestratorService neuroWalletOrchestratorService;
         private IThingRegistryOrchestratorService thingRegistryOrchestratorService;
         private IAttachmentCacheService attachmentCacheService;
         private ICryptoService cryptoService;
@@ -130,16 +130,16 @@ namespace IdApp.Services
         }
 
         /// <summary>
-        /// EDaler orchestrator service.
+        /// Neuro-Wallet orchestrator service.
         /// </summary>
-        public IEDalerOrchestratorService EDalerOrchestratorService
+        public INeuroWalletOrchestratorService NeuroWalletOrchestratorService
         {
             get
             {
-                if (this.eDalerOrchestratorService is null)
-                    this.eDalerOrchestratorService = App.Instantiate<IEDalerOrchestratorService>();
+                if (this.neuroWalletOrchestratorService is null)
+                    this.neuroWalletOrchestratorService = App.Instantiate<INeuroWalletOrchestratorService>();
 
-                return this.eDalerOrchestratorService;
+                return this.neuroWalletOrchestratorService;
             }
         }
 

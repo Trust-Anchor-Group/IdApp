@@ -15,9 +15,9 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Services.Wallet
 {
 	[Singleton]
-	internal class EDalerOrchestratorService : LoadableService, IEDalerOrchestratorService
+	internal class NeuroWalletOrchestratorService : LoadableService, INeuroWalletOrchestratorService
 	{
-		public EDalerOrchestratorService()
+		public NeuroWalletOrchestratorService()
 		{
 		}
 

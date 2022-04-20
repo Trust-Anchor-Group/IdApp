@@ -74,7 +74,7 @@ namespace IdApp.Services.Xmpp
 		private readonly XmppMultiUserChat muc;
 		private readonly XmppThingRegistry thingRegistry;
 		private readonly XmppProvisioningService provisioning;
-		private readonly EDalerWallet wallet;
+		private readonly NeuroWallet wallet;
 		private string domainName;
 		private string accountName;
 		private string passwordHash;
@@ -97,7 +97,7 @@ namespace IdApp.Services.Xmpp
 			this.muc = new XmppMultiUserChat();
 			this.thingRegistry = new XmppThingRegistry();
 			this.provisioning = new XmppProvisioningService();
-			this.wallet = new EDalerWallet();
+			this.wallet = new NeuroWallet();
 			this.sniffer = new InMemorySniffer(250);
 			this.startupProfiler = StartupProfiler;
 		}
@@ -683,7 +683,7 @@ namespace IdApp.Services.Xmpp
 		public IXmppMultiUserChat MultiUserChat => this.muc;
 		public IXmppThingRegistry ThingRegistry => this.thingRegistry;
 		public IXmppProvisioningService Provisioning => this.provisioning;
-		public IEDalerWallet Wallet => this.wallet;
+		public INeuroWallet Wallet => this.wallet;
 
 		private enum ConnectOperation
 		{

@@ -4,6 +4,8 @@ using EDaler;
 using EDaler.Uris;
 using IdApp.Resx;
 using IdApp.Services.Xmpp;
+using NeuroFeatures;
+using NeuroFeatures.Events;
 using Waher.Events;
 using Waher.Networking.XMPP.Contracts;
 using Waher.Runtime.Inventory;
@@ -11,17 +13,23 @@ using Waher.Runtime.Inventory;
 namespace IdApp.Services.Wallet
 {
 	[Singleton]
-	internal sealed class EDalerWallet : ServiceReferences, IEDalerWallet
+	internal sealed class NeuroWallet : ServiceReferences, INeuroWallet
 	{
 		private EDalerClient eDalerClient;
+		private NeuroFeaturesClient neuroFeaturesClient;
 		private Balance lastBalance = null;
 		private DateTime lastEvent = DateTime.MinValue;
 
-		internal EDalerWallet()
+		internal NeuroWallet()
 			: base()
 		{
 		}
 
+		#region e-Daler
+
+		/// <summary>
+		/// Reference to the e-Daler client implementing the e-Daler XMPP extension
+		/// </summary>
 		public EDalerClient EDalerClient
 		{
 			get
@@ -61,12 +69,15 @@ namespace IdApp.Services.Wallet
 			}
 		}
 
+		/// <summary>
+		/// Event raised when balance has been updated
+		/// </summary>
 		public event BalanceEventHandler BalanceUpdated;
 
 		/// <summary>
 		/// Last reported balance
 		/// </summary>
-		public Balance LastBalance  => this.lastBalance;
+		public Balance LastBalance => this.lastBalance;
 
 		/// <summary>
 		/// Timepoint of last event.
@@ -245,6 +256,204 @@ namespace IdApp.Services.Wallet
 		{
 			return this.EDalerClient.CreateIncompletePayMeUri(To, Amount, AmountExtra, Currency, PrivateMessage);
 		}
+
+		#endregion
+
+		#region Neuro-Features
+
+		/// <summary>
+		/// Reference to the Neuro-Features client implementing the Neuro-Features XMPP extension
+		/// </summary>
+		public NeuroFeaturesClient NeuroFeaturesClient
+		{
+			get
+			{
+				if (this.neuroFeaturesClient is null || this.neuroFeaturesClient.Client != this.XmppService.Xmpp)
+				{
+					if (!(this.neuroFeaturesClient is null))
+					{
+						this.neuroFeaturesClient.TokenAdded -= NeuroFeaturesClient_TokenAdded;
+						this.neuroFeaturesClient.TokenRemoved -= NeuroFeaturesClient_TokenRemoved;
+					}
+
+					this.neuroFeaturesClient = (this.XmppService as XmppService)?.NeuroFeaturesClient;
+					if (this.neuroFeaturesClient is null)
+						throw new InvalidOperationException(AppResources.NeuroFeaturesServiceNotFound);
+
+					this.neuroFeaturesClient.TokenAdded += NeuroFeaturesClient_TokenAdded;
+					this.neuroFeaturesClient.TokenRemoved += NeuroFeaturesClient_TokenRemoved;
+				}
+
+				return this.neuroFeaturesClient;
+			}
+		}
+
+		private async Task NeuroFeaturesClient_TokenRemoved(object Sender, TokenEventArgs e)
+		{
+			TokenEventHandler h = this.TokenRemoved;
+			if (!(h is null))
+			{
+				try
+				{
+					await h(this, e);
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a token has been removed from the wallet.
+		/// </summary>
+		public event TokenEventHandler TokenRemoved;
+
+		private async Task NeuroFeaturesClient_TokenAdded(object Sender, TokenEventArgs e)
+		{
+			TokenEventHandler h = this.TokenAdded;
+			if (!(h is null))
+			{
+				try
+				{
+					await h(this, e);
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Event raised when a token has been added to the wallet.
+		/// </summary>
+		public event TokenEventHandler TokenAdded;
+
+		/// <summary>
+		/// Gets available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		public Task<TokensEventArgs> GetTokens()
+		{
+			return this.GetTokens(0, int.MaxValue);
+		}
+
+		/// <summary>
+		/// Gets a section of available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		public Task<TokensEventArgs> GetTokens(int Offset, int MaxCount)
+		{
+			return this.NeuroFeaturesClient.GetTokensAsync(Offset, MaxCount);
+		}
+
+		/// <summary>
+		/// Gets references to available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		public Task<string[]> GetTokenReferences()
+		{
+			return this.GetTokenReferences(0, int.MaxValue);
+		}
+
+		/// <summary>
+		/// Gets references to a section of available tokens
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		public Task<string[]> GetTokenReferences(int Offset, int MaxCount)
+		{
+			return this.NeuroFeaturesClient.GetTokenReferencesAsync(Offset, MaxCount);
+		}
+
+		/// <summary>
+		/// Gets the value totals of tokens available in the wallet, grouped and ordered by currency.
+		/// </summary>
+		/// <returns>Response with tokens.</returns>
+		public Task<TokenTotalsEventArgs> GetTotals()
+		{
+			return this.NeuroFeaturesClient.GetTotalsAsync();
+		}
+
+		/// <summary>
+		/// Gets a specific token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <returns>Token</returns>
+		public Task<Token> GetToken(string TokenId)
+		{
+			return this.NeuroFeaturesClient.GetTokenAsync(TokenId);
+		}
+
+		/// <summary>
+		/// Gets events relating to a specific token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <returns>Token events.</returns>
+		public Task<TokenEvent[]> GetTokenEvents(string TokenId)
+		{
+			return this.GetTokenEvents(TokenId, 0, int.MaxValue);
+		}
+
+		/// <summary>
+		/// Gets events relating to a specific token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="Offset">Offset </param>
+		/// <param name="MaxCount">Maximum number of events to return.</param>
+		/// <returns>Token events.</returns>
+		public Task<TokenEvent[]> GetTokenEvents(string TokenId, int Offset, int MaxCount)
+		{
+			return this.NeuroFeaturesClient.GetEventsAsync(TokenId, Offset, MaxCount);
+		}
+
+		/// <summary>
+		/// Adds a text note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="TextNote">Text Note</param>
+		public Task AddTextNote(string TokenId, string TextNote)
+		{
+			return this.AddTextNote(TokenId, TextNote, false);
+		}
+
+		/// <summary>
+		/// Adds a text note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="TextNote">Text Note</param>
+		/// <param name="Personal">If the text note contains personal information. (default=false).
+		/// 
+		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
+		public Task AddTextNote(string TokenId, string TextNote, bool Personal)
+		{
+			return this.NeuroFeaturesClient.AddTextNoteAsync(TokenId, TextNote, Personal);
+		}
+
+		/// <summary>
+		/// Adds a xml note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="XmlNote">Xml Note</param>
+		public Task AddXmlNote(string TokenId, string XmlNote)
+		{
+			return this.AddXmlNote(TokenId, XmlNote, false);
+		}
+
+		/// <summary>
+		/// Adds a xml note on a token.
+		/// </summary>
+		/// <param name="TokenId">Token ID</param>
+		/// <param name="XmlNote">Xml Note</param>
+		/// <param name="Personal">If the xml note contains personal information. (default=false).
+		/// 
+		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
+		public Task AddXmlNote(string TokenId, string XmlNote, bool Personal)
+		{
+			return this.NeuroFeaturesClient.AddXmlNoteAsync(TokenId, XmlNote, Personal);
+		}
+
+		#endregion
 
 	}
 }

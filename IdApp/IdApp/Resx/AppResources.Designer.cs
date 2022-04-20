@@ -1699,6 +1699,15 @@ namespace IdApp.Resx {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No Neuro-Features service found on broker..
+        /// </summary>
+        internal static string NeuroFeaturesServiceNotFound {
+            get {
+                return ResourceManager.GetString("NeuroFeaturesServiceNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Neuron.
         /// </summary>
         internal static string Neuron {

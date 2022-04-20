@@ -1522,7 +1522,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 				else
 					Uri = this.XmppService.Wallet.CreateIncompletePayMeUri(this.LegalIdentity, null, null, Balance.Currency, string.Empty);
 
-				await this.EDalerOrchestratorService.OpenEDalerUri(Uri);
+				await this.NeuroWalletOrchestratorService.OpenEDalerUri(Uri);
 			}
 			catch (Exception ex)
 			{
