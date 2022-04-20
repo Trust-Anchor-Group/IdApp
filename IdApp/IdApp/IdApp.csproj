@@ -234,8 +234,4 @@
     <ProjectReference Include="..\..\IdApp.Cv\IdApp.Cv.csproj" />
     <ProjectReference Include="..\..\IdApp.Nfc\IdApp.Nfc.csproj" />
   </ItemGroup>
-
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="call ../../Build/PreBuildEvents" />
-  </Target>
 </Project>
