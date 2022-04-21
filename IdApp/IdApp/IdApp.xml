@@ -8571,6 +8571,16 @@
             HasTotals of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokensProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
+            <summary>
+            HasTokens of eDaler to process
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingPayments">
             <summary>
             Holds a list of pending payments
@@ -8584,6 +8594,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
             <summary>
             Holds a list of token totals
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Tokens">
+            <summary>
+            Holds a list of tokens
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BackCommand">
@@ -8619,6 +8634,16 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.FlipCommand">
             <summary>
             The command to bind to for flipping the wallet.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LoadMoreTokensCommand">
+            <summary>
+            Command executed when more tokens need to be loaded.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.TokenSelectedCommand">
+            <summary>
+            Command executed when a token has been selected.
             </summary>
         </member>
         <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BindTokens">
@@ -9013,6 +9038,227 @@
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
         </member>
+        <member name="T:IdApp.Pages.Wallet.TokenItem">
+            <summary>
+            Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenItem.#ctor(NeuroFeatures.Token)">
+            <summary>
+            Encapsulates a <see cref="T:NeuroFeatures.Token"/> object.
+            </summary>
+            <param name="Token">Token</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Created">
+            <summary>
+            When token was created.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Updated">
+            <summary>
+            When token was last updated.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Expires">
+            <summary>
+            When token expires.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.ArchiveRequired">
+            <summary>
+            Required archiving time after token expires.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.ArchiveOptional">
+            <summary>
+            Optional archiving time after required archiving time.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.SignatureTimestamp">
+            <summary>
+            Signature timestamp
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Signature">
+            <summary>
+            Token signature
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.DefinitionSchemaDigest">
+            <summary>
+            Digest of schema used to validate token definition XML.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.DefinitionSchemaHashFunction">
+            <summary>
+            Hash function used to compute <see cref="P:IdApp.Pages.Wallet.TokenItem.DefinitionSchemaDigest"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.CreatorCanDestroy">
+            <summary>
+            If the creator can destroy the token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnerCanDestroyBatch">
+            <summary>
+            If the owner can destroy the entire batch of tokens, if owner of every token in the batch.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnerCanDestroyIndividual">
+            <summary>
+            If the owner can destroy an individual token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.CertifierCanDestroy">
+            <summary>
+            If a certifier can destroy the token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.FriendlyName">
+            <summary>
+            Friendly name of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Glyph">
+            <summary>
+            Glyph of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphContentType">
+            <summary>
+            Content-Type of glyph
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth">
+            <summary>
+            Width of glyph
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight">
+            <summary>
+            Height of glyph
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Ordinal">
+            <summary>
+            Ordinal of token, within batch.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Value">
+            <summary>
+            (Last) Value of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Witness">
+            <summary>
+            Witnesses
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.CertifierJids">
+            <summary>
+            JIDs of certifiers
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Certifier">
+            <summary>
+            Certifiers
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.TokenIdMethod">
+            <summary>
+            Method of assigning the Token ID.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.TokenId">
+            <summary>
+            Token ID
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Visibility">
+            <summary>
+            Visibility of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Creator">
+            <summary>
+            Creator of token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.CreatorJid">
+            <summary>
+            JID of <see cref="P:IdApp.Pages.Wallet.TokenItem.Creator"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Owner">
+            <summary>
+            Current owner
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.BatchSize">
+            <summary>
+            Number of tokens in batch being created.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.TrustProvider">
+            <summary>
+            Trust Provider asserting the validity of the token
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnerJid">
+            <summary>
+            JID of owner
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Currency">
+            <summary>
+            Currency of <see cref="P:IdApp.Pages.Wallet.TokenItem.Value"/>.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Reference">
+            <summary>
+            Any reference provided by the token creator.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Definition">
+            <summary>
+            XML Definition of token.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.DefinitionNamespace">
+            <summary>
+            XML Namespace used in the <see cref="P:IdApp.Pages.Wallet.TokenItem.Definition"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.CreationContract">
+            <summary>
+            Contract used to create the contract.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.OwnershipContract">
+            <summary>
+            Contract used to define the current ownership
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Valuator">
+            <summary>
+            Valuators
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Assessor">
+            <summary>
+            Assessors
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.TrustProviderJid">
+            <summary>
+            JID of <see cref="P:IdApp.Pages.Wallet.TokenItem.TrustProvider"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.Tags">
+            <summary>
+            Any custom Token Tags provided during creation of the token.
+            </summary>
+        </member>
         <member name="T:IdApp.Pages.Wallet.TokenTotalItem">
             <summary>
             Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
@@ -9020,7 +9266,7 @@
         </member>
         <member name="M:IdApp.Pages.Wallet.TokenTotalItem.#ctor(NeuroFeatures.TokenTotal)">
             <summary>
-            Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
+            Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
             </summary>
             <param name="Total">Token Total.</param>
         </member>

@@ -37,10 +37,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
 			this.FlipCommand = new Command(async _ => await FlipWallet());
+			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
+			this.TokenSelectedCommand = new Command(async P => await TokenSelected(P));
 
 			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			this.Events = new ObservableCollection<AccountEventItem>();
 			this.Totals = new ObservableCollection<TokenTotalItem>();
+			this.Tokens = new ObservableCollection<TokenItem>();
 		}
 
 		/// <inheritdoc/>
@@ -370,6 +373,21 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
+		/// See <see cref="HasTokens"/>
+		/// </summary>
+		public static readonly BindableProperty HasTokensProperty =
+			BindableProperty.Create(nameof(HasTokens), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// HasTokens of eDaler to process
+		/// </summary>
+		public bool HasTokens
+		{
+			get { return (bool)GetValue(HasTokensProperty); }
+			set { SetValue(HasTokensProperty, value); }
+		}
+
+		/// <summary>
 		/// Holds a list of pending payments
 		/// </summary>
 		public ObservableCollection<PendingPaymentItem> PendingPayments { get; }
@@ -383,6 +401,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// Holds a list of token totals
 		/// </summary>
 		public ObservableCollection<TokenTotalItem> Totals { get; }
+
+		/// <summary>
+		/// Holds a list of tokens
+		/// </summary>
+		public ObservableCollection<TokenItem> Tokens { get; }
 
 		/// <summary>
 		/// The command to bind to for returning to previous view.
@@ -418,6 +441,16 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// The command to bind to for flipping the wallet.
 		/// </summary>
 		public ICommand FlipCommand { get; }
+
+		/// <summary>
+		/// Command executed when more tokens need to be loaded.
+		/// </summary>
+		public ICommand LoadMoreTokensCommand { get; }
+
+		/// <summary>
+		/// Command executed when a token has been selected.
+		/// </summary>
+		public ICommand TokenSelectedCommand { get; }
 
 		#endregion
 
@@ -506,6 +539,48 @@ namespace IdApp.Pages.Wallet.MyWallet
 					this.LogService.LogException(ex);
 				}
 			}
+
+			if (!this.HasTokens)
+			{
+				try
+				{
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 50);
+
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					{
+						if (e.Ok)
+						{
+							this.Tokens.Clear();
+
+							if (!(e.Tokens is null))
+							{
+								foreach (Token Token in e.Tokens)
+									this.Tokens.Add(new TokenItem(Token));
+
+								this.HasTokens = true;
+							}
+							else
+								this.HasTokens = false;
+						}
+						else
+							this.HasTokens = false;
+					});
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+		}
+
+		private Task LoadMoreTokens()
+		{
+			return Task.CompletedTask;  // TODO
+		}
+
+		private Task TokenSelected(object P)
+		{
+			return Task.CompletedTask;  // TODO
 		}
 
 		private Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)

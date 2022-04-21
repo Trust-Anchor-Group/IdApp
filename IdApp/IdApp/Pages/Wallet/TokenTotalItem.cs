@@ -10,7 +10,7 @@ namespace IdApp.Pages.Wallet
 		private readonly TokenTotal total;
 
 		/// <summary>
-		/// Encapsulates a <see cref="AccountEvent"/> object.
+		/// Encapsulates a <see cref="TokenTotal"/> object.
 		/// </summary>
 		/// <param name="Total">Token Total.</param>
 		public TokenTotalItem(TokenTotal Total)
