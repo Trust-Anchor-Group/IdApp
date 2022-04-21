@@ -12,7 +12,7 @@ namespace IdApp.Behaviors
         /// 
         /// </summary>
         public static readonly BindableProperty TextChangedCommandProperty =
-            BindableProperty.Create("TextChangedCommand", typeof(ICommand), typeof(TextChangedBehavior), default(ICommand));
+            BindableProperty.Create(nameof(TextChangedCommand), typeof(ICommand), typeof(TextChangedBehavior), default(ICommand));
 
         /// <summary>
         /// The command to bind to when text changes.
@@ -27,7 +27,7 @@ namespace IdApp.Behaviors
         /// 
         /// </summary>
         public static readonly BindableProperty TextChangedCommandParameterProperty =
-            BindableProperty.Create("TextChangedCommandParameter", typeof(object), typeof(TextChangedBehavior), default);
+            BindableProperty.Create(nameof(TextChangedCommandParameter), typeof(object), typeof(TextChangedBehavior), default);
 
         /// <summary>
         /// The command parameter to bind to when text changes.

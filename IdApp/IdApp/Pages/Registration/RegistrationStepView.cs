@@ -12,7 +12,7 @@ namespace IdApp.Pages.Registration
         /// See <see cref="StepCompletedCommand"/>
         /// </summary>
         public static readonly BindableProperty StepCompletedCommandProperty =
-            BindableProperty.Create("StepCompletedCommand", typeof(ICommand), typeof(RegistrationStepView), default(ICommand), BindingMode.OneWayToSource);
+            BindableProperty.Create(nameof(StepCompletedCommand), typeof(ICommand), typeof(RegistrationStepView), default(ICommand), BindingMode.OneWayToSource);
 
         /// <summary>
         /// The command to bind to for signaling to listeners that this step has completed.

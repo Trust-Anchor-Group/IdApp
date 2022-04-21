@@ -185,7 +185,7 @@ namespace IdApp.Pages
         /// <see cref="IsBusy"/>
         /// </summary>
         public static readonly BindableProperty IsBusyProperty =
-            BindableProperty.Create("IsBusy", typeof(bool), typeof(BaseViewModel), default(bool));
+            BindableProperty.Create(nameof(IsBusy), typeof(bool), typeof(BaseViewModel), default(bool));
 
         /// <summary>
         /// A helper property to set/get when the ViewModel is busy doing work.
@@ -204,7 +204,7 @@ namespace IdApp.Pages
         /// <see cref="IsIdle"/>
         /// </summary>
         public static readonly BindableProperty IsIdleProperty =
-            BindableProperty.Create("IsIdle", typeof(bool), typeof(BaseViewModel), default(bool));
+            BindableProperty.Create(nameof(IsIdle), typeof(bool), typeof(BaseViewModel), default(bool));
 
         /// <summary>
         /// A helper property to set/get when the ViewModel is idle.

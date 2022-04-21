@@ -79,7 +79,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="Created"/>
         /// </summary>
         public static readonly BindableProperty CreatedProperty =
-            BindableProperty.Create("Created", typeof(DateTime), typeof(ValidateIdentityViewModel), default(DateTime));
+            BindableProperty.Create(nameof(Created), typeof(DateTime), typeof(ValidateIdentityViewModel), default(DateTime));
 
         /// <summary>
         /// Gets or sets the Created time stamp of the legal identity.
@@ -94,7 +94,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="Updated"/>
         /// </summary>
         public static readonly BindableProperty UpdatedProperty =
-            BindableProperty.Create("Updated", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(Updated), typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
 
         /// <summary>
         /// Gets or sets the Updated time stamp of the legal identity.
@@ -109,7 +109,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="LegalId"/>
         /// </summary>
         public static readonly BindableProperty LegalIdProperty =
-            BindableProperty.Create("LegalId", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(LegalId), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// Gets or sets the Id of the legal identity.
@@ -129,7 +129,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="BareJid"/>
         /// </summary>
         public static readonly BindableProperty BareJidProperty =
-            BindableProperty.Create("BareJid", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(BareJid), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// Gets or sets the Bare Jid registered with the XMPP server.
@@ -144,7 +144,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="State"/>
         /// </summary>
         public static readonly BindableProperty StateProperty =
-            BindableProperty.Create("State", typeof(IdentityState), typeof(ValidateIdentityViewModel), default(IdentityState));
+            BindableProperty.Create(nameof(State), typeof(IdentityState), typeof(ValidateIdentityViewModel), default(IdentityState));
 
         /// <summary>
         /// The current state of the user's legal identity.
@@ -159,7 +159,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="From"/>
         /// </summary>
         public static readonly BindableProperty FromProperty =
-            BindableProperty.Create("From", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(From), typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
 
         /// <summary>
         /// Gets or sets the From time stamp (validity range) of the user's identity.
@@ -174,7 +174,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="To"/>
         /// </summary>
         public static readonly BindableProperty ToProperty =
-            BindableProperty.Create("To", typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(To), typeof(DateTime?), typeof(ValidateIdentityViewModel), default(DateTime?));
 
         /// <summary>
         /// Gets or sets the To time stamp (validity range) of the user's identity.
@@ -189,7 +189,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="FirstName"/>
         /// </summary>
         public static readonly BindableProperty FirstNameProperty =
-            BindableProperty.Create("FirstName", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(FirstName), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's first name
@@ -204,7 +204,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="MiddleNames"/>
         /// </summary>
         public static readonly BindableProperty MiddleNamesProperty =
-            BindableProperty.Create("MiddleNames", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(MiddleNames), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's middle name(s)
@@ -219,7 +219,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="LastNames"/>
         /// </summary>
         public static readonly BindableProperty LastNamesProperty =
-            BindableProperty.Create("LastNames", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(LastNames), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's last name(s)
@@ -234,7 +234,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="PersonalNumber"/>
         /// </summary>
         public static readonly BindableProperty PersonalNumberProperty =
-            BindableProperty.Create("PersonalNumber", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(PersonalNumber), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's personal number
@@ -249,7 +249,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="Address"/>
         /// </summary>
         public static readonly BindableProperty AddressProperty =
-            BindableProperty.Create("Address", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Address), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's address, line 1.
@@ -264,7 +264,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="Address2"/>
         /// </summary>
         public static readonly BindableProperty Address2Property =
-            BindableProperty.Create("Address2", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Address2), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's address, line 2.
@@ -279,7 +279,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="ZipCode"/>
         /// </summary>
         public static readonly BindableProperty ZipCodeProperty =
-            BindableProperty.Create("ZipCode", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(ZipCode), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's zip code
@@ -294,7 +294,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="Area"/>
         /// </summary>
         public static readonly BindableProperty AreaProperty =
-            BindableProperty.Create("Area", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Area), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's area
@@ -309,7 +309,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="City"/>
         /// </summary>
         public static readonly BindableProperty CityProperty =
-            BindableProperty.Create("City", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(City), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's city
@@ -324,7 +324,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="Region"/>
         /// </summary>
         public static readonly BindableProperty RegionProperty =
-            BindableProperty.Create("Region", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Region), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user's region
@@ -339,7 +339,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="Country"/>
         /// </summary>
         public static readonly BindableProperty CountryProperty =
-            BindableProperty.Create("Country", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(Country), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// Gets or sets the user's country.
@@ -354,7 +354,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="CountryCode"/>
         /// </summary>
         public static readonly BindableProperty CountryCodeProperty =
-            BindableProperty.Create("CountryCode", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(CountryCode), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// Gets or sets the user's country.
@@ -369,7 +369,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="PhoneNr"/>
         /// </summary>
         public static readonly BindableProperty PhoneNrProperty =
-            BindableProperty.Create("PhoneNr", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(PhoneNr), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// Gets or sets the user's country.
@@ -384,7 +384,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="IsApproved"/>
         /// </summary>
         public static readonly BindableProperty IsApprovedProperty =
-            BindableProperty.Create("IsApproved", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
+            BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets if the user's identity is approved or not.
@@ -399,7 +399,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="IsCreated"/>
         /// </summary>
         public static readonly BindableProperty IsCreatedProperty =
-            BindableProperty.Create("IsCreated", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
+            BindableProperty.Create(nameof(IsCreated), typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets if the user's identity has been created.
@@ -414,7 +414,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="IsConnected"/>
         /// </summary>
         public static readonly BindableProperty IsConnectedProperty =
-            BindableProperty.Create("IsConnected", typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
+            BindableProperty.Create(nameof(IsConnected), typeof(bool), typeof(ValidateIdentityViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets if the app is connected to an XMPP server.
@@ -429,7 +429,7 @@ namespace IdApp.Pages.Registration.ValidateIdentity
         /// The <see cref="ConnectionStateText"/>
         /// </summary>
         public static readonly BindableProperty ConnectionStateTextProperty =
-            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(ValidateIdentityViewModel), default(string));
+            BindableProperty.Create(nameof(ConnectionStateText), typeof(string), typeof(ValidateIdentityViewModel), default(string));
 
         /// <summary>
         /// The user friendly connection state text to display to the user.

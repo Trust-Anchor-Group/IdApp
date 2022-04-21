@@ -173,7 +173,7 @@ namespace IdApp.Pages.Things.MyThings
 		/// See <see cref="ShowThingsMissing"/>
 		/// </summary>
 		public static readonly BindableProperty ShowThingsMissingProperty =
-			BindableProperty.Create("ShowThingsMissing", typeof(bool), typeof(MyThingsViewModel), default(bool));
+			BindableProperty.Create(nameof(ShowThingsMissing), typeof(bool), typeof(MyThingsViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether to show a contacts missing alert or not.
@@ -193,7 +193,7 @@ namespace IdApp.Pages.Things.MyThings
 		/// See <see cref="SelectedThing"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedThingProperty =
-			BindableProperty.Create("SelectedThing", typeof(ContactInfo), typeof(MyThingsViewModel), default(ContactInfo), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(SelectedThing), typeof(ContactInfo), typeof(MyThingsViewModel), default(ContactInfo), propertyChanged: (b, oldValue, newValue) =>
 			{
 				if (b is MyThingsViewModel viewModel && newValue is ContactInfo Thing)
 				{

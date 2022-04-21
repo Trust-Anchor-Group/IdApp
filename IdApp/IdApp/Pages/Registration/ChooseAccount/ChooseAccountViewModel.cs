@@ -66,7 +66,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		/// See <see cref="DomainName"/>
 		/// </summary>
 		public static readonly BindableProperty DomainNameProperty =
-			BindableProperty.Create("DomainName", typeof(string), typeof(ChooseAccountViewModel), default(string));
+			BindableProperty.Create(nameof(DomainName), typeof(string), typeof(ChooseAccountViewModel), default(string));
 
 		/// <summary>
 		/// The localized intro text to display to the user for explaining what 'choose account' is for.
@@ -81,7 +81,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		/// See <see cref="AccountName"/>
 		/// </summary>
 		public static readonly BindableProperty AccountNameProperty =
-			BindableProperty.Create("AccountName", typeof(string), typeof(ChooseAccountViewModel), default(string));
+			BindableProperty.Create(nameof(AccountName), typeof(string), typeof(ChooseAccountViewModel), default(string));
 
 		/// <summary>
 		/// The account name to use when creating a new account.

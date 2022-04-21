@@ -174,7 +174,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="IsTemplate"/>
 		/// </summary>
 		public static readonly BindableProperty IsTemplateProperty =
-			BindableProperty.Create("IsTemplate", typeof(bool), typeof(NewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(IsTemplate), typeof(bool), typeof(NewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether this contract is a template or not.
@@ -194,7 +194,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="SelectedContractVisibilityItem"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContractVisibilityItemProperty =
-			BindableProperty.Create("SelectedContractVisibilityItem", typeof(ContractVisibilityModel), typeof(NewContractViewModel), default(ContractVisibilityModel));
+			BindableProperty.Create(nameof(SelectedContractVisibilityItem), typeof(ContractVisibilityModel), typeof(NewContractViewModel), default(ContractVisibilityModel));
 
 		/// <summary>
 		/// The selected contract visibility item, if any.
@@ -209,7 +209,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="VisibilityIsEnabled"/>
 		/// </summary>
 		public static readonly BindableProperty VisibilityIsEnabledProperty =
-			BindableProperty.Create("VisibilityIsEnabled", typeof(bool), typeof(NewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(VisibilityIsEnabled), typeof(bool), typeof(NewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the visibility items should be shown to the user or not.
@@ -229,7 +229,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="SelectedRole"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedRoleProperty =
-			BindableProperty.Create("SelectedRole", typeof(string), typeof(NewContractViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(SelectedRole), typeof(string), typeof(NewContractViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
 				NewContractViewModel viewModel = (NewContractViewModel)b;
 				string oldRole = (string)oldValue;
@@ -254,7 +254,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="Roles"/>
 		/// </summary>
 		public static readonly BindableProperty RolesProperty =
-			BindableProperty.Create("Roles", typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(Roles), typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's roles.
@@ -269,7 +269,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="Parameters"/>
 		/// </summary>
 		public static readonly BindableProperty ParametersProperty =
-			BindableProperty.Create("Parameters", typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(Parameters), typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's parameters.
@@ -284,7 +284,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="HumanReadableText"/>
 		/// </summary>
 		public static readonly BindableProperty HumanReadableTextProperty =
-			BindableProperty.Create("HumanReadableText", typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(HumanReadableText), typeof(StackLayout), typeof(NewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's human readable text section.
@@ -299,7 +299,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="HasRoles"/>
 		/// </summary>
 		public static readonly BindableProperty HasRolesProperty =
-			BindableProperty.Create("HasRoles", typeof(bool), typeof(NewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasRoles), typeof(bool), typeof(NewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has roles.
@@ -314,7 +314,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="HasParameters"/>
 		/// </summary>
 		public static readonly BindableProperty HasParametersProperty =
-			BindableProperty.Create("HasParameters", typeof(bool), typeof(NewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasParameters), typeof(bool), typeof(NewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has parameters.
@@ -329,7 +329,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="ParametersOk"/>
 		/// </summary>
 		public static readonly BindableProperty ParametersOkProperty =
-			BindableProperty.Create("ParametersOk", typeof(bool), typeof(NewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(ParametersOk), typeof(bool), typeof(NewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has parameters.
@@ -344,7 +344,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="HasHumanReadableText"/>
 		/// </summary>
 		public static readonly BindableProperty HasHumanReadableTextProperty =
-			BindableProperty.Create("HasHumanReadableText", typeof(bool), typeof(NewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasHumanReadableText), typeof(bool), typeof(NewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract is comprised of human readable text.
@@ -359,7 +359,7 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// See <see cref="CanAddParts"/>
 		/// </summary>
 		public static readonly BindableProperty CanAddPartsProperty =
-			BindableProperty.Create("CanAddParts", typeof(bool), typeof(NewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(CanAddParts), typeof(bool), typeof(NewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether a user can add parts to a contract.

@@ -34,7 +34,7 @@ namespace IdApp.Controls.FlipView
         /// 
         /// </summary>
         public static readonly BindableProperty FrontViewProperty =
-            BindableProperty.Create("FrontView", typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(FrontView), typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
             {
                 FlipView fv = (FlipView)b;
                 if (!(newValue is null))
@@ -118,7 +118,7 @@ namespace IdApp.Controls.FlipView
         /// 
         /// </summary>
         public static readonly BindableProperty BackViewProperty =
-            BindableProperty.Create("BackView", typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(BackView), typeof(View), typeof(FlipView), default(View), propertyChanged: (b, oldValue, newValue) =>
             {
                 FlipView fv = (FlipView)b;
                 if (!(newValue is null))

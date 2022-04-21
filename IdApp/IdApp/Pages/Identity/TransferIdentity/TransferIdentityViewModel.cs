@@ -86,7 +86,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// See <see cref="Uri"/>
 		/// </summary>
 		public static readonly BindableProperty UriProperty =
-			BindableProperty.Create("Uri", typeof(string), typeof(TransferIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Uri), typeof(string), typeof(TransferIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Uri date of the identity
@@ -101,7 +101,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// See <see cref="QrCodeProperty"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create("QrCode", typeof(ImageSource), typeof(TransferIdentityViewModel), default(ImageSource));
+			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(TransferIdentityViewModel), default(ImageSource));
 
 		/// <summary>
 		/// Generated QR code image for the identity
@@ -116,7 +116,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// See <see cref="QrCodeWidth"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create("QrCodeWidth", typeof(int), typeof(TransferIdentityViewModel), UiConstants.QrCode.DefaultImageWidth);
+			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(TransferIdentityViewModel), UiConstants.QrCode.DefaultImageWidth);
 
 		/// <summary>
 		/// Gets or sets the width, in pixels, of the QR Code image to generate.
@@ -131,7 +131,7 @@ namespace IdApp.Pages.Identity.TransferIdentity
 		/// See <see cref="QrCodeHeight"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create("QrCodeHeight", typeof(int), typeof(TransferIdentityViewModel), UiConstants.QrCode.DefaultImageHeight);
+			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(TransferIdentityViewModel), UiConstants.QrCode.DefaultImageHeight);
 
 		/// <summary>
 		/// Gets or sets the height, in pixels, of the QR Code image to generate.

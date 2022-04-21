@@ -163,7 +163,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Uri"/>
 		/// </summary>
 		public static readonly BindableProperty UriProperty =
-			BindableProperty.Create("Uri", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(Uri), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// edaler URI to process
@@ -178,7 +178,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Amount"/>
 		/// </summary>
 		public static readonly BindableProperty AmountProperty =
-			BindableProperty.Create("Amount", typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
+			BindableProperty.Create(nameof(Amount), typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
 
 		/// <summary>
 		/// Amount of eDaler to process
@@ -193,7 +193,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountOk"/>
 		/// </summary>
 		public static readonly BindableProperty AmountOkProperty =
-			BindableProperty.Create("AmountOk", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(AmountOk), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Amount"/> is OK.
@@ -208,7 +208,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountColor"/>
 		/// </summary>
 		public static readonly BindableProperty AmountColorProperty =
-			BindableProperty.Create("AmountColor", typeof(Color), typeof(EDalerUriViewModel), default(Color));
+			BindableProperty.Create(nameof(AmountColor), typeof(Color), typeof(EDalerUriViewModel), default(Color));
 
 		/// <summary>
 		/// Color of <see cref="Amount"/> field.
@@ -223,7 +223,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountText"/>
 		/// </summary>
 		public static readonly BindableProperty AmountTextProperty =
-			BindableProperty.Create("AmountText", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(AmountText), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="Amount"/> as text.
@@ -255,7 +255,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountAndCurrency"/>
 		/// </summary>
 		public static readonly BindableProperty AmountAndCurrencyProperty =
-			BindableProperty.Create("AmountAndCurrency", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(AmountAndCurrency), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="AmountText"/> and <see cref="Currency"/>.
@@ -270,7 +270,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountPreset"/>
 		/// </summary>
 		public static readonly BindableProperty AmountPresetProperty =
-			BindableProperty.Create("AmountPreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(AmountPreset), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Amount"/> is preset.
@@ -285,7 +285,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountExtra"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraProperty =
-			BindableProperty.Create("AmountExtra", typeof(decimal?), typeof(EDalerUriViewModel), default(decimal?));
+			BindableProperty.Create(nameof(AmountExtra), typeof(decimal?), typeof(EDalerUriViewModel), default(decimal?));
 
 		/// <summary>
 		/// AmountExtra of eDaler to process
@@ -300,7 +300,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountExtraOk"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraOkProperty =
-			BindableProperty.Create("AmountExtraOk", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(AmountExtraOk), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="AmountExtra"/> is OK.
@@ -315,7 +315,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountExtraColor"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraColorProperty =
-			BindableProperty.Create("AmountExtraColor", typeof(Color), typeof(EDalerUriViewModel), default(Color));
+			BindableProperty.Create(nameof(AmountExtraColor), typeof(Color), typeof(EDalerUriViewModel), default(Color));
 
 		/// <summary>
 		/// Color of <see cref="AmountExtra"/> field.
@@ -330,7 +330,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountExtraText"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraTextProperty =
-			BindableProperty.Create("AmountExtraText", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(AmountExtraText), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="AmountExtra"/> as text.
@@ -368,7 +368,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountExtraAndCurrency"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraAndCurrencyProperty =
-			BindableProperty.Create("AmountExtraAndCurrency", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(AmountExtraAndCurrency), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="AmountExtraText"/> and <see cref="Currency"/>.
@@ -383,7 +383,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="AmountExtraPreset"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraPresetProperty =
-			BindableProperty.Create("AmountExtraPreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(AmountExtraPreset), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="AmountExtra"/> is preset.
@@ -398,7 +398,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Currency"/>
 		/// </summary>
 		public static readonly BindableProperty CurrencyProperty =
-			BindableProperty.Create("Currency", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(Currency), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Currency of eDaler to process
@@ -413,7 +413,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Created"/>
 		/// </summary>
 		public static readonly BindableProperty CreatedProperty =
-			BindableProperty.Create("Created", typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
+			BindableProperty.Create(nameof(Created), typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code was created.
@@ -428,7 +428,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Expires"/>
 		/// </summary>
 		public static readonly BindableProperty ExpiresProperty =
-			BindableProperty.Create("Expires", typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
+			BindableProperty.Create(nameof(Expires), typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code expires
@@ -443,7 +443,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="ExpiresStr"/>
 		/// </summary>
 		public static readonly BindableProperty ExpiresStrProperty =
-			BindableProperty.Create("ExpiresStr", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(ExpiresStr), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// When code expires
@@ -458,7 +458,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Id"/>
 		/// </summary>
 		public static readonly BindableProperty IdProperty =
-			BindableProperty.Create("Id", typeof(Guid), typeof(EDalerUriViewModel), default(Guid));
+			BindableProperty.Create(nameof(Id), typeof(Guid), typeof(EDalerUriViewModel), default(Guid));
 
 		/// <summary>
 		/// Globally unique identifier of code
@@ -473,7 +473,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="From"/>
 		/// </summary>
 		public static readonly BindableProperty FromProperty =
-			BindableProperty.Create("From", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(From), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// From who eDaler is to be transferred
@@ -488,7 +488,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="FromType"/>
 		/// </summary>
 		public static readonly BindableProperty FromTypeProperty =
-			BindableProperty.Create("FromType", typeof(EntityType), typeof(EDalerUriViewModel), default(EntityType));
+			BindableProperty.Create(nameof(FromType), typeof(EntityType), typeof(EDalerUriViewModel), default(EntityType));
 
 		/// <summary>
 		/// Type of identity specified in <see cref="From"/>
@@ -503,7 +503,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="To"/>
 		/// </summary>
 		public static readonly BindableProperty ToProperty =
-			BindableProperty.Create("To", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(To), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// To whom eDaler is to be transferred
@@ -518,7 +518,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="ToPreset"/>
 		/// </summary>
 		public static readonly BindableProperty ToPresetProperty =
-			BindableProperty.Create("ToPreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(ToPreset), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="To"/> is preset
@@ -533,7 +533,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="ToType"/>
 		/// </summary>
 		public static readonly BindableProperty ToTypeProperty =
-			BindableProperty.Create("ToType", typeof(EntityType), typeof(EDalerUriViewModel), default(EntityType));
+			BindableProperty.Create(nameof(ToType), typeof(EntityType), typeof(EDalerUriViewModel), default(EntityType));
 
 		/// <summary>
 		/// Type of identity specified in <see cref="To"/>
@@ -548,7 +548,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="FriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty FriendlyNameProperty =
-			BindableProperty.Create("FriendlyName", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(FriendlyName), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Optional FriendlyName associated with URI
@@ -563,7 +563,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Complete"/>
 		/// </summary>
 		public static readonly BindableProperty CompleteProperty =
-			BindableProperty.Create("Complete", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(Complete), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If the URI is complete or not.
@@ -578,7 +578,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="Message"/>
 		/// </summary>
 		public static readonly BindableProperty MessageProperty =
-			BindableProperty.Create("Message", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(Message), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Message to recipient
@@ -593,7 +593,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="EncryptMessage"/>
 		/// </summary>
 		public static readonly BindableProperty EncryptMessageProperty =
-			BindableProperty.Create("EncryptMessage", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(EncryptMessage), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Message"/> should be encrypted in payment.
@@ -608,7 +608,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="HasMessage"/>
 		/// </summary>
 		public static readonly BindableProperty HasMessageProperty =
-			BindableProperty.Create("HasMessage", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(HasMessage), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If a message is defined
@@ -623,7 +623,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="MessagePreset"/>
 		/// </summary>
 		public static readonly BindableProperty MessagePresetProperty =
-			BindableProperty.Create("MessagePreset", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(MessagePreset), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Message"/> is preset.
@@ -638,7 +638,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="QrCode"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create("QrCode", typeof(ImageSource), typeof(EDalerUriViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(EDalerUriViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				EDalerUriViewModel viewModel = (EDalerUriViewModel)b;
 				viewModel.HasQrCode = !(newValue is null);
@@ -658,7 +658,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="HasQrCode"/>
 		/// </summary>
 		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create("HasQrCode", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -673,7 +673,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="QrCodePng"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodePngProperty =
-			BindableProperty.Create("QrCodePng", typeof(byte[]), typeof(EDalerUriViewModel), default(byte[]));
+			BindableProperty.Create(nameof(QrCodePng), typeof(byte[]), typeof(EDalerUriViewModel), default(byte[]));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -688,7 +688,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="QrCodeWidth"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create("QrCodeWidth", typeof(int), typeof(EDalerUriViewModel), default(int));
+			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(EDalerUriViewModel), default(int));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -703,7 +703,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="QrCodeHeight"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create("QrCodeHeight", typeof(int), typeof(EDalerUriViewModel), default(int));
+			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(EDalerUriViewModel), default(int));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -731,13 +731,13 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="CanAccept"/>
 		/// </summary>
 		public static readonly BindableProperty CanAcceptProperty =
-			BindableProperty.Create("CanAccept", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(CanAccept), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// See <see cref="NotPaid"/>
 		/// </summary>
 		public static readonly BindableProperty NotPaidProperty =
-			BindableProperty.Create("NotPaid", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(NotPaid), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If the URI is complete or not.
@@ -782,7 +782,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerFrontGlyphProperty =
-			BindableProperty.Create("EDalerFrontGlyph", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(EDalerFrontGlyph), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
@@ -797,7 +797,7 @@ namespace IdApp.Pages.Wallet
 		/// See <see cref="EDalerBackGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerBackGlyphProperty =
-			BindableProperty.Create("EDalerBackGlyph", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(EDalerBackGlyph), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL

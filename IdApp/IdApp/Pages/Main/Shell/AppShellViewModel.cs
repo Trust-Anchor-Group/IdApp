@@ -50,7 +50,7 @@ namespace IdApp.Pages.Main.Shell
 		/// See <see cref="ConnectionStateText"/>
 		/// </summary>
 		public static readonly BindableProperty ConnectionStateTextProperty =
-			BindableProperty.Create("ConnectionStateText", typeof(string), typeof(Main.MainViewModel), default(string));
+			BindableProperty.Create(nameof(ConnectionStateText), typeof(string), typeof(Main.MainViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets whether the connection state text, i.e a user friendly string showing XMPP connection info.
@@ -65,7 +65,7 @@ namespace IdApp.Pages.Main.Shell
 		/// See <see cref="IsConnected"/>
 		/// </summary>
 		public static readonly BindableProperty IsConnectedProperty =
-			BindableProperty.Create("IsConnected", typeof(bool), typeof(Main.MainViewModel), default(bool));
+			BindableProperty.Create(nameof(IsConnected), typeof(bool), typeof(Main.MainViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the application is connected to an XMPP server.
@@ -80,7 +80,7 @@ namespace IdApp.Pages.Main.Shell
 		/// See <see cref="IsOnline"/>
 		/// </summary>
 		public static readonly BindableProperty IsOnlineProperty =
-			BindableProperty.Create("IsOnline", typeof(bool), typeof(Main.MainViewModel), default(bool));
+			BindableProperty.Create(nameof(IsOnline), typeof(bool), typeof(Main.MainViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the application is online, i.e. has network access.

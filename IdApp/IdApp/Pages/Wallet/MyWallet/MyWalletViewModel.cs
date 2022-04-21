@@ -178,7 +178,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Balance"/>
 		/// </summary>
 		public static readonly BindableProperty BalanceProperty =
-			BindableProperty.Create("Balance", typeof(Balance), typeof(MyWalletViewModel), default(Balance));
+			BindableProperty.Create(nameof(Balance), typeof(Balance), typeof(MyWalletViewModel), default(Balance));
 
 		/// <summary>
 		/// Balance of eDaler to process
@@ -193,7 +193,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Amount"/>
 		/// </summary>
 		public static readonly BindableProperty AmountProperty =
-			BindableProperty.Create("Amount", typeof(decimal), typeof(MyWalletViewModel), default(decimal));
+			BindableProperty.Create(nameof(Amount), typeof(decimal), typeof(MyWalletViewModel), default(decimal));
 
 		/// <summary>
 		/// Amount of eDaler to process
@@ -208,7 +208,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Currency"/>
 		/// </summary>
 		public static readonly BindableProperty CurrencyProperty =
-			BindableProperty.Create("Currency", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(Currency), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// Currency of eDaler to process
@@ -223,7 +223,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="HasPending"/>
 		/// </summary>
 		public static readonly BindableProperty HasPendingProperty =
-			BindableProperty.Create("HasPending", typeof(bool), typeof(MyWalletViewModel), default(bool));
+			BindableProperty.Create(nameof(HasPending), typeof(bool), typeof(MyWalletViewModel), default(bool));
 
 		/// <summary>
 		/// HasPending of eDaler to process
@@ -238,7 +238,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="PendingAmount"/>
 		/// </summary>
 		public static readonly BindableProperty PendingAmountProperty =
-			BindableProperty.Create("PendingAmount", typeof(decimal), typeof(MyWalletViewModel), default(decimal));
+			BindableProperty.Create(nameof(PendingAmount), typeof(decimal), typeof(MyWalletViewModel), default(decimal));
 
 		/// <summary>
 		/// PendingAmount of eDaler to process
@@ -253,7 +253,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="PendingCurrency"/>
 		/// </summary>
 		public static readonly BindableProperty PendingCurrencyProperty =
-			BindableProperty.Create("PendingCurrency", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(PendingCurrency), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// PendingCurrency of eDaler to process
@@ -268,7 +268,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Timestamp"/>
 		/// </summary>
 		public static readonly BindableProperty TimestampProperty =
-			BindableProperty.Create("Timestamp", typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
+			BindableProperty.Create(nameof(Timestamp), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code was created.
@@ -283,7 +283,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="LastEvent"/>
 		/// </summary>
 		public static readonly BindableProperty LastEventProperty =
-			BindableProperty.Create("LastEvent", typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
+			BindableProperty.Create(nameof(LastEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code was created.
@@ -298,7 +298,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerFrontGlyphProperty =
-			BindableProperty.Create("EDalerFrontGlyph", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(EDalerFrontGlyph), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
@@ -313,7 +313,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="EDalerBackGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerBackGlyphProperty =
-			BindableProperty.Create("EDalerBackGlyph", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(EDalerBackGlyph), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
@@ -328,7 +328,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="HasEvents"/>
 		/// </summary>
 		public static readonly BindableProperty HasEventsProperty =
-			BindableProperty.Create("HasEvents", typeof(bool), typeof(MyWalletViewModel), default(bool));
+			BindableProperty.Create(nameof(HasEvents), typeof(bool), typeof(MyWalletViewModel), default(bool));
 
 		/// <summary>
 		/// HasEvents of eDaler to process
@@ -343,7 +343,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="HasMoreEvents"/>
 		/// </summary>
 		public static readonly BindableProperty HasMoreEventsProperty =
-			BindableProperty.Create("HasMoreEvents", typeof(bool), typeof(MyWalletViewModel), default(bool));
+			BindableProperty.Create(nameof(HasMoreEvents), typeof(bool), typeof(MyWalletViewModel), default(bool));
 
 		/// <summary>
 		/// If there are more account events available.
@@ -358,7 +358,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="HasTotals"/>
 		/// </summary>
 		public static readonly BindableProperty HasTotalsProperty =
-			BindableProperty.Create("HasTotals", typeof(bool), typeof(MyWalletViewModel), default(bool));
+			BindableProperty.Create(nameof(HasTotals), typeof(bool), typeof(MyWalletViewModel), default(bool));
 
 		/// <summary>
 		/// HasTotals of eDaler to process

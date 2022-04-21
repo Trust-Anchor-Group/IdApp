@@ -53,7 +53,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// See <see cref="LinkText"/>
         /// </summary>
         public static readonly BindableProperty LinkTextProperty =
-            BindableProperty.Create("LinkText", typeof(string), typeof(ScanQrCodeViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(LinkText), typeof(string), typeof(ScanQrCodeViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 ScanQrCodeViewModel viewModel = (ScanQrCodeViewModel)b;
                 viewModel.OpenIsEnabled = !string.IsNullOrWhiteSpace((string)newValue);
@@ -72,7 +72,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// See <see cref="Url"/>
         /// </summary>
         public static readonly BindableProperty UrlProperty =
-            BindableProperty.Create("Url", typeof(string), typeof(ScanQrCodeViewModel), default(string));
+            BindableProperty.Create(nameof(Url), typeof(string), typeof(ScanQrCodeViewModel), default(string));
 
         /// <summary>
         /// The raw QR code URL.
@@ -87,7 +87,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// See <see cref="OpenCommandText"/>
         /// </summary>
         public static readonly BindableProperty OpenCommandTextProperty =
-            BindableProperty.Create("OpenCommandText", typeof(string), typeof(ScanQrCodeViewModel), default(string));
+            BindableProperty.Create(nameof(OpenCommandText), typeof(string), typeof(ScanQrCodeViewModel), default(string));
 
         /// <summary>
         /// The localized, user friendly command name to display in the UI for scanning a QR Code. Typically "Add" or "Open".
@@ -102,7 +102,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// See <see cref="OpenIsEnabled"/>
         /// </summary>
         public static readonly BindableProperty OpenIsEnabledProperty =
-            BindableProperty.Create("OpenIsEnabled", typeof(bool), typeof(ScanQrCodeViewModel), default(bool));
+            BindableProperty.Create(nameof(OpenIsEnabled), typeof(bool), typeof(ScanQrCodeViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether the open command is enabled or not.
@@ -117,7 +117,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// See <see cref="ScanIsAutomatic"/>
         /// </summary>
         public static readonly BindableProperty ScanIsAutomaticProperty =
-            BindableProperty.Create("ScanIsAutomatic", typeof(bool), typeof(ScanQrCodeViewModel), true, propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(ScanIsAutomatic), typeof(bool), typeof(ScanQrCodeViewModel), true, propertyChanged: (b, oldValue, newValue) =>
             {
                 ScanQrCodeViewModel viewModel = (ScanQrCodeViewModel)b;
                 viewModel.ScanIsManual = !(bool)newValue;
@@ -137,7 +137,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// <see cref="ScanIsManual"/>
         /// </summary>
         public static readonly BindableProperty ScanIsManualProperty =
-            BindableProperty.Create("ScanIsManual", typeof(bool), typeof(ScanQrCodeViewModel), false);
+            BindableProperty.Create(nameof(ScanIsManual), typeof(bool), typeof(ScanQrCodeViewModel), false);
 
         /// <summary>
         /// Gets or sets whether the QR scanning is automatic or manual. <seealso cref="ScanIsAutomatic"/>.
@@ -152,7 +152,7 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// See <see cref="ModeText"/>
         /// </summary>
         public static readonly BindableProperty ModeTextProperty =
-            BindableProperty.Create("ModeText", typeof(string), typeof(ScanQrCodeViewModel), default(string));
+            BindableProperty.Create(nameof(ModeText), typeof(string), typeof(ScanQrCodeViewModel), default(string));
 
         /// <summary>
         /// The localized mode text to display to the user.

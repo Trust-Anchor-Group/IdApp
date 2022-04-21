@@ -101,7 +101,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// See <see cref="Uri"/>
 		/// </summary>
 		public static readonly BindableProperty UriProperty =
-			BindableProperty.Create("Uri", typeof(string), typeof(ViewClaimThingViewModel), default(string));
+			BindableProperty.Create(nameof(Uri), typeof(string), typeof(ViewClaimThingViewModel), default(string));
 
 		/// <summary>
 		/// iotdisco URI to process
@@ -126,7 +126,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// See <see cref="CanClaimThing"/>
 		/// </summary>
 		public static readonly BindableProperty CanClaimThingProperty =
-			BindableProperty.Create("CanClaimThing", typeof(bool), typeof(ViewClaimThingViewModel), default(bool));
+			BindableProperty.Create(nameof(CanClaimThing), typeof(bool), typeof(ViewClaimThingViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether a user can claim a thing.
@@ -140,7 +140,7 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// See <see cref="MakePublic"/>
 		/// </summary>
 		public static readonly BindableProperty MakePublicProperty =
-			BindableProperty.Create("MakePublic", typeof(bool), typeof(ViewClaimThingViewModel), default(bool));
+			BindableProperty.Create(nameof(MakePublic), typeof(bool), typeof(ViewClaimThingViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether a user can claim a thing.

@@ -37,7 +37,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// See <see cref="Provider"/>
         /// </summary>
         public static readonly BindableProperty ProviderProperty =
-            BindableProperty.Create("Provider", typeof(string), typeof(ServerSignatureViewModel), default(string));
+            BindableProperty.Create(nameof(Provider), typeof(string), typeof(ServerSignatureViewModel), default(string));
 
         /// <summary>
         /// The provider of the server signature contract.
@@ -52,7 +52,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// See <see cref="Timestamp"/>
         /// </summary>
         public static readonly BindableProperty TimestampProperty =
-            BindableProperty.Create("Timestamp", typeof(string), typeof(ServerSignatureViewModel), default(string));
+            BindableProperty.Create(nameof(Timestamp), typeof(string), typeof(ServerSignatureViewModel), default(string));
 
         /// <summary>
         /// The time stamp of the server signature contract.
@@ -67,7 +67,7 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// See <see cref="Signature"/>
         /// </summary>
         public static readonly BindableProperty SignatureProperty =
-            BindableProperty.Create("Signature", typeof(string), typeof(ServerSignatureViewModel), default(string));
+            BindableProperty.Create(nameof(Signature), typeof(string), typeof(ServerSignatureViewModel), default(string));
 
         /// <summary>
         /// The signature of the server signature contract.

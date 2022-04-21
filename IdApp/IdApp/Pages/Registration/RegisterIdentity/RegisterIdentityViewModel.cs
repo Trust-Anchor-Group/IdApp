@@ -122,7 +122,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="HasPhoto"/>
 		/// </summary>
 		public static readonly BindableProperty HasPhotoProperty =
-			BindableProperty.Create("HasPhoto", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(HasPhoto), typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the user has selected a photo for their account or not.
@@ -137,7 +137,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="HasPhoto"/>
 		/// </summary>
 		public static readonly BindableProperty ImageProperty =
-			BindableProperty.Create("Image", typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(RegisterIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
 				viewModel.HasPhoto = !(newValue is null);
@@ -156,7 +156,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// See <see cref="ImageRotation"/>
 		/// </summary>
 		public static readonly BindableProperty ImageRotationProperty =
-			BindableProperty.Create("ImageRotation", typeof(int), typeof(Main.Main.MainViewModel), default(int));
+			BindableProperty.Create(nameof(ImageRotation), typeof(int), typeof(Main.Main.MainViewModel), default(int));
 
 		/// <summary>
 		/// Gets or sets whether the current user has a photo associated with the account.
@@ -176,7 +176,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="HasPhoto"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedCountryProperty =
-			BindableProperty.Create("SelectedCountry", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(SelectedCountry), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
 				RegisterIdentityViewModel viewModel = (RegisterIdentityViewModel)b;
 				viewModel.RegisterCommand.ChangeCanExecute();
@@ -206,7 +206,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="FirstName"/>
 		/// </summary>
 		public static readonly BindableProperty FirstNameProperty =
-			BindableProperty.Create("FirstName", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+			BindableProperty.Create(nameof(FirstName), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The user's first name
@@ -221,7 +221,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="MiddleNames"/>
 		/// </summary>
 		public static readonly BindableProperty MiddleNamesProperty =
-			BindableProperty.Create("MiddleNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+			BindableProperty.Create(nameof(MiddleNames), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The user's middle name(s)
@@ -236,7 +236,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="LastNames"/>
 		/// </summary>
 		public static readonly BindableProperty LastNamesProperty =
-			BindableProperty.Create("LastNames", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+			BindableProperty.Create(nameof(LastNames), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The user's last name(s)
@@ -251,7 +251,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="PersonalNumber"/>
 		/// </summary>
 		public static readonly BindableProperty PersonalNumberProperty =
-			BindableProperty.Create("PersonalNumber", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+			BindableProperty.Create(nameof(PersonalNumber), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The user's personal number
@@ -266,7 +266,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="PersonalNumberPlaceholder"/>
 		/// </summary>
 		public static readonly BindableProperty PersonalNumberPlaceholderProperty =
-			BindableProperty.Create("PersonalNumberPlaceholder", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(PersonalNumberPlaceholder), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
 		/// The personal number placeholder, used as a guide to the user to enter the correct format, which depends on the <see cref="SelectedCountry"/>.
@@ -281,7 +281,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="Address"/>
 		/// </summary>
 		public static readonly BindableProperty AddressProperty =
-			BindableProperty.Create("Address", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+			BindableProperty.Create(nameof(Address), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The user's address, line 1.
@@ -296,7 +296,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="Address2"/>
 		/// </summary>
 		public static readonly BindableProperty Address2Property =
-			BindableProperty.Create("Address2", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Address2), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
 		/// The user's address, line 2.
@@ -311,7 +311,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="ZipCode"/>
 		/// </summary>
 		public static readonly BindableProperty ZipCodeProperty =
-			BindableProperty.Create("ZipCode", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+			BindableProperty.Create(nameof(ZipCode), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The user's zip code
@@ -326,7 +326,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="Area"/>
 		/// </summary>
 		public static readonly BindableProperty AreaProperty =
-			BindableProperty.Create("Area", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Area), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
 		/// The user's area
@@ -341,7 +341,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="City"/>
 		/// </summary>
 		public static readonly BindableProperty CityProperty =
-			BindableProperty.Create("City", typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
+			BindableProperty.Create(nameof(City), typeof(string), typeof(RegisterIdentityViewModel), default(string), propertyChanged: OnPropertyChanged);
 
 		/// <summary>
 		/// The user's city
@@ -356,7 +356,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="Region"/>
 		/// </summary>
 		public static readonly BindableProperty RegionProperty =
-			BindableProperty.Create("Region", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Region), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
 		/// The user's region
@@ -371,7 +371,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="DeviceId"/>
 		/// </summary>
 		public static readonly BindableProperty DeviceIdProperty =
-			BindableProperty.Create("DeviceId", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(DeviceId), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
 		/// The device id.
@@ -391,7 +391,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="HasPhoto"/>
 		/// </summary>
 		public static readonly BindableProperty IsConnectedProperty =
-			BindableProperty.Create("IsConnected", typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsConnected), typeof(bool), typeof(RegisterIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the app is connected to an XMPP server.
@@ -406,7 +406,7 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 		/// The <see cref="ConnectionStateText"/>
 		/// </summary>
 		public static readonly BindableProperty ConnectionStateTextProperty =
-			BindableProperty.Create("ConnectionStateText", typeof(string), typeof(RegisterIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(ConnectionStateText), typeof(string), typeof(RegisterIdentityViewModel), default(string));
 
 		/// <summary>
 		/// The user friendly connection state text to display to the user.

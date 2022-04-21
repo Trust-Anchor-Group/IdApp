@@ -137,7 +137,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="BareJid"/>
 		/// </summary>
 		public static readonly BindableProperty BareJidProperty =
-			BindableProperty.Create("BareJid", typeof(string), typeof(ChatViewModel), default(string));
+			BindableProperty.Create(nameof(BareJid), typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Bare JID of remote party
@@ -152,7 +152,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="LegalId"/>
 		/// </summary>
 		public static readonly BindableProperty LegalIdProperty =
-			BindableProperty.Create("LegalId", typeof(string), typeof(ChatViewModel), default(string));
+			BindableProperty.Create(nameof(LegalId), typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Bare JID of remote party
@@ -167,7 +167,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="FriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty FriendlyNameProperty =
-			BindableProperty.Create("FriendlyName", typeof(string), typeof(ChatViewModel), default(string));
+			BindableProperty.Create(nameof(FriendlyName), typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Friendly name of remote party
@@ -182,7 +182,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="MarkdownInput"/>
 		/// </summary>
 		public static readonly BindableProperty MarkdownInputProperty =
-			BindableProperty.Create("MarkdownInput", typeof(string), typeof(ChatViewModel), default(string));
+			BindableProperty.Create(nameof(MarkdownInput), typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Current Markdown input.
@@ -202,7 +202,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="MessageId"/>
 		/// </summary>
 		public static readonly BindableProperty MessageIdProperty =
-			BindableProperty.Create("MessageId", typeof(string), typeof(ChatViewModel), default(string));
+			BindableProperty.Create(nameof(MessageId), typeof(string), typeof(ChatViewModel), default(string));
 
 		/// <summary>
 		/// Current Markdown input.
@@ -222,7 +222,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="ExistsMoreMessages"/>
 		/// </summary>
 		public static readonly BindableProperty ExistsMoreMessagesProperty =
-			BindableProperty.Create("ExistsMoreMessages", typeof(bool), typeof(ChatViewModel), default(bool));
+			BindableProperty.Create(nameof(ExistsMoreMessages), typeof(bool), typeof(ChatViewModel), default(bool));
 
 		/// <summary>
 		/// Current Markdown input.
@@ -241,7 +241,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// <see cref="IsWriting"/>
 		/// </summary>
 		public static readonly BindableProperty IsWritingProperty =
-			BindableProperty.Create("IsWriting", typeof(bool), typeof(ChatViewModel), default(bool));
+			BindableProperty.Create(nameof(IsWriting), typeof(bool), typeof(ChatViewModel), default(bool));
 
 		/// <summary>
 		/// If the user is writing markdown.
