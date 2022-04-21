@@ -12110,6 +12110,11 @@
             rotate
             </summary>
         </member>
+        <member name="F:IdApp.Resx.FontAwesome.WandSparkles">
+            <summary>
+            wand-sparkles
+            </summary>
+        </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
             <inheritdoc cref="T:IdApp.Services.AttachmentCache.IAttachmentCacheService"/>
         </member>
