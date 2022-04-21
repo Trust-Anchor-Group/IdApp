@@ -12,7 +12,6 @@ using IdApp.Resx;
 using IdApp.Services;
 using Waher.Networking.XMPP;
 using Waher.Persistence;
-using Waher.Persistence.Filters;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contacts

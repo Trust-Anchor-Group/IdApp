@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using IdApp.Services;
 using IdApp.Services.EventLog;
-using IdApp.Services.Network;
 using IdApp.Services.Xmpp;
 using IdApp.Services.UI;
 using Waher.Networking.DNS;
