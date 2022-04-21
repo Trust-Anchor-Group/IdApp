@@ -190,12 +190,11 @@
                 </Frame>
 
                 <ScrollView Grid.Column="0" Grid.Row="1">
-                    <StackLayout Margin="{StaticResource DefaultMargin}" Spacing="16" x:Name="TokensLayout" IsVisible="{Binding Path=HasTokens}">
-                        <loading:LoadingListView HasUnevenRows="True" SeparatorVisibility="None" VerticalOptions="StartAndExpand"
-                                 ItemsSource="{Binding Path=Tokens}"
-                                 LoadMoreCommand="{Binding Path=LoadMoreTokensCommand}"
-                                 ItemSelectedCommand="{Binding Path=TokenSelectedCommand}">
-                            <loading:LoadingListView.ItemTemplate>
+                    <StackLayout Margin="{StaticResource DefaultMargin}" Spacing="16">
+                        <StackLayout x:Name="TokensLayout" IsVisible="{Binding Path=HasTokens}"
+                             Spacing="16" Orientation="Vertical" VerticalOptions="Start"
+                             BindableLayout.ItemsSource="{Binding Path=Tokens}">
+                            <BindableLayout.ItemTemplate>
                                 <DataTemplate x:DataType="objectmodel:TokenItem">
                                     <Grid ColumnDefinitions="2*,*,*" RowDefinitions="auto">
                                         <Label Grid.Column="0" Grid.Row="0" Text="{Binding Path=FriendlyName}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation" FontAttributes="Bold" FontSize="18"/>
@@ -203,8 +202,8 @@
                                         <Label Grid.Column="2" Grid.Row="0" Text="{Binding Path=Currency}" Style="{StaticResource KeyLabel}" LineBreakMode="TailTruncation"/>
                                     </Grid>
                                 </DataTemplate>
-                            </loading:LoadingListView.ItemTemplate>
-                        </loading:LoadingListView>
+                            </BindableLayout.ItemTemplate>
+                        </StackLayout>
                     </StackLayout>
                 </ScrollView>
 
