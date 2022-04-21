@@ -155,5 +155,10 @@
         /// rotate
         /// </summary>
         public const string Rotate = "\uf2f1";
+
+        /// <summary>
+        /// wand-sparkles
+        /// </summary>
+        public const string WandSparkles = "\uf72b";
     }
 }
