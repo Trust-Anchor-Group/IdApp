@@ -9184,16 +9184,6 @@
             Content-Type of glyph
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth">
-            <summary>
-            Width of glyph
-            </summary>
-        </member>
-        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight">
-            <summary>
-            Height of glyph
-            </summary>
-        </member>
         <member name="P:IdApp.Pages.Wallet.TokenItem.Ordinal">
             <summary>
             Ordinal of token, within batch.
@@ -9312,6 +9302,46 @@
         <member name="P:IdApp.Pages.Wallet.TokenItem.Tags">
             <summary>
             Any custom Token Tags provided during creation of the token.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphImage">
+            <summary>
+            Gets or sets the image representing the glyph.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.HasGlyphImageProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.HasGlyphImage"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.HasGlyphImage">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphWidthProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphWidth">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.TokenItem.GlyphHeightProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenItem.GlyphHeight">
+            <summary>
+            Gets or sets the value representing of a glyph is available or not.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.TokenTotalItem">
