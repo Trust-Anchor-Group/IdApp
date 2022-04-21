@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using Waher.Content;
 using Waher.Content.Xml;
+using Waher.Events;
 using Waher.Script;
 
 namespace IdApp.Services.Data.PersonalNumbers
@@ -85,8 +86,9 @@ namespace IdApp.Services.Data.PersonalNumbers
 					}
 				}
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				Log.Critical(ex);
 			}
 		}
 

@@ -775,8 +775,9 @@ namespace IdApp.Pages.Registration.RegisterIdentity
 
 				return SkBitmap.Encode(SKEncodedImageFormat.Jpeg, 80);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				this.LogService.LogException(ex);
 			}
 
 			return null;
