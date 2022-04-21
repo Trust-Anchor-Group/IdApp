@@ -43,7 +43,7 @@ namespace IdApp.Pages.Main.Loading
 		/// See <see cref="DisplayConnectionText"/>
 		/// </summary>
 		public static readonly BindableProperty DisplayConnectionTextProperty =
-			BindableProperty.Create("DisplayConnectionText", typeof(bool), typeof(LoadingViewModel), default(bool));
+			BindableProperty.Create(nameof(DisplayConnectionText), typeof(bool), typeof(LoadingViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the user friendly connection text should be visible on screen or not.

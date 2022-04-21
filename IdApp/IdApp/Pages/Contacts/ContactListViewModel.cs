@@ -12,7 +12,6 @@ using IdApp.Resx;
 using IdApp.Services;
 using Waher.Networking.XMPP;
 using Waher.Persistence;
-using Waher.Persistence.Filters;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Contacts
@@ -125,7 +124,7 @@ namespace IdApp.Pages.Contacts
 		/// See <see cref="ShowContactsMissing"/>
 		/// </summary>
 		public static readonly BindableProperty ShowContactsMissingProperty =
-			BindableProperty.Create("ShowContactsMissing", typeof(bool), typeof(ContactListViewModel), default(bool));
+			BindableProperty.Create(nameof(ShowContactsMissing), typeof(bool), typeof(ContactListViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether to show a contacts missing alert or not.
@@ -140,7 +139,7 @@ namespace IdApp.Pages.Contacts
 		/// <see cref="Description"/>
 		/// </summary>
 		public static readonly BindableProperty DescriptionProperty =
-			BindableProperty.Create("Description", typeof(string), typeof(ContactListViewModel), default(string));
+			BindableProperty.Create(nameof(Description), typeof(string), typeof(ContactListViewModel), default(string));
 
 		/// <summary>
 		/// The description to present to the user.
@@ -155,7 +154,7 @@ namespace IdApp.Pages.Contacts
 		/// <see cref="Action"/>
 		/// </summary>
 		public static readonly BindableProperty ActionProperty =
-			BindableProperty.Create("Action", typeof(SelectContactAction), typeof(ContactListViewModel), default(SelectContactAction));
+			BindableProperty.Create(nameof(Action), typeof(SelectContactAction), typeof(ContactListViewModel), default(SelectContactAction));
 
 		/// <summary>
 		/// The action to take when contact has been selected.
@@ -175,7 +174,7 @@ namespace IdApp.Pages.Contacts
 		/// See <see cref="SelectedContact"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContactProperty =
-			BindableProperty.Create("SelectedContact", typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo),
+			BindableProperty.Create(nameof(SelectedContact), typeof(ContactInfo), typeof(ContactListViewModel), default(ContactInfo),
 				propertyChanged: (b, oldValue, newValue) =>
 				{
 					if (b is ContactListViewModel viewModel && newValue is ContactInfo Contact)

@@ -67,7 +67,7 @@ namespace IdApp.Pages.Registration.Registration
         /// See <see cref="CanGoBack"/>
         /// </summary>
         public static readonly BindableProperty CanGoBackProperty =
-            BindableProperty.Create("CanGoBack", typeof(bool), typeof(RegistrationViewModel), default(bool));
+            BindableProperty.Create(nameof(CanGoBack), typeof(bool), typeof(RegistrationViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether navigation back to the previous registration step can be performed.
@@ -82,7 +82,7 @@ namespace IdApp.Pages.Registration.Registration
         /// See <see cref="CurrentStep"/>
         /// </summary>
         public static readonly BindableProperty CurrentStepProperty =
-            BindableProperty.Create("CurrentStep", typeof(int), typeof(RegistrationViewModel), default(int), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(CurrentStep), typeof(int), typeof(RegistrationViewModel), default(int), propertyChanged: (b, oldValue, newValue) =>
             {
                 RegistrationViewModel viewModel = (RegistrationViewModel)b;
                 viewModel.UpdateStepTitle();
@@ -108,7 +108,7 @@ namespace IdApp.Pages.Registration.Registration
         /// See <see cref="CurrentStep"/>
         /// </summary>
         public static readonly BindableProperty CurrentStepTitleProperty =
-            BindableProperty.Create("CurrentStepTitle", typeof(string), typeof(RegistrationViewModel), default(string));
+            BindableProperty.Create(nameof(CurrentStepTitle), typeof(string), typeof(RegistrationViewModel), default(string));
 
         /// <summary>
         /// The title of the current step. Displayed in the UI.

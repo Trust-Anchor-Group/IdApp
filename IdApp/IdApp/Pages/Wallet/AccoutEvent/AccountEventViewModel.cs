@@ -88,7 +88,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="Change"/>
 		/// </summary>
 		public static readonly BindableProperty ChangeProperty =
-			BindableProperty.Create("Change", typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
+			BindableProperty.Create(nameof(Change), typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
 
 		/// <summary>
 		/// Change of eDaler
@@ -103,7 +103,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="ChangeColor"/>
 		/// </summary>
 		public static readonly BindableProperty ChangeColorProperty =
-			BindableProperty.Create("ChangeColor", typeof(Color), typeof(EDalerUriViewModel), default(Color));
+			BindableProperty.Create(nameof(ChangeColor), typeof(Color), typeof(EDalerUriViewModel), default(Color));
 
 		/// <summary>
 		/// Color of <see cref="Change"/> field.
@@ -118,7 +118,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="ChangeText"/>
 		/// </summary>
 		public static readonly BindableProperty ChangeTextProperty =
-			BindableProperty.Create("ChangeText", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(ChangeText), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="Change"/> as text.
@@ -133,7 +133,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="ChangeAndCurrency"/>
 		/// </summary>
 		public static readonly BindableProperty ChangeAndCurrencyProperty =
-			BindableProperty.Create("ChangeAndCurrency", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(ChangeAndCurrency), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="ChangeText"/> and <see cref="Currency"/>.
@@ -148,7 +148,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="Balance"/>
 		/// </summary>
 		public static readonly BindableProperty BalanceProperty =
-			BindableProperty.Create("Balance", typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
+			BindableProperty.Create(nameof(Balance), typeof(decimal), typeof(EDalerUriViewModel), default(decimal));
 
 		/// <summary>
 		/// Balance of eDaler
@@ -163,7 +163,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="BalanceText"/>
 		/// </summary>
 		public static readonly BindableProperty BalanceTextProperty =
-			BindableProperty.Create("BalanceText", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(BalanceText), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="Balance"/> as text.
@@ -178,7 +178,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="BalanceAndCurrency"/>
 		/// </summary>
 		public static readonly BindableProperty BalanceAndCurrencyProperty =
-			BindableProperty.Create("BalanceAndCurrency", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(BalanceAndCurrency), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="BalanceText"/> and <see cref="Currency"/>.
@@ -193,7 +193,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="Currency"/>
 		/// </summary>
 		public static readonly BindableProperty CurrencyProperty =
-			BindableProperty.Create("Currency", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(Currency), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Currency of eDaler to process
@@ -208,7 +208,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="Timestamp"/>
 		/// </summary>
 		public static readonly BindableProperty TimestampProperty =
-			BindableProperty.Create("Timestamp", typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
+			BindableProperty.Create(nameof(Timestamp), typeof(DateTime), typeof(EDalerUriViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code was created.
@@ -223,7 +223,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="TimestampStr"/>
 		/// </summary>
 		public static readonly BindableProperty TimestampStrProperty =
-			BindableProperty.Create("TimestampStr", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(TimestampStr), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// When code expires
@@ -238,7 +238,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="Id"/>
 		/// </summary>
 		public static readonly BindableProperty IdProperty =
-			BindableProperty.Create("Id", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(Id), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Globally unique identifier of code
@@ -253,7 +253,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="Remote"/>
 		/// </summary>
 		public static readonly BindableProperty RemoteProperty =
-			BindableProperty.Create("Remote", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(Remote), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Remote who eDaler is to be transferred
@@ -268,7 +268,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="FriendlyName"/>
 		/// </summary>
 		public static readonly BindableProperty FriendlyNameProperty =
-			BindableProperty.Create("FriendlyName", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(FriendlyName), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// FriendlyName who eDaler is to be transferred
@@ -283,7 +283,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="Message"/>
 		/// </summary>
 		public static readonly BindableProperty MessageProperty =
-			BindableProperty.Create("Message", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(Message), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// Message to recipient
@@ -298,7 +298,7 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// See <see cref="HasMessage"/>
 		/// </summary>
 		public static readonly BindableProperty HasMessageProperty =
-			BindableProperty.Create("HasMessage", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(HasMessage), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If a message is defined

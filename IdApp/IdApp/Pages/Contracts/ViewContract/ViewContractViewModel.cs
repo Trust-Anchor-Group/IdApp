@@ -99,7 +99,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="Role"/>
 		/// </summary>
 		public static readonly BindableProperty RoleProperty =
-			BindableProperty.Create("Role", typeof(string), typeof(ViewContractViewModel), default(string));
+			BindableProperty.Create(nameof(Role), typeof(string), typeof(ViewContractViewModel), default(string));
 
 		/// <summary>
 		/// Contains proposed role, if a proposal, null if not a proposal.
@@ -114,7 +114,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="IsProposal"/>
 		/// </summary>
 		public static readonly BindableProperty IsProposalProperty =
-			BindableProperty.Create("IsProposal", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(IsProposal), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// If the view represents a proposal to sign a contract.
@@ -129,7 +129,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="Proposal"/>
 		/// </summary>
 		public static readonly BindableProperty ProposalProperty =
-			BindableProperty.Create("Proposal", typeof(string), typeof(ViewContractViewModel), default(string));
+			BindableProperty.Create(nameof(Proposal), typeof(string), typeof(ViewContractViewModel), default(string));
 
 		/// <summary>
 		/// If the contract is a proposal
@@ -149,7 +149,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="Roles"/>
 		/// </summary>
 		public static readonly BindableProperty RolesProperty =
-			BindableProperty.Create("Roles", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(Roles), typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's roles.
@@ -164,7 +164,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="Parts"/>
 		/// </summary>
 		public static readonly BindableProperty PartsProperty =
-			BindableProperty.Create("Parts", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(Parts), typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's parts.
@@ -179,7 +179,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="Parameters"/>
 		/// </summary>
 		public static readonly BindableProperty ParametersProperty =
-			BindableProperty.Create("Parameters", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(Parameters), typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's parameters.
@@ -194,7 +194,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HumanReadableText"/>
 		/// </summary>
 		public static readonly BindableProperty HumanReadableTextProperty =
-			BindableProperty.Create("HumanReadableText", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(HumanReadableText), typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's human readable text section.
@@ -209,7 +209,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="MachineReadableText"/>
 		/// </summary>
 		public static readonly BindableProperty MachineReadableTextProperty =
-			BindableProperty.Create("MachineReadableText", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(MachineReadableText), typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's machine readable text section.
@@ -224,7 +224,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="ClientSignatures"/>
 		/// </summary>
 		public static readonly BindableProperty ClientSignaturesProperty =
-			BindableProperty.Create("ClientSignatures", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(ClientSignatures), typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's client signatures.
@@ -239,7 +239,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="ServerSignatures"/>
 		/// </summary>
 		public static readonly BindableProperty ServerSignaturesProperty =
-			BindableProperty.Create("ServerSignatures", typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
+			BindableProperty.Create(nameof(ServerSignatures), typeof(StackLayout), typeof(ViewContractViewModel), default(StackLayout));
 
 		/// <summary>
 		/// Holds Xaml code for visually representing a contract's server signatures.
@@ -264,7 +264,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasPhotos"/>
 		/// </summary>
 		public static readonly BindableProperty HasPhotosProperty =
-			BindableProperty.Create("HasPhotos", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasPhotos), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether photos are available.
@@ -279,7 +279,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasRoles"/>
 		/// </summary>
 		public static readonly BindableProperty HasRolesProperty =
-			BindableProperty.Create("HasRoles", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasRoles), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has any roles to display.
@@ -294,7 +294,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasParts"/>
 		/// </summary>
 		public static readonly BindableProperty HasPartsProperty =
-			BindableProperty.Create("HasParts", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasParts), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has any contract parts to display.
@@ -309,7 +309,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasParameters"/>
 		/// </summary>
 		public static readonly BindableProperty HasParametersProperty =
-			BindableProperty.Create("HasParameters", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasParameters), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has any parameters to display.
@@ -324,7 +324,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasHumanReadableText"/>
 		/// </summary>
 		public static readonly BindableProperty HasHumanReadableTextProperty =
-			BindableProperty.Create("HasHumanReadableText", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasHumanReadableText), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has any human readable texts to display.
@@ -339,7 +339,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasMachineReadableText"/>
 		/// </summary>
 		public static readonly BindableProperty HasMachineReadableTextProperty =
-			BindableProperty.Create("HasMachineReadableText", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasMachineReadableText), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has any machine readable texts to display.
@@ -354,7 +354,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasClientSignatures"/>
 		/// </summary>
 		public static readonly BindableProperty HasClientSignaturesProperty =
-			BindableProperty.Create("HasClientSignatures", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasClientSignatures), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has any client signatures to display.
@@ -369,7 +369,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasServerSignatures"/>
 		/// </summary>
 		public static readonly BindableProperty HasServerSignaturesProperty =
-			BindableProperty.Create("HasServerSignatures", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasServerSignatures), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has any server signatures to display.
@@ -384,7 +384,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="QrCode"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create("QrCode", typeof(ImageSource), typeof(ViewContractViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(ViewContractViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				ViewContractViewModel viewModel = (ViewContractViewModel)b;
 				viewModel.HasQrCode = !(newValue is null);
@@ -403,7 +403,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="HasQrCode"/>
 		/// </summary>
 		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create("HasQrCode", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the contract has a QR Code image for display.
@@ -418,7 +418,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="QrCodeWidth"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create("QrCodeWidth", typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageWidth);
+			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageWidth);
 
 		/// <summary>
 		/// Gets or sets the width in pixels of the generated QR code image.
@@ -433,7 +433,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="QrCodeHeight"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create("QrCodeHeight", typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageHeight);
+			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(ViewContractViewModel), UiConstants.QrCode.DefaultImageHeight);
 
 		/// <summary>
 		/// Gets or sets the height in pixels of the generated QR code image.
@@ -448,7 +448,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="CanDeleteContract"/>
 		/// </summary>
 		public static readonly BindableProperty CanDeleteContractProperty =
-			BindableProperty.Create("CanDeleteContract", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(CanDeleteContract), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether a user can delete or obsolete a contract.
@@ -463,7 +463,7 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// See <see cref="CanObsoleteContract"/>
 		/// </summary>
 		public static readonly BindableProperty CanObsoleteContractProperty =
-			BindableProperty.Create("CanObsoleteContract", typeof(bool), typeof(ViewContractViewModel), default(bool));
+			BindableProperty.Create(nameof(CanObsoleteContract), typeof(bool), typeof(ViewContractViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether a user can delete or obsolete a contract.

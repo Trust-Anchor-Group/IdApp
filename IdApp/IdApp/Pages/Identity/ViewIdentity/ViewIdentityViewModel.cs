@@ -377,7 +377,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Created"/>
 		/// </summary>
 		public static readonly BindableProperty CreatedProperty =
-			BindableProperty.Create("Created", typeof(DateTime), typeof(ViewIdentityViewModel), default(DateTime));
+			BindableProperty.Create(nameof(Created), typeof(DateTime), typeof(ViewIdentityViewModel), default(DateTime));
 
 		/// <summary>
 		/// Created time stamp of the identity
@@ -392,7 +392,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Updated"/>
 		/// </summary>
 		public static readonly BindableProperty UpdatedProperty =
-			BindableProperty.Create("Updated", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
+			BindableProperty.Create(nameof(Updated), typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
 
 		/// <summary>
 		/// Updated time stamp of the identity
@@ -407,7 +407,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="LegalId"/>
 		/// </summary>
 		public static readonly BindableProperty LegalIdProperty =
-			BindableProperty.Create("LegalId", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(LegalId), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Legal id of the identity
@@ -427,7 +427,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="BareJid"/>
 		/// </summary>
 		public static readonly BindableProperty BareJidProperty =
-			BindableProperty.Create("BareJid", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(BareJid), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Bare Jid of the identity
@@ -442,7 +442,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="PublicKey"/>
 		/// </summary>
 		public static readonly BindableProperty PublicKeyProperty =
-			BindableProperty.Create("PublicKey", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(PublicKey), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Public key of the identity's signature.
@@ -457,7 +457,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="State"/>
 		/// </summary>
 		public static readonly BindableProperty StateProperty =
-			BindableProperty.Create("State", typeof(IdentityState), typeof(ViewIdentityViewModel), default(IdentityState));
+			BindableProperty.Create(nameof(State), typeof(IdentityState), typeof(ViewIdentityViewModel), default(IdentityState));
 
 		/// <summary>
 		/// Current state of the identity
@@ -472,7 +472,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="From"/>
 		/// </summary>
 		public static readonly BindableProperty FromProperty =
-			BindableProperty.Create("From", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
+			BindableProperty.Create(nameof(From), typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
 
 		/// <summary>
 		/// From date (validity range) of the identity
@@ -487,7 +487,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="To"/>
 		/// </summary>
 		public static readonly BindableProperty ToProperty =
-			BindableProperty.Create("To", typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
+			BindableProperty.Create(nameof(To), typeof(DateTime?), typeof(ViewIdentityViewModel), default(DateTime?));
 
 		/// <summary>
 		/// To date (validity range) of the identity
@@ -502,7 +502,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="FirstName"/>
 		/// </summary>
 		public static readonly BindableProperty FirstNameProperty =
-			BindableProperty.Create("FirstName", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(FirstName), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// First name of the identity
@@ -517,7 +517,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="MiddleNames"/>
 		/// </summary>
 		public static readonly BindableProperty MiddleNamesProperty =
-			BindableProperty.Create("MiddleNames", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(MiddleNames), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Middle name(s) of the identity
@@ -532,7 +532,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="LastNames"/>
 		/// </summary>
 		public static readonly BindableProperty LastNamesProperty =
-			BindableProperty.Create("LastNames", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(LastNames), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Last name(s) of the identity
@@ -547,7 +547,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="PersonalNumber"/>
 		/// </summary>
 		public static readonly BindableProperty PersonalNumberProperty =
-			BindableProperty.Create("PersonalNumber", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(PersonalNumber), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Personal number of the identity
@@ -562,7 +562,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Address"/>
 		/// </summary>
 		public static readonly BindableProperty AddressProperty =
-			BindableProperty.Create("Address", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Address), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Address of the identity
@@ -577,7 +577,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Address2"/>
 		/// </summary>
 		public static readonly BindableProperty Address2Property =
-			BindableProperty.Create("Address2", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Address2), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Address (line 2) of the identity
@@ -592,7 +592,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="ZipCode"/>
 		/// </summary>
 		public static readonly BindableProperty ZipCodeProperty =
-			BindableProperty.Create("ZipCode", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(ZipCode), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Zip code of the identity
@@ -607,7 +607,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Area"/>
 		/// </summary>
 		public static readonly BindableProperty AreaProperty =
-			BindableProperty.Create("Area", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Area), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Area of the identity
@@ -622,7 +622,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="City"/>
 		/// </summary>
 		public static readonly BindableProperty CityProperty =
-			BindableProperty.Create("City", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(City), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// City of the identity
@@ -637,7 +637,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Region"/>
 		/// </summary>
 		public static readonly BindableProperty RegionProperty =
-			BindableProperty.Create("Region", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Region), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Region of the identity
@@ -652,7 +652,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Country"/>
 		/// </summary>
 		public static readonly BindableProperty CountryProperty =
-			BindableProperty.Create("Country", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(Country), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Country of the identity
@@ -667,7 +667,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="CountryCode"/>
 		/// </summary>
 		public static readonly BindableProperty CountryCodeProperty =
-			BindableProperty.Create("CountryCode", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(CountryCode), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Country code of the identity
@@ -682,7 +682,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="PhoneNr"/>
 		/// </summary>
 		public static readonly BindableProperty PhoneNrProperty =
-			BindableProperty.Create("PhoneNr", typeof(string), typeof(ViewIdentityViewModel), default(string));
+			BindableProperty.Create(nameof(PhoneNr), typeof(string), typeof(ViewIdentityViewModel), default(string));
 
 		/// <summary>
 		/// Country code of the identity
@@ -697,13 +697,13 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsApproved"/>
 		/// </summary>
 		public static readonly BindableProperty IsApprovedProperty =
-			BindableProperty.Create("IsApproved", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// See <see cref="QrCodeProperty"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create("QrCode", typeof(ImageSource), typeof(ViewIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(ViewIdentityViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				ViewIdentityViewModel viewModel = (ViewIdentityViewModel)b;
 				viewModel.HasQrCode = !(newValue is null);
@@ -722,7 +722,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="HasQrCode"/>
 		/// </summary>
 		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create("HasQrCode", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Determines whether there's a generated <see cref="QrCode"/> image for this identity.
@@ -737,7 +737,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="QrCodeWidth"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create("QrCodeWidth", typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageWidth);
+			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageWidth);
 
 		/// <summary>
 		/// Gets or sets the width, in pixels, of the QR Code image to generate.
@@ -752,7 +752,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="QrCodeHeight"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create("QrCodeHeight", typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageHeight);
+			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(ViewIdentityViewModel), UiConstants.QrCode.DefaultImageHeight);
 
 		/// <summary>
 		/// Gets or sets the height, in pixels, of the QR Code image to generate.
@@ -776,7 +776,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsCreated"/>
 		/// </summary>
 		public static readonly BindableProperty IsCreatedProperty =
-			BindableProperty.Create("IsCreated", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsCreated), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets created state of the identity, i.e. if it has been created or not.
@@ -791,7 +791,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReview"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewProperty =
-			BindableProperty.Create("IsForReview", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReview), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsNotForReview"/>.
@@ -806,7 +806,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsNotForReview"/>
 		/// </summary>
 		public static readonly BindableProperty IsNotForReviewProperty =
-			BindableProperty.Create("IsNotForReview", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsNotForReview), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
@@ -821,7 +821,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="ThirdParty"/>
 		/// </summary>
 		public static readonly BindableProperty ThirdPartyProperty =
-			BindableProperty.Create("ThirdParty", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(ThirdParty), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
@@ -836,7 +836,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="ThirdPartyInContacts"/>
 		/// </summary>
 		public static readonly BindableProperty ThirdPartyInContactsProperty =
-			BindableProperty.Create("ThirdPartyInContacts", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(ThirdPartyInContacts), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
@@ -851,7 +851,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="ThirdPartyNotInContacts"/>
 		/// </summary>
 		public static readonly BindableProperty ThirdPartyNotInContactsProperty =
-			BindableProperty.Create("ThirdPartyNotInContacts", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(ThirdPartyNotInContacts), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
@@ -866,7 +866,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsPersonal"/>
 		/// </summary>
 		public static readonly BindableProperty IsPersonalProperty =
-			BindableProperty.Create("IsPersonal", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsPersonal), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is a personal identity.
@@ -881,7 +881,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="Subscribed"/>
 		/// </summary>
 		public static readonly BindableProperty SubscribedProperty =
-			BindableProperty.Create("Subscribed", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(Subscribed), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
@@ -896,7 +896,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="NotSubscribed"/>
 		/// </summary>
 		public static readonly BindableProperty NotSubscribedProperty =
-			BindableProperty.Create("NotSubscribed", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(NotSubscribed), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the identity is for review or not. This property has its inverse in <see cref="IsForReview"/>.
@@ -911,7 +911,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="FirstNameIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty FirstNameIsCheckedProperty =
-			BindableProperty.Create("FirstNameIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(FirstNameIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="FirstName"/> property is checked (when being reviewed)
@@ -926,7 +926,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="MiddleNamesIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty MiddleNamesIsCheckedProperty =
-			BindableProperty.Create("MiddleNamesIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(MiddleNamesIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="MiddleNames"/> property is checked (when being reviewed)
@@ -941,7 +941,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="LastNamesIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty LastNamesIsCheckedProperty =
-			BindableProperty.Create("LastNamesIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(LastNamesIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="LastNames"/> property is checked (when being reviewed)
@@ -956,7 +956,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="PersonalNumberIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty PersonalNumberIsCheckedProperty =
-			BindableProperty.Create("PersonalNumberIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(PersonalNumberIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="PersonalNumber"/> property is checked (when being reviewed)
@@ -971,7 +971,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="AddressIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty AddressIsCheckedProperty =
-			BindableProperty.Create("AddressIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(AddressIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Address"/> property is checked (when being reviewed)
@@ -986,7 +986,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="AddressIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty Address2IsCheckedProperty =
-			BindableProperty.Create("Address2IsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(Address2IsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Address2"/> property is checked (when being reviewed)
@@ -1001,7 +1001,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="ZipCodeIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty ZipCodeIsCheckedProperty =
-			BindableProperty.Create("ZipCodeIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(ZipCodeIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="ZipCode"/> property is checked (when being reviewed)
@@ -1016,7 +1016,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="AreaIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty AreaIsCheckedProperty =
-			BindableProperty.Create("AreaIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(AreaIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Area"/> property is checked (when being reviewed)
@@ -1031,7 +1031,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="CityIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty CityIsCheckedProperty =
-			BindableProperty.Create("CityIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(CityIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="City"/> property is checked (when being reviewed)
@@ -1046,7 +1046,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="RegionIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty RegionIsCheckedProperty =
-			BindableProperty.Create("RegionIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(RegionIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Region"/> property is checked (when being reviewed)
@@ -1061,7 +1061,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="CountryCodeIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty CountryCodeIsCheckedProperty =
-			BindableProperty.Create("CountryCodeIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(CountryCodeIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="CountryCode"/> property is checked (when being reviewed)
@@ -1076,7 +1076,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="CarefulReviewIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty CarefulReviewIsCheckedProperty =
-			BindableProperty.Create("CarefulReviewIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(CarefulReviewIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the Careful Review property is checked (when being reviewed)
@@ -1091,7 +1091,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="ApprovePiiIsChecked"/>
 		/// </summary>
 		public static readonly BindableProperty ApprovePiiIsCheckedProperty =
-			BindableProperty.Create("ApprovePiiIsChecked", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(ApprovePiiIsChecked), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the ApprovePii property is checked (when being reviewed)
@@ -1106,7 +1106,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewFirstName"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewFirstNameProperty =
-			BindableProperty.Create("IsForReviewFirstName", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewFirstName), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="FirstName"/> property is for review.
@@ -1121,7 +1121,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewMiddleNames"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewMiddleNamesProperty =
-			BindableProperty.Create("IsForReviewMiddleNames", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewMiddleNames), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="MiddleNames"/> property is for review.
@@ -1136,7 +1136,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewLastNames"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewLastNamesProperty =
-			BindableProperty.Create("IsForReviewLastNames", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewLastNames), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="LastNames"/> property is for review.
@@ -1151,7 +1151,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewPersonalNumber"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewPersonalNumberProperty =
-			BindableProperty.Create("IsForReviewPersonalNumber", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewPersonalNumber), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="PersonalNumber"/> property is for review.
@@ -1166,7 +1166,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewAddress"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewAddressProperty =
-			BindableProperty.Create("IsForReviewAddress", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewAddress), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Address"/> property is for review.
@@ -1181,7 +1181,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewAddress2"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewAddress2Property =
-			BindableProperty.Create("IsForReviewAddress2", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewAddress2), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Address2"/> property is for review.
@@ -1196,7 +1196,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewCity"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewCityProperty =
-			BindableProperty.Create("IsForReviewCity", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewCity), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="City"/> property is for review.
@@ -1211,7 +1211,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewZipCode"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewZipCodeProperty =
-			BindableProperty.Create("IsForReviewZipCode", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewZipCode), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="ZipCode"/> property is for review.
@@ -1226,7 +1226,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewArea"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewAreaProperty =
-			BindableProperty.Create("IsForReviewArea", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewArea), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Area"/> property is for review.
@@ -1241,7 +1241,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewRegion"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewRegionProperty =
-			BindableProperty.Create("IsForReviewRegion", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewRegion), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Region"/> property is for review.
@@ -1256,7 +1256,7 @@ namespace IdApp.Pages.Identity.ViewIdentity
 		/// See <see cref="IsForReviewCountry"/>
 		/// </summary>
 		public static readonly BindableProperty IsForReviewCountryProperty =
-			BindableProperty.Create("IsForReviewCountry", typeof(bool), typeof(ViewIdentityViewModel), default(bool));
+			BindableProperty.Create(nameof(IsForReviewCountry), typeof(bool), typeof(ViewIdentityViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the <see cref="Country"/> property is for review.

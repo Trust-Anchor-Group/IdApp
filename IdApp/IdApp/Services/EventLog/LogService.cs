@@ -10,124 +10,124 @@ using Xamarin.Forms;
 
 namespace IdApp.Services.EventLog
 {
-    [Singleton]
-    internal sealed class LogService : ILogService
-    {
-        private const string StartupCrashFileName = "CrashDump.txt";
-        private string bareJid = string.Empty;
+	[Singleton]
+	internal sealed class LogService : ILogService
+	{
+		private const string StartupCrashFileName = "CrashDump.txt";
+		private string bareJid = string.Empty;
 
-        public void AddListener(IEventSink eventSink)
-        {
-            if (eventSink is XmppEventSink xmppEventSink)
-                this.bareJid = xmppEventSink.Client?.BareJID;
-            
-            foreach (IEventSink Sink in Log.Sinks)
+		public void AddListener(IEventSink eventSink)
+		{
+			if (eventSink is XmppEventSink xmppEventSink)
+				this.bareJid = xmppEventSink.Client?.BareJID;
+
+			foreach (IEventSink Sink in Log.Sinks)
 			{
-                if (Sink == eventSink)
-                    return;
+				if (Sink == eventSink)
+					return;
 			}
 
-            Log.Register(eventSink);
-        }
+			Log.Register(eventSink);
+		}
 
-        public void RemoveListener(IEventSink eventSink)
-        {
-            if (!(eventSink is null))
-                Log.Unregister(eventSink);
-        }
+		public void RemoveListener(IEventSink eventSink)
+		{
+			if (!(eventSink is null))
+				Log.Unregister(eventSink);
+		}
 
-        public void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters)
-        {
+		public void LogException(Exception e, params KeyValuePair<string, string>[] extraParameters)
+		{
 			e = Log.UnnestException(e);
 
-            var parameters = GetParameters();
-        
-            if (!(extraParameters is null) && extraParameters.Length > 0)
-            {
-                foreach (var extraParameter in extraParameters)
-                    parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
-            }
+			IList<KeyValuePair<string, string>> parameters = GetParameters();
 
-            Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
-        }
+			if (!(extraParameters is null) && extraParameters.Length > 0)
+			{
+				foreach (KeyValuePair<string, string> extraParameter in extraParameters)
+					parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
+			}
 
-        public void LogWarning(string format, params object[] args)
-        {
-            string message = string.Format(format, args);
-            var parameters = GetParameters();
-            
-            Log.Warning(message, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
-        }
+			Log.Critical(e, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+		}
 
-        public void LogException(Exception e)
-        {
-            LogException(e, null);
-        }
+		public void LogWarning(string format, params object[] args)
+		{
+			string message = string.Format(format, args);
+			IList<KeyValuePair<string, string>> parameters = GetParameters();
 
-        public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
-        {
-            var parameters = GetParameters();
-            if (!(extraParameters is null) && extraParameters.Length > 0)
-            {
-                foreach (var extraParameter in extraParameters)
-                    parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
-            }
+			Log.Warning(message, string.Empty, this.bareJid, parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray());
+		}
 
-            var tags = parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray();
-            Log.Event(new Event(DateTime.UtcNow, EventType.Informational, name, string.Empty, this.bareJid, string.Empty, EventLevel.Medium, string.Empty, string.Empty, string.Empty, tags));
-        }
+		public void LogException(Exception e)
+		{
+			LogException(e, null);
+		}
 
-        public void SaveExceptionDump(string title, string stackTrace)
-        {
-            stackTrace = Log.CleanStackTrace(stackTrace);
+		public void LogEvent(string name, params KeyValuePair<string, string>[] extraParameters)
+		{
+			IList<KeyValuePair<string, string>> parameters = GetParameters();
+			if (!(extraParameters is null) && extraParameters.Length > 0)
+			{
+				foreach (KeyValuePair<string, string> extraParameter in extraParameters)
+					parameters.Add(new KeyValuePair<string, string>(extraParameter.Key, extraParameter.Value));
+			}
 
-            string contents;
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
-            
-            if (File.Exists(fileName))
-                contents = File.ReadAllText(fileName);
-            else
-                contents = string.Empty;
+			KeyValuePair<string, object>[] tags = parameters.Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToArray();
+			Log.Event(new Event(DateTime.UtcNow, EventType.Informational, name, string.Empty, this.bareJid, string.Empty, EventLevel.Medium, string.Empty, string.Empty, string.Empty, tags));
+		}
 
-            File.WriteAllText(fileName, $"{title}{Environment.NewLine}{stackTrace}{Environment.NewLine}{contents}");
-        }
+		public void SaveExceptionDump(string title, string stackTrace)
+		{
+			stackTrace = Log.CleanStackTrace(stackTrace);
 
-        public string LoadExceptionDump()
-        {
-            string contents;
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
-            
-            if (File.Exists(fileName))
-                contents = File.ReadAllText(fileName);
-            else
-                contents = string.Empty;
+			string contents;
+			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
 
-            return contents;
-        }
+			if (File.Exists(fileName))
+				contents = File.ReadAllText(fileName);
+			else
+				contents = string.Empty;
 
-        public void DeleteExceptionDump()
-        {
-            string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
-            
-            if (File.Exists(fileName))
-                File.Delete(fileName);
-        }
+			File.WriteAllText(fileName, $"{title}{Environment.NewLine}{stackTrace}{Environment.NewLine}{contents}");
+		}
 
-        ///<inheritdoc/>
-        public IList<KeyValuePair<string, string>> GetParameters()
-        {
-            return new List<KeyValuePair<string, string>>
-            {
-                new KeyValuePair<string, string>("Platform", Device.RuntimePlatform),
-                new KeyValuePair<string, string>("RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion),
-                new KeyValuePair<string, string>("AppVersion", AppInfo.VersionString),
-                new KeyValuePair<string, string>("Manufacturer", DeviceInfo.Manufacturer),
-                new KeyValuePair<string, string>("Device Model", DeviceInfo.Model),
-                new KeyValuePair<string, string>("Device Name", DeviceInfo.Name),
-                new KeyValuePair<string, string>("OS", DeviceInfo.VersionString),
-                new KeyValuePair<string, string>("Platform", DeviceInfo.Platform.ToString()),
-                new KeyValuePair<string, string>("Device Type", DeviceInfo.DeviceType.ToString()),
-            };
-        }
-    }
+		public string LoadExceptionDump()
+		{
+			string contents;
+			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+
+			if (File.Exists(fileName))
+				contents = File.ReadAllText(fileName);
+			else
+				contents = string.Empty;
+
+			return contents;
+		}
+
+		public void DeleteExceptionDump()
+		{
+			string fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), StartupCrashFileName);
+
+			if (File.Exists(fileName))
+				File.Delete(fileName);
+		}
+
+		///<inheritdoc/>
+		public IList<KeyValuePair<string, string>> GetParameters()
+		{
+			return new List<KeyValuePair<string, string>>
+			{
+				new KeyValuePair<string, string>("Platform", Device.RuntimePlatform),
+				new KeyValuePair<string, string>("RuntimeVersion", typeof(LogService).Assembly.ImageRuntimeVersion),
+				new KeyValuePair<string, string>("AppVersion", AppInfo.VersionString),
+				new KeyValuePair<string, string>("Manufacturer", DeviceInfo.Manufacturer),
+				new KeyValuePair<string, string>("Device Model", DeviceInfo.Model),
+				new KeyValuePair<string, string>("Device Name", DeviceInfo.Name),
+				new KeyValuePair<string, string>("OS", DeviceInfo.VersionString),
+				new KeyValuePair<string, string>("Platform", DeviceInfo.Platform.ToString()),
+				new KeyValuePair<string, string>("Device Type", DeviceInfo.DeviceType.ToString()),
+			};
+		}
+	}
 }

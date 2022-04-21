@@ -30,7 +30,7 @@ namespace IdApp.Pages.Registration
         /// See <see cref="Title"/>
         /// </summary>
         public static readonly BindableProperty TitleProperty =
-            BindableProperty.Create("Title", typeof(string), typeof(RegistrationStepViewModel), default(string));
+            BindableProperty.Create(nameof(Title), typeof(string), typeof(RegistrationStepViewModel), default(string));
 
         /// <summary>
         /// The title to display on the page or view rendering this view model.

@@ -162,7 +162,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ViewMyIdentityCommand"/>
 		/// </summary>
 		public static readonly BindableProperty ViewMyIdentityCommandProperty =
-			BindableProperty.Create("ViewMyIdentityCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(ViewMyIdentityCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for viewing the user's own contracts.
@@ -177,7 +177,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ViewMyContactsCommand"/>
 		/// </summary>
 		public static readonly BindableProperty ViewMyContactsCommandProperty =
-			BindableProperty.Create("ViewMyContactsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(ViewMyContactsCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for viewing the user's own contracts.
@@ -192,7 +192,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ViewMyThingsCommand"/>
 		/// </summary>
 		public static readonly BindableProperty ViewMyThingsCommandProperty =
-			BindableProperty.Create("ViewMyThingsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(ViewMyThingsCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for viewing the user's own contracts.
@@ -207,7 +207,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ScanQrCodeCommand"/>
 		/// </summary>
 		public static readonly BindableProperty ScanQrCodeCommandProperty =
-			BindableProperty.Create("ScanQrCodeCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(ScanQrCodeCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for scanning a QR code.
@@ -222,7 +222,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ViewSignedContractsCommand"/>
 		/// </summary>
 		public static readonly BindableProperty ViewSignedContractsCommandProperty =
-			BindableProperty.Create("ViewSignedContractsCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(ViewSignedContractsCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for viewing a user's wallet.
@@ -237,7 +237,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ViewWalletCommand"/>
 		/// </summary>
 		public static readonly BindableProperty ViewWalletCommandProperty =
-			BindableProperty.Create("ViewWalletCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(ViewWalletCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for viewing a user's wallet.
@@ -252,7 +252,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="SharePhotoCommand"/>
 		/// </summary>
 		public static readonly BindableProperty SharePhotoCommandProperty =
-			BindableProperty.Create("SharePhotoCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(SharePhotoCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for viewing the user's own contracts.
@@ -267,7 +267,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ShareQRCommand"/>
 		/// </summary>
 		public static readonly BindableProperty ShareQRCommandProperty =
-			BindableProperty.Create("ShareQRCommand", typeof(ICommand), typeof(MainViewModel), default(ICommand));
+			BindableProperty.Create(nameof(ShareQRCommand), typeof(ICommand), typeof(MainViewModel), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for viewing the user's own contracts.
@@ -282,7 +282,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="HasPhoto"/>
 		/// </summary>
 		public static readonly BindableProperty HasPhotoProperty =
-			BindableProperty.Create("HasPhoto", typeof(bool), typeof(MainViewModel), default(bool));
+			BindableProperty.Create(nameof(HasPhoto), typeof(bool), typeof(MainViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the current user has a photo associated with the account.
@@ -297,7 +297,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="Image"/>
 		/// </summary>
 		public static readonly BindableProperty ImageProperty =
-			BindableProperty.Create("Image", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(Image), typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				MainViewModel viewModel = (MainViewModel)b;
 				viewModel.HasPhoto = !(newValue is null);
@@ -316,7 +316,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ImageRotation"/>
 		/// </summary>
 		public static readonly BindableProperty ImageRotationProperty =
-			BindableProperty.Create("ImageRotation", typeof(int), typeof(MainViewModel), default(int));
+			BindableProperty.Create(nameof(ImageRotation), typeof(int), typeof(MainViewModel), default(int));
 
 		/// <summary>
 		/// Gets or sets whether the current user has a photo associated with the account.
@@ -331,7 +331,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ImageBin"/>
 		/// </summary>
 		public static readonly BindableProperty ImageBinProperty =
-			BindableProperty.Create("ImageBin", typeof(byte[]), typeof(MainViewModel), default(byte[]));
+			BindableProperty.Create(nameof(ImageBin), typeof(byte[]), typeof(MainViewModel), default(byte[]));
 
 		/// <summary>
 		/// Binary encoding of photo
@@ -346,7 +346,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ImageContentType"/>
 		/// </summary>
 		public static readonly BindableProperty ImageContentTypeProperty =
-			BindableProperty.Create("ImageContentType", typeof(string), typeof(MainViewModel), default(string));
+			BindableProperty.Create(nameof(ImageContentType), typeof(string), typeof(MainViewModel), default(string));
 
 		/// <summary>
 		/// Content-Type of photo
@@ -361,7 +361,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="FullName"/>
 		/// </summary>
 		public static readonly BindableProperty FullNameProperty =
-			BindableProperty.Create("FullName", typeof(string), typeof(MainViewModel), default(string));
+			BindableProperty.Create(nameof(FullName), typeof(string), typeof(MainViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets the current user's full name.
@@ -376,7 +376,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="City"/>
 		/// </summary>
 		public static readonly BindableProperty CityProperty =
-			BindableProperty.Create("City", typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(City), typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
 				MainViewModel viewModel = (MainViewModel)b;
 				viewModel.SetLocation();
@@ -395,7 +395,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="Country"/>
 		/// </summary>
 		public static readonly BindableProperty CountryProperty =
-			BindableProperty.Create("Country", typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(Country), typeof(string), typeof(MainViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
 			{
 				MainViewModel viewModel = (MainViewModel)b;
 				viewModel.SetLocation();
@@ -414,7 +414,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="Location"/>
 		/// </summary>
 		public static readonly BindableProperty LocationProperty =
-			BindableProperty.Create("Location", typeof(string), typeof(MainViewModel), default(string));
+			BindableProperty.Create(nameof(Location), typeof(string), typeof(MainViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets the current user's location.
@@ -429,7 +429,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="QrCode"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create("QrCode", typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(MainViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				MainViewModel viewModel = (MainViewModel)b;
 				viewModel.HasQrCode = !(newValue is null);
@@ -449,7 +449,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="HasQrCode"/>
 		/// </summary>
 		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create("HasQrCode", typeof(bool), typeof(MainViewModel), default(bool));
+			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(MainViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -464,7 +464,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="QrCodeWidth"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create("QrCodeWidth", typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageWidth);
+			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageWidth);
 
 		/// <summary>
 		/// Gets or sets the width, in pixels, of the <see cref="QrCode"/> being generated.
@@ -479,7 +479,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="QrCodeHeight"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create("QrCodeHeight", typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageHeight);
+			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(MainViewModel), UiConstants.QrCode.DefaultImageHeight);
 
 		/// <summary>
 		/// Gets or sets the height, in pixels, of the <see cref="QrCode"/> being generated.
@@ -494,7 +494,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="QrCodeBin"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeBinProperty =
-			BindableProperty.Create("QrCodeBin", typeof(byte[]), typeof(MainViewModel), default(byte[]));
+			BindableProperty.Create(nameof(QrCodeBin), typeof(byte[]), typeof(MainViewModel), default(byte[]));
 
 		/// <summary>
 		/// Binary encoding of QR Code
@@ -509,7 +509,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="QrCodeContentType"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeContentTypeProperty =
-			BindableProperty.Create("QrCodeContentType", typeof(string), typeof(MainViewModel), default(string));
+			BindableProperty.Create(nameof(QrCodeContentType), typeof(string), typeof(MainViewModel), default(string));
 
 		/// <summary>
 		/// Content-Type of QR Code
@@ -524,7 +524,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="IsOnline"/>
 		/// </summary>
 		public static readonly BindableProperty IsOnlineProperty =
-			BindableProperty.Create("IsOnline", typeof(bool), typeof(MainViewModel), default(bool));
+			BindableProperty.Create(nameof(IsOnline), typeof(bool), typeof(MainViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether the app is currently online, i.e. has network access.
@@ -539,7 +539,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="NetworkStateText"/>
 		/// </summary>
 		public static readonly BindableProperty NetworkStateTextProperty =
-			BindableProperty.Create("NetworkStateText", typeof(string), typeof(MainViewModel), default(string));
+			BindableProperty.Create(nameof(NetworkStateText), typeof(string), typeof(MainViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets the user friendly network state text for display.
@@ -554,7 +554,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="IdentityStateText"/>
 		/// </summary>
 		public static readonly BindableProperty IdentityStateTextProperty =
-			BindableProperty.Create("IdentityStateText", typeof(string), typeof(MainViewModel), default(string));
+			BindableProperty.Create(nameof(IdentityStateText), typeof(string), typeof(MainViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets the user friendly network state text for display.
@@ -569,7 +569,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="HasConnectionErrors"/>
 		/// </summary>
 		public static readonly BindableProperty HasConnectionErrorsProperty =
-			BindableProperty.Create("HasConnectionErrors", typeof(bool), typeof(MainViewModel), default(bool));
+			BindableProperty.Create(nameof(HasConnectionErrors), typeof(bool), typeof(MainViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether there are any connection errors at all for the app.
@@ -584,7 +584,7 @@ namespace IdApp.Pages.Main.Main
 		/// See <see cref="ConnectionErrorsText"/>
 		/// </summary>
 		public static readonly BindableProperty ConnectionErrorsTextProperty =
-			BindableProperty.Create("ConnectionErrorsText", typeof(string), typeof(MainViewModel), default(string));
+			BindableProperty.Create(nameof(ConnectionErrorsText), typeof(string), typeof(MainViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets the user friendly connection errors text for display. Can be null.

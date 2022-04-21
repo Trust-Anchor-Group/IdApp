@@ -31,7 +31,7 @@ namespace IdApp.Popups.Photos.Image
         /// See <see cref="IsSwipeEnabled"/>
         /// </summary>
         public static readonly BindableProperty IsSwipeEnabledProperty =
-            BindableProperty.Create("IsSwipeEnabled", typeof(bool), typeof(ImageViewModel), default(bool));
+            BindableProperty.Create(nameof(IsSwipeEnabled), typeof(bool), typeof(ImageViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether a user can swipe to see the photos.

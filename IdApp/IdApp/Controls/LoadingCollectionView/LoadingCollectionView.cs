@@ -45,17 +45,17 @@ namespace IdApp.Controls.LoadingCollectionView
         /// </summary>
         public LoadingCollectionView()
         {
-            this.RemainingItemsThresholdReached += LoadingListView_ThresholdReached;
-			this.SelectionChanged += LoadingListView_SelectionChanged;
+            this.RemainingItemsThresholdReached += LoadingCollectionView_ThresholdReached;
+			this.SelectionChanged += LoadingCollectionView_SelectionChanged;
         }
 
-		private void LoadingListView_ThresholdReached(object sender, EventArgs e)
+		private void LoadingCollectionView_ThresholdReached(object sender, EventArgs e)
         {
             if (this.LoadMoreCommand?.CanExecute(null) ?? false)
                 this.LoadMoreCommand.Execute(null);
         }
 
-        private void LoadingListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LoadingCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.ItemSelectedCommand?.CanExecute(null) ?? false)
                 this.ItemSelectedCommand.Execute(this.SelectedItem);

@@ -45,7 +45,7 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty ConnectionStateTextProperty =
-            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(XmppViewModel), default(string));
+            BindableProperty.Create(nameof(ConnectionStateText), typeof(string), typeof(XmppViewModel), default(string));
 
         /// <summary>
         /// Gets the current connection state as a user friendly localized string.
@@ -60,7 +60,7 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty ConnectionStateColorProperty =
-            BindableProperty.Create("ConnectionStateColor", typeof(Brush), typeof(XmppViewModel), new SolidColorBrush(Color.Default));
+            BindableProperty.Create(nameof(ConnectionStateColor), typeof(Brush), typeof(XmppViewModel), new SolidColorBrush(Color.Default));
 
         /// <summary>
         /// Gets the current connection state as a color.
@@ -75,7 +75,7 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty StateSummaryTextProperty =
-            BindableProperty.Create("StateSummaryText", typeof(string), typeof(XmppViewModel), default(string));
+            BindableProperty.Create(nameof(StateSummaryText), typeof(string), typeof(XmppViewModel), default(string));
 
         /// <summary>
         /// Gets the current state summary as a user friendly localized string.
@@ -90,7 +90,7 @@ namespace IdApp.Pages
         /// 
         /// </summary>
         public static readonly BindableProperty IsConnectedProperty =
-            BindableProperty.Create("IsConnected", typeof(bool), typeof(XmppViewModel), default(bool));
+            BindableProperty.Create(nameof(IsConnected), typeof(bool), typeof(XmppViewModel), default(bool));
 
         /// <summary>
         /// Gets whether the view model is connected to an XMPP server.

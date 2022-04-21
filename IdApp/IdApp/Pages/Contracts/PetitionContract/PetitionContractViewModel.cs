@@ -114,7 +114,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Created"/>
         /// </summary>
         public static readonly BindableProperty CreatedProperty =
-            BindableProperty.Create("Created", typeof(DateTime), typeof(PetitionContractViewModel), default(DateTime));
+            BindableProperty.Create(nameof(Created), typeof(DateTime), typeof(PetitionContractViewModel), default(DateTime));
 
         /// <summary>
         /// Created date of the contract
@@ -129,7 +129,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Updated"/>
         /// </summary>
         public static readonly BindableProperty UpdatedProperty =
-            BindableProperty.Create("Updated", typeof(DateTime?), typeof(PetitionContractViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(Updated), typeof(DateTime?), typeof(PetitionContractViewModel), default(DateTime?));
 
         /// <summary>
         /// Updated date of the contract
@@ -144,7 +144,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="LegalId"/>
         /// </summary>
         public static readonly BindableProperty LegalIdProperty =
-            BindableProperty.Create("LegalId", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(LegalId), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Legal id of the contract
@@ -159,7 +159,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="State"/>
         /// </summary>
         public static readonly BindableProperty StateProperty =
-            BindableProperty.Create("State", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(State), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Current state of the contract
@@ -174,7 +174,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="From"/>
         /// </summary>
         public static readonly BindableProperty FromProperty =
-            BindableProperty.Create("From", typeof(DateTime?), typeof(PetitionContractViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(From), typeof(DateTime?), typeof(PetitionContractViewModel), default(DateTime?));
 
         /// <summary>
         /// From date (validity range) of the contract
@@ -189,7 +189,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="To"/>
         /// </summary>
         public static readonly BindableProperty ToProperty =
-            BindableProperty.Create("To", typeof(DateTime?), typeof(PetitionContractViewModel), default(DateTime?));
+            BindableProperty.Create(nameof(To), typeof(DateTime?), typeof(PetitionContractViewModel), default(DateTime?));
 
         /// <summary>
         /// To date (validity range) of the contract
@@ -204,7 +204,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="FirstName"/>
         /// </summary>
         public static readonly BindableProperty FirstNameProperty =
-            BindableProperty.Create("FirstName", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(FirstName), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// First name of the contract
@@ -219,7 +219,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="MiddleNames"/>
         /// </summary>
         public static readonly BindableProperty MiddleNamesProperty =
-            BindableProperty.Create("MiddleNames", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(MiddleNames), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Middle name(s) of the contract
@@ -234,7 +234,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="LastNames"/>
         /// </summary>
         public static readonly BindableProperty LastNamesProperty =
-            BindableProperty.Create("LastNames", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(LastNames), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Last name(s) of the contract
@@ -249,7 +249,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="PersonalNumber"/>
         /// </summary>
         public static readonly BindableProperty PersonalNumberProperty =
-            BindableProperty.Create("PersonalNumber", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(PersonalNumber), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Personal number of the contract
@@ -264,7 +264,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Address"/>
         /// </summary>
         public static readonly BindableProperty AddressProperty =
-            BindableProperty.Create("Address", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(Address), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Address of the contract
@@ -279,7 +279,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Address2"/>
         /// </summary>
         public static readonly BindableProperty Address2Property =
-            BindableProperty.Create("Address2", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(Address2), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Address (line 2) of the contract
@@ -294,7 +294,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="ZipCode"/>
         /// </summary>
         public static readonly BindableProperty ZipCodeProperty =
-            BindableProperty.Create("ZipCode", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(ZipCode), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Zip code of the contract
@@ -309,7 +309,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Area"/>
         /// </summary>
         public static readonly BindableProperty AreaProperty =
-            BindableProperty.Create("Area", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(Area), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Area of the contract
@@ -324,7 +324,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="City"/>
         /// </summary>
         public static readonly BindableProperty CityProperty =
-            BindableProperty.Create("City", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(City), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// City of the contract
@@ -339,7 +339,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Region"/>
         /// </summary>
         public static readonly BindableProperty RegionProperty =
-            BindableProperty.Create("Region", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(Region), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Region of the contract
@@ -354,7 +354,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="CountryCode"/>
         /// </summary>
         public static readonly BindableProperty CountryCodeProperty =
-            BindableProperty.Create("CountryCode", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(CountryCode), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Country code of the contract
@@ -369,7 +369,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Country"/>
         /// </summary>
         public static readonly BindableProperty CountryProperty =
-            BindableProperty.Create("Country", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(Country), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// Country of the contract
@@ -384,7 +384,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="PhoneNr"/>
         /// </summary>
         public static readonly BindableProperty PhoneNrProperty =
-            BindableProperty.Create("PhoneNr", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(PhoneNr), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// PhoneNr of the contract
@@ -399,7 +399,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="IsApproved"/>
         /// </summary>
         public static readonly BindableProperty IsApprovedProperty =
-            BindableProperty.Create("IsApproved", typeof(bool), typeof(PetitionContractViewModel), default(bool));
+            BindableProperty.Create(nameof(IsApproved), typeof(bool), typeof(PetitionContractViewModel), default(bool));
 
         /// <summary>
         /// Is the contract approved?
@@ -414,7 +414,7 @@ namespace IdApp.Pages.Contracts.PetitionContract
         /// See <see cref="Purpose"/>
         /// </summary>
         public static readonly BindableProperty PurposeProperty =
-            BindableProperty.Create("Purpose", typeof(string), typeof(PetitionContractViewModel), default(string));
+            BindableProperty.Create(nameof(Purpose), typeof(string), typeof(PetitionContractViewModel), default(string));
 
         /// <summary>
         /// What's the purpose of the petition?

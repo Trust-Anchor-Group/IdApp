@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using EDaler;
@@ -11,6 +10,7 @@ using IdApp.Pages.Contacts.MyContacts;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
+using NeuroFeatures;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -37,9 +37,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
 			this.FlipCommand = new Command(async _ => await FlipWallet());
+			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
+			this.TokenSelectedCommand = new Command(async P => await TokenSelected(P));
 
 			this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			this.Events = new ObservableCollection<AccountEventItem>();
+			this.Totals = new ObservableCollection<TokenTotalItem>();
+			this.Tokens = new ObservableCollection<TokenItem>();
 		}
 
 		/// <inheritdoc/>
@@ -47,25 +51,13 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			await base.DoBind();
 
+			this.EDalerFrontGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerFront200.png";
+			this.EDalerBackGlyph = "https://" + this.XmppService.Xmpp.Host + "/Images/eDalerBack200.png";
+
 			if (this.Balance is null && this.NavigationService.TryPopArgs(out WalletNavigationArgs args))
 			{
-				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events, 
+				await AssignProperties(args.Balance, args.PendingAmount, args.PendingCurrency, args.PendingPayments, args.Events,
 					args.More, this.XmppService.Wallet.LastEvent);
-
-				StringBuilder Url = new();
-
-				Url.Append("https://");
-				Url.Append(this.XmppService.Xmpp.Host);
-				Url.Append("/Images/eDalerFront200.png");
-
-				this.EDalerFrontGlyph = Url.ToString();
-
-				Url.Clear();
-				Url.Append("https://");
-				Url.Append(this.XmppService.Xmpp.Host);
-				Url.Append("/Images/eDalerBack200.png");
-
-				this.EDalerBackGlyph = Url.ToString();
 			}
 			else if ((!(this.Balance is null) && !(this.XmppService.Wallet.LastBalance is null) &&
 				(this.Balance.Amount != this.XmppService.Wallet.LastBalance.Amount ||
@@ -73,23 +65,27 @@ namespace IdApp.Pages.Wallet.MyWallet
 				this.Balance.Timestamp != this.XmppService.Wallet.LastBalance.Timestamp)) ||
 				this.LastEvent != this.XmppService.Wallet.LastEvent)
 			{
-				await this.ReloadWallet(this.XmppService.Wallet.LastBalance ?? Balance ?? this.Balance);
+				await this.ReloadEDalerWallet(this.XmppService.Wallet.LastBalance ?? Balance ?? this.Balance);
 			}
 
 			EvaluateAllCommands();
 
 			this.XmppService.Wallet.BalanceUpdated += Wallet_BalanceUpdated;
+			this.XmppService.Wallet.TokenAdded += Wallet_TokenAdded;
+			this.XmppService.Wallet.TokenRemoved += Wallet_TokenRemoved;
 		}
 
 		/// <inheritdoc/>
 		protected override async Task DoUnbind()
 		{
 			this.XmppService.Wallet.BalanceUpdated -= Wallet_BalanceUpdated;
+			this.XmppService.Wallet.TokenAdded -= Wallet_TokenAdded;
+			this.XmppService.Wallet.TokenRemoved -= Wallet_TokenRemoved;
 
 			await base.DoUnbind();
 		}
 
-		private async Task AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency, 
+		private async Task AssignProperties(Balance Balance, decimal PendingAmount, string PendingCurrency,
 			EDaler.PendingPayment[] PendingPayments, EDaler.AccountEvent[] Events, bool More, DateTime LastEvent)
 		{
 			if (!(Balance is null))
@@ -106,7 +102,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.PendingCurrency = PendingCurrency;
 			this.HasPending = (PendingPayments?.Length ?? 0) > 0;
 			this.HasEvents = (Events?.Length ?? 0) > 0;
-			this.HasMore = More;
+			this.HasMoreEvents = More;
 
 			Dictionary<string, string> FriendlyNames = new();
 			string FriendlyName;
@@ -149,18 +145,18 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private Task Wallet_BalanceUpdated(object Sender, BalanceEventArgs e)
 		{
-			Task.Run(() => this.ReloadWallet(e.Balance));
+			Task.Run(() => this.ReloadEDalerWallet(e.Balance));
 			return Task.CompletedTask;
 		}
 
-		private async Task ReloadWallet(Balance Balance)
+		private async Task ReloadEDalerWallet(Balance Balance)
 		{
 			try
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
 				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(50);
 
-				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency, 
+				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
 			}
 			catch (Exception ex)
@@ -185,7 +181,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Balance"/>
 		/// </summary>
 		public static readonly BindableProperty BalanceProperty =
-			BindableProperty.Create("Balance", typeof(Balance), typeof(MyWalletViewModel), default(Balance));
+			BindableProperty.Create(nameof(Balance), typeof(Balance), typeof(MyWalletViewModel), default(Balance));
 
 		/// <summary>
 		/// Balance of eDaler to process
@@ -200,7 +196,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Amount"/>
 		/// </summary>
 		public static readonly BindableProperty AmountProperty =
-			BindableProperty.Create("Amount", typeof(decimal), typeof(MyWalletViewModel), default(decimal));
+			BindableProperty.Create(nameof(Amount), typeof(decimal), typeof(MyWalletViewModel), default(decimal));
 
 		/// <summary>
 		/// Amount of eDaler to process
@@ -215,7 +211,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Currency"/>
 		/// </summary>
 		public static readonly BindableProperty CurrencyProperty =
-			BindableProperty.Create("Currency", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(Currency), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// Currency of eDaler to process
@@ -230,7 +226,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="HasPending"/>
 		/// </summary>
 		public static readonly BindableProperty HasPendingProperty =
-			BindableProperty.Create("HasPending", typeof(bool), typeof(MyWalletViewModel), default(bool));
+			BindableProperty.Create(nameof(HasPending), typeof(bool), typeof(MyWalletViewModel), default(bool));
 
 		/// <summary>
 		/// HasPending of eDaler to process
@@ -245,7 +241,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="PendingAmount"/>
 		/// </summary>
 		public static readonly BindableProperty PendingAmountProperty =
-			BindableProperty.Create("PendingAmount", typeof(decimal), typeof(MyWalletViewModel), default(decimal));
+			BindableProperty.Create(nameof(PendingAmount), typeof(decimal), typeof(MyWalletViewModel), default(decimal));
 
 		/// <summary>
 		/// PendingAmount of eDaler to process
@@ -260,7 +256,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="PendingCurrency"/>
 		/// </summary>
 		public static readonly BindableProperty PendingCurrencyProperty =
-			BindableProperty.Create("PendingCurrency", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(PendingCurrency), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// PendingCurrency of eDaler to process
@@ -275,7 +271,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="Timestamp"/>
 		/// </summary>
 		public static readonly BindableProperty TimestampProperty =
-			BindableProperty.Create("Timestamp", typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
+			BindableProperty.Create(nameof(Timestamp), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code was created.
@@ -290,7 +286,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="LastEvent"/>
 		/// </summary>
 		public static readonly BindableProperty LastEventProperty =
-			BindableProperty.Create("LastEvent", typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
+			BindableProperty.Create(nameof(LastEvent), typeof(DateTime), typeof(MyWalletViewModel), default(DateTime));
 
 		/// <summary>
 		/// When code was created.
@@ -305,7 +301,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="EDalerFrontGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerFrontGlyphProperty =
-			BindableProperty.Create("EDalerFrontGlyph", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(EDalerFrontGlyph), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
@@ -320,7 +316,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="EDalerBackGlyph"/>
 		/// </summary>
 		public static readonly BindableProperty EDalerBackGlyphProperty =
-			BindableProperty.Create("EDalerBackGlyph", typeof(string), typeof(MyWalletViewModel), default(string));
+			BindableProperty.Create(nameof(EDalerBackGlyph), typeof(string), typeof(MyWalletViewModel), default(string));
 
 		/// <summary>
 		/// eDaler glyph URL
@@ -335,7 +331,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// See <see cref="HasEvents"/>
 		/// </summary>
 		public static readonly BindableProperty HasEventsProperty =
-			BindableProperty.Create("HasEvents", typeof(bool), typeof(MyWalletViewModel), default(bool));
+			BindableProperty.Create(nameof(HasEvents), typeof(bool), typeof(MyWalletViewModel), default(bool));
 
 		/// <summary>
 		/// HasEvents of eDaler to process
@@ -347,18 +343,48 @@ namespace IdApp.Pages.Wallet.MyWallet
 		}
 
 		/// <summary>
-		/// See <see cref="HasMore"/>
+		/// See <see cref="HasMoreEvents"/>
 		/// </summary>
-		public static readonly BindableProperty HasMoreProperty =
-			BindableProperty.Create("HasMore", typeof(bool), typeof(MyWalletViewModel), default(bool));
+		public static readonly BindableProperty HasMoreEventsProperty =
+			BindableProperty.Create(nameof(HasMoreEvents), typeof(bool), typeof(MyWalletViewModel), default(bool));
 
 		/// <summary>
 		/// If there are more account events available.
 		/// </summary>
-		public bool HasMore
+		public bool HasMoreEvents
 		{
-			get { return (bool)GetValue(HasMoreProperty); }
-			set { SetValue(HasMoreProperty, value); }
+			get { return (bool)GetValue(HasMoreEventsProperty); }
+			set { SetValue(HasMoreEventsProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="HasTotals"/>
+		/// </summary>
+		public static readonly BindableProperty HasTotalsProperty =
+			BindableProperty.Create(nameof(HasTotals), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// HasTotals of eDaler to process
+		/// </summary>
+		public bool HasTotals
+		{
+			get { return (bool)GetValue(HasTotalsProperty); }
+			set { SetValue(HasTotalsProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="HasTokens"/>
+		/// </summary>
+		public static readonly BindableProperty HasTokensProperty =
+			BindableProperty.Create(nameof(HasTokens), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// HasTokens of eDaler to process
+		/// </summary>
+		public bool HasTokens
+		{
+			get { return (bool)GetValue(HasTokensProperty); }
+			set { SetValue(HasTokensProperty, value); }
 		}
 
 		/// <summary>
@@ -370,6 +396,16 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// Holds a list of account events
 		/// </summary>
 		public ObservableCollection<AccountEventItem> Events { get; }
+
+		/// <summary>
+		/// Holds a list of token totals
+		/// </summary>
+		public ObservableCollection<TokenTotalItem> Totals { get; }
+
+		/// <summary>
+		/// Holds a list of tokens
+		/// </summary>
+		public ObservableCollection<TokenItem> Tokens { get; }
 
 		/// <summary>
 		/// The command to bind to for returning to previous view.
@@ -406,6 +442,16 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public ICommand FlipCommand { get; }
 
+		/// <summary>
+		/// Command executed when more tokens need to be loaded.
+		/// </summary>
+		public ICommand LoadMoreTokensCommand { get; }
+
+		/// <summary>
+		/// Command executed when a token has been selected.
+		/// </summary>
+		public ICommand TokenSelectedCommand { get; }
+
 		#endregion
 
 		private async Task GoBack()
@@ -425,7 +471,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 
 		private async Task MakePayment()
 		{
-			await this.NavigationService.GoToAsync(nameof(MyContactsPage), 
+			await this.NavigationService.GoToAsync(nameof(MyContactsPage),
 				new ContactListNavigationArgs(AppResources.SelectContactToPay, SelectContactAction.MakePayment));
 		}
 
@@ -455,6 +501,96 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			this.page.WalletFlipView_Tapped(this, EventArgs.Empty);
 			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Binds token information to the view.
+		/// </summary>
+		public async void BindTokens()
+		{
+			if (!this.HasTotals)
+			{
+				try
+				{
+					TokenTotalsEventArgs e = await this.XmppService.Wallet.GetTotals();
+
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					{
+						if (e.Ok)
+						{
+							this.Totals.Clear();
+
+							if (!(e.Totals is null))
+							{
+								foreach (TokenTotal Total in e.Totals)
+									this.Totals.Add(new TokenTotalItem(Total));
+
+								this.HasTotals = true;
+							}
+							else
+								this.HasTotals = false;
+						}
+						else
+							this.HasTotals = false;
+					});
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+
+			if (!this.HasTokens)
+			{
+				try
+				{
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 50);
+
+					this.UiSerializer.BeginInvokeOnMainThread(() =>
+					{
+						if (e.Ok)
+						{
+							this.Tokens.Clear();
+
+							if (!(e.Tokens is null))
+							{
+								foreach (Token Token in e.Tokens)
+									this.Tokens.Add(new TokenItem(Token));
+
+								this.HasTokens = true;
+							}
+							else
+								this.HasTokens = false;
+						}
+						else
+							this.HasTokens = false;
+					});
+				}
+				catch (Exception ex)
+				{
+					this.LogService.LogException(ex);
+				}
+			}
+		}
+
+		private Task LoadMoreTokens()
+		{
+			return Task.CompletedTask;  // TODO
+		}
+
+		private Task TokenSelected(object P)
+		{
+			return Task.CompletedTask;  // TODO
+		}
+
+		private Task Wallet_TokenRemoved(object Sender, TokenEventArgs e)
+		{
+			return Task.CompletedTask;  // TODO
+		}
+
+		private Task Wallet_TokenAdded(object Sender, TokenEventArgs e)
+		{
+			return Task.CompletedTask;  // TODO
 		}
 
 	}

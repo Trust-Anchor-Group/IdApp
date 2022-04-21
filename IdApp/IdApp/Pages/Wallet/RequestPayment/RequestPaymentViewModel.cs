@@ -91,7 +91,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="Amount"/>
 		/// </summary>
 		public static readonly BindableProperty AmountProperty =
-			BindableProperty.Create("Amount", typeof(decimal), typeof(RequestPaymentViewModel), default(decimal));
+			BindableProperty.Create(nameof(Amount), typeof(decimal), typeof(RequestPaymentViewModel), default(decimal));
 
 		/// <summary>
 		/// Amount of eDaler to process
@@ -106,7 +106,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="AmountOk"/>
 		/// </summary>
 		public static readonly BindableProperty AmountOkProperty =
-			BindableProperty.Create("AmountOk", typeof(bool), typeof(RequestPaymentViewModel), default(bool));
+			BindableProperty.Create(nameof(AmountOk), typeof(bool), typeof(RequestPaymentViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Amount"/> is OK.
@@ -121,7 +121,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="AmountColor"/>
 		/// </summary>
 		public static readonly BindableProperty AmountColorProperty =
-			BindableProperty.Create("AmountColor", typeof(Color), typeof(RequestPaymentViewModel), default(Color));
+			BindableProperty.Create(nameof(AmountColor), typeof(Color), typeof(RequestPaymentViewModel), default(Color));
 
 		/// <summary>
 		/// Color of <see cref="Amount"/> field.
@@ -136,7 +136,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="AmountText"/>
 		/// </summary>
 		public static readonly BindableProperty AmountTextProperty =
-			BindableProperty.Create("AmountText", typeof(string), typeof(RequestPaymentViewModel), default(string));
+			BindableProperty.Create(nameof(AmountText), typeof(string), typeof(RequestPaymentViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="Amount"/> as text.
@@ -168,7 +168,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="AmountExtra"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraProperty =
-			BindableProperty.Create("AmountExtra", typeof(decimal?), typeof(EDalerUriViewModel), default(decimal?));
+			BindableProperty.Create(nameof(AmountExtra), typeof(decimal?), typeof(EDalerUriViewModel), default(decimal?));
 
 		/// <summary>
 		/// AmountExtra of eDaler to process
@@ -183,7 +183,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="AmountExtraOk"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraOkProperty =
-			BindableProperty.Create("AmountExtraOk", typeof(bool), typeof(EDalerUriViewModel), default(bool));
+			BindableProperty.Create(nameof(AmountExtraOk), typeof(bool), typeof(EDalerUriViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="AmountExtra"/> is OK.
@@ -198,7 +198,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="AmountExtraColor"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraColorProperty =
-			BindableProperty.Create("AmountExtraColor", typeof(Color), typeof(EDalerUriViewModel), default(Color));
+			BindableProperty.Create(nameof(AmountExtraColor), typeof(Color), typeof(EDalerUriViewModel), default(Color));
 
 		/// <summary>
 		/// Color of <see cref="AmountExtra"/> field.
@@ -213,7 +213,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="AmountExtraText"/>
 		/// </summary>
 		public static readonly BindableProperty AmountExtraTextProperty =
-			BindableProperty.Create("AmountExtraText", typeof(string), typeof(EDalerUriViewModel), default(string));
+			BindableProperty.Create(nameof(AmountExtraText), typeof(string), typeof(EDalerUriViewModel), default(string));
 
 		/// <summary>
 		/// <see cref="AmountExtra"/> as text.
@@ -251,7 +251,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="Currency"/>
 		/// </summary>
 		public static readonly BindableProperty CurrencyProperty =
-			BindableProperty.Create("Currency", typeof(string), typeof(RequestPaymentViewModel), default(string));
+			BindableProperty.Create(nameof(Currency), typeof(string), typeof(RequestPaymentViewModel), default(string));
 
 		/// <summary>
 		/// Currency of <see cref="Amount"/>.
@@ -266,7 +266,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="Message"/>
 		/// </summary>
 		public static readonly BindableProperty MessageProperty =
-			BindableProperty.Create("Message", typeof(string), typeof(RequestPaymentViewModel), default(string));
+			BindableProperty.Create(nameof(Message), typeof(string), typeof(RequestPaymentViewModel), default(string));
 
 		/// <summary>
 		/// Message to embed in payment.
@@ -281,7 +281,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="EncryptMessage"/>
 		/// </summary>
 		public static readonly BindableProperty EncryptMessageProperty =
-			BindableProperty.Create("EncryptMessage", typeof(bool), typeof(RequestPaymentViewModel), default(bool));
+			BindableProperty.Create(nameof(EncryptMessage), typeof(bool), typeof(RequestPaymentViewModel), default(bool));
 
 		/// <summary>
 		/// If <see cref="Message"/> should be encrypted in payment.
@@ -296,7 +296,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="QrCode"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeProperty =
-			BindableProperty.Create("QrCode", typeof(ImageSource), typeof(RequestPaymentViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
+			BindableProperty.Create(nameof(QrCode), typeof(ImageSource), typeof(RequestPaymentViewModel), default(ImageSource), propertyChanged: (b, oldValue, newValue) =>
 			{
 				RequestPaymentViewModel viewModel = (RequestPaymentViewModel)b;
 				viewModel.HasQrCode = !(newValue is null);
@@ -316,7 +316,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="HasQrCode"/>
 		/// </summary>
 		public static readonly BindableProperty HasQrCodeProperty =
-			BindableProperty.Create("HasQrCode", typeof(bool), typeof(RequestPaymentViewModel), default(bool));
+			BindableProperty.Create(nameof(HasQrCode), typeof(bool), typeof(RequestPaymentViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -331,7 +331,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="QrCodePng"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodePngProperty =
-			BindableProperty.Create("QrCodePng", typeof(byte[]), typeof(RequestPaymentViewModel), default(byte[]));
+			BindableProperty.Create(nameof(QrCodePng), typeof(byte[]), typeof(RequestPaymentViewModel), default(byte[]));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -346,7 +346,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="QrCodeWidth"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeWidthProperty =
-			BindableProperty.Create("QrCodeWidth", typeof(int), typeof(RequestPaymentViewModel), default(int));
+			BindableProperty.Create(nameof(QrCodeWidth), typeof(int), typeof(RequestPaymentViewModel), default(int));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.
@@ -361,7 +361,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// See <see cref="QrCodeHeight"/>
 		/// </summary>
 		public static readonly BindableProperty QrCodeHeightProperty =
-			BindableProperty.Create("QrCodeHeight", typeof(int), typeof(RequestPaymentViewModel), default(int));
+			BindableProperty.Create(nameof(QrCodeHeight), typeof(int), typeof(RequestPaymentViewModel), default(int));
 
 		/// <summary>
 		/// Gets or sets if a <see cref="QrCode"/> exists for the current user.

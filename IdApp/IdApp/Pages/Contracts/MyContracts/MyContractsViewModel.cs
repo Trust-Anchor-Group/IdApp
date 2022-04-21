@@ -91,7 +91,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// See <see cref="Title"/>
 		/// </summary>
 		public static readonly BindableProperty TitleProperty =
-			BindableProperty.Create("Title", typeof(string), typeof(MyContractsViewModel), default(string));
+			BindableProperty.Create(nameof(Title), typeof(string), typeof(MyContractsViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets the title for the view displaying contracts.
@@ -106,7 +106,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// See <see cref="Description"/>
 		/// </summary>
 		public static readonly BindableProperty DescriptionProperty =
-			BindableProperty.Create("Description", typeof(string), typeof(MyContractsViewModel), default(string));
+			BindableProperty.Create(nameof(Description), typeof(string), typeof(MyContractsViewModel), default(string));
 
 		/// <summary>
 		/// Gets or sets the introductory text for the view displaying contracts.
@@ -121,7 +121,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// <see cref="Action"/>
 		/// </summary>
 		public static readonly BindableProperty ActionProperty =
-			BindableProperty.Create("Action", typeof(SelectContractAction), typeof(MyContractsViewModel), default(SelectContractAction));
+			BindableProperty.Create(nameof(Action), typeof(SelectContractAction), typeof(MyContractsViewModel), default(SelectContractAction));
 
 		/// <summary>
 		/// The action to take when contact has been selected.
@@ -136,7 +136,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// See <see cref="ShowContractsMissing"/>
 		/// </summary>
 		public static readonly BindableProperty ShowContractsMissingProperty =
-			BindableProperty.Create("ShowContractsMissing", typeof(bool), typeof(MyContractsViewModel), default(bool));
+			BindableProperty.Create(nameof(ShowContractsMissing), typeof(bool), typeof(MyContractsViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether to show a contracts missing alert or not.
@@ -156,7 +156,7 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// See <see cref="SelectedContract"/>
 		/// </summary>
 		public static readonly BindableProperty SelectedContractProperty =
-			BindableProperty.Create("SelectedContract", typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel),
+			BindableProperty.Create(nameof(SelectedContract), typeof(ContractModel), typeof(MyContractsViewModel), default(ContractModel),
 				propertyChanged: async (b, oldValue, newValue) =>
 				{
 					MyContractsViewModel viewModel = (MyContractsViewModel)b;

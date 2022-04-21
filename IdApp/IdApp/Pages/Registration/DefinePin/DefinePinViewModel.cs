@@ -64,7 +64,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="Pin"/>
         /// </summary>
         public static readonly BindableProperty PinProperty =
-            BindableProperty.Create("Pin", typeof(string), typeof(DefinePinViewModel), string.Empty, propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(Pin), typeof(string), typeof(DefinePinViewModel), string.Empty, propertyChanged: (b, oldValue, newValue) =>
             {
                 DefinePinViewModel viewModel = (DefinePinViewModel)b;
                 viewModel.UpdatePinState();
@@ -84,7 +84,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="RetypedPin"/>
         /// </summary>
         public static readonly BindableProperty RetypedPinProperty =
-            BindableProperty.Create("RetypedPin", typeof(string), typeof(DefinePinViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(RetypedPin), typeof(string), typeof(DefinePinViewModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 DefinePinViewModel viewModel = (DefinePinViewModel)b;
                 viewModel.UpdatePinState();
@@ -110,7 +110,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="PinsDoNotMatch"/>
         /// </summary>
         public static readonly BindableProperty PinsDoNotMatchProperty =
-            BindableProperty.Create("PinsDoNotMatch", typeof(bool), typeof(DefinePinViewModel), default(bool));
+            BindableProperty.Create(nameof(PinsDoNotMatch), typeof(bool), typeof(DefinePinViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether the entered Pin differ betweeen <see cref="Pin"/> and <see cref="RetypedPin"/>.
@@ -125,7 +125,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="PinIsTooShort"/>
         /// </summary>
         public static readonly BindableProperty PinIsTooShortProperty =
-            BindableProperty.Create("PinIsTooShort", typeof(bool), typeof(DefinePinViewModel), default(bool));
+            BindableProperty.Create(nameof(PinIsTooShort), typeof(bool), typeof(DefinePinViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether the entered PIN is too short.
@@ -140,7 +140,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="PinIsTooShortMessage"/>
         /// </summary>
         public static readonly BindableProperty PinIsTooShortMessageProperty =
-            BindableProperty.Create("PinIsTooShortMessage", typeof(string), typeof(DefinePinViewModel), default(string));
+            BindableProperty.Create(nameof(PinIsTooShortMessage), typeof(string), typeof(DefinePinViewModel), default(string));
 
         /// <summary>
         /// The localized message to display if and when the PIN code is too short.
@@ -155,7 +155,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="UsePin"/>
         /// </summary>
         public static readonly BindableProperty UsePinProperty =
-            BindableProperty.Create("UsePin", typeof(bool), typeof(DefinePinViewModel), default(bool));
+            BindableProperty.Create(nameof(UsePin), typeof(bool), typeof(DefinePinViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether a PIn should be used for validation.
@@ -170,7 +170,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="IsConnected"/>
         /// </summary>
         public static readonly BindableProperty IsConnectedProperty =
-            BindableProperty.Create("IsConnected", typeof(bool), typeof(DefinePinViewModel), default(bool));
+            BindableProperty.Create(nameof(IsConnected), typeof(bool), typeof(DefinePinViewModel), default(bool));
 
         /// <summary>
         /// Gets or sets if the app is connected to an XMPP server.
@@ -185,7 +185,7 @@ namespace IdApp.Pages.Registration.DefinePin
         /// The <see cref="ConnectionStateText"/>
         /// </summary>
         public static readonly BindableProperty ConnectionStateTextProperty =
-            BindableProperty.Create("ConnectionStateText", typeof(string), typeof(DefinePinViewModel), default(string));
+            BindableProperty.Create(nameof(ConnectionStateText), typeof(string), typeof(DefinePinViewModel), default(string));
 
         /// <summary>
         /// The user friendly connection state text to display to the user.

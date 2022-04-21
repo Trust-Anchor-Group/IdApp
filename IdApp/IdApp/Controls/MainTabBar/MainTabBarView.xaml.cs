@@ -58,7 +58,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="LeftButton1Command"/>
 		/// </summary>
 		public static readonly BindableProperty LeftButton1CommandProperty =
-			BindableProperty.Create("LeftButton1Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+			BindableProperty.Create(nameof(LeftButton1Command), typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for the first button.
@@ -73,7 +73,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="LeftButton2Command"/>
 		/// </summary>
 		public static readonly BindableProperty LeftButton2CommandProperty =
-			BindableProperty.Create("LeftButton2Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+			BindableProperty.Create(nameof(LeftButton2Command), typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for the first button.
@@ -88,7 +88,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="CenterButtonCommand"/>
 		/// </summary>
 		public static readonly BindableProperty CenterButtonCommandProperty =
-			BindableProperty.Create("CenterButtonCommand", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+			BindableProperty.Create(nameof(CenterButtonCommand), typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for the second button.
@@ -103,7 +103,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="RightButton1Command"/>
 		/// </summary>
 		public static readonly BindableProperty RightButton1CommandProperty =
-			BindableProperty.Create("RightButton1Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+			BindableProperty.Create(nameof(RightButton1Command), typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for the third button.
@@ -118,7 +118,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="RightButton2Command"/>
 		/// </summary>
 		public static readonly BindableProperty RightButton2CommandProperty =
-			BindableProperty.Create("RightButton2Command", typeof(ICommand), typeof(MainTabBarView), default(ICommand));
+			BindableProperty.Create(nameof(RightButton2Command), typeof(ICommand), typeof(MainTabBarView), default(ICommand));
 
 		/// <summary>
 		/// The command to bind to for the third button.
@@ -133,7 +133,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="LeftButton1FontFamily"/>
 		/// </summary>
 		public static readonly BindableProperty LeftButton1FontFamilyProperty =
-			BindableProperty.Create("LeftButton1FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(LeftButton1FontFamily), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The font family to use for text on the first button
@@ -148,7 +148,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="LeftButton2FontFamily"/>
 		/// </summary>
 		public static readonly BindableProperty LeftButton2FontFamilyProperty =
-			BindableProperty.Create("LeftButton2FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(LeftButton2FontFamily), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The font family to use for text on the first button
@@ -163,7 +163,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="CenterButtonFontFamily"/>
 		/// </summary>
 		public static readonly BindableProperty CenterButtonFontFamilyProperty =
-			BindableProperty.Create("CenterButtonFontFamily", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(CenterButtonFontFamily), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The font family to use for text on the second button
@@ -178,7 +178,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="RightButton1FontFamily"/>
 		/// </summary>
 		public static readonly BindableProperty RightButton1FontFamilyProperty =
-			BindableProperty.Create("RightButton1FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(RightButton1FontFamily), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The font family to use for text on the third button
@@ -193,7 +193,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="RightButton2FontFamily"/>
 		/// </summary>
 		public static readonly BindableProperty RightButton2FontFamilyProperty =
-			BindableProperty.Create("RightButton2FontFamily", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(RightButton2FontFamily), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The font family to use for text on the third button
@@ -208,7 +208,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="LeftButton1Text"/>
 		/// </summary>
 		public static readonly BindableProperty LeftButton1TextProperty =
-			BindableProperty.Create("LeftButton1Text", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(LeftButton1Text), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The text to use for text on the first button
@@ -223,7 +223,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="LeftButton2Text"/>
 		/// </summary>
 		public static readonly BindableProperty LeftButton2TextProperty =
-			BindableProperty.Create("LeftButton2Text", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(LeftButton2Text), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The text to use for text on the first button
@@ -238,7 +238,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="CenterButtonText"/>
 		/// </summary>
 		public static readonly BindableProperty CenterButtonTextProperty =
-			BindableProperty.Create("CenterButtonText", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(CenterButtonText), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The text to use for text on the second button
@@ -253,7 +253,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="RightButton1Text"/>
 		/// </summary>
 		public static readonly BindableProperty RightButton1TextProperty =
-			BindableProperty.Create("RightButton1Text", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(RightButton1Text), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The text to use for text on the third button
@@ -268,7 +268,7 @@ namespace IdApp.Controls.MainTabBar
 		/// See <see cref="RightButton2Text"/>
 		/// </summary>
 		public static readonly BindableProperty RightButton2TextProperty =
-			BindableProperty.Create("RightButton2Text", typeof(string), typeof(MainTabBarView), default(string));
+			BindableProperty.Create(nameof(RightButton2Text), typeof(string), typeof(MainTabBarView), default(string));
 
 		/// <summary>
 		/// The text to use for text on the third button

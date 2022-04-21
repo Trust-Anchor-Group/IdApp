@@ -24,7 +24,7 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// 
         /// </summary>
         public static readonly BindableProperty KeyProperty =
-            BindableProperty.Create("Key", typeof(string), typeof(PartModel), default(string));
+            BindableProperty.Create(nameof(Key), typeof(string), typeof(PartModel), default(string));
 
         /// <summary>
         /// A unique contract part key.
@@ -39,7 +39,7 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// The contract part value.
         /// </summary>
         public static readonly BindableProperty ValueProperty =
-            BindableProperty.Create("Value", typeof(string), typeof(PartModel), default(string));
+            BindableProperty.Create(nameof(Value), typeof(string), typeof(PartModel), default(string));
 
         /// <summary>
         /// 
@@ -54,7 +54,7 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// 
         /// </summary>
         public static readonly BindableProperty LegalIdProperty =
-            BindableProperty.Create("LegalId", typeof(string), typeof(PartModel), default(string));
+            BindableProperty.Create(nameof(LegalId), typeof(string), typeof(PartModel), default(string));
 
         /// <summary>
         /// A legal id (optional).
@@ -69,7 +69,7 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// 
         /// </summary>
         public static readonly BindableProperty CanSignProperty =
-            BindableProperty.Create("CanSign", typeof(bool), typeof(PartModel), default(bool));
+            BindableProperty.Create(nameof(CanSign), typeof(bool), typeof(PartModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether the contract part can sign a contract.
@@ -84,7 +84,7 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// 
         /// </summary>
         public static readonly BindableProperty SignAsRoleProperty =
-            BindableProperty.Create("SignAsRole", typeof(string), typeof(PartModel), default(string), propertyChanged: (b, oldValue, newValue) =>
+            BindableProperty.Create(nameof(SignAsRole), typeof(string), typeof(PartModel), default(string), propertyChanged: (b, oldValue, newValue) =>
             {
                 PartModel model = (PartModel)b;
                 model.CanSign = !string.IsNullOrWhiteSpace((string)newValue);
@@ -103,7 +103,7 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// 
         /// </summary>
         public static readonly BindableProperty SignAsRoleTextProperty =
-            BindableProperty.Create("SignAsRoleText", typeof(string), typeof(PartModel), default(string));
+            BindableProperty.Create(nameof(SignAsRoleText), typeof(string), typeof(PartModel), default(string));
 
         /// <summary>
         /// The free text value of the 'sign as role'
@@ -118,7 +118,7 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// 
         /// </summary>
         public static readonly BindableProperty IsHtmlProperty =
-            BindableProperty.Create("IsHtml", typeof(bool), typeof(PartModel), default(bool));
+            BindableProperty.Create(nameof(IsHtml), typeof(bool), typeof(PartModel), default(bool));
 
         /// <summary>
         /// Gets or sets whether the format of the contract part is html or not.

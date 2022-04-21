@@ -97,7 +97,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// See <see cref="CanDisownThing"/>
 		/// </summary>
 		public static readonly BindableProperty CanDisownThingProperty =
-			BindableProperty.Create("CanDisownThing", typeof(bool), typeof(ThingViewModel), default(bool));
+			BindableProperty.Create(nameof(CanDisownThing), typeof(bool), typeof(ThingViewModel), default(bool));
 
 		/// <summary>
 		/// Gets or sets whether a user can claim a thing.
@@ -116,7 +116,7 @@ namespace IdApp.Pages.Things.ViewThing
 		/// See <see cref="IsOwner"/>
 		/// </summary>
 		public static readonly BindableProperty IsOwnerProperty =
-			BindableProperty.Create("IsOwner", typeof(bool), typeof(ViewClaimThing.ViewClaimThingViewModel), default(bool));
+			BindableProperty.Create(nameof(IsOwner), typeof(bool), typeof(ViewClaimThing.ViewClaimThingViewModel), default(bool));
 
 		/// <summary>
 		/// If the user is owner of the thing.
