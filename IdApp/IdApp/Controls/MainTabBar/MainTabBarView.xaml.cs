@@ -65,8 +65,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public ICommand LeftButton1Command
 		{
-			get => (ICommand)GetValue(LeftButton1CommandProperty);
-			set => SetValue(LeftButton1CommandProperty, value);
+			get => (ICommand)this.GetValue(LeftButton1CommandProperty);
+			set => this.SetValue(LeftButton1CommandProperty, value);
 		}
 
 		/// <summary>
@@ -80,8 +80,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public ICommand LeftButton2Command
 		{
-			get => (ICommand)GetValue(LeftButton2CommandProperty);
-			set => SetValue(LeftButton2CommandProperty, value);
+			get => (ICommand)this.GetValue(LeftButton2CommandProperty);
+			set => this.SetValue(LeftButton2CommandProperty, value);
 		}
 
 		/// <summary>
@@ -95,8 +95,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public ICommand CenterButtonCommand
 		{
-			get => (ICommand)GetValue(CenterButtonCommandProperty);
-			set => SetValue(CenterButtonCommandProperty, value);
+			get => (ICommand)this.GetValue(CenterButtonCommandProperty);
+			set => this.SetValue(CenterButtonCommandProperty, value);
 		}
 
 		/// <summary>
@@ -110,8 +110,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public ICommand RightButton1Command
 		{
-			get => (ICommand)GetValue(RightButton1CommandProperty);
-			set => SetValue(RightButton1CommandProperty, value);
+			get => (ICommand)this.GetValue(RightButton1CommandProperty);
+			set => this.SetValue(RightButton1CommandProperty, value);
 		}
 
 		/// <summary>
@@ -125,8 +125,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public ICommand RightButton2Command
 		{
-			get => (ICommand)GetValue(RightButton2CommandProperty);
-			set => SetValue(RightButton2CommandProperty, value);
+			get => (ICommand)this.GetValue(RightButton2CommandProperty);
+			set => this.SetValue(RightButton2CommandProperty, value);
 		}
 
 		/// <summary>
@@ -140,8 +140,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string LeftButton1FontFamily
 		{
-			get => (string)GetValue(LeftButton1FontFamilyProperty);
-			set => SetValue(LeftButton1FontFamilyProperty, value);
+			get => (string)this.GetValue(LeftButton1FontFamilyProperty);
+			set => this.SetValue(LeftButton1FontFamilyProperty, value);
 		}
 
 		/// <summary>
@@ -155,8 +155,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string LeftButton2FontFamily
 		{
-			get => (string)GetValue(LeftButton2FontFamilyProperty);
-			set => SetValue(LeftButton2FontFamilyProperty, value);
+			get => (string)this.GetValue(LeftButton2FontFamilyProperty);
+			set => this.SetValue(LeftButton2FontFamilyProperty, value);
 		}
 
 		/// <summary>
@@ -170,8 +170,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string CenterButtonFontFamily
 		{
-			get => (string)GetValue(CenterButtonFontFamilyProperty);
-			set => SetValue(CenterButtonFontFamilyProperty, value);
+			get => (string)this.GetValue(CenterButtonFontFamilyProperty);
+			set => this.SetValue(CenterButtonFontFamilyProperty, value);
 		}
 
 		/// <summary>
@@ -185,8 +185,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string RightButton1FontFamily
 		{
-			get => (string)GetValue(RightButton1FontFamilyProperty);
-			set => SetValue(RightButton1FontFamilyProperty, value);
+			get => (string)this.GetValue(RightButton1FontFamilyProperty);
+			set => this.SetValue(RightButton1FontFamilyProperty, value);
 		}
 
 		/// <summary>
@@ -200,8 +200,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string RightButton2FontFamily
 		{
-			get => (string)GetValue(RightButton2FontFamilyProperty);
-			set => SetValue(RightButton2FontFamilyProperty, value);
+			get => (string)this.GetValue(RightButton2FontFamilyProperty);
+			set => this.SetValue(RightButton2FontFamilyProperty, value);
 		}
 
 		/// <summary>
@@ -215,8 +215,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string LeftButton1Text
 		{
-			get => (string)GetValue(LeftButton1TextProperty);
-			set => SetValue(LeftButton1TextProperty, value);
+			get => (string)this.GetValue(LeftButton1TextProperty);
+			set => this.SetValue(LeftButton1TextProperty, value);
 		}
 
 		/// <summary>
@@ -230,8 +230,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string LeftButton2Text
 		{
-			get => (string)GetValue(LeftButton2TextProperty);
-			set => SetValue(LeftButton2TextProperty, value);
+			get => (string)this.GetValue(LeftButton2TextProperty);
+			set => this.SetValue(LeftButton2TextProperty, value);
 		}
 
 		/// <summary>
@@ -245,8 +245,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string CenterButtonText
 		{
-			get => (string)GetValue(CenterButtonTextProperty);
-			set => SetValue(CenterButtonTextProperty, value);
+			get => (string)this.GetValue(CenterButtonTextProperty);
+			set => this.SetValue(CenterButtonTextProperty, value);
 		}
 
 		/// <summary>
@@ -260,8 +260,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string RightButton1Text
 		{
-			get => (string)GetValue(RightButton1TextProperty);
-			set => SetValue(RightButton1TextProperty, value);
+			get => (string)this.GetValue(RightButton1TextProperty);
+			set => this.SetValue(RightButton1TextProperty, value);
 		}
 
 		/// <summary>
@@ -275,8 +275,8 @@ namespace IdApp.Controls.MainTabBar
 		/// </summary>
 		public string RightButton2Text
 		{
-			get => (string)GetValue(RightButton2TextProperty);
-			set => SetValue(RightButton2TextProperty, value);
+			get => (string)this.GetValue(RightButton2TextProperty);
+			set => this.SetValue(RightButton2TextProperty, value);
 		}
 
 		#endregion

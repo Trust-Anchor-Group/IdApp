@@ -144,8 +144,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string BareJid
 		{
-			get { return (string)GetValue(BareJidProperty); }
-			set { SetValue(BareJidProperty, value); }
+			get { return (string)this.GetValue(BareJidProperty); }
+			set { this.SetValue(BareJidProperty, value); }
 		}
 
 		/// <summary>
@@ -159,8 +159,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string LegalId
 		{
-			get { return (string)GetValue(LegalIdProperty); }
-			set { SetValue(LegalIdProperty, value); }
+			get { return (string)this.GetValue(LegalIdProperty); }
+			set { this.SetValue(LegalIdProperty, value); }
 		}
 
 		/// <summary>
@@ -174,8 +174,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string FriendlyName
 		{
-			get { return (string)GetValue(FriendlyNameProperty); }
-			set { SetValue(FriendlyNameProperty, value); }
+			get { return (string)this.GetValue(FriendlyNameProperty); }
+			set { this.SetValue(FriendlyNameProperty, value); }
 		}
 
 		/// <summary>
@@ -189,10 +189,10 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string MarkdownInput
 		{
-			get { return (string)GetValue(MarkdownInputProperty); }
+			get { return (string)this.GetValue(MarkdownInputProperty); }
 			set
 			{
-				SetValue(MarkdownInputProperty, value);
+				this.SetValue(MarkdownInputProperty, value);
 				this.IsWriting = !string.IsNullOrEmpty(value);
 				this.EvaluateAllCommands();
 			}
@@ -209,10 +209,10 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string MessageId
 		{
-			get { return (string)GetValue(MessageIdProperty); }
+			get { return (string)this.GetValue(MessageIdProperty); }
 			set
 			{
-				SetValue(MessageIdProperty, value);
+				this.SetValue(MessageIdProperty, value);
 				this.IsWriting = !string.IsNullOrEmpty(value);
 				this.EvaluateAllCommands();
 			}
@@ -229,10 +229,10 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public bool ExistsMoreMessages
 		{
-			get { return (bool)GetValue(ExistsMoreMessagesProperty); }
+			get { return (bool)this.GetValue(ExistsMoreMessagesProperty); }
 			set
 			{
-				SetValue(ExistsMoreMessagesProperty, value);
+				this.SetValue(ExistsMoreMessagesProperty, value);
 				this.EvaluateCommands(this.LoadMoreMessages);
 			}
 		}
@@ -248,8 +248,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public bool IsWriting
 		{
-			get { return (bool)GetValue(IsWritingProperty); }
-			set { SetValue(IsWritingProperty, value); }
+			get { return (bool)this.GetValue(IsWritingProperty); }
+			set { this.SetValue(IsWritingProperty, value); }
 		}
 
 		/// <summary>

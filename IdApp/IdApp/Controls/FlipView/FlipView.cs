@@ -65,8 +65,8 @@ namespace IdApp.Controls.FlipView
         /// </summary>
         public View FrontView
         {
-            get => (View)GetValue(FrontViewProperty);
-            set => SetValue(FrontViewProperty, value);
+            get => (View)this.GetValue(FrontViewProperty);
+            set => this.SetValue(FrontViewProperty, value);
         }
 
         /// <summary>
@@ -154,8 +154,8 @@ namespace IdApp.Controls.FlipView
         /// </summary>
         public View BackView
         {
-            get { return (View)GetValue(BackViewProperty); }
-            set { SetValue(BackViewProperty, value); }
+            get { return (View)this.GetValue(BackViewProperty); }
+            set { this.SetValue(BackViewProperty, value); }
         }
 
         private void AddChild(View childView)

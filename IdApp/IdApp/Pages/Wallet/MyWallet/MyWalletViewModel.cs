@@ -188,8 +188,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public Balance Balance
 		{
-			get { return (Balance)GetValue(BalanceProperty); }
-			set { SetValue(BalanceProperty, value); }
+			get { return (Balance)this.GetValue(BalanceProperty); }
+			set { this.SetValue(BalanceProperty, value); }
 		}
 
 		/// <summary>
@@ -203,8 +203,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public decimal Amount
 		{
-			get { return (decimal)GetValue(AmountProperty); }
-			set { SetValue(AmountProperty, value); }
+			get { return (decimal)this.GetValue(AmountProperty); }
+			set { this.SetValue(AmountProperty, value); }
 		}
 
 		/// <summary>
@@ -218,8 +218,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string Currency
 		{
-			get { return (string)GetValue(CurrencyProperty); }
-			set { SetValue(CurrencyProperty, value); }
+			get { return (string)this.GetValue(CurrencyProperty); }
+			set { this.SetValue(CurrencyProperty, value); }
 		}
 
 		/// <summary>
@@ -233,10 +233,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasPending
 		{
-			get => (bool)GetValue(HasPendingProperty);
+			get => (bool)this.GetValue(HasPendingProperty);
 			set
 			{
-				SetValue(HasPendingProperty, value);
+				this.SetValue(HasPendingProperty, value);
 				this.CalcViewDependencies();
 			}
 		}
@@ -252,8 +252,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool IsPendingVisible
 		{
-			get { return (bool)GetValue(IsPendingVisibleProperty); }
-			set { SetValue(IsPendingVisibleProperty, value); }
+			get { return (bool)this.GetValue(IsPendingVisibleProperty); }
+			set { this.SetValue(IsPendingVisibleProperty, value); }
 		}
 
 		/// <summary>
@@ -267,10 +267,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool IsFrontViewShowing
 		{
-			get => (bool)GetValue(IsFrontViewShowingProperty);
+			get => (bool)this.GetValue(IsFrontViewShowingProperty);
 			set
 			{
-				SetValue(IsFrontViewShowingProperty, value);
+				this.SetValue(IsFrontViewShowingProperty, value);
 				this.CalcViewDependencies();
 			}
 		}
@@ -294,8 +294,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public decimal PendingAmount
 		{
-			get { return (decimal)GetValue(PendingAmountProperty); }
-			set { SetValue(PendingAmountProperty, value); }
+			get { return (decimal)this.GetValue(PendingAmountProperty); }
+			set { this.SetValue(PendingAmountProperty, value); }
 		}
 
 		/// <summary>
@@ -309,8 +309,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string PendingCurrency
 		{
-			get { return (string)GetValue(PendingCurrencyProperty); }
-			set { SetValue(PendingCurrencyProperty, value); }
+			get { return (string)this.GetValue(PendingCurrencyProperty); }
+			set { this.SetValue(PendingCurrencyProperty, value); }
 		}
 
 		/// <summary>
@@ -324,8 +324,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public DateTime Timestamp
 		{
-			get { return (DateTime)GetValue(TimestampProperty); }
-			set { SetValue(TimestampProperty, value); }
+			get { return (DateTime)this.GetValue(TimestampProperty); }
+			set { this.SetValue(TimestampProperty, value); }
 		}
 
 		/// <summary>
@@ -339,8 +339,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public DateTime LastEvent
 		{
-			get { return (DateTime)GetValue(LastEventProperty); }
-			set { SetValue(LastEventProperty, value); }
+			get { return (DateTime)this.GetValue(LastEventProperty); }
+			set { this.SetValue(LastEventProperty, value); }
 		}
 
 		/// <summary>
@@ -354,8 +354,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string EDalerFrontGlyph
 		{
-			get { return (string)GetValue(EDalerFrontGlyphProperty); }
-			set { SetValue(EDalerFrontGlyphProperty, value); }
+			get { return (string)this.GetValue(EDalerFrontGlyphProperty); }
+			set { this.SetValue(EDalerFrontGlyphProperty, value); }
 		}
 
 		/// <summary>
@@ -369,8 +369,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public string EDalerBackGlyph
 		{
-			get { return (string)GetValue(EDalerBackGlyphProperty); }
-			set { SetValue(EDalerBackGlyphProperty, value); }
+			get { return (string)this.GetValue(EDalerBackGlyphProperty); }
+			set { this.SetValue(EDalerBackGlyphProperty, value); }
 		}
 
 		/// <summary>
@@ -384,10 +384,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasEvents
 		{
-			get { return (bool)GetValue(HasEventsProperty); }
+			get { return (bool)this.GetValue(HasEventsProperty); }
 			set
 			{
-				SetValue(HasEventsProperty, value);
+				this.SetValue(HasEventsProperty, value);
 				this.CalcViewDependencies();
 			}
 		}
@@ -403,8 +403,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool AreEventsVisible
 		{
-			get { return (bool)GetValue(AreEventsVisibleProperty); }
-			set { SetValue(AreEventsVisibleProperty, value); }
+			get { return (bool)this.GetValue(AreEventsVisibleProperty); }
+			set { this.SetValue(AreEventsVisibleProperty, value); }
 		}
 
 		/// <summary>
@@ -418,8 +418,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasMoreEvents
 		{
-			get { return (bool)GetValue(HasMoreEventsProperty); }
-			set { SetValue(HasMoreEventsProperty, value); }
+			get { return (bool)this.GetValue(HasMoreEventsProperty); }
+			set { this.SetValue(HasMoreEventsProperty, value); }
 		}
 
 		/// <summary>
@@ -433,10 +433,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasTotals
 		{
-			get { return (bool)GetValue(HasTotalsProperty); }
+			get { return (bool)this.GetValue(HasTotalsProperty); }
 			set 
 			{
-				SetValue(HasTotalsProperty, value);
+				this.SetValue(HasTotalsProperty, value);
 				this.CalcViewDependencies();
 			}
 		}
@@ -452,8 +452,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool AreTotalsVisible
 		{
-			get { return (bool)GetValue(AreTotalsVisibleProperty); }
-			set { SetValue(AreTotalsVisibleProperty, value); }
+			get { return (bool)this.GetValue(AreTotalsVisibleProperty); }
+			set { this.SetValue(AreTotalsVisibleProperty, value); }
 		}
 
 		/// <summary>
@@ -467,10 +467,10 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasTokens
 		{
-			get { return (bool)GetValue(HasTokensProperty); }
+			get { return (bool)this.GetValue(HasTokensProperty); }
 			set 
 			{ 
-				SetValue(HasTokensProperty, value);
+				this.SetValue(HasTokensProperty, value);
 				this.CalcViewDependencies();
 			}
 		}
@@ -486,8 +486,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool AreTokensVisible
 		{
-			get { return (bool)GetValue(AreTokensVisibleProperty); }
-			set { SetValue(AreTokensVisibleProperty, value); }
+			get { return (bool)this.GetValue(AreTokensVisibleProperty); }
+			set { this.SetValue(AreTokensVisibleProperty, value); }
 		}
 
 		/// <summary>

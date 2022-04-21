@@ -73,8 +73,8 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		/// </summary>
 		public string DomainName
 		{
-			get { return (string)GetValue(DomainNameProperty); }
-			set { SetValue(DomainNameProperty, value); }
+			get { return (string)this.GetValue(DomainNameProperty); }
+			set { this.SetValue(DomainNameProperty, value); }
 		}
 
 		/// <summary>
@@ -88,7 +88,7 @@ namespace IdApp.Pages.Registration.ChooseAccount
 		/// </summary>
 		public string AccountName
 		{
-			get { return (string)GetValue(AccountNameProperty); }
+			get { return (string)this.GetValue(AccountNameProperty); }
 			set
 			{
 				this.SetValue(AccountNameProperty, value);

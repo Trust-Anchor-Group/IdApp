@@ -98,8 +98,8 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// </summary>
 		public string Title
 		{
-			get { return (string)GetValue(TitleProperty); }
-			set { SetValue(TitleProperty, value); }
+			get { return (string)this.GetValue(TitleProperty); }
+			set { this.SetValue(TitleProperty, value); }
 		}
 
 		/// <summary>
@@ -113,8 +113,8 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// </summary>
 		public string Description
 		{
-			get { return (string)GetValue(DescriptionProperty); }
-			set { SetValue(DescriptionProperty, value); }
+			get { return (string)this.GetValue(DescriptionProperty); }
+			set { this.SetValue(DescriptionProperty, value); }
 		}
 
 		/// <summary>
@@ -128,8 +128,8 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// </summary>
 		public SelectContractAction Action
 		{
-			get { return (SelectContractAction)GetValue(ActionProperty); }
-			set { SetValue(ActionProperty, value); }
+			get { return (SelectContractAction)this.GetValue(ActionProperty); }
+			set { this.SetValue(ActionProperty, value); }
 		}
 
 		/// <summary>
@@ -143,8 +143,8 @@ namespace IdApp.Pages.Contracts.MyContracts
 		/// </summary>
 		public bool ShowContractsMissing
 		{
-			get { return (bool)GetValue(ShowContractsMissingProperty); }
-			set { SetValue(ShowContractsMissingProperty, value); }
+			get { return (bool)this.GetValue(ShowContractsMissingProperty); }
+			set { this.SetValue(ShowContractsMissingProperty, value); }
 		}
 
 		/// <summary>

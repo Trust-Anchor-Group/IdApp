@@ -123,8 +123,8 @@ namespace IdApp.Pages.Things.ViewThing
 		/// </summary>
 		public bool IsOwner
 		{
-			get { return (bool)GetValue(IsOwnerProperty); }
-			set { SetValue(IsOwnerProperty, value); }
+			get { return (bool)this.GetValue(IsOwnerProperty); }
+			set { this.SetValue(IsOwnerProperty, value); }
 		}
 
 		#endregion

@@ -131,8 +131,8 @@ namespace IdApp.Pages.Contacts
 		/// </summary>
 		public bool ShowContactsMissing
 		{
-			get { return (bool)GetValue(ShowContactsMissingProperty); }
-			set { SetValue(ShowContactsMissingProperty, value); }
+			get { return (bool)this.GetValue(ShowContactsMissingProperty); }
+			set { this.SetValue(ShowContactsMissingProperty, value); }
 		}
 
 		/// <summary>
@@ -146,8 +146,8 @@ namespace IdApp.Pages.Contacts
 		/// </summary>
 		public string Description
 		{
-			get { return (string)GetValue(DescriptionProperty); }
-			set { SetValue(DescriptionProperty, value); }
+			get { return (string)this.GetValue(DescriptionProperty); }
+			set { this.SetValue(DescriptionProperty, value); }
 		}
 
 		/// <summary>
@@ -161,8 +161,8 @@ namespace IdApp.Pages.Contacts
 		/// </summary>
 		public SelectContactAction Action
 		{
-			get { return (SelectContactAction)GetValue(ActionProperty); }
-			set { SetValue(ActionProperty, value); }
+			get { return (SelectContactAction)this.GetValue(ActionProperty); }
+			set { this.SetValue(ActionProperty, value); }
 		}
 
 		/// <summary>
@@ -243,8 +243,8 @@ namespace IdApp.Pages.Contacts
 		/// </summary>
 		public ContactInfo SelectedContact
 		{
-			get { return (ContactInfo)GetValue(SelectedContactProperty); }
-			set { SetValue(SelectedContactProperty, value); }
+			get { return (ContactInfo)this.GetValue(SelectedContactProperty); }
+			set { this.SetValue(SelectedContactProperty, value); }
 		}
 
 	}

@@ -192,11 +192,11 @@ namespace IdApp.Pages
         /// </summary>
         public bool IsBusy
         {
-            get { return (bool)GetValue(IsBusyProperty); }
+            get { return (bool)this.GetValue(IsBusyProperty); }
             set 
             {
-                SetValue(IsBusyProperty, value);
-                SetValue(IsIdleProperty, !value);
+                this.SetValue(IsBusyProperty, value);
+                this.SetValue(IsIdleProperty, !value);
             }
         }
 
@@ -211,11 +211,11 @@ namespace IdApp.Pages
         /// </summary>
         public bool IsIdle
         {
-            get { return (bool)GetValue(IsIdleProperty); }
+            get { return (bool)this.GetValue(IsIdleProperty); }
             set 
             {
-                SetValue(IsIdleProperty, value);
-                SetValue(IsBusyProperty, !value);
+                this.SetValue(IsIdleProperty, value);
+                this.SetValue(IsBusyProperty, !value);
             }
         }
 

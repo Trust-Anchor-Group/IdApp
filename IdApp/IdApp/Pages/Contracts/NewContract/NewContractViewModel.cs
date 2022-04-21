@@ -181,8 +181,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool IsTemplate
 		{
-			get { return (bool)GetValue(IsTemplateProperty); }
-			set { SetValue(IsTemplateProperty, value); }
+			get { return (bool)this.GetValue(IsTemplateProperty); }
+			set { this.SetValue(IsTemplateProperty, value); }
 		}
 
 		/// <summary>
@@ -201,8 +201,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public ContractVisibilityModel SelectedContractVisibilityItem
 		{
-			get { return (ContractVisibilityModel)GetValue(SelectedContractVisibilityItemProperty); }
-			set { SetValue(SelectedContractVisibilityItemProperty, value); }
+			get { return (ContractVisibilityModel)this.GetValue(SelectedContractVisibilityItemProperty); }
+			set { this.SetValue(SelectedContractVisibilityItemProperty, value); }
 		}
 
 		/// <summary>
@@ -216,8 +216,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool VisibilityIsEnabled
 		{
-			get { return (bool)GetValue(VisibilityIsEnabledProperty); }
-			set { SetValue(VisibilityIsEnabledProperty, value); }
+			get { return (bool)this.GetValue(VisibilityIsEnabledProperty); }
+			set { this.SetValue(VisibilityIsEnabledProperty, value); }
 		}
 
 		/// <summary>
@@ -246,8 +246,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public string SelectedRole
 		{
-			get { return (string)GetValue(SelectedRoleProperty); }
-			set { SetValue(SelectedRoleProperty, value); }
+			get { return (string)this.GetValue(SelectedRoleProperty); }
+			set { this.SetValue(SelectedRoleProperty, value); }
 		}
 
 		/// <summary>
@@ -261,8 +261,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public StackLayout Roles
 		{
-			get { return (StackLayout)GetValue(RolesProperty); }
-			set { SetValue(RolesProperty, value); }
+			get { return (StackLayout)this.GetValue(RolesProperty); }
+			set { this.SetValue(RolesProperty, value); }
 		}
 
 		/// <summary>
@@ -276,8 +276,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public StackLayout Parameters
 		{
-			get { return (StackLayout)GetValue(ParametersProperty); }
-			set { SetValue(ParametersProperty, value); }
+			get { return (StackLayout)this.GetValue(ParametersProperty); }
+			set { this.SetValue(ParametersProperty, value); }
 		}
 
 		/// <summary>
@@ -291,8 +291,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public StackLayout HumanReadableText
 		{
-			get { return (StackLayout)GetValue(HumanReadableTextProperty); }
-			set { SetValue(HumanReadableTextProperty, value); }
+			get { return (StackLayout)this.GetValue(HumanReadableTextProperty); }
+			set { this.SetValue(HumanReadableTextProperty, value); }
 		}
 
 		/// <summary>
@@ -306,8 +306,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool HasRoles
 		{
-			get { return (bool)GetValue(HasRolesProperty); }
-			set { SetValue(HasRolesProperty, value); }
+			get { return (bool)this.GetValue(HasRolesProperty); }
+			set { this.SetValue(HasRolesProperty, value); }
 		}
 
 		/// <summary>
@@ -321,8 +321,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool HasParameters
 		{
-			get { return (bool)GetValue(HasParametersProperty); }
-			set { SetValue(HasParametersProperty, value); }
+			get { return (bool)this.GetValue(HasParametersProperty); }
+			set { this.SetValue(HasParametersProperty, value); }
 		}
 
 		/// <summary>
@@ -336,8 +336,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool ParametersOk
 		{
-			get { return (bool)GetValue(ParametersOkProperty); }
-			set { SetValue(ParametersOkProperty, value); }
+			get { return (bool)this.GetValue(ParametersOkProperty); }
+			set { this.SetValue(ParametersOkProperty, value); }
 		}
 
 		/// <summary>
@@ -351,8 +351,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool HasHumanReadableText
 		{
-			get { return (bool)GetValue(HasHumanReadableTextProperty); }
-			set { SetValue(HasHumanReadableTextProperty, value); }
+			get { return (bool)this.GetValue(HasHumanReadableTextProperty); }
+			set { this.SetValue(HasHumanReadableTextProperty, value); }
 		}
 
 		/// <summary>
@@ -366,8 +366,8 @@ namespace IdApp.Pages.Contracts.NewContract
 		/// </summary>
 		public bool CanAddParts
 		{
-			get { return (bool)GetValue(CanAddPartsProperty); }
-			set { SetValue(CanAddPartsProperty, value); }
+			get { return (bool)this.GetValue(CanAddPartsProperty); }
+			set { this.SetValue(CanAddPartsProperty, value); }
 		}
 
 		#endregion

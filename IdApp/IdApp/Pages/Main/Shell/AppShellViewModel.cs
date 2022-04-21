@@ -57,8 +57,8 @@ namespace IdApp.Pages.Main.Shell
 		/// </summary>
 		public string ConnectionStateText
 		{
-			get { return (string)GetValue(ConnectionStateTextProperty); }
-			set { SetValue(ConnectionStateTextProperty, value); }
+			get { return (string)this.GetValue(ConnectionStateTextProperty); }
+			set { this.SetValue(ConnectionStateTextProperty, value); }
 		}
 
 		/// <summary>
@@ -72,8 +72,8 @@ namespace IdApp.Pages.Main.Shell
 		/// </summary>
 		public bool IsConnected
 		{
-			get { return (bool)GetValue(IsConnectedProperty); }
-			set { SetValue(IsConnectedProperty, value); }
+			get { return (bool)this.GetValue(IsConnectedProperty); }
+			set { this.SetValue(IsConnectedProperty, value); }
 		}
 
 		/// <summary>
@@ -87,8 +87,8 @@ namespace IdApp.Pages.Main.Shell
 		/// </summary>
 		public bool IsOnline
 		{
-			get { return (bool)GetValue(IsOnlineProperty); }
-			set { SetValue(IsOnlineProperty, value); }
+			get { return (bool)this.GetValue(IsOnlineProperty); }
+			set { this.SetValue(IsOnlineProperty, value); }
 		}
 
 		#endregion

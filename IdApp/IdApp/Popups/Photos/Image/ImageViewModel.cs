@@ -38,8 +38,8 @@ namespace IdApp.Popups.Photos.Image
         /// </summary>
         public bool IsSwipeEnabled
         {
-            get { return (bool) GetValue(IsSwipeEnabledProperty); }
-            set { SetValue(IsSwipeEnabledProperty, value); }
+            get { return (bool)this.GetValue(IsSwipeEnabledProperty); }
+            set { this.SetValue(IsSwipeEnabledProperty, value); }
         }
 
         /// <summary>
