@@ -571,6 +571,11 @@
             If the view is flipping
             </summary>
         </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.Flipped">
+            <summary>
+            When the front has flipped to the back, or back to front
+            </summary>
+        </member>
         <member name="E:IdApp.Controls.FlipView.FlipView.BeforeFlipping">
             <summary>
             Event raised before flipping the view.
@@ -8481,6 +8486,26 @@
             HasPending of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsPendingVisible">
+            <summary>
+            IsPendingVisible of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowingProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowing"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.IsFrontViewShowing">
+            <summary>
+            IsFrontViewShowing of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingAmountProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingAmount"/>
@@ -8551,6 +8576,16 @@
             HasEvents of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreEventsVisible">
+            <summary>
+            AreEventsVisible of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEventsProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEvents"/>
@@ -8571,6 +8606,16 @@
             HasTotals of eDaler to process
             </summary>
         </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTotalsVisible">
+            <summary>
+            AreTotalsVisible of eDaler to process
+            </summary>
+        </member>
         <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokensProperty">
             <summary>
             See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens"/>
@@ -8579,6 +8624,16 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTokens">
             <summary>
             HasTokens of eDaler to process
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisibleProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisible"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.AreTokensVisible">
+            <summary>
+            AreTokensVisible of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingPayments">

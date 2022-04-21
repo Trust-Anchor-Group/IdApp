@@ -85,6 +85,11 @@ namespace IdApp.Controls.FlipView
         public bool IsFlipping => this.isFlipping;
 
         /// <summary>
+        /// When the front has flipped to the back, or back to front
+        /// </summary>
+        public event EventHandler Flipped;
+
+        /// <summary>
         /// Event raised before flipping the view.
         /// </summary>
         public event EventHandler BeforeFlipping;
@@ -167,7 +172,10 @@ namespace IdApp.Controls.FlipView
         private void OrganizeViews()
         {
             if (this.backView is not null && this.frontView is not null)
+            {
                 this.contentHolder.RaiseChild(this.isFlipped ? this.backView : this.frontView); ;
+               this.RaiseEvent(this.Flipped);
+            }
         }
 
         /// <summary>

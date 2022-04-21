@@ -233,8 +233,54 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// </summary>
 		public bool HasPending
 		{
-			get { return (bool)GetValue(HasPendingProperty); }
-			set { SetValue(HasPendingProperty, value); }
+			get => (bool)GetValue(HasPendingProperty);
+			set
+			{
+				SetValue(HasPendingProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="IsPendingVisible"/>
+		/// </summary>
+		public static readonly BindableProperty IsPendingVisibleProperty =
+			BindableProperty.Create(nameof(IsPendingVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// IsPendingVisible of eDaler to process
+		/// </summary>
+		public bool IsPendingVisible
+		{
+			get { return (bool)GetValue(IsPendingVisibleProperty); }
+			set { SetValue(IsPendingVisibleProperty, value); }
+		}
+
+		/// <summary>
+		/// See <see cref="IsFrontViewShowing"/>
+		/// </summary>
+		public static readonly BindableProperty IsFrontViewShowingProperty =
+			BindableProperty.Create(nameof(IsFrontViewShowing), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// IsFrontViewShowing of eDaler to process
+		/// </summary>
+		public bool IsFrontViewShowing
+		{
+			get => (bool)GetValue(IsFrontViewShowingProperty);
+			set
+			{
+				SetValue(IsFrontViewShowingProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		private void CalcViewDependencies()
+		{
+			this.IsPendingVisible = this.HasPending && this.IsFrontViewShowing;
+			this.AreEventsVisible = this.HasEvents && this.IsFrontViewShowing;
+			this.AreTotalsVisible = this.HasTotals && !this.IsFrontViewShowing;
+			this.AreTokensVisible = this.HasTokens && !this.IsFrontViewShowing;
 		}
 
 		/// <summary>
@@ -339,7 +385,26 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasEvents
 		{
 			get { return (bool)GetValue(HasEventsProperty); }
-			set { SetValue(HasEventsProperty, value); }
+			set
+			{
+				SetValue(HasEventsProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AreEventsVisible"/>
+		/// </summary>
+		public static readonly BindableProperty AreEventsVisibleProperty =
+			BindableProperty.Create(nameof(AreEventsVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// AreEventsVisible of eDaler to process
+		/// </summary>
+		public bool AreEventsVisible
+		{
+			get { return (bool)GetValue(AreEventsVisibleProperty); }
+			set { SetValue(AreEventsVisibleProperty, value); }
 		}
 
 		/// <summary>
@@ -369,7 +434,26 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasTotals
 		{
 			get { return (bool)GetValue(HasTotalsProperty); }
-			set { SetValue(HasTotalsProperty, value); }
+			set 
+			{
+				SetValue(HasTotalsProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AreTotalsVisible"/>
+		/// </summary>
+		public static readonly BindableProperty AreTotalsVisibleProperty =
+			BindableProperty.Create(nameof(AreTotalsVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// AreTotalsVisible of eDaler to process
+		/// </summary>
+		public bool AreTotalsVisible
+		{
+			get { return (bool)GetValue(AreTotalsVisibleProperty); }
+			set { SetValue(AreTotalsVisibleProperty, value); }
 		}
 
 		/// <summary>
@@ -384,7 +468,26 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasTokens
 		{
 			get { return (bool)GetValue(HasTokensProperty); }
-			set { SetValue(HasTokensProperty, value); }
+			set 
+			{ 
+				SetValue(HasTokensProperty, value);
+				this.CalcViewDependencies();
+			}
+		}
+
+		/// <summary>
+		/// See <see cref="AreTokensVisible"/>
+		/// </summary>
+		public static readonly BindableProperty AreTokensVisibleProperty =
+			BindableProperty.Create(nameof(AreTokensVisible), typeof(bool), typeof(MyWalletViewModel), default(bool));
+
+		/// <summary>
+		/// AreTokensVisible of eDaler to process
+		/// </summary>
+		public bool AreTokensVisible
+		{
+			get { return (bool)GetValue(AreTokensVisibleProperty); }
+			set { SetValue(AreTokensVisibleProperty, value); }
 		}
 
 		/// <summary>
@@ -571,6 +674,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 					this.LogService.LogException(ex);
 				}
 			}
+		}
+
+		internal void ViewsFlipped(bool IsFrontViewShowing)
+		{
+			this.IsFrontViewShowing = IsFrontViewShowing;
 		}
 
 		private Task LoadMoreTokens()

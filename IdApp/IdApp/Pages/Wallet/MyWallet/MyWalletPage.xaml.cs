@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IdApp.Controls.FlipView;
+using System;
 using System.Threading.Tasks;
 using Xamarin.Forms.Xaml;
 
@@ -59,6 +60,12 @@ namespace IdApp.Pages.Wallet.MyWallet
 		{
 			if (this.ViewModel is MyWalletViewModel Model)
 				Model.BindTokens();
+		}
+
+		private void WalletFlipView_Flipped(object sender, EventArgs e)
+		{
+			if (this.ViewModel is MyWalletViewModel Model && sender is FlipView FlipView)
+				Model.ViewsFlipped(FlipView.IsFrontViewShowing);
 		}
 	}
 }
