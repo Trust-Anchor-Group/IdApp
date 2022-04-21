@@ -154,7 +154,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			try
 			{
 				(decimal PendingAmount, string PendingCurrency, EDaler.PendingPayment[] PendingPayments) = await this.XmppService.Wallet.GetPendingPayments();
-				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(50);
+				(EDaler.AccountEvent[] Events, bool More) = await this.XmppService.Wallet.GetAccountEventsAsync(20);
 
 				this.UiSerializer.BeginInvokeOnMainThread(async () => await AssignProperties(Balance, PendingAmount, PendingCurrency,
 					PendingPayments, Events, More, this.XmppService.Wallet.LastEvent));
@@ -544,7 +544,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			{
 				try
 				{
-					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 50);
+					TokensEventArgs e = await this.XmppService.Wallet.GetTokens(0, 20);
 
 					this.UiSerializer.BeginInvokeOnMainThread(() =>
 					{
