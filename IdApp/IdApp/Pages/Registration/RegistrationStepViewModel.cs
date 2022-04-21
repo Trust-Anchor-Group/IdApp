@@ -37,8 +37,8 @@ namespace IdApp.Pages.Registration
         /// </summary>
         public string Title
         {
-            get { return (string)this.GetValue(TitleProperty); }
-            set { this.SetValue(TitleProperty, value); }
+            get => (string)this.GetValue(TitleProperty);
+            set => this.SetValue(TitleProperty, value);
         }
 
         /// <summary>

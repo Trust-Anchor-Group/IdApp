@@ -170,8 +170,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string Uri
 		{
-			get { return (string)this.GetValue(UriProperty); }
-			set { this.SetValue(UriProperty, value); }
+			get => (string)this.GetValue(UriProperty);
+			set => this.SetValue(UriProperty, value);
 		}
 
 		/// <summary>
@@ -185,8 +185,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public decimal Amount
 		{
-			get { return (decimal)this.GetValue(AmountProperty); }
-			set { this.SetValue(AmountProperty, value); }
+			get => (decimal)this.GetValue(AmountProperty);
+			set => this.SetValue(AmountProperty, value);
 		}
 
 		/// <summary>
@@ -200,8 +200,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool AmountOk
 		{
-			get { return (bool)this.GetValue(AmountOkProperty); }
-			set { this.SetValue(AmountOkProperty, value); }
+			get => (bool)this.GetValue(AmountOkProperty);
+			set => this.SetValue(AmountOkProperty, value);
 		}
 
 		/// <summary>
@@ -215,8 +215,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public Color AmountColor
 		{
-			get { return (Color)this.GetValue(AmountColorProperty); }
-			set { this.SetValue(AmountColorProperty, value); }
+			get => (Color)this.GetValue(AmountColorProperty);
+			set => this.SetValue(AmountColorProperty, value);
 		}
 
 		/// <summary>
@@ -230,7 +230,7 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string AmountText
 		{
-			get { return (string)this.GetValue(AmountTextProperty); }
+			get => (string)this.GetValue(AmountTextProperty);
 			set
 			{
 				this.SetValue(AmountTextProperty, value);
@@ -262,8 +262,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string AmountAndCurrency
 		{
-			get { return (string)this.GetValue(AmountAndCurrencyProperty); }
-			set { this.SetValue(AmountAndCurrencyProperty, value); }
+			get => (string)this.GetValue(AmountAndCurrencyProperty);
+			set => this.SetValue(AmountAndCurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -277,8 +277,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool AmountPreset
 		{
-			get { return (bool)this.GetValue(AmountPresetProperty); }
-			set { this.SetValue(AmountPresetProperty, value); }
+			get => (bool)this.GetValue(AmountPresetProperty);
+			set => this.SetValue(AmountPresetProperty, value);
 		}
 
 		/// <summary>
@@ -293,7 +293,7 @@ namespace IdApp.Pages.Wallet
 		public decimal? AmountExtra
 		{
 			get { return (decimal?)this.GetValue(AmountExtraProperty); }
-			set { this.SetValue(AmountExtraProperty, value); }
+			set => this.SetValue(AmountExtraProperty, value);
 		}
 
 		/// <summary>
@@ -307,8 +307,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool AmountExtraOk
 		{
-			get { return (bool)this.GetValue(AmountExtraOkProperty); }
-			set { this.SetValue(AmountExtraOkProperty, value); }
+			get => (bool)this.GetValue(AmountExtraOkProperty);
+			set => this.SetValue(AmountExtraOkProperty, value);
 		}
 
 		/// <summary>
@@ -322,8 +322,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public Color AmountExtraColor
 		{
-			get { return (Color)this.GetValue(AmountExtraColorProperty); }
-			set { this.SetValue(AmountExtraColorProperty, value); }
+			get => (Color)this.GetValue(AmountExtraColorProperty);
+			set => this.SetValue(AmountExtraColorProperty, value);
 		}
 
 		/// <summary>
@@ -337,7 +337,7 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string AmountExtraText
 		{
-			get { return (string)this.GetValue(AmountExtraTextProperty); }
+			get => (string)this.GetValue(AmountExtraTextProperty);
 			set
 			{
 				this.SetValue(AmountExtraTextProperty, value);
@@ -375,8 +375,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string AmountExtraAndCurrency
 		{
-			get { return (string)this.GetValue(AmountExtraAndCurrencyProperty); }
-			set { this.SetValue(AmountExtraAndCurrencyProperty, value); }
+			get => (string)this.GetValue(AmountExtraAndCurrencyProperty);
+			set => this.SetValue(AmountExtraAndCurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -390,8 +390,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool AmountExtraPreset
 		{
-			get { return (bool)this.GetValue(AmountExtraPresetProperty); }
-			set { this.SetValue(AmountExtraPresetProperty, value); }
+			get => (bool)this.GetValue(AmountExtraPresetProperty);
+			set => this.SetValue(AmountExtraPresetProperty, value);
 		}
 
 		/// <summary>
@@ -405,8 +405,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string Currency
 		{
-			get { return (string)this.GetValue(CurrencyProperty); }
-			set { this.SetValue(CurrencyProperty, value); }
+			get => (string)this.GetValue(CurrencyProperty);
+			set => this.SetValue(CurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -420,8 +420,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public DateTime Created
 		{
-			get { return (DateTime)this.GetValue(CreatedProperty); }
-			set { this.SetValue(CreatedProperty, value); }
+			get => (DateTime)this.GetValue(CreatedProperty);
+			set => this.SetValue(CreatedProperty, value);
 		}
 
 		/// <summary>
@@ -435,8 +435,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public DateTime Expires
 		{
-			get { return (DateTime)this.GetValue(ExpiresProperty); }
-			set { this.SetValue(ExpiresProperty, value); }
+			get => (DateTime)this.GetValue(ExpiresProperty);
+			set => this.SetValue(ExpiresProperty, value);
 		}
 
 		/// <summary>
@@ -450,8 +450,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string ExpiresStr
 		{
-			get { return (string)this.GetValue(ExpiresStrProperty); }
-			set { this.SetValue(ExpiresStrProperty, value); }
+			get => (string)this.GetValue(ExpiresStrProperty);
+			set => this.SetValue(ExpiresStrProperty, value);
 		}
 
 		/// <summary>
@@ -465,8 +465,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public Guid Id
 		{
-			get { return (Guid)this.GetValue(IdProperty); }
-			set { this.SetValue(IdProperty, value); }
+			get => (Guid)this.GetValue(IdProperty);
+			set => this.SetValue(IdProperty, value);
 		}
 
 		/// <summary>
@@ -480,8 +480,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string From
 		{
-			get { return (string)this.GetValue(FromProperty); }
-			set { this.SetValue(FromProperty, value); }
+			get => (string)this.GetValue(FromProperty);
+			set => this.SetValue(FromProperty, value);
 		}
 
 		/// <summary>
@@ -495,8 +495,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public EntityType FromType
 		{
-			get { return (EntityType)this.GetValue(FromTypeProperty); }
-			set { this.SetValue(FromTypeProperty, value); }
+			get => (EntityType)this.GetValue(FromTypeProperty);
+			set => this.SetValue(FromTypeProperty, value);
 		}
 
 		/// <summary>
@@ -510,8 +510,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string To
 		{
-			get { return (string)this.GetValue(ToProperty); }
-			set { this.SetValue(ToProperty, value); }
+			get => (string)this.GetValue(ToProperty);
+			set => this.SetValue(ToProperty, value);
 		}
 
 		/// <summary>
@@ -525,8 +525,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool ToPreset
 		{
-			get { return (bool)this.GetValue(ToPresetProperty); }
-			set { this.SetValue(ToPresetProperty, value); }
+			get => (bool)this.GetValue(ToPresetProperty);
+			set => this.SetValue(ToPresetProperty, value);
 		}
 
 		/// <summary>
@@ -540,8 +540,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public EntityType ToType
 		{
-			get { return (EntityType)this.GetValue(ToTypeProperty); }
-			set { this.SetValue(ToTypeProperty, value); }
+			get => (EntityType)this.GetValue(ToTypeProperty);
+			set => this.SetValue(ToTypeProperty, value);
 		}
 
 		/// <summary>
@@ -555,8 +555,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string FriendlyName
 		{
-			get { return (string)this.GetValue(FriendlyNameProperty); }
-			set { this.SetValue(FriendlyNameProperty, value); }
+			get => (string)this.GetValue(FriendlyNameProperty);
+			set => this.SetValue(FriendlyNameProperty, value);
 		}
 
 		/// <summary>
@@ -570,8 +570,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool Complete
 		{
-			get { return (bool)this.GetValue(CompleteProperty); }
-			set { this.SetValue(CompleteProperty, value); }
+			get => (bool)this.GetValue(CompleteProperty);
+			set => this.SetValue(CompleteProperty, value);
 		}
 
 		/// <summary>
@@ -585,8 +585,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string Message
 		{
-			get { return (string)this.GetValue(MessageProperty); }
-			set { this.SetValue(MessageProperty, value); }
+			get => (string)this.GetValue(MessageProperty);
+			set => this.SetValue(MessageProperty, value);
 		}
 
 		/// <summary>
@@ -600,8 +600,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool EncryptMessage
 		{
-			get { return (bool)this.GetValue(EncryptMessageProperty); }
-			set { this.SetValue(EncryptMessageProperty, value); }
+			get => (bool)this.GetValue(EncryptMessageProperty);
+			set => this.SetValue(EncryptMessageProperty, value);
 		}
 
 		/// <summary>
@@ -615,8 +615,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool HasMessage
 		{
-			get { return (bool)this.GetValue(HasMessageProperty); }
-			set { this.SetValue(HasMessageProperty, value); }
+			get => (bool)this.GetValue(HasMessageProperty);
+			set => this.SetValue(HasMessageProperty, value);
 		}
 
 		/// <summary>
@@ -630,8 +630,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool MessagePreset
 		{
-			get { return (bool)this.GetValue(MessagePresetProperty); }
-			set { this.SetValue(MessagePresetProperty, value); }
+			get => (bool)this.GetValue(MessagePresetProperty);
+			set => this.SetValue(MessagePresetProperty, value);
 		}
 
 		/// <summary>
@@ -650,8 +650,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public ImageSource QrCode
 		{
-			get { return (ImageSource)this.GetValue(QrCodeProperty); }
-			set { this.SetValue(QrCodeProperty, value); }
+			get => (ImageSource)this.GetValue(QrCodeProperty);
+			set => this.SetValue(QrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -665,8 +665,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool HasQrCode
 		{
-			get { return (bool)this.GetValue(HasQrCodeProperty); }
-			set { this.SetValue(HasQrCodeProperty, value); }
+			get => (bool)this.GetValue(HasQrCodeProperty);
+			set => this.SetValue(HasQrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -681,7 +681,7 @@ namespace IdApp.Pages.Wallet
 		public byte[] QrCodePng
 		{
 			get { return (byte[])this.GetValue(QrCodePngProperty); }
-			set { this.SetValue(QrCodePngProperty, value); }
+			set => this.SetValue(QrCodePngProperty, value);
 		}
 
 		/// <summary>
@@ -695,8 +695,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public int QrCodeWidth
 		{
-			get { return (int)this.GetValue(QrCodeWidthProperty); }
-			set { this.SetValue(QrCodeWidthProperty, value); }
+			get => (int)this.GetValue(QrCodeWidthProperty);
+			set => this.SetValue(QrCodeWidthProperty, value);
 		}
 
 		/// <summary>
@@ -710,8 +710,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public int QrCodeHeight
 		{
-			get { return (int)this.GetValue(QrCodeHeightProperty); }
-			set { this.SetValue(QrCodeHeightProperty, value); }
+			get => (int)this.GetValue(QrCodeHeightProperty);
+			set => this.SetValue(QrCodeHeightProperty, value);
 		}
 
 		/// <summary>
@@ -744,8 +744,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public bool NotPaid
 		{
-			get { return (bool)this.GetValue(NotPaidProperty); }
-			set { this.SetValue(NotPaidProperty, value); }
+			get => (bool)this.GetValue(NotPaidProperty);
+			set => this.SetValue(NotPaidProperty, value);
 		}
 
 		/// <summary>
@@ -789,8 +789,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string EDalerFrontGlyph
 		{
-			get { return (string)this.GetValue(EDalerFrontGlyphProperty); }
-			set { this.SetValue(EDalerFrontGlyphProperty, value); }
+			get => (string)this.GetValue(EDalerFrontGlyphProperty);
+			set => this.SetValue(EDalerFrontGlyphProperty, value);
 		}
 
 		/// <summary>
@@ -804,8 +804,8 @@ namespace IdApp.Pages.Wallet
 		/// </summary>
 		public string EDalerBackGlyph
 		{
-			get { return (string)this.GetValue(EDalerBackGlyphProperty); }
-			set { this.SetValue(EDalerBackGlyphProperty, value); }
+			get => (string)this.GetValue(EDalerBackGlyphProperty);
+			set => this.SetValue(EDalerBackGlyphProperty, value);
 		}
 
 		#endregion

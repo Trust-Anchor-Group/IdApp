@@ -192,7 +192,7 @@ namespace IdApp.Pages
         /// </summary>
         public bool IsBusy
         {
-            get { return (bool)this.GetValue(IsBusyProperty); }
+            get => (bool)this.GetValue(IsBusyProperty);
             set 
             {
                 this.SetValue(IsBusyProperty, value);
@@ -211,7 +211,7 @@ namespace IdApp.Pages
         /// </summary>
         public bool IsIdle
         {
-            get { return (bool)this.GetValue(IsIdleProperty); }
+            get => (bool)this.GetValue(IsIdleProperty);
             set 
             {
                 this.SetValue(IsIdleProperty, value);

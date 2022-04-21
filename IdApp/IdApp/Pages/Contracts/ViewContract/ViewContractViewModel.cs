@@ -106,8 +106,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public string Role
 		{
-			get { return (string)this.GetValue(RoleProperty); }
-			set { this.SetValue(RoleProperty, value); }
+			get => (string)this.GetValue(RoleProperty);
+			set => this.SetValue(RoleProperty, value);
 		}
 
 		/// <summary>
@@ -121,8 +121,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool IsProposal
 		{
-			get { return (bool)this.GetValue(IsProposalProperty); }
-			set { this.SetValue(IsProposalProperty, value); }
+			get => (bool)this.GetValue(IsProposalProperty);
+			set => this.SetValue(IsProposalProperty, value);
 		}
 
 		/// <summary>
@@ -136,8 +136,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public string Proposal
 		{
-			get { return (string)this.GetValue(ProposalProperty); }
-			set { this.SetValue(ProposalProperty, value); }
+			get => (string)this.GetValue(ProposalProperty);
+			set => this.SetValue(ProposalProperty, value);
 		}
 
 		/// <summary>
@@ -156,8 +156,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public StackLayout Roles
 		{
-			get { return (StackLayout)this.GetValue(RolesProperty); }
-			set { this.SetValue(RolesProperty, value); }
+			get => (StackLayout)this.GetValue(RolesProperty);
+			set => this.SetValue(RolesProperty, value);
 		}
 
 		/// <summary>
@@ -171,8 +171,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public StackLayout Parts
 		{
-			get { return (StackLayout)this.GetValue(PartsProperty); }
-			set { this.SetValue(PartsProperty, value); }
+			get => (StackLayout)this.GetValue(PartsProperty);
+			set => this.SetValue(PartsProperty, value);
 		}
 
 		/// <summary>
@@ -186,8 +186,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public StackLayout Parameters
 		{
-			get { return (StackLayout)this.GetValue(ParametersProperty); }
-			set { this.SetValue(ParametersProperty, value); }
+			get => (StackLayout)this.GetValue(ParametersProperty);
+			set => this.SetValue(ParametersProperty, value);
 		}
 
 		/// <summary>
@@ -201,8 +201,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public StackLayout HumanReadableText
 		{
-			get { return (StackLayout)this.GetValue(HumanReadableTextProperty); }
-			set { this.SetValue(HumanReadableTextProperty, value); }
+			get => (StackLayout)this.GetValue(HumanReadableTextProperty);
+			set => this.SetValue(HumanReadableTextProperty, value);
 		}
 
 		/// <summary>
@@ -216,8 +216,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public StackLayout MachineReadableText
 		{
-			get { return (StackLayout)this.GetValue(MachineReadableTextProperty); }
-			set { this.SetValue(MachineReadableTextProperty, value); }
+			get => (StackLayout)this.GetValue(MachineReadableTextProperty);
+			set => this.SetValue(MachineReadableTextProperty, value);
 		}
 
 		/// <summary>
@@ -231,8 +231,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public StackLayout ClientSignatures
 		{
-			get { return (StackLayout)this.GetValue(ClientSignaturesProperty); }
-			set { this.SetValue(ClientSignaturesProperty, value); }
+			get => (StackLayout)this.GetValue(ClientSignaturesProperty);
+			set => this.SetValue(ClientSignaturesProperty, value);
 		}
 
 		/// <summary>
@@ -246,8 +246,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public StackLayout ServerSignatures
 		{
-			get { return (StackLayout)this.GetValue(ServerSignaturesProperty); }
-			set { this.SetValue(ServerSignaturesProperty, value); }
+			get => (StackLayout)this.GetValue(ServerSignaturesProperty);
+			set => this.SetValue(ServerSignaturesProperty, value);
 		}
 
 		/// <summary>
@@ -271,8 +271,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasPhotos
 		{
-			get { return (bool)this.GetValue(HasPhotosProperty); }
-			set { this.SetValue(HasPhotosProperty, value); }
+			get => (bool)this.GetValue(HasPhotosProperty);
+			set => this.SetValue(HasPhotosProperty, value);
 		}
 
 		/// <summary>
@@ -286,8 +286,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasRoles
 		{
-			get { return (bool)this.GetValue(HasRolesProperty); }
-			set { this.SetValue(HasRolesProperty, value); }
+			get => (bool)this.GetValue(HasRolesProperty);
+			set => this.SetValue(HasRolesProperty, value);
 		}
 
 		/// <summary>
@@ -301,8 +301,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasParts
 		{
-			get { return (bool)this.GetValue(HasPartsProperty); }
-			set { this.SetValue(HasPartsProperty, value); }
+			get => (bool)this.GetValue(HasPartsProperty);
+			set => this.SetValue(HasPartsProperty, value);
 		}
 
 		/// <summary>
@@ -316,8 +316,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasParameters
 		{
-			get { return (bool)this.GetValue(HasParametersProperty); }
-			set { this.SetValue(HasParametersProperty, value); }
+			get => (bool)this.GetValue(HasParametersProperty);
+			set => this.SetValue(HasParametersProperty, value);
 		}
 
 		/// <summary>
@@ -331,8 +331,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasHumanReadableText
 		{
-			get { return (bool)this.GetValue(HasHumanReadableTextProperty); }
-			set { this.SetValue(HasHumanReadableTextProperty, value); }
+			get => (bool)this.GetValue(HasHumanReadableTextProperty);
+			set => this.SetValue(HasHumanReadableTextProperty, value);
 		}
 
 		/// <summary>
@@ -346,8 +346,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasMachineReadableText
 		{
-			get { return (bool)this.GetValue(HasMachineReadableTextProperty); }
-			set { this.SetValue(HasMachineReadableTextProperty, value); }
+			get => (bool)this.GetValue(HasMachineReadableTextProperty);
+			set => this.SetValue(HasMachineReadableTextProperty, value);
 		}
 
 		/// <summary>
@@ -361,8 +361,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasClientSignatures
 		{
-			get { return (bool)this.GetValue(HasClientSignaturesProperty); }
-			set { this.SetValue(HasClientSignaturesProperty, value); }
+			get => (bool)this.GetValue(HasClientSignaturesProperty);
+			set => this.SetValue(HasClientSignaturesProperty, value);
 		}
 
 		/// <summary>
@@ -376,8 +376,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasServerSignatures
 		{
-			get { return (bool)this.GetValue(HasServerSignaturesProperty); }
-			set { this.SetValue(HasServerSignaturesProperty, value); }
+			get => (bool)this.GetValue(HasServerSignaturesProperty);
+			set => this.SetValue(HasServerSignaturesProperty, value);
 		}
 
 		/// <summary>
@@ -395,8 +395,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public ImageSource QrCode
 		{
-			get { return (ImageSource)this.GetValue(QrCodeProperty); }
-			set { this.SetValue(QrCodeProperty, value); }
+			get => (ImageSource)this.GetValue(QrCodeProperty);
+			set => this.SetValue(QrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -410,8 +410,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool HasQrCode
 		{
-			get { return (bool)this.GetValue(HasQrCodeProperty); }
-			set { this.SetValue(HasQrCodeProperty, value); }
+			get => (bool)this.GetValue(HasQrCodeProperty);
+			set => this.SetValue(HasQrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -425,8 +425,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public int QrCodeWidth
 		{
-			get { return (int)this.GetValue(QrCodeWidthProperty); }
-			set { this.SetValue(QrCodeWidthProperty, value); }
+			get => (int)this.GetValue(QrCodeWidthProperty);
+			set => this.SetValue(QrCodeWidthProperty, value);
 		}
 
 		/// <summary>
@@ -440,8 +440,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public int QrCodeHeight
 		{
-			get { return (int)this.GetValue(QrCodeHeightProperty); }
-			set { this.SetValue(QrCodeHeightProperty, value); }
+			get => (int)this.GetValue(QrCodeHeightProperty);
+			set => this.SetValue(QrCodeHeightProperty, value);
 		}
 
 		/// <summary>
@@ -455,8 +455,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool CanDeleteContract
 		{
-			get { return (bool)this.GetValue(CanDeleteContractProperty); }
-			set { this.SetValue(CanDeleteContractProperty, value); }
+			get => (bool)this.GetValue(CanDeleteContractProperty);
+			set => this.SetValue(CanDeleteContractProperty, value);
 		}
 
 		/// <summary>
@@ -470,8 +470,8 @@ namespace IdApp.Pages.Contracts.ViewContract
 		/// </summary>
 		public bool CanObsoleteContract
 		{
-			get { return (bool)this.GetValue(CanObsoleteContractProperty); }
-			set { this.SetValue(CanObsoleteContractProperty, value); }
+			get => (bool)this.GetValue(CanObsoleteContractProperty);
+			set => this.SetValue(CanObsoleteContractProperty, value);
 		}
 
 		#endregion

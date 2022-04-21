@@ -106,7 +106,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// </summary>
 		public int Purpose
 		{
-			get { return (int)this.GetValue(PurposeProperty); }
+			get => (int)this.GetValue(PurposeProperty);
 			set
 			{
 				this.SetValue(PurposeProperty, value);
@@ -125,8 +125,8 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// </summary>
 		public bool PurposeSelected
 		{
-			get { return (bool)this.GetValue(PurposeSelectedProperty); }
-			set { this.SetValue(PurposeSelectedProperty, value); }
+			get => (bool)this.GetValue(PurposeSelectedProperty);
+			set => this.SetValue(PurposeSelectedProperty, value);
 		}
 
 		/// <summary>
@@ -140,7 +140,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// </summary>
 		public string PhoneNumber
 		{
-			get { return (string)this.GetValue(PhoneNumberProperty); }
+			get => (string)this.GetValue(PhoneNumberProperty);
 			set
 			{
 				this.SetValue(PhoneNumberProperty, value);
@@ -159,8 +159,8 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// </summary>
 		public bool PhoneNumberValid
 		{
-			get { return (bool)this.GetValue(PhoneNumberValidProperty); }
-			set { this.SetValue(PhoneNumberValidProperty, value); }
+			get => (bool)this.GetValue(PhoneNumberValidProperty);
+			set => this.SetValue(PhoneNumberValidProperty, value);
 		}
 
 		/// <summary>
@@ -174,8 +174,8 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// </summary>
 		public bool CodeSent
 		{
-			get { return (bool)this.GetValue(CodeSentProperty); }
-			set { this.SetValue(CodeSentProperty, value); }
+			get => (bool)this.GetValue(CodeSentProperty);
+			set => this.SetValue(CodeSentProperty, value);
 		}
 
 		/// <summary>
@@ -189,7 +189,7 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// </summary>
 		public string VerificationCode
 		{
-			get { return (string)this.GetValue(VerificationCodeProperty); }
+			get => (string)this.GetValue(VerificationCodeProperty);
 			set
 			{
 				this.SetValue(VerificationCodeProperty, value);
@@ -208,8 +208,8 @@ namespace IdApp.Pages.Registration.ValidatePhoneNr
 		/// </summary>
 		public bool VerificationCodeValid
 		{
-			get { return (bool)this.GetValue(VerificationCodeValidProperty); }
-			set { this.SetValue(VerificationCodeValidProperty, value); }
+			get => (bool)this.GetValue(VerificationCodeValidProperty);
+			set => this.SetValue(VerificationCodeValidProperty, value);
 		}
 
 		/// <summary>

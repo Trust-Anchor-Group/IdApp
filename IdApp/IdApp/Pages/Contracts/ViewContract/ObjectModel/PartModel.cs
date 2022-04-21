@@ -31,8 +31,8 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// </summary>
         public string Key
         {
-            get { return (string)this.GetValue(KeyProperty); }
-            set { this.SetValue(KeyProperty, value); }
+            get => (string)this.GetValue(KeyProperty);
+            set => this.SetValue(KeyProperty, value);
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// </summary>
         public string Value
         {
-            get { return (string)this.GetValue(ValueProperty); }
-            set { this.SetValue(ValueProperty, value); }
+            get => (string)this.GetValue(ValueProperty);
+            set => this.SetValue(ValueProperty, value);
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// </summary>
         public string LegalId
         {
-            get { return (string)this.GetValue(LegalIdProperty); }
-            set { this.SetValue(LegalIdProperty, value); }
+            get => (string)this.GetValue(LegalIdProperty);
+            set => this.SetValue(LegalIdProperty, value);
         }
 
         /// <summary>
@@ -76,8 +76,8 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// </summary>
         public bool CanSign
         {
-            get { return (bool)this.GetValue(CanSignProperty); }
-            set { this.SetValue(CanSignProperty, value); }
+            get => (bool)this.GetValue(CanSignProperty);
+            set => this.SetValue(CanSignProperty, value);
         }
 
         /// <summary>
@@ -95,8 +95,8 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// </summary>
         public string SignAsRole
         {
-            get { return (string)this.GetValue(SignAsRoleProperty); }
-            set { this.SetValue(SignAsRoleProperty, value); }
+            get => (string)this.GetValue(SignAsRoleProperty);
+            set => this.SetValue(SignAsRoleProperty, value);
         }
 
         /// <summary>
@@ -110,8 +110,8 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// </summary>
         public string SignAsRoleText
         {
-            get { return (string)this.GetValue(SignAsRoleTextProperty); }
-            set { this.SetValue(SignAsRoleTextProperty, value); }
+            get => (string)this.GetValue(SignAsRoleTextProperty);
+            set => this.SetValue(SignAsRoleTextProperty, value);
         }
 
         /// <summary>
@@ -125,8 +125,8 @@ namespace IdApp.Pages.Contracts.ViewContract.ObjectModel
         /// </summary>
         public bool IsHtml
         {
-            get { return (bool)this.GetValue(IsHtmlProperty); }
-            set { this.SetValue(IsHtmlProperty, value); }
+            get => (bool)this.GetValue(IsHtmlProperty);
+            set => this.SetValue(IsHtmlProperty, value);
         }
     }
 }

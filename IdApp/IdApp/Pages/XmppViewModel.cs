@@ -52,8 +52,8 @@ namespace IdApp.Pages
         /// </summary>
         public string ConnectionStateText
         {
-            get { return (string)this.GetValue(ConnectionStateTextProperty); }
-            set { this.SetValue(ConnectionStateTextProperty, value); }
+            get => (string)this.GetValue(ConnectionStateTextProperty);
+            set => this.SetValue(ConnectionStateTextProperty, value);
         }
 
         /// <summary>
@@ -67,8 +67,8 @@ namespace IdApp.Pages
         /// </summary>
         public Brush ConnectionStateColor
         {
-            get { return (Brush)this.GetValue(ConnectionStateColorProperty); }
-            set { this.SetValue(ConnectionStateColorProperty, value); }
+            get => (Brush)this.GetValue(ConnectionStateColorProperty);
+            set => this.SetValue(ConnectionStateColorProperty, value);
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace IdApp.Pages
         /// </summary>
         public string StateSummaryText
         {
-            get { return (string)this.GetValue(StateSummaryTextProperty); }
-            set { this.SetValue(StateSummaryTextProperty, value); }
+            get => (string)this.GetValue(StateSummaryTextProperty);
+            set => this.SetValue(StateSummaryTextProperty, value);
         }
 
         /// <summary>
@@ -97,8 +97,8 @@ namespace IdApp.Pages
         /// </summary>
         public bool IsConnected
         {
-            get { return (bool)this.GetValue(IsConnectedProperty); }
-            set { this.SetValue(IsConnectedProperty, value); }
+            get => (bool)this.GetValue(IsConnectedProperty);
+            set => this.SetValue(IsConnectedProperty, value);
         }
 
         #endregion

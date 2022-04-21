@@ -44,8 +44,8 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// </summary>
         public string Provider
         {
-            get { return (string)this.GetValue(ProviderProperty); }
-            set { this.SetValue(ProviderProperty, value); }
+            get => (string)this.GetValue(ProviderProperty);
+            set => this.SetValue(ProviderProperty, value);
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// </summary>
         public string Timestamp
         {
-            get { return (string)this.GetValue(TimestampProperty); }
-            set { this.SetValue(TimestampProperty, value); }
+            get => (string)this.GetValue(TimestampProperty);
+            set => this.SetValue(TimestampProperty, value);
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace IdApp.Pages.Contracts.ServerSignature
         /// </summary>
         public string Signature
         {
-            get { return (string)this.GetValue(SignatureProperty); }
-            set { this.SetValue(SignatureProperty, value); }
+            get => (string)this.GetValue(SignatureProperty);
+            set => this.SetValue(SignatureProperty, value);
         }
 
         #endregion

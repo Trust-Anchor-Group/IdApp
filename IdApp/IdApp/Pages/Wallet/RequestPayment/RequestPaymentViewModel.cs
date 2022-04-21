@@ -98,8 +98,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public decimal Amount
 		{
-			get { return (decimal)this.GetValue(AmountProperty); }
-			set { this.SetValue(AmountProperty, value); }
+			get => (decimal)this.GetValue(AmountProperty);
+			set => this.SetValue(AmountProperty, value);
 		}
 
 		/// <summary>
@@ -113,8 +113,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public bool AmountOk
 		{
-			get { return (bool)this.GetValue(AmountOkProperty); }
-			set { this.SetValue(AmountOkProperty, value); }
+			get => (bool)this.GetValue(AmountOkProperty);
+			set => this.SetValue(AmountOkProperty, value);
 		}
 
 		/// <summary>
@@ -128,8 +128,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public Color AmountColor
 		{
-			get { return (Color)this.GetValue(AmountColorProperty); }
-			set { this.SetValue(AmountColorProperty, value); }
+			get => (Color)this.GetValue(AmountColorProperty);
+			set => this.SetValue(AmountColorProperty, value);
 		}
 
 		/// <summary>
@@ -143,7 +143,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public string AmountText
 		{
-			get { return (string)this.GetValue(AmountTextProperty); }
+			get => (string)this.GetValue(AmountTextProperty);
 			set 
 			{
 				this.SetValue(AmountTextProperty, value);
@@ -176,7 +176,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		public decimal? AmountExtra
 		{
 			get { return (decimal?)this.GetValue(AmountExtraProperty); }
-			set { this.SetValue(AmountExtraProperty, value); }
+			set => this.SetValue(AmountExtraProperty, value);
 		}
 
 		/// <summary>
@@ -190,8 +190,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public bool AmountExtraOk
 		{
-			get { return (bool)this.GetValue(AmountExtraOkProperty); }
-			set { this.SetValue(AmountExtraOkProperty, value); }
+			get => (bool)this.GetValue(AmountExtraOkProperty);
+			set => this.SetValue(AmountExtraOkProperty, value);
 		}
 
 		/// <summary>
@@ -205,8 +205,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public Color AmountExtraColor
 		{
-			get { return (Color)this.GetValue(AmountExtraColorProperty); }
-			set { this.SetValue(AmountExtraColorProperty, value); }
+			get => (Color)this.GetValue(AmountExtraColorProperty);
+			set => this.SetValue(AmountExtraColorProperty, value);
 		}
 
 		/// <summary>
@@ -220,7 +220,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public string AmountExtraText
 		{
-			get { return (string)this.GetValue(AmountExtraTextProperty); }
+			get => (string)this.GetValue(AmountExtraTextProperty);
 			set
 			{
 				this.SetValue(AmountExtraTextProperty, value);
@@ -258,8 +258,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public string Currency
 		{
-			get { return (string)this.GetValue(CurrencyProperty); }
-			set { this.SetValue(CurrencyProperty, value); }
+			get => (string)this.GetValue(CurrencyProperty);
+			set => this.SetValue(CurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -273,8 +273,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public string Message
 		{
-			get { return (string)this.GetValue(MessageProperty); }
-			set { this.SetValue(MessageProperty, value); }
+			get => (string)this.GetValue(MessageProperty);
+			set => this.SetValue(MessageProperty, value);
 		}
 
 		/// <summary>
@@ -288,8 +288,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public bool EncryptMessage
 		{
-			get { return (bool)this.GetValue(EncryptMessageProperty); }
-			set { this.SetValue(EncryptMessageProperty, value); }
+			get => (bool)this.GetValue(EncryptMessageProperty);
+			set => this.SetValue(EncryptMessageProperty, value);
 		}
 
 		/// <summary>
@@ -308,8 +308,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public ImageSource QrCode
 		{
-			get { return (ImageSource)this.GetValue(QrCodeProperty); }
-			set { this.SetValue(QrCodeProperty, value); }
+			get => (ImageSource)this.GetValue(QrCodeProperty);
+			set => this.SetValue(QrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -323,8 +323,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public bool HasQrCode
 		{
-			get { return (bool)this.GetValue(HasQrCodeProperty); }
-			set { this.SetValue(HasQrCodeProperty, value); }
+			get => (bool)this.GetValue(HasQrCodeProperty);
+			set => this.SetValue(HasQrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -339,7 +339,7 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		public byte[] QrCodePng
 		{
 			get { return (byte[])this.GetValue(QrCodePngProperty); }
-			set { this.SetValue(QrCodePngProperty, value); }
+			set => this.SetValue(QrCodePngProperty, value);
 		}
 
 		/// <summary>
@@ -353,8 +353,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public int QrCodeWidth
 		{
-			get { return (int)this.GetValue(QrCodeWidthProperty); }
-			set { this.SetValue(QrCodeWidthProperty, value); }
+			get => (int)this.GetValue(QrCodeWidthProperty);
+			set => this.SetValue(QrCodeWidthProperty, value);
 		}
 
 		/// <summary>
@@ -368,8 +368,8 @@ namespace IdApp.Pages.Wallet.RequestPayment
 		/// </summary>
 		public int QrCodeHeight
 		{
-			get { return (int)this.GetValue(QrCodeHeightProperty); }
-			set { this.SetValue(QrCodeHeightProperty, value); }
+			get => (int)this.GetValue(QrCodeHeightProperty);
+			set => this.SetValue(QrCodeHeightProperty, value);
 		}
 
 		/// <summary>

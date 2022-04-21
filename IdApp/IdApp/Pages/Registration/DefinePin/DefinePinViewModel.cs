@@ -76,8 +76,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public string Pin
         {
-            get { return (string)this.GetValue(PinProperty); }
-            set { this.SetValue(PinProperty, value); }
+            get => (string)this.GetValue(PinProperty);
+            set => this.SetValue(PinProperty, value);
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public string RetypedPin
         {
-            get { return (string)this.GetValue(RetypedPinProperty); }
-            set { this.SetValue(RetypedPinProperty, value); }
+            get => (string)this.GetValue(RetypedPinProperty);
+            set => this.SetValue(RetypedPinProperty, value);
         }
 
         private void UpdatePinState()
@@ -117,8 +117,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public bool PinsDoNotMatch
         {
-            get { return (bool)this.GetValue(PinsDoNotMatchProperty); }
-            set { this.SetValue(PinsDoNotMatchProperty, value); }
+            get => (bool)this.GetValue(PinsDoNotMatchProperty);
+            set => this.SetValue(PinsDoNotMatchProperty, value);
         }
 
         /// <summary>
@@ -132,8 +132,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public bool PinIsTooShort
         {
-            get { return (bool)this.GetValue(PinIsTooShortProperty); }
-            set { this.SetValue(PinIsTooShortProperty, value); }
+            get => (bool)this.GetValue(PinIsTooShortProperty);
+            set => this.SetValue(PinIsTooShortProperty, value);
         }
 
         /// <summary>
@@ -147,8 +147,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public string PinIsTooShortMessage
         {
-            get { return (string)this.GetValue(PinIsTooShortMessageProperty); }
-            set { this.SetValue(PinIsTooShortMessageProperty, value); }
+            get => (string)this.GetValue(PinIsTooShortMessageProperty);
+            set => this.SetValue(PinIsTooShortMessageProperty, value);
         }
 
         /// <summary>
@@ -162,8 +162,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public bool UsePin
         {
-            get { return (bool)this.GetValue(UsePinProperty); }
-            set { this.SetValue(UsePinProperty, value); }
+            get => (bool)this.GetValue(UsePinProperty);
+            set => this.SetValue(UsePinProperty, value);
         }
 
         /// <summary>
@@ -177,8 +177,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public bool IsConnected
         {
-            get { return (bool)this.GetValue(IsConnectedProperty); }
-            set { this.SetValue(IsConnectedProperty, value); }
+            get => (bool)this.GetValue(IsConnectedProperty);
+            set => this.SetValue(IsConnectedProperty, value);
         }
 
         /// <summary>
@@ -192,8 +192,8 @@ namespace IdApp.Pages.Registration.DefinePin
         /// </summary>
         public string ConnectionStateText
         {
-            get { return (string)this.GetValue(ConnectionStateTextProperty); }
-            set { this.SetValue(ConnectionStateTextProperty, value); }
+            get => (string)this.GetValue(ConnectionStateTextProperty);
+            set => this.SetValue(ConnectionStateTextProperty, value);
         }
 
         #endregion

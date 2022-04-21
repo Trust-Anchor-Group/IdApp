@@ -154,8 +154,8 @@ namespace IdApp.Controls.FlipView
         /// </summary>
         public View BackView
         {
-            get { return (View)this.GetValue(BackViewProperty); }
-            set { this.SetValue(BackViewProperty, value); }
+            get => (View)this.GetValue(BackViewProperty);
+            set => this.SetValue(BackViewProperty, value);
         }
 
         private void AddChild(View childView)

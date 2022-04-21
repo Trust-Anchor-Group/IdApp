@@ -50,8 +50,8 @@ namespace IdApp.Pages.Main.Loading
 		/// </summary>
 		public bool DisplayConnectionText
 		{
-			get { return (bool)this.GetValue(DisplayConnectionTextProperty); }
-			set { this.SetValue(DisplayConnectionTextProperty, value); }
+			get => (bool)this.GetValue(DisplayConnectionTextProperty);
+			set => this.SetValue(DisplayConnectionTextProperty, value);
 		}
 
 		#endregion

@@ -107,8 +107,8 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// </summary>
 		public string Uri
 		{
-			get { return (string)this.GetValue(UriProperty); }
-			set { this.SetValue(UriProperty, value); }
+			get => (string)this.GetValue(UriProperty);
+			set => this.SetValue(UriProperty, value);
 		}
 
 		/// <summary>
@@ -146,8 +146,8 @@ namespace IdApp.Pages.Things.ViewClaimThing
 		/// </summary>
 		public bool MakePublic
 		{
-			get { return (bool)this.GetValue(MakePublicProperty); }
-			set { this.SetValue(MakePublicProperty, value); }
+			get => (bool)this.GetValue(MakePublicProperty);
+			set => this.SetValue(MakePublicProperty, value);
 		}
 
 		#endregion

@@ -74,8 +74,8 @@ namespace IdApp.Pages.Registration.Registration
         /// </summary>
         public bool CanGoBack
         {
-            get { return (bool)this.GetValue(CanGoBackProperty); }
-            set { this.SetValue(CanGoBackProperty, value); }
+            get => (bool)this.GetValue(CanGoBackProperty);
+            set => this.SetValue(CanGoBackProperty, value);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace IdApp.Pages.Registration.Registration
         /// </summary>
         public int CurrentStep
         {
-            get { return (int)this.GetValue(CurrentStepProperty); }
+            get => (int)this.GetValue(CurrentStepProperty);
             set
             {
                 if (!this.muteStepSync)
@@ -115,8 +115,8 @@ namespace IdApp.Pages.Registration.Registration
         /// </summary>
         public string CurrentStepTitle
         {
-            get { return (string)this.GetValue(CurrentStepTitleProperty); }
-            set { this.SetValue(CurrentStepTitleProperty, value); }
+            get => (string)this.GetValue(CurrentStepTitleProperty);
+            set => this.SetValue(CurrentStepTitleProperty, value);
         }
 
         #endregion

@@ -119,8 +119,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public decimal Amount
 		{
-			get { return (decimal)this.GetValue(AmountProperty); }
-			set { this.SetValue(AmountProperty, value); }
+			get => (decimal)this.GetValue(AmountProperty);
+			set => this.SetValue(AmountProperty, value);
 		}
 
 		/// <summary>
@@ -134,8 +134,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public decimal Change
 		{
-			get { return (decimal)this.GetValue(ChangeProperty); }
-			set { this.SetValue(ChangeProperty, value); }
+			get => (decimal)this.GetValue(ChangeProperty);
+			set => this.SetValue(ChangeProperty, value);
 		}
 
 		/// <summary>
@@ -149,8 +149,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public bool HasChange
 		{
-			get { return (bool)this.GetValue(HasChangeProperty); }
-			set { this.SetValue(HasChangeProperty, value); }
+			get => (bool)this.GetValue(HasChangeProperty);
+			set => this.SetValue(HasChangeProperty, value);
 		}
 
 		/// <summary>
@@ -164,8 +164,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public string Currency
 		{
-			get { return (string)this.GetValue(CurrencyProperty); }
-			set { this.SetValue(CurrencyProperty, value); }
+			get => (string)this.GetValue(CurrencyProperty);
+			set => this.SetValue(CurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -179,8 +179,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public DateTime Timestamp
 		{
-			get { return (DateTime)this.GetValue(TimestampProperty); }
-			set { this.SetValue(TimestampProperty, value); }
+			get => (DateTime)this.GetValue(TimestampProperty);
+			set => this.SetValue(TimestampProperty, value);
 		}
 
 		/// <summary>
@@ -194,8 +194,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public Guid Id
 		{
-			get { return (Guid)this.GetValue(IdProperty); }
-			set { this.SetValue(IdProperty, value); }
+			get => (Guid)this.GetValue(IdProperty);
+			set => this.SetValue(IdProperty, value);
 		}
 
 		/// <summary>
@@ -209,8 +209,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public bool HasId
 		{
-			get { return (bool)this.GetValue(HasIdProperty); }
-			set { this.SetValue(HasIdProperty, value); }
+			get => (bool)this.GetValue(HasIdProperty);
+			set => this.SetValue(HasIdProperty, value);
 		}
 
 		/// <summary>
@@ -224,8 +224,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public string From
 		{
-			get { return (string)this.GetValue(FromProperty); }
-			set { this.SetValue(FromProperty, value); }
+			get => (string)this.GetValue(FromProperty);
+			set => this.SetValue(FromProperty, value);
 		}
 
 		/// <summary>
@@ -239,8 +239,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public bool HasFrom
 		{
-			get { return (bool)this.GetValue(HasFromProperty); }
-			set { this.SetValue(HasFromProperty, value); }
+			get => (bool)this.GetValue(HasFromProperty);
+			set => this.SetValue(HasFromProperty, value);
 		}
 
 		/// <summary>
@@ -254,8 +254,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public string Message
 		{
-			get { return (string)this.GetValue(MessageProperty); }
-			set { this.SetValue(MessageProperty, value); }
+			get => (string)this.GetValue(MessageProperty);
+			set => this.SetValue(MessageProperty, value);
 		}
 
 		/// <summary>
@@ -269,8 +269,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public bool HasMessage
 		{
-			get { return (bool)this.GetValue(HasMessageProperty); }
-			set { this.SetValue(HasMessageProperty, value); }
+			get => (bool)this.GetValue(HasMessageProperty);
+			set => this.SetValue(HasMessageProperty, value);
 		}
 
 		/// <summary>
@@ -289,8 +289,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public string EDalerFrontGlyph
 		{
-			get { return (string)this.GetValue(EDalerFrontGlyphProperty); }
-			set { this.SetValue(EDalerFrontGlyphProperty, value); }
+			get => (string)this.GetValue(EDalerFrontGlyphProperty);
+			set => this.SetValue(EDalerFrontGlyphProperty, value);
 		}
 
 		/// <summary>
@@ -304,8 +304,8 @@ namespace IdApp.Pages.Wallet.EDalerReceived
 		/// </summary>
 		public string EDalerBackGlyph
 		{
-			get { return (string)this.GetValue(EDalerBackGlyphProperty); }
-			set { this.SetValue(EDalerBackGlyphProperty, value); }
+			get => (string)this.GetValue(EDalerBackGlyphProperty);
+			set => this.SetValue(EDalerBackGlyphProperty, value);
 		}
 
 		#endregion

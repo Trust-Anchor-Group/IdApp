@@ -95,8 +95,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public decimal Change
 		{
-			get { return (decimal)this.GetValue(ChangeProperty); }
-			set { this.SetValue(ChangeProperty, value); }
+			get => (decimal)this.GetValue(ChangeProperty);
+			set => this.SetValue(ChangeProperty, value);
 		}
 
 		/// <summary>
@@ -110,8 +110,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public Color ChangeColor
 		{
-			get { return (Color)this.GetValue(ChangeColorProperty); }
-			set { this.SetValue(ChangeColorProperty, value); }
+			get => (Color)this.GetValue(ChangeColorProperty);
+			set => this.SetValue(ChangeColorProperty, value);
 		}
 
 		/// <summary>
@@ -125,8 +125,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string ChangeText
 		{
-			get { return (string)this.GetValue(ChangeTextProperty); }
-			set { this.SetValue(ChangeTextProperty, value); }
+			get => (string)this.GetValue(ChangeTextProperty);
+			set => this.SetValue(ChangeTextProperty, value);
 		}
 
 		/// <summary>
@@ -140,8 +140,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string ChangeAndCurrency
 		{
-			get { return (string)this.GetValue(ChangeAndCurrencyProperty); }
-			set { this.SetValue(ChangeAndCurrencyProperty, value); }
+			get => (string)this.GetValue(ChangeAndCurrencyProperty);
+			set => this.SetValue(ChangeAndCurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -155,8 +155,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public decimal Balance
 		{
-			get { return (decimal)this.GetValue(BalanceProperty); }
-			set { this.SetValue(BalanceProperty, value); }
+			get => (decimal)this.GetValue(BalanceProperty);
+			set => this.SetValue(BalanceProperty, value);
 		}
 
 		/// <summary>
@@ -170,8 +170,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string BalanceText
 		{
-			get { return (string)this.GetValue(BalanceTextProperty); }
-			set { this.SetValue(BalanceTextProperty, value); }
+			get => (string)this.GetValue(BalanceTextProperty);
+			set => this.SetValue(BalanceTextProperty, value);
 		}
 
 		/// <summary>
@@ -185,8 +185,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string BalanceAndCurrency
 		{
-			get { return (string)this.GetValue(BalanceAndCurrencyProperty); }
-			set { this.SetValue(BalanceAndCurrencyProperty, value); }
+			get => (string)this.GetValue(BalanceAndCurrencyProperty);
+			set => this.SetValue(BalanceAndCurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -200,8 +200,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string Currency
 		{
-			get { return (string)this.GetValue(CurrencyProperty); }
-			set { this.SetValue(CurrencyProperty, value); }
+			get => (string)this.GetValue(CurrencyProperty);
+			set => this.SetValue(CurrencyProperty, value);
 		}
 
 		/// <summary>
@@ -215,8 +215,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public DateTime Timestamp
 		{
-			get { return (DateTime)this.GetValue(TimestampProperty); }
-			set { this.SetValue(TimestampProperty, value); }
+			get => (DateTime)this.GetValue(TimestampProperty);
+			set => this.SetValue(TimestampProperty, value);
 		}
 
 		/// <summary>
@@ -230,8 +230,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string TimestampStr
 		{
-			get { return (string)this.GetValue(TimestampStrProperty); }
-			set { this.SetValue(TimestampStrProperty, value); }
+			get => (string)this.GetValue(TimestampStrProperty);
+			set => this.SetValue(TimestampStrProperty, value);
 		}
 
 		/// <summary>
@@ -245,8 +245,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string Id
 		{
-			get { return (string)this.GetValue(IdProperty); }
-			set { this.SetValue(IdProperty, value); }
+			get => (string)this.GetValue(IdProperty);
+			set => this.SetValue(IdProperty, value);
 		}
 
 		/// <summary>
@@ -260,8 +260,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string Remote
 		{
-			get { return (string)this.GetValue(RemoteProperty); }
-			set { this.SetValue(RemoteProperty, value); }
+			get => (string)this.GetValue(RemoteProperty);
+			set => this.SetValue(RemoteProperty, value);
 		}
 
 		/// <summary>
@@ -275,8 +275,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string FriendlyName
 		{
-			get { return (string)this.GetValue(FriendlyNameProperty); }
-			set { this.SetValue(FriendlyNameProperty, value); }
+			get => (string)this.GetValue(FriendlyNameProperty);
+			set => this.SetValue(FriendlyNameProperty, value);
 		}
 
 		/// <summary>
@@ -290,8 +290,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public string Message
 		{
-			get { return (string)this.GetValue(MessageProperty); }
-			set { this.SetValue(MessageProperty, value); }
+			get => (string)this.GetValue(MessageProperty);
+			set => this.SetValue(MessageProperty, value);
 		}
 
 		/// <summary>
@@ -305,8 +305,8 @@ namespace IdApp.Pages.Wallet.AccountEvent
 		/// </summary>
 		public bool HasMessage
 		{
-			get { return (bool)this.GetValue(HasMessageProperty); }
-			set { this.SetValue(HasMessageProperty, value); }
+			get => (bool)this.GetValue(HasMessageProperty);
+			set => this.SetValue(HasMessageProperty, value);
 		}
 
 		#endregion

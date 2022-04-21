@@ -19,8 +19,8 @@ namespace IdApp.Pages.Registration
         /// </summary>
         public ICommand StepCompletedCommand
         {
-            get { return (ICommand)this.GetValue(StepCompletedCommandProperty); }
-            set { this.SetValue(StepCompletedCommandProperty, value); }
+            get => (ICommand)this.GetValue(StepCompletedCommandProperty);
+            set => this.SetValue(StepCompletedCommandProperty, value);
         }
     }
 }

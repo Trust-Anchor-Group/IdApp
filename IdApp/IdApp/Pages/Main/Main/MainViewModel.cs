@@ -169,8 +169,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand ViewMyIdentityCommand
 		{
-			get { return (ICommand)this.GetValue(ViewMyIdentityCommandProperty); }
-			set { this.SetValue(ViewMyIdentityCommandProperty, value); }
+			get => (ICommand)this.GetValue(ViewMyIdentityCommandProperty);
+			set => this.SetValue(ViewMyIdentityCommandProperty, value);
 		}
 
 		/// <summary>
@@ -184,8 +184,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand ViewMyContactsCommand
 		{
-			get { return (ICommand)this.GetValue(ViewMyContactsCommandProperty); }
-			set { this.SetValue(ViewMyContactsCommandProperty, value); }
+			get => (ICommand)this.GetValue(ViewMyContactsCommandProperty);
+			set => this.SetValue(ViewMyContactsCommandProperty, value);
 		}
 
 		/// <summary>
@@ -199,8 +199,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand ViewMyThingsCommand
 		{
-			get { return (ICommand)this.GetValue(ViewMyThingsCommandProperty); }
-			set { this.SetValue(ViewMyThingsCommandProperty, value); }
+			get => (ICommand)this.GetValue(ViewMyThingsCommandProperty);
+			set => this.SetValue(ViewMyThingsCommandProperty, value);
 		}
 
 		/// <summary>
@@ -214,8 +214,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand ScanQrCodeCommand
 		{
-			get { return (ICommand)this.GetValue(ScanQrCodeCommandProperty); }
-			set { this.SetValue(ScanQrCodeCommandProperty, value); }
+			get => (ICommand)this.GetValue(ScanQrCodeCommandProperty);
+			set => this.SetValue(ScanQrCodeCommandProperty, value);
 		}
 
 		/// <summary>
@@ -229,8 +229,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand ViewSignedContractsCommand
 		{
-			get { return (ICommand)this.GetValue(ViewSignedContractsCommandProperty); }
-			set { this.SetValue(ViewSignedContractsCommandProperty, value); }
+			get => (ICommand)this.GetValue(ViewSignedContractsCommandProperty);
+			set => this.SetValue(ViewSignedContractsCommandProperty, value);
 		}
 
 		/// <summary>
@@ -244,8 +244,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand ViewWalletCommand
 		{
-			get { return (ICommand)this.GetValue(ViewWalletCommandProperty); }
-			set { this.SetValue(ViewWalletCommandProperty, value); }
+			get => (ICommand)this.GetValue(ViewWalletCommandProperty);
+			set => this.SetValue(ViewWalletCommandProperty, value);
 		}
 
 		/// <summary>
@@ -259,8 +259,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand SharePhotoCommand
 		{
-			get { return (ICommand)this.GetValue(SharePhotoCommandProperty); }
-			set { this.SetValue(SharePhotoCommandProperty, value); }
+			get => (ICommand)this.GetValue(SharePhotoCommandProperty);
+			set => this.SetValue(SharePhotoCommandProperty, value);
 		}
 
 		/// <summary>
@@ -274,8 +274,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ICommand ShareQRCommand
 		{
-			get { return (ICommand)this.GetValue(ShareQRCommandProperty); }
-			set { this.SetValue(ShareQRCommandProperty, value); }
+			get => (ICommand)this.GetValue(ShareQRCommandProperty);
+			set => this.SetValue(ShareQRCommandProperty, value);
 		}
 
 		/// <summary>
@@ -289,8 +289,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public bool HasPhoto
 		{
-			get { return (bool)this.GetValue(HasPhotoProperty); }
-			set { this.SetValue(HasPhotoProperty, value); }
+			get => (bool)this.GetValue(HasPhotoProperty);
+			set => this.SetValue(HasPhotoProperty, value);
 		}
 
 		/// <summary>
@@ -308,8 +308,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ImageSource Image
 		{
-			get { return (ImageSource)this.GetValue(ImageProperty); }
-			set { this.SetValue(ImageProperty, value); }
+			get => (ImageSource)this.GetValue(ImageProperty);
+			set => this.SetValue(ImageProperty, value);
 		}
 
 		/// <summary>
@@ -323,8 +323,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public int ImageRotation
 		{
-			get { return (int)this.GetValue(ImageRotationProperty); }
-			set { this.SetValue(ImageRotationProperty, value); }
+			get => (int)this.GetValue(ImageRotationProperty);
+			set => this.SetValue(ImageRotationProperty, value);
 		}
 
 		/// <summary>
@@ -339,7 +339,7 @@ namespace IdApp.Pages.Main.Main
 		public byte[] ImageBin
 		{
 			get { return (byte[])this.GetValue(ImageBinProperty); }
-			set { this.SetValue(ImageBinProperty, value); }
+			set => this.SetValue(ImageBinProperty, value);
 		}
 
 		/// <summary>
@@ -353,8 +353,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string ImageContentType
 		{
-			get { return (string)this.GetValue(ImageContentTypeProperty); }
-			set { this.SetValue(ImageContentTypeProperty, value); }
+			get => (string)this.GetValue(ImageContentTypeProperty);
+			set => this.SetValue(ImageContentTypeProperty, value);
 		}
 
 		/// <summary>
@@ -368,8 +368,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string FullName
 		{
-			get { return (string)this.GetValue(FullNameProperty); }
-			set { this.SetValue(FullNameProperty, value); }
+			get => (string)this.GetValue(FullNameProperty);
+			set => this.SetValue(FullNameProperty, value);
 		}
 
 		/// <summary>
@@ -387,8 +387,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string City
 		{
-			get { return (string)this.GetValue(CityProperty); }
-			set { this.SetValue(CityProperty, value); }
+			get => (string)this.GetValue(CityProperty);
+			set => this.SetValue(CityProperty, value);
 		}
 
 		/// <summary>
@@ -406,8 +406,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string Country
 		{
-			get { return (string)this.GetValue(CountryProperty); }
-			set { this.SetValue(CountryProperty, value); }
+			get => (string)this.GetValue(CountryProperty);
+			set => this.SetValue(CountryProperty, value);
 		}
 
 		/// <summary>
@@ -421,8 +421,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string Location
 		{
-			get { return (string)this.GetValue(LocationProperty); }
-			set { this.SetValue(LocationProperty, value); }
+			get => (string)this.GetValue(LocationProperty);
+			set => this.SetValue(LocationProperty, value);
 		}
 
 		/// <summary>
@@ -441,8 +441,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public ImageSource QrCode
 		{
-			get { return (ImageSource)this.GetValue(QrCodeProperty); }
-			set { this.SetValue(QrCodeProperty, value); }
+			get => (ImageSource)this.GetValue(QrCodeProperty);
+			set => this.SetValue(QrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -456,8 +456,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public bool HasQrCode
 		{
-			get { return (bool)this.GetValue(HasQrCodeProperty); }
-			set { this.SetValue(HasQrCodeProperty, value); }
+			get => (bool)this.GetValue(HasQrCodeProperty);
+			set => this.SetValue(HasQrCodeProperty, value);
 		}
 
 		/// <summary>
@@ -471,8 +471,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public int QrCodeWidth
 		{
-			get { return (int)this.GetValue(QrCodeWidthProperty); }
-			set { this.SetValue(QrCodeWidthProperty, value); }
+			get => (int)this.GetValue(QrCodeWidthProperty);
+			set => this.SetValue(QrCodeWidthProperty, value);
 		}
 
 		/// <summary>
@@ -486,8 +486,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public int QrCodeHeight
 		{
-			get { return (int)this.GetValue(QrCodeHeightProperty); }
-			set { this.SetValue(QrCodeHeightProperty, value); }
+			get => (int)this.GetValue(QrCodeHeightProperty);
+			set => this.SetValue(QrCodeHeightProperty, value);
 		}
 
 		/// <summary>
@@ -502,7 +502,7 @@ namespace IdApp.Pages.Main.Main
 		public byte[] QrCodeBin
 		{
 			get { return (byte[])this.GetValue(QrCodeBinProperty); }
-			set { this.SetValue(QrCodeBinProperty, value); }
+			set => this.SetValue(QrCodeBinProperty, value);
 		}
 
 		/// <summary>
@@ -516,8 +516,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string QrCodeContentType
 		{
-			get { return (string)this.GetValue(QrCodeContentTypeProperty); }
-			set { this.SetValue(QrCodeContentTypeProperty, value); }
+			get => (string)this.GetValue(QrCodeContentTypeProperty);
+			set => this.SetValue(QrCodeContentTypeProperty, value);
 		}
 
 		/// <summary>
@@ -531,8 +531,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public bool IsOnline
 		{
-			get { return (bool)this.GetValue(IsOnlineProperty); }
-			set { this.SetValue(IsOnlineProperty, value); }
+			get => (bool)this.GetValue(IsOnlineProperty);
+			set => this.SetValue(IsOnlineProperty, value);
 		}
 
 		/// <summary>
@@ -546,8 +546,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string NetworkStateText
 		{
-			get { return (string)this.GetValue(NetworkStateTextProperty); }
-			set { this.SetValue(NetworkStateTextProperty, value); }
+			get => (string)this.GetValue(NetworkStateTextProperty);
+			set => this.SetValue(NetworkStateTextProperty, value);
 		}
 
 		/// <summary>
@@ -561,8 +561,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string IdentityStateText
 		{
-			get { return (string)this.GetValue(IdentityStateTextProperty); }
-			set { this.SetValue(IdentityStateTextProperty, value); }
+			get => (string)this.GetValue(IdentityStateTextProperty);
+			set => this.SetValue(IdentityStateTextProperty, value);
 		}
 
 		/// <summary>
@@ -576,8 +576,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public bool HasConnectionErrors
 		{
-			get { return (bool)this.GetValue(HasConnectionErrorsProperty); }
-			set { this.SetValue(HasConnectionErrorsProperty, value); }
+			get => (bool)this.GetValue(HasConnectionErrorsProperty);
+			set => this.SetValue(HasConnectionErrorsProperty, value);
 		}
 
 		/// <summary>
@@ -591,8 +591,8 @@ namespace IdApp.Pages.Main.Main
 		/// </summary>
 		public string ConnectionErrorsText
 		{
-			get { return (string)this.GetValue(ConnectionErrorsTextProperty); }
-			set { this.SetValue(ConnectionErrorsTextProperty, value); }
+			get => (string)this.GetValue(ConnectionErrorsTextProperty);
+			set => this.SetValue(ConnectionErrorsTextProperty, value);
 		}
 
 		#endregion

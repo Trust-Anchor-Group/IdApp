@@ -133,8 +133,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public DateTime Created
         {
-            get { return (DateTime)this.GetValue(CreatedProperty); }
-            set { this.SetValue(CreatedProperty, value); }
+            get => (DateTime)this.GetValue(CreatedProperty);
+            set => this.SetValue(CreatedProperty, value);
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         public DateTime? Updated
         {
             get { return (DateTime?)this.GetValue(UpdatedProperty); }
-            set { this.SetValue(UpdatedProperty, value); }
+            set => this.SetValue(UpdatedProperty, value);
         }
 
         /// <summary>
@@ -163,8 +163,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string LegalId
         {
-            get { return (string)this.GetValue(LegalIdProperty); }
-            set { this.SetValue(LegalIdProperty, value); }
+            get => (string)this.GetValue(LegalIdProperty);
+            set => this.SetValue(LegalIdProperty, value);
         }
 
         /// <summary>
@@ -178,8 +178,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string State
         {
-            get { return (string)this.GetValue(StateProperty); }
-            set { this.SetValue(StateProperty, value); }
+            get => (string)this.GetValue(StateProperty);
+            set => this.SetValue(StateProperty, value);
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         public DateTime? From
         {
             get { return (DateTime?)this.GetValue(FromProperty); }
-            set { this.SetValue(FromProperty, value); }
+            set => this.SetValue(FromProperty, value);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         public DateTime? To
         {
             get { return (DateTime?)this.GetValue(ToProperty); }
-            set { this.SetValue(ToProperty, value); }
+            set => this.SetValue(ToProperty, value);
         }
 
         /// <summary>
@@ -223,8 +223,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string FirstName
         {
-            get { return (string)this.GetValue(FirstNameProperty); }
-            set { this.SetValue(FirstNameProperty, value); }
+            get => (string)this.GetValue(FirstNameProperty);
+            set => this.SetValue(FirstNameProperty, value);
         }
 
         /// <summary>
@@ -238,8 +238,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string MiddleNames
         {
-            get { return (string)this.GetValue(MiddleNamesProperty); }
-            set { this.SetValue(MiddleNamesProperty, value); }
+            get => (string)this.GetValue(MiddleNamesProperty);
+            set => this.SetValue(MiddleNamesProperty, value);
         }
 
         /// <summary>
@@ -253,8 +253,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string LastNames
         {
-            get { return (string)this.GetValue(LastNamesProperty); }
-            set { this.SetValue(LastNamesProperty, value); }
+            get => (string)this.GetValue(LastNamesProperty);
+            set => this.SetValue(LastNamesProperty, value);
         }
 
         /// <summary>
@@ -268,8 +268,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string PersonalNumber
         {
-            get { return (string)this.GetValue(PersonalNumberProperty); }
-            set { this.SetValue(PersonalNumberProperty, value); }
+            get => (string)this.GetValue(PersonalNumberProperty);
+            set => this.SetValue(PersonalNumberProperty, value);
         }
 
         /// <summary>
@@ -283,8 +283,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string Address
         {
-            get { return (string)this.GetValue(AddressProperty); }
-            set { this.SetValue(AddressProperty, value); }
+            get => (string)this.GetValue(AddressProperty);
+            set => this.SetValue(AddressProperty, value);
         }
 
         /// <summary>
@@ -298,8 +298,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string Address2
         {
-            get { return (string)this.GetValue(Address2Property); }
-            set { this.SetValue(Address2Property, value); }
+            get => (string)this.GetValue(Address2Property);
+            set => this.SetValue(Address2Property, value);
         }
 
         /// <summary>
@@ -313,8 +313,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string ZipCode
         {
-            get { return (string)this.GetValue(ZipCodeProperty); }
-            set { this.SetValue(ZipCodeProperty, value); }
+            get => (string)this.GetValue(ZipCodeProperty);
+            set => this.SetValue(ZipCodeProperty, value);
         }
 
         /// <summary>
@@ -328,8 +328,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string Area
         {
-            get { return (string)this.GetValue(AreaProperty); }
-            set { this.SetValue(AreaProperty, value); }
+            get => (string)this.GetValue(AreaProperty);
+            set => this.SetValue(AreaProperty, value);
         }
 
         /// <summary>
@@ -343,8 +343,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string City
         {
-            get { return (string)this.GetValue(CityProperty); }
-            set { this.SetValue(CityProperty, value); }
+            get => (string)this.GetValue(CityProperty);
+            set => this.SetValue(CityProperty, value);
         }
 
         /// <summary>
@@ -358,8 +358,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string Region
         {
-            get { return (string)this.GetValue(RegionProperty); }
-            set { this.SetValue(RegionProperty, value); }
+            get => (string)this.GetValue(RegionProperty);
+            set => this.SetValue(RegionProperty, value);
         }
 
         /// <summary>
@@ -373,8 +373,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string CountryCode
         {
-            get { return (string)this.GetValue(CountryCodeProperty); }
-            set { this.SetValue(CountryCodeProperty, value); }
+            get => (string)this.GetValue(CountryCodeProperty);
+            set => this.SetValue(CountryCodeProperty, value);
         }
 
         /// <summary>
@@ -388,8 +388,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string Country
         {
-            get { return (string)this.GetValue(CountryProperty); }
-            set { this.SetValue(CountryProperty, value); }
+            get => (string)this.GetValue(CountryProperty);
+            set => this.SetValue(CountryProperty, value);
         }
 
         /// <summary>
@@ -403,8 +403,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string PhoneNr
         {
-            get { return (string)this.GetValue(PhoneNrProperty); }
-            set { this.SetValue(PhoneNrProperty, value); }
+            get => (string)this.GetValue(PhoneNrProperty);
+            set => this.SetValue(PhoneNrProperty, value);
         }
 
         /// <summary>
@@ -418,8 +418,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public bool IsApproved
         {
-            get { return (bool)this.GetValue(IsApprovedProperty); }
-            set { this.SetValue(IsApprovedProperty, value); }
+            get => (bool)this.GetValue(IsApprovedProperty);
+            set => this.SetValue(IsApprovedProperty, value);
         }
 
         /// <summary>
@@ -433,8 +433,8 @@ namespace IdApp.Pages.Contracts.PetitionSignature
         /// </summary>
         public string Purpose
         {
-            get { return (string)this.GetValue(PurposeProperty); }
-            set { this.SetValue(PurposeProperty, value); }
+            get => (string)this.GetValue(PurposeProperty);
+            set => this.SetValue(PurposeProperty, value);
         }
 
         #endregion

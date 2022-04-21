@@ -64,8 +64,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public string LinkText
         {
-            get { return (string)this.GetValue(LinkTextProperty); }
-            set { this.SetValue(LinkTextProperty, value); }
+            get => (string)this.GetValue(LinkTextProperty);
+            set => this.SetValue(LinkTextProperty, value);
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public string Url
         {
-            get { return (string)this.GetValue(UrlProperty); }
-            set { this.SetValue(UrlProperty, value); }
+            get => (string)this.GetValue(UrlProperty);
+            set => this.SetValue(UrlProperty, value);
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public string OpenCommandText
         {
-            get { return (string)this.GetValue(OpenCommandTextProperty); }
-            set { this.SetValue(OpenCommandTextProperty, value); }
+            get => (string)this.GetValue(OpenCommandTextProperty);
+            set => this.SetValue(OpenCommandTextProperty, value);
         }
 
         /// <summary>
@@ -109,8 +109,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public bool OpenIsEnabled
         {
-            get { return (bool)this.GetValue(OpenIsEnabledProperty); }
-            set { this.SetValue(OpenIsEnabledProperty, value); }
+            get => (bool)this.GetValue(OpenIsEnabledProperty);
+            set => this.SetValue(OpenIsEnabledProperty, value);
         }
 
         /// <summary>
@@ -129,8 +129,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public bool ScanIsAutomatic
         {
-            get { return (bool)this.GetValue(ScanIsAutomaticProperty); }
-            set { this.SetValue(ScanIsAutomaticProperty, value); }
+            get => (bool)this.GetValue(ScanIsAutomaticProperty);
+            set => this.SetValue(ScanIsAutomaticProperty, value);
         }
 
         /// <summary>
@@ -144,8 +144,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public bool ScanIsManual
         {
-            get { return (bool)this.GetValue(ScanIsManualProperty); }
-            set { this.SetValue(ScanIsManualProperty, value); }
+            get => (bool)this.GetValue(ScanIsManualProperty);
+            set => this.SetValue(ScanIsManualProperty, value);
         }
 
         /// <summary>
@@ -159,8 +159,8 @@ namespace IdApp.Pages.Main.ScanQrCode
         /// </summary>
         public string ModeText
         {
-            get { return (string)this.GetValue(ModeTextProperty); }
-            set { this.SetValue(ModeTextProperty, value); }
+            get => (string)this.GetValue(ModeTextProperty);
+            set => this.SetValue(ModeTextProperty, value);
         }
 
         #endregion

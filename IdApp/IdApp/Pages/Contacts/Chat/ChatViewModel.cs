@@ -144,8 +144,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string BareJid
 		{
-			get { return (string)this.GetValue(BareJidProperty); }
-			set { this.SetValue(BareJidProperty, value); }
+			get => (string)this.GetValue(BareJidProperty);
+			set => this.SetValue(BareJidProperty, value);
 		}
 
 		/// <summary>
@@ -159,8 +159,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string LegalId
 		{
-			get { return (string)this.GetValue(LegalIdProperty); }
-			set { this.SetValue(LegalIdProperty, value); }
+			get => (string)this.GetValue(LegalIdProperty);
+			set => this.SetValue(LegalIdProperty, value);
 		}
 
 		/// <summary>
@@ -174,8 +174,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string FriendlyName
 		{
-			get { return (string)this.GetValue(FriendlyNameProperty); }
-			set { this.SetValue(FriendlyNameProperty, value); }
+			get => (string)this.GetValue(FriendlyNameProperty);
+			set => this.SetValue(FriendlyNameProperty, value);
 		}
 
 		/// <summary>
@@ -189,7 +189,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string MarkdownInput
 		{
-			get { return (string)this.GetValue(MarkdownInputProperty); }
+			get => (string)this.GetValue(MarkdownInputProperty);
 			set
 			{
 				this.SetValue(MarkdownInputProperty, value);
@@ -209,7 +209,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public string MessageId
 		{
-			get { return (string)this.GetValue(MessageIdProperty); }
+			get => (string)this.GetValue(MessageIdProperty);
 			set
 			{
 				this.SetValue(MessageIdProperty, value);
@@ -229,7 +229,7 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public bool ExistsMoreMessages
 		{
-			get { return (bool)this.GetValue(ExistsMoreMessagesProperty); }
+			get => (bool)this.GetValue(ExistsMoreMessagesProperty);
 			set
 			{
 				this.SetValue(ExistsMoreMessagesProperty, value);
@@ -248,8 +248,8 @@ namespace IdApp.Pages.Contacts.Chat
 		/// </summary>
 		public bool IsWriting
 		{
-			get { return (bool)this.GetValue(IsWritingProperty); }
-			set { this.SetValue(IsWritingProperty, value); }
+			get => (bool)this.GetValue(IsWritingProperty);
+			set => this.SetValue(IsWritingProperty, value);
 		}
 
 		/// <summary>
