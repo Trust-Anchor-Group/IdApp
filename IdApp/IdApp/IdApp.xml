@@ -2777,11 +2777,23 @@
             <summary>
             Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
             </summary>
-            <param name="contract">The contract to use as template.</param>
+            <param name="Template">The contract to use as template.</param>
         </member>
-        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.Contract">
+        <member name="M:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.#ctor(Waher.Networking.XMPP.Contracts.Contract,System.Boolean)">
+            <summary>
+            Creates an instance of the <see cref="T:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs"/> class.
+            </summary>
+            <param name="Template">The contract to use as template.</param>
+            <param name="SetVisibility">If visibility should be set by default.</param>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.Template">
             <summary>
             The contract to use as template.
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Contracts.NewContract.NewContractNavigationArgs.SetVisibility">
+            <summary>
+            If visibility should be set by default.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Contracts.NewContract.NewContractPage">
@@ -8691,6 +8703,11 @@
             The command to bind to for flipping the wallet.
             </summary>
         </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.CreateTokenCommand">
+            <summary>
+            The command to bind to for creating tokens
+            </summary>
+        </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.LoadMoreTokensCommand">
             <summary>
             Command executed when more tokens need to be loaded.
@@ -12110,9 +12127,9 @@
             rotate
             </summary>
         </member>
-        <member name="F:IdApp.Resx.FontAwesome.WandSparkles">
+        <member name="F:IdApp.Resx.FontAwesome.StarOfLife">
             <summary>
-            wand-sparkles
+            star-of-life
             </summary>
         </member>
         <member name="T:IdApp.Services.AttachmentCache.AttachmentCacheService">
@@ -15558,6 +15575,12 @@
             
             Note: Personal notes are deleted when ownership of token is transferred.</param>
         </member>
+        <member name="M:IdApp.Services.Wallet.INeuroWallet.GetCreationAttributes">
+            <summary>
+            Gets token creation attributes from the broker.
+            </summary>
+            <returns>Token creation attributes.</returns>
+        </member>
         <member name="T:IdApp.Services.Wallet.INeuroWalletOrchestratorService">
             <summary>
             Orchestrates eDaler operations.
@@ -15817,6 +15840,12 @@
             <param name="Personal">If the xml note contains personal information. (default=false).
             
             Note: Personal notes are deleted when ownership of token is transferred.</param>
+        </member>
+        <member name="M:IdApp.Services.Wallet.NeuroWallet.GetCreationAttributes">
+            <summary>
+            Gets token creation attributes from the broker.
+            </summary>
+            <returns>Token creation attributes.</returns>
         </member>
         <member name="M:IdApp.Services.Wallet.NeuroWalletOrchestratorService.OpenWallet">
             <summary>

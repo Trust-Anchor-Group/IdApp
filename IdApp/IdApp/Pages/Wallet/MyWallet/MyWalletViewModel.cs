@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Xml;
 using EDaler;
 using EDaler.Uris;
 using IdApp.Pages.Contacts;
 using IdApp.Pages.Contacts.MyContacts;
+using IdApp.Pages.Contracts.NewContract;
 using IdApp.Resx;
 using IdApp.Services;
 using IdApp.Services.Xmpp;
 using NeuroFeatures;
+using Waher.Networking.XMPP.Contracts;
 using Xamarin.Forms;
 
 namespace IdApp.Pages.Wallet.MyWallet
@@ -37,6 +40,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.ShowPendingCommand = new Command(async Item => await ShowPending(Item));
 			this.ShowEventCommand = new Command(async Item => await ShowEvent(Item));
 			this.FlipCommand = new Command(async _ => await FlipWallet());
+			this.CreateTokenCommand = new Command(async _ => await CreateToken());
 			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
 			this.TokenSelectedCommand = new Command(async P => await TokenSelected(P));
 
@@ -434,7 +438,7 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasTotals
 		{
 			get => (bool)this.GetValue(HasTotalsProperty);
-			set 
+			set
 			{
 				this.SetValue(HasTotalsProperty, value);
 				this.CalcViewDependencies();
@@ -468,8 +472,8 @@ namespace IdApp.Pages.Wallet.MyWallet
 		public bool HasTokens
 		{
 			get => (bool)this.GetValue(HasTokensProperty);
-			set 
-			{ 
+			set
+			{
 				this.SetValue(HasTokensProperty, value);
 				this.CalcViewDependencies();
 			}
@@ -544,6 +548,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 		/// The command to bind to for flipping the wallet.
 		/// </summary>
 		public ICommand FlipCommand { get; }
+
+		/// <summary>
+		/// The command to bind to for creating tokens
+		/// </summary>
+		public ICommand CreateTokenCommand { get; }
 
 		/// <summary>
 		/// Command executed when more tokens need to be loaded.
@@ -679,6 +688,81 @@ namespace IdApp.Pages.Wallet.MyWallet
 		internal void ViewsFlipped(bool IsFrontViewShowing)
 		{
 			this.IsFrontViewShowing = IsFrontViewShowing;
+		}
+
+		private async Task CreateToken()
+		{
+			try
+			{
+				// TODO: Let user choose from a list of token templates.
+
+				Contract Template = await this.XmppService.Contracts.GetContract("29ddb488-0078-df7a-7c14-d84cc772a148@legal.lab.tagroot.io");  // Creation of demo contract
+				Template.Visibility = ContractVisibility.Public;
+
+				if (Template.ForMachinesLocalName == "Create" && Template.ForMachinesNamespace == NeuroFeaturesClient.NamespaceNeuroFeatures)
+				{
+					CreationAttributesEventArgs e = await this.XmppService.Wallet.GetCreationAttributes();
+					XmlDocument Doc = new();
+					Doc.LoadXml(Template.ForMachines.OuterXml);
+
+					XmlNamespaceManager NamespaceManager = new(Doc.NameTable);
+					NamespaceManager.AddNamespace("nft", NeuroFeaturesClient.NamespaceNeuroFeatures);
+
+					string CreatorRole = Doc.SelectSingleNode("/nft:Create/nft:Creator/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string OwnerRole = Doc.SelectSingleNode("/nft:Create/nft:Owner/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string TrustProviderRole = Doc.SelectSingleNode("/nft:Create/nft:TrustProvider/nft:RoleReference/@role", NamespaceManager)?.Value;
+					string CurrencyParameter = Doc.SelectSingleNode("/nft:Create/nft:Currency/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+					string CommissionParameter = Doc.SelectSingleNode("/nft:Create/nft:CommissionPercent/nft:ParameterReference/@parameter", NamespaceManager)?.Value;
+
+					if (Template.Parts is null)
+					{
+						List<Part> Parts = new();
+
+						if (!string.IsNullOrEmpty(CreatorRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = this.TagProfile.LegalIdentity.Id,
+								Role = CreatorRole
+							});
+						}
+
+						if (!string.IsNullOrEmpty(TrustProviderRole))
+						{
+							Parts.Add(new Part()
+							{
+								LegalId = e.TrustProviderId,
+								Role = TrustProviderRole
+							});
+						}
+
+						Template.Parts = Parts.ToArray();
+						Template.PartsMode = ContractParts.ExplicitlyDefined;
+					}
+					else
+					{
+						foreach (Part Part in Template.Parts)
+						{
+							if (Part.Role == CreatorRole || Part.Role == OwnerRole)
+								Part.LegalId = this.TagProfile.LegalIdentity.Id;
+							else if (Part.Role == TrustProviderRole)
+								Part.LegalId = e.TrustProviderId;
+						}
+					}
+
+					if (!string.IsNullOrEmpty(CurrencyParameter))
+						Template[CurrencyParameter] = e.Currency;
+
+					if (!string.IsNullOrEmpty(CommissionParameter))
+						Template[CommissionParameter] = e.Commission;
+				}
+
+				await this.NavigationService.GoToAsync(nameof(NewContractPage), new NewContractNavigationArgs(Template, true));
+			}
+			catch (Exception ex)
+			{
+				await this.UiSerializer.DisplayAlert(ex);
+			}
 		}
 
 		private Task LoadMoreTokens()

@@ -157,8 +157,8 @@
         public const string Rotate = "\uf2f1";
 
         /// <summary>
-        /// wand-sparkles
+        /// star-of-life
         /// </summary>
-        public const string WandSparkles = "\uf72b";
+        public const string StarOfLife = "\uf621";
     }
 }

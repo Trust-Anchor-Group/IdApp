@@ -225,9 +225,11 @@
                                            LeftButton1Text="{x:Static resx:FontAwesome.ArrowLeft}"
                                            LeftButton2Text="{x:Static resx:FontAwesome.Rotate}"
                                            CenterButtonText="{x:Static resx:FontAwesome.ScanQr}" 
+                                           RightButton1Text="{x:Static resx:FontAwesome.StarOfLife}"
                                            LeftButton1Command="{Binding Path=BackCommand}" 
                                            LeftButton2Command="{Binding Path=FlipCommand}" 
-                                           CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"/>
+                                           CenterButtonCommand="{Binding Path=ScanQrCodeCommand}"
+                                           RightButton1Command="{Binding Path=CreateTokenCommand}"/>
             </Grid>
         </flipView:FlipView.BackView>
     </flipView:FlipView>

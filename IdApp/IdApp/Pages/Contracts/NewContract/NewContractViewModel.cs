@@ -49,15 +49,24 @@ namespace IdApp.Pages.Contracts.NewContract
 		{
 			await base.DoBind();
 
+			bool FirstTime = false;
+			ContractVisibility? Visibility = null;
+
 			if (this.NavigationService.TryPopArgs(out NewContractNavigationArgs args))
 			{
-				this.template = args.Contract;
+				this.template = args.Template;
+
+				if (args.SetVisibility)
+					Visibility = args.Template.Visibility;
+
+				FirstTime = true;
 			}
 			else if (!(this.stateTemplateWhileScanning is null))
 			{
 				this.template = this.stateTemplateWhileScanning;
 				this.stateTemplateWhileScanning = null;
 			}
+
 			this.templateId = this.template?.ContractId ?? string.Empty;
 			this.IsTemplate = this.template?.CanActAsTemplate ?? false;
 
@@ -66,7 +75,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.Public, AppResources.ContractVisibility_Public));
 			this.ContractVisibilityItems.Add(new ContractVisibilityModel(ContractVisibility.PublicSearchable, AppResources.ContractVisibility_PublicSearchable));
 
-			await this.PopulateTemplateForm();
+			await this.PopulateTemplateForm(FirstTime, Visibility);
 		}
 
 		/// <inheritdoc/>
@@ -399,7 +408,7 @@ namespace IdApp.Pages.Contracts.NewContract
 			Label ToRemove = null;
 			int State = 0;
 
-			if ((this.Roles is null))
+			if (this.Roles is null)
 				return;
 
 			foreach (View View in this.Roles.Children)
@@ -464,9 +473,6 @@ namespace IdApp.Pages.Contracts.NewContract
 					case 1:
 						if (View is Button Button)
 						{
-							TapGestureRecognizer OpenLegalId = new();
-							OpenLegalId.Tapped += this.LegalId_Tapped;
-
 							Label = new Label
 							{
 								Text = legalId,
@@ -475,6 +481,9 @@ namespace IdApp.Pages.Contracts.NewContract
 								HorizontalTextAlignment = TextAlignment.Center,
 								FontAttributes = FontAttributes.Bold
 							};
+
+							TapGestureRecognizer OpenLegalId = new();
+							OpenLegalId.Tapped += this.LegalId_Tapped;
 
 							Label.GestureRecognizers.Add(OpenLegalId);
 
@@ -765,7 +774,7 @@ namespace IdApp.Pages.Contracts.NewContract
 						return;
 				}
 
-				if ((this.SelectedRole is null))
+				if (this.SelectedRole is null)
 				{
 					await this.UiSerializer.DisplayAlert(AppResources.ErrorTitle, AppResources.ContractRoleMustBeSelected);
 					return;
@@ -809,7 +818,7 @@ namespace IdApp.Pages.Contracts.NewContract
 				Layout.Children.Add(Element);
 		}
 
-		private async Task PopulateTemplateForm()
+		private async Task PopulateTemplateForm(bool FirstTime, ContractVisibility? Visibility)
 		{
 			this.ClearTemplate(true);
 
@@ -910,6 +919,23 @@ namespace IdApp.Pages.Contracts.NewContract
 
 			this.Parameters = parametersLayout;
 			this.HasParameters = this.Parameters.Children.Count > 0;
+
+			if (FirstTime)
+			{
+				if (!(this.template.Parts is null))
+				{
+					foreach (Part Part in this.template.Parts)
+					{
+						if (this.TagProfile.LegalIdentity.Id == Part.LegalId)
+							this.SelectedRole = Part.Role;
+						else
+							this.AddRole(Part.Role, Part.LegalId);
+					}
+				}
+
+				if (Visibility.HasValue)
+					this.SelectedContractVisibilityItem = this.ContractVisibilityItems.FirstOrDefault(x => x.Visibility == Visibility.Value);
+			}
 
 			await this.ValidateParameters();
 			this.EvaluateCommands(this.ProposeCommand);

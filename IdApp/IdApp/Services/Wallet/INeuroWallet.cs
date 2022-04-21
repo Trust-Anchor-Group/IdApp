@@ -260,6 +260,12 @@ namespace IdApp.Services.Wallet
 		/// Note: Personal notes are deleted when ownership of token is transferred.</param>
 		Task AddXmlNote(string TokenId, string XmlNote, bool Personal);
 
+		/// <summary>
+		/// Gets token creation attributes from the broker.
+		/// </summary>
+		/// <returns>Token creation attributes.</returns>
+		Task<CreationAttributesEventArgs> GetCreationAttributes();
+
 		#endregion
 	}
 }
