@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Waher.Events;
 using Xamarin.Forms;
 
 namespace IdApp.Controls.FlipView
@@ -63,9 +65,54 @@ namespace IdApp.Controls.FlipView
         /// </summary>
         public View FrontView
         {
-            get { return (View)GetValue(FrontViewProperty); }
-            set { SetValue(FrontViewProperty, value); }
+            get => (View)GetValue(FrontViewProperty);
+            set => SetValue(FrontViewProperty, value);
         }
+
+        /// <summary>
+        /// If the front view is showing
+        /// </summary>
+        public bool IsFrontViewShowing => !this.isFlipped;
+
+        /// <summary>
+        /// If the back view is showing
+        /// </summary>
+        public bool IsBackViewShowing => !this.isFlipped;
+
+        /// <summary>
+        /// If the view is flipping
+        /// </summary>
+        public bool IsFlipping => this.isFlipping;
+
+        /// <summary>
+        /// Event raised before flipping the view.
+        /// </summary>
+        public event EventHandler BeforeFlipping;
+
+        /// <summary>
+        /// Event raised after flipping the view.
+        /// </summary>
+        public event EventHandler AfterFlipping;
+
+        /// <summary>
+        /// Event raised when the front view is about to be shown
+        /// </summary>
+        public event EventHandler FrontViewShowing;
+
+        /// <summary>
+        /// Event raised when the front view is shown
+        /// </summary>
+        public event EventHandler FrontViewShown;
+
+        /// <summary>
+        /// Event raised when the back view is about to be shown
+        /// </summary>
+        public event EventHandler BackViewShowing;
+
+        /// <summary>
+        /// Event raised when the front view is shown
+        /// </summary>
+        public event EventHandler BackViewShown;
 
         /// <summary>
         /// 
@@ -120,54 +167,82 @@ namespace IdApp.Controls.FlipView
         private void OrganizeViews()
         {
             if (this.backView is not null && this.frontView is not null)
-            {
                 this.contentHolder.RaiseChild(this.isFlipped ? this.backView : this.frontView); ;
-            }
         }
 
         /// <summary>
         /// Makes the user control flip from front to back, or the other way around.
         /// </summary>
-        public void Flip()
+        /// <returns>true if back-side is shown after, false if front-side is shown after flip.</returns>
+        public bool Flip()
         {
-            if (!isFlipping)
+            if (!this.isFlipping)
             {
                 if (this.isFlipped)
-                {
                     this.FlipFromBackToFront();
-                }
                 else
-                {
                     this.FlipFromFrontToBack();
-                }
             }
+
+            return this.isFlipped;
         }
 
         private async void FlipFromFrontToBack()
         {
             this.isFlipping = true;
-            await RotateFrontToBack_Forward();
+            this.isFlipped = true;
+
+            this.RaiseEvent(this.BeforeFlipping);
+            this.RaiseEvent(this.BackViewShowing);
+
+            await this.RotateFrontToBack_Forward();
 
             // Change the visible content
-            this.isFlipped = true;
             this.OrganizeViews();
 
-            await RotateBackToFront_Forward();
+            await this.RotateBackToFront_Forward();
+            
             this.isFlipping = false;
+
+            this.RaiseEvent(this.AfterFlipping);
+            this.RaiseEvent(this.BackViewShown);
         }
 
         private async void FlipFromBackToFront()
         {
             this.isFlipping = true;
-            await RotateFrontToBack_Reverse();
+            this.isFlipped = false;
+
+            this.RaiseEvent(this.BeforeFlipping);
+            this.RaiseEvent(this.FrontViewShowing);
+
+            await this.RotateFrontToBack_Reverse();
 
             // Change the visible content
-            this.isFlipped = false;
             this.OrganizeViews();
 
-            await RotateBackToFront_Reverse();
+            await this.RotateBackToFront_Reverse();
+            
             this.isFlipping = false;
+
+            this.RaiseEvent(this.AfterFlipping);
+            this.RaiseEvent(this.FrontViewShown);
         }
+
+        private void RaiseEvent(EventHandler Event)
+		{
+            if (!(Event is null))
+            {
+                try
+                {
+                    Event(this, EventArgs.Empty);
+                }
+                catch (Exception ex)
+				{
+                    Log.Critical(ex);
+				}
+            }
+		}
 
         #region Animation
 

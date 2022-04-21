@@ -556,6 +556,51 @@
             The view displayed on the 'front' side of this user control.
             </summary>
         </member>
+        <member name="P:IdApp.Controls.FlipView.FlipView.IsFrontViewShowing">
+            <summary>
+            If the front view is showing
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.FlipView.FlipView.IsBackViewShowing">
+            <summary>
+            If the back view is showing
+            </summary>
+        </member>
+        <member name="P:IdApp.Controls.FlipView.FlipView.IsFlipping">
+            <summary>
+            If the view is flipping
+            </summary>
+        </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.BeforeFlipping">
+            <summary>
+            Event raised before flipping the view.
+            </summary>
+        </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.AfterFlipping">
+            <summary>
+            Event raised after flipping the view.
+            </summary>
+        </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.FrontViewShowing">
+            <summary>
+            Event raised when the front view is about to be shown
+            </summary>
+        </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.FrontViewShown">
+            <summary>
+            Event raised when the front view is shown
+            </summary>
+        </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.BackViewShowing">
+            <summary>
+            Event raised when the back view is about to be shown
+            </summary>
+        </member>
+        <member name="E:IdApp.Controls.FlipView.FlipView.BackViewShown">
+            <summary>
+            Event raised when the front view is shown
+            </summary>
+        </member>
         <member name="F:IdApp.Controls.FlipView.FlipView.BackViewProperty">
             <summary>
             
@@ -570,6 +615,7 @@
             <summary>
             Makes the user control flip from front to back, or the other way around.
             </summary>
+            <returns>true if back-side is shown after, false if front-side is shown after flip.</returns>
         </member>
         <member name="T:IdApp.Controls.LoadingCollectionView.LoadingCollectionView">
             <summary>
@@ -8505,14 +8551,24 @@
             HasEvents of eDaler to process
             </summary>
         </member>
-        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreProperty">
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEventsProperty">
             <summary>
-            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMore"/>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEvents"/>
             </summary>
         </member>
-        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMore">
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasMoreEvents">
             <summary>
             If there are more account events available.
+            </summary>
+        </member>
+        <member name="F:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotalsProperty">
+            <summary>
+            See <see cref="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotals"/>
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.HasTotals">
+            <summary>
+            HasTotals of eDaler to process
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.PendingPayments">
@@ -8523,6 +8579,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Events">
             <summary>
             Holds a list of account events
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.Totals">
+            <summary>
+            Holds a list of token totals
             </summary>
         </member>
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BackCommand">
@@ -8558,6 +8619,11 @@
         <member name="P:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.FlipCommand">
             <summary>
             The command to bind to for flipping the wallet.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.MyWallet.MyWalletViewModel.BindTokens">
+            <summary>
+            Binds token information to the view.
             </summary>
         </member>
         <member name="T:IdApp.Pages.Wallet.MyWallet.PendingPaymentItem">
@@ -8946,6 +9012,32 @@
             Overrides the back button behavior to handle navigation internally instead.
             </summary>
             <returns>Whether or not the back navigation was handled</returns>
+        </member>
+        <member name="T:IdApp.Pages.Wallet.TokenTotalItem">
+            <summary>
+            Encapsulates a <see cref="T:NeuroFeatures.TokenTotal"/> object.
+            </summary>
+        </member>
+        <member name="M:IdApp.Pages.Wallet.TokenTotalItem.#ctor(NeuroFeatures.TokenTotal)">
+            <summary>
+            Encapsulates a <see cref="N:IdApp.Pages.Wallet.AccountEvent"/> object.
+            </summary>
+            <param name="Total">Token Total.</param>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenTotalItem.Currency">
+            <summary>
+            Currency for sub-total
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenTotalItem.NrTokens">
+            <summary>
+            Number of tokens in sub-total
+            </summary>
+        </member>
+        <member name="P:IdApp.Pages.Wallet.TokenTotalItem.Total">
+            <summary>
+            Sub-total
+            </summary>
         </member>
         <member name="T:IdApp.Pages.XmppViewModel">
             <summary>
