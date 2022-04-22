@@ -46,9 +46,11 @@ namespace IdApp.Pages.Wallet.MyWallet
 			this.LoadMoreTokensCommand = new Command(async _ => await LoadMoreTokens());
 			this.TokenSelectedCommand = new Command(async P => await TokenSelected(P));
 
-			this.PaymentItems = new ObservableCollection<IItemGroupCollection>();
-			this.PaymentItems.Add(new ItemGroupCollection<PendingPaymentItem>("PendingPayment", new ObservableCollection<PendingPaymentItem>()));
-			this.PaymentItems.Add(new ItemGroupCollection<AccountEventItem>("AccountEvent", new ObservableCollection<AccountEventItem>()));
+			this.PaymentItems = new ObservableCollection<IItemGroupCollection>()
+			{
+				new ItemGroupCollection<PendingPaymentItem>("PendingPayment", new ObservableCollection<PendingPaymentItem>()),
+				new ItemGroupCollection<AccountEventItem>("AccountEvent", new ObservableCollection<AccountEventItem>())
+			};
 			//this.PendingPayments = new ObservableCollection<PendingPaymentItem>();
 			//this.Events = new ObservableCollection<AccountEventItem>();
 
@@ -118,9 +120,9 @@ namespace IdApp.Pages.Wallet.MyWallet
 			string FriendlyName;
 
 
-			ObservableCollection <IItemGroupCollection> NewPaymentItems = new ObservableCollection<IItemGroupCollection>();
-			ItemGroupCollection<PendingPaymentItem> NewPendingCollection = new ItemGroupCollection<PendingPaymentItem>("PendingPayment", new ObservableCollection<PendingPaymentItem>());
-			ItemGroupCollection<AccountEventItem> NewEventCollection = new ItemGroupCollection<AccountEventItem>("AccountEvent", new ObservableCollection<AccountEventItem>());
+			ObservableCollection <IItemGroupCollection> NewPaymentItems = new();
+			ItemGroupCollection<PendingPaymentItem> NewPendingCollection = new("PendingPayment", new ObservableCollection<PendingPaymentItem>());
+			ItemGroupCollection<AccountEventItem> NewEventCollection = new("AccountEvent", new ObservableCollection<AccountEventItem>());
 
 			NewPaymentItems.Add(NewPendingCollection);
 			NewPaymentItems.Add(NewEventCollection);
